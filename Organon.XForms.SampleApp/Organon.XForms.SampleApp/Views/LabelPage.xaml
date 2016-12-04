@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:effects="clr-namespace:Organon.XForms.Effects;assembly=Organon.XForms.Effects" x:Class="Organon.XForms.SampleApp.Views.LabelPage">
+	<ContentPage.Content>
+		<StackLayout Padding="20">
+			<Label Text="SizeFontToFitEffect" />
+			<Label Text="This is a really, really, really long sentance that will get shrunk to fit into the available space">
+				<Label.Effects>
+					<effects:SizeFontToFitEffect />
+				</Label.Effects>
+			</Label>
+			<Label Text="This is a short label">
+				<Label.Effects>
+					<effects:SizeFontToFitEffect />
+				</Label.Effects>
+			</Label>
+			<Label Text="MultiLineLabelEffect" Margin="0,20,0,0" />
+			<Label Text="This is a really, really, really long sentence that will be displayed with maximum 2 lines and not any further! So we limit the total amount and clipp the text if needed" LineBreakMode="TailTruncation">
+				<Label.Effects>
+					<effects:MultiLineLabelEffect Lines="2" />
+				</Label.Effects>
+			</Label>
+			<Label Text="Comic Sans is tha bomb!">
+				<Label.Effects>
+					<effects:CustomFontEffect FontPath="ComicSaaaaaans.ttf" FontFamilyName="Comic Sans MS" />
+				</Label.Effects>
+			</Label>
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>
