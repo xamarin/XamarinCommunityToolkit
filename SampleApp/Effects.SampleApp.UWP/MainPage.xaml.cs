@@ -21,7 +21,7 @@ namespace FormsCommunityToolkit.Effects.SampleApp.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new Organon.XForms.SampleApp.App());
+            LoadApplication(new FormsCommunityToolkit.Effects.SampleApp.App());
         }
     }
 }

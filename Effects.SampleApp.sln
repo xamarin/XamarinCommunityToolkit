@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsCommunityToolkit.Effects.SampleApp", "Organon.XForms.SampleApp\Organon.XForms.SampleApp\FormsCommunityToolkit.Effects.SampleApp.csproj", "{FA490CC2-5633-4AA2-9242-FB3204BC3A00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Effects.SampleApp", "SampleApp\Effects.SampleApp\Effects.SampleApp.csproj", "{FA490CC2-5633-4AA2-9242-FB3204BC3A00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsCommunityToolkit.Effects.SampleApp.Droid", "Organon.XForms.SampleApp\Organon.XForms.SampleApp.Droid\FormsCommunityToolkit.Effects.SampleApp.Droid.csproj", "{EF351F63-9603-42E8-A289-A4F2312ACBA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Effects.SampleApp.Droid", "SampleApp\Effects.SampleApp.Droid\Effects.SampleApp.Droid.csproj", "{EF351F63-9603-42E8-A289-A4F2312ACBA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsCommunityToolkit.Effects.SampleApp.iOS", "Organon.XForms.SampleApp\Organon.XForms.SampleApp.iOS\FormsCommunityToolkit.Effects.SampleApp.iOS.csproj", "{6AFCE1C8-CA21-4041-8688-1785CB98CD5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Effects.SampleApp.iOS", "SampleApp\Effects.SampleApp.iOS\Effects.SampleApp.iOS.csproj", "{6AFCE1C8-CA21-4041-8688-1785CB98CD5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsCommunityToolkit.Effects.SampleApp.UWP", "Organon.XForms.SampleApp\Organon.XForms.SampleApp.UWP\FormsCommunityToolkit.Effects.SampleApp.UWP.csproj", "{EA26AFE0-C84C-40FF-B8BF-423ABB74C6BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Effects.SampleApp.UWP", "SampleApp\Effects.SampleApp.UWP\Effects.SampleApp.UWP.csproj", "{EA26AFE0-C84C-40FF-B8BF-423ABB74C6BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Effects", "Effects", "{2345592C-22A3-42BF-BA00-482A5ED16C03}"
 EndProject

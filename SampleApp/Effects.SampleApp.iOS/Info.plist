@@ -46,7 +46,7 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
-	<string>Organon.XForms.SampleApp</string>
+	<string>FormsCommunityToolkit.Effects.SampleApp</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Fonts/ComicSaaaaaans.ttf</string>

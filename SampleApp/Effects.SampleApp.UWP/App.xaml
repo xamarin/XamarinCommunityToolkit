@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="Organon.XForms.SampleApp.UWP.App"
+    x:Class="FormsCommunityToolkit.Effects.SampleApp.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Organon.XForms.SampleApp.UWP"
+    xmlns:local="using:FormsCommunityToolkit.Effects.SampleApp.UWP"
     RequestedTheme="Light">
 
 </Application>
