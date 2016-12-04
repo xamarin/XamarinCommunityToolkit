@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace Organon.XForms.SampleApp.iOS
+namespace FormsCommunityToolkit.Effects.SampleApp.iOS
 {
     public class Application
     {

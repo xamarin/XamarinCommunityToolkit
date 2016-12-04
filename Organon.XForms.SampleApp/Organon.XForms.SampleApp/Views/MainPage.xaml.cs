@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Organon.XForms.SampleApp.Views
+namespace FormsCommunityToolkit.Effects.SampleApp.Views
 {
     public partial class MainPage : ContentPage
     {

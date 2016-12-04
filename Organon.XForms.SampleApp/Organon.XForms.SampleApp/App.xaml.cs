@@ -1,7 +1,7 @@
-﻿using Organon.XForms.SampleApp.Views;
+﻿using FormsCommunityToolkit.Effects.SampleApp.Views;
 using Xamarin.Forms;
 
-namespace Organon.XForms.SampleApp
+namespace FormsCommunityToolkit.Effects.SampleApp
 {
     public partial class App : Application
     {

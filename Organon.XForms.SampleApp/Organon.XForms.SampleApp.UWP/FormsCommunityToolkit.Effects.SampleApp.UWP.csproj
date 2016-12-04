@@ -7,8 +7,8 @@
     <ProjectGuid>{EA26AFE0-C84C-40FF-B8BF-423ABB74C6BC}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Organon.XForms.SampleApp.UWP</RootNamespace>
-    <AssemblyName>Organon.XForms.SampleApp.UWP</AssemblyName>
+    <RootNamespace>FormsCommunityToolkit.Effects.SampleApp.UWP</RootNamespace>
+    <AssemblyName>FormsCommunityToolkit.Effects.SampleApp.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
@@ -128,17 +128,17 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Organon.XForms.Effects\Organon.XForms.Effects.UWP\Organon.XForms.Effects.UWP.csproj">
+    <ProjectReference Include="..\..\FormsCommunityToolkit.Effects\FormsCommunityToolkit.Effects.UWP\FormsCommunityToolkit.Effects.UWP.csproj">
       <Project>{98f91808-0410-4362-9b3a-bd5110beecde}</Project>
-      <Name>Organon.XForms.Effects.UWP</Name>
+      <Name>FormsCommunityToolkit.Effects.UWP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Organon.XForms.Effects\Organon.XForms.Effects\Organon.XForms.Effects.csproj">
+    <ProjectReference Include="..\..\FormsCommunityToolkit.Effects\FormsCommunityToolkit.Effects\FormsCommunityToolkit.Effects.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>Organon.XForms.Effects</Name>
+      <Name>FormsCommunityToolkit.Effects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Organon.XForms.SampleApp\Organon.XForms.SampleApp.csproj">
-      <Project>{1b327778-45e3-49ca-bf96-6cfefd6d3eb8}</Project>
-      <Name>Organon.XForms.SampleApp</Name>
+    <ProjectReference Include="..\Organon.XForms.SampleApp\FormsCommunityToolkit.Effects.SampleApp.csproj">
+      <Project>{FA490CC2-5633-4AA2-9242-FB3204BC3A00}</Project>
+      <Name>FormsCommunityToolkit.Effects.SampleApp</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

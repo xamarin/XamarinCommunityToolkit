@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace Organon.XForms.SampleApp.Views
+namespace FormsCommunityToolkit.Effects.SampleApp.Views
 {
     public partial class ViewPage : ContentPage
     {

@@ -8,9 +8,9 @@
     <ProjectGuid>{6AFCE1C8-CA21-4041-8688-1785CB98CD5A}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Organon.XForms.SampleApp.iOS</RootNamespace>
+    <RootNamespace>FormsCommunityToolkit.Effects.SampleApp.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Organon.XForms.SampleApp.iOS</AssemblyName>
+    <AssemblyName>FormsCommunityToolkit.Effects.SampleApp.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -139,24 +139,22 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Organon.XForms.Effects\Organon.XForms.Effects.iOS\Organon.XForms.Effects.iOS.csproj">
+    <ProjectReference Include="..\..\FormsCommunityToolkit.Effects\FormsCommunityToolkit.Effects.iOS\FormsCommunityToolkit.Effects.iOS.csproj">
       <Project>{f09f8caf-701a-4673-a880-1580accb926b}</Project>
-      <Name>Organon.XForms.Effects.iOS</Name>
+      <Name>FormsCommunityToolkit.Effects.iOS</Name>
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="..\..\Organon.XForms.Effects\Organon.XForms.Effects\Organon.XForms.Effects.csproj">
+    <ProjectReference Include="..\..\FormsCommunityToolkit.Effects\FormsCommunityToolkit.Effects\FormsCommunityToolkit.Effects.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>Organon.XForms.Effects</Name>
+      <Name>FormsCommunityToolkit.Effects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Organon.XForms.SampleApp\Organon.XForms.SampleApp.csproj">
+    <ProjectReference Include="..\Organon.XForms.SampleApp\FormsCommunityToolkit.Effects.SampleApp.csproj">
       <Project>{FA490CC2-5633-4AA2-9242-FB3204BC3A00}</Project>
-      <Name>Organon.XForms.SampleApp</Name>
+      <Name>FormsCommunityToolkit.Effects.SampleApp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Fonts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

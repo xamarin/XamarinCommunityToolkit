@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Organon.XForms.SampleApp"
-             xmlns:effects="clr-namespace:Organon.XForms.Effects;assembly=Organon.XForms.Effects"
-             x:Class="Organon.XForms.SampleApp.Views.MainPage">
+             xmlns:local="clr-namespace:FormsCommunityToolkit.Effects.SampleApp"
+             xmlns:effects="clr-namespace:FormsCommunityToolkit.Effects;assembly=FormsCommunityToolkit.Effects"
+             x:Class="FormsCommunityToolkit.Effects.SampleApp.Views.MainPage">
 	<ContentPage.Padding>
     <OnPlatform x:TypeArguments="Thickness"
                 iOS="0, 20, 0, 0"

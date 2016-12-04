@@ -1,7 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 
-namespace Organon.XForms.SampleApp.iOS
+namespace FormsCommunityToolkit.Effects.SampleApp.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
@@ -19,7 +19,7 @@ namespace Organon.XForms.SampleApp.iOS
         public override bool FinishedLaunching(UIApplication uiApplication, NSDictionary launchOptions)
         {
             Xamarin.Forms.Forms.Init();
-            Organon.XForms.Effects.iOS.iOSEffects.Init();
+            FormsCommunityToolkit.Effects.iOS.iOSEffects.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(uiApplication, launchOptions);
