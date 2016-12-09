@@ -9,6 +9,9 @@ namespace FormsCommunityToolkit.Converters
     /// </summary>
     public class InvertedBooleanConverter : IValueConverter
     {
+
+        public static InvertedBooleanConverter Instance { get; } = new InvertedBooleanConverter();
+
         /// <summary>
         /// Init this instance.
         /// </summary>

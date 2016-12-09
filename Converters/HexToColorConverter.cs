@@ -9,6 +9,9 @@ namespace FormsCommunityToolkit.Converters
     /// </summary>
     public class HexToColorConverter : IValueConverter
     {
+
+        public static HexToColorConverter Instance { get; } = new HexToColorConverter();
+
         /// <summary>
         /// Init this instance.
         /// </summary>
@@ -16,7 +19,8 @@ namespace FormsCommunityToolkit.Converters
         {
             var time = DateTime.UtcNow;
         }
-        static readonly Color defaultColor = Color.FromHex("#3498db");
+
+        public Color DefaultColor = Color.FromHex("#3498db");
 
         /// <param name="value">To be added.</param>
         /// <param name="targetType">To be added.</param>
@@ -30,11 +34,11 @@ namespace FormsCommunityToolkit.Converters
             var color = value as string;
             try
             {
-                return string.IsNullOrEmpty(color) ? defaultColor : Color.FromHex(color);
+                return string.IsNullOrEmpty(color) ? DefaultColor : Color.FromHex(color);
             }
             catch
             {
-                return defaultColor;
+                return DefaultColor;
             }
         }
 

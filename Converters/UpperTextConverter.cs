@@ -4,8 +4,10 @@ using System.Globalization;
 
 namespace FormsCommunityToolkit.Converters
 {
-    public class LowerTextConverter : IValueConverter
+    public class UpperTextConverter : IValueConverter
     {
+        public static UpperTextConverter Instance { get; } = new UpperTextConverter();
+
         /// <summary>
         /// Init this instance.
         /// </summary>
@@ -21,7 +23,7 @@ namespace FormsCommunityToolkit.Converters
 
             var text = ((string)value);
 
-            return text.ToLowerInvariant();
+            return text.ToUpperInvariant();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

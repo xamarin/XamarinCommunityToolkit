@@ -7,6 +7,8 @@ namespace FormsCommunityToolkit.Converters
 {
     public class HasDataConverter : IValueConverter
     {
+        public static HasDataConverter Instance { get; } = new HasDataConverter();
+
         /// <summary>
         /// Init this instance.
         /// </summary>
@@ -22,7 +24,7 @@ namespace FormsCommunityToolkit.Converters
                 return false;
 
             //if empty string then not visible
-            if (value is string)
+                if (value is string)
                 return !string.IsNullOrWhiteSpace((string)value);
 
             //if blank list not visible

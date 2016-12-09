@@ -9,6 +9,7 @@ namespace FormsCommunityToolkit.Converters
     /// </summary>
     public class BooleanToObjectConverter<T> : IValueConverter
     {
+        public static BooleanToObjectConverter<T> Instance { get; } = new BooleanToObjectConverter<T>();
         /// <summary>
         /// Init this instance.
         /// </summary>
@@ -39,7 +40,7 @@ namespace FormsCommunityToolkit.Converters
         public object Convert(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            return (bool)value ? this.TrueObject : this.FalseObject;
+            return (bool)value ? TrueObject : FalseObject;
         }
 
         /// <param name="value">To be added.</param>
@@ -53,7 +54,7 @@ namespace FormsCommunityToolkit.Converters
         public object ConvertBack(object value, Type targetType,
             object parameter, CultureInfo culture)
         {
-            return ((T)value).Equals(this.TrueObject);
+            return ((T)value).Equals(TrueObject);
         }
     }
 }
