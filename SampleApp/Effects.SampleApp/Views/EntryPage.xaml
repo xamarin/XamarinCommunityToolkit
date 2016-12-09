@@ -41,5 +41,11 @@
         <effects:DisableAutoCorrectEffect />
       </Entry.Effects>
     </Entry>
+	<Label Text="ItalicPlaceholderEffect" Margin="0,20,0,0"/>
+    <Entry Placeholder="start typing..." VerticalOptions="Start">
+      <Entry.Effects>
+        <effects:ItalicPlaceholderEffect />
+      </Entry.Effects>
+    </Entry>
   </StackLayout>
 </ContentPage>
