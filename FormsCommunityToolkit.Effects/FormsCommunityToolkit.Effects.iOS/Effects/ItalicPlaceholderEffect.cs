@@ -11,7 +11,7 @@ namespace FormsCommunityToolkit.Effects.iOS.Effects
 	[Preserve(AllMembers = true)]
 	public class ItalicPlaceholderEffect : PlatformEffect
 	{
-		NSAttributedString _old;
+		private NSAttributedString _old;
 
 		protected override void OnAttached()
 		{
