@@ -4,6 +4,7 @@ using System.Globalization;
 
 namespace FormsCommunityToolkit.Converters
 {
+    [ValueConversion (typeof (string), typeof (string))]
     public class LowerTextConverter : IValueConverter
     {
         public static LowerTextConverter Instance { get; } = new LowerTextConverter();

@@ -5,6 +5,7 @@ using System.Collections;
 
 namespace FormsCommunityToolkit.Converters
 {
+    [ValueConversion (typeof (object), typeof (bool))]
     public class HasDataConverter : IValueConverter
     {
         public static HasDataConverter Instance { get; } = new HasDataConverter();

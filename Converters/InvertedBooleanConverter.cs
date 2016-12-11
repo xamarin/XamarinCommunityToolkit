@@ -7,6 +7,7 @@ namespace FormsCommunityToolkit.Converters
     /// <summary>
     /// Inverted boolen converter.
     /// </summary>
+    [ValueConversion (typeof (bool), typeof (bool))]
     public class InvertedBooleanConverter : IValueConverter
     {
 

@@ -4,6 +4,7 @@ using System.Globalization;
 
 namespace FormsCommunityToolkit.Converters
 {
+    [ValueConversion(typeof(string), typeof(string))]
     public class UpperTextConverter : IValueConverter
     {
         public static UpperTextConverter Instance { get; } = new UpperTextConverter();

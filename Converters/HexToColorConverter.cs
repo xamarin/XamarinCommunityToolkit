@@ -7,6 +7,7 @@ namespace FormsCommunityToolkit.Converters
     /// <summary>
     /// Hex to color converter.
     /// </summary>
+    [ValueConversion (typeof (string), typeof (Color))]
     public class HexToColorConverter : IValueConverter
     {
 
