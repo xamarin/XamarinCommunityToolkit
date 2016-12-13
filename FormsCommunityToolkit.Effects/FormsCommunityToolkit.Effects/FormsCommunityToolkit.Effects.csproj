@@ -47,6 +47,7 @@
     <Compile Include="SizeFontToFitEffect.cs" />
     <Compile Include="CustomFontEffect.cs" />
     <Compile Include="ItalicPlaceholderEffect.cs" />
+    <Compile Include="SelectAllTextEntryEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

@@ -105,6 +105,7 @@
     <Compile Include="Effects\DisableAutoCorrectEffect.cs" />
     <Compile Include="Effects\SizeFontToFitEffect.cs" />
     <Compile Include="Effects\CustomFontEffect.cs" />
+    <Compile Include="Effects\SelectAllTextEntryEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

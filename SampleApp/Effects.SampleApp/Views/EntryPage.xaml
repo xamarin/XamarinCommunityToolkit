@@ -9,7 +9,7 @@
                 Android="0, 0, 0, 0"
                 WinPhone="0, 0, 0, 0" />
   </ContentPage.Padding>
-
+  <ScrollView>
   <StackLayout Padding="20">
     <Label Text="ClearEntryEffect"/>
     <Entry Placeholder="start typing..." VerticalOptions="Start">
@@ -47,5 +47,12 @@
         <effects:ItalicPlaceholderEffect />
       </Entry.Effects>
     </Entry>
-  </StackLayout>
+  	<Label Text="SelectAllTextEntryEffect" Margin="0,20,0,0"/>
+    <Entry Placeholder="focus this entry." VerticalOptions="Start" Text = "FOCUS THIS!">
+      <Entry.Effects>
+        <effects:SelectAllTextEntryEffect />
+      </Entry.Effects>
+    </Entry>
+	</StackLayout>
+	</ScrollView>
 </ContentPage>

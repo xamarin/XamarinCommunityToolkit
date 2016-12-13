@@ -66,6 +66,7 @@
     <Compile Include="Effects\ChangeColorSwitchEffect.cs" />
     <Compile Include="Effects\CustomFontEffect.cs" />
     <Compile Include="Effects\ItalicPlaceholderEffect.cs" />
+    <Compile Include="Effects\SelectAllTextEntryEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FormsCommunityToolkit.Effects\FormsCommunityToolkit.Effects.csproj">
