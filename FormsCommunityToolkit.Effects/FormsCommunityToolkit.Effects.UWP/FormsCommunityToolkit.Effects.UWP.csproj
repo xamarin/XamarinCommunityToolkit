@@ -107,11 +107,13 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\ChangeColorSwitchEffect.cs" />
     <Compile Include="Effects\CapitalizeKeyboardEffect.cs" />
     <Compile Include="Effects\MultiLineLabelEffect.cs" />
     <Compile Include="Effects\RemoveBorderEffect.cs" />
     <Compile Include="Effects\ViewBlurEffect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VisualTreeExtensions.cs" />
     <EmbeddedResource Include="Properties\Organon.XForms.Effects.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
