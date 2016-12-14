@@ -5,7 +5,7 @@ namespace FormsCommunityToolkit.Effects
 {
     public class ItalicPlaceholderEffect : RoutingEffect
     {
-        public ItalicPlaceholderEffect() : base("Organon.Effects.ItalicPlaceholderEffect")
+        public ItalicPlaceholderEffect() : base("FormsCommunityToolkit.Effects.ItalicPlaceholderEffect")
         {
         }
     }

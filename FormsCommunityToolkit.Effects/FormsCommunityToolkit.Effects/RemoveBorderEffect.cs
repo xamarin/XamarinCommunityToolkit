@@ -4,7 +4,7 @@ namespace FormsCommunityToolkit.Effects
 {
     public class RemoveBorderEffect : RoutingEffect
     {
-        public RemoveBorderEffect() : base("Organon.Effects.RemoveBorderEffect")
+        public RemoveBorderEffect() : base("FormsCommunityToolkit.Effects.RemoveBorderEffect")
         {
         }
     }

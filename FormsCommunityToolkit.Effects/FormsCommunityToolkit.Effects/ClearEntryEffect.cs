@@ -4,7 +4,7 @@ namespace FormsCommunityToolkit.Effects
 {
     public class ClearEntryEffect : RoutingEffect
     {
-        public ClearEntryEffect() : base("Organon.Effects.ClearEntryEffect")
+        public ClearEntryEffect() : base("FormsCommunityToolkit.Effects.ClearEntryEffect")
         {
         }
     }
