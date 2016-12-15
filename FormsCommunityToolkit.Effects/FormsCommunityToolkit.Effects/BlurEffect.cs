@@ -38,7 +38,7 @@ namespace FormsCommunityToolkit.Effects
 
     public class ViewBlurEffect : RoutingEffect
     {
-        public ViewBlurEffect() : base("Organon.Effects.ViewBlurEffect")
+        public ViewBlurEffect() : base("FormsCommunityToolkit.Effects.ViewBlurEffect")
         {
         }
     }

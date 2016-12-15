@@ -4,7 +4,7 @@ namespace FormsCommunityToolkit.Effects
 {
     public class SizeFontToFitEffect : RoutingEffect
     {
-        public SizeFontToFitEffect() : base("Organon.Effects.SizeFontToFitEffect")
+        public SizeFontToFitEffect() : base("FormsCommunityToolkit.Effects.SizeFontToFitEffect")
         {
         }
     }

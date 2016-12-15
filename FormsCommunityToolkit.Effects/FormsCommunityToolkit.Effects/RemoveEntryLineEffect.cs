@@ -4,7 +4,7 @@ namespace FormsCommunityToolkit.Effects
 {
     public class RemoveEntryLineEffect : RoutingEffect
     {
-        public RemoveEntryLineEffect() : base("Organon.Effects.RemoveEntryLineEffect")
+        public RemoveEntryLineEffect() : base("FormsCommunityToolkit.Effects.RemoveEntryLineEffect")
         {
         }
     }

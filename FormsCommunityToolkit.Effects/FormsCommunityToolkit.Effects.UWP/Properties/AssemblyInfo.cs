@@ -29,4 +29,4 @@ using Xamarin.Forms;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: ComVisible(false)]
 
-[assembly: ResolutionGroupName("Organon.Effects")]
+[assembly: ResolutionGroupName("FormsCommunityToolkit.Effects")]

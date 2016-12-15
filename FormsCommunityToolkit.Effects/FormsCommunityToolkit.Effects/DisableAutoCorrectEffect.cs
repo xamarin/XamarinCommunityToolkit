@@ -8,7 +8,7 @@ namespace FormsCommunityToolkit.Effects
 	/// </summary>
 	public class DisableAutoCorrectEffect : RoutingEffect
 	{
-		public DisableAutoCorrectEffect() : base("Organon.Effects.DisableAutoCorrectEffect")
+		public DisableAutoCorrectEffect() : base("FormsCommunityToolkit.Effects.DisableAutoCorrectEffect")
 		{
 		}
 	}

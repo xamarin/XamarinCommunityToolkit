@@ -7,7 +7,7 @@ namespace FormsCommunityToolkit.Effects
     {
         public int Lines { get; set; }
 
-        public MultiLineLabelEffect() : base("Organon.Effects.MultiLineLabelEffect")
+        public MultiLineLabelEffect() : base("FormsCommunityToolkit.Effects.MultiLineLabelEffect")
         {
         }
     }
