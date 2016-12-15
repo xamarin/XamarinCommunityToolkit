@@ -13,9 +13,7 @@ namespace FormsCommunityToolkit.Effects.Droid.Effects
     [Preserve(AllMembers = true)]
 	public class SelectAllTextEntryEffect : PlatformEffect
 	{
-        private InputTypes _old;
-        private IInputFilter[] _oldFilters;
-
+ 
 		protected override void OnAttached()
 		{
 			var editText = Control as EditText;

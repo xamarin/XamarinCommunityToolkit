@@ -12,8 +12,7 @@ namespace FormsCommunityToolkit.Effects.iOS.Effects
     [Preserve(AllMembers = true)]
 	public class SelectAllTextEntryEffect : PlatformEffect
 	{
-        private UITextAutocapitalizationType _old;
-
+ 
 		protected override void OnAttached()
 		{
             var editText = Control as UITextField;
