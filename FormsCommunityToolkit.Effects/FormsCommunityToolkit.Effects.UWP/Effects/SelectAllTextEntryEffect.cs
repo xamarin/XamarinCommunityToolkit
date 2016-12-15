@@ -3,30 +3,28 @@ using FormsCommunityToolkit.Effects.UWP.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
+using Windows.UI.Xaml;
 
 [assembly: ExportEffect(typeof(SelectAllTextEntryEffect), nameof(SelectAllTextEntryEffect))]
 
 namespace FormsCommunityToolkit.Effects.UWP.Effects
 {
     [Preserve]
-    public class CapitalizeKeyboardEffect : PlatformEffect
+    public class SelectAllTextEntryEffect : PlatformEffect
     {
         protected override void OnAttached()
         {
             var textbox = Control as TextBox;
             if (textbox != null)
             {
-                textbox.TextChanging -= TextboxOnTextChanging;
-                textbox.TextChanging += TextboxOnTextChanging;
+                textbox.GotFocus -= TextboxOnGotFocus;
+                textbox.GotFocus += TextboxOnGotFocus;
             }
         }
 
-        private static void TextboxOnTextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+        private void TextboxOnGotFocus(object sender, RoutedEventArgs e)
         {
-            var selectionStart = sender.SelectionStart;
-            sender.Text = sender.Text.ToUpper();
-            sender.SelectionStart = selectionStart;
-            sender.SelectionLength = 0;
+            ((TextBox)sender).SelectAll();
         }
 
         protected override void OnDetached()
@@ -34,7 +32,7 @@ namespace FormsCommunityToolkit.Effects.UWP.Effects
             var textbox = Control as TextBox;
             if (textbox != null)
             {
-                textbox.TextChanging -= TextboxOnTextChanging;
+                textbox.GotFocus -= TextboxOnGotFocus;
             }
         }
     }
