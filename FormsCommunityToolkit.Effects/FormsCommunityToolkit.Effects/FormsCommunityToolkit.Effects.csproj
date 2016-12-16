@@ -44,6 +44,7 @@
     <Compile Include="CapitializeKeyboardEffect.cs" />
     <Compile Include="RemoveBorderEffect.cs" />
     <Compile Include="DisableAutoCorrectEffect.cs" />
+    <Compile Include="SearchBarSuggestionEffect.cs" />
     <Compile Include="SizeFontToFitEffect.cs" />
     <Compile Include="CustomFontEffect.cs" />
     <Compile Include="ItalicPlaceholderEffect.cs" />
