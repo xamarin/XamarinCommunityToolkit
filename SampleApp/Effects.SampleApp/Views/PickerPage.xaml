@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:effects="clr-namespace:FormsCommunityToolkit.Effects;assembly=FormsCommunityToolkit.Effects"
+             x:Class="FormsCommunityToolkit.Effects.SampleApp.Views.PickerPage">
+	<ContentPage.Content>
+		<StackLayout Padding="20">
+			<Picker x:Name="ChangeColorPicker" effects:ChangePickerColorEffect.Color = "Red" Title = "PICKER TITLE IS RED" />
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

@@ -16,6 +16,7 @@
         <Button x:Name="ViewButton" Text="View effects" Clicked="OnViewButtonClicked" />
         <Button x:Name="SwitchButton" Text="Switch effects" Clicked="OnSwitchButtonClicked" />
         <Button x:Name="LabelButton" Text="Label effects" Clicked="OnLabelButtonClicked" />
+		<Button x:Name="PickerButton" Text="Picker effects" Clicked="OnPickerButtonClicked" />
 	</StackLayout>
   
 </ContentPage>
