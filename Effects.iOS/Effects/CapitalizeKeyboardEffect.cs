@@ -1,24 +1,24 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using FormsCommunityToolkit.Effects.iOS.Effects;
+using FormsCommunityToolkit.Effects.iOS;
 using UIKit;
 using Foundation;
 
 [assembly: ExportEffect(typeof(CapitalizeKeyboardEffect), nameof(CapitalizeKeyboardEffect))]
 
-namespace FormsCommunityToolkit.Effects.iOS.Effects
+namespace FormsCommunityToolkit.Effects.iOS
 {
     [Preserve(AllMembers = true)]
 	public class CapitalizeKeyboardEffect : PlatformEffect
 	{
-        private UITextAutocapitalizationType _old;
+        UITextAutocapitalizationType old;
 
 		protected override void OnAttached()
 		{
             var editText = Control as UITextField;
 			if (editText != null)
 			{
-                _old = editText.AutocapitalizationType;
+                old = editText.AutocapitalizationType;
                 editText.AutocapitalizationType = UITextAutocapitalizationType.AllCharacters;
 			}
 		}
@@ -27,7 +27,7 @@ namespace FormsCommunityToolkit.Effects.iOS.Effects
 		{
 			var editText = Control as UITextField;
 			if (editText != null)
-				editText.AutocapitalizationType = _old;
+				editText.AutocapitalizationType = old;
 		}
 	}
 }

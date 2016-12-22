@@ -1,5 +1,5 @@
 ﻿using System;
-using FormsCommunityToolkit.Effects.iOS.Effects;
+using FormsCommunityToolkit.Effects.iOS;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -7,14 +7,14 @@ using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportEffect(typeof(DisableAutoCorrectEffect), nameof(DisableAutoCorrectEffect))]
 
-namespace FormsCommunityToolkit.Effects.iOS.Effects
+namespace FormsCommunityToolkit.Effects.iOS
 {
 	[Preserve]
 	public class DisableAutoCorrectEffect : PlatformEffect
 	{
-		UITextSpellCheckingType _spellCheckingType;
-		UITextAutocorrectionType _autocorrectionType;
-		UITextAutocapitalizationType _autocapitalizationType;
+		UITextSpellCheckingType spellCheckingType;
+		UITextAutocorrectionType autocorrectionType;
+		UITextAutocapitalizationType autocapitalizationType;
 
 
 		protected override void OnAttached()
@@ -23,9 +23,9 @@ namespace FormsCommunityToolkit.Effects.iOS.Effects
 			if (editText == null) return;
 
 
-			_spellCheckingType = editText.SpellCheckingType;
-			_autocorrectionType = editText.AutocorrectionType;
-			_autocapitalizationType = editText.AutocapitalizationType;
+			spellCheckingType = editText.SpellCheckingType;
+			autocorrectionType = editText.AutocorrectionType;
+			autocapitalizationType = editText.AutocapitalizationType;
 
 			editText.SpellCheckingType = UITextSpellCheckingType.No;             // No Spellchecking
 			editText.AutocorrectionType = UITextAutocorrectionType.No;           // No Autocorrection
@@ -37,9 +37,9 @@ namespace FormsCommunityToolkit.Effects.iOS.Effects
 			var editText = Control as UITextField;
 			if (editText == null) return;
 
-			editText.SpellCheckingType = _spellCheckingType;
-			editText.AutocorrectionType = _autocorrectionType;
-			editText.AutocapitalizationType = _autocapitalizationType;
+			editText.SpellCheckingType = spellCheckingType;
+			editText.AutocorrectionType = autocorrectionType;
+			editText.AutocapitalizationType = autocapitalizationType;
 		}
 	}
 }

@@ -1,24 +1,24 @@
 ﻿using System;
 using Android.Widget;
-using FormsCommunityToolkit.Effects.Droid.Effects;
+using FormsCommunityToolkit.Effects.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportEffect(typeof(DisableAutoCorrectEffect), nameof(DisableAutoCorrectEffect))]
 
-namespace FormsCommunityToolkit.Effects.Droid.Effects
+namespace FormsCommunityToolkit.Effects.Droid
 {
 	public class DisableAutoCorrectEffect : PlatformEffect
 	{
 
-		Android.Text.InputTypes _old;
+		Android.Text.InputTypes old;
 
 		protected override void OnAttached()
 		{
 			var editText = Control as EditText;
 			if (editText == null) return;
 
-			_old = editText.InputType;
+			old = editText.InputType;
 			editText.InputType = editText.InputType | Android.Text.InputTypes.TextFlagNoSuggestions;
 		}
 
@@ -27,7 +27,7 @@ namespace FormsCommunityToolkit.Effects.Droid.Effects
 			var editText = Control as EditText;
 			if (editText == null) return;
 
-			editText.InputType = _old;
+			editText.InputType = old;
 		}
 	}
 }

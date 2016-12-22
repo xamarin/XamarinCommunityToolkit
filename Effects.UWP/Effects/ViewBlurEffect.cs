@@ -4,43 +4,43 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
 using Microsoft.Graphics.Canvas.Effects;
-using FormsCommunityToolkit.Effects.UWP.Effects;
+using FormsCommunityToolkit.Effects.UWP;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 
 [assembly: ExportEffect(typeof(ViewBlurEffect), nameof(ViewBlurEffect))]
-namespace FormsCommunityToolkit.Effects.UWP.Effects
+namespace FormsCommunityToolkit.Effects.UWP
 {
     public class ViewBlurEffect : PlatformEffect
     {
-        private SpriteVisual _blurVisual;
-        private CompositionBrush _blurBrush;
-        private Visual _rootVisual;
+        SpriteVisual blurVisual;
+        CompositionBrush blurBrush;
+        Visual rootVisual;
 
-        private Compositor Compositor { get; set; }
+        Compositor Compositor { get; set; }
 
         protected override void OnAttached()
         {
-            double blurAmount = (double)Element.GetValue(BlurEffect.BlurAmountProperty);
+            var blurAmount = (double)Element.GetValue(BlurEffect.BlurAmountProperty);
 
-            _rootVisual = ElementCompositionPreview.GetElementVisual(Container);
+            rootVisual = ElementCompositionPreview.GetElementVisual(Container);
 
-            Compositor = _rootVisual.Compositor;
+            Compositor = rootVisual.Compositor;
 
-            _blurVisual = Compositor.CreateSpriteVisual();
+            blurVisual = Compositor.CreateSpriteVisual();
 
             var brush = BuildBlurBrush();
             brush.SetSourceParameter("source", Compositor.CreateBackdropBrush());
-            _blurBrush = brush;
-            _blurVisual.Brush = _blurBrush;
+            blurBrush = brush;
+            blurVisual.Brush = blurBrush;
 
-            ElementCompositionPreview.SetElementChildVisual(Container, _blurVisual);
+            ElementCompositionPreview.SetElementChildVisual(Container, blurVisual);
 
             Container.Loading += OnLoading;
             Container.Unloaded += OnUnloaded;
 
-            _blurBrush.Properties.InsertScalar("Blur.BlurAmount", (float)blurAmount);
-            _rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
+            blurBrush.Properties.InsertScalar("Blur.BlurAmount", (float)blurAmount);
+            rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
 
             SetUpPropertySetExpressions();
         }
@@ -51,8 +51,8 @@ namespace FormsCommunityToolkit.Effects.UWP.Effects
 
             if (args.PropertyName == "BlurAmount")
             {
-                double blurAmount = (double)Element.GetValue(BlurEffect.BlurAmountProperty);
-                _rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
+                var blurAmount = (double)Element.GetValue(BlurEffect.BlurAmountProperty);
+                rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
             }
         }
 
@@ -60,9 +60,9 @@ namespace FormsCommunityToolkit.Effects.UWP.Effects
         {
             var exprAnimation = Compositor.CreateExpressionAnimation();
             exprAnimation.Expression = "sourceProperties.BlurAmount";
-            exprAnimation.SetReferenceParameter("sourceProperties", _rootVisual.Properties);
+            exprAnimation.SetReferenceParameter("sourceProperties", rootVisual.Properties);
 
-            _blurBrush.Properties.StartAnimation("Blur.BlurAmount", exprAnimation);
+            blurBrush.Properties.StartAnimation("Blur.BlurAmount", exprAnimation);
         }
 
         protected override void OnDetached()
@@ -78,15 +78,15 @@ namespace FormsCommunityToolkit.Effects.UWP.Effects
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if(Container != null)
+            if (Container != null)
                 Container.SizeChanged -= OnSizeChanged;
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (_blurVisual != null)
+            if (blurVisual != null)
             {
-                _blurVisual.Size = new Vector2((float)Container.ActualWidth, (float)Container.ActualHeight);
+                blurVisual.Size = new Vector2((float)Container.ActualWidth, (float)Container.ActualHeight);
             }
         }
 

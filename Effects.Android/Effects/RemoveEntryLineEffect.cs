@@ -2,12 +2,12 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
 using Android.Runtime;
-using FormsCommunityToolkit.Effects.Droid.Effects;
+using FormsCommunityToolkit.Effects.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportEffect(typeof(RemoveEntryLineEffect), nameof(RemoveEntryLineEffect))]
-namespace FormsCommunityToolkit.Effects.Droid.Effects
+namespace FormsCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
     public class RemoveEntryLineEffect : PlatformEffect

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms.Platform.iOS;
+using Xamarin.Forms.Platform.Android;
 using System;
-using Foundation;
+using Android.Runtime;
 
-namespace FormsCommunityToolkit.Effects.iOS
+namespace FormsCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
     public static class Effects

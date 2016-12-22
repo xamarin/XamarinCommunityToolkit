@@ -1944,49 +1944,49 @@ namespace FormsCommunityToolkit.Effects.Droid
 			public static int design_snackbar_background = 2130837580;
 			
 			// aapt resource value: 0x7f02004d
-			public static int ic_audiotrack = 2130837581;
+			public static int fct_ic_clear_icon = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
-			public static int ic_audiotrack_light = 2130837582;
+			public static int ic_audiotrack = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
-			public static int ic_bluetooth_grey = 2130837583;
+			public static int ic_audiotrack_light = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public static int ic_bluetooth_white = 2130837584;
+			public static int ic_bluetooth_grey = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public static int ic_cast_dark = 2130837585;
+			public static int ic_bluetooth_white = 2130837585;
 			
 			// aapt resource value: 0x7f020052
-			public static int ic_cast_disabled_light = 2130837586;
+			public static int ic_cast_dark = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public static int ic_cast_grey = 2130837587;
+			public static int ic_cast_disabled_light = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public static int ic_cast_light = 2130837588;
+			public static int ic_cast_grey = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public static int ic_cast_off_light = 2130837589;
+			public static int ic_cast_light = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public static int ic_cast_on_0_light = 2130837590;
+			public static int ic_cast_off_light = 2130837590;
 			
 			// aapt resource value: 0x7f020057
-			public static int ic_cast_on_1_light = 2130837591;
+			public static int ic_cast_on_0_light = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public static int ic_cast_on_2_light = 2130837592;
+			public static int ic_cast_on_1_light = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public static int ic_cast_on_light = 2130837593;
+			public static int ic_cast_on_2_light = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public static int ic_cast_white = 2130837594;
+			public static int ic_cast_on_light = 2130837594;
 			
 			// aapt resource value: 0x7f02005b
-			public static int ic_clear_icon = 2130837595;
+			public static int ic_cast_white = 2130837595;
 			
 			// aapt resource value: 0x7f02005c
 			public static int ic_close_dark = 2130837596;
@@ -2151,55 +2151,52 @@ namespace FormsCommunityToolkit.Effects.Droid
 			public static int ic_tv_light = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public static int icon = 2130837650;
+			public static int mr_dialog_material_background_dark = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public static int mr_dialog_material_background_dark = 2130837651;
+			public static int mr_dialog_material_background_light = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public static int mr_dialog_material_background_light = 2130837652;
+			public static int mr_ic_audiotrack_light = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public static int mr_ic_audiotrack_light = 2130837653;
+			public static int mr_ic_cast_dark = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public static int mr_ic_cast_dark = 2130837654;
+			public static int mr_ic_cast_light = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public static int mr_ic_cast_light = 2130837655;
+			public static int mr_ic_close_dark = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public static int mr_ic_close_dark = 2130837656;
+			public static int mr_ic_close_light = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public static int mr_ic_close_light = 2130837657;
+			public static int mr_ic_media_route_connecting_mono_dark = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public static int mr_ic_media_route_connecting_mono_dark = 2130837658;
+			public static int mr_ic_media_route_connecting_mono_light = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
-			public static int mr_ic_media_route_connecting_mono_light = 2130837659;
+			public static int mr_ic_media_route_mono_dark = 2130837659;
 			
 			// aapt resource value: 0x7f02009c
-			public static int mr_ic_media_route_mono_dark = 2130837660;
+			public static int mr_ic_media_route_mono_light = 2130837660;
 			
 			// aapt resource value: 0x7f02009d
-			public static int mr_ic_media_route_mono_light = 2130837661;
+			public static int mr_ic_pause_dark = 2130837661;
 			
 			// aapt resource value: 0x7f02009e
-			public static int mr_ic_pause_dark = 2130837662;
+			public static int mr_ic_pause_light = 2130837662;
 			
 			// aapt resource value: 0x7f02009f
-			public static int mr_ic_pause_light = 2130837663;
+			public static int mr_ic_play_dark = 2130837663;
 			
 			// aapt resource value: 0x7f0200a0
-			public static int mr_ic_play_dark = 2130837664;
+			public static int mr_ic_play_light = 2130837664;
 			
 			// aapt resource value: 0x7f0200a1
-			public static int mr_ic_play_light = 2130837665;
-			
-			// aapt resource value: 0x7f0200a2
-			public static int notification_template_icon_bg = 2130837666;
+			public static int notification_template_icon_bg = 2130837665;
 			
 			static Drawable()
 			{
@@ -2922,12 +2919,6 @@ namespace FormsCommunityToolkit.Effects.Droid
 		
 		public partial class String
 		{
-			
-			// aapt resource value: 0x7f080027
-			public static int ApplicationName = 2131230759;
-			
-			// aapt resource value: 0x7f080026
-			public static int Hello = 2131230758;
 			
 			// aapt resource value: 0x7f08000f
 			public static int abc_action_bar_home_description = 2131230735;

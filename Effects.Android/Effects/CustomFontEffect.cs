@@ -5,26 +5,28 @@ using FormsCommunityToolkit.Effects.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
-[assembly: ExportEffect (typeof (CustomFontEffect), nameof (CustomFontEffect))]
+[assembly: ExportEffect(typeof(CustomFontEffect), nameof(CustomFontEffect))]
 namespace FormsCommunityToolkit.Effects.Droid
 {
     public class CustomFontEffect : PlatformEffect
     {
-        protected override void OnAttached ()
+        protected override void OnAttached()
         {
             var control = Control as TextView;
 
-            if (control != null) {
-                var effect = (FormsCommunityToolkit.Effects.CustomFontEffect)Element.Effects.FirstOrDefault (item => item is FormsCommunityToolkit.Effects.CustomFontEffect);
-                if (effect != null && !string.IsNullOrWhiteSpace (effect.FontPath)) {
+            if (control != null)
+            {
+                var effect = (FormsCommunityToolkit.Effects.CustomFontEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.CustomFontEffect);
+                if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))
+                {
 
-                    var font = Typeface.CreateFromAsset (Forms.Context.Assets, effect.FontPath);
+                    var font = Typeface.CreateFromAsset(Forms.Context.Assets, effect.FontPath);
                     control.Typeface = font;
                 }
             }
         }
 
-        protected override void OnDetached ()
+        protected override void OnDetached()
         {
         }
     }

@@ -2,13 +2,13 @@
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using FormsCommunityToolkit.Effects.Droid.Effects;
+using FormsCommunityToolkit.Effects.Droid;
 using Android.Runtime;
 using System.Linq;
 
 [assembly: ExportEffect(typeof(SelectAllTextEntryEffect), nameof(SelectAllTextEntryEffect))]
 
-namespace FormsCommunityToolkit.Effects.Droid.Effects
+namespace FormsCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
 	public class SelectAllTextEntryEffect : PlatformEffect

@@ -1,12 +1,12 @@
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FormsCommunityToolkit.Effects.Droid.Effects;
+using FormsCommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 [assembly: ExportEffect(typeof(ClearEntryEffect), nameof(ClearEntryEffect))]
-namespace FormsCommunityToolkit.Effects.Droid.Effects
+namespace FormsCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
     public class ClearEntryEffect : PlatformEffect
@@ -23,8 +23,10 @@ namespace FormsCommunityToolkit.Effects.Droid.Effects
         private void ConfigureControl()
         {
             var editText = Control as EditText;
-            if (editText == null) return;
-            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, Resource.Drawable.ic_clear_icon, 0);
+            if (editText == null)
+                return;
+
+            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, Resource.Drawable.fct_ic_clear_icon, 0);
             editText.SetOnTouchListener(new OnDrawableTouchListener());
         }
     }
