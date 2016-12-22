@@ -4,7 +4,12 @@
              x:Class="FormsCommunityToolkit.Effects.SampleApp.Views.PickerPage">
 	<ContentPage.Content>
 		<StackLayout Padding="20">
-			<Picker x:Name="ChangeColorPicker" effects:ChangePickerColorEffect.Color = "Red" Title = "PICKER TITLE IS RED" />
+		    <Picker x:Name="ChangeColorPicker" effects:ChangePickerColorEffect.Color = "Red" Title = "PICKER TITLE IS RED" HorizontalOptions="FillAndExpand">
+		        <Picker.Items>
+		            <x:String>1</x:String> 
+		            <x:String>2</x:String>
+		        </Picker.Items>
+		    </Picker> 
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>
