@@ -1,7 +1,7 @@
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FormsCommunityToolkit.Effects;
+using FormsCommunityToolkit.Effects.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
