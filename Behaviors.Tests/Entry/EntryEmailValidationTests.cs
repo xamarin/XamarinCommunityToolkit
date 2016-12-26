@@ -8,6 +8,8 @@ namespace Behaviors.Tests
 	[TestFixture]
 	public class EntryEmailValidationTests
 	{
+
+
 		EntryEmailValidation behavior;
 		Entry entry;
 		Color textColor;

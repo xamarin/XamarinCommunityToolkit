@@ -1,32 +1,24 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace FormsCommunityToolkit.Behaviors
 {
-	/// <summary>
-	/// Email validator behavior.
-	/// </summary>
-	public class EntryEmailValidation : BaseBehavior<Entry>
+	public class NumericValidationBehavior : BaseBehavior<Entry>
 	{
 		bool colorSet;
 		Color color = Color.Default;
 
-
-		const string emailRegex = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-			@"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
-
-
 		static readonly BindablePropertyKey TextColorInvalidKey =
 			BindableProperty.CreateReadOnly(nameof(TextColorInvalid), typeof(Color),
-			                                typeof(EntryEmailValidation), Color.Default);
+											typeof(EntryEmailValidation), Color.Default);
 
 		/// <summary>
 		/// The is valid property.
 		/// </summary>
 		public static readonly BindableProperty TextColorInvalidProperty =
 			TextColorInvalidKey.BindableProperty;
-		
+
 
 		/// <summary>
 		/// Gets or sets the text color invalid.
@@ -82,13 +74,15 @@ namespace FormsCommunityToolkit.Behaviors
 		void HandleTextChanged(object sender, TextChangedEventArgs e)
 		{
 			var text = e?.NewTextValue ?? string.Empty;
-			IsValid = (Regex.IsMatch(text, emailRegex, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)));
+
+			double result;
+			IsValid = double.TryParse(text, out result);
 
 			var entry = sender as Entry;
 
 			if (entry == null)
 				return;
-			
+
 			if (!colorSet)
 			{
 				colorSet = true;
@@ -96,6 +90,11 @@ namespace FormsCommunityToolkit.Behaviors
 			}
 
 			entry.TextColor = IsValid ? color : TextColorInvalid;
+		}
+
+		void OnEntryTextChanged(object sender, TextChangedEventArgs args)
+		{
+			
 		}
 	}
 }

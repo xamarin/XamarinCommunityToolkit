@@ -6,7 +6,7 @@ namespace FormsCommunityToolkit.Behaviors
 	/// <summary>
 	/// Empty validator behavior.
 	/// </summary>
-	public class EntryEmptyValidation : Behavior<Entry>
+	public class EntryEmptyValidation : BaseBehavior<Entry>
 	{
 
 		bool colorSet;
@@ -61,6 +61,7 @@ namespace FormsCommunityToolkit.Behaviors
 		{
 			bindable.TextChanged += HandleTextChanged;
 			HandleTextChanged(bindable, new TextChangedEventArgs(string.Empty, bindable.Text));
+			base.OnAttachedTo(bindable);
 		}
 
 		/// <param name="bindable">To be added.</param>
@@ -70,6 +71,7 @@ namespace FormsCommunityToolkit.Behaviors
 		protected override void OnDetachingFrom(Entry bindable)
 		{
 			bindable.TextChanged -= HandleTextChanged;
+			base.OnDetachingFrom(bindable);
 		}
 
 		void HandleTextChanged(object sender, TextChangedEventArgs e)
