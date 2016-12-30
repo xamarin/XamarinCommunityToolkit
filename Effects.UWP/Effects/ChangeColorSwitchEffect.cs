@@ -29,7 +29,9 @@ namespace FormsCommunityToolkit.Effects.UWP
             falseColor = ConvertColor(color);
 
             var toggleSwitch = Control as ToggleSwitch;
-            if (toggleSwitch != null)
+			if (toggleSwitch == null)
+				return;
+			else
             {
                 toggleSwitch.Loaded -= OnSwitchLoaded;
                 toggleSwitch.Loaded += OnSwitchLoaded;
@@ -39,10 +41,10 @@ namespace FormsCommunityToolkit.Effects.UWP
         protected override void OnDetached()
         {
             var toggleSwitch = Control as ToggleSwitch;
-            if (toggleSwitch != null)
-            {
+			if (toggleSwitch == null)
+				return;
+			else
                 toggleSwitch.Loaded -= OnSwitchLoaded;
-            }
         }
 
         private void OnSwitchLoaded(object sender, RoutedEventArgs e)
@@ -76,10 +78,9 @@ namespace FormsCommunityToolkit.Effects.UWP
 
             var rect = toggleSwitch.GetChildByName("SwitchKnobBounds") as Windows.UI.Xaml.Shapes.Rectangle;
             if (rect != null)
-            {
                 rect.Fill = new SolidColorBrush(trueColor);
-            }
-            toggleSwitch.Loaded -= OnSwitchLoaded;
+
+			toggleSwitch.Loaded -= OnSwitchLoaded;
         }
 
         private Windows.UI.Color ConvertColor(Color color)

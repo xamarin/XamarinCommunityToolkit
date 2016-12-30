@@ -16,7 +16,9 @@ namespace FormsCommunityToolkit.Effects.iOS
         {
             var control = Control as UILabel;
 
-            if (control != null)
+			if (control == null)
+				return;
+			else
             {
                 initialeLines = control.Lines;
 
@@ -30,7 +32,9 @@ namespace FormsCommunityToolkit.Effects.iOS
         {
             var control = Control as UILabel;
 
-            if (control != null)
+			if (control == null)
+				return;
+			else
                 control.Lines = initialeLines;
         }
     }

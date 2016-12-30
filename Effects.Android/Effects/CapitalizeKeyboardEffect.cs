@@ -19,7 +19,9 @@ namespace FormsCommunityToolkit.Effects.Droid
         protected override void OnAttached()
         {
             var editText = Control as EditText;
-            if (editText != null)
+			if (editText == null)
+				return;
+			else
             {
                 old = editText.InputType;
                 oldFilters = editText.GetFilters().ToArray();
@@ -35,7 +37,9 @@ namespace FormsCommunityToolkit.Effects.Droid
         protected override void OnDetached()
         {
             var editText = Control as EditText;
-            if (editText != null)
+			if (editText == null)
+				return;
+			else
             {
                 editText.SetRawInputType(old);
                 editText.SetFilters(oldFilters);

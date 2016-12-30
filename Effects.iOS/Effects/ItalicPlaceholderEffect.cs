@@ -16,7 +16,9 @@ namespace FormsCommunityToolkit.Effects.iOS
         protected override void OnAttached()
         {
             var entry = Control as UITextField;
-            if (entry != null && !string.IsNullOrWhiteSpace(entry.Placeholder))
+			if (entry == null || string.IsNullOrWhiteSpace(entry.Placeholder))
+				return;
+			else
             {
                 old = entry.AttributedPlaceholder;
                 var entryFontSize = entry.Font.PointSize;
@@ -27,10 +29,10 @@ namespace FormsCommunityToolkit.Effects.iOS
         protected override void OnDetached()
         {
             var entry = Control as UITextField;
-            if (entry != null)
-            {
+			if (entry == null)
+				return;
+			else
                 entry.AttributedPlaceholder = old;
-            }
         }
     }
 }

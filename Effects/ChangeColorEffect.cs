@@ -17,11 +17,10 @@ namespace FormsCommunityToolkit.Effects
             var color = (Color)newValue;
 
             var attachedEffect = control.Effects.FirstOrDefault (e => e is ChangeColorSwitchEffect);
-            if (color != Color.Transparent && attachedEffect == null) {
+            if (color != Color.Transparent && attachedEffect == null)
                 control.Effects.Add (new ChangeColorSwitchEffect ());
-            } else if (color == Color.Transparent && attachedEffect != null) {
+            else if (color == Color.Transparent && attachedEffect != null)
                 control.Effects.Remove (attachedEffect);
-            }
         }
 
         public static Color GetFalseColor (BindableObject view)
@@ -43,7 +42,6 @@ namespace FormsCommunityToolkit.Effects
         {
             view.SetValue (TrueColorProperty, color);
         }
-
     }
 
     public class ChangeColorSwitchEffect : RoutingEffect

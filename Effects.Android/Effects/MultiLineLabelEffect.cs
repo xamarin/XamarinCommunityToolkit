@@ -13,7 +13,9 @@ namespace FormsCommunityToolkit.Effects.Droid
         {
             var control = Control as TextView;
 
-            if (control != null)
+			if (control == null)
+				return;
+			else
             {
                 var effect = (FormsCommunityToolkit.Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
                 if (effect != null && effect.Lines > 0)
@@ -26,6 +28,7 @@ namespace FormsCommunityToolkit.Effects.Droid
 
         protected override void OnDetached()
         {
+			//TODO: Glenn - Reset to old amount of Lines and old SingleLine value
         }
     }
 }

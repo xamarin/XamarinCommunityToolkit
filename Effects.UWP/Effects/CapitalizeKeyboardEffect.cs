@@ -34,10 +34,10 @@ namespace FormsCommunityToolkit.Effects.UWP
         protected override void OnDetached()
         {
             var textbox = Control as TextBox;
-            if (textbox != null)
-            {
+			if (textbox == null)
+				return;
+			else
                 textbox.TextChanging -= TextboxOnTextChanging;
-            }
         }
     }
 }

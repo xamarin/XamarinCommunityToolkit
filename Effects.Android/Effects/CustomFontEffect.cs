@@ -14,7 +14,9 @@ namespace FormsCommunityToolkit.Effects.Droid
         {
             var control = Control as TextView;
 
-            if (control != null)
+			if (control == null)
+				return;
+			else
             {
                 var effect = (FormsCommunityToolkit.Effects.CustomFontEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.CustomFontEffect);
                 if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))

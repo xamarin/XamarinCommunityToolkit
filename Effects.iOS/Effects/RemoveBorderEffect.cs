@@ -16,7 +16,9 @@ namespace FormsCommunityToolkit.Effects.iOS
 		protected override void OnAttached()
 		{
             var editText = Control as UITextField;
-			if (editText != null)
+			if (editText == null)
+				return;
+			else
 			{
                 old = editText.BorderStyle;
                 editText.BorderStyle = UITextBorderStyle.None;
@@ -26,7 +28,9 @@ namespace FormsCommunityToolkit.Effects.iOS
 		protected override void OnDetached()
 		{
 			var editText = Control as UITextField;
-			if (editText != null)
+			if (editText == null)
+				return;
+			else
 				editText.BorderStyle = old;
 		}
 	}

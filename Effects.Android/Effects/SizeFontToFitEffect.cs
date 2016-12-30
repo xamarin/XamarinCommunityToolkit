@@ -60,14 +60,18 @@ namespace FormsCommunityToolkit.Effects.Droid
         protected override void OnAttached()
         {
             var textView = Control as TextView;
-            if (textView != null)
+			if (textView == null)
+				return;
+			else
                 textView.AddOnLayoutChangeListener(_listener = new ShrinkTextOnLayoutChangeListener(textView));
         }
 
         protected override void OnDetached()
         {
             var textView = Control as TextView;
-            if (textView != null)
+			if (textView == null)
+				return;
+			else
                 textView.RemoveOnLayoutChangeListener(_listener);
         }
     }
