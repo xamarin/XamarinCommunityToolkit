@@ -31,7 +31,7 @@ namespace FormsCommunityToolkit.Effects.iOS
 			if (editText == null)
 				return;
 
-			ßeditText.EditingDidBegin -= (object sender, System.EventArgs e) =>
+			editText.EditingDidBegin -= (object sender, System.EventArgs e) =>
 			{
 				editText.PerformSelector(new Selector("selectAll"), null, 0.0f);
 			};

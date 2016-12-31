@@ -20,7 +20,7 @@ namespace FormsCommunityToolkit.Effects.Droid
         {
             var editText = Control as EditText;
 			if (editText == null)
-				return;
+                return;
 			
 			old = editText.InputType;
 			oldFilters = editText.GetFilters().ToArray();
