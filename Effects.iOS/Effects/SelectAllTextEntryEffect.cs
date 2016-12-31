@@ -18,27 +18,23 @@ namespace FormsCommunityToolkit.Effects.iOS
             var editText = Control as UITextField;
 			if (editText == null)
 				return;
-			else
-            {
-                editText.EditingDidBegin += (object sender, System.EventArgs e) =>
-                {
-                    editText.PerformSelector(new Selector("selectAll"), null, 0.0f);
-                };
-            }
-        }
+
+			editText.EditingDidBegin += (object sender, System.EventArgs e) =>
+			{
+				editText.PerformSelector(new Selector("selectAll"), null, 0.0f);
+			};
+		}
 
         protected override void OnDetached()
         {
             var editText = Control as UITextField;
 			if (editText == null)
 				return;
-			else
-            {
-                editText.EditingDidBegin -= (object sender, System.EventArgs e) =>
-                {
-                    editText.PerformSelector(new Selector("selectAll"), null, 0.0f);
-                };
-            }
-        }
+
+			ßeditText.EditingDidBegin -= (object sender, System.EventArgs e) =>
+			{
+				editText.PerformSelector(new Selector("selectAll"), null, 0.0f);
+			};
+		}
     }
 }

@@ -62,17 +62,17 @@ namespace FormsCommunityToolkit.Effects.Droid
             var textView = Control as TextView;
 			if (textView == null)
 				return;
-			else
-                textView.AddOnLayoutChangeListener(_listener = new ShrinkTextOnLayoutChangeListener(textView));
-        }
+
+			textView.AddOnLayoutChangeListener(_listener = new ShrinkTextOnLayoutChangeListener(textView));
+		}
 
         protected override void OnDetached()
         {
             var textView = Control as TextView;
 			if (textView == null)
 				return;
-			else
-                textView.RemoveOnLayoutChangeListener(_listener);
-        }
+
+			textView.RemoveOnLayoutChangeListener(_listener);
+		}
     }
 }

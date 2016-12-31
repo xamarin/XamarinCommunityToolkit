@@ -18,11 +18,9 @@ namespace FormsCommunityToolkit.Effects.iOS
             var editText = Control as UITextField;
 			if (editText == null)
 				return;
-			else
-			{
-                old = editText.AutocapitalizationType;
-                editText.AutocapitalizationType = UITextAutocapitalizationType.AllCharacters;
-			}
+
+			old = editText.AutocapitalizationType;
+			editText.AutocapitalizationType = UITextAutocapitalizationType.AllCharacters;
 		}
 
 		protected override void OnDetached()
@@ -30,8 +28,8 @@ namespace FormsCommunityToolkit.Effects.iOS
 			var editText = Control as UITextField;
 			if (editText == null)
 				return;
-			else
-				editText.AutocapitalizationType = old;
+
+			editText.AutocapitalizationType = old;
 		}
 	}
 }

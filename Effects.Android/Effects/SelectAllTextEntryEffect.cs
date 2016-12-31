@@ -19,8 +19,8 @@ namespace FormsCommunityToolkit.Effects.Droid
 			var editText = Control as EditText;
 			if (editText == null)
 				return;
-            else
-				editText.SetSelectAllOnFocus(true);
+
+			editText.SetSelectAllOnFocus(true);
 		}
 
         protected override void OnDetached()
@@ -28,8 +28,8 @@ namespace FormsCommunityToolkit.Effects.Droid
             var editText = Control as EditText;
 			if (editText == null)
 				return;
-			else
-				editText.SetSelectAllOnFocus(false);
-        }
+
+			editText.SetSelectAllOnFocus(false);
+		}
     }
 }

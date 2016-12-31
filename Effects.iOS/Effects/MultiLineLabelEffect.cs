@@ -18,15 +18,13 @@ namespace FormsCommunityToolkit.Effects.iOS
 
 			if (control == null)
 				return;
-			else
-            {
-                initialeLines = control.Lines;
 
-                var effect = (FormsCommunityToolkit.Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
-                if (effect != null && effect.Lines > 0)
-                    control.Lines = effect.Lines;
-            }
-        }
+			initialeLines = control.Lines;
+
+			var effect = (FormsCommunityToolkit.Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
+			if (effect != null && effect.Lines > 0)
+				control.Lines = effect.Lines;
+		}
 
         protected override void OnDetached()
         {
@@ -34,8 +32,8 @@ namespace FormsCommunityToolkit.Effects.iOS
 
 			if (control == null)
 				return;
-			else
-                control.Lines = initialeLines;
-        }
+
+			control.Lines = initialeLines;
+		}
     }
 }

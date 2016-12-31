@@ -21,7 +21,6 @@ namespace FormsCommunityToolkit.Effects.Droid
                 var effect = (FormsCommunityToolkit.Effects.CustomFontEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.CustomFontEffect);
                 if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))
                 {
-
                     var font = Typeface.CreateFromAsset(Forms.Context.Assets, effect.FontPath);
                     control.Typeface = font;
                 }

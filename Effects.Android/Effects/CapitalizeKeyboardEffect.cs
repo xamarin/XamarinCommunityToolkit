@@ -21,29 +21,25 @@ namespace FormsCommunityToolkit.Effects.Droid
             var editText = Control as EditText;
 			if (editText == null)
 				return;
-			else
-            {
-                old = editText.InputType;
-                oldFilters = editText.GetFilters().ToArray();
+			
+			old = editText.InputType;
+			oldFilters = editText.GetFilters().ToArray();
 
-                editText.SetRawInputType(InputTypes.ClassText | InputTypes.TextFlagCapCharacters);
+			editText.SetRawInputType(InputTypes.ClassText | InputTypes.TextFlagCapCharacters);
 
-                var newFilters = oldFilters.ToList();
-                newFilters.Add(new InputFilterAllCaps());
-                editText.SetFilters(newFilters.ToArray());
-            }
-        }
+			var newFilters = oldFilters.ToList();
+			newFilters.Add(new InputFilterAllCaps());
+			editText.SetFilters(newFilters.ToArray());
+		}
 
         protected override void OnDetached()
         {
             var editText = Control as EditText;
 			if (editText == null)
 				return;
-			else
-            {
-                editText.SetRawInputType(old);
-                editText.SetFilters(oldFilters);
-            }
-        }
+
+			editText.SetRawInputType(old);
+			editText.SetFilters(oldFilters);
+		}
     }
 }

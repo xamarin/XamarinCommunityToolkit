@@ -15,16 +15,14 @@ namespace FormsCommunityToolkit.Effects.Droid
 
 			if (control == null)
 				return;
-			else
-            {
-                var effect = (FormsCommunityToolkit.Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
-                if (effect != null && effect.Lines > 0)
-                {
-                    control.SetSingleLine(false);
-                    control.SetLines(effect.Lines);
-                }
-            }
-        }
+
+			var effect = (FormsCommunityToolkit.Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
+			if (effect != null && effect.Lines > 0)
+			{
+				control.SetSingleLine(false);
+				control.SetLines(effect.Lines);
+			}
+		}
 
         protected override void OnDetached()
         {

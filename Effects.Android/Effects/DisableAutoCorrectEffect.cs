@@ -16,7 +16,8 @@ namespace FormsCommunityToolkit.Effects.Droid
 		protected override void OnAttached()
 		{
 			var editText = Control as EditText;
-			if (editText == null) return;
+			if (editText == null)
+				return;
 
 			old = editText.InputType;
 			editText.InputType = editText.InputType | Android.Text.InputTypes.TextFlagNoSuggestions;
@@ -25,7 +26,8 @@ namespace FormsCommunityToolkit.Effects.Droid
 		protected override void OnDetached()
 		{
 			var editText = Control as EditText;
-			if (editText == null) return;
+			if (editText == null)
+				return;
 
 			editText.InputType = old;
 		}
