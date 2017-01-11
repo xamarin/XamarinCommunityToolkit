@@ -11,25 +11,25 @@ using System.Linq;
 namespace FormsCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
-	public class SelectAllTextEntryEffect : PlatformEffect
-	{
+    public class SelectAllTextEntryEffect : PlatformEffect
+    {
  
-		protected override void OnAttached()
-		{
-			var editText = Control as EditText;
-			if (editText == null)
-				return;
+        protected override void OnAttached()
+        {
+            var editText = Control as EditText;
+            if (editText == null)
+                return;
 
-			editText.SetSelectAllOnFocus(true);
-		}
+            editText.SetSelectAllOnFocus(true);
+        }
 
         protected override void OnDetached()
         {
             var editText = Control as EditText;
-			if (editText == null)
-				return;
+            if (editText == null)
+                return;
 
-			editText.SetSelectAllOnFocus(false);
-		}
+            editText.SetSelectAllOnFocus(false);
+        }
     }
 }

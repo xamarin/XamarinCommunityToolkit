@@ -9,27 +9,27 @@ using Foundation;
 namespace FormsCommunityToolkit.Effects.iOS
 {
     [Preserve(AllMembers = true)]
-	public class CapitalizeKeyboardEffect : PlatformEffect
-	{
+    public class CapitalizeKeyboardEffect : PlatformEffect
+    {
         UITextAutocapitalizationType old;
 
-		protected override void OnAttached()
-		{
+        protected override void OnAttached()
+        {
             var editText = Control as UITextField;
-			if (editText == null)
-				return;
+            if (editText == null)
+                return;
 
-			old = editText.AutocapitalizationType;
-			editText.AutocapitalizationType = UITextAutocapitalizationType.AllCharacters;
-		}
+            old = editText.AutocapitalizationType;
+            editText.AutocapitalizationType = UITextAutocapitalizationType.AllCharacters;
+        }
 
-		protected override void OnDetached()
-		{
-			var editText = Control as UITextField;
-			if (editText == null)
-				return;
+        protected override void OnDetached()
+        {
+            var editText = Control as UITextField;
+            if (editText == null)
+                return;
 
-			editText.AutocapitalizationType = old;
-		}
-	}
+            editText.AutocapitalizationType = old;
+        }
+    }
 }

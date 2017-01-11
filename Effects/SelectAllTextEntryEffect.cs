@@ -1,11 +1,11 @@
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace FormsCommunityToolkit.Effects
 {
-	public class SelectAllTextEntryEffect : RoutingEffect
-	{
-		public SelectAllTextEntryEffect() : base("Organon.Effects.SelectAllTextEntryEffect")
-		{
-		}
-	}
+    public class SelectAllTextEntryEffect : RoutingEffect
+    {
+        public SelectAllTextEntryEffect() : base("Organon.Effects.SelectAllTextEntryEffect")
+        {
+        }
+    }
 }

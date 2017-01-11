@@ -17,9 +17,9 @@ namespace FormsCommunityToolkit.Effects.UWP
         {
             var control = Control as TextBlock;
 
-			if (control == null)
-				return;
-			else
+            if (control == null)
+                return;
+            else
             {
                 initialeLines = control.MaxLines;
                 initialTextWrapping = control.TextWrapping;
@@ -37,9 +37,9 @@ namespace FormsCommunityToolkit.Effects.UWP
         {
             var control = Control as TextBlock;
 
-			if (control == null)
-				return;
-			else
+            if (control == null)
+                return;
+            else
             {
                 control.MaxLines = initialeLines;
                 control.TextWrapping = initialTextWrapping;

@@ -8,28 +8,28 @@ using Xamarin.Forms.Platform.Android;
 
 namespace FormsCommunityToolkit.Effects.Droid
 {
-	public class DisableAutoCorrectEffect : PlatformEffect
-	{
+    public class DisableAutoCorrectEffect : PlatformEffect
+    {
 
-		Android.Text.InputTypes old;
+        Android.Text.InputTypes old;
 
-		protected override void OnAttached()
-		{
-			var editText = Control as EditText;
-			if (editText == null)
-				return;
+        protected override void OnAttached()
+        {
+            var editText = Control as EditText;
+            if (editText == null)
+                return;
 
-			old = editText.InputType;
-			editText.InputType = editText.InputType | Android.Text.InputTypes.TextFlagNoSuggestions;
-		}
+            old = editText.InputType;
+            editText.InputType = editText.InputType | Android.Text.InputTypes.TextFlagNoSuggestions;
+        }
 
-		protected override void OnDetached()
-		{
-			var editText = Control as EditText;
-			if (editText == null)
-				return;
+        protected override void OnDetached()
+        {
+            var editText = Control as EditText;
+            if (editText == null)
+                return;
 
-			editText.InputType = old;
-		}
-	}
+            editText.InputType = old;
+        }
+    }
 }

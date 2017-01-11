@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using Android.Widget;
 using FormsCommunityToolkit.Effects.Droid;
 using Xamarin.Forms;
@@ -13,20 +13,20 @@ namespace FormsCommunityToolkit.Effects.Droid
         {
             var control = Control as TextView;
 
-			if (control == null)
-				return;
+            if (control == null)
+                return;
 
-			var effect = (FormsCommunityToolkit.Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
-			if (effect != null && effect.Lines > 0)
-			{
-				control.SetSingleLine(false);
-				control.SetLines(effect.Lines);
-			}
-		}
+            var effect = (FormsCommunityToolkit.Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
+            if (effect != null && effect.Lines > 0)
+            {
+                control.SetSingleLine(false);
+                control.SetLines(effect.Lines);
+            }
+        }
 
         protected override void OnDetached()
         {
-			//TODO: Glenn - Reset to old amount of Lines and old SingleLine value
+            //TODO: Glenn - Reset to old amount of Lines and old SingleLine value
         }
     }
 }

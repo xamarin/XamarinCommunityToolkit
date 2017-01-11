@@ -78,17 +78,17 @@ namespace FormsCommunityToolkit.Effects.UWP
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-			if (Container == null)
-				return;
-			else
+            if (Container == null)
+                return;
+            else
                 Container.SizeChanged -= OnSizeChanged;
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-			if (blurVisual == null)
-				return;
-			else
+            if (blurVisual == null)
+                return;
+            else
                 blurVisual.Size = new Vector2((float)Container.ActualWidth, (float)Container.ActualHeight);
         }
 

@@ -21,7 +21,7 @@ namespace FormsCommunityToolkit.Effects.iOS
             falseColor = (Color)Element.GetValue (ChangeColorEffect.FalseColorProperty);
 
             if (falseColor != Color.Transparent)
-			{
+            {
                 (Control as UISwitch).TintColor = falseColor.ToUIColor ();
                 (Control as UISwitch).Layer.CornerRadius = 16;
                 (Control as UISwitch).BackgroundColor = falseColor.ToUIColor ();

@@ -13,13 +13,13 @@ namespace FormsCommunityToolkit.Effects.iOS
         {
             var control = Control as UILabel;
 
-			if (control == null)
-				return;
+            if (control == null)
+                return;
 
-			var effect = (FormsCommunityToolkit.Effects.CustomFontEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.CustomFontEffect);
-			if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))
-				control.Font = UIFont.FromName(effect.FontFamilyName, control.Font.PointSize);
-		}
+            var effect = (FormsCommunityToolkit.Effects.CustomFontEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.CustomFontEffect);
+            if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))
+                control.Font = UIFont.FromName(effect.FontFamilyName, control.Font.PointSize);
+        }
 
         protected override void OnDetached ()
         {
