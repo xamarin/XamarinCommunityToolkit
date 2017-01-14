@@ -24,7 +24,7 @@ namespace FormsCommunityToolkit.Effects.UWP
                 initialeLines = control.MaxLines;
                 initialTextWrapping = control.TextWrapping;
 
-                var effect = (Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
+                var effect = (FormsCommunityToolkit.Effects.MultiLineLabelEffect)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.MultiLineLabelEffect);
                 if (effect != null && effect.Lines > 0)
                 {
                     control.MaxLines = effect.Lines;
