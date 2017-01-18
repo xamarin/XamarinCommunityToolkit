@@ -1,15 +1,12 @@
-﻿using Android.Graphics;
-using Android.Runtime;
-using Android.Support.V7.Widget;
-using Android.Widget;
-using FormsCommunityToolkit.Effects.Droid.Effects;
+﻿using Android.Runtime;
+using FormsCommunityToolkit.Effects.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Color = Xamarin.Forms.Color;
 using Picker = Android.Widget.EditText;
 
 [assembly: ExportEffect(typeof(ChangeColorPickerEffect), nameof(ChangeColorPickerEffect))]
-namespace FormsCommunityToolkit.Effects.Droid.Effects
+namespace FormsCommunityToolkit.Effects.Droid
 {
 
     [Preserve (AllMembers = true)]

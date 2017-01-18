@@ -108,7 +108,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\ChangeColorPickerEffetc.cs" />
+    <Compile Include="Effects\ChangeColorPickerEffect.cs" />
     <Compile Include="Effects\SelectAllTextEntryEffect.cs" />
     <Compile Include="Effects\ChangeColorSwitchEffect.cs" />
     <Compile Include="Effects\CapitalizeKeyboardEffect.cs" />
