@@ -68,6 +68,7 @@
     <Compile Include="Effects\CustomFontEffect.cs" />
     <Compile Include="Effects\ItalicPlaceholderEffect.cs" />
     <Compile Include="Effects\SelectAllTextEntryEffect.cs" />
+    <Compile Include="Effects\ChangeColorPickerEffect.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
