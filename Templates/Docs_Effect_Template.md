@@ -36,6 +36,7 @@ or directly from code:
 
 iOS
 
+![CapitalizeKeyboardEffect animation](../Media/ClearEntryAndAllCaps_thumb.gif "CapitalizeKeyboardEffect")
 
 Android 
 

@@ -28,6 +28,12 @@ or directly from code:
 
 ## Example Image
 
+iOS
+
+![CapitalizeKeyboardEffect animation](../Media/ClearEntryAndAllCaps_thumb.gif "CapitalizeKeyboardEffect")
+
+Android 
+
 ![CapitalizeKeyboardEffect animation](../Media/AndroidEffects_thumb.gif "CapitalizeKeyboardEffect")
 
 ## Requirements (Windows 10 Device Family)
