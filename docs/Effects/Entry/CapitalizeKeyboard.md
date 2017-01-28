@@ -36,12 +36,6 @@ Android
 
 ![CapitalizeKeyboardEffect animation](../Media/AndroidEffects_thumb.gif "CapitalizeKeyboardEffect")
 
-## Requirements (Windows 10 Device Family)
-
-| [Device family](http://go.microsoft.com/fwlink/p/?LinkID=526370) | Universal, [Windows 10 Anniversary SDK 14393](https://blogs.windows.com/windowsexperience/2016/07/18/build14393/) 10.0.14393.0 |
-| --- | --- |
-| Namespace | Microsoft.Toolkit.Uwp.UI.Animations |
-
 ## API source code
 
 * [Android source code](https://github.com/FormsCommunityToolkit/Effects/blob/master/src/Effects.Android/Effects/CapitalizeKeyboardEffect.cs)
