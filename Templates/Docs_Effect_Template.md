@@ -4,7 +4,7 @@ The **CapitalizeKeyboardEffect** enforces caps on the keyboard for an Entry cont
 
 ## Syntax
 
-You can either use the blur behavior from your XAML code:
+You can either use the capitalize effect from your XAML code:
 
 ```xaml
 
