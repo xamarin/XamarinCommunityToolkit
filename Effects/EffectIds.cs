@@ -1,7 +1,9 @@
 ﻿namespace FormsCommunityToolkit.Effects
 {
     /// <summary>
-    /// Effect ids of all the available effects
+    /// Effect ids of all the available effects.
+    /// Can be used to resolve an effect from code.
+    ///     e.g. MyEntry.Effects.Add(Effect.Resolve(EffectIds.ViewBlurEffect));
     /// </summary>
     public class EffectIds
     {
