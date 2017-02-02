@@ -1,11 +1,10 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace FormsCommunityToolkit.Effects
 {
     public class ItalicPlaceholderEffect : RoutingEffect
     {
-        public ItalicPlaceholderEffect() : base("FormsCommunityToolkit.Effects.ItalicPlaceholderEffect")
+        public ItalicPlaceholderEffect() : base(EffectIds.ItalicPlaceholderEffect)
         {
         }
     }

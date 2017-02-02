@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Contracts;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace FormsCommunityToolkit.Effects
 {
@@ -7,7 +6,7 @@ namespace FormsCommunityToolkit.Effects
     {
         public int Lines { get; set; }
 
-        public MultiLineLabelEffect() : base("FormsCommunityToolkit.Effects.MultiLineLabelEffect")
+        public MultiLineLabelEffect() : base(EffectIds.MultiLineLabelEffect)
         {
         }
     }

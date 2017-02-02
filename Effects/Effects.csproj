@@ -39,6 +39,7 @@
     <Compile Include="BlurEffect.cs" />
     <Compile Include="ChangeColorEffect.cs" />
     <Compile Include="ClearEntryEffect.cs" />
+    <Compile Include="EffectIds.cs" />
     <Compile Include="MultiLineLabelEffect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveEntryLineEffect.cs" />

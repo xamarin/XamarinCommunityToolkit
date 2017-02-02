@@ -38,9 +38,8 @@ namespace FormsCommunityToolkit.Effects
 
     public class ChangeColorPickerEffect : RoutingEffect
     {
-        public ChangeColorPickerEffect() : base("FormsCommunityToolkit.Effects.ChangeColorPickerEffect")
+        public ChangeColorPickerEffect() : base(EffectIds.ChangeColorPickerEffect)
         {
         }
     }
-
 }

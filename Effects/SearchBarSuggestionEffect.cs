@@ -49,7 +49,7 @@ namespace FormsCommunityToolkit.Effects
 
     public class UWPSearchBarSuggestionEffect : RoutingEffect
     {
-        public UWPSearchBarSuggestionEffect() : base("FormsCommunityToolkit.Effects.UWPSearchBarSuggestionEffect")
+        public UWPSearchBarSuggestionEffect() : base(EffectIds.UWPSearchBarSuggestionEffect)
         {
         }
     }

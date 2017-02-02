@@ -46,7 +46,7 @@ namespace FormsCommunityToolkit.Effects
 
     public class ChangeColorSwitchEffect : RoutingEffect
     {
-        public ChangeColorSwitchEffect () : base ("FormsCommunityToolkit.Effects.ChangeColorSwitchEffect")
+        public ChangeColorSwitchEffect () : base (EffectIds.ChangeColorSwitchEffect)
         {
         }
     }

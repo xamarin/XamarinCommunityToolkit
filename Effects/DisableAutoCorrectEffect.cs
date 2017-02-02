@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace FormsCommunityToolkit.Effects
 {
@@ -8,7 +7,7 @@ namespace FormsCommunityToolkit.Effects
     /// </summary>
     public class DisableAutoCorrectEffect : RoutingEffect
     {
-        public DisableAutoCorrectEffect() : base("FormsCommunityToolkit.Effects.DisableAutoCorrectEffect")
+        public DisableAutoCorrectEffect() : base(EffectIds.DisableAutoCorrectEffect)
         {
         }
     }

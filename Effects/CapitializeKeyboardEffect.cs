@@ -4,7 +4,7 @@ namespace FormsCommunityToolkit.Effects
 {
     public class CapitalizeKeyboardEffect : RoutingEffect
     {
-        public CapitalizeKeyboardEffect() : base("FormsCommunityToolkit.Effects.CapitalizeKeyboardEffect")
+        public CapitalizeKeyboardEffect() : base(EffectIds.CapitalizeKeyboardEffect)
         {
         }
     }

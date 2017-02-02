@@ -17,7 +17,7 @@ namespace FormsCommunityToolkit.Effects
         /// <value>The name of the font family.</value>
         public string FontFamilyName { get; set; }
 
-        public CustomFontEffect () : base ("FormsCommunityToolkit.Effects.CustomFontEffect")
+        public CustomFontEffect () : base (EffectIds.CustomFontEffect)
         {
         }
     }
