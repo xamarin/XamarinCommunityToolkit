@@ -11,6 +11,13 @@ var libraries = new Dictionary<string, string> {
 	{ "./src/Effects.sln", "Any" },
 };
 
+var nugets = new List<string> {
+ 	"./nuget/Converters.nuspec",
+	 "./nuget/Controls.nuspec",
+	 "./nuget/Behaviors.nuspec",
+	 "./nuget/Effects.nuspec"
+};
+
 
 var BuildAction = new Action<Dictionary<string, string>> (solutions =>
 {
@@ -64,36 +71,18 @@ Task ("NuGet")
 	.IsDependentOn ("Libraries")
 	.Does (() =>
 {
-    if(!DirectoryExists("./Build/nuget/"))
-        CreateDirectory("./Build/nuget");
-        
-	NuGetPack ("./nuget/Converters.nuspec", new NuGetPackSettings { 
-		Version = version,
-		Verbosity = NuGetVerbosity.Detailed,
-		OutputDirectory = "./Build/nuget/",
-		BasePath = "./",
-	});	
+		if(!DirectoryExists("./Build/nuget/"))
+			CreateDirectory("./Build/nuget");
 
-	NuGetPack ("./nuget/Behaviors.nuspec", new NuGetPackSettings { 
-		Version = version,
-		Verbosity = NuGetVerbosity.Detailed,
-		OutputDirectory = "./Build/nuget/",
-		BasePath = "./",
-	});	
-
-	NuGetPack ("./nuget/Controls.nuspec", new NuGetPackSettings { 
-		Version = version,
-		Verbosity = NuGetVerbosity.Detailed,
-		OutputDirectory = "./Build/nuget/",
-		BasePath = "./",
-	});	
-
-	NuGetPack ("./nuget/Effects.nuspec", new NuGetPackSettings { 
-		Version = version,
-		Verbosity = NuGetVerbosity.Detailed,
-		OutputDirectory = "./Build/nuget/",
-		BasePath = "./",
-	});	
+		foreach(var nuget in nugets)
+		{
+			NuGetPack (nuget, new NuGetPackSettings { 
+					Version = version,
+					Verbosity = NuGetVerbosity.Detailed,
+					OutputDirectory = "./Build/nuget/",
+					BasePath = "./",
+				});	
+		}
 });
 
 
