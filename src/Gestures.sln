@@ -7,12 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures", "Gestures\Gestur
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CF83A7E-B02C-4DEC-A0B7-EFC68623D928}"
 	ProjectSection(SolutionItems) = preProject
-		..\appveyor.yml = ..\appveyor.yml
-		..\bootstrapper.ps1 = ..\bootstrapper.ps1
-		..\build.cake = ..\build.cake
-		..\CHANGELOG.md = ..\CHANGELOG.md
-		..\nuget\Gestures.nuspec = ..\nuget\Gestures.nuspec
-		..\README.md = ..\README.md
+		..\..\appveyor.yml = ..\..\appveyor.yml
+		..\..\bootstrapper.ps1 = ..\..\bootstrapper.ps1
+		..\..\build.cake = ..\..\build.cake
+		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
+		..\..\nuget\Gestures.nuspec = ..\..\nuget\Gestures.nuspec
+		..\..\README.md = ..\..\README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures.Android", "Gestures\Gestures.Android\Gestures.Android.csproj", "{88DC2010-BE3A-4B86-A72F-3DF68413858B}"
