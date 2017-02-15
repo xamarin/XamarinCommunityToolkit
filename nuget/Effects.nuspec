@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+   <metadata minClientVersion="2.8.1">
+       <id>FormsCommunityToolkit.Effects</id>
+       <version>$version$</version>
+       <title>Xamarin.Forms Community Toolkit: Effects</title>
+       <authors>FormsCommunityToolkit</authors>
+       <owners>FormsCommunityToolkit</owners>
+       <projectUrl>https://github.com/FormsCommunityToolkit/Effects</projectUrl>
+       <licenseUrl>https://github.com/FormsCommunityToolkit/Effects/blob/master/LICENSE</licenseUrl>
+       <iconUrl>https://github.com/FormsCommunityToolkit/Effects/blob/master/Media/OrganonLogo.64x64.png</iconUrl>
+       <requireLicenseAcceptance>false</requireLicenseAcceptance>
+       <description>
+         Xamarin.Forms Community Toolkit Effects Library
+         Built against: 2.3.2.127
+       </description>
+       <summary>Xamarin.Forms Community Toolkit Effects Library</summary>
+       <tags>community, toolkit, xamarin, pcl, android, xamarin.forms, ios, uwp, effects</tags>
+       <dependencies>
+         <dependency id="Xamarin.Forms" version="2.3.2.127" />
+       </dependencies>
+     <releaseNotes>
+     </releaseNotes>
+   </metadata>
+   <files>
+      <!--Core-->
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.dll" target="lib/portable-net45+wp80+win8+wpa81/FormsCommunityToolkit.Effects.dll" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.pdb" target="lib/portable-net45+wp80+win8+wpa81/FormsCommunityToolkit.Effects.pdb" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.xml" target="lib/portable-net45+wp80+win8+wpa81/FormsCommunityToolkit.Effects.xml" />
+
+     <!--Xamarin.Android-->
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.dll" target="lib/MonoAndroid403/FormsCommunityToolkit.Effects.dll" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.pdb" target="lib/MonoAndroid403/FormsCommunityToolkit.Effects.pdb" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.xml" target="lib/MonoAndroid403/FormsCommunityToolkit.Effects.xml" />
+     <file src="src/Effects/Effects.Android/bin/Release/FormsCommunityToolkit.Effects.Android.dll" target="lib/MonoAndroid403/FormsCommunityToolkit.Effects.Android.dll" />
+     <file src="src/Effects/Effects.Android/bin/Release/FormsCommunityToolkit.Effects.Android.pdb" target="lib/MonoAndroid403/FormsCommunityToolkit.Effects.Android.pdb" />
+     <file src="src/Effects/Effects.Android/bin/Release/FormsCommunityToolkit.Effects.Android.xml" target="lib/MonoAndroid403/FormsCommunityToolkit.Effects.Android.xml" />
+
+     <!--Xamarin.iOSUnified-->
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.dll" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.dll" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.pdb" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.pdb" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.xml" target="libXamarin.iOS101/FormsCommunityToolkit.Effects.xml" />
+     <file src="src/Effects/Effects.iOS/bin/Release/FormsCommunityToolkit.Effects.iOS.dll" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.iOS.dll" />
+     <file src="src/Effects/Effects.iOS/bin/Release/FormsCommunityToolkit.Effects.iOS.pdb" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.iOS.pdb" />
+     <file src="src/Effects/Effects.iOS/bin/Release/FormsCommunityToolkit.Effects.iOS.xml" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.iOS.xml" />
+     <!--UWP-->
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.dll" target="lib/UAP10/FormsCommunityToolkit.Effects.dll" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.pdb" target="lib/UAP10/FormsCommunityToolkit.Effects.pdb" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.xml" target="lib/UAP101/FormsCommunityToolkit.Effects.xml" />
+     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.dll" target="lib/UAP10/FormsCommunityToolkit.Effects.UWP.dll" />
+     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.pdb" target="lib/UAP10/FormsCommunityToolkit.Effects.UWP.pdb" />
+     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.xml" target="lib/UAP10/FormsCommunityToolkit.Effects.UWP.xml" />
+
+     <file src=".\src\**\*.cs" target="src" />
+   </files>
+</package>

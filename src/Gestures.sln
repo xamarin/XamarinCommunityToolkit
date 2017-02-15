@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures", "Gestures\Gestures.csproj", "{572B958E-CC33-47C1-95FA-1B3A0506F2ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures", "Gestures\Gestures\Gestures.csproj", "{572B958E-CC33-47C1-95FA-1B3A0506F2ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CF83A7E-B02C-4DEC-A0B7-EFC68623D928}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,11 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures.Android", "Gestures.Android\Gestures.Android.csproj", "{88DC2010-BE3A-4B86-A72F-3DF68413858B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures.Android", "Gestures\Gestures.Android\Gestures.Android.csproj", "{88DC2010-BE3A-4B86-A72F-3DF68413858B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures.iOS", "Gestures.iOS\Gestures.iOS.csproj", "{F09F8CAF-701A-4673-A880-1580ACCB926B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures.iOS", "Gestures\Gestures.iOS\Gestures.iOS.csproj", "{F09F8CAF-701A-4673-A880-1580ACCB926B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures.UWP", "Gestures.UWP\Gestures.UWP.csproj", "{98F91808-0410-4362-9B3A-BD5110BEECDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestures.UWP", "Gestures\Gestures.UWP\Gestures.UWP.csproj", "{98F91808-0410-4362-9B3A-BD5110BEECDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
