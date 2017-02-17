@@ -7,8 +7,6 @@ The Forms Community Toolkit is a collection of helper functions, custom controls
 
 | Target | Branch | Status | Recommended Nuget packages version |
 | ------ | ------ | ------ | ------ |
-| Animations | master | [![Build status](https://ci.appveyor.com/api/projects/status/mo63rolpvxh8frbr/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/animations/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Animations.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Animations/) |
-| Animations | dev | [![Build status](https://ci.appveyor.com/api/projects/status/mo63rolpvxh8frbr/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/animations/branch/dev) | |
 | Behaviors | master | [![Build status](https://ci.appveyor.com/api/projects/status/7biielmyt0u7assc/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/behaviors/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Behaviors/) |
 | Behaviors | dev | [![Build status](https://ci.appveyor.com/api/projects/status/7biielmyt0u7assc/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/behaviors/branch/dev) | |
 | Controls | master | [![Build status](https://ci.appveyor.com/api/projects/status/4vfyejrlgi6a6p3n/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/controls/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Controls.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Controls/) |
@@ -17,8 +15,6 @@ The Forms Community Toolkit is a collection of helper functions, custom controls
 | Converters | dev | [![Build status](https://ci.appveyor.com/api/projects/status/a2a4mah2fk8xicm7/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/converters/branch/master) | |
 | Effects | master | [![Build status](https://ci.appveyor.com/api/projects/status/0k37svpmjx8l6ctg/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/effects/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Effects/) |
 | Effects | dev | [![Build status](https://ci.appveyor.com/api/projects/status/0k37svpmjx8l6ctg/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/effects/branch/dev) | |
-| Gestures | master | [![Build status](https://ci.appveyor.com/api/projects/status/yjymobl63rs8qfau/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/gestures/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Gestures.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Gestures/) |
-| Gestures | dev | [![Build status](https://ci.appveyor.com/api/projects/status/yjymobl63rs8qfau/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/gestures/branch/dev) | |
 
 ## Contributing
 Do you want to contribute? Here are our [contribution guidelines](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/dev/Contributing.md).
@@ -39,12 +35,10 @@ Once you search you should see a list similar to the one below (versions may be 
 
 | NuGet Package Name | description |
 | --- | --- |
-| FormsCommunityToolkit.Animations |  |
 | FormsCommunityToolkit.Behaviors |  |
 | FormsCommunityToolkit.Controls | |
 | FormsCommunityToolkit.Converters |  |
 | FormsCommunityToolkit.Effects | |
-| FormsCommunityToolkit.Gestures |  |
 
 ## Features
 
