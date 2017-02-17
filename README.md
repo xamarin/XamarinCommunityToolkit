@@ -21,7 +21,7 @@ The Forms Community Toolkit is a collection of helper functions, custom controls
 | Gestures | dev | [![Build status](https://ci.appveyor.com/api/projects/status/yjymobl63rs8qfau/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/gestures/branch/dev) | |
 
 ## Contributing
-Do you want to contribute? Here are our [contribution guidelines](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/master/contributing.md).
+Do you want to contribute? Here are our [contribution guidelines](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/dev/Contributing.md).
 
 ## Getting started
 
