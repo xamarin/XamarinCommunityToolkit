@@ -1,6 +1,6 @@
 # Contributing to Forms Community Toolkit
 
-The foundation of **Forms Community Toolkit** is simplicity and follow similar practices from the [UWP Community Toolkit](https://github.com/Microsoft/UWPCommunityToolkit)
+The foundation of **Forms Community Toolkit** is simplicity and follow similar practices from the [UWP Community Toolkit](https://github.com/Microsoft/UWPCommunityToolkit).
 
 A developer should be able to quickly and easily learn to use the API. 
 
@@ -13,30 +13,30 @@ That's why many of the guidelines of this document are obvious and serve only on
 ## A good pull request
 Every contribution has to come with:
 
-* Before starting coding, **you should open an issue** and start discussing with the community to see if your idea/feature is interesting enough
-* A documentation page in the [documentation folder](). Once validated your documentation will be visible [here]()
-* A sample for the [Sample app]() (If applicable)
-* Unit tests (If applicable)
-* You tested your code with latest stable brandch of Xamarin and UWP SDK 10586 and SDK 14393
-* PR has to target dev branch
+* Before starting coding, **you should open an issue** and start discussing with the community to see if your idea/feature is interesting enough.
+* A documentation page in the [documentation folder](docs/). Once validated your documentation will be visible [here](http://formscommunitytoolkit.readthedocs.io/en/latest/).
+* A sample for the [Sample app]() (If applicable).
+* Unit tests (If applicable).
+* You tested your code with latest stable brandch of Xamarin and UWP SDK 10586 and SDK 14393.
+* PR has to target dev branch.
 
 PR has to be validated by at least two core members before being merged.
 
-Once merged, you can get a pre-release package of the toolkit be adding the appveyor [NuGet feed](https://ci.appveyor.com/nuget/formscommunitytoolkit)
+Once merged, you can get a pre-release package of the toolkit be adding the appveyor [NuGet feed](https://ci.appveyor.com/nuget/formscommunitytoolkit).
 
 ## Quality insurance for pull requests for controls
 We encourage developers to follow the following guidances when submitting pull requests for controls:
- * Your control must be usable and efficient with keyboard only
-  * Tab order must be logical
-  * Focused controls must be visible
-  * Action must be triggered when hitting Enter key
- * Do not use custom colors but instead rely on theme colors so high contrasts themes can be used with your control
+ * Your control must be usable and efficient with keyboard only.
+ * Tab order must be logical.
+ * Focused controls must be visible.
+ * Action must be triggered when hitting Enter key.
+ * Do not use custom colors but instead rely on theme colors so high contrasts themes can be used with your control.
  * Add AutomationProperties.Name on all controls to define what the controls purpose (Name is minimum, but there are some other things too that can really help the screen reader). 
-  * Don't use the same Name on two different elements unless they have different control types
+ * Don't use the same Name on two different elements unless they have different control types.
 
 You can find more information about these topics [here](https://blogs.msdn.microsoft.com/winuiautomation/2015/07/14/building-accessible-windows-universal-apps-introduction)
 
-This is to help as part of our effort to build an accessible toolkit
+This is to help as part of our effort to build an accessible toolkit.
 
 ## General rules
 
