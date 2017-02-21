@@ -8,73 +8,73 @@
     public class EffectIds
     {
         /// <summary>
-        /// Id for <see cref="ViewBlurEffect"/>
+        /// Id for <see cref="ViewBlur"/>
         /// </summary>
-        public static string ViewBlurEffect => typeof(ViewBlurEffect).FullName;
+        public static string ViewBlur => typeof(ViewBlurEffect).FullName;
 
         /// <summary>
-        /// Id for <see cref="CapitalizeKeyboardEffect"/>
+        /// Id for <see cref="EntryCapitalizeKeyboard"/>
         /// </summary>
-        public static string CapitalizeKeyboardEffect => typeof(CapitalizeKeyboardEffect).FullName;
+        public static string EntryCapitalizeKeyboard => typeof(EntryCapitalizeKeyboard).FullName;
 
         /// <summary>
-        /// Id for <see cref="ChangeColorSwitchEffect"/>
+        /// Id for <see cref="SwitchChangeColor"/>
         /// </summary>
-        public static string ChangeColorSwitchEffect => typeof(ChangeColorSwitchEffect).FullName;
+        public static string SwitchChangeColor => typeof(SwitchChangeColorEffect).FullName;
 
         /// <summary>
-        /// Id for <see cref="ChangeColorPickerEffect"/>
+        /// Id for <see cref="PickerChangeColor"/>
         /// </summary>
-        public static string ChangeColorPickerEffect => typeof(ChangeColorPickerEffect).FullName;
+        public static string PickerChangeColor => typeof(PickerChangeColorEffect).FullName;
 
         /// <summary>
-        /// Id for <see cref="ClearEntryEffect"/>
+        /// Id for <see cref="EntryClear"/>
         /// </summary>
-        public static string ClearEntryEffect => typeof(ClearEntryEffect).FullName;
+        public static string EntryClear => typeof(EntryClear).FullName;
 
         /// <summary>
-        /// Id for <see cref="CustomFontEffect"/>
+        /// Id for <see cref="LabelCustomFont"/>
         /// </summary>
-        public static string CustomFontEffect => typeof(CustomFontEffect).FullName;
+        public static string LabelCustomFont => typeof(LabelCustomFont).FullName;
 
         /// <summary>
-        /// Id for <see cref="DisableAutoCorrectEffect"/>
+        /// Id for <see cref="EntryDisableAutoCorrect"/>
         /// </summary>
-        public static string DisableAutoCorrectEffect => typeof(DisableAutoCorrectEffect).FullName;
+        public static string EntryDisableAutoCorrect => typeof(EntryDisableAutoCorrect).FullName;
 
         /// <summary>
-        /// Id for <see cref="ItalicPlaceholderEffect"/>
+        /// Id for <see cref="EntryItalicPlaceholder"/>
         /// </summary>
-        public static string ItalicPlaceholderEffect => typeof(ItalicPlaceholderEffect).FullName;
+        public static string EntryItalicPlaceholder => typeof(EntryItalicPlaceholder).FullName;
 
         /// <summary>
-        /// Id for <see cref="MultiLineLabelEffect"/>
+        /// Id for <see cref="LabelMultiLine"/>
         /// </summary>
-        public static string MultiLineLabelEffect => typeof(MultiLineLabelEffect).FullName;
+        public static string LabelMultiLine => typeof(LabelMultiLine).FullName;
 
         /// <summary>
-        /// Id for <see cref="RemoveBorderEffect"/>
+        /// Id for <see cref="EntryRemoveBorder"/>
         /// </summary>
-        public static string RemoveBorderEffect => typeof(RemoveBorderEffect).FullName;
+        public static string EntryRemoveBorder => typeof(EntryRemoveBorder).FullName;
 
         /// <summary>
-        /// Id for <see cref="RemoveEntryLineEffect"/>
+        /// Id for <see cref="EntryRemoveLine"/>
         /// </summary>
-        public static string RemoveEntryLineEffect => typeof(RemoveEntryLineEffect).FullName;
+        public static string EntryRemoveLine => typeof(EntryRemoveLine).FullName;
 
         /// <summary>
-        /// Id for <see cref="UWPSearchBarSuggestionEffect"/>
+        /// Id for <see cref="SearchBarSuggestion"/>
         /// </summary>
-        public static string UWPSearchBarSuggestionEffect => typeof(UWPSearchBarSuggestionEffect).FullName;
+        public static string SearchBarSuggestion => typeof(SearchBarSuggestionEffect).FullName;
 
         /// <summary>
-        /// Id for <see cref="SelectAllTextEntryEffect"/>
+        /// Id for <see cref="EntrySelectAllText"/>
         /// </summary>
-        public static string SelectAllTextEntryEffect => typeof(SelectAllTextEntryEffect).FullName;
+        public static string EntrySelectAllText => typeof(EntrySelectAllText).FullName;
 
         /// <summary>
-        /// Id for <see cref="SizeFontToFitEffect"/>
+        /// Id for <see cref="LabelSizeFontToFit"/>
         /// </summary>
-        public static string SizeFontToFitEffect => typeof(SizeFontToFitEffect).FullName;
+        public static string LabelSizeFontToFit => typeof(LabelSizeFontToFit).FullName;
     }
 }

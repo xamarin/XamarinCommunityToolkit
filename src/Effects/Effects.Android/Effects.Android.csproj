@@ -96,19 +96,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects.cs" />
-    <Compile Include="Effects\ChangeColorSwitchEffect.cs" />
-    <Compile Include="Effects\ClearEntryEffect.cs" />
-    <Compile Include="Effects\MultiLineLabelEffect.cs" />
-    <Compile Include="Effects\RemoveEntryLineEffect.cs" />
+    <Compile Include="Effects\Switch\SwitchChangeColor.cs" />
+    <Compile Include="Effects\Entry\EntryClear.cs" />
+    <Compile Include="Effects\Label\LabelMultiLine.cs" />
+    <Compile Include="Effects\Entry\EntryRemoveLine.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Effects\CapitalizeKeyboardEffect.cs" />
-    <Compile Include="Effects\RemoveBorderEffect.cs" />
-    <Compile Include="Effects\DisableAutoCorrectEffect.cs" />
-    <Compile Include="Effects\SizeFontToFitEffect.cs" />
-    <Compile Include="Effects\CustomFontEffect.cs" />
-    <Compile Include="Effects\SelectAllTextEntryEffect.cs" />
-    <Compile Include="Effects\ChangeColorPickerEffect.cs" />
+    <Compile Include="Effects\Entry\EntryCapitalizeKeyboard.cs" />
+    <Compile Include="Effects\Entry\EntryRemoveBorder.cs" />
+    <Compile Include="Effects\Entry\EntryDisableAutoCorrect.cs" />
+    <Compile Include="Effects\Label\LabelSizeFontToFit.cs" />
+    <Compile Include="Effects\Label\LabelCustomFont.cs" />
+    <Compile Include="Effects\Entry\EntrySelectAllText.cs" />
+    <Compile Include="Effects\Picker\PickerChangeColor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
