@@ -15,12 +15,10 @@ namespace FormsCommunityToolkit.Effects.iOS
         private UITextAutocorrectionType _autocorrectionType;
         private UITextAutocapitalizationType _autocapitalizationType;
 
-
         protected override void OnAttached()
         {
             var editText = Control as UITextField;
             if (editText == null) return;
-
 
             _spellCheckingType = editText.SpellCheckingType;
             _autocorrectionType = editText.AutocorrectionType;

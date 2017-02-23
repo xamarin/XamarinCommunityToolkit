@@ -12,28 +12,24 @@ namespace FormsCommunityToolkit.Effects.iOS
         private Color _trueColor;
         private Color _falseColor;
 
-        public SwitchChangeColor ()
-        {
-        }
-
         protected override void OnAttached ()
         {
+            var uiSwitch = Control as UISwitch;
+            if (uiSwitch == null)
+                return;
+
             _trueColor = (Color)Element.GetValue (FormsCommunityToolkit.Effects.SwitchChangeColor.TrueColorProperty);
             _falseColor = (Color)Element.GetValue (FormsCommunityToolkit.Effects.SwitchChangeColor.FalseColorProperty);
 
             if (_falseColor != Color.Transparent)
             {
-                (Control as UISwitch).TintColor = _falseColor.ToUIColor ();
-                (Control as UISwitch).Layer.CornerRadius = 16;
-                (Control as UISwitch).BackgroundColor = _falseColor.ToUIColor ();
+                uiSwitch.TintColor = _falseColor.ToUIColor();
+                uiSwitch.Layer.CornerRadius = 16;
+                uiSwitch.BackgroundColor = _falseColor.ToUIColor();
             }
 
             if (_trueColor != Color.Transparent)
-                (Control as UISwitch).OnTintColor = _trueColor.ToUIColor ();
-        }
-
-        protected override void OnDetached ()
-        {
+                uiSwitch.OnTintColor = _trueColor.ToUIColor();
         }
     }
 }

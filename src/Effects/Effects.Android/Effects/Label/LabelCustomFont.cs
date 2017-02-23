@@ -16,14 +16,12 @@ namespace FormsCommunityToolkit.Effects.Droid
 
             if (control == null)
                 return;
-            else
+
+            var effect = (FormsCommunityToolkit.Effects.LabelCustomFont)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.LabelCustomFont);
+            if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))
             {
-                var effect = (FormsCommunityToolkit.Effects.LabelCustomFont)Element.Effects.FirstOrDefault(item => item is FormsCommunityToolkit.Effects.LabelCustomFont);
-                if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))
-                {
-                    var font = Typeface.CreateFromAsset(Forms.Context.Assets, effect.FontPath);
-                    control.Typeface = font;
-                }
+                var font = Typeface.CreateFromAsset(Forms.Context.Assets, effect.FontPath);
+                control.Typeface = font;
             }
         }
 

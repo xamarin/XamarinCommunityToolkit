@@ -7,7 +7,6 @@ using Android.Runtime;
 using System.Linq;
 
 [assembly: ExportEffect(typeof(EntryCapitalizeKeyboard), nameof(EntryCapitalizeKeyboard))]
-
 namespace FormsCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]

@@ -18,6 +18,10 @@ namespace FormsCommunityToolkit.Effects.Droid
 
         protected override void OnDetached()
         {
+            var editText = Control as EditText;
+
+            editText?.SetOnTouchListener(null);
+            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, 0, 0);
         }
 
         private void ConfigureControl()
