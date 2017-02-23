@@ -31,5 +31,10 @@ namespace FormsCommunityToolkit.Effects.iOS
             if (_trueColor != Color.Transparent)
                 uiSwitch.OnTintColor = _trueColor.ToUIColor();
         }
+
+        protected override void OnDetached()
+        {
+            //Needed because of inheritance
+        }
     }
 }
