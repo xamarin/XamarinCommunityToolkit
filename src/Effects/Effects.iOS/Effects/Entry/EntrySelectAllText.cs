@@ -1,11 +1,13 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using FormsCommunityToolkit.Effects.iOS;
 using UIKit;
 using Foundation;
 using ObjCRuntime;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
 
-[assembly: ExportEffect(typeof(EntrySelectAllText), nameof(EntrySelectAllText))]
+[assembly: ExportEffect(typeof(PlatformEffects.EntrySelectAllText), nameof(RoutingEffects.EntrySelectAllText))]
 namespace FormsCommunityToolkit.Effects.iOS
 {
     [Preserve(AllMembers = true)]
@@ -17,7 +19,7 @@ namespace FormsCommunityToolkit.Effects.iOS
             if (editText == null)
                 return;
 
-            editText.EditingDidBegin += (object sender, System.EventArgs e) =>
+            editText.EditingDidBegin += (object sender, EventArgs e) =>
             {
                 editText.PerformSelector(new Selector("selectAll"), null, 0.0f);
             };
@@ -29,7 +31,7 @@ namespace FormsCommunityToolkit.Effects.iOS
             if (editText == null)
                 return;
 
-            editText.EditingDidBegin -= (object sender, System.EventArgs e) =>
+            editText.EditingDidBegin -= (object sender, EventArgs e) =>
             {
                 editText.PerformSelector(new Selector("selectAll"), null, 0.0f);
             };

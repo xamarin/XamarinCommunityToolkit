@@ -1,11 +1,12 @@
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FormsCommunityToolkit.Effects.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.Droid;
 
-[assembly: ExportEffect(typeof(EntryClear), nameof(EntryClear))]
+[assembly: ExportEffect(typeof(PlatformEffects.EntryClear), nameof(RoutingEffects.EntryClear))]
 namespace FormsCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]

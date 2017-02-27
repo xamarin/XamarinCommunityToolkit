@@ -1,9 +1,10 @@
 ﻿using Windows.UI.Xaml.Controls;
-using FormsCommunityToolkit.Effects.UWP;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.UWP;
 
-[assembly: ExportEffect(typeof(EntryRemoveBorder), nameof(EntryRemoveBorder))]
+[assembly: ExportEffect(typeof(PlatformEffects.EntryRemoveBorder), nameof(RoutingEffects.EntryRemoveBorder))]
 namespace FormsCommunityToolkit.Effects.UWP
 {
     public class EntryRemoveBorder : PlatformEffect

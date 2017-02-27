@@ -1,12 +1,11 @@
-﻿using System;
-using Android.Text;
+﻿using Android.Text;
 using Android.Widget;
-using FormsCommunityToolkit.Effects.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.Droid;
 
-[assembly: ExportEffect(typeof(EntryDisableAutoCorrect), nameof(EntryDisableAutoCorrect))]
-
+[assembly: ExportEffect(typeof(PlatformEffects.EntryDisableAutoCorrect), nameof(RoutingEffects.EntryDisableAutoCorrect))]
 namespace FormsCommunityToolkit.Effects.Droid
 {
     public class EntryDisableAutoCorrect : PlatformEffect

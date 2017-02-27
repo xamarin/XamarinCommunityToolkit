@@ -1,10 +1,11 @@
 ﻿using Windows.UI.Xaml.Controls;
-using FormsCommunityToolkit.Effects.UWP;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.UWP;
 
-[assembly: ExportEffect(typeof(EntryCapitalizeKeyboard), nameof(EntryCapitalizeKeyboard))]
+[assembly: ExportEffect(typeof(PlatformEffects.EntryCapitalizeKeyboard), nameof(RoutingEffects.EntryCapitalizeKeyboard))]
 namespace FormsCommunityToolkit.Effects.UWP
 {
     [Preserve]

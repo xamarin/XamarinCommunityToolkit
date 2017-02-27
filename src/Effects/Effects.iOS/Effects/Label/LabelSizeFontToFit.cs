@@ -1,10 +1,11 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using FormsCommunityToolkit.Effects.iOS;
 using UIKit;
 using Foundation;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
 
-[assembly: ExportEffect(typeof(LabelSizeFontToFit), nameof(LabelSizeFontToFit))]
+[assembly: ExportEffect(typeof(PlatformEffects.LabelSizeFontToFit), nameof(RoutingEffects.LabelSizeFontToFit))]
 
 namespace FormsCommunityToolkit.Effects.iOS
 {

@@ -3,13 +3,13 @@ using System.Numerics;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
-using FormsCommunityToolkit.Effects;
 using Microsoft.Graphics.Canvas.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using ViewBlur = FormsCommunityToolkit.Effects.UWP.ViewBlur;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.UWP;
 
-[assembly: ExportEffect(typeof(ViewBlur), nameof(ViewBlurEffect))]
+[assembly: ExportEffect(typeof(PlatformEffects.ViewBlur), nameof(RoutingEffects.ViewBlurEffect))]
 namespace FormsCommunityToolkit.Effects.UWP
 {
     public class ViewBlur : PlatformEffect
@@ -22,7 +22,7 @@ namespace FormsCommunityToolkit.Effects.UWP
 
         protected override void OnAttached()
         {
-            var blurAmount = (double)Element.GetValue(FormsCommunityToolkit.Effects.ViewBlur.BlurAmountProperty);
+            var blurAmount = (double)Element.GetValue(RoutingEffects.ViewBlur.BlurAmountProperty);
 
             _rootVisual = ElementCompositionPreview.GetElementVisual(Container);
 
@@ -52,7 +52,7 @@ namespace FormsCommunityToolkit.Effects.UWP
 
             if (args.PropertyName == "BlurAmount")
             {
-                var blurAmount = (double)Element.GetValue(FormsCommunityToolkit.Effects.ViewBlur.BlurAmountProperty);
+                var blurAmount = (double)Element.GetValue(RoutingEffects.ViewBlur.BlurAmountProperty);
                 _rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
             }
         }

@@ -1,14 +1,14 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using FormsCommunityToolkit.Effects.Droid;
 using Android.Runtime;
 using Android.Widget;
 using Android.Graphics;
 using Android.Util;
 using Android.Content;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.Droid;
 
-[assembly: ExportEffect(typeof(LabelSizeFontToFit), nameof(LabelSizeFontToFit))]
-
+[assembly: ExportEffect(typeof(PlatformEffects.LabelSizeFontToFit), nameof(RoutingEffects.LabelSizeFontToFit))]
 namespace FormsCommunityToolkit.Effects.Droid
 {
     class ShrinkTextOnLayoutChangeListener : Java.Lang.Object, Android.Views.View.IOnLayoutChangeListener
@@ -50,7 +50,6 @@ namespace FormsCommunityToolkit.Effects.Droid
 
         static float ConvertSpToPixels(float sp, Context context) => TypedValue.ApplyDimension(ComplexUnitType.Px, sp, context.Resources.DisplayMetrics);
     }
-
 
     [Preserve(AllMembers = true)]
     public class LabelSizeFontToFit : PlatformEffect

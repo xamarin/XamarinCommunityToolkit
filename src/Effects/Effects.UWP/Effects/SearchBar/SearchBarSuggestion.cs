@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 using System.ComponentModel;
-using FormsCommunityToolkit.Effects;
-using SearchBarSuggestion = FormsCommunityToolkit.Effects.UWP.Effects.SearchBarSuggestion;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.UWP;
 
-[assembly: ExportEffect(typeof(SearchBarSuggestion), nameof(SearchBarSuggestionEffect))]
-namespace FormsCommunityToolkit.Effects.UWP.Effects
+[assembly: ExportEffect(typeof(PlatformEffects.SearchBarSuggestion), nameof(RoutingEffects.SearchBarSuggestionEffect))]
+namespace FormsCommunityToolkit.Effects.UWP
 {
     public class SearchBarSuggestion : PlatformEffect
     {
@@ -20,7 +19,7 @@ namespace FormsCommunityToolkit.Effects.UWP.Effects
                 autoSuggestBox.SuggestionChosen += OnSuggestionChosen;
                 autoSuggestBox.TextChanged += OnTextChangedEffect;
                 autoSuggestBox.AutoMaximizeSuggestionArea = true;
-                autoSuggestBox.ItemsSource = FormsCommunityToolkit.Effects.SearchBarSuggestion.GetSuggestions(Element);
+                autoSuggestBox.ItemsSource = RoutingEffects.SearchBarSuggestion.GetSuggestions(Element);
             }
         }
 
@@ -38,20 +37,20 @@ namespace FormsCommunityToolkit.Effects.UWP.Effects
 
         private void OnTextChangedEffect(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs e)
         {
-            Action platformSpecificAction = (Action)Element.GetValue(FormsCommunityToolkit.Effects.SearchBarSuggestion.TextChangedActionProperty);
+            Action platformSpecificAction = (Action)Element.GetValue(RoutingEffects.SearchBarSuggestion.TextChangedActionProperty);
             platformSpecificAction?.Invoke();
         }
 
         protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
         {
             base.OnElementPropertyChanged(args);
-            if (args.PropertyName == FormsCommunityToolkit.Effects.SearchBarSuggestion.SuggestionsProperty.PropertyName)
+            if (args.PropertyName == RoutingEffects.SearchBarSuggestion.SuggestionsProperty.PropertyName)
                 UpdateItemsSource();
         }
 
         private void UpdateItemsSource()
         {
-            ((AutoSuggestBox)Control).ItemsSource = FormsCommunityToolkit.Effects.SearchBarSuggestion.GetSuggestions(Element);
+            ((AutoSuggestBox)Control).ItemsSource = RoutingEffects.SearchBarSuggestion.GetSuggestions(Element);
         }
     }
 }

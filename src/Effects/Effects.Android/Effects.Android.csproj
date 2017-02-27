@@ -103,7 +103,6 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Effects\Entry\EntryCapitalizeKeyboard.cs" />
-    <Compile Include="Effects\Entry\EntryRemoveBorder.cs" />
     <Compile Include="Effects\Entry\EntryDisableAutoCorrect.cs" />
     <Compile Include="Effects\Label\LabelSizeFontToFit.cs" />
     <Compile Include="Effects\Label\LabelCustomFont.cs" />

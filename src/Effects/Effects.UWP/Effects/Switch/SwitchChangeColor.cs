@@ -3,14 +3,13 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
 using Windows.UI.Xaml.Media;
-using System;
 using Windows.UI.Xaml;
 using System.Linq;
 using Windows.UI.Xaml.Media.Animation;
-using FormsCommunityToolkit.Effects;
-using SwitchChangeColor = FormsCommunityToolkit.Effects.UWP.SwitchChangeColor;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.UWP;
 
-[assembly: ExportEffect(typeof(SwitchChangeColor), nameof(SwitchChangeColorEffect))]
+[assembly: ExportEffect(typeof(PlatformEffects.SwitchChangeColor), nameof(RoutingEffects.SwitchChangeColorEffect))]
 namespace FormsCommunityToolkit.Effects.UWP
 {
     [Preserve]
@@ -21,11 +20,11 @@ namespace FormsCommunityToolkit.Effects.UWP
 
         protected override void OnAttached()
         {
-            var color = (Color)Element.GetValue(FormsCommunityToolkit.Effects.SwitchChangeColor.TrueColorProperty);
+            var color = (Color)Element.GetValue(RoutingEffects.SwitchChangeColor.TrueColorProperty);
             _trueColor = ConvertColor(color);
 
             // currently not supported
-            color = (Color)Element.GetValue(FormsCommunityToolkit.Effects.SwitchChangeColor.FalseColorProperty);
+            color = (Color)Element.GetValue(RoutingEffects.SwitchChangeColor.FalseColorProperty);
             _falseColor = ConvertColor(color);
 
             var toggleSwitch = Control as ToggleSwitch;

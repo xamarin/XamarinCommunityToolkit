@@ -1,11 +1,11 @@
-﻿using FormsCommunityToolkit.Effects;
-using UIKit;
+﻿using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Color = Xamarin.Forms.Color;
-using PickerChangeColor = FormsCommunityToolkit.Effects.iOS.PickerChangeColor;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
 
-[assembly: ExportEffect(typeof(PickerChangeColor), nameof(PickerChangeColorEffect))]
+[assembly: ExportEffect(typeof(PlatformEffects.PickerChangeColor), nameof(RoutingEffects.PickerChangeColorEffect))]
 namespace FormsCommunityToolkit.Effects.iOS
 {
     public class PickerChangeColor : PlatformEffect
@@ -17,7 +17,7 @@ namespace FormsCommunityToolkit.Effects.iOS
             /*
              * Text Color change when I select a value
              */ 
-            _color = (Color)Element.GetValue(FormsCommunityToolkit.Effects.PickerChangeColor.ColorProperty);
+            _color = (Color)Element.GetValue(RoutingEffects.PickerChangeColor.ColorProperty);
             (Control as UITextField).AttributedPlaceholder = new Foundation.NSAttributedString((Control as UITextField).AttributedPlaceholder.Value, foregroundColor: _color.ToUIColor());
         }
 

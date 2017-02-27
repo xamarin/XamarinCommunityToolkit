@@ -1,11 +1,11 @@
-﻿using System;
-using FormsCommunityToolkit.Effects.iOS;
-using Foundation;
+﻿using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
 
-[assembly: ExportEffect(typeof(EntryItalicPlaceholder), nameof(EntryItalicPlaceholder))]
+[assembly: ExportEffect(typeof(PlatformEffects.EntryItalicPlaceholder), nameof(RoutingEffects.EntryItalicPlaceholder))]
 namespace FormsCommunityToolkit.Effects.iOS
 {
     [Preserve(AllMembers = true)]

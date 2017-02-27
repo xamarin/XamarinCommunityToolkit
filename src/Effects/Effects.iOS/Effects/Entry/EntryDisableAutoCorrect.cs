@@ -1,11 +1,11 @@
-﻿using System;
-using FormsCommunityToolkit.Effects.iOS;
-using UIKit;
+﻿using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
 
-[assembly: ExportEffect(typeof(EntryDisableAutoCorrect), nameof(EntryDisableAutoCorrect))]
+[assembly: ExportEffect(typeof(PlatformEffects.EntryDisableAutoCorrect), nameof(RoutingEffects.EntryDisableAutoCorrect))]
 namespace FormsCommunityToolkit.Effects.iOS
 {
     [Preserve]

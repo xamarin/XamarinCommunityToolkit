@@ -1,13 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using FormsCommunityToolkit.Effects;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using ViewBlur = FormsCommunityToolkit.Effects.iOS.ViewBlur;
+using RoutingEffects = FormsCommunityToolkit.Effects;
+using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
 
-[assembly: ExportEffect(typeof(ViewBlur), nameof(ViewBlurEffect))]
+[assembly: ExportEffect(typeof(PlatformEffects.ViewBlur), nameof(RoutingEffects.ViewBlurEffect))]
 namespace FormsCommunityToolkit.Effects.iOS
 {
     public class ViewBlur : PlatformEffect
@@ -23,7 +23,7 @@ namespace FormsCommunityToolkit.Effects.iOS
 
             if (args.PropertyName == nameof(visualElement.Width) || args.PropertyName == nameof(visualElement.Height))
             {
-                var blurAmount = (double)Element.GetValue(FormsCommunityToolkit.Effects.ViewBlur.BlurAmountProperty);
+                var blurAmount = (double)Element.GetValue(RoutingEffects.ViewBlur.BlurAmountProperty);
 
                 var blur = UIBlurEffect.FromStyle(UIBlurEffectStyle.Light);
 
