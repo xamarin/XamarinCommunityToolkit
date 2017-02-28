@@ -108,14 +108,14 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\ChangeColorPickerEffect.cs" />
-    <Compile Include="Effects\SelectAllTextEntryEffect.cs" />
-    <Compile Include="Effects\ChangeColorSwitchEffect.cs" />
-    <Compile Include="Effects\CapitalizeKeyboardEffect.cs" />
-    <Compile Include="Effects\MultiLineLabelEffect.cs" />
-    <Compile Include="Effects\RemoveBorderEffect.cs" />
-    <Compile Include="Effects\UWPSearchBarSuggestionEffect.cs" />
-    <Compile Include="Effects\ViewBlurEffect.cs" />
+    <Compile Include="Effects\Picker\PickerChangeColor.cs" />
+    <Compile Include="Effects\Entry\EntrySelectAllText.cs" />
+    <Compile Include="Effects\Switch\SwitchChangeColor.cs" />
+    <Compile Include="Effects\Entry\EntryCapitalizeKeyboard.cs" />
+    <Compile Include="Effects\Label\LabelMultiLine.cs" />
+    <Compile Include="Effects\Entry\EntryRemoveBorder.cs" />
+    <Compile Include="Effects\SearchBar\SearchBarSuggestion.cs" />
+    <Compile Include="Effects\View\ViewBlur.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisualTreeExtensions.cs" />
     <EmbeddedResource Include="Properties\Effects.UWP.rd.xml" />
@@ -123,10 +123,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Effects\Effects.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>FormsCommunityToolkit.Effects</Name>
+      <Name>Effects</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
