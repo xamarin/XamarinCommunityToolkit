@@ -39,17 +39,17 @@
      <!--Xamarin.iOSUnified-->
      <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.dll" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.dll" />
      <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.pdb" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.pdb" />
-     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.xml" target="libXamarin.iOS101/FormsCommunityToolkit.Effects.xml" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.xml" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.xml" />
      <file src="src/Effects/Effects.iOS/bin/Release/FormsCommunityToolkit.Effects.iOS.dll" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.iOS.dll" />
      <file src="src/Effects/Effects.iOS/bin/Release/FormsCommunityToolkit.Effects.iOS.pdb" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.iOS.pdb" />
      <file src="src/Effects/Effects.iOS/bin/Release/FormsCommunityToolkit.Effects.iOS.xml" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Effects.iOS.xml" />
      <!--UWP-->
-     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.dll" target="lib/UAP10/FormsCommunityToolkit.Effects.dll" />
-     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.pdb" target="lib/UAP10/FormsCommunityToolkit.Effects.pdb" />
-     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.xml" target="lib/UAP101/FormsCommunityToolkit.Effects.xml" />
-     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.dll" target="lib/UAP10/FormsCommunityToolkit.Effects.UWP.dll" />
-     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.pdb" target="lib/UAP10/FormsCommunityToolkit.Effects.UWP.pdb" />
-     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.xml" target="lib/UAP10/FormsCommunityToolkit.Effects.UWP.xml" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.dll" target="lib/uap10.0/FormsCommunityToolkit.Effects.dll" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.pdb" target="lib/uap10.0/FormsCommunityToolkit.Effects.pdb" />
+     <file src="src/Effects/Effects/bin/Release/FormsCommunityToolkit.Effects.xml" target="lib/uap10.0/FormsCommunityToolkit.Effects.xml" />
+     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.dll" target="lib/uap10.0/FormsCommunityToolkit.Effects.UWP.dll" />
+     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.pdb" target="lib/uap10.0/FormsCommunityToolkit.Effects.UWP.pdb" />
+     <file src="src/Effects/Effects.UWP/bin/Release/FormsCommunityToolkit.Effects.UWP.xml" target="lib/uap10.0/FormsCommunityToolkit.Effects.UWP.xml" />
 
      <file src=".\src\**\*.cs" target="src" />
    </files>

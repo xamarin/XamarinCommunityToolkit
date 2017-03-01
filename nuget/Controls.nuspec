@@ -40,17 +40,17 @@
      <!--Xamarin.iOSUnified-->
      <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.dll" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.dll" />
      <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.pdb" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.pdb" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.xml" target="libXamarin.iOS101/FormsCommunityToolkit.Controls.xml" />
+     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.xml" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.xml" />
      <file src="src/Controls/Controls.iOS/bin/Release/FormsCommunityToolkit.Controls.iOS.dll" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.iOS.dll" />
      <file src="src/Controls/Controls.iOS/bin/Release/FormsCommunityToolkit.Controls.iOS.pdb" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.iOS.pdb" />
      <file src="src/Controls/Controls.iOS/bin/Release/FormsCommunityToolkit.Controls.iOS.xml" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.iOS.xml" />
      <!--UWP-->
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.dll" target="lib/UAP10/FormsCommunityToolkit.Controls.dll" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.pdb" target="lib/UAP10/FormsCommunityToolkit.Controls.pdb" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.xml" target="lib/UAP101/FormsCommunityToolkit.Controls.xml" />
-     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.dll" target="lib/UAP10/FormsCommunityToolkit.Controls.UWP.dll" />
-     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.pdb" target="lib/UAP10/FormsCommunityToolkit.Controls.UWP.pdb" />
-     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.xml" target="lib/UAP10/FormsCommunityToolkit.Controls.UWP.xml" />
+     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.dll" target="lib/uap10.0/FormsCommunityToolkit.Controls.dll" />
+     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.pdb" target="lib/uap10.0/FormsCommunityToolkit.Controls.pdb" />
+     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.xml" target="lib/uap10.0/FormsCommunityToolkit.Controls.xml" />
+     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.dll" target="lib/uap10.0/FormsCommunityToolkit.Controls.UWP.dll" />
+     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.pdb" target="lib/uap10.0/FormsCommunityToolkit.Controls.UWP.pdb" />
+     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.xml" target="lib/uap10.0/FormsCommunityToolkit.Controls.UWP.xml" />
      
    </files>
 </package>
