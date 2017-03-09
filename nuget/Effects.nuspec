@@ -6,9 +6,9 @@
        <title>Xamarin.Forms Community Toolkit: Effects</title>
        <authors>FormsCommunityToolkit</authors>
        <owners>FormsCommunityToolkit</owners>
-       <projectUrl>https://github.com/FormsCommunityToolkit/Effects</projectUrl>
-       <licenseUrl>https://github.com/FormsCommunityToolkit/Effects/blob/master/LICENSE</licenseUrl>
-       <iconUrl>https://github.com/FormsCommunityToolkit/Effects/blob/master/Media/OrganonLogo.64x64.png</iconUrl>
+       <projectUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit</projectUrl>
+       <licenseUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/master/LICENSE</licenseUrl>
+       <iconUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/master/Media/OrganonLogo.64x64.png</iconUrl>
        <requireLicenseAcceptance>false</requireLicenseAcceptance>
        <description>
          Xamarin.Forms Community Toolkit Effects Library

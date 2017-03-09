@@ -3,18 +3,18 @@
    <metadata minClientVersion="2.8.1">
        <id>FormsCommunityToolkit.Converters</id>
        <version>$version$</version>
-       <title>Forms Community Toolkit Converters for Xamarin.Forms</title>
-       <authors>Jim Bennett, Glenn Versweyveld, Matthew Robbins, Gerald Versluis, James Montemagno</authors>
-       <owners>Jim Bennett, Glenn Versweyveld, Matthew Robbins, Gerald Versluis, James Montemagno</owners>
-       <projectUrl>https://github.com/FormsCommunityToolkit/Converters</projectUrl>
-       <licenseUrl>https://github.com/FormsCommunityToolkit/Converters/blob/master/LICENSE</licenseUrl>
-       <iconUrl>https://github.com/FormsCommunityToolkit/Effects/blob/master/Media/OrganonLogo.64x64.png</iconUrl>
+       <title>Xamarin.Forms Community Toolkit: Converters</title>
+       <authors>FormsCommunityToolkit</authors>
+       <owners>FormsCommunityToolkit</owners>
+       <projectUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit</projectUrl>
+       <licenseUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/master/LICENSE</licenseUrl>
+       <iconUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/master/Media/OrganonLogo.64x64.png</iconUrl>
        <requireLicenseAcceptance>false</requireLicenseAcceptance>
        <description>
          Forms Community Toolkit Converters for Xamarin.Forms
          Built against: 2.3.2.127
        </description>
-       <summary>Converters for Xamarin.Form</summary>
+       <summary>Converters for Xamarin.Forms</summary>
        <tags>community, toolkit, xamarin, pcl, android, xamarin.forms, ios, uwp, onverters</tags>
        <dependencies>
          <dependency id="Xamarin.Forms" version="2.3.2.127" />
