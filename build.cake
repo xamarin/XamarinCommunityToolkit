@@ -1,5 +1,4 @@
-#addin nuget:https://nuget.org/api/v2/?package=Cake.FileHelpers&version=1.0.3.2
-#addin nuget:https://nuget.org/api/v2/?package=Cake.Xamarin&version=1.2.3
+#addin "Cake.FileHelpers"
 
 var TARGET = Argument ("target", Argument ("t", "Default"));
 var version = EnvironmentVariable ("APPVEYOR_BUILD_VERSION") ?? Argument("version", "0.0.9999");
@@ -31,29 +30,29 @@ var BuildAction = new Action<Dictionary<string, string>> (solutions =>
 		if ((sln.Value == "Any")
 				|| (sln.Value == "Win" && IsRunningOnWindows ())
 				|| (sln.Value == "Mac" && IsRunningOnUnix ())) 
-        {
+        	{
 			
 			// Bit of a hack to use nuget3 to restore packages for project.json
 			if (IsRunningOnWindows ()) 
-            {
-				
+			{
+
 				Information ("RunningOn: {0}", "Windows");
 
 				NuGetRestore (sln.Key, new NuGetRestoreSettings
-                {
+				{
 					ToolPath = "./tools/nuget3.exe"
 				});
 
 				// Windows Phone / Universal projects require not using the amd64 msbuild
 				MSBuild (sln.Key, c => 
-                { 
+				 { 
 					c.Configuration = "Release";
 					c.MSBuildPlatform = Cake.Common.Tools.MSBuild.MSBuildPlatform.x86;
 				});
 			} 
-            else 
-            {
-                // Mac is easy ;)
+            		else 
+            		{
+                		// Mac is easy ;)
 				NuGetRestore (sln.Key);
 
 				DotNetBuild (sln.Key, c => c.Configuration = "Release");
