@@ -10,6 +10,7 @@ namespace FormsCommunityToolkit.Effects.iOS
 {
     public class LabelCustomFont : PlatformEffect
     {
+        private RoutingEffects.LabelCustomFont _effect;
         protected override void OnAttached ()
         {
             var control = Control as UILabel;
@@ -17,9 +18,21 @@ namespace FormsCommunityToolkit.Effects.iOS
             if (control == null)
                 return;
 
-            var effect = (RoutingEffects.LabelCustomFont)Element.Effects.FirstOrDefault(item => item is RoutingEffects.LabelCustomFont);
-            if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))
-                control.Font = UIFont.FromName(effect.FontFamilyName, control.Font.PointSize);
+            _effect = (RoutingEffects.LabelCustomFont)Element.Effects.FirstOrDefault (item => item is RoutingEffects.LabelCustomFont);
+            if (_effect != null && !string.IsNullOrWhiteSpace (_effect.FontPath))
+                control.Font = UIFont.FromName (_effect.FontFamilyName, control.Font.PointSize);
+
+            // After one of these properties change, reapply the custom font
+            // As per https://bugzilla.xamarin.com/show_bug.cgi?id=33666
+            Element.PropertyChanged += (sender, e) => {
+                if (e.PropertyName == Label.TextColorProperty.PropertyName) {
+                    control.Font = UIFont.FromName (_effect.FontFamilyName, control.Font.PointSize);
+                } else if (e.PropertyName == Label.FontProperty.PropertyName) {
+                    control.Font = UIFont.FromName (_effect.FontFamilyName, control.Font.PointSize);
+                } else if (e.PropertyName == Label.TextProperty.PropertyName || e.PropertyName == Label.FormattedTextProperty.PropertyName) {
+                    control.Font = UIFont.FromName (_effect.FontFamilyName, control.Font.PointSize);
+                }
+            };
         }
 
         protected override void OnDetached ()
