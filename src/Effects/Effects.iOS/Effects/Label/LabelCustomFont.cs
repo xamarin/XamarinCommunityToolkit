@@ -25,11 +25,11 @@ namespace FormsCommunityToolkit.Effects.iOS
             // After one of these properties change, reapply the custom font
             // As per https://bugzilla.xamarin.com/show_bug.cgi?id=33666
             Element.PropertyChanged += (sender, e) => {
-                if (e.PropertyName == Label.TextColorProperty.PropertyName) {
-                    control.Font = UIFont.FromName (_effect.FontFamilyName, control.Font.PointSize);
-                } else if (e.PropertyName == Label.FontProperty.PropertyName) {
-                    control.Font = UIFont.FromName (_effect.FontFamilyName, control.Font.PointSize);
-                } else if (e.PropertyName == Label.TextProperty.PropertyName || e.PropertyName == Label.FormattedTextProperty.PropertyName) {
+				if (e.PropertyName == Label.TextColorProperty.PropertyName
+				    || e.PropertyName == Label.FontProperty.PropertyName
+				    || e.PropertyName == Label.TextProperty.PropertyName
+				    || e.PropertyName == Label.FormattedTextProperty.PropertyName)
+				{
                     control.Font = UIFont.FromName (_effect.FontFamilyName, control.Font.PointSize);
                 }
             };
