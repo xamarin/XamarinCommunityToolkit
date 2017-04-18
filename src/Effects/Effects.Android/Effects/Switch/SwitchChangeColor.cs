@@ -45,6 +45,8 @@ namespace FormsCommunityToolkit.Effects.Droid
             {
                 ((SwitchCompat)Control).ThumbDrawable.SetColorFilter(_falseColor.ToAndroid(), PorterDuff.Mode.Multiply);
             }
+
+            ((Xamarin.Forms.Switch)Element).IsToggled = checkedChangeEventArgs.IsChecked;
         }
 
         protected override void OnDetached()
