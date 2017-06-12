@@ -1,6 +1,8 @@
 ﻿
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace FormsCommunityToolkit.Samples
 {
     public partial class App : Application
