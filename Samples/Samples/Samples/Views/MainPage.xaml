@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FormsCommunityToolkit.Samples.Views.MainPage"
+             Title="Main page">
+
+    <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Label Text="Xamarin Forms Community Toolkit"
+               Grid.Row="0" />
+
+        <Button Text="Effects"
+                Clicked="OnEffectsButtonClicked"
+                Grid.Row="1" />
+    </Grid>
+</ContentPage>

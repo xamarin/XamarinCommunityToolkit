@@ -2,17 +2,17 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</ProjectGuid>
+    <ProjectGuid>{152D4A17-0A15-4BB5-9AAC-DB5CDDDE9857}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FormsCommunityToolkit.Effects</RootNamespace>
-    <AssemblyName>FormsCommunityToolkit.Effects</AssemblyName>
+    <RootNamespace>FormsCommunityToolkit.Samples</RootNamespace>
+    <AssemblyName>FormsCommunityToolkit.Samples</AssemblyName>
+    <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
-    <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -33,25 +33,67 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\FormsCommunityToolkit.Effects.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="View\ViewBlur.cs" />
-    <Compile Include="Switch\SwitchChangeColor.cs" />
-    <Compile Include="Entry\EntryClear.cs" />
-    <Compile Include="EffectIds.cs" />
-    <Compile Include="Label\LabelMultiLine.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntryCapitalizeKeyboardPage.xaml.cs">
+      <DependentUpon>EffectsEntryCapitalizeKeyboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntryClearPage.xaml.cs">
+      <DependentUpon>EffectsEntryClearPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntryPage.xaml.cs">
+      <DependentUpon>EffectsEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsPage.xaml.cs">
+      <DependentUpon>EffectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entry\EntryRemoveLine.cs" />
-    <Compile Include="Entry\EntryCapitializeKeyboard.cs" />
-    <Compile Include="Entry\EntryRemoveBorder.cs" />
-    <Compile Include="Entry\EntryDisableAutoCorrect.cs" />
-    <Compile Include="SearchBar\SearchBarSuggestion.cs" />
-    <Compile Include="Label\LabelSizeFontToFit.cs" />
-    <Compile Include="Label\LabelCustomFont.cs" />
-    <Compile Include="Entry\EntryItalicPlaceholder.cs" />
-    <Compile Include="Entry\EntrySelectAllText.cs" />
-    <Compile Include="Picker\PickerChangeColor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Effects\Effects\Effects.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>Effects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryCapitalizeKeyboardPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryClearPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -68,11 +110,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
 </Project>
