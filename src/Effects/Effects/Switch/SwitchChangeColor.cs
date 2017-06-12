@@ -5,8 +5,8 @@ namespace FormsCommunityToolkit.Effects
 {
     public static class SwitchChangeColor
     {
-        public static readonly BindableProperty FalseColorProperty = BindableProperty.CreateAttached ("FalseColor", typeof (Color?), typeof (SwitchChangeColor), Color.Transparent, propertyChanged: OnColorChanged);
-        public static readonly BindableProperty TrueColorProperty = BindableProperty.CreateAttached ("TrueColor", typeof (Color?), typeof (SwitchChangeColor), Color.Transparent, propertyChanged: OnColorChanged);
+        public static readonly BindableProperty FalseColorProperty = BindableProperty.CreateAttached ("FalseColor", typeof (Color), typeof (SwitchChangeColor), Color.Transparent, propertyChanged: OnColorChanged);
+        public static readonly BindableProperty TrueColorProperty = BindableProperty.CreateAttached ("TrueColor", typeof (Color), typeof (SwitchChangeColor), Color.Transparent, propertyChanged: OnColorChanged);
 
         private static void OnColorChanged (BindableObject bindable, object oldValue, object newValue)
         {
