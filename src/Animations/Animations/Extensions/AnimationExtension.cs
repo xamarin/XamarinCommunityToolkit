@@ -1,8 +1,8 @@
-﻿namespace FormsCommunityToolkit.Animations
-{
-    using System.Threading.Tasks;
-    using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 
+namespace FormsCommunityToolkit.Animations
+{
     public static class AnimationExtension
     {
         public static async Task<bool> Animate(this VisualElement visualElement, AnimationBase animation)

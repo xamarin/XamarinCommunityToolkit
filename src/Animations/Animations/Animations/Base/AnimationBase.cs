@@ -1,8 +1,8 @@
-﻿namespace FormsCommunityToolkit.Animations
-{
-    using System.Threading.Tasks;
-    using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 
+namespace FormsCommunityToolkit.Animations
+{
     public abstract class AnimationBase : BindableObject
     {
         public static readonly BindableProperty TargetProperty =

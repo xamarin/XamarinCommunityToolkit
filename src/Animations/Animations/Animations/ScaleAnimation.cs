@@ -1,9 +1,9 @@
-﻿namespace FormsCommunityToolkit.Animations
-{
-    using System;
-    using System.Threading.Tasks;
-    using Xamarin.Forms;
+﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
+namespace FormsCommunityToolkit.Animations
+{
     public class ScaleToAnimation : AnimationBase
     {
         public static readonly BindableProperty ScaleProperty =

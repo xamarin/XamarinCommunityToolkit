@@ -1,8 +1,8 @@
-﻿namespace FormsCommunityToolkit.Animations
-{
-    using System.Threading.Tasks;
-    using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 
+namespace FormsCommunityToolkit.Animations
+{
     public class BeginAnimationBehavior : Behavior<VisualElement>
     {
         private static VisualElement associatedObject;
