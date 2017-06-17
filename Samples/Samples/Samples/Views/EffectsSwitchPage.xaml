@@ -1,20 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FormsCommunityToolkit.Samples.Views.EffectsPage"
-             Title="Effects">
+             x:Class="FormsCommunityToolkit.Samples.Views.EffectsSwitchPage"
+             Title="Switch effects">
     <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Button Text="Entry effects"
-                Clicked="OnEntryButtonClicked"
+        <Button Text="Change color effect"
+                Clicked="OnChangeColorButtonClicked"
                 Grid.Row="0" />
-
-        <Button Text="Switch effects"
-                Clicked="OnSwitchButtonClicked"
-                Grid.Row="1" />
     </Grid>
 </ContentPage>
