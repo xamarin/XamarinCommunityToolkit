@@ -32,7 +32,7 @@ namespace FormsCommunityToolkit.Animations
         }
 
         public static readonly BindableProperty AnimationProperty =
-            BindableProperty.Create("Animation", typeof(AnimationBase), typeof(BeginAnimationBehavior), null,
+            BindableProperty.Create(nameof(Animation), typeof(AnimationBase), typeof(BeginAnimationBehavior), null,
                 BindingMode.TwoWay, null);
 
         public AnimationBase Animation

@@ -7,7 +7,7 @@ namespace FormsCommunityToolkit.Animations
     public class ScaleToAnimation : AnimationBase
     {
         public static readonly BindableProperty ScaleProperty =
-            BindableProperty.Create("Scale", typeof(double), typeof(ScaleToAnimation), 0,  
+            BindableProperty.Create(nameof(Scale), typeof(double), typeof(ScaleToAnimation), 0,  
                 BindingMode.TwoWay, null);
 
         public double Scale
@@ -30,7 +30,7 @@ namespace FormsCommunityToolkit.Animations
     public class RelScaleToAnimation : AnimationBase
     {
         public static readonly BindableProperty ScaleProperty = 
-            BindableProperty.Create("Scale", typeof(double), typeof(RelScaleToAnimation), 0,      
+            BindableProperty.Create(nameof(Scale), typeof(double), typeof(RelScaleToAnimation), 0,      
                 BindingMode.TwoWay, null);
 
         public double Scale

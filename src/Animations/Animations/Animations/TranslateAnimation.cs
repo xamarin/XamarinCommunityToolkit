@@ -7,7 +7,7 @@ namespace FormsCommunityToolkit.Animations
     public class TranslateToAnimation : AnimationBase
     {
         public static readonly BindableProperty TranslateXProperty =
-            BindableProperty.Create("TranslateX", typeof(double), typeof(TranslateToAnimation), default(double),
+            BindableProperty.Create(nameof(TranslateX), typeof(double), typeof(TranslateToAnimation), default(double),
                 BindingMode.TwoWay, null);
 
         public double TranslateX
@@ -17,7 +17,7 @@ namespace FormsCommunityToolkit.Animations
         }
 
         public static readonly BindableProperty TranslateYProperty =
-            BindableProperty.Create("TranslateY", typeof(double), typeof(TranslateToAnimation), default(double),
+            BindableProperty.Create(nameof(TranslateY), typeof(double), typeof(TranslateToAnimation), default(double),
                 BindingMode.TwoWay, null);
 
         public double TranslateY
