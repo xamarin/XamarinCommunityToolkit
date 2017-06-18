@@ -134,16 +134,6 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Animations\Animations.iOS\Animations.iOS.csproj">
-      <Project>{c25ea1ca-eb61-4478-85d4-f7772ef7284b}</Project>
-      <Name>Animations.iOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\Animations\Animations\Animations.csproj">
-      <Project>{572b958e-cc33-47c1-95fa-1b3a0506f2ed}</Project>
-      <Name>Animations</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Effects\Effects.iOS\Effects.iOS.csproj">
       <Project>{f09f8caf-701a-4673-a880-1580accb926b}</Project>
       <Name>Effects.iOS</Name>
