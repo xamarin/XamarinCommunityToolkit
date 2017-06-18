@@ -6,7 +6,7 @@ namespace FormsCommunityToolkit.Animations
     public abstract class AnimationBase : BindableObject
     {
         public static readonly BindableProperty TargetProperty =
-            BindableProperty.Create(nameof(Target), typeof(VisualElement), typeof(AnimationBase), null,
+            BindableProperty.Create("Target", typeof(VisualElement), typeof(AnimationBase), null,
                 BindingMode.TwoWay, null);
 
         public VisualElement Target
@@ -16,7 +16,7 @@ namespace FormsCommunityToolkit.Animations
         }
 
         public static readonly BindableProperty DurationProperty =
-            BindableProperty.Create(nameof(Duration), typeof(string), typeof(AnimationBase), "1000",
+            BindableProperty.Create("Duration", typeof(string), typeof(AnimationBase), "1000",
                 BindingMode.TwoWay, null);
 
         public string Duration
@@ -26,7 +26,7 @@ namespace FormsCommunityToolkit.Animations
         }
 
         public static readonly BindableProperty EasingProperty =
-            BindableProperty.Create(nameof(Easing), typeof(EasingType), typeof(AnimationBase), EasingType.Linear,
+            BindableProperty.Create("Easing", typeof(EasingType), typeof(AnimationBase), EasingType.Linear,
                 BindingMode.TwoWay, null);
 
         public EasingType Easing

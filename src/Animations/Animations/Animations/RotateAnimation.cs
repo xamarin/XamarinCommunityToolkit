@@ -7,7 +7,7 @@ namespace FormsCommunityToolkit.Animations
     public class RotateToAnimation : AnimationBase
     {
         public static readonly BindableProperty RotationProperty = 
-            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateToAnimation), 0, 
+            BindableProperty.Create("Rotation", typeof(double), typeof(RotateToAnimation), 0, 
                 BindingMode.TwoWay, null);
 
         public double Rotation
@@ -30,7 +30,7 @@ namespace FormsCommunityToolkit.Animations
     public class RelRotateToAnimation : AnimationBase
     {
         public static readonly BindableProperty RotationProperty =
-            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RelRotateToAnimation), 0,
+            BindableProperty.Create("Rotation", typeof(double), typeof(RelRotateToAnimation), 0,
                 BindingMode.TwoWay, null);
 
         public double Rotation
@@ -53,7 +53,7 @@ namespace FormsCommunityToolkit.Animations
     public class RotateXToAnimation : AnimationBase
     {
         public static readonly BindableProperty RotationProperty =
-            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateXToAnimation), 0,
+            BindableProperty.Create("Rotation", typeof(double), typeof(RotateXToAnimation), 0,
                 BindingMode.TwoWay, null);
 
         public double Rotation
@@ -76,7 +76,7 @@ namespace FormsCommunityToolkit.Animations
     public class RotateYToAnimation : AnimationBase
     {
         public static readonly BindableProperty RotationProperty =
-            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateYToAnimation), 0,
+            BindableProperty.Create("Rotation", typeof(double), typeof(RotateYToAnimation), 0,
                 BindingMode.TwoWay, null);
 
         public double Rotation

@@ -7,7 +7,7 @@ namespace FormsCommunityToolkit.Animations
     public class FadeToAnimation : AnimationBase
     {
         public static readonly BindableProperty OpacityProperty =
-            BindableProperty.Create(nameof(Opacity), typeof(double), typeof(FadeToAnimation), default(double),
+            BindableProperty.Create("Opacity", typeof(double), typeof(FadeToAnimation), default(double),
                 BindingMode.TwoWay, null);
 
         public double Opacity
@@ -36,7 +36,7 @@ namespace FormsCommunityToolkit.Animations
         }
 
         public static readonly BindableProperty DirectionProperty = 
-            BindableProperty.Create(nameof(Direction), typeof(FadeDirection), typeof(FadeInAnimation), FadeDirection.Up,       
+            BindableProperty.Create("Direction", typeof(FadeDirection), typeof(FadeInAnimation), FadeDirection.Up,       
                 BindingMode.TwoWay, null);
 
         public FadeDirection Direction
@@ -85,7 +85,7 @@ namespace FormsCommunityToolkit.Animations
         }
 
         public static readonly BindableProperty DirectionProperty = 
-            BindableProperty.Create(nameof(Direction), typeof(FadeDirection), typeof(FadeOutAnimation), FadeDirection.Up,       
+            BindableProperty.Create("Direction", typeof(FadeDirection), typeof(FadeOutAnimation), FadeDirection.Up,       
                 BindingMode.TwoWay, null);
 
         public FadeDirection Direction
