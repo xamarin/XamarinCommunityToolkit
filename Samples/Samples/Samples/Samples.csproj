@@ -38,9 +38,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AnimationPage.xaml.cs">
-      <DependentUpon>AnimationPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EffectsEntryCapitalizeKeyboardPage.xaml.cs">
       <DependentUpon>EffectsEntryCapitalizeKeyboardPage.xaml</DependentUpon>
     </Compile>
@@ -52,6 +49,12 @@
     </Compile>
     <Compile Include="Views\EffectsPage.xaml.cs">
       <DependentUpon>EffectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsSwitchChangeColorPage.xaml.cs">
+      <DependentUpon>EffectsSwitchChangeColorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsSwitchPage.xaml.cs">
+      <DependentUpon>EffectsSwitchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -69,10 +72,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Animations\Animations\Animations.csproj">
-      <Project>{572b958e-cc33-47c1-95fa-1b3a0506f2ed}</Project>
-      <Name>Animations</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Effects\Effects\Effects.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
       <Name>Effects</Name>
@@ -117,7 +116,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\AnimationPage.xaml">
+    <EmbeddedResource Include="Views\EffectsSwitchPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsSwitchChangeColorPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

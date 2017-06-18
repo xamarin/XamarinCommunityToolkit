@@ -14,5 +14,10 @@ namespace FormsCommunityToolkit.Samples.Views
         {
             await Navigation.PushAsync(new EffectsEntryPage());
         }
+
+        private async void OnSwitchButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new EffectsSwitchPage());
+        }
     }
 }
