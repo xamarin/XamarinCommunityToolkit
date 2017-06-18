@@ -13,7 +13,7 @@ namespace FormsCommunityToolkit.Animations
         }
 
         public static readonly BindableProperty DirectionProperty = 
-            BindableProperty.Create("Direction", typeof(FlipDirection), typeof(FlipAnimation), FlipDirection.Right, 
+            BindableProperty.Create(nameof(Direction), typeof(FlipDirection), typeof(FlipAnimation), FlipDirection.Right, 
                 BindingMode.TwoWay, null);
 
         public FlipDirection Direction
