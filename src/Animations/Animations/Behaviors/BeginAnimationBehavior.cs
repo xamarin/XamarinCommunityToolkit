@@ -12,7 +12,7 @@ namespace FormsCommunityToolkit.Animations
             base.OnAttachedTo(bindable);
             associatedObject = bindable;
 
-            if (Animation != null)
+            if (Animation == null)
             {
                 return;
             }
