@@ -14,15 +14,17 @@ namespace FormsCommunityToolkit.Animations
 
             if (Animation != null)
             {
-                if (Animation.Target == null)
-                {
-                    Animation.Target = associatedObject;
-                }
-
-                var delay = Task.Delay(250);
-                await Task.WhenAll(delay);
-                await Animation.Begin();
+                return;
             }
+
+            if (Animation.Target == null)
+            {
+                Animation.Target = associatedObject;
+            }
+
+            var delay = Task.Delay(250);
+            await Task.WhenAll(delay);
+            await Animation.Begin();
         }
 
         protected override void OnDetachingFrom(VisualElement bindable)
@@ -39,6 +41,6 @@ namespace FormsCommunityToolkit.Animations
         {
             get { return (AnimationBase)GetValue(AnimationProperty); }
             set { SetValue(AnimationProperty, value); }
-        }  
+        }
     }
 }
