@@ -11,7 +11,7 @@
     <AssemblyName>FormsCommunityToolkit.Samples.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.15063.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
@@ -152,6 +152,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Animations\Animations.UWP\Animations.UWP.csproj">
+      <Project>{59804206-d678-42b8-999e-9eebed9b8064}</Project>
+      <Name>Animations.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Animations\Animations\Animations.csproj">
+      <Project>{572b958e-cc33-47c1-95fa-1b3a0506f2ed}</Project>
+      <Name>Animations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Effects\Effects.UWP\Effects.UWP.csproj">
       <Project>{98f91808-0410-4362-9b3a-bd5110beecde}</Project>
       <Name>Effects.UWP</Name>
