@@ -8,7 +8,6 @@ namespace FormsCommunityToolkit.Samples.Views
         public AnimationsPage()
         {
             InitializeComponent();
-            var test = new BeginAnimationBehavior();
 
             AnimationExtensionButton.Clicked += async (sender, args) =>
             {

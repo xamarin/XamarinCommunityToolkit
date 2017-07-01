@@ -8,8 +8,10 @@ namespace FormsCommunityToolkit.Animations
 
         protected override async void Invoke(VisualElement sender)
         {
-            if (Animation != null)
-                await Animation.Begin();
+            if (Animation == null)
+                return;
+
+            await Animation.Begin();
         }
     }
 }
