@@ -2,10 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FormsCommunityToolkit.Samples.Views.MainPage"
-             Title="Main page">
+             Title="FormsCommunityToolkit">
 
     <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -13,8 +14,12 @@
         <Label Text="Xamarin Forms Community Toolkit"
                Grid.Row="0" />
 
+        <Button Text="Animations"
+                Clicked="OnAnimationsButtonClicked"
+                Grid.Row="1" />
+        
         <Button Text="Effects"
                 Clicked="OnEffectsButtonClicked"
-                Grid.Row="1" />
+                Grid.Row="2" />
     </Grid>
 </ContentPage>

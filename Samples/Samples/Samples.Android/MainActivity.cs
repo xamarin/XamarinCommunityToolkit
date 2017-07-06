@@ -1,11 +1,9 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using FormsCommunityToolkit.Animations;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace FormsCommunityToolkit.Samples.Droid
 {
@@ -19,7 +17,10 @@ namespace FormsCommunityToolkit.Samples.Droid
 
             base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            var assembliesToInclude =
+                typeof(AnimationBase).GetTypeInfo().Assembly;
+            
+            global::Xamarin.Forms.Forms.Init(this, bundle, assembliesToInclude);
             LoadApplication(new App());
         }
     }

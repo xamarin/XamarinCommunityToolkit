@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{98F91808-0410-4362-9B3A-BD5110BEECDE}</ProjectGuid>
+    <ProjectGuid>{59804206-D678-42B8-999E-9EEBED9B8064}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FormsCommunityToolkit.Animations.UWP</RootNamespace>
