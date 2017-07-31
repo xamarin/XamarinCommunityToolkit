@@ -8,6 +8,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Button Text="Capitalize keyboard effect"
@@ -19,5 +20,8 @@
         <Button Text="Disable auto correct effect"
                 Clicked="OnDisableAutoCorrectButtonClicked"
                 Grid.Row="2" />
+        <Button Text="Italic placeholder effect"
+                Clicked="OnItalicPlaceholderButtonClicked"
+                Grid.Row="3" />
     </Grid>
 </ContentPage>
