@@ -19,5 +19,10 @@ namespace FormsCommunityToolkit.Samples.Views
         {
             await Navigation.PushAsync(new EffectsEntryClearPage());
         }
+
+        private async void OnDisableAutoCorrectButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new EffectsEntryDisableAutoCorrectPage());
+        }
     }
 }

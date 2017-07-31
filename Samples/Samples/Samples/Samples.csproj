@@ -47,6 +47,9 @@
     <Compile Include="Views\EffectsEntryClearPage.xaml.cs">
       <DependentUpon>EffectsEntryClearPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EffectsEntryDisableAutoCorrectPage.xaml.cs">
+      <DependentUpon>EffectsEntryDisableAutoCorrectPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EffectsEntryPage.xaml.cs">
       <DependentUpon>EffectsEntryPage.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\AnimationsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryDisableAutoCorrectPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
