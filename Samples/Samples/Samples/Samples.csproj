@@ -56,6 +56,15 @@
     <Compile Include="Views\EffectsEntryPage.xaml.cs">
       <DependentUpon>EffectsEntryPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EffectsEntryRemoveBorderPage.xaml.cs">
+      <DependentUpon>EffectsEntryRemoveBorderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntryRemoveLinePage.xaml.cs">
+      <DependentUpon>EffectsEntryRemoveLinePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntrySelectAllTextPage.xaml.cs">
+      <DependentUpon>EffectsEntrySelectAllTextPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EffectsPage.xaml.cs">
       <DependentUpon>EffectsPage.xaml</DependentUpon>
     </Compile>
@@ -157,6 +166,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EffectsEntryItalicPlaceholderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryRemoveBorderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryRemoveLinePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntrySelectAllTextPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
