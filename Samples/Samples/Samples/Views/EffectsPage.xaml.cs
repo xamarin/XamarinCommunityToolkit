@@ -10,6 +10,11 @@ namespace FormsCommunityToolkit.Samples.Views
             InitializeComponent();
         }
 
+        private async void OnLabelButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new EffectsLabelPage());
+        }
+
         private async void OnEntryButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsEntryPage());

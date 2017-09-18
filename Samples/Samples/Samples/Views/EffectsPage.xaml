@@ -7,14 +7,19 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Button Text="Label effects"
+                Clicked="OnLabelButtonClicked"
+                Grid.Row="0" />
 
         <Button Text="Entry effects"
                 Clicked="OnEntryButtonClicked"
-                Grid.Row="0" />
+                Grid.Row="1" />
 
         <Button Text="Switch effects"
                 Clicked="OnSwitchButtonClicked"
-                Grid.Row="1" />
+                Grid.Row="2" />
     </Grid>
 </ContentPage>
