@@ -65,6 +65,12 @@
     <Compile Include="Views\EffectsEntrySelectAllTextPage.xaml.cs">
       <DependentUpon>EffectsEntrySelectAllTextPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EffectsLabelPage.xaml.cs">
+      <DependentUpon>EffectsLabelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsLabelSizeFontToFitPage.xaml.cs">
+      <DependentUpon>EffectsLabelSizeFontToFitPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EffectsPage.xaml.cs">
       <DependentUpon>EffectsPage.xaml</DependentUpon>
     </Compile>
@@ -184,6 +190,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EffectsEntrySelectAllTextPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsLabelSizeFontToFitPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsLabelPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

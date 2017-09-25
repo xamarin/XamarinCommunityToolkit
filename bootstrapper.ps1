@@ -14,6 +14,7 @@ $NUGET_EXE = Join-Path $TOOLS_DIR "nuget.exe"
 $NUGET3_EXE = Join-Path $TOOLS_DIR "nuget3.exe"
 $PACKAGES_CONFIG = Join-Path $TOOLS_DIR "packages.config"
 $CAKE_EXE = Join-Path $TOOLS_DIR "Cake/Cake.exe"
+$CAKE_PACKAGES_CONFIG = Join-Path $PSScriptRoot "cake.packages.config"
 
 # Should we use the new Roslyn?
 $UseExperimental = "";
@@ -62,11 +63,24 @@ if ($LASTEXITCODE -ne 0)
     exit $LASTEXITCODE
 }
 
+# Make sure that packages.config exist.
+if (!(Test-Path $PACKAGES_CONFIG)) {
+    if (!(Test-Path $CAKE_PACKAGES_CONFIG)) {
+        Write-Verbose -Message "Downloading packages.config..."
+        try { Invoke-WebRequest -Uri http://cakebuild.net/bootstrapper/packages -OutFile $PACKAGES_CONFIG } catch {
+            Throw "Could not download packages.config."
+        }
+    } else {
+        Write-Verbose -Message "using local cake.packages.config..."
+        Copy-Item $CAKE_PACKAGES_CONFIG $PACKAGES_CONFIG
+    }
+}
+
 # Make sure that Cake has been installed.
 if (!(Test-Path $CAKE_EXE)) {
     Throw "Could not find Cake.exe"
 }
 
 # Start Cake
-Invoke-Expression "$CAKE_EXE `"$Script`" -target=`"$Target`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" $UseDryRun $UseExperimental"
+Invoke-Expression "$CAKE_EXE `"$Script`" -target=`"$Target`" --settings_skipverification=true -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" $UseDryRun $UseExperimental"
 exit $LASTEXITCODE

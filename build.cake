@@ -1,4 +1,4 @@
-#addin "Cake.FileHelpers"
+#addin "Cake.FileHelpers&version=1.0.4"
 
 var TARGET = Argument ("target", Argument ("t", "Default"));
 var version = EnvironmentVariable ("APPVEYOR_BUILD_VERSION") ?? Argument("version", "0.0.9999");

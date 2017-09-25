@@ -2,9 +2,9 @@
 
 namespace FormsCommunityToolkit.Samples.Views
 {
-    public partial class EffectsEntryRemoveLinePage : ContentPage
+    public partial class EffectsLabelSizeFontToFitPage : ContentPage
     {
-        public EffectsEntryRemoveLinePage()
+        public EffectsLabelSizeFontToFitPage()
         {
             InitializeComponent();
         }
