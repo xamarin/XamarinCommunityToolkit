@@ -80,6 +80,12 @@
     <Compile Include="Views\EffectsSwitchPage.xaml.cs">
       <DependentUpon>EffectsSwitchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EffectsViewBlurImagePage.xaml.cs">
+      <DependentUpon>EffectsViewBlurImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsViewPage.xaml.cs">
+      <DependentUpon>EffectsViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -202,6 +208,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EffectsLabelPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsViewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsViewBlurImagePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
