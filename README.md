@@ -5,11 +5,12 @@ The Forms Community Toolkit is a collection of Behaviors, Converters, and Effect
 
 ## Build status
 
+
 | Target | Branch | Status | Current Nuget packages version |
 | ------ | ------ | ------ | ------ |
-| Behaviors | master | [![Build status](https://ci.appveyor.com/api/projects/status/7biielmyt0u7assc/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/behaviors/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Behaviors/) |
-| Converters | master | [![Build status](https://ci.appveyor.com/api/projects/status/a2a4mah2fk8xicm7/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/converters/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Converters.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Converters/) |
-| Effects | master | [![Build status](https://ci.appveyor.com/api/projects/status/0k37svpmjx8l6ctg/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/effects/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Effects/) |
+| Behaviors | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Behaviors/) |
+| Converters | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Converters.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Converters/) |
+| Effects | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Effects/) |
 
 Development NuGet feed: https://ci.appveyor.com/nuget/xamarinformscommunitytoolkit
 
