@@ -76,5 +76,10 @@
         /// Id for <see cref="LabelSizeFontToFit"/>
         /// </summary>
         public static string LabelSizeFontToFit => typeof(LabelSizeFontToFit).FullName;
+
+        /// <summary>
+        /// Id for <see cref="HideEditorUnderbarEffect"/>
+        /// </summary>
+        public static string HideEditorUnderbar => typeof(HideEditorUnderbar).FullName;
     }
 }

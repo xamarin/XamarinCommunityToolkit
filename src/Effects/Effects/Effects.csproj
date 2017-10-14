@@ -36,6 +36,7 @@
     <DocumentationFile>bin\Release\FormsCommunityToolkit.Effects.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Editor\HideEditorUnderbar.cs" />
     <Compile Include="View\ViewBlur.cs" />
     <Compile Include="Switch\SwitchChangeColor.cs" />
     <Compile Include="Entry\EntryClear.cs" />
