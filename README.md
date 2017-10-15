@@ -15,7 +15,7 @@ The Forms Community Toolkit is a collection of Behaviors, Converters, and Effect
 Development NuGet feed: https://ci.appveyor.com/nuget/xamarinformscommunitytoolkit
 
 ## Contributing
-Do you want to contribute? Here are our [contribution guidelines](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/dev/Contributing.md).
+Do you want to contribute? Here are our [contribution guidelines](Contributing.md).
 
 ## Getting started
 
@@ -23,10 +23,12 @@ Coming Soon.
 
 ## Forms Community Toolkit Sample App
 
-Want to see the toolkit in action before jumping into the code?  Download and play with the [Forms Toolkit Sample App]().
+Want to see the toolkit in action before jumping into the code?  Download and play with the [Forms Toolkit Sample App](/Samples).
 
 
-## Features
+## Features and documentation
+
+Documentation for our features can be found on http://formscommunitytoolkit.readthedocs.io/en/latest/. This is generated from the Markdown files under [/docs](/docs).
 
 ### Behaviors
 
