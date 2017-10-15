@@ -26,7 +26,9 @@ Coming Soon.
 Want to see the toolkit in action before jumping into the code?  Download and play with the [Forms Toolkit Sample App](/Samples).
 
 
-## Features
+## Features and documentation
+
+Documentation for our features can be found on http://formscommunitytoolkit.readthedocs.io/en/latest/. This is generated from the Markdown files under [/docs](/docs).
 
 ### Behaviors
 
