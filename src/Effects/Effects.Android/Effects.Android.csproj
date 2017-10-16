@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects.cs" />
+    <Compile Include="Effects\Editor\HideEditorUnderbarEffect.cs" />
     <Compile Include="Effects\Switch\SwitchChangeColor.cs" />
     <Compile Include="Effects\Entry\EntryClear.cs" />
     <Compile Include="Effects\Label\LabelMultiLine.cs" />
