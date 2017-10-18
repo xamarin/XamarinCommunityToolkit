@@ -17,24 +17,16 @@ namespace FormsCommunityToolkit.Converters
         /// <summary>
         /// Convert the value using a sequence of converters, from first to last.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="targetType"></param>
-        /// <param name="parameter"></param>
-        /// <param name="culture"></param>
-        /// <returns>Result of executing a sequence of converters.</returns>
+        /// <param name="value">The source data being passed to the target.</param>
+        /// <param name="targetType">The type of the target property. Used for all converters.</param>
+        /// <param name="parameter">An optional parameter to be used in the converter logic all converters.</param>
+        /// <param name="culture">The language of the conversion. Used for all converters.</param>
+        /// <returns>The value to be passed to the target dependency property. Result of executing a sequence of converters.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return this.Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));
         }
 
-        /// <summary>
-        /// Converts the back.
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="targetType"></param>
-        /// <param name="parameter"></param>
-        /// <param name="culture"></param>
-        /// <returns></returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null;
     }
 }
