@@ -1,33 +1,13 @@
-﻿using System;
-using System.Globalization;
-using FormsCommunityToolkit.Converters;
+﻿using System.Globalization;
 using NUnit.Framework;
-using Xamarin.Forms;
+using FormsCommunityToolkit.Converters;
+using Converters.Tests.Mocks;
 
 namespace Converters.Tests
 {
     [TestFixture]
     public class ValueConverterGroupTests
     {
-        class MockConverter : IValueConverter
-        {
-            public const string TagFormat = "c{0}<-";
-
-            public int Id { get;}
-
-            public MockConverter(int id)
-            {
-                Id = id;
-            }
-
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                return string.Format(TagFormat, Id) + value;
-            }
-
-            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null;
-        }
-
         ValueConverterGroup converter;
 
         [SetUp]
