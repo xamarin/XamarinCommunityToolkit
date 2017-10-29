@@ -41,6 +41,9 @@
     <Compile Include="Views\AnimationsPage.xaml.cs">
       <DependentUpon>AnimationsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ControlsPage.xaml.cs">
+      <DependentUpon>ControlsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EffectsEntryCapitalizeKeyboardPage.xaml.cs">
       <DependentUpon>EffectsEntryCapitalizeKeyboardPage.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,10 @@
     <ProjectReference Include="..\..\..\src\Animations\Animations\Animations.csproj">
       <Project>{572b958e-cc33-47c1-95fa-1b3a0506f2ed}</Project>
       <Name>Animations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Controls\Controls\Controls.csproj">
+      <Project>{f63546cb-8e7f-49a3-a50f-1e6fdb80ebc4}</Project>
+      <Name>Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\Effects\Effects\Effects.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
@@ -220,6 +227,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\EffectsViewBlurImagePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\ControlsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

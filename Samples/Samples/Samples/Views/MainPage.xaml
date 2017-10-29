@@ -9,6 +9,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <Label Text="Xamarin Forms Community Toolkit"
@@ -21,5 +22,9 @@
         <Button Text="Effects"
                 Clicked="OnEffectsButtonClicked"
                 Grid.Row="2" />
+
+        <Button Text="Controls"
+                Clicked="OnControlsButtonClicked"
+                Grid.Row="3" />
     </Grid>
 </ContentPage>

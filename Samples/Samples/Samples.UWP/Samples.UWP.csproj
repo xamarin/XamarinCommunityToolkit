@@ -161,6 +161,14 @@
       <Project>{572b958e-cc33-47c1-95fa-1b3a0506f2ed}</Project>
       <Name>Animations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Controls\Controls.UWP\Controls.UWP.csproj">
+      <Project>{2809ca01-da69-4a2e-b31c-5a25eeb979d3}</Project>
+      <Name>Controls.UWP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Controls\Controls\Controls.csproj">
+      <Project>{f63546cb-8e7f-49a3-a50f-1e6fdb80ebc4}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Effects\Effects.UWP\Effects.UWP.csproj">
       <Project>{98f91808-0410-4362-9b3a-bd5110beecde}</Project>
       <Name>Effects.UWP</Name>
