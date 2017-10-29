@@ -37,6 +37,7 @@
     <DocumentationFile>bin\Release\FormsCommunityToolkit.Controls.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CheckBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
