@@ -1,72 +1,83 @@
 ﻿using System.ComponentModel;
 using Windows.UI.Xaml;
-using Xamarin.Forms.Platform.UWP;
 using FormsCommunityToolkit.Controls;
 using FormsCommunityToolkit.Controls.UWP;
+using Xamarin.Forms.Platform.UWP;
 
 [assembly: ExportRenderer(typeof(CheckBox), typeof(CheckBoxRenderer))]
 
 namespace FormsCommunityToolkit.Controls.UWP
 {
-	using NativeCheckBox = Windows.UI.Xaml.Controls.CheckBox;
+    public class CheckBoxRenderer : ViewRenderer<CheckBox, Windows.UI.Xaml.Controls.CheckBox>
+    {
+        private const double NativeCheckBoxMinWidth = 28;
 
-	public class CheckBoxRenderer : ViewRenderer<CheckBox, NativeCheckBox>
-	{
-		protected override void OnElementChanged(ElementChangedEventArgs<CheckBox> e)
-		{
-			base.OnElementChanged(e);
+        private bool _disposed;
 
-			if (e.OldElement != null)
-			{
-				e.OldElement.PropertyChanged -= ElementOnPropertyChanged;
-			}
+        protected override void OnElementChanged(ElementChangedEventArgs<CheckBox> e)
+        {
+            base.OnElementChanged(e);
 
-			if (Control == null)
-			{
-				var checkBox = new NativeCheckBox();
-			    checkBox.Content = string.Empty;
-			    checkBox.MinWidth = 20;
-				checkBox.Checked += checkBox_Checked;
-				checkBox.Unchecked += checkBox_Unchecked;
+            if (_disposed) return;
 
-				SetNativeControl(checkBox);
-			}
+            if (Control == null)
+            {
+                var checkBox = new Windows.UI.Xaml.Controls.CheckBox();
+                checkBox.MinWidth = NativeCheckBoxMinWidth;
+                checkBox.Checked += CheckBox_Checked;
+                checkBox.Unchecked += CheckBox_Unchecked;
 
-			Control.IsChecked = e.NewElement.IsChecked;
+                SetNativeControl(checkBox);
+            }
 
-			Element.CheckedChanged += CheckedChanged;
-			Element.PropertyChanged += ElementOnPropertyChanged;
-		}
+            UpdateChecked();
+        }
 
-		private void CheckedChanged(object sender, bool e)
-		{
-			Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
-			{
-				Control.IsChecked = e;
-			});
-		}
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            Element.IsChecked = true;
+        }
 
-		private void checkBox_Checked(object sender, RoutedEventArgs e)
-		{
-			Element.IsChecked = true;
-		}
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Element.IsChecked = false;
+        }
 
-		private void checkBox_Unchecked(object sender, RoutedEventArgs e)
-		{
-			Element.IsChecked = false;
-		}
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == CheckBox.IsCheckedProperty.PropertyName)
+                UpdateChecked();
 
-		private void ElementOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			switch (e.PropertyName)
-			{
-				case "IsChecked":
-					Control.IsChecked = Element.IsChecked;
-					break;
-				default:
-					System.Diagnostics.Debug.WriteLine("Property change for {0} has not been implemented.", e.PropertyName);
-					break;
-			}
-		}
-	}
+            base.OnElementPropertyChanged(sender, e);
+        }
+
+        private void UpdateChecked()
+        {
+            if (Element != null && Control != null)
+            {
+                Control.IsChecked = Element.IsChecked;
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+
+            if (disposing)
+            {
+                if (Control != null)
+                {
+                    Control.Checked -= CheckBox_Checked;
+                    Control.Unchecked -= CheckBox_Unchecked;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
+    }
 }
