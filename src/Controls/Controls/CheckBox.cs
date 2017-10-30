@@ -10,7 +10,7 @@ namespace FormsCommunityToolkit.Controls
 				nameof(IsChecked), typeof(bool), typeof(bool), false,
 				BindingMode.TwoWay);
 
-		public EventHandler<bool> CheckedChanged;
+		public event EventHandler<bool> CheckedChanged;
 
 
 		public bool IsChecked
