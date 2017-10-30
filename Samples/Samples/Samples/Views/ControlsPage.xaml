@@ -7,8 +7,12 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout Orientation="Horizontal">
-                <controls:CheckBox IsChecked="True" IsEnabled="False" />
-                <Label VerticalOptions="CenterAndExpand">Simple CheckBox</Label>
+                <controls:CheckBox IsChecked="True" x:Name="CheckBoxElement" />
+                <Label
+                    BindingContext="{x:Reference CheckBoxElement}"
+                    IsEnabled="{Binding IsChecked}"
+                    VerticalOptions="CenterAndExpand"
+                    Text="Simple CheckBox" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
