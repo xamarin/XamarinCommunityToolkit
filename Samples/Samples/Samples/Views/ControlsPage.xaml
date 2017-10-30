@@ -10,7 +10,7 @@
                 <controls:CheckBox IsChecked="True" x:Name="CheckBoxElement" />
                 <Label
                     BindingContext="{x:Reference CheckBoxElement}"
-                    IsEnabled="{Binding IsChecked}"
+                    IsVisible="{Binding IsChecked}"
                     VerticalOptions="CenterAndExpand"
                     Text="Simple CheckBox" />
             </StackLayout>
