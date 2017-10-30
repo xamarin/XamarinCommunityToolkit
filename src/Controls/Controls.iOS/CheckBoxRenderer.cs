@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using CoreGraphics;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -11,49 +12,76 @@ using FormsCommunityToolkit.Controls.iOS.Views;
 
 namespace FormsCommunityToolkit.Controls.iOS
 {
-	public class CheckBoxRenderer : ViewRenderer<CheckBox, CheckBoxView>
-	{
-		protected override void OnElementChanged(ElementChangedEventArgs<CheckBox> e)
-		{
-			base.OnElementChanged(e);
+    public class CheckBoxRenderer : ViewRenderer<CheckBox, CheckBoxView>
+    {
+        protected const double NativeCheckBoxWidth = 20d;
 
-			try
-			{
-				BackgroundColor = Element.BackgroundColor.ToUIColor();
+        private bool _disposed;
 
-				if (Control == null)
-				{
-					var checkBox = new CheckBoxView(Bounds);
-					checkBox.TouchUpInside += (s, args) => Element.IsChecked = Control.IsChecked;
+        protected override void OnElementChanged(ElementChangedEventArgs<CheckBox> e)
+        {
+            base.OnElementChanged(e);
 
-					SetNativeControl(checkBox);
-				}
+            if (Control == null)
+            {
+                // Instantiate the native control and assign it to the Control property
+                var width = Element.WidthRequest > 0
+                    ? Element.WidthRequest
+                    : NativeCheckBoxWidth;
 
-				Control.IsChecked = e.NewElement.IsChecked;
-			}
-			catch (Exception exception)
-			{
-				Console.WriteLine(exception);
-				throw;
-			}
-		}
+                // Use default tint color
+                var themeColor = new UIView().TintColor;
 
-		
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
+                var checkBox = new CheckBoxView(new CGRect(0, 0, width, width))
+                {
+                    CheckColor = themeColor,
+                    CheckboxBackgroundColor = themeColor
+                };
 
-			switch (e.PropertyName)
-			{
-				case "IsChecked":
-					Control.IsChecked = Element.IsChecked;
-					break;
-				case "Element":
-					break;
-				default:
-					System.Diagnostics.Debug.WriteLine("Property change for {0} has not been implemented.", e.PropertyName);
-					return;
-			}
-		}
-	}
+                checkBox.ValueChanged += CheckBox_ValueChanged;
+
+                SetNativeControl(checkBox);
+            }
+
+            UpdateChecked();
+        }
+
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == CheckBox.IsCheckedProperty.PropertyName)
+                UpdateChecked();
+
+            base.OnElementPropertyChanged(sender, e);
+        }
+
+        private void UpdateChecked()
+        {
+            Control.Checked = Element.IsChecked;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+
+            if (disposing)
+            {
+                if (Control != null)
+                {
+                    Control.ValueChanged -= CheckBox_ValueChanged;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void CheckBox_ValueChanged(object sender, EventArgs e)
+        {
+            Element.IsChecked = Control.Checked;
+        }
+    }
 }
