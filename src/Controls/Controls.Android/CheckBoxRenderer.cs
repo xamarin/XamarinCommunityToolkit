@@ -1,64 +1,70 @@
 using System.ComponentModel;
+using Android.Widget;
+using FormsCommunityToolkit.Controls.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using FormsCommunityToolkit.Controls;
-using FormsCommunityToolkit.Controls.Droid;
+using CheckBox = FormsCommunityToolkit.Controls.CheckBox;
+using NativeCheckBox = Android.Widget.CheckBox;
 
 [assembly: ExportRenderer(typeof(CheckBox), typeof(CheckBoxRenderer))]
 
 namespace FormsCommunityToolkit.Controls.Droid
 {
-	using NativeCheckBox = Android.Widget.CheckBox;
+    public class CheckBoxRenderer : ViewRenderer<CheckBox, NativeCheckBox>
+    {
+        private bool _disposed;
 
-	public class CheckBoxRenderer : ViewRenderer<CheckBox, NativeCheckBox>
-	{
-		protected override void OnElementChanged(ElementChangedEventArgs<CheckBox> e)
-		{
-			base.OnElementChanged(e);
+        protected override void OnElementChanged(ElementChangedEventArgs<CheckBox> e)
+        {
+            base.OnElementChanged(e);
 
-			if (e.OldElement != null)
-			{
-				e.OldElement.PropertyChanged -= ElementOnPropertyChanged;
-			}
+            if (Control == null)
+            {
+                var checkBox = new NativeCheckBox(Context);
+                checkBox.CheckedChange += CheckBox_CheckedChange;
 
-			if (Control == null)
-			{
-				var checkBox = new NativeCheckBox(Context);
-				checkBox.CheckedChange += CheckBox_CheckedChange;
+                SetNativeControl(checkBox);
+            }
 
-				SetNativeControl(checkBox);
-			}
+            UpdateChecked();
+        }
 
-			Control.Checked = e.NewElement.IsChecked;
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == CheckBox.IsCheckedProperty.PropertyName)
+                UpdateChecked();
 
-			Element.CheckedChanged += CheckedChanged;
-			Element.PropertyChanged += ElementOnPropertyChanged;
-		}
+            base.OnElementPropertyChanged(sender, e);
+        }
 
-		private void CheckBox_CheckedChange(object sender, Android.Widget.CompoundButton.CheckedChangeEventArgs e)
-		{
-			Element.IsChecked = e.IsChecked;
-		}
+        private void UpdateChecked()
+        {
+            Control.Checked = Element.IsChecked;
+        }
 
-		private void ElementOnPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			switch (e.PropertyName)
-			{
-				case "IsChecked":
-					Control.Checked = Element.IsChecked;
-					break;
-				default:
-					System.Diagnostics.Debug.WriteLine("Property change for {0} has not been implemented.", e.PropertyName);
-					break;
-			}
-		}
+        protected override void Dispose(bool disposing)
+        {
+            if (_disposed)
+            {
+                return;
+            }
 
-		private void CheckedChanged(object sender, bool e)
-		{
-			Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
-			{
-				Control.Checked = e;
-			});
-		}
-	}
+            _disposed = true;
+
+            if (disposing)
+            {
+                if (Control != null)
+                {
+                    Control.CheckedChange -= CheckBox_CheckedChange;
+                }
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void CheckBox_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            Element.IsChecked = e.IsChecked;
+        }
+    }
 }
