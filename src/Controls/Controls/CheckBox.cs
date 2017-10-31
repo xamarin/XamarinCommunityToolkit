@@ -12,7 +12,6 @@ namespace FormsCommunityToolkit.Controls
 
 		public event EventHandler<bool> CheckedChanged;
 
-
 		public bool IsChecked
 		{
 			get => (bool)GetValue(IsCheckedProperty);
