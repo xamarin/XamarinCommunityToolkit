@@ -56,8 +56,10 @@
     <Compile Include="HexToColorTests.cs" />
     <Compile Include="InvertedBooleanTests.cs" />
     <Compile Include="LowerTextTests.cs" />
+    <Compile Include="Mocks\MockConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpperTextTests.cs" />
+    <Compile Include="ValueConverterGroupTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Converters\Converters.csproj">
