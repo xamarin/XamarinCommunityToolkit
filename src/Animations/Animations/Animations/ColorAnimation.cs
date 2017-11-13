@@ -1,7 +1,7 @@
-﻿using FormsCommunityToolkit.Animations.Extensions;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using FormsCommunityToolkit.Animations.Extensions;
 
 namespace FormsCommunityToolkit.Animations
 {

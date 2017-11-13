@@ -12,12 +12,12 @@
        <requireLicenseAcceptance>false</requireLicenseAcceptance>
        <description>
          Xamarin.Forms Community Toolkit Animations Library
-         Built against: 2.3.2.127
+         Built against: 2.3.4.247
        </description>
        <summary>Xamarin.Forms Community Toolkit Animations Library</summary>
        <tags>community, toolkit, xamarin, pcl, android, xamarin.forms, ios, uwp, animations</tags>
        <dependencies>
-         <dependency id="Xamarin.Forms" version="2.3.2.127" />
+         <dependency id="Xamarin.Forms" version="2.3.4.247" />
        </dependencies>
      <releaseNotes>
      </releaseNotes>
