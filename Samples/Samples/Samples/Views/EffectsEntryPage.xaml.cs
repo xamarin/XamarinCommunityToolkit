@@ -19,5 +19,30 @@ namespace FormsCommunityToolkit.Samples.Views
         {
             await Navigation.PushAsync(new EffectsEntryClearPage());
         }
+
+        private async void OnDisableAutoCorrectButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new EffectsEntryDisableAutoCorrectPage());
+        }
+
+        private async void OnItalicPlaceholderButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new EffectsEntryItalicPlaceholderPage());
+        }
+
+        private async void OnRemoveBorderButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new EffectsEntryRemoveBorderPage());
+        }
+
+        private async void OnRemoveLineButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new EffectsEntryRemoveLinePage());
+        }
+
+        private async void OnSelectAllTextButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new EffectsEntrySelectAllTextPage());
+        }
     }
 }

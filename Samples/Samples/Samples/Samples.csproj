@@ -47,8 +47,29 @@
     <Compile Include="Views\EffectsEntryClearPage.xaml.cs">
       <DependentUpon>EffectsEntryClearPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EffectsEntryDisableAutoCorrectPage.xaml.cs">
+      <DependentUpon>EffectsEntryDisableAutoCorrectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntryItalicPlaceholderPage.xaml.cs">
+      <DependentUpon>EffectsEntryItalicPlaceholderPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EffectsEntryPage.xaml.cs">
       <DependentUpon>EffectsEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntryRemoveBorderPage.xaml.cs">
+      <DependentUpon>EffectsEntryRemoveBorderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntryRemoveLinePage.xaml.cs">
+      <DependentUpon>EffectsEntryRemoveLinePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsEntrySelectAllTextPage.xaml.cs">
+      <DependentUpon>EffectsEntrySelectAllTextPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsLabelPage.xaml.cs">
+      <DependentUpon>EffectsLabelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsLabelSizeFontToFitPage.xaml.cs">
+      <DependentUpon>EffectsLabelSizeFontToFitPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EffectsPage.xaml.cs">
       <DependentUpon>EffectsPage.xaml</DependentUpon>
@@ -58,6 +79,12 @@
     </Compile>
     <Compile Include="Views\EffectsSwitchPage.xaml.cs">
       <DependentUpon>EffectsSwitchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsViewBlurImagePage.xaml.cs">
+      <DependentUpon>EffectsViewBlurImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EffectsViewPage.xaml.cs">
+      <DependentUpon>EffectsViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -139,6 +166,60 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\AnimationsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryDisableAutoCorrectPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryItalicPlaceholderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryRemoveBorderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntryRemoveLinePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsEntrySelectAllTextPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsLabelSizeFontToFitPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsLabelPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsViewPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\EffectsViewBlurImagePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

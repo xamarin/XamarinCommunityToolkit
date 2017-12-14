@@ -1,6 +1,6 @@
-# CapitalizeKeyboardEffect
+# EntryCapitalizeKeyboard effect
 
-The **CapitalizeKeyboardEffect** enforces caps on the keyboard for an Entry control.
+The **EntryCapitalizeKeyboard** effect enforces caps on the keyboard for an Entry control.
 
 ## Syntax
 
@@ -10,7 +10,7 @@ You can either use the capitalize effect from your XAML code:
 
     <Entry Placeholder="start typing..." VerticalOptions="Start">
       <Entry.Effects>
-        <effects:CapitalizeKeyboardEffect />
+        <effects:EntryCapitalizeKeyboard />
       </Entry.Effects>
     </Entry>
 
@@ -20,7 +20,7 @@ or directly from code:
 
 ```csharp
 
-    MyEntry.Effects.Add(Effect.Resolve("FormsCommunityToolkit.Effects.CapitalizeKeyboardEffect"));
+    MyEntry.Effects.Add(Effect.Resolve("FormsCommunityToolkit.Effects.EntryCapitalizeKeyboard"));
 
 ```
 
@@ -38,6 +38,6 @@ Android
 
 ## API source code
 
-* [Android source code](https://github.com/FormsCommunityToolkit/Effects/blob/master/src/Effects.Android/Effects/CapitalizeKeyboardEffect.cs)
-* [iOS source code](https://github.com/FormsCommunityToolkit/Effects/blob/master/src/Effects.iOS/Effects/CapitalizeKeyboardEffect.cs)
-* [UWP source code](https://github.com/FormsCommunityToolkit/Effects/blob/master/src/Effects.UWP/Effects/CapitalizeKeyboardEffect.cs)
+* [Android source code](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/dev/src/Effects/Effects.Android/Effects/Entry/EntryCapitalizeKeyboard.cs)
+* [iOS source code](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/dev/src/Effects/Effects.iOS/Effects/Entry/EntryCapitalizeKeyboard.cs)
+* [UWP source code](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/dev/src/Effects/Effects.UWP/Effects/Entry/EntryCapitalizeKeyboard.cs)

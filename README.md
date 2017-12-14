@@ -1,23 +1,21 @@
 Forms Community Toolkit
 ===========
 
-The Forms Community Toolkit is a collection of helper functions, custom controls, and app services. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.
+The Forms Community Toolkit is a collection of Behaviors, Converters, and Effects for Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.
 
 ## Build status
 
-| Target | Branch | Status | Recommended Nuget packages version |
+
+| Target | Branch | Status | Current Nuget packages version |
 | ------ | ------ | ------ | ------ |
-| Behaviors | master | [![Build status](https://ci.appveyor.com/api/projects/status/7biielmyt0u7assc/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/behaviors/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Behaviors/) |
-| Behaviors | dev | [![Build status](https://ci.appveyor.com/api/projects/status/7biielmyt0u7assc/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/behaviors/branch/dev) | |
-| Controls | master | [![Build status](https://ci.appveyor.com/api/projects/status/4vfyejrlgi6a6p3n/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/controls/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Controls.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Controls/) |
-| Controls | dev | [![Build status](https://ci.appveyor.com/api/projects/status/4vfyejrlgi6a6p3n/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/controls/branch/dev) | |
-| Converters | master | [![Build status](https://ci.appveyor.com/api/projects/status/a2a4mah2fk8xicm7/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/converters/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Converters.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Converters/) |
-| Converters | dev | [![Build status](https://ci.appveyor.com/api/projects/status/a2a4mah2fk8xicm7/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/converters/branch/master) | |
-| Effects | master | [![Build status](https://ci.appveyor.com/api/projects/status/0k37svpmjx8l6ctg/branch/master?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/effects/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Effects/) |
-| Effects | dev | [![Build status](https://ci.appveyor.com/api/projects/status/0k37svpmjx8l6ctg/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/effects/branch/dev) | |
+| Behaviors | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Behaviors/) |
+| Converters | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Converters.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Converters/) |
+| Effects | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Effects/) |
+
+Development NuGet feed: https://ci.appveyor.com/nuget/xamarinformscommunitytoolkit
 
 ## Contributing
-Do you want to contribute? Here are our [contribution guidelines](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/dev/Contributing.md).
+Do you want to contribute? Here are our [contribution guidelines](Contributing.md).
 
 ## Getting started
 
@@ -25,34 +23,19 @@ Coming Soon.
 
 ## Forms Community Toolkit Sample App
 
-Want to see the toolkit in action before jumping into the code?  Download and play with the [Forms Toolkit Sample App]().
+Want to see the toolkit in action before jumping into the code?  Download and play with the [Forms Toolkit Sample App](/Samples).
 
-## Nuget Packages
 
-NuGet is a standard package manager for .NET applications that is built into Visual Studio. From your open solution choose the *Tools* menu, *NuGet Package Manager*, *Manage NuGet packages for solution...* to open the UI.  Enter one of the package names below to search for it online.
+## Features and documentation
 
-Once you search you should see a list similar to the one below (versions may be different, but names should be the same).
-
-| NuGet Package Name | description |
-| --- | --- |
-| FormsCommunityToolkit.Behaviors |  |
-| FormsCommunityToolkit.Controls | |
-| FormsCommunityToolkit.Converters |  |
-| FormsCommunityToolkit.Effects | |
-
-## Features
-
-### Animations
+Documentation for our features can be found on http://formscommunitytoolkit.readthedocs.io/en/latest/. This is generated from the Markdown files under [/docs](/docs).
 
 ### Behaviors
-
-### Controls
 
 ### Converters
 
 ### Effects
 
-### Gestures
 
 ## Feedback and Requests
 
@@ -68,3 +51,5 @@ This project has adopted the code of conduct defined by the [Contributor Covenan
 to clarify expected behavior in our community.
 For more information see the [.NET Foundation Code of Conduct](http://www.dotnetfoundation.org/code-of-conduct). 
 
+## License
+MIT License
