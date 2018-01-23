@@ -1,7 +1,7 @@
-Forms Community Toolkit
+Xamarin Community Toolkit
 ===========
 
-The Forms Community Toolkit is a collection of helper functions, custom controls, and app services. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.
+The Xamarin Community Toolkit (formerly Forms Community Toolkit) is a collection of helper functions, custom controls, and app services. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms).
 
 ## Build status
 
@@ -21,15 +21,15 @@ The Forms Community Toolkit is a collection of helper functions, custom controls
 | Gestures | dev | [![Build status](https://ci.appveyor.com/api/projects/status/yjymobl63rs8qfau/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/gestures/branch/dev) | |
 
 ## Contributing
-Do you want to contribute? Here are our [contribution guidelines](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/master/contributing.md).
+Do you want to contribute? Here are our [contribution guidelines](https://github.com/xamarin/XamarinCommunityToolkit/blob/master/contributing.md).
 
 ## Getting started
 
 Coming Soon.
 
-## Forms Community Toolkit Sample App
+## Xamarin Community Toolkit Sample App
 
-Want to see the toolkit in action before jumping into the code?  Download and play with the [Forms Toolkit Sample App]().
+Want to see the toolkit in action before jumping into the code?  Download and play with the [Sample App]().
 
 ## Nuget Packages
 
@@ -62,7 +62,7 @@ Once you search you should see a list similar to the one below (versions may be 
 
 ## Feedback and Requests
 
-Please use [GitHub issues](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/issues) for questions, comments, feature requests, or if would like to vote on what others are recommending.
+Please use [GitHub issues](https://github.com/xamarin/XamarinCommunityToolkit/issues) for questions, comments, feature requests, or if would like to vote on what others are recommending.
 
 ## Principles
 
