@@ -1,7 +1,7 @@
-Forms Community Toolkit
+Xamarin Community Toolkit
 ===========
 
-The Forms Community Toolkit is a collection of Behaviors, Converters, and Effects for Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.
+The Xamarin Community Toolkit (formerly Forms Community Toolkit) is a collection of Behaviors, Converters, and Effects for mobile development with [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms). It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.
 
 ## Build status
 
@@ -21,9 +21,9 @@ Do you want to contribute? Here are our [contribution guidelines](Contributing.m
 
 Coming Soon.
 
-## Forms Community Toolkit Sample App
+## Xamarin Community Toolkit Sample App
 
-Want to see the toolkit in action before jumping into the code?  Download and play with the [Forms Toolkit Sample App](/Samples).
+Want to see the toolkit in action before jumping into the code?  Download and play with the [Sample App](/Samples).
 
 
 ## Features and documentation
@@ -39,7 +39,7 @@ Documentation for our features can be found on http://formscommunitytoolkit.read
 
 ## Feedback and Requests
 
-Please use [GitHub issues](https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/issues) for questions, comments, feature requests, or if would like to vote on what others are recommending.
+Please use [GitHub issues](https://github.com/xamarin/XamarinCommunityToolkit/issues) for questions, comments, feature requests, or if would like to vote on what others are recommending.
 
 ## Principles
 
