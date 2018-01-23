@@ -29,7 +29,7 @@ Coming Soon.
 
 ## Xamarin Community Toolkit Sample App
 
-Want to see the toolkit in action before jumping into the code?  Download and play with the [Sample App]().
+Want to see the toolkit in action before jumping into the code?  Download and play with the [Sample App](/Samples).
 
 ## Nuget Packages
 
