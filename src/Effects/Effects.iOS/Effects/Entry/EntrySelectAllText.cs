@@ -4,11 +4,11 @@ using Xamarin.Forms.Platform.iOS;
 using UIKit;
 using Foundation;
 using ObjCRuntime;
-using RoutingEffects = FormsCommunityToolkit.Effects;
-using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
+using RoutingEffects = XamarinCommunityToolkit.Effects;
+using PlatformEffects = XamarinCommunityToolkit.Effects.iOS;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntrySelectAllText), nameof(RoutingEffects.EntrySelectAllText))]
-namespace FormsCommunityToolkit.Effects.iOS
+namespace XamarinCommunityToolkit.Effects.iOS
 {
     [Preserve(AllMembers = true)]
     public class EntrySelectAllText : PlatformEffect

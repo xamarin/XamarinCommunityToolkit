@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using NUnit.Framework;
-using FormsCommunityToolkit.Converters;
+using XamarinCommunityToolkit.Converters;
 using Converters.Tests.Mocks;
 
 namespace Converters.Tests

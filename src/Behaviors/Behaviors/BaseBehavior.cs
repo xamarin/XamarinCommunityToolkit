@@ -2,7 +2,7 @@
 using System.Linq;
 using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Behaviors
+namespace XamarinCommunityToolkit.Behaviors
 {
     public class BaseBehavior<T> : Behavior<T> where T : BindableObject
     {

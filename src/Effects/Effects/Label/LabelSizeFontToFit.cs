@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Effects
+namespace XamarinCommunityToolkit.Effects
 {
     public class LabelSizeFontToFit : RoutingEffect
     {

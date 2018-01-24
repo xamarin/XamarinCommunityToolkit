@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Effects
+namespace XamarinCommunityToolkit.Effects
 {
     public static class SearchBarSuggestion
     {

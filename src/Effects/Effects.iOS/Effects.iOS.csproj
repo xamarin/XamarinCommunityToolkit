@@ -9,9 +9,9 @@
     <ProjectGuid>{F09F8CAF-701A-4673-A880-1580ACCB926B}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>FormsCommunityToolkit.Effects.iOS</RootNamespace>
+    <RootNamespace>XamarinCommunityToolkit.Effects.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>FormsCommunityToolkit.Effects.iOS</AssemblyName>
+    <AssemblyName>XamarinCommunityToolkit.Effects.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -32,7 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <DocumentationFile>bin\Release\FormsCommunityToolkit.Effects.iOS.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\XamarinCommunityToolkit.Effects.iOS.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

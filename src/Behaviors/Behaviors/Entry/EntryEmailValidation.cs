@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Behaviors
+namespace XamarinCommunityToolkit.Behaviors
 {
     /// <summary>
     /// Email validator behavior.

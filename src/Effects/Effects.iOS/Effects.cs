@@ -4,7 +4,7 @@ using Xamarin.Forms.Platform.iOS;
 using System;
 using Foundation;
 
-namespace FormsCommunityToolkit.Effects.iOS
+namespace XamarinCommunityToolkit.Effects.iOS
 {
     [Preserve(AllMembers = true)]
     public static class Effects

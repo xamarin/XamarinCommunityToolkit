@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Effects
+namespace XamarinCommunityToolkit.Effects
 {
     /// <summary>
     /// When attached to a Xamarin.Forms.Entry control, disables auto-suggestion, auto-capitilisation and auto-correction for entered text.

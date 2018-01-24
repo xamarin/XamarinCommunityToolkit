@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Behaviors
+namespace XamarinCommunityToolkit.Behaviors
 {
     public class AddEffect : Behavior<View>
     {

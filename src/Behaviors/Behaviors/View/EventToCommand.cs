@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Behaviors
+namespace XamarinCommunityToolkit.Behaviors
 {
     public class EventToCommand : BaseBehavior<View>
     {
