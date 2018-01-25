@@ -31,7 +31,7 @@ namespace XamarinCommunityToolkit.Effects.Droid
             if (editText == null)
                 return;
 
-            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, Resource.Drawable.fct_ic_clear_icon, 0);
+            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, XamarinCommunityToolkit.Effects.Droid.Resource.Drawable.fct_ic_clear_icon, 0);
             editText.SetOnTouchListener(new OnDrawableTouchListener());
         }
     }

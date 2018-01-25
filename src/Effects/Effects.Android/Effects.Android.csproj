@@ -12,7 +12,7 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FormsCommunityToolkit.Effects.Droid</RootNamespace>
+    <RootNamespace>XamarinCommunityToolkit.Effects.Droid</RootNamespace>
     <AssemblyName>XamarinCommunityToolkit.Effects.Android</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -110,8 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\fct_ic_clear_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-mdpi\fct_ic_clear_icon.png" />
   </ItemGroup>
   <ItemGroup>
