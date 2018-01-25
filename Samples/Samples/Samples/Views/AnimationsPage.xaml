@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FormsCommunityToolkit.Samples.Views.AnimationsPage"
-             xmlns:animation="clr-namespace:FormsCommunityToolkit.Animations;assembly=FormsCommunityToolkit.Animations" 
+             x:Class="XamarinCommunityToolkit.Samples.Views.AnimationsPage"
+             xmlns:animation="clr-namespace:XamarinCommunityToolkit.Animations;assembly=XamarinCommunityToolkit.Animations" 
              Title="Animations">
     <TabbedPage.Resources>
         <ResourceDictionary>

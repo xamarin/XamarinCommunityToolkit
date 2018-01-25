@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("FormsCommunityToolkit.Effects.Droid.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("XamarinCommunityToolkit.Effects.Droid.Resource", IsApplication=false)]
 
-namespace FormsCommunityToolkit.Effects.Droid
+namespace XamarinCommunityToolkit.Effects.Droid
 {
 	
 	

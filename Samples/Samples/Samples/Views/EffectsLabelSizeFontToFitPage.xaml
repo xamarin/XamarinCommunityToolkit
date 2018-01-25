@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FormsCommunityToolkit.Samples.Views.EffectsLabelSizeFontToFitPage"
-             xmlns:effects="clr-namespace:FormsCommunityToolkit.Effects;assembly=FormsCommunityToolkit.Effects"
+             x:Class="XamarinCommunityToolkit.Samples.Views.EffectsLabelSizeFontToFitPage"
+             xmlns:effects="clr-namespace:XamarinCommunityToolkit.Effects;assembly=XamarinCommunityToolkit.Effects"
              Title="Size font to fit label">
     <Grid Margin="10,20,10,0">
         <Grid.RowDefinitions>

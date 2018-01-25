@@ -1,13 +1,13 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using FormsCommunityToolkit.Animations;
+using XamarinCommunityToolkit.Animations;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace FormsCommunityToolkit.Samples.Droid
+namespace XamarinCommunityToolkit.Samples.Droid
 {
-    [Activity(Label = "FormsCommunityToolkit.Samples", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "XamarinCommunityToolkit.Samples", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

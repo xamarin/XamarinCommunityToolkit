@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("FormsCommunityToolkit.Samples.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("XamarinCommunityToolkit.Samples.Droid.Resource", IsApplication=true)]
 
-namespace FormsCommunityToolkit.Samples.Droid
+namespace XamarinCommunityToolkit.Samples.Droid
 {
 	
 	
@@ -26,7 +26,7 @@ namespace FormsCommunityToolkit.Samples.Droid
 		
 		public static void UpdateIdValues()
 		{
-			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::FormsCommunityToolkit.Samples.Droid.Resource.Attribute.actionBarSize;
+			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::XamarinCommunityToolkit.Samples.Droid.Resource.Attribute.actionBarSize;
 		}
 		
 		public partial class Animation
