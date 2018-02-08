@@ -23,9 +23,7 @@
      </releaseNotes>
    </metadata>
    <files>
-      <!--Core-->
-     <file src="src\Behaviors\Behaviors\bin\Release\XamarinCommunityToolkit.Behaviors.dll" target="lib\netstandard2.0" />
-     <file src="src\Behaviors\Behaviors\bin\Release\XamarinCommunityToolkit.Behaviors.*xml" target="lib\netstandard2.0" />
-     <file src="src\Behaviors\Behaviors\bin\Release\XamarinCommunityToolkit.Behaviors.*pdb" target="lib\netstandard2.0" />
+     <!--Core-->
+     <file src="..\src\Animations\Behaviors\bin\Release\netstandard2.0\XamarinCommunityToolkit.Behaviors.*" target="lib\netstandard2.0" />
    </files>
 </package>

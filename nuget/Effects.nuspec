@@ -23,35 +23,20 @@
      </releaseNotes>
    </metadata>
    <files>
-      <!--Core-->
-     <file src="src\Effects\Effects/bin\Release\XamarinCommunityToolkit.Effects.dll" target="lib\netstandard2.0" /> 
-     <file src="src\Effects\Effects/bin\Release\XamarinCommunityToolkit.Effects.*pdb" target="lib\netstandard2.0" /> 
-     <file src="src\Effects\Effects/bin\Release\XamarinCommunityToolkit.Effects.*xml" target="lib\netstandard2.0" /> 
+     <!--Core-->
+     <file src="..\src\Effects\Effects\bin\Release\netstandard2.0\XamarinCommunityToolkit.Effects.*" target="lib\netstandard2.0" />
 
      <!--Xamarin.Android-->
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.dll" target="lib\MonoAndroid10" />
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.*pdb" target="lib\MonoAndroid10" />
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.*xml" target="lib\MonoAndroid10" />
-     <file src="src\Effects\Effects.Android\bin\Release\XamarinCommunityToolkit.Effects.Android.dll" target="lib\MonoAndroid10" />
-     <file src="src\Effects\Effects.Android\bin\Release\XamarinCommunityToolkit.Effects.Android.*pdb" target="lib\MonoAndroid10" />
-     <file src="src\Effects\Effects.Android\bin\Release\XamarinCommunityToolkit.Effects.Android.*xml" target="lib\MonoAndroid10" />
-
+     <file src="..\src\Effects\Effects\bin\Release\netstandard2.0\XamarinCommunityToolkit.Effects.*" target="lib\MonoAndroid10" />
+     <file src="..\src\Effects\Effects.Android\bin\Release\XamarinCommunityToolkit.Effects.Android.*" target="lib\MonoAndroid10" />
+    
      <!--Xamarin.iOSUnified-->
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.dll" target="lib\Xamarin.iOS10" />
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.pdb" target="lib\Xamarin.iOS10" />
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.xml" target="lib\Xamarin.iOS10" />
-     <file src="src\Effects\Effects.iOS\bin\Release\XamarinCommunityToolkit.Effects.iOS.dll" target="lib\Xamarin.iOS10" />
-     <file src="src\Effects\Effects.iOS\bin\Release\XamarinCommunityToolkit.Effects.iOS.*pdb" target="lib\Xamarin.iOS10" />
-     <file src="src\Effects\Effects.iOS\bin\Release\XamarinCommunityToolkit.Effects.iOS.*xml" target="lib\Xamarin.iOS10" />
-   
-     <!--UWP-->
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.dll" target="lib\uap10.0" />
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.*pdb" target="lib\uap10.0" />
-     <file src="src\Effects\Effects\bin\Release\XamarinCommunityToolkit.Effects.*xml" target="lib\uap10.0" />
-     <file src="src\Effects\Effects.UWP\bin\Release\XamarinCommunityToolkit.Effects.UWP.dll" target="lib\uap10.0" />
-     <file src="src\Effects\Effects.UWP\bin\Release\XamarinCommunityToolkit.Effects.UWP.*pdb" target="lib\uap10.0" />
-     <file src="src\Effects\Effects.UWP\bin\Release\XamarinCommunityToolkit.Effects.UWP.*xml" target="lib\uap10.0" />
-
-     <file src=".\src\**\*.cs" target="src" />
+     <file src="..\src\Effects\Effects\bin\Release\netstandard2.0\XamarinCommunityToolkit.Effects.*" target="lib\Xamarin.iOS10" />
+     <file src="..\src\Effects\Effects.iOS\bin\Release\XamarinCommunityToolkit.Effects.iOS.*" target="lib\Xamarin.iOS10" />
+    
+	 <!--UWP-->
+     <file src="..\src\Effects\Effects\bin\Release\netstandard2.0\XamarinCommunityToolkit.Effects.*" target="lib\uap10.0" />
+     <file src="..\src\Effects\Effects.UWP\bin\Release\XamarinCommunityToolkit.Effects.UWP.*" target="lib\uap10.0" />
+     <file src="..\src\**\*.cs" target="src" />
    </files>
 </package>

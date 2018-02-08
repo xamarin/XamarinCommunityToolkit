@@ -23,9 +23,7 @@
      </releaseNotes>
    </metadata>
    <files>
-      <!--Core-->
-     <file src="src\Converters\Converters\bin\Release\XamarinCommunityToolkit.Converters.dll" target="lib\netstandard2.0" /> 
-     <file src="src\Converters\Converters\bin\Release\XamarinCommunityToolkit.Converters.*xml" target="lib\netstandard2.0" />
-     <file src="src\Converters\Converters\bin\Release\XamarinCommunityToolkit.Converters.*pdb" target="lib\netstandard2.0" />
+     <!--Core-->
+	 <file src="..\src\Converters\Converters\bin\Release\netstandard2.0\XamarinCommunityToolkit.Converters.*" target="lib\netstandard2.0" />
    </files>
 </package>

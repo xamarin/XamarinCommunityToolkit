@@ -23,34 +23,19 @@
      </releaseNotes>
    </metadata>
    <files>
-      <!--Core-->
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.dll" target="lib\netstandard2.0" />
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.*xml" target="lib\netstandard2.0" />
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.*pdb" target="lib\netstandard2.0" />
+     <!--Core-->
+     <file src="..\src\Controls\Controls\bin\Release\netstandard2.0\XamarinCommunityToolkit.Controls.*" target="lib\netstandard2.0" />
 
-       <!--Xamarin.Android-->
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.dll" target="lib\MonoAndroid10" />
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.*pdb" target="lib\MonoAndroid10" />
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.*xml" target="lib\MonoAndroid10" />
-     <file src="src\Controls\Controls.Android\bin\Release\XamarinCommunityToolkit.Controls.Android.dll" target="lib\MonoAndroid10" />
-     <file src="src\Controls\Controls.Android\bin\Release\XamarinCommunityToolkit.Controls.Android.*pdb" target="lib\MonoAndroid10" />
-     <file src="src\Controls\Controls.Android\bin\Release\XamarinCommunityToolkit.Controls.Android.*xml" target="lib\MonoAndroid10" />
-
-     <!--Xamarin.iOSUnified-->
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.dll" target="lib\Xamarin.iOS10" />
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.*pdb" target="lib\Xamarin.iOS10" />
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.*xml" target="lib\Xamarin.iOS10" />
-     <file src="src\Controls\Controls.iOS\bin\Release\XamarinCommunityToolkit.Controls.iOS.dll" target="lib\Xamarin.iOS10" />	 
-     <file src="src\Controls\Controls.iOS\bin\Release\XamarinCommunityToolkit.Controls.iOS.*pdb" target="lib\Xamarin.iOS10" />
-     <file src="src\Controls\Controls.iOS\bin\Release\XamarinCommunityToolkit.Controls.iOS.*xml" target="lib\Xamarin.iOS10" />
+     <!--Xamarin.Android-->
+     <file src="..\src\Controls\Controls\bin\Release\netstandard2.0\XamarinCommunityToolkit.Controls.*" target="lib\MonoAndroid10" />
+     <file src="..\src\Controls\Controls.Android\bin\Release\XamarinCommunityToolkit.Controls.Android.*" target="lib\MonoAndroid10" />
     
-	<!--UWP-->
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.dll" target="lib\uap10.0" />
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.*pdb" target="lib\uap10.0" />
-     <file src="src\Controls\Controls\bin\Release\XamarinCommunityToolkit.Controls.*xml" target="lib\uap10.0" />
-     <file src="src\Controls\Controls.UWP\bin\Release\XamarinCommunityToolkit.Controls.UWP.dll" target="lib\uap10.0" />
-     <file src="src\Controls\Controls.UWP\bin\Release\XamarinCommunityToolkit.Controls.UWP.*pdb" target="lib\uap10.0" />
-     <file src="src\Controls\Controls.UWP\bin\Release\XamarinCommunityToolkit.Controls.UWP.*xml" target="lib\uap10.0" />
-     
-   </files>
+     <!--Xamarin.iOSUnified-->
+     <file src="..\src\Controls\Controls\bin\Release\netstandard2.0\XamarinCommunityToolkit.Controls.*" target="lib\Xamarin.iOS10" />
+     <file src="..\src\Controls\Controls.iOS\bin\Release\XamarinCommunityToolkit.Controls.iOS.*" target="lib\Xamarin.iOS10" />
+    
+	 <!--UWP-->
+     <file src="..\src\Controls\Controls\bin\Release\netstandard2.0\XamarinCommunityToolkit.Controls.*" target="lib\uap10.0" />
+     <file src="..\src\Controls\Controls.UWP\bin\Release\XamarinCommunityToolkit.Controls.UWP.*" target="lib\uap10.0" /> 
+  </files>
 </package>

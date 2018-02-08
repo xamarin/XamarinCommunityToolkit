@@ -23,34 +23,19 @@
      </releaseNotes>
    </metadata>
    <files>
-      <!--Core-->
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.dll" target="lib\netstandard2.0" />
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.*xml" target="lib\netstandard2.0" />
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.*pdb" target="lib\netstandard2.0" />
+     <!--Core-->
+     <file src="..\src\Animations\Animations\bin\Release\netstandard2.0\XamarinCommunityToolkit.Animations.*" target="lib\netstandard2.0" />
 
      <!--Xamarin.Android-->
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.dll" target="lib\MonoAndroid10" />
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.*pdb" target="lib\MonoAndroid10" />
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.*xml" target="lib\MonoAndroid10" />
-     <file src="src\Animations\Animations.Android\bin\Release\XamarinCommunityToolkit.Animations.Android.dll" target="lib\MonoAndroid10" />
-     <file src="src\Animations\Animations.Android\bin\Release\XamarinCommunityToolkit.Animations.Android.*pdb" target="lib\MonoAndroid10" />
-     <file src="src\Animations\Animations.Android\bin\Release\XamarinCommunityToolkit.Animations.Android.*xml" target="lib\MonoAndroid10" />
-
-     <!--Xamarin.iOSUnified-->
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.dll" target="lib\Xamarin.iOS10" />
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.*pdb" target="lib\Xamarin.iOS10" />
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.*xml" target="lib\Xamarin.iOS10it.Animations.xml"/>
-     <file src="src\Animations\Animations.iOS\bin\Release\XamarinCommunityToolkit.Animations.iOS.dll" target="lib\Xamarin.iOS10" />
-     <file src="src\Animations\Animations.iOS\bin\Release\XamarinCommunityToolkit.Animations.iOS.*pdb" target="lib\Xamarin.iOS10" />
-     <file src="src\Animations\Animations.iOS\bin\Release\XamarinCommunityToolkit.Animations.iOS.*xml" target="lib\Xamarin.iOS10" />
+     <file src="..\src\Animations\Animations\bin\Release\netstandard2.0\XamarinCommunityToolkit.Animations.*" target="lib\MonoAndroid10" />
+     <file src="..\src\Animations\Animations.Android\bin\Release\XamarinCommunityToolkit.Animations.Android.*" target="lib\MonoAndroid10" />
     
-	<!--UWP-->
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.dll" target="lib\uap10.0" />
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.*pdb" target="lib\uap10.0" />
-     <file src="src\Animations\Animations\bin\Release\XamarinCommunityToolkit.Animations.*xml" target="lib\uap10.0" />
-     <file src="src\Animations\Animations.UWP\bin\Release\XamarinCommunityToolkit.Animations.UWP.dll" target="lib\uap10.0" />
-     <file src="src\Animations\Animations.UWP\bin\Release\XamarinCommunityToolkit.Animations.UWP.*pdb" target="lib\uap10.0" />
-     <file src="src\Animations\Animations.UWP\bin\Release\XamarinCommunityToolkit.Animations.UWP.*xml" target="lib\uap10.0" />
-     
+     <!--Xamarin.iOSUnified-->
+     <file src="..\src\Animations\Animations\bin\Release\netstandard2.0\XamarinCommunityToolkit.Animations.*" target="lib\Xamarin.iOS10" />
+     <file src="..\src\Animations\Animations.iOS\bin\Release\XamarinCommunityToolkit.Animations.iOS.*" target="lib\Xamarin.iOS10" />
+    
+     <!--UWP-->
+     <file src="..\src\Animations\Animations\bin\Release\netstandard2.0\XamarinCommunityToolkit.Animations.*" target="lib\uap10.0" />
+     <file src="..\src\Animations\Animations.UWP\bin\Release\XamarinCommunityToolkit.Animations.UWP.*" target="lib\uap10.0" />  
    </files>
 </package>
