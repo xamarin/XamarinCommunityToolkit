@@ -2,12 +2,12 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Android.Runtime;
-using RoutingEffects = FormsCommunityToolkit.Effects;
-using PlatformEffects = FormsCommunityToolkit.Effects.Droid;
+using RoutingEffects = XamarinCommunityToolkit.Effects;
+using PlatformEffects = XamarinCommunityToolkit.Effects.Droid;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntrySelectAllText), nameof(RoutingEffects.EntrySelectAllText))]
 
-namespace FormsCommunityToolkit.Effects.Droid
+namespace XamarinCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
     public class EntrySelectAllText : PlatformEffect

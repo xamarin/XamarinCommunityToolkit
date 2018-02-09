@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Effects
+namespace XamarinCommunityToolkit.Effects
 {
     public static class ViewBlur
     {

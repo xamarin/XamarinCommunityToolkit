@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Converters
+namespace XamarinCommunityToolkit.Converters
 {
     /// <summary>
     /// Conversion values using the sequential conversion of each of the converters from the first to the last.

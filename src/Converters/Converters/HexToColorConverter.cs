@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using System.Globalization;
 
-namespace FormsCommunityToolkit.Converters
+namespace XamarinCommunityToolkit.Converters
 {
     /// <summary>
     /// Hex to color converter.

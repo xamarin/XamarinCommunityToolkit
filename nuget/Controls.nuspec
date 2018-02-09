@@ -1,56 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata minClientVersion="2.8.1">
-       <id>FormsCommunityToolkit.Controls</id>
+       <id>XamarinCommunityToolkit.Controls</id>
        <version>$version$</version>
-       <title>Xamarin.Forms Community Toolkit: Controls</title>
-       <authors>FormsCommunityToolkit</authors>
-       <owners>FormsCommunityToolkit</owners>
-       <projectUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit</projectUrl>
-       <licenseUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/master/LICENSE</licenseUrl>
-       <iconUrl>https://github.com/FormsCommunityToolkit/FormsCommunityToolkit/blob/master/Media/OrganonLogo.64x64.png</iconUrl>
+       <title>Xamarin Community Toolkit: Controls</title>
+       <authors>XamarinCommunityToolkit</authors>
+       <owners>XamarinCommunityToolkit</owners>
+       <projectUrl>https://github.com/xamarin/XamarinCommunityToolkit</projectUrl>
+       <licenseUrl>https://github.com/xamarin/XamarinCommunityToolkit/blob/master/LICENSE</licenseUrl>
+       <iconUrl>https://github.com/xamarin/XamarinCommunityToolkit/blob/master/Media/OrganonLogo.64x64.png</iconUrl>
        <requireLicenseAcceptance>false</requireLicenseAcceptance>
        <description>
-         Xamarin.Forms Community Toolkit Controls Library
-         Built against: 2.3.2.127
+         Xamarin Community Toolkit Controls Library
+         Built against: 2.5.0.122203
        </description>
-       <summary>Xamarin.Forms Community Toolkit Controls Library</summary>
+       <summary>Xamarin Community Toolkit Controls Library</summary>
        <tags>community, toolkit, xamarin, pcl, android, xamarin.forms, ios, uwp, onverters</tags>
        <dependencies>
-         <dependency id="Xamarin.Forms" version="2.3.2.127" />
+         <dependency id="Xamarin.Forms" version="2.5.0.122203" />
        </dependencies>
      <releaseNotes>
      </releaseNotes>
    </metadata>
    <files>
-      <!--Core-->
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.dll" target="lib/portable-net45+wp80+win8+wpa81/FormsCommunityToolkit.Controls.dll" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.xml" target="lib/portable-net45+wp80+win8+wpa81/FormsCommunityToolkit.Controls.xml" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.pdb" target="lib/portable-net45+wp80+win8+wpa81/FormsCommunityToolkit.Controls.pdb" />
+     <!--Core-->
+     <file src="..\src\Controls\Controls\bin\Release\netstandard2.0\XamarinCommunityToolkit.Controls.*" target="lib\netstandard2.0" />
 
-
-       <!--Xamarin.Android-->
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.dll" target="lib/MonoAndroid403/FormsCommunityToolkit.Controls.dll" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.pdb" target="lib/MonoAndroid403/FormsCommunityToolkit.Controls.pdb" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.xml" target="lib/MonoAndroid403/FormsCommunityToolkit.Controls.xml" />
-     <file src="src/Controls/Controls.Android/bin/Release/FormsCommunityToolkit.Controls.Android.dll" target="lib/MonoAndroid403/FormsCommunityToolkit.Controls.Android.dll" />
-     <file src="src/Controls/Controls.Android/bin/Release/FormsCommunityToolkit.Controls.Android.pdb" target="lib/MonoAndroid403/FormsCommunityToolkit.Controls.Android.pdb" />
-     <file src="src/Controls/Controls.Android/bin/Release/FormsCommunityToolkit.Controls.Android.xml" target="lib/MonoAndroid403/FormsCommunityToolkit.Controls.Android.xml" />
-
+     <!--Xamarin.Android-->
+     <file src="..\src\Controls\Controls\bin\Release\netstandard2.0\XamarinCommunityToolkit.Controls.*" target="lib\MonoAndroid10" />
+     <file src="..\src\Controls\Controls.Android\bin\Release\XamarinCommunityToolkit.Controls.Android.*" target="lib\MonoAndroid10" />
+    
      <!--Xamarin.iOSUnified-->
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.dll" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.dll" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.pdb" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.pdb" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.xml" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.xml" />
-     <file src="src/Controls/Controls.iOS/bin/Release/FormsCommunityToolkit.Controls.iOS.dll" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.iOS.dll" />
-     <file src="src/Controls/Controls.iOS/bin/Release/FormsCommunityToolkit.Controls.iOS.pdb" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.iOS.pdb" />
-     <file src="src/Controls/Controls.iOS/bin/Release/FormsCommunityToolkit.Controls.iOS.xml" target="lib/Xamarin.iOS10/FormsCommunityToolkit.Controls.iOS.xml" />
-     <!--UWP-->
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.dll" target="lib/uap10.0/FormsCommunityToolkit.Controls.dll" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.pdb" target="lib/uap10.0/FormsCommunityToolkit.Controls.pdb" />
-     <file src="src/Controls/Controls/bin/Release/FormsCommunityToolkit.Controls.xml" target="lib/uap10.0/FormsCommunityToolkit.Controls.xml" />
-     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.dll" target="lib/uap10.0/FormsCommunityToolkit.Controls.UWP.dll" />
-     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.pdb" target="lib/uap10.0/FormsCommunityToolkit.Controls.UWP.pdb" />
-     <file src="src/Controls/Controls.UWP/bin/Release/FormsCommunityToolkit.Controls.UWP.xml" target="lib/uap10.0/FormsCommunityToolkit.Controls.UWP.xml" />
-     
-   </files>
+     <file src="..\src\Controls\Controls\bin\Release\netstandard2.0\XamarinCommunityToolkit.Controls.*" target="lib\Xamarin.iOS10" />
+     <file src="..\src\Controls\Controls.iOS\bin\Release\XamarinCommunityToolkit.Controls.iOS.*" target="lib\Xamarin.iOS10" />
+    
+	 <!--UWP-->
+     <file src="..\src\Controls\Controls\bin\Release\netstandard2.0\XamarinCommunityToolkit.Controls.*" target="lib\uap10.0" />
+     <file src="..\src\Controls\Controls.UWP\bin\Release\XamarinCommunityToolkit.Controls.UWP.*" target="lib\uap10.0" /> 
+  </files>
 </package>

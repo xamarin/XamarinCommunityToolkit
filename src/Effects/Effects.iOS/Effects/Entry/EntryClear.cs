@@ -2,11 +2,11 @@ using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = FormsCommunityToolkit.Effects;
-using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
+using RoutingEffects = XamarinCommunityToolkit.Effects;
+using PlatformEffects = XamarinCommunityToolkit.Effects.iOS;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryClear), nameof(RoutingEffects.EntryClear))]
-namespace FormsCommunityToolkit.Effects.iOS
+namespace XamarinCommunityToolkit.Effects.iOS
 {
     [Preserve(AllMembers = true)]
     public class EntryClear : PlatformEffect

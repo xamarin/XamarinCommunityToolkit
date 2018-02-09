@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using FormsCommunityToolkit.Animations.Extensions;
+using XamarinCommunityToolkit.Animations.Extensions;
 
-namespace FormsCommunityToolkit.Animations
+namespace XamarinCommunityToolkit.Animations
 {
     public class ColorAnimation : AnimationBase
     {
