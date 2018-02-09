@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F09F8CAF-701A-4673-A880-1580ACCB926B}</ProjectGuid>
+    <ProjectGuid>{C675717A-1947-4B51-A023-DE9B74E05612}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <RootNamespace>XamarinCommunityToolkit.Controls.iOS</RootNamespace>
@@ -56,9 +56,14 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheckBoxRenderer.cs" />
+    <Compile Include="Controls.cs" />
+    <Compile Include="Views\CheckBoxView.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Controls\Controls.csproj">
-      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>FormsCommunityToolkit.Controls</Name>
+      <Project>{f63546cb-8e7f-49a3-a50f-1e6fdb80ebc4}</Project>
+      <Name>Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

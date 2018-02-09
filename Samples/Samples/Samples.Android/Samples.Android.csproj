@@ -37,6 +37,9 @@
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -152,6 +155,14 @@
     <ProjectReference Include="..\..\..\src\Animations\Animations\Animations.csproj">
       <Project>{572b958e-cc33-47c1-95fa-1b3a0506f2ed}</Project>
       <Name>Animations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Controls\Controls.Android\Controls.Android.csproj">
+      <Project>{a62dcd64-5bd4-4e9a-adf7-734c57d2f8a0}</Project>
+      <Name>Controls.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Controls\Controls\Controls.csproj">
+      <Project>{f63546cb-8e7f-49a3-a50f-1e6fdb80ebc4}</Project>
+      <Name>Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\Effects\Effects.Android\Effects.Android.csproj">
       <Project>{88dc2010-be3a-4b86-a72f-3df68413858b}</Project>

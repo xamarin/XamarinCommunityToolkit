@@ -18,5 +18,10 @@ namespace XamarinCommunityToolkit.Samples.Views
         {
             await Navigation.PushAsync(new EffectsPage());
         }
+
+        private async void OnControlsButtonClicked(object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new ControlsPage());
+        }
     }
 }

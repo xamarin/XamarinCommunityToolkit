@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:XamarinCommunityToolkit.Controls;assembly=XamarinCommunityToolkit.Controls"
+             x:Class="XamarinCommunityToolkit.Samples.Views.ControlsPage"
+             Title="Controls">
+    <ContentPage.Content>
+        <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Orientation="Horizontal" Grid.Row="0">
+                <controls:CheckBox IsChecked="True" x:Name="CheckBoxElement" />
+                <Label
+                    BindingContext="{x:Reference CheckBoxElement}"
+                    IsVisible="{Binding IsChecked}"
+                    VerticalOptions="CenterAndExpand"
+                    Text="Simple CheckBox" />
+            </StackLayout>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

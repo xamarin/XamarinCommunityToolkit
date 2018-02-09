@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>XamarinCommunityToolkit.Samples</AssemblyName>
-    <RootNamespace>XamarinCommunityToolkit.Samples</RootNamespace>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <AssemblyName>XamarinCommunityToolkit.Samples</AssemblyName>
+        <RootNamespace>XamarinCommunityToolkit.Samples</RootNamespace>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Animations\Animations\Animations.csproj" />
-    <ProjectReference Include="..\..\..\src\Effects\Effects\Effects.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\src\Animations\Animations\Animations.csproj" />
+        <ProjectReference Include="..\..\..\src\Effects\Effects\Effects.csproj" />
+        <ProjectReference Include="..\..\..\src\Controls\Controls\Controls.csproj" />
+    </ItemGroup>
 
 </Project>

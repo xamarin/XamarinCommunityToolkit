@@ -145,6 +145,16 @@
       <Project>{572b958e-cc33-47c1-95fa-1b3a0506f2ed}</Project>
       <Name>Animations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Controls\Controls.iOS\Controls.iOS.csproj">
+      <Project>{c675717a-1947-4b51-a023-de9b74e05612}</Project>
+      <Name>Controls.iOS</Name>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\Controls\Controls\Controls.csproj">
+      <Project>{f63546cb-8e7f-49a3-a50f-1e6fdb80ebc4}</Project>
+      <Name>Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Effects\Effects.iOS\Effects.iOS.csproj">
       <Project>{f09f8caf-701a-4673-a880-1580accb926b}</Project>
       <Name>Effects.iOS</Name>

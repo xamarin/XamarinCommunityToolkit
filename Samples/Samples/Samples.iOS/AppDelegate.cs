@@ -20,6 +20,7 @@ namespace XamarinCommunityToolkit.Samples.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             XamarinCommunityToolkit.Effects.iOS.Effects.Init();
+            XamarinCommunityToolkit.Controls.iOS.Controls.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
