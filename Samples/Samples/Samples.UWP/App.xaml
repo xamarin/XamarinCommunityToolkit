@@ -1,8 +1,8 @@
 ﻿<Application
-    x:Class="FormsCommunityToolkit.Samples.UWP.App"
+    x:Class="XamarinCommunityToolkit.Samples.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FormsCommunityToolkit.Samples.UWP"
+    xmlns:local="using:XamarinCommunityToolkit.Samples.UWP"
     RequestedTheme="Light">
 
 </Application>

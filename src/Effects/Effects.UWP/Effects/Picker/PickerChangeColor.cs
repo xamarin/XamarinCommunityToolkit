@@ -3,11 +3,11 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
 using Windows.UI.Xaml.Media;
-using RoutingEffects = FormsCommunityToolkit.Effects;
-using PlatformEffects = FormsCommunityToolkit.Effects.UWP;
+using RoutingEffects = XamarinCommunityToolkit.Effects;
+using PlatformEffects = XamarinCommunityToolkit.Effects.UWP;
 
 [assembly: ExportEffect(typeof(PlatformEffects.PickerChangeColor), nameof(RoutingEffects.PickerChangeColorEffect))]
-namespace FormsCommunityToolkit.Effects.UWP
+namespace XamarinCommunityToolkit.Effects.UWP
 {
     [Preserve]
     public class PickerChangeColor : PlatformEffect

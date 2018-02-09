@@ -4,13 +4,13 @@ using CoreGraphics;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using FormsCommunityToolkit.Controls;
-using FormsCommunityToolkit.Controls.iOS;
-using FormsCommunityToolkit.Controls.iOS.Views;
+using XamarinCommunityToolkit.Controls;
+using XamarinCommunityToolkit.Controls.iOS;
+using XamarinCommunityToolkit.Controls.iOS.Views;
 
 [assembly: ExportRenderer(typeof(CheckBox), typeof(CheckBoxRenderer))]
 
-namespace FormsCommunityToolkit.Controls.iOS
+namespace XamarinCommunityToolkit.Controls.iOS
 {
     public class CheckBoxRenderer : ViewRenderer<CheckBox, CheckBoxView>
     {

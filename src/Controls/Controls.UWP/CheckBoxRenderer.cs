@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel;
 using Windows.UI.Xaml;
-using FormsCommunityToolkit.Controls;
-using FormsCommunityToolkit.Controls.UWP;
+using XamarinCommunityToolkit.Controls;
+using XamarinCommunityToolkit.Controls.UWP;
 using Xamarin.Forms.Platform.UWP;
 
 [assembly: ExportRenderer(typeof(CheckBox), typeof(CheckBoxRenderer))]
 
-namespace FormsCommunityToolkit.Controls.UWP
+namespace XamarinCommunityToolkit.Controls.UWP
 {
     public class CheckBoxRenderer : ViewRenderer<CheckBox, Windows.UI.Xaml.Controls.CheckBox>
     {

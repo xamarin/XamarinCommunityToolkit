@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Foundation;
 
-namespace FormsCommunityToolkit.Controls.iOS
+namespace XamarinCommunityToolkit.Controls.iOS
 {
     [Preserve(AllMembers = true)]
     public static class Controls

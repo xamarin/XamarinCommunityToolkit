@@ -3,11 +3,11 @@ using Android.Views;
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using RoutingEffects = FormsCommunityToolkit.Effects;
-using PlatformEffects = FormsCommunityToolkit.Effects.Droid;
+using RoutingEffects = XamarinCommunityToolkit.Effects;
+using PlatformEffects = XamarinCommunityToolkit.Effects.Droid;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryClear), nameof(RoutingEffects.EntryClear))]
-namespace FormsCommunityToolkit.Effects.Droid
+namespace XamarinCommunityToolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
     public class EntryClear : PlatformEffect
@@ -31,7 +31,7 @@ namespace FormsCommunityToolkit.Effects.Droid
             if (editText == null)
                 return;
 
-            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, Resource.Drawable.fct_ic_clear_icon, 0);
+            editText.SetCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, XamarinCommunityToolkit.Effects.Droid.Resource.Drawable.fct_ic_clear_icon, 0);
             editText.SetOnTouchListener(new OnDrawableTouchListener());
         }
     }

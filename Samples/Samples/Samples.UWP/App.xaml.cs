@@ -5,7 +5,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace FormsCommunityToolkit.Samples.UWP
+namespace XamarinCommunityToolkit.Samples.UWP
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

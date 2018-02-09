@@ -1,18 +1,23 @@
 using System.ComponentModel;
+using Android.Content;
 using Android.Widget;
-using FormsCommunityToolkit.Controls.Droid;
+using XamarinCommunityToolkit.Controls.Droid;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using CheckBox = FormsCommunityToolkit.Controls.CheckBox;
+using CheckBox = XamarinCommunityToolkit.Controls.CheckBox;
 using NativeCheckBox = Android.Widget.CheckBox;
 
 [assembly: ExportRenderer(typeof(CheckBox), typeof(CheckBoxRenderer))]
 
-namespace FormsCommunityToolkit.Controls.Droid
+namespace XamarinCommunityToolkit.Controls.Droid
 {
-    public class CheckBoxRenderer : ViewRenderer<CheckBox, NativeCheckBox>
+    class CheckBoxRenderer : ViewRenderer<CheckBox, NativeCheckBox>
     {
         private bool _disposed;
+
+        public CheckBoxRenderer(Context context) : base(context)
+        {
+        }
 
         protected override void OnElementChanged(ElementChangedEventArgs<CheckBox> e)
         {
@@ -20,13 +25,18 @@ namespace FormsCommunityToolkit.Controls.Droid
 
             if (Control == null)
             {
-                var checkBox = new NativeCheckBox(Context);
+                var checkBox = CreateNativeControl();
                 checkBox.CheckedChange += CheckBox_CheckedChange;
 
                 SetNativeControl(checkBox);
             }
 
             UpdateChecked();
+        }
+
+        protected override NativeCheckBox CreateNativeControl()
+        {
+            return new NativeCheckBox(Context);
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -2,11 +2,11 @@
 using Xamarin.Forms.Platform.iOS;
 using UIKit;
 using System.Linq;
-using RoutingEffects = FormsCommunityToolkit.Effects;
-using PlatformEffects = FormsCommunityToolkit.Effects.iOS;
+using RoutingEffects = XamarinCommunityToolkit.Effects;
+using PlatformEffects = XamarinCommunityToolkit.Effects.iOS;
 
 [assembly: ExportEffect (typeof (PlatformEffects.LabelCustomFont), nameof (RoutingEffects.LabelCustomFont))]
-namespace FormsCommunityToolkit.Effects.iOS
+namespace XamarinCommunityToolkit.Effects.iOS
 {
     public class LabelCustomFont : PlatformEffect
     {

@@ -1,4 +1,4 @@
-﻿namespace FormsCommunityToolkit.Samples.UWP
+﻿namespace XamarinCommunityToolkit.Samples.UWP
 {
     public sealed partial class MainPage
     {
@@ -6,7 +6,7 @@
         {
             this.InitializeComponent();
 
-            LoadApplication(new FormsCommunityToolkit.Samples.App());
+            LoadApplication(new XamarinCommunityToolkit.Samples.App());
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using FormsCommunityToolkit.Behaviors;
+using XamarinCommunityToolkit.Behaviors;
 using NUnit.Framework;
 using Xamarin.Forms;
 

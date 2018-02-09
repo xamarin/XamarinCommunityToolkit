@@ -2,7 +2,7 @@
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-namespace FormsCommunityToolkit.Samples
+namespace XamarinCommunityToolkit.Samples
 {
     public partial class App : Application
     {

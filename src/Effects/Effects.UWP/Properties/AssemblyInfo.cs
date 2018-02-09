@@ -6,11 +6,11 @@ using Xamarin.Forms;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FormsCommunityToolkit.Effects.UWP")]
+[assembly: AssemblyTitle("XamarinCommunityToolkit.Effects.UWP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FormsCommunityToolkit.Effects.UWP")]
+[assembly: AssemblyProduct("XamarinCommunityToolkit.Effects.UWP")]
 [assembly: AssemblyCopyright("Copyright © 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -29,4 +29,4 @@ using Xamarin.Forms;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: ComVisible(false)]
 
-[assembly: ResolutionGroupName("FormsCommunityToolkit.Effects")]
+[assembly: ResolutionGroupName("XamarinCommunityToolkit.Effects")]

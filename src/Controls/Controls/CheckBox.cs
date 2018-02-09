@@ -1,9 +1,9 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Controls
+namespace XamarinCommunityToolkit.Controls
 {
-	public class CheckBox : View
+    public class CheckBox : View
 	{
 		public static readonly BindableProperty IsCheckedProperty =
 			BindableProperty.Create(

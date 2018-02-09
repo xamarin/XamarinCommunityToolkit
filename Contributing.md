@@ -1,6 +1,6 @@
-# Contributing to Forms Community Toolkit
+# Contributing to Xamarin Community Toolkit
 
-The foundation of **Forms Community Toolkit** is simplicity and follow similar practices from the [UWP Community Toolkit](https://github.com/Microsoft/UWPCommunityToolkit).
+The foundation of **Xamarin Community Toolkit** is simplicity and follow similar practices from the [UWP Community Toolkit](https://github.com/Microsoft/UWPCommunityToolkit).
 
 A developer should be able to quickly and easily learn to use the API. 
 

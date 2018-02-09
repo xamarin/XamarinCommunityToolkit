@@ -3,11 +3,11 @@ using Android.Graphics;
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using RoutingEffects = FormsCommunityToolkit.Effects;
-using PlatformEffects = FormsCommunityToolkit.Effects.Droid;
+using RoutingEffects = XamarinCommunityToolkit.Effects;
+using PlatformEffects = XamarinCommunityToolkit.Effects.Droid;
 
 [assembly: ExportEffect(typeof(PlatformEffects.LabelCustomFont), nameof(RoutingEffects.LabelCustomFont))]
-namespace FormsCommunityToolkit.Effects.Droid
+namespace XamarinCommunityToolkit.Effects.Droid
 {
     public class LabelCustomFont : PlatformEffect
     {

@@ -6,11 +6,11 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
 using System.Linq;
 using Windows.UI.Xaml.Media.Animation;
-using RoutingEffects = FormsCommunityToolkit.Effects;
-using PlatformEffects = FormsCommunityToolkit.Effects.UWP;
+using RoutingEffects = XamarinCommunityToolkit.Effects;
+using PlatformEffects = XamarinCommunityToolkit.Effects.UWP;
 
 [assembly: ExportEffect(typeof(PlatformEffects.SwitchChangeColor), nameof(RoutingEffects.SwitchChangeColorEffect))]
-namespace FormsCommunityToolkit.Effects.UWP
+namespace XamarinCommunityToolkit.Effects.UWP
 {
     [Preserve]
     public class SwitchChangeColor : PlatformEffect

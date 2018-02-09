@@ -5,7 +5,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 
-namespace FormsCommunityToolkit.Controls.iOS.Views
+namespace XamarinCommunityToolkit.Controls.iOS.Views
 {
     /// <summary>
     /// Copyright (c) 2017 fferegrino (Antonio Feregrino)

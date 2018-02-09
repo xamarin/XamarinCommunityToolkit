@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace FormsCommunityToolkit.Samples.Views
+namespace XamarinCommunityToolkit.Samples.Views
 {
     public partial class EffectsLabelSizeFontToFitPage : ContentPage
     {
