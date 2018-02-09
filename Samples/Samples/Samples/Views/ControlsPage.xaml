@@ -5,8 +5,12 @@
              x:Class="XamarinCommunityToolkit.Samples.Views.ControlsPage"
              Title="Controls">
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal">
+        <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Orientation="Horizontal" Grid.Row="0">
                 <controls:CheckBox IsChecked="True" x:Name="CheckBoxElement" />
                 <Label
                     BindingContext="{x:Reference CheckBoxElement}"
@@ -14,6 +18,7 @@
                     VerticalOptions="CenterAndExpand"
                     Text="Simple CheckBox" />
             </StackLayout>
-        </StackLayout>
+            
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
