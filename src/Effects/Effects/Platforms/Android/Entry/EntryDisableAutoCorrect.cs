@@ -19,7 +19,7 @@ namespace Xamarin.Toolkit.Effects.Droid
                 return;
 
             _old = editText.InputType;
-            editText.InputType = editText.InputType | Android.Text.InputTypes.TextFlagNoSuggestions;
+            editText.InputType = editText.InputType | global::Android.Text.InputTypes.TextFlagNoSuggestions;
         }
 
         protected override void OnDetached()

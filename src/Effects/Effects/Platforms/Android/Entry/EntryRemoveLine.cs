@@ -16,7 +16,7 @@ namespace Xamarin.Toolkit.Effects.Droid
         protected override void OnAttached()
         {
             var shape = new ShapeDrawable(new RectShape());
-            shape.Paint.Color = Android.Graphics.Color.Transparent;
+            shape.Paint.Color = global::Android.Graphics.Color.Transparent;
             shape.Paint.StrokeWidth = 0;
             shape.Paint.SetStyle(Paint.Style.Stroke);
             Control.Background = shape;

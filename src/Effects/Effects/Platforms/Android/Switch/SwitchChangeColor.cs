@@ -23,7 +23,7 @@ namespace Xamarin.Toolkit.Effects.Droid
 
         protected override void OnAttached()
         {
-            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.JellyBean)
+            if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.JellyBean)
             {
                 _trueColor = (Color)Element.GetValue(RoutingEffects.SwitchChangeColor.TrueColorProperty);
                 _falseColor = (Color)Element.GetValue(RoutingEffects.SwitchChangeColor.FalseColorProperty);
@@ -51,7 +51,7 @@ namespace Xamarin.Toolkit.Effects.Droid
 
         protected override void OnDetached()
         {
-            if (Android.OS.Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.JellyBean && Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.LollipopMr1)
+            if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.JellyBean && global::Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.LollipopMr1)
             {
                 ((Switch)Control).CheckedChange -= OnCheckedChange;
             }

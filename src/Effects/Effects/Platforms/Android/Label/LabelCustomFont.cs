@@ -21,7 +21,7 @@ namespace Xamarin.Toolkit.Effects.Droid
             var effect = (RoutingEffects.LabelCustomFont)Element.Effects.FirstOrDefault(item => item is RoutingEffects.LabelCustomFont);
             if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))
             {
-                var font = Typeface.CreateFromAsset(Forms.Context.Assets, effect.FontPath);
+                var font = Typeface.CreateFromAsset(Xamarin.Forms.Forms.Context.Assets, effect.FontPath);
                 control.Typeface = font;
             }
         }

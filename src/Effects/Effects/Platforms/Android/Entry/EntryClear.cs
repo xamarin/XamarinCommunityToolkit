@@ -36,9 +36,9 @@ namespace Xamarin.Toolkit.Effects.Droid
         }
     }
 
-    class OnDrawableTouchListener : Java.Lang.Object, Android.Views.View.IOnTouchListener
+    class OnDrawableTouchListener : Java.Lang.Object, global::Android.Views.View.IOnTouchListener
     {
-        public bool OnTouch(Android.Views.View v, MotionEvent e)
+        public bool OnTouch(global::Android.Views.View v, MotionEvent e)
         {
             if (v is EditText && e.Action == MotionEventActions.Up)
             {

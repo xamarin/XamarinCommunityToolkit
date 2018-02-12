@@ -11,7 +11,7 @@ using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
 [assembly: ExportEffect(typeof(PlatformEffects.LabelSizeFontToFit), nameof(RoutingEffects.LabelSizeFontToFit))]
 namespace Xamarin.Toolkit.Effects.Droid
 {
-    class ShrinkTextOnLayoutChangeListener : Java.Lang.Object, Android.Views.View.IOnLayoutChangeListener
+    class ShrinkTextOnLayoutChangeListener : Java.Lang.Object, global::Android.Views.View.IOnLayoutChangeListener
     {
         const string TextMeasure = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         const float Threshold = 0.5f; // How close we have to be
@@ -23,7 +23,7 @@ namespace Xamarin.Toolkit.Effects.Droid
             _textView = textView;
         }
 
-        public void OnLayoutChange(Android.Views.View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+        public void OnLayoutChange(global::Android.Views.View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
         {
             if (_textView.Width <= 0 || _textView.Height <= 0) return;
             
