@@ -16,7 +16,8 @@ namespace Converters.Tests
             converter = new ValueConverterGroup();
         }
 
-        [TestMethod]
+        [DataTestMethod]
+        [DataRow("Test_Value")]
         public void ConvertList(object value)
         {
             var expectedResult = value.ToString();
