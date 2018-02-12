@@ -51,7 +51,7 @@ namespace Xamarin.Toolkit.Effects.Droid
 
         protected override void OnDetached()
         {
-            if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.JellyBean && global::Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.LollipopMr1)
+            if (global::Android.OS.Build.VERSION.SdkInt >= global::Android.OS.BuildVersionCodes.JellyBean && global::Android.OS.Build.VERSION.SdkInt < global::Android.OS.BuildVersionCodes.LollipopMr1)
             {
                 ((Switch)Control).CheckedChange -= OnCheckedChange;
             }
