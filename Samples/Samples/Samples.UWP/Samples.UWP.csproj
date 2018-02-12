@@ -7,8 +7,8 @@
     <ProjectGuid>{69C42532-A922-46CC-8248-2E13F3796B97}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XamarinCommunityToolkit.Samples.UWP</RootNamespace>
-    <AssemblyName>XamarinCommunityToolkit.Samples.UWP</AssemblyName>
+    <RootNamespace>Xamarin.Toolkit.Samples.UWP</RootNamespace>
+    <AssemblyName>Xamarin.Toolkit.Samples.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>

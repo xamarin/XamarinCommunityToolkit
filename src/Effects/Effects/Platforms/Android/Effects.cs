@@ -4,7 +4,7 @@ using Xamarin.Forms.Platform.Android;
 using System;
 using Android.Runtime;
 
-namespace XamarinCommunityToolkit.Effects.Droid
+namespace Xamarin.Toolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
     public static class Effects

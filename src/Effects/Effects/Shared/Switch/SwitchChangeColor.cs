@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Effects
+namespace Xamarin.Toolkit.Effects
 {
     public static class SwitchChangeColor
     {

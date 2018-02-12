@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace XamarinCommunityToolkit.Samples.iOS
+namespace Xamarin.Toolkit.Samples.iOS
 {
     public class Application
     {

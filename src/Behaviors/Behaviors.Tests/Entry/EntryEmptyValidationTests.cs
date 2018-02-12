@@ -1,4 +1,4 @@
-﻿using XamarinCommunityToolkit.Behaviors;
+﻿using Xamarin.Toolkit.Behaviors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

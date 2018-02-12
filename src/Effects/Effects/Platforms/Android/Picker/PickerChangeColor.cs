@@ -3,11 +3,11 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Color = Xamarin.Forms.Color;
 using Picker = Android.Widget.EditText;
-using RoutingEffects = XamarinCommunityToolkit.Effects;
-using PlatformEffects = XamarinCommunityToolkit.Effects.Droid;
+using RoutingEffects = Xamarin.Toolkit.Effects;
+using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
 
 [assembly: ExportEffect(typeof(PlatformEffects.PickerChangeColor), nameof(RoutingEffects.PickerChangeColorEffect))]
-namespace XamarinCommunityToolkit.Effects.Droid
+namespace Xamarin.Toolkit.Effects.Droid
 {
 
     [Preserve (AllMembers = true)]

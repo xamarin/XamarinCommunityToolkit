@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using System.Globalization;
 
-namespace XamarinCommunityToolkit.Converters
+namespace Xamarin.Toolkit.Converters
 {
     /// <summary>
     /// Inverted boolen converter.

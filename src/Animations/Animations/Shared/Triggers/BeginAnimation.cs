@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Animations
+namespace Xamarin.Toolkit.Animations
 {
     public class BeginAnimation : TriggerAction<VisualElement>
     {

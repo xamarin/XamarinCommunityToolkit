@@ -1,7 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 
-namespace XamarinCommunityToolkit.Samples.iOS
+namespace Xamarin.Toolkit.Samples.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
@@ -19,7 +19,7 @@ namespace XamarinCommunityToolkit.Samples.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            XamarinCommunityToolkit.Effects.iOS.Effects.Init();
+            Xamarin.Toolkit.Effects.iOS.Effects.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -4,11 +4,11 @@ using System.Drawing;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = XamarinCommunityToolkit.Effects;
-using PlatformEffects = XamarinCommunityToolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
+using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
 
 [assembly: ExportEffect(typeof(PlatformEffects.ViewBlur), nameof(RoutingEffects.ViewBlurEffect))]
-namespace XamarinCommunityToolkit.Effects.iOS
+namespace Xamarin.Toolkit.Effects.iOS
 {
     public class ViewBlur : PlatformEffect
     {

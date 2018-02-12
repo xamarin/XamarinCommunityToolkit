@@ -3,11 +3,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using RoutingEffects = XamarinCommunityToolkit.Effects;
-using PlatformEffects = XamarinCommunityToolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
+using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
 
 [assembly: ExportEffect(typeof(PlatformEffects.LabelMultiLine), nameof(RoutingEffects.LabelMultiLine))]
-namespace XamarinCommunityToolkit.Effects.UWP
+namespace Xamarin.Toolkit.Effects.UWP
 {
     public class LabelMultiLine : PlatformEffect
     {

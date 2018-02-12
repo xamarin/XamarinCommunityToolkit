@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using XamarinCommunityToolkit.Converters;
+using Xamarin.Toolkit.Converters;
 using Converters.Tests.Mocks;
 
 namespace Converters.Tests

@@ -2,11 +2,11 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Color = Xamarin.Forms.Color;
-using RoutingEffects = XamarinCommunityToolkit.Effects;
-using PlatformEffects = XamarinCommunityToolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
+using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
 
 [assembly: ExportEffect(typeof(PlatformEffects.PickerChangeColor), nameof(RoutingEffects.PickerChangeColorEffect))]
-namespace XamarinCommunityToolkit.Effects.iOS
+namespace Xamarin.Toolkit.Effects.iOS
 {
     public class PickerChangeColor : PlatformEffect
     {

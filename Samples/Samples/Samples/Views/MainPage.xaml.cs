@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Samples.Views
+namespace Xamarin.Toolkit.Samples.Views
 {
     public partial class MainPage : ContentPage
     {

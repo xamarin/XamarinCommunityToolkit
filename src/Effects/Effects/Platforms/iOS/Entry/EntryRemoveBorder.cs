@@ -2,11 +2,11 @@
 using Xamarin.Forms.Platform.iOS;
 using UIKit;
 using Foundation;
-using RoutingEffects = XamarinCommunityToolkit.Effects;
-using PlatformEffects = XamarinCommunityToolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
+using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryRemoveBorder), nameof(RoutingEffects.EntryRemoveBorder))]
-namespace XamarinCommunityToolkit.Effects.iOS
+namespace Xamarin.Toolkit.Effects.iOS
 {
     [Preserve(AllMembers = true)]
     public class EntryRemoveBorder : PlatformEffect

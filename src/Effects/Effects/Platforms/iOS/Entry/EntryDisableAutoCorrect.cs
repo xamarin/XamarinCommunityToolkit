@@ -2,11 +2,11 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = XamarinCommunityToolkit.Effects;
-using PlatformEffects = XamarinCommunityToolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
+using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryDisableAutoCorrect), nameof(RoutingEffects.EntryDisableAutoCorrect))]
-namespace XamarinCommunityToolkit.Effects.iOS
+namespace Xamarin.Toolkit.Effects.iOS
 {
     [Preserve]
     public class EntryDisableAutoCorrect : PlatformEffect

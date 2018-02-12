@@ -1,7 +1,7 @@
-﻿using XamarinCommunityToolkit.Animations;
+﻿using Xamarin.Toolkit.Animations;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Samples.Views
+namespace Xamarin.Toolkit.Samples.Views
 {
     public partial class AnimationsPage : TabbedPage
     {

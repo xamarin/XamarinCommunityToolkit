@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid80;uap10.0.16299</TargetFrameworks>
-    <AssemblyName>XamarinCommunityToolkit.Animations</AssemblyName>
-    <RootNamespace>XamarinCommunityToolkit.Animations</RootNamespace>
+    <AssemblyName>Xamarin.Toolkit.Animations</AssemblyName>
+    <RootNamespace>Xamarin.Toolkit.Animations</RootNamespace>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -11,7 +11,7 @@
     <Version>1.0.0.0</Version>
     <PackageVersion>1.0.0.0</PackageVersion>
     <Authors>Xamarin Inc.</Authors>
-    <PackageId>XamarinCommunityToolkit.Animations</PackageId>
+    <PackageId>Xamarin.Toolkit.Animations</PackageId>
     <PackOnBuild>true</PackOnBuild>
     <PackageIconUrl>https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/master/Media/OrganonLogo.64x64.png</PackageIconUrl>
     <NeutralLanguage>en</NeutralLanguage>
@@ -36,7 +36,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\XamarinCommunityToolkit.Animations.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\Xamarin.Toolkit.Animations.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

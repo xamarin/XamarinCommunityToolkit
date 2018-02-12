@@ -9,9 +9,9 @@
     <ProjectGuid>{B1500FA7-5B3C-4736-B953-71B7C1DF6D30}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>XamarinCommunityToolkit.Samples.iOS</RootNamespace>
+    <RootNamespace>Xamarin.Toolkit.Samples.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>XamarinCommunityToolkit.Samples.iOS</AssemblyName>
+    <AssemblyName>Xamarin.Toolkit.Samples.iOS</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

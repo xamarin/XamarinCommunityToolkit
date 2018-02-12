@@ -2,7 +2,7 @@
 using System.Linq;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors
+namespace Xamarin.Toolkit.Behaviors
 {
     public class NumericValidationBehavior : BaseBehavior<Entry>
     {

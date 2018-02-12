@@ -1,4 +1,4 @@
-﻿namespace XamarinCommunityToolkit.Effects
+﻿namespace Xamarin.Toolkit.Effects
 {
     /// <summary>
     /// Effect ids of all the available effects.

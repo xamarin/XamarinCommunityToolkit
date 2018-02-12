@@ -1,5 +1,5 @@
 ﻿using System;
-using XamarinCommunityToolkit.Behaviors;
+using Xamarin.Toolkit.Behaviors;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xamarin.Forms;
 

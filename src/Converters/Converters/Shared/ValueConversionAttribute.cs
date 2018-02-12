@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XamarinCommunityToolkit.Converters
+namespace Xamarin.Toolkit.Converters
 {
     /// <summary>
     /// Represents an attribute that allows the author of a value converter to specify the data types involved in the implementation of the converter.
@@ -11,7 +11,7 @@ namespace XamarinCommunityToolkit.Converters
     public class ValueConversionAttribute : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:XamarinCommunityToolkit.Converters.ValueConversionAttribute"/> class.
+        /// Initializes a new instance of the <see cref="T:Xamarin.Toolkit.Converters.ValueConversionAttribute"/> class.
         /// </summary>
         /// <param name="input">The expected input type for this value converter. It is recommended to use a typeof(MyType) expression to provide the type.</param>
         /// <param name="output">The expected output type for this value converter. It is recommended to use a typeof(MyType) expression to provide the type.</param>

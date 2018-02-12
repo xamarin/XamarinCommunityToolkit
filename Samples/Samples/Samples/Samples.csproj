@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>XamarinCommunityToolkit.Samples</AssemblyName>
-    <RootNamespace>XamarinCommunityToolkit.Samples</RootNamespace>
+    <AssemblyName>Xamarin.Toolkit.Samples</AssemblyName>
+    <RootNamespace>Xamarin.Toolkit.Samples</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Effects
+namespace Xamarin.Toolkit.Effects
 {
     public class EntryRemoveLine : RoutingEffect
     {

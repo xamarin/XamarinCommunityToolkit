@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Animations
+namespace Xamarin.Toolkit.Animations
 {
     [ContentProperty("Animations")]
     public class StoryBoard : AnimationBase

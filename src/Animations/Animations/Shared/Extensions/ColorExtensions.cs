@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 // https://developer.xamarin.com/samples/xamarin-forms/userinterface/animation/custom/
-namespace XamarinCommunityToolkit.Animations.Extensions
+namespace Xamarin.Toolkit.Animations.Extensions
 {
     public static class ColorExtensions
     {

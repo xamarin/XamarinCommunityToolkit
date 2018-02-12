@@ -6,11 +6,11 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Color = Xamarin.Forms.Color;
 using Switch = Android.Widget.Switch;
-using RoutingEffects = XamarinCommunityToolkit.Effects;
-using PlatformEffects = XamarinCommunityToolkit.Effects.Droid;
+using RoutingEffects = Xamarin.Toolkit.Effects;
+using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
 
 [assembly: ExportEffect(typeof(PlatformEffects.SwitchChangeColor), nameof(RoutingEffects.SwitchChangeColorEffect))]
-namespace XamarinCommunityToolkit.Effects.Droid
+namespace Xamarin.Toolkit.Effects.Droid
 {
     /// <summary>
     /// http://stackoverflow.com/questions/11253512/change-on-color-of-a-switch

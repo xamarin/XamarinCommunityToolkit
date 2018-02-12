@@ -1,4 +1,4 @@
-﻿namespace XamarinCommunityToolkit.Animations
+﻿namespace Xamarin.Toolkit.Animations
 {
     using Xamarin.Forms;
 

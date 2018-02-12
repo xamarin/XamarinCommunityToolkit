@@ -3,7 +3,7 @@ using Xamarin.Forms;
 using System.Globalization;
 using System.Collections;
 
-namespace XamarinCommunityToolkit.Converters
+namespace Xamarin.Toolkit.Converters
 {
     [ValueConversion (typeof (object), typeof (bool))]
     public class HasDataConverter : IValueConverter

@@ -4,11 +4,11 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Android.Runtime;
 using System.Linq;
-using RoutingEffects = XamarinCommunityToolkit.Effects;
-using PlatformEffects = XamarinCommunityToolkit.Effects.Droid;
+using RoutingEffects = Xamarin.Toolkit.Effects;
+using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryCapitalizeKeyboard), nameof(RoutingEffects.EntryCapitalizeKeyboard))]
-namespace XamarinCommunityToolkit.Effects.Droid
+namespace Xamarin.Toolkit.Effects.Droid
 {
     [Preserve(AllMembers = true)]
     public class EntryCapitalizeKeyboard : PlatformEffect
