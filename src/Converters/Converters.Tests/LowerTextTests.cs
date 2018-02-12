@@ -1,5 +1,5 @@
 ﻿using XamarinCommunityToolkit.Converters;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Converters.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class LowerTextTests
     {
         LowerTextConverter converter;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             converter = new LowerTextConverter();
         }
 
-        [Test]
+        [TestMethod]
         public void LowerText()
         {
             var returnVal = converter.Convert("Hello World", null, null, null);

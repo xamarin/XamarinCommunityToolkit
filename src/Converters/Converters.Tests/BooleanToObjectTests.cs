@@ -1,5 +1,5 @@
 ﻿using XamarinCommunityToolkit.Converters;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Converters.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class BooleanToObjectTests
     {
         public class Person
@@ -20,7 +20,7 @@ namespace Converters.Tests
         Person truePerson;
         Person falsePerson;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
 
@@ -31,7 +31,7 @@ namespace Converters.Tests
             converter.FalseObject = falsePerson;
         }
 
-        [Test]
+        [TestMethod]
         public void TrueObjectConvert()
         {
             var returnVal = converter.Convert(true, null, null, null);
@@ -40,7 +40,7 @@ namespace Converters.Tests
             Assert.AreEqual(truePerson, returnVal, "True value was not returned.");
         }
 
-        [Test]
+        [TestMethod]
         public void FalseObjectConvert()
         {
             var returnVal = converter.Convert(false, null, null, null);
@@ -49,7 +49,7 @@ namespace Converters.Tests
             Assert.AreEqual(falsePerson, returnVal, "False value was not returned.");
         }
 
-        [Test]
+        [TestMethod]
         public void TrueObjectConvertBack()
         {
             var returnVal = converter.ConvertBack(truePerson, null, null, null);
@@ -58,7 +58,7 @@ namespace Converters.Tests
             Assert.AreEqual(true, returnVal, "True value was not returned.");
         }
 
-        [Test]
+        [TestMethod]
         public void FalseObjectConvertBack()
         {
             var returnVal = converter.ConvertBack(falsePerson, null, null, null);

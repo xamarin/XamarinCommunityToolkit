@@ -1,25 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animations", "Animations\Animations\Animations.csproj", "{572B958E-CC33-47C1-95FA-1B3A0506F2ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Animations", "Animations\Animations\Animations.csproj", "{572B958E-CC33-47C1-95FA-1B3A0506F2ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CF83A7E-B02C-4DEC-A0B7-EFC68623D928}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\nuget\Animations.nuspec = ..\..\nuget\Animations.nuspec
-		..\..\appveyor.yml = ..\..\appveyor.yml
-		..\..\bootstrapper.ps1 = ..\..\bootstrapper.ps1
-		..\..\build.cake = ..\..\build.cake
-		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
-		..\..\README.md = ..\..\README.md
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animations.Android", "Animations\Animations.Android\Animations.Android.csproj", "{795A04B4-5D20-4744-91FE-33937831CE4B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animations.iOS", "Animations\Animations.iOS\Animations.iOS.csproj", "{D8983DBB-12FC-4EA8-8E75-3C5F3A39BBA3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animations.UWP", "Animations\Animations.UWP\Animations.UWP.csproj", "{59804206-D678-42B8-999E-9EEBED9B8064}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,18 +17,6 @@ Global
 		{572B958E-CC33-47C1-95FA-1B3A0506F2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{572B958E-CC33-47C1-95FA-1B3A0506F2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{572B958E-CC33-47C1-95FA-1B3A0506F2ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{795A04B4-5D20-4744-91FE-33937831CE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{795A04B4-5D20-4744-91FE-33937831CE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{795A04B4-5D20-4744-91FE-33937831CE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{795A04B4-5D20-4744-91FE-33937831CE4B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8983DBB-12FC-4EA8-8E75-3C5F3A39BBA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8983DBB-12FC-4EA8-8E75-3C5F3A39BBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8983DBB-12FC-4EA8-8E75-3C5F3A39BBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8983DBB-12FC-4EA8-8E75-3C5F3A39BBA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59804206-D678-42B8-999E-9EEBED9B8064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59804206-D678-42B8-999E-9EEBED9B8064}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59804206-D678-42B8-999E-9EEBED9B8064}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59804206-D678-42B8-999E-9EEBED9B8064}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

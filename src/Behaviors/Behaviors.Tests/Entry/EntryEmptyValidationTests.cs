@@ -1,5 +1,5 @@
 ﻿using XamarinCommunityToolkit.Behaviors;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +9,14 @@ using Xamarin.Forms;
 
 namespace Behaviors.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class EntryEmptyValidationTests
     {
         EntryEmptyValidation behavior;
         Entry entry;
         Color textColor;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             behavior = new EntryEmptyValidation();
@@ -28,7 +28,7 @@ namespace Behaviors.Tests
             entry.Behaviors.Add(behavior);
         }
 
-        [Test]
+        [TestMethod]
         public void HasText()
         {
             entry.Text = "Hello World";
@@ -38,7 +38,7 @@ namespace Behaviors.Tests
             Assert.AreEqual(entry.TextColor, textColor, "Color was changed, but shouldn't have.");
         }
 
-        [Test]
+        [TestMethod]
         public void NoText()
         {
             entry.Text = string.Empty;

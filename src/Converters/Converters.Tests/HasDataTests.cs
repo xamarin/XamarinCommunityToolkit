@@ -1,5 +1,5 @@
 ﻿using XamarinCommunityToolkit.Converters;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace Converters.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class HasDataTests
     {
         HasDataConverter converter;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             converter = new HasDataConverter();
         }
-        [Test]
+        [TestMethod]
         public void HasDataValueType()
         {
             var returnVal = converter.Convert(1, null, null, null);
@@ -27,7 +27,7 @@ namespace Converters.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void HasDataList()
         {
             var returnVal = converter.Convert(new List<int> { 1 }, null, null, null);
@@ -36,7 +36,7 @@ namespace Converters.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void HasDataString()
         {
             var returnVal = converter.Convert("Hello World", null, null, null);
@@ -44,7 +44,7 @@ namespace Converters.Tests
             Assert.AreEqual(true, returnVal);
         }
 
-        [Test]
+        [TestMethod]
         public void HasNoDataValueType()
         {
             var returnVal = converter.Convert(null, null, null, null);
@@ -53,7 +53,7 @@ namespace Converters.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void HasNoDataList()
         {
             var returnVal = converter.Convert(new List<int> {  }, null, null, null);
@@ -62,7 +62,7 @@ namespace Converters.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void HasNoDataString()
         {
             var returnVal = converter.Convert(string.Empty, null, null, null);
@@ -70,7 +70,7 @@ namespace Converters.Tests
             Assert.AreEqual(false, returnVal);
         }
 
-        [Test]
+        [TestMethod]
         public void HasNoDataStringBlankSpace()
         {
             var returnVal = converter.Convert("    ", null, null, null);

@@ -1,21 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors", "Behaviors\Behaviors\Behaviors.csproj", "{572B958E-CC33-47C1-95FA-1B3A0506F2ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Behaviors", "Behaviors\Behaviors\Behaviors.csproj", "{572B958E-CC33-47C1-95FA-1B3A0506F2ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Behaviors.Tests", "Behaviors\Behaviors.Tests\Behaviors.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CF83A7E-B02C-4DEC-A0B7-EFC68623D928}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\appveyor.yml = ..\..\appveyor.yml
-		..\..\bootstrapper.ps1 = ..\..\bootstrapper.ps1
-		..\..\build.cake = ..\..\build.cake
-		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
-		..\..\nuget\Behaviors.nuspec = ..\..\nuget\Behaviors.nuspec
-		..\..\README.md = ..\..\README.md
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +26,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDF8BB18-77BC-4988-90E8-06781ADAC385}
 	EndGlobalSection
 EndGlobal
