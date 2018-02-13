@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;Xamarin.iOS10;MonoAndroid80;uap10.0.16299</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid80;uap10.0.16299</TargetFrameworks>
     <AssemblyName>Xamarin.Toolkit.Gestures</AssemblyName>
     <RootNamespace>Xamarin.Toolkit.Gestures</RootNamespace>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -28,16 +28,14 @@
 
     <LangVersion>default</LangVersion>
 
-    <DefineConstants Condition=" '$(TargetFramework)' == 'netstandard2.0' ">$(DefineConstants);</DefineConstants>
-    <DefineConstants Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">$(DefineConstants);</DefineConstants>
-    <DefineConstants Condition=" '$(TargetFramework)' == 'MonoAndroid80' ">$(DefineConstants);</DefineConstants>
-    <DefineConstants Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">$(DefineConstants);</DefineConstants>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+    <!-- Workaround until Xamarin supports PPDB -->
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <DebugType>full</DebugType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\Xamarin.Toolkit.Gestures.xml</DocumentationFile>
-  </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="Shared\" />
@@ -51,6 +49,9 @@
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0" PrivateAssets="All" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
     <Compile Include="Shared\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.0' ">
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
