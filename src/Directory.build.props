@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0.0</Version>
+    <PackageVersion>1.0.0.0</PackageVersion>
+    <Authors>Xamarin Inc.</Authors>
+    <PackOnBuild>true</PackOnBuild>
+	<Owners>microsoft,Xamarin,XamarinNuGet</Owners>
+	<NeutralLanguage>en</NeutralLanguage>
+    <Copyright>Copyright 2018</Copyright>
+    <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
+    <PackageReleaseNotes>See: https://github.com/xamarin/XamarinCommunityToolkit </PackageReleaseNotes>
+    <LangVersion>default</LangVersion>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	<PackageLicenseUrl>https://github.com/xamarin/XamarinCommunityToolkit/blob/dev/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
+  </PropertyGroup>
+</Project>
