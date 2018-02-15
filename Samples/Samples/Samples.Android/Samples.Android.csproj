@@ -145,17 +145,9 @@
     <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Animations\Animations.Android\Animations.Android.csproj">
-      <Project>{795a04b4-5d20-4744-91fe-33937831ce4b}</Project>
-      <Name>Animations.Android</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\src\Animations\Animations\Animations.csproj">
       <Project>{572b958e-cc33-47c1-95fa-1b3a0506f2ed}</Project>
       <Name>Animations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\Effects\Effects.Android\Effects.Android.csproj">
-      <Project>{88dc2010-be3a-4b86-a72f-3df68413858b}</Project>
-      <Name>Effects.Android</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\Effects\Effects\Effects.csproj">
       <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
