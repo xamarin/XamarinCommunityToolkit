@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace XamarinCommunityToolkit.Samples.Views
+namespace Xamarin.Toolkit.Samples.Views
 {
     public partial class EffectsPage : ContentPage
     {

@@ -1,5 +1,5 @@
-﻿using XamarinCommunityToolkit.Converters;
-using NUnit.Framework;
+﻿using Xamarin.Toolkit.Converters;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +8,19 @@ using System.Threading.Tasks;
 
 namespace Converters.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class InvertedBooleanTests
     {
 
         InvertedBooleanConverter converter;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             converter = new InvertedBooleanConverter();
         }
 
-        [Test]
+        [TestMethod]
         public void TrueToFalse()
         {
             var returnVal = converter.Convert(true, null, null, null);
@@ -28,7 +28,7 @@ namespace Converters.Tests
             Assert.AreEqual(false, returnVal);
         }
 
-        [Test]
+        [TestMethod]
         public void FalseToTrue()
         {
             var returnVal = converter.Convert(false, null, null, null);

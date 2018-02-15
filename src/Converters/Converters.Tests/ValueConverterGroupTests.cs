@@ -1,22 +1,23 @@
 ﻿using System.Globalization;
-using NUnit.Framework;
-using XamarinCommunityToolkit.Converters;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xamarin.Toolkit.Converters;
 using Converters.Tests.Mocks;
 
 namespace Converters.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class ValueConverterGroupTests
     {
         ValueConverterGroup converter;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             converter = new ValueConverterGroup();
         }
 
-        [TestCase("Test_Value")]
+        [DataTestMethod]
+        [DataRow("Test_Value")]
         public void ConvertList(object value)
         {
             var expectedResult = value.ToString();

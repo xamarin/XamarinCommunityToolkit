@@ -1,11 +1,11 @@
 ﻿using System;
-using XamarinCommunityToolkit.Behaviors;
-using NUnit.Framework;
+using Xamarin.Toolkit.Behaviors;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xamarin.Forms;
 
 namespace Behaviors.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class EntryEmailValidationTests
     {
 
@@ -14,7 +14,7 @@ namespace Behaviors.Tests
         Entry entry;
         Color textColor;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             behavior = new EntryEmailValidation();
@@ -26,7 +26,7 @@ namespace Behaviors.Tests
             entry.Behaviors.Add(behavior);
         }
 
-        [Test]
+        [TestMethod]
         public void ValidEmail()
         {
             var quote = "\"";
@@ -58,7 +58,7 @@ namespace Behaviors.Tests
         }
 
 
-        [Test]
+        [TestMethod]
         public void InvalidEmail()
         {
             var emails = new[]
@@ -91,7 +91,7 @@ namespace Behaviors.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void InvalidEmailOdd()
         {
             var emails = new[]
@@ -110,7 +110,7 @@ namespace Behaviors.Tests
             }
         }
 
-        [Test]
+        [TestMethod]
         public void NoText()
         {
             entry.Text = string.Empty;

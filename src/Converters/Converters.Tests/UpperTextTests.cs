@@ -1,5 +1,5 @@
-﻿using XamarinCommunityToolkit.Converters;
-using NUnit.Framework;
+﻿using Xamarin.Toolkit.Converters;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Converters.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class UpperTextTests
     {
         UpperTextConverter converter;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             converter = new UpperTextConverter();
         }
 
-        [Test]
+        [TestMethod]
         public void UpperText()
         {
             var returnVal = converter.Convert("Hello World", null, null, null);

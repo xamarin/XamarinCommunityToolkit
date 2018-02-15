@@ -1,5 +1,5 @@
-﻿using XamarinCommunityToolkit.Converters;
-using NUnit.Framework;
+﻿using Xamarin.Toolkit.Converters;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +9,18 @@ using Xamarin.Forms;
 
 namespace Converters.Tests
 {
-    [TestFixture]
+    [TestClass]
     public class HexToColorTests
     {
         HexToColorConverter converter;
 
-        [SetUp]
+        [TestInitialize]
         public void Setup()
         {
             converter = new HexToColorConverter();
         }
 
-        [Test]
+        [TestMethod]
         public void HexNull()
         {
             var returnVal = converter.Convert(null, null, null, null);
@@ -28,7 +28,7 @@ namespace Converters.Tests
             Assert.AreEqual(converter.DefaultColor, returnVal);
         }
 
-        [Test]
+        [TestMethod]
         public void HexWhite()
         {
             var returnVal = converter.Convert("#FFFFFF", null, null, null);
@@ -36,7 +36,7 @@ namespace Converters.Tests
             Assert.AreEqual(Color.White, returnVal);
         }
 
-        [Test]
+        [TestMethod]
         public void HexWhiteAlpha()
         {
             var returnVal = (Color)converter.Convert("#80FFFFFF", null, null, null);

@@ -1,13 +1,48 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>XamarinCommunityToolkit.Animations</AssemblyName>
-    <RootNamespace>XamarinCommunityToolkit.Animations</RootNamespace>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid80;uap10.0.16299</TargetFrameworks>
+    <AssemblyName>Xamarin.Toolkit.Animations</AssemblyName>
+    <RootNamespace>Xamarin.Toolkit.Animations</RootNamespace>
+    <PackageId>Xamarin.Toolkit.Animations</PackageId>
+    <PackageIconUrl>https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/master/Media/OrganonLogo.64x64.png</PackageIconUrl>
+    <Summary>Xamarin Community Toolkit Animations Library</Summary>
+    <PackageTags>xamarin, windows, ios, android, xamarin.forms, toolkit</PackageTags>
+    <Title>Xamarin Community Toolkit Animations Library</Title>
+    <Description>Xamarin Community Toolkit Animations Library</Description>
   </PropertyGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
+    <Folder Include="Platforms\Android\" />
+    <Folder Include="Platforms\iOS\" />
+    <Folder Include="Platforms\UWP\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.0" PrivateAssets="All" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
+    <Compile Include="Shared\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.0' ">
+  </ItemGroup>
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.6" />
+    <Compile Include="Platforms\UWP\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'MonoAndroid80' ">
+    <Compile Include="Platforms\Android\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+    <Compile Include="Platforms\iOS\**\*.cs" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

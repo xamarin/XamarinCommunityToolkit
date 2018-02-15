@@ -23,9 +23,9 @@
     <key>MinimumOSVersion</key>
     <string>8.0</string>
     <key>CFBundleDisplayName</key>
-    <string>XamarinCommunityToolkit.Samples</string>
+    <string>Xamarin.Toolkit.Samples</string>
     <key>CFBundleIdentifier</key>
-    <string>com.yourcompany.XamarinCommunityToolkit.Samples</string>
+    <string>com.yourcompany.Xamarin.Toolkit.Samples</string>
     <key>CFBundleVersion</key>
     <string>1.0</string>
     <key>CFBundleIconFiles</key>

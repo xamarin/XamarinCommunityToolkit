@@ -8,11 +8,11 @@ The Xamarin Community Toolkit (formerly Forms Community Toolkit) is a collection
 
 | Target | Branch | Status | Current Nuget packages version |
 | ------ | ------ | ------ | ------ |
-| Behaviors | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Behaviors/) |
-| Converters | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Converters.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Converters/) |
-| Effects | master | [![Build status](https://ci.appveyor.com/api/projects/status/oe5c6crkicoq0q45/branch/dev?svg=true)](https://ci.appveyor.com/project/FormsCommunityToolkit/FormsCommunityToolkit/branch/master) | [![NuGet](https://img.shields.io/nuget/v/FormsCommunityToolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/FormsCommunityToolkit.Effects/) |
+| Behaviors | master |![Build status](https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/8450/badge) | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Behaviors/) |
+| Converters | master | ![Build status](https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/8450/badge) | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Converters.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Converters/) |
+| Effects | master |![Build status](https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/8450/badge) | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Effects/) |
 
-Development NuGet feed: https://ci.appveyor.com/nuget/xamarinformscommunitytoolkit
+Development NuGet feed: http://myget.org/F/xamarin-community-toolkit
 
 ## Contributing
 Do you want to contribute? Here are our [contribution guidelines](Contributing.md).
