@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms.Platform.Android;
-using System;
 using Android.Runtime;
+using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.Toolkit.Effects.Droid
 {
@@ -10,7 +10,7 @@ namespace Xamarin.Toolkit.Effects.Droid
     public static class Effects
     {
 #pragma warning disable 414
-        static List<PlatformEffect> allEffects = new List<PlatformEffect>();
+        private static List<PlatformEffect> allEffects = new List<PlatformEffect>();
 #pragma warning restore 414
 
         /// <summary>

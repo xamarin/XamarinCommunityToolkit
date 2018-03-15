@@ -1,11 +1,11 @@
 ﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
-using UIKit;
 using Foundation;
 using ObjCRuntime;
-using RoutingEffects = Xamarin.Toolkit.Effects;
+using UIKit;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntrySelectAllText), nameof(RoutingEffects.EntrySelectAllText))]
 namespace Xamarin.Toolkit.Effects.iOS
@@ -17,7 +17,9 @@ namespace Xamarin.Toolkit.Effects.iOS
         {
             var editText = Control as UITextField;
             if (editText == null)
+            {
                 return;
+            }
 
             editText.EditingDidBegin += (object sender, EventArgs e) =>
             {
@@ -29,7 +31,9 @@ namespace Xamarin.Toolkit.Effects.iOS
         {
             var editText = Control as UITextField;
             if (editText == null)
+            {
                 return;
+            }
 
             editText.EditingDidBegin -= (object sender, EventArgs e) =>
             {

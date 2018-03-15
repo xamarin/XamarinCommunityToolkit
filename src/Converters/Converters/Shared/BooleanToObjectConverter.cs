@@ -1,6 +1,6 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Globalization;
+using Xamarin.Forms;
 
 namespace Xamarin.Toolkit.Converters
 {
@@ -10,6 +10,7 @@ namespace Xamarin.Toolkit.Converters
     public class BooleanToObjectConverter<T> : IValueConverter
     {
         public static BooleanToObjectConverter<T> Instance { get; } = new BooleanToObjectConverter<T>();
+
         /// <summary>
         /// Init this instance.
         /// </summary>
@@ -22,13 +23,13 @@ namespace Xamarin.Toolkit.Converters
         /// Gets or sets the false object.
         /// </summary>
         /// <value>The false object.</value>
-        public T FalseObject { set; get; }
+        public T FalseObject { get; set; }
 
         /// <summary>
         /// Gets or sets the true object.
         /// </summary>
         /// <value>The true object.</value>
-        public T TrueObject { set; get; }
+        public T TrueObject { get; set; }
 
         /// <param name="value">To be added.</param>
         /// <param name="targetType">To be added.</param>
@@ -37,8 +38,11 @@ namespace Xamarin.Toolkit.Converters
         /// <summary>
         /// Convert the specified value, targetType, parameter and culture.
         /// </summary>
-        public object Convert(object value, Type targetType,
-            object parameter, CultureInfo culture)
+        public object Convert(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture)
         {
             return (bool)value ? TrueObject : FalseObject;
         }
@@ -51,11 +55,13 @@ namespace Xamarin.Toolkit.Converters
         /// Converts the back.
         /// </summary>
         /// <returns>The back.</returns>
-        public object ConvertBack(object value, Type targetType,
-            object parameter, CultureInfo culture)
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture)
         {
             return ((T)value).Equals(TrueObject);
         }
     }
 }
-

@@ -1,10 +1,10 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntrySelectAllText), nameof(RoutingEffects.EntrySelectAllText))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -16,7 +16,9 @@ namespace Xamarin.Toolkit.Effects.UWP
         {
             var textBox = Control as TextBox;
             if (textBox == null)
+            {
                 return;
+            }
 
             textBox.GotFocus -= TextboxOnGotFocus;
             textBox.GotFocus += TextboxOnGotFocus;
@@ -31,9 +33,13 @@ namespace Xamarin.Toolkit.Effects.UWP
         {
             var textbox = Control as TextBox;
             if (textbox == null)
+            {
                 return;
+            }
             else
+            {
                 textbox.GotFocus -= TextboxOnGotFocus;
+            }
         }
     }
 }

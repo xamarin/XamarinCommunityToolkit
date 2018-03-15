@@ -7,19 +7,34 @@ namespace Xamarin.Toolkit.Behaviors
 {
     public class EventToCommand : BaseBehavior<View>
     {
-        Delegate eventHandler;
+        private Delegate eventHandler;
 
-        public static readonly BindableProperty EventNameProperty = 
+        public static readonly BindableProperty EventNameProperty =
             BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommand), null, propertyChanged: OnEventNameChanged);
 
-        public static readonly BindableProperty CommandProperty = 
+        public static readonly BindableProperty CommandProperty =
             BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommand), null);
 
-        public static readonly BindableProperty CommandParameterProperty = 
+        public static readonly BindableProperty CommandParameterProperty =
             BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommand), null);
 
-        public static readonly BindableProperty InputConverterProperty = 
+        public static readonly BindableProperty InputConverterProperty =
             BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommand), null);
+
+        private static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var behavior = bindable as EventToCommand;
+            if (behavior?.AssociatedObject == null)
+            {
+                return;
+            }
+
+            var oldEventName = (string)oldValue;
+            var newEventName = (string)newValue;
+
+            behavior.DeregisterEvent(oldEventName);
+            behavior.RegisterEvent(newEventName);
+        }
 
         public string EventName
         {
@@ -57,10 +72,12 @@ namespace Xamarin.Toolkit.Behaviors
             base.OnDetachingFrom(bindable);
         }
 
-        void RegisterEvent(string name)
+        private void RegisterEvent(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
+            {
                 return;
+            }
 
             var eventInfo = AssociatedObject?.GetType()?.GetRuntimeEvent(name);
             if (eventInfo == null)
@@ -73,10 +90,12 @@ namespace Xamarin.Toolkit.Behaviors
             eventInfo.AddEventHandler(AssociatedObject, eventHandler);
         }
 
-        void DeregisterEvent(string name)
+        private void DeregisterEvent(string name)
         {
             if (string.IsNullOrWhiteSpace(name) || eventHandler == null)
+            {
                 return;
+            }
 
             var eventInfo = AssociatedObject?.GetType()?.GetRuntimeEvent(name);
             if (eventInfo == null)
@@ -88,10 +107,12 @@ namespace Xamarin.Toolkit.Behaviors
             eventHandler = null;
         }
 
-        void OnEvent(object sender, object eventArgs)
+        private void OnEvent(object sender, object eventArgs)
         {
             if (Command == null)
+            {
                 return;
+            }
 
             object resolvedParameter;
             if (CommandParameter != null)
@@ -111,19 +132,6 @@ namespace Xamarin.Toolkit.Behaviors
             {
                 Command.Execute(resolvedParameter);
             }
-        }
-
-        static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var behavior = bindable as EventToCommand;
-            if (behavior?.AssociatedObject == null)
-                return;
-
-            var oldEventName = (string)oldValue;
-            var newEventName = (string)newValue;
-
-            behavior.DeregisterEvent(oldEventName);
-            behavior.RegisterEvent(newEventName);
         }
     }
 }

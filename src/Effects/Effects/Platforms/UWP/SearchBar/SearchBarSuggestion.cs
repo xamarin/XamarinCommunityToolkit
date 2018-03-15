@@ -1,10 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using System.ComponentModel;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.SearchBarSuggestion), nameof(RoutingEffects.SearchBarSuggestionEffect))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -45,7 +45,9 @@ namespace Xamarin.Toolkit.Effects.UWP
         {
             base.OnElementPropertyChanged(args);
             if (args.PropertyName == RoutingEffects.SearchBarSuggestion.SuggestionsProperty.PropertyName)
+            {
                 UpdateItemsSource();
+            }
         }
 
         private void UpdateItemsSource()

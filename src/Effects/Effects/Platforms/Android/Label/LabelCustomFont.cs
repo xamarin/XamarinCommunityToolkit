@@ -3,8 +3,8 @@ using Android.Graphics;
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.LabelCustomFont), nameof(RoutingEffects.LabelCustomFont))]
 namespace Xamarin.Toolkit.Effects.Droid
@@ -16,7 +16,9 @@ namespace Xamarin.Toolkit.Effects.Droid
             var control = Control as TextView;
 
             if (control == null)
+            {
                 return;
+            }
 
             var effect = (RoutingEffects.LabelCustomFont)Element.Effects.FirstOrDefault(item => item is RoutingEffects.LabelCustomFont);
             if (effect != null && !string.IsNullOrWhiteSpace(effect.FontPath))

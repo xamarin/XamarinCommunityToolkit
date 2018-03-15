@@ -44,5 +44,16 @@
     <Compile Include="Platforms\iOS\**\*.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Shared\Animations\BounceOutAnimation.cs" />
+    <None Remove="Shared\Animations\FadeInAnimation.cs" />
+    <None Remove="Shared\Animations\FadeOutAnimation.cs" />
+    <None Remove="Shared\Animations\RelRotateToAnimation.cs" />
+    <None Remove="Shared\Animations\RelScaleToAnimation.cs" />
+    <None Remove="Shared\Animations\RotateXToAnimation.cs" />
+    <None Remove="Shared\Animations\RotateYToAnimation.cs" />
+    <None Remove="Shared\Animations\TurnstileOutAnimation.cs" />
+  </ItemGroup>
+
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

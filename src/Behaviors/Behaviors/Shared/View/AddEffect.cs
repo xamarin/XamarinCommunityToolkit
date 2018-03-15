@@ -5,10 +5,10 @@ namespace Xamarin.Toolkit.Behaviors
 {
     public class AddEffect : Behavior<View>
     {
-        public static readonly BindableProperty GroupProperty = 
+        public static readonly BindableProperty GroupProperty =
             BindableProperty.Create(nameof(Group), typeof(string), typeof(AddEffect), null);
 
-        public static readonly BindableProperty NameProperty = 
+        public static readonly BindableProperty NameProperty =
             BindableProperty.Create(nameof(Name), typeof(string), typeof(AddEffect), null);
 
         public string Group
@@ -35,30 +35,35 @@ namespace Xamarin.Toolkit.Behaviors
             base.OnDetachingFrom(bindable);
         }
 
-        void EffectAdd(View view)
+        private void EffectAdd(View view)
         {
             var effect = GetEffect();
             if (effect == null || view == null)
+            {
                 return;
+            }
 
             view.Effects.Add(effect);
         }
 
-        void EffectRemove(View view)
+        private void EffectRemove(View view)
         {
             var effect = GetEffect();
             if (effect == null || view == null)
+            {
                 return;
+            }
 
             view.Effects.Remove(effect);
         }
 
-        Effect GetEffect()
+        private Effect GetEffect()
         {
             if (!string.IsNullOrWhiteSpace(Group) && !string.IsNullOrWhiteSpace(Name))
             {
                 return Effect.Resolve(string.Format("{0}.{1}", Group, Name));
             }
+
             return null;
         }
     }

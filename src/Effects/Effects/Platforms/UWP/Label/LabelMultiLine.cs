@@ -3,8 +3,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.LabelMultiLine), nameof(RoutingEffects.LabelMultiLine))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -19,7 +19,9 @@ namespace Xamarin.Toolkit.Effects.UWP
             var control = Control as TextBlock;
 
             if (control == null)
+            {
                 return;
+            }
             else
             {
                 _initialeLines = control.MaxLines;
@@ -31,7 +33,7 @@ namespace Xamarin.Toolkit.Effects.UWP
                     control.MaxLines = effect.Lines;
                     control.TextWrapping = TextWrapping.WrapWholeWords;
                 }
-            }            
+            }
         }
 
         protected override void OnDetached()
@@ -39,7 +41,9 @@ namespace Xamarin.Toolkit.Effects.UWP
             var control = Control as TextBlock;
 
             if (control == null)
+            {
                 return;
+            }
             else
             {
                 control.MaxLines = _initialeLines;

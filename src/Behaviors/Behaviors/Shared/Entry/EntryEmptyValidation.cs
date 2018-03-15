@@ -8,13 +8,12 @@ namespace Xamarin.Toolkit.Behaviors
     /// </summary>
     public class EntryEmptyValidation : BaseBehavior<Entry>
     {
-
-        bool colorSet;
-        Color color = Color.Default;
-
-        static BindablePropertyKey TextColorInvalidKey =
-            BindableProperty.CreateReadOnly(nameof(TextColorInvalid), typeof(Color),
-                                            typeof(EntryEmptyValidation), Color.Default);
+        private static BindablePropertyKey TextColorInvalidKey =
+          BindableProperty.CreateReadOnly(
+              nameof(TextColorInvalid),
+              typeof(Color),
+              typeof(EntryEmptyValidation),
+              Color.Default);
 
         /// <summary>
         /// The is valid property.
@@ -22,6 +21,8 @@ namespace Xamarin.Toolkit.Behaviors
         public static BindableProperty TextColorInvalidProperty =
             TextColorInvalidKey.BindableProperty;
 
+        private bool colorSet;
+        private Color color = Color.Default;
 
         /// <summary>
         /// Gets or sets the text color invalid.
@@ -33,14 +34,17 @@ namespace Xamarin.Toolkit.Behaviors
             set { SetValue(TextColorInvalidKey, value); }
         }
 
-        static BindablePropertyKey IsValidPropertyKey = 
-            BindableProperty.CreateReadOnly(nameof(IsValid), typeof(bool), 
-                                            typeof(EntryEmptyValidation), false);
+        private static BindablePropertyKey IsValidPropertyKey =
+            BindableProperty.CreateReadOnly(
+                nameof(IsValid),
+                typeof(bool),
+                typeof(EntryEmptyValidation),
+                false);
 
         /// <summary>
         /// The is valid property.
         /// </summary>
-        public static BindableProperty IsValidProperty = 
+        public static BindableProperty IsValidProperty =
             IsValidPropertyKey.BindableProperty;
 
         /// <summary>
@@ -74,7 +78,7 @@ namespace Xamarin.Toolkit.Behaviors
             base.OnDetachingFrom(bindable);
         }
 
-        void HandleTextChanged(object sender, TextChangedEventArgs e)
+        private void HandleTextChanged(object sender, TextChangedEventArgs e)
         {
             var text = e?.NewTextValue ?? string.Empty;
             IsValid = !string.IsNullOrWhiteSpace(text);
@@ -82,7 +86,9 @@ namespace Xamarin.Toolkit.Behaviors
             var entry = sender as Entry;
 
             if (entry == null)
+            {
                 return;
+            }
 
             if (!colorSet)
             {
@@ -90,8 +96,7 @@ namespace Xamarin.Toolkit.Behaviors
                 color = entry.TextColor;
             }
 
-            entry.TextColor = IsValid ? color : TextColorInvalid;        
+            entry.TextColor = IsValid ? color : TextColorInvalid;
         }
-
     }
 }

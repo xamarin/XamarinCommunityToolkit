@@ -6,7 +6,8 @@ namespace Xamarin.Toolkit.Effects
     {
         public int Lines { get; set; }
 
-        public LabelMultiLine() : base(EffectIds.LabelMultiLine)
+        public LabelMultiLine()
+            : base(EffectIds.LabelMultiLine)
         {
         }
     }

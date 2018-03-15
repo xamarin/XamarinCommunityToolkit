@@ -4,16 +4,18 @@ using Xamarin.Forms;
 
 namespace Xamarin.Toolkit.Behaviors
 {
-    public class BaseBehavior<T> : Behavior<T> where T : BindableObject
+    public class BaseBehavior<T> : Behavior<T>
+        where T : BindableObject
     {
-
         public T AssociatedObject { get; private set; }
 
         public static readonly BindableProperty AttachBehaviorProperty =
-            BindableProperty.CreateAttached("AttachBehavior",
-                                            typeof(bool),
-                                            typeof(BaseBehavior<T>),
-                                            false, propertyChanged: OnAttachBehaviorChanged);
+            BindableProperty.CreateAttached(
+                "AttachBehavior",
+                    typeof(bool),
+                    typeof(BaseBehavior<T>),
+                    false,
+                    propertyChanged: OnAttachBehaviorChanged);
 
         public static bool GetAttachBehavior(T view)
         {
@@ -25,7 +27,7 @@ namespace Xamarin.Toolkit.Behaviors
             view.SetValue(AttachBehaviorProperty, value);
         }
 
-        static void OnAttachBehaviorChanged(BindableObject view, object oldValue, object newValue)
+        private static void OnAttachBehaviorChanged(BindableObject view, object oldValue, object newValue)
         {
             var control = view as Xamarin.Forms.View;
             bool attachBehavior = (bool)newValue;
@@ -63,7 +65,7 @@ namespace Xamarin.Toolkit.Behaviors
             AssociatedObject = null;
         }
 
-        void OnBindingContextChanged(object sender, EventArgs e)
+        private void OnBindingContextChanged(object sender, EventArgs e)
         {
             OnBindingContextChanged();
         }

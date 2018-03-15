@@ -1,16 +1,15 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Globalization;
+using Xamarin.Forms;
 
 namespace Xamarin.Toolkit.Converters
 {
     /// <summary>
     /// Hex to color converter.
     /// </summary>
-    [ValueConversion (typeof (string), typeof (Color))]
+    [ValueConversion(typeof(string), typeof(Color))]
     public class HexToColorConverter : IValueConverter
     {
-
         public static HexToColorConverter Instance { get; } = new HexToColorConverter();
 
         /// <summary>
@@ -30,6 +29,7 @@ namespace Xamarin.Toolkit.Converters
         /// <summary>
         /// Convert the specified value, targetType, parameter and culture.
         /// </summary>
+        /// <returns>To be added.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var color = value as string;
@@ -52,7 +52,5 @@ namespace Xamarin.Toolkit.Converters
         /// </summary>
         /// <returns>The back.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null;
-
     }
 }
-

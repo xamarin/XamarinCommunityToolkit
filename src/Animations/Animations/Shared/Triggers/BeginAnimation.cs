@@ -9,7 +9,9 @@ namespace Xamarin.Toolkit.Animations
         protected override async void Invoke(VisualElement sender)
         {
             if (Animation == null)
+            {
                 return;
+            }
 
             await Animation.Begin();
         }

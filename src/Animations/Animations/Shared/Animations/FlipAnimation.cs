@@ -12,9 +12,14 @@ namespace Xamarin.Toolkit.Animations
             Right
         }
 
-        public static readonly BindableProperty DirectionProperty = 
-            BindableProperty.Create(nameof(Direction), typeof(FlipDirection), typeof(FlipAnimation), FlipDirection.Right, 
-                BindingMode.TwoWay, null);
+        public static readonly BindableProperty DirectionProperty =
+            BindableProperty.Create(
+                nameof(Direction),
+                typeof(FlipDirection),
+                typeof(FlipAnimation),
+                FlipDirection.Right,
+                BindingMode.TwoWay,
+                null);
 
         public FlipDirection Direction
         {

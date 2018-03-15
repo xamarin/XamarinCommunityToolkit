@@ -44,5 +44,12 @@
     <Compile Include="Platforms\iOS\**\*.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Shared\Picker\PickerChangeColorEffect.cs" />
+    <None Remove="Shared\SearchBar\SearchBarSuggestionEffect.cs" />
+    <None Remove="Shared\Switch\SwitchChangeColorEffect.cs" />
+    <None Remove="Shared\View\ViewBlurEffect.cs" />
+  </ItemGroup>
+
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

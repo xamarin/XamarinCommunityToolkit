@@ -34,8 +34,13 @@ namespace Xamarin.Toolkit.Animations
         }
 
         public static readonly BindableProperty AnimationProperty =
-            BindableProperty.Create(nameof(Animation), typeof(AnimationBase), typeof(BeginAnimationBehavior), null,
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(
+                nameof(Animation),
+                typeof(AnimationBase),
+                typeof(BeginAnimationBehavior),
+                null,
+                BindingMode.TwoWay,
+                null);
 
         public AnimationBase Animation
         {

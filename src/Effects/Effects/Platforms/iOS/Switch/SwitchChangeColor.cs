@@ -1,10 +1,10 @@
 ﻿using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
-[assembly: ExportEffect (typeof (PlatformEffects.SwitchChangeColor), nameof (RoutingEffects.SwitchChangeColorEffect))]
+[assembly: ExportEffect(typeof(PlatformEffects.SwitchChangeColor), nameof(RoutingEffects.SwitchChangeColorEffect))]
 namespace Xamarin.Toolkit.Effects.iOS
 {
     public class SwitchChangeColor : PlatformEffect
@@ -12,14 +12,16 @@ namespace Xamarin.Toolkit.Effects.iOS
         private Color _trueColor;
         private Color _falseColor;
 
-        protected override void OnAttached ()
+        protected override void OnAttached()
         {
             var uiSwitch = Control as UISwitch;
             if (uiSwitch == null)
+            {
                 return;
+            }
 
-            _trueColor = (Color)Element.GetValue (RoutingEffects.SwitchChangeColor.TrueColorProperty);
-            _falseColor = (Color)Element.GetValue (RoutingEffects.SwitchChangeColor.FalseColorProperty);
+            _trueColor = (Color)Element.GetValue(RoutingEffects.SwitchChangeColor.TrueColorProperty);
+            _falseColor = (Color)Element.GetValue(RoutingEffects.SwitchChangeColor.FalseColorProperty);
 
             if (_falseColor != Color.Transparent)
             {
@@ -29,12 +31,14 @@ namespace Xamarin.Toolkit.Effects.iOS
             }
 
             if (_trueColor != Color.Transparent)
+            {
                 uiSwitch.OnTintColor = _trueColor.ToUIColor();
+            }
         }
 
         protected override void OnDetached()
         {
-            //Needed because of inheritance
+            // Needed because of inheritance
         }
     }
 }

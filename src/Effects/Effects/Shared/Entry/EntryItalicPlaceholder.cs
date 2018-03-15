@@ -4,7 +4,8 @@ namespace Xamarin.Toolkit.Effects
 {
     public class EntryItalicPlaceholder : RoutingEffect
     {
-        public EntryItalicPlaceholder() : base(EffectIds.EntryItalicPlaceholder)
+        public EntryItalicPlaceholder()
+            : base(EffectIds.EntryItalicPlaceholder)
         {
         }
     }
