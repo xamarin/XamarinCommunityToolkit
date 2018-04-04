@@ -28,7 +28,7 @@ Want to see the toolkit in action before jumping into the code?  Download and pl
 
 ## Features and documentation
 
-Documentation for our features can be found on http://formscommunitytoolkit.readthedocs.io/en/latest/. This is generated from the Markdown files under [/docs](/docs).
+Documentation for our features is currently being transfered to http://docs.microsoft.com. Until this migration is complete, you can find the current Markdown files under [/docs](/docs).
 
 ### Behaviors
 
