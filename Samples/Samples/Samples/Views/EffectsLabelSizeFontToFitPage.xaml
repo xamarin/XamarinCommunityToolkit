@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Toolkit.Samples.Views.EffectsLabelSizeFontToFitPage"
+             xmlns:effects="clr-namespace:Xamarin.Toolkit.Effects;assembly=Xamarin.Toolkit.Effects"
+             Title="Size font to fit label">
+    <Grid Margin="10,20,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Text="Size font to fit label"
+               Grid.Row="0" Margin="0,0,0,20" />
+
+        <Label Text="Size font to fit label now with long text to see the difference in font size"
+               Grid.Row="1">
+            <Label.Effects>
+                <effects:LabelSizeFontToFit />
+            </Label.Effects>
+        </Label>
+
+        <Label Text="Size font to fit label now with long text to see the difference in font size"
+               Grid.Row="2" />
+
+    </Grid>
+</ContentPage>

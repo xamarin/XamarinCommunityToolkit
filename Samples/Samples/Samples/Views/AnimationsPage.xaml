@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage  xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Toolkit.Samples.Views.AnimationsPage"
+             xmlns:animation="clr-namespace:Xamarin.Toolkit.Animations;assembly=Xamarin.Toolkit.Animations" 
+             Title="Animations">
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+
+            <animation:BounceInAnimation
+                x:Key="BounceInAnimation"
+                Target="{x:Reference BounceBox}"
+                Duration="500"/>
+
+            <animation:BounceOutAnimation       
+                x:Key="BounceOutAnimation"
+                Target="{x:Reference BounceBox}"
+                Duration="250"/>
+
+            <animation:FadeToAnimation
+                x:Key="FadeToAnimation"
+                Target="{x:Reference FadeBox}"
+                Duration="2000"
+                Opacity="0"/>
+
+            <animation:FlipAnimation
+                x:Key="FlipAnimation"
+                Target="{x:Reference FlipBox}"
+                Duration="250"/>
+
+            <animation:RotateToAnimation
+                x:Key="RotateToAnimation"
+                Target="{x:Reference RotateBox}"
+                Duration="750"
+                Rotation="360"/>
+
+            <animation:ScaleToAnimation
+                x:Key="ScaleToAnimation"
+                Target="{x:Reference ScaleBox}"
+                Scale="2"/>
+
+            <animation:TranslateToAnimation
+                x:Key="TranslateToAnimation"
+                Target="{x:Reference TranslateBox}"
+                TranslateX="200"
+                TranslateY="150"/>
+
+            <animation:TurnstileInAnimation
+                x:Key="TurnstileInAnimation"
+                Target="{x:Reference TurnstileBox}"
+                Duration="300"/>
+
+            <animation:TurnstileOutAnimation
+                x:Key="TurnstileOutAnimation"
+                Target="{x:Reference TurnstileBox}"
+                Duration="150"/>
+
+            <animation:ShakeAnimation
+                x:Key="ShakeAnimation"
+                Target="{x:Reference ShakeBox}"/>
+
+            <animation:HeartAnimation
+                x:Key="HeartAnimation"
+                Target="{x:Reference Heart}"/>
+
+            <animation:JumpAnimation
+                x:Key="JumpAnimation"
+                Target="{x:Reference JumpBox}"
+                Duration="1500"/>
+
+            <Color x:Key="ToColor">Red</Color>
+
+            <animation:ColorAnimation
+                x:Key="ColorAnimation"
+                Target="{x:Reference ColorBox}"
+                ToColor="{StaticResource ToColor}"
+                Duration="1500"/>
+            
+            <animation:StoryBoard
+                x:Key="StoryBoard"
+                Target="{x:Reference StoryBoardBox}">
+                <animation:ScaleToAnimation  Scale="2"/>
+                <animation:ShakeAnimation />
+            </animation:StoryBoard>
+
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+    <TabbedPage.Children>
+        <ContentPage Title="Bounce">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="BounceBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Red" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Bounce In">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource BounceInAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Fade">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="FadeBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Blue" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Fade">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource FadeToAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Flip">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="FlipBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Olive" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Flip">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource FlipAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Rotate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="RotateBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Teal" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Rotate">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource RotateToAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Scale">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="ScaleBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Fuchsia" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Scale">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource ScaleToAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Translate">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="TranslateBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Purple" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Translate">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource TranslateToAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Turnstile">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="TurnstileBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Lime" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Turnstile Out">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource TurnstileOutAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Shake">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="ShakeBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Silver" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Shake">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource ShakeAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Breathing">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="Heart"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Red" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Breath">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource HeartAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Jump">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="JumpBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Aqua" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Jump">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource JumpAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="Color">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid
+                    Grid.Row="0"
+                    x:Name="ColorBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    BackgroundColor="Green" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Color">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource ColorAnimation}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="StoryBoard">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView
+                    Grid.Row="0"
+                    x:Name="StoryBoardBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Silver" />
+                <Button
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="StoryBoard">
+                    <Button.Triggers>
+                        <EventTrigger Event="Clicked">
+                            <animation:BeginAnimation
+                                Animation="{StaticResource StoryBoard}" />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </ContentPage>
+        <ContentPage Title="AnimationExtension">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <BoxView               
+                    Grid.Row="0"
+                    x:Name="AnimationBox"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    HeightRequest="120"
+                    WidthRequest="120"
+                    Color="Silver" />
+                <Button                    
+                    x:Name="AnimationExtensionButton"
+                    Grid.Row="1"
+                    HorizontalOptions="Center"
+                    VerticalOptions="End"
+                    Text="Animate" />
+            </Grid>
+        </ContentPage>
+    </TabbedPage.Children>
+</TabbedPage>

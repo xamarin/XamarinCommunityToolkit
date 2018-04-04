@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Toolkit.Samples.Views.EffectsViewPage"
+             Title="View effects">
+    <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button Text="Blur image view effect"
+                Clicked="OnBlurImageButtonClicked"
+                Grid.Row="0" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Toolkit.Samples.Views.EffectsEntrySelectAllTextPage"
+             xmlns:effects="clr-namespace:Xamarin.Toolkit.Effects;assembly=Xamarin.Toolkit.Effects"
+             Title="Select all text entry">
+    <Grid Margin="10,20,10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Text="Select all entered text from an Entry"
+               Grid.Row="0" />
+        <Entry Placeholder="start typing..." VerticalOptions="Start"
+               Text="Tap inside the entry to select this text"
+               Margin="0,10,0,10"
+               Grid.Row="1">
+            <Entry.Effects>
+                <effects:EntrySelectAllText />
+            </Entry.Effects>
+        </Entry>
+    </Grid>
+</ContentPage>
