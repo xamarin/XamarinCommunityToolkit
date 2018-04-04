@@ -7,7 +7,8 @@ namespace Xamarin.Toolkit.Effects
     /// </summary>
     public class EntryDisableAutoCorrect : RoutingEffect
     {
-        public EntryDisableAutoCorrect() : base(EffectIds.EntryDisableAutoCorrect)
+        public EntryDisableAutoCorrect()
+            : base(EffectIds.EntryDisableAutoCorrect)
         {
         }
     }

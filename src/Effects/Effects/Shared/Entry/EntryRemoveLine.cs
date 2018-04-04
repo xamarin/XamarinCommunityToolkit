@@ -4,7 +4,8 @@ namespace Xamarin.Toolkit.Effects
 {
     public class EntryRemoveLine : RoutingEffect
     {
-        public EntryRemoveLine() : base(EffectIds.EntryRemoveLine)
+        public EntryRemoveLine()
+            : base(EffectIds.EntryRemoveLine)
         {
         }
     }

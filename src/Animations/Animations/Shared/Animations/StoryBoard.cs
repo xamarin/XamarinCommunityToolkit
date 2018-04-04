@@ -27,7 +27,9 @@ namespace Xamarin.Toolkit.Animations
             foreach (var animation in Animations)
             {
                 if (animation.Target == null)
+                {
                     animation.Target = Target;
+                }
 
                 await animation.Begin();
             }

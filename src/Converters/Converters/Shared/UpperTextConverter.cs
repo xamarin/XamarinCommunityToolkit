@@ -1,6 +1,6 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Globalization;
+using Xamarin.Forms;
 
 namespace Xamarin.Toolkit.Converters
 {
@@ -20,9 +20,11 @@ namespace Xamarin.Toolkit.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
+            {
                 return string.Empty;
+            }
 
-            var text = ((string)value);
+            var text = (string)value;
 
             return text.ToUpperInvariant();
         }
@@ -33,4 +35,3 @@ namespace Xamarin.Toolkit.Converters
         }
     }
 }
-

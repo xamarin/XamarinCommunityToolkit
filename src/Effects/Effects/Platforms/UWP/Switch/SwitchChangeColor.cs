@@ -1,13 +1,13 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml;
-using System.Linq;
-using Windows.UI.Xaml.Media.Animation;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.SwitchChangeColor), nameof(RoutingEffects.SwitchChangeColorEffect))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -29,7 +29,9 @@ namespace Xamarin.Toolkit.Effects.UWP
 
             var toggleSwitch = Control as ToggleSwitch;
             if (toggleSwitch == null)
+            {
                 return;
+            }
             else
             {
                 toggleSwitch.Loaded -= OnSwitchLoaded;
@@ -41,9 +43,13 @@ namespace Xamarin.Toolkit.Effects.UWP
         {
             var toggleSwitch = Control as ToggleSwitch;
             if (toggleSwitch == null)
+            {
                 return;
+            }
             else
+            {
                 toggleSwitch.Loaded -= OnSwitchLoaded;
+            }
         }
 
         private void OnSwitchLoaded(object sender, RoutedEventArgs e)
@@ -54,12 +60,16 @@ namespace Xamarin.Toolkit.Effects.UWP
             foreach (var group in groups)
             {
                 if (group.Name != "CommonStates")
+                {
                     continue;
+                }
 
                 foreach (var state in group.States)
                 {
                     if (state.Name != "PointerOver")
+                    {
                         continue;
+                    }
 
                     foreach (var timeline in state.Storyboard.Children.OfType<ObjectAnimationUsingKeyFrames>())
                     {
@@ -77,7 +87,9 @@ namespace Xamarin.Toolkit.Effects.UWP
 
             var rect = toggleSwitch.GetChildByName("SwitchKnobBounds") as Windows.UI.Xaml.Shapes.Rectangle;
             if (rect != null)
+            {
                 rect.Fill = new SolidColorBrush(_trueColor);
+            }
 
             toggleSwitch.Loaded -= OnSwitchLoaded;
         }

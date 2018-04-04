@@ -2,8 +2,8 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryDisableAutoCorrect), nameof(RoutingEffects.EntryDisableAutoCorrect))]
 namespace Xamarin.Toolkit.Effects.iOS
@@ -18,7 +18,10 @@ namespace Xamarin.Toolkit.Effects.iOS
         protected override void OnAttached()
         {
             var editText = Control as UITextField;
-            if (editText == null) return;
+            if (editText == null)
+            {
+                return;
+            }
 
             _spellCheckingType = editText.SpellCheckingType;
             _autocorrectionType = editText.AutocorrectionType;
@@ -32,7 +35,10 @@ namespace Xamarin.Toolkit.Effects.iOS
         protected override void OnDetached()
         {
             var editText = Control as UITextField;
-            if (editText == null) return;
+            if (editText == null)
+            {
+                return;
+            }
 
             editText.SpellCheckingType = _spellCheckingType;
             editText.AutocorrectionType = _autocorrectionType;

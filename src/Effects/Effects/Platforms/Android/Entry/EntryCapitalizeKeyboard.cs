@@ -1,11 +1,11 @@
-﻿using Android.Text;
+﻿using System.Linq;
+using Android.Runtime;
+using Android.Text;
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Android.Runtime;
-using System.Linq;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryCapitalizeKeyboard), nameof(RoutingEffects.EntryCapitalizeKeyboard))]
 namespace Xamarin.Toolkit.Effects.Droid
@@ -20,8 +20,10 @@ namespace Xamarin.Toolkit.Effects.Droid
         {
             var editText = Control as EditText;
             if (editText == null)
+            {
                 return;
-            
+            }
+
             _old = editText.InputType;
             _oldFilters = editText.GetFilters().ToArray();
 
@@ -36,7 +38,9 @@ namespace Xamarin.Toolkit.Effects.Droid
         {
             var editText = Control as EditText;
             if (editText == null)
+            {
                 return;
+            }
 
             editText.SetRawInputType(_old);
             editText.SetFilters(_oldFilters);

@@ -6,7 +6,7 @@
     {
         public static Easing GetEasing(EasingType type)
         {
-            switch(type)
+            switch (type)
             {
                 case EasingType.BounceIn:
                     return Easing.BounceIn;

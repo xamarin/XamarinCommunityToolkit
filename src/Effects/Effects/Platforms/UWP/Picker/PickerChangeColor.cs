@@ -1,10 +1,10 @@
 ﻿using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml.Media;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.PickerChangeColor), nameof(RoutingEffects.PickerChangeColorEffect))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -18,7 +18,7 @@ namespace Xamarin.Toolkit.Effects.UWP
         {
             var color = (Color)Element.GetValue(RoutingEffects.PickerChangeColor.ColorProperty);
             _color = ConvertColor(color);
-            (Control as ComboBox).Foreground = new SolidColorBrush( _color);
+            (Control as ComboBox).Foreground = new SolidColorBrush(_color);
         }
 
         protected override void OnDetached()

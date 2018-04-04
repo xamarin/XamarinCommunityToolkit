@@ -2,8 +2,8 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryCapitalizeKeyboard), nameof(RoutingEffects.EntryCapitalizeKeyboard))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -16,9 +16,10 @@ namespace Xamarin.Toolkit.Effects.UWP
             var textbox = Control as TextBox;
 
             if (textbox == null)
+            {
                 return;
+            }
 
-            
             textbox.TextChanging -= TextboxOnTextChanging;
             textbox.TextChanging += TextboxOnTextChanging;
         }
@@ -35,9 +36,13 @@ namespace Xamarin.Toolkit.Effects.UWP
         {
             var textbox = Control as TextBox;
             if (textbox == null)
+            {
                 return;
+            }
             else
+            {
                 textbox.TextChanging -= TextboxOnTextChanging;
+            }
         }
     }
 }

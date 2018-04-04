@@ -30,18 +30,27 @@ namespace Xamarin.Toolkit.Animations
 
             animation.WithConcurrent(
               (f) => Target.TranslationY = f,
-              Target.TranslationY, Target.TranslationX,
-              Xamarin.Forms.Easing.Linear, 0, 0.2);
+              Target.TranslationY,
+              Target.TranslationX,
+              Xamarin.Forms.Easing.Linear,
+              0,
+              0.2);
 
             animation.WithConcurrent(
               (f) => Target.TranslationY = f,
-              Target.TranslationY + Movement, Target.TranslationX,
-              Xamarin.Forms.Easing.Linear, 0.2, 0.4);
+              Target.TranslationY + Movement,
+              Target.TranslationX,
+              Xamarin.Forms.Easing.Linear,
+              0.2,
+              0.4);
 
             animation.WithConcurrent(
              (f) => Target.TranslationY = f,
-             Target.TranslationY, Target.TranslationX,
-             Xamarin.Forms.Easing.Linear, 0.5, 1.0);
+             Target.TranslationY,
+             Target.TranslationX,
+             Xamarin.Forms.Easing.Linear,
+             0.5,
+             1.0);
 
             return animation;
         }

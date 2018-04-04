@@ -7,8 +7,13 @@ namespace Xamarin.Toolkit.Animations
     public class TranslateToAnimation : AnimationBase
     {
         public static readonly BindableProperty TranslateXProperty =
-            BindableProperty.Create(nameof(TranslateX), typeof(double), typeof(TranslateToAnimation), default(double),
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(
+                nameof(TranslateX),
+                typeof(double),
+                typeof(TranslateToAnimation),
+                default(double),
+                BindingMode.TwoWay,
+                null);
 
         public double TranslateX
         {
@@ -17,8 +22,13 @@ namespace Xamarin.Toolkit.Animations
         }
 
         public static readonly BindableProperty TranslateYProperty =
-            BindableProperty.Create(nameof(TranslateY), typeof(double), typeof(TranslateToAnimation), default(double),
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(
+                nameof(TranslateY),
+                typeof(double),
+                typeof(TranslateToAnimation),
+                default(double),
+                BindingMode.TwoWay,
+                null);
 
         public double TranslateY
         {

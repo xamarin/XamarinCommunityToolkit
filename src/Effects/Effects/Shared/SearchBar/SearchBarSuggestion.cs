@@ -13,7 +13,7 @@ namespace Xamarin.Toolkit.Effects
         {
             return (ObservableCollection<string>)view.GetValue(SuggestionsProperty);
         }
-        
+
         public static void SetSuggestions(BindableObject view, ObservableCollection<string> value)
         {
             view.SetValue(SuggestionsProperty, value);
@@ -33,24 +33,22 @@ namespace Xamarin.Toolkit.Effects
         {
             var view = bindable as SearchBar;
             if (view == null)
+            {
                 return;
+            }
 
             bindable.SetValue(SuggestionsProperty, (ObservableCollection<string>)newValue);
         }
+
         private static void OnTextChangedActionChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var view = bindable as SearchBar;
             if (view == null)
+            {
                 return;
+            }
 
             bindable.SetValue(TextChangedActionProperty, (Action)newValue);
-        }
-    }
-
-    public class SearchBarSuggestionEffect : RoutingEffect
-    {
-        public SearchBarSuggestionEffect() : base(EffectIds.SearchBarSuggestion)
-        {
         }
     }
 }

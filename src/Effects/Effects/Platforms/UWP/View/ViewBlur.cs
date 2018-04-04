@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Numerics;
+using Microsoft.Graphics.Canvas.Effects;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
-using Microsoft.Graphics.Canvas.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.ViewBlur), nameof(RoutingEffects.ViewBlurEffect))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -18,7 +18,7 @@ namespace Xamarin.Toolkit.Effects.UWP
         private CompositionBrush _blurBrush;
         private Visual _rootVisual;
 
-        Compositor Compositor { get; set; }
+        private Compositor Compositor { get; set; }
 
         protected override void OnAttached()
         {
@@ -80,17 +80,25 @@ namespace Xamarin.Toolkit.Effects.UWP
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
             if (Container == null)
+            {
                 return;
+            }
             else
+            {
                 Container.SizeChanged -= OnSizeChanged;
+            }
         }
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (_blurVisual == null)
+            {
                 return;
+            }
             else
+            {
                 _blurVisual.Size = new Vector2((float)Container.ActualWidth, (float)Container.ActualHeight);
+            }
         }
 
         private CompositionEffectBrush BuildBlurBrush()
@@ -106,8 +114,7 @@ namespace Xamarin.Toolkit.Effects.UWP
 
             var factory = Compositor.CreateEffectFactory(
                 blurEffect,
-                new[] { "Blur.BlurAmount" }
-            );
+                new[] { "Blur.BlurAmount" });
 
             var brush = factory.CreateBrush();
             return brush;

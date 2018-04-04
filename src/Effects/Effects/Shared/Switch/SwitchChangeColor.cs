@@ -5,49 +5,48 @@ namespace Xamarin.Toolkit.Effects
 {
     public static class SwitchChangeColor
     {
-        public static readonly BindableProperty FalseColorProperty = BindableProperty.CreateAttached ("FalseColor", typeof (Color), typeof (SwitchChangeColor), Color.Transparent, propertyChanged: OnColorChanged);
-        public static readonly BindableProperty TrueColorProperty = BindableProperty.CreateAttached ("TrueColor", typeof (Color), typeof (SwitchChangeColor), Color.Transparent, propertyChanged: OnColorChanged);
+        public static readonly BindableProperty FalseColorProperty = BindableProperty.CreateAttached("FalseColor", typeof(Color), typeof(SwitchChangeColor), Color.Transparent, propertyChanged: OnColorChanged);
+        public static readonly BindableProperty TrueColorProperty = BindableProperty.CreateAttached("TrueColor", typeof(Color), typeof(SwitchChangeColor), Color.Transparent, propertyChanged: OnColorChanged);
 
-        private static void OnColorChanged (BindableObject bindable, object oldValue, object newValue)
+        private static void OnColorChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var control = bindable as Switch;
             if (control == null)
+            {
                 return;
+            }
 
             var color = (Color)newValue;
 
-            var attachedEffect = control.Effects.FirstOrDefault (e => e is SwitchChangeColorEffect);
+            var attachedEffect = control.Effects.FirstOrDefault(e => e is SwitchChangeColorEffect);
             if (color != Color.Transparent && attachedEffect == null)
-                control.Effects.Add (new SwitchChangeColorEffect ());
+            {
+                control.Effects.Add(new SwitchChangeColorEffect());
+            }
             else if (color == Color.Transparent && attachedEffect != null)
-                control.Effects.Remove (attachedEffect);
+            {
+                control.Effects.Remove(attachedEffect);
+            }
         }
 
-        public static Color GetFalseColor (BindableObject view)
+        public static Color GetFalseColor(BindableObject view)
         {
-            return (Color)view.GetValue (FalseColorProperty);
+            return (Color)view.GetValue(FalseColorProperty);
         }
 
-        public static void SetFalseColor (BindableObject view, string color)
+        public static void SetFalseColor(BindableObject view, string color)
         {
-            view.SetValue (FalseColorProperty, color);
+            view.SetValue(FalseColorProperty, color);
         }
 
-        public static Color GetTrueColor (BindableObject view)
+        public static Color GetTrueColor(BindableObject view)
         {
-            return (Color)view.GetValue (TrueColorProperty);
+            return (Color)view.GetValue(TrueColorProperty);
         }
 
-        public static void SetTrueColor (BindableObject view, Color color)
+        public static void SetTrueColor(BindableObject view, Color color)
         {
-            view.SetValue (TrueColorProperty, color);
-        }
-    }
-
-    public class SwitchChangeColorEffect : RoutingEffect
-    {
-        public SwitchChangeColorEffect () : base (EffectIds.SwitchChangeColor)
-        {
+            view.SetValue(TrueColorProperty, color);
         }
     }
 }

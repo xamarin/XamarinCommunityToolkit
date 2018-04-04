@@ -11,7 +11,9 @@ namespace Xamarin.Toolkit.Effects
         {
             var view = bindable as View;
             if (view == null)
+            {
                 return;
+            }
 
             double blurAmount = (double)newValue;
             var attachedEffect = view.Effects.FirstOrDefault(e => e is ViewBlurEffect);
@@ -33,13 +35,6 @@ namespace Xamarin.Toolkit.Effects
         public static void SetBlurAmount(BindableObject view, double amount)
         {
             view.SetValue(BlurAmountProperty, amount);
-        }
-    }
-
-    public class ViewBlurEffect : RoutingEffect
-    {
-        public ViewBlurEffect() : base(EffectIds.ViewBlur)
-        {
         }
     }
 }

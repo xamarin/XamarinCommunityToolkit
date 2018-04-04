@@ -2,8 +2,8 @@
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryItalicPlaceholder), nameof(RoutingEffects.EntryItalicPlaceholder))]
 namespace Xamarin.Toolkit.Effects.iOS
@@ -17,7 +17,9 @@ namespace Xamarin.Toolkit.Effects.iOS
         {
             var entry = Control as UITextField;
             if (entry == null || string.IsNullOrWhiteSpace(entry.Placeholder))
+            {
                 return;
+            }
 
             _old = entry.AttributedPlaceholder;
             var entryFontSize = entry.Font.PointSize;
@@ -28,7 +30,9 @@ namespace Xamarin.Toolkit.Effects.iOS
         {
             var entry = Control as UITextField;
             if (entry == null)
+            {
                 return;
+            }
 
             entry.AttributedPlaceholder = _old;
         }

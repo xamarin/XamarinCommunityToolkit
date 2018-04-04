@@ -4,8 +4,8 @@ using System.Drawing;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.ViewBlur), nameof(RoutingEffects.ViewBlurEffect))]
 namespace Xamarin.Toolkit.Effects.iOS
@@ -19,7 +19,9 @@ namespace Xamarin.Toolkit.Effects.iOS
             var visualElement = Element as VisualElement;
 
             if (visualElement == null)
+            {
                 return;
+            }
 
             if (args.PropertyName == nameof(visualElement.Width) || args.PropertyName == nameof(visualElement.Height))
             {
@@ -30,8 +32,11 @@ namespace Xamarin.Toolkit.Effects.iOS
                 var blurView = new UIVisualEffectView(blur)
                 {
                     Alpha = (nfloat)blurAmount,
-                    Frame = new RectangleF(0, 0, (float)((VisualElement)Element).Width,
-                                        (float)((VisualElement)Element).Height)
+                    Frame = new RectangleF(
+                        0,
+                        0,
+                        (float)((VisualElement)Element).Width,
+                        (float)((VisualElement)Element).Height)
                 };
 
                 Control.Add(blurView);
