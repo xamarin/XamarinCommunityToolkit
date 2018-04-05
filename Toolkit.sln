@@ -18,9 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Animations", "Toolkit\Anima
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D4A649FE-CF76-4885-B42B-10811E95564D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Behaviors.Tests", "Toolkit\Behaviors.Tests\Behaviors.Tests.csproj", "{51A69387-00D0-4256-B9CE-F9F36F6E6883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Behaviors.Tests", "Tests\Behaviors.Tests\Behaviors.Tests.csproj", "{51A69387-00D0-4256-B9CE-F9F36F6E6883}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Converters.Tests", "Toolkit\Converters.Tests\Converters.Tests.csproj", "{BB4CCA3A-64D3-4616-AAF3-EF3219E087A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Converters.Tests", "Tests\Converters.Tests\Converters.Tests.csproj", "{BB4CCA3A-64D3-4616-AAF3-EF3219E087A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Converters", "Toolkit\Converters\Converters.csproj", "{68B628DB-7631-4058-B63D-95A8AF5B4FBD}"
 EndProject
@@ -30,13 +30,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Behaviors", "Toolkit\Behavi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{2B6EF58D-69D1-4CB8-8AEC-DB3E0BE67868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolkit.Samples.Android", "Toolkit.Samples\Toolkit.Samples.Android\Toolkit.Samples.Android.csproj", "{86A1173D-F73C-4DD0-9A97-30AF819C387F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Android", "Samples\Samples.Android\Samples.Android.csproj", "{86A1173D-F73C-4DD0-9A97-30AF819C387F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolkit.Samples.iOS", "Toolkit.Samples\Toolkit.Samples.iOS\Toolkit.Samples.iOS.csproj", "{84A9D47E-AB87-4EB2-B542-BB998A50FD85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.iOS", "Samples\Samples.iOS\Samples.iOS.csproj", "{84A9D47E-AB87-4EB2-B542-BB998A50FD85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolkit.Samples.UWP", "Toolkit.Samples\Toolkit.Samples.UWP\Toolkit.Samples.UWP.csproj", "{651BB325-06FF-4487-A463-B2AAC30107FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.UWP", "Samples\Samples.UWP\Samples.UWP.csproj", "{651BB325-06FF-4487-A463-B2AAC30107FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolkit.Samples", "Toolkit.Samples\Toolkit.Samples\Toolkit.Samples.csproj", "{5BC1EE6B-4204-46F9-9368-AB558CA957B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "Samples\Samples\Samples.csproj", "{5BC1EE6B-4204-46F9-9368-AB558CA957B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

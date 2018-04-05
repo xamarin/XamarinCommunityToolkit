@@ -17,14 +17,18 @@ Development NuGet feed: http://myget.org/F/xamarin-community-toolkit
 ## Contributing
 Do you want to contribute? Here are our [contribution guidelines](CONTRIBUTING.md).
 
-## Getting started
+## Building Xamarin Community Toolkit
+Xamarin Community Toolkit is built with the new SDK style projects with multi-targeting enabled. This means that all code for iOS, Android, and UWP exist inside of the Xamarin Community Toolkit project.
 
-Coming Soon.
+If building on Visual Studio 2017 simply open the solution and build the project.
+
+If using Visual Studio for Mac the project can be built at the command line with MSBuild. To change the project type that you are working with simply edit Toolkit.csproj and modify the TargetFrameworks for only the project type you want to use.
 
 ## Xamarin Community Toolkit Sample App
 
 Want to see the toolkit in action before jumping into the code?  Download and play with the [Sample App](/Samples).
 
+Follow the build instructions above to build the full library.
 
 ## Features and documentation
 
