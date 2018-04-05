@@ -1,4 +1,8 @@
-﻿namespace Xamarin.Toolkit.Effects
+﻿using Xamarin.Forms;
+
+[assembly: ResolutionGroupName("Xamarin.Toolkit.Effects")]
+
+namespace Xamarin.Toolkit.Effects
 {
     /// <summary>
     /// Effect ids of all the available effects.
