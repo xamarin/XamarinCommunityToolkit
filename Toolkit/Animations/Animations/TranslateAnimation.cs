@@ -7,23 +7,21 @@ namespace Xamarin.Toolkit.Animations
     public class TranslateToAnimation : AnimationBase
     {
         public static readonly BindableProperty TranslateXProperty =
-            BindableProperty.Create(nameof(TranslateX), typeof(double), typeof(TranslateToAnimation), default(double),
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(nameof(TranslateX), typeof(double), typeof(TranslateToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double TranslateX
         {
-            get { return (double)GetValue(TranslateXProperty); }
-            set { SetValue(TranslateXProperty, value); }
+            get => (double)GetValue(TranslateXProperty);
+            set => SetValue(TranslateXProperty, value);
         }
 
         public static readonly BindableProperty TranslateYProperty =
-            BindableProperty.Create(nameof(TranslateY), typeof(double), typeof(TranslateToAnimation), default(double),
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(nameof(TranslateY), typeof(double), typeof(TranslateToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double TranslateY
         {
-            get { return (double)GetValue(TranslateYProperty); }
-            set { SetValue(TranslateYProperty, value); }
+            get => (double)GetValue(TranslateYProperty);
+            set => SetValue(TranslateYProperty, value);
         }
 
         protected override Task BeginAnimation()

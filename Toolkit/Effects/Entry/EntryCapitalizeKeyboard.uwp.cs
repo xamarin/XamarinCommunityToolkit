@@ -2,8 +2,8 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryCapitalizeKeyboard), nameof(RoutingEffects.EntryCapitalizeKeyboard))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -18,12 +18,11 @@ namespace Xamarin.Toolkit.Effects.UWP
             if (textbox == null)
                 return;
 
-            
             textbox.TextChanging -= TextboxOnTextChanging;
             textbox.TextChanging += TextboxOnTextChanging;
         }
 
-        private static void TextboxOnTextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+        static void TextboxOnTextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
         {
             var selectionStart = sender.SelectionStart;
             sender.Text = sender.Text.ToUpper();

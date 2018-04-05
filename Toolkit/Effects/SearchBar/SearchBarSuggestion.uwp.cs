@@ -1,10 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using System.ComponentModel;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.SearchBarSuggestion), nameof(RoutingEffects.SearchBarSuggestionEffect))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -30,14 +30,14 @@ namespace Xamarin.Toolkit.Effects.UWP
             autoSuggestBox.TextChanged -= OnTextChangedEffect;
         }
 
-        private void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        void OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
             ((IElementController)Element).SetValueFromRenderer(SearchBar.TextProperty, sender.Text);
         }
 
-        private void OnTextChangedEffect(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs e)
+        void OnTextChangedEffect(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs e)
         {
-            Action platformSpecificAction = (Action)Element.GetValue(RoutingEffects.SearchBarSuggestion.TextChangedActionProperty);
+            var platformSpecificAction = (Action)Element.GetValue(RoutingEffects.SearchBarSuggestion.TextChangedActionProperty);
             platformSpecificAction?.Invoke();
         }
 
@@ -48,7 +48,7 @@ namespace Xamarin.Toolkit.Effects.UWP
                 UpdateItemsSource();
         }
 
-        private void UpdateItemsSource()
+        void UpdateItemsSource()
         {
             ((AutoSuggestBox)Control).ItemsSource = RoutingEffects.SearchBarSuggestion.GetSuggestions(Element);
         }

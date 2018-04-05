@@ -1,16 +1,15 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Globalization;
+using Xamarin.Forms;
 
 namespace Xamarin.Toolkit.Converters
 {
     /// <summary>
     /// Hex to color converter.
     /// </summary>
-    [ValueConversion (typeof (string), typeof (Color))]
+    [ValueConversion(typeof(string), typeof(Color))]
     public class HexToColorConverter : IValueConverter
     {
-
         public static HexToColorConverter Instance { get; } = new HexToColorConverter();
 
         /// <summary>
@@ -21,7 +20,7 @@ namespace Xamarin.Toolkit.Converters
             var time = DateTime.UtcNow;
         }
 
-        public Color DefaultColor = Color.FromHex("#3498db");
+        public Color DefaultColor { get; set; } = Color.FromHex("#3498db");
 
         /// <param name="value">To be added.</param>
         /// <param name="targetType">To be added.</param>
@@ -51,8 +50,7 @@ namespace Xamarin.Toolkit.Converters
         /// Converts the back.
         /// </summary>
         /// <returns>The back.</returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null;
-
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+            null;
     }
 }
-

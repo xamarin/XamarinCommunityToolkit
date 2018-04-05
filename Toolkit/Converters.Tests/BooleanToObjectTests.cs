@@ -1,10 +1,5 @@
-﻿using Xamarin.Toolkit.Converters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xamarin.Toolkit.Converters;
 
 namespace Converters.Tests
 {
@@ -23,12 +18,13 @@ namespace Converters.Tests
         [TestInitialize]
         public void Setup()
         {
-
             truePerson = new Person { Name = "James" };
             falsePerson = new Person { Name = "Motz" };
-            converter = new BooleanToObjectConverter<Person>();
-            converter.TrueObject = truePerson;
-            converter.FalseObject = falsePerson;
+            converter = new BooleanToObjectConverter<Person>
+            {
+                TrueObject = truePerson,
+                FalseObject = falsePerson
+            };
         }
 
         [TestMethod]

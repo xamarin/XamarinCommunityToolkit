@@ -102,4 +102,5 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
 </Project>

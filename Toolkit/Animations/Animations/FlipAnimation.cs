@@ -12,14 +12,13 @@ namespace Xamarin.Toolkit.Animations
             Right
         }
 
-        public static readonly BindableProperty DirectionProperty = 
-            BindableProperty.Create(nameof(Direction), typeof(FlipDirection), typeof(FlipAnimation), FlipDirection.Right, 
-                BindingMode.TwoWay, null);
+        public static readonly BindableProperty DirectionProperty =
+            BindableProperty.Create(nameof(Direction), typeof(FlipDirection), typeof(FlipAnimation), FlipDirection.Right, BindingMode.TwoWay, null);
 
         public FlipDirection Direction
         {
-            get { return (FlipDirection)GetValue(DirectionProperty); }
-            set { SetValue(DirectionProperty, value); }
+            get => (FlipDirection)GetValue(DirectionProperty);
+            set => SetValue(DirectionProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -43,7 +42,7 @@ namespace Xamarin.Toolkit.Animations
             var animation = new Animation();
 
             animation.WithConcurrent((f) => Target.Opacity = f, 0.5, 1);
-            animation.WithConcurrent((f) => Target.RotationY = f, (Direction == FlipDirection.Left) ? 90 : -90, 0, Xamarin.Forms.Easing.Linear);
+            animation.WithConcurrent((f) => Target.RotationY = f, (Direction == FlipDirection.Left) ? 90 : -90, 0, Forms.Easing.Linear);
 
             return animation;
         }

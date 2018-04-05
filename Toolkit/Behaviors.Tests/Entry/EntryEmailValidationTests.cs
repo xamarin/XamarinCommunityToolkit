@@ -1,15 +1,12 @@
-﻿using System;
-using Xamarin.Toolkit.Behaviors;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xamarin.Forms;
+using Xamarin.Toolkit.Behaviors;
 
 namespace Behaviors.Tests
 {
     [TestClass]
     public class EntryEmailValidationTests
     {
-
-
         EntryEmailValidation behavior;
         Entry entry;
         Color textColor;
@@ -19,8 +16,10 @@ namespace Behaviors.Tests
         {
             behavior = new EntryEmailValidation();
             behavior.TextColorInvalid = Color.Red;
-            entry = new Entry();
-            entry.TextColor = Color.Green;
+            entry = new Entry
+            {
+                TextColor = Color.Green
+            };
 
             textColor = entry.TextColor;
             entry.Behaviors.Add(behavior);
@@ -30,7 +29,7 @@ namespace Behaviors.Tests
         public void ValidEmail()
         {
             var quote = "\"";
-            var emails = new []
+            var emails = new[]
             {
                 @"email@example.com",
                 @"firstname.lastname@example.com",
@@ -41,12 +40,14 @@ namespace Behaviors.Tests
                 $"{quote}email{quote}@example.com",
                 @"1234567890@example.com",
                 @"email@example-one.com",
-                //@"_______@example.com",
                 @"email@example.name",
                 @"email@example.museum",
                 @"email@example.co.jp",
                 @"firstname-lastname@example.com"
             };
+
+            // @"_______@example.com",
+
             foreach (var email in emails)
             {
                 entry.Text = email;
@@ -56,7 +57,6 @@ namespace Behaviors.Tests
                 Assert.AreEqual(entry.TextColor, textColor, "Color was changed, but shouldn't have.");
             }
         }
-
 
         [TestMethod]
         public void InvalidEmail()
@@ -76,11 +76,13 @@ namespace Behaviors.Tests
                 @"email@example.com (Joe Smith)",
                 @"email@example",
                 @"email@-example.com",
-                //@"email@example.web",
-                //@"email@111.222.333.44444",
                 @"email@example..com",
                 @"Abc..123@example.com",
             };
+
+            // @"email@example.web",
+            // @"email@111.222.333.44444",
+
             foreach (var email in emails)
             {
                 entry.Text = email;

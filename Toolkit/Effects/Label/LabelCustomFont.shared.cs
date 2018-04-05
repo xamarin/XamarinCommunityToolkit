@@ -2,7 +2,6 @@
 
 namespace Xamarin.Toolkit.Effects
 {
-
     public class LabelCustomFont : RoutingEffect
     {
         /// <summary>
@@ -17,7 +16,8 @@ namespace Xamarin.Toolkit.Effects
         /// <value>The name of the font family.</value>
         public string FontFamilyName { get; set; }
 
-        public LabelCustomFont () : base (EffectIds.LabelCustomFont)
+        public LabelCustomFont()
+            : base(EffectIds.LabelCustomFont)
         {
         }
     }

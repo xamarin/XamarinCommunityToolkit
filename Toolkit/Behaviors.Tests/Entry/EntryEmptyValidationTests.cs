@@ -1,11 +1,6 @@
-﻿using Xamarin.Toolkit.Behaviors;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xamarin.Forms;
+using Xamarin.Toolkit.Behaviors;
 
 namespace Behaviors.Tests
 {
@@ -19,10 +14,14 @@ namespace Behaviors.Tests
         [TestInitialize]
         public void Setup()
         {
-            behavior = new EntryEmptyValidation();
-            behavior.TextColorInvalid = Color.Red;
-            entry = new Entry();
-            entry.TextColor = Color.Green;
+            behavior = new EntryEmptyValidation
+            {
+                TextColorInvalid = Color.Red
+            };
+            entry = new Entry
+            {
+                TextColor = Color.Green
+            };
 
             textColor = entry.TextColor;
             entry.Behaviors.Add(behavior);

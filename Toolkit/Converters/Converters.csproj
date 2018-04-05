@@ -11,4 +11,6 @@
     <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
   </PropertyGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <Import Project="$(MSBuildThisFileDirectory)..\mdoc.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
 </Project>

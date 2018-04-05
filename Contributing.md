@@ -1,69 +1,69 @@
-# Contributing to Xamarin Community Toolkit
+# Contributing
 
-The foundation of **Xamarin Community Toolkit** is simplicity and follow similar practices from the [UWP Community Toolkit](https://github.com/Microsoft/UWPCommunityToolkit).
+Thanks you for your interest in contributing to Xamarin Community Toolkit! In this document we'll outline what you need to know about contributing and how to get started.
 
-A developer should be able to quickly and easily learn to use the API. 
+## Code of Conduct
 
-Simplicity and a low barrier to entry are must-have features of every API. If you have any second thoughts about the complexity of a design, it is almost always much better to cut the feature from the current release and spend more time to get the design right for the next release. 
+Please see our [Code of Conduct](CODE_OF_CONDUCT.md).
 
-You can always add to an API, you cannot ever remove anything from one. If the design does not feel right, and you ship it anyway, you are likely to regret having done so.
+## Prerequisite
 
-That's why many of the guidelines of this document are obvious and serve only one purpose: Simplicity.
+You will need to complete a Contribution License Agreement before any pull request can be accepted. Complete the CLA at https://cla2.dotnetfoundation.org/.
 
-## A good pull request
-Every contribution has to come with:
 
-* Before starting coding, **you should open an issue** and start discussing with the community to see if your idea/feature is interesting enough.
-* A documentation page in the [documentation folder](docs/). Once validated your documentation will be visible [here](http://formscommunitytoolkit.readthedocs.io/en/latest/).
-* A sample for the [Sample app]() (If applicable).
-* Unit tests (If applicable).
-* You tested your code with latest stable brandch of Xamarin and UWP SDK 10586 and SDK 14393.
-* PR has to target dev branch.
+## Documentation - mdoc
 
-PR has to be validated by at least two core members before being merged.
+This project uses [mdoc](http://www.mono-project.com/docs/tools+libraries/tools/monodoc/generating-documentation/) to document types, members, and to add small code snippets and examples.  mdoc files are simple xml files and there is an msbuild target you can invoke to help generate the xml placeholders.
 
-Once merged, you can get a pre-release package of the toolkit be adding the appveyor [NuGet feed](https://ci.appveyor.com/nuget/formscommunitytoolkit).
+Read the [Documenting your code with mdoc wiki page](wiki/Documenting-your-code-with-mdoc) for more information on this process.
 
-## Quality insurance for pull requests for controls
-We encourage developers to follow the following guidances when submitting pull requests for controls:
- * Your control must be usable and efficient with keyboard only.
- * Tab order must be logical.
- * Focused controls must be visible.
- * Action must be triggered when hitting Enter key.
- * Do not use custom colors but instead rely on theme colors so high contrasts themes can be used with your control.
- * Add AutomationProperties.Name on all controls to define what the controls purpose (Name is minimum, but there are some other things too that can really help the screen reader). 
- * Don't use the same Name on two different elements unless they have different control types.
+Every pull request which affects public types or members should include corresponding mdoc xml file changes.
 
-You can find more information about these topics [here](https://blogs.msdn.microsoft.com/winuiautomation/2015/07/14/building-accessible-windows-universal-apps-introduction)
 
-This is to help as part of our effort to build an accessible toolkit.
+### Bug Fixes
 
-## General rules
+If you're looking for something to fix, please browse [open issues](https://github.com/xamarin/XamarinCommunityToolkit/issues). 
 
-* DO NOT require that users perform any extensive initialization before they can start programming basic scenarios.
-* DO provide good defaults for all values associated with parameters, options, etc.
-* DO ensure that APIs are intuitive and can be successfully used in basic scenarios without referring to the reference documentation.
-* DO communicate incorrect usage of APIs as soon as possible. 
-* DO design an API by writing code samples for the main scenarios. Only then, you define the object model that supports those code samples.
-* DO NOT use regions. DO use partial classes instead.
-* DO declare static dependency properties at the top of their file.
-* DO NOT seal controls.
-* DO use extension methods over static methods where possible.
-* DO NOT return true or false to give sucess status. Throw exceptions if there was a failure.
-* DO use verbs like GET.
-* DO NOT use verbs that are not already used like fetch.
+Follow the style used by the [.NET Foundation](https://github.com/dotnet/corefx/blob/master/Documentation/coding-guidelines/coding-style.md), with two primary exceptions:
 
-## Naming conventions
-* We are following the coding guidelines of [.NET Core Foundational libraries](https://github.com/dotnet/corefx/blob/master/Documentation/coding-guidelines/coding-style.md). 
+- We do not use the `private` keyword as it is the default accessibility level in C#.
+- We will **not** use `_` or `s_` as a prefix for internal or private field names
+- We will use `camelCaseFieldName` for naming internal or private fields in both instance and static implementations
 
-## Documentation
-* DO NOT expect that your API is so well designed that it needs no documentation. No API is that intuitive.
-* DO provide great documentation with all APIs. 
-* DO use readable and self-documenting identifier names. 
-* DO use consistent naming and terminology.
-* DO provide strongly typed APIs.
-* DO use verbose identifier names.
+Read and follow our [Pull Request template](https://github.com/xamarin/XamarinCommunityToolkit/blob/master/PULL_REQUEST_TEMPLATE.md)
 
-## Files and folders
-* DO associate no more than one class per file.
-* DO use folders to group classes based on features.
+### Proposals
+
+To propose a change or new feature, review the guidance below and then [open an issue using this template](https://github.com/xamarin/XamarinCommunityToolkit/issues/new).
+
+#### Non-Starter Topics
+The following topics should generally not be proposed for discussion as they are non-starters:
+
+* Large renames of APIs
+* Large non-backward-compatible breaking changes
+* Platform-Specifics which can be accomplished without changing Xamarin Community Toolkit
+* Avoid clutter posts like "+1" which do not serve to further the conversation
+
+#### Proposal States
+##### Open
+Open proposals are still under discussion. Please leave your concrete, constructive feedback on this proposal. +1s and other clutter posts which do not add to the discussion will be removed.
+
+##### Accepted
+Accepted proposals are proposals that both the community and core XamarinCommunityToolkit agree should be a part of XamarinCommunityToolkit. These proposals are ready for implementation, but do not yet have a developer actively working on them. These proposals are available for anyone to work on, both community and the core XamarinCommunityToolkit team.
+
+If you wish to start working on an accepted proposal, please reply to the thread so we can mark you as the implementor and change the title to In Progress. This helps to avoid multiple people working on the same thing. If you decide to work on this proposal publicly, feel free to post a link to the branch as well for folks to follow along.
+
+###### What "Accepted" does mean
+* Any community member is welcome to work on the idea.
+* The core XamarinCommunityToolkit team _may_ consider working on this idea on their own, but has not done so until it is marked "In Progress" with a team member assigned as the implementor.
+* Any pull request implementing the proposal will be welcomed with an API and code review.
+
+###### What "Accepted" does not mean
+* The proposal will ever be implemented, either by a community member or by the core XamarinCommunityToolkit team.
+* The core XamarinCommunityToolkit team is committing to implementing a proposal, even if nobody else does. Accepted proposals simply mean that the core XamarinCommunityToolkit team and the community agree that this proposal should be a part of XamarinCommunityToolkit.
+
+##### In Progress
+Once a developer has begun work on a proposal, either from the core XamarinCommunityToolkit team or a community member, the proposal is marked as in progress with the implementors name and (possibly) a link to a development branch to follow along with progress.
+
+#### Rejected
+Rejected proposals will not be implemented or merged into XamarinCommunityToolkit. Once a proposal is rejected, the thread will be closed and the conversation is considered completed, pending considerable new information or changes.

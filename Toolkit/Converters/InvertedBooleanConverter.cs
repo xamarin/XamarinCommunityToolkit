@@ -1,16 +1,15 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Globalization;
+using Xamarin.Forms;
 
 namespace Xamarin.Toolkit.Converters
 {
     /// <summary>
     /// Inverted boolen converter.
     /// </summary>
-    [ValueConversion (typeof (bool), typeof (bool))]
+    [ValueConversion(typeof(bool), typeof(bool))]
     public class InvertedBooleanConverter : IValueConverter
     {
-
         public static InvertedBooleanConverter Instance { get; } = new InvertedBooleanConverter();
 
         /// <summary>
@@ -50,4 +49,3 @@ namespace Xamarin.Toolkit.Converters
         }
     }
 }
-

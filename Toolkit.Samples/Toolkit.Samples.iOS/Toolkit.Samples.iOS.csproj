@@ -88,6 +88,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
@@ -122,6 +123,7 @@
     <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
   <ItemGroup>
     <ProjectReference Include="..\..\Toolkit\Animations\Animations.csproj">
       <Project>{3d2364ff-a667-4ec1-8225-5d44e00ba306}</Project>

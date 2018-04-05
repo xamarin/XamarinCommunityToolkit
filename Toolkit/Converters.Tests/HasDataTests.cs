@@ -1,10 +1,6 @@
-﻿using Xamarin.Toolkit.Converters;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Xamarin.Toolkit.Converters;
 
 namespace Converters.Tests
 {
@@ -18,6 +14,7 @@ namespace Converters.Tests
         {
             converter = new HasDataConverter();
         }
+
         [TestMethod]
         public void HasDataValueType()
         {
@@ -26,7 +23,6 @@ namespace Converters.Tests
             Assert.AreEqual(true, returnVal);
         }
 
-
         [TestMethod]
         public void HasDataList()
         {
@@ -34,7 +30,6 @@ namespace Converters.Tests
 
             Assert.AreEqual(true, returnVal);
         }
-
 
         [TestMethod]
         public void HasDataString()
@@ -52,15 +47,13 @@ namespace Converters.Tests
             Assert.AreEqual(false, returnVal);
         }
 
-
         [TestMethod]
         public void HasNoDataList()
         {
-            var returnVal = converter.Convert(new List<int> {  }, null, null, null);
+            var returnVal = converter.Convert(new List<int> { }, null, null, null);
 
             Assert.AreEqual(false, returnVal);
         }
-
 
         [TestMethod]
         public void HasNoDataString()

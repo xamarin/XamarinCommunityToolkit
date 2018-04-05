@@ -1,22 +1,22 @@
 ﻿using System.ComponentModel;
 using System.Numerics;
+using Microsoft.Graphics.Canvas.Effects;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Hosting;
-using Microsoft.Graphics.Canvas.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.ViewBlur), nameof(RoutingEffects.ViewBlurEffect))]
 namespace Xamarin.Toolkit.Effects.UWP
 {
     public class ViewBlur : PlatformEffect
     {
-        private SpriteVisual _blurVisual;
-        private CompositionBrush _blurBrush;
-        private Visual _rootVisual;
+        SpriteVisual blurVisual;
+        CompositionBrush blurBrush;
+        Visual rootVisual;
 
         Compositor Compositor { get; set; }
 
@@ -24,24 +24,24 @@ namespace Xamarin.Toolkit.Effects.UWP
         {
             var blurAmount = (double)Element.GetValue(RoutingEffects.ViewBlur.BlurAmountProperty);
 
-            _rootVisual = ElementCompositionPreview.GetElementVisual(Container);
+            rootVisual = ElementCompositionPreview.GetElementVisual(Container);
 
-            Compositor = _rootVisual.Compositor;
+            Compositor = rootVisual.Compositor;
 
-            _blurVisual = Compositor.CreateSpriteVisual();
+            blurVisual = Compositor.CreateSpriteVisual();
 
             var brush = BuildBlurBrush();
             brush.SetSourceParameter("source", Compositor.CreateBackdropBrush());
-            _blurBrush = brush;
-            _blurVisual.Brush = _blurBrush;
+            blurBrush = brush;
+            blurVisual.Brush = blurBrush;
 
-            ElementCompositionPreview.SetElementChildVisual(Container, _blurVisual);
+            ElementCompositionPreview.SetElementChildVisual(Container, blurVisual);
 
             Container.Loading += OnLoading;
             Container.Unloaded += OnUnloaded;
 
-            _blurBrush.Properties.InsertScalar("Blur.BlurAmount", (float)blurAmount);
-            _rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
+            blurBrush.Properties.InsertScalar("Blur.BlurAmount", (float)blurAmount);
+            rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
 
             SetUpPropertySetExpressions();
         }
@@ -53,47 +53,45 @@ namespace Xamarin.Toolkit.Effects.UWP
             if (args.PropertyName == "BlurAmount")
             {
                 var blurAmount = (double)Element.GetValue(RoutingEffects.ViewBlur.BlurAmountProperty);
-                _rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
+                rootVisual.Properties.InsertScalar("BlurAmount", (float)blurAmount);
             }
         }
 
-        private void SetUpPropertySetExpressions()
+        void SetUpPropertySetExpressions()
         {
             var exprAnimation = Compositor.CreateExpressionAnimation();
             exprAnimation.Expression = "sourceProperties.BlurAmount";
-            exprAnimation.SetReferenceParameter("sourceProperties", _rootVisual.Properties);
+            exprAnimation.SetReferenceParameter("sourceProperties", rootVisual.Properties);
 
-            _blurBrush.Properties.StartAnimation("Blur.BlurAmount", exprAnimation);
+            blurBrush.Properties.StartAnimation("Blur.BlurAmount", exprAnimation);
         }
 
-        protected override void OnDetached()
-        {
+        protected override void OnDetached() =>
             Container.SizeChanged -= OnSizeChanged;
-        }
 
-        private void OnLoading(FrameworkElement sender, object args)
+        void OnLoading(FrameworkElement sender, object args)
         {
             Container.SizeChanged += OnSizeChanged;
             OnSizeChanged(this, null);
         }
 
-        private void OnUnloaded(object sender, RoutedEventArgs e)
+        void OnUnloaded(object sender, RoutedEventArgs e)
         {
             if (Container == null)
                 return;
-            else
-                Container.SizeChanged -= OnSizeChanged;
+
+            Container.SizeChanged -= OnSizeChanged;
         }
 
-        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (_blurVisual == null)
+            if (blurVisual == null)
                 return;
-            else
-                _blurVisual.Size = new Vector2((float)Container.ActualWidth, (float)Container.ActualHeight);
+
+            blurVisual.Size = new Vector2((float)Container.ActualWidth, (float)Container.ActualHeight);
         }
 
-        private CompositionEffectBrush BuildBlurBrush()
+        CompositionEffectBrush BuildBlurBrush()
         {
             var blurEffect = new GaussianBlurEffect()
             {
@@ -106,8 +104,7 @@ namespace Xamarin.Toolkit.Effects.UWP
 
             var factory = Compositor.CreateEffectFactory(
                 blurEffect,
-                new[] { "Blur.BlurAmount" }
-            );
+                new[] { "Blur.BlurAmount" });
 
             var brush = factory.CreateBrush();
             return brush;

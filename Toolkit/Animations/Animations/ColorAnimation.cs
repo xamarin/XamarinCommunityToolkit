@@ -8,13 +8,12 @@ namespace Xamarin.Toolkit.Animations
     public class ColorAnimation : AnimationBase
     {
         public static readonly BindableProperty ToColorProperty =
-            BindableProperty.Create(nameof(ToColor), typeof(Color), typeof(ColorAnimation), Color.Default,
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(nameof(ToColor), typeof(Color), typeof(ColorAnimation), Color.Default, BindingMode.TwoWay, null);
 
         public Color ToColor
         {
-            get { return (Color)GetValue(ToColorProperty); }
-            set { SetValue(ToColorProperty, value); }
+            get => (Color)GetValue(ToColorProperty);
+            set => SetValue(ToColorProperty, value);
         }
 
         protected override Task BeginAnimation()

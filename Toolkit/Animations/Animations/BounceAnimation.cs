@@ -26,16 +26,9 @@ namespace Xamarin.Toolkit.Animations
         {
             var animation = new Animation();
 
-            animation.WithConcurrent(
-                           f => Target.Scale = f,
-                            0.5, 1,
-                           Xamarin.Forms.Easing.Linear, 0, 1);
+            animation.WithConcurrent(f => Target.Scale = f, 0.5, 1, easing: Forms.Easing.Linear, beginAt: 0, finishAt: 1);
 
-            animation.WithConcurrent(
-                    (f) => Target.Opacity = f,
-                    0, 1,
-                    null,
-                    0, 0.25);
+            animation.WithConcurrent(f => Target.Opacity = f, 0, 1, null, 0, 0.25);
 
             return animation;
         }
@@ -65,16 +58,9 @@ namespace Xamarin.Toolkit.Animations
 
             Target.Opacity = 1;
 
-            animation.WithConcurrent(
-                (f) => Target.Opacity = f,
-                1, 0,
-                null,
-                0.5, 1);
+            animation.WithConcurrent(f => Target.Opacity = f, 1, 0, null,  0.5, 1);
 
-            animation.WithConcurrent(
-                (f) => Target.Scale = f,
-                1, 0.3,
-                Xamarin.Forms.Easing.Linear, 0, 1);
+            animation.WithConcurrent(f => Target.Scale = f, 1, 0.3, Forms.Easing.Linear, 0, 1);
 
             return animation;
         }

@@ -7,13 +7,12 @@ namespace Xamarin.Toolkit.Animations
     public class ScaleToAnimation : AnimationBase
     {
         public static readonly BindableProperty ScaleProperty =
-            BindableProperty.Create(nameof(Scale), typeof(double), typeof(ScaleToAnimation), default(double),  
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(nameof(Scale), typeof(double), typeof(ScaleToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double Scale
         {
-            get { return (double)GetValue(ScaleProperty); }
-            set { SetValue(ScaleProperty, value); }
+            get => (double)GetValue(ScaleProperty);
+            set => SetValue(ScaleProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -29,14 +28,13 @@ namespace Xamarin.Toolkit.Animations
 
     public class RelScaleToAnimation : AnimationBase
     {
-        public static readonly BindableProperty ScaleProperty = 
-            BindableProperty.Create(nameof(Scale), typeof(double), typeof(RelScaleToAnimation), default(double),      
-                BindingMode.TwoWay, null);
+        public static readonly BindableProperty ScaleProperty =
+            BindableProperty.Create(nameof(Scale), typeof(double), typeof(RelScaleToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double Scale
         {
-            get { return (double)GetValue(ScaleProperty); }
-            set { SetValue(ScaleProperty, value); }
+            get => (double)GetValue(ScaleProperty);
+            set => SetValue(ScaleProperty, value);
         }
 
         protected override Task BeginAnimation()

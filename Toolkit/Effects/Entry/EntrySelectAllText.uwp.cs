@@ -1,10 +1,10 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntrySelectAllText), nameof(RoutingEffects.EntrySelectAllText))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -22,18 +22,16 @@ namespace Xamarin.Toolkit.Effects.UWP
             textBox.GotFocus += TextboxOnGotFocus;
         }
 
-        private void TextboxOnGotFocus(object sender, RoutedEventArgs e)
-        {
+        void TextboxOnGotFocus(object sender, RoutedEventArgs e) =>
             ((TextBox)sender).SelectAll();
-        }
 
         protected override void OnDetached()
         {
             var textbox = Control as TextBox;
             if (textbox == null)
                 return;
-            else
-                textbox.GotFocus -= TextboxOnGotFocus;
+
+            textbox.GotFocus -= TextboxOnGotFocus;
         }
     }
 }

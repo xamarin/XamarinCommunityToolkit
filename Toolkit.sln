@@ -6,11 +6,12 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CF83A7E-B02C-4DEC-A0B7-EFC68623D928}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		Contributing.md = Contributing.md
 		Toolkit\Directory.build.props = Toolkit\Directory.build.props
 		Toolkit\Directory.build.targets = Toolkit\Directory.build.targets
 		LICENSE = LICENSE
 		README.md = README.md
+		stylecop.json = stylecop.json
+		Toolkit.ruleset = Toolkit.ruleset
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Animations", "Toolkit\Animations\Animations.csproj", "{3D2364FF-A667-4EC1-8225-5D44E00BA306}"
@@ -35,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolkit.Samples.iOS", "Tool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolkit.Samples.UWP", "Toolkit.Samples\Toolkit.Samples.UWP\Toolkit.Samples.UWP.csproj", "{651BB325-06FF-4487-A463-B2AAC30107FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toolkit.Samples", "Toolkit.Samples\Toolkit.Samples\Toolkit.Samples.csproj", "{5BC1EE6B-4204-46F9-9368-AB558CA957B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Toolkit.Samples", "Toolkit.Samples\Toolkit.Samples\Toolkit.Samples.csproj", "{5BC1EE6B-4204-46F9-9368-AB558CA957B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,9 +1,9 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+﻿using Foundation;
 using UIKit;
-using Foundation;
-using RoutingEffects = Xamarin.Toolkit.Effects;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryRemoveBorder), nameof(RoutingEffects.EntryRemoveBorder))]
 namespace Xamarin.Toolkit.Effects.iOS
@@ -11,7 +11,7 @@ namespace Xamarin.Toolkit.Effects.iOS
     [Preserve(AllMembers = true)]
     public class EntryRemoveBorder : PlatformEffect
     {
-        private UITextBorderStyle _old;
+        UITextBorderStyle old;
 
         protected override void OnAttached()
         {
@@ -19,7 +19,7 @@ namespace Xamarin.Toolkit.Effects.iOS
             if (editText == null)
                 return;
 
-            _old = editText.BorderStyle;
+            old = editText.BorderStyle;
             editText.BorderStyle = UITextBorderStyle.None;
         }
 
@@ -29,7 +29,7 @@ namespace Xamarin.Toolkit.Effects.iOS
             if (editText == null)
                 return;
 
-            editText.BorderStyle = _old;
+            editText.BorderStyle = old;
         }
     }
 }

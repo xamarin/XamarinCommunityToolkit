@@ -1,12 +1,12 @@
-﻿namespace Xamarin.Toolkit.Animations
-{
-    using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
+namespace Xamarin.Toolkit.Animations
+{
     public static class EasingHelper
     {
         public static Easing GetEasing(EasingType type)
         {
-            switch(type)
+            switch (type)
             {
                 case EasingType.BounceIn:
                     return Easing.BounceIn;

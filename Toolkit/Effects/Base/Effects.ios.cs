@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms.Platform.iOS;
-using System;
 using Foundation;
+using Xamarin.Forms.Platform.iOS;
 
 namespace Xamarin.Toolkit.Effects.iOS
 {

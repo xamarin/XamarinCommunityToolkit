@@ -2,15 +2,15 @@
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryDisableAutoCorrect), nameof(RoutingEffects.EntryDisableAutoCorrect))]
 namespace Xamarin.Toolkit.Effects.Droid
 {
     public class EntryDisableAutoCorrect : PlatformEffect
     {
-        private InputTypes _old;
+        InputTypes old;
 
         protected override void OnAttached()
         {
@@ -18,7 +18,7 @@ namespace Xamarin.Toolkit.Effects.Droid
             if (editText == null)
                 return;
 
-            _old = editText.InputType;
+            old = editText.InputType;
             editText.InputType = editText.InputType | global::Android.Text.InputTypes.TextFlagNoSuggestions;
         }
 
@@ -28,7 +28,7 @@ namespace Xamarin.Toolkit.Effects.Droid
             if (editText == null)
                 return;
 
-            editText.InputType = _old;
+            editText.InputType = old;
         }
     }
 }

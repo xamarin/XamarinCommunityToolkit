@@ -1,9 +1,9 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+﻿using Foundation;
 using UIKit;
-using Foundation;
-using RoutingEffects = Xamarin.Toolkit.Effects;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.LabelSizeFontToFit), nameof(RoutingEffects.LabelSizeFontToFit))]
 

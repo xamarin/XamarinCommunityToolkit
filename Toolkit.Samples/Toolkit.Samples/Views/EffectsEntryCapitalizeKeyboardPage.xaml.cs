@@ -1,6 +1,4 @@
-﻿
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace Xamarin.Toolkit.Samples.Views
 {

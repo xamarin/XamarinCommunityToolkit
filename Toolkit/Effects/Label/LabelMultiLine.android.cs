@@ -2,8 +2,8 @@
 using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.LabelMultiLine), nameof(RoutingEffects.LabelMultiLine))]
 namespace Xamarin.Toolkit.Effects.Droid
@@ -27,7 +27,7 @@ namespace Xamarin.Toolkit.Effects.Droid
 
         protected override void OnDetached()
         {
-            //TODO: Glenn - Reset to old amount of Lines and old SingleLine value
+            // TODO: Glenn - Reset to old amount of Lines and old SingleLine value
         }
     }
 }

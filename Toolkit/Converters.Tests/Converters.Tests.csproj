@@ -3,23 +3,23 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
 
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.2.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Converters\Converters.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
 
 </Project>

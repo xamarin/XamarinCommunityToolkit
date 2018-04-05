@@ -13,23 +13,17 @@ namespace Xamarin.Toolkit.Effects
         {
             return (ObservableCollection<string>)view.GetValue(SuggestionsProperty);
         }
-        
-        public static void SetSuggestions(BindableObject view, ObservableCollection<string> value)
-        {
+
+        public static void SetSuggestions(BindableObject view, ObservableCollection<string> value) =>
             view.SetValue(SuggestionsProperty, value);
-        }
 
-        public static Action GetTextChangedAction(BindableObject view)
-        {
-            return (Action)view.GetValue(TextChangedActionProperty);
-        }
+        public static Action GetTextChangedAction(BindableObject view) =>
+            (Action)view.GetValue(TextChangedActionProperty);
 
-        public static void SetTextChangedAction(BindableObject view, Action value)
-        {
+        public static void SetTextChangedAction(BindableObject view, Action value) =>
             view.SetValue(TextChangedActionProperty, value);
-        }
 
-        private static void OnSuggestionsChanged(BindableObject bindable, object oldValue, object newValue)
+        static void OnSuggestionsChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var view = bindable as SearchBar;
             if (view == null)
@@ -37,7 +31,8 @@ namespace Xamarin.Toolkit.Effects
 
             bindable.SetValue(SuggestionsProperty, (ObservableCollection<string>)newValue);
         }
-        private static void OnTextChangedActionChanged(BindableObject bindable, object oldValue, object newValue)
+
+        static void OnTextChangedActionChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var view = bindable as SearchBar;
             if (view == null)
@@ -49,7 +44,8 @@ namespace Xamarin.Toolkit.Effects
 
     public class SearchBarSuggestionEffect : RoutingEffect
     {
-        public SearchBarSuggestionEffect() : base(EffectIds.SearchBarSuggestion)
+        public SearchBarSuggestionEffect()
+            : base(EffectIds.SearchBarSuggestion)
         {
         }
     }

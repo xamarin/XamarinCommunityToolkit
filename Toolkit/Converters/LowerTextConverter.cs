@@ -1,14 +1,13 @@
 ﻿using System;
-using Xamarin.Forms;
 using System.Globalization;
+using Xamarin.Forms;
 
 namespace Xamarin.Toolkit.Converters
 {
-    [ValueConversion (typeof (string), typeof (string))]
+    [ValueConversion(typeof(string), typeof(string))]
     public class LowerTextConverter : IValueConverter
     {
         public static LowerTextConverter Instance { get; } = new LowerTextConverter();
-
 
         /// <summary>
         /// Init this instance.
@@ -23,7 +22,7 @@ namespace Xamarin.Toolkit.Converters
             if (value == null)
                 return string.Empty;
 
-            var text = ((string)value);
+            var text = (string)value;
 
             return text.ToLowerInvariant();
         }
@@ -34,4 +33,3 @@ namespace Xamarin.Toolkit.Converters
         }
     }
 }
-

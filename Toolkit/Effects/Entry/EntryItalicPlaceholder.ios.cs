@@ -2,8 +2,8 @@
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryItalicPlaceholder), nameof(RoutingEffects.EntryItalicPlaceholder))]
 namespace Xamarin.Toolkit.Effects.iOS
@@ -11,7 +11,7 @@ namespace Xamarin.Toolkit.Effects.iOS
     [Preserve(AllMembers = true)]
     public class EntryItalicPlaceholder : PlatformEffect
     {
-        private NSAttributedString _old;
+        NSAttributedString old;
 
         protected override void OnAttached()
         {
@@ -19,7 +19,7 @@ namespace Xamarin.Toolkit.Effects.iOS
             if (entry == null || string.IsNullOrWhiteSpace(entry.Placeholder))
                 return;
 
-            _old = entry.AttributedPlaceholder;
+            old = entry.AttributedPlaceholder;
             var entryFontSize = entry.Font.PointSize;
             entry.AttributedPlaceholder = new NSAttributedString(entry.Placeholder, font: UIFont.ItalicSystemFontOfSize(entryFontSize));
         }
@@ -30,7 +30,7 @@ namespace Xamarin.Toolkit.Effects.iOS
             if (entry == null)
                 return;
 
-            entry.AttributedPlaceholder = _old;
+            entry.AttributedPlaceholder = old;
         }
     }
 }

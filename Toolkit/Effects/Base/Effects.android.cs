@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms.Platform.Android;
-using System;
 using Android.Runtime;
+using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.Toolkit.Effects.Droid
 {

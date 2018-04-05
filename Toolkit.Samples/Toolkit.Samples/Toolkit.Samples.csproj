@@ -15,9 +15,6 @@
     <ProjectReference Include="..\..\Toolkit\Effects\Effects.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
-      <DependentUpon>*.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
 </Project>

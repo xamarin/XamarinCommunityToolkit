@@ -9,12 +9,12 @@ namespace Xamarin.Toolkit.Samples.Views
             InitializeComponent();
         }
 
-        private async void OnAnimationsButtonClicked(object sender, System.EventArgs e)
+        async void OnAnimationsButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new AnimationsPage());
         }
 
-        private async void OnEffectsButtonClicked(object sender, System.EventArgs e)
+        async void OnEffectsButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsPage());
         }

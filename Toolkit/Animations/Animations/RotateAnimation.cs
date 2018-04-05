@@ -6,14 +6,13 @@ namespace Xamarin.Toolkit.Animations
 {
     public class RotateToAnimation : AnimationBase
     {
-        public static readonly BindableProperty RotationProperty = 
-            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateToAnimation), default(double), 
-                BindingMode.TwoWay, null);
+        public static readonly BindableProperty RotationProperty =
+            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double Rotation
         {
-            get { return (double)GetValue(RotationProperty); }
-            set { SetValue(RotationProperty, value); }
+            get => (double)GetValue(RotationProperty);
+            set => SetValue(RotationProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -30,13 +29,12 @@ namespace Xamarin.Toolkit.Animations
     public class RelRotateToAnimation : AnimationBase
     {
         public static readonly BindableProperty RotationProperty =
-            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RelRotateToAnimation), default(double),
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RelRotateToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double Rotation
         {
-            get { return (double)GetValue(RotationProperty); }
-            set { SetValue(RotationProperty, value); }
+            get => (double)GetValue(RotationProperty);
+            set => SetValue(RotationProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -53,13 +51,12 @@ namespace Xamarin.Toolkit.Animations
     public class RotateXToAnimation : AnimationBase
     {
         public static readonly BindableProperty RotationProperty =
-            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateXToAnimation), default(double),
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateXToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double Rotation
         {
-            get { return (double)GetValue(RotationProperty); }
-            set { SetValue(RotationProperty, value); }
+            get => (double)GetValue(RotationProperty);
+            set => SetValue(RotationProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -76,13 +73,12 @@ namespace Xamarin.Toolkit.Animations
     public class RotateYToAnimation : AnimationBase
     {
         public static readonly BindableProperty RotationProperty =
-            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateYToAnimation), default(double),
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(RotateYToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double Rotation
         {
-            get { return (double)GetValue(RotationProperty); }
-            set { SetValue(RotationProperty, value); }
+            get => (double)GetValue(RotationProperty);
+            set => SetValue(RotationProperty, value);
         }
 
         protected override Task BeginAnimation()

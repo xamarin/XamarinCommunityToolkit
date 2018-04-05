@@ -9,22 +9,22 @@ namespace Xamarin.Toolkit.Behaviors
     {
         Delegate eventHandler;
 
-        public static readonly BindableProperty EventNameProperty = 
+        public static readonly BindableProperty EventNameProperty =
             BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommand), null, propertyChanged: OnEventNameChanged);
 
-        public static readonly BindableProperty CommandProperty = 
+        public static readonly BindableProperty CommandProperty =
             BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommand), null);
 
-        public static readonly BindableProperty CommandParameterProperty = 
+        public static readonly BindableProperty CommandParameterProperty =
             BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommand), null);
 
-        public static readonly BindableProperty InputConverterProperty = 
+        public static readonly BindableProperty InputConverterProperty =
             BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommand), null);
 
         public string EventName
         {
-            get { return (string)GetValue(EventNameProperty); }
-            set { SetValue(EventNameProperty, value); }
+            get => (string)GetValue(EventNameProperty);
+            set => SetValue(EventNameProperty, value);
         }
 
         public ICommand Command
@@ -113,7 +113,7 @@ namespace Xamarin.Toolkit.Behaviors
             }
         }
 
-        static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
+        internal static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var behavior = bindable as EventToCommand;
             if (behavior?.AssociatedObject == null)

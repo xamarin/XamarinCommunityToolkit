@@ -3,10 +3,10 @@
 namespace Xamarin.Toolkit.Samples.Views
 {
     public partial class EffectsEntryDisableAutoCorrectPage : ContentPage
-	{
-		public EffectsEntryDisableAutoCorrectPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    {
+        public EffectsEntryDisableAutoCorrectPage()
+        {
+            InitializeComponent();
+        }
+    }
 }

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
   </ItemGroup>
@@ -42,4 +43,6 @@
     <Compile Include="**\*.ios.*.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <Import Project="$(MSBuildThisFileDirectory)..\mdoc.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
 </Project>

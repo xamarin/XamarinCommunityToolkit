@@ -1,17 +1,11 @@
-﻿using Xamarin.Toolkit.Converters;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xamarin.Toolkit.Converters;
 
 namespace Converters.Tests
 {
     [TestClass]
     public class InvertedBooleanTests
     {
-
         InvertedBooleanConverter converter;
 
         [TestInitialize]

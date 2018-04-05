@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Xamarin.Toolkit.Samples.Views
 {
@@ -10,7 +9,7 @@ namespace Xamarin.Toolkit.Samples.Views
             InitializeComponent();
         }
 
-        private async void OnCapitalizeKeyboardButtonClicked(object sender, System.EventArgs e)
+        async void OnCapitalizeKeyboardButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsEntryCapitalizeKeyboardPage());
         }
@@ -25,22 +24,22 @@ namespace Xamarin.Toolkit.Samples.Views
             await Navigation.PushAsync(new EffectsEntryDisableAutoCorrectPage());
         }
 
-        private async void OnItalicPlaceholderButtonClicked(object sender, System.EventArgs e)
+        async void OnItalicPlaceholderButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsEntryItalicPlaceholderPage());
         }
 
-        private async void OnRemoveBorderButtonClicked(object sender, System.EventArgs e)
+        async void OnRemoveBorderButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsEntryRemoveBorderPage());
         }
 
-        private async void OnRemoveLineButtonClicked(object sender, System.EventArgs e)
+        async void OnRemoveLineButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsEntryRemoveLinePage());
         }
 
-        private async void OnSelectAllTextButtonClicked(object sender, System.EventArgs e)
+        async void OnSelectAllTextButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsEntrySelectAllTextPage());
         }

@@ -9,9 +9,8 @@ namespace Xamarin.Toolkit.Behaviors
         bool colorSet;
         Color color = Color.Default;
 
-        static readonly BindablePropertyKey TextColorInvalidKey =
-            BindableProperty.CreateReadOnly(nameof(TextColorInvalid), typeof(Color),
-                                            typeof(EntryEmailValidation), Color.Default);
+        internal static readonly BindablePropertyKey TextColorInvalidKey =
+            BindableProperty.CreateReadOnly(nameof(TextColorInvalid), typeof(Color), typeof(EntryEmailValidation), Color.Default);
 
         /// <summary>
         /// The is valid property.
@@ -19,20 +18,18 @@ namespace Xamarin.Toolkit.Behaviors
         public static readonly BindableProperty TextColorInvalidProperty =
             TextColorInvalidKey.BindableProperty;
 
-
         /// <summary>
         /// Gets or sets the text color invalid.
         /// </summary>
         /// <value>The text color invalid.</value>
         public Color TextColorInvalid
         {
-            get { return (Color)GetValue(TextColorInvalidProperty); }
-            set { SetValue(TextColorInvalidKey, value); }
+            get => (Color)GetValue(TextColorInvalidProperty);
+            set => SetValue(TextColorInvalidKey, value);
         }
 
-        static readonly BindablePropertyKey IsValidPropertyKey =
-            BindableProperty.CreateReadOnly(nameof(IsValid), typeof(bool),
-                                            typeof(EntryEmptyValidation), false);
+        internal static readonly BindablePropertyKey IsValidPropertyKey =
+            BindableProperty.CreateReadOnly(nameof(IsValid), typeof(bool), typeof(EntryEmptyValidation), false);
 
         /// <summary>
         /// The is valid property.
@@ -46,8 +43,8 @@ namespace Xamarin.Toolkit.Behaviors
         /// <value><c>true</c> if this instance is valid; otherwise, <c>false</c>.</value>
         public bool IsValid
         {
-            get { return (bool)base.GetValue(IsValidProperty); }
-            private set { base.SetValue(IsValidPropertyKey, value); }
+            get => (bool)GetValue(IsValidProperty);
+            private set => SetValue(IsValidPropertyKey, value);
         }
 
         /// <param name="bindable">To be added.</param>
@@ -75,8 +72,7 @@ namespace Xamarin.Toolkit.Behaviors
         {
             var text = e?.NewTextValue ?? string.Empty;
 
-            double result;
-            IsValid = double.TryParse(text, out result);
+            IsValid = double.TryParse(text, out var result);
 
             var entry = sender as Entry;
 
@@ -94,7 +90,6 @@ namespace Xamarin.Toolkit.Behaviors
 
         void OnEntryTextChanged(object sender, TextChangedEventArgs args)
         {
-            
         }
     }
 }

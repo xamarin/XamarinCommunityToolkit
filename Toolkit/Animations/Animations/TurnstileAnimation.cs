@@ -26,7 +26,7 @@ namespace Xamarin.Toolkit.Animations
         {
             var animation = new Animation();
 
-            animation.WithConcurrent((f) => Target.RotationY = f, 75, 0, Xamarin.Forms.Easing.CubicOut);
+            animation.WithConcurrent((f) => Target.RotationY = f, 75, 0, Forms.Easing.CubicOut);
             animation.WithConcurrent((f) => Target.Opacity = f, 0, 1, null, 0, 0.01);
 
             return animation;
@@ -55,7 +55,7 @@ namespace Xamarin.Toolkit.Animations
         {
             var animation = new Animation();
 
-            animation.WithConcurrent((f) => Target.RotationY = f, 0, -75, Xamarin.Forms.Easing.CubicOut);
+            animation.WithConcurrent((f) => Target.RotationY = f, 0, -75, Forms.Easing.CubicOut);
             animation.WithConcurrent((f) => Target.Opacity = f, 1, 0, null, 0.9, 1);
 
             return animation;

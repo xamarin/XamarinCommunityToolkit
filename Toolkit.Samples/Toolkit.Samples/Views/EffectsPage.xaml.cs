@@ -10,22 +10,22 @@ namespace Xamarin.Toolkit.Samples.Views
             InitializeComponent();
         }
 
-        private async void OnLabelButtonClicked(object sender, System.EventArgs e)
+        async void OnLabelButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsLabelPage());
         }
 
-        private async void OnEntryButtonClicked(object sender, System.EventArgs e)
+        async void OnEntryButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsEntryPage());
         }
 
-        private async void OnSwitchButtonClicked(object sender, System.EventArgs e)
+        async void OnSwitchButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsSwitchPage());
         }
 
-        private async void OnViewButtonClicked(object sender, System.EventArgs e)
+        async void OnViewButtonClicked(object sender, System.EventArgs e)
         {
             await Navigation.PushAsync(new EffectsViewPage());
         }

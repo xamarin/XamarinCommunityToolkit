@@ -1,9 +1,9 @@
-using Foundation;
+﻿using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.iOS;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryClear), nameof(RoutingEffects.EntryClear))]
 namespace Xamarin.Toolkit.Effects.iOS
@@ -11,7 +11,7 @@ namespace Xamarin.Toolkit.Effects.iOS
     [Preserve(AllMembers = true)]
     public class EntryClear : PlatformEffect
     {
-        private UITextFieldViewMode _old;
+        UITextFieldViewMode old;
 
         protected override void OnAttached()
         {
@@ -24,16 +24,16 @@ namespace Xamarin.Toolkit.Effects.iOS
             if (editText == null)
                 return;
 
-            editText.ClearButtonMode = _old;
+            editText.ClearButtonMode = old;
         }
 
-        private void ConfigureControl()
+        void ConfigureControl()
         {
             var editText = Control as UITextField;
             if (editText == null)
                 return;
 
-            _old = editText.ClearButtonMode;
+            old = editText.ClearButtonMode;
             editText.ClearButtonMode = UITextFieldViewMode.WhileEditing;
         }
     }

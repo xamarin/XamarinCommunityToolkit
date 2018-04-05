@@ -7,13 +7,12 @@ namespace Xamarin.Toolkit.Animations
     public class FadeToAnimation : AnimationBase
     {
         public static readonly BindableProperty OpacityProperty =
-            BindableProperty.Create(nameof(Opacity), typeof(double), typeof(FadeToAnimation), default(double),
-                BindingMode.TwoWay, null);
+            BindableProperty.Create(nameof(Opacity), typeof(double), typeof(FadeToAnimation), default(double), BindingMode.TwoWay, null);
 
         public double Opacity
         {
-            get { return (double)GetValue(OpacityProperty); }
-            set { SetValue(OpacityProperty, value); }
+            get => (double)GetValue(OpacityProperty);
+            set => SetValue(OpacityProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -35,14 +34,13 @@ namespace Xamarin.Toolkit.Animations
             Down
         }
 
-        public static readonly BindableProperty DirectionProperty = 
-            BindableProperty.Create(nameof(Direction), typeof(FadeDirection), typeof(FadeInAnimation), FadeDirection.Up,       
-                BindingMode.TwoWay, null);
+        public static readonly BindableProperty DirectionProperty =
+            BindableProperty.Create(nameof(Direction), typeof(FadeDirection), typeof(FadeInAnimation), FadeDirection.Up, BindingMode.TwoWay, null);
 
         public FadeDirection Direction
         {
-            get { return (FadeDirection)GetValue(DirectionProperty); }
-            set { SetValue(DirectionProperty, value); }
+            get => (FadeDirection)GetValue(DirectionProperty);
+            set => SetValue(DirectionProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -65,12 +63,9 @@ namespace Xamarin.Toolkit.Animations
         {
             var animation = new Animation();
 
-            animation.WithConcurrent((f) => Target.Opacity = f, 0, 1, Xamarin.Forms.Easing.CubicOut);
+            animation.WithConcurrent((f) => Target.Opacity = f, 0, 1, Forms.Easing.CubicOut);
 
-            animation.WithConcurrent(
-              (f) => Target.TranslationY = f,
-              Target.TranslationY + ((Direction == FadeDirection.Up) ? 50 : -50), Target.TranslationY,
-              Xamarin.Forms.Easing.CubicOut, 0, 1);
+            animation.WithConcurrent((f) => Target.TranslationY = f, Target.TranslationY + ((Direction == FadeDirection.Up) ? 50 : -50), Target.TranslationY, Forms.Easing.CubicOut, 0, 1);
 
             return animation;
         }
@@ -84,14 +79,13 @@ namespace Xamarin.Toolkit.Animations
             Down
         }
 
-        public static readonly BindableProperty DirectionProperty = 
-            BindableProperty.Create(nameof(Direction), typeof(FadeDirection), typeof(FadeOutAnimation), FadeDirection.Up,       
-                BindingMode.TwoWay, null);
+        public static readonly BindableProperty DirectionProperty =
+            BindableProperty.Create(nameof(Direction), typeof(FadeDirection), typeof(FadeOutAnimation), FadeDirection.Up, BindingMode.TwoWay, null);
 
         public FadeDirection Direction
         {
-            get { return (FadeDirection)GetValue(DirectionProperty); }
-            set { SetValue(DirectionProperty, value); }
+            get => (FadeDirection)GetValue(DirectionProperty);
+            set => SetValue(DirectionProperty, value);
         }
 
         protected override Task BeginAnimation()
@@ -114,13 +108,9 @@ namespace Xamarin.Toolkit.Animations
         {
             var animation = new Animation();
 
-            animation.WithConcurrent(
-                 (f) => Target.Opacity = f,
-                 1, 0);
+            animation.WithConcurrent((f) => Target.Opacity = f, 1, 0);
 
-            animation.WithConcurrent(
-                  (f) => Target.TranslationY = f,
-                  Target.TranslationY, Target.TranslationY + ((Direction == FadeDirection.Up) ? 50 : -50));
+            animation.WithConcurrent((f) => Target.TranslationY = f, Target.TranslationY, Target.TranslationY + ((Direction == FadeDirection.Up) ? 50 : -50));
 
             return animation;
         }

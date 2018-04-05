@@ -1,11 +1,11 @@
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
 using Android.Runtime;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.Droid;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.EntryRemoveLine), nameof(RoutingEffects.EntryRemoveLine))]
 namespace Xamarin.Toolkit.Effects.Droid

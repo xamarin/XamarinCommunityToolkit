@@ -1,13 +1,13 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml;
-using System.Linq;
-using Windows.UI.Xaml.Media.Animation;
-using RoutingEffects = Xamarin.Toolkit.Effects;
 using PlatformEffects = Xamarin.Toolkit.Effects.UWP;
+using RoutingEffects = Xamarin.Toolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformEffects.SwitchChangeColor), nameof(RoutingEffects.SwitchChangeColorEffect))]
 namespace Xamarin.Toolkit.Effects.UWP
@@ -15,26 +15,24 @@ namespace Xamarin.Toolkit.Effects.UWP
     [Preserve]
     public class SwitchChangeColor : PlatformEffect
     {
-        private Windows.UI.Color _trueColor;
-        private Windows.UI.Color _falseColor;
+        Windows.UI.Color trueColor;
+        Windows.UI.Color falseColor;
 
         protected override void OnAttached()
         {
             var color = (Color)Element.GetValue(RoutingEffects.SwitchChangeColor.TrueColorProperty);
-            _trueColor = ConvertColor(color);
+            trueColor = ConvertColor(color);
 
             // currently not supported
             color = (Color)Element.GetValue(RoutingEffects.SwitchChangeColor.FalseColorProperty);
-            _falseColor = ConvertColor(color);
+            falseColor = ConvertColor(color);
 
             var toggleSwitch = Control as ToggleSwitch;
             if (toggleSwitch == null)
                 return;
-            else
-            {
-                toggleSwitch.Loaded -= OnSwitchLoaded;
-                toggleSwitch.Loaded += OnSwitchLoaded;
-            }
+
+            toggleSwitch.Loaded -= OnSwitchLoaded;
+            toggleSwitch.Loaded += OnSwitchLoaded;
         }
 
         protected override void OnDetached()
@@ -42,11 +40,11 @@ namespace Xamarin.Toolkit.Effects.UWP
             var toggleSwitch = Control as ToggleSwitch;
             if (toggleSwitch == null)
                 return;
-            else
-                toggleSwitch.Loaded -= OnSwitchLoaded;
+
+            toggleSwitch.Loaded -= OnSwitchLoaded;
         }
 
-        private void OnSwitchLoaded(object sender, RoutedEventArgs e)
+        void OnSwitchLoaded(object sender, RoutedEventArgs e)
         {
             var toggleSwitch = Control as ToggleSwitch;
             var grid = toggleSwitch.GetChildOfType<Windows.UI.Xaml.Controls.Grid>();
@@ -68,23 +66,20 @@ namespace Xamarin.Toolkit.Effects.UWP
                         if ((target == "SwitchKnobBounds") && (property == "Fill"))
                         {
                             var frame = timeline.KeyFrames.First();
-                            frame.Value = new SolidColorBrush(_trueColor) { Opacity = .7 };
+                            frame.Value = new SolidColorBrush(trueColor) { Opacity = .7 };
                             break;
                         }
                     }
                 }
             }
 
-            var rect = toggleSwitch.GetChildByName("SwitchKnobBounds") as Windows.UI.Xaml.Shapes.Rectangle;
-            if (rect != null)
-                rect.Fill = new SolidColorBrush(_trueColor);
+            if (toggleSwitch.GetChildByName("SwitchKnobBounds") is Windows.UI.Xaml.Shapes.Rectangle rect)
+                rect.Fill = new SolidColorBrush(trueColor);
 
             toggleSwitch.Loaded -= OnSwitchLoaded;
         }
 
-        private Windows.UI.Color ConvertColor(Color color)
-        {
-            return Windows.UI.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
-        }
+        Windows.UI.Color ConvertColor(Color color) =>
+            Windows.UI.Color.FromArgb((byte)(color.A * 255), (byte)(color.R * 255), (byte)(color.G * 255), (byte)(color.B * 255));
     }
 }

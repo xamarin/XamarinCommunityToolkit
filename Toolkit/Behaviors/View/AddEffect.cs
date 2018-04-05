@@ -5,22 +5,22 @@ namespace Xamarin.Toolkit.Behaviors
 {
     public class AddEffect : Behavior<View>
     {
-        public static readonly BindableProperty GroupProperty = 
+        public static readonly BindableProperty GroupProperty =
             BindableProperty.Create(nameof(Group), typeof(string), typeof(AddEffect), null);
 
-        public static readonly BindableProperty NameProperty = 
+        public static readonly BindableProperty NameProperty =
             BindableProperty.Create(nameof(Name), typeof(string), typeof(AddEffect), null);
 
         public string Group
         {
-            get { return (string)GetValue(GroupProperty); }
-            set { SetValue(GroupProperty, value); }
+            get => (string)GetValue(GroupProperty);
+            set => SetValue(GroupProperty, value);
         }
 
         public string Name
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get => (string)GetValue(NameProperty);
+            set => SetValue(NameProperty, value);
         }
 
         protected override void OnAttachedTo(BindableObject bindable)

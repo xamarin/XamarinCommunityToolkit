@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
+using Converters.Tests.Mocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Xamarin.Toolkit.Converters;
-using Converters.Tests.Mocks;
 
 namespace Converters.Tests
 {
@@ -22,7 +22,7 @@ namespace Converters.Tests
         {
             var expectedResult = value.ToString();
 
-            for (int i = 0; i < 10; i++)
+            for (var i = 0; i < 10; i++)
             {
                 var c = new MockConverter(i);
                 converter.Add(c);

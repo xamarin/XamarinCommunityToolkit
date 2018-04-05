@@ -12,21 +12,17 @@ namespace Xamarin.Toolkit.Behaviors
         bool colorSet;
         Color color = Color.Default;
 
-
-        const string emailRegex = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+        internal const string emailRegex = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
             @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
-
-        static readonly BindablePropertyKey TextColorInvalidKey =
-            BindableProperty.CreateReadOnly(nameof(TextColorInvalid), typeof(Color),
-                                            typeof(EntryEmailValidation), Color.Default);
+        internal static readonly BindablePropertyKey TextColorInvalidKey =
+            BindableProperty.CreateReadOnly(nameof(TextColorInvalid), typeof(Color), typeof(EntryEmailValidation), Color.Default);
 
         /// <summary>
         /// The is valid property.
         /// </summary>
         public static readonly BindableProperty TextColorInvalidProperty =
             TextColorInvalidKey.BindableProperty;
-        
 
         /// <summary>
         /// Gets or sets the text color invalid.
@@ -34,13 +30,12 @@ namespace Xamarin.Toolkit.Behaviors
         /// <value>The text color invalid.</value>
         public Color TextColorInvalid
         {
-            get { return (Color)GetValue(TextColorInvalidProperty); }
-            set { SetValue(TextColorInvalidKey, value); }
+            get => (Color)GetValue(TextColorInvalidProperty);
+            set => SetValue(TextColorInvalidKey, value);
         }
 
-        static readonly BindablePropertyKey IsValidPropertyKey =
-            BindableProperty.CreateReadOnly(nameof(IsValid), typeof(bool),
-                                            typeof(EntryEmptyValidation), false);
+        internal static readonly BindablePropertyKey IsValidPropertyKey =
+            BindableProperty.CreateReadOnly(nameof(IsValid), typeof(bool), typeof(EntryEmptyValidation), false);
 
         /// <summary>
         /// The is valid property.
@@ -54,8 +49,8 @@ namespace Xamarin.Toolkit.Behaviors
         /// <value><c>true</c> if this instance is valid; otherwise, <c>false</c>.</value>
         public bool IsValid
         {
-            get { return (bool)base.GetValue(IsValidProperty); }
-            private set { base.SetValue(IsValidPropertyKey, value); }
+            get => (bool)GetValue(IsValidProperty);
+            private set => SetValue(IsValidPropertyKey, value);
         }
 
         /// <param name="bindable">To be added.</param>
@@ -82,13 +77,13 @@ namespace Xamarin.Toolkit.Behaviors
         void HandleTextChanged(object sender, TextChangedEventArgs e)
         {
             var text = e?.NewTextValue ?? string.Empty;
-            IsValid = (Regex.IsMatch(text, emailRegex, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250)));
+            IsValid = Regex.IsMatch(text, emailRegex, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
 
             var entry = sender as Entry;
 
             if (entry == null)
                 return;
-            
+
             if (!colorSet)
             {
                 colorSet = true;

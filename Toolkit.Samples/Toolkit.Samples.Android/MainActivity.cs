@@ -1,13 +1,6 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using Xamarin.Toolkit.Animations;
-using System.Reflection;
 
 namespace Toolkit.Samples.Droid
 {
@@ -21,14 +14,10 @@ namespace Toolkit.Samples.Droid
 
             base.OnCreate(bundle);
 
-            var assembliesToInclude =
-                typeof(AnimationBase).GetTypeInfo().Assembly;
-
-            global::Xamarin.Forms.Forms.Init(this, bundle, assembliesToInclude);
+            global::Xamarin.Forms.Forms.Init(this, bundle);
 
             Xamarin.Toolkit.Effects.Droid.Effects.Init();
             LoadApplication(new App());
         }
     }
 }
-
