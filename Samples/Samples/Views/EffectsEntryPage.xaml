@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.Samples.Views.EffectsEntryPage"
+             Title="Entry effects">
+    <Grid HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button Text="Capitalize keyboard effect"
+                Clicked="OnCapitalizeKeyboardButtonClicked"
+                Grid.Row="0" />
+        <Button Text="Clear effect"
+                Clicked="OnClearButtonClicked"
+                Grid.Row="1" />
+        <Button Text="Disable auto correct effect"
+                Clicked="OnDisableAutoCorrectButtonClicked"
+                Grid.Row="2" />
+        <Button Text="Italic placeholder effect"
+                Clicked="OnItalicPlaceholderButtonClicked"
+                Grid.Row="3" />
+        <Button Text="Remove border effect"
+                Clicked="OnRemoveBorderButtonClicked"
+                Grid.Row="4" />
+        <Button Text="Remove line effect"
+                Clicked="OnRemoveLineButtonClicked"
+                Grid.Row="5" />
+        <Button Text="Select all text effect"
+                Clicked="OnSelectAllTextButtonClicked"
+                Grid.Row="6" />
+    </Grid>
+</ContentPage>

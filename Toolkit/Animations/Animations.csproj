@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.0;netstandard2.0</TargetFrameworks>
+    <AssemblyName>Xamarin.Toolkit.Animations</AssemblyName>
+    <RootNamespace>Xamarin.Toolkit.Animations</RootNamespace>
+    <PackageId>Xamarin.Toolkit.Animations</PackageId>
+    <PackageIconUrl>https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/master/Media/OrganonLogo.64x64.png</PackageIconUrl>
+    <Summary>Xamarin Community Toolkit Animations Library</Summary>
+    <Title>Xamarin Community Toolkit Animations Library</Title>
+    <Description>Xamarin Community Toolkit Animations Library</Description>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <Import Project="$(MSBuildThisFileDirectory)..\mdoc.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
+</Project>
