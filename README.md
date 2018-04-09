@@ -55,4 +55,4 @@ Please use [GitHub issues](https://github.com/xamarin/XamarinCommunityToolkit/is
 For more information see the [Code of Conduct](CODE_OF_CONDUCT). 
 
 ## License
-MIT License
+MIT License, see license file.
