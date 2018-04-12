@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Xamarin.Samples.Views.EffectsEntryRemoveBorderPage"
              xmlns:effects="clr-namespace:Xamarin.Toolkit.Effects;assembly=Xamarin.Toolkit.Effects"
-             Title="Remove border entry">>
+             Title="Remove border entry">
 
     <Grid Margin="10,20,10,0">
         <Grid.RowDefinitions>
