@@ -16,7 +16,7 @@ The Xamarin Community Toolkit for Xamarin.Forms is a collection of Animations, B
 | Converters | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Converters.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Converters/) |
 | Effects | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Effects/) |
 
-Development NuGet feed: http://myget.org/F/xamarin-community-toolkit
+Development NuGet feed: https://www.myget.org/F/xamarin-toolkit/api/v3/index.json
 
 ## Contributing
 Do you want to contribute? Here are our [contribution guidelines](CONTRIBUTING.md).
