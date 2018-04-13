@@ -5,12 +5,18 @@ The Xamarin Community Toolkit for Xamarin.Forms is a collection of Animations, B
 
 ## Build status
 
+| Target | Branch | Status |
+| ------ | ------ | ------ | 
+| Toolkit | master |![Build status](https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/8450/badge)  |
 
-| Target | Branch | Status | Current Nuget packages version |
-| ------ | ------ | ------ | ------ |
-| Toolkit | master |![Build status](https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/8450/badge) | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Behaviors/) |
+Development NuGet feed: https://www.myget.org/F/xamarin-toolkit/api/v3/index.json
 
-Development NuGet feed: http://myget.org/F/xamarin-community-toolkit
+| Toolkit | NuGet | 
+| ------ | ------ |
+| Animations | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Animations.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Animations/) |
+| Behaviors | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Behaviors.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Behaviors/) |
+| Converters | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Converters.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Converters/) |
+| Effects | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Effects/) |
 
 ## Contributing
 Do you want to contribute? Here are our [contribution guidelines](CONTRIBUTING.md).
@@ -55,4 +61,4 @@ Please use [GitHub issues](https://github.com/xamarin/XamarinCommunityToolkit/is
 For more information see the [Code of Conduct](CODE_OF_CONDUCT). 
 
 ## License
-MIT License
+MIT License, see license file.
