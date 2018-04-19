@@ -17,12 +17,12 @@ namespace Xamarin.Toolkit.Animations
             {
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    Target.Animate("Hearth", Hearth(), 16, Convert.ToUInt32(Duration));
+                    Target.Animate("Heart", Heart(), 16, Convert.ToUInt32(Duration));
                 });
             });
         }
 
-        internal Animation Hearth()
+        internal Animation Heart()
         {
             var animation = new Animation();
 
