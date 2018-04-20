@@ -14,7 +14,7 @@ namespace Xamarin.Toolkit.Effects.Droid
 #pragma warning restore 414
 
         /// <summary>
-        /// This is needed to ensure iOS loads the assembly with the effects in it
+        /// This is needed to ensure Android loads the assembly with the effects in it
         /// </summary>
         public static void Init()
         {
