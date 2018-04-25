@@ -19,7 +19,7 @@ Development NuGet feed: https://www.myget.org/F/xamarin-toolkit/api/v3/index.jso
 | Effects | [![NuGet](https://img.shields.io/nuget/v/Xamarin.Toolkit.Effects.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.Toolkit.Effects/) |
 
 ## Contributing
-Do you want to contribute? Here are our [contribution guidelines](CONTRIBUTING.md).
+Do you want to contribute? Here are our [contribution guidelines](Contributing.md).
 
 ## Building Xamarin Community Toolkit
 Xamarin Community Toolkit is built with the new SDK style projects with multi-targeting enabled. This means that all code for iOS, Android, and UWP exist inside of the Xamarin Community Toolkit project.
@@ -58,7 +58,7 @@ Please use [GitHub issues](https://github.com/xamarin/XamarinCommunityToolkit/is
  - Principle #3: All features will be supported for two Xamarin.Forms release cycles or until another principle supersedes it.
 
 
-For more information see the [Code of Conduct](CODE_OF_CONDUCT). 
+For more information see the [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## License
 MIT License, see license file.
