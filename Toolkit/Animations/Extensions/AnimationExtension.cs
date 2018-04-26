@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Xamarin.Toolkit.Animations
+namespace Xamarin.Toolkit.Animations.Extensions
 {
     public static class AnimationExtension
     {

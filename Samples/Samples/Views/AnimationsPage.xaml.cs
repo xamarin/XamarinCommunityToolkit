@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Toolkit.Animations;
+using Xamarin.Toolkit.Animations.Extensions;
 
 namespace Xamarin.Samples.Views
 {
