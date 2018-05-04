@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>monoandroid80</TargetFramework>
+    <RootNamespace>Xamarin.Toolkit.Droid.Controls</RootNamespace>
+    <AssemblyName>Xamarin.Toolkit.Android.Controls</AssemblyName>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Toolkit.Parsers" Version="2.2.0" />
+  </ItemGroup>
+</Project>
