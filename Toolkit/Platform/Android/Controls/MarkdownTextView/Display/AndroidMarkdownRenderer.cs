@@ -1,4 +1,4 @@
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Support.Text.Emoji;
 using Android.Support.Text.Emoji.Bundled;
@@ -6,14 +6,14 @@ using Android.Text;
 using Android.Text.Style;
 using Android.Views;
 using Android.Widget;
-using Microsoft.Toolkit.Parsers.Markdown.Display;
-using Microsoft.Toolkit.Parsers.Markdown.Parse;
+using Microsoft.Toolkit.Parsers.Markdown;
+using Microsoft.Toolkit.Parsers.Markdown.Render;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 {
     internal partial class AndroidMarkdownRenderer : MarkdownRendererBase
     {
-        public AndroidMarkdownRenderer(LinearLayout RootLayout, MarkdownDocument document)
+        public AndroidMarkdownRenderer(LinearLayout rootLayout, MarkdownDocument document)
             : base(document)
         {
             if (EmojiCompat == null)
@@ -28,7 +28,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
                 }
             }
 
-            this.RootLayout = RootLayout;
+            RootLayout = rootLayout;
         }
 
         public void Render()
@@ -52,14 +52,14 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 
         private class MarkdownClickSpan : ClickableSpan
         {
-            public MarkdownClickSpan(string Url)
+            public MarkdownClickSpan(string url)
             {
-                this.Url = Url;
+                Url = url;
             }
 
             public override void OnClick(View widget)
             {
-                Intent viewLink = new Intent(Intent.ActionView, Droid.Net.Uri.Parse(Url));
+                var viewLink = new Intent(Intent.ActionView, global::Android.Net.Uri.Parse(Url));
                 var activity = widget.Context as Activity;
                 activity.StartActivity(viewLink);
             }

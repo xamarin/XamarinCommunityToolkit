@@ -1,7 +1,5 @@
-using System;
-using Microsoft.Toolkit.Parsers.Markdown.Helpers;
-using Microsoft.Toolkit.Parsers.Markdown.Parse;
-using Toolkit.Droid.UI.Controls.Markdown.Display;
+﻿using Microsoft.Toolkit.Parsers.Markdown;
+using Xamarin.Toolkit.Droid.Controls.Markdown.Display;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {
@@ -21,27 +19,13 @@ namespace Xamarin.Toolkit.Droid.Controls
             // Disconnect from OnClick handlers.
             UnhookListeners();
 
-            var markdownRenderedArgs = new Microsoft.Toolkit.Parsers.Markdown.MarkdownRenderedEventArgs(null);
-            try
-            {
-                // Try to parse the markdown.
-                MarkdownDocument markdown = new MarkdownDocument();
-                markdown.Parse(Text);
+            // Try to parse the markdown.
+            var markdown = new MarkdownDocument();
+            markdown.Parse(Text);
 
-                // Now try to display it
-                var renderer = new AndroidMarkdownRenderer(this, markdown)
-                {
-                };
-                renderer.Render();
-            }
-            catch (Exception ex)
-            {
-                DebuggingReporter.ReportCriticalError("Error while parsing and rendering: " + ex.Message);
-                markdownRenderedArgs = new Microsoft.Toolkit.Parsers.Markdown.MarkdownRenderedEventArgs(ex);
-            }
-
-            // Indicate that the parse is done.
-            MarkdownRendered?.Invoke(this, markdownRenderedArgs);
+            // Now try to display it
+            var renderer = new AndroidMarkdownRenderer(this, markdown);
+            renderer.Render();
         }
 
         private void UnhookListeners()

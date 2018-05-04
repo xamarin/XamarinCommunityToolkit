@@ -1,14 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>monoandroid80</TargetFramework>
+    <TargetFramework>monoandroid81</TargetFramework>
     <RootNamespace>Xamarin.Toolkit.Droid.Controls</RootNamespace>
     <AssemblyName>Xamarin.Toolkit.Android.Controls</AssemblyName>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
   </PropertyGroup>
-
-  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
-
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Parsers" Version="2.2.0" />
+    <PackageReference Include="Xamarin.Android.Support.Emoji.Bundled" Version="27.0.2" />
   </ItemGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\CodeStyles.targets" />
 </Project>

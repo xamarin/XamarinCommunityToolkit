@@ -1,4 +1,4 @@
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.Support.Text.Emoji;
 using Android.Widget;
 

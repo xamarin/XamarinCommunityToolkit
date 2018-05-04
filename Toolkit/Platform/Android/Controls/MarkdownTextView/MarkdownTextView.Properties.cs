@@ -1,13 +1,17 @@
-namespace Xamarin.Toolkit.Droid.Controls
+﻿namespace Xamarin.Toolkit.Droid.Controls
 {
     public partial class MarkdownTextView
     {
         public string Text
         {
-            get { return _Text; }
+            get
+            {
+                return text;
+            }
+
             set
             {
-                _Text = value;
+                text = value;
                 if (IsAttachedToWindow)
                 {
                     RenderMarkdown();
@@ -15,6 +19,6 @@ namespace Xamarin.Toolkit.Droid.Controls
             }
         }
 
-        private string _Text;
+        private string text;
     }
 }

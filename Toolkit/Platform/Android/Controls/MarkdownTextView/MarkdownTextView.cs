@@ -1,4 +1,4 @@
-using Android.Content;
+﻿using Android.Content;
 using Android.Util;
 using Android.Widget;
 
@@ -10,7 +10,7 @@ namespace Xamarin.Toolkit.Droid.Controls
             : base(context, attrs)
         {
             Orientation = Orientation.Vertical;
-            SetBackgroundColor(Droid.Graphics.Color.White);
+            SetBackgroundColor(global::Android.Graphics.Color.White);
         }
 
         protected override void OnAttachedToWindow()

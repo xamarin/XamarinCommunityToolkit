@@ -1,6 +1,6 @@
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.Text;
-using Microsoft.Toolkit.Parsers.Markdown.Display;
+using Microsoft.Toolkit.Parsers.Markdown.Render;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 {

@@ -1,9 +1,9 @@
-using Android.Text;
+﻿using Android.Text;
 using Android.Text.Style;
 using Android.Views;
 using Android.Widget;
-using Microsoft.Toolkit.Parsers.Markdown.Display;
-using Microsoft.Toolkit.Parsers.Markdown.Parse;
+using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+using Microsoft.Toolkit.Parsers.Markdown.Render;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 {
@@ -19,7 +19,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
                 Orientation = Orientation.Vertical
             };
             codeArea.SetPadding(5, 5, 5, 5);
-            codeArea.SetBackgroundColor(Droid.Graphics.Color.DodgerBlue);
+            codeArea.SetBackgroundColor(global::Android.Graphics.Color.DodgerBlue);
 
             var text = new SpannableString(element.Text);
             var length = text.Length();
@@ -73,7 +73,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
                 Orientation = Orientation.Vertical
             };
             quoteArea.SetPadding(5, 5, 5, 5);
-            quoteArea.SetBackgroundColor(Droid.Graphics.Color.Gray);
+            quoteArea.SetBackgroundColor(global::Android.Graphics.Color.Gray);
 
             var subcontext = context.Clone();
             subcontext.Parent = quoteArea;
