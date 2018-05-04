@@ -28,21 +28,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Effects", "Toolkit\Effects\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Behaviors", "Toolkit\Behaviors\Behaviors.csproj", "{5CB3353B-BBDC-416D-B012-5FB0990CFBD1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{2B6EF58D-69D1-4CB8-8AEC-DB3E0BE67868}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Forms Samples", "Forms Samples", "{2B6EF58D-69D1-4CB8-8AEC-DB3E0BE67868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Android", "Samples\Samples.Android\Samples.Android.csproj", "{86A1173D-F73C-4DD0-9A97-30AF819C387F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Android", "Samples\Forms\Samples.Android\Samples.Android.csproj", "{86A1173D-F73C-4DD0-9A97-30AF819C387F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.iOS", "Samples\Samples.iOS\Samples.iOS.csproj", "{84A9D47E-AB87-4EB2-B542-BB998A50FD85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.iOS", "Samples\Forms\Samples.iOS\Samples.iOS.csproj", "{84A9D47E-AB87-4EB2-B542-BB998A50FD85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.UWP", "Samples\Samples.UWP\Samples.UWP.csproj", "{651BB325-06FF-4487-A463-B2AAC30107FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.UWP", "Samples\Forms\Samples.UWP\Samples.UWP.csproj", "{651BB325-06FF-4487-A463-B2AAC30107FC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "Samples\Samples\Samples.csproj", "{5BC1EE6B-4204-46F9-9368-AB558CA957B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "Samples\Forms\Samples\Samples.csproj", "{5BC1EE6B-4204-46F9-9368-AB558CA957B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform", "Platform", "{B22A854B-9E46-435E-98B4-0CAB21B5D4ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Android", "Android", "{EF076195-0569-434F-9831-D281915B5E0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controls", "Toolkit\Platform\Android\Controls\Controls.csproj", "{C56F4D7A-DC87-41F3-95F5-9D46FFF55021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Controls", "Toolkit\Platform\Android\Controls\Controls.csproj", "{C56F4D7A-DC87-41F3-95F5-9D46FFF55021}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform Samples", "Platform Samples", "{6E719EC7-BD33-4C4D-AE0F-E3219891F13A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

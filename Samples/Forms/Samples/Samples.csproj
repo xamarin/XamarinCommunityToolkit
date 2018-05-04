@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Toolkit\Animations\Animations.csproj" />
+    <ProjectReference Include="..\..\..\Toolkit\Behaviors\Behaviors.csproj" />
+    <ProjectReference Include="..\..\..\Toolkit\Converters\Converters.csproj" />
+    <ProjectReference Include="..\..\..\Toolkit\Effects\Effects.csproj" />
+  </ItemGroup>
+
+
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\CodeStyles.targets" />
+</Project>
