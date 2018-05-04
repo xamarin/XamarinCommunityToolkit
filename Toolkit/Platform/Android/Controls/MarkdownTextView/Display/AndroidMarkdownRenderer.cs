@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Net;
 using Android.Support.Text.Emoji;
 using Android.Support.Text.Emoji.Bundled;
 using Android.Text;
@@ -11,7 +12,7 @@ using Microsoft.Toolkit.Parsers.Markdown.Render;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 {
-    internal partial class AndroidMarkdownRenderer : MarkdownRendererBase
+    public partial class AndroidMarkdownRenderer : MarkdownRendererBase
     {
         public AndroidMarkdownRenderer(LinearLayout rootLayout, MarkdownDocument document)
             : base(document)
@@ -29,6 +30,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             }
 
             RootLayout = rootLayout;
+            rootLayout.SetBackgroundColor(Background);
         }
 
         public void Render()
@@ -59,7 +61,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 
             public override void OnClick(View widget)
             {
-                var viewLink = new Intent(Intent.ActionView, global::Android.Net.Uri.Parse(Url));
+                var viewLink = new Intent(Intent.ActionView, Uri.Parse(Url));
                 var activity = widget.Context as Activity;
                 activity.StartActivity(viewLink);
             }

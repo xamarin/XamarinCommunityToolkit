@@ -3,10 +3,11 @@ using Android.Text;
 using Android.Text.Style;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
+using Xamarin.Toolkit.Droid.Helpers;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 {
-    internal partial class AndroidMarkdownRenderer
+    public partial class AndroidMarkdownRenderer
     {
         protected override void RenderBoldRun(BoldTextInline element, IRenderContext context)
         {
@@ -20,7 +21,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             var spannedText = SpannableStringBuilder.ValueOf(inlines);
 
             // Set the Span to bold style.
-            spannedText.SetSpan(new StyleSpan(TypefaceStyle.Bold), 0, spannedText.Length(), SpanTypes.ExclusiveExclusive);
+            spannedText.SetSpanAll(new StyleSpan(TypefaceStyle.Bold));
 
             // Add the internal bold spanned inlines to the current inlines.
             builder.Append(spannedText);
@@ -34,9 +35,9 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             var span = new SpannableString(element.Text);
             var length = span.Length();
 
-            if (InlineCodeBackground.HasValue)
+            if (InlineCodeBackground != null)
             {
-                span.SetSpan(new BackgroundColorSpan(InlineCodeBackground.Value), 0, length, SpanTypes.ExclusiveExclusive);
+                span.SetSpanAll(new BackgroundColorSpan(InlineCodeBackground.Value));
             }
 
             // Add it to the current inlines
@@ -74,7 +75,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             RenderInlineChildren(element.Inlines, subcontext);
 
             // Set the Span to bold style.
-            subbuilder.SetSpan(new StyleSpan(TypefaceStyle.Italic), 0, subbuilder.Length(), SpanTypes.ExclusiveExclusive);
+            subbuilder.SetSpanAll(new StyleSpan(TypefaceStyle.Italic));
 
             // Add the internal bold spanned inlines to the current inlines.
             builder.Append(subbuilder);
@@ -124,7 +125,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             var spannedText = SpannableStringBuilder.ValueOf(subbuilder);
 
             // Set the Span to bold style.
-            spannedText.SetSpan(new StrikethroughSpan(), 0, spannedText.Length(), SpanTypes.ExclusiveExclusive);
+            spannedText.SetSpanAll(new StrikethroughSpan());
 
             // Add the internal bold spanned inlines to the current inlines.
             builder.Append(spannedText);
@@ -144,7 +145,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             var spannedText = SpannableStringBuilder.ValueOf(subbuilder);
 
             // Set the Span to bold style.
-            spannedText.SetSpan(new SuperscriptSpan(), 0, spannedText.Length(), SpanTypes.ExclusiveExclusive);
+            spannedText.SetSpanAll(new SuperscriptSpan());
 
             // Add the internal bold spanned inlines to the current inlines.
             builder.Append(spannedText);
@@ -157,11 +158,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 
             // Creates raw text.
             var text = new SpannableString(CollapseWhitespace(context, element.Text));
-
-            if (Foreground.HasValue)
-            {
-                text.SetSpan(new ForegroundColorSpan(Foreground.Value), 0, text.Length(), SpanTypes.ExclusiveExclusive);
-            }
+            text.SetSpanAll(new ForegroundColorSpan(Foreground));
 
             // Add it to the current inlines
             builder.Append(text);

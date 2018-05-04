@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>monoandroid81</TargetFramework>
+    <RootNamespace>Xamarin.Toolkit.Droid.Helpers</RootNamespace>
+    <AssemblyName>Xamarin.Toolkit.Android.Helpers</AssemblyName>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\..\CodeStyles.targets" />
+</Project>

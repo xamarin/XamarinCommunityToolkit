@@ -1,10 +1,30 @@
-﻿using Microsoft.Toolkit.Parsers.Markdown;
+﻿using System;
+using Android.Widget;
+using Microsoft.Toolkit.Parsers.Markdown;
 using Xamarin.Toolkit.Droid.Controls.Markdown.Display;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {
     public partial class MarkdownTextView
     {
+        /// <summary>
+        /// Sets the Markdown Renderer for Rendering the UI.
+        /// </summary>
+        /// <typeparam name="T">The Inherited Markdown Render</typeparam>
+        public void SetRenderer<T>()
+            where T : AndroidMarkdownRenderer
+        {
+            renderertype = typeof(T);
+        }
+
+        public void Update()
+        {
+            if (IsAttachedToWindow)
+            {
+                RenderMarkdown();
+            }
+        }
+
         /// <summary>
         /// Called to preform a render of the current Markdown.
         /// </summary>
@@ -23,9 +43,16 @@ namespace Xamarin.Toolkit.Droid.Controls
             var markdown = new MarkdownDocument();
             markdown.Parse(Text);
 
+            // Create the Markdown Renderer.
+            var renderer = Activator.CreateInstance(renderertype, this, markdown) as AndroidMarkdownRenderer;
+            if (renderer == null)
+            {
+                throw new Exception("Markdown Renderer was not of the correct type.");
+            }
+
             // Now try to display it
-            var renderer = new AndroidMarkdownRenderer(this, markdown);
             renderer.Render();
+            renderer.FontSize = FontSize;
         }
 
         private void UnhookListeners()
