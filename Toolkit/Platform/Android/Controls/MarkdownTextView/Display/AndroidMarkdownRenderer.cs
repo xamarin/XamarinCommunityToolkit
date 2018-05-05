@@ -15,7 +15,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 {
     public partial class AndroidMarkdownRenderer : MarkdownRendererBase
     {
-        public AndroidMarkdownRenderer(LinearLayout rootLayout, MarkdownDocument document, IImageResolver imageResolver)
+        public AndroidMarkdownRenderer(MarkdownDocument document, LinearLayout rootLayout, IImageResolver imageResolver)
             : base(document)
         {
             RootLayout = rootLayout;

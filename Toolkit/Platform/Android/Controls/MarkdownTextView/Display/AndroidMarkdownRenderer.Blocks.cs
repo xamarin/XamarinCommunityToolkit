@@ -53,7 +53,6 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             var subbuilder = new SpannableStringBuilder();
             var subcontext = context.Clone() as AndroidRenderContext;
             subcontext.Builder = subbuilder;
-            subcontext.Parent = textview;
 
             RenderInlineChildren(element.Inlines, subcontext);
 
@@ -166,7 +165,6 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             var subbuilder = new SpannableStringBuilder();
             var subcontext = context.Clone() as AndroidRenderContext;
             subcontext.Builder = subbuilder;
-            subcontext.Parent = textview;
 
             RenderInlineChildren(element.Inlines, subcontext);
 

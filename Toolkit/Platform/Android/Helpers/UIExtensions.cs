@@ -1,6 +1,4 @@
 ﻿using Android.App;
-using Android.Content.Res;
-using Android.Graphics;
 using Android.Text;
 using Android.Views;
 using Xamarin.Toolkit.Droid.Helpers.Models;

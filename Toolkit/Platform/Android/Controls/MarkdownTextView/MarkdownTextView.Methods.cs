@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Android.Graphics;
@@ -48,7 +49,7 @@ namespace Xamarin.Toolkit.Droid.Controls
             markdown.Parse(Text);
 
             // Create the Markdown Renderer.
-            var renderer = Activator.CreateInstance(renderertype, this, markdown) as AndroidMarkdownRenderer;
+            var renderer = Activator.CreateInstance(renderertype, markdown, this, this) as AndroidMarkdownRenderer;
             if (renderer == null)
             {
                 throw new Exception("Markdown Renderer was not of the correct type.");
@@ -92,8 +93,12 @@ namespace Xamarin.Toolkit.Droid.Controls
             {
                 using (var client = new HttpClient())
                 {
-                    using (var imagestream = await client.GetStreamAsync(imageUrl))
+                    using (var netstream = await client.GetStreamAsync(imageUrl))
                     {
+                        var imagestream = new MemoryStream();
+                        await netstream.CopyToAsync(imagestream);
+                        imagestream.Seek(0, SeekOrigin.Begin);
+
                         if (System.IO.Path.GetExtension(imageUrl.AbsolutePath)?.ToLowerInvariant() == ".svg")
                         {
                             // Add SVG Rendering
@@ -101,7 +106,7 @@ namespace Xamarin.Toolkit.Droid.Controls
                         }
                         else
                         {
-                            var bitmap = await BitmapFactory.DecodeStreamAsync(imagestream);
+                            var bitmap = BitmapFactory.DecodeStream(imagestream);
                             return new BitmapImageSource
                             {
                                 Source = bitmap

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Android.Content;
-using Android.Graphics;
+﻿using Android.Content;
 using Android.Util;
 using Android.Widget;
 using Xamarin.Toolkit.Droid.Controls.Markdown.Display;

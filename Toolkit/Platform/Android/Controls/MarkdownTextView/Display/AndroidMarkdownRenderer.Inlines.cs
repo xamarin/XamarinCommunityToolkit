@@ -1,6 +1,9 @@
-﻿using Android.Graphics;
+﻿using System.Threading.Tasks;
+using Android.Graphics;
+using Android.Net;
 using Android.Text;
 using Android.Text.Style;
+using Android.Views;
 using Android.Widget;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
@@ -63,29 +66,36 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
         {
             var context_ = context as AndroidRenderContext;
             var builder = context_.Builder;
+            var parent = context_.Parent as ViewGroup;
 
-            ImageSpan span = null;
+            // Image view container
+            var container = new LinearLayout(RootLayout.Context);
+            parent.AddView(container);
 
             var image = await imageResolver.ResolveImageAsync(element.Url, element.Tooltip);
             if (image != null)
             {
+                var imgview = new ImageView(RootLayout.Context);
+
                 switch (image)
                 {
                     case BitmapImageSource bitmap:
-                        span = new ImageSpan(bitmap.Source, SpanAlign.Bottom);
+                        imgview.SetImageBitmap(bitmap.Source);
                         break;
                 }
-            }
 
-            if (span != null)
-            {
-                var pos = builder.Length();
-                builder.Append("\n");
-                builder.SetSpan(span, pos, pos + 1, SpanTypes.ExclusiveExclusive);
+                container.AddView(imgview);
             }
             else
             {
-                builder.Append(element.Text);
+                var text = new SpannableString(element.Text);
+                text.SetSpanAll(new ForegroundColorSpan(Foreground));
+
+                var view = new TextView(RootLayout.Context)
+                {
+                    TextFormatted = text
+                };
+                container.AddView(view);
             }
         }
 
