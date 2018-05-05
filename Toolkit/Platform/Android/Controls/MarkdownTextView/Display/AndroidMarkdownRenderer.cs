@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Net;
 using Android.Support.Text.Emoji;
 using Android.Support.Text.Emoji.Bundled;
@@ -14,23 +15,22 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 {
     public partial class AndroidMarkdownRenderer : MarkdownRendererBase
     {
-        public AndroidMarkdownRenderer(LinearLayout rootLayout, MarkdownDocument document)
+        public AndroidMarkdownRenderer(LinearLayout rootLayout, MarkdownDocument document, IImageResolver imageResolver)
             : base(document)
         {
-            if (EmojiCompat == null)
-            {
-                try
-                {
-                    EmojiCompat = EmojiCompat.Get();
-                }
-                catch
-                {
-                    EmojiCompat = EmojiCompat.Init(new BundledEmojiCompatConfig(Application.Context));
-                }
-            }
-
             RootLayout = rootLayout;
             rootLayout.SetBackgroundColor(Background);
+            this.imageResolver = imageResolver;
+
+            if (EmojiCompat == null)
+            {
+                var config = new BundledEmojiCompatConfig(Application.Context)
+                    .SetEmojiSpanIndicatorEnabled(true)
+                    .SetEmojiSpanIndicatorColor(Color.Green)
+                    .SetReplaceAll(true);
+
+                EmojiCompat = EmojiCompat.Init(config);
+            }
         }
 
         public void Render()
@@ -44,7 +44,6 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             var foreground = LinkForeground ?? context_.Foreground;
 
             var length = span.Length();
-            span.SetSpan(new URLSpan(url), 0, length, SpanTypes.ExclusiveExclusive);
             span.SetSpan(new MarkdownClickSpan(url), 0, length, SpanTypes.ExclusiveExclusive);
             if (LinkForeground != null)
             {

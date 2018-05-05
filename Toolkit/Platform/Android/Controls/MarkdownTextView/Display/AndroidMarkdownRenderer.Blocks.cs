@@ -1,5 +1,6 @@
 ﻿using Android.Graphics;
 using Android.Text;
+using Android.Text.Method;
 using Android.Text.Style;
 using Android.Views;
 using Android.Widget;
@@ -35,10 +36,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
                 text.SetSpanAll(new AbsoluteSizeSpan(FontSize.Value));
             }
 
-            var textArea = new TextView(RootLayout.Context)
-            {
-                TextFormatted = text
-            };
+            var textArea = new TextView(RootLayout.Context);
+            textArea.SetText(text, TextView.BufferType.Spannable);
 
             codeArea.AddView(textArea);
             parent.AddView(codeArea);
@@ -118,17 +117,39 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             subbuilder.SetSpanAll(new StyleSpan(style));
             subbuilder.SetSpanAll(new ForegroundColorSpan(color ?? Foreground));
 
-            textview.TextFormatted = subbuilder;
             if (margin != null)
             {
-                textview.SetPadding(margin.Value);
+                subbuilder.SetMarginSpanAll(margin.Value);
             }
 
+            textview.SetText(subbuilder, TextView.BufferType.Spannable);
             parent.AddView(textview);
         }
 
         protected override void RenderHorizontalRule(IRenderContext context)
         {
+            var context_ = context as AndroidRenderContext;
+            var parent = context.Parent as ViewGroup;
+
+            var height = HorizontalRuleThickness.GetDisplayPixels();
+            var layout = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MatchParent, height);
+
+            if (HorizontalRuleMargin != null)
+            {
+                layout.SetMargin(HorizontalRuleMargin.Value);
+            }
+
+            var view = new View(RootLayout.Context)
+            {
+                LayoutParameters = layout
+            };
+
+            if (HorizontalRuleColor != null)
+            {
+                view.SetBackgroundColor(HorizontalRuleColor.Value);
+            }
+
+            parent.AddView(view);
         }
 
         protected override void RenderListElement(ListBlock element, IRenderContext context)
@@ -154,7 +175,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
                 subbuilder.SetSpanAll(new AbsoluteSizeSpan(FontSize.Value, true));
             }
 
-            textview.TextFormatted = subbuilder;
+            textview.SetText(subbuilder, TextView.BufferType.Spannable);
+            textview.MovementMethod = LinkMovementMethod.Instance;
             parent.AddView(textview);
         }
 

@@ -9,6 +9,10 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
     {
         private static EmojiCompat EmojiCompat { get; set; }
 
+        // Handling
+
+        private readonly IImageResolver imageResolver;
+
         private LinearLayout RootLayout { get; set; }
 
         // Generic
@@ -22,6 +26,14 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
         public Color? LinkForeground { get; set; } = Color.Blue;
 
         public int? FontSize { get; set; }
+
+        // Rule
+
+        public Color? HorizontalRuleColor { get; set; } = Color.DarkGray;
+
+        public Thickness? HorizontalRuleMargin { get; set; } = new Thickness(10);
+
+        public int HorizontalRuleThickness { get; set; } = 2;
 
         // Headers
         // h1

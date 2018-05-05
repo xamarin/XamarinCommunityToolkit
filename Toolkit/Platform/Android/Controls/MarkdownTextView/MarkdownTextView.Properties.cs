@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xamarin.Toolkit.Droid.Controls.Markdown.Display;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {
     public partial class MarkdownTextView
     {
+        /// <summary>
+        /// Holds a list of hyperlinks we are listening to.
+        /// </summary>
+        private readonly List<object> listeningLinks = new List<object>();
+
         public int? FontSize
         {
             get
@@ -36,6 +42,8 @@ namespace Xamarin.Toolkit.Droid.Controls
         }
 
         private string text;
+
+        public string UriPrefix { get; set; }
 
         private Type renderertype = typeof(AndroidMarkdownRenderer);
     }

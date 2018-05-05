@@ -1,7 +1,11 @@
 ﻿using System;
-using Android.Widget;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Android.Graphics;
 using Microsoft.Toolkit.Parsers.Markdown;
+using Xamarin.Toolkit.Droid.Controls.Markdown;
 using Xamarin.Toolkit.Droid.Controls.Markdown.Display;
+using Xamarin.Toolkit.Droid.Helpers.Models;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {
@@ -53,6 +57,59 @@ namespace Xamarin.Toolkit.Droid.Controls
             // Now try to display it
             renderer.Render();
             renderer.FontSize = FontSize;
+        }
+
+        public async Task<ImageSource> ResolveImageAsync(string url, string tooltip)
+        {
+            if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
+            {
+                if (!string.IsNullOrEmpty(UriPrefix))
+                {
+                    url = string.Format("{0}{1}", UriPrefix, url);
+                }
+            }
+
+            var eventArgs = new ImageResolvingEventArgs(url, tooltip);
+            ImageResolving?.Invoke(this, eventArgs);
+
+            if (eventArgs.TaskWaiter != null)
+            {
+                await eventArgs.TaskWaiter.Task;
+            }
+
+            try
+            {
+                return eventArgs.Handled
+                    ? eventArgs.Image
+                    : await GetImageSource(new Uri(url));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+
+            async Task<ImageSource> GetImageSource(Uri imageUrl)
+            {
+                using (var client = new HttpClient())
+                {
+                    using (var imagestream = await client.GetStreamAsync(imageUrl))
+                    {
+                        if (System.IO.Path.GetExtension(imageUrl.AbsolutePath)?.ToLowerInvariant() == ".svg")
+                        {
+                            // Add SVG Rendering
+                            return null;
+                        }
+                        else
+                        {
+                            var bitmap = await BitmapFactory.DecodeStreamAsync(imagestream);
+                            return new BitmapImageSource
+                            {
+                                Source = bitmap
+                            };
+                        }
+                    }
+                }
+            }
         }
 
         private void UnhookListeners()

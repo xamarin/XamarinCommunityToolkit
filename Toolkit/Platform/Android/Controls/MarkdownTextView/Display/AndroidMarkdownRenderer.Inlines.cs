@@ -1,9 +1,11 @@
 ﻿using Android.Graphics;
 using Android.Text;
 using Android.Text.Style;
+using Android.Widget;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
 using Xamarin.Toolkit.Droid.Helpers;
+using Xamarin.Toolkit.Droid.Helpers.Models;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
 {
@@ -57,9 +59,34 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
             }
         }
 
-        protected override void RenderImage(ImageInline element, IRenderContext context)
+        protected override async void RenderImage(ImageInline element, IRenderContext context)
         {
-            // TODO: Implement
+            var context_ = context as AndroidRenderContext;
+            var builder = context_.Builder;
+
+            ImageSpan span = null;
+
+            var image = await imageResolver.ResolveImageAsync(element.Url, element.Tooltip);
+            if (image != null)
+            {
+                switch (image)
+                {
+                    case BitmapImageSource bitmap:
+                        span = new ImageSpan(bitmap.Source, SpanAlign.Bottom);
+                        break;
+                }
+            }
+
+            if (span != null)
+            {
+                var pos = builder.Length();
+                builder.Append("\n");
+                builder.SetSpan(span, pos, pos + 1, SpanTypes.ExclusiveExclusive);
+            }
+            else
+            {
+                builder.Append(element.Text);
+            }
         }
 
         protected override void RenderItalicRun(ItalicTextInline element, IRenderContext context)
