@@ -2,5 +2,8 @@
 {
     public abstract class ImageSource
     {
+        public int MaxWidth { get; set; }
+
+        public int MaxHeight { get; set; }
     }
 }

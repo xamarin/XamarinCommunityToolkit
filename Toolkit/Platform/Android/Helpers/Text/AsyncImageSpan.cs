@@ -11,6 +11,9 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
 {
     public class AsyncImageSpan : ImageSpan
     {
+        // Default dimensions from AndroidSVG
+        private const int svgDefaultSize = 512;
+
         public AsyncImageSpan()
             : this(new LevelListDrawable())
         {
@@ -49,29 +52,32 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
 
         public void SetImageSource(SVG svg)
         {
-            Bitmap newBM = null;
+            // Default dimensions from AndroidSVG
+            var height = svgDefaultSize;
+            var width = svgDefaultSize;
 
             // Create a canvas to draw onto
             if (svg.DocumentWidth != -1)
             {
-                newBM = Bitmap.CreateBitmap(
-                    (int)Math.Ceil(svg.DocumentWidth),
-                    (int)Math.Ceil(svg.DocumentHeight),
-                    Bitmap.Config.Argb8888);
-            }
-            else
-            {
-                // Default dimensions
-                newBM = Bitmap.CreateBitmap(
-                    512,
-                    512,
-                    Bitmap.Config.Argb8888);
+                width = (int)Math.Ceil(svg.DocumentWidth);
+                height = (int)Math.Ceil(svg.DocumentHeight);
             }
 
+            if (MaxWidth.HasValue && width > MaxWidth)
+            {
+                width = MaxWidth.Value;
+            }
+
+            if (MaxHeight.HasValue && height > MaxHeight)
+            {
+                height = MaxHeight.Value;
+            }
+
+            var newBM = Bitmap.CreateBitmap(width, height, Bitmap.Config.Argb8888);
             var bmcanvas = new Canvas(newBM);
 
-            // Clear background to white
-            bmcanvas.DrawRGB(255, 255, 255);
+            // Set Background.
+            bmcanvas.DrawColor(BackgroundColor);
 
             // Render our document onto our canvas
             svg.RenderToCanvas(bmcanvas);
@@ -81,13 +87,23 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
 
         public void SetImageSource(Drawable drawable)
         {
-            var width = drawable.IntrinsicWidth;
-            var height = drawable.IntrinsicHeight;
+            var width = drawable.IntrinsicWidth.GetDisplayPixels();
+            var height = drawable.IntrinsicHeight.GetDisplayPixels();
 
             backing.AddLevel(0, 0, drawable);
             backing.SetLevel(0);
 
-            backing.SetBounds(0, 0, width > 0 ? width.GetDisplayPixels() : 0, height > 0 ? height.GetDisplayPixels() : 0);
+            if (MaxWidth.HasValue && width > MaxWidth)
+            {
+                width = MaxWidth.Value;
+            }
+
+            if (MaxHeight.HasValue && height > MaxHeight)
+            {
+                height = MaxHeight.Value;
+            }
+
+            backing.SetBounds(0, 0, width > 0 ? width : 0, height > 0 ? height : 0);
 
             // Update the TextView with new image data.
             if (textview != null && textviewLoaded)
@@ -132,6 +148,12 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
         }
 
         public EventClickableSpan ClickHandler { get; } = new EventClickableSpan();
+
+        public Color BackgroundColor { get; set; } = Color.White;
+
+        public int? MaxWidth { get; set; }
+
+        public int? MaxHeight { get; set; }
 
         private LevelListDrawable backing;
 
