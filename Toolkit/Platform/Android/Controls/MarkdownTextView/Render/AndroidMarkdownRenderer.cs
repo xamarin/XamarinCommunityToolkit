@@ -1,4 +1,5 @@
-﻿using Android.App;
+﻿using System.Linq;
+using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Net;
@@ -8,8 +9,10 @@ using Android.Text;
 using Android.Text.Style;
 using Android.Views;
 using Android.Widget;
+using Java.Lang;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
+using Xamarin.Toolkit.Droid.Helpers.Text;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 {
@@ -25,8 +28,6 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             if (EmojiCompat == null)
             {
                 var config = new BundledEmojiCompatConfig(Application.Context)
-                    .SetEmojiSpanIndicatorEnabled(true)
-                    .SetEmojiSpanIndicatorColor(Color.Green)
                     .SetReplaceAll(true);
 
                 EmojiCompat = EmojiCompat.Init(config);
@@ -36,6 +37,28 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
         public void Render()
         {
             Render(new AndroidRenderContext { Foreground = Foreground, Parent = RootLayout });
+        }
+
+        private void SetText(TextView textview, ICharSequence str)
+        {
+            var type = Class.FromType(typeof(AsyncImageSpan));
+            var len = str.Length();
+
+            var asyncSpans = str is SpannableString spstr
+                ? spstr.GetSpans(0, len, type)
+                : str is SpannableStringBuilder strbldr
+                ? strbldr.GetSpans(0, len, type)
+                : null;
+
+            if (asyncSpans?.Any() == true)
+            {
+                foreach (AsyncImageSpan span in asyncSpans)
+                {
+                    span.Attach(textview);
+                }
+            }
+
+            textview.SetText(str, TextView.BufferType.Spannable);
         }
 
         private void MakeHyperlinkSpan(string url, SpannableString span, IRenderContext context)

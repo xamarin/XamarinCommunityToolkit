@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Android.App;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.Net;
 using Android.Text;
 using Android.Text.Style;
@@ -8,7 +10,7 @@ using Android.Widget;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
 using Xamarin.Toolkit.Droid.Helpers;
-using Xamarin.Toolkit.Droid.Helpers.Models;
+using Xamarin.Toolkit.Droid.Helpers.Text;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 {
@@ -19,17 +21,18 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var localcontext = context as AndroidRenderContext;
             var builder = localcontext.Builder;
 
-            // Render the children into the bold inline.
-            var inlines = new SpannableStringBuilder();
+            // Set the Span to bold style.
+            var subbuilder = new SpannableStringBuilder();
+            var subcontext = context.Clone() as AndroidRenderContext;
+            subcontext.Builder = subbuilder;
 
-            RenderInlineChildren(element.Inlines, context);
-            var spannedText = SpannableStringBuilder.ValueOf(inlines);
+            RenderInlineChildren(element.Inlines, subcontext);
 
             // Set the Span to bold style.
-            spannedText.SetSpanAll(new StyleSpan(TypefaceStyle.Bold));
+            subbuilder.SetSpanAll(new StyleSpan(TypefaceStyle.Bold));
 
             // Add the internal bold spanned inlines to the current inlines.
-            builder.Append(spannedText);
+            builder.Append(subbuilder);
         }
 
         protected override void RenderCodeRun(CodeInline element, IRenderContext context)
@@ -62,41 +65,33 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             }
         }
 
-        protected override async void RenderImage(ImageInline element, IRenderContext context)
+        protected override void RenderImage(ImageInline element, IRenderContext context)
         {
             var localcontext = context as AndroidRenderContext;
             var builder = localcontext.Builder;
             var parent = localcontext.Parent as ViewGroup;
 
+            var imagespan = new AsyncImageSpan();
+            var text = new SpannableString(element.Text);
+            text.SetSpanAll(new ForegroundColorSpan(Foreground));
+            text.SetSpanAll(imagespan);
+            builder.Append(text);
+
             // Image view container
-            var container = new LinearLayout(RootLayout.Context);
-            parent.AddView(container);
-
-            var image = await imageResolver.ResolveImageAsync(element.Url, element.Tooltip);
-            if (image != null)
+            Task.Run(() => imageResolver.ResolveImageAsync(element.Url, element.Tooltip)).ContinueWith(image =>
             {
-                var imgview = new ImageView(RootLayout.Context);
-
-                switch (image)
+                ((Activity)RootLayout.Context).RunOnUiThread(() =>
                 {
-                    case BitmapImageSource bitmap:
-                        imgview.SetImageBitmap(bitmap.Source);
-                        break;
-                }
-
-                container.AddView(imgview);
-            }
-            else
-            {
-                var text = new SpannableString(element.Text);
-                text.SetSpanAll(new ForegroundColorSpan(Foreground));
-
-                var view = new TextView(RootLayout.Context)
-                {
-                    TextFormatted = text
-                };
-                container.AddView(view);
-            }
+                    if (image.Result != null)
+                    {
+                        imagespan.SetImageSource(image.Result);
+                    }
+                    else
+                    {
+                        imagespan.SetPlaceholder();
+                    }
+                });
+            });
         }
 
         protected override void RenderItalicRun(ItalicTextInline element, IRenderContext context)
@@ -104,7 +99,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var localcontext = context as AndroidRenderContext;
             var builder = localcontext.Builder;
 
-            // Render the children into the bold inline.
+            // Render the children into the italic inline.
             var subbuilder = new SpannableStringBuilder();
             var subcontext = context.Clone() as AndroidRenderContext;
             subcontext.Builder = subbuilder;

@@ -10,7 +10,6 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
         private static EmojiCompat EmojiCompat { get; set; }
 
         // Handling
-
         private readonly IImageResolver imageResolver;
 
         private LinearLayout RootLayout { get; set; }

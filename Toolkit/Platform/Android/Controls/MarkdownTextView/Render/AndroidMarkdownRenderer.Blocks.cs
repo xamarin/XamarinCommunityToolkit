@@ -28,7 +28,10 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
                 codeArea.SetBackgroundColor(CodeBackground.Value);
             }
 
-            var text = new SpannableString(element.Text);
+            var subcontext = localcontext.Clone();
+            subcontext.TrimLeadingWhitespace = true;
+
+            var text = new SpannableString(CollapseWhitespace(subcontext, element.Text));
             var length = text.Length();
             text.SetSpanAll(new TypefaceSpan(CodeFontFamily));
             if (FontSize != null)
@@ -37,7 +40,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             }
 
             var textArea = new TextView(RootLayout.Context);
-            textArea.SetText(text, TextView.BufferType.Spannable);
+            SetText(textArea, text);
 
             codeArea.AddView(textArea);
             parent.AddView(codeArea);
@@ -54,6 +57,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var subcontext = context.Clone() as AndroidRenderContext;
             subcontext.Builder = subbuilder;
 
+            subcontext.TrimLeadingWhitespace = true;
             RenderInlineChildren(element.Inlines, subcontext);
 
             var fsize = FontSize;
@@ -121,7 +125,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
                 subbuilder.SetMarginSpanAll(margin.Value);
             }
 
-            textview.SetText(subbuilder, TextView.BufferType.Spannable);
+            SetText(textview, subbuilder);
             parent.AddView(textview);
         }
 
@@ -165,7 +169,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var subbuilder = new SpannableStringBuilder();
             var subcontext = context.Clone() as AndroidRenderContext;
             subcontext.Builder = subbuilder;
-
+            subcontext.TrimLeadingWhitespace = true;
             RenderInlineChildren(element.Inlines, subcontext);
 
             if (FontSize != null)
@@ -173,7 +177,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
                 subbuilder.SetSpanAll(new AbsoluteSizeSpan(FontSize.Value, true));
             }
 
-            textview.SetText(subbuilder, TextView.BufferType.Spannable);
+            SetText(textview, subbuilder);
             textview.MovementMethod = LinkMovementMethod.Instance;
             parent.AddView(textview);
         }
@@ -195,6 +199,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
             var subcontext = context.Clone();
             subcontext.Parent = quoteArea;
+            subcontext.TrimLeadingWhitespace = true;
 
             RenderBlocks(element.Blocks, subcontext);
 
