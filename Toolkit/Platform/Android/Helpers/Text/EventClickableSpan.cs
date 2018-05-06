@@ -6,11 +6,6 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
 {
     public class EventClickableSpan : ClickableSpan
     {
-        public EventClickableSpan()
-            : base()
-        {
-        }
-
         public override void OnClick(View widget)
         {
             Clicked?.Invoke(this, EventArgs.Empty);

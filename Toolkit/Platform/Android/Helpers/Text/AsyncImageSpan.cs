@@ -54,8 +54,14 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
             // Update the TextView with new image data.
             if (textview != null && textviewLoaded)
             {
-                var text = textview.TextFormatted;
-                textview.SetText(text, TextView.BufferType.Spannable);
+                if (textview.TextFormatted is ISpannable text)
+                {
+                    var start = text.GetSpanStart(this);
+                    var end = text.GetSpanEnd(this);
+
+                    text.SetSpan(ClickHandler, start, end, SpanTypes.ExclusiveExclusive);
+                    textview.SetText(text, TextView.BufferType.Spannable);
+                }
             }
         }
 
@@ -86,6 +92,8 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
                 textview.SetText(str, TextView.BufferType.Spannable);
             }
         }
+
+        public EventClickableSpan ClickHandler { get; } = new EventClickableSpan();
 
         private LevelListDrawable backing;
 

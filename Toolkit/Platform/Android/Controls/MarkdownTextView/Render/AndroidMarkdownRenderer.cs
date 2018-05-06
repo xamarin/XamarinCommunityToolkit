@@ -48,9 +48,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
         {
             var textview = new TextView(androidContext)
             {
-                MovementMethod = LinkMovementMethod.Instance,
+                MovementMethod = SelectableLinkMethod.Instance,
             };
-            textview.SetTextIsSelectable(true);
 
             if (FontSize != null)
             {
@@ -62,17 +61,12 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         private void SetText(TextView textview, ICharSequence str)
         {
-            var type = Class.FromType(typeof(AsyncImageSpan));
-            var len = str.Length();
-
-            var asyncSpans = str is SpannableString spstr
-                ? spstr.GetSpans(0, len, type)
-                : str is SpannableStringBuilder strbldr
-                ? strbldr.GetSpans(0, len, type)
-                : null;
-
-            if (asyncSpans?.Any() == true)
+            if (str is ISpannable spanner)
             {
+                var type = Class.FromType(typeof(AsyncImageSpan));
+                var len = str.Length();
+
+                var asyncSpans = spanner.GetSpans(0, len, type);
                 foreach (AsyncImageSpan span in asyncSpans)
                 {
                     span.Attach(textview);

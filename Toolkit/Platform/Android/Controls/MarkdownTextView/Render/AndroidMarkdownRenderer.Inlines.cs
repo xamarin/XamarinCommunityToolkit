@@ -69,16 +69,12 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var parent = localcontext.Parent as ViewGroup;
 
             var imagespan = new AsyncImageSpan();
-            var clickspan = new EventClickableSpan
-            {
-                Url = element.Url
-            };
-            linkRegister.RegisterNewHyperLink(clickspan, true);
+            imagespan.ClickHandler.Url = element.Url;
+            linkRegister.RegisterNewHyperLink(imagespan.ClickHandler, true);
 
             var text = new SpannableString(element.Text);
             text.SetSpanAll(new ForegroundColorSpan(Foreground));
             text.SetSpanAll(imagespan);
-            text.SetSpanAll(clickspan);
             builder.Append(text);
 
             // Image view container
