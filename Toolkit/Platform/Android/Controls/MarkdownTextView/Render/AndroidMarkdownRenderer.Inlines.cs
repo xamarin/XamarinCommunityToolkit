@@ -1,12 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Android.App;
 using Android.Graphics;
-using Android.Graphics.Drawables;
-using Android.Net;
 using Android.Text;
 using Android.Text.Style;
 using Android.Views;
-using Android.Widget;
 using Microsoft.Toolkit.Parsers.Markdown.Inlines;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
 using Xamarin.Toolkit.Droid.Helpers;
@@ -80,7 +77,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             // Image view container
             Task.Run(() => imageResolver.ResolveImageAsync(element.Url, element.Tooltip)).ContinueWith(image =>
             {
-                ((Activity)RootLayout.Context).RunOnUiThread(() =>
+                ((Activity)androidContext).RunOnUiThread(() =>
                 {
                     if (image.Result != null)
                     {
@@ -189,7 +186,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var builder = localcontext.Builder;
 
             // Creates raw text.
-            var text = new SpannableString(CollapseWhitespace(context, element.Text));
+            var text = new SpannableString(element.Text);
             text.SetSpanAll(new ForegroundColorSpan(Foreground));
 
             // Add it to the current inlines

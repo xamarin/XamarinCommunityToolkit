@@ -1,12 +1,13 @@
 ﻿using System.Linq;
 using Android.App;
 using Android.Content;
-using Android.Graphics;
 using Android.Net;
 using Android.Support.Text.Emoji;
 using Android.Support.Text.Emoji.Bundled;
 using Android.Text;
+using Android.Text.Method;
 using Android.Text.Style;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
@@ -21,8 +22,9 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
         public AndroidMarkdownRenderer(MarkdownDocument document, LinearLayout rootLayout, IImageResolver imageResolver)
             : base(document)
         {
-            RootLayout = rootLayout;
-            rootLayout.SetBackgroundColor(Background);
+            androidContext = rootLayout.Context;
+            this.rootLayout = rootLayout;
+            this.rootLayout.SetBackgroundColor(Background);
             this.imageResolver = imageResolver;
 
             if (EmojiCompat == null)
@@ -36,7 +38,23 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         public void Render()
         {
-            Render(new AndroidRenderContext { Foreground = Foreground, Parent = RootLayout });
+            Render(new AndroidRenderContext { Foreground = Foreground, Parent = rootLayout });
+        }
+
+        private TextView CreateTextView()
+        {
+            var textview = new TextView(androidContext)
+            {
+                MovementMethod = LinkMovementMethod.Instance,
+            };
+            textview.SetTextIsSelectable(true);
+
+            if (FontSize != null)
+            {
+                textview.SetTextSize(ComplexUnitType.Dip, FontSize.Value);
+            }
+
+            return textview;
         }
 
         private void SetText(TextView textview, ICharSequence str)

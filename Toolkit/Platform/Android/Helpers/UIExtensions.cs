@@ -114,5 +114,16 @@ namespace Xamarin.Toolkit.Droid.Helpers
             var metrics = Application.Context.Resources.DisplayMetrics;
             return (int)(pixels * metrics.Density);
         }
+
+        /// <summary>
+        /// Converts real pixels to Display Pixels
+        /// </summary>
+        /// <param name="pixels">Real Pixels</param>
+        /// <returns>Display pixels</returns>
+        public static float GetDisplayPixels(this float pixels)
+        {
+            var metrics = Application.Context.Resources.DisplayMetrics;
+            return pixels * metrics.Density;
+        }
     }
 }

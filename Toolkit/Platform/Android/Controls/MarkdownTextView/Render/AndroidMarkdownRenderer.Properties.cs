@@ -1,4 +1,5 @@
-﻿using Android.Graphics;
+﻿using Android.Content;
+using Android.Graphics;
 using Android.Support.Text.Emoji;
 using Android.Widget;
 using Xamarin.Toolkit.Droid.Helpers.Models;
@@ -12,7 +13,9 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
         // Handling
         private readonly IImageResolver imageResolver;
 
-        private LinearLayout RootLayout { get; set; }
+        private readonly Context androidContext;
+
+        private readonly LinearLayout rootLayout;
 
         // Generic
 
@@ -116,5 +119,13 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
         public Color? QuoteForeground { get; set; }
 
         public Thickness QuotePadding { get; set; } = new Thickness(5);
+
+        // Table
+
+        public Color? TableBorderColor { get; set; } = Color.Black;
+
+        public int TableBorderThickness { get; set; } = 2;
+
+        public Thickness TablePadding { get; set; } = new Thickness(5);
     }
 }

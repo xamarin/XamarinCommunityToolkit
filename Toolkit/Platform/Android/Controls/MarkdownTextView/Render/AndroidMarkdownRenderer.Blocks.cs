@@ -1,10 +1,12 @@
 ﻿using Android.Graphics;
+using Android.Graphics.Drawables;
+using Android.Graphics.Drawables.Shapes;
 using Android.Text;
-using Android.Text.Method;
 using Android.Text.Style;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Toolkit.Parsers.Markdown.Blocks;
+using Microsoft.Toolkit.Parsers.Markdown.Enums;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
 using Xamarin.Toolkit.Droid.Helpers;
 using Xamarin.Toolkit.Droid.Helpers.Models;
@@ -18,7 +20,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
 
-            var codeArea = new LinearLayout(RootLayout.Context)
+            var codeArea = new LinearLayout(androidContext)
             {
                 Orientation = Orientation.Vertical
             };
@@ -39,7 +41,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
                 text.SetSpanAll(new AbsoluteSizeSpan(FontSize.Value));
             }
 
-            var textArea = new TextView(RootLayout.Context);
+            var textArea = CreateTextView();
             SetText(textArea, text);
 
             codeArea.AddView(textArea);
@@ -50,8 +52,6 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
         {
             var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
-
-            var textview = new TextView(RootLayout.Context);
 
             var subbuilder = new SpannableStringBuilder();
             var subcontext = context.Clone() as AndroidRenderContext;
@@ -125,6 +125,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
                 subbuilder.SetMarginSpanAll(margin.Value);
             }
 
+            var textview = CreateTextView();
             SetText(textview, subbuilder);
             parent.AddView(textview);
         }
@@ -142,7 +143,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
                 layout.SetMargin(HorizontalRuleMargin.Value);
             }
 
-            var view = new View(RootLayout.Context)
+            var view = new View(androidContext)
             {
                 LayoutParameters = layout
             };
@@ -164,21 +165,14 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
 
-            var textview = new TextView(RootLayout.Context);
-
             var subbuilder = new SpannableStringBuilder();
             var subcontext = context.Clone() as AndroidRenderContext;
             subcontext.Builder = subbuilder;
             subcontext.TrimLeadingWhitespace = true;
             RenderInlineChildren(element.Inlines, subcontext);
 
-            if (FontSize != null)
-            {
-                subbuilder.SetSpanAll(new AbsoluteSizeSpan(FontSize.Value, true));
-            }
-
+            var textview = CreateTextView();
             SetText(textview, subbuilder);
-            textview.MovementMethod = LinkMovementMethod.Instance;
             parent.AddView(textview);
         }
 
@@ -187,7 +181,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
 
-            var quoteArea = new LinearLayout(RootLayout.Context)
+            var quoteArea = new LinearLayout(androidContext)
             {
                 Orientation = Orientation.Vertical
             };
@@ -208,6 +202,88 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderTable(TableBlock element, IRenderContext context)
         {
+            var localcontext = context as AndroidRenderContext;
+            var parent = context.Parent as ViewGroup;
+
+            TableLayout.LayoutParams RowMargin(Thickness margin)
+            {
+                var paramSet =
+                  new TableLayout.LayoutParams(
+                  ViewGroup.LayoutParams.WrapContent, ViewGroup.LayoutParams.WrapContent);
+
+                paramSet.SetMargin(margin);
+
+                return paramSet;
+            }
+
+            var tableRowMargin = new Thickness(0, 0, -TableBorderThickness, -TableBorderThickness);
+
+            var background = new ShapeDrawable(new RectShape());
+            background.Paint.Color = TableBorderColor ?? Background;
+            background.Paint.SetStyle(Paint.Style.Stroke);
+            background.Paint.StrokeWidth = TableBorderThickness;
+
+            var table = new TableLayout(androidContext)
+            {
+                StretchAllColumns = true
+            };
+
+            table.SetPadding(TablePadding);
+
+            for (var r = 0; r < element.Rows.Count; r++)
+            {
+                var row = element.Rows[r];
+                var tbrow = new TableRow(androidContext);
+
+                for (var c = 0; c < row.Cells.Count; c++)
+                {
+                    var cell = row.Cells[c];
+                    var column = element.ColumnDefinitions[c];
+
+                    var colgravity = GravityFlags.Fill;
+                    switch (column.Alignment)
+                    {
+                        case ColumnAlignment.Center:
+                            colgravity = GravityFlags.Center;
+                            break;
+
+                        case ColumnAlignment.Left:
+                            colgravity = GravityFlags.Left;
+                            break;
+
+                        case ColumnAlignment.Right:
+                            colgravity = GravityFlags.Right;
+                            break;
+                    }
+
+                    var subbuilder = new SpannableStringBuilder();
+                    var subcontext = context.Clone() as AndroidRenderContext;
+                    subcontext.Builder = subbuilder;
+                    subcontext.TrimLeadingWhitespace = true;
+                    RenderInlineChildren(cell.Inlines, subcontext);
+
+                    if (FontSize != null)
+                    {
+                        subbuilder.SetSpanAll(new AbsoluteSizeSpan(FontSize.Value, true));
+                    }
+
+                    var textview = CreateTextView();
+                    SetText(textview, subbuilder);
+
+                    textview.Gravity = colgravity;
+                    textview.Background = background;
+                    tbrow.AddView(textview);
+                }
+
+                if (r == element.Rows.Count - 1)
+                {
+                    tableRowMargin.Bottom = 0;
+                }
+
+                table.AddView(tbrow, RowMargin(tableRowMargin));
+            }
+
+            parent.AddView(table);
         }
     }
 }
