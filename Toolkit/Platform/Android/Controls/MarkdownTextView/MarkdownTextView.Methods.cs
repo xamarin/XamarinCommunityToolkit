@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Android.Graphics;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Xamarin.Toolkit.Droid.Controls.Markdown;
-using Xamarin.Toolkit.Droid.Controls.Markdown.Display;
+using Xamarin.Toolkit.Droid.Controls.Markdown.Render;
 using Xamarin.Toolkit.Droid.Helpers.Models;
 
 namespace Xamarin.Toolkit.Droid.Controls

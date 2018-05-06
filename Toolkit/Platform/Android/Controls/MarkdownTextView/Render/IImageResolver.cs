@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Toolkit.Droid.Helpers.Models;
 
-namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
+namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 {
     /// <summary>
     /// An interface used to resolve images in the markdown.

@@ -11,7 +11,7 @@ using Android.Widget;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
 
-namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
+namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 {
     public partial class AndroidMarkdownRenderer : MarkdownRendererBase
     {

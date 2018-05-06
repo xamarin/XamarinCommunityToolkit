@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xamarin.Toolkit.Droid.Controls.Markdown.Display;
+using Xamarin.Toolkit.Droid.Controls.Markdown.Render;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {

@@ -3,7 +3,7 @@ using Android.Support.Text.Emoji;
 using Android.Widget;
 using Xamarin.Toolkit.Droid.Helpers.Models;
 
-namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
+namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 {
     public partial class AndroidMarkdownRenderer
     {

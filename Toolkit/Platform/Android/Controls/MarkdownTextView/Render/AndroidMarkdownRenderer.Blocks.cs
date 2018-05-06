@@ -9,7 +9,7 @@ using Microsoft.Toolkit.Parsers.Markdown.Render;
 using Xamarin.Toolkit.Droid.Helpers;
 using Xamarin.Toolkit.Droid.Helpers.Models;
 
-namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
+namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 {
     public partial class AndroidMarkdownRenderer
     {

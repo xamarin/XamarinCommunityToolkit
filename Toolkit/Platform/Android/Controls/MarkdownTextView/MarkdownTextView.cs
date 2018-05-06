@@ -1,7 +1,7 @@
 ﻿using Android.Content;
 using Android.Util;
 using Android.Widget;
-using Xamarin.Toolkit.Droid.Controls.Markdown.Display;
+using Xamarin.Toolkit.Droid.Controls.Markdown.Render;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {

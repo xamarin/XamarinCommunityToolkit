@@ -2,7 +2,7 @@
 using Android.Text;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
 
-namespace Xamarin.Toolkit.Droid.Controls.Markdown.Display
+namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 {
     public class AndroidRenderContext : IRenderContext
     {
