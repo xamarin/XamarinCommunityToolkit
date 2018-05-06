@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Android.Graphics;
+using Com.Caverock.Androidsvg;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Xamarin.Toolkit.Droid.Controls.Markdown;
 using Xamarin.Toolkit.Droid.Controls.Markdown.Render;
@@ -132,7 +133,11 @@ namespace Xamarin.Toolkit.Droid.Controls
                         if (System.IO.Path.GetExtension(imageUrl.AbsolutePath)?.ToLowerInvariant() == ".svg")
                         {
                             // Add SVG Rendering
-                            return null;
+                            var svg = SVG.GetFromInputStream(imagestream);
+                            return new SVGImageSource
+                            {
+                                Source = svg
+                            };
                         }
                         else
                         {

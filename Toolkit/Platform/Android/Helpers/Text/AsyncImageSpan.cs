@@ -3,6 +3,8 @@ using Android.Graphics.Drawables;
 using Android.Text;
 using Android.Text.Style;
 using Android.Widget;
+using Com.Caverock.Androidsvg;
+using Java.Lang;
 using Xamarin.Toolkit.Droid.Helpers.Models;
 
 namespace Xamarin.Toolkit.Droid.Helpers.Text
@@ -33,12 +35,48 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
                 case BitmapImageSource bitmap:
                     SetImageSource(bitmap.Source);
                     break;
+
+                case SVGImageSource svg:
+                    SetImageSource(svg.Source);
+                    break;
             }
         }
 
         public void SetImageSource(Bitmap bitmap)
         {
             SetImageSource(new BitmapDrawable(bitmap));
+        }
+
+        public void SetImageSource(SVG svg)
+        {
+            Bitmap newBM = null;
+
+            // Create a canvas to draw onto
+            if (svg.DocumentWidth != -1)
+            {
+                newBM = Bitmap.CreateBitmap(
+                    (int)Math.Ceil(svg.DocumentWidth),
+                    (int)Math.Ceil(svg.DocumentHeight),
+                    Bitmap.Config.Argb8888);
+            }
+            else
+            {
+                // Default dimensions
+                newBM = Bitmap.CreateBitmap(
+                    512,
+                    512,
+                    Bitmap.Config.Argb8888);
+            }
+
+            var bmcanvas = new Canvas(newBM);
+
+            // Clear background to white
+            bmcanvas.DrawRGB(255, 255, 255);
+
+            // Render our document onto our canvas
+            svg.RenderToCanvas(bmcanvas);
+
+            SetImageSource(newBM);
         }
 
         public void SetImageSource(Drawable drawable)
