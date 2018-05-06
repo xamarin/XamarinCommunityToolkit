@@ -47,20 +47,18 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
 
         public void SetImageSource(Bitmap bitmap)
         {
-            SetImageSource(new BitmapDrawable(bitmap));
-        }
+            var drawable = new BitmapDrawable(bitmap);
+            var width = bitmap.Width;
+            var height = bitmap.Height;
 
-        public void SetImageSource(SVG svg)
-        {
-            // Default dimensions from AndroidSVG
-            var height = svgDefaultSize;
-            var width = svgDefaultSize;
-
-            // Create a canvas to draw onto
-            if (svg.DocumentWidth != -1)
+            if (Width.HasValue)
             {
-                width = (int)Math.Ceil(svg.DocumentWidth);
-                height = (int)Math.Ceil(svg.DocumentHeight);
+                width = Width.Value;
+            }
+
+            if (Height.HasValue)
+            {
+                height = Height.Value;
             }
 
             if (MaxWidth.HasValue && width > MaxWidth)
@@ -71,6 +69,30 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
             if (MaxHeight.HasValue && height > MaxHeight)
             {
                 height = MaxHeight.Value;
+            }
+
+            drawable.SetBounds(0, 0, width, height);
+            SetImageSource(drawable);
+        }
+
+        public void SetImageSource(SVG svg)
+        {
+            svg.DocumentPreserveAspectRatio = PreserveAspectRatio.Letterbox;
+
+            // Default dimensions from AndroidSVG
+            var height = svgDefaultSize;
+            var width = svgDefaultSize;
+
+            // Create a canvas to draw onto
+            if (svg.DocumentWidth != -1)
+            {
+                width = (int)Math.Ceil(svg.DocumentWidth);
+                height = (int)Math.Ceil(svg.DocumentHeight);
+            }
+            else
+            {
+                svg.SetDocumentHeight("100%");
+                svg.SetDocumentWidth("100%");
             }
 
             var newBM = Bitmap.CreateBitmap(width, height, Bitmap.Config.Argb8888);
@@ -87,11 +109,27 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
 
         public void SetImageSource(Drawable drawable)
         {
-            var width = drawable.IntrinsicWidth.GetDisplayPixels();
-            var height = drawable.IntrinsicHeight.GetDisplayPixels();
+            var bounds = drawable.Bounds;
 
-            backing.AddLevel(0, 0, drawable);
-            backing.SetLevel(0);
+            var width = drawable.IntrinsicWidth;
+            var height = drawable.IntrinsicHeight;
+
+            // Hacky way to force full dimensions.
+            if (drawable is BitmapDrawable bitmap)
+            {
+                width = bitmap.Bitmap.Width;
+                height = bitmap.Bitmap.Height;
+            }
+
+            if (Width.HasValue)
+            {
+                width = Width.Value;
+            }
+
+            if (Height.HasValue)
+            {
+                height = Height.Value;
+            }
 
             if (MaxWidth.HasValue && width > MaxWidth)
             {
@@ -103,7 +141,9 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
                 height = MaxHeight.Value;
             }
 
-            backing.SetBounds(0, 0, width > 0 ? width : 0, height > 0 ? height : 0);
+            backing.AddLevel(0, 0, drawable);
+            backing.SetLevel(0);
+            backing.SetBounds(0, 0, width > 0 ? width.GetDisplayPixels() : 0, height > 0 ? height.GetDisplayPixels() : 0);
 
             // Update the TextView with new image data.
             if (textview != null && textviewLoaded)
@@ -154,6 +194,10 @@ namespace Xamarin.Toolkit.Droid.Helpers.Text
         public int? MaxWidth { get; set; }
 
         public int? MaxHeight { get; set; }
+
+        public int? Height { get; set; }
+
+        public int? Width { get; set; }
 
         private LevelListDrawable backing;
 

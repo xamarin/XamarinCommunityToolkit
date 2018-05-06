@@ -68,7 +68,11 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var builder = localcontext.Builder;
             var parent = localcontext.Parent as ViewGroup;
 
-            var imagespan = new AsyncImageSpan();
+            var imagespan = new AsyncImageSpan
+            {
+                Width = element.ImageWidth > 0 ? element.ImageWidth : (int?)null,
+                Height = element.ImageHeight > 0 ? element.ImageHeight : (int?)null
+            };
             imagespan.ClickHandler.Url = element.Url;
             linkRegister.RegisterNewHyperLink(imagespan.ClickHandler, true);
 
