@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using Android.App;
+using Android.Content;
+using Android.Net;
 using Android.OS;
 using Xamarin.Toolkit.Droid.Controls;
 
@@ -15,6 +17,15 @@ namespace Xamarin.Toolkit.Droid.SampleApp.SamplePages
             GetText();
         }
 
+        private void MarkdownTextView_Clicked(object sender, LinkClickedEventArgs e)
+        {
+            if (System.Uri.IsWellFormedUriString(e.Link, System.UriKind.Absolute))
+            {
+                var viewLink = new Intent(Intent.ActionView, Uri.Parse(e.Link));
+                StartActivity(viewLink);
+            }
+        }
+
         private async void GetText()
         {
             using (var md = Assets.Open("InitialContent.md"))
@@ -23,6 +34,8 @@ namespace Xamarin.Toolkit.Droid.SampleApp.SamplePages
                 {
                     var content = await reader.ReadToEndAsync();
                     MarkdownTextView.Text = content;
+                    markdownTextView.ImageClicked += MarkdownTextView_Clicked;
+                    markdownTextView.LinkClicked += MarkdownTextView_Clicked;
                 }
             }
         }

@@ -13,6 +13,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
         // Handling
         private readonly IImageResolver imageResolver;
 
+        private readonly ILinkRegister linkRegister;
+
         private readonly Context androidContext;
 
         private readonly LinearLayout rootLayout;

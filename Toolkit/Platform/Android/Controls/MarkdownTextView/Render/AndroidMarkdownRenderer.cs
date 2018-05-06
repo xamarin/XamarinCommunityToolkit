@@ -13,19 +13,22 @@ using Android.Widget;
 using Java.Lang;
 using Microsoft.Toolkit.Parsers.Markdown;
 using Microsoft.Toolkit.Parsers.Markdown.Render;
+using Xamarin.Toolkit.Droid.Helpers;
 using Xamarin.Toolkit.Droid.Helpers.Text;
 
 namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 {
     public partial class AndroidMarkdownRenderer : MarkdownRendererBase
     {
-        public AndroidMarkdownRenderer(MarkdownDocument document, LinearLayout rootLayout, IImageResolver imageResolver)
+        public AndroidMarkdownRenderer(MarkdownDocument document, LinearLayout rootLayout, IImageResolver imageResolver, ILinkRegister linkRegister)
             : base(document)
         {
             androidContext = rootLayout.Context;
             this.rootLayout = rootLayout;
             this.rootLayout.SetBackgroundColor(Background);
+
             this.imageResolver = imageResolver;
+            this.linkRegister = linkRegister;
 
             if (EmojiCompat == null)
             {
@@ -79,34 +82,23 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             textview.SetText(str, TextView.BufferType.Spannable);
         }
 
-        private void MakeHyperlinkSpan(string url, SpannableString span, IRenderContext context)
+        private void MakeHyperlinkSpan(string url, SpannableStringBuilder span, IRenderContext context)
         {
             var localcontext = context as AndroidRenderContext;
             var foreground = LinkForeground ?? localcontext.Foreground;
 
-            var length = span.Length();
-            span.SetSpan(new MarkdownClickSpan(url), 0, length, SpanTypes.ExclusiveExclusive);
+            var clickspan = new EventClickableSpan
+            {
+                Url = url
+            };
+
+            linkRegister.RegisterNewHyperLink(clickspan);
+
+            span.SetSpanAll(clickspan);
             if (LinkForeground != null)
             {
-                span.SetSpan(new ForegroundColorSpan(LinkForeground.Value), 0, length, SpanTypes.ExclusiveExclusive);
+                span.SetSpanAll(new ForegroundColorSpan(LinkForeground.Value));
             }
-        }
-
-        private class MarkdownClickSpan : ClickableSpan
-        {
-            public MarkdownClickSpan(string url)
-            {
-                Url = url;
-            }
-
-            public override void OnClick(View widget)
-            {
-                var viewLink = new Intent(Intent.ActionView, Uri.Parse(Url));
-                var activity = widget.Context as Activity;
-                activity.StartActivity(viewLink);
-            }
-
-            public string Url { get; }
         }
     }
 }

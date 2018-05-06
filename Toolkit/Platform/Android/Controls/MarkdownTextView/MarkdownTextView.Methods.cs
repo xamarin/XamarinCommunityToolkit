@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Android.Graphics;
@@ -7,6 +8,7 @@ using Microsoft.Toolkit.Parsers.Markdown;
 using Xamarin.Toolkit.Droid.Controls.Markdown;
 using Xamarin.Toolkit.Droid.Controls.Markdown.Render;
 using Xamarin.Toolkit.Droid.Helpers.Models;
+using Xamarin.Toolkit.Droid.Helpers.Text;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {
@@ -49,7 +51,7 @@ namespace Xamarin.Toolkit.Droid.Controls
             markdown.Parse(Text);
 
             // Create the Markdown Renderer.
-            var renderer = Activator.CreateInstance(renderertype, markdown, this, this) as AndroidMarkdownRenderer;
+            var renderer = Activator.CreateInstance(renderertype, markdown, this, this, this) as AndroidMarkdownRenderer;
             if (renderer == null)
             {
                 throw new Exception("Markdown Renderer was not of the correct type.");
@@ -58,6 +60,34 @@ namespace Xamarin.Toolkit.Droid.Controls
             // Now try to display it
             renderer.Render();
             renderer.FontSize = FontSize;
+        }
+
+        public void RegisterNewHyperLink(EventClickableSpan clickSpan, bool isImage = false)
+        {
+            clickSpan.Clicked += ClickSpan_Clicked;
+
+            listeningLinks.Add((clickSpan, isImage));
+        }
+
+        private void ClickSpan_Clicked(object sender, EventArgs e)
+        {
+            // Determine if an image.
+            var isimage = listeningLinks
+                .FirstOrDefault(item => item.span == sender)
+                .isImage;
+
+            if (sender is EventClickableSpan span)
+            {
+                var args = new LinkClickedEventArgs(span.Url);
+                if (isimage)
+                {
+                    ImageClicked?.Invoke(this, args);
+                }
+                else
+                {
+                    LinkClicked?.Invoke(this, args);
+                }
+            }
         }
 
         public async Task<ImageSource> ResolveImageAsync(string url, string tooltip)
@@ -120,6 +150,11 @@ namespace Xamarin.Toolkit.Droid.Controls
         private void UnhookListeners()
         {
             // Clear any hyper link events if we have any
+            foreach (var link in listeningLinks.ToList())
+            {
+                link.span.Clicked -= ClickSpan_Clicked;
+                listeningLinks.Remove(link);
+            }
 
             // Clear everything that exists.
         }

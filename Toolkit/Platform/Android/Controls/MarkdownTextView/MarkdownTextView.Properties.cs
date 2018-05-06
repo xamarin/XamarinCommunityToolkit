@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Toolkit.Droid.Controls.Markdown.Render;
+using Xamarin.Toolkit.Droid.Helpers.Text;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {
@@ -9,7 +10,7 @@ namespace Xamarin.Toolkit.Droid.Controls
         /// <summary>
         /// Holds a list of hyperlinks we are listening to.
         /// </summary>
-        private readonly List<object> listeningLinks = new List<object>();
+        private readonly List<(EventClickableSpan span, bool isImage)> listeningLinks = new List<(EventClickableSpan span, bool isImage)>();
 
         public int? FontSize
         {

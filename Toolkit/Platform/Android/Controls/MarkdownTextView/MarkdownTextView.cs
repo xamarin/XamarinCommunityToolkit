@@ -5,7 +5,7 @@ using Xamarin.Toolkit.Droid.Controls.Markdown.Render;
 
 namespace Xamarin.Toolkit.Droid.Controls
 {
-    public partial class MarkdownTextView : LinearLayout, IImageResolver
+    public partial class MarkdownTextView : LinearLayout, IImageResolver, ILinkRegister
     {
         public MarkdownTextView(Context context, IAttributeSet attrs)
             : base(context, attrs)

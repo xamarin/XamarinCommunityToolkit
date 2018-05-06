@@ -69,9 +69,16 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var parent = localcontext.Parent as ViewGroup;
 
             var imagespan = new AsyncImageSpan();
+            var clickspan = new EventClickableSpan
+            {
+                Url = element.Url
+            };
+            linkRegister.RegisterNewHyperLink(clickspan, true);
+
             var text = new SpannableString(element.Text);
             text.SetSpanAll(new ForegroundColorSpan(Foreground));
             text.SetSpanAll(imagespan);
+            text.SetSpanAll(clickspan);
             builder.Append(text);
 
             // Image view container
@@ -121,11 +128,10 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
             RenderInlineChildren(element.Inlines, subcontext);
 
-            var span = SpannableString.ValueOf(subbuilder);
-            MakeHyperlinkSpan(element.Url, span, context);
+            MakeHyperlinkSpan(element.Url, subbuilder, context);
 
             // Add it to the current inlines
-            builder.Append(span);
+            builder.Append(subbuilder);
         }
 
         protected override void RenderHyperlink(HyperlinkInline element, IRenderContext context)
@@ -133,11 +139,11 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
             var localcontext = context as AndroidRenderContext;
             var builder = localcontext.Builder;
 
-            var span = new SpannableString(CollapseWhitespace(context, element.Text));
-            MakeHyperlinkSpan(element.Url, span, context);
+            var subbuilder = new SpannableStringBuilder(CollapseWhitespace(context, element.Text));
+            MakeHyperlinkSpan(element.Url, subbuilder, context);
 
             // Add it to the current inlines
-            builder.Append(span);
+            builder.Append(subbuilder);
         }
 
         protected override void RenderStrikethroughRun(StrikethroughTextInline element, IRenderContext context)

@@ -111,8 +111,7 @@ namespace Xamarin.Toolkit.Droid.Helpers
         /// <returns>Display pixels</returns>
         public static int GetDisplayPixels(this int pixels)
         {
-            var metrics = Application.Context.Resources.DisplayMetrics;
-            return (int)(pixels * metrics.Density);
+            return (int)GetDisplayPixels((float)pixels);
         }
 
         /// <summary>
