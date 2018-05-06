@@ -16,8 +16,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
     {
         protected override void RenderBoldRun(BoldTextInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
 
             // Render the children into the bold inline.
             var inlines = new SpannableStringBuilder();
@@ -34,8 +34,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderCodeRun(CodeInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
 
             var span = new SpannableString(element.Text);
             var length = span.Length();
@@ -51,8 +51,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderEmoji(EmojiInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
             var span = EmojiCompat?.Process(element.Text);
 
             if (span != null)
@@ -64,9 +64,9 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override async void RenderImage(ImageInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
-            var parent = context_.Parent as ViewGroup;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
+            var parent = localcontext.Parent as ViewGroup;
 
             // Image view container
             var container = new LinearLayout(RootLayout.Context);
@@ -101,8 +101,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderItalicRun(ItalicTextInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
 
             // Render the children into the bold inline.
             var subbuilder = new SpannableStringBuilder();
@@ -120,8 +120,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderMarkdownLink(MarkdownLinkInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
 
             var subbuilder = new SpannableStringBuilder();
             var subcontext = context.Clone() as AndroidRenderContext;
@@ -138,8 +138,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderHyperlink(HyperlinkInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
 
             var span = new SpannableString(CollapseWhitespace(context, element.Text));
             MakeHyperlinkSpan(element.Url, span, context);
@@ -150,8 +150,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderStrikethroughRun(StrikethroughTextInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
 
             // Render the children into the bold inline.
             var subbuilder = new SpannableStringBuilder();
@@ -170,8 +170,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderSuperscriptRun(SuperscriptTextInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
 
             // Render the children into the bold inline.
             var subbuilder = new SpannableStringBuilder();
@@ -190,8 +190,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderTextRun(TextRunInline element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var builder = context_.Builder;
+            var localcontext = context as AndroidRenderContext;
+            var builder = localcontext.Builder;
 
             // Creates raw text.
             var text = new SpannableString(CollapseWhitespace(context, element.Text));

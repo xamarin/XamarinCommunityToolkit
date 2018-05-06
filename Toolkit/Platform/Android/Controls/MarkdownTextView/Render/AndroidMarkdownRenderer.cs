@@ -40,8 +40,8 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         private void MakeHyperlinkSpan(string url, SpannableString span, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
-            var foreground = LinkForeground ?? context_.Foreground;
+            var localcontext = context as AndroidRenderContext;
+            var foreground = LinkForeground ?? localcontext.Foreground;
 
             var length = span.Length();
             span.SetSpan(new MarkdownClickSpan(url), 0, length, SpanTypes.ExclusiveExclusive);

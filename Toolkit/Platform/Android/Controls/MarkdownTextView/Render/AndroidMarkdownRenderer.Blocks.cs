@@ -15,7 +15,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
     {
         protected override void RenderCode(CodeBlock element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
+            var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
 
             var codeArea = new LinearLayout(RootLayout.Context)
@@ -45,7 +45,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderHeader(HeaderBlock element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
+            var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
 
             var textview = new TextView(RootLayout.Context);
@@ -127,7 +127,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderHorizontalRule(IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
+            var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
 
             var height = HorizontalRuleThickness.GetDisplayPixels();
@@ -157,7 +157,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderParagraph(ParagraphBlock element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
+            var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
 
             var textview = new TextView(RootLayout.Context);
@@ -180,7 +180,7 @@ namespace Xamarin.Toolkit.Droid.Controls.Markdown.Render
 
         protected override void RenderQuote(QuoteBlock element, IRenderContext context)
         {
-            var context_ = context as AndroidRenderContext;
+            var localcontext = context as AndroidRenderContext;
             var parent = context.Parent as ViewGroup;
 
             var quoteArea = new LinearLayout(RootLayout.Context)
