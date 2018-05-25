@@ -48,7 +48,7 @@ namespace Xamarin.Toolkit.Effects.UWP
         {
             var toggleSwitch = Control as ToggleSwitch;
             var grid = toggleSwitch.GetChildOfType<Windows.UI.Xaml.Controls.Grid>();
-            var groups = VisualStateManager.GetVisualStateGroups(grid);
+            var groups = Windows.UI.Xaml.VisualStateManager.GetVisualStateGroups(grid);
             foreach (var group in groups)
             {
                 if (group.Name != "CommonStates")
