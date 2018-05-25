@@ -14,6 +14,6 @@
   <Import Project="$(MSBuildThisFileDirectory)..\mdoc.targets" />
   <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
   <ItemGroup>
-    <PackageReference Update="Xamarin.Forms" Version="3.0.0.446417" />
+    <PackageReference Update="Xamarin.Forms" Version="3.0.0.482510" />
   </ItemGroup>
 </Project>
