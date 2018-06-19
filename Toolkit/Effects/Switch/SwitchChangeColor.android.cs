@@ -31,7 +31,9 @@ namespace Xamarin.Toolkit.Effects.Droid
                 ((SwitchCompat)Control).CheckedChange += OnCheckedChange;
 
                 // Supported formats for Parse are: #RRGGBB #AARRGGBB 'red', 'blue', 'green', 'black', 'white', 'gray', 'cyan', 'magenta', 'yellow', 'lightgray', 'darkgray'
-                ((SwitchCompat)Control).ThumbDrawable.SetColorFilter(falseColor.ToAndroid(), PorterDuff.Mode.Multiply);
+                var isChecked = ((SwitchCompat)Control).Checked;
+                var startingColor = isChecked ? trueColor : falseColor;
+                ((SwitchCompat)Control).ThumbDrawable.SetColorFilter(startingColor.ToAndroid(), PorterDuff.Mode.Multiply);
             }
         }
 
