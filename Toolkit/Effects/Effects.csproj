@@ -7,7 +7,6 @@
     <AssemblyName>Xamarin.Toolkit.Effects</AssemblyName>
     <RootNamespace>Xamarin.Toolkit.Effects</RootNamespace>
     <PackageId>Xamarin.Toolkit.Effects</PackageId>
-    <PackageIconUrl>https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/master/Media/OrganonLogo.64x64.png</PackageIconUrl>
     <Summary>Xamarin Community Toolkit Effects Library</Summary>
     <PackageTags>xamarin, windows, ios, android, xamarin.forms, toolkit</PackageTags>
     <Title>Xamarin Community Toolkit Effects Library</Title>
@@ -25,7 +24,7 @@
     <Compile Include="**\*.netstandard.*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.6" />
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
     <PackageReference Include="Win2D.uwp" Version="1.21.0" />
     <Compile Include="**\*.uwp.cs" />
     <Compile Include="**\*.uwp.*.cs" />
@@ -45,7 +44,4 @@
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
   <Import Project="$(MSBuildThisFileDirectory)..\mdoc.targets" />
   <Import Project="$(MSBuildThisFileDirectory)..\..\CodeStyles.targets" />
-  <ItemGroup>
-    <PackageReference Update="Xamarin.Forms" Version="3.0.0.482510" />
-  </ItemGroup>
 </Project>
