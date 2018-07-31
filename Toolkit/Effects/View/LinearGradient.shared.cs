@@ -192,9 +192,9 @@ namespace Xamarin.Toolkit.Effects
             }
         }
     }
-    public class ViewBlurEffect : RoutingEffect
+    public class LinearGradientEffect : RoutingEffect
     {
-        public ViewBlurEffect()
+        public LinearGradientEffect()
             : base(EffectIds.LinearGradient)
         {
         }
