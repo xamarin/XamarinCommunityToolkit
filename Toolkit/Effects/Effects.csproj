@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks></TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid71;uap10.0.16299</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid71;</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">netstandard1.0;netstandard2.0;xamarin.ios10;monoandroid71;uap10.0.16299</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' != 'Windows_NT' ">netstandard1.0;netstandard2.0;xamarin.ios10;monoandroid71;</TargetFrameworks>
     <AssemblyName>Xamarin.Toolkit.Effects</AssemblyName>
     <RootNamespace>Xamarin.Toolkit.Effects</RootNamespace>
     <PackageId>Xamarin.Toolkit.Effects</PackageId>
@@ -15,21 +15,30 @@
 
   <ItemGroup>
     <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*" />
+    <None Remove="GlobalSuppressions.cs" />
+    <None Remove="**\*.shared.cs" />
+    <None Remove="**\*.shared.*.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.shared.*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+    <None Remove="**\*.netstandard.cs" />
+    <None Remove="**\*.netstandard.*.cs" />
     <Compile Include="**\*.netstandard.cs" />
     <Compile Include="**\*.netstandard.*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
     <PackageReference Include="Win2D.uwp" Version="1.21.0" />
+    <None Remove="**\*.uwp.cs" />
+    <None Remove="**\*.uwp.*.cs" />
     <Compile Include="**\*.uwp.cs" />
     <Compile Include="**\*.uwp.*.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid')) ">
+    <None Remove="**\*.android.cs" />
+    <None Remove="**\*.android.*.cs" />
     <Compile Include="**\*.android.cs" />
     <Compile Include="**\*.android.*.cs" />
 
@@ -37,7 +46,9 @@
     <AndroidResource Include="Resources\**\*.xml" />
     <AndroidResource Include="Resources\**\*.png" />
   </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('xamarin.ios')) ">
+    <None Remove="**\*.ios.cs" />
+    <None Remove="**\*.ios.*.cs" />
     <Compile Include="**\*.ios.cs" />
     <Compile Include="**\*.ios.*.cs" />
   </ItemGroup>
