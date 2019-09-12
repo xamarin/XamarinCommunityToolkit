@@ -1,1 +1,0 @@
-The Forms Community Toolkit is a collection of helper functions, custom controls, and app services. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.
