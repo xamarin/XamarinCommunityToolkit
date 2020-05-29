@@ -1,3 +1,11 @@
 Xamarin Community Toolkit
 ===========
-This repo is not under active development. Change to the **master** branch for historical code to reference.
+Members of the community are rebooting this library under the guidance of the Xamarin team. The Xamarin Community Toolkit is a collection of common elements for mobile development with Xamarin.Forms that people tend to replicate across multiple apps. It simplifies and demonstrates common developer tasks when building apps with Xamarin.Forms. If you're looking for the historical code to reference, please check the **master** branch.
+
+## Contributions welcome!
+If you have one or more of these common pieces of code that you are always replicating across apps, don't hesitate to contribute! We aim to be the first NuGet package you install when creating a new Xamarin app!
+
+## Community Toolkit Principles
+- Principle #1: The toolkit will be kept simple.
+- Principle #2: As soon as a comparable feature is available in Xamarin.Forms, it will be marked as deprecated.
+- Principle #3: All features will be supported for two Xamarin.Forms release cycles or until another principle supersedes it.
