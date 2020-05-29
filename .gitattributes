@@ -10,7 +10,7 @@
 # default for csharp files.
 # Note: This is only used by command line
 ###############################################################################
-#*.cs     diff=csharp
+*.cs     diff=csharp
 
 ###############################################################################
 # Set the merge driver for project and solution files
@@ -65,3 +65,6 @@
 # Force bash scripts to always use lf line endings so that if a repo is accessed
 # in Unix via a file share from Windows, the scripts will work.
 *.sh text eol=lf
+
+# Force the docs to always use lf line endings
+docs/**/*.xml text eol=lf
