@@ -32,9 +32,9 @@ assignees: ''
 - Nuget Packages:
 - Affected Devices:
 
-### Screenshots
+### Reproduction imagery
 
-<!-- If the issue is a visual issue, please include screenshots showing the problem if possible -->
+<!-- If it is a visual issue, please include imagery (GIF/Screenshots) showing the problem -->
 
 ### Reproduction Link
 
