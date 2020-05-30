@@ -8,7 +8,8 @@ assignees: ''
 ---
 
 ## Summary
-Please provide a brief summary of your proposal. Two to three sentences is best here.
+
+<!-- Please provide a brief summary of your proposal. Two to three sentences are best here. -->
 
 ## API Changes
 
