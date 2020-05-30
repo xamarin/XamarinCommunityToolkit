@@ -25,4 +25,4 @@ In order to facilitate the new Shiny Button api, a bool is added to the Button c
 The MakeShiny API works even if the button is already visible.
 
 ## Intended Use Case
-Provide a detailed example of where your proposal would be used and for what purpose.
+<!-- Provide a detailed example of where your proposal would be used and for what purpose. -->
