@@ -32,6 +32,9 @@ assignees: ''
 - Nuget Packages:
 - Affected Devices:
 
+### Workaround
+<!-- If you've found a way around this issue, help other users out and share the workaround -->
+
 ### Reproduction imagery
 
 <!-- If it is a visual issue, please include imagery (GIF/Screenshots) showing the problem -->
