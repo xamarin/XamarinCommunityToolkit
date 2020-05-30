@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for Essentials
+about: Suggest an idea for CommunityToolkit
 title: "[Enhancement] YOUR IDEA!"
 labels: feature-request 
 assignees: ''

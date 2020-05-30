@@ -7,8 +7,6 @@ assignees: ''
 
 ---
 
-<!-- Bug report best practices: https://github.com/xamarin/Essentials/wiki -->
-
 ### Description
 
 ### Steps to Reproduce

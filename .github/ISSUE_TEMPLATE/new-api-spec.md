@@ -9,7 +9,7 @@ assignees: ''
 
 # [The feature] 
 
-Provide a concise description of the feature and the motivation for adding it to Xamarin.Essentials
+Provide a concise description of the feature and the motivation for adding it to Xamarin.CommunityToolkit
 
 # API
 
