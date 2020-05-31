@@ -1,57 +1,11 @@
 Xamarin Community Toolkit
 ===========
+Members of the community are rebooting this library under the guidance of the Xamarin team. The Xamarin Community Toolkit is a collection of common elements for mobile development with Xamarin.Forms that people tend to replicate across multiple apps. It simplifies and demonstrates common developer tasks when building apps with Xamarin.Forms. If you're looking for the historical code to reference, please check the **master** branch.
 
-The Xamarin Community Toolkit for Xamarin.Forms is a collection of Animations, Behaviors, Converters, and Effects for mobile development with [Xamarin.Forms](https://github.com/xamarin/Xamarin.Forms). It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.
+## Contributions welcome!
+If you have one or more of these common pieces of code that you are always replicating across apps, don't hesitate to contribute! We aim to be the first NuGet package you install when creating a new Xamarin app!
 
-## Build status
-
-| Target | Branch | Status |
-| ------ | ------ | ------ | 
-| Toolkit | master |![Build status](https://devdiv.visualstudio.com/_apis/public/build/definitions/0bdbc590-a062-4c3f-b0f6-9383f67865ee/8450/badge)  |
-
-Development NuGet feed: https://www.myget.org/F/xamarin-toolkit/api/v3/index.json
-
-## Contributing
-Do you want to contribute? Here are our [contribution guidelines](Contributing.md).
-
-## Building Xamarin Community Toolkit
-Xamarin Community Toolkit is built with the new SDK style projects with multi-targeting enabled. This means that all code for iOS, Android, and UWP exist inside of the Xamarin Community Toolkit project.
-
-If building on Visual Studio 2017 simply open the solution and build the project.
-
-If using Visual Studio for Mac the project can be built at the command line with MSBuild. To change the project type that you are working with simply edit Toolkit.csproj and modify the TargetFrameworks for only the project type you want to use.
-
-## Xamarin Community Toolkit Sample App
-
-Want to see the toolkit in action before jumping into the code?  Download and play with the [Sample App](/Samples).
-
-Follow the build instructions above to build the full library.
-
-## Features and documentation
-
-Documentation for our features is currently being transfered to http://docs.microsoft.com. Until this migration is complete, you can find the current Markdown files under [/docs](/docs).
-
-### Animations
-
-### Behaviors
-
-### Converters
-
-### Effects
-
-
-## Feedback and Requests
-
-Please use [GitHub issues](https://github.com/xamarin/XamarinCommunityToolkit/issues) for questions, comments, feature requests, or if would like to vote on what others are recommending.
-
-## Principles
-
- - Principle #1: The toolkit will be kept simple.
- - Principle #2: As soon as a comparable feature is available in Xamarin.Forms, it will be marked as deprecated.
- - Principle #3: All features will be supported for two Xamarin.Forms release cycles or until another principle supersedes it.
-
-
-For more information see the [Code of Conduct](CODE_OF_CONDUCT.md).
-
-## License
-MIT License, see license file.
+## Community Toolkit Principles
+- Principle #1: The toolkit will be kept simple.
+- Principle #2: As soon as a comparable feature is available in Xamarin.Forms, it will be marked as deprecated.
+- Principle #3: All features will be supported for two Xamarin.Forms release cycles or until another principle supersedes it.

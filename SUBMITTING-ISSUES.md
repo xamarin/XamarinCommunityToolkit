@@ -41,4 +41,4 @@ Please make note if an issue appears hardware-specific (slower machines, multipl
 
 # Contributing #
 
-Think you may have a bug fix, or you'd like to work on fixing one yourself? We greatly welcome PRs with fixes from the community! Check out the [Contribute page](Contributing.md) for more info.
+Think you may have a bug fix, or you'd like to work on fixing one yourself? We greatly welcome PRs with fixes from the community! Check out the [Contribute page](CONTRIBUTING.md) for more info.
