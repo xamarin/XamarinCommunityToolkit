@@ -34,6 +34,7 @@
         <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
         <DebugType>portable</DebugType>
         <Configurations>Debug;Release</Configurations>
+        <LangVersion>8.0</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
         <DebugSymbols>true</DebugSymbols>
@@ -47,7 +48,7 @@
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
-    <ItemGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <ItemGroup Condition=" '$(Configuration)'=='Release' ">
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
@@ -75,17 +76,6 @@
     <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
         <Compile Include="**\*.android.cs" />
         <Compile Include="**\*.android.*.cs" />
-    </ItemGroup>
-    <!-- NOTE: When Android 11.x comes out we neeed to make this check more robust -->
-    <ItemGroup Condition="$(TargetFramework.StartsWith('MonoAndroid')) And '$(TargetFramework)' != 'MonoAndroid10.0'">
-        <PackageReference Include="Xamarin.Android.Support.Compat" Version="28.0.0.3" />
-        <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="28.0.0.3" />
-        <PackageReference Condition=" '$(OS)' == 'Windows_NT' And $(TargetFrameworkVersion.TrimStart('vV')) &lt; 9.0 And $(TargetFrameworkVersion.TrimStart('vV')) &lt; 10.0" Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
-        <PackageReference Condition=" '$(OS)' != 'Windows_NT' " Include="Xamarin.Android.Support.Core.Utils" Version="28.0.0.3" />
-    </ItemGroup>
-    <!-- NOTE: When Android 11.x comes out we neeed to make this check more robust -->
-    <ItemGroup Condition="'$(TargetFramework)' == 'MonoAndroid10.0'">
-        <PackageReference Include="Xamarin.AndroidX.Browser" Version="1.0.0" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
         <Compile Include="**\*.ios.cs" />
