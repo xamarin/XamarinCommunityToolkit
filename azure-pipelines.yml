@@ -1,0 +1,96 @@
+
+variables:
+  CurrentSemanticVersionBase: '1.5.3'
+  PreviewNumber: $[counter(variables['CurrentSemanticVersionBase'], 1001)]
+  CurrentSemanticVersion: '$(CurrentSemanticVersionBase)-preview$(PreviewNumber)'
+  NugetPackageVersion: '$(CurrentSemanticVersion)'
+  MONO_VERSION: 6_4_0
+  XCODE_VERSION: 11.1
+  NETCORE_VERSION: '3.1.x'
+  NETCORE_TEST_VERSION: '2.2.x'
+  RunPoliCheck: 'false'
+  PathToCsproj: 'XamarinCommunityToolkit/XamarinCommunityToolkit.csproj'
+
+resources:
+  repositories:
+    - repository: xamarin-templates
+      type: github
+      name: xamarin/yaml-templates
+      endpoint: xamarin
+
+jobs:
+  - job: build_windows
+    displayName: Build Windows Library
+    pool:
+      vmImage: windows-2019
+    steps:
+      # if this is a tagged build, then update the version number
+      - powershell: |
+          $buildSourceBranch = "$(Build.SourceBranch)"
+          $tagVersion = $buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)
+          Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
+          Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
+        displayName: Set NuGet Version to Tag Number
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+      # restore, build and pack the packages
+      - task: MSBuild@1
+        displayName: Build Solution
+        inputs:
+          solution: $(PathToCsproj)
+          configuration: Release
+          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: MSBuild@1
+        displayName: Pack NuGets
+        inputs:
+          solution: $(PathToCsproj)
+          configuration: Release
+          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+#      - task: DotNetCoreCLI@2
+#        displayName: Publish to GitHub NuGet Packages
+#        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/master'))
+#        inputs:
+#          command: 'custom'
+#          custom: 'nuget'
+#          arguments: 'push --source https://nuget.pkg.github.com/xamarin/index.json --api-key $(GitHub.NuGet.Token) "$(Build.ArtifactStagingDirectory)\nuget\*.nupkg"'
+
+  - job: build_macos
+    displayName: Build macOS Library
+    pool:
+      vmImage: macos-10.14
+    steps:
+      # if this is a tagged build, then update the version number
+      - powershell: |
+          $buildSourceBranch = "$(Build.SourceBranch)"
+          $tagVersion = $buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)
+          Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
+          Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
+        displayName: Set NuGet Version to Tag Number
+        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+      # make sure to select the correct Xamarin and mono
+      - bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
+        displayName: Switch to the latest Xamarin SDK
+      - bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
+        displayName: Switch to the latest Xcode
+      # restore, build and pack the packages
+      - task: UseDotNet@2
+        displayName: 'Use .Net Core sdk'
+        inputs:
+          version: $(NETCORE_VERSION)
+          includePreviewVersions: false
+      - task: UseDotNet@2
+        displayName: 'Use .Net Core sdk'
+        inputs:
+          version: $(NETCORE_TEST_VERSION)
+          includePreviewVersions: false
+      - task: MSBuild@1
+        displayName: Build Solution
+        inputs:
+          solution: $(PathToCsproj)
+          configuration: Release
+          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: MSBuild@1
+        displayName: Pack NuGets
+        inputs:
+          solution: $(PathToCsproj)
+          configuration: Release
+          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
