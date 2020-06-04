@@ -29,7 +29,6 @@
         <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
         <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
         <DebugType>portable</DebugType>
