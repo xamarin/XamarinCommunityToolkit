@@ -18,6 +18,30 @@ resources:
       name: xamarin/yaml-templates
       endpoint: xamarin
 
+trigger:
+  branches:
+    include:
+    - master
+  tags:
+    include:
+    - '*'
+  paths:
+    exclude:
+    - README.md
+
+pr:
+  autoCancel: false
+  branches:
+    include:
+    - master
+
+schedules:
+- cron: "0 0 * * *"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - master
+
 jobs:
   - job: build_windows
     displayName: Build Windows Library
