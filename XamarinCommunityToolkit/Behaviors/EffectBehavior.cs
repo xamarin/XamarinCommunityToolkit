@@ -7,19 +7,19 @@ namespace XamarinCommunityToolkit.Behaviors
 {
     public class EffectBehavior : BaseBehavior<View>
     {
-        public static readonly BindableProperty GroupProperty = BindableProperty.Create("Group", typeof(string), typeof(EffectBehavior), null);
-        public static readonly BindableProperty NameProperty = BindableProperty.Create("Name", typeof(string), typeof(EffectBehavior), null);
+        public static readonly BindableProperty GroupProperty = BindableProperty.Create(nameof(Group), typeof(string), typeof(EffectBehavior));
+        public static readonly BindableProperty NameProperty = BindableProperty.Create(nameof(Name), typeof(string), typeof(EffectBehavior));
 
         public string Group
         {
-            get { return (string)GetValue(GroupProperty); }
-            set { SetValue(GroupProperty, value); }
+            get => (string)GetValue(GroupProperty);
+            set => SetValue(GroupProperty, value);
         }
 
         public string Name
         {
-            get { return (string)GetValue(NameProperty); }
-            set { SetValue(NameProperty, value); }
+            get => (string)GetValue(NameProperty);
+            set => SetValue(NameProperty, value);
         }
 
         protected override void OnAttachedTo(BindableObject bindable)
@@ -38,20 +38,24 @@ namespace XamarinCommunityToolkit.Behaviors
         {
             var effect = GetEffect();
 
-            if (effect != null)
+            if (effect == null)
             {
-                view.Effects.Add(GetEffect());
+                return;
             }
+
+            view.Effects.Add(GetEffect());
         }
 
         void RemoveEffect(View view)
         {
             var effect = GetEffect();
 
-            if (effect != null)
+            if (effect == null)
             {
-                view.Effects.Remove(GetEffect());
+                return;
             }
+
+            view.Effects.Remove(GetEffect());
         }
 
         Effect GetEffect()

@@ -11,33 +11,33 @@ namespace XamarinCommunityToolkit.Behaviors
     {
         Delegate eventHandler;
 
-        public static readonly BindableProperty EventNameProperty = BindableProperty.Create("EventName", typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create("Command", typeof(ICommand), typeof(EventToCommandBehavior), null);
-        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create("CommandParameter", typeof(object), typeof(EventToCommandBehavior), null);
-        public static readonly BindableProperty InputConverterProperty = BindableProperty.Create("Converter", typeof(IValueConverter), typeof(EventToCommandBehavior), null);
+        public static readonly BindableProperty EventNameProperty = BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior));
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior));
+        public static readonly BindableProperty InputConverterProperty = BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommandBehavior));
 
         public string EventName
         {
-            get { return (string)GetValue(EventNameProperty); }
-            set { SetValue(EventNameProperty, value); }
+            get => (string)GetValue(EventNameProperty);
+            set => SetValue(EventNameProperty, value);
         }
 
         public ICommand Command
         {
-            get { return (ICommand)GetValue(CommandProperty); }
-            set { SetValue(CommandProperty, value); }
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
         }
 
         public object CommandParameter
         {
-            get { return GetValue(CommandParameterProperty); }
-            set { SetValue(CommandParameterProperty, value); }
+            get => GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
         }
 
         public IValueConverter Converter
         {
-            get { return (IValueConverter)GetValue(InputConverterProperty); }
-            set { SetValue(InputConverterProperty, value); }
+            get => (IValueConverter)GetValue(InputConverterProperty);
+            set => SetValue(InputConverterProperty, value);
         }
 
         protected override void OnAttachedTo(View bindable)
@@ -99,22 +99,11 @@ namespace XamarinCommunityToolkit.Behaviors
             if (Command == null)
             {
                 return;
-            }
+            }            
 
-            object resolvedParameter;
-
-            if (CommandParameter != null)
-            {
-                resolvedParameter = CommandParameter;
-            }
-            else if (Converter != null)
-            {
-                resolvedParameter = Converter.Convert(eventArgs, typeof(object), null, null);
-            }
-            else
-            {
-                resolvedParameter = eventArgs;
-            }
+            var resolvedParameter = CommandParameter 
+                ?? Converter.Convert(eventArgs, typeof(object), null, null) 
+                ?? eventArgs;
 
             if (Command.CanExecute(resolvedParameter))
             {
