@@ -7,6 +7,14 @@ namespace XamarinCommunityToolkit.Behaviors
 {
     public class NumericValidationBehavior : BaseBehavior<Entry>
     {
+        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
+
+        public Color TextColor
+        {
+            get => (Color)GetValue(TextColorProperty);
+            set => SetValue(TextColorProperty, value);
+        }
+
         protected override void OnAttachedTo(Entry entry)
         {
             entry.TextChanged += OnEntryTextChanged;
@@ -22,8 +30,8 @@ namespace XamarinCommunityToolkit.Behaviors
         void OnEntryTextChanged(object sender, TextChangedEventArgs args)
         {
             double result;
-            bool isValid = double.TryParse(args.NewTextValue, out result);
-            ((Entry)sender).TextColor = isValid ? Color.Default : Color.Red;
+            var isValid = double.TryParse(args.NewTextValue, out result);
+            ((Entry)sender).TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
         }
     }
 }
