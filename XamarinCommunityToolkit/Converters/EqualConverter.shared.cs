@@ -7,7 +7,7 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Checks whether the incoming value equals the provided parameter.
     /// </summary>
-    public class EqualsConverter : IValueConverter
+    public class EqualConverter : IValueConverter
     {
         /// <summary>
         /// Checks whether the incoming value equals the provided parameter.
