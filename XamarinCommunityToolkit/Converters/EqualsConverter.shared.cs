@@ -17,8 +17,10 @@ namespace XamarinCommunityToolkit.Converters
         /// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>An inverted boolean from the one coming in.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value.Equals(parameter);
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+            => value != null && value.Equals(parameter);
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotImplementedException();
     }
 }
