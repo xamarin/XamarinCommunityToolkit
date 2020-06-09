@@ -4,8 +4,19 @@ using Xamarin.Forms;
 
 namespace XamarinCommunityToolkit.Converters
 {
+    /// <summary>
+    /// Converts an integer index to corresponding array item and vice versa.
+    /// </summary>
     public class IndexToArrayItemConverter : IValueConverter
     {
+        /// <summary>
+        /// Converts an integer index to corresponding array item.
+        /// </summary>
+        /// <param name="value">The index of items array.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">The items array.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>The item from the array that corresponds to passed index.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(value is int index))
@@ -20,6 +31,14 @@ namespace XamarinCommunityToolkit.Converters
             return array.GetValue(index);
         }
 
+        /// <summary>
+        /// Converts an array item to corresponding index of the item in the array.
+        /// </summary>
+        /// <param name="value">The item from the array.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">The items array.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>The index of the item from the array.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!(parameter is Array array))

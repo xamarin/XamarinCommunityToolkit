@@ -12,7 +12,7 @@ namespace XamarinCommunityToolkit.Converters
         /// <summary>
         /// Converts an integer to corresponding boolean.
         /// </summary>
-        /// <param name="value">The value to convert.</param>
+        /// <param name="value">Integer value.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
         /// <param name="culture">The culture to use in the converter.</param>
@@ -25,7 +25,7 @@ namespace XamarinCommunityToolkit.Converters
         /// <summary>
         /// Converts back boolean to corresponding integer.
         /// </summary>
-        /// <param name="value">The value to convert.</param>
+        /// <param name="value">Boolean value.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
         /// <param name="culture">The culture to use in the converter.</param>
