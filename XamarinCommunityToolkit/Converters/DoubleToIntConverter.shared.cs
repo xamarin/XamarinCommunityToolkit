@@ -4,13 +4,32 @@ using Xamarin.Forms;
 
 namespace XamarinCommunityToolkit.Converters
 {
+    /// <summary>
+    /// Converts double to integer and vice versa.
+    /// </summary>
     public class DoubleToIntConverter : IValueConverter
     {
+        /// <summary>
+        /// Converts double to integer.
+        /// </summary>
+        /// <param name="value">Double value.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">Multiplier (Equals 1 by default).</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>Integer value.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value is double result
             ? (int)Math.Round(result * GetParameter(parameter))
             : throw new ArgumentException("Value is not a valid double", nameof(value));
 
+        /// <summary>
+        /// Converts integer to double.
+        /// </summary>
+        /// <param name="value">Integer value.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">Denominator (Equals 1 by default).</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>Double value.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => value is int result
             ? result / GetParameter(parameter)
@@ -21,7 +40,9 @@ namespace XamarinCommunityToolkit.Converters
             {
                 double d => d,
                 int i => i,
-                string s => double.Parse(s),
+                string s => double.TryParse(s, out var result)
+                    ? result
+                    : throw new ArgumentException("Cannot parse number from the string", nameof(parameter)),
                 _ => 1,
             };
     }
