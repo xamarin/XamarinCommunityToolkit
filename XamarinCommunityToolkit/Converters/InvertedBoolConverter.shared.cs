@@ -18,7 +18,12 @@ namespace XamarinCommunityToolkit.Converters
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>An inverted boolean from the one coming in.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => !(value as bool?);
+        {
+            if (value is bool result)
+                return !result;
+
+            throw new ArgumentException($"Value is not a valid boolean", nameof(value));
+        }
 
         /// <summary>
         /// Converts a boolean to its inverse value.
@@ -29,6 +34,11 @@ namespace XamarinCommunityToolkit.Converters
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>An inverted boolean from the one coming in.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            => !(value as bool?);
+        {
+            if (value is bool result)
+                return !result;
+
+            throw new ArgumentException($"Value is not a valid boolean", nameof(value));
+        }
     }
 }
