@@ -7,7 +7,7 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts true to false and false to true.
     /// </summary>
-    public class InvertedBooleanConverter : IValueConverter
+    public class InvertedBoolConverter : IValueConverter
     {
         /// <summary>
         /// Converts a boolean to its inverse value.
