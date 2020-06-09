@@ -63,7 +63,7 @@ namespace XamarinCommunityToolkit.Behaviors
 
             if (eventInfo == null)
             {
-                throw new ArgumentException(string.Format("EventToCommandBehavior: Can't register the '{0}' event.", EventName));
+                throw new ArgumentException($"EventToCommandBehavior: Can't register the {EventName} event.");
             }
 
             MethodInfo methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod("OnEvent");
@@ -87,7 +87,7 @@ namespace XamarinCommunityToolkit.Behaviors
 
             if (eventInfo == null)
             {
-                throw new ArgumentException(string.Format("EventToCommandBehavior: Can't de-register the '{0}' event.", EventName));
+                throw new ArgumentException($"EventToCommandBehavior: Can't de-register the {EventName} event.");
             }
 
             eventInfo.RemoveEventHandler(AssociatedObject, eventHandler);
