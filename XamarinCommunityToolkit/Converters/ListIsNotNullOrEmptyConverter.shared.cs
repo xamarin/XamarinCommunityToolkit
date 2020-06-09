@@ -20,7 +20,15 @@ namespace XamarinCommunityToolkit.Converters
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>A boolean indicating if the incoming value is not null and not empty.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => value is IEnumerable list && list.GetEnumerator().MoveNext();
+        {
+            if (value is null)
+                return false;
+
+            if (value is IEnumerable list)
+                return list.GetEnumerator().MoveNext();
+
+            throw new ArgumentException("Value is not a valid IEnumerable or null", nameof(value));
+        }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();

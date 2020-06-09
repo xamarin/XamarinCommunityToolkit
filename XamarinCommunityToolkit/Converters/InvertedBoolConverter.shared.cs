@@ -22,7 +22,7 @@ namespace XamarinCommunityToolkit.Converters
             if (value is bool result)
                 return !result;
 
-            throw new ArgumentException($"Value is not a valid boolean", nameof(value));
+            throw new ArgumentException("Value is not a valid boolean", nameof(value));
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace XamarinCommunityToolkit.Converters
             if (value is bool result)
                 return !result;
 
-            throw new ArgumentException($"Value is not a valid boolean", nameof(value));
+            throw new ArgumentException("Value is not a valid boolean", nameof(value));
         }
     }
 }
