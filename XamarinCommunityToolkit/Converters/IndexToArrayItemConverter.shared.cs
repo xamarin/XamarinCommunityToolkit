@@ -51,7 +51,7 @@ namespace XamarinCommunityToolkit.Converters
                     return i;
             }
 
-            throw new ArgumentException("Parameter does not exist in the array", nameof(value));
+            throw new ArgumentException("Value does not exist in the array", nameof(value));
         }
     }
 }
