@@ -52,16 +52,10 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**/*.shared.cs" />
-    <Compile Include="**/*.shared.*.cs" />
-    <Compile Include="**/*.cs" />
-    <Compile Remove="obj\**" />
-    <EmbeddedResource Remove="obj\**" />
-    <None Remove="obj\**" />
+    <Compile Include="**/*.cs" Exclude="obj\**" />    
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <PackageReference Include="Xamarin.Forms" Version="3.5.0.129452" />
     <Folder Include="Converters\" />
-    <Folder Include="Behaviors\" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
   </ItemGroup>
