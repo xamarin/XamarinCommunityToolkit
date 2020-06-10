@@ -36,7 +36,7 @@ namespace XamarinCommunityToolkit.Converters
         }
 
         /// <summary>
-        /// Converts object to boolean.
+        /// Converts back object to boolean.
         /// </summary>
         /// <param name="value">The value to convert.</param>
         /// <param name="targetType">The type of the binding target property.</param>

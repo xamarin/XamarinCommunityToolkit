@@ -23,7 +23,7 @@ namespace XamarinCommunityToolkit.Converters
             : throw new ArgumentException("Value is not a valid double", nameof(value));
 
         /// <summary>
-        /// Converts integer to double.
+        /// Converts back integer to double.
         /// </summary>
         /// <param name="value">Integer value.</param>
         /// <param name="targetType">The type of the binding target property.</param>

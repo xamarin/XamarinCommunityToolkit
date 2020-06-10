@@ -32,7 +32,7 @@ namespace XamarinCommunityToolkit.Converters
         }
 
         /// <summary>
-        /// Converts an array item to corresponding index of the item in the array.
+        /// Converts back an array item to corresponding index of the item in the array.
         /// </summary>
         /// <param name="value">The item from the array.</param>
         /// <param name="targetType">The type of the binding target property.</param>
