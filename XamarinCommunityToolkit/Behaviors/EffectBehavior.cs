@@ -62,7 +62,7 @@ namespace XamarinCommunityToolkit.Behaviors
         {
             if (!string.IsNullOrWhiteSpace(Group) && !string.IsNullOrWhiteSpace(Name))
             {
-                return Effect.Resolve(string.Format("{0}.{1}", Group, Name));
+                return Effect.Resolve($"{Group}.{Name}");
             }
 
             return null;
