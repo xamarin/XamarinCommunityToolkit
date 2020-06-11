@@ -7,7 +7,7 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts text (string, char) to lower case.
     /// </summary>
-    public class LowerCaseTextConverterConverter : IValueConverter
+    public class LowerCaseTextConverter : IValueConverter
     {
         /// <summary>
         /// Converts text (string, char) to lower case.

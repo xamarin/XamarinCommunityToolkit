@@ -7,7 +7,7 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts text (string, char) to upper case.
     /// </summary>
-    public class UpperCaseTextConverterConverter : IValueConverter
+    public class UpperCaseTextConverter : IValueConverter
     {
         /// <summary>
         /// Converts text (string, char) to upper case.
