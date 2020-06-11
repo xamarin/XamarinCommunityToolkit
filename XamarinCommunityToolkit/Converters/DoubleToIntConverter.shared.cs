@@ -19,8 +19,8 @@ namespace XamarinCommunityToolkit.Converters
         /// <returns>Integer value.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value is double result
-            ? (int)Math.Round(result * GetParameter(parameter))
-            : throw new ArgumentException("Value is not a valid double", nameof(value));
+                ? (int)Math.Round(result * GetParameter(parameter))
+                : throw new ArgumentException("Value is not a valid double", nameof(value));
 
         /// <summary>
         /// Converts back integer to double.
@@ -32,8 +32,8 @@ namespace XamarinCommunityToolkit.Converters
         /// <returns>Double value.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => value is int result
-            ? result / GetParameter(parameter)
-            : throw new ArgumentException("Value is not a valid integer", nameof(value));
+                ? result / GetParameter(parameter)
+                : throw new ArgumentException("Value is not a valid integer", nameof(value));
 
         double GetParameter(object parameter)
             => parameter switch

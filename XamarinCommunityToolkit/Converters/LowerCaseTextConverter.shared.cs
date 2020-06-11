@@ -19,8 +19,8 @@ namespace XamarinCommunityToolkit.Converters
         /// <returns>The lowercase text representation.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value == null || value is string || value is char
-            ? value?.ToString().ToLowerInvariant()
-            : throw new ArgumentException("Value is neither a string nor a char", nameof(value));
+                ? value?.ToString().ToLowerInvariant()
+                : throw new ArgumentException("Value is neither a string nor a char", nameof(value));
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();

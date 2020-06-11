@@ -19,8 +19,8 @@ namespace XamarinCommunityToolkit.Converters
         /// <returns>False if the value is zero, otherwice True.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             => value is int result
-            ? result != 0
-            : throw new ArgumentException("Value is not a valid integer", nameof(value));
+                ? result != 0
+                : throw new ArgumentException("Value is not a valid integer", nameof(value));
 
         /// <summary>
         /// Converts back boolean to corresponding integer.
