@@ -31,7 +31,12 @@ namespace XamarinCommunityToolkit.Behaviors
         {
             double result;
             var isValid = double.TryParse(args.NewTextValue, out result);
-            ((Entry)sender).TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
+
+            if (sender is Entry entry)
+            {
+                Color currentTextColor = entry.TextColor;
+                entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
+            }
         }
     }
 }

@@ -7,14 +7,7 @@ namespace XamarinCommunityToolkit.Behaviors
 {
     public class EffectBehavior : BaseBehavior<View>
     {
-        public static readonly BindableProperty GroupProperty = BindableProperty.Create(nameof(Group), typeof(string), typeof(EffectBehavior));
         public static readonly BindableProperty NameProperty = BindableProperty.Create(nameof(Name), typeof(string), typeof(EffectBehavior));
-
-        public string Group
-        {
-            get => (string)GetValue(GroupProperty);
-            set => SetValue(GroupProperty, value);
-        }
 
         public string Name
         {
@@ -60,9 +53,9 @@ namespace XamarinCommunityToolkit.Behaviors
 
         Effect GetEffect()
         {
-            if (!string.IsNullOrWhiteSpace(Group) && !string.IsNullOrWhiteSpace(Name))
+            if (!string.IsNullOrWhiteSpace(Name))
             {
-                return Effect.Resolve($"{Group}.{Name}");
+                return Effect.Resolve($"{Name}");
             }
 
             return null;

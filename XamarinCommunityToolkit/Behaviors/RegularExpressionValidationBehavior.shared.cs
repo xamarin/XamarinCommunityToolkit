@@ -42,7 +42,12 @@ namespace XamarinCommunityToolkit.Behaviors
         {
             bool isValid = false;
             isValid = (Regex.IsMatch(e.NewTextValue, RegularExpression));
-            ((Entry)sender).TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
+
+            if (sender is Entry entry)
+            {
+                Color currentTextColor = entry.TextColor;
+                entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace XamarinCommunityToolkit.Behaviors
 
         public static void SetAttachBehavior(BindableObject view, bool value) 
             => view.SetValue(AttachBehaviorProperty, value);
-
+        
         static void OnAttachBehaviorChanged(BindableObject view, object oldValue, object newValue)
         {
             var entry = view as Entry;
@@ -39,7 +39,12 @@ namespace XamarinCommunityToolkit.Behaviors
         {
             double result;
             var isValid = double.TryParse(args.NewTextValue, out result);
-            ((Entry)sender).TextColor = isValid ? Color.Default : Color.Red;
+
+            if (sender is Entry entry)
+            {
+                Color currentTextColor = entry.TextColor;
+                entry.TextColor = isValid ? currentTextColor : Color.Red;
+            }
         }
     }
 }
