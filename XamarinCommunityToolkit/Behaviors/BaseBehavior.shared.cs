@@ -6,11 +6,22 @@ using Xamarin.Forms.Internals;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
+    /// <summary>
+    /// Contains base functionality for all derived behaviors
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     [Preserve(AllMembers = true)]
     public class BaseBehavior<T> : Behavior<T> where T : BindableObject
     {
+        /// <summary>
+        /// Control to which the behavior is attached
+        /// </summary>
         public T AssociatedObject { get; private set; }
 
+        /// <summary>
+        /// Function is fired when the behavior is attached to the control.
+        /// </summary>
+        /// <param name="bindable">Reference to the control to which it is attached</param>
         protected override void OnAttachedTo(T bindable)
         {
             base.OnAttachedTo(bindable);
@@ -24,6 +35,10 @@ namespace XamarinCommunityToolkit.Behaviors
             bindable.BindingContextChanged += OnBindingContextChanged;
         }
 
+        /// <summary>
+        /// Function is fired when the behavior is removed from the control.
+        /// </summary>
+        /// <param name="bindable">Reference to the control to which it is attached</param>
         protected override void OnDetachingFrom(T bindable)
         {
             base.OnDetachingFrom(bindable);
@@ -31,11 +46,19 @@ namespace XamarinCommunityToolkit.Behaviors
             AssociatedObject = null;
         }
 
+        /// <summary>
+        /// Function handles the event when the BindingContext changes.
+        /// </summary>
+        /// <param name="sender">Origin of the event</param>
+        /// <param name="e">Event arguments</param>
         void OnBindingContextChanged(object sender, EventArgs e)
         {
             OnBindingContextChanged();
         }
 
+        /// <summary>
+        /// Handles the event when the BindingContext changes on the AssociatedObject
+        /// </summary>
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
