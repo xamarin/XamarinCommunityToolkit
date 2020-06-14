@@ -1,0 +1,4 @@
+- name: Release Notes
+  href: current.md
+- name: XamarinCommunityToolkit 0.1
+  href: 0.1.md

@@ -1,0 +1,18 @@
+- name: Getting Started
+  href: get-started.md
+- name: Platform & Feature Support
+  href: platform-feature-support.md
+#- name: Behaviors
+#  href: behaviors.md
+#- name: Controls
+#  href: controls.md
+- name: Converters
+  href: converters.md
+#- name: Effects
+#  href: effect.md
+- name: History
+  href: history.md
+- name: Release Notes
+  href: release-notes/toc.yml
+- name: Troubleshooting
+  href: troubleshooting.md
