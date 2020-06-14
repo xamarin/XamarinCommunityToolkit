@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 using static System.Math;
@@ -30,9 +31,9 @@ namespace XamarinCommunityToolkit.Views
 
         public static new readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
 
-        public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(AvatarView), 0.0, propertyChanged: OnValuePropertyChanged);
+        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
 
-        public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
+        public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(AvatarView), 0.0, propertyChanged: OnValuePropertyChanged);
 
         public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
 
@@ -47,16 +48,16 @@ namespace XamarinCommunityToolkit.Views
         public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(AvatarView), FontAttributes.None, propertyChanged: OnValuePropertyChanged);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static new readonly BindableProperty ContentProperty;
+        [Obsolete("This property is disabled.", true)]
+        public static new readonly BindableProperty ContentProperty = ContentView.ContentProperty;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static new readonly BindableProperty BackgroundColorProperty;
+        [Obsolete("This property is disabled.", true)]
+        public static new readonly BindableProperty HasShadowProperty = Frame.HasShadowProperty;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static new readonly BindableProperty HasShadowProperty;
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static new readonly BindableProperty PaddingProperty;
+        [Obsolete("This property is disabled.", true)]
+        public static new readonly BindableProperty PaddingProperty = Frame.HasShadowProperty;
 
         readonly Image image = new Image
         {
@@ -71,7 +72,10 @@ namespace XamarinCommunityToolkit.Views
             LineBreakMode = LineBreakMode.TailTruncation
         };
 
-        readonly AbsoluteLayout layout = new AbsoluteLayout();
+        readonly AbsoluteLayout layout = new AbsoluteLayout
+        {
+            IsClippedToBounds = true
+        };
 
         public AvatarView()
         {
@@ -102,16 +106,16 @@ namespace XamarinCommunityToolkit.Views
             set => SetValue(BorderColorProperty, value);
         }
 
+        public new Color BackgroundColor
+        {
+            get => (Color)GetValue(BackgroundColorProperty);
+            set => SetValue(BackgroundColorProperty, value);
+        }
+
         public double BorderWidth
         {
             get => (double)GetValue(BorderWidthProperty);
             set => SetValue(BorderWidthProperty, value);
-        }
-
-        public Color Color
-        {
-            get => (Color)GetValue(ColorProperty);
-            set => SetValue(ColorProperty, value);
         }
 
         public ImageSource Source
@@ -151,16 +155,28 @@ namespace XamarinCommunityToolkit.Views
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public new View Content { get; set; }
+        [Obsolete("This property is disabled.", true)]
+        public new View Content
+        {
+            get => base.Content;
+            set => base.Content = value;
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public new Color BackgroundColor { get; set; }
+        [Obsolete("This property is disabled.", true)]
+        public new bool HasShadow
+        {
+            get => base.HasShadow;
+            set => base.HasShadow = value;
+        }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public new bool HasShadow { get; set; }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public new Thickness Padding { get; set; }
+        [Obsolete("This property is disabled.", true)]
+        public new Thickness Padding
+        {
+            get => base.Padding;
+            set => base.Padding = value;
+        }
 
         protected override void OnSizeAllocated(double width, double height)
         {
@@ -231,7 +247,7 @@ namespace XamarinCommunityToolkit.Views
             label.FontAttributes = FontAttributes;
             label.BatchCommit();
 
-            var color = Color;
+            var color = BackgroundColor;
             layout.BackgroundColor = color == Color.Default
                 ? colors[textHash % colors.Length]
                 : color;
