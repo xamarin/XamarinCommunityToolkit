@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinCommunityToolkit.Interfaces;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
@@ -11,10 +12,14 @@ namespace XamarinCommunityToolkit.Behaviors
     {
         Delegate eventHandler;
 
-        public static readonly BindableProperty EventNameProperty = BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior));
-        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior));
-        public static readonly BindableProperty InputConverterProperty = BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommandBehavior));
+        public static readonly BindableProperty EventNameProperty = 
+            BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
+        public static readonly BindableProperty CommandProperty = 
+            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior));
+        public static readonly BindableProperty CommandParameterProperty = 
+            BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior));
+        public static readonly BindableProperty InputConverterProperty = 
+            BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommandBehavior));
 
         public string EventName
         {
@@ -94,7 +99,7 @@ namespace XamarinCommunityToolkit.Behaviors
             eventHandler = null;
         }
 
-        private void OnEvent(object sender, object eventArgs)
+        private async void OnEvent(object sender, object eventArgs)
         {
             if (Command == null)
             {
@@ -108,6 +113,13 @@ namespace XamarinCommunityToolkit.Behaviors
             if (Command.CanExecute(resolvedParameter))
             {
                 Command.Execute(resolvedParameter);
+            }
+
+            foreach (BindableObject bindable in Actions)
+            {
+                bindable.BindingContext = BindingContext;
+                var action = (IAction)bindable;
+                await action.Execute(sender, eventArgs);
             }
         }
 
@@ -125,6 +137,6 @@ namespace XamarinCommunityToolkit.Behaviors
 
             behavior.DeregisterEvent(oldEventName);
             behavior.RegisterEvent(newEventName);
-        }
+        }        
     }
 }

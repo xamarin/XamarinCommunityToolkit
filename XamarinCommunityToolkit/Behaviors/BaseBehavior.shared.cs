@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using XamarinCommunityToolkit.Controls;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
@@ -13,10 +14,26 @@ namespace XamarinCommunityToolkit.Behaviors
     [Preserve(AllMembers = true)]
     public class BaseBehavior<T> : Behavior<T> where T : BindableObject
     {
+        public static readonly BindableProperty ActionsProperty = 
+            BindableProperty.Create(nameof(Actions), typeof(ActionCollection), typeof(BaseBehavior<BindableObject>), null);
+
+        public ActionCollection Actions
+        {
+            get
+            {
+                return (ActionCollection)GetValue(ActionsProperty);
+            }
+        }
+
         /// <summary>
         /// Control to which the behavior is attached
         /// </summary>
         public T AssociatedObject { get; private set; }
+
+        public BaseBehavior()
+        {
+            SetValue(ActionsProperty, new ActionCollection());
+        }
 
         /// <summary>
         /// Function is fired when the behavior is attached to the control.
