@@ -29,11 +29,7 @@ namespace XamarinCommunityToolkit.Views
 
         public static new readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(double), typeof(AvatarView), -1.0, propertyChanged: OnSizePropertyChanged);
 
-        public static new readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
-
         public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
-
-        public static readonly BindableProperty BorderWidthProperty = BindableProperty.Create(nameof(BorderWidth), typeof(double), typeof(AvatarView), 0.0, propertyChanged: OnValuePropertyChanged);
 
         public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
 
@@ -100,22 +96,10 @@ namespace XamarinCommunityToolkit.Views
             set => SetValue(CornerRadiusProperty, value);
         }
 
-        public new Color BorderColor
-        {
-            get => (Color)GetValue(BorderColorProperty);
-            set => SetValue(BorderColorProperty, value);
-        }
-
         public new Color BackgroundColor
         {
             get => (Color)GetValue(BackgroundColorProperty);
             set => SetValue(BackgroundColorProperty, value);
-        }
-
-        public double BorderWidth
-        {
-            get => (double)GetValue(BorderWidthProperty);
-            set => SetValue(BorderWidthProperty, value);
         }
 
         public ImageSource Source
@@ -251,14 +235,6 @@ namespace XamarinCommunityToolkit.Views
             layout.BackgroundColor = color == Color.Default
                 ? colors[textHash % colors.Length]
                 : color;
-
-            BatchBegin();
-            var borderColor = BorderColor;
-            base.BackgroundColor = borderColor == Color.Default
-                ? label.TextColor
-                : borderColor;
-            base.Padding = BorderWidth;
-            BatchCommit();
         }
 
         double CalculateFontSize()
