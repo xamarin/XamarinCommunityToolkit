@@ -53,7 +53,7 @@ namespace XamarinCommunityToolkit.Views
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete("This property is disabled.", true)]
-        public static new readonly BindableProperty PaddingProperty = Frame.HasShadowProperty;
+        public static new readonly BindableProperty PaddingProperty = Frame.PaddingProperty;
 
         readonly Image image = new Image
         {
