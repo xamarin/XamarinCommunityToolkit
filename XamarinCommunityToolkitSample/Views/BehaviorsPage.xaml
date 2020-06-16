@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="XamarinCommunityToolkitSample.Views.BehaviorsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:helpers="clr-namespace:XamarinCommunityToolkit.Helpers;assembly=XamarinCommunityToolkit"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ContentPage.Resources>
+
+        <Color x:Key="ErrorColor">Red</Color>
+
+        <Style x:Key="TitleLabelStyle" TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="MessageLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="EntryStyle" TargetType="Entry">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="WidthRequest" Value="200" />
+        </Style>
+
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView VerticalOptions="FillAndExpand" VerticalScrollBarVisibility="Always">
+            <StackLayout Orientation="Vertical">
+                <Grid
+                    Margin="10"
+                    ColumnDefinitions="*"
+                    RowDefinitions="Auto, Auto">
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Numeric Validation" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Numeric"
+                        Placeholder="Enter a valid number"
+                        Style="{StaticResource EntryStyle}">
+                        <Entry.Behaviors>
+                            <behaviors:NumericValidationBehavior TextColor="{StaticResource ErrorColor}" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Grid>
+                <Grid
+                    Margin="10"
+                    ColumnDefinitions="*"
+                    RowDefinitions="Auto, Auto">
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Length Validation" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Default"
+                        Placeholder="Enter between 2 and 5 characters"
+                        Style="{StaticResource EntryStyle}"
+                        WidthRequest="300">
+                        <Entry.Behaviors>
+                            <behaviors:LengthValidationBehavior
+                                MaxLength="5"
+                                MinLength="2"
+                                TextColor="{StaticResource ErrorColor}" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Grid>
+                <Grid
+                    Margin="10"
+                    ColumnDefinitions="*"
+                    RowDefinitions="Auto, Auto">
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Min Max Validation" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Numeric"
+                        Placeholder="Enter number between 5 and 10"
+                        Style="{StaticResource EntryStyle}"
+                        WidthRequest="300">
+                        <Entry.Behaviors>
+                            <behaviors:MinMaxNumericValidationBehavior
+                                MaxValue="10"
+                                MinValue="5"
+                                TextColor="{StaticResource ErrorColor}" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Grid>
+                <Grid
+                    Margin="10"
+                    ColumnDefinitions="*"
+                    RowDefinitions="Auto, Auto">
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource TitleLabelStyle}"
+                        Text="Email Validation" />
+                    <Entry
+                        Grid.Row="1"
+                        Keyboard="Default"
+                        Placeholder="Enter an email"
+                        Style="{StaticResource EntryStyle}"
+                        WidthRequest="300">
+                        <Entry.Behaviors>
+                            <behaviors:RegularExpressionValidationBehavior RegularExpression="{x:Static helpers:RegularExpressions.Email}" TextColor="{StaticResource ErrorColor}" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

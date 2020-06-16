@@ -19,9 +19,9 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <summary>
         /// Maximum value property to validate against
         /// </summary>
-        public int MaxValue
+        public double MaxValue
         {
-            get => (int)GetValue(MaxValueProperty);
+            get => (double)GetValue(MaxValueProperty);
             set => SetValue(MaxValueProperty, value);
         }
 
@@ -34,9 +34,9 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <summary>
         /// Minimum value property to validate against
         /// </summary>
-        public int MinValue
+        public double MinValue
         {
-            get => (int)GetValue(MinValueProperty);
+            get => (double)GetValue(MinValueProperty);
             set => SetValue(MinValueProperty, value);
         }
 
@@ -92,7 +92,13 @@ namespace XamarinCommunityToolkit.Behaviors
                 {
                     bool isValid = ((value >= MinValue) && (value <= MaxValue));
                     Color currentTextColor = entry.TextColor;
-                    entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
+                    // TODO: Setting entry.TextColor to currentTextColor is not working, 
+                    // so using Color.Default until a solution is found.
+                    entry.TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
+                }
+                else
+                {
+                    entry.TextColor = (TextColor != null ? TextColor : Color.Red);
                 }
             }
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms.Internals;
 
-namespace XamarinCommunityToolkit.Behaviors
+namespace XamarinCommunityToolkit.Helpers
 {
     [Preserve(AllMembers = true)]
     public enum ComparisonCondition

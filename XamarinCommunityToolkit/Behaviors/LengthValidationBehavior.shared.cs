@@ -86,7 +86,9 @@ namespace XamarinCommunityToolkit.Behaviors
             if (sender is Entry entry)
             {
                 Color currentTextColor = entry.TextColor;
-                entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
+                // TODO: Setting entry.TextColor to currentTextColor is not working, 
+                // so using Color.Default until a solution is found.
+                entry.TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
             }
         }
     }
