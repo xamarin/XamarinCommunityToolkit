@@ -12,13 +12,16 @@ namespace XamarinCommunityToolkit.Behaviors
     {
         Delegate eventHandler;
 
-        public static readonly BindableProperty EventNameProperty = 
+        public static readonly BindableProperty EventNameProperty =
             BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
-        public static readonly BindableProperty CommandProperty = 
+
+        public static readonly BindableProperty CommandProperty =
             BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior));
-        public static readonly BindableProperty CommandParameterProperty = 
+
+        public static readonly BindableProperty CommandParameterProperty =
             BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior));
-        public static readonly BindableProperty InputConverterProperty = 
+
+        public static readonly BindableProperty InputConverterProperty =
             BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommandBehavior));
 
         public string EventName
@@ -57,65 +60,48 @@ namespace XamarinCommunityToolkit.Behaviors
             base.OnDetachingFrom(bindable);
         }
 
-        private void RegisterEvent(string name)
+        void RegisterEvent(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-            {
                 return;
-            }
 
-            EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
+            var eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
 
             if (eventInfo == null)
-            {
-                throw new ArgumentException($"EventToCommandBehavior: Can't register the {EventName} event.");
-            }
+                throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Can't register the {EventName} event.");
 
-            MethodInfo methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod("OnEvent");
+            var methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnEvent));
             eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
             eventInfo.AddEventHandler(AssociatedObject, eventHandler);
         }
 
-        private void DeregisterEvent(string name)
+        void DeregisterEvent(string name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
+            if (string.IsNullOrWhiteSpace(name) || eventHandler == null)
                 return;
-            }
 
-            if (eventHandler == null)
-            {
-                return;
-            }
-
-            EventInfo eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
+            var eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
 
             if (eventInfo == null)
-            {
-                throw new ArgumentException($"EventToCommandBehavior: Can't de-register the {EventName} event.");
-            }
+                throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Can't de-register the {EventName} event.");
 
             eventInfo.RemoveEventHandler(AssociatedObject, eventHandler);
             eventHandler = null;
         }
 
-        private async void OnEvent(object sender, object eventArgs)
+        async void OnEvent(object sender, object eventArgs)
         {
             if (Command == null)
-            {
                 return;
-            }            
 
-            var resolvedParameter = CommandParameter 
-                ?? Converter.Convert(eventArgs, typeof(object), null, null) 
+            var resolvedParameter = CommandParameter
+                ?? Converter.Convert(eventArgs, typeof(object), null, null)
                 ?? eventArgs;
 
             if (Command.CanExecute(resolvedParameter))
-            {
                 Command.Execute(resolvedParameter);
-            }
 
-            foreach (BindableObject bindable in Actions)
+            foreach (var bindable in Actions)
             {
                 bindable.BindingContext = BindingContext;
                 var action = (IAction)bindable;
@@ -123,20 +109,18 @@ namespace XamarinCommunityToolkit.Behaviors
             }
         }
 
-        private static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
+        static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
         {
             var behavior = (EventToCommandBehavior)bindable;
 
             if (behavior.AssociatedObject == null)
-            {
                 return;
-            }
 
-            string oldEventName = (string)oldValue;
-            string newEventName = (string)newValue;
+            var oldEventName = (string)oldValue;
+            var newEventName = (string)newValue;
 
             behavior.DeregisterEvent(oldEventName);
             behavior.RegisterEvent(newEventName);
-        }        
+        }
     }
 }

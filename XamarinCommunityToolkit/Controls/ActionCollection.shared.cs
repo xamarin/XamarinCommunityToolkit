@@ -11,9 +11,7 @@ namespace XamarinCommunityToolkit.Controls
     public class ActionCollection : BindableObjectCollection
     {
         public ActionCollection()
-        {
-            CollectionChanged += ActionCollection_CollectionChanged;
-        }
+            => CollectionChanged += ActionCollection_CollectionChanged;
 
         void ActionCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -21,24 +19,22 @@ namespace XamarinCommunityToolkit.Controls
 
             if (collectionChange == NotifyCollectionChangedAction.Reset)
             {
-                foreach (BindableObject bindable in this)
+                foreach (var bindable in this)
                 {
-                    ActionCollection.VerifyType(bindable);
+                    VerifyType(bindable);
                 }
             }
             else if (collectionChange == NotifyCollectionChangedAction.Replace)
             {
-                BindableObject changed = this[(int)e.NewStartingIndex];
-                ActionCollection.VerifyType(changed);
+                var changed = this[(int)e.NewStartingIndex];
+                VerifyType(changed);
             }
         }
 
         static void VerifyType(BindableObject bindable)
         {
             if (!(bindable is IAction))
-            {
                 throw new InvalidOperationException("Non-IAction added to IAction collection");
-            }
         }
     }
 }

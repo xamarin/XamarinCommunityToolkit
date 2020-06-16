@@ -9,34 +9,29 @@ namespace XamarinCommunityToolkit.Controls
     [Preserve(AllMembers = true)]
     public class BindableObjectCollection : BindableObject, IEnumerable<BindableObject>, INotifyCollectionChanged
     {
-        List<BindableObject> Items = new List<BindableObject>();
+        List<BindableObject> items = new List<BindableObject>();
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public int IndexOf(BindableObject item)
-        {
-            return Items.IndexOf(item);
-        }
+            => items.IndexOf(item);
 
         public void Insert(int index, BindableObject item)
         {
-            Items.Insert(index, item);
+            items.Insert(index, item);
             CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
         }
 
         public void RemoveAt(int index)
         {
             var oldItem = this[index];
-            Items.RemoveAt(index);
+            items.RemoveAt(index);
             CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItem, index));
         }
 
         public BindableObject this[int index]
         {
-            get
-            {
-                return this[index];
-            }
+            get => this[index];
             set
             {
                 var oldItem = this[index];
@@ -47,31 +42,27 @@ namespace XamarinCommunityToolkit.Controls
 
         public void Add(BindableObject item)
         {
-            Items.Add(item);
+            items.Add(item);
             CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, Count - 1));
         }
 
         public void Clear()
         {
-            Items.Clear();
+            items.Clear();
             CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
         public bool Contains(BindableObject item)
-        {
-            return Items.Contains(item);
-        }
+            => items.Contains(item);
 
         public void CopyTo(BindableObject[] array, int arrayIndex)
-        {
-            Items.CopyTo(array, arrayIndex);
-        }
+            => items.CopyTo(array, arrayIndex);
 
         public bool Remove(BindableObject item)
         {
             var oldIndex = IndexOf(item);
 
-            if (Items.Remove(item))
+            if (items.Remove(item))
             {
                 CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, oldIndex));
                 return true;
@@ -80,30 +71,14 @@ namespace XamarinCommunityToolkit.Controls
             return false;
         }
 
-        public int Count
-        {
-            get
-            {
-                return Items.Count;
-            }
-        }
+        public int Count => items.Count;
 
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsReadOnly => false;
 
         public IEnumerator<BindableObject> GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
+            => items.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            => GetEnumerator();
     }
 }

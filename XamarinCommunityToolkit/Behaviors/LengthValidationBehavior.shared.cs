@@ -10,11 +10,13 @@ namespace XamarinCommunityToolkit.Behaviors
     /// </summary>
     public class LengthValidationBehavior : BaseBehavior<Entry>
     {
+        Color currentTextColor;
+
         /// <summary>
         /// Bindable maximum length of the Entry text
         /// </summary>
-        public static readonly BindableProperty MaxLengthProperty = BindableProperty.
-            Create(nameof(MaxLength), typeof(int), typeof(LengthValidationBehavior), int.MaxValue);
+        public static readonly BindableProperty MaxLengthProperty =
+            BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(LengthValidationBehavior), int.MaxValue);
 
         /// <summary>
         /// Maximum length of the Entry text to validate against
@@ -28,8 +30,8 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <summary>
         /// Bindable minimum length of the Entry text
         /// </summary>
-        public static readonly BindableProperty MinLengthProperty = BindableProperty.
-            Create(nameof(MinLength), typeof(int), typeof(LengthValidationBehavior), 0);
+        public static readonly BindableProperty MinLengthProperty =
+            BindableProperty.Create(nameof(MinLength), typeof(int), typeof(LengthValidationBehavior), 0);
 
         /// <summary>
         /// Minimum length of the Entry text to validate against
@@ -43,7 +45,8 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <summary>
         /// Bindable text color to apply when validation fails
         /// </summary>
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
+        public static readonly BindableProperty TextColorProperty =
+            BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
 
         /// <summary>
         /// Text color to apply when validation fails
@@ -58,18 +61,21 @@ namespace XamarinCommunityToolkit.Behaviors
         /// Attaches the OnEntryTextChanged handler to the TextChanged event
         /// </summary>
         /// <param name="bindable">Entry control to which the handler is attached</param>
-        protected override void OnAttachedTo(Entry bindable)
+        protected override void OnAttachedTo(Entry entry)
         {
-            bindable.TextChanged += OnEntryTextChanged;
-        }        
+            currentTextColor = entry.TextColor;
+            entry.TextChanged += OnEntryTextChanged;
+            base.OnAttachedTo(entry);
+        }
 
         /// <summary>
         /// Detaches the OnEntryTextChanged handler from the TextChanged event
         /// </summary>
         /// <param name="bindable">Entry control from which the handler is detached</param>
-        protected override void OnDetachingFrom(Entry bindable)
+        protected override void OnDetachingFrom(Entry entry)
         {
-            bindable.TextChanged -= OnEntryTextChanged;
+            entry.TextChanged -= OnEntryTextChanged;
+            base.OnDetachingFrom(entry);
         }
 
         /// <summary>
@@ -79,17 +85,12 @@ namespace XamarinCommunityToolkit.Behaviors
         /// </summary>
         /// <param name="sender">Entry control</param>
         /// <param name="e">Text changed event arguments</param>
-        private void OnEntryTextChanged(object sender, TextChangedEventArgs e)
+        void OnEntryTextChanged(object sender, TextChangedEventArgs e)
         {
-            bool isValid = (e.NewTextValue.Length >= MinLength && e.NewTextValue.Length <= MaxLength);
+            var isValid = (e.NewTextValue.Length >= MinLength && e.NewTextValue.Length <= MaxLength);
 
             if (sender is Entry entry)
-            {
-                Color currentTextColor = entry.TextColor;
-                // TODO: Setting entry.TextColor to currentTextColor is not working, 
-                // so using Color.Default until a solution is found.
-                entry.TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
-            }
+                entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
         }
     }
 }

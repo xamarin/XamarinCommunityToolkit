@@ -10,10 +10,13 @@ namespace XamarinCommunityToolkit.Behaviors
     /// </summary>
     public class NumericValidationBehavior : BaseBehavior<Entry>
     {
+        Color currentTextColor;
+
         /// <summary>
         /// Bindable text color to apply when validation fails
         /// </summary>
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
+        public static readonly BindableProperty TextColorProperty =
+            BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
 
         /// <summary>
         /// Text color to apply when validation fails
@@ -30,6 +33,8 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <param name="bindable">Entry control to which the handler is attached</param>
         protected override void OnAttachedTo(Entry entry)
         {
+            currentTextColor = entry.TextColor;
+
             entry.TextChanged += OnEntryTextChanged;
             base.OnAttachedTo(entry);
         }
@@ -52,16 +57,10 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <param name="e">Text changed event arguments</param>
         void OnEntryTextChanged(object sender, TextChangedEventArgs args)
         {
-            double result;
-            var isValid = double.TryParse(args.NewTextValue, out result);
+            var isValid = double.TryParse(args.NewTextValue, out _);
 
             if (sender is Entry entry)
-            {
-                Color currentTextColor = entry.TextColor; 
-                // TODO: Setting entry.TextColor to currentTextColor is not working, 
-                // so using Color.Default until a solution is found.
-                entry.TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
-            }
+                entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
         }
     }
 }

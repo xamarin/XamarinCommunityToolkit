@@ -53,9 +53,7 @@ namespace XamarinCommunityToolkit.Behaviors
             var effect = GetEffect();
 
             if (effect == null)
-            {
                 return;
-            }
 
             view.Effects.Add(GetEffect());
         }
@@ -69,9 +67,7 @@ namespace XamarinCommunityToolkit.Behaviors
             var effect = GetEffect();
 
             if (effect == null)
-            {
                 return;
-            }
 
             view.Effects.Remove(GetEffect());
         }
@@ -82,12 +78,10 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <returns></returns>
         Effect GetEffect()
         {
-            if (!string.IsNullOrWhiteSpace(Name))
-            {
-                return Effect.Resolve($"{Name}");
-            }
+            if (string.IsNullOrWhiteSpace(Name))
+                return null;
 
-            return null;
+            return Effect.Resolve($"{Name}");
         }
     }
 }

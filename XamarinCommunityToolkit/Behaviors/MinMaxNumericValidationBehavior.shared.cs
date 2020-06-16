@@ -10,11 +10,13 @@ namespace XamarinCommunityToolkit.Behaviors
     /// </summary>
     public class MinMaxNumericValidationBehavior : BaseBehavior<Entry>
     {
+        Color currentTextColor;
+
         /// <summary>
         /// Bindable maximum value property
         /// </summary>
-        public static readonly BindableProperty MaxValueProperty = BindableProperty.
-            Create(nameof(MaxValue), typeof(double), typeof(MinMaxNumericValidationBehavior), double.MaxValue);
+        public static readonly BindableProperty MaxValueProperty =
+            BindableProperty.Create(nameof(MaxValue), typeof(double), typeof(MinMaxNumericValidationBehavior), double.MaxValue);
 
         /// <summary>
         /// Maximum value property to validate against
@@ -28,8 +30,8 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <summary>
         /// Bindable minimum value property
         /// </summary>
-        public static readonly BindableProperty MinValueProperty = BindableProperty.
-            Create(nameof(MinValue), typeof(double), typeof(MinMaxNumericValidationBehavior), double.MinValue);
+        public static readonly BindableProperty MinValueProperty =
+            BindableProperty.Create(nameof(MinValue), typeof(double), typeof(MinMaxNumericValidationBehavior), double.MinValue);
 
         /// <summary>
         /// Minimum value property to validate against
@@ -43,7 +45,8 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <summary>
         /// Bindable text color to apply when validation fails
         /// </summary>
-        public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
+        public static readonly BindableProperty TextColorProperty =
+            BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
 
         /// <summary>
         /// Text color to apply when validation fails
@@ -81,20 +84,16 @@ namespace XamarinCommunityToolkit.Behaviors
         /// </summary>
         /// <param name="sender">Entry control</param>
         /// <param name="e">Text changed event arguments</param>
-        private void OnEntryTextChanged(object sender, TextChangedEventArgs args)
+        void OnEntryTextChanged(object sender, TextChangedEventArgs args)
         {
             if (sender is Entry entry)
             {
-                double value;
-                bool isDouble = double.TryParse(args.NewTextValue, out value);
+                var isDouble = double.TryParse(args.NewTextValue, out var value);
 
                 if (isDouble)
                 {
-                    bool isValid = ((value >= MinValue) && (value <= MaxValue));
-                    Color currentTextColor = entry.TextColor;
-                    // TODO: Setting entry.TextColor to currentTextColor is not working, 
-                    // so using Color.Default until a solution is found.
-                    entry.TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
+                    var isValid = ((value >= MinValue) && (value <= MaxValue));
+                    entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
                 }
                 else
                 {

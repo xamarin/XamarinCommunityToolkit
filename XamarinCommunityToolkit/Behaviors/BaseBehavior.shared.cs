@@ -14,16 +14,11 @@ namespace XamarinCommunityToolkit.Behaviors
     [Preserve(AllMembers = true)]
     public class BaseBehavior<T> : Behavior<T> where T : BindableObject
     {
-        public static readonly BindableProperty ActionsProperty = 
+        public static readonly BindableProperty ActionsProperty =
             BindableProperty.Create(nameof(Actions), typeof(ActionCollection), typeof(BaseBehavior<BindableObject>), null);
 
         public ActionCollection Actions
-        {
-            get
-            {
-                return (ActionCollection)GetValue(ActionsProperty);
-            }
-        }
+            => (ActionCollection)GetValue(ActionsProperty);
 
         /// <summary>
         /// Control to which the behavior is attached
@@ -31,9 +26,7 @@ namespace XamarinCommunityToolkit.Behaviors
         public T AssociatedObject { get; private set; }
 
         public BaseBehavior()
-        {
-            SetValue(ActionsProperty, new ActionCollection());
-        }
+            => SetValue(ActionsProperty, new ActionCollection());
 
         /// <summary>
         /// Function is fired when the behavior is attached to the control.
@@ -45,9 +38,7 @@ namespace XamarinCommunityToolkit.Behaviors
             AssociatedObject = bindable;
 
             if (bindable.BindingContext != null)
-            {
                 BindingContext = bindable.BindingContext;
-            }
 
             bindable.BindingContextChanged += OnBindingContextChanged;
         }
@@ -69,9 +60,7 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <param name="sender">Origin of the event</param>
         /// <param name="e">Event arguments</param>
         void OnBindingContextChanged(object sender, EventArgs e)
-        {
-            OnBindingContextChanged();
-        }
+            => OnBindingContextChanged();
 
         /// <summary>
         /// Handles the event when the BindingContext changes on the AssociatedObject

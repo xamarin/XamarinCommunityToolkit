@@ -7,15 +7,17 @@ namespace XamarinCommunityToolkit.Behaviors
 {
     public static class AttachedNumericValidationBehavior
     {
+        static Color currentTextColor;
+
         public static readonly BindableProperty AttachBehaviorProperty =
             BindableProperty.CreateAttached("AttachBehavior", typeof(bool), typeof(AttachedNumericValidationBehavior), false, propertyChanged: OnAttachBehaviorChanged);
 
-        public static bool GetAttachBehavior(BindableObject view) 
+        public static bool GetAttachBehavior(BindableObject view)
             => (bool)view.GetValue(AttachBehaviorProperty);
 
-        public static void SetAttachBehavior(BindableObject view, bool value) 
+        public static void SetAttachBehavior(BindableObject view, bool value)
             => view.SetValue(AttachBehaviorProperty, value);
-        
+
         static void OnAttachBehaviorChanged(BindableObject view, object oldValue, object newValue)
         {
             var entry = view as Entry;
@@ -27,6 +29,7 @@ namespace XamarinCommunityToolkit.Behaviors
 
             if (attachBehavior)
             {
+                currentTextColor = entry.TextColor;
                 entry.TextChanged += OnEntryTextChanged;
             }
             else
@@ -42,7 +45,6 @@ namespace XamarinCommunityToolkit.Behaviors
 
             if (sender is Entry entry)
             {
-                Color currentTextColor = entry.TextColor;
                 entry.TextColor = isValid ? currentTextColor : Color.Red;
             }
         }

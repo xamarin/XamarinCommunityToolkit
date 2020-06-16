@@ -11,10 +11,12 @@ namespace XamarinCommunityToolkit.Behaviors
     /// </summary>
     public class RegularExpressionValidationBehavior : BaseBehavior<Entry>
     {
+        Color currentTextColor;
+
         /// <summary>
         /// Bindable regular expression string to validate the Entry text against
         /// </summary>
-        public static readonly BindableProperty RegularExpressionProperty = 
+        public static readonly BindableProperty RegularExpressionProperty =
             BindableProperty.Create(nameof(RegularExpression), typeof(string), typeof(RegularExpressionValidationBehavior));
 
         /// <summary>
@@ -29,7 +31,7 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <summary>
         /// Bindable text color to apply when validation fails
         /// </summary>
-        public static readonly BindableProperty TextColorProperty = 
+        public static readonly BindableProperty TextColorProperty =
             BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
 
         /// <summary>
@@ -47,6 +49,8 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <param name="bindable">Entry control to which the handler is attached</param>
         protected override void OnAttachedTo(Entry entry)
         {
+            currentTextColor = entry.TextColor;
+
             entry.TextChanged += OnEntryTextChanged;
             base.OnAttachedTo(entry);
         }
@@ -67,18 +71,12 @@ namespace XamarinCommunityToolkit.Behaviors
         /// </summary>
         /// <param name="sender">Entry control</param>
         /// <param name="e">Text changed event arguments</param>
-        private void OnEntryTextChanged(object sender, TextChangedEventArgs e)
+        void OnEntryTextChanged(object sender, TextChangedEventArgs e)
         {
-            bool isValid = false;
-            isValid = (Regex.IsMatch(e.NewTextValue, RegularExpression));
+            var isValid = Regex.IsMatch(e.NewTextValue, RegularExpression);
 
             if (sender is Entry entry)
-            {
-                Color currentTextColor = entry.TextColor;
-                // TODO: Setting entry.TextColor to currentTextColor is not working, 
-                // so using Color.Default until a solution is found.
-                entry.TextColor = isValid ? Color.Default : (TextColor != null ? TextColor : Color.Red);
-            }
+                entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
         }
     }
 }
