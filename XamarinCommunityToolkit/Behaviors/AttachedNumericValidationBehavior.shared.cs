@@ -40,8 +40,7 @@ namespace XamarinCommunityToolkit.Behaviors
 
         static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
         {
-            double result;
-            var isValid = double.TryParse(args.NewTextValue, out result);
+            var isValid = double.TryParse(args.NewTextValue, out _);
 
             if (sender is Entry entry)
             {

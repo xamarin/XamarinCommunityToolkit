@@ -13,7 +13,8 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <summary>
         /// Bindable effect name
         /// </summary>
-        public static readonly BindableProperty NameProperty = BindableProperty.Create(nameof(Name), typeof(string), typeof(EffectBehavior));
+        public static readonly BindableProperty NameProperty =
+            BindableProperty.Create(nameof(Name), typeof(string), typeof(EffectBehavior));
 
         /// <summary>
         /// Effect name
