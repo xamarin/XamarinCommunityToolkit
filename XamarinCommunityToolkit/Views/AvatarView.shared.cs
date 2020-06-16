@@ -5,8 +5,10 @@ using static System.Math;
 
 namespace XamarinCommunityToolkit.Views
 {
-    public class AvatarView : Frame
+    public class AvatarView : TemplatedView
     {
+        const string emptyText = "X";
+
         static readonly Color[] colors = {
             RGB(69, 43, 103),
             RGB(119, 78, 133),
@@ -27,9 +29,11 @@ namespace XamarinCommunityToolkit.Views
 
         public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(double), typeof(AvatarView), 40.0, propertyChanged: OnSizePropertyChanged);
 
-        public static new readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(double), typeof(AvatarView), -1.0, propertyChanged: OnSizePropertyChanged);
+        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(double), typeof(AvatarView), -1.0, propertyChanged: OnSizePropertyChanged);
 
-        public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
+        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
+
+        public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
 
         public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
 
@@ -43,45 +47,22 @@ namespace XamarinCommunityToolkit.Views
 
         public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(AvatarView), FontAttributes.None, propertyChanged: OnValuePropertyChanged);
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property is disabled.", true)]
-        public static new readonly BindableProperty ContentProperty = ContentView.ContentProperty;
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property is disabled.", true)]
-        public static new readonly BindableProperty HasShadowProperty = Frame.HasShadowProperty;
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property is disabled.", true)]
-        public static new readonly BindableProperty PaddingProperty = Frame.PaddingProperty;
-
-        readonly Image image = new Image
-        {
-            Aspect = Aspect.AspectFill,
-            IsVisible = false
-        };
-
-        readonly Label label = new Label
-        {
-            HorizontalTextAlignment = TextAlignment.Center,
-            VerticalTextAlignment = TextAlignment.Center,
-            LineBreakMode = LineBreakMode.TailTruncation
-        };
-
-        readonly AbsoluteLayout layout = new AbsoluteLayout
-        {
-            IsClippedToBounds = true
-        };
+        AvatarFrame frame;
 
         public AvatarView()
         {
-            layout.Children.Add(label, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
-            layout.Children.Add(image, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
-
             IsClippedToBounds = true;
-            base.HasShadow = false;
-            base.Padding = 0;
-            base.Content = layout;
+            ControlTemplate = new ControlTemplate(typeof(AvatarFrame));
+        }
+
+        AvatarFrame Frame
+        {
+            get => frame;
+            set
+            {
+                frame = value;
+                OnValuePropertyChanged();
+            }
         }
 
         public double Size
@@ -90,16 +71,22 @@ namespace XamarinCommunityToolkit.Views
             set => SetValue(SizeProperty, value);
         }
 
-        public new double CornerRadius
+        public double CornerRadius
         {
             get => (double)GetValue(CornerRadiusProperty);
             set => SetValue(CornerRadiusProperty, value);
         }
 
-        public new Color BackgroundColor
+        public Color BorderColor
         {
-            get => (Color)GetValue(BackgroundColorProperty);
-            set => SetValue(BackgroundColorProperty, value);
+            get => (Color)GetValue(BorderColorProperty);
+            set => SetValue(BorderColorProperty, value);
+        }
+
+        public Color Color
+        {
+            get => (Color)GetValue(ColorProperty);
+            set => SetValue(ColorProperty, value);
         }
 
         public ImageSource Source
@@ -138,30 +125,6 @@ namespace XamarinCommunityToolkit.Views
             set => SetValue(FontAttributesProperty, value);
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property is disabled.", true)]
-        public new View Content
-        {
-            get => base.Content;
-            set => base.Content = value;
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property is disabled.", true)]
-        public new bool HasShadow
-        {
-            get => base.HasShadow;
-            set => base.HasShadow = value;
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [Obsolete("This property is disabled.", true)]
-        public new Thickness Padding
-        {
-            get => base.Padding;
-            set => base.Padding = value;
-        }
-
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
@@ -182,30 +145,34 @@ namespace XamarinCommunityToolkit.Views
 
         void OnSizePropertyChanged()
         {
-            try
+            if (Frame == null)
+                return;
+
+            BatchBegin();
+            var size = Size;
+            Frame.CornerRadius = CornerRadius < 0
+                ? (float)size / 2
+                : (float)CornerRadius;
+
+            if (Abs(Width - size) > double.Epsilon &&
+                Abs(Height - size) > double.Epsilon)
             {
-                BatchBegin();
-                var size = Size;
-                base.CornerRadius = CornerRadius < 0
-                    ? (float)size / 2
-                    : (float)CornerRadius;
-
-                if (Abs(Width - size) <= double.Epsilon &&
-                    Abs(Height - size) <= double.Epsilon)
-                    return;
-
                 HeightRequest = size;
                 WidthRequest = size;
                 Layout(new Rectangle(X, Y, size, size));
             }
-            finally
-            {
-                BatchCommit();
-            }
+            BatchCommit();
         }
 
         void OnValuePropertyChanged()
         {
+            if (Frame == null)
+                return;
+
+            var image = Frame.Image;
+            var label = Frame.Label;
+            var layout = Frame.MainLayout;
+
             image.BatchBegin();
             var source = Source;
             image.IsVisible = source != null;
@@ -215,7 +182,7 @@ namespace XamarinCommunityToolkit.Views
             label.BatchBegin();
             var text = Text?.Trim() ?? string.Empty;
             label.Text = string.IsNullOrWhiteSpace(text)
-                ? "X"
+                ? emptyText
                 : text?.Trim();
 
             var textHash = Abs(text.GetHashCode());
@@ -231,10 +198,12 @@ namespace XamarinCommunityToolkit.Views
             label.FontAttributes = FontAttributes;
             label.BatchCommit();
 
-            var color = BackgroundColor;
+            var color = Color;
             layout.BackgroundColor = color == Color.Default
                 ? colors[textHash % colors.Length]
                 : color;
+
+            Frame.BorderColor = BorderColor;
         }
 
         double CalculateFontSize()
@@ -247,6 +216,43 @@ namespace XamarinCommunityToolkit.Views
                 return 12;
 
             return size * .4;
+        }
+
+        class AvatarFrame : Frame
+        {
+            internal Image Image { get; } = new Image
+            {
+                Aspect = Aspect.AspectFill,
+                IsVisible = false
+            };
+
+            internal Label Label { get; } = new Label
+            {
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center,
+                LineBreakMode = LineBreakMode.TailTruncation
+            };
+
+            internal AbsoluteLayout MainLayout { get; } = new AbsoluteLayout
+            {
+                IsClippedToBounds = true
+            };
+
+            public AvatarFrame()
+            {
+                IsClippedToBounds = true;
+                HasShadow = false;
+                Padding = 0;
+                MainLayout.Children.Add(Label, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
+                MainLayout.Children.Add(Image, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
+                Content = MainLayout;
+            }
+
+            protected override void OnParentSet()
+            {
+                base.OnParentSet();
+                ((AvatarView)Parent).Frame = this;
+            }
         }
     }
 }
