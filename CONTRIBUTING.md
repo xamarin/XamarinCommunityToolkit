@@ -56,6 +56,10 @@ You will need to complete a Contribution License Agreement before any pull reque
 * High-fives all-around
 
 ### Please consider
+
+#### Tabs vs. Spaces?!
+[Tabs](https://www.reddit.com/r/javascript/comments/c8drjo/nobody_talks_about_the_real_reason_to_use_tabs/).
+
 #### Make your changes small, don't keep adding
 We love your enthusiasm, but small changes and small PRs are easier to digest. We're all doing this in our spare time, it is easier to review a couple of small things and merge that and iterate from there than to have a PR with 100+ files changed that will sit there forever
 
