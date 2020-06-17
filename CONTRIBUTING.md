@@ -6,14 +6,15 @@ First and foremost: we're all friends here. Whether you are a first-time contrib
 
 Having that said, if you are a first-timer and you could use some help please reach out to any core member. They will be happy to help you out or find someone who can.
 
-Furthermore, for anyone, we would like you to adhere to the following guidelines.
+Furthermore, for anyone, we would like you to take into consideration the following guidelines.
+
 ### Make an effort to be nice
 
-* If you disagree, that's fine. We don't think about everything the same way, be respectful and at some point decide to agree to disagree. If a decision needs to be made, try to involve at least one other person without continuing an endless discussion
+If you disagree, that's fine. We don't think about everything the same way, be respectful and at some point decide to agree to disagree. If a decision needs to be made, try to involve at least one other person without continuing an endless discussion
 
-* When you disagree with a piece of code that is written, try to be helpful and explain why you disagree or how things can be improved (according to you). Always remember there are numerous ways to solve things, there is not one right way, but it's always good to learn about alternatives
+When you disagree with a piece of code that is written, try to be helpful and explain why you disagree or how things can be improved (according to you). Always remember there are numerous ways to solve things, there is not one right way, but it's always good to learn about alternatives
 
-* During a code review try to make a habit out of it to say at least one nice thing. Obviously about something you like in the code. If a change is not that big or so straight-forward that you can't comment nicely on that, find something else to compliment the person. Make an effort to look at their profile of blog and mention something you like, make that persons day a bit better! <3
+During a code review try to make a habit out of it to say at least one nice thing. Obviously about something you like in the code. If a change is not that big or so straight-forward that you can't comment nicely on that, find something else to compliment the person. Make an effort to look at their profile of blog and mention something you like, make that persons day a bit better! <3
 
 ### Make an effort to see it from their perspective
 
@@ -33,13 +34,35 @@ Lastly, a big thank you for spending your precious time on our project. We appre
 
 Please see our [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## Prerequisite
+As should be clear by now: we assume everyone tries to do their best, everyone should be treated with respect and equally.
 
-You will need to complete a Contribution License Agreement before any pull request can be accepted. Complete the CLA at https://cla.dotnetfoundation.org/.
+In the unfortunate event that doesn't happen, please feel free to report it to any of the team members or reach out to [Gerald](maillo:gerald.versluis@microsoft.com) directly.
+
+We will take appropriate actions and measures if necessary.
+
+## Prerequisites
+
+You will need to complete a Contribution License Agreement before any pull request can be accepted. Complete the CLA at https://cla.dotnetfoundation.org/. This will also be triggered whenever you open a PR and the link should guide you through it.
 
 ## Opening a PR process
 
-TBD
+### TL;DR
+* Find an issue/feature, make sure that the issue/feature has been approved and is welcomed (also see [Proposal States](#Proposal-States))
+* Fork repository
+* Create branch
+* Implement
+* Open a PR
+* We merge
+* High-fives all-around
+
+### Please consider
+#### Make your changes small, don't keep adding
+We love your enthusiasm, but small changes and small PRs are easier to digest. We're all doing this in our spare time, it is easier to review a couple of small things and merge that and iterate from there than to have a PR with 100+ files changed that will sit there forever
+
+#### Added features should have tests and a sample
+We like quality as much as the next person, so please provide tests where possible.
+
+In addition, we would want a new feature or change to be as clear as possible for other developers. Please add a sample to the sample app as part of your PR.
 
 ## Contributing Code - Best Practices
 
@@ -147,21 +170,21 @@ Any proposals for new feature work and new APIs should follow the spirit of thes
 Open proposals are still under discussion. Please leave your concrete, constructive feedback on this proposal. +1s and other clutter posts which do not add to the discussion will be removed.
 
 ##### Accepted
-Accepted proposals are proposals that both the community and core Xamarin.Essentials agree should be a part of Xamarin.Essentials. These proposals are ready for implementation, but do not yet have a developer actively working on them. These proposals are available for anyone to work on, both community and the core Xamarin.Essentials team.
+Accepted proposals are proposals that both the community and core XamarinCommunityToolkit team agree should be a part of this toolkit. These proposals are ready for implementation, but do not yet have a developer actively working on them. These proposals are available for anyone to work on, both community and the core XamarinCommunityToolkit team.
 
 If you wish to start working on an accepted proposal, please reply to the thread so we can mark you as the implementor and change the title to In Progress. This helps to avoid multiple people working on the same thing. If you decide to work on this proposal publicly, feel free to post a link to the branch as well for folks to follow along.
 
 ###### What "Accepted" does mean
 * Any community member is welcome to work on the idea.
-* The core Xamarin.Essentials team _may_ consider working on this idea on their own, but has not done so until it is marked "In Progress" with a team member assigned as the implementor.
+* The core XamarinCommunityToolkit team _may_ consider working on this idea on their own, but has not done so until it is marked "In Progress" with a team member assigned as the implementor.
 * Any pull request implementing the proposal will be welcomed with an API and code review.
 
 ###### What "Accepted" does not mean
-* The proposal will ever be implemented, either by a community member or by the core Xamarin.Essentials team.
-* The core Xamarin.Essentials team is committing to implementing a proposal, even if nobody else does. Accepted proposals simply mean that the core Xamarin.Essentials team and the community agree that this proposal should be a part of Xamarin.Essentials.
+* The proposal will ever be implemented, either by a community member or by the core XamarinCommunityToolkit team.
+* The core XamarinCommunityToolkit team is committing to implementing a proposal, even if nobody else does. Accepted proposals simply mean that the core XamarinCommunityToolkit team and the community agree that this proposal should be a part of XamarinCommunityToolkit.
 
 ##### In Progress
-Once a developer has begun work on a proposal, either from the core Xamarin.Essentials team or a community member, the proposal is marked as in progress with the implementors name and (possibly) a link to a development branch to follow along with progress.
+Once a developer has begun work on a proposal, either from the core XamarinCommunityToolkit team or a community member, the proposal is marked as in progress with the implementors name and (possibly) a link to a development branch to follow along with progress.
 
 #### Rejected
-Rejected proposals will not be implemented or merged into Xamarin.Essentials. Once a proposal is rejected, the thread will be closed and the conversation is considered completed, pending considerable new information or changes.
+Rejected proposals will not be implemented or merged into XamarinCommunityToolkit. Once a proposal is rejected, the thread will be closed and the conversation is considered completed, pending considerable new information or changes.
