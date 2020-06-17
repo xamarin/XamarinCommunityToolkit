@@ -1,71 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
-    <PropertyGroup>
-        <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid80;MonoAndroid81;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
-        <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
-        <AssemblyName>XamarinCommunityToolkit</AssemblyName>
-        <RootNamespace>XamarinCommunityToolkit</RootNamespace>
-        <PackageId>XamarinCommunityToolkit</PackageId>
-        <PackageIconUrl>
-        </PackageIconUrl>
-        <Summary>Community-created toolkit with common Xamarin converters, effects, behaviors etc.</Summary>
-        <PackageTag>xamarin,ios,android,uwp,xamarin.forms,effects,controls,converters,animations,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,watchos,tvos,tizen</PackageTag>
-        <Title>XamarinCommunityToolkit</Title>
-        <Description>The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.</Description>
-        <Product>$(AssemblyName) ($(TargetFramework))</Product>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
-        <Version>1.0.0</Version>
-        <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
-        <Authors>Microsoft</Authors>
-        <Owners>microsoft</Owners>
-        <NeutralLanguage>en</NeutralLanguage>
-        <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-        <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
-        <PackageReleaseNotes>
-            <!-- See if we can host these on MS docs? -->
-        </PackageReleaseNotes>
-        <DefineConstants>$(DefineConstants);</DefineConstants>
-        <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
-        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
-        <DebugType>portable</DebugType>
-        <Configurations>Debug;Release</Configurations>
-        <LangVersion>8.0</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
-        <DebugSymbols>true</DebugSymbols>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
-        <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <!-- Embed source files that are not tracked by the source control manager in the PDB -->
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    </PropertyGroup>
-    <ItemGroup Condition=" '$(Configuration)'=='Release' ">
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="**/*.shared.cs" />
-        <Compile Include="**/*.shared.*.cs" />
-        <None Include="..\LICENSE" PackagePath="" Pack="true" />
-        <PackageReference Include="Xamarin.Forms" Version="3.5.0.129452" />
-        <Folder Include="Converters\" />
-    </ItemGroup>
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
-    </ItemGroup>
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-    </ItemGroup>
-    <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
-        <Compile Include="**\*.uwp.cs" />
-        <Compile Include="**\*.uwp.*.cs" />
-        <!--
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid80;MonoAndroid81;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
+    <AssemblyName>XamarinCommunityToolkit</AssemblyName>
+    <RootNamespace>XamarinCommunityToolkit</RootNamespace>
+    <PackageId>XamarinCommunityToolkit</PackageId>
+    <PackageIconUrl>
+    </PackageIconUrl>
+    <Summary>Community-created toolkit with common Xamarin converters, effects, behaviors etc.</Summary>
+    <PackageTag>xamarin,ios,android,uwp,xamarin.forms,effects,controls,converters,animations,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,watchos,tvos,tizen</PackageTag>
+    <Title>XamarinCommunityToolkit</Title>
+    <Description>The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.</Description>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0</Version>
+    <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+    <Authors>Microsoft</Authors>
+    <Owners>microsoft</Owners>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
+    <PackageReleaseNotes>
+      <!-- See if we can host these on MS docs? -->
+    </PackageReleaseNotes>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
+    <DebugType>portable</DebugType>
+    <Configurations>Debug;Release</Configurations>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)'=='Release' ">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="**/*.shared.cs" />
+    <Compile Include="**/*.shared.*.cs" />
+    <None Include="..\LICENSE" PackagePath="" Pack="true" />
+    <PackageReference Include="Xamarin.Forms" Version="3.5.0.129452" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Controls\" />
+    <Folder Include="Converters\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
+    <Compile Include="**\*.uwp.cs" />
+    <Compile Include="**\*.uwp.*.cs" />
+    <!--
           If you need to add sdk references:
            <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
             <Name>Windows Mobile Extensions for the UWP</Name>
@@ -92,5 +96,5 @@
         <PackageReference Include="Tizen.NET" Version="4.0.0" />
         <Compile Include="**\*.tizen.cs" />
         <Compile Include="**\*.tizen.*.cs" />
-    </ItemGroup>
+    </ItemGroup>    
 </Project>
