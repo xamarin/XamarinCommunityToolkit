@@ -57,6 +57,22 @@
                     <Label
                         Grid.Row="0"
                         Style="{StaticResource TitleLabelStyle}"
+                        Text="Attached Numeric Validation" />
+                    <Entry
+                        Grid.Row="1"
+                        behaviors:AttachedNumericValidationBehavior.AttachBehavior="True"
+                        behaviors:AttachedNumericValidationBehavior.TextColor="{StaticResource ErrorColor}"
+                        Keyboard="Numeric"
+                        Placeholder="Enter a valid number"
+                        Style="{StaticResource EntryStyle}" />
+                </Grid>
+                <Grid
+                    Margin="10"
+                    ColumnDefinitions="*"
+                    RowDefinitions="Auto, Auto">
+                    <Label
+                        Grid.Row="0"
+                        Style="{StaticResource TitleLabelStyle}"
                         Text="Length Validation" />
                     <Entry
                         Grid.Row="1"

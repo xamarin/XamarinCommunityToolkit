@@ -63,6 +63,7 @@ namespace XamarinCommunityToolkit.Behaviors
         /// <param name="bindable">Entry control to which the handler is attached</param>
         protected override void OnAttachedTo(Entry entry)
         {
+            currentTextColor = entry.TextColor;
             entry.TextChanged += OnEntryTextChanged;
             base.OnAttachedTo(entry);
         }

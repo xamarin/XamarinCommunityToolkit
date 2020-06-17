@@ -5,20 +5,32 @@ using Xamarin.Forms;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
-    public static class AttachedNumericValidationBehavior
+    public class AttachedNumericValidationBehavior : BaseBehavior<View>
     {
         static Color currentTextColor;
 
         public static readonly BindableProperty AttachBehaviorProperty =
             BindableProperty.CreateAttached("AttachBehavior", typeof(bool), typeof(AttachedNumericValidationBehavior), false, propertyChanged: OnAttachBehaviorChanged);
 
+        /// <summary>
+        /// Bindable text color to apply when validation fails
+        /// </summary>
+        public static readonly BindableProperty TextColorProperty =
+            BindableProperty.Create("TextColor", typeof(Color), typeof(NumericValidationBehavior));
+        
         public static bool GetAttachBehavior(BindableObject view)
             => (bool)view.GetValue(AttachBehaviorProperty);
 
         public static void SetAttachBehavior(BindableObject view, bool value)
             => view.SetValue(AttachBehaviorProperty, value);
 
-        static void OnAttachBehaviorChanged(BindableObject view, object oldValue, object newValue)
+        public static Color GetTextColor(BindableObject view)
+            => (Color)view.GetValue(TextColorProperty);
+
+        public static void SetTextColor(BindableObject view, Color color)
+            => view.SetValue(TextColorProperty, color);
+
+        private static void OnAttachBehaviorChanged(BindableObject view, object oldValue, object newValue)
         {
             var entry = view as Entry;
 
@@ -38,14 +50,13 @@ namespace XamarinCommunityToolkit.Behaviors
             }
         }
 
-        static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
+        private static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
         {
             var isValid = double.TryParse(args.NewTextValue, out _);
+            Color textColor = GetTextColor((BindableObject)sender);
 
             if (sender is Entry entry)
-            {
-                entry.TextColor = isValid ? currentTextColor : Color.Red;
-            }
+                entry.TextColor = isValid ? currentTextColor : (textColor != null ? textColor : Color.Red);
         }
     }
 }
