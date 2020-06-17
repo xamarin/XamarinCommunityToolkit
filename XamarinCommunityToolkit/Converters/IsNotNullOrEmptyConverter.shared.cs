@@ -7,7 +7,7 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts the incoming value to a boolean indicating whether or not the value is not null and not empty.
     /// </summary>
-    public class IsNotNullOrEmptyConverter : IValueConverter
+    public class IsNotNullOrEmptyConverter : ValueConverterMarkupExtension, IValueConverter
     {
         /// <summary>
         /// Converts the incoming value to a boolean indicating whether or not the value is not null and not empty.

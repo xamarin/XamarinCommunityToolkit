@@ -7,8 +7,14 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts text (string, char) to certain case.
     /// </summary>
-    public class TextCaseConverter : IValueConverter
+    [ContentProperty(nameof(Type))]
+    public class TextCaseConverter : ValueConverterMarkupExtension, IValueConverter
     {
+        /// <summary>
+        /// The desired text case that the text should be converted to.
+        /// </summary>
+        public TextCaseConverterType Type { get; set; }
+
         /// <summary>
         /// Converts text (string, char) to certain case.
         /// </summary>
@@ -34,7 +40,9 @@ namespace XamarinCommunityToolkit.Converters
             };
 
         TextCaseConverterType GetParameter(object parameter)
-            => parameter switch
+            => parameter == null
+            ? Type
+            : parameter switch
             {
                 TextCaseConverterType type => type,
                 string typeString => Enum.TryParse(typeString, out TextCaseConverterType result)

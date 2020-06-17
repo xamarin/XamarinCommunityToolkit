@@ -7,8 +7,14 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts double to integer and vice versa.
     /// </summary>
-    public class DoubleToIntConverter : IValueConverter
+    [ContentProperty(nameof(Ratio))]
+    public class DoubleToIntConverter : ValueConverterMarkupExtension, IValueConverter
     {
+        /// <summary>
+        /// Multiplier / Denominator (Equals 1 by default).
+        /// </summary>
+        public double Ratio { get; set; } = 1;
+
         /// <summary>
         /// Converts double to integer.
         /// </summary>
@@ -36,7 +42,9 @@ namespace XamarinCommunityToolkit.Converters
                 : throw new ArgumentException("Value is not a valid integer", nameof(value));
 
         double GetParameter(object parameter)
-            => parameter switch
+            => parameter == null
+            ? Ratio
+            : parameter switch
             {
                 double d => d,
                 int i => i,

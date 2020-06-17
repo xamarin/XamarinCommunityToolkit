@@ -7,7 +7,7 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts an integer to corresponding boolean and vice versa.
     /// </summary>
-    public class IntToBoolConverter : IValueConverter
+    public class IntToBoolConverter : ValueConverterMarkupExtension, IValueConverter
     {
         /// <summary>
         /// Converts an integer to corresponding boolean.

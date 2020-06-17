@@ -7,7 +7,14 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts boolean to object and vice versa.
     /// </summary>
-    public class BoolToObjectConverter<TObject> : IValueConverter
+    public class BoolToObjectConverter : BoolToObjectConverter<object>
+    {
+    }
+
+    /// <summary>
+    /// Converts boolean to object and vice versa.
+    /// </summary>
+    public class BoolToObjectConverter<TObject> : ValueConverterMarkupExtension, IValueConverter
     {
         /// <summary>
         /// The object that corresponds to True value.
