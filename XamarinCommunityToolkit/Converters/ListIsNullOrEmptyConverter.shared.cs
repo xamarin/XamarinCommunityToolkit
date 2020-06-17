@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using Xamarin.Forms;
 
@@ -7,7 +8,7 @@ namespace XamarinCommunityToolkit.Converters
     /// <summary>
     /// Converts the incoming value to a boolean indicating whether or not the value is null or empty.
     /// </summary>
-    public class IsNullOrEmptyConverter : IValueConverter
+    public class ListIsNullOrEmptyConverter : IValueConverter
     {
         /// <summary>
         /// Converts the incoming value to a boolean indicating whether or not the value is null or empty.
@@ -18,7 +19,15 @@ namespace XamarinCommunityToolkit.Converters
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>A boolean indicating if the incoming value is null or empty.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            => value == null || (value is string str && string.IsNullOrWhiteSpace(str));
+        {
+            if (value is null)
+                return true;
+
+            if (value is IEnumerable list)
+                return !list.GetEnumerator().MoveNext();
+
+            throw new ArgumentException("Value is not a valid IEnumerable or null", nameof(value));
+        }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
