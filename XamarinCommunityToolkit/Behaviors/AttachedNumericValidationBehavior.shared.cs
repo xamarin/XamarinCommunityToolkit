@@ -5,10 +5,16 @@ using Xamarin.Forms;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
+    /// <summary>
+    /// Validates if the text value of the Entry is numeric
+    /// </summary>
     public class AttachedNumericValidationBehavior : BaseBehavior<View>
     {
         static Color currentTextColor;
 
+        /// <summary>
+        /// Bindable boolean to indicate whether or not to attach behavior
+        /// </summary>
         public static readonly BindableProperty AttachBehaviorProperty =
             BindableProperty.CreateAttached("AttachBehavior", typeof(bool), typeof(AttachedNumericValidationBehavior), false, propertyChanged: OnAttachBehaviorChanged);
 
@@ -30,6 +36,12 @@ namespace XamarinCommunityToolkit.Behaviors
         public static void SetTextColor(BindableObject view, Color color)
             => view.SetValue(TextColorProperty, color);
 
+        /// <summary>
+        /// Triggered when the AttachBehavior bindable boolean changes
+        /// </summary>
+        /// <param name="view">Entry control to attach to</param>
+        /// <param name="oldValue">Old boolean value</param>
+        /// <param name="newValue">New boolean value</param>
         private static void OnAttachBehaviorChanged(BindableObject view, object oldValue, object newValue)
         {
             var entry = view as Entry;
@@ -50,6 +62,12 @@ namespace XamarinCommunityToolkit.Behaviors
             }
         }
 
+        //// <summary>
+        /// Handles the event when the text is changed on the Entry, 
+        /// performs the validation if the Entry text is numeric, and sets the text color
+        /// </summary>
+        /// <param name="sender">Entry control</param>
+        /// <param name="args">Text changed event arguments</param>
         private static void OnEntryTextChanged(object sender, TextChangedEventArgs args)
         {
             var isValid = double.TryParse(args.NewTextValue, out _);
