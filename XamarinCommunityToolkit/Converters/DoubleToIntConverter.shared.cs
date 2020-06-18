@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
+using XamarinCommunityToolkit.Extensions;
 
 namespace XamarinCommunityToolkit.Converters
 {
@@ -8,7 +9,7 @@ namespace XamarinCommunityToolkit.Converters
     /// Converts double to integer and vice versa.
     /// </summary>
     [ContentProperty(nameof(Ratio))]
-    public class DoubleToIntConverter : ValueConverterMarkupExtension, IValueConverter
+    public class DoubleToIntConverter : ValueConverterExtension, IValueConverter
     {
         /// <summary>
         /// Multiplier / Denominator (Equals 1 by default).

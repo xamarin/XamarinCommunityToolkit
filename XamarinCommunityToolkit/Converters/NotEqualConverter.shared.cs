@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
+using XamarinCommunityToolkit.Extensions;
 
 namespace XamarinCommunityToolkit.Converters
 {
     /// <summary>
     /// Checks whether the incoming value doesn't equal the provided parameter.
     /// </summary>
-    public class NotEqualConverter : ValueConverterMarkupExtension, IValueConverter
+    public class NotEqualConverter : ValueConverterExtension, IValueConverter
     {
         /// <summary>
         /// Checks whether the incoming value doesn't equal the provided parameter.

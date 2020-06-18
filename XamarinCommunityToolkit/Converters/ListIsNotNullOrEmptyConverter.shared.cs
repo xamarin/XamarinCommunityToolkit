@@ -3,13 +3,14 @@ using System.Collections;
 using System.Globalization;
 using Xamarin.Forms;
 using System.Linq;
+using XamarinCommunityToolkit.Extensions;
 
 namespace XamarinCommunityToolkit.Converters
 {
     /// <summary>
     /// Converts the incoming value to a boolean indicating whether or not the value is not null and not empty.
     /// </summary>
-    public class ListIsNotNullOrEmptyConverter : ValueConverterMarkupExtension, IValueConverter
+    public class ListIsNotNullOrEmptyConverter : ValueConverterExtension, IValueConverter
     {
         /// <summary>
         /// Converts the incoming value to a boolean indicating whether or not the value is not null and not empty.

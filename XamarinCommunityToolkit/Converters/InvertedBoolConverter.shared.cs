@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
+using XamarinCommunityToolkit.Extensions;
 
 namespace XamarinCommunityToolkit.Converters
 {
     /// <summary>
     /// Converts true to false and false to true.
     /// </summary>
-    public class InvertedBoolConverter : ValueConverterMarkupExtension, IValueConverter
+    public class InvertedBoolConverter : ValueConverterExtension, IValueConverter
     {
         /// <summary>
         /// Converts a boolean to its inverse value.
