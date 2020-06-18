@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
+using XamarinCommunityToolkit.Extensions;
 
 namespace XamarinCommunityToolkit.Converters
 {
     /// <summary>
     /// Converts boolean to object and vice versa.
     /// </summary>
-    public class BoolToObjectConverter<TObject> : IValueConverter
+    public class BoolToObjectConverter : BoolToObjectConverter<object>
+    {
+    }
+
+    /// <summary>
+    /// Converts boolean to object and vice versa.
+    /// </summary>
+    public class BoolToObjectConverter<TObject> : ValueConverterExtension, IValueConverter
     {
         /// <summary>
         /// The object that corresponds to True value.
