@@ -4,8 +4,47 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              x:Class="XamarinCommunityToolkitSample.App">
     <Application.Resources>
-        
+        <x:String x:Key="LogoResourceName">xamarin_logo.png</x:String>
+
+        <Thickness x:Key="ContentPadding">20, 10</Thickness>
+
+        <Color x:Key="AppBackgroundColor">AliceBlue</Color>
+        <Color x:Key="PrimaryColor">#1976D2</Color>
+        <Color x:Key="NavigationBarTextColor">White</Color>
+        <Color x:Key="NormalButtonTextColor">White</Color>
+        <Color x:Key="NormalLabelTextColor">Black</Color>
+
+        <!-- Implicit styles -->
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="BarTextColor" Value="{StaticResource NavigationBarTextColor}" />
+        </Style>
+
+        <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
+            <Setter Property="ios:Page.UseSafeArea" Value="True" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="TextColor" Value="{StaticResource NormalButtonTextColor}" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="TextColor" Value="{StaticResource NormalLabelTextColor}" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="StackLayout">
+            <Setter Property="Spacing" Value="0" />
+        </Style>
+
     </Application.Resources>
 </Application>
