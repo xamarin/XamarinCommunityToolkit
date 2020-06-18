@@ -3,8 +3,13 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="XamarinCommunityToolkitSample.Views.WelcomePage"
+    xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels"
     xmlns:extensions="clr-namespace:XamarinCommunityToolkit.Extensions;assembly=XamarinCommunityToolkit"
     x:Name="Page">
+
+    <ContentPage.BindingContext>
+        <vm:WelcomeViewModel />
+    </ContentPage.BindingContext>
 
     <NavigationPage.TitleView>            
         <ContentView Padding="0, 5">
@@ -19,10 +24,10 @@
             <StackLayout Spacing="40">
                 <Label Text="Welcome to XamarinCommunityToolkit" FontSize="Large" />
                 <StackLayout Spacing="10"
-                             BindableLayout.ItemsSource="{Binding Sections, Source={x:Reference Page}}">
+                             BindableLayout.ItemsSource="{Binding Items}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Button Text="{Binding Text}"
+                            <Button Text="{Binding Title}"
                                     Command="{Binding NavigateCommand, Source={x:Reference Page}}"
                                     CommandParameter="{Binding Id}" />
                         </DataTemplate>

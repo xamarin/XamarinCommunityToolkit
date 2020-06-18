@@ -27,6 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="resources\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="resources\xamarin_monkey.png" />

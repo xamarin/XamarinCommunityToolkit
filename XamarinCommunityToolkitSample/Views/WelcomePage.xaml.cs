@@ -1,5 +1,6 @@
 ﻿using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinCommunityToolkitSample.Models;
 
 namespace XamarinCommunityToolkitSample.Views
 {
@@ -11,38 +12,20 @@ namespace XamarinCommunityToolkitSample.Views
             => InitializeComponent();
 
         public ICommand NavigateCommand => navigateCommand ??= new Command(parameter
-            => Navigation.PushAsync(GetPage((Section.SectionId)parameter)));
+            => Navigation.PushAsync(GetPage((WelcomeSectionId)parameter)));
 
-        public Section[] Sections { get; } =
+        Page GetPage(WelcomeSectionId id)
         {
-            new Section { Id = Section.SectionId.Behaviors, Text = "Behaviors Gallery" },
-            new Section { Id = Section.SectionId.Converters, Text = "Converters Gallery" },
-            new Section { Id = Section.SectionId.Views, Text = "Views Gallery" },
-            new Section { Id = Section.SectionId.TestCases, Text = "Test Cases Gallery" },
-        };
-
-        Page GetPage(Section.SectionId id)
-            => id switch
+            var page = id switch
             {
-                Section.SectionId.Behaviors => new BehaviorsPage(),
-                Section.SectionId.Converters => new ContentPage { Title = "Not Implemented yet" },
-                Section.SectionId.Views => new ContentPage { Title = "Not Implemented yet" },
-                Section.SectionId.TestCases => new ContentPage { Title = "Not Implemented yet" },
+                WelcomeSectionId.Behaviors => new BehaviorsPage(),
+                WelcomeSectionId.Converters => new ContentPage(),
+                WelcomeSectionId.Views => new ContentPage(),
+                WelcomeSectionId.TestCases => new ContentPage(),
                 _ => throw new System.NotImplementedException()
             };
-
-        public sealed class Section
-        {
-            public SectionId Id { get; set; }
-            public string Text { get; set; }
-
-            public enum SectionId
-            {
-                Behaviors,
-                Converters,
-                Views,
-                TestCases
-            }
+            page.Title = id.GetTitle();
+            return page;
         }
     }
 }
