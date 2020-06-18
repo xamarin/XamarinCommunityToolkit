@@ -19,9 +19,28 @@ namespace XamarinCommunityToolkit.Converters
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>The converted value.</returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-            => this.Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));
+        {
+            // If it's a list of MultiConverterParameter, use those and propagate them into the converters.
+            if (parameter is IList<MultiConverterParameter> parameters)
+            {
+                return this.Aggregate(value, (current, converter) => converter.Convert(current, targetType,
+                    parameters.FirstOrDefault(x => x.ConverterType == converter.GetType())?.Value, culture));
+            }
+
+            return this.Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));
+        }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
             => throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Represents a parameter to be used in the MultiConverter.
+    /// </summary>
+    public class MultiConverterParameter : BindableObject
+    {
+        public Type ConverterType { get; set; }
+
+        public object Value { get; set; }
     }
 }
