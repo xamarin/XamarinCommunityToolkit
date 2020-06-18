@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="XamarinCommunityToolkitSample.Views.WelcomePage"
+    xmlns:extensions="clr-namespace:XamarinCommunityToolkit.Extensions;assembly=XamarinCommunityToolkit"
+    x:Name="Page">
+
+    <NavigationPage.TitleView>            
+        <ContentView Padding="0, 5">
+            <Image Source="{StaticResource LogoResourceName}" VerticalOptions="CenterAndExpand" />
+        </ContentView>
+    </NavigationPage.TitleView>
+
+    <StackLayout>
+        <Image Source="{extensions:ImageResource xamarin_monkey.png}" HeightRequest="250" />
+        <ScrollView Padding="{StaticResource ContentPadding}"
+                    VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="40">
+                <Label Text="Welcome to XamarinCommunityToolkit" FontSize="Large" />
+                <StackLayout Spacing="10"
+                             BindableLayout.ItemsSource="{Binding Sections, Source={x:Reference Page}}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Button Text="{Binding Text}"
+                                    Command="{Binding NavigateCommand, Source={x:Reference Page}}"
+                                    CommandParameter="{Binding Id}" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        <Label Text="Microsoft Corporation (c) 2020"
+               VerticalOptions="End"
+               FontSize="Small"/>
+    </StackLayout>
+
+</ContentPage>

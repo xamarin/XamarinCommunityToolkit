@@ -7,6 +7,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:helpers="clr-namespace:XamarinCommunityToolkit.Helpers;assembly=XamarinCommunityToolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Behaviors Gallery"
     mc:Ignorable="d">
     <ContentPage.Resources>
 
@@ -32,10 +33,8 @@
     <ContentPage.Content>
         <ScrollView VerticalOptions="FillAndExpand" VerticalScrollBarVisibility="Always">
             <StackLayout Orientation="Vertical">
-                <Grid
-                    Margin="10"
-                    ColumnDefinitions="*"
-                    RowDefinitions="Auto, Auto">
+                <StackLayout
+                    Margin="10">
                     <Label
                         Grid.Row="0"
                         Style="{StaticResource TitleLabelStyle}"
@@ -49,11 +48,9 @@
                             <behaviors:NumericValidationBehavior TextColor="{StaticResource ErrorColor}" />
                         </Entry.Behaviors>
                     </Entry>
-                </Grid>
-                <Grid
-                    Margin="10"
-                    ColumnDefinitions="*"
-                    RowDefinitions="Auto, Auto">
+                </StackLayout>
+                <StackLayout
+                    Margin="10">
                     <Label
                         Grid.Row="0"
                         Style="{StaticResource TitleLabelStyle}"
@@ -65,11 +62,9 @@
                         Keyboard="Numeric"
                         Placeholder="Enter a valid number"
                         Style="{StaticResource EntryStyle}" />
-                </Grid>
-                <Grid
-                    Margin="10"
-                    ColumnDefinitions="*"
-                    RowDefinitions="Auto, Auto">
+                </StackLayout>
+                <StackLayout
+                    Margin="10">
                     <Label
                         Grid.Row="0"
                         Style="{StaticResource TitleLabelStyle}"
@@ -87,11 +82,9 @@
                                 TextColor="{StaticResource ErrorColor}" />
                         </Entry.Behaviors>
                     </Entry>
-                </Grid>
-                <Grid
-                    Margin="10"
-                    ColumnDefinitions="*"
-                    RowDefinitions="Auto, Auto">
+                </StackLayout>
+                <StackLayout
+                    Margin="10">
                     <Label
                         Grid.Row="0"
                         Style="{StaticResource TitleLabelStyle}"
@@ -109,11 +102,9 @@
                                 TextColor="{StaticResource ErrorColor}" />
                         </Entry.Behaviors>
                     </Entry>
-                </Grid>
-                <Grid
-                    Margin="10"
-                    ColumnDefinitions="*"
-                    RowDefinitions="Auto, Auto">
+                </StackLayout>
+                <StackLayout
+                    Margin="10">
                     <Label
                         Grid.Row="0"
                         Style="{StaticResource TitleLabelStyle}"
@@ -128,7 +119,7 @@
                             <behaviors:RegularExpressionValidationBehavior RegularExpression="{x:Static helpers:RegularExpressions.Email}" TextColor="{StaticResource ErrorColor}" />
                         </Entry.Behaviors>
                     </Entry>
-                </Grid>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
