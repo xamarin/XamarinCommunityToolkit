@@ -9,17 +9,17 @@
     <Application.Resources>
         <x:String x:Key="LogoResourceName">xamarin_logo.png</x:String>
 
-        <Thickness x:Key="ContentPadding">20</Thickness>
+        <Thickness x:Key="ContentPadding">20, 10</Thickness>
 
         <Color x:Key="AppBackgroundColor">AliceBlue</Color>
-        <Color x:Key="NavigationBarColor">#1976D2</Color>
+        <Color x:Key="PrimaryColor">#1976D2</Color>
         <Color x:Key="NavigationBarTextColor">White</Color>
         <Color x:Key="NormalButtonTextColor">White</Color>
         <Color x:Key="NormalLabelTextColor">Black</Color>
 
         <!-- Implicit styles -->
         <Style TargetType="NavigationPage">
-            <Setter Property="BarBackgroundColor" Value="{StaticResource NavigationBarColor}" />
+            <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
             <Setter Property="BarTextColor" Value="{StaticResource NavigationBarTextColor}" />
         </Style>
 
@@ -30,7 +30,7 @@
 
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="Medium" />
-            <Setter Property="BackgroundColor" Value="#1976D2" />
+            <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
             <Setter Property="TextColor" Value="{StaticResource NormalButtonTextColor}" />
             <Setter Property="CornerRadius" Value="5" />
         </Style>
