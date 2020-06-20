@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-#if NETSTANDARD
+#if NETSTANDARD1_0
 using System.Reflection;
 #endif
 
@@ -22,7 +22,7 @@ namespace XamarinCommunityToolkit.Extensions
             => Id == null
                 ? null
                 : ImageSource.FromResource(Id, Application.Current.GetType()
-#if NETSTANDARD
+#if NETSTANDARD1_0
                     .GetTypeInfo()
 #endif
                     .Assembly);

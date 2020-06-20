@@ -7,15 +7,26 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              x:Class="XamarinCommunityToolkitSample.App">
     <Application.Resources>
+        <!-- Platform resources -->
         <x:String x:Key="LogoResourceName">xamarin_logo.png</x:String>
 
-        <Thickness x:Key="ContentPadding">20, 10</Thickness>
+        <!-- Shared resources -->
+        <x:String x:Key="MonkeyResourceName">xamarin_monkey.png</x:String>
 
+        <!-- Values -->
+        <Thickness x:Key="ContentPadding">15, 0</Thickness>
+
+        <!-- Colors -->
         <Color x:Key="AppBackgroundColor">AliceBlue</Color>
         <Color x:Key="PrimaryColor">#1976D2</Color>
         <Color x:Key="NavigationBarTextColor">White</Color>
         <Color x:Key="NormalButtonTextColor">White</Color>
         <Color x:Key="NormalLabelTextColor">Black</Color>
+
+        <!-- Styles -->
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
 
         <!-- Implicit styles -->
         <Style TargetType="NavigationPage">
@@ -36,7 +47,7 @@
         </Style>
 
         <Style TargetType="Label">
-            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="FontSize" Value="Large" />
             <Setter Property="TextColor" Value="{StaticResource NormalLabelTextColor}" />
             <Setter Property="VerticalTextAlignment" Value="Center" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
@@ -45,6 +56,34 @@
         <Style TargetType="StackLayout">
             <Setter Property="Spacing" Value="0" />
         </Style>
+
+        <!-- Content templates -->
+        <ControlTemplate x:Key="GalleryPageTemplate">
+            <CollectionView ItemsSource="{TemplateBinding BindingContext.Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <AbsoluteLayout HeightRequest="60"
+                                        Padding="{StaticResource ContentPadding}">
+                            <StackLayout Orientation="Horizontal"
+                                            AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                            AbsoluteLayout.LayoutFlags="All">
+                                <Label Text="{Binding Title}" />
+                                <Label Text=">"
+                                        HorizontalOptions="EndAndExpand"
+                                        TextColor="{StaticResource PrimaryColor}"/>
+                            </StackLayout>
+                            <BoxView Color="{StaticResource NormalLabelTextColor}"
+                                        AbsoluteLayout.LayoutBounds="0,1,1,1"
+                                        AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"/>
+                            <AbsoluteLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                      CommandParameter="{Binding Id}" />
+                            </AbsoluteLayout.GestureRecognizers>
+                        </AbsoluteLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ControlTemplate>
 
     </Application.Resources>
 </Application>

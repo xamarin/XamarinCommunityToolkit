@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
+             x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.NumericValidationBehaviorPage">
+
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 Spacing="50"
+                 VerticalOptions="CenterAndExpand">
+        <Label Text="The text color will be changed to red in case of the wrong numeric format or if numeric is outside of [1.0; 100.0] boundaries." />
+        <Entry Placeholder="Email">
+            <Entry.Behaviors>
+                <behaviors:NumericValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                     MinimumValue="1.0"
+                                                     MaximumValue="100.0"/>
+            </Entry.Behaviors>
+        </Entry>
+    </StackLayout>
+
+</ContentPage>

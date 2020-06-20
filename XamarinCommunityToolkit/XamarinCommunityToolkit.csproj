@@ -22,13 +22,7 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
-      
-      
-      
       <!-- See if we can host these on MS docs? -->
-    
-    
-    
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
@@ -72,9 +66,7 @@
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <Folder Include="Behaviors\" />
-    <Folder Include="Controls\" />
     <Folder Include="Converters\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
@@ -95,23 +87,23 @@
         -->
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
-        <Compile Include="**\*.android.cs" />
-        <Compile Include="**\*.android.*.cs" />
+      <Compile Include="**\*.android.cs" />
+      <Compile Include="**\*.android.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
-        <Compile Include="**\*.ios.cs" />
-        <Compile Include="**\*.ios.*.cs" />
+      <Compile Include="**\*.ios.cs" />
+      <Compile Include="**\*.ios.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.TVOS')) ">
-        <Compile Include="**\*.tvos.cs" />
-        <Compile Include="**\*.tvos.*.cs" />
+      <Compile Include="**\*.tvos.cs" />
+      <Compile Include="**\*.tvos.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.WatchOS')) ">
-        <Compile Include="**\*.watchos.cs" />
-        <Compile Include="**\*.watchos.*.cs" />
+      <Compile Include="**\*.watchos.cs" />
+      <Compile Include="**\*.watchos.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
-        <Compile Include="**\*.tizen.cs" />
-        <Compile Include="**\*.tizen.*.cs" />
-    </ItemGroup>    
+      <Compile Include="**\*.tizen.cs" />
+      <Compile Include="**\*.tizen.*.cs" />
+    </ItemGroup>
 </Project>
