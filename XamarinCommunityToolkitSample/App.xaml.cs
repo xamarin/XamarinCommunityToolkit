@@ -1,5 +1,5 @@
 ﻿using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Views;
+using XamarinCommunityToolkitSample.Pages;
 
 namespace XamarinCommunityToolkitSample
 {

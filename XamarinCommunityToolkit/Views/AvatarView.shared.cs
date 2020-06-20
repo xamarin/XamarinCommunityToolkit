@@ -1,5 +1,3 @@
-using System;
-using System.ComponentModel;
 using Xamarin.Forms;
 using static System.Math;
 
@@ -21,10 +19,14 @@ namespace XamarinCommunityToolkit.Views
         };
 
         static readonly Color[] textColors = {
-            RGB(53, 21, 61),
+            RGB(255, 255, 255),
+            RGB(255, 255, 255),
             RGB(255, 255, 255),
             RGB(131, 81, 102),
-            RGB(114, 50, 75)
+            RGB(53, 21, 61),
+            RGB(255, 255, 255),
+            RGB(114, 50, 75),
+            RGB(255, 255, 255)
         };
 
         public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(double), typeof(AvatarView), 40.0, propertyChanged: OnSizePropertyChanged);

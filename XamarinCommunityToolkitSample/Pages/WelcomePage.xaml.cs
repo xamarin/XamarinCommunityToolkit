@@ -1,8 +1,9 @@
 ﻿using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinCommunityToolkitSample.Models;
+using XamarinCommunityToolkitSample.Pages.Views;
 
-namespace XamarinCommunityToolkitSample.Views
+namespace XamarinCommunityToolkitSample.Pages
 {
     public partial class WelcomePage : ContentPage
     {
@@ -20,7 +21,8 @@ namespace XamarinCommunityToolkitSample.Views
             {
                 WelcomeSectionId.Behaviors => new BehaviorsPage(),
                 WelcomeSectionId.Converters => new ContentPage(),
-                WelcomeSectionId.Views => new ContentPage(),
+                WelcomeSectionId.Views => new ViewsGalleryPage(),
+                WelcomeSectionId.Extensions => new ContentPage(),
                 WelcomeSectionId.TestCases => new ContentPage(),
                 _ => throw new System.NotImplementedException()
             };
