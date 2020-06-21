@@ -13,7 +13,25 @@
 
     <NavigationPage.TitleView>            
         <ContentView Padding="0, 5">
-            <Image Source="{StaticResource LogoResourceName}" VerticalOptions="CenterAndExpand" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+
+                <Image Source="{StaticResource LogoResourceName}"
+                       VerticalOptions="CenterAndExpand"
+                       Grid.Column="0" Grid.ColumnSpan="2" />
+
+                <Button Text="?"
+                        TextColor="{StaticResource PrimaryColor}"
+                        FontAttributes="Bold"
+                        BackgroundColor="White"
+                        VerticalOptions="Center" HorizontalOptions="End"
+                        CornerRadius="14" WidthRequest="28" HeightRequest="28"
+                        Clicked="OnAboutClicked"
+                        Grid.Column="1" />
+            </Grid>
         </ContentView>
     </NavigationPage.TitleView>
 

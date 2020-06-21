@@ -29,5 +29,10 @@ namespace XamarinCommunityToolkitSample.Pages
             page.Title = id.GetTitle();
             return page;
         }
+
+        async void OnAboutClicked(System.Object sender, System.EventArgs e)
+        {
+            await Navigation.PushAsync(new AboutPage());
+        }
     }
 }

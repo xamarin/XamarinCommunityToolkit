@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:XamarinCommunityToolkit.Views;assembly=XamarinCommunityToolkit"
+             xmlns:viewmodels="clr-namespace:XamarinCommunityToolkitSample.ViewModels"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True"
+             x:Class="XamarinCommunityToolkitSample.Pages.AboutPage"
+             Title="About">
+
+    <ContentPage.BindingContext>
+        <viewmodels:AboutViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Thank you XamarinCommunityToolkit contributers"
+                   Margin="0,10,0,10"
+                   FontSize="Large" />
+            <CollectionView  x:Name="ContributorsCollectionView"
+                             ItemsSource="{Binding Contributors}"
+                             SelectionMode="Single"
+                             SelectedItem="{Binding SelectedContributor}"
+                             SelectionChangedCommand="{Binding SelectedContributorCommand}"
+                             VerticalOptions="FillAndExpand"
+                             HorizontalOptions="FillAndExpand">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="12"
+                              ColumnSpacing="0"
+                              RowSpacing="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <views:AvatarView Size="50"
+                                              Text="{Binding Initials}"
+                                              Source="{Binding AvatarUrl}"
+                                              HorizontalOptions="Center" VerticalOptions="Center" />
+
+                            <Label Text="{Binding Login}"
+                                   LineBreakMode="NoWrap"
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="Center"
+                                   FontSize="12"
+                                   Grid.Row="1" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
