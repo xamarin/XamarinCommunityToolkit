@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -18,36 +19,30 @@ namespace XamarinCommunityToolkit.iOS.Effects
             if (!(Element is Layout element))
                 return;
 
-            if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
-            {
-                var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
+            if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0) || !UIApplication.SharedApplication.Windows.Any())
+                return;
 
-                initialPadding = element.Padding;
+            var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
 
-                if (insets.Top > 0)
-                {
-                    var safeArea = SafeAreaPaddingEffect.GetSafeAreaPadding(element);
+            initialPadding = element.Padding;
 
-                    element.Padding = new Thickness(
-                        initialPadding.Left + (safeArea.Left ? insets.Left : 0),
-                        initialPadding.Top + (safeArea.Top ? insets.Top : 0),
-                        initialPadding.Right + (safeArea.Right ? insets.Right : 0),
-                        initialPadding.Bottom + (safeArea.Bottom ? insets.Bottom : 0)
-                    );
+            if (insets.Top <= 0)
+                return;
 
-                    return;
-                }
-            }
+            var safeArea = SafeAreaPaddingEffect.GetSafeAreaPadding(element);
 
-            element.Padding = initialPadding;
+            element.Padding = new Thickness(
+                initialPadding.Left + (safeArea.Left ? insets.Left : 0),
+                initialPadding.Top + (safeArea.Top ? insets.Top : 0),
+                initialPadding.Right + (safeArea.Right ? insets.Right : 0),
+                initialPadding.Bottom + (safeArea.Bottom ? insets.Bottom : 0)
+            );
         }
 
         protected override void OnDetached()
         {
             if (Element is Layout element)
-            {
                 element.Padding = initialPadding;
-            }
         }
     }
 }

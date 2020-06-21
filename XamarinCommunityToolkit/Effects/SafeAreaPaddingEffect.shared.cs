@@ -27,16 +27,13 @@ namespace XamarinCommunityToolkit.Effects
             if (hasSafeArea)
             {
                 view.Effects.Add(new SafeAreaPaddingEffectRouter());
+                return;
             }
-            else
-            {
-                var toRemove = view.Effects.FirstOrDefault(e => e is SafeAreaPaddingEffectRouter);
 
-                if (toRemove != null)
-                {
-                    view.Effects.Remove(toRemove);
-                }
-            }
+            var toRemove = view.Effects.FirstOrDefault(e => e is SafeAreaPaddingEffectRouter);
+
+            if (toRemove != null)
+                view.Effects.Remove(toRemove);
         }
     }
 }

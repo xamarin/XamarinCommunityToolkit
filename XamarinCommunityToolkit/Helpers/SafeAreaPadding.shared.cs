@@ -35,23 +35,17 @@ namespace XamarinCommunityToolkit.Helpers
             => new SafeAreaPadding(uniformSafeAreaPadding);
 
         bool Equals(SafeAreaPadding other)
-        {
-            if (!isParameterized && !other.isParameterized)
-                return true;
-
-            return Left == other.Left &&
-                Top == other.Top &&
-                Right == other.Right &&
-                Bottom == other.Bottom;
-        }
+            => (!isParameterized &&
+            !other.isParameterized) ||
+            (Left == other.Left &&
+            Top == other.Top &&
+            Right == other.Right &&
+            Bottom == other.Bottom);
 
         public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-                return false;
-
-            return obj is SafeAreaPadding safeAreaPadding && Equals(safeAreaPadding);
-        }
+            => !ReferenceEquals(null, obj) &&
+            obj is SafeAreaPadding safeAreaPadding &&
+            Equals(safeAreaPadding);
 
         public override int GetHashCode()
         {
