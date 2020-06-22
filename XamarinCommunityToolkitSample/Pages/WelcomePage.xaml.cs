@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinCommunityToolkitSample.Models;
 using XamarinCommunityToolkitSample.Pages.Views;
@@ -29,5 +30,7 @@ namespace XamarinCommunityToolkitSample.Pages
             page.Title = id.GetTitle();
             return page;
         }
+
+        async void OnAboutClicked(Object sender, EventArgs e) => await Navigation.PushAsync(new AboutPage());
     }
 }
