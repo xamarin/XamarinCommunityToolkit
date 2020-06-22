@@ -34,5 +34,7 @@ namespace XamarinCommunityToolkitSample.Pages
                 WelcomeSectionId.TestCases => new ContentPage(),
                 _ => throw new NotImplementedException()
             };
+
+        async void OnAboutClicked(Object sender, EventArgs e) => await Navigation.PushAsync(new AboutPage());
     }
 }
