@@ -8,7 +8,7 @@
                  Spacing="50"
                  VerticalOptions="CenterAndExpand">
         <Label Text="The text color will be changed to red in case of the wrong numeric format or if numeric is outside of [1.0; 100.0] boundaries." />
-        <Entry Placeholder="Email">
+        <Entry Placeholder="Number">
             <Entry.Behaviors>
                 <behaviors:NumericValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"
                                                      MinimumValue="1.0"
