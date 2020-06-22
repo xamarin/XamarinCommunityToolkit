@@ -1,7 +1,10 @@
 ﻿using System;
+using Xamarin.Forms;
+
 namespace XamarinCommunityToolkit.Helpers
 {
-    public struct SafeAreaPadding
+    [TypeConverter(typeof(SafeAreaTypeConverter))]
+    public struct SafeArea
     {
         readonly bool isParameterized;
 
@@ -11,17 +14,17 @@ namespace XamarinCommunityToolkit.Helpers
         public bool Bottom { get; }
 
         public bool IsEmpty
-            => Left || Top || Right || Bottom;
+            => !Left && !Top && !Right && !Bottom;
 
-        public SafeAreaPadding(bool uniformSafeAreaPadding) : this(uniformSafeAreaPadding, uniformSafeAreaPadding, uniformSafeAreaPadding, uniformSafeAreaPadding)
+        public SafeArea(bool uniformSafeArea) : this(uniformSafeArea, uniformSafeArea, uniformSafeArea, uniformSafeArea)
         {
         }
 
-        public SafeAreaPadding(bool horizontal, bool vertical) : this(horizontal, vertical, horizontal, vertical)
+        public SafeArea(bool horizontal, bool vertical) : this(horizontal, vertical, horizontal, vertical)
         {
         }
 
-        public SafeAreaPadding(bool left, bool top, bool right, bool bottom)
+        public SafeArea(bool left, bool top, bool right, bool bottom)
         {
             isParameterized = true;
 
@@ -31,10 +34,10 @@ namespace XamarinCommunityToolkit.Helpers
             Bottom = bottom;
         }
 
-        public static implicit operator SafeAreaPadding(bool uniformSafeAreaPadding)
-            => new SafeAreaPadding(uniformSafeAreaPadding);
+        public static implicit operator SafeArea(bool uniformSafeArea)
+            => new SafeArea(uniformSafeArea);
 
-        bool Equals(SafeAreaPadding other)
+        bool Equals(SafeArea other)
             => (!isParameterized &&
             !other.isParameterized) ||
             (Left == other.Left &&
@@ -44,8 +47,8 @@ namespace XamarinCommunityToolkit.Helpers
 
         public override bool Equals(object obj)
             => !ReferenceEquals(null, obj) &&
-            obj is SafeAreaPadding safeAreaPadding &&
-            Equals(safeAreaPadding);
+            obj is SafeArea safeArea &&
+            Equals(safeArea);
 
         public override int GetHashCode()
         {
@@ -59,10 +62,10 @@ namespace XamarinCommunityToolkit.Helpers
             }
         }
 
-        public static bool operator ==(SafeAreaPadding left, SafeAreaPadding right)
+        public static bool operator ==(SafeArea left, SafeArea right)
             => left.Equals(right);
 
-        public static bool operator !=(SafeAreaPadding left, SafeAreaPadding right)
+        public static bool operator !=(SafeArea left, SafeArea right)
             => !left.Equals(right);
 
         public void Deconstruct(out bool left, out bool top, out bool right, out bool bottom)

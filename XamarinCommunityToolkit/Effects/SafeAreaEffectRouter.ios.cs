@@ -7,16 +7,16 @@ using XamarinCommunityToolkit.Effects;
 using Effects = XamarinCommunityToolkit.iOS.Effects;
 
 [assembly: ResolutionGroupName(nameof(XamarinCommunityToolkit))]
-[assembly: ExportEffect(typeof(Effects.SafeAreaPaddingEffectRouter), nameof(Effects.SafeAreaPaddingEffectRouter))]
+[assembly: ExportEffect(typeof(Effects.SafeAreaEffectRouter), nameof(SafeAreaEffectRouter))]
 namespace XamarinCommunityToolkit.iOS.Effects
 {
-    public class SafeAreaPaddingEffectRouter : PlatformEffect
+    public class SafeAreaEffectRouter : PlatformEffect
     {
-        Thickness initialPadding;
+        Thickness initialMargin;
 
         protected override void OnAttached()
         {
-            if (!(Element is Layout element))
+            if (!(Element is View element))
                 return;
 
             if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0) || !UIApplication.SharedApplication.Windows.Any())
@@ -24,25 +24,25 @@ namespace XamarinCommunityToolkit.iOS.Effects
 
             var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
 
-            initialPadding = element.Padding;
+            initialMargin = element.Margin;
 
             if (insets.Top <= 0)
                 return;
 
-            var safeArea = SafeAreaPaddingEffect.GetSafeAreaPadding(element);
+            var safeArea = SafeAreaEffect.GetSafeArea(element);
 
-            element.Padding = new Thickness(
-                initialPadding.Left + (safeArea.Left ? insets.Left : 0),
-                initialPadding.Top + (safeArea.Top ? insets.Top : 0),
-                initialPadding.Right + (safeArea.Right ? insets.Right : 0),
-                initialPadding.Bottom + (safeArea.Bottom ? insets.Bottom : 0)
+            element.Margin = new Thickness(
+                initialMargin.Left + (safeArea.Left ? insets.Left : 0),
+                initialMargin.Top + (safeArea.Top ? insets.Top : 0),
+                initialMargin.Right + (safeArea.Right ? insets.Right : 0),
+                initialMargin.Bottom + (safeArea.Bottom ? insets.Bottom : 0)
             );
         }
 
         protected override void OnDetached()
         {
             if (Element is Layout element)
-                element.Padding = initialPadding;
+                element.Margin = initialMargin;
         }
     }
 }
