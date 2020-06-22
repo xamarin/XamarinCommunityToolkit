@@ -22,18 +22,15 @@ namespace XamarinCommunityToolkit.Effects
             if (!(bindable is View view))
                 return;
 
-            var hasSafeArea = !((SafeAreaPadding)newValue).IsEmpty;
+            var oldEffect = view.Effects.FirstOrDefault(e => e is SafeAreaPaddingEffectRouter);
 
-            if (hasSafeArea)
-            {
-                view.Effects.Add(new SafeAreaPaddingEffectRouter());
+            if (oldEffect != null)
+                view.Effects.Remove(oldEffect);
+
+            if (((SafeAreaPadding)newValue).IsEmpty)
                 return;
-            }
 
-            var toRemove = view.Effects.FirstOrDefault(e => e is SafeAreaPaddingEffectRouter);
-
-            if (toRemove != null)
-                view.Effects.Remove(toRemove);
+            view.Effects.Add(new SafeAreaPaddingEffectRouter());
         }
     }
 }
