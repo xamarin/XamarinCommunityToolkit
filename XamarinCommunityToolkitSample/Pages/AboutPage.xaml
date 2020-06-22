@@ -33,11 +33,10 @@
                               ColumnSpacing="0"
                               RowSpacing="2">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="60" />
+                                <RowDefinition Height="65" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <views:AvatarView Size="50"
-                                              Text="{Binding Initials}"
+                            <views:AvatarView Size="60"
                                               Source="{Binding AvatarUrl}"
                                               HorizontalOptions="Center" VerticalOptions="Center" />
 
@@ -50,6 +49,13 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="{Binding EmptyViewText}"
+                               Margin="0,10,0,10"
+                               FontSize="Large" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
             </CollectionView>
         </StackLayout>
     </ContentPage.Content>
