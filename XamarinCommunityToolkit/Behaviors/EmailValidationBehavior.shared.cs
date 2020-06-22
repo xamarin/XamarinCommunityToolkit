@@ -1,5 +1,7 @@
-﻿using System;
+﻿#if !NETSTANDARD1_0
+using System;
 using System.Globalization;
+#endif
 using System.Text.RegularExpressions;
 
 namespace XamarinCommunityToolkit.Behaviors
