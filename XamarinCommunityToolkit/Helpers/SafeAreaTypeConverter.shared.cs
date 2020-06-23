@@ -1,9 +1,10 @@
 ﻿using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace XamarinCommunityToolkit.Helpers
 {
-    [Xamarin.Forms.Xaml.TypeConversion(typeof(SafeArea))]
+    [TypeConversion(typeof(SafeArea))]
     public class SafeAreaTypeConverter : TypeConverter
     {
         public override object ConvertFromInvariantString(string value)
