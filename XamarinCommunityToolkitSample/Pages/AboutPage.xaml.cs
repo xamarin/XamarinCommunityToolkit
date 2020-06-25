@@ -14,10 +14,10 @@ namespace XamarinCommunityToolkitSample.Pages
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            ((AboutViewModel)BindingContext).OnAppearing();
+            await ((AboutViewModel)BindingContext).OnAppearing();
         }
     }
 }
