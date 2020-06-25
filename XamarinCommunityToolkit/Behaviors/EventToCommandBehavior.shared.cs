@@ -74,7 +74,7 @@ namespace XamarinCommunityToolkit.Behaviors
                 return;
 
             eventInfo = View.GetType().GetRuntimeEvent(eventName) ??
-                throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Could't resolve the event.", nameof(EventName));
+                throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't resolve the event.", nameof(EventName));
 
             eventInfo.AddEventHandler(View, eventHandler);
         }
