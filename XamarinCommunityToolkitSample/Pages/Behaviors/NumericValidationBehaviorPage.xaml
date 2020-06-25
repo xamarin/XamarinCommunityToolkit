@@ -4,6 +4,12 @@
              xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
              x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.NumericValidationBehaviorPage">
 
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+    </ContentPage.Resources>
+
     <StackLayout Padding="{StaticResource ContentPadding}"
                  Spacing="50"
                  VerticalOptions="CenterAndExpand">

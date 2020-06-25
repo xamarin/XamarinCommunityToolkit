@@ -23,11 +23,6 @@
         <Color x:Key="NormalButtonTextColor">White</Color>
         <Color x:Key="NormalLabelTextColor">Black</Color>
 
-        <!-- Styles -->
-        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-
         <!-- Implicit styles -->
         <Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
