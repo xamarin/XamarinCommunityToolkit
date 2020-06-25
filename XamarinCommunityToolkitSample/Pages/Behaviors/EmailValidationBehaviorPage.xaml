@@ -7,7 +7,7 @@
     <StackLayout Padding="{StaticResource ContentPadding}"
                  Spacing="50"
                  VerticalOptions="CenterAndExpand">
-        <Label Text="The text color will be changed to red in case of the wrong email is entered" />
+        <Label Text="Text color will change accordingly to the style that is configured when a invalid value (email address) is entered" />
         <Entry Placeholder="Email">
             <Entry.Behaviors>
                 <behaviors:EmailValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"/>
