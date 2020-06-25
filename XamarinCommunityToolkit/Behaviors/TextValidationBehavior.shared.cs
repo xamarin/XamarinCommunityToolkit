@@ -5,17 +5,23 @@ namespace XamarinCommunityToolkit.Behaviors
 {
     public class TextValidationBehavior : ValidationBehavior
     {
-        public static readonly BindableProperty MinimumLengthProperty = BindableProperty.Create(nameof(MinimumLength), typeof(int), typeof(TextValidationBehavior), 0, propertyChanged: OnValidationPropertyChanged);
+        public static readonly BindableProperty MinimumLengthProperty =
+            BindableProperty.Create(nameof(MinimumLength), typeof(int), typeof(TextValidationBehavior), 0, propertyChanged: OnValidationPropertyChanged);
 
-        public static readonly BindableProperty MaximumLengthProperty = BindableProperty.Create(nameof(MaximumLength), typeof(int), typeof(TextValidationBehavior), int.MaxValue, propertyChanged: OnValidationPropertyChanged);
+        public static readonly BindableProperty MaximumLengthProperty =
+            BindableProperty.Create(nameof(MaximumLength), typeof(int), typeof(TextValidationBehavior), int.MaxValue, propertyChanged: OnValidationPropertyChanged);
 
-        public static readonly BindableProperty ShouldTrimValueProperty = BindableProperty.Create(nameof(ShouldTrimValue), typeof(bool), typeof(TextValidationBehavior), false, propertyChanged: OnValidationPropertyChanged);
+        public static readonly BindableProperty ShouldTrimValueProperty =
+            BindableProperty.Create(nameof(ShouldTrimValue), typeof(bool), typeof(TextValidationBehavior), false, propertyChanged: OnValidationPropertyChanged);
 
-        public static readonly BindableProperty ShouldConvertNullToEmptyValueProperty = BindableProperty.Create(nameof(ShouldConvertNullToEmptyValue), typeof(bool), typeof(TextValidationBehavior), true, propertyChanged: OnValidationPropertyChanged);
+        public static readonly BindableProperty ShouldConvertNullToEmptyValueProperty =
+            BindableProperty.Create(nameof(ShouldConvertNullToEmptyValue), typeof(bool), typeof(TextValidationBehavior), true, propertyChanged: OnValidationPropertyChanged);
 
-        public static readonly BindableProperty RegexPatternProperty = BindableProperty.Create(nameof(RegexPattern), typeof(string), typeof(TextValidationBehavior), defaultValueCreator: GetDefaultRegexPattern, propertyChanged: OnRegexPropertyChanged);
+        public static readonly BindableProperty RegexPatternProperty =
+            BindableProperty.Create(nameof(RegexPattern), typeof(string), typeof(TextValidationBehavior), defaultValueCreator: GetDefaultRegexPattern, propertyChanged: OnRegexPropertyChanged);
 
-        public static readonly BindableProperty RegexOptionsProperty = BindableProperty.Create(nameof(RegexOptions), typeof(RegexOptions), typeof(TextValidationBehavior), defaultValueCreator: GetDefaultRegexOptions, propertyChanged: OnRegexPropertyChanged);
+        public static readonly BindableProperty RegexOptionsProperty =
+            BindableProperty.Create(nameof(RegexOptions), typeof(RegexOptions), typeof(TextValidationBehavior), defaultValueCreator: GetDefaultRegexOptions, propertyChanged: OnRegexPropertyChanged);
 
         Regex regex;
 
