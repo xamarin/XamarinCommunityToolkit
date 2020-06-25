@@ -24,7 +24,7 @@ namespace XamarinCommunityToolkit.Behaviors
         EventInfo eventInfo;
 
         public EventToCommandBehavior()
-            => eventHandler = new EventHandler(OnEventOccurred);
+            => eventHandler = new EventHandler(OnTriggerHandled);
 
         public string EventName
         {
@@ -85,7 +85,7 @@ namespace XamarinCommunityToolkit.Behaviors
             eventInfo = null;
         }
 
-        void OnEventOccurred(object sender = null, object eventArgs = null)
+        void OnTriggerHandled(object sender = null, object eventArgs = null)
         {
             var parameter = CommandParameter
                 ?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, null)
