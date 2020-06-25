@@ -19,7 +19,7 @@
                 <Button.Behaviors>
                     <behaviors:EventToCommandBehavior
                         EventName="Clicked"
-                        Command="{Binding Command}" />
+                        Command="{Binding IncrementCommand}" />
                 </Button.Behaviors>
             </Button>
         </StackLayout>
