@@ -4,9 +4,11 @@ namespace XamarinCommunityToolkit.Behaviors
 {
     public class NumericValidationBehavior : ValidationBehavior
     {
-        public static readonly BindableProperty MinimumValueProperty = BindableProperty.Create(nameof(MinimumValue), typeof(double), typeof(NumericValidationBehavior), double.NegativeInfinity, propertyChanged: OnValidationPropertyChanged);
+        public static readonly BindableProperty MinimumValueProperty =
+            BindableProperty.Create(nameof(MinimumValue), typeof(double), typeof(NumericValidationBehavior), double.NegativeInfinity, propertyChanged: OnValidationPropertyChanged);
 
-        public static readonly BindableProperty MaximumValueProperty = BindableProperty.Create(nameof(MaximumValue), typeof(double), typeof(NumericValidationBehavior), double.PositiveInfinity, propertyChanged: OnValidationPropertyChanged);
+        public static readonly BindableProperty MaximumValueProperty =
+            BindableProperty.Create(nameof(MaximumValue), typeof(double), typeof(NumericValidationBehavior), double.PositiveInfinity, propertyChanged: OnValidationPropertyChanged);
 
         public double MinimumValue
         {
