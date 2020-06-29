@@ -12,8 +12,7 @@ namespace XamarinCommunityToolkitSample.Models.Views
         public static string GetTitle(this ViewSectionId id)
             => id switch
             {
-                ViewSectionId.AvatarView => "AvatarView",
-                _ => throw new NotImplementedException()
+                _ => id.ToString()
             };
     }
 }

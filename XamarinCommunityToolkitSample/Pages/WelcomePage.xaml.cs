@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinCommunityToolkitSample.Models;
+using XamarinCommunityToolkitSample.Pages.Behaviors;
 using XamarinCommunityToolkitSample.Pages.Views;
 
 namespace XamarinCommunityToolkitSample.Pages
@@ -14,22 +15,25 @@ namespace XamarinCommunityToolkitSample.Pages
             => InitializeComponent();
 
         public ICommand NavigateCommand => navigateCommand ??= new Command(parameter
-            => Navigation.PushAsync(GetPage((WelcomeSectionId)parameter)));
+            => Navigation.PushAsync(PreparePage((WelcomeSectionId)parameter)));
+
+        Page PreparePage(WelcomeSectionId id)
+        {
+            var page = GetPage(id);
+            page.Title = id.GetTitle();
+            return page;
+        }
 
         Page GetPage(WelcomeSectionId id)
-        {
-            var page = id switch
+            => id switch
             {
-                WelcomeSectionId.Behaviors => new BehaviorsPage(),
+                WelcomeSectionId.Behaviors => new BehaviorsGalleryPage(),
                 WelcomeSectionId.Converters => new ContentPage(),
                 WelcomeSectionId.Views => new ViewsGalleryPage(),
                 WelcomeSectionId.Extensions => new ContentPage(),
                 WelcomeSectionId.TestCases => new ContentPage(),
-                _ => throw new System.NotImplementedException()
+                _ => throw new NotImplementedException()
             };
-            page.Title = id.GetTitle();
-            return page;
-        }
 
         async void OnAboutClicked(Object sender, EventArgs e) => await Navigation.PushAsync(new AboutPage());
     }

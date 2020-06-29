@@ -1,12 +1,15 @@
-﻿using XamarinCommunityToolkitSample.Models.Views;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using XamarinCommunityToolkitSample.Models.Views;
 
 namespace XamarinCommunityToolkitSample.ViewModels.Views
 {
-    public class ViewsGalleryViewModel: BaseViewModel
+    public class ViewsGalleryViewModel : BaseViewModel
     {
-        public ViewSectionModel[] Items { get; } =
-        {
-            new ViewSectionModel(ViewSectionId.AvatarView),
-        };
+        public IEnumerable<ViewSectionModel> Items { get; } =
+            ((ViewSectionId[])Enum
+            .GetValues(typeof(ViewSectionId)))
+            .Select(id => new ViewSectionModel(id));
     }
 }

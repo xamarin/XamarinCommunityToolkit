@@ -32,6 +32,9 @@
     <Folder Include="Pages\Views\" />
     <Folder Include="ViewModels\Views\" />
     <Folder Include="Models\Views\" />
+    <Folder Include="Pages\Behaviors\" />
+    <Folder Include="ViewModels\Behaviors\" />
+    <Folder Include="Models\Behaviors\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="resources\xamarin_monkey.png" />

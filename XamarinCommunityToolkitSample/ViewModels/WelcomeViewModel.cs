@@ -1,16 +1,15 @@
-﻿using XamarinCommunityToolkitSample.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using XamarinCommunityToolkitSample.Models;
 
 namespace XamarinCommunityToolkitSample.ViewModels
 {
     public class WelcomeViewModel : BaseViewModel
     {
-        public WelcomeSectionModel[] Items { get; } =
-        {
-            new WelcomeSectionModel(WelcomeSectionId.Behaviors),
-            new WelcomeSectionModel(WelcomeSectionId.Converters),
-            new WelcomeSectionModel(WelcomeSectionId.Extensions),
-            new WelcomeSectionModel(WelcomeSectionId.Views),
-            new WelcomeSectionModel(WelcomeSectionId.TestCases)
-        };
+        public IEnumerable<WelcomeSectionModel> Items { get; } =
+            ((WelcomeSectionId[])Enum
+            .GetValues(typeof(WelcomeSectionId)))
+            .Select(id => new WelcomeSectionModel(id));
     }
 }

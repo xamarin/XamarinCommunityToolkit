@@ -16,12 +16,8 @@ namespace XamarinCommunityToolkitSample.Models
         public static string GetTitle(this WelcomeSectionId id)
             => id switch
             {
-                WelcomeSectionId.Behaviors => "Behaviors",
-                WelcomeSectionId.Converters => "Converters",
-                WelcomeSectionId.Extensions => "Extensions",
-                WelcomeSectionId.Views => "Views",
                 WelcomeSectionId.TestCases => "Test Cases",
-                _ => throw new NotImplementedException()
+                _ => id.ToString()
             } + " Gallery";
     }
 }

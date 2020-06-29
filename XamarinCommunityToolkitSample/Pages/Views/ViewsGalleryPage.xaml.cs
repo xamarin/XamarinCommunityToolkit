@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinCommunityToolkitSample.Models.Views;
 
@@ -12,17 +13,20 @@ namespace XamarinCommunityToolkitSample.Pages.Views
             => InitializeComponent();
 
         public ICommand NavigateCommand => navigateCommand ??= new Command(parameter
-            => Navigation.PushAsync(GetPage((ViewSectionId)parameter)));
+            => Navigation.PushAsync(PreparePage((ViewSectionId)parameter)));
 
-        Page GetPage(ViewSectionId id)
+        Page PreparePage(ViewSectionId id)
         {
-            var page = id switch
-            {
-                ViewSectionId.AvatarView => new AvatarViewPage(),
-                _ => throw new System.NotImplementedException()
-            };
+            var page = GetPage(id);
             page.Title = id.GetTitle();
             return page;
         }
+
+        Page GetPage(ViewSectionId id)
+            => id switch
+            {
+                ViewSectionId.AvatarView => new AvatarViewPage(),
+                _ => throw new NotImplementedException()
+            };
     }
 }

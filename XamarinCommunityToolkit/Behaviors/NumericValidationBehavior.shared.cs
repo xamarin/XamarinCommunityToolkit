@@ -1,66 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
-    /// <summary>
-    /// Validates if the text value of the Entry is numeric
-    /// </summary>
-    public class NumericValidationBehavior : BaseBehavior<Entry>
+    public class NumericValidationBehavior : ValidationBehavior
     {
-        Color currentTextColor;
+        public static readonly BindableProperty MinimumValueProperty =
+            BindableProperty.Create(nameof(MinimumValue), typeof(double), typeof(NumericValidationBehavior), double.NegativeInfinity, propertyChanged: OnValidationPropertyChanged);
 
-        /// <summary>
-        /// Bindable text color to apply when validation fails
-        /// </summary>
-        public static readonly BindableProperty TextColorProperty =
-            BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(NumericValidationBehavior));
+        public static readonly BindableProperty MaximumValueProperty =
+            BindableProperty.Create(nameof(MaximumValue), typeof(double), typeof(NumericValidationBehavior), double.PositiveInfinity, propertyChanged: OnValidationPropertyChanged);
 
-        /// <summary>
-        /// Text color to apply when validation fails
-        /// </summary>
-        public Color TextColor
+        public double MinimumValue
         {
-            get => (Color)GetValue(TextColorProperty);
-            set => SetValue(TextColorProperty, value);
+            get => (double)GetValue(MinimumValueProperty);
+            set => SetValue(MinimumValueProperty, value);
         }
 
-        /// <summary>
-        /// Attaches the OnEntryTextChanged handler to the TextChanged event
-        /// </summary>
-        /// <param name="bindable">Entry control to which the handler is attached</param>
-        protected override void OnAttachedTo(Entry entry)
+        public double MaximumValue
         {
-            currentTextColor = entry.TextColor;
-
-            entry.TextChanged += OnEntryTextChanged;
-            base.OnAttachedTo(entry);
+            get => (double)GetValue(MaximumValueProperty);
+            set => SetValue(MaximumValueProperty, value);
         }
 
-        /// <summary>
-        /// Detaches the OnEntryTextChanged handler from the TextChanged event
-        /// </summary>
-        /// <param name="bindable">Entry control from which the handler is detached</param>
-        protected override void OnDetachingFrom(Entry entry)
-        {
-            entry.TextChanged -= OnEntryTextChanged;
-            base.OnDetachingFrom(entry);
-        }
-
-        /// <summary>
-        /// Handles the event when the text is changed on the Entry, 
-        /// performs the validation if the Entry text is numeric, and sets the text color
-        /// </summary>
-        /// <param name="sender">Entry control</param>
-        /// <param name="e">Text changed event arguments</param>
-        void OnEntryTextChanged(object sender, TextChangedEventArgs args)
-        {
-            var isValid = double.TryParse(args.NewTextValue, out _);
-
-            if (sender is Entry entry)
-                entry.TextColor = isValid ? currentTextColor : (TextColor != null ? TextColor : Color.Red);
-        }
+        protected override bool Validate(object value)
+            => double.TryParse(value?.ToString(), out var numeric)
+                && numeric >= MinimumValue
+                && numeric <= MaximumValue;
     }
 }

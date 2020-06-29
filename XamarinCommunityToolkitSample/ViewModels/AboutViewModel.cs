@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,29 +12,33 @@ namespace XamarinCommunityToolkitSample.ViewModels
     {
         readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
-        ObservableCollection<RepositoryContributor> contributors;
-        public ObservableCollection<RepositoryContributor> Contributors
+        RepositoryContributor[] contributors = new RepositoryContributor[0];
+
+        RepositoryContributor selectedContributor;
+
+        string emptyViewText = "Loading data...";
+
+        ICommand selectedContributorCommand;
+
+        public RepositoryContributor[] Contributors
         {
             get => contributors;
             set => Set(ref contributors, value);
         }
 
-        RepositoryContributor selectedContributor;
         public RepositoryContributor SelectedContributor
         {
             get => selectedContributor;
             set => Set(ref selectedContributor, value);
         }
 
-        string emptyViewText = "Loading data...";
         public string EmptyViewText
         {
             get => emptyViewText;
             set => Set(ref emptyViewText, value);
         }
 
-        ICommand selectedContributorCommand;
-        public ICommand SelectedContributorCommand => selectedContributorCommand ??= new Command(async _ =>
+        public ICommand SelectedContributorCommand => selectedContributorCommand ??= new Command(async () =>
         {
             if (SelectedContributor is null)
                 return;
@@ -46,30 +49,29 @@ namespace XamarinCommunityToolkitSample.ViewModels
 
         public async Task OnAppearing()
         {
-            if (Contributors != null)
+            if (Contributors.Any())
                 return;
 
             try
             {
                 var contributors = await gitHubClient.Repository.GetAllContributors("xamarin", "XamarinCommunityToolkit");
-
-                if (contributors is null)
-                    return;
-
                 //Initiate poor mans randomizer for lists
                 //Note: there are better options for real production worthy large lists : https://stackoverflow.com/questions/273313/randomize-a-listt
                 //But for now this linq version will do
-                var rnd = new Random();
-                Contributors = new ObservableCollection<RepositoryContributor>(contributors.Select(x => new { value = x, order = rnd.Next() }).OrderBy(x => x.order).Select(x => x.value));
+                var random = new Random();
+                var result = contributors?.OrderBy(x => random.Next()).ToArray();
+                if (result != null)
+                    Contributors = result;
             }
-            catch(Exception ex)
+            catch
             {
+                // Suppress
             }
-            finally
-            {
-                if(Contributors is null || !Contributors.Any())
-                    EmptyViewText = "No data loaded...";
-            }
+
+            if (Contributors.Any())
+                return;
+
+            EmptyViewText = "No data loaded...";
         }
     }
 }

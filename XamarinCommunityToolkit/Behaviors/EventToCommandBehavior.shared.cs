@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XamarinCommunityToolkit.Interfaces;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
-    public class EventToCommandBehavior : BaseBehavior<View>
+    public class EventToCommandBehavior : BaseBehavior
     {
-        Delegate eventHandler;
-
         public static readonly BindableProperty EventNameProperty =
-            BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), null, propertyChanged: OnEventNameChanged);
+            BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), propertyChanged: OnEventNamePropertyChanged);
 
         public static readonly BindableProperty CommandProperty =
             BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior));
@@ -21,8 +16,15 @@ namespace XamarinCommunityToolkit.Behaviors
         public static readonly BindableProperty CommandParameterProperty =
             BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior));
 
-        public static readonly BindableProperty InputConverterProperty =
-            BindableProperty.Create(nameof(Converter), typeof(IValueConverter), typeof(EventToCommandBehavior));
+        public static readonly BindableProperty EventArgsConverterProperty =
+            BindableProperty.Create(nameof(EventArgsConverter), typeof(IValueConverter), typeof(EventToCommandBehavior));
+
+        readonly Delegate eventHandler;
+
+        EventInfo eventInfo;
+
+        public EventToCommandBehavior()
+            => eventHandler = new EventHandler(OnTriggerHandled);
 
         public string EventName
         {
@@ -42,85 +44,56 @@ namespace XamarinCommunityToolkit.Behaviors
             set => SetValue(CommandParameterProperty, value);
         }
 
-        public IValueConverter Converter
+        public IValueConverter EventArgsConverter
         {
-            get => (IValueConverter)GetValue(InputConverterProperty);
-            set => SetValue(InputConverterProperty, value);
+            get => (IValueConverter)GetValue(EventArgsConverterProperty);
+            set => SetValue(EventArgsConverterProperty, value);
         }
 
         protected override void OnAttachedTo(View bindable)
         {
             base.OnAttachedTo(bindable);
-            RegisterEvent(EventName);
+            RegisterEvent();
         }
 
         protected override void OnDetachingFrom(View bindable)
         {
-            DeregisterEvent(EventName);
+            UnregisterEvent();
             base.OnDetachingFrom(bindable);
         }
 
-        void RegisterEvent(string name)
+        static void OnEventNamePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+            => ((EventToCommandBehavior)bindable).RegisterEvent();
+
+        void RegisterEvent()
         {
-            if (string.IsNullOrWhiteSpace(name))
+            UnregisterEvent();
+
+            var eventName = EventName;
+            if (View == null || string.IsNullOrWhiteSpace(eventName))
                 return;
 
-            var eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
+            eventInfo = View.GetType().GetRuntimeEvent(eventName) ??
+                throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't resolve the event.", nameof(EventName));
 
-            if (eventInfo == null)
-                throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Can't register the {EventName} event.");
-
-            var methodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnEvent));
-            eventHandler = methodInfo.CreateDelegate(eventInfo.EventHandlerType, this);
-            eventInfo.AddEventHandler(AssociatedObject, eventHandler);
+            eventInfo.AddEventHandler(View, eventHandler);
         }
 
-        void DeregisterEvent(string name)
+        void UnregisterEvent()
         {
-            if (string.IsNullOrWhiteSpace(name) || eventHandler == null)
-                return;
-
-            var eventInfo = AssociatedObject.GetType().GetRuntimeEvent(name);
-
-            if (eventInfo == null)
-                throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Can't de-register the {EventName} event.");
-
-            eventInfo.RemoveEventHandler(AssociatedObject, eventHandler);
-            eventHandler = null;
+            eventInfo?.RemoveEventHandler(View, eventHandler);
+            eventInfo = null;
         }
 
-        async void OnEvent(object sender, object eventArgs)
+        void OnTriggerHandled(object sender = null, object eventArgs = null)
         {
-            if (Command == null)
-                return;
-
-            var resolvedParameter = CommandParameter
-                ?? Converter.Convert(eventArgs, typeof(object), null, null)
+            var parameter = CommandParameter
+                ?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, null)
                 ?? eventArgs;
 
-            if (Command.CanExecute(resolvedParameter))
-                Command.Execute(resolvedParameter);
-
-            foreach (var bindable in Actions)
-            {
-                bindable.BindingContext = BindingContext;
-                var action = (IAction)bindable;
-                await action.Execute(sender, eventArgs);
-            }
-        }
-
-        static void OnEventNameChanged(BindableObject bindable, object oldValue, object newValue)
-        {
-            var behavior = (EventToCommandBehavior)bindable;
-
-            if (behavior.AssociatedObject == null)
-                return;
-
-            var oldEventName = (string)oldValue;
-            var newEventName = (string)newValue;
-
-            behavior.DeregisterEvent(oldEventName);
-            behavior.RegisterEvent(newEventName);
+            var command = Command;
+            if (command?.CanExecute(parameter) ?? false)
+                command.Execute(parameter);
         }
     }
 }

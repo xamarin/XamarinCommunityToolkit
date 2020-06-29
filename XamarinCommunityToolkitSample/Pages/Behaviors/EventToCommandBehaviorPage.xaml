@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Behaviors"
+             xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
+             x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.EventToCommandBehaviorPage">
+
+    <ContentPage.BindingContext>
+        <vm:EventToCommandBehaviorViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentView Padding="{StaticResource ContentPadding}">
+        <StackLayout VerticalOptions="CenterAndExpand"
+                     Spacing="20">
+            <Label Text="This sample demonstrates how to use EventToCommandBehavior. Here we observe Clicked event of the button and trigger IncrementCommand from ViewModel." />
+            <Label Text="{Binding ClickCount, StringFormat='{0} clicks'}" />
+            <Button Text="CLICK ME"
+                    TextColor="White"
+                    BackgroundColor="{StaticResource PrimaryColor}">
+                <Button.Behaviors>
+                    <behaviors:EventToCommandBehavior
+                        EventName="Clicked"
+                        Command="{Binding IncrementCommand}" />
+                </Button.Behaviors>
+            </Button>
+        </StackLayout>
+    </ContentView>
+
+</ContentPage>

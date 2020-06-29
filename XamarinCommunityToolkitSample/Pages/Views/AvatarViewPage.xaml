@@ -5,8 +5,7 @@
              xmlns:viewmodels="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Views"
              x:Class="XamarinCommunityToolkitSample.Pages.Views.AvatarViewPage"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="True"
-             x:Name="page">
+             ios:Page.UseSafeArea="True">
 
     <ContentPage.BindingContext>
         <viewmodels:AvatarViewViewModel />
@@ -26,8 +25,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <StackLayout>
-            <Label Text="Size Property:" FontSize="Large"/>
+        <StackLayout Padding="{StaticResource ContentPadding}">
+            <Label Text="Size Property:" />
             <Slider x:Name="Slider" Maximum="80" Minimum="40" ThumbColor="{StaticResource PrimaryColor}"/>
         </StackLayout>
     </StackLayout>

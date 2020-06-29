@@ -1,74 +1,63 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using XamarinCommunityToolkit.Controls;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
-    /// <summary>
-    /// Contains base functionality for all derived behaviors
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    [Preserve(AllMembers = true)]
-    public class BaseBehavior<T> : Behavior<T> where T : BindableObject
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public abstract class BaseBehavior : Behavior<View>
     {
-        public static readonly BindableProperty ActionsProperty =
-            BindableProperty.Create(nameof(Actions), typeof(ActionCollection), typeof(BaseBehavior<BindableObject>), null);
+        static readonly MethodInfo getContextMethod = typeof(BindableObject).GetRuntimeMethods()?.FirstOrDefault(m => m.Name == "GetContext");
 
-        public ActionCollection Actions
-            => (ActionCollection)GetValue(ActionsProperty);
+        static readonly FieldInfo bindingField = getContextMethod?.ReturnType.GetRuntimeField("Binding");
 
-        /// <summary>
-        /// Control to which the behavior is attached
-        /// </summary>
-        public T AssociatedObject { get; private set; }
+        BindingBase defaultBindingContextBinding;
 
-        public BaseBehavior()
-            => SetValue(ActionsProperty, new ActionCollection());
+        protected View View { get; private set; }
 
-        /// <summary>
-        /// Function is fired when the behavior is attached to the control.
-        /// </summary>
-        /// <param name="bindable">Reference to the control to which it is attached</param>
-        protected override void OnAttachedTo(T bindable)
+        protected virtual void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+        }
+
+        protected override void OnAttachedTo(View bindable)
         {
             base.OnAttachedTo(bindable);
-            AssociatedObject = bindable;
+            View = bindable;
+            bindable.PropertyChanged += OnViewPropertyChanged;
 
-            if (bindable.BindingContext != null)
-                BindingContext = bindable.BindingContext;
-
-            bindable.BindingContextChanged += OnBindingContextChanged;
+            if (!IsBound(BindingContextProperty))
+            {
+                defaultBindingContextBinding = new Binding
+                {
+                    Path = BindingContextProperty.PropertyName,
+                    Source = bindable
+                };
+                SetBinding(BindingContextProperty, defaultBindingContextBinding);
+            }
         }
 
-        /// <summary>
-        /// Function is fired when the behavior is removed from the control.
-        /// </summary>
-        /// <param name="bindable">Reference to the control to which it is attached</param>
-        protected override void OnDetachingFrom(T bindable)
+        protected override void OnDetachingFrom(BindableObject bindable)
         {
             base.OnDetachingFrom(bindable);
-            bindable.BindingContextChanged -= OnBindingContextChanged;
-            AssociatedObject = null;
+
+            if (defaultBindingContextBinding != null)
+            {
+                RemoveBinding(BindingContextProperty);
+                defaultBindingContextBinding = null;
+            }
+
+            bindable.PropertyChanged -= OnViewPropertyChanged;
+            View = null;
         }
 
-        /// <summary>
-        /// Function handles the event when the BindingContext changes.
-        /// </summary>
-        /// <param name="sender">Origin of the event</param>
-        /// <param name="e">Event arguments</param>
-        void OnBindingContextChanged(object sender, EventArgs e)
-            => OnBindingContextChanged();
-
-        /// <summary>
-        /// Handles the event when the BindingContext changes on the AssociatedObject
-        /// </summary>
-        protected override void OnBindingContextChanged()
+        protected bool IsBound(BindableProperty property, BindingBase defaultBinding = null)
         {
-            base.OnBindingContextChanged();
-            BindingContext = AssociatedObject.BindingContext;
+            var context = getContextMethod?.Invoke(this, new object[] { property });
+            return context != null
+                && bindingField?.GetValue(context) is BindingBase binding
+                && binding != defaultBinding;
         }
     }
 }
