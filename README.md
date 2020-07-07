@@ -4,6 +4,8 @@ Members of the community are rebooting this library under the guidance of the Xa
 
 ## Build Status
 
+If you like to live dangerously (and while we are preparing our v1), you can use our [nightly](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json) feed to try out packages right now.
+
 | Build Server | Type         | Platform | Status |
 |--------------|--------------|----------|--------|
 | Azure DevOps         | Build        | Windows & Mac  | [![Build Status](https://dev.azure.com/xamarin/public/_apis/build/status/xamarin/CommunityToolkit/xamarin.XamarinCommunityToolkit%20(Public)?branchName=master)](https://dev.azure.com/xamarin/public/_build?definitionId=55&_a=summary)                                                  |
