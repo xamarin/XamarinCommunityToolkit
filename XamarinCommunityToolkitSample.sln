@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamarinCommunityToolkitSamp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamarinCommunityToolkit", "XamarinCommunityToolkit\XamarinCommunityToolkit.csproj", "{B0DCDF81-953D-47DA-A7D4-0565339BF07C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{47DFE508-04F1-433D-8C55-0C1ACD033573}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinCommunityToolkit.UnitTests", "XamarinCommunityToolkit.UnitTests\XamarinCommunityToolkit.UnitTests.csproj", "{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,11 +91,26 @@ Global
 		{B0DCDF81-953D-47DA-A7D4-0565339BF07C}.Release|iPhone.Build.0 = Release|Any CPU
 		{B0DCDF81-953D-47DA-A7D4-0565339BF07C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{B0DCDF81-953D-47DA-A7D4-0565339BF07C}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Release|iPhone.Build.0 = Release|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {449686DB-B85A-4DFA-AA26-9BC92468CC2A}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9} = {47DFE508-04F1-433D-8C55-0C1ACD033573}
 	EndGlobalSection
 EndGlobal
