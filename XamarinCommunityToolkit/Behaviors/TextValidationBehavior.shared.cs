@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace XamarinCommunityToolkit.Behaviors
 {
@@ -11,11 +12,8 @@ namespace XamarinCommunityToolkit.Behaviors
         public static readonly BindableProperty MaximumLengthProperty =
             BindableProperty.Create(nameof(MaximumLength), typeof(int), typeof(TextValidationBehavior), int.MaxValue, propertyChanged: OnValidationPropertyChanged);
 
-        public static readonly BindableProperty ShouldTrimValueProperty =
-            BindableProperty.Create(nameof(ShouldTrimValue), typeof(bool), typeof(TextValidationBehavior), false, propertyChanged: OnValidationPropertyChanged);
-
-        public static readonly BindableProperty ShouldConvertNullToEmptyValueProperty =
-            BindableProperty.Create(nameof(ShouldConvertNullToEmptyValue), typeof(bool), typeof(TextValidationBehavior), true, propertyChanged: OnValidationPropertyChanged);
+        public static readonly BindableProperty DecorationFlagsProperty =
+            BindableProperty.Create(nameof(DecorationFlags), typeof(TextDecorationFlags), typeof(TextValidationBehavior), TextDecorationFlags.None, propertyChanged: OnValidationPropertyChanged);
 
         public static readonly BindableProperty RegexPatternProperty =
             BindableProperty.Create(nameof(RegexPattern), typeof(string), typeof(TextValidationBehavior), defaultValueCreator: GetDefaultRegexPattern, propertyChanged: OnRegexPropertyChanged);
@@ -37,16 +35,10 @@ namespace XamarinCommunityToolkit.Behaviors
             set => SetValue(MaximumLengthProperty, value);
         }
 
-        public bool ShouldTrimValue
+        public TextDecorationFlags DecorationFlags
         {
-            get => (bool)GetValue(ShouldTrimValueProperty);
-            set => SetValue(ShouldTrimValueProperty, value);
-        }
-
-        public bool ShouldConvertNullToEmptyValue
-        {
-            get => (bool)GetValue(ShouldConvertNullToEmptyValueProperty);
-            set => SetValue(ShouldConvertNullToEmptyValueProperty, value);
+            get => (TextDecorationFlags)GetValue(DecorationFlagsProperty);
+            set => SetValue(DecorationFlagsProperty, value);
         }
 
         public string RegexPattern
@@ -74,12 +66,22 @@ namespace XamarinCommunityToolkit.Behaviors
         protected override object DecorateValue()
         {
             var value = base.DecorateValue()?.ToString();
+            var flags = DecorationFlags;
 
-            if (ShouldTrimValue)
-                value = value?.Trim();
-
-            if (ShouldConvertNullToEmptyValue)
+            if (flags.HasFlag(TextDecorationFlags.NullToEmpty))
                 value ??= string.Empty;
+
+            if (value == null)
+                return null;
+
+            if (flags.HasFlag(TextDecorationFlags.TrimStart))
+                value = value.TrimStart();
+
+            if (flags.HasFlag(TextDecorationFlags.TrimEnd))
+                value = value.TrimEnd();
+
+            if (flags.HasFlag(TextDecorationFlags.ReduceWhiteSpaces))
+                value = ReduceWhiteSpaces(value);
 
             return value;
         }
@@ -112,5 +114,21 @@ namespace XamarinCommunityToolkit.Behaviors
             => regex = RegexPattern != null
                 ? new Regex(RegexPattern, RegexOptions)
                 : null;
+
+        string ReduceWhiteSpaces(string value)
+        {
+            var builder = new StringBuilder();
+            var isSpace = false;
+            foreach (var ch in value)
+            {
+                var wasSpace = isSpace;
+                isSpace = char.IsWhiteSpace(ch);
+                if (wasSpace && isSpace)
+                    continue;
+
+                builder.Append(ch);
+            }
+            return builder.ToString();
+        }
     }
 }
