@@ -40,7 +40,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 
         [Theory]
         [InlineData("")]
-        public void BoolToObject_InValidValuesThrowArgumenException(object value)
+        public void BoolToObjectInValidValuesThrowArgumenException(object value)
         {
             var boolObjectConverter = new BoolToObjectConverter();
             Assert.Throws<ArgumentException>(() => boolObjectConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null, CultureInfo.CurrentCulture));
