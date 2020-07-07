@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using XamarinCommunityToolkit.Converters;
 using Xunit;
@@ -18,6 +18,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 
             Assert.Equal(result, expectedResult);
         }
+      
         [Theory]
         [InlineData(2)]
         [InlineData("")]
