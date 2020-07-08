@@ -31,3 +31,4 @@ To structure our project, we have adopted a range of namespaces. You can find th
 | Microsoft.Toolkit.Xamarin.Forms.UI.Controls | Controls such as TabView, etc.|
 | Microsoft.Toolkit.Xamarin.Forms.UI.Layout | Layouts such as WrapLayout, etc. |
 | Microsoft.Toolkit.Xamarin.Forms.SampleApp | Sample App where you can find all of the above for reference. How to use them and see how it looks |
+| Microsoft.Toolkit.Xamarin.Forms.UnitTests | This is where our unit tests live. Please keep growing them! |
