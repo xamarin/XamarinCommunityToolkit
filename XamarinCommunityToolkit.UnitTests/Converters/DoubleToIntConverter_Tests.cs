@@ -34,7 +34,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 
         [Theory]
         [InlineData("")]
-        public void DoubleToInt_InValidValuesThrowArgumenException(object value)
+        public void DoubleToIntInValidValuesThrowArgumenException(object value)
         {
             var doubleToIntConverter = new DoubleToIntConverter();
             Assert.Throws<ArgumentException>(() => doubleToIntConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null, CultureInfo.CurrentCulture));
