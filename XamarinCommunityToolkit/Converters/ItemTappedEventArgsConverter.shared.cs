@@ -19,15 +19,11 @@ namespace XamarinCommunityToolkit.Converters
         /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>A Item object from object of type ItemTappedEventArgs.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (!(value is ItemTappedEventArgs itemTappedEventArgs))
-            {
-                throw new ArgumentException("Expected value to be of type ItemTappedEventArgs", nameof(value));
-            }
-
-            return itemTappedEventArgs.Item;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+            => value is ItemTappedEventArgs itemTappedEventArgs
+                ? itemTappedEventArgs.Item
+                : throw new ArgumentException("Expected value to be of type ItemTappedEventArgs", nameof(value));
+                
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) 
+            => throw new NotImplementedException();
     }
 }
