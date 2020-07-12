@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using XamarinCommunityToolkitSample.Models;
 using XamarinCommunityToolkitSample.Pages.Behaviors;
+using XamarinCommunityToolkitSample.Pages.Converters;
 using XamarinCommunityToolkitSample.Pages.Views;
 
 namespace XamarinCommunityToolkitSample.Pages
@@ -28,7 +29,7 @@ namespace XamarinCommunityToolkitSample.Pages
             => id switch
             {
                 WelcomeSectionId.Behaviors => new BehaviorsGalleryPage(),
-                WelcomeSectionId.Converters => new ContentPage(),
+                WelcomeSectionId.Converters => new ConvertersGalleryPage(),
                 WelcomeSectionId.Views => new ViewsGalleryPage(),
                 WelcomeSectionId.Extensions => new ContentPage(),
                 WelcomeSectionId.TestCases => new ContentPage(),

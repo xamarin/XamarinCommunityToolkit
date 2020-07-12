@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Converters"
+             xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
+             xmlns:converters="clr-namespace:XamarinCommunityToolkit.Converters;assembly=XamarinCommunityToolkit"
+             x:Class="XamarinCommunityToolkitSample.Pages.Converters.ItemTappedEventArgsPage">
+
+    <ContentPage.BindingContext>
+        <vm:ItemTappedEventArgsViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+         <ResourceDictionary>
+             <converters:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+         </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ListView ItemsSource="{Binding Items}"
+              HasUnevenRows="True">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+
+                    <StackLayout Orientation="Vertical"
+                                 Margin="6">
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Id:" />
+                                    <Span Text="{Binding Id}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Name:" />
+                                    <Span Text="{Binding Name}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                    </StackLayout>
+                </ViewCell>
+                
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+        <ListView.Behaviors>
+            <behaviors:EventToCommandBehavior EventName="ItemTapped"
+                                              Command="{Binding ItemTappedCommand}"
+                                              EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+        </ListView.Behaviors>
+
+    </ListView>
+</ContentPage>
