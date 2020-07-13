@@ -13,7 +13,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 
         public static IEnumerable<object[]> GetData() => new List<object[]>
             {
-                new object[] { new ItemTappedEventArgs(null, expectedValue, 0), expectedValue},
+                new object[] { new ItemTappedEventArgs(null, expectedValue), expectedValue},
             };
 
         [Theory]
