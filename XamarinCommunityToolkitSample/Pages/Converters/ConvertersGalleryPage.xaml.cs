@@ -26,6 +26,7 @@ namespace XamarinCommunityToolkitSample.Pages.Converters
             => id switch
             {
                 ConverterSectionId.ItemTappedEventArgs => new ItemTappedEventArgsPage(),
+                ConverterSectionId.ItemSelectedEventArgs => new ItemSelectedEventArgsPage(),
                 _ => throw new NotImplementedException()
             };
     }

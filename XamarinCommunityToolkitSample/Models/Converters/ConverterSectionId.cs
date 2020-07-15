@@ -3,6 +3,7 @@
     public enum ConverterSectionId
     {
         ItemTappedEventArgs,
+        ItemSelectedEventArgs,
     }
 
     public static class ViewSectionIdIdExtensions
