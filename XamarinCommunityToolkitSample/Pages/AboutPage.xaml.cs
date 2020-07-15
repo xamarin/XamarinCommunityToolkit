@@ -19,5 +19,7 @@ namespace XamarinCommunityToolkitSample.Pages
             base.OnAppearing();
             await ((AboutViewModel)BindingContext).OnAppearing();
         }
+
+        async void OnCloseClicked(object sender, EventArgs e) => await Navigation.PopModalAsync();
     }
 }

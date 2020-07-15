@@ -24,7 +24,7 @@
         <Color x:Key="NormalLabelTextColor">Black</Color>
 
         <!-- Implicit styles -->
-        <Style TargetType="NavigationPage">
+        <Style TargetType="NavigationPage" ApplyToDerivedTypes="True">
             <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
             <Setter Property="BarTextColor" Value="{StaticResource NavigationBarTextColor}" />
         </Style>

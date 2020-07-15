@@ -8,6 +8,10 @@
              x:Class="XamarinCommunityToolkitSample.Pages.AboutPage"
              Title="About">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.BindingContext>
         <viewmodels:AboutViewModel />
     </ContentPage.BindingContext>

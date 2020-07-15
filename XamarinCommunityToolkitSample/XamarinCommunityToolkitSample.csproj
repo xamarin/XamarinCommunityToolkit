@@ -30,14 +30,15 @@
     <Folder Include="resources\" />
     <Folder Include="Models\" />
     <Folder Include="Pages\Views\" />
-    <Folder Include="ViewModels\Views\" />
-    <Folder Include="Models\Views\" />
     <Folder Include="Pages\Behaviors\" />
-    <Folder Include="ViewModels\Behaviors\" />
-    <Folder Include="Models\Behaviors\" />
     <Folder Include="Pages\Converters\" />
-    <Folder Include="Models\Converters\" />
+    <Folder Include="Pages\Base\" />
+    <Folder Include="ViewModels\Views\" />
+    <Folder Include="ViewModels\Behaviors\" />
     <Folder Include="ViewModels\Converters\" />
+    <Folder Include="Models\Behaviors\" />
+    <Folder Include="Models\Views\" />
+    <Folder Include="Models\Converters\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="resources\xamarin_monkey.png" />

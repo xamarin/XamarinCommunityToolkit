@@ -11,7 +11,7 @@
         <vm:WelcomeViewModel />
     </ContentPage.BindingContext>
 
-    <NavigationPage.TitleView>            
+    <NavigationPage.TitleView>
         <ContentView Padding="0, 5">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -53,7 +53,7 @@
                 </StackLayout>
             </StackLayout>
         </ScrollView>
-        <Label Text="Microsoft Corporation (c) 2020"
+        <Label Text="Microsoft Corporation © 2020"
                VerticalOptions="End"
                FontSize="Small"/>
     </StackLayout>
