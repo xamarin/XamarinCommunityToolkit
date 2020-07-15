@@ -35,6 +35,9 @@
     <Folder Include="Pages\Behaviors\" />
     <Folder Include="ViewModels\Behaviors\" />
     <Folder Include="Models\Behaviors\" />
+    <Folder Include="Pages\Converters\" />
+    <Folder Include="Models\Converters\" />
+    <Folder Include="ViewModels\Converters\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="resources\xamarin_monkey.png" />
