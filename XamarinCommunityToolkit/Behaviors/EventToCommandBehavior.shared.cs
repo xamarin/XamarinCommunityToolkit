@@ -19,12 +19,11 @@ namespace XamarinCommunityToolkit.Behaviors
         public static readonly BindableProperty EventArgsConverterProperty =
             BindableProperty.Create(nameof(EventArgsConverter), typeof(IValueConverter), typeof(EventToCommandBehavior));
 
-        readonly Delegate eventHandler;
+        readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnTriggerHandled));
+
+        Delegate eventHandler;
 
         EventInfo eventInfo;
-
-        public EventToCommandBehavior()
-            => eventHandler = new EventHandler(OnTriggerHandled);
 
         public string EventName
         {
@@ -76,13 +75,19 @@ namespace XamarinCommunityToolkit.Behaviors
             eventInfo = View.GetType().GetRuntimeEvent(eventName) ??
                 throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't resolve the event.", nameof(EventName));
 
+            eventHandler = eventHandlerMethodInfo.CreateDelegate(eventInfo.EventHandlerType, this) ??
+                throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't create event handler.", nameof(EventName));
+
             eventInfo.AddEventHandler(View, eventHandler);
         }
 
         void UnregisterEvent()
         {
-            eventInfo?.RemoveEventHandler(View, eventHandler);
+            if(eventInfo != null && eventHandler != null)
+                eventInfo.RemoveEventHandler(View, eventHandler);
+
             eventInfo = null;
+            eventHandler = null;
         }
 
         void OnTriggerHandled(object sender = null, object eventArgs = null)
