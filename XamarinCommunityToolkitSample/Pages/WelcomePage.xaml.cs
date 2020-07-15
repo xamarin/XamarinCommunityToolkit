@@ -36,6 +36,6 @@ namespace XamarinCommunityToolkitSample.Pages
                 _ => throw new NotImplementedException()
             };
 
-        async void OnAboutClicked(Object sender, EventArgs e) => await Navigation.PushAsync(new AboutPage());
+        async void OnAboutClicked(object sender, EventArgs e) => await Navigation.PushModalAsync(new BaseNavigationPage(new AboutPage()));
     }
 }
