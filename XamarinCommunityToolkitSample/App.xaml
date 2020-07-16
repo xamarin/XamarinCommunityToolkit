@@ -23,7 +23,7 @@
         <!-- Fonts -->
         <OnPlatform x:TypeArguments="x:String" x:Key="font_bold">
             <On Platform="iOS" Value=".SFUIText-Bold"/>
-            <On Platform="Android" Value="sans-serif"/>
+            <On Platform="Android" Value="sans-serif-medium"/>
         </OnPlatform>
 
         <OnPlatform x:TypeArguments="x:String" x:Key="font_semibold">
@@ -92,9 +92,6 @@
         <!-- Content templates -->
         <ControlTemplate x:Key="GalleryPageTemplate">
             <CollectionView ItemsSource="{TemplateBinding BindingContext.Items}">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="16" />
-                </CollectionView.ItemsLayout>
                 <CollectionView.Header>
                     <BoxView HeightRequest="32" />
                 </CollectionView.Header>
@@ -103,7 +100,7 @@
                 </CollectionView.Footer>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Padding="{StaticResource ContentPadding}">
+                        <Grid Padding="20,12">
                             <custom:PancakeView Style="{StaticResource card}">
                                 <custom:PancakeView.GestureRecognizers>
                                     <TapGestureRecognizer 

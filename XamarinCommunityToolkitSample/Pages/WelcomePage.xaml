@@ -18,15 +18,15 @@
     </pages:BasePage.ToolbarItems>
 
     <StackLayout>
-        <ScrollView Padding="{StaticResource ContentPadding}" VerticalOptions="FillAndExpand">
+        <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout Spacing="16">
-                <Label Margin="0,32,0,0" Style="{StaticResource label_welcome_header}" Text="Introducing the XamarinCommunityToolkit" />
-                <Label Margin="0,0,0,28" Text="The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms." />
+                <Label Margin="20,32,20,0" Style="{StaticResource label_welcome_header}" Text="Introducing the XamarinCommunityToolkit" />
+                <Label Margin="20,0,20,28" Text="The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms." />
                 <StackLayout Spacing="16"
                              BindableLayout.ItemsSource="{Binding Items}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <custom:PancakeView Style="{StaticResource card}">
+                            <custom:PancakeView Style="{StaticResource card}" Margin="{StaticResource ContentPadding}">
                                 <custom:PancakeView.GestureRecognizers>
                                     <TapGestureRecognizer 
                                         Command="{Binding NavigateCommand, Source={x:Reference Page}}"

@@ -4,7 +4,6 @@
                 xmlns:views="clr-namespace:XamarinCommunityToolkit.Views;assembly=XamarinCommunityToolkit"
                 xmlns:viewmodels="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Views"
                 x:Class="XamarinCommunityToolkitSample.Pages.Views.AvatarViewPage"
-                xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
                 xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages">
 
     <pages:BasePage.BindingContext>
