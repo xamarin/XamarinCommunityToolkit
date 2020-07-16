@@ -9,7 +9,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 {
     public class ItemSelectedEventArgsConverter_Tests
     {
-        public static object expectedValue = 100;
+        static object expectedValue = 100;
 
         public static IEnumerable<object[]> GetData() => new List<object[]>
         {
@@ -18,7 +18,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 
         [Theory]
         [MemberData(nameof(GetData))]
-        public void InverterBoolConverter(SelectedItemChangedEventArgs value, object expectedResult)
+        public void ItemSelectedEventArgsConverter(SelectedItemChangedEventArgs value, object expectedResult)
         {
             var itemSelectedEventArgsConverter = new ItemSelectedEventArgsConverter();
 
@@ -28,7 +28,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 
         [Theory]
         [InlineData("Random String")]
-        public void InValidConverterValuesThrowArgumenException(object value)
+        public void InvalidConverterValuesThrowsArgumenException(object value)
         {
             var itemSelectedEventArgsConverter = new ItemSelectedEventArgsConverter();
             Assert.Throws<ArgumentException>(() => itemSelectedEventArgsConverter.Convert(value, typeof(ItemSelectedEventArgsConverter), null, CultureInfo.CurrentCulture));
