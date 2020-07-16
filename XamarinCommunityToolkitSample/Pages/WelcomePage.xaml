@@ -1,61 +1,55 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage
+<pages:BasePage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="XamarinCommunityToolkitSample.Pages.WelcomePage"
     xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels"
-    xmlns:extensions="clr-namespace:XamarinCommunityToolkit.Extensions;assembly=XamarinCommunityToolkit"
+    xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages"
+    xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    Title="Welcome" NavigationPage.BackButtonTitle=""
     x:Name="Page">
 
-    <ContentPage.BindingContext>
+    <pages:BasePage.BindingContext>
         <vm:WelcomeViewModel />
-    </ContentPage.BindingContext>
+    </pages:BasePage.BindingContext>
 
-    <NavigationPage.TitleView>
-        <ContentView Padding="0, 5">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="100" />
-                </Grid.ColumnDefinitions>
-
-                <Image Source="{StaticResource LogoResourceName}"
-                       VerticalOptions="CenterAndExpand"
-                       Grid.Column="0" Grid.ColumnSpan="2" />
-
-                <Button Text="?"
-                        TextColor="{StaticResource PrimaryColor}"
-                        FontAttributes="Bold"
-                        BackgroundColor="White"
-                        VerticalOptions="Center" HorizontalOptions="End"
-                        CornerRadius="14" WidthRequest="28" HeightRequest="28"
-                        Clicked="OnAboutClicked"
-                        Grid.Column="1" />
-            </Grid>
-        </ContentView>
-    </NavigationPage.TitleView>
+    <pages:BasePage.ToolbarItems>
+        <ToolbarItem Text="About" Clicked="OnAboutClicked" />
+    </pages:BasePage.ToolbarItems>
 
     <StackLayout>
-        <Image Source="{extensions:ImageResource Id={StaticResource MonkeyResourceName}}" HeightRequest="250" />
-        <ScrollView Padding="{StaticResource ContentPadding}"
-                    VerticalOptions="FillAndExpand">
-            <StackLayout Spacing="40">
-                <Label Text="Welcome to XamarinCommunityToolkit" FontSize="Large" />
-                <StackLayout Spacing="10"
+        <ScrollView Padding="{StaticResource ContentPadding}" VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="16">
+                <Label Margin="0,32,0,0" Style="{StaticResource label_welcome_header}" Text="Introducing the XamarinCommunityToolkit" />
+                <Label Margin="0,0,0,28" Text="The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms." />
+                <StackLayout Spacing="16"
                              BindableLayout.ItemsSource="{Binding Items}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Button Text="{Binding Title}"
-                                    Command="{Binding NavigateCommand, Source={x:Reference Page}}"
-                                    CommandParameter="{Binding Id}" />
+                            <custom:PancakeView Style="{StaticResource card}">
+                                <custom:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        Command="{Binding NavigateCommand, Source={x:Reference Page}}"
+                                        CommandParameter="{Binding .}" />
+                                </custom:PancakeView.GestureRecognizers>
+                                <Grid ColumnSpacing="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="12" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <BoxView BackgroundColor="{Binding Color}" />
+                                    <StackLayout Grid.Column="1" Spacing="8" Padding="0,24,24,24">
+                                        <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
+                                        <Label Text="{Binding Description}" />
+                                    </StackLayout>
+                                </Grid>
+                            </custom:PancakeView>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
+                <Label Margin="0,32" Text="Microsoft Corporation © 2020" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"/>
             </StackLayout>
         </ScrollView>
-        <Label Text="Microsoft Corporation © 2020"
-               VerticalOptions="End"
-               FontSize="Small"/>
     </StackLayout>
 
-</ContentPage>
+</pages:BasePage>

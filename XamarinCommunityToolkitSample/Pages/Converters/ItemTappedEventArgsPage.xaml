@@ -1,20 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Converters"
-             xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
-             xmlns:converters="clr-namespace:XamarinCommunityToolkit.Converters;assembly=XamarinCommunityToolkit"
-             x:Class="XamarinCommunityToolkitSample.Pages.Converters.ItemTappedEventArgsPage">
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Converters"
+                xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
+                xmlns:converters="clr-namespace:XamarinCommunityToolkit.Converters;assembly=XamarinCommunityToolkit"
+                x:Class="XamarinCommunityToolkitSample.Pages.Converters.ItemTappedEventArgsPage"
+                xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages">
 
-    <ContentPage.BindingContext>
+    <pages:BasePage.BindingContext>
         <vm:ItemTappedEventArgsViewModel />
-    </ContentPage.BindingContext>
+    </pages:BasePage.BindingContext>
 
-    <ContentPage.Resources>
-         <ResourceDictionary>
-             <converters:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
-         </ResourceDictionary>
-    </ContentPage.Resources>
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <converters:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
 
     <ListView ItemsSource="{Binding Items}"
               HasUnevenRows="True">
@@ -45,7 +46,7 @@
 
                     </StackLayout>
                 </ViewCell>
-                
+
             </DataTemplate>
         </ListView.ItemTemplate>
 
@@ -56,4 +57,4 @@
         </ListView.Behaviors>
 
     </ListView>
-</ContentPage>
+</pages:BasePage>

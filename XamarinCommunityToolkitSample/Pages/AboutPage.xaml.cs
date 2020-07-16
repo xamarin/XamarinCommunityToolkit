@@ -7,12 +7,10 @@ using XamarinCommunityToolkitSample.ViewModels;
 
 namespace XamarinCommunityToolkitSample.Pages
 {
-    public partial class AboutPage : ContentPage
+    public partial class AboutPage : BasePage
     {
         public AboutPage()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
         protected override async void OnAppearing()
         {
@@ -20,6 +18,7 @@ namespace XamarinCommunityToolkitSample.Pages
             await ((AboutViewModel)BindingContext).OnAppearing();
         }
 
-        async void OnCloseClicked(object sender, EventArgs e) => await Navigation.PopModalAsync();
+        async void OnCloseClicked(object sender, EventArgs e)
+            => await Navigation.PopModalAsync();
     }
 }

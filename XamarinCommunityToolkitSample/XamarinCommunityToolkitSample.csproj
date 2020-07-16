@@ -10,6 +10,7 @@
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Octokit" Version="0.48.0" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.0.1.698" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,17 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="resources\xamarin_monkey.png">
-      <LogicalName>xamarin_monkey.png</LogicalName>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Update="Views\BehaviorsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="resources\" />
     <Folder Include="Models\" />
     <Folder Include="Pages\Views\" />
     <Folder Include="Pages\Behaviors\" />
@@ -36,11 +31,10 @@
     <Folder Include="ViewModels\Views\" />
     <Folder Include="ViewModels\Behaviors\" />
     <Folder Include="ViewModels\Converters\" />
-    <Folder Include="Models\Behaviors\" />
-    <Folder Include="Models\Views\" />
-    <Folder Include="Models\Converters\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="resources\xamarin_monkey.png" />
+    <Folder Include="ViewModels\Base\" />
+    <Folder Include="Pages\Extensions\" />
+    <Folder Include="Pages\TestCases\" />
+    <Folder Include="ViewModels\TestCases\" />
+    <Folder Include="ViewModels\Extensions\" />
   </ItemGroup>
 </Project>

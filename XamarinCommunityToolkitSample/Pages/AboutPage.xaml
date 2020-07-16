@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:XamarinCommunityToolkit.Views;assembly=XamarinCommunityToolkit"
-             xmlns:viewmodels="clr-namespace:XamarinCommunityToolkitSample.ViewModels"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="True"
-             x:Class="XamarinCommunityToolkitSample.Pages.AboutPage"
-             Title="About">
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:views="clr-namespace:XamarinCommunityToolkit.Views;assembly=XamarinCommunityToolkit"
+                xmlns:viewmodels="clr-namespace:XamarinCommunityToolkitSample.ViewModels"
+                xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages"
+                x:Class="XamarinCommunityToolkitSample.Pages.AboutPage"
+                Title="About">
 
-    <ContentPage.ToolbarItems>
+    <pages:BasePage.ToolbarItems>
         <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
-    </ContentPage.ToolbarItems>
+    </pages:BasePage.ToolbarItems>
 
-    <ContentPage.BindingContext>
+    <pages:BasePage.BindingContext>
         <viewmodels:AboutViewModel />
-    </ContentPage.BindingContext>
+    </pages:BasePage.BindingContext>
 
-    <ContentPage.Content>
-        <StackLayout>
+    <pages:BasePage.Content>
+        <StackLayout Padding="{StaticResource ContentPadding}">
             <Label Text="Thank you XamarinCommunityToolkit contributors"
-                   Margin="0,10,0,10"
-                   FontSize="Large" />
-            <CollectionView  x:Name="ContributorsCollectionView"
+                   Margin="0,10,0,10" FontSize="Large" HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+            <CollectionView x:Name="ContributorsCollectionView"
                              ItemsSource="{Binding Contributors}"
                              SelectionMode="Single"
                              SelectedItem="{Binding SelectedContributor}"
@@ -62,5 +62,5 @@
                 </CollectionView.EmptyView>
             </CollectionView>
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </pages:BasePage.Content>
+</pages:BasePage>

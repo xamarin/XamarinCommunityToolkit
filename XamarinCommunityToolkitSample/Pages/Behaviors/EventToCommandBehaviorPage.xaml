@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Behaviors"
-             xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
-             x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.EventToCommandBehaviorPage">
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Behaviors"
+                xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
+                x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.EventToCommandBehaviorPage"
+                xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages">
 
-    <ContentPage.BindingContext>
+    <pages:BasePage.BindingContext>
         <vm:EventToCommandBehaviorViewModel />
-    </ContentPage.BindingContext>
+    </pages:BasePage.BindingContext>
 
     <ContentView Padding="{StaticResource ContentPadding}">
         <StackLayout VerticalOptions="CenterAndExpand"
@@ -26,4 +27,4 @@
         </StackLayout>
     </ContentView>
 
-</ContentPage>
+</pages:BasePage>

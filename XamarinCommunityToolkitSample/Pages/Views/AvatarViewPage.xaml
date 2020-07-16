@@ -1,23 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:XamarinCommunityToolkit.Views;assembly=XamarinCommunityToolkit"
-             xmlns:viewmodels="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Views"
-             x:Class="XamarinCommunityToolkitSample.Pages.Views.AvatarViewPage"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="True">
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:views="clr-namespace:XamarinCommunityToolkit.Views;assembly=XamarinCommunityToolkit"
+                xmlns:viewmodels="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Views"
+                x:Class="XamarinCommunityToolkitSample.Pages.Views.AvatarViewPage"
+                xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages">
 
-    <ContentPage.BindingContext>
+    <pages:BasePage.BindingContext>
         <viewmodels:AvatarViewViewModel />
-    </ContentPage.BindingContext>
+    </pages:BasePage.BindingContext>
 
     <StackLayout Spacing="20">
         <CollectionView ItemsSource="{Binding Items}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <AbsoluteLayout>
-                        <StackLayout Padding="15, 10" Orientation="Horizontal" Spacing="10" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-                            <views:AvatarView Size="{Binding Value, Source={x:Reference Slider}}" Text="{Binding Initials}" Source="{Binding Source}" />
+                        <StackLayout Padding="15, 10" Orientation="Horizontal"
+                                     Spacing="10" AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                     AbsoluteLayout.LayoutFlags="All">
+
+                            <views:AvatarView Size="{Binding Value, Source={x:Reference Slider}}"
+                                              Text="{Binding Initials}" Source="{Binding Source}" />
+
                             <Label Text="{Binding Name}" FontSize="20" VerticalOptions="CenterAndExpand" />
                         </StackLayout>
                         <BoxView Color="Black" AbsoluteLayout.LayoutBounds="0,1,1,1" AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional" />
@@ -30,4 +35,4 @@
             <Slider x:Name="Slider" Maximum="80" Minimum="40" ThumbColor="{StaticResource PrimaryColor}"/>
         </StackLayout>
     </StackLayout>
-</ContentPage>
+</pages:BasePage>

@@ -1,12 +1,8 @@
-﻿using Xamarin.Forms;
-
-namespace XamarinCommunityToolkitSample.Pages.Behaviors
+﻿namespace XamarinCommunityToolkitSample.Pages.Behaviors
 {
-    public partial class EmailValidationBehaviorPage : ContentPage
+    public partial class EmailValidationBehaviorPage : BasePage
     {
         public EmailValidationBehaviorPage()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
     }
 }

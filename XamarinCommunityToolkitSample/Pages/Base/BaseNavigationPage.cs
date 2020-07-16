@@ -9,6 +9,8 @@ namespace XamarinCommunityToolkitSample.Pages
         public BaseNavigationPage(Xamarin.Forms.Page root) : base(root)
         {
             On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
+            On<iOS>().DisableTranslucentNavigationBar();
+            On<iOS>().SetHideNavigationBarSeparator(true);
         }
     }
 }
