@@ -9,7 +9,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 {
     public class ItemTappedEventArgsConverter_Tests
     {
-        public static object expectedValue = 100;
+        static object expectedValue = 100;
 
         public static IEnumerable<object[]> GetData() => new List<object[]>
             {
@@ -18,7 +18,7 @@ namespace XamarinCommunityToolkit.UnitTests.Converters
 
         [Theory]
         [MemberData(nameof(GetData))]
-        public void InverterBoolConverter(ItemTappedEventArgs value, object expectedResult)
+        public void ItemTappedEventArgsConverter(ItemTappedEventArgs value, object expectedResult)
         {
             var itemTappedEventArgsConverter = new ItemTappedEventArgsConverter();
 

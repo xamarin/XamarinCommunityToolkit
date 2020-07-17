@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace XamarinCommunityToolkitSample.ViewModels.Converters
 {
-    public class ItemTappedEventArgsViewModel
+    public class ItemSelectedEventArgsViewModel
     {
         public IEnumerable<Person> Items { get; } =
             new List<Person>()
@@ -14,13 +14,7 @@ namespace XamarinCommunityToolkitSample.ViewModels.Converters
                 new Person() { Id = 3, Name = "Person 3" }
             };
 
-        public ICommand ItemTappedCommand { get; private set; } = new Command<Person>(async (person)
-            => await Application.Current.MainPage.DisplayAlert("Item Tapped:", person.Name, "Cancel"));
-    }
-
-    public class Person
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public ICommand ItemSelectedCommand { get; private set; } = new Command<Person>(async (person)
+            => await Application.Current.MainPage.DisplayAlert("Item Selected:", person.Name, "Cancel"));
     }
 }
