@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Xamarin.Forms;
-using XamarinCommunityToolkit.Helpers;
+using Microsoft.Toolkit.Xamarin.Forms.Helpers;
 
-namespace XamarinCommunityToolkit.Effects
+namespace Microsoft.Toolkit.Xamarin.Forms.Effects
 {
     public static class SafeAreaEffect
     {

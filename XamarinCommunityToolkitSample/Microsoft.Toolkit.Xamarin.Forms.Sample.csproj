@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkit\XamarinCommunityToolkit.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="resources\xamarin_monkey.png">
       <LogicalName>xamarin_monkey.png</LogicalName>
     </EmbeddedResource>
@@ -41,5 +37,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="resources\xamarin_monkey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj" />
   </ItemGroup>
 </Project>

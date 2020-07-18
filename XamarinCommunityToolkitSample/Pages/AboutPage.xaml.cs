@@ -3,9 +3,9 @@ using System.Linq;
 using Octokit;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using XamarinCommunityToolkitSample.ViewModels;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels;
 
-namespace XamarinCommunityToolkitSample.Pages
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages
 {
     public partial class AboutPage : ContentPage
     {

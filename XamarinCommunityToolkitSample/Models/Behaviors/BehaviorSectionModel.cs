@@ -1,5 +1,5 @@
 ﻿using System;
-namespace XamarinCommunityToolkitSample.Models.Behaviors
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Models.Behaviors
 {
     public class BehaviorSectionModel
     {

@@ -1,11 +1,11 @@
 ﻿using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Effects
+namespace Microsoft.Toolkit.Xamarin.Forms.Effects
 {
     public class SafeAreaEffectRouter : RoutingEffect
     {
         public SafeAreaEffectRouter()
-            : base($"{nameof(XamarinCommunityToolkit)}.{nameof(SafeAreaEffectRouter)}")
+            : base($"{nameof(Microsoft.Toolkit.Xamarin.Forms)}.{nameof(SafeAreaEffectRouter)}")
         {
         }
     }

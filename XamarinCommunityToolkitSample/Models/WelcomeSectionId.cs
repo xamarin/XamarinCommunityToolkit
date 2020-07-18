@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XamarinCommunityToolkitSample.Models
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Models
 {
     public enum WelcomeSectionId
     {

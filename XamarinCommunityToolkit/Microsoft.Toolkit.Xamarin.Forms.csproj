@@ -2,8 +2,8 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
-    <AssemblyName>XamarinCommunityToolkit</AssemblyName>
-    <RootNamespace>XamarinCommunityToolkit</RootNamespace>
+    <AssemblyName>Microsoft.Toolkit.Xamarin.Forms</AssemblyName>
+    <RootNamespace>Microsoft.Toolkit.Xamarin.Forms</RootNamespace>
     <PackageId>XamarinCommunityToolkit</PackageId>
     <PackageIconUrl>
     </PackageIconUrl>

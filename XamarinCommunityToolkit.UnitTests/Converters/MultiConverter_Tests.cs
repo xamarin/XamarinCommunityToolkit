@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Globalization;
-using XamarinCommunityToolkit.Converters;
+using Microsoft.Toolkit.Xamarin.Forms.Converters;
 using Xunit;
 
-namespace XamarinCommunityToolkit.UnitTests.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
 {
     public class MultiConverter_Tests
     {

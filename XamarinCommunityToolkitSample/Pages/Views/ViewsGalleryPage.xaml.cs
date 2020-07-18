@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Models.Views;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models.Views;
 
-namespace XamarinCommunityToolkitSample.Pages.Views
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views
 {
     public partial class ViewsGalleryPage : ContentPage
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace XamarinCommunityToolkit.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.Converters
 {
     /// <summary>
     /// The text case that the TextCaseConverter should convert a value.

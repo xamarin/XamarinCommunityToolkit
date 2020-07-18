@@ -1,4 +1,4 @@
-﻿namespace XamarinCommunityToolkitSample.Models.Converters
+﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Models.Converters
 {
     public class ConverterSectionModel
     {

@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class ValidationBehavior : BaseBehavior

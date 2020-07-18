@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkitSample.ViewModels.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
 {
     public class ItemTappedEventArgsViewModel
     {

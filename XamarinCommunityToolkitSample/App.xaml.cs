@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Pages;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages;
 
-namespace XamarinCommunityToolkitSample
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample
 {
     public partial class App : Application
     {

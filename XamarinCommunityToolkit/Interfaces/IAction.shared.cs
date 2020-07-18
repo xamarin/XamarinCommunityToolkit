@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
 
-namespace XamarinCommunityToolkit.Interfaces
+namespace Microsoft.Toolkit.Xamarin.Forms.Interfaces
 {
     [Preserve(AllMembers = true)]
     public interface IAction

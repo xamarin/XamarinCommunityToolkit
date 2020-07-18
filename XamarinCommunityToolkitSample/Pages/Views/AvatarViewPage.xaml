@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:XamarinCommunityToolkit.Views;assembly=XamarinCommunityToolkit"
-             xmlns:viewmodels="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Views"
-             x:Class="XamarinCommunityToolkitSample.Pages.Views.AvatarViewPage"
+             xmlns:views="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Views;assembly=Microsoft.Toolkit.Xamarin.Forms"
+             xmlns:viewmodels="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Views"
+             x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views.AvatarViewPage"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="True">
 

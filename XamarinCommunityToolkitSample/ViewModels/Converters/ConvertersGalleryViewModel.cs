@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using XamarinCommunityToolkitSample.Models.Converters;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models.Converters;
 
-namespace XamarinCommunityToolkitSample.ViewModels.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
 {
     public class ConvertersGalleryViewModel : BaseViewModel
     {

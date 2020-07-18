@@ -1,11 +1,11 @@
-﻿using XamarinCommunityToolkit.Converters;
+﻿using Microsoft.Toolkit.Xamarin.Forms.Converters;
 using System.Collections.Generic;
 using System.Globalization;
 using Xamarin.Forms;
 using System;
 using Xunit;
 
-namespace XamarinCommunityToolkit.UnitTests.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
 {
     public class ItemSelectedEventArgsConverter_Tests
     {

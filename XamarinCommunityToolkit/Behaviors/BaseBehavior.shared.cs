@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class BaseBehavior : Behavior<View>

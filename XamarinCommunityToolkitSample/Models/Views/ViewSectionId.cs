@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XamarinCommunityToolkitSample.Models.Views
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Models.Views
 {
     public enum ViewSectionId
     {

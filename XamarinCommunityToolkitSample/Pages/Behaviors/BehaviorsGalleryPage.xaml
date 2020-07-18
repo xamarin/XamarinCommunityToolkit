@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Behaviors"
-             x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.BehaviorsGalleryPage"
+             xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors"
+             x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors.BehaviorsGalleryPage"
              ControlTemplate="{StaticResource GalleryPageTemplate}">
 
     <ContentPage.BindingContext>

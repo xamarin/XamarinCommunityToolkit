@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class NumericValidationBehavior : ValidationBehavior
     {

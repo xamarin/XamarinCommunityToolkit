@@ -1,5 +1,5 @@
 ﻿using System;
-namespace XamarinCommunityToolkit.UnitTests.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
 {
     public class MultiConverterParameter_Tests
     {

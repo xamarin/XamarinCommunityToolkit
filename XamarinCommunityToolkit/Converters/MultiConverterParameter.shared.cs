@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.Converters
 {
     /// <summary>
     /// Represents a parameter to be used in the MultiConverter.

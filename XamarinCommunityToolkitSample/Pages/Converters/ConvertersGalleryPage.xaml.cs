@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Models.Converters;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models.Converters;
 
-namespace XamarinCommunityToolkitSample.Pages.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters
 {
     public partial class ConvertersGalleryPage : ContentPage
     {

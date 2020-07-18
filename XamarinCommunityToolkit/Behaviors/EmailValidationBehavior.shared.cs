@@ -4,7 +4,7 @@ using System.Globalization;
 #endif
 using System.Text.RegularExpressions;
 
-namespace XamarinCommunityToolkit.Behaviors
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class EmailValidationBehavior : TextValidationBehavior
     {

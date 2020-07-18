@@ -6,7 +6,7 @@ using Octokit;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkitSample.ViewModels
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {

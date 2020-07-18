@@ -1,5 +1,5 @@
 ﻿
-namespace XamarinCommunityToolkitSample.Models
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Models
 {
     public sealed class WelcomeSectionModel
     {

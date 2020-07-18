@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Models.Behaviors;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models.Behaviors;
 
-namespace XamarinCommunityToolkitSample.Pages.Behaviors
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors
 {
     public partial class BehaviorsGalleryPage : ContentPage
     {

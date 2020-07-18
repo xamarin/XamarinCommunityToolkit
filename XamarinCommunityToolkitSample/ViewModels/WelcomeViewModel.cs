@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using XamarinCommunityToolkitSample.Models;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
 
-namespace XamarinCommunityToolkitSample.ViewModels
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels
 {
     public class WelcomeViewModel : BaseViewModel
     {

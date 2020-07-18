@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Models;
-using XamarinCommunityToolkitSample.Pages.Behaviors;
-using XamarinCommunityToolkitSample.Pages.Converters;
-using XamarinCommunityToolkitSample.Pages.Views;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views;
 
-namespace XamarinCommunityToolkitSample.Pages
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages
 {
     public partial class WelcomePage : ContentPage
     {

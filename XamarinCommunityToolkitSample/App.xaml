@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             x:Class="XamarinCommunityToolkitSample.App">
+             x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.App">
     <Application.Resources>
         <!-- Platform resources -->
         <x:String x:Key="LogoResourceName">xamarin_logo.png</x:String>

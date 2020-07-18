@@ -2,9 +2,9 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="XamarinCommunityToolkitSample.Pages.WelcomePage"
-    xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels"
-    xmlns:extensions="clr-namespace:XamarinCommunityToolkit.Extensions;assembly=XamarinCommunityToolkit"
+    x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.WelcomePage"
+    xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels"
+    xmlns:extensions="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Extensions;assembly=Microsoft.Toolkit.Xamarin.Forms"
     x:Name="Page">
 
     <ContentPage.BindingContext>
