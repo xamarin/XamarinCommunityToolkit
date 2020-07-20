@@ -8,7 +8,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new WelcomePage());
+            MainPage = new BaseNavigationPage(new WelcomePage());
         }
     }
 }

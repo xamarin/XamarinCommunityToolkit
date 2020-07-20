@@ -7,17 +7,18 @@ using Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages
 {
-    public partial class AboutPage : ContentPage
+    public partial class AboutPage : BasePage
     {
         public AboutPage()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             await ((AboutViewModel)BindingContext).OnAppearing();
         }
+
+        async void OnCloseClicked(object sender, EventArgs e)
+            => await Navigation.PopModalAsync();
     }
 }
