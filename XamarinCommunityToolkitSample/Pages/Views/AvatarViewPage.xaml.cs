@@ -1,12 +1,8 @@
-﻿using Xamarin.Forms;
-
-namespace XamarinCommunityToolkitSample.Pages.Views
+﻿namespace XamarinCommunityToolkitSample.Pages.Views
 {
-    public partial class AvatarViewPage : ContentPage
+    public partial class AvatarViewPage : BasePage
     {
         public AvatarViewPage()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
     }
 }

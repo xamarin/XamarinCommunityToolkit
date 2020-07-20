@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using XamarinCommunityToolkitSample.Models.Views;
+using Xamarin.Forms;
+using XamarinCommunityToolkitSample.Models;
+using XamarinCommunityToolkitSample.Pages.Views;
 
 namespace XamarinCommunityToolkitSample.ViewModels.Views
 {
     public class ViewsGalleryViewModel : BaseViewModel
     {
-        public IEnumerable<ViewSectionModel> Items { get; } =
-            ((ViewSectionId[])Enum
-            .GetValues(typeof(ViewSectionId)))
-            .Select(id => new ViewSectionModel(id));
+        public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
+            new SectionModel(typeof(AvatarViewPage), "AvatarView", Color.FromHex("#498205"), "The AvatarView represents a user's name by using the initials and a generated background color."),
+        };
     }
 }

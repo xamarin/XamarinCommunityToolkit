@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace XamarinCommunityToolkitSample.Pages.Behaviors
+﻿namespace XamarinCommunityToolkitSample.Pages.Behaviors
 {
-    public partial class NumericValidationBehaviorPage : ContentPage
+    public partial class NumericValidationBehaviorPage : BasePage
     {
         public NumericValidationBehaviorPage()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
     }
 }

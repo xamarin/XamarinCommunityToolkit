@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Behaviors"
              x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.BehaviorsGalleryPage"
-             ControlTemplate="{StaticResource GalleryPageTemplate}">
+             ControlTemplate="{StaticResource GalleryPageTemplate}"
+                xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages">
 
-    <ContentPage.BindingContext>
+    <pages:BasePage.BindingContext>
         <vm:BehaviorsGalleryViewModel />
-    </ContentPage.BindingContext>
+    </pages:BasePage.BindingContext>
 
-</ContentPage>
+</pages:BasePage>

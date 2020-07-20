@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace XamarinCommunityToolkitSample.Pages.Behaviors
+﻿namespace XamarinCommunityToolkitSample.Pages.Behaviors
 {
-    public partial class EventToCommandBehaviorPage : ContentPage
+    public partial class EventToCommandBehaviorPage : BasePage
     {
         public EventToCommandBehaviorPage()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
     }
 }
