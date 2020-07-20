@@ -13,19 +13,23 @@ namespace XamarinCommunityToolkitSample.iOS.Renderers
         {
             base.ViewWillAppear(animated);
 
-            if (Element is NavigationPage)
-            {
-                //iOS older version fix
-                NavigationBar.SetBackgroundImage(new UIKit.UIImage(), UIKit.UIBarMetrics.Default);
-                NavigationBar.ShadowImage = new UIKit.UIImage();
-                NavigationBar.ClipsToBounds = true;
+            if (!(Element is NavigationPage))
+                return;
 
-                try //Newest iOS version fix - trycatch isn't optimal
-                {
-                    NavigationBar.ScrollEdgeAppearance.ShadowImage = new UIKit.UIImage();
-                    NavigationBar.ScrollEdgeAppearance.ShadowColor = null;
-                }
-                catch (Exception) { }
+            //iOS older version fix
+            NavigationBar.SetBackgroundImage(new UIKit.UIImage(), UIKit.UIBarMetrics.Default);
+            NavigationBar.ShadowImage = new UIKit.UIImage();
+            NavigationBar.ClipsToBounds = true;
+
+            //Newest iOS version fix - trycatch isn't optimal
+            try
+            {
+                NavigationBar.ScrollEdgeAppearance.ShadowImage = new UIKit.UIImage();
+                NavigationBar.ScrollEdgeAppearance.ShadowColor = null;
+            }
+            catch (Exception)
+            {
+                // Supressed because we don't really mind since it's the sample app.
             }
         }
     }

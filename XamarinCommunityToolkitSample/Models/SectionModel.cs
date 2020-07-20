@@ -6,11 +6,7 @@ namespace XamarinCommunityToolkitSample.Models
     public sealed class SectionModel
     {
         public SectionModel(Type type, string title, string description)
-        {
-            Type = type;
-            Title = title;
-            Description = description;
-        }
+            : this(type, title, Color.Default, description) { }
 
         public SectionModel(Type type, string title, Color color, string description)
         {
