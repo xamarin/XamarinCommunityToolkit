@@ -4,12 +4,12 @@
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
     <AssemblyName>Microsoft.Toolkit.Xamarin.Forms</AssemblyName>
     <RootNamespace>Microsoft.Toolkit.Xamarin.Forms</RootNamespace>
-    <PackageId>XamarinCommunityToolkit</PackageId>
+    <PackageId>Microsoft.Toolkit.Xamarin.Forms</PackageId>
     <PackageIconUrl>
     </PackageIconUrl>
     <Summary>Community-created toolkit with common Xamarin converters, effects, behaviors etc.</Summary>
-    <PackageTag>xamarin,ios,android,uwp,xamarin.forms,effects,controls,converters,animations,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,watchos,tvos,tizen</PackageTag>
-    <Title>XamarinCommunityToolkit</Title>
+    <PackageTag>xamarin,ios,android,uwp,xamarin.forms,effects,controls,converters,animations,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,watchos,tvos,tizen,Microsoft.Toolkit.Xamarin.Forms</PackageTag>
+    <Title>Microsoft.Toolkit.Xamarin.Forms</Title>
     <Description>The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.</Description>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
