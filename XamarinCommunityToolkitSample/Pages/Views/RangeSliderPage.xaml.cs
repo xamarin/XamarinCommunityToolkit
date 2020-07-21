@@ -27,35 +27,46 @@ namespace XamarinCommunityToolkitSample.Pages.Views
                 Source = source
             };
 
-        void OnShapeCircleSwitchToggled(object sender, ToggledEventArgs e)
+        void OnThumbRadiusSwitchToggled(object sender, ToggledEventArgs e)
         {
-            var radius = e.Value
-                ? -1
-                : 0;
-
-            if (sender == ThumbShapeCircleSwitch)
+            if (sender == LowerUpperThumbRadiusSwitch)
             {
-                RangeSlider.ThumbRadius = radius;
+                if (e.Value)
+                {
+                    RangeSlider.SetBinding(RangeSlider.LowerThumbRadiusProperty, GetSliderValueBinding(LowerThumbRadiusSlider));
+                    RangeSlider.SetBinding(RangeSlider.UpperThumbRadiusProperty, GetSliderValueBinding(UpperThumbRadiusSlider));
+                    return;
+                }
+
+                RangeSlider.LowerThumbRadius = (double)RangeSlider.LowerThumbRadiusProperty.DefaultValue;
+                RangeSlider.UpperThumbRadius = (double)RangeSlider.UpperThumbRadiusProperty.DefaultValue;
                 return;
             }
 
-            if (sender == LowerThumbShapeCircleSwitch)
+            if (sender == ThumbRadiusSwitch)
             {
-                RangeSlider.LowerThumbRadius = radius;
+                if (e.Value)
+                {
+                    RangeSlider.SetBinding(RangeSlider.ThumbRadiusProperty, GetSliderValueBinding(ThumbRadiusSlider));
+                    OnThumbRadiusSwitchToggled(LowerUpperThumbRadiusSwitch, new ToggledEventArgs(LowerUpperThumbRadiusSwitch.IsToggled));
+                    return;
+                }
+
+                RangeSlider.ThumbRadius = (double)RangeSlider.ThumbRadiusProperty.DefaultValue;
+                OnThumbRadiusSwitchToggled(LowerUpperThumbRadiusSwitch, new ToggledEventArgs(false));
+                return;
+            }
+        }
+
+        void OnTrackRadiusSwitchToggled(object sender, ToggledEventArgs e)
+        {
+            if (e.Value)
+            {
+                RangeSlider.SetBinding(RangeSlider.TrackRadiusProperty, GetSliderValueBinding(TrackRadiusSlider));
                 return;
             }
 
-            if (sender == UpperThumbShapeCircleSwitch)
-            {
-                RangeSlider.UpperThumbRadius = radius;
-                return;
-            }
-
-            if (sender == TrackShapeRoundedSwitch)
-            {
-                RangeSlider.TrackRadius = radius;
-                return;
-            }
+            RangeSlider.TrackRadius = (double)RangeSlider.TrackRadiusProperty.DefaultValue;
         }
     }
 }

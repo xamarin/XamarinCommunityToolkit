@@ -101,12 +101,20 @@
                         <Label Text="Upper Thumb View Set" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="UpperThumbViewSwitch" />
 
-                        <Label Text="Thumb Shape (CornerRadius -1 or 0)" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
-                        <Switch x:Name="ThumbShapeCircleSwitch" IsToggled="True" Toggled="OnShapeCircleSwitchToggled"/>
-                        <Label Text="Lower Thumb Shape" />
-                        <Switch x:Name="LowerThumbShapeCircleSwitch" IsToggled="True" Toggled="OnShapeCircleSwitchToggled"/>
-                        <Label Text="Upper Thumb Shape" />
-                        <Switch x:Name="UpperThumbShapeCircleSwitch" IsToggled="True" Toggled="OnShapeCircleSwitchToggled"/>
+                        <Label Text="Control Thumbs Radius" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Switch x:Name="ThumbRadiusSwitch" Toggled="OnThumbRadiusSwitchToggled"/>
+                        <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference ThumbRadiusSwitch}}">
+                            <Label Text="Thumb Radius" />
+                            <Slider x:Name="ThumbRadiusSlider" Maximum="25" Minimum="0" />
+                            <Label Text="Set Lower/Upper Thumb Radius separately" />
+                            <Switch x:Name="LowerUpperThumbRadiusSwitch" Toggled="OnThumbRadiusSwitchToggled"/>
+                            <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference LowerUpperThumbRadiusSwitch}}">
+                                <Label Text="Lower Thumb Radius" />
+                                <Slider x:Name="LowerThumbRadiusSlider" Maximum="25" Minimum="0" />
+                                <Label Text="Upper Thumb Radius" />
+                                <Slider x:Name="UpperThumbRadiusSlider" Maximum="25" Minimum="0" />
+                            </StackLayout>
+                        </StackLayout>
                     </StackLayout>
                 </Frame>
 
@@ -127,8 +135,9 @@
                         <Label Text="Track Highlight Border Color" />
                         <Picker x:Name="TrackHighlightBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="Track Shape (CornerRadius -1 or 0)" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
-                        <Switch x:Name="TrackShapeRoundedSwitch" IsToggled="True" Toggled="OnShapeCircleSwitchToggled"/>
+                        <Label Text="Control Track Radius" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Switch x:Name="TrackRadiusSwitch" Toggled="OnTrackRadiusSwitchToggled"/>
+                        <Slider x:Name="TrackRadiusSlider" IsVisible="{Binding IsToggled, Source={x:Reference TrackRadiusSwitch}}" Maximum="25" Minimum="0" />
                     </StackLayout>
                 </Frame>
 
