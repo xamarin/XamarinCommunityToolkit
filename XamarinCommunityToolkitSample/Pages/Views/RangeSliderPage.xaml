@@ -40,7 +40,7 @@
                 ValueLabelStringFormat="{StaticResource CustomValueLabeStringFormat}"
                 LowerValueLabelStyle="{StaticResource CustomLowerValueLabelStyle}"
                 UpperValueLabelStyle="{StaticResource CustomUpperValueLabelStyle}"
-                LowerThumbSize="{Binding Value, Source={x:Reference ThumbSizeSlider}}"
+                ThumbSize="{Binding Value, Source={x:Reference ThumbSizeSlider}}"
                 ThumbColor="{Binding SelectedItem, Source={x:Reference ThumbColorPicker}}"
                 LowerThumbColor="{Binding SelectedItem, Source={x:Reference LowerThumbColorPicker}}"
                 UpperThumbColor="{Binding SelectedItem, Source={x:Reference UpperThumbColorPicker}}"
