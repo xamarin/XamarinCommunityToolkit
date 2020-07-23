@@ -11,6 +11,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Views
     {
         public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
             new SectionModel(typeof(AvatarViewPage), "AvatarView", Color.FromHex("#498205"), "The AvatarView represents a user's name by using the initials and a generated background color."),
+            new SectionModel(typeof(RangeSliderPage), "RangeSlider", Color.Red, "The RangeSlider is a slider with two thumbs allowing to select numeric ranges."),
         };
     }
 }
