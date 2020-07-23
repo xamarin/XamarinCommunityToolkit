@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Xamarin.Forms;
+using XamarinCommunityToolkit.Behaviors;
 using XamarinCommunityToolkitSample.Models;
 using XamarinCommunityToolkitSample.Pages.Behaviors;
 
@@ -23,6 +24,11 @@ namespace XamarinCommunityToolkitSample.ViewModels.Behaviors
                 "NumericValidationBehavior",
                 "Changes an Entry's text color when an invalid numeric value is provided."
             ),
+            new SectionModel(
+                typeof(AnimationBehaviourPage),
+                "AnimationBehaviour",
+                "Perform animation when the specified UI element event is triggered"
+            )
         };
     }
 }
