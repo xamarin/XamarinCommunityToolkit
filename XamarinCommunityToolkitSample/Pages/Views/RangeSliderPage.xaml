@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:XamarinCommunityToolkit.Views;assembly=XamarinCommunityToolkit"
-             xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages"
-             x:Class="XamarinCommunityToolkitSample.Pages.Views.RangeSliderPage">
+             xmlns:views="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.UI.Controls;assembly=Microsoft.Toolkit.Xamarin.Forms"
+             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
+             x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views.RangeSliderPage">
 
     <pages:BasePage.Resources>
         <x:String x:Key="CustomValueLabeStringFormat">{0:0.#}</x:String>
