@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Models;
-using XamarinCommunityToolkitSample.Pages.Views;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views;
 
-namespace XamarinCommunityToolkitSample.ViewModels.Views
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Views
 {
     public class ViewsGalleryViewModel : BaseViewModel
     {

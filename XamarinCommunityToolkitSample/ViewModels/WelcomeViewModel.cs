@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Models;
-using XamarinCommunityToolkitSample.Pages.Behaviors;
-using XamarinCommunityToolkitSample.Pages.Converters;
-using XamarinCommunityToolkitSample.Pages.Extensions;
-using XamarinCommunityToolkitSample.Pages.TestCases;
-using XamarinCommunityToolkitSample.Pages.Views;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.TestCases;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Extensions;
 
-namespace XamarinCommunityToolkitSample.ViewModels
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels
 {
     public class WelcomeViewModel : BaseViewModel
     {

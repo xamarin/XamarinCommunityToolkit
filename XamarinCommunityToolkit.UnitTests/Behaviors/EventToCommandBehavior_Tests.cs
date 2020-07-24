@@ -6,10 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using XamarinCommunityToolkit.Behaviors;
+using Microsoft.Toolkit.Xamarin.Forms.Behaviors;
 using Xunit;
 
-namespace XamarinCommunityToolkit.UnitTests.Behaviors
+namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
 {
     public class EventToCommandBehavior_Tests
     {

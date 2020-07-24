@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
-                x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.EmailValidationBehaviorPage"
-                xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages">
+                xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
+                x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors.EmailValidationBehaviorPage"
+                xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages">
 
     <pages:BasePage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">

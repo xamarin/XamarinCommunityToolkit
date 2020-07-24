@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
-using XamarinCommunityToolkit.Extensions;
+using Microsoft.Toolkit.Xamarin.Forms.Extensions;
 
-namespace XamarinCommunityToolkit.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.Converters
 {
     /// <summary>
     /// Converts double to integer and vice versa.

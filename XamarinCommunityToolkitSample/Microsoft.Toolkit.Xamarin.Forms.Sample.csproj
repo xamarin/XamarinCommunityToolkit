@@ -7,14 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="resources\**" />
+    <EmbeddedResource Remove="resources\**" />
+    <None Remove="resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Octokit" Version="0.48.0" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.0.1.698" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkit\XamarinCommunityToolkit.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,5 +38,8 @@
     <Folder Include="Pages\TestCases\" />
     <Folder Include="ViewModels\TestCases\" />
     <Folder Include="ViewModels\Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj" />
   </ItemGroup>
 </Project>

@@ -7,8 +7,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{6968b3a4-1835-46a3-ac5c-1ae33b475983}</TemplateGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>XamarinCommunityToolkitSample.Droid</RootNamespace>
-    <AssemblyName>XamarinCommunityToolkitSample.Android</AssemblyName>
+    <RootNamespace>Microsoft.Toolkit.Xamarin.Forms.Sample.Droid</RootNamespace>
+    <AssemblyName>Microsoft.Toolkit.Xamarin.Forms.Sample.Android</AssemblyName>
     <Deterministic>True</Deterministic>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
@@ -91,12 +91,6 @@
     <AndroidResource Include="Resources\drawable\tab_feed.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkitSample\XamarinCommunityToolkitSample.csproj">
-      <Project>{81AADE72-D666-4AB0-83D9-8FE366E0755E}</Project>
-      <Name>XamarinCommunityToolkitSample</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\xamarinstore.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +98,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamarinCommunityToolkitSample\Microsoft.Toolkit.Xamarin.Forms.Sample.csproj">
+      <Project>{81aade72-d666-4ab0-83d9-8fe366e0755e}</Project>
+      <Name>Microsoft.Toolkit.Xamarin.Forms.Sample</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace XamarinCommunityToolkitSample.Pages.Views
+﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views
 {
     public partial class AvatarViewPage : BasePage
     {

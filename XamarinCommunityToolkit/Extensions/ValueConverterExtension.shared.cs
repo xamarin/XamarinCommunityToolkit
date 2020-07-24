@@ -3,7 +3,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace XamarinCommunityToolkit.Extensions
+namespace Microsoft.Toolkit.Xamarin.Forms.Extensions
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class ValueConverterExtension : IMarkupExtension<IValueConverter>

@@ -1,11 +1,11 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using XamarinCommunityToolkitSample.iOS.Renderers;
-using XamarinCommunityToolkitSample.Pages;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.iOS.Renderers;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages;
 
 [assembly: ExportRenderer(typeof(BaseNavigationPage), typeof(NoLineNavigationPageRenderer))]
-namespace XamarinCommunityToolkitSample.iOS.Renderers
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.iOS.Renderers
 {
     public class NoLineNavigationPageRenderer : NavigationRenderer
     {

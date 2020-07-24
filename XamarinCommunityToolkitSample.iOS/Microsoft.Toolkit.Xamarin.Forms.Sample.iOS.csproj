@@ -9,9 +9,9 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{89a4fe7c-635d-49c9-8d8c-5cd363c0d68d}</TemplateGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>XamarinCommunityToolkitSample.iOS</RootNamespace>
+    <RootNamespace>Microsoft.Toolkit.Xamarin.Forms.Sample.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>XamarinCommunityToolkitSample.iOS</AssemblyName>
+    <AssemblyName>Microsoft.Toolkit.Xamarin.Forms.Sample.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <ProvisioningType>automatic</ProvisioningType>
@@ -141,13 +141,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkitSample\XamarinCommunityToolkitSample.csproj">
+    <ProjectReference Include="..\XamarinCommunityToolkitSample\Microsoft.Toolkit.Xamarin.Forms.Sample.csproj">
       <Project>{81AADE72-D666-4AB0-83D9-8FE366E0755E}</Project>
-      <Name>XamarinCommunityToolkitSample</Name>
+      <Name>Microsoft.Toolkit.Xamarin.Forms.Sample</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XamarinCommunityToolkit\XamarinCommunityToolkit.csproj">
+    <ProjectReference Include="..\XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj">
       <Project>{B0DCDF81-953D-47DA-A7D4-0565339BF07C}</Project>
-      <Name>XamarinCommunityToolkit</Name>
+      <Name>Microsoft.Toolkit.Xamarin.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -2,9 +2,10 @@
 <pages:BasePage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="XamarinCommunityToolkitSample.Pages.WelcomePage"
-    xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels"
-    xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages"
+    x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.WelcomePage"
+    xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels"
+    xmlns:extensions="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Extensions;assembly=Microsoft.Toolkit.Xamarin.Forms"
+    xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
     xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     Title="Welcome" NavigationPage.BackButtonTitle=""
     x:Name="Page">

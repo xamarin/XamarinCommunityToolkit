@@ -1,8 +1,6 @@
-﻿using Xamarin.Forms;
-
-namespace XamarinCommunityToolkitSample.Pages.Converters
+﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters
 {
-    public partial class ItemSelectedEventArgsPage : ContentPage
+    public partial class ItemSelectedEventArgsPage : BasePage
     {
         public ItemSelectedEventArgsPage()
             => InitializeComponent();

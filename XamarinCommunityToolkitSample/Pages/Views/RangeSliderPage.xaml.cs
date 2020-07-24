@@ -1,7 +1,7 @@
-﻿using XamarinCommunityToolkit.Views;
+﻿using Microsoft.Toolkit.Xamarin.Forms.UI.Controls;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkitSample.Pages.Views
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views
 {
     public partial class RangeSliderPage
     {

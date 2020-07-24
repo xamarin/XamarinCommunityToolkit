@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Xamarin.Forms;
-using XamarinCommunityToolkitSample.Models;
-using XamarinCommunityToolkitSample.Pages.Converters;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters;
 
-namespace XamarinCommunityToolkitSample.ViewModels.Converters
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
 {
     public class ConvertersGalleryViewModel : BaseViewModel
     {
@@ -13,6 +13,13 @@ namespace XamarinCommunityToolkitSample.ViewModels.Converters
                 "ItemTappedEventArgs",
                 Color.FromHex("#498205"),
                 "A converter that allows you to extract the value from ItemTappedEventArgs that can be used in combination with EventToCommandBehavior."
+            ),
+
+            new SectionModel(
+                typeof(ItemSelectedEventArgsPage),
+                "ItemSelectedEventArgs",
+                Color.FromHex("#498205"),
+                "A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior."
             )
         };
     }

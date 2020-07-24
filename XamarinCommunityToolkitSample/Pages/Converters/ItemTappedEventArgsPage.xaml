@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:vm="clr-namespace:XamarinCommunityToolkitSample.ViewModels.Converters"
-                xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors;assembly=XamarinCommunityToolkit"
-                xmlns:converters="clr-namespace:XamarinCommunityToolkit.Converters;assembly=XamarinCommunityToolkit"
-                x:Class="XamarinCommunityToolkitSample.Pages.Converters.ItemTappedEventArgsPage"
-                xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages">
+                xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters"
+                xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
+                xmlns:converters="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Converters;assembly=Microsoft.Toolkit.Xamarin.Forms"
+                x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters.ItemTappedEventArgsPage"
+                xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages">
 
     <pages:BasePage.BindingContext>
         <vm:ItemTappedEventArgsViewModel />

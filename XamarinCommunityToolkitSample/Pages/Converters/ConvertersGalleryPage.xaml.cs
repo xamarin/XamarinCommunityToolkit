@@ -1,4 +1,4 @@
-﻿namespace XamarinCommunityToolkitSample.Pages.Converters
+﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters
 {
     public partial class ConvertersGalleryPage : BasePage
     {

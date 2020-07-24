@@ -1,4 +1,4 @@
-﻿namespace XamarinCommunityToolkitSample.Pages.Behaviors
+﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors
 {
     public partial class EmailValidationBehaviorPage : BasePage
     {

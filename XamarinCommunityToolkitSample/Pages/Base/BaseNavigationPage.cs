@@ -1,12 +1,13 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
+﻿using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
-namespace XamarinCommunityToolkitSample.Pages
+using XF = Xamarin.Forms;
+
+namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages
 {
-    public class BaseNavigationPage : Xamarin.Forms.NavigationPage
+    public class BaseNavigationPage : XF.NavigationPage
     {
-        public BaseNavigationPage(Xamarin.Forms.Page root) : base(root)
+        public BaseNavigationPage(XF.Page root) : base(root)
         {
             On<iOS>().SetModalPresentationStyle(UIModalPresentationStyle.FormSheet);
             On<iOS>().DisableTranslucentNavigationBar();
@@ -14,4 +15,3 @@ namespace XamarinCommunityToolkitSample.Pages
         }
     }
 }
-
