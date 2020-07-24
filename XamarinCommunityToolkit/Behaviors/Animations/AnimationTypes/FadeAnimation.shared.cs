@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace XamarinCommunityToolkit.Behaviors.Animations
 {
-    public class FadeAnimation: AnimationBase
+    public class FadeAnimation : AnimationBase
     {
         public static readonly BindableProperty FadeProperty =
            BindableProperty.Create(nameof(Fade), typeof(double), typeof(AnimationBase), 0.3, BindingMode.TwoWay);
