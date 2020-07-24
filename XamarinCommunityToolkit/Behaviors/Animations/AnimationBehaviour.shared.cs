@@ -10,8 +10,8 @@ namespace XamarinCommunityToolkit.Behaviors.Animations
 
         public AnimationBase AnimationType
         {
-            get { return (AnimationBase)GetValue(AnimationTypeProperty); }
-            set { SetValue(AnimationTypeProperty, value); }
+            get => (AnimationBase)GetValue(AnimationTypeProperty);
+            set => SetValue(AnimationTypeProperty, value);
         }
 
         bool isAnimating = false;
