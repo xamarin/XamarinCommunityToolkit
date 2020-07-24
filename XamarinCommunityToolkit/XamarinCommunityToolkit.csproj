@@ -78,6 +78,7 @@
     <Folder Include="Effects\" />
     <Folder Include="Behaviors\Animations\" />
     <Folder Include="Behaviors\Animations\AnimationTypes\" />
+  </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
   </ItemGroup>
