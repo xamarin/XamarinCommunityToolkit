@@ -77,35 +77,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="Effects\" />
     <Folder Include="Behaviors\Animations\" />
-    <Compile Include="Behaviors\Animations\AnimationBehaviour.shared.cs">
-      <SubType></SubType>
-    </Compile>
     <Folder Include="Behaviors\Animations\AnimationTypes\" />
-    <Compile Include="Behaviors\Animations\AnimationTypes\FadeAnimation.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Behaviors\Animations\AnimationTypes\AnimationBase.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Behaviors\Animations\AnimationTypes\ScaleAnimation.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Behaviors\Animations\AnimationTypes\RotateAnimation.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Behaviors\Animations\AnimationHelper.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Behaviors\Animations\AnimationTypes\ShakeAnimation.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Behaviors\Animations\AnimationTypes\FlipHorizontalAnimation.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Behaviors\Animations\AnimationTypes\FlipVerticalAnimation.shared.cs">
-      <SubType></SubType>
-    </Compile>
-  </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
   </ItemGroup>
