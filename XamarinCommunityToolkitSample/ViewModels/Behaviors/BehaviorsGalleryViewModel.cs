@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
 using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors;
-using Xamarin.Forms;
-using XamarinCommunityToolkit.Behaviors;
-using XamarinCommunityToolkitSample.Models;
-using XamarinCommunityToolkitSample.Pages.Behaviors;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
 {
@@ -27,8 +23,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
                 "Changes an Entry's text color when an invalid numeric value is provided."
             ),
             new SectionModel(
-                typeof(AnimationBehaviourPage),
-                "AnimationBehaviour",
+                typeof(AnimationBehaviorPage),
+                "AnimationBehavior",
                 "Perform animation when the specified UI element event is triggered"
             )
         };

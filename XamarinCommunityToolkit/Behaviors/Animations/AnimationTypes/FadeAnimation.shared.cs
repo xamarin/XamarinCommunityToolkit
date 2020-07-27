@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors.Animations
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class FadeAnimation : AnimationBase
     {
@@ -10,14 +10,11 @@ namespace XamarinCommunityToolkit.Behaviors.Animations
 
         public double Fade
         {
-            get { return (double)GetValue(FadeProperty); }
-            set { SetValue(FadeProperty, value); }
+            get => (double)GetValue(FadeProperty); 
+            set => SetValue(FadeProperty, value); 
         }
 
-        public FadeAnimation()
-        {
-            Duration = 300;
-        }
+        protected override uint DefaultDuration { get; set; } = 300;
 
         public override async Task Animate(View view)
         {

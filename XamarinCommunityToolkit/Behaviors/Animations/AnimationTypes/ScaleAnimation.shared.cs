@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors.Animations
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class ScaleAnimation : AnimationBase
     {
@@ -10,14 +10,11 @@ namespace XamarinCommunityToolkit.Behaviors.Animations
 
         public double Scale
         {
-            get { return (double)GetValue(ScaleProperty); }
-            set { SetValue(ScaleProperty, value); }
+            get => (double)GetValue(ScaleProperty);
+            set => SetValue(ScaleProperty, value); 
         }
 
-        public ScaleAnimation()
-        {
-            Duration = 170;
-        }
+        protected override uint DefaultDuration { get; set; } = 170;
 
         public override async Task Animate(View view)
         {

@@ -1,23 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors.Animations
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
-    public class FlipHorizontalAnimation : AnimationBase
+    public class FlipHorizontalAnimation : RotateAnimation
     {
-        public static readonly BindableProperty RotationProperty =
-             BindableProperty.Create(nameof(Rotation), typeof(double), typeof(AnimationBase), 90.0, BindingMode.TwoWay);
-
-        public double Rotation
-        {
-            get { return (double)GetValue(RotationProperty); }
-            set { SetValue(RotationProperty, value); }
-        }
-
-        public FlipHorizontalAnimation()
-        {
-            Duration = 300;
-        }
+        protected override double DefaultRotation { get; set; } = 90;
+        protected override uint DefaultDuration { get; set; } = 300;
 
         public override async Task Animate(View view)
         {

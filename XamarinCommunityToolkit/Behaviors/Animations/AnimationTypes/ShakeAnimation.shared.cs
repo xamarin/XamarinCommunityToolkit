@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors.Animations
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class ShakeAnimation : AnimationBase
     {
@@ -10,14 +10,11 @@ namespace XamarinCommunityToolkit.Behaviors.Animations
 
         public double StartFactor
         {
-            get { return (double)GetValue(StartFactorProperty); }
-            set { SetValue(StartFactorProperty, value); }
+            get => (double)GetValue(StartFactorProperty); 
+            set => SetValue(StartFactorProperty, value); 
         }
 
-        public ShakeAnimation()
-        {
-            Duration = 50;
-        }
+        protected override uint DefaultDuration { get; set; } = 50;
 
         public override async Task Animate(View view)
         {

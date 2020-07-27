@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace XamarinCommunityToolkit.Behaviors.Animations
+namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public enum EasingType
     {

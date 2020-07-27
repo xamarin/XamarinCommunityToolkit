@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:behaviors="clr-namespace:XamarinCommunityToolkit.Behaviors.Animations;assembly=XamarinCommunityToolkit"
-                x:Class="XamarinCommunityToolkitSample.Pages.Behaviors.AnimationBehaviourPage"
-                xmlns:pages="clr-namespace:XamarinCommunityToolkitSample.Pages">
-   <ScrollView>
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors.AnimationBehaviorPage"
+             xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
+             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages">
+      <ScrollView>
         <StackLayout Padding="{StaticResource ContentPadding}"
                      Spacing="10">
 
@@ -14,12 +14,12 @@
             <Button Text="Testing Fade Animation"
                    TextColor="HotPink">
                  <Button.Behaviors>
-                      <behaviors:AnimationBehaviour EventName="Clicked">
-                            <behaviors:AnimationBehaviour.AnimationType>
+                      <behaviors:AnimationBehavior EventName="Clicked">
+                            <behaviors:AnimationBehavior.AnimationType>
                                 <behaviors:FadeAnimation Easing="BounceIn"
                                                          Duration="100"/>
-                            </behaviors:AnimationBehaviour.AnimationType>
-                        </behaviors:AnimationBehaviour>
+                            </behaviors:AnimationBehavior.AnimationType>
+                        </behaviors:AnimationBehavior>
                 </Button.Behaviors>
             </Button>
 
@@ -27,11 +27,11 @@
                      HeightRequest="40"
                      HorizontalOptions="Fill">
                 <BoxView.Behaviors>
-                    <behaviors:AnimationBehaviour Command="{Binding MyCommand}">
-                        <behaviors:AnimationBehaviour.AnimationType>
+                    <behaviors:AnimationBehavior Command="{Binding MyCommand}">
+                        <behaviors:AnimationBehavior.AnimationType>
                             <behaviors:RotateAnimation/>
-                        </behaviors:AnimationBehaviour.AnimationType>
-                    </behaviors:AnimationBehaviour>
+                        </behaviors:AnimationBehavior.AnimationType>
+                    </behaviors:AnimationBehavior>
                 </BoxView.Behaviors>
             </BoxView>
 
@@ -39,55 +39,55 @@
                           BackgroundColor="Transparent"
                           HeightRequest="50">
                 <ImageButton.Behaviors>
-                    <behaviors:AnimationBehaviour EventName="Clicked">
-                        <behaviors:AnimationBehaviour.AnimationType>
+                    <behaviors:AnimationBehavior EventName="Clicked">
+                        <behaviors:AnimationBehavior.AnimationType>
                             <behaviors:FlipVerticalAnimation/>
-                        </behaviors:AnimationBehaviour.AnimationType>
-                    </behaviors:AnimationBehaviour>
+                        </behaviors:AnimationBehavior.AnimationType>
+                    </behaviors:AnimationBehavior>
                 </ImageButton.Behaviors>
             </ImageButton>
             
  
              <Label Text="Shake">
                 <Label.Behaviors>
-                    <behaviors:AnimationBehaviour Command="{Binding MyCommand}">
-                        <behaviors:AnimationBehaviour.AnimationType>
+                    <behaviors:AnimationBehavior Command="{Binding MyCommand}">
+                        <behaviors:AnimationBehavior.AnimationType>
                             <behaviors:ShakeAnimation/>
-                        </behaviors:AnimationBehaviour.AnimationType>
-                    </behaviors:AnimationBehaviour>
+                        </behaviors:AnimationBehavior.AnimationType>
+                    </behaviors:AnimationBehavior>
                 </Label.Behaviors>
             </Label>
 
             <Entry>
                 <Entry.Behaviors>
-                    <behaviors:AnimationBehaviour Command="{Binding MyCommand}"
+                    <behaviors:AnimationBehavior Command="{Binding MyCommand}"
                                                   EventName="Focused">
-                        <behaviors:AnimationBehaviour.AnimationType>
+                        <behaviors:AnimationBehavior.AnimationType>
                             <behaviors:ShakeAnimation/>
-                        </behaviors:AnimationBehaviour.AnimationType>
-                    </behaviors:AnimationBehaviour>
+                        </behaviors:AnimationBehavior.AnimationType>
+                    </behaviors:AnimationBehavior>
                 </Entry.Behaviors>
             </Entry>
            
              <Switch>
                 <Switch.Behaviors>
-                    <behaviors:AnimationBehaviour EventName="Toggled"
+                    <behaviors:AnimationBehavior EventName="Toggled"
                                                   Command="{Binding MyCommand}">
-                        <behaviors:AnimationBehaviour.AnimationType>
+                        <behaviors:AnimationBehavior.AnimationType>
                             <behaviors:FadeAnimation/>
-                        </behaviors:AnimationBehaviour.AnimationType>
-                    </behaviors:AnimationBehaviour>
+                        </behaviors:AnimationBehavior.AnimationType>
+                    </behaviors:AnimationBehavior>
                 </Switch.Behaviors>
             </Switch>
 
             <CheckBox>
                 <CheckBox.Behaviors>
-                    <behaviors:AnimationBehaviour EventName="CheckedChanged"
+                    <behaviors:AnimationBehavior EventName="CheckedChanged"
                                                   Command="{Binding MyCommand}">
-                        <behaviors:AnimationBehaviour.AnimationType>
+                        <behaviors:AnimationBehavior.AnimationType>
                             <behaviors:FadeAnimation/>
-                        </behaviors:AnimationBehaviour.AnimationType>
-                    </behaviors:AnimationBehaviour>
+                        </behaviors:AnimationBehavior.AnimationType>
+                    </behaviors:AnimationBehavior>
                 </CheckBox.Behaviors>
             </CheckBox>
         </StackLayout>
