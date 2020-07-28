@@ -16,12 +16,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         }
         
         public static readonly BindableProperty EasingTypeProperty =
-           BindableProperty.Create(nameof(Easing), typeof(EasingType), typeof(AnimationBase), EasingType.Linear,
+           BindableProperty.Create(nameof(Easing), typeof(Easing), typeof(AnimationBase), Easing.Linear,
                BindingMode.TwoWay);
 
-        public EasingType Easing
+        public Easing Easing
         {
-            get => (EasingType)GetValue(EasingTypeProperty); 
+            get => (Easing)GetValue(EasingTypeProperty); 
             set => SetValue(EasingTypeProperty, value);
         }
 

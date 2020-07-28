@@ -18,12 +18,10 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         public override async Task Animate(View view)
         {
-            var easing = AnimationHelper.GetEasing(Easing);
-
-            for (var i = StartFactor; i > 0; i= i-5)
+            for (var i = StartFactor; i > 0; i = i-5)
             {
-                await view.TranslateTo(-i, 0, Duration, easing);
-                await view.TranslateTo(i, 0, Duration, easing);
+                await view.TranslateTo(-i, 0, Duration, Easing);
+                await view.TranslateTo(i, 0, Duration, Easing);
             }
 
             view.TranslationX = 0;

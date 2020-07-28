@@ -13,8 +13,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             set => SetValue(AnimationTypeProperty, value);
         }
 
-        private bool isAnimating;
-        private TapGestureRecognizer tapGestureRecognizer;
+        bool isAnimating;
+        TapGestureRecognizer tapGestureRecognizer;
 
         protected override void OnAttachedTo(View bindable)
         {

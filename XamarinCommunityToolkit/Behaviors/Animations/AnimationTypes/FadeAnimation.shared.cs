@@ -18,9 +18,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         public override async Task Animate(View view)
         {
-            var easing = AnimationHelper.GetEasing(Easing);
-            await view.FadeTo(Fade, Duration, easing);
-            await view.FadeTo(1, Duration, easing);
+            await view.FadeTo(Fade, Duration, Easing);
+            await view.FadeTo(1, Duration, Easing);
         }
     }
 }

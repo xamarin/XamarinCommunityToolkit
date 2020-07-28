@@ -9,9 +9,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         public override async Task Animate(View view)
         {
-            var easing = AnimationHelper.GetEasing(Easing);
-            await view.RotateXTo(Rotation, Duration, easing);
-            await view.RotateXTo(0, Duration, easing);
+            await view.RotateXTo(Rotation, Duration, Easing);
+            await view.RotateXTo(0, Duration, Easing);
         }
     }
 }

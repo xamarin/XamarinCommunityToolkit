@@ -16,7 +16,7 @@
                  <Button.Behaviors>
                       <behaviors:AnimationBehavior EventName="Clicked">
                             <behaviors:AnimationBehavior.AnimationType>
-                                <behaviors:FadeAnimation Easing="BounceIn"
+                                <behaviors:FadeAnimation Easing="{x:Static Easing.Linear}"
                                                          Duration="100"/>
                             </behaviors:AnimationBehavior.AnimationType>
                         </behaviors:AnimationBehavior>

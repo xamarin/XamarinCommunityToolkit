@@ -13,7 +13,10 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
 
         public static IEnumerable<object[]> GetData() => new List<object[]>
             {
+            // We know it's deprecated, still good to test it
+#pragma warning disable CS0618 // Type or member is obsolete
                 new object[] { new ItemTappedEventArgs(null, expectedValue), expectedValue},
+#pragma warning restore CS0618 // Type or member is obsolete
             };
 
         [Theory]
