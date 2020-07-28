@@ -22,6 +22,11 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
                 "NumericValidationBehavior",
                 "Changes an Entry's text color when an invalid numeric value is provided."
             ),
+            new SectionModel(
+                typeof(AnimationBehaviorPage),
+                "AnimationBehavior",
+                "Perform animation when the specified UI element event is triggered"
+            )
         };
     }
 }

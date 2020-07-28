@@ -90,7 +90,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             eventHandler = null;
         }
 
-        void OnTriggerHandled(object sender = null, object eventArgs = null)
+        protected virtual void OnTriggerHandled(object sender = null, object eventArgs = null)
         {
             var parameter = CommandParameter
                 ?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, null)

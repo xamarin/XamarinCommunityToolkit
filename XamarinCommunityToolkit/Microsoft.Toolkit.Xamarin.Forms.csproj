@@ -23,11 +23,7 @@
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
       
-      
-      
       <!-- See if we can host these on MS docs? -->
-    
-    
     
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
@@ -77,6 +73,8 @@
     <Folder Include="Extensions\" />
     <Folder Include="Effects\" />
     <Folder Include="Controls\" />
+    <Folder Include="Behaviors\Animations\" />
+    <Folder Include="Behaviors\Animations\AnimationTypes\" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
