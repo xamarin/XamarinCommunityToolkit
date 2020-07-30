@@ -11,9 +11,9 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class TagBehavior : BaseBehavior<Label>
     {
-        public IList<TagType> Tags { get; } = new List<TagType>();
+        public IList<TagType> TagTypes { get; } = new List<TagType>();
 
-        string RegexPattern => $@"[{string.Join(string.Empty, Tags.Select(s => s.Symbol))}]\w+";
+        string RegexPattern => $@"[{string.Join(string.Empty, TagTypes.Select(s => s.Symbol))}]\w+";
 
         public static readonly BindableProperty CommandProperty =
          BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TagBehavior), null, defaultBindingMode: BindingMode.TwoWay);
@@ -105,7 +105,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
             if (isTag)
             {
-                span.Style = Tags.FirstOrDefault(c => text.Contains(c.Symbol)).Style;
+                span.Style = TagTypes.FirstOrDefault(c => text.Contains(c.Symbol)).Style;
             }
 
             return span;

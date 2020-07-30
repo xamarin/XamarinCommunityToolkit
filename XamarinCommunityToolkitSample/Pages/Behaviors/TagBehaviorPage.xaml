@@ -23,10 +23,10 @@
             <Label FormattedText="{Binding Text}" >
                  <Label.Behaviors>
                         <behaviors:TagBehavior Command="{Binding TagTappedCommand}">
-                          <behaviors:TagBehavior.Tags>
+                          <behaviors:TagBehavior.TagTypes>
                               <behaviors:TagType Style="{StaticResource HashtagSpanStyle}" Symbol="#"/>
                               <behaviors:TagType Style="{StaticResource MentionSpanStyle}" Symbol="@"/>
-                          </behaviors:TagBehavior.Tags>
+                          </behaviors:TagBehavior.TagTypes>
                         </behaviors:TagBehavior>
                  </Label.Behaviors>
             </Label>
