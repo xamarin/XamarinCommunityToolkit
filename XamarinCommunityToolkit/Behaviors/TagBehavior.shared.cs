@@ -101,9 +101,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             {
                 var tagSpans = label.FormattedText.Spans.Where(p => Regex.Match(p.Text, RegexPattern).Success);
                 foreach (var span in tagSpans)
-                {
                     configAction(span);
-                }
             }
         }
 
