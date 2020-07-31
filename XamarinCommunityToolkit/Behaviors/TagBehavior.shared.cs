@@ -110,19 +110,13 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         }
 
         Span CreateSpan(string text, bool isTag = false)
-        {
-            var span = new Span()
+            => new Span()
             {
                 Text = text,
+                Style = isTag 
+                    ? TagTypes.FirstOrDefault(c => text.Contains(c.Symbol))?.Style 
+                    : null
             };
-
-            if (isTag)
-            {
-                span.Style = TagTypes.FirstOrDefault(c => text.Contains(c.Symbol)).Style;
-            }
-
-            return span;
-        }
 
         void AddGestureRecognizer(Span span)
         {
