@@ -10,7 +10,36 @@ If you like to live dangerously (and while we are preparing our v1), you can use
 |--------------|--------------|----------|--------|
 | Azure DevOps         | Build        | Windows & Mac  | [![Build Status](https://dev.azure.com/xamarin/public/_apis/build/status/xamarin/CommunityToolkit/xamarin.XamarinCommunityToolkit%20(Public)?branchName=main)](https://dev.azure.com/xamarin/public/_build?definitionId=55&_a=summary)                                                  |
 
+## Sample App
+
+Browsing the [sample app](./XamarinCommunityToolkitSample) is the best place to start exploring what's available today. 
+
+## Installation
+
+The toolkit is available via NuGet, and should be installed into all your projects:
+
+* NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Microsoft.Toolkit.Xamarin.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.Toolkit.Xamarin.Forms)
+
+Now all you need to do is use it! 
+
+For example, to use the `AvatarView` you first include the toolkit namespace:
+
+```xaml
+xmlns:views="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.UI.Views;assembly=Microsoft.Toolkit.Xamarin.Forms"
+```
+
+Then place the view in your XAML:
+
+```xaml
+<views:AvatarView Text="DO" Size="46" Color="#FF3300" TextColor="White" />
+```
+
+Of course, `AvatarView` also supports `Source` for loading images plus a few other properties. Check it out!
+
+![AvatarView](./images/avatar-do.png)
+
 ## Contributions welcome!
+
 If you have one or more of these common pieces of code that you are always replicating across apps, don't hesitate to contribute! We aim to be the first NuGet package you install when creating a new Xamarin app!
 
 Please have a look at our [contribution guide](CONTRIBUTING.md) before you get started.
