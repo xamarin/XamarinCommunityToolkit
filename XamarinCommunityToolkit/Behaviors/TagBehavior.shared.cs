@@ -93,7 +93,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
                 formatted.Spans.Add(CreateSpan(remainingText));
             }
-           
         }
 
         void ConfigureTags(Label label, Action<Span> configAction)
