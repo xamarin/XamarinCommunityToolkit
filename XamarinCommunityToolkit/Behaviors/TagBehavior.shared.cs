@@ -11,7 +11,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class TagBehavior : BaseBehavior<Label>
     {
-        string RegexPattern => $@"[{string.Join(string.Empty, TagTypes.Select(s => s.Symbol))}]\w+";
+        readonly string RegexPattern => $@"[{string.Join(string.Empty, TagTypes.Select(s => s.Symbol))}]\w+";
 
         public static readonly BindableProperty CommandProperty =
          BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TagBehavior));
