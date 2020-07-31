@@ -27,6 +27,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
                 "AnimationBehavior",
                 "Perform animation when the specified UI element event is triggered"
             )
+            ,
+            new SectionModel(
+                typeof(PasswordValidationBehaviorPage),
+                "PasswordValidationBehavior",
+                "Changes an Entry's text color when an invalid password format is provided."
+            )
         };
     }
 }
