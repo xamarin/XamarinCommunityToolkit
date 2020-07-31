@@ -19,6 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj" />
+    <ProjectReference Include="..\Microsoft.Toolkit.Xamarin.Forms\Microsoft.Toolkit.Xamarin.Forms.csproj" />
   </ItemGroup>
 </Project>

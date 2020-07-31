@@ -141,16 +141,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkitSample\Microsoft.Toolkit.Xamarin.Forms.Sample.csproj">
-      <Project>{81AADE72-D666-4AB0-83D9-8FE366E0755E}</Project>
-      <Name>Microsoft.Toolkit.Xamarin.Forms.Sample</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj">
-      <Project>{B0DCDF81-953D-47DA-A7D4-0565339BF07C}</Project>
-      <Name>Microsoft.Toolkit.Xamarin.Forms</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\xamarinstore.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +156,9 @@
     <BundleResource Include="Resources\info%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Renderers\" />
+    <ProjectReference Include="..\Microsoft.Toolkit.Xamarin.Forms.Sample\Microsoft.Toolkit.Xamarin.Forms.Sample.csproj">
+      <Project>{809658c3-6da7-459f-83cc-755a449491a1}</Project>
+      <Name>Microsoft.Toolkit.Xamarin.Forms.Sample</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

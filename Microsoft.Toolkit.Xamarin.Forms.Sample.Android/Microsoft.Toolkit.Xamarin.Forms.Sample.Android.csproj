@@ -100,8 +100,8 @@
     <AndroidResource Include="Resources\drawable\info.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkitSample\Microsoft.Toolkit.Xamarin.Forms.Sample.csproj">
-      <Project>{81aade72-d666-4ab0-83d9-8fe366e0755e}</Project>
+    <ProjectReference Include="..\Microsoft.Toolkit.Xamarin.Forms.Sample\Microsoft.Toolkit.Xamarin.Forms.Sample.csproj">
+      <Project>{809658c3-6da7-459f-83cc-755a449491a1}</Project>
       <Name>Microsoft.Toolkit.Xamarin.Forms.Sample</Name>
     </ProjectReference>
   </ItemGroup>
