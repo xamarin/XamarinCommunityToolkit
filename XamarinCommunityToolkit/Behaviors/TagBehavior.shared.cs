@@ -41,8 +41,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         {
             base.OnViewPropertyChanged(sender, e);
 
-            var label = sender as Label;
-
             if (e.PropertyName == Label.FormattedTextProperty.PropertyName)
                 DetectAndStyleTags();
         }
