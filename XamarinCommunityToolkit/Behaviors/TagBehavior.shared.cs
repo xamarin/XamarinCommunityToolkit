@@ -11,7 +11,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class TagBehavior : BaseBehavior<Label>
     {
-        readonly string RegexPattern => $@"[{string.Join(string.Empty, TagTypes.Select(s => s.Symbol))}]\w+";
 
         public static readonly BindableProperty CommandProperty =
          BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TagBehavior));
@@ -62,6 +61,9 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             ConfigureTags(bindable, RemoveGestureRecognizer);
         }
 
+        //Matches any string started with one of the specified tag type symbols
+        string GetRegexPattern() => $@"[{string.Join(string.Empty, TagTypes.Select(s => s.Symbol))}]\w+";
+
         void DetectAndStyleTags()
         {
             if (!string.IsNullOrWhiteSpace(View.FormattedText?.ToString()))
@@ -69,7 +71,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
                 var textValue = View.FormattedText?.ToString();
                 View.FormattedText.Spans.Clear();
                 var formatted = View.FormattedText;
-                var collection = Regex.Matches(textValue, RegexPattern, RegexOptions.Singleline);
+                var collection = Regex.Matches(textValue, GetRegexPattern(), RegexOptions.Singleline);
 
                 var lastIndex = 0;
 
@@ -97,7 +99,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         {
             if (label.FormattedText?.Spans.Any() ?? false)
             {
-                var tagSpans = label.FormattedText.Spans.Where(p => Regex.Match(p.Text, RegexPattern).Success);
+                var tagSpans = label.FormattedText.Spans.Where(p => Regex.Match(p.Text, GetRegexPattern()).Success);
                 foreach (var span in tagSpans)
                     configAction(span);
             }
