@@ -122,17 +122,13 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         {
             var tapRecognizer = span.GestureRecognizers.FirstOrDefault() as TapGestureRecognizer;
             if (tapRecognizer != null)
-            {
                 tapRecognizer.Command = Command;
-            }
             else
-            {
                 span.GestureRecognizers.Add(new TapGestureRecognizer()
                 {
                     Command = Command,
                     CommandParameter = span.Text
                 });
-            }
         }
 
         void RemoveGestureRecognizer(Span span)
