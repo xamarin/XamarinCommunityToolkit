@@ -11,12 +11,13 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class TagBehavior : BaseBehavior<Label>
     {
-        public IList<TagType> TagTypes { get; } = new List<TagType>();
-
         string RegexPattern => $@"[{string.Join(string.Empty, TagTypes.Select(s => s.Symbol))}]\w+";
 
         public static readonly BindableProperty CommandProperty =
-         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TagBehavior), null, defaultBindingMode: BindingMode.TwoWay);
+         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TagBehavior), defaultBindingMode: BindingMode.TwoWay);
+
+        public static readonly BindableProperty TagTypesProperty =
+         BindableProperty.Create(nameof(TagTypes), typeof(IList<TagType>), typeof(TagBehavior), new List<TagType>(), defaultBindingMode: BindingMode.TwoWay);
 
         public ICommand Command
         {
@@ -24,10 +25,16 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             set => SetValue(CommandProperty, value);
         }
 
+        public IList<TagType> TagTypes
+        {
+            get => (IList<TagType>)GetValue(TagTypesProperty);
+            set => SetValue(TagTypesProperty, value);
+        }
+
         protected override void OnAttachedTo(Label bindable)
         {
-            OnViewPropertyChanged(bindable, new PropertyChangedEventArgs(nameof(Label.FormattedText)));
             base.OnAttachedTo(bindable);
+            DetectAndStyleTags();
         }
 
         protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -36,10 +43,34 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
             var label = sender as Label;
 
-            if (e.PropertyName == Label.FormattedTextProperty.PropertyName && $"{label.FormattedText}" is string textValue && !string.IsNullOrEmpty(textValue))
+            if (e.PropertyName == Label.FormattedTextProperty.PropertyName)
+                DetectAndStyleTags();
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            if (propertyName == CommandProperty.PropertyName && Command != null)
+                ConfigureTags(View, AddGestureRecognizer);
+            else if (propertyName == TagTypesProperty.PropertyName)
+                DetectAndStyleTags();
+        }
+
+        protected override void OnDetachingFrom(Label bindable)
+        {
+            base.OnDetachingFrom(bindable);
+
+            ConfigureTags(bindable, RemoveGestureRecognizer);
+        }
+
+        void DetectAndStyleTags()
+        {
+            if(!string.IsNullOrWhiteSpace(View.FormattedText?.ToString()))
             {
-                label.FormattedText.Spans.Clear();
-                var formatted = label.FormattedText;
+                var textValue = View.FormattedText?.ToString();
+                View.FormattedText.Spans.Clear();
+                var formatted = View.FormattedText;
                 var collection = Regex.Matches(textValue, RegexPattern, RegexOptions.Singleline);
 
                 var lastIndex = 0;
@@ -65,28 +96,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
                 formatted.Spans.Add(CreateSpan(remainingText));
             }
-        }
-
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            base.OnPropertyChanged(propertyName);
-
-            if (propertyName == CommandProperty.PropertyName && Command != null)
-            {
-                ConfigureTags(View, AddGestureRecognizer);
-            }
-        }
-
-        protected override void OnDetachingFrom(Label bindable)
-        {
-            base.OnDetachingFrom(bindable);
-
-            ConfigureTags(bindable, RemoveGestureRecognizer);
+           
         }
 
         void ConfigureTags(Label label, Action<Span> configAction)
         {
-            if (label.FormattedText != null && label.FormattedText.Spans.Any())
+            if (label.FormattedText?.Spans.Any() ?? false)
             {
                 var tagSpans = label.FormattedText.Spans.Where(p => Regex.Match(p.Text, RegexPattern).Success);
                 foreach (var span in tagSpans)
@@ -136,22 +151,5 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
                 span.GestureRecognizers.Remove(tapRecognizer);
             }
         }
-    }
-
-    public class TagType
-    {
-        public string Symbol { get; set; } = "#";
-        public Style Style { get; set; } = new Style(typeof(Span))
-        {
-            Class = "DefaultSpanStyle",
-            Setters =
-                {
-                    new Setter
-                    {
-                        Property = Span.TextColorProperty,
-                        Value = Color.Blue
-                    }
-                }
-        };
     }
 }

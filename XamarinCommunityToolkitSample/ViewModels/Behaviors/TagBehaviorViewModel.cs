@@ -14,6 +14,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
             set => Set(ref text, value);
         }
 
-        public ICommand TagTappedCommand => new Command<string>(async (s) => await Application.Current.MainPage.DisplayAlert("Tag Tapped:", s, "Ok"));
+        ICommand tagTappedCommand;
+
+        public ICommand TagTappedCommand => tagTappedCommand ?? new Command<string>(async (s) => await Application.Current.MainPage.DisplayAlert("Tag Tapped:", s, "Ok"));
     }
 }

@@ -6,8 +6,8 @@ using Xamarin.Forms;
 namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public abstract class BaseBehavior<T> : Behavior<T>
-        where T : View
+    public abstract class BaseBehavior<TView> : Behavior<TView>
+        where TView : View
     {
         static readonly MethodInfo getContextMethod = typeof(BindableObject).GetRuntimeMethods()?.FirstOrDefault(m => m.Name == "GetContext");
 
@@ -15,13 +15,13 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         BindingBase defaultBindingContextBinding;
 
-        protected T View { get; private set; }
+        protected TView View { get; private set; }
 
         protected virtual void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
         }
 
-        protected override void OnAttachedTo(T bindable)
+        protected override void OnAttachedTo(TView bindable)
         {
             base.OnAttachedTo(bindable);
             View = bindable;
