@@ -19,7 +19,7 @@
         </ResourceDictionary>
     </pages:BasePage.Resources>
     <StackLayout>
-            <Label Margin="0,20,0,40" Text="This sample demostrate how to use tag behavior with different tags."/>
+            <Label Margin="0,20,0,40" Text="This sample demonstrate how to use tag behavior with different tags."/>
             <Label FormattedText="{Binding Text}" >
                  <Label.Behaviors>
                         <behaviors:TagBehavior Command="{Binding TagTappedCommand}">
