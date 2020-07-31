@@ -14,10 +14,10 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         string RegexPattern => $@"[{string.Join(string.Empty, TagTypes.Select(s => s.Symbol))}]\w+";
 
         public static readonly BindableProperty CommandProperty =
-         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TagBehavior), defaultBindingMode: BindingMode.TwoWay);
+         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(TagBehavior));
 
         public static readonly BindableProperty TagTypesProperty =
-         BindableProperty.Create(nameof(TagTypes), typeof(IList<TagType>), typeof(TagBehavior), new List<TagType>(), defaultBindingMode: BindingMode.TwoWay);
+         BindableProperty.Create(nameof(TagTypes), typeof(IList<TagType>), typeof(TagBehavior), new List<TagType>());
 
         public ICommand Command
         {
