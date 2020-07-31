@@ -84,9 +84,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
                     formatted.Spans.Add(span);
 
                     if (Command != null)
-                    {
                         AddGestureRecognizer(span);
-                    }
                 }
 
                 var remainingText = textValue.Substring(lastIndex);
