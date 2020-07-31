@@ -64,7 +64,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         void DetectAndStyleTags()
         {
-            if(!string.IsNullOrWhiteSpace(View.FormattedText?.ToString()))
+            if (!string.IsNullOrWhiteSpace(View.FormattedText?.ToString()))
             {
                 var textValue = View.FormattedText?.ToString();
                 View.FormattedText.Spans.Clear();
