@@ -30,7 +30,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
             new SectionModel(
                 typeof(MaskedBehaviorPage),
                 "MaskedBehavior",
-                "Masked text in entry with specific patter"
+                "Masked text in entry with specific pattern"
             )
         };
     }
