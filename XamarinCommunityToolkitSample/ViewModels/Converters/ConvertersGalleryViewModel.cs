@@ -20,6 +20,13 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
                 "ItemSelectedEventArgs",
                 Color.FromHex("#498205"),
                 "A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior."
+            ),
+
+            new SectionModel(
+                typeof(ByteArrayToImageSourcePage),
+                "ByteArrayToImageSource",
+                Color.FromHex("#498205"),
+                "A converter that allows you to convert byte array to an object of a type ImageSource."
             )
         };
     }
