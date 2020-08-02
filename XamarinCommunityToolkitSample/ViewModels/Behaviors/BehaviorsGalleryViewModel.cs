@@ -26,6 +26,11 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
                 typeof(AnimationBehaviorPage),
                 "AnimationBehavior",
                 "Perform animation when the specified UI element event is triggered"
+            ),
+            new SectionModel(
+                typeof(MaskedBehaviorPage),
+                "MaskedBehavior",
+                "Masked text in entry with specific patter"
             )
         };
     }
