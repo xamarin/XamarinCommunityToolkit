@@ -30,21 +30,25 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
                 IsBusy = true;
 
                 var contributors = await gitHubClient.Repository.GetAllContributors("xamarin", "XamarinCommunityToolkit");
-                var avatarUrl = contributors.Where(c => c.Login == "almirvuk")
-                    .FirstOrDefault()
-                    .AvatarUrl;
+                var avatarUrl = contributors?.FirstOrDefault(c => c.Login == "almirvuk")?.AvatarUrl;
+
+                if (avatarUrl == null)
+                    return;
 
                 // Needed to produce some kind of byte array for sample testing
                 using var client = new HttpClient();
                 using var response = await client.GetAsync(avatarUrl);
+
+                if (!response.IsSuccessStatusCode)
+                    return;
+
                 var imageBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 
                 Avatar = imageBytes;
-
-                IsBusy = false;
             }
-            catch
+            finally
             {
+                IsBusy = false;
             }
         }
     }
