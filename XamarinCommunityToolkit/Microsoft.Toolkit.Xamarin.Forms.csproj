@@ -22,9 +22,9 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
-      
+
       <!-- See if we can host these on MS docs? -->
-    
+
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
@@ -67,6 +67,7 @@
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
+    <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Extensions\" />
@@ -110,8 +111,5 @@
     <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
       <Compile Include="**\*.tizen.cs" />
       <Compile Include="**\*.tizen.*.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Include="Behaviors\MaskedBehavior.cs" />
     </ItemGroup>
 </Project>
