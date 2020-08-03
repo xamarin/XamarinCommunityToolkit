@@ -19,6 +19,7 @@ Browsing the [sample app](./XamarinCommunityToolkitSample) is the best place to 
 The toolkit is available via NuGet, and should be installed into all your projects:
 
 * NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Microsoft.Toolkit.Xamarin.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.Toolkit.Xamarin.Forms)
+* NuGet Nightly Releases: [![NuGet Nightly](https://img.shields.io/badge/NuGet-Nightly-yellow)](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json)
 
 Now all you need to do is use it! 
 
