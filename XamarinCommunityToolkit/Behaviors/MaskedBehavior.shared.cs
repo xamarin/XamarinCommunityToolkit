@@ -9,7 +9,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         IDictionary<int, char> positions;
 
         public static readonly BindableProperty MaskProperty =
-            BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), string.Empty, propertyChanged: OnMaskPropertyChanged);
+            BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), propertyChanged: OnMaskPropertyChanged);
 
         public static readonly BindableProperty UnMaskedCharacterProperty =
             BindableProperty.Create(nameof(UnMaskedCharacter), typeof(char), typeof(MaskedBehavior), 'X', propertyChanged: OnUnMaskedCharacterPropertyChanged);
@@ -27,23 +27,24 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         protected override void OnAttachedTo(View bindable)
         {
-            var inputView = bindable as InputView;
-            inputView.TextChanged += OnEntryTextChanged;
+            ((InputView)bindable).TextChanged += OnEntryTextChanged;
             base.OnAttachedTo(bindable);
         }
         protected override void OnDetachingFrom(View bindable)
         {
-            var inputView = bindable as InputView;
-            inputView.TextChanged -= OnEntryTextChanged;
+            ((InputView)bindable).TextChanged -= OnEntryTextChanged;
             base.OnDetachingFrom(bindable);
         }
 
-        static void OnMaskPropertyChanged(BindableObject bindable, object oldValue, object newValue) => ((MaskedBehavior)bindable).SetPositions();
-        static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue) => ((MaskedBehavior)bindable).SetPositions();
+        static void OnMaskPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+            => ((MaskedBehavior)bindable).SetPositions();
+
+        static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+            => ((MaskedBehavior)bindable).SetPositions();
 
         void SetPositions()
         {
-            if (string.IsNullOrEmpty((string)GetValue(MaskProperty)))
+            if (string.IsNullOrEmpty(Mask))
             {
                 positions = null;
                 return;
