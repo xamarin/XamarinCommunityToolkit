@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
-    public class MaskedBehavior : Behavior<Entry>
+    public class MaskedBehavior : BaseBehavior
     {
         string mask = "";
         IDictionary<int, char> positions;
@@ -19,16 +19,19 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             }
         }
 
-        protected override void OnAttachedTo(Entry entry)
+
+        protected override void OnAttachedTo(View bindable)
         {
-            entry.TextChanged += OnEntryTextChanged;
-            base.OnAttachedTo(entry);
+            var inputView = bindable as InputView;
+            inputView.TextChanged += OnEntryTextChanged;
+            base.OnAttachedTo(bindable);
         }
 
-        protected override void OnDetachingFrom(Entry entry)
+        protected override void OnDetachingFrom(View bindable)
         {
-            entry.TextChanged -= OnEntryTextChanged;
-            base.OnDetachingFrom(entry);
+            var inputView = bindable as InputView;
+            inputView.TextChanged -= OnEntryTextChanged;
+            base.OnDetachingFrom(bindable);
         }
 
         void SetPositions()
@@ -41,30 +44,22 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
             var list = new Dictionary<int, char>();
             for (var i = 0; i < Mask.Length; i++)
-            {
                 if (Mask[i] != 'X')
-                {
                     list.Add(i, Mask[i]);
-                }
-            }
 
             positions = list;
         }
 
         void OnEntryTextChanged(object sender, EventArgs args)
         {
-            var entry = sender as Entry;
+            var inputView = sender as InputView;
+            var text = inputView.Text;
 
-            var text = entry.Text;
-
-            if (string.IsNullOrWhiteSpace(text) || positions == null)
-            {
-                return;
-            }
+            if (string.IsNullOrWhiteSpace(text) || positions == null) return;
 
             if (text.Length > mask.Length)
             {
-                entry.Text = text.Remove(text.Length - 1);
+                inputView.Text = text.Remove(text.Length - 1);
                 return;
             }
 
@@ -74,14 +69,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
                 var value = position.Value.ToString();
 
-                //!important - If user types in masked value, don't masked value
+                //!important - If user types in masked value, don't add masked value
                 if (text.Substring(position.Key, 1) != value)
-                {
                     text = text.Insert(position.Key, value);
-                }
             }
 
-            entry.Text = text;
+            inputView.Text = text;
         }
     }
 }

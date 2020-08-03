@@ -64,7 +64,6 @@
             <Label Padding="10,0,10,50"
                    FontSize="Small"
                    Text="e.g. Phone Number '(XXX) XXX-XXXX'" />
-
         </StackLayout>
     </ScrollView>
 </pages:BasePage>
