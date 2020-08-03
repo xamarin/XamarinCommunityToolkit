@@ -11,7 +11,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         public static readonly BindableProperty MaskProperty =
             BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), string.Empty, propertyChanged: OnMaskPropertyChanged);
 
-
         public static readonly BindableProperty UnMaskedCharacterProperty =
             BindableProperty.Create(nameof(UnMaskedCharacter), typeof(char), typeof(MaskedBehavior), 'X', propertyChanged: OnUnMaskedCharacterPropertyChanged);
 
@@ -26,21 +25,19 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             set => SetValue(UnMaskedCharacterProperty, value);
         }
 
-
-
         protected override void OnAttachedTo(View bindable)
         {
             var inputView = bindable as InputView;
             inputView.TextChanged += OnEntryTextChanged;
             base.OnAttachedTo(bindable);
         }
-
         protected override void OnDetachingFrom(View bindable)
         {
             var inputView = bindable as InputView;
             inputView.TextChanged -= OnEntryTextChanged;
             base.OnDetachingFrom(bindable);
         }
+
         static void OnMaskPropertyChanged(BindableObject bindable, object oldValue, object newValue) => ((MaskedBehavior)bindable).SetPositions();
         static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue) => ((MaskedBehavior)bindable).SetPositions();
 
