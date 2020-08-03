@@ -6,18 +6,26 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class MaskedBehavior : BaseBehavior
     {
-        string mask = "";
         IDictionary<int, char> positions;
+
+        public static readonly BindableProperty MaskProperty =
+            BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), string.Empty, propertyChanged: OnMaskPropertyChanged);
+
+
+        public static readonly BindableProperty UnMaskedCharacterProperty =
+            BindableProperty.Create(nameof(UnMaskedCharacter), typeof(char), typeof(MaskedBehavior), 'X', propertyChanged: OnUnMaskedCharacterPropertyChanged);
 
         public string Mask
         {
-            get => mask;
-            set
-            {
-                mask = value;
-                SetPositions();
-            }
+            get => (string)GetValue(MaskProperty);
+            set => SetValue(MaskProperty, value);
         }
+        public char UnMaskedCharacter
+        {
+            get => (char)GetValue(UnMaskedCharacterProperty);
+            set => SetValue(UnMaskedCharacterProperty, value);
+        }
+
 
 
         protected override void OnAttachedTo(View bindable)
@@ -33,10 +41,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             inputView.TextChanged -= OnEntryTextChanged;
             base.OnDetachingFrom(bindable);
         }
+        static void OnMaskPropertyChanged(BindableObject bindable, object oldValue, object newValue) => ((MaskedBehavior)bindable).SetPositions();
+        static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue) => ((MaskedBehavior)bindable).SetPositions();
 
         void SetPositions()
         {
-            if (string.IsNullOrEmpty(Mask))
+            if (string.IsNullOrEmpty((string)GetValue(MaskProperty)))
             {
                 positions = null;
                 return;
@@ -44,7 +54,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
             var list = new Dictionary<int, char>();
             for (var i = 0; i < Mask.Length; i++)
-                if (Mask[i] != 'X')
+                if (Mask[i] != UnMaskedCharacter)
                     list.Add(i, Mask[i]);
 
             positions = list;
@@ -57,7 +67,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
             if (string.IsNullOrWhiteSpace(text) || positions == null) return;
 
-            if (text.Length > mask.Length)
+            if (text.Length > Mask.Length)
             {
                 inputView.Text = text.Remove(text.Length - 1);
                 return;

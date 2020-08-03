@@ -20,6 +20,15 @@
 
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
+                    <behaviors:MaskedBehavior Mask="AA-AA-AA" UnMaskedCharacter="A" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Padding="10,0,10,50"
+                   FontSize="Small"
+                   Text="e.g. Sort code 'AA-AA-AA'" />
+
+            <Entry Keyboard="Numeric">
+                <Entry.Behaviors>
                     <behaviors:MaskedBehavior Mask="XXXX XXXX XXXX XXXX" />
                 </Entry.Behaviors>
             </Entry>
