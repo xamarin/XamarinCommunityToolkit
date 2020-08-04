@@ -5,7 +5,8 @@
              xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
              xmlns:converters="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Converters;assembly=Microsoft.Toolkit.Xamarin.Forms"
              x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters.ItemSelectedEventArgsPage"
-             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages" xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
+             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
+             xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
 
     <pages:BasePage.BindingContext>
         <vm:ItemSelectedEventArgsViewModel />
