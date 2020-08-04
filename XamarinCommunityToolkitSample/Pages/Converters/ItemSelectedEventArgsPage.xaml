@@ -5,7 +5,7 @@
              xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
              xmlns:converters="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Converters;assembly=Microsoft.Toolkit.Xamarin.Forms"
              x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters.ItemSelectedEventArgsPage"
-             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages">
+             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages" xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
 
     <pages:BasePage.BindingContext>
         <vm:ItemSelectedEventArgsViewModel />
@@ -29,7 +29,8 @@
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Id:" />
+                                    <Span Text="{x:Static resources:AppResources.Id}" />
+                                     <Span Text=":" />
                                     <Span Text="{Binding Id}" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -38,7 +39,8 @@
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Name:" />
+                                    <Span Text="{x:Static resources:AppResources.Name}" />
+                                    <Span Text=":" />
                                     <Span Text="{Binding Name}" />
                                 </FormattedString>
                             </Label.FormattedText>
