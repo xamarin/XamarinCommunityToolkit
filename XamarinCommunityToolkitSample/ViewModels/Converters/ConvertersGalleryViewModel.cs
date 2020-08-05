@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
 using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Resx;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
 {
@@ -12,14 +13,14 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
                 typeof(ItemTappedEventArgsPage),
                 "ItemTappedEventArgs",
                 Color.FromHex("#498205"),
-                "A converter that allows you to extract the value from ItemTappedEventArgs that can be used in combination with EventToCommandBehavior."
+                AppResources.ItemTappedEventArgsShortDescription
             ),
 
             new SectionModel(
                 typeof(ItemSelectedEventArgsPage),
                 "ItemSelectedEventArgs",
                 Color.FromHex("#498205"),
-                "A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior."
+                AppResources.ItemTappedSelectedEventArgsShortDescription
             )
         };
     }

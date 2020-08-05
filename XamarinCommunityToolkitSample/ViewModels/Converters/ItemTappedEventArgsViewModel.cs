@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Resx;
 using Xamarin.Forms;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
@@ -15,7 +16,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
             };
 
         public ICommand ItemTappedCommand { get; private set; } = new Command<Person>(async (person)
-            => await Application.Current.MainPage.DisplayAlert("Item Tapped:", person.Name, "Cancel"));
+            => await Application.Current.MainPage.DisplayAlert($"{AppResources.ItemTapped}: ", person.Name, AppResources.Cancel));
     }
 
     public class Person
