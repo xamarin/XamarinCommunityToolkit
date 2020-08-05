@@ -46,30 +46,17 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
         bool StreamEquals(Stream a, Stream b)
         {
             if (a == b)
-            {
                 return true;
-            }
-
-            if (a == null || b == null)
-            {
-                throw new ArgumentNullException(a == null ? "a" : "b");
-            }
-
-            if (a.Length != b.Length)
-            {
+                
+            if (a == null ||
+                b == null ||
+                a.Length != b.Length)
                 return false;
-            }
-
+                
             for (var i = 0; i < a.Length; i++)
-            {
-                var aByte = a.ReadByte();
-                var bByte = b.ReadByte();
-                if (aByte.CompareTo(bByte) != 0)
-                {
+                if (a.ReadByte() != b.ReadByte())
                     return false;
-                }
-            }
-
+                    
             return true;
         }
     }
