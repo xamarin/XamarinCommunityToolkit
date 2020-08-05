@@ -32,14 +32,23 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var streamImageSource = (StreamImageSource)value;
+            if (value is null)
+                return null;
 
-            var streamFromImageSource = streamImageSource.Stream(System.Threading.CancellationToken.None).Result;
+            if (value is StreamImageSource streamImageSource)
+            {
+                var streamFromImageSource  = streamImageSource.Stream(System.Threading.CancellationToken.None).Result;
 
-            using var memoryStream = new MemoryStream();
-            streamFromImageSource.CopyTo(memoryStream);
+                if (streamFromImageSource == null)
+                    return null;
 
-            return memoryStream.ToArray();
+                using var memoryStream = new MemoryStream();
+                streamFromImageSource.CopyTo(memoryStream);
+
+                return memoryStream.ToArray();
+            }
+
+            throw new ArgumentException("Expected value to be of type StreamImageSource.", nameof(value));
         }
     }
 }

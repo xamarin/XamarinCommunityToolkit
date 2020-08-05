@@ -27,7 +27,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
                 typeof(ByteArrayToImageSourcePage),
                 "ByteArrayToImageSource",
                 Color.FromHex("#498205"),
-                "A converter that allows you to convert byte array to an object of a type ImageSource."
+                AppResources.ByteArrayToImageSourceShortDescription
             )
         };
     }
