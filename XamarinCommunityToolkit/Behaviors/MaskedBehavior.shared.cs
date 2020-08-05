@@ -52,8 +52,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         {
             base.OnViewPropertyChanged(sender, e);
 
-            if(e.PropertyName == "InputView.TextProperty.PropertyName")
-                return;
+            if(e.PropertyName != "Text") return;
 
             var inputView = (InputView)View;
             var text = inputView.Text;
