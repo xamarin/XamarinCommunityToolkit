@@ -37,7 +37,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Converters
 
             if (value is StreamImageSource streamImageSource)
             {
-                var streamFromImageSource  = streamImageSource.Stream(System.Threading.CancellationToken.None).Result;
+                var streamFromImageSource = streamImageSource.Stream(System.Threading.CancellationToken.None).Result;
 
                 if (streamFromImageSource == null)
                     return null;
