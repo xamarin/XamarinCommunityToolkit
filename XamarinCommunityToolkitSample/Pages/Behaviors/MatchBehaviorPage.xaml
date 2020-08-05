@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors.MatchBehaviorPage"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
+                xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
+                xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors">
+    <pages:BasePage.BindingContext>
+        <vm:MatchBehaviorViewModel />
+    </pages:BasePage.BindingContext>
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HashtagSpanStyle" TargetType="Span">
+                <Setter Property="TextColor" Value="Blue" />
+            </Style>
+            <Style x:Key="MentionSpanStyle" TargetType="Span">
+                <Setter Property="TextColor" Value="Green" />
+            </Style>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <StackLayout>
+        <Label Margin="0,20,0,40" Text="This sample demonstrate how to use match behavior with different tags." />
+        <Label FormattedText="{Binding Text}">
+            <Label.Behaviors>
+                <behaviors:MatchBehavior Command="{Binding TagTappedCommand}">
+                    <behaviors:MatchBehavior.MatchTypes>
+                        <behaviors:HashtagMatchType Style="{StaticResource HashtagSpanStyle}" />
+                        <behaviors:MentionMatchType Style="{StaticResource MentionSpanStyle}" />
+                    </behaviors:MatchBehavior.MatchTypes>
+                </behaviors:MatchBehavior>
+            </Label.Behaviors>
+        </Label>
+    </StackLayout>
+</pages:BasePage>

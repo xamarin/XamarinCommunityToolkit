@@ -28,8 +28,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
                 "Perform animation when the specified UI element event is triggered"
             ),
             new SectionModel(
-                typeof(TagBehaviorPage),
-                "TagBehavior",
+                typeof(MatchBehaviorPage),
+                "MatchBehavior",
                 "Detects and style any specified tag type found in a Label's FormattedText"
             )
         };
