@@ -57,7 +57,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             var inputView = (InputView)View;
             var text = inputView.Text;
 
-            if (string.IsNullOrWhiteSpace(text) || positions == null) return;
+            if (string.IsNullOrWhiteSpace(text) || positions == null) 
+                return;
 
             if (text.Length > Mask.Length)
             {
