@@ -5,8 +5,9 @@
                 xmlns:viewmodels="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels"
                 xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
                 x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.AboutPage"
-                Title="About">
-
+                xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx"
+                Title="{x:Static resources:AppResources.AboutTitle}">
+    
     <pages:BasePage.ToolbarItems>
         <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
     </pages:BasePage.ToolbarItems>
@@ -14,10 +15,10 @@
     <pages:BasePage.BindingContext>
         <viewmodels:AboutViewModel />
     </pages:BasePage.BindingContext>
-
+    
     <pages:BasePage.Content>
         <StackLayout Padding="{StaticResource ContentPadding}">
-            <Label Text="Thank you XamarinCommunityToolkit contributors"
+            <Label Text="{x:Static resources:AppResources.GratitudeMessage}"
                    Margin="0,10,0,10" FontSize="Large" HorizontalOptions="Center"
                    HorizontalTextAlignment="Center" />
             <CollectionView x:Name="ContributorsCollectionView"
