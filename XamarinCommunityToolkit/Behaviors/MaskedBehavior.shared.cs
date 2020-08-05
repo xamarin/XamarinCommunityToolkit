@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
@@ -25,17 +25,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             set => SetValue(UnMaskedCharacterProperty, value);
         }
 
-        protected override void OnAttachedTo(View bindable)
-        {
-            ((InputView)bindable).TextChanged += OnEntryTextChanged;
-            base.OnAttachedTo(bindable);
-        }
-        protected override void OnDetachingFrom(View bindable)
-        {
-            ((InputView)bindable).TextChanged -= OnEntryTextChanged;
-            base.OnDetachingFrom(bindable);
-        }
-
         static void OnMaskPropertyChanged(BindableObject bindable, object oldValue, object newValue)
             => ((MaskedBehavior)bindable).SetPositions();
 
@@ -58,9 +47,14 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             positions = list;
         }
 
-        void OnEntryTextChanged(object sender, EventArgs args)
+        /// <inheritdoc />
+        protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var inputView = sender as InputView;
+            base.OnViewPropertyChanged(sender, e);
+
+            if(e.PropertyName.Equals("InputView.TextProperty.PropertyName")) return;
+
+            var inputView = (InputView)View;
             var text = inputView.Text;
 
             if (string.IsNullOrWhiteSpace(text) || positions == null) return;
