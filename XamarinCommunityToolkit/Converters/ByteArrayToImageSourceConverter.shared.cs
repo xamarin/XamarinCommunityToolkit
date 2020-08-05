@@ -21,34 +21,25 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Converters
         /// <returns>An object of type ImageSource.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null) return default(ImageSource);
+            if (value is null)
+                return default(ImageSource);
 
-            byte[] imageBytes = null;
+            if (value is byte[] imageBytes)
+                return ImageSource.FromStream(() => new MemoryStream(imageBytes));
 
-            switch (value)
-            {
-                case byte[] byteArray:
-                    imageBytes = byteArray;
-                    break;
-
-                case int[] intArray:
-                    imageBytes = new byte[intArray.Length * sizeof(int)];
-                    Buffer.BlockCopy(intArray, 0, imageBytes, 0, imageBytes.Length);
-                    break;
-
-                case ulong[] ulongArray:
-                    imageBytes = new byte[ulongArray.Length * sizeof(ulong)];
-                    Buffer.BlockCopy(ulongArray, 0, imageBytes, 0, imageBytes.Length);
-                    break;
-
-                default:
-                    throw new ArgumentException("Expected value to be of type byte[].", nameof(value));
-            }
-
-            return ImageSource.FromStream(() => new MemoryStream(imageBytes));
+            throw new ArgumentException("Expected value to be of type byte[].", nameof(value));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            => throw new NotImplementedException();
+        {
+            var streamImageSource = (StreamImageSource)value;
+
+            var streamFromImageSource = streamImageSource.Stream(System.Threading.CancellationToken.None).Result;
+
+            using var memoryStream = new MemoryStream();
+            streamFromImageSource.CopyTo(memoryStream);
+
+            return memoryStream.ToArray();
+        }
     }
 }

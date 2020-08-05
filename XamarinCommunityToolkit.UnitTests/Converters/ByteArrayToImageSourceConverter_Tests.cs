@@ -13,12 +13,16 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
         public void ByteArrayToImageSourceConverter()
         {
             var byteArray = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
-            var expectedValue = ImageSource.FromStream(() => new MemoryStream(byteArray));
+
+            var memoryStream = new MemoryStream(byteArray);
+
+            var expectedValue = ImageSource.FromStream(() => memoryStream);
 
             var byteArrayToImageSourceConverter = new ByteArrayToImageSourceConverter();
 
             var result = byteArrayToImageSourceConverter.Convert(byteArray, typeof(ByteArrayToImageSourceConverter), null, CultureInfo.CurrentCulture);
-            Assert.Equal(result, expectedValue);
+
+            Assert.True(StreamEquals(GetStreamFromImageSource((ImageSource)result), memoryStream));
         }
 
         [Theory]
@@ -26,7 +30,47 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
         public void InvalidConverterValuesReturnsNull(object value)
         {
             var byteArrayToImageSourceConverter = new ByteArrayToImageSourceConverter();
-            Assert.Null(byteArrayToImageSourceConverter.Convert(value, typeof(ByteArrayToImageSourceConverter), null, CultureInfo.CurrentCulture));
+
+            Assert.Throws<ArgumentException>(() => byteArrayToImageSourceConverter.Convert(value, typeof(ByteArrayToImageSourceConverter), null, CultureInfo.CurrentCulture));
+        }
+
+        Stream GetStreamFromImageSource(ImageSource imageSource)
+        {
+            var streamImageSource = (StreamImageSource)imageSource;
+
+            var cancellationToken = System.Threading.CancellationToken.None;
+            var task = streamImageSource.Stream(cancellationToken);
+            return task.Result;
+        }
+
+        bool StreamEquals(Stream a, Stream b)
+        {
+            if (a == b)
+            {
+                return true;
+            }
+
+            if (a == null || b == null)
+            {
+                throw new ArgumentNullException(a == null ? "a" : "b");
+            }
+
+            if (a.Length != b.Length)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < a.Length; i++)
+            {
+                var aByte = a.ReadByte();
+                var bByte = b.ReadByte();
+                if (aByte.CompareTo(bByte) != 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
