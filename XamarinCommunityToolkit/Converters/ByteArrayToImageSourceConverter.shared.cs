@@ -23,7 +23,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is null)
-                return default(ImageSource);
+                return null;
 
             if (value is byte[] imageBytes)
                 return ImageSource.FromStream(() => new MemoryStream(imageBytes));
