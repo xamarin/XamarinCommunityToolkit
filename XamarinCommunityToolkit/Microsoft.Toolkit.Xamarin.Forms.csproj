@@ -37,13 +37,13 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
-    <!-- MonoAndroid80 & MonoAndroid81 are absent because latest Xamarin.Forms version doesn't support them -->
+    <!-- Manage TargetFrameworks for development (Debug Mode) -->
     <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
-    <!-- MonoAndroid80 & MonoAndroid81 are present for backward compatibility -->
-    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid80;MonoAndroid81;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
+    <!-- Manage TargetFrameworks for distribution (Release Mode) -->
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -55,12 +55,12 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Debug' ">
-    <!-- Use latest Xamarin.Forms version for development -->
+    <!-- Manage Xamarin.Forms version for development -->
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Release' ">
-    <!-- Use Xamarin.Forms version 3.5 for distribution -->
-    <PackageReference Include="Xamarin.Forms" Version="3.5.0.129452" />
+    <!-- Manage Xamarin.Forms version for distribution -->
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
@@ -69,10 +69,9 @@
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Extensions\" />
     <Folder Include="Effects\" />
-    <Folder Include="Controls\" />
+    <Folder Include="Views\" />
     <Folder Include="Behaviors\Animations\" />
     <Folder Include="Behaviors\Animations\AnimationTypes\" />
   </ItemGroup>
