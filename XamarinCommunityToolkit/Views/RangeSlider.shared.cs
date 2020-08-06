@@ -5,7 +5,7 @@ using static System.Math;
 using static Xamarin.Forms.AbsoluteLayout;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UI.Controls
+namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 {
     public class RangeSlider : TemplatedView
     {
