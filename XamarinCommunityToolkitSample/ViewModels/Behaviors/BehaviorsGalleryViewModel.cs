@@ -27,6 +27,11 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
                 typeof(AnimationBehaviorPage),
                 "AnimationBehavior",
                 AppResources.AnimatioShortDescription
+            ),
+            new SectionModel(
+                typeof(ConfirmPasswordBehaviorPage),
+                "ConfirmPasswordBehavior",
+                AppResources.ConfirmPasswordShortDescription
             )
         };
     }

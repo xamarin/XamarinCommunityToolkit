@@ -119,7 +119,6 @@
               <value>Changes an Entry's text color when an invalid e-mail address is provided.</value>
           </data>
   
-  
          <!--Event To Command-->
   
          <data name="EventToCommandBehaviorDescription" xml:space="preserve">
@@ -143,7 +142,24 @@
          <data name="NumericValidationBehaviorDescription" xml:space="preserve">
               <value>Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0).</value>
           </data>
+
+          <!--ConfirmPassword-->
+
+          <data name="ConfirmPasswordDescription" xml:space="preserve">
+              <value>Text color will change accordingly to the style that is configured when password confirmation doesn't match password.</value>
+          </data>
+        
+          <data name="ConfirmPasswordShortDescription" xml:space="preserve">
+              <value>Changes an Entry's text color when an confirm password does not match password.</value>
+          </data>
   
+          <data name="Password" xml:space="preserve">
+              <value>Password</value>
+          </data>
+  
+          <data name="ConfirmPassword" xml:space="preserve">
+              <value>Confirm password</value>
+          </data>
    <!--/Behaviors Section-->
    
   
