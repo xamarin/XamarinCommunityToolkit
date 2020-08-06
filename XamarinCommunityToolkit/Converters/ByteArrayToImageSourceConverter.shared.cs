@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Xamarin.Forms.Extensions;
 using System.Globalization;
+using System.Threading;
 using Xamarin.Forms;
 using System.IO;
 using System;
@@ -37,7 +38,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Converters
 
             if (value is StreamImageSource streamImageSource)
             {
-                var streamFromImageSource = streamImageSource.Stream(System.Threading.CancellationToken.None).Result;
+                var streamFromImageSource = streamImageSource.Stream(CancellationToken.None).Result;
 
                 if (streamFromImageSource == null)
                     return null;
