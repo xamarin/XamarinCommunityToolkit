@@ -10,8 +10,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         public double Rotation
         {
-            get => (double)GetValue(RotationProperty); 
-            set => SetValue(RotationProperty, value); 
+            get => (double)GetValue(RotationProperty);
+            set => SetValue(RotationProperty, value);
         }
 
         static object GetDefaulRotationProperty(BindableObject bindable)

@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
         public double Scale
         {
             get => (double)GetValue(ScaleProperty);
-            set => SetValue(ScaleProperty, value); 
+            set => SetValue(ScaleProperty, value);
         }
 
         protected override uint DefaultDuration { get; set; } = 170;

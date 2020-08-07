@@ -10,8 +10,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         public double Fade
         {
-            get => (double)GetValue(FadeProperty); 
-            set => SetValue(FadeProperty, value); 
+            get => (double)GetValue(FadeProperty);
+            set => SetValue(FadeProperty, value);
         }
 
         protected override uint DefaultDuration { get; set; } = 300;

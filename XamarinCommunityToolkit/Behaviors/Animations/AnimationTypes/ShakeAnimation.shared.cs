@@ -10,15 +10,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         public double StartFactor
         {
-            get => (double)GetValue(StartFactorProperty); 
-            set => SetValue(StartFactorProperty, value); 
+            get => (double)GetValue(StartFactorProperty);
+            set => SetValue(StartFactorProperty, value);
         }
 
         protected override uint DefaultDuration { get; set; } = 50;
 
         public override async Task Animate(View view)
         {
-            for (var i = StartFactor; i > 0; i = i-5)
+            for (var i = StartFactor; i > 0; i = i - 5)
             {
                 await view.TranslateTo(-i, 0, Duration, Easing);
                 await view.TranslateTo(i, 0, Duration, Easing);

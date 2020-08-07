@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
 using Xamarin.CommunityToolkit.Sample.Pages.Converters;
-using Xamarin.CommunityToolkit.Sample.Pages.Views;
-using Xamarin.CommunityToolkit.Sample.Pages.TestCases;
 using Xamarin.CommunityToolkit.Sample.Pages.Extensions;
+using Xamarin.CommunityToolkit.Sample.Pages.TestCases;
+using Xamarin.CommunityToolkit.Sample.Pages.Views;
 using Xamarin.CommunityToolkit.Sample.Resx;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {

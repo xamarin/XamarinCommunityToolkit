@@ -83,7 +83,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         void UnregisterEvent()
         {
-            if(eventInfo != null && eventHandler != null)
+            if (eventInfo != null && eventHandler != null)
                 eventInfo.RemoveEventHandler(View, eventHandler);
 
             eventInfo = null;

@@ -1,8 +1,8 @@
-﻿using Xamarin.CommunityToolkit.Converters;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
-using System;
 using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters

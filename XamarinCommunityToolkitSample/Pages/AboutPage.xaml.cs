@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Octokit;
+using Xamarin.CommunityToolkit.Sample.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Sample.ViewModels;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages
 {

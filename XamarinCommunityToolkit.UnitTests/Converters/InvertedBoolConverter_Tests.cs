@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
             Assert.Equal(result, expectedResult);
         }
-      
+
         [Theory]
         [InlineData(2)]
         [InlineData("")]

@@ -11,17 +11,17 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         public uint Duration
         {
-            get => (uint)GetValue(DurationProperty); 
-            set => SetValue(DurationProperty, value); 
+            get => (uint)GetValue(DurationProperty);
+            set => SetValue(DurationProperty, value);
         }
-        
+
         public static readonly BindableProperty EasingTypeProperty =
            BindableProperty.Create(nameof(Easing), typeof(Easing), typeof(AnimationBase), Easing.Linear,
                BindingMode.TwoWay);
 
         public Easing Easing
         {
-            get => (Easing)GetValue(EasingTypeProperty); 
+            get => (Easing)GetValue(EasingTypeProperty);
             set => SetValue(EasingTypeProperty, value);
         }
 

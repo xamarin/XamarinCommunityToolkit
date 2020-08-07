@@ -8,9 +8,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
     public class IndexToArrayItemConverter_Tests
     {
         [Theory]
-        [InlineData(new int[] { 1,2,3,4,5 }, 2, 3)]
+        [InlineData(new int[] { 1, 2, 3, 4, 5 }, 2, 3)]
         [InlineData(new string[] { "Val1", "Val2", "Val3" }, 0, "Val1")]
-        [InlineData(new double[] {1.3, 4.3, 4.3 }, 1, 4.3)]
+        [InlineData(new double[] { 1.3, 4.3, 4.3 }, 1, 4.3)]
         public void IndexToArrayConverter(Array value, int position, object expectedResult)
         {
             var indexToArrayConverter = new IndexToArrayItemConverter();

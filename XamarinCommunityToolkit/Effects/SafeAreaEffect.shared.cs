@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {

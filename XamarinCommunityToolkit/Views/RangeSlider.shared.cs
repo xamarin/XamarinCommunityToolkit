@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using static System.Math;
 using static Xamarin.Forms.AbsoluteLayout;
-using System.Runtime.CompilerServices;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

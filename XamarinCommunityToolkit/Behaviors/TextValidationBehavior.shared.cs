@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using System.Text;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {

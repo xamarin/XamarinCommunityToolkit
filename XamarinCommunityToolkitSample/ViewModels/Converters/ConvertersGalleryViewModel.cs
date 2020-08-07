@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Converters;
 using Xamarin.CommunityToolkit.Sample.Resx;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {

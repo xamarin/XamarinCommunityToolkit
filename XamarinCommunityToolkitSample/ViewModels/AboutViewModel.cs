@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Octokit;
+using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

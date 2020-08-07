@@ -1,7 +1,7 @@
-﻿using Xamarin.CommunityToolkit.Extensions;
+﻿using System;
 using System.Globalization;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
-using System;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
@@ -22,8 +22,8 @@ namespace Xamarin.CommunityToolkit.Converters
             => value is ItemTappedEventArgs itemTappedEventArgs
                 ? itemTappedEventArgs.Item
                 : throw new ArgumentException("Expected value to be of type ItemTappedEventArgs", nameof(value));
-                
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) 
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             => throw new NotImplementedException();
     }
 }

@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
         public void InValidConverterValuesThrowArgumenException(object value)
         {
             var intToBoolConverter = new IntToBoolConverter();
-            Assert.Throws<ArgumentException>(() => intToBoolConverter.Convert(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture)) ;
+            Assert.Throws<ArgumentException>(() => intToBoolConverter.Convert(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
         }
 
         [Theory]
