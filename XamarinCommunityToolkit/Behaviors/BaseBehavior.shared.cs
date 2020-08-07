@@ -38,7 +38,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             }
         }
 
-        protected override void OnDetachingFrom(BindableObject bindable)
+        protected override void OnDetachingFrom(TView bindable)
         {
             base.OnDetachingFrom(bindable);
 

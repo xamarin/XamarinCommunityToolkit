@@ -11,12 +11,11 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class MatchBehavior : BaseBehavior<Label>
     {
-
         public static readonly BindableProperty CommandProperty =
          BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MatchBehavior));
 
         public static readonly BindableProperty MatchTypesProperty =
-         BindableProperty.Create(nameof(MatchTypes), typeof(IList<MatchType>), typeof(MatchBehavior), new List<MatchType>());
+         BindableProperty.Create(nameof(MatchTypes), typeof(IEnumerable<MatchType>), typeof(MatchBehavior), Enumerable.Empty<MatchType>());
 
         public ICommand Command
         {
@@ -24,9 +23,9 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             set => SetValue(CommandProperty, value);
         }
 
-        public IList<MatchType> MatchTypes
+        public IEnumerable<MatchType> MatchTypes
         {
-            get => (IList<MatchType>)GetValue(MatchTypesProperty);
+            get => (IEnumerable<MatchType>)GetValue(MatchTypesProperty);
             set => SetValue(MatchTypesProperty, value);
         }
 
@@ -39,119 +38,96 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnViewPropertyChanged(sender, e);
-
             if (e.PropertyName == Label.FormattedTextProperty.PropertyName)
+                DetectAndStyleTags();
+        }
+
+        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            base.OnPropertyChanged(propertyName);
+
+            if (propertyName == CommandProperty.PropertyName && Command != null)
+                ConfigureTags(View, AddGestureRecognizer);
+            else if (propertyName == MatchTypesProperty.PropertyName)
                 DetectAndStyleTags();
         }
 
         protected override void OnDetachingFrom(Label bindable)
         {
+            ConfigureTags(bindable, RemoveGestureRecognizer);
             base.OnDetachingFrom(bindable);
-
-            MatchTypes = new List<MatchType>();
-
-            // Remove tap gestures
-            foreach (var span in bindable.FormattedText.Spans.Where(x => x.GestureRecognizers.Any()))
-            {
-                if (span.GestureRecognizers.FirstOrDefault() is TapGestureRecognizer tapRecognizer)
-                    span.GestureRecognizers.Remove(tapRecognizer);
-            }
         }
 
         void DetectAndStyleTags()
         {
-            if (string.IsNullOrWhiteSpace(View.FormattedText?.ToString())) return;
-
-            var textValue = View.FormattedText?.ToString();
-            View.FormattedText.Spans.Clear();
-            var formatted = View.FormattedText;
-
-            var regexMatches = FindMatches(textValue);
-
-            foreach (var span in GenerateSpans(textValue, regexMatches))
-                formatted.Spans.Add(span);
-
-        }
-
-        /// <summary>
-        /// Gets list of all matches from multiple Regexs and combines all results
-        /// </summary>
-        /// <param name="textValue"></param>
-        IEnumerable<RegexMatches> FindMatches(string textValue)
-        {
-            IEnumerable<RegexMatches> regexMatches = new List<RegexMatches>();
-            foreach (var matchType in MatchTypes)
+            if (!string.IsNullOrWhiteSpace(View?.FormattedText?.ToString()))
             {
-                var matches = Regex.Matches(textValue, matchType.Regex, RegexOptions.Singleline).OfType<Match>()
-                    .Where(m => m.Success);
+                var textValue = View.FormattedText?.ToString();
+                View.FormattedText.Spans.Clear();
+                var formatted = View.FormattedText;
 
-                regexMatches = regexMatches.Concat(matches.Select(x => new RegexMatches {Match = x, Type = matchType}))
-                    .OrderBy(x => x.Match.Index);
-            }
+                var collection = MatchTypes.SelectMany(c => Regex.Matches(textValue, c.Regex, RegexOptions.Singleline).OfType<Match>().Where(c => c.Success)).OrderBy(x => x.Index);
 
-            return regexMatches;
-        }
+                var lastIndex = 0;
 
-        /// <summary>
-        /// Create spans and add tap gesture to matches
-        /// </summary>
-        /// <param name="textValue"></param>
-        /// <param name="regexMatches"></param>
-        List<Span> GenerateSpans(string textValue, IEnumerable<RegexMatches> regexMatches)
-        {
-            var sections = new List<Span>();
-            var lastIndex = 0;
-            foreach (var item in regexMatches)
-            {
-                // Gets text between to matches
-                var sectionLength = item.Match.Index - lastIndex;
-                sections.Add(new Span { Text = textValue.Substring(lastIndex, sectionLength) });
-                lastIndex = item.Match.Index + item.Match.Length;
-
-                // Get matched value
-                var span = new Span
+                foreach (var item in collection)
                 {
-                    Text = item.Type.GetValue(item.Match.Value),
-                    Style = item.Type.Style
-                };
-                // TODO: Add longpress gesture to copy to clipboard
-                // LongPressGestureRecognizer - https://github.com/xamarin/Xamarin.Forms/issues/3480
-                // Clipboard - https://docs.microsoft.com/en-us/xamarin/essentials/clipboard?context=xamarin/android
-                var tapGestureRecognizer = new TapGestureRecognizer
+                    var text = textValue.Substring(lastIndex, item.Index - lastIndex);
+                    formatted.Spans.Add(CreateSpan(text));
+                    lastIndex = item.Index + item.Length;
+
+                    var span = CreateSpan(item.Value, true);
+
+                    formatted.Spans.Add(span);
+
+                    if (Command != null)
+                        AddGestureRecognizer(span);
+                }
+
+                var remainingText = textValue.Substring(lastIndex);
+
+                formatted.Spans.Add(CreateSpan(remainingText));
+            }
+        }
+
+
+        void ConfigureTags(Label label, Action<Span> configAction)
+        {
+            if (label.FormattedText?.Spans.Any() ?? false)
+            {
+                var tagSpans = label.FormattedText.Spans.Where(p => MatchTypes.Any(c => Regex.Match(p.Text, c.Regex).Success));
+                foreach (var span in tagSpans)
+                    configAction(span);
+            }
+        }
+
+        Span CreateSpan(string text, bool isMatch = false)
+         => new Span()
+         {
+             Text = text,
+             Style = isMatch
+                 ? MatchTypes.FirstOrDefault(c => Regex.Match(text, c.Regex).Success)?.Style
+                 : null
+         };
+
+        void AddGestureRecognizer(Span span)
+        {
+            var tapRecognizer = span.GestureRecognizers.FirstOrDefault() as TapGestureRecognizer;
+            if (tapRecognizer != null)
+                tapRecognizer.Command = Command;
+            else
+                span.GestureRecognizers.Add(new TapGestureRecognizer()
                 {
                     Command = Command,
-                    CommandParameter = item.Type.GetValue(item.Match.Value)
-                };
-
-                span.GestureRecognizers.Add(tapGestureRecognizer);
-                sections.Add(span);
-            }
-            // Get end of text that isnt a match
-            sections.Add(new Span { Text = textValue.Substring(lastIndex) });
-
-            return sections;
+                    CommandParameter = span.Text
+                });
         }
-    }
 
-    public class RegexMatches
-    {
-        public Match Match { get; set; }
-        public MatchType Type { get; set; }
-    }
-
-    public abstract class MatchType
-    {
-        public abstract string Regex { get; }
-        public Style Style { get; set; }
-        public virtual string GetValue(string rawText) => rawText;
-    }
-
-    public class HashtagMatchType : MatchType
-    {
-        public override string Regex => $@"#\w+";
-    }
-    public class MentionMatchType : MatchType
-    {
-        public override string Regex => $@"[@]\w+";
+        void RemoveGestureRecognizer(Span span)
+        {
+            var tapRecognizer = span.GestureRecognizers.FirstOrDefault() as TapGestureRecognizer;
+            if (tapRecognizer != null)
+                span.GestureRecognizers.Remove(tapRecognizer);
+        }
     }
 }

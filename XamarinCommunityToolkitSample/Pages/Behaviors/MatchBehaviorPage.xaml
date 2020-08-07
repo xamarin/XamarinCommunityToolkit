@@ -10,24 +10,21 @@
     </pages:BasePage.BindingContext>
     <pages:BasePage.Resources>
         <ResourceDictionary>
-            <Style x:Key="HashtagSpanStyle" TargetType="Span">
-                <Setter Property="TextColor" Value="Blue" />
+             <Style x:Key="MSpanStyle" TargetType="Span">
+               <Setter Property="TextColor" Value="Green" />               
             </Style>
-            <Style x:Key="MentionSpanStyle" TargetType="Span">
-                <Setter Property="TextColor" Value="Green" />
-            </Style>
+            <x:Array Type="{x:Type behaviors:MatchType}" x:Key="matchTypes">
+                <behaviors:HashtagMatchType/>
+                <behaviors:MentionMatchType />
+                <behaviors:LinkMatchType />
+            </x:Array>
         </ResourceDictionary>
     </pages:BasePage.Resources>
     <StackLayout>
         <Label Margin="0,20,0,40" Text="This sample demonstrate how to use match behavior with different tags." />
         <Label FormattedText="{Binding Text}">
             <Label.Behaviors>
-                <behaviors:MatchBehavior Command="{Binding TagTappedCommand}">
-                    <behaviors:MatchBehavior.MatchTypes>
-                        <behaviors:HashtagMatchType Style="{StaticResource HashtagSpanStyle}" />
-                        <behaviors:MentionMatchType Style="{StaticResource MentionSpanStyle}" />
-                    </behaviors:MatchBehavior.MatchTypes>
-                </behaviors:MatchBehavior>
+                <behaviors:MatchBehavior Command="{Binding TagTappedCommand}" MatchTypes="{StaticResource matchTypes}"/>
             </Label.Behaviors>
         </Label>
     </StackLayout>
