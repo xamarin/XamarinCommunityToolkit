@@ -8,8 +8,43 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
     {
         public ConfirmPasswordBehavior_Tests()
              => Device.PlatformServices = new MockPlatformServices();
+        
         [Fact]
-        public void IsSamePasswordTrueWhenEnterSameTextTest()
+        public void IsValidTrueWhenBothIsNull_Test()
+        {
+            //arrange
+            var passwordEntry = new Entry();
+            var confirmPasswordEntry = new Entry();
+            var confirmPasswordBehavior = new ConfirmPasswordBehavior();
+            confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
+            //act
+            //passwordEntry.Text = "123456";
+            confirmPasswordBehavior.ComparedText = passwordEntry.Text;
+            confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
+            //confirmPasswordEntry.Text = "123456";
+            //assert
+            Assert.True(confirmPasswordBehavior.IsValid);
+        }
+        
+        [Fact]
+        public void IsValidFalseWhenOneIsNull_Test()
+        {
+            //arrange
+            var passwordEntry = new Entry();
+            var confirmPasswordEntry = new Entry();
+            var confirmPasswordBehavior = new ConfirmPasswordBehavior();
+            confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
+            //act
+            passwordEntry.Text = "123456";
+            confirmPasswordBehavior.ComparedText = passwordEntry.Text;
+            confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
+            confirmPasswordEntry.Text = null;
+            //assert
+            Assert.False(confirmPasswordBehavior.IsValid);
+        }
+
+        [Fact]
+        public void IsValidTrueWhenEnterSameText_Test()
         {
             //arrange
             var passwordEntry = new Entry();
@@ -24,8 +59,9 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             //assert
             Assert.True(confirmPasswordBehavior.IsValid);
         }
+        
         [Fact]
-        public void IsSamePasswordFalseWhenEnterDifferentTextTest()
+        public void IsValidFalseWhenEnterDifferentText_Test()
         {
             //arrange
             var passwordEntry = new Entry();

@@ -6,17 +6,18 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
     {
         public static readonly BindableProperty ComparedTextProperty =
             BindableProperty.Create(nameof(ComparedText), typeof(string),
-                typeof(ConfirmPasswordBehavior), string.Empty);
+                typeof(ConfirmPasswordBehavior));
+        
         protected override bool Validate(object value)
         {
-            var confirmPasswordText = value as string;
-            return confirmPasswordText != null && confirmPasswordText == ComparedText;
+            var confirmPasswordText = value?.ToString();
+            return confirmPasswordText == ComparedText;
         }
         
         public string ComparedText
         {
-            get => (string)base.GetValue(ComparedTextProperty);
-            set => base.SetValue(ComparedTextProperty, value);
+            get => (string)GetValue(ComparedTextProperty);
+            set => SetValue(ComparedTextProperty, value);
         }
     }
 }

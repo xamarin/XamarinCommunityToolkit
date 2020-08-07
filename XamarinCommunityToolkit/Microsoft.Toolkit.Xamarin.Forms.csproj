@@ -66,7 +66,6 @@
   <ItemGroup>
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
-    <Compile Include="Behaviors\ConfirmPasswordBehavior.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
