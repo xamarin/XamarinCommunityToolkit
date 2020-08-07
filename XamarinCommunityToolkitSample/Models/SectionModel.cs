@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Models
+namespace Xamarin.CommunityToolkit.Sample.Models
 {
     public sealed class SectionModel
     {

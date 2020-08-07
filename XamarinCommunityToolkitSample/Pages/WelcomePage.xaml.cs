@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages
+namespace Xamarin.CommunityToolkit.Sample.Pages
 {
     public partial class WelcomePage : BasePage
     {

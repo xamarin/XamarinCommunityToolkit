@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Resx;
+using Xamarin.CommunityToolkit.Sample.Resx;
 using Octokit;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels
+namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
     public class AboutViewModel : BaseViewModel
     {

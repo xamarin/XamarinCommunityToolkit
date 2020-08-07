@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
+namespace Xamarin.CommunityToolkit.Behaviors
 {
     public class FlipVerticalAnimation : RotateAnimation
     {

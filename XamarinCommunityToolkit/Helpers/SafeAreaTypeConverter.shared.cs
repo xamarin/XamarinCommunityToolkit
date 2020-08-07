@@ -2,7 +2,7 @@
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Helpers
+namespace Xamarin.CommunityToolkit.Helpers
 {
     [TypeConversion(typeof(SafeArea))]
     public class SafeAreaTypeConverter : TypeConverter

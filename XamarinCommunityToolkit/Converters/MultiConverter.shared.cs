@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Converters
+namespace Xamarin.CommunityToolkit.Converters
 {
     /// <summary>
     /// Converts an incoming value using all of the incoming converters in sequence.

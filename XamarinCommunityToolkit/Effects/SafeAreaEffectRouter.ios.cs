@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using UIKit;
+using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
-using Microsoft.Toolkit.Xamarin.Forms.Effects;
-using Effects = Microsoft.Toolkit.Xamarin.Forms.iOS.Effects;
+using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
-[assembly: ResolutionGroupName(nameof(Microsoft.Toolkit.Xamarin.Forms))]
+[assembly: ResolutionGroupName(nameof(Xamarin.CommunityToolkit))]
 [assembly: ExportEffect(typeof(Effects.SafeAreaEffectRouter), nameof(SafeAreaEffectRouter))]
-namespace Microsoft.Toolkit.Xamarin.Forms.iOS.Effects
+namespace Xamarin.CommunityToolkit.iOS.Effects
 {
     public class SafeAreaEffectRouter : PlatformEffect
     {

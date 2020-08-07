@@ -2,7 +2,7 @@
 using Foundation;
 using UIKit;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.iOS
+namespace Xamarin.CommunityToolkit.Sample.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 

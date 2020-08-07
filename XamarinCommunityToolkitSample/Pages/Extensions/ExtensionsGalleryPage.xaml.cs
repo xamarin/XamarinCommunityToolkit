@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Extensions
+﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Extensions
 {
     public partial class ExtensionsGalleryPage : BasePage
     {

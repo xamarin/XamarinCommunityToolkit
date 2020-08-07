@@ -3,7 +3,7 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 using XF = Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages
+namespace Xamarin.CommunityToolkit.Sample.Pages
 {
     public class BaseNavigationPage : XF.NavigationPage
     {

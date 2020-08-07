@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
-using Microsoft.Toolkit.Xamarin.Forms.Converters;
+using Xamarin.CommunityToolkit.Converters;
 using Xunit;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
+namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
     public class EqualConverter_Tests
     {

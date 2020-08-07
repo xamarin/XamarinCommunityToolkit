@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
-using Microsoft.Toolkit.Xamarin.Forms.Extensions;
+using Xamarin.CommunityToolkit.Extensions;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Converters
+namespace Xamarin.CommunityToolkit.Converters
 {
     /// <summary>
     /// Converts an integer to corresponding boolean and vice versa.

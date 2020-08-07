@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using Microsoft.Toolkit.Xamarin.Forms.Behaviors;
 using Xunit;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
+namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
     public class EventToCommandBehavior_Tests
     {

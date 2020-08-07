@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Resx;
+using Xamarin.CommunityToolkit.Sample.Models;
+using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
+using Xamarin.CommunityToolkit.Sample.Resx;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
+namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
     public class BehaviorsGalleryViewModel : BaseViewModel
     {

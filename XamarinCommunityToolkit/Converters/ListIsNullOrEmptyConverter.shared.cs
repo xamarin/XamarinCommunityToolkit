@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Globalization;
 using Xamarin.Forms;
-using Microsoft.Toolkit.Xamarin.Forms.Extensions;
+using Xamarin.CommunityToolkit.Extensions;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Converters
+namespace Xamarin.CommunityToolkit.Converters
 {
     /// <summary>
     /// Converts the incoming value to a boolean indicating whether or not the value is null or empty.

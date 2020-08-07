@@ -1,9 +1,9 @@
-﻿using Microsoft.Toolkit.Xamarin.Forms.Extensions;
+﻿using Xamarin.CommunityToolkit.Extensions;
 using System.Globalization;
 using Xamarin.Forms;
 using System;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Converters
+namespace Xamarin.CommunityToolkit.Converters
 {
     /// <summary>
     /// Converts/Extracts the incoming value from SelectedItemChangedEventArgs object and returns the value of SelectedItem property from it.

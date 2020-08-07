@@ -1,7 +1,7 @@
 using Xamarin.Forms;
 using static System.Math;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
+namespace Xamarin.CommunityToolkit.UI.Views
 {
     public class AvatarView : TemplatedView
     {

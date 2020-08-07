@@ -1,5 +1,5 @@
 ﻿
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Views
+namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
     public class AvatarViewViewModel : BaseViewModel
     {

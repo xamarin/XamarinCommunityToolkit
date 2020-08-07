@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
+using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages
+namespace Xamarin.CommunityToolkit.Sample.Pages
 {
     public class BasePage : ContentPage
     {

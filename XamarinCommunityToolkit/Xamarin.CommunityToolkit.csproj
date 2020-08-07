@@ -2,14 +2,12 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
-    <AssemblyName>Microsoft.Toolkit.Xamarin.Forms</AssemblyName>
-    <RootNamespace>Microsoft.Toolkit.Xamarin.Forms</RootNamespace>
-    <PackageId>Microsoft.Toolkit.Xamarin.Forms</PackageId>
-    <PackageIconUrl>
-    </PackageIconUrl>
+    <AssemblyName>Xamarin.CommunityToolkit</AssemblyName>
+    <RootNamespace>Xamarin.CommunityToolkit</RootNamespace>
+    <PackageId>Xamarin.CommunityToolkit</PackageId>
     <Summary>Community-created toolkit with common Xamarin converters, effects, behaviors etc.</Summary>
     <PackageTag>xamarin,ios,android,uwp,xamarin.forms,effects,controls,converters,animations,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,watchos,tvos,tizen,Microsoft.Toolkit.Xamarin.Forms</PackageTag>
-    <Title>Microsoft.Toolkit.Xamarin.Forms</Title>
+    <Title>Xamarin.CommunityToolkit</Title>
     <Description>The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.</Description>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -21,11 +19,6 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
-    <PackageReleaseNotes>
-      
-      <!-- See if we can host these on MS docs? -->
-    
-    </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -53,6 +46,9 @@
     <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType></DebugType>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage Xamarin.Forms version for development -->

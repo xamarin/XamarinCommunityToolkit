@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors
+﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
 {
     public partial class EventToCommandBehaviorPage : BasePage
     {

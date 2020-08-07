@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
+namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
     public class EventToCommandBehaviorViewModel : BaseViewModel
     {

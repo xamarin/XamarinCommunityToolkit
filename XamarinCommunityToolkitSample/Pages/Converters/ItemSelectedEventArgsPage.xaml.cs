@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters
+﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
 {
     public partial class ItemSelectedEventArgsPage : BasePage
     {

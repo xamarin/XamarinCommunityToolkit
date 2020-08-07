@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Helpers
+namespace Xamarin.CommunityToolkit.Helpers
 {
     [TypeConverter(typeof(SafeAreaTypeConverter))]
     public struct SafeArea

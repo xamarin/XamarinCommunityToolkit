@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels
+namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Text;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
+namespace Xamarin.CommunityToolkit.Behaviors
 {
     public class TextValidationBehavior : ValidationBehavior
     {

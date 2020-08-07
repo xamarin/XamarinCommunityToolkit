@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 using System.Reflection;
 #endif
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Extensions
+namespace Xamarin.CommunityToolkit.Extensions
 {
     /// <summary>
     /// Provides ImageSource by Resource Id from the current app's assembly.

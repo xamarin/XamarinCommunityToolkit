@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
+namespace Xamarin.CommunityToolkit.Behaviors
 {
     [Flags]
     public enum ValidationFlags
