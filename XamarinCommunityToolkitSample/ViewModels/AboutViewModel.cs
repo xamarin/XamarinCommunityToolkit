@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Resx;
 using Octokit;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -16,7 +17,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels
 
         RepositoryContributor selectedContributor;
 
-        string emptyViewText = "Loading data...";
+        string emptyViewText = AppResources.LoadingDataMessage;
 
         ICommand selectedContributorCommand;
 
@@ -71,7 +72,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels
             if (Contributors.Any())
                 return;
 
-            EmptyViewText = "No data loaded...";
+            EmptyViewText = AppResources.NoDataLoadedMessage;
         }
     }
 }

@@ -23,6 +23,10 @@
     <EmbeddedResource Update="Views\BehaviorsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resx\AppResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -36,6 +40,7 @@
     <Folder Include="Pages\TestCases\" />
     <Folder Include="ViewModels\TestCases\" />
     <Folder Include="ViewModels\Extensions\" />
+    <Folder Include="Resx\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj" />
@@ -43,6 +48,9 @@
   <ItemGroup>
     <Compile Update="Pages\Behaviors\MatchBehaviorPage.xaml.cs">
       <DependentUpon>MatchBehaviorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Resx\AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

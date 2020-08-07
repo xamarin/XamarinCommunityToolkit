@@ -3,15 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors.AnimationBehaviorPage"
              xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
-             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages">
+             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
+             xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
       <ScrollView>
         <StackLayout Padding="{StaticResource ContentPadding}"
                      Spacing="10">
 
-            <Label Text="This sample demonstrates how to use ViewTappedAnimationBehaviour applying it in different UI elements"
+            <Label Text="{x:Static resources:AppResources.AnimationBehaviorTitle}"
                    Padding="10,10,10,50"/>
 
-            <Button Text="Testing Fade Animation"
+            <Button Text="{x:Static resources:AppResources.TestingFadeAnimation}"
                    TextColor="HotPink">
                  <Button.Behaviors>
                       <behaviors:AnimationBehavior EventName="Clicked">
@@ -48,7 +49,7 @@
             </ImageButton>
             
  
-             <Label Text="Shake">
+             <Label Text="{x:Static resources:AppResources.Shake}">
                 <Label.Behaviors>
                     <behaviors:AnimationBehavior Command="{Binding MyCommand}">
                         <behaviors:AnimationBehavior.AnimationType>

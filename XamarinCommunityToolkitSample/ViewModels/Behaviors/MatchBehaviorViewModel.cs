@@ -1,12 +1,13 @@
 ﻿
 using System.Windows.Input;
+using Microsoft.Toolkit.Xamarin.Forms.Sample.Resx;
 using Xamarin.Forms;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
 {
     public class MatchBehaviorViewModel : BaseViewModel
     {
-        string text = "Hello, here is a list of hashtags and other types of tags: #DotNetMAUI #Community #OpenSource https://www.xamarin.com www.github.com @xamarinhq @dotnet @microsoft #MicrosoftToolkitXamarinForms #Xamarin #Monkeys #XamarinForms @planetxamarin #ILoveXamarin #CSharp #Behaviors";
+        string text = $"{AppResources.MatchTypesIntroText}: #DotNetMAUI #Community #OpenSource https://www.xamarin.com www.github.com @xamarinhq @dotnet @microsoft #MicrosoftToolkitXamarinForms #Xamarin #Monkeys #XamarinForms @planetxamarin #ILoveXamarin #CSharp #Behaviors";
 
         public string Text
         {

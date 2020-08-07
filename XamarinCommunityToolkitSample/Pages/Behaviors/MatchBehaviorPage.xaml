@@ -4,7 +4,8 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
                 xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
-                xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors">
+                xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors"
+                xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
     <pages:BasePage.BindingContext>
         <vm:MatchBehaviorViewModel />
     </pages:BasePage.BindingContext>
@@ -18,7 +19,7 @@
         </ResourceDictionary>
     </pages:BasePage.Resources>
     <StackLayout>
-        <Label Margin="0,20,0,40" Text="This sample demonstrate how to use match behavior with different tags." />
+        <Label Margin="0,20,0,40" Text="{x:Static resources:AppResources.MatchBehaviorTitle}" />
         <Label FormattedText="{Binding Text}">
             <Label.Behaviors>
                 <behaviors:MatchBehavior Command="{Binding TagTappedCommand}" MatchTypes="{StaticResource matchTypes}"/>
