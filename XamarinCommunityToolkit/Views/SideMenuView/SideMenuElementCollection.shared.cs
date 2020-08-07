@@ -17,5 +17,23 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             SetMenuWidthPercentage(view, menuWidthPercentage);
             Add(view, position);
         }
+
+        public void AddMainView(View view)
+            => Add(view, SideMenuPosition.MainView);
+
+        public void AddMainView(View view, double menuWidthPercentage)
+            => Add(view, SideMenuPosition.MainView, menuWidthPercentage);
+
+        public void AddLeftMenu(View view)
+            => Add(view, SideMenuPosition.LeftMenu);
+
+        public void AddLeftMenu(View view, double menuWidthPercentage)
+            => Add(view, SideMenuPosition.LeftMenu, menuWidthPercentage);
+
+        public void AddRightMenu(View view)
+            => Add(view, SideMenuPosition.RightMenu);
+
+        public void AddRightMenu(View view, double menuWidthPercentage)
+            => Add(view, SideMenuPosition.RightMenu, menuWidthPercentage);
     }
 }

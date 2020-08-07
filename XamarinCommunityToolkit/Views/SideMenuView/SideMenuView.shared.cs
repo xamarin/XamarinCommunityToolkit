@@ -49,13 +49,13 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             = BindableProperty.Create(nameof(AllowInterceptGesture), typeof(bool), typeof(SideMenuView), false);
 
         public static readonly BindableProperty StateProperty
-            = BindableProperty.Create(nameof(State), typeof(SideMenuState), typeof(SideMenuView), SideMenuState.Default, BindingMode.TwoWay, propertyChanged: OnStatePropertyChanged);
+            = BindableProperty.Create(nameof(State), typeof(SideMenuState), typeof(SideMenuView), SideMenuState.MainViewShown, BindingMode.TwoWay, propertyChanged: OnStatePropertyChanged);
 
         public static readonly BindableProperty CurrentGestureStateProperty
-            = BindableProperty.Create(nameof(CurrentGestureState), typeof(SideMenuState), typeof(SideMenuView), SideMenuState.Default, BindingMode.OneWayToSource);
+            = BindableProperty.Create(nameof(CurrentGestureState), typeof(SideMenuState), typeof(SideMenuView), SideMenuState.MainViewShown, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty PositionProperty
-            = BindableProperty.CreateAttached(nameof(GetPosition), typeof(SideMenuPosition), typeof(SideMenuView), SideMenuPosition.None);
+            = BindableProperty.CreateAttached(nameof(GetPosition), typeof(SideMenuPosition), typeof(SideMenuView), SideMenuPosition.MainView);
 
         public static readonly BindableProperty MenuWidthPercentageProperty
             = BindableProperty.CreateAttached(nameof(GetMenuWidthPercentage), typeof(double), typeof(SideMenuView), -1.0);
@@ -105,7 +105,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
                 {
                     new TapGestureRecognizer
                     {
-                        Command = new Command(() => State = SideMenuState.Default)
+                        Command = new Command(() => State = SideMenuState.MainViewShown)
                     }
                 }
             });
@@ -328,7 +328,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
         }
 
         void SetOverlayViewInputTransparent(SideMenuState state)
-            => overlayView.InputTransparent = state == SideMenuState.Default;
+            => overlayView.InputTransparent = state == SideMenuState.MainViewShown;
 
         SideMenuState ResolveSwipeState(bool isRightSwipe)
         {
@@ -337,11 +337,11 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             switch (State)
             {
                 case SideMenuState.LeftMenuShown:
-                    right = SideMenuState.Default;
+                    right = SideMenuState.MainViewShown;
                     SetActiveView(true);
                     break;
                 case SideMenuState.RightMenuShown:
-                    left = SideMenuState.Default;
+                    left = SideMenuState.MainViewShown;
                     SetActiveView(false);
                     break;
             }
@@ -362,7 +362,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             SetCurrentGestureState(diff);
             if (shouldUpdatePreviousDiff)
                 previousDiff = diff;
-            
+
             mainView.TranslationX = diff;
             overlayView.TranslationX = diff;
             return true;
@@ -375,12 +375,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             var absDiff = Abs(diff);
             var state = State;
             if (Sign(diff) != (int)state)
-                state = SideMenuState.Default;
+                state = SideMenuState.MainViewShown;
 
-            if (state == SideMenuState.Default && absDiff <= moveThreshold ||
-                state != SideMenuState.Default && absDiff < menuWidth - moveThreshold)
+            if (state == SideMenuState.MainViewShown && absDiff <= moveThreshold ||
+                state != SideMenuState.MainViewShown && absDiff < menuWidth - moveThreshold)
             {
-                CurrentGestureState = SideMenuState.Default;
+                CurrentGestureState = SideMenuState.MainViewShown;
                 return;
             }
             if (diff >= 0)
@@ -434,7 +434,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
             if (timeDiffItems.Count < minSwipeTimeDiffItemsCount)
                 return false;
-            
+
             var lastItem = timeDiffItems.LastOrDefault();
             var firstItem = timeDiffItems.FirstOrDefault();
             var distDiff = lastItem.Diff - firstItem.Diff;
@@ -488,7 +488,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             mainLayout.Children.Add(view);
             switch (GetPosition(view))
             {
-                case SideMenuPosition.None:
+                case SideMenuPosition.MainView:
                     mainView = SetupMainViewLayout(view);
                     break;
                 case SideMenuPosition.LeftMenu:
@@ -505,7 +505,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             mainLayout.Children.Remove(view);
             switch (GetPosition(view))
             {
-                case SideMenuPosition.None:
+                case SideMenuPosition.MainView:
                     mainView = null;
                     break;
                 case SideMenuPosition.LeftMenu:
