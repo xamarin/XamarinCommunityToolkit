@@ -8,6 +8,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
     {
         public ConfirmPasswordBehavior_Tests()
              => Device.PlatformServices = new MockPlatformServices();
+        
         [Fact]
         public void IsSamePasswordTrueWhenEnterSameTextTest()
         {
