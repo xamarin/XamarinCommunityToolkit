@@ -18,7 +18,7 @@ Browsing the [sample app](./XamarinCommunityToolkitSample) is the best place to 
 
 The toolkit is available via NuGet, and should be installed into all your projects:
 
-* NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Microsoft.Toolkit.Xamarin.Forms.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.Toolkit.Xamarin.Forms)
+* NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Xamarin.CommunityToolkit.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.Toolkit.Xamarin.Forms)
 * NuGet Nightly Releases: [![NuGet Nightly](https://img.shields.io/badge/NuGet-Nightly-yellow)](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json)
 
 Now all you need to do is use it! 
@@ -56,9 +56,9 @@ To structure our project, we have adopted a range of namespaces. You can find th
 
 | Namespace | Description |
 |--------------|--------------|
-| Microsoft.Toolkit.Xamarin.Forms | Main NuGet package includes code only helpers, etc. |
-| Microsoft.Toolkit.Xamarin.Forms.UI | UI Packages - XAML converters, Visual tree extensions, and other extensions and helpers for your XAML UI |
-| Microsoft.Toolkit.Xamarin.Forms.UI.Controls | Controls such as TabView, etc.|
-| Microsoft.Toolkit.Xamarin.Forms.UI.Layout | Layouts such as WrapLayout, etc. |
-| Microsoft.Toolkit.Xamarin.Forms.SampleApp | Sample App where you can find all of the above for reference. How to use them and see how it looks |
-| Microsoft.Toolkit.Xamarin.Forms.UnitTests | This is where our unit tests live. Please keep growing them! |
+| Xamarin.CommunityToolkit | Main NuGet package includes code only helpers, etc. |
+| Xamarin.CommunityToolkit.UI | UI Packages - XAML converters, Visual tree extensions, and other extensions and helpers for your XAML UI |
+| Xamarin.CommunityToolkit.UI.Controls | Controls such as TabView, etc.|
+| Xamarin.CommunityToolkit.UI.Layout | Layouts such as WrapLayout, etc. |
+| Xamarin.CommunityToolkit.SampleApp | Sample App where you can find all of the above for reference. How to use them and see how it looks |
+| Xamarin.CommunityToolkit.UnitTests | This is where our unit tests live. Please keep growing them! |
