@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Xamarin.Forms.UI.Controls;
+﻿using Microsoft.Toolkit.Xamarin.Forms.UI.Views;
 using Xamarin.Forms;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views
