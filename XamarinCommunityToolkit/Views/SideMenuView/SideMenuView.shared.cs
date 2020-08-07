@@ -33,6 +33,34 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
         static readonly TimeSpan swipeThresholdTime = TimeSpan.FromMilliseconds(Device.RuntimePlatform == Device.Android ? 100 : 60);
 
+        readonly List<TimeDiffItem> timeDiffItems;
+
+        readonly SideMenuElementCollection children;
+
+        AbsoluteLayout mainLayout;
+
+        readonly View overlayView;
+
+        View mainView;
+
+        View leftMenu;
+
+        View rightMenu;
+
+        View activeMenu;
+
+        View inactiveMenu;
+
+        double zeroDiff;
+
+        bool isGestureStarted;
+
+        bool isGestureDirectionResolved;
+
+        bool isSwipe;
+
+        double previousDiff;
+
         public static readonly BindableProperty DiffProperty
             = BindableProperty.Create(nameof(Diff), typeof(double), typeof(SideMenuView), 0.0, BindingMode.OneWayToSource);
 
@@ -62,34 +90,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
         public static readonly BindableProperty MenuGestureEnabledProperty
             = BindableProperty.CreateAttached(nameof(GetMenuGestureEnabled), typeof(bool), typeof(SideMenuView), true);
-
-        readonly List<TimeDiffItem> timeDiffItems;
-
-        readonly SideMenuElementCollection children;
-
-        AbsoluteLayout mainLayout;
-
-        readonly View overlayView;
-
-        View mainView;
-
-        View leftMenu;
-
-        View rightMenu;
-
-        View activeMenu;
-
-        View inactiveMenu;
-
-        double zeroDiff;
-
-        bool isGestureStarted;
-
-        bool isGestureDirectionResolved;
-
-        bool isSwipe;
-
-        double previousDiff;
 
         public SideMenuView()
         {
