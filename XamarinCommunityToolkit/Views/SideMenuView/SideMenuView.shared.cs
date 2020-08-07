@@ -19,9 +19,9 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
         const uint animationLength = 350;
 
-        const int maxTimeDiffItemsCount = 24;
+        const int maxTimeShiftItemsCount = 24;
 
-        const int minSwipeTimeDiffItemsCount = 2;
+        const int minSwipeTimeShiftItemsCount = 2;
 
         const double swipeThresholdDistance = 17;
 
@@ -33,7 +33,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
         static readonly TimeSpan swipeThresholdTime = TimeSpan.FromMilliseconds(Device.RuntimePlatform == Device.Android ? 100 : 60);
 
-        readonly List<TimeDiffItem> timeDiffItems;
+        readonly List<TimeShiftItem> timeShiftItems;
 
         readonly SideMenuElementCollection children;
 
@@ -51,7 +51,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
         View inactiveMenu;
 
-        double zeroDiff;
+        double zeroShift;
 
         bool isGestureStarted;
 
@@ -59,13 +59,13 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
         bool isSwipe;
 
-        double previousDiff;
+        double previousShift;
 
-        public static readonly BindableProperty DiffProperty
-            = BindableProperty.Create(nameof(Diff), typeof(double), typeof(SideMenuView), 0.0, BindingMode.OneWayToSource);
+        public static readonly BindableProperty ShiftProperty
+            = BindableProperty.Create(nameof(Shift), typeof(double), typeof(SideMenuView), 0.0, BindingMode.OneWayToSource);
 
-        public static readonly BindableProperty CurrentGestureDiffProperty
-            = BindableProperty.Create(nameof(CurrentGestureDiff), typeof(double), typeof(SideMenuView), 0.0, BindingMode.OneWayToSource);
+        public static readonly BindableProperty CurrentGestureShiftProperty
+            = BindableProperty.Create(nameof(CurrentGestureShift), typeof(double), typeof(SideMenuView), 0.0, BindingMode.OneWayToSource);
 
         public static readonly BindableProperty GestureThresholdProperty
             = BindableProperty.Create(nameof(GestureThreshold), typeof(double), typeof(SideMenuView), 7.0);
@@ -93,7 +93,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
         public SideMenuView()
         {
-            timeDiffItems = new List<TimeDiffItem>();
+            timeShiftItems = new List<TimeShiftItem>();
 
             children = new SideMenuElementCollection();
             children.CollectionChanged += OnChildrenCollectionChanged;
@@ -122,20 +122,20 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
         internal void OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
-            var diff = e.TotalX;
-            var verticalDiff = e.TotalY;
+            var shift = e.TotalX;
+            var verticalShift = e.TotalY;
             switch (e.StatusType)
             {
                 case GestureStatus.Started:
                     OnTouchStarted();
                     return;
                 case GestureStatus.Running:
-                    OnTouchChanged(diff, verticalDiff);
+                    OnTouchChanged(shift, verticalShift);
                     return;
                 case GestureStatus.Canceled:
                 case GestureStatus.Completed:
                     if (Device.RuntimePlatform == Device.Android)
-                        OnTouchChanged(diff, verticalDiff);
+                        OnTouchChanged(shift, verticalShift);
 
                     OnTouchEnded();
                     return;
@@ -155,16 +155,16 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
         public new ISideMenuList<View> Children
             => children;
 
-        public double Diff
+        public double Shift
         {
-            get => (double)GetValue(DiffProperty);
-            set => SetValue(DiffProperty, value);
+            get => (double)GetValue(ShiftProperty);
+            set => SetValue(ShiftProperty, value);
         }
 
-        public double CurrentGestureDiff
+        public double CurrentGestureShift
         {
-            get => (double)GetValue(CurrentGestureDiffProperty);
-            set => SetValue(CurrentGestureDiffProperty, value);
+            get => (double)GetValue(CurrentGestureShiftProperty);
+            set => SetValue(CurrentGestureShiftProperty, value);
         }
 
         public double GestureThreshold
@@ -251,22 +251,22 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 
             isGestureDirectionResolved = false;
             isGestureStarted = true;
-            zeroDiff = 0;
-            PopulateDiffItems(0);
+            zeroShift = 0;
+            PopulateTimeShiftItems(0);
         }
 
-        void OnTouchChanged(double diff, double verticalDiff)
+        void OnTouchChanged(double shift, double verticalShift)
         {
-            if (!isGestureStarted || Abs(CurrentGestureDiff - diff) <= double.Epsilon)
+            if (!isGestureStarted || Abs(CurrentGestureShift - shift) <= double.Epsilon)
                 return;
 
-            PopulateDiffItems(diff);
-            var absDiff = Abs(diff);
-            var absVerticalDiff = Abs(verticalDiff);
-            if (!isGestureDirectionResolved && Max(absDiff, absVerticalDiff) > CancelVerticalGestureThreshold)
+            PopulateTimeShiftItems(shift);
+            var absShift = Abs(shift);
+            var absVerticalShift = Abs(verticalShift);
+            if (!isGestureDirectionResolved && Max(absShift, absVerticalShift) > CancelVerticalGestureThreshold)
             {
-                absVerticalDiff *= 2.5;
-                if (absVerticalDiff >= absDiff)
+                absVerticalShift *= 2.5;
+                if (absVerticalShift >= absShift)
                 {
                     isGestureStarted = false;
                     OnTouchEnded();
@@ -276,9 +276,9 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             }
 
             mainView.AbortAnimation(animationName);
-            var totalDiff = previousDiff + diff;
-            if (!TryUpdateDiff(totalDiff - zeroDiff, false))
-                zeroDiff = totalDiff - Diff;
+            var totalShift = previousShift + shift;
+            if (!TryUpdateShift(totalShift - zeroShift, false))
+                zeroShift = totalShift - Shift;
         }
 
         void OnTouchEnded()
@@ -287,20 +287,20 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
                 return;
 
             isGestureStarted = false;
-            CleanDiffItems();
+            CleanTimeShiftItems();
 
-            previousDiff = Diff;
+            previousShift = Shift;
             var state = State;
             var isSwipe = TryResolveFlingGesture(ref state);
-            PopulateDiffItems(0);
-            timeDiffItems.Clear();
+            PopulateTimeShiftItems(0);
+            timeShiftItems.Clear();
             UpdateState(state, isSwipe);
         }
 
         void PerformAnimation()
         {
             var state = State;
-            var start = Diff;
+            var start = Shift;
             var menuWidth = (state == SideMenuState.LeftMenuShown ? leftMenu : rightMenu)?.Width ?? 0;
             var end = Sign((int)state) * menuWidth;
 
@@ -315,7 +315,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
                 SetOverlayViewInputTransparent(state);
                 return;
             }
-            var animation = new Animation(v => TryUpdateDiff(v, true), Diff, end);
+            var animation = new Animation(v => TryUpdateShift(v, true), Shift, end);
             mainView.Animate(animationName, animation, animationRate, animationLength, animationEasing, (v, isCanceled) =>
             {
                 if (isCanceled)
@@ -346,42 +346,42 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             return isRightSwipe ? left : right;
         }
 
-        bool TryUpdateDiff(double diff, bool shouldUpdatePreviousDiff)
+        bool TryUpdateShift(double sift, bool shouldUpdatePreviousShift)
         {
-            SetActiveView(diff >= 0);
+            SetActiveView(sift >= 0);
             if (activeMenu == null || !GetMenuGestureEnabled(activeMenu))
                 return false;
 
-            diff = Sign(diff) * Min(Abs(diff), activeMenu.Width);
-            if (Abs(Diff - diff) <= double.Epsilon)
+            sift = Sign(sift) * Min(Abs(sift), activeMenu.Width);
+            if (Abs(Shift - sift) <= double.Epsilon)
                 return false;
 
-            Diff = diff;
-            SetCurrentGestureState(diff);
-            if (shouldUpdatePreviousDiff)
-                previousDiff = diff;
+            Shift = sift;
+            SetCurrentGestureState(sift);
+            if (shouldUpdatePreviousShift)
+                previousShift = sift;
 
-            mainView.TranslationX = diff;
-            overlayView.TranslationX = diff;
+            mainView.TranslationX = sift;
+            overlayView.TranslationX = sift;
             return true;
         }
 
-        void SetCurrentGestureState(double diff)
+        void SetCurrentGestureState(double shift)
         {
             var menuWidth = activeMenu?.Width ?? Width;
             var moveThreshold = menuWidth * acceptMoveThresholdPercentage;
-            var absDiff = Abs(diff);
+            var absShift = Abs(shift);
             var state = State;
-            if (Sign(diff) != (int)state)
+            if (Sign(shift) != (int)state)
                 state = SideMenuState.MainViewShown;
 
-            if (state == SideMenuState.MainViewShown && absDiff <= moveThreshold ||
-                state != SideMenuState.MainViewShown && absDiff < menuWidth - moveThreshold)
+            if (state == SideMenuState.MainViewShown && absShift <= moveThreshold ||
+                state != SideMenuState.MainViewShown && absShift < menuWidth - moveThreshold)
             {
                 CurrentGestureState = SideMenuState.MainViewShown;
                 return;
             }
-            if (diff >= 0)
+            if (shift >= 0)
             {
                 CurrentGestureState = SideMenuState.LeftMenuShown;
                 return;
@@ -430,44 +430,44 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
                 return false;
             }
 
-            if (timeDiffItems.Count < minSwipeTimeDiffItemsCount)
+            if (timeShiftItems.Count < minSwipeTimeShiftItemsCount)
                 return false;
 
-            var lastItem = timeDiffItems.LastOrDefault();
-            var firstItem = timeDiffItems.FirstOrDefault();
-            var distDiff = lastItem.Diff - firstItem.Diff;
+            var lastItem = timeShiftItems.LastOrDefault();
+            var firstItem = timeShiftItems.FirstOrDefault();
+            var shiftDifference = lastItem.Shift - firstItem.Shift;
 
-            if (Sign(distDiff) != Sign(lastItem.Diff))
+            if (Sign(shiftDifference) != Sign(lastItem.Shift))
                 return false;
 
-            var absDistDiff = Abs(distDiff);
-            var timeDiff = lastItem.Time - firstItem.Time;
+            var absShiftDifference = Abs(shiftDifference);
+            var timeDifference = lastItem.Time - firstItem.Time;
 
-            var acceptValue = swipeThresholdDistance * timeDiff.TotalMilliseconds / swipeThresholdTime.TotalMilliseconds;
+            var acceptValue = swipeThresholdDistance * timeDifference.TotalMilliseconds / swipeThresholdTime.TotalMilliseconds;
 
-            if (absDistDiff < acceptValue)
+            if (absShiftDifference < acceptValue)
                 return false;
 
-            state = ResolveSwipeState(distDiff > 0);
+            state = ResolveSwipeState(shiftDifference > 0);
             return true;
         }
 
-        void PopulateDiffItems(double diff)
+        void PopulateTimeShiftItems(double shift)
         {
-            CurrentGestureDiff = diff;
+            CurrentGestureShift = shift;
 
-            if (timeDiffItems.Count > maxTimeDiffItemsCount)
-                CleanDiffItems();
+            if (timeShiftItems.Count > maxTimeShiftItemsCount)
+                CleanTimeShiftItems();
 
-            timeDiffItems.Add(new TimeDiffItem { Time = DateTime.UtcNow, Diff = diff });
+            timeShiftItems.Add(new TimeShiftItem { Time = DateTime.UtcNow, Shift = shift });
         }
 
-        void CleanDiffItems()
+        void CleanTimeShiftItems()
         {
-            var time = timeDiffItems.LastOrDefault().Time;
-            for (var i = timeDiffItems.Count - 1; i >= 0; --i)
-                if (time - timeDiffItems[i].Time > swipeThresholdTime)
-                    timeDiffItems.RemoveAt(i);
+            var time = timeShiftItems.LastOrDefault().Time;
+            for (var i = timeShiftItems.Count - 1; i >= 0; --i)
+                if (time - timeShiftItems[i].Time > swipeThresholdTime)
+                    timeShiftItems.RemoveAt(i);
         }
 
         void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

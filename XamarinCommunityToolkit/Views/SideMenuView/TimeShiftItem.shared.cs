@@ -2,10 +2,10 @@
 
 namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
 {
-    struct TimeDiffItem
+    struct TimeShiftItem
     {
         public DateTime Time { get; set; }
 
-        public double Diff { get; set; }
+        public double Shift { get; set; }
     }
 }

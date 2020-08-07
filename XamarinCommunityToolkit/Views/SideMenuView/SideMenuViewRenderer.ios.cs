@@ -31,7 +31,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.iOS.UI.Views
         }
 
         bool IsPanGestureHandled
-            => Abs(Element?.CurrentGestureDiff ?? 0) >= Element?.GestureThreshold;
+            => Abs(Element?.CurrentGestureShift ?? 0) >= Element?.GestureThreshold;
 
         public override void AddGestureRecognizer(UIGestureRecognizer gestureRecognizer)
         {
