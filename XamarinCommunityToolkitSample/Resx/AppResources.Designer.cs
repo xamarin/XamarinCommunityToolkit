@@ -448,5 +448,17 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
                 return ResourceManager.GetString("ValueLabelSpacing", resourceCulture);
             }
         }
+        
+        internal static string SideMenuViewTitle {
+            get {
+                return ResourceManager.GetString("SideMenuViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewDescription {
+            get {
+                return ResourceManager.GetString("SideMenuViewDescription", resourceCulture);
+            }
+        }
     }
 }
