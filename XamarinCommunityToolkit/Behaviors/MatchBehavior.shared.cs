@@ -32,14 +32,14 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         protected override void OnAttachedTo(Label bindable)
         {
             base.OnAttachedTo(bindable);
-            DetectAndStyleTags();
+            DetectAndStyleMatches();
         }
 
         protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnViewPropertyChanged(sender, e);
             if (e.PropertyName == Label.FormattedTextProperty.PropertyName)
-                DetectAndStyleTags();
+                DetectAndStyleMatches();
         }
 
         protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -47,18 +47,18 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             base.OnPropertyChanged(propertyName);
 
             if (propertyName == CommandProperty.PropertyName && Command != null)
-                ConfigureTags(View, AddGestureRecognizer);
+                ConfigureGestures(View, AddGestureRecognizer);
             else if (propertyName == MatchTypesProperty.PropertyName)
-                DetectAndStyleTags();
+                DetectAndStyleMatches();
         }
 
         protected override void OnDetachingFrom(Label bindable)
         {
-            ConfigureTags(bindable, RemoveGestureRecognizer);
+            ConfigureGestures(bindable, RemoveGestureRecognizer);
             base.OnDetachingFrom(bindable);
         }
 
-        void DetectAndStyleTags()
+        void DetectAndStyleMatches()
         {
             if (!string.IsNullOrWhiteSpace(View?.FormattedText?.ToString()))
             {
@@ -91,12 +91,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         }
 
 
-        void ConfigureTags(Label label, Action<Span> configAction)
+        void ConfigureGestures(Label label, Action<Span> configAction)
         {
             if (label.FormattedText?.Spans.Any() ?? false)
             {
-                var tagSpans = label.FormattedText.Spans.Where(p => MatchTypes.Any(c => Regex.Match(p.Text, c.Regex).Success));
-                foreach (var span in tagSpans)
+                var matchSpans = label.FormattedText.Spans.Where(p => MatchTypes.Any(c => Regex.Match(p.Text, c.Regex).Success));
+                foreach (var span in matchSpans)
                     configAction(span);
             }
         }
