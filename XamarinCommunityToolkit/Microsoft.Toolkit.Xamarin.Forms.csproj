@@ -72,6 +72,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="Effects\" />
     <Folder Include="Views\" />
+    <Folder Include="Views\SideMenuView\" />
     <Folder Include="Behaviors\Animations\" />
     <Folder Include="Behaviors\Animations\AnimationTypes\" />
   </ItemGroup>
