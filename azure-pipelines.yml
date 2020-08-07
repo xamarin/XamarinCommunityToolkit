@@ -9,7 +9,7 @@ variables:
   NETCORE_VERSION: '3.1.x'
   NETCORE_TEST_VERSION: '2.2.x'
   RunPoliCheck: 'false'
-  PathToCsproj: 'XamarinCommunityToolkit/Microsoft.Toolkit.Xamarin.Forms.csproj'
+  PathToCsproj: 'XamarinCommunityToolkit/Xamarin.CommunityToolkit.csproj'
 
 resources:
   repositories:
