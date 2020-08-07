@@ -80,7 +80,7 @@ jobs:
         displayName: Run Tests
         inputs:
           command: test
-          projects: 'XamarinCommunityToolkit.UnitTests/XamarinCommunityToolkit.UnitTests.csproj'
+          projects: 'XamarinCommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
           arguments: '--configuration Release'
       # publish the packages
       - task: PublishBuildArtifacts@1
