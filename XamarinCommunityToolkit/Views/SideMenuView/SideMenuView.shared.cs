@@ -120,8 +120,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             ControlTemplate = new ControlTemplate(typeof(AbsoluteLayout));
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+        internal void OnPanUpdated(object sender, PanUpdatedEventArgs e)
         {
             var diff = e.TotalX;
             var verticalDiff = e.TotalY;
@@ -143,8 +142,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             }
         }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public async void OnSwiped(SwipeDirection swipeDirection)
+        internal async void OnSwiped(SwipeDirection swipeDirection)
         {
             await Task.Delay(1);
             if (isGestureStarted)
