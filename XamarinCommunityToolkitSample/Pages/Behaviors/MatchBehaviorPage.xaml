@@ -10,9 +10,6 @@
     </pages:BasePage.BindingContext>
     <pages:BasePage.Resources>
         <ResourceDictionary>
-             <Style x:Key="MSpanStyle" TargetType="Span">
-               <Setter Property="TextColor" Value="Green" />               
-            </Style>
             <x:Array Type="{x:Type behaviors:MatchType}" x:Key="matchTypes">
                 <behaviors:HashtagMatchType/>
                 <behaviors:MentionMatchType />
