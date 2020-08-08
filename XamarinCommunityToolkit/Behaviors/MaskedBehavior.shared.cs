@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
@@ -7,6 +8,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
     public class MaskedBehavior : BaseBehavior
     {
         IDictionary<int, char> positions;
+        bool applyingMask;
 
         public static readonly BindableProperty MaskProperty =
             BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), propertyChanged: OnMaskPropertyChanged);
@@ -19,6 +21,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             get => (string)GetValue(MaskProperty);
             set => SetValue(MaskProperty, value);
         }
+
         public char UnMaskedCharacter
         {
             get => (char)GetValue(UnMaskedCharacterProperty);
@@ -29,7 +32,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             => ((MaskedBehavior)bindable).SetPositions();
 
         static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-            => ((MaskedBehavior)bindable).SetPositions();
+            => ((MaskedBehavior)bindable).OnMaskChanged();
 
         void SetPositions()
         {
@@ -47,26 +50,51 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             positions = list;
         }
 
-        /// <inheritdoc />
-        protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+        void OnMaskChanged()
         {
-            base.OnViewPropertyChanged(sender, e);
-
-            if (e.PropertyName != nameof(InputView.Text)) 
-                return;
-
             var inputView = (InputView)View;
-            var text = inputView.Text;
 
-            if (string.IsNullOrWhiteSpace(text) || positions == null) 
-                return;
-
-            if (text.Length > Mask.Length)
+            if (string.IsNullOrEmpty(Mask))
             {
-                inputView.Text = text.Remove(text.Length - 1);
+                positions = null;
                 return;
             }
 
+            var originalText = RemoveMask(inputView?.Text);
+            SetPositions();
+
+            if(inputView != null)
+            {
+                var maskedText = ApplyMask(originalText);
+                if (inputView.Text != maskedText)
+                    inputView.Text = maskedText;
+            }
+        }
+
+        string RemoveMask(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            var maskChars = positions
+                .Select(c => c.Value)
+                .Distinct()
+                .ToArray();
+
+            return string.Join(string.Empty, text.Split(maskChars));
+        }
+
+        string ApplyMask(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text) || positions == null)
+                return text;
+
+            if (text.Length > Mask.Length)
+            {
+                text = text.Remove(text.Length - 1);
+            }
+
+            text =  RemoveMask(text);
             foreach (var position in positions)
             {
                 if (text.Length < position.Key + 1) continue;
@@ -78,7 +106,30 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
                     text = text.Insert(position.Key, value);
             }
 
-            inputView.Text = text;
+            return text;
+        }
+
+        /// <inheritdoc />
+        protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnViewPropertyChanged(sender, e);
+
+            if (e.PropertyName != nameof(InputView.Text) || applyingMask)
+                return;
+
+            try
+            {
+                applyingMask = true;
+
+                var inputView = (InputView)View;
+                var maskedText = ApplyMask(inputView.Text);
+                if (inputView.Text != maskedText)
+                    inputView.Text = maskedText;
+            }
+            finally
+            {
+                applyingMask = false;
+            }
         }
     }
 }
