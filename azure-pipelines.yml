@@ -43,6 +43,30 @@ schedules:
     - main
 
 jobs:
+  - job: check_formatting
+    displayName: Check Code Formatting
+    pool:
+      vmImage: windows-2019
+    steps:
+      # Install dotnet format as a global tool
+      - task: DotNetCoreCLI@2
+        displayName: 'Install dotnet format'
+        inputs:
+          command: 'custom'
+          custom: 'tool'
+          arguments: 'update -g dotnet-format'
+
+      # Run dotnet format --check
+      # By default, the task ensure the exit code is 0
+      # If a file needs to be edited by dotnet format, the exit code will be a non-zero value
+      # So the task will fail
+      - task: DotNetCoreCLI@2
+        displayName: 'Lint dotnet'
+        inputs:
+          command: 'custom'
+          custom: 'format'
+          arguments: '. -f --check --verbosity diagnostic'
+
   - job: build_windows
     displayName: Build Windows Library
     pool:
