@@ -302,7 +302,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             var state = State;
             var start = Shift;
             var menuWidth = (state == SideMenuState.LeftMenuShown ? leftMenu : rightMenu)?.Width ?? 0;
-            var end = Sign((int)state) * menuWidth;
+            var end = -Sign((int)state) * menuWidth;
 
             var animationLength = (uint)(SideMenuView.animationLength * Abs(start - end) / Width);
             if (isSwipe)
@@ -372,7 +372,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
             var moveThreshold = menuWidth * acceptMoveThresholdPercentage;
             var absShift = Abs(shift);
             var state = State;
-            if (Sign(shift) != (int)state)
+            if (Sign(shift) != -(int)state)
                 state = SideMenuState.MainViewShown;
 
             if (state == SideMenuState.MainViewShown && absShift <= moveThreshold ||

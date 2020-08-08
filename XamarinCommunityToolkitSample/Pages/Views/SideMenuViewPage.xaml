@@ -9,4 +9,24 @@
     <pages:BasePage.Resources>
     </pages:BasePage.Resources>
 
+    <views:SideMenuView>
+        <!-- MainView -->
+        <Frame
+            Padding="0"
+            BackgroundColor="Gold" />
+
+        <!-- LeftMenu -->
+        <BoxView
+            BackgroundColor="Orange"
+            views:SideMenuView.Position="LeftMenu"
+            views:SideMenuView.MenuWidthPercentage=".5" />
+
+        <!-- RightMenu -->
+        <BoxView
+            BackgroundColor="LightGreen"
+            views:SideMenuView.Position="RightMenu"
+            views:SideMenuView.MenuWidthPercentage=".3" />
+
+    </views:SideMenuView>
+
 </pages:BasePage>
