@@ -19,7 +19,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
             //act
             //passwordEntry.Text = "123456";
-            confirmPasswordBehavior.ComparedText = passwordEntry.Text;
+            confirmPasswordBehavior.OriginalPassword = passwordEntry.Text;
             confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
             //confirmPasswordEntry.Text = "123456";
             //assert
@@ -36,7 +36,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
             //act
             passwordEntry.Text = "123456";
-            confirmPasswordBehavior.ComparedText = passwordEntry.Text;
+            confirmPasswordBehavior.OriginalPassword = passwordEntry.Text;
             confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
             confirmPasswordEntry.Text = null;
             //assert
@@ -53,7 +53,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnValueChanging;
             //act
             passwordEntry.Text = "123456";
-            confirmPasswordBehavior.ComparedText = passwordEntry.Text;
+            confirmPasswordBehavior.OriginalPassword = passwordEntry.Text;
             confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
             confirmPasswordEntry.Text = "123456";
             //assert
@@ -70,7 +70,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnValueChanging;
             //act
             passwordEntry.Text = "123456";
-            confirmPasswordBehavior.ComparedText = passwordEntry.Text;
+            confirmPasswordBehavior.OriginalPassword = passwordEntry.Text;
             confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
             confirmPasswordEntry.Text = "1234567";
             //assert
