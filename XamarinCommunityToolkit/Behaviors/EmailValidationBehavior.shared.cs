@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	public class EmailValidationBehavior : TextValidationBehavior
 	{
 #if !NETSTANDARD1_0
-        readonly Regex normalizerRegex = new Regex(@"(@)(.+)$");
+		readonly Regex normalizerRegex = new Regex(@"(@)(.+)$");
 #endif
 
 		protected override string DefaultRegexPattern
@@ -24,27 +24,27 @@ namespace Xamarin.CommunityToolkit.Behaviors
 #if NETSTANDARD1_0
 			return value;
 #else
-            if (string.IsNullOrWhiteSpace(value))
-                return value;
+			if (string.IsNullOrWhiteSpace(value))
+				return value;
 
-            try
-            {
-                static string DomainMapper(Match match)
-                {
-                    // Use IdnMapping class to convert Unicode domain names.
-                    var idn = new IdnMapping();
-                    // Pull out and process domain name (throws ArgumentException on invalid)
-                    var domainName = idn.GetAscii(match.Groups[2].Value);
-                    return match.Groups[1].Value + domainName;
-                }
+			try
+			{
+				static string DomainMapper(Match match)
+				{
+					// Use IdnMapping class to convert Unicode domain names.
+					var idn = new IdnMapping();
+					// Pull out and process domain name (throws ArgumentException on invalid)
+					var domainName = idn.GetAscii(match.Groups[2].Value);
+					return match.Groups[1].Value + domainName;
+				}
 
-                // Normalize the domain
-                return normalizerRegex.Replace(value, DomainMapper);
-            }
-            catch (ArgumentException)
-            {
-                return value;
-            }
+				// Normalize the domain
+				return normalizerRegex.Replace(value, DomainMapper);
+			}
+			catch (ArgumentException)
+			{
+				return value;
+			}
 #endif
 		}
 	}
