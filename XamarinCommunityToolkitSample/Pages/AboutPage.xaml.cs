@@ -7,18 +7,18 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages
 {
-    public partial class AboutPage : BasePage
-    {
-        public AboutPage()
-            => InitializeComponent();
+	public partial class AboutPage : BasePage
+	{
+		public AboutPage()
+			=> InitializeComponent();
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            await ((AboutViewModel)BindingContext).OnAppearing();
-        }
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+			await ((AboutViewModel)BindingContext).OnAppearing();
+		}
 
-        async void OnCloseClicked(object sender, EventArgs e)
-            => await Navigation.PopModalAsync();
-    }
+		async void OnCloseClicked(object sender, EventArgs e)
+			=> await Navigation.PopModalAsync();
+	}
 }

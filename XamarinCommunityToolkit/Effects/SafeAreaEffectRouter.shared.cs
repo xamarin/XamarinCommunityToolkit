@@ -2,11 +2,11 @@
 
 namespace Xamarin.CommunityToolkit.Effects
 {
-    public class SafeAreaEffectRouter : RoutingEffect
-    {
-        public SafeAreaEffectRouter()
-            : base($"{nameof(Xamarin.CommunityToolkit)}.{nameof(SafeAreaEffectRouter)}")
-        {
-        }
-    }
+	public class SafeAreaEffectRouter : RoutingEffect
+	{
+		public SafeAreaEffectRouter()
+			: base($"{nameof(Xamarin.CommunityToolkit)}.{nameof(SafeAreaEffectRouter)}")
+		{
+		}
+	}
 }

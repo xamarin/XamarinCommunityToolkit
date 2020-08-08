@@ -7,27 +7,27 @@ using System.Reflection;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
-    /// <summary>
-    /// Provides ImageSource by Resource Id from the current app's assembly.
-    /// </summary>
-    [ContentProperty(nameof(Id))]
-    public class ImageResourceExtension : IMarkupExtension<ImageSource>
-    {
-        /// <summary>
-        /// The Resource Id of the image.
-        /// </summary>
-        public string Id { get; set; }
+	/// <summary>
+	/// Provides ImageSource by Resource Id from the current app's assembly.
+	/// </summary>
+	[ContentProperty(nameof(Id))]
+	public class ImageResourceExtension : IMarkupExtension<ImageSource>
+	{
+		/// <summary>
+		/// The Resource Id of the image.
+		/// </summary>
+		public string Id { get; set; }
 
-        public ImageSource ProvideValue(IServiceProvider serviceProvider)
-            => Id == null
-                ? null
-                : ImageSource.FromResource(Id, Application.Current.GetType()
+		public ImageSource ProvideValue(IServiceProvider serviceProvider)
+			=> Id == null
+				? null
+				: ImageSource.FromResource(Id, Application.Current.GetType()
 #if NETSTANDARD1_0
-                    .GetTypeInfo()
+					.GetTypeInfo()
 #endif
-                    .Assembly);
+					.Assembly);
 
-        object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
-            => ((IMarkupExtension<ImageSource>)this).ProvideValue(serviceProvider);
-    }
+		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+			=> ((IMarkupExtension<ImageSource>)this).ProvideValue(serviceProvider);
+	}
 }

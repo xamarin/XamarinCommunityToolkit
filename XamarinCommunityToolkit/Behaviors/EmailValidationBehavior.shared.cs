@@ -6,23 +6,23 @@ using System.Text.RegularExpressions;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-    public class EmailValidationBehavior : TextValidationBehavior
-    {
+	public class EmailValidationBehavior : TextValidationBehavior
+	{
 #if !NETSTANDARD1_0
         readonly Regex normalizerRegex = new Regex(@"(@)(.+)$");
 #endif
 
-        protected override string DefaultRegexPattern
-            => @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
-                @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
+		protected override string DefaultRegexPattern
+			=> @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+				@"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
 
-        protected override RegexOptions DefaultRegexOptions => RegexOptions.IgnoreCase;
+		protected override RegexOptions DefaultRegexOptions => RegexOptions.IgnoreCase;
 
-        protected override object DecorateValue()
-        {
-            var value = base.DecorateValue()?.ToString();
+		protected override object DecorateValue()
+		{
+			var value = base.DecorateValue()?.ToString();
 #if NETSTANDARD1_0
-            return value;
+			return value;
 #else
             if (string.IsNullOrWhiteSpace(value))
                 return value;
@@ -46,6 +46,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
                 return value;
             }
 #endif
-        }
-    }
+		}
+	}
 }

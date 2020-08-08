@@ -9,39 +9,39 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 [assembly: ExportEffect(typeof(Effects.SafeAreaEffectRouter), nameof(SafeAreaEffectRouter))]
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-    public class SafeAreaEffectRouter : PlatformEffect
-    {
-        Thickness initialMargin;
+	public class SafeAreaEffectRouter : PlatformEffect
+	{
+		Thickness initialMargin;
 
-        protected override void OnAttached()
-        {
-            if (!(Element is View element))
-                return;
+		protected override void OnAttached()
+		{
+			if (!(Element is View element))
+				return;
 
-            if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0) || !UIApplication.SharedApplication.Windows.Any())
-                return;
+			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0) || !UIApplication.SharedApplication.Windows.Any())
+				return;
 
-            var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
+			var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
 
-            initialMargin = element.Margin;
+			initialMargin = element.Margin;
 
-            if (insets.Top <= 0)
-                return;
+			if (insets.Top <= 0)
+				return;
 
-            var safeArea = SafeAreaEffect.GetSafeArea(element);
+			var safeArea = SafeAreaEffect.GetSafeArea(element);
 
-            element.Margin = new Thickness(
-                initialMargin.Left + (safeArea.Left ? insets.Left : 0),
-                initialMargin.Top + (safeArea.Top ? insets.Top : 0),
-                initialMargin.Right + (safeArea.Right ? insets.Right : 0),
-                initialMargin.Bottom + (safeArea.Bottom ? insets.Bottom : 0)
-            );
-        }
+			element.Margin = new Thickness(
+				initialMargin.Left + (safeArea.Left ? insets.Left : 0),
+				initialMargin.Top + (safeArea.Top ? insets.Top : 0),
+				initialMargin.Right + (safeArea.Right ? insets.Right : 0),
+				initialMargin.Bottom + (safeArea.Bottom ? insets.Bottom : 0)
+			);
+		}
 
-        protected override void OnDetached()
-        {
-            if (Element is Layout element)
-                element.Margin = initialMargin;
-        }
-    }
+		protected override void OnDetached()
+		{
+			if (Element is Layout element)
+				element.Margin = initialMargin;
+		}
+	}
 }

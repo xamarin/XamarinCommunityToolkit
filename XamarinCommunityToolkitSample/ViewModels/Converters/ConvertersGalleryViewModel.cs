@@ -6,15 +6,15 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
-    public class ConvertersGalleryViewModel : BaseViewModel
-    {
-        public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
-            new SectionModel(
-                typeof(ItemTappedEventArgsPage),
-                "ItemTappedEventArgs",
-                Color.FromHex("#498205"),
-                AppResources.ItemTappedEventArgsShortDescription
-            ),
+	public class ConvertersGalleryViewModel : BaseViewModel
+	{
+		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
+			new SectionModel(
+				typeof(ItemTappedEventArgsPage),
+				"ItemTappedEventArgs",
+				Color.FromHex("#498205"),
+				AppResources.ItemTappedEventArgsShortDescription
+			),
 
             new SectionModel(
                 typeof(ItemSelectedEventArgsPage),
