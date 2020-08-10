@@ -243,6 +243,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
             }
         }
         
+        internal static string ByteArrayToImageSourceShortDescription {
+            get {
+                return ResourceManager.GetString("ByteArrayToImageSourceShortDescription", resourceCulture);
+            }
+        }
+        
         internal static string ExtensionsTitle {
             get {
                 return ResourceManager.GetString("ExtensionsTitle", resourceCulture);

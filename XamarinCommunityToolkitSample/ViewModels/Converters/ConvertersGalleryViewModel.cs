@@ -21,6 +21,13 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
                 "ItemSelectedEventArgs",
                 Color.FromHex("#498205"),
                 AppResources.ItemTappedSelectedEventArgsShortDescription
+            ),
+
+            new SectionModel(
+                typeof(ByteArrayToImageSourcePage),
+                "ByteArrayToImageSource",
+                Color.FromHex("#498205"),
+                AppResources.ByteArrayToImageSourceShortDescription
             )
         };
     }
