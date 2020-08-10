@@ -13,8 +13,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors
     public partial class ConfirmPasswordBehaviorPage : BasePage
     {
         public ConfirmPasswordBehaviorPage()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
     }
 }
