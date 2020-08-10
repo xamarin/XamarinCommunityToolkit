@@ -9,10 +9,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
                 typeof(ConfirmPasswordBehavior));
         
         protected override bool Validate(object value)
-        {
-            var confirmPasswordText = value?.ToString();
-            return confirmPasswordText == OriginalPassword;
-        }
+            => value?.ToString() == OriginalPassword;
         
         public string OriginalPassword
         {
