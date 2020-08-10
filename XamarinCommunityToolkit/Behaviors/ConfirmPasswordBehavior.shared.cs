@@ -13,8 +13,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         
         public string OriginalPassword
         {
-            get => (string)GetValue(ComparedTextProperty);
-            set => SetValue(ComparedTextProperty, value);
+            get => (string)GetValue(OriginalPasswordProperty);
+            set => SetValue(OriginalPasswordProperty, value);
         }
     }
 }
