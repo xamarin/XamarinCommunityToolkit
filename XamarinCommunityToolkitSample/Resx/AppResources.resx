@@ -171,6 +171,11 @@
               <value>A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior.</value>
           </data>
        
+         <!--ItemTappedSelectedEventArgs-->
+  
+         <data name="ByteArrayToImageSourceShortDescription" xml:space="preserve">
+              <value>A converter that allows you to convert byte array to an object of a type ImageSource.</value>
+         </data>
   <!--/Converters Section-->
   
   
