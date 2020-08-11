@@ -125,8 +125,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         void RemoveGestureRecognizer(Span span)
         {
-            var tapRecognizer = span.GestureRecognizers.FirstOrDefault() as TapGestureRecognizer;
-            if (tapRecognizer != null)
+            var gesture = span.GestureRecognizers.FirstOrDefault();
+            if (gesture is TapGestureRecognizer tapRecognizer)
                 span.GestureRecognizers.Remove(tapRecognizer);
         }
     }
