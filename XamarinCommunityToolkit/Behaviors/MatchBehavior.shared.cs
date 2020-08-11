@@ -71,20 +71,14 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
             foreach (var item in collection)
             {
-                    sections.Add(new StringSection() { Text = rawText.Substring(lastIndex, item.Match.Index - lastIndex) });
+                    sections.Add(new StringSection(rawText.Substring(lastIndex, item.Match.Index - lastIndex)));
+
                     lastIndex = item.Match.Index + item.Match.Length;
 
-                    var textSection = new StringSection()
-                    {
-                        IsMatch = true,
-                        Style = item.Type.Style,
-                        Value = item.Type.GetValue(item.Match.Value),
-                        Text = item.Type.GetText(item.Match.Value)
-                    };
-                    sections.Add(textSection);
+                    sections.Add(new StringSection(item.Type.GetText(item.Match.Value), item.Type.GetValue(item.Match.Value), item.Type.Style, true));
             }
 
-            sections.Add(new StringSection() { Text = rawText.Substring(lastIndex) });
+            sections.Add(new StringSection(rawText.Substring(lastIndex)));
 
             return sections;
         }
@@ -151,10 +145,18 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         class StringSection
         {
-            public bool IsMatch { get; set; } = false;
-            public Style Style { get; set; }
-            public string Text { get; set; }
-            public string Value { get; set; }
+            public StringSection(string text, string value = null, Style style = null, bool isMatch = false)
+            {
+                Text = text;
+                Value = value;
+                Style = style;
+                IsMatch = isMatch;
+            }
+
+            public bool IsMatch { get; }
+            public Style Style { get; }
+            public string Text { get; }
+            public string Value { get; }
         }
     }
 }
