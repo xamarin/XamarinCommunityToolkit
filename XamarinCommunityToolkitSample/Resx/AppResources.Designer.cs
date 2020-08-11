@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
+namespace Xamarin.CommunityToolkit.Sample.Resx {
     using System;
     using System.Reflection;
     

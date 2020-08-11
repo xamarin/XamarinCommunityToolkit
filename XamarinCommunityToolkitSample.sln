@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Toolkit.Xamarin.Forms.Sample.Android", "XamarinCommunityToolkitSample.Android\Microsoft.Toolkit.Xamarin.Forms.Sample.Android.csproj", "{8B80BFA6-7B19-4DE7-BD97-7D84194AD0C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.Android", "XamarinCommunityToolkitSample.Android\Xamarin.CommunityToolkit.Sample.Android.csproj", "{8B80BFA6-7B19-4DE7-BD97-7D84194AD0C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Toolkit.Xamarin.Forms.Sample.iOS", "XamarinCommunityToolkitSample.iOS\Microsoft.Toolkit.Xamarin.Forms.Sample.iOS.csproj", "{B10BD8BF-43EA-4F95-BE5C-42ED8028CC6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.iOS", "XamarinCommunityToolkitSample.iOS\Xamarin.CommunityToolkit.Sample.iOS.csproj", "{B10BD8BF-43EA-4F95-BE5C-42ED8028CC6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Toolkit.Xamarin.Forms.Sample", "XamarinCommunityToolkitSample\Microsoft.Toolkit.Xamarin.Forms.Sample.csproj", "{81AADE72-D666-4AB0-83D9-8FE366E0755E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.Sample", "XamarinCommunityToolkitSample\Xamarin.CommunityToolkit.Sample.csproj", "{81AADE72-D666-4AB0-83D9-8FE366E0755E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Toolkit.Xamarin.Forms", "XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj", "{B0DCDF81-953D-47DA-A7D4-0565339BF07C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit", "XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj", "{B0DCDF81-953D-47DA-A7D4-0565339BF07C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{47DFE508-04F1-433D-8C55-0C1ACD033573}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Toolkit.Xamarin.Forms.UnitTests", "XamarinCommunityToolkit.UnitTests\Microsoft.Toolkit.Xamarin.Forms.UnitTests.csproj", "{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.UnitTests", "XamarinCommunityToolkit.UnitTests\Xamarin.CommunityToolkit.UnitTests.csproj", "{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
