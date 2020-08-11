@@ -67,6 +67,7 @@
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
+    <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
     <Folder Include="Extensions\" />
     <Folder Include="Effects\" />

@@ -34,6 +34,7 @@
     <Folder Include="Pages\Converters\" />
     <Folder Include="Pages\Base\" />
     <Folder Include="ViewModels\Views\" />
+    <Folder Include="ViewModels\Behaviors\" />
     <Folder Include="ViewModels\Converters\" />
     <Folder Include="ViewModels\Base\" />
     <Folder Include="Pages\Extensions\" />
