@@ -5,7 +5,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class LinkMatchType : MatchType
     {
-        public override Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(@"(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+", RegexOptions.Compiled | RegexOptions.Singleline));
+        public override Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(@"(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+", RegexOptions.Singleline));
 
         public override Style Style => new Style(typeof(Span))
         {
