@@ -2,10 +2,10 @@
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-    struct TimeShiftItem
-    {
-        public DateTime Time { get; set; }
+	struct TimeShiftItem
+	{
+		public DateTime Time { get; set; }
 
-        public double Shift { get; set; }
-    }
+		public double Shift { get; set; }
+	}
 }
