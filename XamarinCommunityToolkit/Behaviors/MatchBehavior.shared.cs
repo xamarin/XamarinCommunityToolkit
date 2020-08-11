@@ -112,8 +112,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         void AddGestureRecognizer(Span span)
         {
-            var tapRecognizer = span.GestureRecognizers.FirstOrDefault() as TapGestureRecognizer;
-            if (tapRecognizer != null)
+            var gesture = span.GestureRecognizers.FirstOrDefault();
+            if (gesture is TapGestureRecognizer tapRecognizer)
                 tapRecognizer.Command = Command;
             else
                 span.GestureRecognizers.Add(new TapGestureRecognizer()
