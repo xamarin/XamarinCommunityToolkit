@@ -14,7 +14,7 @@
             <x:Array Type="{x:Type behaviors:MatchType}" x:Key="matchTypes">
                 <behaviors:HashtagMatchType/>
                 <behaviors:MentionMatchType />
-                <behaviors:LinkMatchType />
+                <behaviors:HtmlLinkMatchType />
             </x:Array>
         </ResourceDictionary>
     </pages:BasePage.Resources>

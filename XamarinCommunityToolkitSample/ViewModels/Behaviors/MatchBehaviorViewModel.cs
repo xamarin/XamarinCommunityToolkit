@@ -7,7 +7,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
 {
     public class MatchBehaviorViewModel : BaseViewModel
     {
-        string text = $"{AppResources.MatchTypesIntroText}: #DotNetMAUI #Community #OpenSource https://www.xamarin.com www.github.com @xamarinhq @dotnet @microsoft #MicrosoftToolkitXamarinForms #Xamarin #Monkeys #XamarinForms @planetxamarin #ILoveXamarin #CSharp #Behaviors";
+        string text = $"{AppResources.MatchTypesIntroText}: #DotNetMAUI #Community #OpenSource <a href=\"https://www.xamarin.com\">Xamarin</a>  <a href=\"www.example.com\">Test</a> <a href=\"www.github.com\">Github</a> @xamarinhq @dotnet @microsoft #MicrosoftToolkitXamarinForms #Xamarin #Monkeys #XamarinForms @planetxamarin #ILoveXamarin #CSharp #Behaviors";
 
         public string Text
         {

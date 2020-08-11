@@ -29,6 +29,8 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             set => SetValue(MatchTypesProperty, value);
         }
 
+        IDictionary<Span, string> currentMatches;
+
         protected override void OnAttachedTo(Label bindable)
         {
             base.OnAttachedTo(bindable);
@@ -54,8 +56,37 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         protected override void OnDetachingFrom(Label bindable)
         {
+            currentMatches.Clear();
             ConfigureGestures(bindable, RemoveGestureRecognizer);
             base.OnDetachingFrom(bindable);
+        }
+
+        IList<StringSection> ProcessString(string rawText)
+        {
+            var collection = MatchTypes.SelectMany(c => c.Regex.Value.Matches(rawText).OfType<Match>().Where(m => m.Success).Select(x => new { Match = x, Type = c })).OrderBy(x => x.Match.Index);
+
+            var sections = new List<StringSection>();
+
+            var lastIndex = 0;
+
+            foreach (var item in collection)
+            {
+                    sections.Add(new StringSection() { Text = rawText.Substring(lastIndex, item.Match.Index - lastIndex) });
+                    lastIndex = item.Match.Index + item.Match.Length;
+
+                    var textSection = new StringSection()
+                    {
+                        IsMatch = true,
+                        Style = item.Type.Style,
+                        Value = item.Type.GetValue(item.Match.Value),
+                        Text = item.Type.GetText(item.Match.Value)
+                    };
+                    sections.Add(textSection);
+            }
+
+            sections.Add(new StringSection() { Text = rawText.Substring(lastIndex) });
+
+            return sections;
         }
 
         void DetectAndStyleMatches()
@@ -64,70 +95,66 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             {
                 var textValue = View.FormattedText?.ToString();
                 View.FormattedText.Spans.Clear();
+                currentMatches = new Dictionary<Span, string>();
                 var formatted = View.FormattedText;
 
-                var collection = MatchTypes.SelectMany(c => c.Regex.Value.Matches(textValue).OfType<Match>().Where(c => c.Success)).OrderBy(x => x.Index);
-
-                var lastIndex = 0;
-
-                foreach (var item in collection)
-                {
-                    var text = textValue.Substring(lastIndex, item.Index - lastIndex);
-                    formatted.Spans.Add(CreateSpan(text));
-                    lastIndex = item.Index + item.Length;
-
-                    var span = CreateSpan(item.Value, true);
-
-                    formatted.Spans.Add(span);
-
-                    if (Command != null)
-                        AddGestureRecognizer(span);
-                }
-
-                var remainingText = textValue.Substring(lastIndex);
-
-                formatted.Spans.Add(CreateSpan(remainingText));
+                foreach (var item in ProcessString(textValue))
+                    formatted.Spans.Add(CreateSpan(item));
             }
         }
 
-
-        void ConfigureGestures(Label label, Action<Span> configAction)
+        void ConfigureGestures(Label label, Action<KeyValuePair<Span, string>> configAction)
         {
-            if (label.FormattedText?.Spans.Any() ?? false)
+            if (currentMatches?.Any() ?? false)
             {
-                var matchSpans = label.FormattedText.Spans.Where(p => MatchTypes.Any(c => c.Regex.Value.Match(p.Text).Success));
-                foreach (var span in matchSpans)
-                    configAction(span);
+                foreach (var section in currentMatches)
+                    configAction(section);
             }
         }
 
-        Span CreateSpan(string text, bool isMatch = false)
-         => new Span()
-         {
-             Text = text,
-             Style = isMatch
-                 ? MatchTypes.FirstOrDefault(c => c.Regex.Value.Match(text).Success)?.Style
-                 : null
-         };
-
-        void AddGestureRecognizer(Span span)
+        Span CreateSpan(StringSection section)
         {
-            var gesture = span.GestureRecognizers.FirstOrDefault();
+            var span = new Span()
+            {
+                    Text = section.Text,
+                    Style = section.Style
+            };
+
+            if(section.IsMatch)
+            {
+                currentMatches.Add(span, section.Value);
+            }
+          
+            return span;
+        }
+        
+
+        void AddGestureRecognizer(KeyValuePair<Span,string> match)
+        {
+            var gesture = match.Key.GestureRecognizers.FirstOrDefault();
             if (gesture is TapGestureRecognizer tapRecognizer)
                 tapRecognizer.Command = Command;
             else
-                span.GestureRecognizers.Add(new TapGestureRecognizer()
+                match.Key.GestureRecognizers.Add(new TapGestureRecognizer()
                 {
                     Command = Command,
-                    CommandParameter = span.Text
+                    CommandParameter = match.Value
                 });
         }
 
-        void RemoveGestureRecognizer(Span span)
+        void RemoveGestureRecognizer(KeyValuePair<Span, string> match)
         {
-            var gesture = span.GestureRecognizers.FirstOrDefault();
+            var gesture = match.Key.GestureRecognizers.FirstOrDefault();
             if (gesture is TapGestureRecognizer tapRecognizer)
-                span.GestureRecognizers.Remove(tapRecognizer);
+                match.Key.GestureRecognizers.Remove(tapRecognizer);
+        }
+
+        class StringSection
+        {
+            public bool IsMatch { get; set; } = false;
+            public Style Style { get; set; }
+            public string Text { get; set; }
+            public string Value { get; set; }
         }
     }
 }

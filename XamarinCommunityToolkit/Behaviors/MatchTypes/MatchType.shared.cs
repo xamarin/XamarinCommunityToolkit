@@ -7,5 +7,9 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
     {
         public abstract Lazy<Regex> Regex { get; }
         public abstract Style Style { get; }
+
+        public virtual string GetValue(string value) => value;
+
+        public virtual string GetText(string text) => text;
     }
 }
