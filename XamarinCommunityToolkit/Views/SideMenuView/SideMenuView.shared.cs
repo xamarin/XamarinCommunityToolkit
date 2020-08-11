@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using static System.Math;
 using static Xamarin.Forms.AbsoluteLayout;
-using System.ComponentModel;
 using System.Collections.Specialized;
 
 namespace Xamarin.CommunityToolkit.UI.Views
