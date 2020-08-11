@@ -11,11 +11,11 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class MatchBehavior : BaseBehavior<Label>
     {
-        public static readonly BindableProperty CommandProperty =
-         BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MatchBehavior));
+        public static readonly BindableProperty CommandProperty 
+            = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MatchBehavior));
 
-        public static readonly BindableProperty MatchTypesProperty =
-         BindableProperty.Create(nameof(MatchTypes), typeof(IEnumerable<MatchType>), typeof(MatchBehavior), Enumerable.Empty<MatchType>());
+        public static readonly BindableProperty MatchTypesProperty 
+            = BindableProperty.Create(nameof(MatchTypes), typeof(IEnumerable<MatchType>), typeof(MatchBehavior), Enumerable.Empty<MatchType>());
 
         public ICommand Command
         {
