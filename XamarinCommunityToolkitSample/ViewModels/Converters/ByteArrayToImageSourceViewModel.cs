@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Linq;
 using Octokit;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters
+namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
     public class ByteArrayToImageSourceViewModel : BaseViewModel
     {

@@ -1,11 +1,11 @@
-﻿using Microsoft.Toolkit.Xamarin.Forms.Extensions;
+﻿using Xamarin.CommunityToolkit.Extensions;
 using System.Globalization;
 using System.Threading;
 using Xamarin.Forms;
 using System.IO;
 using System;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Converters
+namespace Xamarin.CommunityToolkit.Converters
 {
     /// <summary>
     /// Converts the incoming value from byte array and returns the object of a type ImageSource.
