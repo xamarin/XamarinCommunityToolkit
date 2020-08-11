@@ -31,6 +31,7 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Pages\Views\" />
+    <Folder Include="Pages\Behaviors\" />
     <Folder Include="Pages\Converters\" />
     <Folder Include="Pages\Base\" />
     <Folder Include="ViewModels\Views\" />
