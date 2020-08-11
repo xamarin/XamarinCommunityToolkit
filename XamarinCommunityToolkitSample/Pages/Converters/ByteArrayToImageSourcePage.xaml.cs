@@ -1,6 +1,6 @@
-﻿using Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters;
+﻿using Xamarin.CommunityToolkit.Sample.ViewModels.Converters;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters
+namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
 {
     public partial class ByteArrayToImageSourcePage : BasePage
     {

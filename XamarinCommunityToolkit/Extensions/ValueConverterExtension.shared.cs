@@ -3,15 +3,15 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Extensions
+namespace Xamarin.CommunityToolkit.Extensions
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public abstract class ValueConverterExtension : IMarkupExtension<IValueConverter>
-    {
-        public IValueConverter ProvideValue(IServiceProvider serviceProvider)
-            => (IValueConverter)this;
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public abstract class ValueConverterExtension : IMarkupExtension<IValueConverter>
+	{
+		public IValueConverter ProvideValue(IServiceProvider serviceProvider)
+			=> (IValueConverter)this;
 
-        object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
-            => ((IMarkupExtension<IValueConverter>)this).ProvideValue(serviceProvider);
-    }
+		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+			=> ((IMarkupExtension<IValueConverter>)this).ProvideValue(serviceProvider);
+	}
 }
