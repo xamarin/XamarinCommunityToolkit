@@ -1,9 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Text.RegularExpressions;
+using Xamarin.Forms;
 namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class LinkMatchType : MatchType
     {
-        public override string Regex => @"(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+";
+        public override Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(@"(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+", RegexOptions.Compiled | RegexOptions.Singleline));
 
         public override Style Style => new Style(typeof(Span))
         {

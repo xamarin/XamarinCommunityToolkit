@@ -66,7 +66,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
                 View.FormattedText.Spans.Clear();
                 var formatted = View.FormattedText;
 
-                var collection = MatchTypes.SelectMany(c => Regex.Matches(textValue, c.Regex, RegexOptions.Singleline).OfType<Match>().Where(c => c.Success)).OrderBy(x => x.Index);
+                var collection = MatchTypes.SelectMany(c => c.Regex.Value.Matches(textValue).OfType<Match>().Where(c => c.Success)).OrderBy(x => x.Index);
 
                 var lastIndex = 0;
 
@@ -95,7 +95,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
         {
             if (label.FormattedText?.Spans.Any() ?? false)
             {
-                var matchSpans = label.FormattedText.Spans.Where(p => MatchTypes.Any(c => Regex.Match(p.Text, c.Regex).Success));
+                var matchSpans = label.FormattedText.Spans.Where(p => MatchTypes.Any(c => c.Regex.Value.Match(p.Text).Success));
                 foreach (var span in matchSpans)
                     configAction(span);
             }
@@ -106,7 +106,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
          {
              Text = text,
              Style = isMatch
-                 ? MatchTypes.FirstOrDefault(c => Regex.Match(text, c.Regex).Success)?.Style
+                 ? MatchTypes.FirstOrDefault(c => c.Regex.Value.Match(text).Success)?.Style
                  : null
          };
 

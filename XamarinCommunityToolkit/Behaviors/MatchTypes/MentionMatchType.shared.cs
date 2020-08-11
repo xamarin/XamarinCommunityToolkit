@@ -1,9 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Text.RegularExpressions;
+using Xamarin.Forms;
 namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
     public class MentionMatchType : MatchType
     {
-        public override string Regex => @"[@]\w+";
+        public override Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(@"[@]\w+", RegexOptions.Compiled | RegexOptions.Singleline));
 
         public override Style Style => new Style(typeof(Span))
         {
