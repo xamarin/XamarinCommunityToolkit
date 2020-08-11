@@ -56,7 +56,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
         protected override void OnDetachingFrom(Label bindable)
         {
-            currentMatches.Clear();
+            currentMatches?.Clear();
             ConfigureGestures(bindable, RemoveGestureRecognizer);
             base.OnDetachingFrom(bindable);
         }
@@ -122,7 +122,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 
             if(section.IsMatch)
             {
-                currentMatches.Add(span, section.Value);
+                currentMatches?.Add(span, section.Value);
             }
           
             return span;
