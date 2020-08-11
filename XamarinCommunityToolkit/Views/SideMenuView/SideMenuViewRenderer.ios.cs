@@ -1,13 +1,13 @@
 ﻿using Foundation;
-using Microsoft.Toolkit.Xamarin.Forms.UI.Views;
-using Microsoft.Toolkit.Xamarin.Forms.iOS.UI.Views;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.CommunityToolkit.iOS.UI.Views;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using static System.Math;
 
 [assembly: ExportRenderer(typeof(SideMenuView), typeof(SideMenuViewRenderer))]
-namespace Microsoft.Toolkit.Xamarin.Forms.iOS.UI.Views
+namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
     [Preserve(AllMembers = true)]
     public class SideMenuViewRenderer : VisualElementRenderer<SideMenuView>

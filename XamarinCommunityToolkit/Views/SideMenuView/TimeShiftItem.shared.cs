@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
+namespace Xamarin.CommunityToolkit.UI.Views
 {
     struct TimeShiftItem
     {

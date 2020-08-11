@@ -1,15 +1,15 @@
 ﻿using Android.Content;
 using Android.Runtime;
 using Android.Views;
-using Microsoft.Toolkit.Xamarin.Forms.UI.Views;
-using Microsoft.Toolkit.Xamarin.Forms.Android.UI.Views;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.CommunityToolkit.Android.UI.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using static System.Math;
 
 [assembly: ExportRenderer(typeof(SideMenuView), typeof(SideMenuViewRenderer))]
-namespace Microsoft.Toolkit.Xamarin.Forms.Android.UI.Views
+namespace Xamarin.CommunityToolkit.Android.UI.Views
 {
     [Preserve(AllMembers = true)]
     public class SideMenuViewRenderer : VisualElementRenderer<SideMenuView>

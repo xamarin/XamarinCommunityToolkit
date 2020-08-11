@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using Xamarin.Forms;
-using static Microsoft.Toolkit.Xamarin.Forms.UI.Views.SideMenuView;
+using static Xamarin.CommunityToolkit.UI.Views.SideMenuView;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
+namespace Xamarin.CommunityToolkit.UI.Views
 {
     sealed class SideMenuElementCollection : ObservableCollection<View>, ISideMenuList<View>
     {

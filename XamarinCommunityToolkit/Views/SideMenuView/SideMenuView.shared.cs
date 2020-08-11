@@ -8,7 +8,7 @@ using static Xamarin.Forms.AbsoluteLayout;
 using System.ComponentModel;
 using System.Collections.Specialized;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UI.Views
+namespace Xamarin.CommunityToolkit.UI.Views
 {
     [ContentProperty(nameof(Children))]
     public class SideMenuView : TemplatedView
