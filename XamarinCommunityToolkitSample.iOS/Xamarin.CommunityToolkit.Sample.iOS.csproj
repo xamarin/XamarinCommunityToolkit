@@ -11,7 +11,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Microsoft.Toolkit.Xamarin.Forms.Sample.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-    <AssemblyName>Microsoft.Toolkit.Xamarin.Forms.Sample.iOS</AssemblyName>
+    <AssemblyName>Xamarin.CommunityToolkit.Sample.iOS</AssemblyName>
     <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <ProvisioningType>automatic</ProvisioningType>
@@ -133,23 +133,13 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1142" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Xamarin.Forms.PancakeView">
-      <Version>2.0.1.698</Version>
+      <Version>2.1.0.714</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkitSample\Microsoft.Toolkit.Xamarin.Forms.Sample.csproj">
-      <Project>{81AADE72-D666-4AB0-83D9-8FE366E0755E}</Project>
-      <Name>Microsoft.Toolkit.Xamarin.Forms.Sample</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj">
-      <Project>{B0DCDF81-953D-47DA-A7D4-0565339BF07C}</Project>
-      <Name>Microsoft.Toolkit.Xamarin.Forms</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\xamarinstore.jpg" />
   </ItemGroup>
@@ -167,5 +157,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj">
+      <Project>{B0DCDF81-953D-47DA-A7D4-0565339BF07C}</Project>
+      <Name>Xamarin.CommunityToolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamarinCommunityToolkitSample\Xamarin.CommunityToolkit.Sample.csproj">
+      <Project>{81AADE72-D666-4AB0-83D9-8FE366E0755E}</Project>
+      <Name>Xamarin.CommunityToolkit.Sample</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

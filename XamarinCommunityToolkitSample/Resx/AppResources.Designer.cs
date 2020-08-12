@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
+namespace Xamarin.CommunityToolkit.Sample.Resx {
     using System;
     using System.Reflection;
     
@@ -30,7 +30,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Microsoft.Toolkit.Xamarin.Forms.Sample.Resx.AppResources", typeof(AppResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Xamarin.CommunityToolkit.Sample.Resx.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -218,6 +218,12 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
         internal static string ItemTappedSelectedEventArgsShortDescription {
             get {
                 return ResourceManager.GetString("ItemTappedSelectedEventArgsShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ByteArrayToImageSourceShortDescription {
+            get {
+                return ResourceManager.GetString("ByteArrayToImageSourceShortDescription", resourceCulture);
             }
         }
         

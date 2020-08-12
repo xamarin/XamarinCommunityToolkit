@@ -9,7 +9,7 @@ variables:
   NETCORE_VERSION: '3.1.x'
   NETCORE_TEST_VERSION: '2.2.x'
   RunPoliCheck: 'false'
-  PathToCsproj: 'XamarinCommunityToolkit/Microsoft.Toolkit.Xamarin.Forms.csproj'
+  PathToCsproj: 'XamarinCommunityToolkit/Xamarin.CommunityToolkit.csproj'
 
 resources:
   repositories:
@@ -104,7 +104,7 @@ jobs:
         displayName: Run Tests
         inputs:
           command: test
-          projects: 'XamarinCommunityToolkit.UnitTests/XamarinCommunityToolkit.UnitTests.csproj'
+          projects: 'XamarinCommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
           arguments: '--configuration Release'
       # publish the packages
       - task: PublishBuildArtifacts@1

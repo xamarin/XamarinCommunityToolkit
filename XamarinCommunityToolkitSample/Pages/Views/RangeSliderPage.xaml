@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.UI.Views;assembly=Microsoft.Toolkit.Xamarin.Forms"
-             xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
-             x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views.RangeSliderPage"
-             xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
+             xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.RangeSliderPage"
+             xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
 
     <pages:BasePage.Resources>
         <x:String x:Key="CustomValueLabeStringFormat">{0:0.#}</x:String>
