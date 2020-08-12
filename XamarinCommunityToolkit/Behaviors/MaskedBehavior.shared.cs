@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
+namespace Xamarin.CommunityToolkit.Behaviors
 {
     public class MaskedBehavior : BaseBehavior
     {
