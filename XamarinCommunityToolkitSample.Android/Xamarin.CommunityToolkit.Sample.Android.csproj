@@ -104,6 +104,10 @@
       <Project>{81AADE72-D666-4AB0-83D9-8FE366E0755E}</Project>
       <Name>Xamarin.CommunityToolkit.Sample</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XamarinCommunityToolkit\Microsoft.Toolkit.Xamarin.Forms.csproj">
+      <Project>{B0DCDF81-953D-47DA-A7D4-0565339BF07C}</Project>
+      <Name>Xamarin.CommunityToolkit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

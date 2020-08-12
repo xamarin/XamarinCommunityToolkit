@@ -349,6 +349,16 @@
         <data name="ValueLabelSpacing" xml:space="preserve">
             <value>Value Label Spacing</value>
         </data>
+
+        <!--SideMenuView-->
+     
+        <data name="SideMenuViewTitle" xml:space="preserve">
+            <value>SideMenuView</value>
+        </data>
+        
+        <data name="SideMenuViewDescription" xml:space="preserve">
+            <value>SideMenuView is a simple and flexible Right/Left menu control.</value>
+        </data>
   
   <!--/Views Section-->
    
