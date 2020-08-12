@@ -26,7 +26,7 @@ Now all you need to do is use it!
 For example, to use the `AvatarView` you first include the toolkit namespace:
 
 ```xaml
-xmlns:views="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.UI.Views;assembly=Microsoft.Toolkit.Xamarin.Forms"
+xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
 ```
 
 Then place the view in your XAML:
