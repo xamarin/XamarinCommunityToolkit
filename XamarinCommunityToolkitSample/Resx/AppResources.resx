@@ -333,4 +333,25 @@
   <data name="MaskedShortDescription" xml:space="preserve">
     <value>Masked text in entry with specific pattern</value>
   </data>
+  <data name="CreditCardNumber" xml:space="preserve">
+    <value>Credit Card Number</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="EG" xml:space="preserve">
+    <value>e.g.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="SocialSecurityNumber" xml:space="preserve">
+    <value>Social Security Number</value>
+  </data>
+  <data name="SortCode" xml:space="preserve">
+    <value>Sort code</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
 </root>

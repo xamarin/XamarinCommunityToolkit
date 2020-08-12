@@ -196,6 +196,33 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Credit Card Number.
+        /// </summary>
+        internal static string CreditCardNumber {
+            get {
+                return ResourceManager.GetString("CreditCardNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to e.g..
+        /// </summary>
+        internal static string EG {
+            get {
+                return ResourceManager.GetString("EG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Text color will change accordingly to the style that is configured when a invalid value (email address) is entered..
         /// </summary>
         internal static string EmailValidationDescription {
@@ -430,6 +457,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone Number.
+        /// </summary>
+        internal static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The RangeSlider is a slider with two thumbs allowing to select numeric ranges..
         /// </summary>
         internal static string RangeSliderDescription {
@@ -489,6 +525,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string SideMenuViewTitle {
             get {
                 return ResourceManager.GetString("SideMenuViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Social Security Number.
+        /// </summary>
+        internal static string SocialSecurityNumber {
+            get {
+                return ResourceManager.GetString("SocialSecurityNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort code.
+        /// </summary>
+        internal static string SortCode {
+            get {
+                return ResourceManager.GetString("SortCode", resourceCulture);
             }
         }
         
@@ -561,6 +615,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string ThumbText {
             get {
                 return ResourceManager.GetString("ThumbText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        internal static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
             }
         }
         

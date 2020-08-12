@@ -10,41 +10,53 @@
 
             <Label Padding="10,10,10,50" Text="{x:Static resx:AppResources.MaskedDescription}" />
 
-            <Editor>
-                <Editor.Behaviors>
-                    <behaviors:MaskedBehavior Mask="XX-XX-XX" />
-                </Editor.Behaviors>
-            </Editor>
-            <Label Padding="10,0,10,50"
-                   FontSize="Small"
-                   Text="Editor test, Sort code 'XX-XX-XX'" />
-
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
                     <behaviors:MaskedBehavior Mask="XX-XX-XX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50"
-                   FontSize="Small"
-                   Text="e.g. Sort code 'XX-XX-XX'" />
+            <Label Padding="10,0,10,50" FontSize="Small">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text=" " />
+                        <Span Text="{x:Static resx:AppResources.SortCode}" />
+                        <Span Text=" 'XX-XX-XX'" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
                     <behaviors:MaskedBehavior Mask="AA-AA-AA" UnMaskedCharacter="A" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50"
-                   FontSize="Small"
-                   Text="e.g. Sort code 'AA-AA-AA'" />
+            <Label Padding="10,0,10,50" FontSize="Small">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text=" " />
+                        <Span Text="{x:Static resx:AppResources.SortCode}" />
+                        <Span Text=" 'AA-AA-AA'" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
                     <behaviors:MaskedBehavior Mask="XXXX XXXX XXXX XXXX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50"
-                   FontSize="Small"
-                   Text="e.g. Credit Card Number 'XXXX XXXX XXXX XXXX'" />
+            <Label Padding="10,0,10,50" FontSize="Small">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text=" " />
+                        <Span Text="{x:Static resx:AppResources.CreditCardNumber}" />
+                        <Span Text=" 'XXXX XXXX XXXX XXXX'" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
 
             <Entry Keyboard="Numeric" Placeholder="dd/mm/yyyy">
@@ -52,18 +64,32 @@
                     <behaviors:MaskedBehavior Mask="XX/XX/XXXX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50"
-                   FontSize="Small"
-                   Text="e.g. Date 'XX/XX/XXXX'" />
+            <Label Padding="10,0,10,50" FontSize="Small">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text=" " />
+                        <Span Text="{x:Static resx:AppResources.Date}" />
+                        <Span Text=" 'XX/XX/XXXX'" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
             <Entry Keyboard="Numeric" Placeholder="hh:mm">
                 <Entry.Behaviors>
                     <behaviors:MaskedBehavior Mask="XX:XX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50"
-                   FontSize="Small"
-                   Text="e.g. Time 'XX:XX'" />
+            <Label Padding="10,0,10,50" FontSize="Small">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text=" " />
+                        <Span Text="{x:Static resx:AppResources.Time}" />
+                        <Span Text=" 'XX:XX'" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
 
             <Entry Keyboard="Numeric">
@@ -71,18 +97,32 @@
                     <behaviors:MaskedBehavior Mask="XXX-XX-XXXX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50"
-                   FontSize="Small"
-                   Text="e.g. Social Security Number 'XXX-XX-XXXX'" />
+            <Label Padding="10,0,10,50" FontSize="Small">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text=" " />
+                        <Span Text="{x:Static resx:AppResources.SocialSecurityNumber}" />
+                        <Span Text=" 'XXX-XX-XXXX'" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
 
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
                     <behaviors:MaskedBehavior Mask="(XXX) XXX-XXXX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50"
-                   FontSize="Small"
-                   Text="e.g. Phone Number '(XXX) XXX-XXXX'" />
+            <Label Padding="10,0,10,50" FontSize="Small">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text=" " />
+                        <Span Text="{x:Static resx:AppResources.PhoneNumber}" />
+                        <Span Text=" '(XXX) XXX-XXXX'" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
         </StackLayout>
     </ScrollView>
 </pages:BasePage>
