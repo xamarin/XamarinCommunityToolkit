@@ -63,12 +63,11 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
             var originalText = RemoveMask(inputView?.Text);
             SetPositions();
 
-            if(inputView != null)
-            {
-                var maskedText = ApplyMask(originalText);
-                if (inputView.Text != maskedText)
-                    inputView.Text = maskedText;
-            }
+            if (inputView == null) return;
+
+            var maskedText = ApplyMask(originalText);
+            if (inputView.Text != maskedText)
+                inputView.Text = maskedText;
         }
 
         string RemoveMask(string text)
