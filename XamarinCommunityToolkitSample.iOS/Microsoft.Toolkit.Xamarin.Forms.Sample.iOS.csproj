@@ -165,7 +165,5 @@
   <ItemGroup>
     <BundleResource Include="Resources\info%402x.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Renderers\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

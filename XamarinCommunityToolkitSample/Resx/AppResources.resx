@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
+  <!--
+    Microsoft ResX Schema
+
     Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
     associated with the data types.
-    
+
     Example:
-    
+
     ... ado.net/XML headers & schema ...
     <resheader name="resmimetype">text/microsoft-resx</resheader>
     <resheader name="version">2.0</resheader>
@@ -26,36 +26,36 @@
         <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
-                
-    There are any number of "resheader" rows that contain simple 
+
+    There are any number of "resheader" rows that contain simple
     name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
     mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
     extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
     read any of the formats listed below.
-    
+
     mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
+    value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
 
     mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
+    value   : The object must be serialized into a byte array
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
@@ -198,14 +198,32 @@
   <data name="ConvertersDescription" xml:space="preserve">
     <value>Converters let you convert bindings of a certain type to a different value, based on custom logic.</value>
   </data>
-  <data name="ItemTappedEventArgsShortDescription" xml:space="preserve">
-    <value>A converter that allows you to extract the value from ItemTappedEventArgs that can be used in combination with EventToCommandBehavior.</value>
-  </data>
-  <data name="ItemTappedSelectedEventArgsShortDescription" xml:space="preserve">
-    <value>A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior.</value>
-  </data>
-  <data name="ExtensionsTitle" xml:space="preserve">
-    <value>Extensions</value>
+
+         <!--ItemTappedEventArgs-->
+
+         <data name="ItemTappedEventArgsShortDescription" xml:space="preserve">
+              <value>A converter that allows you to extract the value from ItemTappedEventArgs that can be used in combination with EventToCommandBehavior.</value>
+         </data>
+
+         <!--ItemTappedSelectedEventArgs-->
+
+         <data name="ItemTappedSelectedEventArgsShortDescription" xml:space="preserve">
+              <value>A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior.</value>
+          </data>
+
+         <!--ItemTappedSelectedEventArgs-->
+
+         <data name="ByteArrayToImageSourceShortDescription" xml:space="preserve">
+              <value>A converter that allows you to convert byte array to an object of a type ImageSource.</value>
+         </data>
+  <!--/Converters Section-->
+
+
+
+  <!--Extensions Section-->
+
+    <data name="ExtensionsTitle" xml:space="preserve">
+      <value>Extensions</value>
   </data>
   <data name="ExtensionsDescription" xml:space="preserve">
     <value>Extensions are used to supplement existing functionalities by making them easier to use.</value>
@@ -222,106 +240,155 @@
   <data name="ViewsDescription" xml:space="preserve">
     <value>A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box.</value>
   </data>
-  <data name="AvatarViewTitle" xml:space="preserve">
-    <value>AvatarView</value>
-  </data>
-  <data name="AvatarViewDescription" xml:space="preserve">
-    <value>The AvatarView represents a user's name by using the initials and a generated background color.</value>
-  </data>
-  <data name="AvatarViewSizeText" xml:space="preserve">
-    <value>Size Property:</value>
-  </data>
-  <data name="RangeSliderTitle" xml:space="preserve">
-    <value>RangeSlider</value>
-  </data>
-  <data name="RangeSliderDescription" xml:space="preserve">
-    <value>The RangeSlider is a slider with two thumbs allowing to select numeric ranges.</value>
-  </data>
-  <data name="ThumbText" xml:space="preserve">
-    <value>Thumb</value>
-  </data>
-  <data name="ThumbSizeText" xml:space="preserve">
-    <value>Thumb Size</value>
-  </data>
-  <data name="SetLowerUpperThumb" xml:space="preserve">
-    <value>Set Lower/Upper Thumb Size separately</value>
-  </data>
-  <data name="LowerThumbSize" xml:space="preserve">
-    <value>Lower Thumb Size</value>
-  </data>
-  <data name="UpperThumbSize" xml:space="preserve">
-    <value>Upper Thumb Size</value>
-  </data>
-  <data name="ThumbColor" xml:space="preserve">
-    <value>Thumb Color</value>
-  </data>
-  <data name="LowerThumbColor" xml:space="preserve">
-    <value>Lower Thumb Color</value>
-  </data>
-  <data name="UpperThumbColor" xml:space="preserve">
-    <value>Upper Thumb Color</value>
-  </data>
-  <data name="ThumbBorderColor" xml:space="preserve">
-    <value>Thumb Border Color</value>
-  </data>
-  <data name="LowerThumbBorderColor" xml:space="preserve">
-    <value>"Lower Thumb Border Color</value>
-  </data>
-  <data name="UpperThumbBorderColor" xml:space="preserve">
-    <value>Upper Thumb Border Color</value>
-  </data>
-  <data name="LowerThumbViewSet" xml:space="preserve">
-    <value>Lower Thumb View Set</value>
-  </data>
-  <data name="UpperThumbViewSet" xml:space="preserve">
-    <value>Upper Thumb View Set</value>
-  </data>
-  <data name="ControlThumbsRadius" xml:space="preserve">
-    <value>Control Thumbs Radius</value>
-  </data>
-  <data name="ThumbRadius" xml:space="preserve">
-    <value>Thumb Radius</value>
-  </data>
-  <data name="SetLowerUpperThumbSeparately" xml:space="preserve">
-    <value>Set Lower/Upper Thumb Radius separately</value>
-  </data>
-  <data name="LowerThumbRadius" xml:space="preserve">
-    <value>Lower Thumb Radius</value>
-  </data>
-  <data name="UpperThumbRadius" xml:space="preserve">
-    <value>Upper Thumb Radius</value>
-  </data>
-  <data name="Track" xml:space="preserve">
-    <value>Track</value>
-  </data>
-  <data name="TrackSize" xml:space="preserve">
-    <value>Track Size</value>
-  </data>
-  <data name="TrackColor" xml:space="preserve">
-    <value>Track Color</value>
-  </data>
-  <data name="TrackHighlightColor" xml:space="preserve">
-    <value>Track Highlight Color</value>
-  </data>
-  <data name="TrackBorderColor" xml:space="preserve">
-    <value>Track Border Color</value>
-  </data>
-  <data name="TrackHighlightBorderColor" xml:space="preserve">
-    <value>Track Highlight Border Color</value>
-  </data>
-  <data name="ControlTrackRadius" xml:space="preserve">
-    <value>Control Track Radius</value>
-  </data>
-  <data name="IsEnabled" xml:space="preserve">
-    <value>Is Enabled</value>
-  </data>
-  <data name="ValueLabelSpacing" xml:space="preserve">
-    <value>Value Label Spacing</value>
-  </data>
+
+       <!--AvatarView-->
+
+        <data name="AvatarViewTitle" xml:space="preserve">
+            <value>AvatarView</value>
+        </data>
+
+        <data name="AvatarViewDescription" xml:space="preserve">
+            <value>The AvatarView represents a user's name by using the initials and a generated background color.</value>
+        </data>
+
+        <data name="AvatarViewSizeText" xml:space="preserve">
+          <value>Size Property:</value>
+        </data>
+
+       <!--Range Slider-->
+
+       <data name="RangeSliderTitle" xml:space="preserve">
+            <value>RangeSlider</value>
+        </data>
+
+        <data name="RangeSliderDescription" xml:space="preserve">
+             <value>The RangeSlider is a slider with two thumbs allowing to select numeric ranges.</value>
+        </data>
+
+        <data name="ThumbText" xml:space="preserve">
+            <value>Thumb</value>
+        </data>
+
+        <data name="ThumbSizeText" xml:space="preserve">
+            <value>Thumb Size</value>
+        </data>
+
+       <data name="SetLowerUpperThumb" xml:space="preserve">
+            <value>Set Lower/Upper Thumb Size separately</value>
+        </data>
+
+       <data name="LowerThumbSize" xml:space="preserve">
+            <value>Lower Thumb Size</value>
+        </data>
+
+        <data name="UpperThumbSize" xml:space="preserve">
+            <value>Upper Thumb Size</value>
+        </data>
+
+        <data name="ThumbColor" xml:space="preserve">
+            <value>Thumb Color</value>
+        </data>
+
+        <data name="LowerThumbColor" xml:space="preserve">
+            <value>Lower Thumb Color</value>
+        </data>
+
+        <data name="UpperThumbColor" xml:space="preserve">
+            <value>Upper Thumb Color</value>
+        </data>
+
+       <data name="ThumbBorderColor" xml:space="preserve">
+            <value>Thumb Border Color</value>
+        </data>
+
+        <data name="LowerThumbBorderColor" xml:space="preserve">
+            <value>"Lower Thumb Border Color</value>
+        </data>
+
+        <data name="UpperThumbBorderColor" xml:space="preserve">
+            <value>Upper Thumb Border Color</value>
+        </data>
+
+        <data name="LowerThumbViewSet" xml:space="preserve">
+            <value>Lower Thumb View Set</value>
+        </data>
+
+        <data name="UpperThumbViewSet" xml:space="preserve">
+            <value>Upper Thumb View Set</value>
+        </data>
+
+         <data name="ControlThumbsRadius" xml:space="preserve">
+            <value>Control Thumbs Radius</value>
+        </data>
+
+         <data name="ThumbRadius" xml:space="preserve">
+            <value>Thumb Radius</value>
+        </data>
+
+        <data name="SetLowerUpperThumbSeparately" xml:space="preserve">
+            <value>Set Lower/Upper Thumb Radius separately</value>
+        </data>
+
+        <data name="LowerThumbRadius" xml:space="preserve">
+            <value>Lower Thumb Radius</value>
+        </data>
+
+         <data name="UpperThumbRadius" xml:space="preserve">
+            <value>Upper Thumb Radius</value>
+        </data>
+
+        <data name="Track" xml:space="preserve">
+            <value>Track</value>
+        </data>
+
+        <data name="TrackSize" xml:space="preserve">
+            <value>Track Size</value>
+        </data>
+
+        <data name="TrackColor" xml:space="preserve">
+            <value>Track Color</value>
+        </data>
+
+       <data name="TrackHighlightColor" xml:space="preserve">
+            <value>Track Highlight Color</value>
+        </data>
+
+       <data name="TrackBorderColor" xml:space="preserve">
+            <value>Track Border Color</value>
+        </data>
+
+        <data name="TrackHighlightBorderColor" xml:space="preserve">
+            <value>Track Highlight Border Color</value>
+        </data>
+
+        <data name="ControlTrackRadius" xml:space="preserve">
+            <value>Control Track Radius</value>
+        </data>
+
+         <data name="IsEnabled" xml:space="preserve">
+            <value>Is Enabled</value>
+        </data>
+
+        <data name="ValueLabelSpacing" xml:space="preserve">
+            <value>Value Label Spacing</value>
+        </data>
+
+        <!--SideMenuView-->
+
+        <data name="SideMenuViewTitle" xml:space="preserve">
+            <value>SideMenuView</value>
+        </data>
+
+        <data name="SideMenuViewDescription" xml:space="preserve">
+            <value>SideMenuView is a simple and flexible Right/Left menu control.</value>
+        </data>
   <data name="MaskedDescription" xml:space="preserve">
     <value>This sample demonstrates how to use MaskedBehavior</value>
   </data>
   <data name="MaskedShortDescription" xml:space="preserve">
     <value>Masked text in entry with specific pattern</value>
   </data>
+  <!--/Views Section-->
+
+
 </root>

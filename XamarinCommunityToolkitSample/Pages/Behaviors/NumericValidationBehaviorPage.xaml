@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
-                x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors.NumericValidationBehaviorPage"
-                xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
-                xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
+                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.NumericValidationBehaviorPage"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
 
     <pages:BasePage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
