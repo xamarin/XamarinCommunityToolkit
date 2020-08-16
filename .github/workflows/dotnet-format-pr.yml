@@ -31,5 +31,5 @@ jobs:
         if: steps.format.outputs.has-changes == 'true'
         uses: ad-m/github-push-action@v0.6.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.DOTNET_FORMAT_COMMIT_PAT }}
           branch: ${{ github.event.pull_request.head.ref }} 
