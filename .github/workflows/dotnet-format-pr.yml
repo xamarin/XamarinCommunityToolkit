@@ -16,7 +16,7 @@ jobs:
         id: format
         uses: jfversluis/dotnet-format@v1.0.4
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.DOTNET_FORMAT_COMMIT_PAT }}
           action: "fix"
           only-changed-files: true
 
