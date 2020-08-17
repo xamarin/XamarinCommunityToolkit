@@ -14,11 +14,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				AppResources.EmailValidationShortDescription
 			),
 			new SectionModel(
-				typeof(UriValidationBehaviorPage),
-				"UriValidationBehavior",
-				AppResources.UriValidationShortDescription
-			),
-			new SectionModel(
 				typeof(EventToCommandBehaviorPage),
 				"EventToCommandBehavior",
 				AppResources.EventToCommandShortDescription
@@ -37,6 +32,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				typeof(MaskedBehaviorPage),
 				"MaskedBehavior",
 				AppResources.MaskedShortDescription
+			),
+			new SectionModel(
+				typeof(UriValidationBehaviorPage),
+				"UriValidationBehavior",
+				AppResources.UriValidationShortDescription
 			),
 		};
 	}
