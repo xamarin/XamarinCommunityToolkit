@@ -2,14 +2,12 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
   <PropertyGroup>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
-    <AssemblyName>Microsoft.Toolkit.Xamarin.Forms</AssemblyName>
-    <RootNamespace>Microsoft.Toolkit.Xamarin.Forms</RootNamespace>
-    <PackageId>Microsoft.Toolkit.Xamarin.Forms</PackageId>
-    <PackageIconUrl>
-    </PackageIconUrl>
+    <AssemblyName>Xamarin.CommunityToolkit</AssemblyName>
+    <RootNamespace>Xamarin.CommunityToolkit</RootNamespace>
+    <PackageId>Xamarin.CommunityToolkit</PackageId>
     <Summary>Community-created toolkit with common Xamarin converters, effects, behaviors etc.</Summary>
     <PackageTag>xamarin,ios,android,uwp,xamarin.forms,effects,controls,converters,animations,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,watchos,tvos,tizen,Microsoft.Toolkit.Xamarin.Forms</PackageTag>
-    <Title>Microsoft.Toolkit.Xamarin.Forms</Title>
+    <Title>Xamarin.CommunityToolkit</Title>
     <Description>The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.</Description>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -22,13 +20,9 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
-      
-      
-      
+
       <!-- See if we can host these on MS docs? -->
-    
-    
-    
+
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
@@ -41,13 +35,13 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
-    <!-- MonoAndroid80 & MonoAndroid81 are absent because latest Xamarin.Forms version doesn't support them -->
+    <!-- Manage TargetFrameworks for development (Debug Mode) -->
     <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
-    <!-- MonoAndroid80 & MonoAndroid81 are present for backward compatibility -->
-    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid80;MonoAndroid81;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
+    <!-- Manage TargetFrameworks for distribution (Release Mode) -->
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -59,12 +53,12 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Debug' ">
-    <!-- Use latest Xamarin.Forms version for development -->
+    <!-- Manage Xamarin.Forms version for development -->
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Release' ">
-    <!-- Use Xamarin.Forms version 3.5 for distribution -->
-    <PackageReference Include="Xamarin.Forms" Version="3.5.0.129452" />
+    <!-- Manage Xamarin.Forms version for distribution -->
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
@@ -73,10 +67,12 @@
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Extensions\" />
     <Folder Include="Effects\" />
-    <Folder Include="Controls\" />
+    <Folder Include="Views\" />
+    <Folder Include="Views\SideMenuView\" />
+    <Folder Include="Behaviors\Animations\" />
+    <Folder Include="Behaviors\Animations\AnimationTypes\" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />

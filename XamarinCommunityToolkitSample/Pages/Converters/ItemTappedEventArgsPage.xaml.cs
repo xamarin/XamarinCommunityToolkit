@@ -1,8 +1,8 @@
-﻿namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters
+﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
 {
-    public partial class ItemTappedEventArgsPage : BasePage
-    {
-        public ItemTappedEventArgsPage()
-            => InitializeComponent();
-    }
+	public partial class ItemTappedEventArgsPage : BasePage
+	{
+		public ItemTappedEventArgsPage()
+			=> InitializeComponent();
+	}
 }

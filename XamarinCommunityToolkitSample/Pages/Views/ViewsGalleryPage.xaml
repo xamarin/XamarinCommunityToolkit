@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Views"
-                xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
-                x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Views.ViewsGalleryPage"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ViewsGalleryPage"
                 ControlTemplate="{StaticResource GalleryPageTemplate}">
 
     <pages:BasePage.BindingContext>

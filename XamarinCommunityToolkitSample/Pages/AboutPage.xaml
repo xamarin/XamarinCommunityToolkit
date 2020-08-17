@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:views="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.UI.Views;assembly=Microsoft.Toolkit.Xamarin.Forms"
-                xmlns:viewmodels="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels"
-                xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
-                x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.AboutPage"
-                Title="About">
-
+                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+                xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.AboutPage"
+                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx"
+                Title="{x:Static resources:AppResources.AboutTitle}">
+    
     <pages:BasePage.ToolbarItems>
         <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
     </pages:BasePage.ToolbarItems>
@@ -14,10 +15,10 @@
     <pages:BasePage.BindingContext>
         <viewmodels:AboutViewModel />
     </pages:BasePage.BindingContext>
-
+    
     <pages:BasePage.Content>
         <StackLayout Padding="{StaticResource ContentPadding}">
-            <Label Text="Thank you XamarinCommunityToolkit contributors"
+            <Label Text="{x:Static resources:AppResources.GratitudeMessage}"
                    Margin="0,10,0,10" FontSize="Large" HorizontalOptions="Center"
                    HorizontalTextAlignment="Center" />
             <CollectionView x:Name="ContributorsCollectionView"

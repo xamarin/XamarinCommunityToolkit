@@ -2,27 +2,28 @@
 <pages:BasePage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.WelcomePage"
-    xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels"
-    xmlns:extensions="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Extensions;assembly=Microsoft.Toolkit.Xamarin.Forms"
-    xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.WelcomePage"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    Title="Welcome" NavigationPage.BackButtonTitle=""
-    x:Name="Page">
+    Title="{x:Static resources:AppResources.WelcomeTitle}"
+    NavigationPage.BackButtonTitle=""
+    x:Name="Page"
+    xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
 
     <pages:BasePage.BindingContext>
         <vm:WelcomeViewModel />
     </pages:BasePage.BindingContext>
 
     <pages:BasePage.ToolbarItems>
-        <ToolbarItem Text="About" Clicked="OnAboutClicked" />
+        <ToolbarItem Text="{x:Static resources:AppResources.AboutTitle}" Clicked="OnAboutClicked" />
     </pages:BasePage.ToolbarItems>
 
     <StackLayout>
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout Spacing="16">
-                <Label Margin="20,32,20,0" Style="{StaticResource label_welcome_header}" Text="Introducing the XamarinCommunityToolkit" />
-                <Label Margin="20,0,20,28" Text="The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms." />
+                <Label Margin="20,32,20,0" Style="{StaticResource label_welcome_header}" Text="{x:Static resources:AppResources.IntroductionTitle}" />
+                <Label Margin="20,0,20,28" Text="{x:Static resources:AppResources.IntroductioDescription}" />
                 <StackLayout Spacing="16"
                              BindableLayout.ItemsSource="{Binding Items}">
                     <BindableLayout.ItemTemplate>
@@ -47,8 +48,8 @@
                             </custom:PancakeView>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
-                </StackLayout>
-                <Label Margin="0,32" Text="Microsoft Corporation © 2020" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"/>
+                </StackLayout> 
+                <Label Margin="0,32" Text="{x:Static resources:AppResources.WelcomeFooter}" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"/>
             </StackLayout>
         </ScrollView>
     </StackLayout>
