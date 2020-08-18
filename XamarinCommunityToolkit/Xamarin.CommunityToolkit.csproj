@@ -65,14 +65,6 @@
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
-    <Folder Include="Behaviors\" />
-    <Folder Include="Converters\" />
-    <Folder Include="Extensions\" />
-    <Folder Include="Effects\" />
-    <Folder Include="Views\" />
-    <Folder Include="Views\SideMenuView\" />
-    <Folder Include="Behaviors\Animations\" />
-    <Folder Include="Behaviors\Animations\AnimationTypes\" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />

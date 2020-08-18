@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.UriValidationBehaviorPage"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
+
+    <pages:BasePage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+    </pages:BasePage.Resources>
+
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 Spacing="50"
+                 VerticalOptions="CenterAndExpand">
+        <Label Text="{x:Static resources:AppResources.UriValidationDescription}" />
+        <StackLayout>
+            <Entry Placeholder="UriKind: Relative">
+                <Entry.Behaviors>
+                    <behaviors:UriValidationBehavior UriKind="Absolute" InvalidStyle="{StaticResource InvalidEntryStyle}"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Placeholder="UriKind: Relative">
+                <Entry.Behaviors>
+                    <behaviors:UriValidationBehavior UriKind="Relative" InvalidStyle="{StaticResource InvalidEntryStyle}"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Entry Placeholder="UriKind: RelativeOrAbsolute">
+                <Entry.Behaviors>
+                    <behaviors:UriValidationBehavior UriKind="RelativeOrAbsolute" InvalidStyle="{StaticResource InvalidEntryStyle}"/>
+                </Entry.Behaviors>
+            </Entry>
+        </StackLayout>
+    </StackLayout>
+
+</pages:BasePage>
