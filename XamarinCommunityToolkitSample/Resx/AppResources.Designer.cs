@@ -240,6 +240,18 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string UriValidationDescription {
+            get {
+                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to This sample demonstrates how to use EventToCommandBehavior. Here we observe Clicked event of the button and trigger IncrementCommand from ViewModel..
         /// </summary>
