@@ -169,6 +169,14 @@ Any proposals for new feature work and new APIs should follow the spirit of thes
  * New features should have native APIs available to allow implementation on a reasonable subset of the supported platforms, especially  (iOS, Android, UWP)
  * No new external dependencies should be added to support implementation of new feature work (there can be exceptions but they must be thoroughly considered for the value being added)
 
+#### Approval Process
+* Provide as much detail as possible so the team and community can have a good discussion about your proposal.
+* If the proposal is for a complex issue more detailed specifications might need to be created.
+* For especially large proposals consider how it could be broken up into multiple proposals to make it easier to review. 
+* When you think your proposal is ready to be implemented ask for approval from the XamarinCommunityToolkit team.
+* One or more approvals from XamarinCommunityToolkit team are required to approve a proposal. The number of required approvers will be based on the size and complexity of the proposal.
+* Once the proposal is approved by the XamarinCommunityToolkit team you can ask to be assigned the proposal and you can start on a PR.
+
 #### Proposal States
 ##### Open
 Open proposals are still under discussion. Please leave your concrete, constructive feedback on this proposal. +1s and other clutter posts which do not add to the discussion will be removed.
