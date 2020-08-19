@@ -5,7 +5,7 @@
                 xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.AvatarViewPage"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
+                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Helpers;assembly=Xamarin.CommunityToolkit">
 
     <pages:BasePage.BindingContext>
         <viewmodels:AvatarViewViewModel />
@@ -31,7 +31,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <StackLayout Padding="{StaticResource ContentPadding}">
-            <Label Text="{x:Static resources:AppResources.AvatarViewSizeText}" />
+            <Label Text="{rsx:Translate AvatarViewSizeText}" />
             <Slider x:Name="Slider" Maximum="80" Minimum="40" ThumbColor="{StaticResource PrimaryColor}"/>
         </StackLayout>
     </StackLayout>

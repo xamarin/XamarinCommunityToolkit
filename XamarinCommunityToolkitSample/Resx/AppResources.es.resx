@@ -136,7 +136,7 @@
     <value>#Cancel</value>
   </data>
   <data name="AboutTitle" xml:space="preserve">
-    <value>#About</value>
+    <value>Acerca de</value>
   </data>
   <data name="GratitudeMessage" xml:space="preserve">
     <value>#Thank you XamarinCommunityToolkit contributors</value>
