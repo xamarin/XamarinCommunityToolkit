@@ -5,8 +5,9 @@
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.WelcomePage"
     xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:helpers="clr-namespace:Xamarin.CommunityToolkit.Helpers;assembly=Xamarin.CommunityToolkit"
     xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    Title="{x:Static resources:AppResources.WelcomeTitle}"
+    Title="{helpers:Translate WelcomeTitle}"
     NavigationPage.BackButtonTitle=""
     x:Name="Page"
     xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
@@ -16,9 +17,10 @@
     </pages:BasePage.BindingContext>
 
     <pages:BasePage.ToolbarItems>
+        <ToolbarItem Text="{helpers:Translate Settings}" Clicked="OnSettingsClicked" />
         <ToolbarItem Text="{x:Static resources:AppResources.AboutTitle}" Clicked="OnAboutClicked" />
     </pages:BasePage.ToolbarItems>
-
+    
     <StackLayout>
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout Spacing="16">
