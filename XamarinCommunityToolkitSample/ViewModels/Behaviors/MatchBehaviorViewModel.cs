@@ -1,9 +1,9 @@
 ﻿
 using System.Windows.Input;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Resx;
+using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
+namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
     public class MatchBehaviorViewModel : BaseViewModel
     {

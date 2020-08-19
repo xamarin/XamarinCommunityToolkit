@@ -1,11 +1,11 @@
-﻿using Microsoft.Toolkit.Xamarin.Forms.Converters;
+﻿using Xamarin.CommunityToolkit.Converters;
 using System.Globalization;
 using Xamarin.Forms;
 using System.IO;
 using System;
 using Xunit;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Converters
+namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
     public class ByteArrayToImageSourceConverter_Tests
     {

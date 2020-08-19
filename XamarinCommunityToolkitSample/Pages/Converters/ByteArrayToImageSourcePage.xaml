@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters.ByteArrayToImageSourcePage"
-                xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters"
-                xmlns:converters="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Converters;assembly=Microsoft.Toolkit.Xamarin.Forms"
-                xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
-                xmlns:views="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.UI.Views;assembly=Microsoft.Toolkit.Xamarin.Forms"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ByteArrayToImageSourcePage"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+                xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
                 >
 
     <pages:BasePage.BindingContext>

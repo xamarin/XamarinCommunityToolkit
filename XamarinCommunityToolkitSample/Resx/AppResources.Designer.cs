@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
+namespace Xamarin.CommunityToolkit.Sample.Resx {
     using System;
     using System.Reflection;
     
@@ -30,7 +30,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Microsoft.Toolkit.Xamarin.Forms.Sample.Resx.AppResources", typeof(AppResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Xamarin.CommunityToolkit.Sample.Resx.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -131,9 +131,9 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
             }
         }
         
-        internal static string AnimationShortDescription {
+        internal static string AnimatioShortDescription {
             get {
-                return ResourceManager.GetString("AnimationShortDescription", resourceCulture);
+                return ResourceManager.GetString("AnimatioShortDescription", resourceCulture);
             }
         }
         
@@ -152,24 +152,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
         internal static string Shake {
             get {
                 return ResourceManager.GetString("Shake", resourceCulture);
-            }
-        }
-        
-        internal static string MatchShortDescription {
-            get {
-                return ResourceManager.GetString("MatchShortDescription", resourceCulture);
-            }
-        }
-        
-        internal static string MatchBehaviorTitle {
-            get {
-                return ResourceManager.GetString("MatchBehaviorTitle", resourceCulture);
-            }
-        }
-        
-        internal static string MatchTypesIntroText {
-            get {
-                return ResourceManager.GetString("MatchTypesIntroText", resourceCulture);
             }
         }
         
@@ -470,6 +452,90 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
         internal static string ValueLabelSpacing {
             get {
                 return ResourceManager.GetString("ValueLabelSpacing", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewTitle {
+            get {
+                return ResourceManager.GetString("SideMenuViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewDescription {
+            get {
+                return ResourceManager.GetString("SideMenuViewDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MaskedDescription {
+            get {
+                return ResourceManager.GetString("MaskedDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MaskedShortDescription {
+            get {
+                return ResourceManager.GetString("MaskedShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string CreditCardNumber {
+            get {
+                return ResourceManager.GetString("CreditCardNumber", resourceCulture);
+            }
+        }
+        
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        internal static string EG {
+            get {
+                return ResourceManager.GetString("EG", resourceCulture);
+            }
+        }
+        
+        internal static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        internal static string SocialSecurityNumber {
+            get {
+                return ResourceManager.GetString("SocialSecurityNumber", resourceCulture);
+            }
+        }
+        
+        internal static string SortCode {
+            get {
+                return ResourceManager.GetString("SortCode", resourceCulture);
+            }
+        }
+        
+        internal static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        internal static string MatchShortDescription {
+            get {
+                return ResourceManager.GetString("MatchShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MatchBehaviorTitle {
+            get {
+                return ResourceManager.GetString("MatchBehaviorTitle", resourceCulture);
+            }
+        }
+        
+        internal static string MatchTypesIntroText {
+            get {
+                return ResourceManager.GetString("MatchTypesIntroText", resourceCulture);
             }
         }
     }

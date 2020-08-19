@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
+namespace Xamarin.CommunityToolkit.Behaviors
 {
     public class MatchBehavior : BaseBehavior<Label>
     {
