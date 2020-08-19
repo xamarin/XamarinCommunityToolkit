@@ -314,24 +314,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        internal static string LowerThumbSize {
-            get {
-                return ResourceManager.GetString("LowerThumbSize", resourceCulture);
-            }
-        }
-        
-        internal static string UpperThumbSize {
-            get {
-                return ResourceManager.GetString("UpperThumbSize", resourceCulture);
-            }
-        }
-        
-        internal static string ThumbColor {
-            get {
-                return ResourceManager.GetString("ThumbColor", resourceCulture);
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. It converts the entered text to Upper Case and checks that it is Not Equal to the string &apos;ANDREI&apos;..
         /// </summary>
@@ -353,6 +335,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
+        internal static string LowerThumbSize {
+            get {
+                return ResourceManager.GetString("LowerThumbSize", resourceCulture);
+            }
+        }
+        
+        internal static string UpperThumbSize {
+            get {
+                return ResourceManager.GetString("UpperThumbSize", resourceCulture);
+            }
+        }
+        
+        internal static string ThumbColor {
+            get {
+                return ResourceManager.GetString("ThumbColor", resourceCulture);
+            }
+        }
+        
         internal static string LowerThumbColor {
             get {
                 return ResourceManager.GetString("LowerThumbColor", resourceCulture);
@@ -406,7 +406,152 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
                 return ResourceManager.GetString("ThumbRadius", resourceCulture);
             }
         }
+
+    
+        internal static string Track {
+            get {
+                return ResourceManager.GetString("Track", resourceCulture);
+            }
+        }
         
+        internal static string TrackSize {
+            get {
+                return ResourceManager.GetString("TrackSize", resourceCulture);
+            }
+        }
+        
+        internal static string TrackColor {
+            get {
+                return ResourceManager.GetString("TrackColor", resourceCulture);
+            }
+        }
+        
+        internal static string TrackHighlightColor {
+            get {
+                return ResourceManager.GetString("TrackHighlightColor", resourceCulture);
+            }
+        }
+        
+        internal static string TrackBorderColor {
+            get {
+                return ResourceManager.GetString("TrackBorderColor", resourceCulture);
+            }
+        }
+        
+        internal static string TrackHighlightBorderColor {
+            get {
+                return ResourceManager.GetString("TrackHighlightBorderColor", resourceCulture);
+            }
+        }
+        
+        internal static string ControlTrackRadius {
+            get {
+                return ResourceManager.GetString("ControlTrackRadius", resourceCulture);
+            }
+        }
+        
+        internal static string IsEnabled {
+            get {
+                return ResourceManager.GetString("IsEnabled", resourceCulture);
+            }
+        }
+        
+        internal static string ValueLabelSpacing {
+            get {
+                return ResourceManager.GetString("ValueLabelSpacing", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewTitle {
+            get {
+                return ResourceManager.GetString("SideMenuViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewDescription {
+            get {
+                return ResourceManager.GetString("SideMenuViewDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MaskedDescription {
+            get {
+                return ResourceManager.GetString("MaskedDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MaskedShortDescription {
+            get {
+                return ResourceManager.GetString("MaskedShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string CreditCardNumber {
+            get {
+                return ResourceManager.GetString("CreditCardNumber", resourceCulture);
+            }
+        }
+        
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        internal static string EG {
+            get {
+                return ResourceManager.GetString("EG", resourceCulture);
+            }
+        }
+        
+        internal static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        internal static string SocialSecurityNumber {
+            get {
+                return ResourceManager.GetString("SocialSecurityNumber", resourceCulture);
+            }
+        }
+        
+        internal static string SortCode {
+            get {
+                return ResourceManager.GetString("SortCode", resourceCulture);
+            }
+        }
+        
+        internal static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UriValidationDescription {
+            get {
+                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes an Entry&apos;s text color when an invalid URI is provided..
+        /// </summary>
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value Label Spacing.
+        /// </summary>
         internal static string SetLowerUpperThumbSeparately {
             get {
                 return ResourceManager.GetString("SetLowerUpperThumbSeparately", resourceCulture);
@@ -557,18 +702,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Changes an Entry&apos;s text color when an invalid URI is provided..
-        /// </summary>
-        internal static string UriValidationShortDescription {
-            get {
-                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value Label Spacing.
-        /// </summary>
         internal static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
