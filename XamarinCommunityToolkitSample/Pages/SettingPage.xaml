@@ -4,7 +4,7 @@
              x:Class="Xamarin.CommunityToolkit.Sample.Pages.SettingPage"
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
              xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
-             xmlns:helpers="clr-namespace:Xamarin.CommunityToolkit.Helpers;assembly=Xamarin.CommunityToolkit"
+             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Helpers;assembly=Xamarin.CommunityToolkit"
              x:DataType="vm:SettingViewModel">
 
     <pages:BasePage.ToolbarItems>
@@ -18,13 +18,13 @@
     <StackLayout Padding="{StaticResource ContentPadding}"
                  VerticalOptions="Center"
                  Spacing="10">
-        <Label Text="{helpers:Translate ChangeLanguage}"/>
+        <Label Text="{rsx:Translate  ChangeLanguage}"/>
 
         <Picker ItemsSource="{Binding SupportedLanguages}"
                 ItemDisplayBinding="{Binding Name}"
                 SelectedItem="{Binding SelectedLanguage}"/>
 
-        <Button Text="{helpers:Translate Save}"
+        <Button Text="{rsx:Translate  Save}"
                 Command="{Binding ChangeLanguageCommand, Mode=OneTime}"/>
     </StackLayout>
 </pages:BasePage>
