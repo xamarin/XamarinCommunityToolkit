@@ -16,21 +16,21 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources {
+    internal class AppResources_es {
         
         private static System.Resources.ResourceManager resourceMan;
         
         private static System.Globalization.CultureInfo resourceCulture;
         
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AppResources() {
+        internal AppResources_es() {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Xamarin.CommunityToolkit.Sample.Resx.AppResources", typeof(AppResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Xamarin.CommunityToolkit.Sample.Resx.AppResources.es", typeof(AppResources_es).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -167,9 +167,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to This sample demonstrates how to use EventToCommandBehavior. Here we observe Clicked event of the button and trigger IncrementCommand from ViewModel..
-        /// </summary>
         internal static string EventToCommandBehaviorDescription {
             get {
                 return ResourceManager.GetString("EventToCommandBehaviorDescription", resourceCulture);
@@ -332,27 +329,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. It converts the entered text to Upper Case and checks that it is Not Equal to the string &apos;ANDREI&apos;..
-        /// </summary>
-        internal static string MultiConverterDescription {
-            get {
-                return ResourceManager.GetString("MultiConverterDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This sample demonstrates how to use Multibinding Converter.
-        /// </summary>
-        internal static string MultiConverterShortDescription {
-            get {
-                return ResourceManager.GetString("MultiConverterShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name.
-        /// </summary>
         internal static string LowerThumbColor {
             get {
                 return ResourceManager.GetString("LowerThumbColor", resourceCulture);
@@ -557,18 +533,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Changes an Entry&apos;s text color when an invalid URI is provided..
-        /// </summary>
-        internal static string UriValidationShortDescription {
-            get {
-                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value Label Spacing.
-        /// </summary>
         internal static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
