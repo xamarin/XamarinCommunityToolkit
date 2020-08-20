@@ -727,7 +727,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This sample demonstrates how to use UriValidationBehavior to validate if a given Uri is absolute or relative..
+        ///   Looks up a localized string similar to Text color will change accordingly to the style that is configured when a invalid URI is entered..
         /// </summary>
         internal static string UriValidationDescription {
             get {
@@ -736,7 +736,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Behavior for validating Uris.
+        ///   Looks up a localized string similar to Changes an Entry&apos;s text color when an invalid URI is provided..
         /// </summary>
         internal static string UriValidationShortDescription {
             get {
