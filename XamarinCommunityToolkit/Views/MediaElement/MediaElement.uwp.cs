@@ -3,6 +3,7 @@ using Windows.System.Display;
 using Windows.UI.Xaml;
 using Controls = Windows.UI.Xaml.Controls;
 
+[assembly: ExportRenderer(typeof(MediaElement), typeof(MediaElementRenderer))]
 namespace Xamarin.CommunityToolkit.UWP.UI.Views
 {
 	public sealed class MediaElementRenderer : ViewRenderer<MediaElement, Controls.MediaElement>

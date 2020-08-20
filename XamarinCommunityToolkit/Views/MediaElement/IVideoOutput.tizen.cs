@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using CommunityToolkit = Xamarin.CommunityToolkit.UI.Views;
 using XVisualElement = Xamarin.Forms.VisualElement;
 
 namespace Xamarin.CommunityToolkit.Tizen.UI.Views
@@ -69,7 +70,7 @@ namespace Xamarin.CommunityToolkit.Tizen.UI.Views
 		event EventHandler ErrorOccurred;
 
 		void SetDisplay(IVideoOutput output);
-		void SetSource(MediaSource source);
+		void SetSource(CommunityToolkit::MediaSource source);
 		Task<bool> Start();
 		void Stop();
 		void Pause();

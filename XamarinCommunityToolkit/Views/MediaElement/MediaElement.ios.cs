@@ -8,14 +8,15 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
+using CommunityToolkit = Xamarin.CommunityToolkit.UI.Views;
 
-[assembly: ExportRenderer(typeof(MediaElement), typeof(MediaElementRenderer))]
+[assembly: ExportRenderer(typeof(CommunityToolkit::MediaElement), typeof(MediaElementRenderer))]
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
 	[Foundation.Preserve(AllMembers = true)]
-	public sealed class MediaElementRenderer : ViewRenderer<MediaElement, UIView>
+	public sealed class MediaElementRenderer : ViewRenderer<CommunityToolkit::MediaElement, UIView>
 	{
-		IMediaElementController Controller => Element;
+		CommunityToolkit::IMediaElementController Controller => Element;
 
 		readonly AVPlayerViewController avPlayerViewController = new AVPlayerViewController();
 		NSObject playedToEndObserver;
@@ -46,7 +47,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			{
 				AVAsset asset = null;
 
-				if (Element.Source is UriMediaSource uriSource)
+				if (Element.Source is CommunityToolkit::UriMediaSource uriSource)
 				{
 					if (uriSource.Uri.Scheme == "ms-appx")
 					{
@@ -72,7 +73,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 				}
 				else
 				{
-					if (Element.Source is FileMediaSource fileSource)
+					if (Element.Source is CommunityToolkit::FileMediaSource fileSource)
 					{
 						asset = AVAsset.FromUrl(NSUrl.FromFilename(fileSource.File));
 					}
@@ -99,10 +100,10 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			}
 			else
 			{
-				if (Element.CurrentState == MediaElementState.Playing || Element.CurrentState == MediaElementState.Buffering)
+				if (Element.CurrentState == CommunityToolkit::MediaElementState.Playing || Element.CurrentState == CommunityToolkit::MediaElementState.Buffering)
 				{
 					avPlayerViewController.Player.Pause();
-					Controller.CurrentState = MediaElementState.Stopped;
+					Controller.CurrentState = CommunityToolkit::MediaElementState.Stopped;
 				}
 			}
 		}
@@ -179,11 +180,11 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 				switch (avPlayerViewController.Player.Rate)
 				{
 					case 0.0f:
-						Controller.CurrentState = MediaElementState.Paused;
+						Controller.CurrentState = CommunityToolkit::MediaElementState.Paused;
 						break;
 
 					case 1.0f:
-						Controller.CurrentState = MediaElementState.Playing;
+						Controller.CurrentState = CommunityToolkit::MediaElementState.Playing;
 						break;
 				}
 
@@ -261,37 +262,37 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 		{
 			switch (e.PropertyName)
 			{
-				case nameof(MediaElement.Aspect):
+				case nameof(CommunityToolkit::MediaElement.Aspect):
 					avPlayerViewController.VideoGravity = AspectToGravity(Element.Aspect);
 					break;
 
-				case nameof(MediaElement.KeepScreenOn):
+				case nameof(CommunityToolkit::MediaElement.KeepScreenOn):
 					if (!Element.KeepScreenOn)
 					{
 						SetKeepScreenOn(false);
 					}
-					else if (Element.CurrentState == MediaElementState.Playing)
+					else if (Element.CurrentState == CommunityToolkit::MediaElementState.Playing)
 					{
 						// only toggle this on if property is set while video is already running
 						SetKeepScreenOn(true);
 					}
 					break;
 
-				case nameof(MediaElement.ShowsPlaybackControls):
+				case nameof(CommunityToolkit::MediaElement.ShowsPlaybackControls):
 					avPlayerViewController.ShowsPlaybackControls = Element.ShowsPlaybackControls;
 					break;
 
-				case nameof(MediaElement.Source):
+				case nameof(CommunityToolkit::MediaElement.Source):
 					UpdateSource();
 					break;
 
-				case nameof(MediaElement.Volume):
+				case nameof(CommunityToolkit::MediaElement.Volume):
 					avPlayerViewController.Player.Volume = (float)Element.Volume;
 					break;
 			}
 		}
 
-		void MediaElementSeekRequested(object sender, SeekRequested e)
+		void MediaElementSeekRequested(object sender, CommunityToolkit::SeekRequested e)
 		{
 			if (avPlayerViewController.Player.Status != AVPlayerStatus.ReadyToPlay || avPlayerViewController.Player.CurrentItem == null)
 				return;
@@ -326,7 +327,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			if (avPlayerViewController.Player != null)
 			{
 				avPlayerViewController.Player.Play();
-				Controller.CurrentState = MediaElementState.Playing;
+				Controller.CurrentState = CommunityToolkit::MediaElementState.Playing;
 			}
 
 			if (Element.KeepScreenOn)
@@ -335,17 +336,17 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			}
 		}
 
-		void MediaElementStateRequested(object sender, StateRequested e)
+		void MediaElementStateRequested(object sender, CommunityToolkit::StateRequested e)
 		{
 			MediaElementVolumeRequested(this, EventArgs.Empty);
 
 			switch (e.State)
 			{
-				case MediaElementState.Playing:
+				case CommunityToolkit::MediaElementState.Playing:
 					Play();
 					break;
 
-				case MediaElementState.Paused:
+				case CommunityToolkit::MediaElementState.Paused:
 					if (Element.KeepScreenOn)
 					{
 						SetKeepScreenOn(false);
@@ -354,11 +355,11 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 					if (avPlayerViewController.Player != null)
 					{
 						avPlayerViewController.Player.Pause();
-						Controller.CurrentState = MediaElementState.Paused;
+						Controller.CurrentState = CommunityToolkit::MediaElementState.Paused;
 					}
 					break;
 
-				case MediaElementState.Stopped:
+				case CommunityToolkit::MediaElementState.Stopped:
 					if (Element.KeepScreenOn)
 					{
 						SetKeepScreenOn(false);
@@ -367,7 +368,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 					// iOS has no stop...
 					avPlayerViewController?.Player.Pause();
 					avPlayerViewController?.Player.Seek(CMTime.Zero);
-					Controller.CurrentState = MediaElementState.Stopped;
+					Controller.CurrentState = CommunityToolkit::MediaElementState.Stopped;
 
 					var err = AVAudioSession.SharedInstance().SetActive(false);
 					if (!(err is null))
@@ -404,7 +405,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 
 		void MediaElementPositionRequested(object sender, EventArgs e) => Controller.Position = Position;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<CommunityToolkit::MediaElement> e)
 		{
 			base.OnElementChanged(e);
 

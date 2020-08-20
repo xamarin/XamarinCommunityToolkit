@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
-using TypeConverter = Xamarin.Forms.TypeConverter;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -103,7 +102,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SeekRequested?.Invoke(this, new SeekRequested(value));
 		}
 
-		[TypeConverter(typeof(MediaSourceConverter))]
+		[Forms.TypeConverter(typeof(MediaSourceConverter))]
 		public MediaSource Source
 		{
 			get => (MediaSource)GetValue(SourceProperty);

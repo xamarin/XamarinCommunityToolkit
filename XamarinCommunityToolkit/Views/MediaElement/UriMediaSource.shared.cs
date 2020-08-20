@@ -1,6 +1,5 @@
 ﻿using System;
 using Xamarin.Forms;
-using TypeConverter = Xamarin.Forms.TypeConverter;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -9,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty UriProperty = BindableProperty.Create(nameof(Uri), typeof(Uri), typeof(UriMediaSource), default(Uri),
 			propertyChanged: (bindable, oldvalue, newvalue) => ((UriMediaSource)bindable).OnSourceChanged(), validateValue: (bindable, value) => value == null || ((Uri)value).IsAbsoluteUri);
 
-		[TypeConverter(typeof(UriTypeConverter))]
+		[Forms.TypeConverter(typeof(Forms.UriTypeConverter))]
 		public Uri Uri
 		{
 			get => (Uri)GetValue(UriProperty);

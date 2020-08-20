@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected void OnSourceChanged() => weakEventManager.HandleEvent(this, EventArgs.Empty, nameof(SourceChanged));
 
-		internal event EventHandler SourceChanged
+		public event EventHandler SourceChanged
 		{
 			add { weakEventManager.AddEventHandler(value); }
 			remove { weakEventManager.RemoveEventHandler(value); }

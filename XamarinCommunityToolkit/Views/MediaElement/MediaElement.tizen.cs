@@ -1,23 +1,22 @@
 ﻿using System;
-using System.Globalization;
-using Xamarin.Forms.PlatformConfiguration.TizenSpecific;
 using Xamarin.Forms.Platform.Tizen;
-using Xamarin.Forms.Platform.Tizen.Native;
 using ElmSharp;
 using Tizen.Multimedia;
-using XForms = Xamarin.Forms.Forms;
 using Xamarin.Forms;
+using CommunityToolkit = Xamarin.CommunityToolkit.UI.Views;
+using XForms = Xamarin.Forms.Forms;
 
+[assembly: ExportRenderer(typeof(CommunityToolkit::MediaElement), typeof(MediaElementRenderer))]
 namespace Xamarin.CommunityToolkit.Tizen.UI.Views
 {
-	public class MediaElementRenderer : ViewRenderer<MediaElement, LayoutCanvas>, IMediaViewProvider, IVideoOutput
+	public class MediaElementRenderer : ViewRenderer<CommunityToolkit::MediaElement, LayoutCanvas>, IMediaViewProvider, IVideoOutput
 	{
 		MediaPlayer player;
 		MediaView mediaView;
 		View controller;
 		EvasObject nativeController;
 
-		IMediaElementController Controller => Element as IMediaElementController;
+		CommunityToolkit::IMediaElementController Controller => Element;
 
 		Forms.VisualElement IVideoOutput.MediaView => Element;
 
@@ -48,7 +47,7 @@ namespace Xamarin.CommunityToolkit.Tizen.UI.Views
 
 		MediaView IMediaViewProvider.GetMediaView() => mediaView;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<CommunityToolkit::MediaElement> e)
 		{
 			if (e.OldElement != null)
 			{
@@ -134,19 +133,19 @@ namespace Xamarin.CommunityToolkit.Tizen.UI.Views
 				nativeController.Geometry = Control.Geometry;
 		}
 
-		protected void OnSeekRequested(object sender, SeekRequested e) => player.Seek((int)e.Position.TotalMilliseconds);
+		protected void OnSeekRequested(object sender, CommunityToolkit::SeekRequested e) => player.Seek((int)e.Position.TotalMilliseconds);
 
-		protected void OnStateRequested(object sender, StateRequested e)
+		protected void OnStateRequested(object sender, CommunityToolkit::StateRequested e)
 		{
 			switch (e.State)
 			{
-				case MediaElementState.Playing:
+				case CommunityToolkit::MediaElementState.Playing:
 					player.Start();
 					break;
-				case MediaElementState.Paused:
+				case CommunityToolkit::MediaElementState.Paused:
 					player.Pause();
 					break;
-				case MediaElementState.Stopped:
+				case CommunityToolkit::MediaElementState.Stopped:
 					player.Stop();
 					break;
 			}
@@ -154,11 +153,11 @@ namespace Xamarin.CommunityToolkit.Tizen.UI.Views
 
 		protected void OnPositionRequested(object sender, EventArgs e) => Controller.Position = TimeSpan.FromMilliseconds(player.Position);
 
-		protected void OnPlaybackStarted(object sender, EventArgs e) => Controller.CurrentState = MediaElementState.Playing;
+		protected void OnPlaybackStarted(object sender, EventArgs e) => Controller.CurrentState = CommunityToolkit::MediaElementState.Playing;
 
-		protected void OnPlaybackPaused(object sender, EventArgs e) => Controller.CurrentState = MediaElementState.Paused;
+		protected void OnPlaybackPaused(object sender, EventArgs e) => Controller.CurrentState = CommunityToolkit::MediaElementState.Paused;
 
-		protected void OnPlaybackStopped(object sender, EventArgs e) => Controller.CurrentState = MediaElementState.Stopped;
+		protected void OnPlaybackStopped(object sender, EventArgs e) => Controller.CurrentState = CommunityToolkit::MediaElementState.Stopped;
 
 		protected void OnPlaybackCompleted(object sender, EventArgs e) => Controller.OnMediaEnded();
 
@@ -169,19 +168,19 @@ namespace Xamarin.CommunityToolkit.Tizen.UI.Views
 				switch (player.State)
 				{
 					case PlaybackState.Paused:
-						Controller.CurrentState = MediaElementState.Paused;
+						Controller.CurrentState = CommunityToolkit::MediaElementState.Paused;
 						break;
 					case PlaybackState.Playing:
-						Controller.CurrentState = MediaElementState.Playing;
+						Controller.CurrentState = CommunityToolkit::MediaElementState.Playing;
 						break;
 					case PlaybackState.Stopped:
-						Controller.CurrentState = MediaElementState.Stopped;
+						Controller.CurrentState = CommunityToolkit::MediaElementState.Stopped;
 						break;
 				}
 			}
-			else if (Controller.CurrentState != MediaElementState.Buffering && e.Progress >= 0)
+			else if (Controller.CurrentState != CommunityToolkit::MediaElementState.Buffering && e.Progress >= 0)
 			{
-				Controller.CurrentState = MediaElementState.Buffering;
+				Controller.CurrentState = CommunityToolkit::MediaElementState.Buffering;
 			}
 			Controller.BufferingProgress = e.Progress;
 		}

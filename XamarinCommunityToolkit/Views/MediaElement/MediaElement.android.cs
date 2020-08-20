@@ -8,8 +8,10 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
+using CommunityToolkit = Xamarin.CommunityToolkit.UI.Views;
+using MediaElementRenderer = Xamarin.CommunityToolkit.Android.UI.Views.MediaElementRenderer;
 
-[assembly: ExportRenderer(typeof(MediaElement), typeof(Xamarin.CommunityToolkit.Android.UI.Views.MediaElementRenderer))]
+[assembly: ExportRenderer(typeof(CommunityToolkit::MediaElement), typeof(MediaElementRenderer))]
 namespace Xamarin.CommunityToolkit.Android.UI.Views
 {
 	[Preserve(AllMembers = true)]
@@ -17,8 +19,8 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 	{
 		bool isDisposed;
 		int? defaultLabelFor;
-		MediaElement MediaElement { get; set; }
-		IMediaElementController Controller => MediaElement;
+		CommunityToolkit::MediaElement MediaElement { get; set; }
+		CommunityToolkit::IMediaElementController Controller => MediaElement;
 
 		VisualElementTracker tracker;
 
@@ -86,7 +88,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			Measure(widthMeasureSpec, heightMeasureSpec);
 		}
 
-		void UnsubscribeFromEvents(MediaElement element)
+		void UnsubscribeFromEvents(CommunityToolkit::MediaElement element)
 		{
 			if (element == null)
 				return;
@@ -102,11 +104,11 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			if (element is null)
 				throw new ArgumentNullException(nameof(element));
 
-			if (!(element is MediaElement))
+			if (!(element is CommunityToolkit::MediaElement))
 				throw new ArgumentException($"{nameof(element)} must be of type {nameof(MediaElement)}");
 
 			var oldElement = MediaElement;
-			MediaElement = (MediaElement)element;
+			MediaElement = (CommunityToolkit::MediaElement)element;
 
 			Performance.Start(out var reference);
 
@@ -135,36 +137,36 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 				SetTracker(new VisualElementTracker(this));
 			}
 
-			OnElementChanged(new ElementChangedEventArgs<MediaElement>(oldElement as MediaElement, MediaElement));
+			OnElementChanged(new ElementChangedEventArgs<CommunityToolkit::MediaElement>(oldElement as CommunityToolkit::MediaElement, MediaElement));
 
 			Performance.Stop(reference);
 		}
 
-		void StateRequested(object sender, StateRequested e)
+		void StateRequested(object sender, CommunityToolkit::StateRequested e)
 		{
 			if (view == null)
 				return;
 
 			switch (e.State)
 			{
-				case MediaElementState.Playing:
+				case CommunityToolkit::MediaElementState.Playing:
 					view.Start();
-					Controller.CurrentState = view.IsPlaying ? MediaElementState.Playing : MediaElementState.Stopped;
+					Controller.CurrentState = view.IsPlaying ? CommunityToolkit::MediaElementState.Playing : CommunityToolkit::MediaElementState.Stopped;
 					break;
 
-				case MediaElementState.Paused:
+				case CommunityToolkit::MediaElementState.Paused:
 					if (view.CanPause())
 					{
 						view.Pause();
-						Controller.CurrentState = MediaElementState.Paused;
+						Controller.CurrentState = CommunityToolkit::MediaElementState.Paused;
 					}
 					break;
 
-				case MediaElementState.Stopped:
+				case CommunityToolkit::MediaElementState.Stopped:
 					view.Pause();
 					view.SeekTo(0);
 
-					Controller.CurrentState = view.IsPlaying ? MediaElementState.Playing : MediaElementState.Stopped;
+					Controller.CurrentState = view.IsPlaying ? CommunityToolkit::MediaElementState.Playing : CommunityToolkit::MediaElementState.Stopped;
 					break;
 			}
 
@@ -180,7 +182,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			Controller.Position = view.Position;
 		}
 
-		void SeekRequested(object sender, SeekRequested e)
+		void SeekRequested(object sender, CommunityToolkit::SeekRequested e)
 		{
 			if (view == null)
 				return;
@@ -224,7 +226,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 				if (Element != null)
 				{
-					UnsubscribeFromEvents(Element as MediaElement);
+					UnsubscribeFromEvents(Element as CommunityToolkit::MediaElement);
 				}
 			}
 
@@ -232,7 +234,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		}
 
 		// TODO: Make virtual when unsealed
-		void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		void OnElementChanged(ElementChangedEventArgs<CommunityToolkit::MediaElement> e)
 		{
 			if (e.OldElement != null)
 			{
@@ -326,7 +328,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 			if (MediaElement.Source != null)
 			{
-				if (MediaElement.Source is UriMediaSource uriSource)
+				if (MediaElement.Source is CommunityToolkit::UriMediaSource uriSource)
 				{
 					if (uriSource.Uri.Scheme == "ms-appx")
 					{
@@ -359,7 +361,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 						}
 					}
 				}
-				else if (MediaElement.Source is FileMediaSource fileSource)
+				else if (MediaElement.Source is CommunityToolkit::FileMediaSource fileSource)
 				{
 					view.SetVideoPath(fileSource.File);
 				}
@@ -367,14 +369,14 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 				if (MediaElement.AutoPlay)
 				{
 					view.Start();
-					Controller.CurrentState = view.IsPlaying ? MediaElementState.Playing : MediaElementState.Stopped;
+					Controller.CurrentState = view.IsPlaying ? CommunityToolkit::MediaElementState.Playing : CommunityToolkit::MediaElementState.Stopped;
 				}
 
 			}
 			else if (view.IsPlaying)
 			{
 				view.StopPlayback();
-				Controller.CurrentState = MediaElementState.Stopped;
+				Controller.CurrentState = CommunityToolkit::MediaElementState.Stopped;
 			}
 		}
 
@@ -430,11 +432,11 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			if (MediaElement.AutoPlay)
 			{
 				mediaPlayer.Start();
-				Controller.CurrentState = MediaElementState.Playing;
+				Controller.CurrentState = CommunityToolkit::MediaElementState.Playing;
 			}
 			else
 			{
-				Controller.CurrentState = MediaElementState.Paused;
+				Controller.CurrentState = CommunityToolkit::MediaElementState.Paused;
 			}
 		}
 
@@ -534,18 +536,18 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			switch (what)
 			{
 				case MediaInfo.BufferingStart:
-					Controller.CurrentState = MediaElementState.Buffering;
+					Controller.CurrentState = CommunityToolkit::MediaElementState.Buffering;
 					mp.BufferingUpdate += Mp_BufferingUpdate;
 					break;
 
 				case MediaInfo.BufferingEnd:
 					mp.BufferingUpdate -= Mp_BufferingUpdate;
-					Controller.CurrentState = MediaElementState.Paused;
+					Controller.CurrentState = CommunityToolkit::MediaElementState.Paused;
 					break;
 
 				case MediaInfo.VideoRenderingStart:
 					view.SetBackground(null);
-					Controller.CurrentState = MediaElementState.Playing;
+					Controller.CurrentState = CommunityToolkit::MediaElementState.Playing;
 					break;
 			}
 
