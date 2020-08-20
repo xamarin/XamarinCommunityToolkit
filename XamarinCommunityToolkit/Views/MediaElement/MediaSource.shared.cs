@@ -1,5 +1,4 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -15,6 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (!uri.IsAbsoluteUri)
 				throw new ArgumentException("uri is relative");
+
 			return new UriMediaSource { Uri = uri };
 		}
 
@@ -27,11 +27,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (!uri.IsAbsoluteUri)
 				throw new ArgumentException("uri is relative");
-
 			return FromUri(uri);
 		}
 
-		protected void OnSourceChanged() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(SourceChanged));
+		protected void OnSourceChanged() => weakEventManager.HandleEvent(this, EventArgs.Empty, nameof(SourceChanged));
 
 		internal event EventHandler SourceChanged
 		{

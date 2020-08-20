@@ -15,7 +15,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override string ToString() => $"File: {File}";
 
-		public static implicit operator FileMediaSource(string file) => (FileMediaSource)FromFile(file);
+		public static implicit operator FileMediaSource(string file)
+		{
+			return (FileMediaSource)FromFile(file);
+		}
 
 		public static implicit operator string(FileMediaSource file) => file?.File;
 

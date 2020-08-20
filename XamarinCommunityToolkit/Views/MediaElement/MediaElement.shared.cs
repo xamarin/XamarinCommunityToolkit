@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
+using TypeConverter = Xamarin.Forms.TypeConverter;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -102,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SeekRequested?.Invoke(this, new SeekRequested(value));
 		}
 
-		[Forms.TypeConverter(typeof(MediaSourceConverter))]
+		[TypeConverter(typeof(MediaSourceConverter))]
 		public MediaSource Source
 		{
 			get => (MediaSource)GetValue(SourceProperty);
@@ -135,6 +136,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public event EventHandler VolumeRequested;
 
+
 		public void Play() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Playing));
 
 		public void Pause() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Paused));
@@ -142,22 +144,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public void Stop() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Stopped));
 
 		double IMediaElementController.BufferingProgress { get => (double)GetValue(BufferingProgressProperty); set => SetValue(BufferingProgressProperty, value); }
-
 		MediaElementState IMediaElementController.CurrentState { get => (MediaElementState)GetValue(CurrentStateProperty); set => SetValue(CurrentStateProperty, value); }
-
 		TimeSpan? IMediaElementController.Duration { get => (TimeSpan?)GetValue(DurationProperty); set => SetValue(DurationProperty, value); }
-
 		TimeSpan IMediaElementController.Position { get => (TimeSpan)GetValue(PositionProperty); set => SetValue(PositionProperty, value); }
-
 		int IMediaElementController.VideoHeight { get => (int)GetValue(VideoHeightProperty); set => SetValue(VideoHeightProperty, value); }
-
 		int IMediaElementController.VideoWidth { get => (int)GetValue(VideoWidthProperty); set => SetValue(VideoWidthProperty, value); }
-
 		double IMediaElementController.Volume
 		{
 			get => (double)GetValue(VolumeProperty); set => SetValue(VolumeProperty, value);
 		}
-
 		void IMediaElementController.OnMediaEnded()
 		{
 			SetValue(CurrentStateProperty, MediaElementState.Stopped);
@@ -214,46 +209,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			oldvalue.SourceChanged -= OnSourceChanged;
 		}
-	}
-
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public class SeekRequested : EventArgs
-	{
-		public TimeSpan Position { get; }
-
-		public SeekRequested(TimeSpan position) => Position = position;
-	}
-
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public class StateRequested : EventArgs
-	{
-		public MediaElementState State { get; }
-
-		public StateRequested(MediaElementState state) => State = state;
-	}
-
-	public interface IMediaElementController
-	{
-		double BufferingProgress { get; set; }
-
-		MediaElementState CurrentState { get; set; }
-
-		TimeSpan? Duration { get; set; }
-
-		TimeSpan Position { get; set; }
-
-		int VideoHeight { get; set; }
-
-		int VideoWidth { get; set; }
-
-		double Volume { get; set; }
-
-		void OnMediaEnded();
-
-		void OnMediaFailed();
-
-		void OnMediaOpened();
-
-		void OnSeekCompleted();
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
+using TypeConverter = Xamarin.Forms.TypeConverter;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
