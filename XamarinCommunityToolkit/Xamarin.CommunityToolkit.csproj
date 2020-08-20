@@ -67,6 +67,10 @@
   <ItemGroup>
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
+    <None Remove="Resource\img_button_pause.png" />
+    <None Remove="Resource\img_button_play.png" />
+    <EmbeddedResource Include="Resource\img_button_pause.png" />
+    <EmbeddedResource Include="Resource\img_button_play.png" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">

@@ -187,10 +187,10 @@
     <value>Click Me</value>
   </data>
   <data name="NumericValidationShortDescription" xml:space="preserve">
-    <value>Changes an Entry's text color when an invalid number is provided.</value>
+    <value>Turns any event into a command that can be bound to.</value>
   </data>
   <data name="NumericValidationBehaviorDescription" xml:space="preserve">
-    <value>Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0). Maximum decimal places value equals 2.</value>
+    <value>Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0).</value>
   </data>
   <data name="ConvertersTitle" xml:space="preserve">
     <value>Converters</value>
@@ -354,96 +354,10 @@
   <data name="Time" xml:space="preserve">
     <value>Time</value>
   </data>
-  <data name="UriValidationDescription" xml:space="preserve">
-    <value>Text color will change accordingly to the style that is configured when a invalid URI is entered.</value>
-  </data>
-  <data name="UriValidationShortDescription" xml:space="preserve">
-    <value>Changes an Entry's text color when an invalid URI is provided.</value>
+  <data name="MediaElementDescription" xml:space="preserve">
+    <value>MediaElement is a view for playing video and audio.</value>
   </data>
   <data name="MediaElementTitle" xml:space="preserve">
     <value>MediaElement</value>
-  </data>
-   <data name="MediaElementDescription" xml:space="preserve">
-    <value>MediaElement is a view for playing video and audio.</value>
-  </data>
-  <data name="MultiValidationDescription" xml:space="preserve">
-    <value>Text color will change accordingly to the style that is configured if any of child behaviors is invalid (Minimum: -10, Maximum: 5).</value>
-  </data>
-  <data name="MultiValidationShortDescription" xml:space="preserve">
-    <value>Combines multiple validation behavior.</value>
-  </data>
-  <data name="MultiConverterDescription" xml:space="preserve">
-    <value>This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. 
-
-It converts the entered text to Upper Case and checks that it is Not Equal to the string 'ANDREI'.</value>
-  </data>
-  <data name="MultiConverterShortDescription" xml:space="preserve">
-    <value>This sample demonstrates how to use Multibinding Converter</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="ChangeLanguage" xml:space="preserve">
-    <value>Change language</value>
-  </data>
-  <data name="English" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="Spanish" xml:space="preserve">
-    <value>Spanish</value>
-  </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="CameraViewTitle" xml:space="preserve">
-    <value>CameraView</value>
-  </data>
-  <data name="CameraViewDescription" xml:space="preserve">
-    <value>The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!</value>
-  </data>
-  <data name="CameraViewSampleZoom" xml:space="preserve">
-    <value>Zoom: {0}</value>
-  </data>
-  <data name="CameraViewSampleSnapPicture" xml:space="preserve">
-    <value>Snap Picture</value>
-  </data>
-  <data name="CameraViewSampleStartRecording" xml:space="preserve">
-    <value>Start Recording</value>
-  </data>
-  <data name="CameraViewSampleStopRecording" xml:space="preserve">
-    <value>Stop Recording</value>
-  </data>
-  <data name="DateTimeOffsetConverterShortDescription" xml:space="preserve">
-    <value>A converter that allows to convert from a DateTimeOffset type to a DateTime type.</value>
-  </data> 
-  <data name="ExpanderTitle" xml:space="preserve">
-    <value>Expander</value>
-  </data>
-  <data name="ExpanderDescription" xml:space="preserve">
-    <value>The Xamarin.Forms Expander control provides an expandable container to host any content.</value>
-  </data>
-  <data name="NestedExpander" xml:space="preserve">
-    <value>Nested expander</value>
-  </data>
-  <data name="EnableNested" xml:space="preserve">
-    <value>Enable nested:</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorDescription" xml:space="preserve">
-    <value>This behavior waits for the user to stop typing and then executes a Command. The waiting threshold is adjustable, as well as there is an option to dismiss the keyboard after the user has stopped typing.</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorDismissKeyboardOptionLabel" xml:space="preserve">
-    <value>Should dismiss keyboard automatically</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorSearchBarPlaceholderText" xml:space="preserve">
-    <value>Start searching...</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorSearchResultLabelFormat" xml:space="preserve">
-    <value>Performed search for '{0}'</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorShortDescription" xml:space="preserve">
-    <value>This behavior waits for the user to stop typing and then executes a Command.</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorThresholdOptionLabel" xml:space="preserve">
-    <value>User stopped typing time threshold (in ms)</value>
   </data>
 </root>

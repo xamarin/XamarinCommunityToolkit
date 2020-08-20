@@ -8,9 +8,8 @@ namespace Xamarin.CommunityToolkit.Tizen.UI.Views
 		{
 			public class Resources
 			{
-				// TODO: 
-				public const string PlayImagePath = "Xamarin.Forms.Platform.Tizen.Resource.img_button_play.png";
-				public const string PauseImagePath = "Xamarin.Forms.Platform.Tizen.Resource.img_button_pause.png";
+				public const string PlayImagePath = "Xamarin.CommunityToolkit.Resource.img_button_play.png";
+				public const string PauseImagePath = "Xamarin.CommunityToolkit.Resource.img_button_pause.png";
 			}
 
 			public class ColorClass
