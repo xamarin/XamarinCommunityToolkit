@@ -4,7 +4,7 @@
              x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.AnimationBehaviorPage"
              xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Helpers;assembly=Xamarin.CommunityToolkit">
+             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
       <ScrollView>
         <StackLayout Padding="{StaticResource ContentPadding}"
                      Spacing="10">

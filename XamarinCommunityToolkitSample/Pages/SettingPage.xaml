@@ -4,7 +4,7 @@
              x:Class="Xamarin.CommunityToolkit.Sample.Pages.SettingPage"
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
              xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
-             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Helpers;assembly=Xamarin.CommunityToolkit"
+             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
              x:DataType="vm:SettingViewModel">
 
     <pages:BasePage.ToolbarItems>

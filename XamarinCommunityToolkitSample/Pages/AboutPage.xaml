@@ -5,9 +5,9 @@
                 xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.AboutPage"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Helpers;assembly=Xamarin.CommunityToolkit"
+                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
                 Title="{rsx:Translate AboutTitle}">
-    
+
     <pages:BasePage.ToolbarItems>
         <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
     </pages:BasePage.ToolbarItems>
