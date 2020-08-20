@@ -28,7 +28,14 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
                 "ByteArrayToImageSource",
                 Color.FromHex("#498205"),
                 AppResources.ByteArrayToImageSourceShortDescription
-            )
+            ),
+
+            new SectionModel(
+                typeof(MultiConverterPage),
+                "MultiConverter",
+                Color.FromHex("#CC0000"),
+                AppResources.MultiConverterShortDescription
+            ),
         };
     }
 }

@@ -360,4 +360,10 @@
   <data name="UriValidationShortDescription" xml:space="preserve">
     <value>Behavior for validating Uris</value>
   </data>
+  <data name="MultiConverterDescription" xml:space="preserve">
+    <value>This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. It converts the entered text to Upper Case and checks that it is Not Equal to the string 'ANDREI'.</value>
+  </data>
+  <data name="MultiConverterShortDescription" xml:space="preserve">
+    <value>This sample demonstrates how to use Multibinding Converter</value>
+  </data>
 </root>
