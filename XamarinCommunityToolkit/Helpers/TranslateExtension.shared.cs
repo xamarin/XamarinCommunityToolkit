@@ -20,7 +20,6 @@ namespace Xamarin.CommunityToolkit.Helpers
                 Path = $"[{Text}]",
                 Source = LocalizationResourceManager.Current,
                 StringFormat = StringFormat
-
             };
             return binding;
         #else
