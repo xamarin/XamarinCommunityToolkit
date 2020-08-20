@@ -12,6 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(AvatarViewPage), AppResources.AvatarViewTitle, Color.FromHex("#498205"), AppResources.AvatarViewDescription),
 			new SectionModel(typeof(RangeSliderPage), AppResources.RangeSliderTitle, Color.Red, AppResources.RangeSliderDescription),
 			new SectionModel(typeof(SideMenuViewPage), AppResources.SideMenuViewTitle, Color.Default, AppResources.SideMenuViewDescription),
+			new SectionModel(typeof(CameraViewPage), "CameraView", Color.Default, "Awesome CameraView"),
 		};
 	}
 }

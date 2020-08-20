@@ -34,5 +34,9 @@
     <string>XamarinCommunityToolkitSample</string>
     <key>XSAppIconAssets</key>
     <string>Assets.xcassets/AppIcon.appiconset</string>
+    <key>NSCameraUsageDescription</key>
+	<string>This app would like to access the camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app would like to access the microphone to record movies</string>
 </dict>
 </plist>
