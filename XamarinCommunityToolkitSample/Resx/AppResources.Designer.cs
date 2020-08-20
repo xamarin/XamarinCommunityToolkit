@@ -240,18 +240,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        internal static string UriValidationDescription {
-            get {
-                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
-            }
-        }
-        
-        internal static string UriValidationShortDescription {
-            get {
-                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
-            }
-        }
-
         /// <summary>
         ///   Looks up a localized string similar to This sample demonstrates how to use EventToCommandBehavior. Here we observe Clicked event of the button and trigger IncrementCommand from ViewModel..
         /// </summary>
@@ -735,6 +723,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string UpperThumbViewSet {
             get {
                 return ResourceManager.GetString("UpperThumbViewSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This sample demonstrates how to use UriValidationBehavior to validate if a given Uri is absolute or relative..
+        /// </summary>
+        internal static string UriValidationDescription {
+            get {
+                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Behavior for validating Uris.
+        /// </summary>
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
             }
         }
         

@@ -354,4 +354,10 @@
   <data name="Time" xml:space="preserve">
     <value>Time</value>
   </data>
+  <data name="UriValidationDescription" xml:space="preserve">
+    <value>This sample demonstrates how to use UriValidationBehavior to validate if a given Uri is absolute or relative.</value>
+  </data>
+  <data name="UriValidationShortDescription" xml:space="preserve">
+    <value>Behavior for validating Uris</value>
+  </data>
 </root>
