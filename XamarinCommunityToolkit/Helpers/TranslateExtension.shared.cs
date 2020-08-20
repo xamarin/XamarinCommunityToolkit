@@ -4,7 +4,7 @@ using Xamarin.Forms.Xaml;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
-    [ContentProperty("Text")]
+    [ContentProperty(nameof(Text))]
     public class TranslateExtension : IMarkupExtension<BindingBase>
     {
         public string Text { get; set; }
