@@ -360,4 +360,7 @@
   <data name="MediaElementTitle" xml:space="preserve">
     <value>MediaElement</value>
   </data>
+  <data name="UriValidationShortDescription" xml:space="preserve">
+    <value />
+  </data>
 </root>

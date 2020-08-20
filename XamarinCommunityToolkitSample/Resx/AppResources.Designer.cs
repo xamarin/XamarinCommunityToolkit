@@ -745,6 +745,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value Label Spacing.
         /// </summary>
         internal static string ValueLabelSpacing {
