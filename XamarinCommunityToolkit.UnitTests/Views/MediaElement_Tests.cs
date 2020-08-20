@@ -14,8 +14,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.Null(mediaElement.Source);
 
 			var signaled = false;
-			mediaElement.PropertyChanged += (sender, e) =>
-			{
+			mediaElement.PropertyChanged += (sender, e) => {
 				if (e.PropertyName == "Source")
 					signaled = true;
 			};
@@ -33,8 +32,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			var mediaElement = new MediaElement { Source = MediaSource.FromFile("Video.mp4") };
 
 			var signaled = false;
-			mediaElement.PropertyChanged += (sender, e) =>
-			{
+			mediaElement.PropertyChanged += (sender, e) => {
 				if (e.PropertyName == "Source")
 					signaled = true;
 			};
@@ -50,8 +48,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			var source = (FileMediaSource)MediaSource.FromFile("Video.mp4");
 
 			var signaled = false;
-			source.SourceChanged += (sender, e) =>
-			{
+			source.SourceChanged += (sender, e) => {
 				signaled = true;
 			};
 
@@ -61,6 +58,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.True(signaled);
 		}
 
+
 		[Fact]
 		public void TestSourceRoundTrip()
 		{
@@ -69,7 +67,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.Null(media.Source);
 			media.Source = uri;
 			Assert.NotNull(media.Source);
-			Assert.IsType<UriMediaSource>(media.Source);
 			Assert.Equal(uri, ((UriMediaSource)media.Source).Uri);
 		}
 	}
