@@ -690,15 +690,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        internal static string UriValidationShortDescription {
-            get {
-                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
-            }
-        }
-        
         internal static string UriValidationDescription {
             get {
                 return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
             }
         }
         

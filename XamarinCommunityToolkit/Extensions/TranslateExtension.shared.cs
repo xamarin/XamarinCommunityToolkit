@@ -1,8 +1,9 @@
 ﻿using System;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Xamarin.CommunityToolkit.Helpers
+namespace Xamarin.CommunityToolkit.Extensions
 {
     [ContentProperty(nameof(Text))]
     public class TranslateExtension : IMarkupExtension<BindingBase>

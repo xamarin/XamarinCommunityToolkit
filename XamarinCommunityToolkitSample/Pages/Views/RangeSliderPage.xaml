@@ -4,7 +4,7 @@
              xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
              x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.RangeSliderPage"
-             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Helpers;assembly=Xamarin.CommunityToolkit">
+             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
 
     <pages:BasePage.Resources>
         <x:String x:Key="CustomValueLabeStringFormat">{0:0.#}</x:String>
