@@ -16,19 +16,19 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				AppResources.ItemTappedEventArgsShortDescription
 			),
 
-            new SectionModel(
-                typeof(ItemSelectedEventArgsPage),
-                "ItemSelectedEventArgs",
-                Color.FromHex("#498205"),
-                AppResources.ItemTappedSelectedEventArgsShortDescription
-            ),
+			new SectionModel(
+				typeof(ItemSelectedEventArgsPage),
+				"ItemSelectedEventArgs",
+				Color.FromHex("#498205"),
+				AppResources.ItemTappedSelectedEventArgsShortDescription
+			),
 
-            new SectionModel(
-                typeof(ByteArrayToImageSourcePage),
-                "ByteArrayToImageSource",
-                Color.FromHex("#498205"),
-                AppResources.ByteArrayToImageSourceShortDescription
-            )
-        };
-    }
+			new SectionModel(
+				typeof(ByteArrayToImageSourcePage),
+				"ByteArrayToImageSource",
+				Color.FromHex("#498205"),
+				AppResources.ByteArrayToImageSourceShortDescription
+			)
+		};
+	}
 }
