@@ -240,18 +240,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        internal static string UriValidationDescription {
-            get {
-                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
-            }
-        }
-        
-        internal static string UriValidationShortDescription {
-            get {
-                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
-            }
-        }
-
         /// <summary>
         ///   Looks up a localized string similar to This sample demonstrates how to use EventToCommandBehavior. Here we observe Clicked event of the button and trigger IncrementCommand from ViewModel..
         /// </summary>
@@ -735,6 +723,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string UpperThumbViewSet {
             get {
                 return ResourceManager.GetString("UpperThumbViewSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text color will change accordingly to the style that is configured when a invalid URI is entered..
+        /// </summary>
+        internal static string UriValidationDescription {
+            get {
+                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes an Entry&apos;s text color when an invalid URI is provided..
+        /// </summary>
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
             }
         }
         
