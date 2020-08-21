@@ -361,7 +361,9 @@
     <value>Changes an Entry's text color when an invalid URI is provided.</value>
   </data>
   <data name="MultiConverterDescription" xml:space="preserve">
-    <value>This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. It converts the entered text to Upper Case and checks that it is Not Equal to the string 'ANDREI'.</value>
+    <value>This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. 
+    
+It converts the entered text to Upper Case and checks that it is Not Equal to the string 'ANDREI'.</value>
   </data>
   <data name="MultiConverterShortDescription" xml:space="preserve">
     <value>This sample demonstrates how to use Multibinding Converter</value>

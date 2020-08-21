@@ -30,11 +30,17 @@
         <vm:MultiConverterViewModel />
     </pages:BasePage.BindingContext>
     <pages:BasePage.Content>
-        <StackLayout>
-            <Label Text="{x:Static resources:AppResources.MultiConverterDescription}" />
-            <Entry Text="{Binding EnteredName}"></Entry>
-            <Label Text="{Binding EnteredName, Converter={StaticResource myMultiConverter}, ConverterParameter={StaticResource multiParams}}"
-               HorizontalOptions="CenterAndExpand" />
+        <StackLayout
+            Padding="20"
+            Spacing="20"
+            >
+            <Label
+                Text="{x:Static resources:AppResources.MultiConverterDescription}" />
+            <Entry
+                Text="{Binding EnteredName}"></Entry>
+            <Label
+                Text="{Binding EnteredName, Converter={StaticResource myMultiConverter}, ConverterParameter={StaticResource multiParams}}"
+                HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </pages:BasePage.Content>
 </pages:BasePage>
