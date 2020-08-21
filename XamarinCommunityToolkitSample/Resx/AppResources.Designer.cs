@@ -421,6 +421,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. It converts the entered text to Upper Case and checks that it is Not Equal to the string &apos;ANDREI&apos;..
+        /// </summary>
+        internal static string MultiConverterDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This sample demonstrates how to use Multibinding Converter.
+        /// </summary>
+        internal static string MultiConverterShortDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {
