@@ -36,12 +36,12 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage TargetFrameworks for development (Debug Mode) -->
-    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40;uap10.0</TargetFrameworks>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage TargetFrameworks for distribution (Release Mode) -->
-    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40;uap10.0</TargetFrameworks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -102,4 +102,5 @@
       <Compile Include="**\*.tizen.cs" />
       <Compile Include="**\*.tizen.*.cs" />
     </ItemGroup>
+
 </Project>

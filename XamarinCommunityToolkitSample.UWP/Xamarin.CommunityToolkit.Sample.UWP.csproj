@@ -152,6 +152,10 @@
       <Project>{81aade72-d666-4ab0-83d9-8fe366e0755e}</Project>
       <Name>Xamarin.CommunityToolkit.Sample</Name>
     </ProjectReference>
+    <ProjectReference Include="..\XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj">
+      <Project>{b0dcdf81-953d-47da-a7d4-0565339bf07c}</Project>
+      <Name>Xamarin.CommunityToolkit</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
