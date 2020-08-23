@@ -15,13 +15,13 @@ using Windows.UI.Xaml.Navigation;
 
 namespace Xamarin.CommunityToolkit.Sample.UWP
 {
-    public sealed partial class MainPage
-    {
-        public MainPage()
-        {
-            this.InitializeComponent();
+	public sealed partial class MainPage
+	{
+		public MainPage()
+		{
+			this.InitializeComponent();
 
-            LoadApplication(new Xamarin.CommunityToolkit.Sample.App());
-        }
-    }
+			LoadApplication(new Xamarin.CommunityToolkit.Sample.App());
+		}
+	}
 }
