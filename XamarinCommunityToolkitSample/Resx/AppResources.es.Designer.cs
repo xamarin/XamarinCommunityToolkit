@@ -521,15 +521,27 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string UriValidationDescription {
+            get {
+                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+            }
+        }
+        
         internal static string UriValidationShortDescription {
             get {
                 return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
             }
         }
         
-        internal static string UriValidationDescription {
+        internal static string MultiConverterDescription {
             get {
-                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+                return ResourceManager.GetString("MultiConverterDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiConverterShortDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterShortDescription", resourceCulture);
             }
         }
         

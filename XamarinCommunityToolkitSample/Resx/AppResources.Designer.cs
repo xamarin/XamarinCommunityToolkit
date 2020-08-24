@@ -533,6 +533,18 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string MultiConverterDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiConverterShortDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterShortDescription", resourceCulture);
+            }
+        }
+        
         internal static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);

@@ -99,9 +99,4 @@
       <Compile Include="**\*.tizen.cs" />
       <Compile Include="**\*.tizen.*.cs" />
     </ItemGroup>
-    <ItemGroup>
-      <Compile Update="Extensions\TranslateExtension.shared.cs">
-        <SubType>Code</SubType>
-      </Compile>
-    </ItemGroup>
 </Project>
