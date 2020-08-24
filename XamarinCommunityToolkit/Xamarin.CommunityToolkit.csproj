@@ -59,6 +59,7 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
@@ -84,17 +85,12 @@
     <Compile Include="**\*.android.*.cs" />
     
     <!--Resources-->
-    <None Include="Platforms\Android\Resources\Layout\**\*" />
-    <None Remove="Platforms\Android\Resources\Layout\CameraFragment.axml" />
-    <AndroidResource Include="Platforms\Android\Resources\Layout\CameraFragment.axml" />
-    <Compile Remove="AppCompat\Resource.cs" />
+    <AndroidResource Include="Resources\**\*.axml" />
+    <AndroidResource Include="Resources\**\*.xml" />
+    <AndroidResource Include="Resources\**\*.png" />
   </ItemGroup>
 
- <!--<PropertyGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
-    <AndroidResgenClass>Resource</AndroidResgenClass>
-    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
-    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
-  </PropertyGroup>-->
+
   
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
     <Compile Include="**\*.ios.cs" />

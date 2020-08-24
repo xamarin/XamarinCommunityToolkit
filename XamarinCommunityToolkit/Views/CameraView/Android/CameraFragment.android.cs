@@ -110,32 +110,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override AView OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
-			var getLayout = Context.Resources.GetIdentifier("CameraFragment", "layout", Context.PackageName);
-			return inflater.Inflate(Resource.Layout.camerafragment, null);
+			return inflater.Inflate(Resource.Layout.CameraFragment, null);
 		}
 
 		public override void OnViewCreated(AView view, Bundle savedInstanceState)
 		{
-			if (view is FrameLayout fl)
-			{
-				GetChildren(fl);
-			}
 			texture = view.FindViewById<AutoFitTextureView>(Resource.Id.cameratexture);
-		}
-		List<AView> views = new List<AView>();
-		void GetChildren(AView view)
-		{
-			if (view is ViewGroup vg)
-			{
-				for (var i = 0; i < vg.ChildCount; i++)
-				{
-					var v = vg.GetChildAt(i);
-					if (v is ViewGroup)
-						GetChildren(v);
-					else
-						views.Add(v);
-				}
-			}
 		}
 
 		public override async void OnResume()

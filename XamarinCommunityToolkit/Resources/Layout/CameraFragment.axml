@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <xamarin.forms.platform.android.AutoFitTextureView
+    <xamarin.communitytoolkit.ui.views.AutoFitTextureView
         android:id="@+id/cameratexture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

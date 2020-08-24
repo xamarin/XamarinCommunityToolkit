@@ -6,7 +6,7 @@ using Android.Util;
 using Android.Views;
 using AColor = Android.Graphics.Color;
 
-namespace Xamarin.Forms.Platform.Android
+namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class AutoFitTextureView : TextureView
 	{
