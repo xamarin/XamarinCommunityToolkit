@@ -316,8 +316,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPhoto(object sender, byte[] data)
-		{
+		void OnPhoto(object sender, byte[] data) =>
 			Device.BeginInvokeOnMainThread(() =>
 			{
 				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs()
@@ -326,10 +325,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Image = ImageSource.FromStream(() => new MemoryStream(data))
 				});
 			});
-		}
 
-		void OnVideo(object sender, string data)
-		{
+		void OnVideo(object sender, string data) => 
 			Device.BeginInvokeOnMainThread(() =>
 			{
 				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs()
@@ -337,7 +334,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Video = MediaSource.FromFile(data)
 				});
 			});
-		}
 
 		void SetupImageReader()
 		{
