@@ -58,7 +58,7 @@ To structure our project, we have adopted a range of namespaces. You can find th
 |--------------|--------------|
 | Xamarin.CommunityToolkit | Main NuGet package includes code only helpers, etc. |
 | Xamarin.CommunityToolkit.UI | UI Packages - XAML converters, Visual tree extensions, and other extensions and helpers for your XAML UI |
-| Xamarin.CommunityToolkit.UI.Controls | Controls such as TabView, etc.|
+| Xamarin.CommunityToolkit.UI.Views | Controls such as TabView, etc.|
 | Xamarin.CommunityToolkit.UI.Layout | Layouts such as WrapLayout, etc. |
 | Xamarin.CommunityToolkit.SampleApp | Sample App where you can find all of the above for reference. How to use them and see how it looks |
 | Xamarin.CommunityToolkit.UnitTests | This is where our unit tests live. Please keep growing them! |
