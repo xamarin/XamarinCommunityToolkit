@@ -44,5 +44,5 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			};
 			SelectedLanguage = SupportedLanguages.FirstOrDefault(pro => pro.CI == LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName);
 		}
-	}	
+	}
 }
