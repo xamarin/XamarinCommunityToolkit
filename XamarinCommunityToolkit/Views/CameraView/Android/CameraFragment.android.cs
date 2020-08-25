@@ -35,8 +35,6 @@ using System.Threading.Tasks;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Android.Widget;
-using System.Reflection;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -633,30 +631,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void UpdateBackgroundColor()
-		{
+		void UpdateBackgroundColor() =>
 			View?.SetBackgroundColor(Element.BackgroundColor.ToAndroid());
-		}
 
 		public void SetFlash()
 		{
 			if (!flashSupported)
 				return;
 
-			switch (Element.FlashMode)
+			flashMode = Element.FlashMode switch
 			{
-				default:
-				case CameraFlashMode.On:
-				case CameraFlashMode.Auto:
-					flashMode = FlashMode.Single;
-					break;
-				case CameraFlashMode.Off:
-					flashMode = FlashMode.Off;
-					break;
-				case CameraFlashMode.Torch:
-					flashMode = FlashMode.Torch;
-					break;
-			}
+				CameraFlashMode.Off => FlashMode.Off,
+				CameraFlashMode.Torch => FlashMode.Torch,
+				_ => FlashMode.Single,
+			};
 		}
 
 		public void SetVideoStabilization()
@@ -692,18 +680,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return null;
 			}
 
-			switch (Element.CameraOptions)
+			return Element.CameraOptions switch
 			{
-				default:
-				case CameraOptions.Default:
-					return cameraIdList.Length != 0 ? cameraIdList[0] : null;
-				case CameraOptions.Front:
-					return FilterCameraByLens(LensFacing.Front);
-				case CameraOptions.Back:
-					return FilterCameraByLens(LensFacing.Back);
-				case CameraOptions.External:
-					return FilterCameraByLens(LensFacing.External);
-			}
+				CameraOptions.Front => FilterCameraByLens(LensFacing.Front),
+				CameraOptions.Back => FilterCameraByLens(LensFacing.Back),
+				CameraOptions.External => FilterCameraByLens(LensFacing.External),
+				_ => cameraIdList.Length != 0 ? cameraIdList[0] : null,
+			};
 		}
 
 		#region TextureView.ISurfaceTextureListener
@@ -714,10 +697,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			await RetrieveCameraDevice();
 		}
 
-		void TextureView.ISurfaceTextureListener.OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height)
-		{
+		void TextureView.ISurfaceTextureListener.OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) =>
 			ConfigureTransform(width, height);
-		}
 
 		bool TextureView.ISurfaceTextureListener.OnSurfaceTextureDestroyed(SurfaceTexture surface)
 		{
@@ -849,20 +830,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SurfaceOrientation GetDisplayRotation()
 			=> App.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>().DefaultDisplay.Rotation;
 
-		int GetDisplayRotationiDegress()
-		{
-			switch (GetDisplayRotation())
+		int GetDisplayRotationiDegress() => 
+			(GetDisplayRotation()) switch
 			{
-				case SurfaceOrientation.Rotation90:
-					return 90;
-				case SurfaceOrientation.Rotation180:
-					return 180;
-				case SurfaceOrientation.Rotation270:
-					return 270;
-				default:
-					return 0;
-			}
-		}
+				SurfaceOrientation.Rotation90 => 90,
+				SurfaceOrientation.Rotation180 => 180,
+				SurfaceOrientation.Rotation270 => 270,
+				_ => 0,
+			};
 
 		public bool KeepScreenOn
 		{
@@ -870,25 +845,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => texture.KeepScreenOn = value;
 		}
 
-		int GetPreviewOrientation()
-		{
-			switch (GetDisplayRotation())
+		int GetPreviewOrientation() => 
+			(GetDisplayRotation()) switch
 			{
-				case SurfaceOrientation.Rotation90:
-					return 270;
-				case SurfaceOrientation.Rotation180:
-					return 180;
-				case SurfaceOrientation.Rotation270:
-					return 90;
-				default:
-					return 0;
-			}
-		}
+				SurfaceOrientation.Rotation90 => 270,
+				SurfaceOrientation.Rotation180 => 180,
+				SurfaceOrientation.Rotation270 => 90,
+				_ => 0,
+			};
 
-		public void ConfigureTransform()
-		{
+		public void ConfigureTransform() =>
 			ConfigureTransform(texture.Width, texture.Height);
-		}
 
 		void ConfigureTransform(int viewWidth, int viewHeight)
 		{
@@ -902,7 +869,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var centerY = viewRect.CenterY();
 			bufferRect.Offset(centerX - bufferRect.CenterX(), centerY - bufferRect.CenterY());
 
-			var mirror = true; // Element.CameraOptions == CameraOptions.Front && Element.OnThisPlatform().GetMirrorFrontPreview();
+			// return to this when we dicided how to handle with platform specifics
+			var mirror = Element.CameraOptions == CameraOptions.Front;//&& Element.OnThisPlatform().GetMirrorFrontPreview();
 			matrix.SetRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.Fill);
 			float scaleHH() => (float)viewHeight / previewSize.Height;
 			float scaleHW() => (float)viewHeight / previewSize.Width;

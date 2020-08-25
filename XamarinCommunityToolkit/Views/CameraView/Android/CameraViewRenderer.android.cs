@@ -12,11 +12,11 @@ using Android.Views;
 using Android.Widget;
 using AView = Android.Views.View;
 
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android.FastRenderers;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.UI.Views;
+using System.Reflection;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
 
@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly MotionEventHelper motionEventHelper;
 		FragmentManager fragmentManager;
 
-		FragmentManager FragmentManager => fragmentManager ?? (fragmentManager = Context.GetFragmentManager());
+		FragmentManager FragmentManager => fragmentManager ??= Context.GetFragmentManager();
 
 		CameraFragment camerafragment;
 
@@ -125,7 +125,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				element = value;
 
 				OnElementChanged(new ElementChangedEventArgs<CameraView>(oldElement, element));
-				//element?.SendViewInitialized(this);
+
+				// this is just used to set ID's to the NativeViews along time ago for UITest with Test Cloud
+				// https://discordapp.com/channels/732297728826277939/738043671575920700/747629874709266449
+				//element?.SendViewInitialized(this); // this is internal
 			}
 		}
 
@@ -193,7 +196,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void IViewRenderer.MeasureExactly() => this.Invalidate();
+		void IViewRenderer.MeasureExactly() => MeasureExactly(this, Element, Context);
+
+		static void MeasureExactly(AView control, VisualElement element, Context context)
+		{
+			if (control == null || element == null)
+			{
+				return;
+			}
+
+			var width = element.Width;
+			var height = element.Height;
+
+			if (width <= 0 || height <= 0)
+			{
+				return;
+			}
+
+			var realWidth = (int)context.ToPixels(width);
+			var realHeight = (int)context.ToPixels(height);
+
+			var widthMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realWidth, MeasureSpecMode.Exactly);
+			var heightMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realHeight, MeasureSpecMode.Exactly);
+
+			control.Measure(widthMeasureSpec, heightMeasureSpec);
+		}
 
 		#region IVisualElementRenderer
 		VisualElement IVisualElementRenderer.Element => Element;
@@ -216,7 +243,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!(element is CameraView camera))
 				throw new ArgumentException($"{nameof(element)} must be of type {nameof(CameraView)}");
 
-			Performance.Start(out var reference);
+			//Performance.Start(out var reference);
 
 			motionEventHelper.UpdateElement(element);
 
@@ -225,7 +252,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			Element = camera;
 
-			Performance.Stop(reference);
+			//Performance.Stop(reference);
 		}
 
 		void IVisualElementRenderer.SetLabelFor(int? id)
@@ -236,10 +263,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			LabelFor = (int)(id ?? defaultLabelFor);
 		}
 
-		void IVisualElementRenderer.UpdateLayout()
-		{
+		void IVisualElementRenderer.UpdateLayout() =>
 			visualElementTracker?.UpdateLayout();
-		}
 		#endregion
+	}
+
+	// This is an internal class, so for now we just replicate it here
+	static class MeasureSpecFactory
+	{
+		public static int GetSize(int measureSpec)
+		{
+			const int modeMask = 0x3 << 30;
+			return measureSpec & ~modeMask;
+		}
+
+		// Literally does the same thing as the android code, 1000x faster because no bridge cross
+		// benchmarked by calling 1,000,000 times in a loop on actual device
+		public static int MakeMeasureSpec(int size, MeasureSpecMode mode)
+		{
+			return size + (int)mode;
+		}
 	}
 }
