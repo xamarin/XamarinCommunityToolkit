@@ -257,3 +257,6 @@ paket-files/
 .idea/
 *.sln.iml
 **/.DS_Store
+
+# MFractors (Xamarin productivity tool) working folder
+.mfractor/
