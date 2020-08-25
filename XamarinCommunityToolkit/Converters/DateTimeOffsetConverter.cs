@@ -23,8 +23,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		{
 			if (value is DateTime date)
 			{
-				if (date == DateTime.MinValue) date = date.Add(DateTimeOffset.Now.Offset);
-				return new DateTimeOffset(date);
+				return date.Kind switch
+				{
+					DateTimeKind.Local => new DateTimeOffset(date, DateTimeOffset.Now.Offset),
+					DateTimeKind.Utc => new DateTimeOffset(date, DateTimeOffset.UtcNow.Offset),
+					_ => new DateTimeOffset(date, TimeSpan.Zero),
+				};
 			}
 
 			return null;
