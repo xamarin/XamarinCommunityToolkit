@@ -53,15 +53,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				&& numeric <= MaximumValue))
 				return false;
 
-			var decimalDelimetrIndex = valueString.IndexOf(decimalPartDelimeter);
-			var hasDecimalDelimetr = decimalDelimetrIndex >= 0;
+			var decimalDelimeterIndex = valueString.IndexOf(decimalPartDelimeter);
+			var hasDecimalDelimeter = decimalDelimeterIndex >= 0;
 
 			// If MaximumDecimalPlaces equals zero, ".5" or "14." should be considered as invalid inputs.
-			if (hasDecimalDelimetr && MaximumDecimalPlaces == 0)
+			if (hasDecimalDelimeter && MaximumDecimalPlaces == 0)
 				return false;
 
-			var decimalPlaces = hasDecimalDelimetr
-				? valueString.Substring(decimalDelimetrIndex + 1, valueString.Length - decimalDelimetrIndex - 1).Length
+			var decimalPlaces = hasDecimalDelimeter
+				? valueString.Substring(decimalDelimeterIndex + 1, valueString.Length - decimalDelimeterIndex - 1).Length
 				: 0;
 
 			return decimalPlaces >= MinimumDecimalPlaces
