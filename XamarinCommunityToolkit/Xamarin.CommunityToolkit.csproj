@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
+    <Compile Include="Converters\DateTimeOffsetConverter.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
