@@ -99,12 +99,4 @@
       <Compile Include="**\*.tizen.cs" />
       <Compile Include="**\*.tizen.*.cs" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Core\" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Update="Core\CameraMediaSource.shared.cs">
-        <SubType>Code</SubType>
-      </Compile>
-    </ItemGroup>
 </Project>
