@@ -12,16 +12,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraViewRenderer : ViewRenderer<CameraView, FormsCameraView>
 	{
+		bool disposed;
+
 		protected override void OnElementChanged(ElementChangedEventArgs<CameraView> e)
 		{
 			base.OnElementChanged(e);
-
-			if (Control == null)
+			
+			if (Control == null && !disposed)
 			{
 				SetNativeControl(new FormsCameraView());
 				Control.Busy += OnBusy;
 				Control.Available += OnAvailability;
 				Control.FinishCapture += FinishCapture;
+
+				Control.SwitchFlash(Element.FlashMode);
+				Control.SetBounds(Element.WidthRequest, Element.HeightRequest);
+				Control.VideoStabilization = Element.VideoStabilization;
+				Control.Zoom = Element.Zoom;
+				Control.RetrieveCameraDevice(Element.CameraOptions);
 			}
 
 			if (e.OldElement != null)
@@ -115,6 +123,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected override void Dispose(bool disposing)
 		{
+			if (disposed)
+				return;
+
+			disposed = true;
 			Control?.Dispose();
 			base.Dispose(disposing);
 		}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -6,34 +7,54 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
 	public partial class CameraViewPage : BasePage
 	{
+		// Note: not all options of the CameraView are on this page, make sure to discover them for yourself!
 		public CameraViewPage()
 		{
 			InitializeComponent();
+
+			zoomLabel.Text = string.Format(AppResources.CameraViewSampleZoom, zoomSlider.Value);
 		}
 
 		void ZoomSlider_ValueChanged(object sender, ValueChangedEventArgs e)
 		{
 			cameraView.Zoom = (float)zoomSlider.Value;
-			zoomLabel.Text = $"Zoom: {zoomSlider.Value}";
+			zoomLabel.Text = string.Format(AppResources.CameraViewSampleZoom, Math.Round(zoomSlider.Value));
 		}
 
-		void Switch_Toggled(object sender, ToggledEventArgs e)
+		void VideoSwitch_Toggled(object sender, ToggledEventArgs e)
 		{
-			if (e.Value)
+			var captureVideo = e.Value;
+
+			if (captureVideo)
 				cameraView.CaptureOptions = CameraCaptureOptions.Video;
 			else
 				cameraView.CaptureOptions = CameraCaptureOptions.Photo;
 
-			doCameraThings.Text = e.Value ? "Start recording" : "Snap picture";
+			previewPicture.IsVisible = !captureVideo;
+
+			doCameraThings.Text = e.Value ? AppResources.CameraViewSampleStartRecording
+				: AppResources.CameraViewSampleSnapPicture;
 		}
+
+		// You can also set it to Default and External
+		void FrontCameraSwitch_Toggled(object sender, ToggledEventArgs e)
+			=> cameraView.CameraOptions = e.Value ? CameraOptions.Front : CameraOptions.Back;
+
+		// You can also set it to Torch (always on) and Auto
+		void FlashSwitch_Toggled(object sender, ToggledEventArgs e)
+			=> cameraView.FlashMode = e.Value ? CameraFlashMode.On : CameraFlashMode.Off;
+
+		void KeepScreenOnSwitch_Toggled(object sender, ToggledEventArgs e)
+			=> cameraView.KeepScreenOn = e.Value;
 
 		void DoCameraThings_Clicked(object sender, EventArgs e)
 		{
 			cameraView.Shutter();
-			doCameraThings.Text = cameraView.CaptureOptions != CameraCaptureOptions.Video ? "Snap picture" : "Stop recording";
+			doCameraThings.Text = cameraView.CaptureOptions == CameraCaptureOptions.Video
+				? AppResources.CameraViewSampleStopRecording
+				: AppResources.CameraViewSampleSnapPicture;
 		}
 
-		// TODO due to timing on iOS this never works
 		void CameraView_OnAvailable(object _, bool e)
 		{
 			if (e)
@@ -45,6 +66,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				else
 					zoomSlider.Maximum = zoomSlider.Minimum + 1; // if max == min throws exception
 			}
+
 			doCameraThings.IsEnabled = e;
 			zoomSlider.IsEnabled = e;
 		}
@@ -56,16 +78,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				default:
 				case CameraCaptureOptions.Default:
 				case CameraCaptureOptions.Photo:
-					previewMovie.IsVisible = false;
 					previewPicture.IsVisible = true;
 					previewPicture.Source = e.Image;
-					doCameraThings.Text = "Snap picture";
+					doCameraThings.Text = AppResources.CameraViewSampleSnapPicture;
 					break;
 				case CameraCaptureOptions.Video:
 					previewPicture.IsVisible = false;
-					previewMovie.IsVisible = true;
-					previewMovie.Source = e.Video;
-					doCameraThings.Text = "Start recording";
+					doCameraThings.Text = AppResources.CameraViewSampleStartRecording;
 					break;
 			}
 		}

@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Extensions
             };
             return binding;
 #else
-			throw new NotSupportedException();
+			throw new NotSupportedException("Translate XAML MarkupExtension is not supported on .NET Standard 1.0");
 #endif
 		}
 	}
