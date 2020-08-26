@@ -6,10 +6,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraView : View
 	{
-		public CameraView()
-		{
-		}
-
 		public event EventHandler<MediaCapturedEventArgs> MediaCaptured;
 
 		public event EventHandler<string> MediaCaptureFailed;

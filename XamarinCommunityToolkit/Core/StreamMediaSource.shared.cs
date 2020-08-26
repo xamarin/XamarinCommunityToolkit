@@ -13,8 +13,8 @@ namespace Xamarin.CommunityToolkit.Core
 
 		TaskCompletionSource<bool> completionSource;
 
-		public static readonly BindableProperty StreamProperty = BindableProperty.Create(nameof(Stream), typeof(Func<CancellationToken, Task<Stream>>), typeof(StreamMediaSource),
-			default(Func<CancellationToken, Task<Stream>>));
+		public static readonly BindableProperty StreamProperty 
+			= BindableProperty.Create(nameof(Stream), typeof(Func<CancellationToken, Task<Stream>>), typeof(StreamMediaSource));
 
 		protected CancellationTokenSource CancellationTokenSource
 		{
@@ -99,13 +99,9 @@ namespace Xamarin.CommunityToolkit.Core
 			var original = Interlocked.CompareExchange(ref completionSource, tcs, null);
 
 			if (original == null)
-			{
 				CancellationTokenSource = null;
-			}
 			else
-			{
 				tcs = original;
-			}
 
 			return tcs.Task;
 		}
