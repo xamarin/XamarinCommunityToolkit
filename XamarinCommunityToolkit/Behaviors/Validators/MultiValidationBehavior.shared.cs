@@ -23,8 +23,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		public List<object> Errors
 		{
-			get => (List<object>)GetValue(ErrorProperty);
-			private set => SetValue(ErrorProperty, value);
+			get => (List<object>)GetValue(ErrorsProperty);
+			set => SetValue(ErrorsProperty, value);
 		}
 
 		public IList<ValidationBehavior> Children
@@ -45,10 +45,16 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				return !c.IsValid;
 			}).Select(c => GetError(c));
 
-			if (!Errors?.SequenceEqual(errors) ?? false)
+			if (!errors.Any())
+			{
+				Errors = null;
+				return true;
+			}
+
+			if (!Errors?.SequenceEqual(errors) ?? true)
 				Errors = errors.ToList();
 
-			return !errors.Any();
+			return false;
 		}
 
 		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
