@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Control.SwitchFlash(Element.FlashMode);
 				Control.SetBounds(Element.WidthRequest, Element.HeightRequest);
 				Control.VideoStabilization = Element.VideoStabilization;
-				Control.Zoom = Element.Zoom;
+				Control.Zoom = (float)Element.Zoom;
 				Control.RetrieveCameraDevice(Element.CameraOptions);
 			}
 
@@ -154,7 +154,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Control.SwitchFlash(Element.FlashMode);
 					break;
 				case nameof(CameraView.Zoom):
-					Control.Zoom = Element.Zoom;
+					Control.Zoom = (float)Element.Zoom;
 					break;
 			}
 		}

@@ -88,19 +88,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(PreviewAspectProperty, value);
 		}
 
-		public static readonly BindableProperty ZoomProperty = BindableProperty.Create(nameof(Zoom), typeof(float), typeof(CameraView), 1f);
+		public static readonly BindableProperty ZoomProperty = BindableProperty.Create(nameof(Zoom), typeof(double), typeof(CameraView), 1d);
 
-		public float Zoom
+		public double Zoom
 		{
-			get => (float)GetValue(ZoomProperty);
+			get => (double)GetValue(ZoomProperty);
 			set => SetValue(ZoomProperty, value);
 		}
 
-		public static readonly BindableProperty MaxZoomProperty = BindableProperty.Create(nameof(MaxZoom), typeof(float), typeof(CameraView), 1f);
+		public static readonly BindableProperty MaxZoomProperty = BindableProperty.Create(nameof(MaxZoom), typeof(double), typeof(CameraView), 1d);
 
-		public float MaxZoom
+		public double MaxZoom
 		{
-			get => (float)GetValue(MaxZoomProperty);
+			get => (double)GetValue(MaxZoomProperty);
 			set => SetValue(MaxZoomProperty, value);
 		}
 
