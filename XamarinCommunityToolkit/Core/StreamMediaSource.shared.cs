@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.UI.Views
+namespace Xamarin.CommunityToolkit.Core
 {
 	public class StreamMediaSource : MediaSource, IStreamImageSource
 	{

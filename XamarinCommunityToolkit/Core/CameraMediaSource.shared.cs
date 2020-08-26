@@ -4,9 +4,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.UI.Views
+namespace Xamarin.CommunityToolkit.Core
 {
 	// TODO: Check if we can do these changes in Xamarin.Forms to not have our own version of the MediaSource
+	// TODO 2: Is this even used?! Not for iOS it seems...
 	public class CameraMediaSource : MediaSource
 	{
 		public static MediaSource FromStream(Func<Stream> stream) => new StreamMediaSource { Stream = token => Task.Run(stream, token) };

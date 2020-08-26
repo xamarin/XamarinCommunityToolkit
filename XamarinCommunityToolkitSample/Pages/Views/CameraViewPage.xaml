@@ -4,7 +4,23 @@
                 xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.CameraViewPage">
-    <Grid>
-        <views:CameraView x:Name="cameraView" BackgroundColor="Yellow" HeightRequest="100" WidthRequest="100" CaptureOptions="Video" CameraOptions="Front" />
-    </Grid>
+    <StackLayout>
+        <Grid RowDefinitions="300, 20, 20">
+            <views:CameraView OnAvailable="CameraView_OnAvailable" x:Name="cameraView" CaptureOptions="Video" CameraOptions="Front" MediaCaptured="CameraView_MediaCaptured" />
+            <Slider Grid.Row="1" Maximum="10" Minimum="1" Value="1" x:Name="zoomSlider" Margin="20,0" ValueChanged="ZoomSlider_ValueChanged" />
+            <Label Grid.Row="2" x:Name="zoomLabel" Text="Zoom: 1" />
+            
+        </Grid>
+        <ScrollView>
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Switch IsToggled="True" Toggled="Switch_Toggled" />
+                    <Label Text="Video"/>
+                </StackLayout>                
+                <Button x:Name="doCameraThings" Text="Start recording" Clicked="DoCameraThings_Clicked" />
+                <Image x:Name="previewPicture" WidthRequest="150" HeightRequest="150" />
+                <MediaElement x:Name="previewMovie" WidthRequest="150" HeightRequest="150" />
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
 </pages:BasePage>

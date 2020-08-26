@@ -237,16 +237,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return Path.Combine(library, $"VID_{timeStamp}.mov");
 		}
 
-		public void StartRecord() // TODO audio record
+		public void StartRecord()
 		{
 			if (isBusy || device == null || videoOutput?.Recording == true)
 				return;
 
 			captureSession.BeginConfiguration();
 
-			videoOutput = new AVCaptureMovieFileOutput();
+			videoOutput = new AVCaptureMovieFileOutput
+			{
+				MovieFragmentInterval = CMTime.Invalid
+			};
+
 			if (captureSession.CanAddOutput(videoOutput))
 				captureSession.AddOutput(videoOutput);
+
+			var audioDevice = AVCaptureDevice.GetDefaultDevice(AVMediaTypes.Audio);
+			var audioInput = AVCaptureDeviceInput.FromDevice(audioDevice);
+
+			if (captureSession.CanAddInput(audioInput))
+				captureSession.AddInput(audioInput);
 
 			captureSession.CommitConfiguration();
 
@@ -255,9 +265,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				videoOutput.Connections[0].VideoOrientation = previewLayer.Connection.VideoOrientation;
 				var connection = videoOutput.Connections[0];
-
+				
 				if (connection.SupportsVideoOrientation)
-					connection.VideoOrientation = previewLayer.Orientation;
+					connection.VideoOrientation = previewLayer.Connection.VideoOrientation;
 				if (connection.SupportsVideoStabilization)
 					connection.PreferredVideoStabilizationMode = VideoStabilization ? AVCaptureVideoStabilizationMode.Auto : AVCaptureVideoStabilizationMode.Off;
 

@@ -4,8 +4,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	// TODO: Figure out PlatformSpecifics? .On() is not accessible for us
-	public class CameraView : View//, IElementConfiguration<CameraView>
+	public class CameraView : View
 	{
 		public CameraView()
 		{
@@ -116,11 +115,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public void RaiseMediaCaptureFailed(string message) => MediaCaptureFailed?.Invoke(this, message);
 
 		public void Shutter() => ShutterClicked?.Invoke(this, EventArgs.Empty);
-
-		//readonly Lazy<PlatformConfigurationRegistry<CameraView>> platformConfigurationRegistry;
-
-		//public CameraView() => platformConfigurationRegistry = new Lazy<PlatformConfigurationRegistry<CameraView>>(() => new PlatformConfigurationRegistry<CameraView>(this));
-
-		//public IPlatformElementConfiguration<T, CameraView> On<T>() where T : IConfigPlatform => platformConfigurationRegistry.Value.On<T>();
 	}
 }
