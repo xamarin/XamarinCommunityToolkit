@@ -187,10 +187,10 @@
     <value>#Click Me</value>
   </data>
   <data name="NumericValidationShortDescription" xml:space="preserve">
-    <value>#Turns any event into a command that can be bound to.</value>
+   <value>#Changes an Entry's text color when an invalid number is provided.</value>
   </data>
   <data name="NumericValidationBehaviorDescription" xml:space="preserve">
-    <value>#Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0).</value>
+    <value>#Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0). Maximum decimal places value equals 2.</value>
   </data>
   <data name="ConvertersTitle" xml:space="preserve">
     <value>#Converters</value>
