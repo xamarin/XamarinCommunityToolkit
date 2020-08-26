@@ -80,20 +80,24 @@
         -->
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
-      <Compile Include="**\*.android.cs" />
-      <Compile Include="**\*.android.*.cs" />
+        <Compile Include="**\*.android.cs" />
+        <Compile Include="**\*.android.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
-      <Compile Include="**\*.ios.cs" />
-      <Compile Include="**\*.ios.*.cs" />
+        <Compile Include="**\*.ios.cs" />
+        <Compile Include="**\*.ios.*.cs" />
+    </ItemGroup>
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.mac20')) ">
+        <Compile Include="**\*.macos.cs" />
+        <Compile Include="**\*.macos.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.TVOS')) ">
-      <Compile Include="**\*.tvos.cs" />
-      <Compile Include="**\*.tvos.*.cs" />
+        <Compile Include="**\*.tvos.cs" />
+        <Compile Include="**\*.tvos.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.WatchOS')) ">
-      <Compile Include="**\*.watchos.cs" />
-      <Compile Include="**\*.watchos.*.cs" />
+        <Compile Include="**\*.watchos.cs" />
+        <Compile Include="**\*.watchos.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
       <Reference Include="netstandard" Condition=" '$(OS)' == 'Windows_NT' " />
@@ -101,7 +105,7 @@
       <Compile Include="**\*.macos.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
-      <Compile Include="**\*.tizen.cs" />
-      <Compile Include="**\*.tizen.*.cs" />
+        <Compile Include="**\*.tizen.cs" />
+        <Compile Include="**\*.tizen.*.cs" />
     </ItemGroup>
 </Project>
