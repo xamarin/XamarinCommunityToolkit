@@ -20,7 +20,8 @@
             <Entry.Behaviors>
                 <behaviors:NumericValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"
                                                      MinimumValue="1.0"
-                                                     MaximumValue="100.0"/>
+                                                     MaximumValue="100.0"
+                                                     MaximumDecimalPlaces="2"/>
             </Entry.Behaviors>
         </Entry>
     </StackLayout>
