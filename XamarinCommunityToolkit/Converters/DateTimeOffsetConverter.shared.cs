@@ -9,6 +9,14 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// </summary>
 	public class DateTimeOffsetConverter : ValueConverterExtension, IValueConverter
 	{
+		/// <summary>
+		/// Converts DatetimeOffset to DateTime
+		/// </summary>
+		/// <param name="value">The value to convert.</param>
+		/// <param name="targetType">The type of the binding target property.</param>
+		/// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
+		/// <param name="culture">The culture to use in the converter. Not used.</param>
+		/// <returns>The DateTime value.</returns>
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
 			if (value is DateTimeOffset dateTime)
@@ -16,9 +24,17 @@ namespace Xamarin.CommunityToolkit.Converters
 				return dateTime.DateTime;
 			}
 
-			return null;
+			throw new ArgumentException("Value is not a valid DateTimeOffset", nameof(value));
 		}
 
+		/// <summary>
+		/// Converts Datetime back to DateTimeOffset
+		/// </summary>
+		/// <param name="value">The value to convert.</param>
+		/// <param name="targetType">The type of the binding target property.</param>
+		/// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
+		/// <param name="culture">The culture to use in the converter. Not used.</param>
+		/// <returns>The DateTimeOffset value.</returns>
 		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
 			if (value is DateTime date)
@@ -31,7 +47,7 @@ namespace Xamarin.CommunityToolkit.Converters
 				};
 			}
 
-			return null;
+			throw new ArgumentException("Value is not a valid DateTime", nameof(value));
 		}
 	}
 }

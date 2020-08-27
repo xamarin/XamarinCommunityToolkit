@@ -9,9 +9,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class DateTimeOffsetConverter_Tests
 	{
+		private static DateTime testDateTimeNow = DateTime.Now;
 		private static DateTime testDateTimeLocal = new DateTime(2020, 08, 25, 13, 37, 00, DateTimeKind.Local);
 		private static DateTime testDateTimeUtc = new DateTime(2020, 08, 25, 13, 37, 00, DateTimeKind.Utc);
 		private static DateTime testDateTimeUnspecified = new DateTime(2020, 08, 25, 13, 37, 00);
+		private static DateTimeOffset testDateTimeOffsetNow = new DateTimeOffset(testDateTimeNow);
 		private static DateTimeOffset testDateTimeOffsetLocal = new DateTimeOffset(2020, 08, 25, 13, 37, 00, DateTimeOffset.Now.Offset);
 		private static DateTimeOffset testDateTimeOffsetUtc = new DateTimeOffset(2020, 08, 25, 13, 37, 00, DateTimeOffset.UtcNow.Offset);
 			
@@ -19,6 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			return new List<object[]>
 			{
+				new object[] { testDateTimeNow, testDateTimeNow},
 				new object[] { DateTimeOffset.MinValue, DateTime.MinValue},
 				new object[] { DateTimeOffset.MaxValue, DateTime.MaxValue},
 				new object[] {  testDateTimeOffsetLocal, testDateTimeLocal },
@@ -31,6 +34,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			return new List<object[]>
 			{
+				new object[] { testDateTimeNow, testDateTimeNow},
 				new object[] { DateTime.MinValue, DateTimeOffset.MinValue},
 				new object[] { DateTime.MaxValue, DateTimeOffset.MaxValue},
 				new object[] { testDateTimeLocal, testDateTimeOffsetLocal },
@@ -61,6 +65,26 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				CultureInfo.CurrentCulture);
 
 			Assert.Equal(expectedResult, result);
+		}
+
+		[Fact]
+		public void DateTimeOffsetConverter_GivenInvalidParameters_ThrowsException()
+		{
+			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			
+			Assert.Throws<ArgumentException>(() => dateTimeOffsetConverter.Convert("Not a DateTimeOffset",
+				typeof(DateTimeOffsetConverter_Tests), null,
+				CultureInfo.CurrentCulture));
+		}
+		
+		[Fact]
+		public void DateTimeOffsetConverterBack_GivenInvalidParameters_ThrowsException()
+		{
+			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			
+			Assert.Throws<ArgumentException>(() => dateTimeOffsetConverter.ConvertBack("Not a DateTime",
+				typeof(DateTimeOffsetConverter_Tests), null,
+				CultureInfo.CurrentCulture));
 		}
 	}
 }
