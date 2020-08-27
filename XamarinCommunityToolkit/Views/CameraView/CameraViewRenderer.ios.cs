@@ -56,11 +56,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var data = UIImage.LoadFromData(photoData).AsJPEG().ToArray();
 			Device.BeginInvokeOnMainThread(() =>
 			{
-				Element.RaiseMediaCaptured(new MediaCapturedEventArgs()
-				{
-					Data = data,
-					Image = ImageSource.FromStream(() => new MemoryStream(data))
-				});
+				Element.RaiseMediaCaptured(new MediaCapturedEventArgs(data, ImageSource.FromStream(() => new MemoryStream(data))));
 			});
 		}
 
@@ -107,10 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							});
 						Device.BeginInvokeOnMainThread(() =>
 						{
-							Element.RaiseMediaCaptured(new MediaCapturedEventArgs
-							{
-								Video = MediaSource.FromFile(outputFileUrl.Path)
-							});
+							Element.RaiseMediaCaptured(new MediaCapturedEventArgs(video: MediaSource.FromFile(outputFileUrl.Path)));
 						});
 					}
 				}, (success2, error2) =>

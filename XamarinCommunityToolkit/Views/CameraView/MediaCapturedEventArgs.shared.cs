@@ -5,8 +5,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaCapturedEventArgs : EventArgs
 	{
-		public object Data { get; set; }
-		public ImageSource Image { get; set; }
-		public MediaSource Video { get; set; }
+		internal MediaCapturedEventArgs(
+			object data = null,
+			ImageSource image = null,
+			MediaSource video = null)
+		{
+			Data = data;
+			Image = image;
+			Video = video;
+		}
+
+		/// <summary>
+		/// Raw image data, only filled when taking a picture
+		/// </summary>
+		public object Data { get; }
+		public ImageSource Image { get; }
+		public MediaSource Video { get; }
 	}
 }
