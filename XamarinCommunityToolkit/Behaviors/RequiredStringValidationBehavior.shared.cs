@@ -3,15 +3,15 @@ using Xamarin.Forms;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.Behaviors
 {
-    public class ConfirmEqualInputsBehavior : ValidationBehavior
+    public class RequiredStringValidationBehavior : ValidationBehavior
     {
         public static readonly BindableProperty ComparedToStringProperty =
             BindableProperty.Create(nameof(ComparedToString), typeof(string),
-                typeof(ConfirmEqualInputsBehavior));
+                typeof(RequiredStringValidationBehavior));
     
         public static readonly BindableProperty ValidCommandProperty =
             BindableProperty.Create(nameof(ValidCommand), typeof(ICommand),
-                typeof(ConfirmEqualInputsBehavior));
+                typeof(RequiredStringValidationBehavior));
 
         protected override bool Validate(object value)
         {

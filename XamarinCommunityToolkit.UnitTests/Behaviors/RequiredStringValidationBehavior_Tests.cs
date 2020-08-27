@@ -4,9 +4,9 @@ using Microsoft.Toolkit.Xamarin.Forms.Behaviors;
 
 namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
 {
-    public class ConfirmPasswordBehavior_Tests
+    public class RequiredStringValidationBehavior_Tests
     {
-        public ConfirmPasswordBehavior_Tests()
+        public RequiredStringValidationBehavior_Tests()
              => Device.PlatformServices = new MockPlatformServices();
         
         [Fact]
@@ -15,7 +15,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             //arrange
             var passwordEntry = new Entry();
             var confirmPasswordEntry = new Entry();
-            var confirmPasswordBehavior = new ConfirmEqualInputsBehavior();
+            var confirmPasswordBehavior = new RequiredStringValidationBehavior();
             confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
             //act
             //passwordEntry.Text = "123456";
@@ -32,7 +32,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             //arrange
             var passwordEntry = new Entry();
             var confirmPasswordEntry = new Entry();
-            var confirmPasswordBehavior = new ConfirmEqualInputsBehavior();
+            var confirmPasswordBehavior = new RequiredStringValidationBehavior();
             confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
             //act
             passwordEntry.Text = "123456";
@@ -49,7 +49,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             //arrange
             var passwordEntry = new Entry();
             var confirmPasswordEntry = new Entry();
-            var confirmPasswordBehavior = new ConfirmEqualInputsBehavior();
+            var confirmPasswordBehavior = new RequiredStringValidationBehavior();
             confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnValueChanging;
             //act
             passwordEntry.Text = "123456";
@@ -66,7 +66,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
             //arrange
             var passwordEntry = new Entry();
             var confirmPasswordEntry = new Entry();
-            var confirmPasswordBehavior = new ConfirmEqualInputsBehavior();
+            var confirmPasswordBehavior = new RequiredStringValidationBehavior();
             confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnValueChanging;
             //act
             passwordEntry.Text = "123456";
