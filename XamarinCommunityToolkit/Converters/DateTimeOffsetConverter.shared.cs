@@ -31,13 +31,13 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter. Not used.</param>
 		/// <returns>The DateTimeOffset value.</returns>
 		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-				=> value is DateTime dateTime
-					? dateTime.Kind switch
-					{
-						DateTimeKind.Local => new DateTimeOffset(dateTime, DateTimeOffset.Now.Offset),
-						DateTimeKind.Utc => new DateTimeOffset(dateTime, DateTimeOffset.UtcNow.Offset),
-						_ => new DateTimeOffset(dateTime, TimeSpan.Zero),
-					}
-					: throw new ArgumentException("Value is not a valid DateTime", nameof(value));
+			=> value is DateTime dateTime
+				? dateTime.Kind switch
+				{
+					DateTimeKind.Local => new DateTimeOffset(dateTime, DateTimeOffset.Now.Offset),
+					DateTimeKind.Utc => new DateTimeOffset(dateTime, DateTimeOffset.UtcNow.Offset),
+					_ => new DateTimeOffset(dateTime, TimeSpan.Zero),
+				}
+				: throw new ArgumentException("Value is not a valid DateTime", nameof(value));
 	}
 }
