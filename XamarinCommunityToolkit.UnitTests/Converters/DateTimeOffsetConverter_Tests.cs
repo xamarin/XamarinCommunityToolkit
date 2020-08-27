@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Xamarin.CommunityToolkit.Converters;
 using Xunit;
 
@@ -9,17 +8,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class DateTimeOffsetConverter_Tests
 	{
-		private static DateTime testDateTimeNow = DateTime.Now;
-		private static DateTime testDateTimeLocal = new DateTime(2020, 08, 25, 13, 37, 00, DateTimeKind.Local);
-		private static DateTime testDateTimeUtc = new DateTime(2020, 08, 25, 13, 37, 00, DateTimeKind.Utc);
-		private static DateTime testDateTimeUnspecified = new DateTime(2020, 08, 25, 13, 37, 00);
-		private static DateTimeOffset testDateTimeOffsetNow = new DateTimeOffset(testDateTimeNow);
-		private static DateTimeOffset testDateTimeOffsetLocal = new DateTimeOffset(2020, 08, 25, 13, 37, 00, DateTimeOffset.Now.Offset);
-		private static DateTimeOffset testDateTimeOffsetUtc = new DateTimeOffset(2020, 08, 25, 13, 37, 00, DateTimeOffset.UtcNow.Offset);
+		static DateTime testDateTimeNow = DateTime.Now;
+		static DateTime testDateTimeLocal = new DateTime(2020, 08, 25, 13, 37, 00, DateTimeKind.Local);
+		static DateTime testDateTimeUtc = new DateTime(2020, 08, 25, 13, 37, 00, DateTimeKind.Utc);
+		static DateTime testDateTimeUnspecified = new DateTime(2020, 08, 25, 13, 37, 00);
+		static DateTimeOffset testDateTimeOffsetNow = new DateTimeOffset(testDateTimeNow);
+		static DateTimeOffset testDateTimeOffsetLocal = new DateTimeOffset(2020, 08, 25, 13, 37, 00, DateTimeOffset.Now.Offset);
+		static DateTimeOffset testDateTimeOffsetUtc = new DateTimeOffset(2020, 08, 25, 13, 37, 00, DateTimeOffset.UtcNow.Offset);
 			
-		public static IEnumerable<object[]> GetData()
-		{
-			return new List<object[]>
+		public static IEnumerable<object[]> GetData() =>
+			new List<object[]>
 			{
 				new object[] { testDateTimeNow, testDateTimeNow},
 				new object[] { DateTimeOffset.MinValue, DateTime.MinValue},
@@ -28,11 +26,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				new object[] { testDateTimeOffsetUtc, testDateTimeUtc }, 
 				new object[] { testDateTimeOffsetUtc, testDateTimeUnspecified}, 
 			};
-		}
-		
-		public static IEnumerable<object[]> GetDataReverse()
-		{
-			return new List<object[]>
+
+		public static IEnumerable<object[]> GetDataReverse() =>
+			new List<object[]>
 			{
 				new object[] { testDateTimeNow, testDateTimeNow},
 				new object[] { DateTime.MinValue, DateTimeOffset.MinValue},
@@ -41,7 +37,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				new object[] { testDateTimeUtc, testDateTimeOffsetUtc}, 
 				new object[] { testDateTimeUnspecified, testDateTimeOffsetUtc}, 
 			};
-		}
 
 		[Theory]
 		[MemberData(nameof(GetData))]
