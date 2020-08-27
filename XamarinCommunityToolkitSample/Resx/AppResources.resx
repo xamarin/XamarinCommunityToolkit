@@ -187,10 +187,10 @@
     <value>Click Me</value>
   </data>
   <data name="NumericValidationShortDescription" xml:space="preserve">
-    <value>Turns any event into a command that can be bound to.</value>
+    <value>Changes an Entry's text color when an invalid number is provided.</value>
   </data>
   <data name="NumericValidationBehaviorDescription" xml:space="preserve">
-    <value>Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0).</value>
+    <value>Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0). Maximum decimal places value equals 2.</value>
   </data>
   <data name="ConvertersTitle" xml:space="preserve">
     <value>Converters</value>
@@ -353,6 +353,35 @@
   </data>
   <data name="Time" xml:space="preserve">
     <value>Time</value>
+  </data>
+   <data name="UriValidationDescription" xml:space="preserve">
+    <value>Text color will change accordingly to the style that is configured when a invalid URI is entered.</value>
+  </data>
+  <data name="UriValidationShortDescription" xml:space="preserve">
+    <value>Changes an Entry's text color when an invalid URI is provided.</value>
+  </data>
+  <data name="MultiConverterDescription" xml:space="preserve">
+    <value>This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. 
+
+It converts the entered text to Upper Case and checks that it is Not Equal to the string 'ANDREI'.</value>
+  </data>
+  <data name="MultiConverterShortDescription" xml:space="preserve">
+    <value>This sample demonstrates how to use Multibinding Converter</value>
+  </data>
+   <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+   <data name="ChangeLanguage" xml:space="preserve">
+    <value>Change language</value>
+  </data>
+   <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+   <data name="Spanish" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="MatchShortDescription" xml:space="preserve">
     <value>Detects and style any text that matches a regex specified in MatchTypes found in a Label's FormattedText.</value>

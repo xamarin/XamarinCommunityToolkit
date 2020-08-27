@@ -1,9 +1,9 @@
-﻿using Android.Content;
+﻿using System;
+using Android.Content;
 using Android.Runtime;
 using Android.Views;
-using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.CommunityToolkit.Android.UI.Views;
-using System;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using static System.Math;

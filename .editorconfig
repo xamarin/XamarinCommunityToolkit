@@ -13,6 +13,7 @@ indent_size = 4
 # Code files
 [*.{cs,csx,vb,vbx}]
 indent_style = tab
+indent_size = 4
 
 # Code files
 [*.sln]
