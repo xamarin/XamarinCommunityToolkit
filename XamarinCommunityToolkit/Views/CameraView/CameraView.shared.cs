@@ -12,8 +12,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public event EventHandler<bool> OnAvailable;
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public event EventHandler ShutterClicked;
+		internal event EventHandler ShutterClicked;
 
 		public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(CameraView), false);
 
@@ -104,11 +103,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(MaxZoomProperty, value);
 		}
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public void RaiseMediaCaptured(MediaCapturedEventArgs args) => MediaCaptured?.Invoke(this, args);
+		internal void RaiseMediaCaptured(MediaCapturedEventArgs args) => MediaCaptured?.Invoke(this, args);
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public void RaiseMediaCaptureFailed(string message) => MediaCaptureFailed?.Invoke(this, message);
+		internal void RaiseMediaCaptureFailed(string message) => MediaCaptureFailed?.Invoke(this, message);
 
 		public void Shutter() => ShutterClicked?.Invoke(this, EventArgs.Empty);
 	}
