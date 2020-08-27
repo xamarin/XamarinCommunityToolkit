@@ -121,13 +121,16 @@ namespace Xamarin.CommunityToolkit.Behaviors
           
             return span;
         }
-        
 
-        void AddGestureRecognizer(KeyValuePair<Span,string> match)
+
+        void AddGestureRecognizer(KeyValuePair<Span, string> match)
         {
             var gesture = match.Key.GestureRecognizers.FirstOrDefault();
             if (gesture is TapGestureRecognizer tapRecognizer)
+            { 
                 tapRecognizer.Command = Command;
+                tapRecognizer.CommandParameter = match.Value;
+            }
             else
                 match.Key.GestureRecognizers.Add(new TapGestureRecognizer()
                 {
