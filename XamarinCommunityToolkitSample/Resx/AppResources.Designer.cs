@@ -533,6 +533,18 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string MultiValidationDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiValidationShortDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationShortDescription", resourceCulture);
+            }
+        }
+        
         internal static string MultiConverterDescription {
             get {
                 return ResourceManager.GetString("MultiConverterDescription", resourceCulture);
