@@ -317,20 +317,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void OnPhoto(object sender, byte[] data) =>
 			Device.BeginInvokeOnMainThread(() =>
 			{
-				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs()
-				{
-					Data = data,
-					Image = ImageSource.FromStream(() => new MemoryStream(data))
-				});
+				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(data, ImageSource.FromStream(() => new MemoryStream(data))));
 			});
 
 		void OnVideo(object sender, string data) => 
 			Device.BeginInvokeOnMainThread(() =>
 			{
-				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs()
-				{
-					Video = MediaSource.FromFile(data)
-				});
+				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(video: MediaSource.FromFile(data)));
 			});
 
 		void SetupImageReader()
@@ -658,7 +651,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void ApplyZoom()
 		{
-			zoom = System.Math.Max(1f, System.Math.Min(Element.Zoom, maxDigitalZoom));
+			zoom = (float)System.Math.Max(1f, System.Math.Min(Element.Zoom, maxDigitalZoom));
 			if (ZoomSupported)
 				sessionBuilder?.Set(CaptureRequest.ScalerCropRegion, GetZoomRect());
 		}
