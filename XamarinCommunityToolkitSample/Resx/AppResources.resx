@@ -360,6 +360,12 @@
   <data name="UriValidationShortDescription" xml:space="preserve">
     <value>Changes an Entry's text color when an invalid URI is provided.</value>
   </data>
+   <data name="MultiValidationDescription" xml:space="preserve">
+    <value>Text color will change accordingly to the style that is configured if any of child behaviors is invalid (Minimum: -10, Maximum: 5).</value>
+  </data>
+  <data name="MultiValidationShortDescription" xml:space="preserve">
+    <value>Combines multiple validation behavior.</value>
+  </data>
   <data name="MultiConverterDescription" xml:space="preserve">
     <value>This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. 
 
@@ -382,5 +388,23 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="CameraViewTitle" xml:space="preserve">
+    <value>CameraView</value>
+  </data>
+  <data name="CameraViewDescription" xml:space="preserve">
+    <value>The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!</value>
+  </data>
+  <data name="CameraViewSampleZoom" xml:space="preserve">
+    <value>Zoom: {0}</value>
+  </data>
+  <data name="CameraViewSampleSnapPicture" xml:space="preserve">
+    <value>Snap Picture</value>
+  </data>
+  <data name="CameraViewSampleStartRecording" xml:space="preserve">
+    <value>Start Recording</value>
+  </data>
+  <data name="CameraViewSampleStopRecording" xml:space="preserve">
+    <value>Stop Recording</value>
   </data>
 </root>
