@@ -328,7 +328,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					AudioDeviceId = selectedAudioDevice
 				});
 				flash = await Lamp.GetDefaultAsync();
-				if (mediaCapture.VideoDeviceController.ZoomControl.Supported)
+				if (mediaCapture?.VideoDeviceController.ZoomControl.Supported ?? false)
 					Element.MaxZoom = mediaCapture.VideoDeviceController.ZoomControl.Max;
 				displayRequest.RequestActive();
 				DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
