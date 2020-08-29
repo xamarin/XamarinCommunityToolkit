@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\Behaviors\UserStoppedTypingBehaviorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\BehaviorsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -31,11 +34,9 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Pages\Views\" />
-    <Folder Include="Pages\Behaviors\" />
     <Folder Include="Pages\Converters\" />
     <Folder Include="Pages\Base\" />
     <Folder Include="ViewModels\Views\" />
-    <Folder Include="ViewModels\Behaviors\" />
     <Folder Include="ViewModels\Converters\" />
     <Folder Include="ViewModels\Base\" />
     <Folder Include="Pages\Extensions\" />

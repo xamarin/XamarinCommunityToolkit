@@ -38,6 +38,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				"UriValidationBehavior",
 				AppResources.UriValidationShortDescription
 			),
+			new SectionModel(
+				typeof(UserStoppedTypingBehaviorPage),
+				"UserStoppedTypingBehavior",
+				""//AppResources.UserStoppedTypingBehaviorShortDescription
+			)
 		};
 	}
 }
