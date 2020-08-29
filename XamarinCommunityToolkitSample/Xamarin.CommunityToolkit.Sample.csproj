@@ -19,6 +19,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.es.resx</DependentUpon>
     </Compile>
+    <Compile Remove="Resx\ExpanderPage.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
