@@ -650,5 +650,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
                 return ResourceManager.GetString("PasswordMatched", resourceCulture);
             }
         }
+
     }
 }

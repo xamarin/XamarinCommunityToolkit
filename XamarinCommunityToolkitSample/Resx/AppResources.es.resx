@@ -392,19 +392,33 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="RequiredStringValidationDescription" xml:space="preserve">
    <value>#Text color will change accordingly to the style that is configured when password confirmation doesn't match password.</value>
   </data>
-
   <data name="RequiredStringValidationShortDescription" xml:space="preserve">
     <value>#Changes an Entry's style when its text does not match another string.</value>
   </data>
-
   <data name="Password" xml:space="preserve">
     <value>#Password</value>
   </data>
-
   <data name="ConfirmPassword" xml:space="preserve">
     <value>#Confirm password</value>
   </data>
   <data name="PasswordMatched" xml:space="preserve">
     <value>#Password matched</value>
+  <data name="CameraViewTitle" xml:space="preserve">
+    <value>CameraView</value>
+  </data>
+  <data name="CameraViewDescription" xml:space="preserve">
+    <value>The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!</value>
+  </data>
+  <data name="CameraViewSampleZoom" xml:space="preserve">
+    <value>Zoom: {0}</value>
+  </data>
+  <data name="CameraViewSampleSnapPicture" xml:space="preserve">
+    <value>Snap Picture</value>
+  </data>
+  <data name="CameraViewSampleStartRecording" xml:space="preserve">
+    <value>Start Recording</value>
+  </data>
+  <data name="CameraViewSampleStopRecording" xml:space="preserve">
+    <value>Stop Recording</value>
   </data>
 </root>
