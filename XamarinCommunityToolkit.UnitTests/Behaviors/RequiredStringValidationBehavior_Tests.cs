@@ -1,8 +1,9 @@
-using Xunit;
+using Xamarin.CommunityToolkit.Behaviors;
+using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using Microsoft.Toolkit.Xamarin.Forms.Behaviors;
+using Xunit;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.UnitTests.Behaviors
+namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
     public class RequiredStringValidationBehavior_Tests
     {

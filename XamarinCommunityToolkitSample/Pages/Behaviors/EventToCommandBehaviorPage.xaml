@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors"
-                xmlns:behaviors="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Behaviors;assembly=Microsoft.Toolkit.Xamarin.Forms"
-                x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors.EventToCommandBehaviorPage"
-                xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
-                xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"
+                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.EventToCommandBehaviorPage"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
 
     <pages:BasePage.BindingContext>
         <vm:EventToCommandBehaviorViewModel />
@@ -14,9 +14,9 @@
     <ContentView Padding="{StaticResource ContentPadding}">
         <StackLayout VerticalOptions="CenterAndExpand"
                      Spacing="20">
-            <Label Text="{x:Static resources:AppResources.EventToCommandBehaviorDescription}" />
+            <Label Text="{rsx:Translate EventToCommandBehaviorDescription}" />
             <Label Text="{Binding ClickCount, StringFormat='{0} clicks'}" />
-            <Button Text="{x:Static resources:AppResources.ClickMe}"
+            <Button Text="{rsx:Translate ClickMe}"
                     TextColor="White"
                     BackgroundColor="{StaticResource NormalButtonBackgroundColor}">
                 <Button.Behaviors>

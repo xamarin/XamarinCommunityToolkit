@@ -1,14 +1,18 @@
-﻿using Xamarin.Forms;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages;
+﻿using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.Sample.Pages;
+using Xamarin.CommunityToolkit.Sample.Resx;
+using Xamarin.Forms;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample
+namespace Xamarin.CommunityToolkit.Sample
 {
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
-            MainPage = new BaseNavigationPage(new WelcomePage());
-        }
-    }
+	public partial class App : Application
+	{
+		public App()
+		{
+			LocalizationResourceManager.Current.Init(AppResources.ResourceManager);
+
+			InitializeComponent();
+			MainPage = new BaseNavigationPage(new WelcomePage());
+		}
+	}
 }

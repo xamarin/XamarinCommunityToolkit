@@ -2,28 +2,29 @@
 <pages:BasePage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.WelcomePage"
-    xmlns:vm="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels"
-    xmlns:pages="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.WelcomePage"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
     xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-    Title="{x:Static resources:AppResources.WelcomeTitle}"
+    Title="{rsx:Translate WelcomeTitle}"
     NavigationPage.BackButtonTitle=""
-    x:Name="Page"
-    xmlns:resources="clr-namespace:Microsoft.Toolkit.Xamarin.Forms.Sample.Resx">
+    x:Name="Page">
 
     <pages:BasePage.BindingContext>
         <vm:WelcomeViewModel />
     </pages:BasePage.BindingContext>
 
     <pages:BasePage.ToolbarItems>
-        <ToolbarItem Text="{x:Static resources:AppResources.AboutTitle}" Clicked="OnAboutClicked" />
+        <ToolbarItem Text="{rsx:Translate Settings}" Clicked="OnSettingsClicked" />
+        <ToolbarItem Text="{rsx:Translate AboutTitle}" Clicked="OnAboutClicked" />
     </pages:BasePage.ToolbarItems>
-
+    
     <StackLayout>
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout Spacing="16">
-                <Label Margin="20,32,20,0" Style="{StaticResource label_welcome_header}" Text="{x:Static resources:AppResources.IntroductionTitle}" />
-                <Label Margin="20,0,20,28" Text="{x:Static resources:AppResources.IntroductioDescription}" />
+                <Label Margin="20,32,20,0" Style="{StaticResource label_welcome_header}" Text="{rsx:Translate IntroductionTitle}" />
+                <Label Margin="20,0,20,28" Text="{rsx:Translate IntroductioDescription}" />
                 <StackLayout Spacing="16"
                              BindableLayout.ItemsSource="{Binding Items}">
                     <BindableLayout.ItemTemplate>
@@ -49,7 +50,7 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout> 
-                <Label Margin="0,32" Text="{x:Static resources:AppResources.WelcomeFooter}" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"/>
+                <Label Margin="0,32" Text="{rsx:Translate WelcomeFooter}" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"/>
             </StackLayout>
         </ScrollView>
     </StackLayout>

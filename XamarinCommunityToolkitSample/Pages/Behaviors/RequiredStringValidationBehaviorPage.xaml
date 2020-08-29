@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
+             xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx;assembly=Xamarin.CommunityToolkit.Sample"
+             xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+             xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors;assembly=Xamarin.CommunityToolkit.Sample"
+             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.RequiredStringValidationBehaviorPage">
+    <pages:BasePage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry"> 
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+    </pages:BasePage.Resources>
+    <pages:BasePage.BindingContext>
+        <vm:RequiredStringValidationBehaviorViewModel />
+    </pages:BasePage.BindingContext>
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 Spacing="50"
+                 VerticalOptions="CenterAndExpand">
+        <Label Text="{x:Static resources:AppResources.RequiredStringValidationDescription}" />
+        <Entry x:Name="passwordEntry" Placeholder="{x:Static resources:AppResources.Password}" />
+            <Entry Placeholder="{x:Static resources:AppResources.ConfirmPassword}">
+                <Entry.Behaviors>
+                    <behaviors:RequiredStringValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                       Flags="ValidateOnValueChanging"
+                                                       ValidCommand="{Binding PasswordMatchedCommand}"
+                                                       ComparedToString="{Binding Source={x:Reference passwordEntry},Path=Text}" />
+                </Entry.Behaviors>
+            </Entry>
+        </StackLayout>
+</pages:BasePage>

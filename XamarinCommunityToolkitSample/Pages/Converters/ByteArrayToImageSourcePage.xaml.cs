@@ -1,16 +1,16 @@
-﻿using Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Converters;
+﻿using Xamarin.CommunityToolkit.Sample.ViewModels.Converters;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Converters
+namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
 {
-    public partial class ByteArrayToImageSourcePage : BasePage
-    {
-        public ByteArrayToImageSourcePage()
-            => InitializeComponent();
+	public partial class ByteArrayToImageSourcePage : BasePage
+	{
+		public ByteArrayToImageSourcePage()
+			=> InitializeComponent();
 
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            await ((ByteArrayToImageSourceViewModel)BindingContext).OnAppearing();
-        }
-    }
+		protected override async void OnAppearing()
+		{
+			base.OnAppearing();
+			await ((ByteArrayToImageSourceViewModel)BindingContext).OnAppearing();
+		}
+	}
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
+namespace Xamarin.CommunityToolkit.Sample.Resx {
     using System;
     
     
@@ -28,7 +28,7 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
         internal static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Microsoft.Toolkit.Xamarin.Forms.Sample.Resx.AppResources", typeof(AppResources).Assembly);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Xamarin.CommunityToolkit.Sample.Resx.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -192,30 +192,6 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
         internal static string NumericValidationBehaviorDescription {
             get {
                 return ResourceManager.GetString("NumericValidationBehaviorDescription", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmPasswordDescription {
-            get {
-                return ResourceManager.GetString("ConfirmPasswordDescription", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmPasswordShortDescription {
-            get {
-                return ResourceManager.GetString("ConfirmPasswordShortDescription", resourceCulture);
-            }
-        }
-        
-        internal static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        internal static string ConfirmPassword {
-            get {
-                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
             }
         }
         
@@ -474,6 +450,204 @@ namespace Microsoft.Toolkit.Xamarin.Forms.Sample.Resx {
         internal static string ValueLabelSpacing {
             get {
                 return ResourceManager.GetString("ValueLabelSpacing", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewTitle {
+            get {
+                return ResourceManager.GetString("SideMenuViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewDescription {
+            get {
+                return ResourceManager.GetString("SideMenuViewDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MaskedDescription {
+            get {
+                return ResourceManager.GetString("MaskedDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MaskedShortDescription {
+            get {
+                return ResourceManager.GetString("MaskedShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string CreditCardNumber {
+            get {
+                return ResourceManager.GetString("CreditCardNumber", resourceCulture);
+            }
+        }
+        
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        internal static string EG {
+            get {
+                return ResourceManager.GetString("EG", resourceCulture);
+            }
+        }
+        
+        internal static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        internal static string SocialSecurityNumber {
+            get {
+                return ResourceManager.GetString("SocialSecurityNumber", resourceCulture);
+            }
+        }
+        
+        internal static string SortCode {
+            get {
+                return ResourceManager.GetString("SortCode", resourceCulture);
+            }
+        }
+        
+        internal static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        internal static string UriValidationDescription {
+            get {
+                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiValidationDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiValidationShortDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiConverterDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiConverterShortDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        internal static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
+            }
+        }
+        
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        internal static string Spanish {
+            get {
+                return ResourceManager.GetString("Spanish", resourceCulture);
+            }
+        }
+        
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewTitle {
+            get {
+                return ResourceManager.GetString("CameraViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewDescription {
+            get {
+                return ResourceManager.GetString("CameraViewDescription", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleZoom {
+            get {
+                return ResourceManager.GetString("CameraViewSampleZoom", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleSnapPicture {
+            get {
+                return ResourceManager.GetString("CameraViewSampleSnapPicture", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleStartRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStartRecording", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleStopRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStopRecording", resourceCulture);
+            }
+        }
+        
+        internal static string RequiredStringValidationDescription {
+            get {
+                return ResourceManager.GetString("RequiredStringValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string RequiredStringValidationShortDescription {
+            get {
+                return ResourceManager.GetString("RequiredStringValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        internal static string PasswordMatched {
+            get {
+                return ResourceManager.GetString("PasswordMatched", resourceCulture);
             }
         }
     }

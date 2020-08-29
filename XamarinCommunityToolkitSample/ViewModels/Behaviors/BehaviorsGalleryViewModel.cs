@@ -1,38 +1,54 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Models;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Pages.Behaviors;
-using Microsoft.Toolkit.Xamarin.Forms.Sample.Resx;
+using Xamarin.CommunityToolkit.Behaviors;
+using Xamarin.CommunityToolkit.Sample.Models;
+using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
+using Xamarin.CommunityToolkit.Sample.Resx;
 
-namespace Microsoft.Toolkit.Xamarin.Forms.Sample.ViewModels.Behaviors
+namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
-    public class BehaviorsGalleryViewModel : BaseViewModel
-    {
-        public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
-            new SectionModel(
-                typeof(EmailValidationBehaviorPage),
-                "EmailValidationBehavior",
-                AppResources.EmailValidationShortDescription
-            ),
-            new SectionModel(
-                typeof(EventToCommandBehaviorPage),
-                "EventToCommandBehavior",
-                AppResources.EventToCommandShortDescription
-            ),
-            new SectionModel(
-                typeof(NumericValidationBehaviorPage),
-                "NumericValidationBehavior",
-                AppResources.NumericValidationShortDescription
-            ),
-            new SectionModel(
-                typeof(AnimationBehaviorPage),
-                "AnimationBehavior",
-                AppResources.AnimatioShortDescription
-            ),
-            new SectionModel(
-                typeof(ConfirmPasswordBehaviorPage),
-                "ConfirmPasswordBehavior",
-                AppResources.ConfirmPasswordShortDescription
-            )
-        };
-    }
+	public class BehaviorsGalleryViewModel : BaseViewModel
+	{
+		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
+			new SectionModel(
+				typeof(EmailValidationBehaviorPage),
+				nameof(EmailValidationBehavior),
+				AppResources.EmailValidationShortDescription
+			),
+			new SectionModel(
+				typeof(EventToCommandBehaviorPage),
+				nameof(EventToCommandBehavior),
+				AppResources.EventToCommandShortDescription
+			),
+			new SectionModel(
+				typeof(NumericValidationBehaviorPage),
+				nameof(NumericValidationBehavior),
+				AppResources.NumericValidationShortDescription
+			),
+			new SectionModel(
+				typeof(AnimationBehaviorPage),
+				nameof(AnimationBehavior),
+				AppResources.AnimatioShortDescription
+			),
+			new SectionModel(
+				typeof(MaskedBehaviorPage),
+				nameof(MaskedBehavior),
+				AppResources.MaskedShortDescription
+			),
+			new SectionModel(
+				typeof(UriValidationBehaviorPage),
+				nameof(UriValidationBehavior),
+				AppResources.UriValidationShortDescription
+			),
+			new SectionModel(
+				typeof(MultiValidationBehaviorPage),
+				nameof(MultiValidationBehavior),
+				AppResources.MultiValidationShortDescription
+			),
+			new SectionModel(
+				typeof(RequiredStringValidationBehaviorPage),
+				nameof(RequiredStringValidationBehavior),
+				AppResources.RequiredStringValidationShortDescription
+			)
+		};
+	}
 }
