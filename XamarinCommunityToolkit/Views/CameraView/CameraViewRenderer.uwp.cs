@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Lights;
@@ -347,6 +348,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				isPreviewing = false;
 				IsBusy = false;
 				Available = true;
+			}
+			catch(COMException)
+			{
+				Element?.RaiseMediaCaptureFailed("Camera device is not ready.");
 			}
 			catch (FileLoadException)
 			{
