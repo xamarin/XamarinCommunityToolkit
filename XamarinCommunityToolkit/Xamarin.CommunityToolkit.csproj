@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
   <PropertyGroup>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
     <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
     <AssemblyName>Xamarin.CommunityToolkit</AssemblyName>
     <RootNamespace>Xamarin.CommunityToolkit</RootNamespace>
     <PackageId>Xamarin.CommunityToolkit</PackageId>
@@ -51,7 +51,7 @@
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage Xamarin.Forms version for development -->
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.396" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage Xamarin.Forms version for distribution -->

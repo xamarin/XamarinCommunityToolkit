@@ -37,7 +37,7 @@
                 </Grid>
 
                 <Button x:Name="doCameraThings" Text="{rsx:Translate CameraViewSampleStartRecording}" Clicked="DoCameraThings_Clicked" IsEnabled="False" />
-                <Image x:Name="previewPicture" HeightRequest="250" BackgroundColor="LightGray" Aspect="AspectFill" IsVisible="False"  />
+                <Image x:Name="previewPicture" HeightRequest="250" BackgroundColor="LightGray" Aspect="AspectFit" IsVisible="False"  />
             </StackLayout>
         </ScrollView>
     </StackLayout>
