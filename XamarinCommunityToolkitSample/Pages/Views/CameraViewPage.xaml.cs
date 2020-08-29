@@ -44,9 +44,6 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		void FlashSwitch_Toggled(object sender, ToggledEventArgs e)
 			=> cameraView.FlashMode = e.Value ? CameraFlashMode.On : CameraFlashMode.Off;
 
-		void KeepScreenOnSwitch_Toggled(object sender, ToggledEventArgs e)
-			=> cameraView.KeepScreenOn = e.Value;
-
 		void DoCameraThings_Clicked(object sender, EventArgs e)
 		{
 			cameraView.Shutter();

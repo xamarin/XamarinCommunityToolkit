@@ -31,7 +31,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		MediaCapture mediaCapture;
 		bool isPreviewing;
 		Lamp flash;
-		DisplayRequest displayRequest = new DisplayRequest();
 		LowLagMediaRecording mediaRecording;
 		string filePath;
 		bool busy;
@@ -331,7 +330,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				flash = await Lamp.GetDefaultAsync();
 				if (mediaCapture?.VideoDeviceController.ZoomControl.Supported ?? false)
 					Element.MaxZoom = mediaCapture.VideoDeviceController.ZoomControl.Max;
-				displayRequest.RequestActive();
 				DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
 			}
 			catch (UnauthorizedAccessException ex)
@@ -375,7 +373,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
 			{
 				Control.Source = null;
-				displayRequest?.RequestRelease();
 
 				mediaCapture.CaptureDeviceExclusiveControlStatusChanged -= CaptureDeviceExclusiveControlStatusChanged;
 				mediaCapture.Dispose();

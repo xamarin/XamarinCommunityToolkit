@@ -55,14 +55,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(CaptureOptionsProperty, value);
 		}
 
-		public static readonly BindableProperty KeepScreenOnProperty = BindableProperty.Create(nameof(KeepScreenOn), typeof(bool), typeof(CameraView), false);
-
-		public bool KeepScreenOn
-		{
-			get => (bool)GetValue(KeepScreenOnProperty);
-			set => SetValue(KeepScreenOnProperty, value);
-		}
-
 		public static readonly BindableProperty VideoStabilizationProperty = BindableProperty.Create(nameof(VideoStabilization), typeof(bool), typeof(CameraView), false);
 
 		public bool VideoStabilization
