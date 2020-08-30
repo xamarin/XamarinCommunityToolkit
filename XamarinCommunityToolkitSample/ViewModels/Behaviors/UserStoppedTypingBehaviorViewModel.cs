@@ -9,11 +9,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 	{
 		#region Properties
 
-		private string _performedSearches;
+		string performedSearches;
 		public string PerformedSearches
 		{
-			get => _performedSearches;
-			set => Set(ref _performedSearches, value);
+			get => performedSearches;
+			set => Set(ref performedSearches, value);
 		}
 
 		public ICommand SearchCommand { get; }
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			SearchCommand = new Command<string>(PerformSearch);
 		}
 
-		private void PerformSearch(string searchTerms)
+		void PerformSearch(string searchTerms)
 		{
 			PerformedSearches += string.Format(AppResources.UserStoppedTypingBehaviorSearchResultLabelFormat, searchTerms) + Environment.NewLine;
 		}

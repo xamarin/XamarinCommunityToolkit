@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 {
     public class UserStoppedTypingBehavior : BaseBehavior
     {
-        private CancellationTokenSource _tokenSource;
+        CancellationTokenSource tokenSource;
 
         #region Bindable Properties
 
@@ -52,32 +52,30 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			inputView.TextChanged -= InputView_TextChanged;
         }
 
-        private void InputView_TextChanged(object sender, TextChangedEventArgs e)
+        void InputView_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (_tokenSource != null)
-            {
-                _tokenSource.Cancel();
-            }
-            _tokenSource = new CancellationTokenSource();
+            if (tokenSource != null)
+                tokenSource.Cancel();
+            
+            tokenSource = new CancellationTokenSource();
 
-            PerformTextChanged(sender as Entry, e.NewTextValue, _tokenSource.Token);
-        }
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+			PerformTextChanged(sender as Entry, e.NewTextValue, tokenSource.Token);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+		}
 
-        private async Task PerformTextChanged(Entry entry, string newTextValue, CancellationToken token)
+        async Task PerformTextChanged(Entry entry, string newTextValue, CancellationToken token)
         {
             await Task.Delay(StoppedTypingThreshold);
 
             if (token.IsCancellationRequested) return;
 
-            if (Command != null && Command.CanExecute(newTextValue))
-            {
-                Command.Execute(newTextValue);
+			if (AutoDismissKeyboard)
+				entry.Unfocus();
 
-                if (AutoDismissKeyboard)
-                {
-                    entry.Unfocus();
-                }
-            }
+			if (Command == null || !Command.CanExecute(newTextValue)) return;
+            
+            Command.Execute(newTextValue);
         }
     }
 }
