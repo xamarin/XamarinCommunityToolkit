@@ -5,7 +5,7 @@
                 xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.EventToCommandBehaviorPage"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
+                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
 
     <pages:BasePage.BindingContext>
         <vm:EventToCommandBehaviorViewModel />
@@ -14,9 +14,9 @@
     <ContentView Padding="{StaticResource ContentPadding}">
         <StackLayout VerticalOptions="CenterAndExpand"
                      Spacing="20">
-            <Label Text="{x:Static resources:AppResources.EventToCommandBehaviorDescription}" />
+            <Label Text="{rsx:Translate EventToCommandBehaviorDescription}" />
             <Label Text="{Binding ClickCount, StringFormat='{0} clicks'}" />
-            <Button Text="{x:Static resources:AppResources.ClickMe}"
+            <Button Text="{rsx:Translate ClickMe}"
                     TextColor="White"
                     BackgroundColor="{StaticResource NormalButtonBackgroundColor}">
                 <Button.Behaviors>

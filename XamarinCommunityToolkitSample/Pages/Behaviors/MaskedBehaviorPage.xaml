@@ -4,11 +4,11 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
-                xmlns:resx="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx;assembly=Xamarin.CommunityToolkit.Sample">
+                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
     <ScrollView>
         <StackLayout Padding="{StaticResource ContentPadding}" Spacing="5">
 
-            <Label Padding="10,10,10,50" Text="{x:Static resx:AppResources.MaskedDescription}" />
+            <Label Padding="10,10,10,50" Text="{rsx:Translate MaskedDescription}" />
 
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
@@ -18,9 +18,9 @@
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text="{rsx:Translate EG}" />
                         <Span Text=" " />
-                        <Span Text="{x:Static resx:AppResources.SortCode}" />
+                        <Span Text="{rsx:Translate SortCode}" />
                         <Span Text=" 'XX-XX-XX'" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -34,9 +34,9 @@
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text="{rsx:Translate EG}" />
                         <Span Text=" " />
-                        <Span Text="{x:Static resx:AppResources.SortCode}" />
+                        <Span Text="{rsx:Translate SortCode}" />
                         <Span Text=" 'AA-AA-AA'" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -50,9 +50,9 @@
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text="{rsx:Translate EG}" />
                         <Span Text=" " />
-                        <Span Text="{x:Static resx:AppResources.CreditCardNumber}" />
+                        <Span Text="{rsx:Translate CreditCardNumber}" />
                         <Span Text=" 'XXXX XXXX XXXX XXXX'" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -67,9 +67,9 @@
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text="{rsx:Translate EG}" />
                         <Span Text=" " />
-                        <Span Text="{x:Static resx:AppResources.Date}" />
+                        <Span Text="{rsx:Translate Date}" />
                         <Span Text=" 'XX/XX/XXXX'" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -83,9 +83,9 @@
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text="{rsx:Translate EG}" />
                         <Span Text=" " />
-                        <Span Text="{x:Static resx:AppResources.Time}" />
+                        <Span Text="{rsx:Translate Time}" />
                         <Span Text=" 'XX:XX'" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -100,9 +100,9 @@
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text="{rsx:Translate EG}" />
                         <Span Text=" " />
-                        <Span Text="{x:Static resx:AppResources.SocialSecurityNumber}" />
+                        <Span Text="{rsx:Translate SocialSecurityNumber}" />
                         <Span Text=" 'XXX-XX-XXXX'" />
                     </FormattedString>
                 </Label.FormattedText>
@@ -116,9 +116,9 @@
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resx:AppResources.EG}" />
+                        <Span Text="{rsx:Translate EG}" />
                         <Span Text=" " />
-                        <Span Text="{x:Static resx:AppResources.PhoneNumber}" />
+                        <Span Text="{rsx:Translate PhoneNumber}" />
                         <Span Text=" '(XXX) XXX-XXXX'" />
                     </FormattedString>
                 </Label.FormattedText>

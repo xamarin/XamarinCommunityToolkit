@@ -142,11 +142,74 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!.
+        /// </summary>
+        internal static string CameraViewDescription {
+            get {
+                return ResourceManager.GetString("CameraViewDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snap Picture.
+        /// </summary>
+        internal static string CameraViewSampleSnapPicture {
+            get {
+                return ResourceManager.GetString("CameraViewSampleSnapPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Recording.
+        /// </summary>
+        internal static string CameraViewSampleStartRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStartRecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop Recording.
+        /// </summary>
+        internal static string CameraViewSampleStopRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStopRecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom: {0}.
+        /// </summary>
+        internal static string CameraViewSampleZoom {
+            get {
+                return ResourceManager.GetString("CameraViewSampleZoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CameraView.
+        /// </summary>
+        internal static string CameraViewTitle {
+            get {
+                return ResourceManager.GetString("CameraViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change language.
+        /// </summary>
+        internal static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
             }
         }
         
@@ -237,6 +300,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string EmailValidationShortDescription {
             get {
                 return ResourceManager.GetString("EmailValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
             }
         }
         
@@ -422,7 +494,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         
         /// <summary>
         ///   Looks up a localized string similar to This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. 
-        ///    
+        ///
         ///It converts the entered text to Upper Case and checks that it is Not Equal to the string &apos;ANDREI&apos;..
         /// </summary>
         internal static string MultiConverterDescription {
@@ -437,6 +509,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string MultiConverterShortDescription {
             get {
                 return ResourceManager.GetString("MultiConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text color will change accordingly to the style that is configured if any of child behaviors is invalid (Minimum: -10, Maximum: 5)..
+        /// </summary>
+        internal static string MultiValidationDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Combines multiple validation behavior..
+        /// </summary>
+        internal static string MultiValidationShortDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationShortDescription", resourceCulture);
             }
         }
         
@@ -459,7 +549,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0)..
+        ///   Looks up a localized string similar to Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0). Maximum decimal places value equals 2..
         /// </summary>
         internal static string NumericValidationBehaviorDescription {
             get {
@@ -468,7 +558,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns any event into a command that can be bound to..
+        ///   Looks up a localized string similar to Changes an Entry&apos;s text color when an invalid number is provided..
         /// </summary>
         internal static string NumericValidationShortDescription {
             get {
@@ -504,6 +594,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set Lower/Upper Thumb Size separately.
         /// </summary>
         internal static string SetLowerUpperThumb {
@@ -518,6 +617,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string SetLowerUpperThumbSeparately {
             get {
                 return ResourceManager.GetString("SetLowerUpperThumbSeparately", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
             }
         }
         
@@ -563,6 +671,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string SortCode {
             get {
                 return ResourceManager.GetString("SortCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        internal static string Spanish {
+            get {
+                return ResourceManager.GetString("Spanish", resourceCulture);
             }
         }
         

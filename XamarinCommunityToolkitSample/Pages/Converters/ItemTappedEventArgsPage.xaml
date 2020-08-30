@@ -6,7 +6,7 @@
                 xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ItemTappedEventArgsPage"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
+                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
 
     <pages:BasePage.BindingContext>
         <vm:ItemTappedEventArgsViewModel />
@@ -30,7 +30,7 @@
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="{x:Static resources:AppResources.Id}" />
+                                    <Span Text="{rsx:Translate Id}" />
                                      <Span Text=":" />
                                     <Span Text="{Binding Id}" />
                                 </FormattedString>
@@ -40,7 +40,7 @@
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="{x:Static resources:AppResources.Name}" />
+                                    <Span Text="{rsx:Translate Name}" />
                                     <Span Text=":" />
                                     <Span Text="{Binding Name}" />
                                 </FormattedString>

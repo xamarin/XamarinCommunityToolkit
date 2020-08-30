@@ -10,6 +10,15 @@
     <Compile Remove="resources\**" />
     <EmbeddedResource Remove="resources\**" />
     <None Remove="resources\**" />
+    <EmbeddedResource Update="Resx\AppResources.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Resx\AppResources.es.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.es.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
