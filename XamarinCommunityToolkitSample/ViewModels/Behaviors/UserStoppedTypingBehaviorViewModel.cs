@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
@@ -26,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 
 		private void PerformSearch(string searchTerms)
 		{
-			PerformedSearches += $"Performed search for '{searchTerms}'{Environment.NewLine}";
+			PerformedSearches += string.Format(AppResources.UserStoppedTypingBehaviorSearchResultLabelFormat, searchTerms) + Environment.NewLine;
 		}
 	}
 }

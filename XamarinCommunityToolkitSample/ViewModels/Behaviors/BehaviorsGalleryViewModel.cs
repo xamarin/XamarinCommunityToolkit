@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			new SectionModel(
 				typeof(UserStoppedTypingBehaviorPage),
 				"UserStoppedTypingBehavior",
-				""//AppResources.UserStoppedTypingBehaviorShortDescription
+				AppResources.UserStoppedTypingBehaviorShortDescription
 			)
 		};
 	}

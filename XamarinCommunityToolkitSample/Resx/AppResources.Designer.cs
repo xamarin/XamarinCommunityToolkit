@@ -421,7 +421,9 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. It converts the entered text to Upper Case and checks that it is Not Equal to the string &apos;ANDREI&apos;..
+        ///   Looks up a localized string similar to This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. 
+        ///    
+        ///It converts the entered text to Upper Case and checks that it is Not Equal to the string &apos;ANDREI&apos;..
         /// </summary>
         internal static string MultiConverterDescription {
             get {
@@ -759,6 +761,60 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string UriValidationShortDescription {
             get {
                 return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This behavior waits for the user to stop typing and then executes a Command. The waiting threshold is adjustable, as well as there is an option to dismiss the keyboard after the user has stopped typing..
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorDescription {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto dismiss keyboard.
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorDismissKeyboardOptionLabel {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorDismissKeyboardOptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start searching....
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorSearchBarPlaceholderText {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorSearchBarPlaceholderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Performed search for &apos;{0}&apos;.
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorSearchResultLabelFormat {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorSearchResultLabelFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This behavior waits for the user to stop typing and then executes a Command..
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorShortDescription {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User stopped typing threshold.
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorThresholdOptionLabel {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorThresholdOptionLabel", resourceCulture);
             }
         }
         

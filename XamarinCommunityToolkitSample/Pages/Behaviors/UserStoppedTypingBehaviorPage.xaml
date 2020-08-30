@@ -14,19 +14,19 @@
     <pages:BasePage.Content>
         <StackLayout Spacing="20">
 
-            <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rhoncus vitae neque vulputate imperdiet. Duis eu congue dolor. Etiam at sem in purus placerat sollicitudin sagittis et diam. Donec ultrices ipsum sit." Margin="{StaticResource ContentPadding}" />
+            <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDescription}" Margin="{StaticResource ContentPadding}" />
 
             <Frame Margin="{StaticResource ContentPadding}" CornerRadius="10">
                 <Grid ColumnDefinitions="2*, *">
-                    <Label Text="User stopped typing threshold" VerticalTextAlignment="Center" />
+                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorThresholdOptionLabel}" VerticalTextAlignment="Center" />
                     <Entry x:Name="TypingThresholdSetting" Text="1000" Keyboard="Numeric" Grid.Column="1" />
 
-                    <Label Text="Auto dismiss keyboard" VerticalTextAlignment="Center" Grid.Row="1" />
+                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDismissKeyboardOptionLabel}" VerticalTextAlignment="Center" Grid.Row="1" />
                     <Switch x:Name="AutoDismissKeyboardSetting" HorizontalOptions="End" Grid.Row="1" Grid.Column="1" />
                 </Grid>
             </Frame>
 
-            <SearchBar Placeholder="Start searching..." Margin="{StaticResource ContentPadding}">
+            <SearchBar Placeholder="{x:Static resources:AppResources.UserStoppedTypingBehaviorSearchBarPlaceholderText}" Margin="{StaticResource ContentPadding}">
                 <SearchBar.Behaviors>
                     <behaviors:UserStoppedTypingBehavior Command="{Binding SearchCommand}"
                                                          StoppedTypingThreshold="{Binding Path=Text, Source={x:Reference TypingThresholdSetting}}"
