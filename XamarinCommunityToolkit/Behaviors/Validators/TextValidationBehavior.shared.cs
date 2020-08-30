@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty RegexOptionsProperty =
 			BindableProperty.Create(nameof(RegexOptions), typeof(RegexOptions), typeof(TextValidationBehavior), defaultValueCreator: GetDefaultRegexOptions, propertyChanged: OnRegexPropertyChanged);
 
-		Regex regex;
+		Regex? regex;
 
 		public int MinimumLength
 		{
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(DecorationFlagsProperty, value);
 		}
 
-		public string RegexPattern
+		public string? RegexPattern
 		{
 			get => (string)GetValue(RegexPatternProperty);
 			set => SetValue(RegexPatternProperty, value);
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			base.OnAttachedTo(bindable);
 		}
 
-		protected override object DecorateValue()
+		protected override object? DecorateValue()
 		{
 			var value = base.DecorateValue()?.ToString();
 			var flags = DecorationFlags;
@@ -86,7 +86,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			return value;
 		}
 
-		protected override bool Validate(object value)
+		protected override bool Validate(object? value)
 		{
 			var text = value?.ToString();
 			if (text == null)

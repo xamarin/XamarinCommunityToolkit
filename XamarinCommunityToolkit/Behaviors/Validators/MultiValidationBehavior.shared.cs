@@ -21,9 +21,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public MultiValidationBehavior()
 			=> children.CollectionChanged += OnChildrenCollectionChanged;
 
-		public List<object> Errors
+		public List<object>? Errors
 		{
-			get => (List<object>)GetValue(ErrorsProperty);
+			get => (List<object>?)GetValue(ErrorsProperty);
 			set => SetValue(ErrorsProperty, value);
 		}
 
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static void SetError(BindableObject bindable, object value)
 			=> bindable.SetValue(ErrorProperty, value);
 
-		protected override bool Validate(object value)
+		protected override bool Validate(object? value)
 		{
 			var errors = children.Where(c =>
 			{

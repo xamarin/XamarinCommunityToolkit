@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+#nullable disable
+
 namespace Xamarin.CommunityToolkit.Core
 {
 	// TODO: Check if we can do these changes in Xamarin.Forms to not have our own version of the MediaSource

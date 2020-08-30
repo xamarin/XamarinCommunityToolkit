@@ -16,9 +16,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 		/// <summary>
 		/// The Resource Id of the image.
 		/// </summary>
-		public string Id { get; set; }
+		public string? Id { get; set; }
 
-		public ImageSource ProvideValue(IServiceProvider serviceProvider)
+#pragma warning disable CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member.
+		public ImageSource? ProvideValue(IServiceProvider serviceProvider)
 			=> Id == null
 				? null
 				: ImageSource.FromResource(Id, Application.Current.GetType()
@@ -26,6 +27,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 					.GetTypeInfo()
 #endif
 					.Assembly);
+
+#pragma warning restore CS8766 // Nullability of reference types in return type doesn't match implicitly implemented member.
 
 		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
 			=> ((IMarkupExtension<ImageSource>)this).ProvideValue(serviceProvider);

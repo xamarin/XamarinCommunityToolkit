@@ -21,9 +21,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnTriggerHandled));
 
-		Delegate eventHandler;
+		Delegate? eventHandler;
 
-		EventInfo eventInfo;
+		EventInfo? eventInfo;
 
 		public string EventName
 		{
@@ -90,7 +90,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			eventHandler = null;
 		}
 
-		protected virtual void OnTriggerHandled(object sender = null, object eventArgs = null)
+		protected virtual void OnTriggerHandled(object? sender = null, object? eventArgs = null)
 		{
 			var parameter = CommandParameter
 				?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, null)

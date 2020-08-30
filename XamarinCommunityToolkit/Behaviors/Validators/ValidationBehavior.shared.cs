@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		bool isAttaching;
 
-		BindingBase defaultValueBinding;
+		BindingBase? defaultValueBinding;
 
 		public bool IsValid
 		{
@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(FlagsProperty, value);
 		}
 
-		public object Value
+		public object? Value
 		{
 			get => GetValue(ValueProperty);
 			set => SetValue(ValueProperty, value);
@@ -82,9 +82,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		public void ForceValidate() => UpdateState(true);
 
-		protected virtual object DecorateValue() => Value;
+		protected virtual object? DecorateValue() => Value;
 
-		protected abstract bool Validate(object value);
+		protected abstract bool Validate(object? value);
 
 		protected override void OnAttachedTo(View bindable)
 		{
@@ -113,7 +113,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnViewPropertyChanged(sender, e);
-			if (e.PropertyName == VisualElement.IsFocusedProperty.PropertyName)
+			if (e.PropertyName == VisualElement.IsFocusedProperty.PropertyName && View != null)
 			{
 				currentStatus = View.IsFocused
 					? ValidationFlags.ValidateOnFocusing

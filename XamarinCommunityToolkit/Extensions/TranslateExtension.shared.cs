@@ -8,8 +8,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 	[ContentProperty(nameof(Text))]
 	public class TranslateExtension : IMarkupExtension<BindingBase>
 	{
-		public string Text { get; set; }
-		public string StringFormat { get; set; }
+		public string? Text { get; set; }
+		public string? StringFormat { get; set; }
 		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) => ProvideValue(serviceProvider);
 
 		public BindingBase ProvideValue(IServiceProvider serviceProvider)

@@ -10,14 +10,14 @@ namespace Xamarin.CommunityToolkit.Helpers
     {
         public static LocalizationResourceManager Current { get; } = new LocalizationResourceManager();
 
-        ResourceManager resourceManager;
+        ResourceManager? resourceManager;
 
         public void Init(ResourceManager resource)
 		{
             resourceManager = resource;
         }
 
-        public string this[string text] => resourceManager.GetString(text, CurrentCulture);
+        public string? this[string text] => resourceManager?.GetString(text, CurrentCulture);
 
         public void SetCulture(CultureInfo language)
         {
@@ -25,11 +25,11 @@ namespace Xamarin.CommunityToolkit.Helpers
             Invalidate();
         }
 
-        public string GetValue(string text)=> resourceManager.GetString(text, CultureInfo.CurrentCulture);
+        public string? GetValue(string text)=> resourceManager?.GetString(text, CultureInfo.CurrentCulture);
        
         public CultureInfo CurrentCulture => Thread.CurrentThread.CurrentUICulture;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void Invalidate()
         {

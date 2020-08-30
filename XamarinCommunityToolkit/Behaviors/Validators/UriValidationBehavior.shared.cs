@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(UriKindProperty, value);
 		}
 
-		protected override bool Validate(object value)
+		protected override bool Validate(object? value)
 			=> base.Validate(value)
 				&& Uri.IsWellFormedUriString(value?.ToString(), UriKind);
 	}

@@ -4,6 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+#nullable disable
+
 namespace Xamarin.CommunityToolkit.Core
 {
 	public class StreamMediaSource : MediaSource, IStreamImageSource

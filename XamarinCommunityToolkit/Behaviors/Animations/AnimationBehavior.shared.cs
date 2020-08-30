@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		bool isAnimating;
-		TapGestureRecognizer tapGestureRecognizer;
+		TapGestureRecognizer? tapGestureRecognizer;
 
 		protected override void OnAttachedTo(View bindable)
 		{
@@ -25,8 +25,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			tapGestureRecognizer = new TapGestureRecognizer();
 			tapGestureRecognizer.Tapped += OnTriggerHandled;
-			View.GestureRecognizers.Clear();
-			View.GestureRecognizers.Add(tapGestureRecognizer);
+			View?.GestureRecognizers.Clear();
+			View?.GestureRecognizers.Add(tapGestureRecognizer);
 		}
 
 		protected override void OnDetachingFrom(View bindable)
@@ -37,14 +37,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			base.OnDetachingFrom(bindable);
 		}
 
-		protected override async void OnTriggerHandled(object sender = null, object eventArgs = null)
+		protected override async void OnTriggerHandled(object? sender = null, object? eventArgs = null)
 		{
 			if (isAnimating)
 				return;
 
 			isAnimating = true;
 
-			await AnimationType?.Animate((View)sender);
+			if (sender != null)
+				await AnimationType.Animate((View)sender);
 
 			if (Command?.CanExecute(CommandParameter) ?? false)
 				Command.Execute(CommandParameter);

@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 {
 	public class MaskedBehavior : BaseBehavior
 	{
-		IDictionary<int, char> positions;
+		IDictionary<int, char>? positions;
 		bool applyingMask;
 
 		public static readonly BindableProperty MaskProperty =
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		void OnMaskChanged()
 		{
-			var inputView = (InputView)View;
+			var inputView = (InputView?)View;
 
 			if (string.IsNullOrEmpty(Mask))
 			{
@@ -63,14 +63,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			var originalText = RemoveMask(inputView?.Text);
 			SetPositions();
 
-			if (inputView == null) return;
+			if (inputView == null)
+				return;
 
 			var maskedText = ApplyMask(originalText);
 			if (inputView.Text != maskedText)
 				inputView.Text = maskedText;
 		}
 
-		string RemoveMask(string text)
+		string? RemoveMask(string? text)
 		{
 			if (string.IsNullOrEmpty(text))
 				return text;
@@ -80,15 +81,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				.Distinct()
 				.ToArray();
 
-			return string.Join(string.Empty, text.Split(maskChars));
+			return string.Join(string.Empty, text!.Split(maskChars));
 		}
 
-		string ApplyMask(string text)
+		string? ApplyMask(string? text)
 		{
 			if (string.IsNullOrWhiteSpace(text) || positions == null)
 				return text;
 
-			if (text.Length > Mask.Length)
+			if (text!.Length > Mask.Length)
 			{
 				text = text.Remove(text.Length - 1);
 			}
@@ -96,13 +97,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			text = RemoveMask(text);
 			foreach (var position in positions)
 			{
-				if (text.Length < position.Key + 1) continue;
+				if (text!.Length < position.Key + 1) continue;
 
 				var value = position.Value.ToString();
 
 				//!important - If user types in masked value, don't add masked value
-				if (text.Substring(position.Key, 1) != value)
-					text = text.Insert(position.Key, value);
+				if (text!.Substring(position.Key, 1) != value)
+					text = text!.Insert(position.Key, value);
 			}
 
 			return text;
@@ -120,7 +121,11 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				applyingMask = true;
 
-				var inputView = (InputView)View;
+				var inputView = (InputView?)View;
+
+				if (inputView == null)
+					return;
+
 				var maskedText = ApplyMask(inputView.Text);
 				if (inputView.Text != maskedText)
 					inputView.Text = maskedText;

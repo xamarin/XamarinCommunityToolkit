@@ -15,17 +15,17 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts boolean to object and vice versa.
 	/// </summary>
-	public class BoolToObjectConverter<TObject> : ValueConverterExtension, IValueConverter
+	public class BoolToObjectConverter<TObject> : ValueConverterExtension, IValueConverter where TObject : class
 	{
 		/// <summary>
 		/// The object that corresponds to True value.
 		/// </summary>
-		public TObject TrueObject { set; get; }
+		public TObject? TrueObject { set; get; }
 
 		/// <summary>
 		/// The object that corresponds to False value.
 		/// </summary>
-		public TObject FalseObject { set; get; }
+		public TObject? FalseObject { set; get; }
 
 		/// <summary>
 		/// Converts boolean to object.
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>TrueObject if value equals True, otherwise FalseObject.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value is bool result)
 				return result ? TrueObject : FalseObject;

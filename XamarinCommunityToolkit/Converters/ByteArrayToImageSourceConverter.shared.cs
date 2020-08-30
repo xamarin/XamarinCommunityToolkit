@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>An object of type ImageSource.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value is null)
 				return null;
@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			throw new ArgumentException("Expected value to be of type byte[].", nameof(value));
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value is null)
 				return null;

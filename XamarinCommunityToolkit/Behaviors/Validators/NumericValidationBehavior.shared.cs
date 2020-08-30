@@ -42,10 +42,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(MaximumDecimalPlacesProperty, value);
 		}
 
-		protected override object DecorateValue()
+		protected override object? DecorateValue()
 			=> base.DecorateValue()?.ToString()?.Trim();
 
-		protected override bool Validate(object value)
+		protected override bool Validate(object? value)
 		{
 			var valueString = value as string;
 			if (!(double.TryParse(valueString, out var numeric)
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				&& numeric <= MaximumValue))
 				return false;
 
-			var decimalDelimeterIndex = valueString.IndexOf(decimalPartDelimeter);
+			var decimalDelimeterIndex = valueString!.IndexOf(decimalPartDelimeter);
 			var hasDecimalDelimeter = decimalDelimeterIndex >= 0;
 
 			// If MaximumDecimalPlaces equals zero, ".5" or "14." should be considered as invalid inputs.

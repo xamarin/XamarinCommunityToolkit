@@ -9,13 +9,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class BaseBehavior : Behavior<View>
 	{
-		static readonly MethodInfo getContextMethod = typeof(BindableObject).GetRuntimeMethods()?.FirstOrDefault(m => m.Name == "GetContext");
+		static readonly MethodInfo? getContextMethod = typeof(BindableObject).GetRuntimeMethods()?.FirstOrDefault(m => m.Name == "GetContext");
 
-		static readonly FieldInfo bindingField = getContextMethod?.ReturnType.GetRuntimeField("Binding");
+		static readonly FieldInfo? bindingField = getContextMethod?.ReturnType.GetRuntimeField("Binding");
 
-		BindingBase defaultBindingContextBinding;
+		BindingBase? defaultBindingContextBinding;
 
-		protected View View { get; private set; }
+		protected View? View { get; private set; }
 
 		protected virtual void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			View = null;
 		}
 
-		protected bool IsBound(BindableProperty property, BindingBase defaultBinding = null)
+		protected bool IsBound(BindableProperty property, BindingBase? defaultBinding = null)
 		{
 			var context = getContextMethod?.Invoke(this, new object[] { property });
 			return context != null
