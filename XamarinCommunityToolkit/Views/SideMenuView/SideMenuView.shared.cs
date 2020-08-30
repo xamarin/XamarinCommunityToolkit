@@ -7,6 +7,8 @@ using Xamarin.Forms;
 using static System.Math;
 using static Xamarin.Forms.AbsoluteLayout;
 
+#nullable disable
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[ContentProperty(nameof(Children))]

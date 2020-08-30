@@ -2,6 +2,8 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 
+#nullable disable
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraView : View

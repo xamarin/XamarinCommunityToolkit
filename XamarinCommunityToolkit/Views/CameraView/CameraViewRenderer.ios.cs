@@ -7,6 +7,8 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
+#nullable disable
+
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
 namespace Xamarin.CommunityToolkit.UI.Views
 {

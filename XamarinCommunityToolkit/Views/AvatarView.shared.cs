@@ -1,6 +1,8 @@
 using Xamarin.Forms;
 using static System.Math;
 
+#nullable disable
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class AvatarView : TemplatedView

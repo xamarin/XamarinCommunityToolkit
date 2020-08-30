@@ -8,6 +8,8 @@ using Foundation;
 using UIKit;
 using Xamarin.Forms;
 
+#nullable disable
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public sealed class FormsCameraView : UIView, IAVCaptureFileOutputRecordingDelegate

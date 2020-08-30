@@ -1,6 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
 
+#nullable disable
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaCapturedEventArgs : EventArgs

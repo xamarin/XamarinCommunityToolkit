@@ -8,6 +8,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using static System.Math;
 
+#nullable disable
+
 [assembly: ExportRenderer(typeof(SideMenuView), typeof(SideMenuViewRenderer))]
 namespace Xamarin.CommunityToolkit.Android.UI.Views
 {

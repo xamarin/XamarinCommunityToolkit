@@ -6,6 +6,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using static System.Math;
 
+#nullable disable
+
 [assembly: ExportRenderer(typeof(SideMenuView), typeof(SideMenuViewRenderer))]
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
