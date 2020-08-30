@@ -29,8 +29,8 @@
             <SearchBar Placeholder="{x:Static resources:AppResources.UserStoppedTypingBehaviorSearchBarPlaceholderText}" Margin="{StaticResource ContentPadding}">
                 <SearchBar.Behaviors>
                     <behaviors:UserStoppedTypingBehavior Command="{Binding SearchCommand}"
-                                                         StoppedTypingThreshold="{Binding Path=Text, Source={x:Reference TypingThresholdSetting}}"
-                                                         AutoDismissKeyboard="{Binding Path=IsToggled, Source={x:Reference AutoDismissKeyboardSetting}}" />
+                                                         StoppedTypingTimeThreshold="{Binding Path=Text, Source={x:Reference TypingThresholdSetting}}"
+                                                         ShouldDismissKeyboardAutomatically="{Binding Path=IsToggled, Source={x:Reference AutoDismissKeyboardSetting}}" />
                 </SearchBar.Behaviors>
             </SearchBar>
 

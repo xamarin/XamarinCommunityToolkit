@@ -891,7 +891,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto dismiss keyboard.
+        ///   Looks up a localized string similar to Should dismiss keyboard automatically.
         /// </summary>
         internal static string UserStoppedTypingBehaviorDismissKeyboardOptionLabel {
             get {
@@ -927,7 +927,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User stopped typing threshold.
+        ///   Looks up a localized string similar to User stopped typing time threshold (in ms).
         /// </summary>
         internal static string UserStoppedTypingBehaviorThresholdOptionLabel {
             get {

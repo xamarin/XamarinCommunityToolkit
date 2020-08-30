@@ -5,77 +5,77 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-    public class UserStoppedTypingBehavior : BaseBehavior
-    {
-        CancellationTokenSource tokenSource;
+	public class UserStoppedTypingBehavior : BaseBehavior
+	{
+		CancellationTokenSource tokenSource;
 
-        #region Bindable Properties
+		#region Bindable Properties
 
-        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(UserStoppedTypingBehavior));
-        public ICommand Command
-        {
-            get => (ICommand)GetValue(CommandProperty);
-            set => SetValue(CommandProperty, value);
-        }
+		public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(UserStoppedTypingBehavior));
+		public ICommand Command
+		{
+			get => (ICommand)GetValue(CommandProperty);
+			set => SetValue(CommandProperty, value);
+		}
 
-        public static readonly BindableProperty StoppedTypingThresholdProperty = BindableProperty.Create(nameof(StoppedTypingThreshold), typeof(int), typeof(UserStoppedTypingBehavior), defaultValue: 1000);
-        public int StoppedTypingThreshold
-        {
-            get => (int)GetValue(StoppedTypingThresholdProperty);
-            set => SetValue(StoppedTypingThresholdProperty, value);
-        }
+		public static readonly BindableProperty StoppedTypingTimeThresholdProperty = BindableProperty.Create(nameof(StoppedTypingTimeThreshold), typeof(int), typeof(UserStoppedTypingBehavior), 1000);
+		public int StoppedTypingTimeThreshold
+		{
+			get => (int)GetValue(StoppedTypingTimeThresholdProperty);
+			set => SetValue(StoppedTypingTimeThresholdProperty, value);
+		}
 
-        public static readonly BindableProperty AutoDismissKeyboardProperty = BindableProperty.Create(nameof(AutoDismissKeyboard), typeof(bool), typeof(UserStoppedTypingBehavior), defaultValue: false);
-        public bool AutoDismissKeyboard
-        {
-            get => (bool)GetValue(AutoDismissKeyboardProperty);
-            set => SetValue(AutoDismissKeyboardProperty, value);
-        }
+		public static readonly BindableProperty ShouldDismissKeyboardAutomaticallyProperty = BindableProperty.Create(nameof(ShouldDismissKeyboardAutomatically), typeof(bool), typeof(UserStoppedTypingBehavior), false);
+		public bool ShouldDismissKeyboardAutomatically
+		{
+			get => (bool)GetValue(ShouldDismissKeyboardAutomaticallyProperty);
+			set => SetValue(ShouldDismissKeyboardAutomaticallyProperty, value);
+		}
 
-        #endregion Bindable Properties
+		#endregion Bindable Properties
 
-        protected override void OnAttachedTo(View view)
-        {
-            base.OnAttachedTo(view);
+		protected override void OnAttachedTo(View view)
+		{
+			base.OnAttachedTo(view);
 
 			if (!(view is InputView inputView)) return;
 
 			inputView.TextChanged += InputView_TextChanged;
-        }
+		}
 
-        protected override void OnDetachingFrom(View view)
-        {
-            base.OnDetachingFrom(view);
+		protected override void OnDetachingFrom(View view)
+		{
+			base.OnDetachingFrom(view);
 
 			if (!(view is InputView inputView)) return;
-			
-			inputView.TextChanged -= InputView_TextChanged;
-        }
 
-        void InputView_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (tokenSource != null)
-                tokenSource.Cancel();
-            
-            tokenSource = new CancellationTokenSource();
+			inputView.TextChanged -= InputView_TextChanged;
+		}
+
+		void InputView_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (tokenSource != null)
+				tokenSource.Cancel();
+
+			tokenSource = new CancellationTokenSource();
 
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 			PerformTextChanged(sender as Entry, e.NewTextValue, tokenSource.Token);
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 		}
 
-        async Task PerformTextChanged(Entry entry, string newTextValue, CancellationToken token)
-        {
-            await Task.Delay(StoppedTypingThreshold);
+		Task PerformTextChanged(Entry entry, string newTextValue, CancellationToken token)
+			=> Task.Delay(StoppedTypingTimeThreshold, token)
+				.ContinueWith(task =>
+				{
+					if (task.Exception != null || token.IsCancellationRequested) return;
 
-            if (token.IsCancellationRequested) return;
+					if (ShouldDismissKeyboardAutomatically)
+						entry.Unfocus();
 
-			if (AutoDismissKeyboard)
-				entry.Unfocus();
+					if (Command == null || !Command.CanExecute(newTextValue)) return;
 
-			if (Command == null || !Command.CanExecute(newTextValue)) return;
-            
-            Command.Execute(newTextValue);
-        }
-    }
+					Command.Execute(newTextValue);
+				});
+	}
 }
