@@ -58,9 +58,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 				{
 					Text = value,
 					Behaviors =
-				{
-					behavior
-				}
+					{
+						behavior
+					}
 				};
 				behavior.ForceValidate();
 				Assert.Equal(expectedValue, behavior.IsValid);
