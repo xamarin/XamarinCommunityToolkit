@@ -14,7 +14,6 @@ using Windows.Media.Devices;
 using Windows.Media.MediaProperties;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using Windows.System.Display;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -106,11 +105,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case CameraCaptureOptions.Default:
 				case CameraCaptureOptions.Photo:
 					if (mediaRecording != null)
-					{
 						await HandleVideo();
-						break;
-					}
-					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(image: await GetImage()));
+					else
+						Element.RaiseMediaCaptured(new MediaCapturedEventArgs(image: await GetImage()));
 					break;
 				case CameraCaptureOptions.Video:
 					await HandleVideo();
@@ -355,7 +352,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				IsBusy = false;
 				Available = true;
 			}
-			catch(COMException)
+			catch (COMException)
 			{
 				Element?.RaiseMediaCaptureFailed("Camera device is not ready.");
 			}
