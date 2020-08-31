@@ -106,17 +106,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case CameraCaptureOptions.Default:
 				case CameraCaptureOptions.Photo:
 					if (mediaRecording != null)
-						goto case CameraCaptureOptions.Video;
+						await HandleVideo();
 					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(image: await GetImage()));
 					break;
 				case CameraCaptureOptions.Video:
-					if (mediaRecording == null)
-						await StartRecord();
-					else
-						Element.RaiseMediaCaptured(new MediaCapturedEventArgs(video: await StopRecord()));
+					await HandleVideo();
 					break;
 			}
 			IsBusy = false;
+
+			async Task HandleVideo()
+			{
+				if (mediaRecording == null)
+					await StartRecord();
+				else
+					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(video: await StopRecord()));
+			}
 		}
 
 		async Task<ImageSource> GetImage()
