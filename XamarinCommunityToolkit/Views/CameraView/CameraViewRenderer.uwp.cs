@@ -106,7 +106,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case CameraCaptureOptions.Default:
 				case CameraCaptureOptions.Photo:
 					if (mediaRecording != null)
+					{
 						await HandleVideo();
+						break;
+					}
 					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(image: await GetImage()));
 					break;
 				case CameraCaptureOptions.Video:
