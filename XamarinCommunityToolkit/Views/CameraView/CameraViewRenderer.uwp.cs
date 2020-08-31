@@ -243,16 +243,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!zoomControl.Supported)
 				return;
 
-			// Added here since it's an internal method to XF
-			static float Clamp(double value, float min, float max)
-			{
-				if (value.CompareTo(min) < 0)
-					return min;
-				if (value.CompareTo(max) > 0)
-					return max;
-				return (float)value;
-			}
-
 			var settings = new ZoomSettings
 			{
 				//TODO replace clamp
@@ -263,6 +253,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 
 			zoomControl.Configure(settings);
+
+			// Added here since it's an internal method to XF
+			static float Clamp(double value, float min, float max)
+			{
+				if (value.CompareTo(min) < 0)
+					return min;
+				if (value.CompareTo(max) > 0)
+					return max;
+				return (float)value;
+			}
 		}
 
 		DeviceInformation FilterCamera(DeviceInformationCollection cameraDevices, Windows.Devices.Enumeration.Panel panel)
