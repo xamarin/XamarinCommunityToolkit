@@ -277,6 +277,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A converter that allows to convert from a DateTimeOffset type to a DateTime type..
+        /// </summary>
+        internal static string DateTimeOffsetConverterShortDescription {
+            get {
+                return ResourceManager.GetString("DateTimeOffsetConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to e.g..
         /// </summary>
         internal static string EG {

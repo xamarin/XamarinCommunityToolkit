@@ -407,6 +407,9 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="CameraViewSampleStopRecording" xml:space="preserve">
     <value>Stop Recording</value>
   </data>
+  <data name="DateTimeOffsetConverterShortDescription" xml:space="preserve">
+    <value>A converter that allows to convert from a DateTimeOffset type to a DateTime type.</value>
+  </data>
   <data name="UserStoppedTypingBehaviorDescription" xml:space="preserve">
     <value>This behavior waits for the user to stop typing and then executes a Command. The waiting threshold is adjustable, as well as there is an option to dismiss the keyboard after the user has stopped typing.</value>
   </data>
