@@ -533,6 +533,18 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string MultiValidationDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiValidationShortDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationShortDescription", resourceCulture);
+            }
+        }
+        
         internal static string MultiConverterDescription {
             get {
                 return ResourceManager.GetString("MultiConverterDescription", resourceCulture);
@@ -575,21 +587,39 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        internal static string MatchShortDescription {
+        internal static string CameraViewTitle {
             get {
-                return ResourceManager.GetString("MatchShortDescription", resourceCulture);
+                return ResourceManager.GetString("CameraViewTitle", resourceCulture);
             }
         }
         
-        internal static string MatchBehaviorTitle {
+        internal static string CameraViewDescription {
             get {
-                return ResourceManager.GetString("MatchBehaviorTitle", resourceCulture);
+                return ResourceManager.GetString("CameraViewDescription", resourceCulture);
             }
         }
         
-        internal static string MatchTypesIntroText {
+        internal static string CameraViewSampleZoom {
             get {
-                return ResourceManager.GetString("MatchTypesIntroText", resourceCulture);
+                return ResourceManager.GetString("CameraViewSampleZoom", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleSnapPicture {
+            get {
+                return ResourceManager.GetString("CameraViewSampleSnapPicture", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleStartRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStartRecording", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleStopRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStopRecording", resourceCulture);
             }
         }
     }

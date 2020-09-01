@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
 using Xamarin.CommunityToolkit.Sample.Resx;
@@ -10,39 +11,44 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
 			new SectionModel(
 				typeof(EmailValidationBehaviorPage),
-				"EmailValidationBehavior",
+				nameof(EmailValidationBehavior),
 				AppResources.EmailValidationShortDescription
 			),
 			new SectionModel(
 				typeof(EventToCommandBehaviorPage),
-				"EventToCommandBehavior",
+				nameof(EventToCommandBehavior),
 				AppResources.EventToCommandShortDescription
 			),
 			new SectionModel(
 				typeof(NumericValidationBehaviorPage),
-				"NumericValidationBehavior",
+				nameof(NumericValidationBehavior),
 				AppResources.NumericValidationShortDescription
 			),
 			new SectionModel(
 				typeof(AnimationBehaviorPage),
-				"AnimationBehavior",
+				nameof(AnimationBehavior),
 				AppResources.AnimatioShortDescription
 			),
 			new SectionModel(
 				typeof(MaskedBehaviorPage),
-				"MaskedBehavior",
+				nameof(MaskedBehavior),
 				AppResources.MaskedShortDescription
 			),
 			new SectionModel(
 				typeof(UriValidationBehaviorPage),
-				"UriValidationBehavior",
+				nameof(UriValidationBehavior),
 				AppResources.UriValidationShortDescription
 			),  
 			new SectionModel(
 				typeof(MatchBehaviorPage),
-				"MatchBehavior",
+				nameof(MatchBehavior),
 				AppResources.MatchShortDescription
-			)
+			),
+			new SectionModel(
+				typeof(MultiValidationBehaviorPage),
+				nameof(MultiValidationBehavior),
+				AppResources.MultiValidationShortDescription
+			),
 		};
 	}
 }
