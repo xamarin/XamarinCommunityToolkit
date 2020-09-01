@@ -12,7 +12,6 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// <typeparam name="T"></typeparam>
 	public class ObservableRangeCollection<T> : ObservableCollection<T>
 	{
-
 		/// <summary>
 		/// Initializes a new instance of the System.Collections.ObjectModel.ObservableCollection(Of T) class.
 		/// </summary>
