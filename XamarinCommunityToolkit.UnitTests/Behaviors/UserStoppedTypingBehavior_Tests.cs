@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		const int defaultThreshold = 1000;
 
 		[Fact]
-		public async void CommandExecutesAfterTimeThresholdExpires()
+		public async Task CommandExecutesAfterTimeThresholdExpires()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		}
 
 		[Fact]
-		public async void CommandNotExecutesYetBeforeTimeThresholdExpires()
+		public async Task CommandNotExecutesYetBeforeTimeThresholdExpires()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		}
 
 		[Fact]
-		public async void CommandOnlyExecutesOnceWhenTextChangedOccurredMultipleTimes()
+		public async Task CommandOnlyExecutesOnceWhenTextChangedOccurredMultipleTimes()
 		{
 			// arrange
 			var timesExecuted = 0;
@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		}
 
 		[Fact]
-		public async void KeyboardDimissesAfterTimeThresholdExpires()
+		public async Task KeyboardDimissesAfterTimeThresholdExpires()
 		{
 			// arrange
 			var entry = CreateEntryWithBehavior(shouldDismissKeyboardAutomatically: true);

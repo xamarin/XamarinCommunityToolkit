@@ -55,23 +55,24 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		void InputView_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			if (tokenSource != null)
+			{
 				tokenSource.Cancel();
+				tokenSource.Dispose();
+			}
 
 			tokenSource = new CancellationTokenSource();
 
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-			PerformTextChanged(sender as Entry, e.NewTextValue, tokenSource.Token);
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+			_ = PerformTextChanged((InputView)sender, e.NewTextValue, tokenSource.Token);
 		}
 
-		Task PerformTextChanged(Entry entry, string newTextValue, CancellationToken token)
+		Task PerformTextChanged(InputView inputView, string newTextValue, CancellationToken token)
 			=> Task.Delay(StoppedTypingTimeThreshold, token)
 				.ContinueWith(task =>
 				{
 					if (task.Exception != null || token.IsCancellationRequested) return;
 
 					if (ShouldDismissKeyboardAutomatically)
-						entry.Unfocus();
+						inputView.Unfocus();
 
 					if (Command == null || !Command.CanExecute(newTextValue)) return;
 
