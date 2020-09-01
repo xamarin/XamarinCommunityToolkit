@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnElementChanged(ElementChangedEventArgs<CameraView> e)
 		{
 			base.OnElementChanged(e);
-			
+
 			if (Control == null && !disposed)
 			{
 				SetNativeControl(new FormsCameraView());

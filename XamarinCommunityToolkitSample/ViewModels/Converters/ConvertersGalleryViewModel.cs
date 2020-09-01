@@ -36,6 +36,13 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				Color.FromHex("#CC0000"),
 				AppResources.MultiConverterShortDescription
 			),
+
+			new SectionModel(
+				typeof(DateTimeOffsetConverterPage),
+				"DateTimeOffsetConverter",
+				Color.FromHex("#498205"),
+				AppResources.DateTimeOffsetConverterShortDescription
+			),
 		};
 	}
 }
