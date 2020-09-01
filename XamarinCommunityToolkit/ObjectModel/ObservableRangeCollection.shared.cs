@@ -52,7 +52,6 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			if (notificationMode == NotifyCollectionChangedAction.Reset)
 			{
 				RaiseChangeNotificationEvents(action: NotifyCollectionChangedAction.Reset);
-
 				return;
 			}
 
