@@ -232,9 +232,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (flash != null)
 						flash.IsEnabled = Element.FlashMode == CameraFlashMode.Torch || Element.FlashMode == CameraFlashMode.On;
 					break;
-				case nameof(CameraView.PreviewAspect):
-					// TODO
-					break;
+				// Only supported by Android, removed until we have platform specifics
+				//case nameof(CameraView.PreviewAspect):
+				//	// TODO
+				//	break;
 				case nameof(CameraView.Zoom):
 					UpdateZoom();
 					break;
