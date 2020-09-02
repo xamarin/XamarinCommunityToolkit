@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.Core
 
 		TaskCompletionSource<bool> completionSource;
 
-		public static readonly BindableProperty StreamProperty 
+		public static readonly BindableProperty StreamProperty
 			= BindableProperty.Create(nameof(Stream), typeof(Func<CancellationToken, Task<Stream>>), typeof(StreamMediaSource));
 
 		protected CancellationTokenSource CancellationTokenSource
@@ -47,7 +47,7 @@ namespace Xamarin.CommunityToolkit.Core
 			if (propertyName == StreamProperty.PropertyName)
 				OnSourceChanged();
 			base.OnPropertyChanged(propertyName);
-		} 
+		}
 
 		async Task<Stream> IStreamImageSource.GetStreamAsync(CancellationToken userToken)
 		{

@@ -1,11 +1,10 @@
-﻿using Xamarin.Forms;
+﻿using System.Globalization;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	public class NumericValidationBehavior : ValidationBehavior
 	{
-		const char decimalPartDelimeter = '.';
-
 		public static readonly BindableProperty MinimumValueProperty =
 			BindableProperty.Create(nameof(MinimumValue), typeof(double), typeof(NumericValidationBehavior), double.NegativeInfinity, propertyChanged: OnValidationPropertyChanged);
 
@@ -53,7 +52,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				&& numeric <= MaximumValue))
 				return false;
 
-			var decimalDelimeterIndex = valueString!.IndexOf(decimalPartDelimeter);
+			var decimalDelimeterIndex = valueString!.IndexOf(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
 			var hasDecimalDelimeter = decimalDelimeterIndex >= 0;
 
 			// If MaximumDecimalPlaces equals zero, ".5" or "14." should be considered as invalid inputs.
