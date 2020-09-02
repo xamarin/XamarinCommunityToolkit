@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			if (!(view is InputView inputView)) return;
 
-			inputView.TextChanged += InputView_TextChanged;
+			inputView.TextChanged += OnInputViewTextChanged;
 		}
 
 		protected override void OnDetachingFrom(View view)
@@ -49,10 +49,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			if (!(view is InputView inputView)) return;
 
-			inputView.TextChanged -= InputView_TextChanged;
+			inputView.TextChanged -= OnInputViewTextChanged;
 		}
 
-		void InputView_TextChanged(object sender, TextChangedEventArgs e)
+		void OnInputViewTextChanged(object sender, TextChangedEventArgs e)
 		{
 			if (tokenSource != null)
 			{

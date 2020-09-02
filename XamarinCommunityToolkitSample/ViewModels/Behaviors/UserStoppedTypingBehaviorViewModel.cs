@@ -21,13 +21,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		#endregion Properties
 
 		public UserStoppedTypingBehaviorViewModel()
-		{
-			SearchCommand = new Command<string>(PerformSearch);
-		}
+			=> SearchCommand = new Command<string>(PerformSearch);
 
 		void PerformSearch(string searchTerms)
-		{
-			PerformedSearches += string.Format(AppResources.UserStoppedTypingBehaviorSearchResultLabelFormat, searchTerms) + Environment.NewLine;
-		}
+			=> PerformedSearches += string.Format(AppResources.UserStoppedTypingBehaviorSearchResultLabelFormat, searchTerms) + Environment.NewLine;
 	}
 }
