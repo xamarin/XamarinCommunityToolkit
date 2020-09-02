@@ -726,6 +726,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Snackbar.
+        /// </summary>
+        internal static string Snackbar {
+            get {
+                return ResourceManager.GetString("Snackbar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Social Security Number.
         /// </summary>
         internal static string SocialSecurityNumber {
