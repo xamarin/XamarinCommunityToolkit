@@ -49,6 +49,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				nameof(MultiValidationBehavior),
 				AppResources.MultiValidationShortDescription
 			),
+			new SectionModel(
+				typeof(UserStoppedTypingBehaviorPage),
+				nameof(UserStoppedTypingBehavior),
+				AppResources.UserStoppedTypingBehaviorShortDescription
+			)
 		};
 	}
 }

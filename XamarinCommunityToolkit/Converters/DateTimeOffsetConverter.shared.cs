@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter. Not used.</param>
 		/// <returns>The DateTime value.</returns>
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-			=> value is DateTimeOffset dateTimeOffset 
+			=> value is DateTimeOffset dateTimeOffset
 				? dateTimeOffset.DateTime
 				: throw new ArgumentException("Value is not a valid DateTimeOffset", nameof(value));
 

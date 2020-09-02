@@ -142,6 +142,60 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!.
+        /// </summary>
+        internal static string CameraViewDescription {
+            get {
+                return ResourceManager.GetString("CameraViewDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snap Picture.
+        /// </summary>
+        internal static string CameraViewSampleSnapPicture {
+            get {
+                return ResourceManager.GetString("CameraViewSampleSnapPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Recording.
+        /// </summary>
+        internal static string CameraViewSampleStartRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStartRecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop Recording.
+        /// </summary>
+        internal static string CameraViewSampleStopRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStopRecording", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom: {0}.
+        /// </summary>
+        internal static string CameraViewSampleZoom {
+            get {
+                return ResourceManager.GetString("CameraViewSampleZoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CameraView.
+        /// </summary>
+        internal static string CameraViewTitle {
+            get {
+                return ResourceManager.GetString("CameraViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -837,6 +891,60 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This behavior waits for the user to stop typing and then executes a Command. The waiting threshold is adjustable, as well as there is an option to dismiss the keyboard after the user has stopped typing..
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorDescription {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Should dismiss keyboard automatically.
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorDismissKeyboardOptionLabel {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorDismissKeyboardOptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start searching....
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorSearchBarPlaceholderText {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorSearchBarPlaceholderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Performed search for &apos;{0}&apos;.
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorSearchResultLabelFormat {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorSearchResultLabelFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This behavior waits for the user to stop typing and then executes a Command..
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorShortDescription {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User stopped typing time threshold (in ms).
+        /// </summary>
+        internal static string UserStoppedTypingBehaviorThresholdOptionLabel {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorThresholdOptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value Label Spacing.
         /// </summary>
         internal static string ValueLabelSpacing {
@@ -878,42 +986,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string WelcomeTitle {
             get {
                 return ResourceManager.GetString("WelcomeTitle", resourceCulture);
-            }
-        }
-        
-        internal static string CameraViewTitle {
-            get {
-                return ResourceManager.GetString("CameraViewTitle", resourceCulture);
-            }
-        }
-        
-        internal static string CameraViewDescription {
-            get {
-                return ResourceManager.GetString("CameraViewDescription", resourceCulture);
-            }
-        }
-        
-        internal static string CameraViewSampleZoom {
-            get {
-                return ResourceManager.GetString("CameraViewSampleZoom", resourceCulture);
-            }
-        }
-        
-        internal static string CameraViewSampleSnapPicture {
-            get {
-                return ResourceManager.GetString("CameraViewSampleSnapPicture", resourceCulture);
-            }
-        }
-        
-        internal static string CameraViewSampleStartRecording {
-            get {
-                return ResourceManager.GetString("CameraViewSampleStartRecording", resourceCulture);
-            }
-        }
-        
-        internal static string CameraViewSampleStopRecording {
-            get {
-                return ResourceManager.GetString("CameraViewSampleStopRecording", resourceCulture);
             }
         }
         
