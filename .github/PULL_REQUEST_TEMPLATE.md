@@ -4,7 +4,7 @@ Describe your changes here.
 
 ### Bugs Fixed ###
 
-- Related to issue #
+- Fixes #
 
 Provide links to issues here. Ensure that a GitHub issue was created for your feature or bug fix before sending PR.
 
