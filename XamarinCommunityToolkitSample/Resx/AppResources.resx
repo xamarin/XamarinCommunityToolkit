@@ -422,4 +422,22 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="EnableNested" xml:space="preserve">
     <value>Enable nested:</value>
   </data>
+  <data name="UserStoppedTypingBehaviorDescription" xml:space="preserve">
+    <value>This behavior waits for the user to stop typing and then executes a Command. The waiting threshold is adjustable, as well as there is an option to dismiss the keyboard after the user has stopped typing.</value>
+  </data>
+  <data name="UserStoppedTypingBehaviorDismissKeyboardOptionLabel" xml:space="preserve">
+    <value>Should dismiss keyboard automatically</value>
+  </data>
+  <data name="UserStoppedTypingBehaviorSearchBarPlaceholderText" xml:space="preserve">
+    <value>Start searching...</value>
+  </data>
+  <data name="UserStoppedTypingBehaviorSearchResultLabelFormat" xml:space="preserve">
+    <value>Performed search for '{0}'</value>
+  </data>
+  <data name="UserStoppedTypingBehaviorShortDescription" xml:space="preserve">
+    <value>This behavior waits for the user to stop typing and then executes a Command.</value>
+  </data>
+  <data name="UserStoppedTypingBehaviorThresholdOptionLabel" xml:space="preserve">
+    <value>User stopped typing time threshold (in ms)</value>
+  </data>
 </root>
