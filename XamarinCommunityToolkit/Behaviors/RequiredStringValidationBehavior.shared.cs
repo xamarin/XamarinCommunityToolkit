@@ -3,37 +3,37 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-    public class RequiredStringValidationBehavior : ValidationBehavior
-    {
-        public static readonly BindableProperty ComparedToStringProperty =
-            BindableProperty.Create(nameof(ComparedToString), typeof(string),
-                typeof(RequiredStringValidationBehavior));
-    
-        public static readonly BindableProperty ValidCommandProperty =
-            BindableProperty.Create(nameof(ValidCommand), typeof(ICommand),
-                typeof(RequiredStringValidationBehavior));
+	public class RequiredStringValidationBehavior : ValidationBehavior
+	{
+		public static readonly BindableProperty ComparedToStringProperty =
+			BindableProperty.Create(nameof(ComparedToString), typeof(string),
+				typeof(RequiredStringValidationBehavior));
 
-        protected override bool Validate(object value)
-        {
-            if (value?.ToString() == ComparedToString)
-            {
-                ValidCommand?.Execute(value);
-                return true;
-            }
+		public static readonly BindableProperty ValidCommandProperty =
+			BindableProperty.Create(nameof(ValidCommand), typeof(ICommand),
+				typeof(RequiredStringValidationBehavior));
 
-            return false;
-        }
+		protected override bool Validate(object value)
+		{
+			if (value?.ToString() == ComparedToString)
+			{
+				ValidCommand?.Execute(value);
+				return true;
+			}
 
-        public string ComparedToString
-        {
-            get { return (string) GetValue(ComparedToStringProperty); }
-            set { SetValue(ComparedToStringProperty, value); }
-        }
-        
-        public ICommand ValidCommand
-        {
-            get => (ICommand)GetValue(ValidCommandProperty);
-            set => SetValue(ValidCommandProperty, value);
-        }
-    }
+			return false;
+		}
+
+		public string ComparedToString
+		{
+			get { return (string)GetValue(ComparedToStringProperty); }
+			set { SetValue(ComparedToStringProperty, value); }
+		}
+
+		public ICommand ValidCommand
+		{
+			get => (ICommand)GetValue(ValidCommandProperty);
+			set => SetValue(ValidCommandProperty, value);
+		}
+	}
 }

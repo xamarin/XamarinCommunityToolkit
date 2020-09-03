@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Core
 	// TODO 2: Is this even used?! Not for iOS it seems...
 	public class CameraMediaSource : MediaSource
 	{
-		public static MediaSource FromStream(Func<Stream> stream) 
+		public static MediaSource FromStream(Func<Stream> stream)
 			=> new StreamMediaSource { Stream = token => Task.Run(stream, token) };
 
 		public static MediaSource FromResource(string resource, Type resolvingType)

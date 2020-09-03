@@ -1,6 +1,6 @@
 ﻿using System;
-using Xunit;
 using Xamarin.CommunityToolkit.UI.Views;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
@@ -16,7 +16,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.Equal(CameraOptions.Default, camera.CameraOptions);
 			Assert.False(camera.SavePhotoToFile);
 			Assert.Equal(CameraCaptureOptions.Default, camera.CaptureOptions);
-			Assert.False(camera.KeepScreenOn);
 			Assert.Equal(CameraFlashMode.Off, camera.FlashMode);
 		}
 
