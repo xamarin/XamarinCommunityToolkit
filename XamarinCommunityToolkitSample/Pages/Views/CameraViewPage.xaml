@@ -1,39 +1,84 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.CameraViewPage">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.CameraViewPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
+    xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <StackLayout>
         <Grid RowDefinitions="300, 20">
-            <views:CameraView OnAvailable="CameraView_OnAvailable" x:Name="cameraView" CaptureOptions="Video"
-                              MediaCaptured="CameraView_MediaCaptured" SavePhotoToFile="True" FlashMode="On" />
+            <views:CameraView
+                x:Name="cameraView"
+                CaptureOptions="Video"
+                FlashMode="On"
+                HeightRequest="480"
+                MediaCaptured="CameraView_MediaCaptured"
+                OnAvailable="CameraView_OnAvailable"
+                SavePhotoToFile="True"
+                WidthRequest="640" />
 
-            <StackLayout Orientation="Horizontal" Grid.Row="1">
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
                 <Label x:Name="zoomLabel" />
-                <Slider Maximum="10" Minimum="1" Value="1" x:Name="zoomSlider" Margin="5,0" ValueChanged="ZoomSlider_ValueChanged" IsEnabled="False" />
+                <Slider
+                    x:Name="zoomSlider"
+                    Margin="5,0"
+                    IsEnabled="False"
+                    Maximum="10"
+                    Minimum="1"
+                    ValueChanged="ZoomSlider_ValueChanged"
+                    Value="1" />
             </StackLayout>
         </Grid>
         <ScrollView>
             <StackLayout>
                 <Grid ColumnDefinitions="*, *" RowDefinitions="*,*">
-                    <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="5">
-                        <Switch IsToggled="True" Toggled="VideoSwitch_Toggled" Margin="0,0,5,0" />
-                        <Label Text="Video"/>
+                    <StackLayout
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="5"
+                        Orientation="Horizontal">
+                        <Switch
+                            Margin="0,0,5,0"
+                            IsToggled="True"
+                            Toggled="VideoSwitch_Toggled" />
+                        <Label Text="Video" />
                     </StackLayout>
-                    <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="5">
-                        <Switch IsToggled="False" Toggled="FrontCameraSwitch_Toggled" Margin="0,0,5,0" />
-                        <Label Text="Front camera"/>
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5"
+                        Orientation="Horizontal">
+                        <Switch
+                            Margin="0,0,5,0"
+                            IsToggled="False"
+                            Toggled="FrontCameraSwitch_Toggled" />
+                        <Label Text="Front camera" />
                     </StackLayout>
-                    <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Horizontal" Margin="5">
-                        <Switch IsToggled="True" Toggled="FlashSwitch_Toggled" Margin="0,0,5,0" />
-                        <Label Text="Flash"/>
+                    <StackLayout
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5"
+                        Orientation="Horizontal">
+                        <Switch
+                            Margin="0,0,5,0"
+                            IsToggled="True"
+                            Toggled="FlashSwitch_Toggled" />
+                        <Label Text="Flash" />
                     </StackLayout>
                 </Grid>
 
-                <Button x:Name="doCameraThings" Text="{rsx:Translate CameraViewSampleStartRecording}" Clicked="DoCameraThings_Clicked" IsEnabled="False" />
-                <Image x:Name="previewPicture" HeightRequest="250" BackgroundColor="LightGray" Aspect="AspectFit" IsVisible="False"  />
+                <Button
+                    x:Name="doCameraThings"
+                    Clicked="DoCameraThings_Clicked"
+                    IsEnabled="False"
+                    Text="{rsx:Translate CameraViewSampleStartRecording}" />
+                <Image
+                    x:Name="previewPicture"
+                    Aspect="AspectFit"
+                    BackgroundColor="LightGray"
+                    HeightRequest="250"
+                    IsVisible="False" />
             </StackLayout>
         </ScrollView>
     </StackLayout>
