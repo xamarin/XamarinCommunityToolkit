@@ -3,7 +3,7 @@
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
-             xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx;assembly=Xamarin.CommunityToolkit.Sample"
+             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
              xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
              xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors;assembly=Xamarin.CommunityToolkit.Sample"
              x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.RequiredStringValidationBehaviorPage">
@@ -18,9 +18,9 @@
     <StackLayout Padding="{StaticResource ContentPadding}"
                  Spacing="50"
                  VerticalOptions="CenterAndExpand">
-        <Label Text="{x:Static resources:AppResources.RequiredStringValidationDescription}" />
-        <Entry x:Name="passwordEntry" Placeholder="{x:Static resources:AppResources.Password}" />
-            <Entry Placeholder="{x:Static resources:AppResources.ConfirmPassword}">
+        <Label Text="{rsx:Translate RequiredStringValidationDescription}" />
+        <Entry x:Name="passwordEntry" Placeholder="{rsx:Translate Password}" />
+            <Entry Placeholder="{rsx:Translate ConfirmPassword}">
                 <Entry.Behaviors>
                     <behaviors:RequiredStringValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"
                                                        Flags="ValidateOnValueChanging"
