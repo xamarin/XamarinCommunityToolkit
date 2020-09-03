@@ -7,8 +7,7 @@
     xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
     xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <StackLayout>
-        <Grid RowDefinitions="300, 20">
-            <views:CameraView
+        <views:CameraView
                 x:Name="cameraView"
                 CaptureOptions="Video"
                 FlashMode="On"
@@ -29,7 +28,7 @@
                     ValueChanged="ZoomSlider_ValueChanged"
                     Value="1" />
             </StackLayout>
-        </Grid>
+        
         <ScrollView>
             <StackLayout>
                 <Grid ColumnDefinitions="*, *" RowDefinitions="*,*">
