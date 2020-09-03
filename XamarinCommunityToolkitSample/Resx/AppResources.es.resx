@@ -425,6 +425,24 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="EnableNested" xml:space="preserve">
     <value>#Enable nested:</value>
   </data>
+  <data name="ActionsPageDescription" xml:space="preserve">
+    <value>Show snackbar, toast etc</value>
+  </data>
+  <data name="ActionsPageTitle" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="SnackbarIsClosedByTimeout" xml:space="preserve">
+    <value>Snackbar is closed by timeout</value>
+  </data>
+  <data name="SnackbarIsClosedByUser" xml:space="preserve">
+    <value>Snackbar is closed by user</value>
+  </data>
+  <data name="ShowSnackbarNoActionButton" xml:space="preserve">
+    <value>Show snackbar (no action button)</value>
+  </data>
+  <data name="ShowSnackbarWithActionButton" xml:space="preserve">
+    <value>Show snackbar with action button</value>
+  </data>
   <data name="ImpliedOrderGridDescriptionLabel" xml:space="preserve">
     <value>#Behavior that auto sets row and column assignments of child views by the order they are defined in the grid. RowSpan and ColumnSpan are honored during the auto-assignment of row and column.
 

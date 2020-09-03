@@ -1,43 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
-	using System.Diagnostics;
-	using System.Threading.Tasks;
-
-	public class SnackBarPage : ContentPage
+	public partial class ActionsPage : BasePage
 	{
-		readonly Label labelResult;
-
-		public SnackBarPage()
-		{
-			var button1 = new Button
-			{
-				Text = "Show snackbar with action button"
-			};
-
-			button1.Clicked += Button1_Clicked;
-
-			var button2 = new Button
-			{
-				Text = "Show snackbar (no action button)"
-			};
-
-			button2.Clicked += Button2_Clicked;
-
-			labelResult = new Label();
-
-			Content = new StackLayout
-			{
-				VerticalOptions = LayoutOptions.FillAndExpand,
-				Children = { button1, button2, labelResult }
-			};
-		}
+		public ActionsPage() => InitializeComponent();
 
 		async void Button1_Clicked(object sender, EventArgs args)
 		{
@@ -46,13 +19,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				Debug.WriteLine("Snackbar action button clicked");
 				return Task.CompletedTask;
 			});
-			labelResult.Text = result ? "Snackbar is closed by user" : "Snackbar is closed by timeout";
+			StatusText.Text = result ? AppResources.SnackbarIsClosedByUser : AppResources.SnackbarIsClosedByTimeout;
 		}
 
 		async void Button2_Clicked(object sender, EventArgs args)
 		{
 			var result = await this.DisplaySnackbar(GenerateLongText(5));
-			labelResult.Text = result ? "Snackbar is closed by user" : "Snackbar is closed by timeout";
+			StatusText.Text = result ? AppResources.SnackbarIsClosedByUser : AppResources.SnackbarIsClosedByTimeout;
 		}
 
 		string GenerateLongText(int stringDuplicationTimes)

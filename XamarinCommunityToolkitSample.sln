@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
@@ -9,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.Sample", "XamarinCommunityToolkitSample\Xamarin.CommunityToolkit.Sample.csproj", "{81AADE72-D666-4AB0-83D9-8FE366E0755E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit", "XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj", "{B0DCDF81-953D-47DA-A7D4-0565339BF07C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit", "XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj", "{B0DCDF81-953D-47DA-A7D4-0565339BF07C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{47DFE508-04F1-433D-8C55-0C1ACD033573}"
 EndProject
@@ -23,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		Xamarin.CommunityToolkit.ruleset = Xamarin.CommunityToolkit.ruleset
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.WPF", "Xamarin.CommunityToolkit.Sample.WPF\Xamarin.CommunityToolkit.Sample.WPF.csproj", "{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -206,6 +207,30 @@ Global
 		{91C748B4-E9ED-4543-880A-26747B03DE3A}.Release|x86.ActiveCfg = Release|x86
 		{91C748B4-E9ED-4543-880A-26747B03DE3A}.Release|x86.Build.0 = Release|x86
 		{91C748B4-E9ED-4543-880A-26747B03DE3A}.Release|x86.Deploy.0 = Release|x86
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|x64.Build.0 = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Debug|x86.Build.0 = Debug|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|ARM.Build.0 = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|iPhone.Build.0 = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|x64.ActiveCfg = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|x64.Build.0 = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,7 +18,6 @@
     <pages:BasePage.ToolbarItems>
         <ToolbarItem Clicked="OnSettingsClicked" Text="{rsx:Translate Settings}" />
         <ToolbarItem Clicked="OnAboutClicked" Text="{rsx:Translate AboutTitle}" />
-        <ToolbarItem Clicked="OnSnackbarClicked" Text="{rsx:Translate Snackbar}" />
     </pages:BasePage.ToolbarItems>
 
     <StackLayout>
