@@ -403,6 +403,7 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   </data>
   <data name="PasswordMatched" xml:space="preserve">
     <value>#Password matched</value>
+  </data>
   <data name="CameraViewTitle" xml:space="preserve">
     <value>CameraView</value>
   </data>
