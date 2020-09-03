@@ -19,7 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Converters\" />
-    <Folder Include="Behaviors\" />
     <Folder Include="Mocks\" />
   </ItemGroup>
 

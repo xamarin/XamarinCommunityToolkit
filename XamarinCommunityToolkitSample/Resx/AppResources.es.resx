@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -354,13 +354,13 @@
   <data name="Time" xml:space="preserve">
     <value>#Time</value>
   </data>
-     <data name="UriValidationDescription" xml:space="preserve">
+  <data name="UriValidationDescription" xml:space="preserve">
     <value>#Text color will change accordingly to the style that is configured when a invalid URI is entered.</value>
   </data>
   <data name="UriValidationShortDescription" xml:space="preserve">
     <value>#Changes an Entry's text color when an invalid URI is provided.</value>
   </data>
-   <data name="MultiValidationDescription" xml:space="preserve">
+  <data name="MultiValidationDescription" xml:space="preserve">
     <value>#Text color will change accordingly to the style that is configured if any of child behaviors is invalid (Minimum: -10, Maximum: 5).</value>
   </data>
   <data name="MultiValidationShortDescription" xml:space="preserve">
@@ -374,19 +374,19 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="MultiConverterShortDescription" xml:space="preserve">
     <value>#This sample demonstrates how to use Multibinding Converter</value>
   </data>
-   <data name="Settings" xml:space="preserve">
+  <data name="Settings" xml:space="preserve">
     <value>Ajustes</value>
   </data>
-   <data name="ChangeLanguage" xml:space="preserve">
+  <data name="ChangeLanguage" xml:space="preserve">
     <value>Cambiar idioma</value>
   </data>
-    <data name="English" xml:space="preserve">
+  <data name="English" xml:space="preserve">
     <value>Ingles</value>
   </data>
-     <data name="Spanish" xml:space="preserve">
+  <data name="Spanish" xml:space="preserve">
     <value>Español</value>
   </data>
-   <data name="Save" xml:space="preserve">
+  <data name="Save" xml:space="preserve">
     <value>Guardar</value>
   </data>
   <data name="RequiredStringValidationDescription" xml:space="preserve">
@@ -420,5 +420,8 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   </data>
   <data name="CameraViewSampleStopRecording" xml:space="preserve">
     <value>Stop Recording</value>
+  </data>
+  <data name="DateTimeOffsetConverterShortDescription" xml:space="preserve">
+    <value>#A converter that allows to convert from a DateTimeOffset type to a DateTime type.</value>
   </data>
 </root>
