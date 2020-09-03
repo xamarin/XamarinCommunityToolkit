@@ -410,15 +410,12 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="RequiredStringValidationDescription" xml:space="preserve">
    <value>Text color will change accordingly to the style that is configured when password confirmation doesn't match password.</value>
   </data>
-
   <data name="RequiredStringValidationShortDescription" xml:space="preserve">
     <value>Changes an Entry's style when its text does not match another string.</value>
   </data>
-
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
-
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
   </data>
