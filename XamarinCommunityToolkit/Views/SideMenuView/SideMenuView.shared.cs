@@ -493,11 +493,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			HandleChild(e.OldItems, RemoveChild);
-			HandleChild(e.NewItems, AddChild);
+			HandleChildren(e.OldItems, RemoveChild);
+			HandleChildren(e.NewItems, AddChild);
 		}
 
-		void HandleChild(IList items, Action<View> action)
+		void HandleChildren(IList items, Action<View> action)
 		{
 			if (items != null)
 				foreach (var item in items)
