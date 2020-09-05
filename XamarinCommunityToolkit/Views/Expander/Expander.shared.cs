@@ -240,7 +240,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnChildAdded(Element child)
 		{
 			base.OnChildAdded(child);
-			if (mainLayout == null && child is StackLayout layout) {
+			if (mainLayout == null && child is StackLayout layout)
+			{
 				mainLayout = layout;
 				mainLayout.Spacing = 0;
 			}
