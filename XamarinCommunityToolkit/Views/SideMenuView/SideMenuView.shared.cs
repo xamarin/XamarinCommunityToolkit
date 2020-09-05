@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using static System.Math;
 using static Xamarin.Forms.AbsoluteLayout;
+using IList = System.Collections.IList;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -276,7 +277,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mainView.AbortAnimation(animationName);
 			var totalShift = previousShift + shift;
-			if (!TryUpdateShift(totalShift - zeroShift, false))
+			if (!TryUpdateShift(totalShift - zeroShift, false, true))
 				zeroShift = totalShift - Shift;
 		}
 
@@ -314,7 +315,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SetOverlayViewInputTransparent(state);
 				return;
 			}
-			var animation = new Animation(v => TryUpdateShift(v, true), Shift, end);
+			var animation = new Animation(v => TryUpdateShift(v, true, false), Shift, end);
 			mainView.Animate(animationName, animation, animationRate, animationLength, animationEasing, (v, isCanceled) =>
 			{
 				if (isCanceled)
@@ -345,10 +346,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return isRightSwipe ? left : right;
 		}
 
-		bool TryUpdateShift(double sift, bool shouldUpdatePreviousShift)
+		bool TryUpdateShift(double sift, bool shouldUpdatePreviousShift, bool shouldCheckMenuGestureEnabled)
 		{
 			SetActiveView(sift >= 0);
-			if (activeMenu == null || !GetMenuGestureEnabled(activeMenu))
+			if (activeMenu == null)
+				return false;
+
+			if (shouldCheckMenuGestureEnabled && !GetMenuGestureEnabled(activeMenu))
 				return false;
 
 			sift = Sign(sift) * Min(Abs(sift), activeMenu.Width);
@@ -390,6 +394,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateState(SideMenuState state, bool isSwipe)
 		{
+			if (!CheckMenuGestureEnabled(state))
+				return;
+
 			this.isSwipe = isSwipe;
 			if (State == state)
 			{
@@ -419,6 +426,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			LowerChild(inactiveMenu);
+		}
+
+		bool CheckMenuGestureEnabled(SideMenuState state)
+		{
+			var view = state switch
+			{
+				SideMenuState.LeftMenuShown => leftMenu,
+				SideMenuState.RightMenuShown => rightMenu,
+				_ => activeMenu
+			};
+
+			if (view == null)
+				return false;
+
+			return GetMenuGestureEnabled(view);
 		}
 
 		bool TryResolveFlingGesture(ref SideMenuState state)
@@ -471,13 +493,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (e.OldItems != null)
-				foreach (var item in e.OldItems)
-					RemoveChild((View)item);
+			HandleChildren(e.OldItems, RemoveChild);
+			HandleChildren(e.NewItems, AddChild);
+		}
 
-			if (e.NewItems != null)
-				foreach (var item in e.NewItems)
-					AddChild((View)item);
+		void HandleChildren(IList items, Action<View> action)
+		{
+			if (items != null)
+				foreach (var item in items)
+					action?.Invoke((View)item);
 		}
 
 		void AddChild(View view)
