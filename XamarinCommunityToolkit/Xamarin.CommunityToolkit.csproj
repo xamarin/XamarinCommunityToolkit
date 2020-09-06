@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="MSBuild.Sdk.Extras/2.0.54">
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;tizen40</TargetFrameworks>
+    <TargetFrameworks>netstandard1.0;netstandard2.0;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;Xamarin.Mac20;tizen40</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.16299</TargetFrameworks>
     <AssemblyName>Xamarin.CommunityToolkit</AssemblyName>
     <RootNamespace>Xamarin.CommunityToolkit</RootNamespace>
@@ -94,6 +94,11 @@
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.WatchOS')) ">
       <Compile Include="**\*.watchos.cs" />
       <Compile Include="**\*.watchos.*.cs" />
+    </ItemGroup>
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
+      <Reference Include="netstandard" Condition=" '$(OS)' == 'Windows_NT' " />
+      <Compile Include="**\*.macos.cs" />
+      <Compile Include="**\*.macos.*.cs" />
     </ItemGroup>
     <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
       <Compile Include="**\*.tizen.cs" />
