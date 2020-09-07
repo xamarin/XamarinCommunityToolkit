@@ -440,4 +440,7 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="UserStoppedTypingBehaviorThresholdOptionLabel" xml:space="preserve">
     <value>User stopped typing time threshold (in ms)</value>
   </data>
+  <data name="AutoGridLayoutBehaviorDescription" xml:space="preserve">
+    <value>This behavior assigns grid row and column based on the order a view is added to the grid.</value>
+  </data>
 </root>
