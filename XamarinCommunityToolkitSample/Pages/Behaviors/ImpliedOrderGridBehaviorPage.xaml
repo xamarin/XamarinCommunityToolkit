@@ -13,7 +13,7 @@
             <Button Text="Remove Column" Clicked="ButtonRemoveColumn_OnClicked"></Button>
         </StackLayout>
 
-        <Label Text="View's row and column are determined by the order they are added to the grid's children.  RowSpan and ColumnSpan are honored."></Label>
+        <Label Text="View's row and column are determined by the order they are added to the grid's children. RowSpan and ColumnSpan are honored."></Label>
 
         <Grid x:Name="TestGrid" Margin="30" BackgroundColor="Gray">
             <Grid.Behaviors>
