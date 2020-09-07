@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			rowIndex = usedMatrix.IndexOf(row);
 
 			// Find the first available column
-			columnIndex = row.IndexOf(row.First(c => c == false));
+			columnIndex = row.IndexOf(row.FirstOrDefault(c => !c));
 		}
 
 		void UpdateUsedCells(int row, int column, int rowSpan, int columnSpan)
