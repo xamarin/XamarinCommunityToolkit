@@ -5,25 +5,27 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
 {
 	public class ImpliedOrderGridBehaviorLabel : Label
 	{
+		static int count = 1;
+		static readonly Random Rnd = new Random();
+
 		public ImpliedOrderGridBehaviorLabel()
 		{
 			FontSize = 24;
 			FontAttributes = FontAttributes.Bold;
 			BackgroundColor = Color.FromRgb(Rnd.Next(256), Rnd.Next(256), Rnd.Next(256));
-			SizeChanged += TestLabel_SizeChanged;
+			SizeChanged += OnTestLabelSizeChanged;
 		}
 
-		private void TestLabel_SizeChanged(object sender, EventArgs e)
+		private void OnTestLabelSizeChanged(object sender, EventArgs e)
 		{
 			if (string.IsNullOrEmpty(Text))
-				Text = $"L: {_count}" +
+				Text = $"L: {count}" +
 					   $"\r\nr:{GetValue(Grid.RowProperty)} c:{GetValue(Grid.ColumnProperty)}" +
 					   $"\r\nrs:{GetValue(Grid.RowSpanProperty)} cs:{GetValue(Grid.ColumnSpanProperty)}";
-			_count++;
+			count++;
 		}
 
-		private static int _count = 1;
-		private static readonly Random Rnd = new Random();
+		
 	}
 
 }
