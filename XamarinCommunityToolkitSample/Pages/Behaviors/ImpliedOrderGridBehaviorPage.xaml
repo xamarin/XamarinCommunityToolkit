@@ -4,7 +4,7 @@
           xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
           xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
           xmlns:behaviors1="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Behaviors;assembly=Xamarin.CommunityToolkit.Sample"
-          x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.AutoGridLayoutBehaviorPage">
+          x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.ImpliedOrderGridBehaviorPage">
     <StackLayout>
         <StackLayout Orientation="Horizontal" Spacing="5">
             <Button Text="Add Row" Clicked="ButtonAddRow_OnClicked"></Button>
@@ -17,7 +17,7 @@
 
         <Grid x:Name="TestGrid" Margin="30" BackgroundColor="Gray">
             <Grid.Behaviors>
-                <behaviors:AutoGridLayoutBehavior/>
+                <behaviors:ImpliedOrderGridBehavior/>
             </Grid.Behaviors>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
@@ -32,20 +32,20 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <behaviors1:AutoGridLayoutBehaviorTestLabel Grid.RowSpan="2"/>
-            <behaviors1:AutoGridLayoutBehaviorTestLabel />
-            <behaviors1:AutoGridLayoutBehaviorTestLabel />
+            <behaviors1:ImpliedOrderGridBehaviorLabel Grid.RowSpan="2"/>
+            <behaviors1:ImpliedOrderGridBehaviorLabel />
+            <behaviors1:ImpliedOrderGridBehaviorLabel />
 
-            <behaviors1:AutoGridLayoutBehaviorTestLabel Grid.ColumnSpan="2"/>
-            <behaviors1:AutoGridLayoutBehaviorTestLabel/>
+            <behaviors1:ImpliedOrderGridBehaviorLabel Grid.ColumnSpan="2"/>
+            <behaviors1:ImpliedOrderGridBehaviorLabel/>
 
-            <behaviors1:AutoGridLayoutBehaviorTestLabel />
-            <behaviors1:AutoGridLayoutBehaviorTestLabel Grid.ColumnSpan="2" Grid.RowSpan="2" />
-            <behaviors1:AutoGridLayoutBehaviorTestLabel />
+            <behaviors1:ImpliedOrderGridBehaviorLabel />
+            <behaviors1:ImpliedOrderGridBehaviorLabel Grid.ColumnSpan="2" Grid.RowSpan="2" />
+            <behaviors1:ImpliedOrderGridBehaviorLabel />
 
-            <behaviors1:AutoGridLayoutBehaviorTestLabel />
-            <behaviors1:AutoGridLayoutBehaviorTestLabel />
-            <behaviors1:AutoGridLayoutBehaviorTestLabel />
+            <behaviors1:ImpliedOrderGridBehaviorLabel />
+            <behaviors1:ImpliedOrderGridBehaviorLabel />
+            <behaviors1:ImpliedOrderGridBehaviorLabel />
 
         </Grid>
 

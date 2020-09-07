@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
 {
-	public class AutoGridLayoutBehaviorTestLabel : Label
+	public class ImpliedOrderGridBehaviorLabel : Label
 	{
-		public AutoGridLayoutBehaviorTestLabel()
+		public ImpliedOrderGridBehaviorLabel()
 		{
 			FontSize = 24;
 			FontAttributes = FontAttributes.Bold;

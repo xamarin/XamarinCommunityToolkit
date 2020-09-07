@@ -5,7 +5,7 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class AutoGridLayoutBehavior : Behavior<Grid>
+	public class ImpliedOrderGridBehavior : Behavior<Grid>
 	{
 		private bool[][] usedMatrix;
 		private int rowCount;
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		void LogWarning(string warning)
 		{
-			Log.Warning(nameof(AutoGridLayoutBehavior), warning);
+			Log.Warning(nameof(ImpliedOrderGridBehavior), warning);
 			if (ThrowOnLayoutWarning)
 				throw new Exception(warning);
 		}
