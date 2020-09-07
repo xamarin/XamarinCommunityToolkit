@@ -66,8 +66,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (row == null)
 			{
 				LogWarning("Defined cells exceeded.");
-				rowIndex = rowCount == 0 ? 0 : rowCount - 1;
-				columnIndex = columnCount == 0 ? 0 : columnCount - 1;
+				rowIndex = Math.Max(rowCount - 1, 0);
+				columnIndex = Math.Max(columnCount - 1, 0);
 				return;
 			}
 			rowIndex = usedMatrix.IndexOf(row);
