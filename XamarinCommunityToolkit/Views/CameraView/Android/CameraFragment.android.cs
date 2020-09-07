@@ -106,15 +106,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public CameraView Element { get; set; }
 
-		public override AView OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-		{
-			return inflater.Inflate(Resource.Layout.CameraFragment, null);
-		}
+		public override AView OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
+			inflater.Inflate(Resource.Layout.CameraFragment, null);
 
-		public override void OnViewCreated(AView view, Bundle savedInstanceState)
-		{
+		public override void OnViewCreated(AView view, Bundle savedInstanceState) =>
 			texture = view.FindViewById<AutoFitTextureView>(Resource.Id.cameratexture);
-		}
 
 		public override async void OnResume()
 		{
@@ -129,9 +125,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				await RetrieveCameraDevice(force: true);
 			}
 			else
-			{
 				texture.SurfaceTextureListener = this;
-			}
 		}
 
 		public override void OnPause()
@@ -233,10 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						cameraId,
 						new CameraStateListener
 						{
-							OnOpenedAction = device =>
-							{
-								initTaskSource?.TrySetResult(device);
-							},
+							OnOpenedAction = device => initTaskSource?.TrySetResult(device),
 							OnDisconnectedAction = device =>
 							{
 								initTaskSource?.TrySetResult(null);
@@ -260,9 +251,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					device = await initTaskSource.Task;
 					initTaskSource = null;
 					if (device != null)
-					{
 						await PrepareSession();
-					}
 				}
 				catch (Java.Lang.Exception error)
 				{
@@ -316,15 +305,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnPhoto(object sender, byte[] data) =>
 			Device.BeginInvokeOnMainThread(() =>
-			{
-				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(data, ImageSource.FromStream(() => new MemoryStream(data))));
-			});
+				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(data, ImageSource.FromStream(() => new MemoryStream(data)))));
 
-		void OnVideo(object sender, string data) => 
+		void OnVideo(object sender, string data) =>
 			Device.BeginInvokeOnMainThread(() =>
-			{
-				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(video: MediaSource.FromFile(data)));
-			});
+				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(video: MediaSource.FromFile(data))));
 
 		void SetupImageReader()
 		{
@@ -355,7 +340,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			mediaRecorder.SetVideoSource(AVideoSource.Surface);
 
 			var profile = GetCamcoderProfile();
-			
+
 			if (profile != null)
 				mediaRecorder.SetProfile(profile);
 			else
@@ -365,7 +350,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mediaRecorder.SetVideoFrameRate(30);
 				mediaRecorder.SetVideoSize(videoSize.Width, videoSize.Height);
 				mediaRecorder.SetVideoEncoder(VideoEncoder.H264);
-				
+
 				if (audioPermissionsGranted)
 					mediaRecorder.SetAudioEncoder(AudioEncoder.Default);
 			}
@@ -504,18 +489,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							tcs.SetResult(null);
 							Element.RaiseMediaCaptureFailed("Failed to create captire sesstion");
 						},
-						OnConfiguredAction = session =>
-						{
-							tcs.SetResult(session);
-						}
+						OnConfiguredAction = session => tcs.SetResult(session)
 					},
 					null);
 
 				session = await tcs.Task;
 				if (session != null)
-				{
 					UpdateRepeatingRequest();
-				}
 			}
 			catch (Java.Lang.Exception error)
 			{
@@ -820,7 +800,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SurfaceOrientation GetDisplayRotation()
 			=> App.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>().DefaultDisplay.Rotation;
 
-		int GetDisplayRotationiDegress() => 
+		int GetDisplayRotationiDegress() =>
 			(GetDisplayRotation()) switch
 			{
 				SurfaceOrientation.Rotation90 => 90,
@@ -829,13 +809,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				_ => 0,
 			};
 
-		public bool KeepScreenOn
-		{
-			get => texture.KeepScreenOn;
-			set => texture.KeepScreenOn = value;
-		}
-
-		int GetPreviewOrientation() => 
+		int GetPreviewOrientation() =>
 			(GetDisplayRotation()) switch
 			{
 				SurfaceOrientation.Rotation90 => 270,

@@ -201,17 +201,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void MeasureExactly(AView control, VisualElement element, Context context)
 		{
 			if (control == null || element == null)
-			{
 				return;
-			}
 
 			var width = element.Width;
 			var height = element.Height;
 
 			if (width <= 0 || height <= 0)
-			{
 				return;
-			}
 
 			var realWidth = (int)context.ToPixels(width);
 			var realHeight = (int)context.ToPixels(height);
@@ -279,9 +275,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		// Literally does the same thing as the android code, 1000x faster because no bridge cross
 		// benchmarked by calling 1,000,000 times in a loop on actual device
-		public static int MakeMeasureSpec(int size, MeasureSpecMode mode)
-		{
-			return size + (int)mode;
-		}
+		public static int MakeMeasureSpec(int size, MeasureSpecMode mode) =>
+			size + (int)mode;
 	}
 }

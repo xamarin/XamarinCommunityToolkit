@@ -12,15 +12,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public bool HandleMotionEvent(IViewParent parent, MotionEvent motionEvent)
 		{
 			if (isInViewCell || element == null || motionEvent == null || motionEvent.Action == MotionEventActions.Cancel)
-			{
 				return false;
-			}
 
 			var renderer = parent as VisualElementRenderer<Xamarin.Forms.View>;
 			if (renderer == null || ShouldPassThroughElement())
-			{
 				return false;
-			}
 
 			// Let the container know that we're "fake" handling this event
 			//renderer.NotifyFakeHandling();
@@ -34,9 +30,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			this.element = element;
 
 			if (this.element == null)
-			{
 				return;
-			}
 
 			// Determine whether this control is inside a ViewCell;
 			// we don't fake handle the events because ListView needs them for row selection
@@ -47,18 +41,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (element is Layout layout)
 			{
+				// If the layout is not input transparent, then the event should not pass through it
 				if (!layout.InputTransparent)
-				{
-					// If the layout is not input transparent, then the event should not pass through it
 					return false;
-				}
 
+				// This is a layout, and it's transparent, and all its children are transparent, then the event
+				// can just pass through 
 				if (layout.CascadeInputTransparent)
-				{
-					// This is a layout, and it's transparent, and all its children are transparent, then the event
-					// can just pass through 
 					return true;
-				}
 
 				if (Platform.GetRenderer(element) is VisualElementRenderer<Xamarin.Forms.View> renderer)
 				{
@@ -74,11 +64,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return true;
 			}
 
+			// This is not a layout and it's transparent; the event can just pass through 
 			if (element.InputTransparent)
-			{
-				// This is not a layout and it's transparent; the event can just pass through 
 				return true;
-			}
 
 			return false;
 		}
