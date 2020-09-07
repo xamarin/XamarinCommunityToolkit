@@ -20,10 +20,10 @@
     <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
     <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
     <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>#[base64 mime encoded serialized .NET Framework object]</value>
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
     <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>#[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
         <comment>This is a comment</comment>
     </data>
                 
@@ -187,7 +187,7 @@
     <value>#Click Me</value>
   </data>
   <data name="NumericValidationShortDescription" xml:space="preserve">
-   <value>#Changes an Entry's text color when an invalid number is provided.</value>
+    <value>#Changes an Entry's text color when an invalid number is provided.</value>
   </data>
   <data name="NumericValidationBehaviorDescription" xml:space="preserve">
     <value>#Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0). Maximum decimal places value equals 2.</value>
@@ -421,5 +421,8 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   </data>
   <data name="EnableNested" xml:space="preserve">
     <value>#Enable nested:</value>
+  </data>
+  <data name="ImpliedOrderGridDescriptionLabel" xml:space="preserve">
+    <value>#View's row and column are determined by the order they are added to the grid's children. RowSpan and ColumnSpan are honored.</value>
   </data>
 </root>

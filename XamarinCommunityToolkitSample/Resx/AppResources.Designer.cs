@@ -412,6 +412,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View&apos;s row and column are determined by the order they are added to the grid&apos;s children. RowSpan and ColumnSpan are honored..
+        /// </summary>
+        internal static string ImpliedOrderGridDescriptionLabel {
+            get {
+                return ResourceManager.GetString("ImpliedOrderGridDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms..
         /// </summary>
         internal static string IntroductioDescription {
