@@ -410,4 +410,16 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="DateTimeOffsetConverterShortDescription" xml:space="preserve">
     <value>#A converter that allows to convert from a DateTimeOffset type to a DateTime type.</value>
   </data>
+  <data name="ExpanderTitle" xml:space="preserve">
+    <value>#Expander</value>
+  </data>
+  <data name="ExpanderDescription" xml:space="preserve">
+    <value>#The Xamarin.Forms Expander control provides an expandable container to host any content.</value>
+  </data>
+  <data name="NestedExpander" xml:space="preserve">
+    <value>#Nested expander</value>
+  </data>
+  <data name="EnableNested" xml:space="preserve">
+    <value>#Enable nested:</value>
+  </data>
 </root>
