@@ -47,10 +47,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnMeasure(widthMeasureSpec, heightMeasureSpec);
 			var width = MeasureSpec.GetSize(widthMeasureSpec);
 			var height = MeasureSpec.GetSize(heightMeasureSpec);
+			
 			if (mRatioWidth == 0 || mRatioHeight == 0)
-			{
 				SetMeasuredDimension(width, height);
-			}
 			else
 			{
 				if (width < (float)height * mRatioWidth / mRatioHeight)

@@ -355,10 +355,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			mediaRecorder.SetVideoSource(AVideoSource.Surface);
 
 			var profile = GetCamcoderProfile();
+			
 			if (profile != null)
-			{
 				mediaRecorder.SetProfile(profile);
-			}
 			else
 			{
 				mediaRecorder.SetOutputFormat(OutputFormat.Mpeg4);
@@ -366,10 +365,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mediaRecorder.SetVideoFrameRate(30);
 				mediaRecorder.SetVideoSize(videoSize.Width, videoSize.Height);
 				mediaRecorder.SetVideoEncoder(VideoEncoder.H264);
+				
 				if (audioPermissionsGranted)
-				{
 					mediaRecorder.SetAudioEncoder(AudioEncoder.Default);
-				}
 			}
 
 			videoFile = ConstructMediaFilename("VID", "mp4");
@@ -399,9 +397,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public void StartRecord()
 		{
 			if (IsBusy)
-			{
 				return;
-			}
+
 			else if (IsRecordingVideo)
 			{
 				Element?.RaiseMediaCaptureFailed("Video already recording.");
