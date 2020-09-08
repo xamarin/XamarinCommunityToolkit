@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
@@ -7,21 +6,23 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public abstract class BaseBehavior : Behavior<View>
+	public abstract class BaseBehavior<TView> : Behavior<TView> where TView : View
 	{
-		static readonly MethodInfo getContextMethod = typeof(BindableObject).GetRuntimeMethods()?.FirstOrDefault(m => m.Name == "GetContext");
+		static readonly MethodInfo getContextMethod
+			= typeof(BindableObject).GetRuntimeMethods()?.FirstOrDefault(m => m.Name == "GetContext");
 
-		static readonly FieldInfo bindingField = getContextMethod?.ReturnType.GetRuntimeField("Binding");
+		static readonly FieldInfo bindingField
+			= getContextMethod?.ReturnType.GetRuntimeField("Binding");
 
 		BindingBase defaultBindingContextBinding;
 
-		protected View View { get; private set; }
+		protected TView View { get; private set; }
 
 		protected virtual void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 		}
 
-		protected override void OnAttachedTo(View bindable)
+		protected override void OnAttachedTo(TView bindable)
 		{
 			base.OnAttachedTo(bindable);
 			View = bindable;
@@ -38,7 +39,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			}
 		}
 
-		protected override void OnDetachingFrom(BindableObject bindable)
+		protected override void OnDetachingFrom(TView bindable)
 		{
 			base.OnDetachingFrom(bindable);
 
