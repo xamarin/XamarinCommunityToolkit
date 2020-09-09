@@ -26,6 +26,5 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 
 	public interface IAsyncCommand : IAsyncCommand<object>
 	{
-
 	}
 }
