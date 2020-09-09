@@ -4,6 +4,7 @@ using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xunit;
 
@@ -44,9 +45,9 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		[Fact]
 		public void MakeSureBehaviorsAreInTheRightNamespace()
 		{
-			var allTheTypes = Assembly.GetAssembly(typeof(BaseBehavior)).GetTypes();
+			var allTheTypes = Assembly.GetAssembly(typeof(BaseBehavior<>)).GetTypes();
 
-			foreach (var type in allTheTypes.Where(t => t.Name.EndsWith("Behavior") && t.IsSubclassOf(typeof(BaseBehavior))))
+			foreach (var type in allTheTypes.Where(t => t.Name.EndsWith("Behavior") && t.IsSubclassOf(typeof(BaseBehavior<>))))
 				Assert.True(type.Namespace.Equals("Xamarin.CommunityToolkit.Behaviors"),
 					$"{type.FullName} not in Xamarin.CommunityToolkit.Behaviors namespace");
 		}
@@ -54,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		[Fact]
 		public void MakeSureViewsAreInTheRightNamespace()
 		{
-			var allTheTypes = Assembly.GetAssembly(typeof(BaseBehavior)).GetTypes();
+			var allTheTypes = Assembly.GetAssembly(typeof(AvatarView)).GetTypes();
 
 			foreach (var type in allTheTypes.Where(t => t.IsSubclassOf(typeof(View))))
 				Assert.True(type.Namespace.Equals("Xamarin.CommunityToolkit.UI.Views"),
