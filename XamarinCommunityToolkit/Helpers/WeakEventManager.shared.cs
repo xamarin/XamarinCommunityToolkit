@@ -8,7 +8,7 @@ using static System.String;
 namespace Xamarin.CommunityToolkit.Helpers
 {
 	// Copy from https://github.com/xamarin/Xamarin.Forms/blob/5.0.0/Xamarin.Forms.Core/WeakEventManager.cs
-	// TODO Remove when PR complete: https://github.com/xamarin/Xamarin.Forms/pull/12063
+	// TODO: Remove when PR complete: https://github.com/xamarin/Xamarin.Forms/pull/12063
 	class WeakEventManager
 	{
 		readonly Dictionary<string, List<Subscription>> eventHandlers = new Dictionary<string, List<Subscription>>();
