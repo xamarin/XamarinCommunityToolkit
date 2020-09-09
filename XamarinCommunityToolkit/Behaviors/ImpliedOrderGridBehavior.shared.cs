@@ -33,7 +33,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		void OnInternalGridChildAdded(object sender, ElementEventArgs e) =>
 			ProcessElement(e.Element);
 
-
 		void LogWarning(string warning)
 		{
 			Log.Warning(nameof(ImpliedOrderGridBehavior), warning);
