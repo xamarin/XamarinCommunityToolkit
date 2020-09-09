@@ -11,9 +11,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 	// TODO Remove when PR complete: https://github.com/xamarin/Xamarin.Forms/pull/12063
 	class WeakEventManager
 	{
-		readonly Dictionary<string, List<Subscription>> _eventHandlers = new Dictionary<string, List<Subscription>>();
+		readonly Dictionary<string, List<Subscription>> eventHandlers = new Dictionary<string, List<Subscription>>();
 
-		public void AddEventHandler<TEventArgs>(EventHandler<TEventArgs> handler, [CallerMemberName]string eventName = null)
+		public void AddEventHandler<TEventArgs>(EventHandler<TEventArgs> handler,
+			[CallerMemberName] string eventName = null)
 			where TEventArgs : EventArgs
 		{
 			if (IsNullOrEmpty(eventName))
@@ -25,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			AddEventHandler(eventName, handler.Target, handler.GetMethodInfo());
 		}
 
-		public void AddEventHandler(EventHandler handler, [CallerMemberName]string eventName = null)
+		public void AddEventHandler(EventHandler handler, [CallerMemberName] string eventName = null)
 		{
 			if (IsNullOrEmpty(eventName))
 				throw new ArgumentNullException(nameof(eventName));
@@ -41,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			var toRaise = new List<(object subscriber, MethodInfo handler)>();
 			var toRemove = new List<Subscription>();
 
-			if (_eventHandlers.TryGetValue(eventName, out var target))
+			if (eventHandlers.TryGetValue(eventName, out var target))
 			{
 				for (var i = 0; i < target.Count; i++)
 				{
@@ -73,11 +74,12 @@ namespace Xamarin.CommunityToolkit.Helpers
 			for (var i = 0; i < toRaise.Count; i++)
 			{
 				(var subscriber, var handler) = toRaise[i];
-				handler.Invoke(subscriber, new[] { sender, args });
+				handler.Invoke(subscriber, new[] {sender, args});
 			}
 		}
 
-		public void RemoveEventHandler<TEventArgs>(EventHandler<TEventArgs> handler, [CallerMemberName]string eventName = null)
+		public void RemoveEventHandler<TEventArgs>(EventHandler<TEventArgs> handler,
+			[CallerMemberName] string eventName = null)
 			where TEventArgs : EventArgs
 		{
 			if (IsNullOrEmpty(eventName))
@@ -89,7 +91,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo());
 		}
 
-		public void RemoveEventHandler(EventHandler handler, [CallerMemberName]string eventName = null)
+		public void RemoveEventHandler(EventHandler handler, [CallerMemberName] string eventName = null)
 		{
 			if (IsNullOrEmpty(eventName))
 				throw new ArgumentNullException(nameof(eventName));
@@ -102,10 +104,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		void AddEventHandler(string eventName, object handlerTarget, MethodInfo methodInfo)
 		{
-			if (!_eventHandlers.TryGetValue(eventName, out var targets))
+			if (!eventHandlers.TryGetValue(eventName, out var targets))
 			{
 				targets = new List<Subscription>();
-				_eventHandlers.Add(eventName, targets);
+				eventHandlers.Add(eventName, targets);
 			}
 
 			if (handlerTarget == null)
@@ -120,14 +122,14 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		void RemoveEventHandler(string eventName, object handlerTarget, MemberInfo methodInfo)
 		{
-			if (!_eventHandlers.TryGetValue(eventName, out var subscriptions))
+			if (!eventHandlers.TryGetValue(eventName, out var subscriptions))
 				return;
 
 			for (var n = subscriptions.Count; n > 0; n--)
 			{
 				var current = subscriptions[n - 1];
 
-				if (current.Subscriber?.Target != handlerTarget|| current.Handler.Name != methodInfo.Name)
+				if (current.Subscriber?.Target != handlerTarget || current.Handler.Name != methodInfo.Name)
 					continue;
 
 				subscriptions.Remove(current);

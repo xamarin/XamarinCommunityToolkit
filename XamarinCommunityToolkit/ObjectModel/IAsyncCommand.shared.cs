@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <returns>The Task to execute</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
 		Task ExecuteAsync(T parameter);
-		
+
 		/// <summary>
 		/// Raises the CanExecuteChanged event.
 		/// </summary>
