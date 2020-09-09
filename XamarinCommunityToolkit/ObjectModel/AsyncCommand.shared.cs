@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.ObjectModel
