@@ -17,7 +17,7 @@
                  VerticalOptions="CenterAndExpand">
         <Label Text="{rsx:Translate UriValidationDescription}" />
         <StackLayout>
-            <Entry Placeholder="UriKind: Relative">
+            <Entry Placeholder="UriKind: Absolute">
                 <Entry.Behaviors>
                     <behaviors:UriValidationBehavior UriKind="Absolute" InvalidStyle="{StaticResource InvalidEntryStyle}"/>
                 </Entry.Behaviors>
