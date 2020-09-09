@@ -5,12 +5,11 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class ImpliedOrderGridBehavior : Behavior<Grid>
+	public class ImpliedOrderGridBehavior : BaseBehavior<Grid>
 	{
-		private bool[][] usedMatrix;
-		private int rowCount;
-		private int columnCount;
-		private Grid attachedGrid;
+		bool[][] usedMatrix;
+		int rowCount;
+		int columnCount;
 
 		public bool ThrowOnLayoutWarning { get; set; }
 
@@ -19,7 +18,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			base.OnAttachedTo(bindable);
 
 			bindable.ChildAdded += OnInternalGridChildAdded;
-			attachedGrid = bindable;
 		}
 
 		protected override void OnDetachingFrom(Grid bindable)
@@ -27,7 +25,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			base.OnDetachingFrom(bindable);
 
 			bindable.ChildAdded -= OnInternalGridChildAdded;
-			attachedGrid = null;
 		}
 
 		void OnInternalGridChildAdded(object sender, ElementEventArgs e) =>
@@ -42,10 +39,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		bool[][] InitMatrix()
 		{
-			rowCount = attachedGrid.RowDefinitions.Count;
+			rowCount = View.RowDefinitions.Count;
 			if (rowCount == 0)
 				rowCount = 1;
-			columnCount = attachedGrid.ColumnDefinitions.Count;
+			columnCount = View.ColumnDefinitions.Count;
 			if (columnCount == 0)
 				columnCount = 1;
 			var newMatrix = new bool[rowCount][];
