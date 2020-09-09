@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			base.OnAttachedTo(bindable);
 
-			bindable.ChildAdded += InternalGridChildAdded;
+			bindable.ChildAdded += OnInternalGridChildAdded;
 			attachedGrid = bindable;
 		}
 
@@ -26,11 +26,11 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			base.OnDetachingFrom(bindable);
 
-			bindable.ChildAdded -= InternalGridChildAdded;
+			bindable.ChildAdded -= OnInternalGridChildAdded;
 			attachedGrid = null;
 		}
 
-		void InternalGridChildAdded(object sender, ElementEventArgs e) =>
+		void OnInternalGridChildAdded(object sender, ElementEventArgs e) =>
 			ProcessElement(e.Element);
 
 
