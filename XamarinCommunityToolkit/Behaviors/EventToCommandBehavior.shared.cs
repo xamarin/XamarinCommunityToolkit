@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class EventToCommandBehavior : BaseBehavior
+	public class EventToCommandBehavior : BaseBehavior<View>
 	{
 		public static readonly BindableProperty EventNameProperty =
 			BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), propertyChanged: OnEventNamePropertyChanged);
