@@ -412,7 +412,13 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View&apos;s row and column are determined by the order they are added to the grid&apos;s children. RowSpan and ColumnSpan are honored..
+        ///   Looks up a localized string similar to Behavior that auto sets row and column assignments of child views by the order they are defined in the grid. RowSpan and ColumnSpan are honored during the auto-assignment of row and column.
+        ///
+        ///By default, if more cells in the grid are needed by the number of child views then are defined an output warning will be generated. If a row or column span exceeds the defined rows and columns output warnings will be generated.
+        ///
+        ///The user may at their choice decide to have output warnings treated as exceptions.
+        ///
+        ///If [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ImpliedOrderGridDescriptionLabel {
             get {
