@@ -134,12 +134,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			weakEventManager.HandleEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
 
 		bool IsValidParameter(object o)
-		{
-			if (o != null)
-				return o is T; // The parameter isn't null, so we don't have to worry whether null is a valid option
-
-			return isNullableParameterType.Value;
-		}
+			=> o != null
+				? o is T // The parameter isn't null, so we don't have to worry whether null is a valid option
+				isNullableParameterType.Value;
 	}
 
 	public class AsyncCommand : AsyncCommand<object>
