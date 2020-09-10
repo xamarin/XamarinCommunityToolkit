@@ -12,6 +12,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		readonly Func<T, bool> canExecute;
 		readonly Action<Exception> onException;
 		readonly bool continueOnCapturedContext;
+		readonly Lazy<bool> isNullableParameterType;
 		readonly WeakEventManager weakEventManager = new WeakEventManager();
 
 		int executionCount;
@@ -63,6 +64,18 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			this.canExecute = canExecute;
 			this.onException = onException;
 			this.continueOnCapturedContext = continueOnCapturedContext;
+
+			isNullableParameterType = new Lazy<bool>(() =>
+			{
+				var t = typeof(T);
+
+				// The parameter is null. Is T Nullable?
+				if (Nullable.GetUnderlyingType(t) != null)
+					return true;
+
+				// Not a Nullable, if it's a value type then null is not valid
+				return !t.GetTypeInfo().IsValueType;
+			});
 		}
 
 		/// <summary>
@@ -119,19 +132,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		public void RaiseCanExecuteChanged() =>
 			weakEventManager.HandleEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
 
-		static bool IsValidParameter(object o)
+		bool IsValidParameter(object o)
 		{
 			if (o != null)
 				return o is T; // The parameter isn't null, so we don't have to worry whether null is a valid option
 
-			var t = typeof(T);
-
-			// The parameter is null. Is T Nullable?
-			if (Nullable.GetUnderlyingType(t) != null)
-				return true;
-
-			// Not a Nullable, if it's a value type then null is not valid
-			return !t.GetTypeInfo().IsValueType;
+			return isNullableParameterType.Value;
 		}
 	}
 
