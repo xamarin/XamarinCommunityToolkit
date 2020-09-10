@@ -103,7 +103,8 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			remove => weakEventManager.RemoveEventHandler(value);
 		}
 
-		public async void Execute(object parameter) => await ExecuteAsync((T) parameter);
+		public async void Execute(object parameter) 
+			=> await ExecuteAsync((T) parameter);
 
 		/// <summary>
 		/// Execute the command async.
