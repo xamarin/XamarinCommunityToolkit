@@ -50,16 +50,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (layout.CascadeInputTransparent)
 					return true;
 
-				if (Platform.GetRenderer(element) is VisualElementRenderer<Xamarin.Forms.View> renderer)
-				{
-					// If the event is being bubbled up from a child which is not inputtransparent, we do not want
-					// it to be passed through (just up the tree)
-					//if (renderer.NotReallyHandled)
-					//{
-					//	return false;
-					//}
-				}
-
 				// This event isn't being bubbled up by a non-InputTransparent child layout
 				return true;
 			}
