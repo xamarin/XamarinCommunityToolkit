@@ -138,7 +138,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			{
 				executionCount++;
 				return executeTcs.Task;
-			});
+			})
+			{
+				AllowMultipleExecution = true
+			};
 
 			// Act
 			asyncCommand.Execute(null);
