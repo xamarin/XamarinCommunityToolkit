@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
@@ -16,33 +15,33 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			Assert.Throws<ArgumentNullException>(() => new AsyncCommand<object>(null));
 		}
 
-		[Fact]
-		public void CanExecute_NotNullable_Parameter()
+		[Theory]
+		[InlineData(true, 123)]
+		[InlineData(true, -456)]
+		[InlineData(false, 789.0)]
+		[InlineData(false, "string")]
+		[InlineData(false, null)]
+		public void CanExecute_Int_NotNullable_Parameter(bool canExecuteResult, object parameter)
 		{
 			// Arrange
 			var asyncCommand = new AsyncCommand<int>(i => Task.FromResult(true), i => true);
 
 			// Assert
-			Assert.True(asyncCommand.CanExecute(123));
-			Assert.False(asyncCommand.CanExecute(123M));
-			Assert.False(asyncCommand.CanExecute("a"));
-			Assert.False(asyncCommand.CanExecute(null));
-			Assert.False(asyncCommand.CanExecute(new object()));
-			Assert.False(asyncCommand.CanExecute(new List<int>()));
+			Assert.Equal(canExecuteResult, asyncCommand.CanExecute(parameter));
 		}
 
-		[Fact]
-		public void CanExecute_Nullable_Parameter()
+		[Theory]
+		[InlineData(true, null)]
+		[InlineData(true, true)]
+		[InlineData(false, 1)]
+		[InlineData(false, "string")]
+		public void CanExecute_Bool_Nullable_Parameter(bool canExecuteResult, object parameter)
 		{
 			// Arrange
 			var asyncCommand = new AsyncCommand<bool?>(i => Task.FromResult(true), i => true);
 
 			// Assert
-			Assert.True(asyncCommand.CanExecute(true));
-			Assert.True(asyncCommand.CanExecute(null));
-			Assert.False(asyncCommand.CanExecute(1));
-			Assert.False(asyncCommand.CanExecute(new object()));
-			Assert.False(asyncCommand.CanExecute(new List<int>()));
+			Assert.Equal(canExecuteResult, asyncCommand.CanExecute(parameter));
 		}
 
 		[Fact]
