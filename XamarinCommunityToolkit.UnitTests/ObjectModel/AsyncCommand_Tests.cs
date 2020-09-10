@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
@@ -134,23 +135,34 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			// Arrange
 			var executionCount = 0;
 			var executeTcs = new TaskCompletionSource<bool>();
+			var executionsDoneSemaphore = new SemaphoreSlim(0);
+
 			var asyncCommand = new AsyncCommand(() =>
 			{
-				executionCount++;
+				if (++executionCount == 2)
+					executeTcs.SetResult(true);
+
 				return executeTcs.Task;
 			})
 			{
-				AllowMultipleExecution = true
+				AllowMultipleExecution = false
+			};
+			asyncCommand.CanExecuteChanged += (sender, args) =>
+			{
+				if (executionCount != 2)
+					return;
+				if (asyncCommand.CanExecute(null))
+					executionsDoneSemaphore.Release();
 			};
 
 			// Act
 			asyncCommand.Execute(null);
 			asyncCommand.Execute(null);
-			executeTcs.SetResult(true);
 
 			// Assert
 			await executeTcs.Task;
-			Assert.True(asyncCommand.CanExecute(true));
+			await executionsDoneSemaphore.WaitAsync();
+			Assert.True(asyncCommand.CanExecute(null));
 			Assert.Equal(2, executionCount);
 		}
 	}
