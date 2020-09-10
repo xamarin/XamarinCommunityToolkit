@@ -9,6 +9,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 	public class AsyncCommand_Tests
 	{
 		[Fact]
+		public void Constructor_NullExecute()
+		{
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => new AsyncCommand(null));
+			Assert.Throws<ArgumentNullException>(() => new AsyncCommand<object>(null));
+		}
+
+		[Fact]
 		public void CanExecute_NotNullable_Parameter()
 		{
 			// Arrange
