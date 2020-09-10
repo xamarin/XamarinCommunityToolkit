@@ -74,6 +74,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		{
 			if (!IsValidParameter(parameter))
 				return false;
+
 			if (IsExecuting && !AllowMultipleExecution)
 				return false;
 
@@ -121,18 +122,13 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		static bool IsValidParameter(object o)
 		{
 			if (o != null)
-			{
-				// The parameter isn't null, so we don't have to worry whether null is a valid option
-				return o is T;
-			}
+				return o is T; // The parameter isn't null, so we don't have to worry whether null is a valid option
 
 			var t = typeof(T);
 
 			// The parameter is null. Is T Nullable?
 			if (Nullable.GetUnderlyingType(t) != null)
-			{
 				return true;
-			}
 
 			// Not a Nullable, if it's a value type then null is not valid
 			return !t.GetTypeInfo().IsValueType;
@@ -146,9 +142,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			onException, continueOnCapturedContext)
 		{
 			if (execute == null)
-			{
 				throw new ArgumentNullException(nameof(execute));
-			}
 		}
 	}
 }
