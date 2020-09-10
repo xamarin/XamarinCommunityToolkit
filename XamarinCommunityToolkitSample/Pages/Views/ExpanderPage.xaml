@@ -34,10 +34,10 @@
                             </views:Expander.Header>
                             <views:Expander.ContentTemplate>
                                 <DataTemplate>
-                                    <StackLayout BackgroundColor="Red" Spacing="0">
-                                        <BoxView HeightRequest="50" Color="Green" />
-                                        <BoxView HeightRequest="50" Color="Yellow" />
-                                        <BoxView HeightRequest="50" Color="Purple" />
+                                    <StackLayout Spacing="0" Margin="10" Padding="1" BackgroundColor="Black">
+                                        <BoxView HeightRequest="50" Color="White" />
+                                        <BoxView HeightRequest="50" Color="Red" />
+                                        <BoxView HeightRequest="50" Color="White" />
                                     </StackLayout>
                                 </DataTemplate>
                             </views:Expander.ContentTemplate>

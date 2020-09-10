@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
 using static System.Math;
@@ -9,7 +6,7 @@ using static System.Math;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[ContentProperty(nameof(Content))]
-	public class Expander : TemplatedView
+	public class Expander : BaseTemplatedView<StackLayout>
 	{
 		const string expandAnimationName = nameof(expandAnimationName);
 
@@ -17,11 +14,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public event EventHandler Tapped;
 
-		StackLayout mainLayout;
-
 		ContentView contentHolder;
 
-		readonly GestureRecognizer headerTapGestureRecognizer;
+		GestureRecognizer headerTapGestureRecognizer;
 
 		DataTemplate previousTemplate;
 
@@ -71,31 +66,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty ForceUpdateSizeCommandProperty
 			= BindableProperty.Create(nameof(ForceUpdateSizeCommand), typeof(ICommand), typeof(Expander), null, BindingMode.OneWayToSource, defaultValueCreator: GetDefaultForceUpdateSizeCommand);
-
-		public Expander()
-		{
-			ForceUpdateSizeCommand = new Command(ForceUpdateSize);
-			headerTapGestureRecognizer = new TapGestureRecognizer
-			{
-				CommandParameter = this,
-				Command = new Command(parameter =>
-				{
-					var parent = (parameter as View).Parent;
-					while (parent != null && !(parent is Page))
-					{
-						if (parent is Expander ancestorExpander)
-							ancestorExpander.ContentSizeRequest = -1;
-
-						parent = parent.Parent;
-					}
-					IsExpanded = !IsExpanded;
-					Command?.Execute(CommandParameter);
-					Tapped?.Invoke(this, EventArgs.Empty);
-				})
-			};
-
-			ControlTemplate = new ControlTemplate(typeof(StackLayout));
-		}
 
 		double Size => Direction.IsVertical()
 			? Height
@@ -219,10 +189,33 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnIsExpandedChanged();
 		}
 
+		protected override void OnControlInitialized(StackLayout control)
+		{
+			ForceUpdateSizeCommand = new Command(ForceUpdateSize);
+			headerTapGestureRecognizer = new TapGestureRecognizer
+			{
+				CommandParameter = this,
+				Command = new Command(parameter =>
+				{
+					var parent = (parameter as View).Parent;
+					while (parent != null && !(parent is Page))
+					{
+						if (parent is Expander ancestorExpander)
+							ancestorExpander.ContentSizeRequest = -1;
+
+						parent = parent.Parent;
+					}
+					IsExpanded = !IsExpanded;
+					Command?.Execute(CommandParameter);
+					Tapped?.Invoke(this, EventArgs.Empty);
+				})
+			};
+			control.Spacing = 0;
+		}
+
 		protected override void OnBindingContextChanged()
 		{
 			base.OnBindingContextChanged();
-			mainLayout.BindingContext = BindingContext;
 			lastVisibleSize = -1;
 			SetContent(true, true);
 		}
@@ -235,16 +228,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ForceUpdateSize();
 
 			previousSize = new Size(width, height);
-		}
-
-		protected override void OnChildAdded(Element child)
-		{
-			base.OnChildAdded(child);
-			if (mainLayout == null && child is StackLayout layout)
-			{
-				mainLayout = layout;
-				mainLayout.Spacing = 0;
-			}
 		}
 
 		static void OnHeaderPropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -326,15 +309,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (oldHeader != null)
 			{
 				oldHeader.GestureRecognizers.Remove(headerTapGestureRecognizer);
-				mainLayout.Children.Remove(oldHeader);
+				Control.Children.Remove(oldHeader);
 			}
 
 			if (Header != null)
 			{
 				if (Direction.IsRegularOrder())
-					mainLayout.Children.Insert(0, Header);
+					Control.Children.Insert(0, Header);
 				else
-					mainLayout.Children.Add(Header);
+					Control.Children.Add(Header);
 
 				Header.GestureRecognizers.Add(headerTapGestureRecognizer);
 			}
@@ -365,7 +348,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (contentHolder != null)
 			{
 				contentHolder.AbortAnimation(expandAnimationName);
-				mainLayout.Children.Remove(contentHolder);
+				Control.Children.Remove(contentHolder);
 				contentHolder = null;
 			}
 			if (Content != null)
@@ -379,9 +362,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ContentSizeRequest = 0;
 
 				if (Direction.IsRegularOrder())
-					mainLayout.Children.Add(contentHolder);
+					Control.Children.Add(contentHolder);
 				else
-					mainLayout.Children.Insert(0, contentHolder);
+					Control.Children.Insert(0, contentHolder);
 			}
 
 			if (!shouldIgnoreContentSetting)
@@ -409,7 +392,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			}
 
-			mainLayout.Orientation = Direction.IsVertical()
+			Control.Orientation = Direction.IsVertical()
 				? StackOrientation.Vertical
 				: StackOrientation.Horizontal;
 

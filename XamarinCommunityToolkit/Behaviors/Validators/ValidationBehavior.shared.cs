@@ -5,7 +5,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public abstract class ValidationBehavior : BaseBehavior
+	public abstract class ValidationBehavior : BaseBehavior<View>
 	{
 		public static readonly BindableProperty IsValidProperty =
 			BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(ValidationBehavior), true, BindingMode.OneWayToSource);
