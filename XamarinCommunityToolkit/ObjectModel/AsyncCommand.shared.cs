@@ -136,7 +136,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		bool IsValidParameter(object o)
 			=> o != null
 				? o is T // The parameter isn't null, so we don't have to worry whether null is a valid option
-				isNullableParameterType.Value;
+				: isNullableParameterType.Value;
 	}
 
 	public class AsyncCommand : AsyncCommand<object>
