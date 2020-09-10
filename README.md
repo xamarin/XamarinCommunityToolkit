@@ -61,6 +61,7 @@ To structure our project, we have adopted a range of namespaces. You can find th
 | Xamarin.CommunityToolkit.Converters | XAML converters, used to converted your data binding data into something your XAML understands |
 | Xamarin.CommunityToolkit.Effects | Effects to apply light-weight renderer changes to the Xamarin.Forms renderers |
 | Xamarin.CommunityToolkit.Extensions | XAML Markup Extensions to make your XAML even more functional |
+| Xamarin.CommunityToolkit.ObjectModel | Things that have to do with your models and objects. Probably handy for your MVVM needs |
 | Xamarin.CommunityToolkit.UI.Layout | Layouts such as WrapLayout, etc. |
 | Xamarin.CommunityToolkit.UI.Views | Controls such as TabView, etc. |
 | Xamarin.CommunityToolkit.SampleApp | Sample App where you can find all of the above for reference. Learn how to use them and see how it all looks |

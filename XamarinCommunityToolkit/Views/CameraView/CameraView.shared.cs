@@ -55,14 +55,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(CaptureOptionsProperty, value);
 		}
 
-		public static readonly BindableProperty KeepScreenOnProperty = BindableProperty.Create(nameof(KeepScreenOn), typeof(bool), typeof(CameraView), false);
-
-		public bool KeepScreenOn
-		{
-			get => (bool)GetValue(KeepScreenOnProperty);
-			set => SetValue(KeepScreenOnProperty, value);
-		}
-
 		public static readonly BindableProperty VideoStabilizationProperty = BindableProperty.Create(nameof(VideoStabilization), typeof(bool), typeof(CameraView), false);
 
 		public bool VideoStabilization
@@ -79,13 +71,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FlashModeProperty, value);
 		}
 
-		public static readonly BindableProperty PreviewAspectProperty = BindableProperty.Create(nameof(PreviewAspect), typeof(Aspect), typeof(CameraView), Aspect.AspectFit);
+		// Only supported by Android, removed until we have platform specifics
+		//public static readonly BindableProperty PreviewAspectProperty = BindableProperty.Create(nameof(PreviewAspect), typeof(Aspect), typeof(CameraView), Aspect.AspectFit);
 
-		public Aspect PreviewAspect
-		{
-			get => (Aspect)GetValue(PreviewAspectProperty);
-			set => SetValue(PreviewAspectProperty, value);
-		}
+		//public Aspect PreviewAspect
+		//{
+		//	get => (Aspect)GetValue(PreviewAspectProperty);
+		//	set => SetValue(PreviewAspectProperty, value);
+		//}
 
 		public static readonly BindableProperty ZoomProperty = BindableProperty.Create(nameof(Zoom), typeof(double), typeof(CameraView), 1d);
 
