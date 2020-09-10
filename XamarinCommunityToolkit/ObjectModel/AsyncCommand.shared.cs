@@ -67,14 +67,14 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 
 			isNullableParameterType = new Lazy<bool>(() =>
 			{
-				var t = typeof(T);
+				var type = typeof(T);
 				
 				// Is T Nullable?
-				if (Nullable.GetUnderlyingType(t) != null)
+				if (Nullable.GetUnderlyingType(type) != null)
 					return true;
 
 				// Not a Nullable, if it's a value type then it's not Nullable
-				return !t.GetTypeInfo().IsValueType;
+				return !type.GetTypeInfo().IsValueType;
 			});
 		}
 
