@@ -1,85 +1,84 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AsyncAwaitBestPractices.MVVM;
-using NUnit.Framework;
+﻿using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.ObjectModel;
+using Xunit;
 
-namespace AsyncAwaitBestPractices.UnitTests
+namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncCommandTests
 {
-    class Tests_IAsyncCommand : BaseAsyncCommandTest
+    public class Tests_IAsyncCommand : BaseAsyncCommandTests
     {
-        [TestCase(500)]
-        [TestCase(default)]
+        [Theory]
+        [InlineData(500)]
+        [InlineData(0)]
         public async Task AsyncCommand_ExecuteAsync_IntParameter_Test(int parameter)
         {
-            //Arrange
-            IAsyncCommand<int> command = new AsyncCommand<int>(IntParameterTask);
+            // Arrange
+            var command = new AsyncCommand<int>(IntParameterTask);
 
-            //Act
+            // Act
             await command.ExecuteAsync(parameter);
 
-            //Assert
-
+            // Assert
         }
 
-        [TestCase("Hello")]
-        [TestCase(default)]
+        [Theory]
+        [InlineData("Hello")]
+        [InlineData(default)]
         public async Task AsyncCommand_ExecuteAsync_StringParameter_Test(string parameter)
         {
-            //Arrange
+            // Arrange
             IAsyncCommand<string> command = new AsyncCommand<string>(StringParameterTask);
 
-            //Act
+            // Act
             await command.ExecuteAsync(parameter);
 
-            //Assert
-
+            // Assert
         }
 
-        [Test]
+        [Fact]
         public void IAsyncCommand_Parameter_CanExecuteTrue_Test()
         {
-            //Arrange
+            // Arrange
             IAsyncCommand<int> command = new AsyncCommand<int>(IntParameterTask, CanExecuteTrue);
 
-            //Act
+            // Act
 
-            //Assert
-            Assert.IsTrue(command.CanExecute(null));
+            // Assert
+            Assert.True(command.CanExecute(null));
         }
 
-        [Test]
+        [Fact]
         public void IAsyncCommand_Parameter_CanExecuteFalse_Test()
         {
-            //Arrange
+            // Arrange
             IAsyncCommand<int> command = new AsyncCommand<int>(IntParameterTask, CanExecuteFalse);
 
-            //Act
+            // Act
 
-            //Assert
+            // Assert
             Assert.False(command.CanExecute(null));
         }
 
-        [Test]
+        [Fact]
         public void IAsyncCommand_NoParameter_CanExecuteTrue_Test()
         {
-            //Arrange
+            // Arrange
             IAsyncCommand command = new AsyncCommand(NoParameterTask, CanExecuteTrue);
 
-            //Act
+            // Act
 
-            //Assert
-            Assert.IsTrue(command.CanExecute(null));
+            // Assert
+            Assert.True(command.CanExecute(null));
         }
 
-        [Test]
+        [Fact]
         public void IAsyncCommand_NoParameter_CanExecuteFalse_Test()
         {
-            //Arrange
+            // Arrange
             IAsyncCommand command = new AsyncCommand(NoParameterTask, CanExecuteFalse);
 
-            //Act
+            // Act
 
-            //Assert
+            // Assert
             Assert.False(command.CanExecute(null));
         }
     }

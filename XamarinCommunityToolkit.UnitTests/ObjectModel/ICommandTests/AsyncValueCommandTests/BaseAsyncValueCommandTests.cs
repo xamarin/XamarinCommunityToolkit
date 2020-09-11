@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommand
+namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests
 {
-    abstract class BaseAsyncValueCommandTest : BaseCommandTests
+    public abstract class BaseAsyncValueCommandTests : BaseCommandTests
     {
         protected new ValueTask NoParameterTask() => ValueTaskDelay(Delay);
 

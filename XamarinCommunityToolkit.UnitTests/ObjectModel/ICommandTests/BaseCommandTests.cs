@@ -4,7 +4,7 @@ using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 {
-    abstract class BaseCommandTests
+    public abstract class BaseCommandTests
     {
         protected event EventHandler TestEvent
         {

@@ -1,51 +1,53 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using NUnit.Framework;
+using Xamarin.CommunityToolkit.Exceptions;
+using Xamarin.CommunityToolkit.ObjectModel;
+using Xunit;
 
-namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommand
+namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests
 {
-    class Tests_ICommand_AsyncValueCommand : BaseAsyncValueTaskTest
+    public class Tests_ICommand_AsyncValueCommand : BaseAsyncValueCommandTests
     {
-        [TestCase(500)]
-        [TestCase(default)]
+        [Theory]
+        [InlineData(500)]
+        [InlineData(0)]
         public async Task ICommand_Execute_IntParameter_Test(int parameter)
         {
-            //Arrange
+            // Arrange
             ICommand command = new AsyncValueCommand<int>(IntParameterTask);
 
-            //Act
+            // Act
             command.Execute(parameter);
             await NoParameterTask();
 
-            //Assert
-
+            // Assert
         }
 
-        [TestCase("Hello")]
-        [TestCase(default)]
+        [Theory]
+        [InlineData("Hello")]
+        [InlineData(default)]
         public async Task ICommand_Execute_StringParameter_Test(string parameter)
         {
-            //Arrange
+            // Arrange
             ICommand command = new AsyncValueCommand<string>(StringParameterTask);
 
-            //Act
+            // Act
             command.Execute(parameter);
             await NoParameterTask();
 
-            //Assert
-
+            // Assert
         }
 
-        [Test]
+        [Fact]
         public async Task ICommand_ExecuteAsync_InvalidValueTypeParameter_Test()
         {
-            //Arrange
-            InvalidCommandParameterException? actualInvalidCommandParameterException = null;
-            InvalidCommandParameterException expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(string), typeof(int));
+            // Arrange
+            InvalidCommandParameterException actualInvalidCommandParameterException = null;
+            var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(string), typeof(int));
 
             ICommand command = new AsyncValueCommand<string>(StringParameterTask);
 
-            //Act
+            // Act
             try
             {
                 command.Execute(Delay);
@@ -57,22 +59,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
                 actualInvalidCommandParameterException = e;
             }
 
-            //Assert
-            Assert.IsNotNull(actualInvalidCommandParameterException);
-            Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
+            // Assert
+            Assert.NotNull(actualInvalidCommandParameterException);
+            Assert.Equal(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
         }
 
-        [Test]
+        [Fact]
         public async Task ICommand_ExecuteAsync_InvalidReferenceTypeParameter_Test()
         {
-            //Arrange
-            InvalidCommandParameterException? actualInvalidCommandParameterException = null;
-            InvalidCommandParameterException expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(int), typeof(string));
-
+            // Arrange
+            InvalidCommandParameterException actualInvalidCommandParameterException = null;
+            var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(int), typeof(string));
 
             ICommand command = new AsyncValueCommand<int>(IntParameterTask);
 
-            //Act
+            // Act
             try
             {
                 command.Execute("Hello World");
@@ -84,22 +85,22 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
                 actualInvalidCommandParameterException = e;
             }
 
-            //Assert
-            Assert.IsNotNull(actualInvalidCommandParameterException);
-            Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
+            // Assert
+            Assert.NotNull(actualInvalidCommandParameterException);
+            Assert.Equal(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
         }
 
-        [Test]
+        [Fact]
         public async Task ICommand_ExecuteAsync_ValueTypeParameter_Test()
         {
-            //Arrange
-            InvalidCommandParameterException? actualInvalidCommandParameterException = null;
-            InvalidCommandParameterException expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(int));
+            // Arrange
+            InvalidCommandParameterException actualInvalidCommandParameterException = null;
+            var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(int));
 
 
             ICommand command = new AsyncValueCommand<int>(IntParameterTask);
 
-            //Act
+            // Act
             try
             {
                 command.Execute(null);
@@ -111,69 +112,69 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
                 actualInvalidCommandParameterException = e;
             }
 
-            //Assert
-            Assert.IsNotNull(actualInvalidCommandParameterException);
-            Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
+            // Assert
+            Assert.NotNull(actualInvalidCommandParameterException);
+            Assert.Equal(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
         }
 
-        [Test]
+        [Fact]
         public void ICommand_Parameter_CanExecuteTrue_Test()
         {
-            //Arrange
+            // Arrange
             ICommand command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteTrue);
 
-            //Act
+            // Act
 
-            //Assert
+            // Assert
             Assert.True(command.CanExecute(null));
         }
 
-        [Test]
+        [Fact]
         public void ICommand_Parameter_CanExecuteFalse_Test()
         {
-            //Arrange
+            // Arrange
             ICommand command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteFalse);
 
-            //Act
+            // Act
 
-            //Assert
+            // Assert
             Assert.False(command.CanExecute(null));
         }
 
-        [Test]
+        [Fact]
         public void ICommand_NoParameter_CanExecuteFalse_Test()
         {
-            //Arrange
+            // Arrange
             ICommand command = new AsyncValueCommand(NoParameterTask, CanExecuteFalse);
 
-            //Act
+            // Act
 
-            //Assert
+            // Assert
             Assert.False(command.CanExecute(null));
         }
 
-        [Test]
+        [Fact]
         public void ICommand_Parameter_CanExecuteDynamic_Test()
         {
-            //Arrange
+            // Arrange
             ICommand command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteDynamic);
 
-            //Act
+            // Act
 
-            //Assert
+            // Assert
             Assert.True(command.CanExecute(true));
             Assert.False(command.CanExecute(false));
         }
 
-        [Test]
+        [Fact]
         public void ICommand_Parameter_CanExecuteChanged_Test()
         {
-            //Arrange
+            // Arrange
             ICommand command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteDynamic);
 
-            //Act
+            // Act
 
-            //Assert
+            // Assert
             Assert.True(command.CanExecute(true));
             Assert.False(command.CanExecute(false));
         }

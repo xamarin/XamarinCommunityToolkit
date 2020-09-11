@@ -92,9 +92,6 @@
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
-    <Compile Include="Helpers\SafeFireAndForgetExtensions.cs">
-      <SubType></SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
@@ -107,6 +104,7 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
     <Compile Include="**\*.uwp.cs" />
     <Compile Include="**\*.uwp.*.cs" />
@@ -141,25 +139,5 @@
     <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
       <Compile Include="**\*.tizen.cs" />
       <Compile Include="**\*.tizen.*.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <Compile Update="Helpers\WeakEventManagerService.shared.cs">
-        <SubType></SubType>
-      </Compile>
-      <Compile Update="ObjectModel\WeakEventManager.shared.cs">
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Helpers\Subscription.shared.cs">
-        <SubType></SubType>
-      </Compile>
-      <Compile Update="Exceptions\InvalidHandleEventException.shared.cs">
-        <SubType></SubType>
-      </Compile>
-      <Compile Update="Helpers\WeakEventManager.shared.cs">
-        <SubType></SubType>
-      </Compile>
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Exceptions\" />
     </ItemGroup>
 </Project>
