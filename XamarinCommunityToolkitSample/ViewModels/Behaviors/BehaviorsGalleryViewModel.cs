@@ -48,12 +48,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				typeof(RequiredStringValidationBehaviorPage),
 				nameof(RequiredStringValidationBehavior),
 				AppResources.RequiredStringValidationShortDescription
-        ),
-       new SectionModel(
-				typeof(UserStoppedTypingBehaviorPage),
-				nameof(UserStoppedTypingBehavior),
-				AppResources.UserStoppedTypingBehaviorShortDescription
+			),
+	        new SectionModel(
+					typeof(UserStoppedTypingBehaviorPage),
+					nameof(UserStoppedTypingBehavior),
+					AppResources.UserStoppedTypingBehaviorShortDescription
 			)
-		};
+			};
 	}
 }
