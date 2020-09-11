@@ -1,22 +1,17 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿// Inspired by AsyncAwaitBestPractices.MVVM.IAsyncCommand: https://github.com/brminnick/AsyncAwaitBestPractices
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
-	public interface IAsyncCommand<in T> : ICommand
+	/// <summary>
+    /// An Async implementation of ICommand for Task
+    /// </summary>
+	public interface IAsyncCommand<in T> : System.Windows.Input.ICommand
 	{
-		/// <summary>
-		/// Allow simultaneous/re-entrant execution of async Command. This is reflected on CanExecute result.
-		/// Default value is False.
-		/// </summary>
-		bool AllowMultipleExecution { get; set; }
-
 		/// <summary>
 		/// Executes the Command as a Task
 		/// </summary>
 		/// <returns>The Task to execute</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		Task ExecuteAsync(T parameter);
+		System.Threading.Tasks.Task ExecuteAsync(T parameter);
 
 		/// <summary>
 		/// Raises the CanExecuteChanged event.
@@ -24,7 +19,20 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		void RaiseCanExecuteChanged();
 	}
 
-	public interface IAsyncCommand : IAsyncCommand<object>
+	/// <summary>
+	/// An Async implementation of ICommand for Task
+	/// </summary>
+	public interface IAsyncCommand : System.Windows.Input.ICommand
 	{
+		/// <summary>
+		/// Executes the Command as a Task
+		/// </summary>
+		/// <returns>The Task to execute</returns>
+		System.Threading.Tasks.Task ExecuteAsync();
+
+		/// <summary>
+		/// Raises the CanExecuteChanged event.
+		/// </summary>
+		void RaiseCanExecuteChanged();
 	}
 }
