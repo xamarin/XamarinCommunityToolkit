@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
 
@@ -80,6 +81,62 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
             // Assert
             Assert.False(command.CanExecute(null));
+        }
+
+        [Fact]
+        public async Task IAsyncCommand_CanExecuteChanged_AllowsMultipleExecutions_Test()
+        {
+            // Arrange
+            var canExecuteChangedCount = 0;
+
+            IAsyncCommand<int> command = new AsyncCommand<int>(IntParameterTask);
+            command.CanExecuteChanged += handleCanExecuteChanged;
+
+            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+
+            Assert.True(command.AllowsMultipleExecutions);
+
+            // Act
+            var asyncCommandTask = command.ExecuteAsync(Delay);
+
+            // Assert
+            Assert.True(command.IsExecuting);
+            Assert.True(command.CanExecute(null));
+
+            // Act
+            await asyncCommandTask;
+
+            // Assert
+            Assert.True(command.CanExecute(null));
+            Assert.Equal(0, canExecuteChangedCount);
+        }
+
+        [Fact]
+        public async Task IAsyncCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
+        {
+            // Arrange
+            var canExecuteChangedCount = 0;
+
+            IAsyncCommand<int> command = new AsyncCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
+            command.CanExecuteChanged += handleCanExecuteChanged;
+
+            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+
+            Assert.False(command.AllowsMultipleExecutions);
+
+            // Act
+            var asyncCommandTask = command.ExecuteAsync(Delay);
+
+            // Assert
+            Assert.True(command.IsExecuting);
+            Assert.False(command.CanExecute(null));
+
+            // Act
+            await asyncCommandTask;
+
+            // Assert
+            Assert.True(command.CanExecute(null));
+            Assert.Equal(2, canExecuteChangedCount);
         }
     }
 }

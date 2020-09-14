@@ -139,5 +139,61 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
             Assert.True(didCanExecuteChangeFire);
             Assert.True(command.CanExecute(null));
         }
+
+        [Fact]
+        public async Task AsyncValueCommand_CanExecuteChanged_AllowsMultipleExecutions_Test()
+        {
+            // Arrange
+            var canExecuteChangedCount = 0;
+
+            var command = new AsyncValueCommand<int>(IntParameterTask);
+            command.CanExecuteChanged += handleCanExecuteChanged;
+
+            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+
+            Assert.True(command.AllowsMultipleExecutions);
+
+            // Act
+            var asyncCommandTask = command.ExecuteAsync(2000);
+
+            // Assert
+            Assert.True(command.IsExecuting);
+            Assert.True(command.CanExecute(null));
+
+            // Act
+            await asyncCommandTask;
+
+            // Assert
+            Assert.True(command.CanExecute(null));
+            Assert.Equal(0, canExecuteChangedCount);
+        }
+
+        [Fact]
+        public async Task AsyncValueCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
+        {
+            // Arrange
+            var canExecuteChangedCount = 0;
+
+            var command = new AsyncValueCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
+            command.CanExecuteChanged += handleCanExecuteChanged;
+
+            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+
+            Assert.False(command.AllowsMultipleExecutions);
+
+            // Act
+            var asyncCommandTask = command.ExecuteAsync(2000);
+
+            // Assert
+            Assert.True(command.IsExecuting);
+            Assert.False(command.CanExecute(null));
+
+            // Act
+            await asyncCommandTask;
+
+            // Assert
+            Assert.True(command.CanExecute(null));
+            Assert.Equal(2, canExecuteChangedCount);
+        }
     }
 }

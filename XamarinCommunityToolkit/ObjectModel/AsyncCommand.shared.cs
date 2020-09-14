@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
-using Xamarin.CommunityToolkit.Helpers;
 
 // Inspired by AsyncAwaitBestPractices.MVVM.AsyncCommand<T>: https://github.com/brminnick/AsyncAwaitBestPractices
 namespace Xamarin.CommunityToolkit.ObjectModel
@@ -11,15 +10,11 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// <summary>
 	/// An implementation of IAsyncCommand. Allows Commands to safely be used asynchronously with Task.
 	/// </summary>
-	public class AsyncCommand<T> : IAsyncCommand<T>
+	public class AsyncCommand<T> : BaseCommand, IAsyncCommand<T>
 	{
 		readonly Func<T, Task> execute;
-		readonly Func<object, bool> canExecute;
 		readonly Action<Exception> onException;
 		readonly bool continueOnCapturedContext;
-		readonly WeakEventManager weakEventManager = new WeakEventManager();
-
-		int executionCount;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:TaskExtensions.MVVM.AsyncCommand`1"/> class.
@@ -34,63 +29,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
+            : base(canExecute, allowsMultipleExecutions)
 		{
 			this.execute = execute ?? throw new ArgumentNullException(nameof(execute), $"{nameof(execute)} cannot be null");
-			this.canExecute = canExecute ?? (_ => true);
 			this.onException = onException;
 			this.continueOnCapturedContext = continueOnCapturedContext;
-
-			AllowsMultipleExecutions = allowsMultipleExecutions;
 		}
-
-		/// <summary>
-		/// Occurs when changes occur that affect whether or not the command should execute
-		/// </summary>
-		public event EventHandler CanExecuteChanged
-		{
-			add => weakEventManager.AddEventHandler(value);
-			remove => weakEventManager.RemoveEventHandler(value);
-		}
-
-		/// <summary>
-		/// Returns true when the Command is currently executing. Returns false when the Command is not executing
-		/// </summary>
-		public bool IsExecuting => ExecutionCount > 0;
-
-		/// <summary>
-		/// Returns true if the Command allows simultaneous executions
-		/// </summary>
-		public bool AllowsMultipleExecutions { get; }
-
-		int ExecutionCount
-		{
-			get => executionCount;
-			set
-			{
-				if (executionCount != value)
-				{
-					executionCount = value;
-					RaiseCanExecuteChanged();
-				}
-			}
-		}
-
-		/// <summary>
-		/// Determines whether the command can execute in its current state
-		/// </summary>
-		/// <returns><c>true</c>, if this command can be executed; otherwise, <c>false</c>.</returns>
-		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		public bool CanExecute(object parameter) => (AllowsMultipleExecutions, IsExecuting) switch
-		{
-			(true, _) => canExecute(parameter),
-			(false, true) => false,
-			(false, false) => canExecute(parameter),
-		};
-
-		/// <summary>
-		/// Raises the CanExecuteChanged event.
-		/// </summary>
-		public void RaiseCanExecuteChanged() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
 
 		/// <summary>
 		/// Executes the Command as a Task
@@ -143,15 +87,11 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// <summary>
 	/// An implementation of IAsyncCommand. Allows Commands to safely be used asynchronously with Task.
 	/// </summary>
-	public class AsyncCommand : IAsyncCommand
+	public class AsyncCommand : BaseCommand, IAsyncCommand
 	{
 		readonly Func<Task> execute;
-		readonly Func<object, bool> canExecute;
 		readonly Action<Exception> onException;
 		readonly bool continueOnCapturedContext;
-		readonly WeakEventManager weakEventManager = new WeakEventManager();
-
-		int executionCount;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="T:TaskExtensions.MVVM.AsyncCommand`1"/> class.
@@ -166,63 +106,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
+			: base(canExecute, allowsMultipleExecutions)
 		{
 			this.execute = execute ?? throw new ArgumentNullException(nameof(execute), $"{nameof(execute)} cannot be null");
-			this.canExecute = canExecute ?? (_ => true);
 			this.onException = onException;
 			this.continueOnCapturedContext = continueOnCapturedContext;
-
-			AllowsMultipleExecutions = allowsMultipleExecutions;
 		}
-
-		/// <summary>
-		/// Occurs when changes occur that affect whether or not the command should execute
-		/// </summary>
-		public event EventHandler CanExecuteChanged
-		{
-			add => weakEventManager.AddEventHandler(value);
-			remove => weakEventManager.RemoveEventHandler(value);
-		}
-
-		/// <summary>
-		/// Returns true when the Command is currently executing. Returns false when the Command is not executing
-		/// </summary>
-		public bool IsExecuting => ExecutionCount > 0;
-
-		/// <summary>
-		/// Returns true if the Command allows simultaneous executions
-		/// </summary>
-		public bool AllowsMultipleExecutions { get; }
-
-		int ExecutionCount
-		{
-			get => executionCount;
-			set
-			{
-				if (executionCount != value)
-				{
-					executionCount = value;
-					RaiseCanExecuteChanged();
-				}
-			}
-		}
-
-		/// <summary>
-		/// Determines whether the command can execute in its current state
-		/// </summary>
-		/// <returns><c>true</c>, if this command can be executed; otherwise, <c>false</c>.</returns>
-		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		public bool CanExecute(object parameter) => (AllowsMultipleExecutions, IsExecuting) switch
-		{
-			(true, _) => canExecute(parameter),
-			(false, true) => false,
-			(false, false) => canExecute(parameter),
-		};
-
-		/// <summary>
-		/// Raises the CanExecuteChanged event.
-		/// </summary>
-		public void RaiseCanExecuteChanged() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
 
 		/// <summary>
 		/// Executes the Command as a Task
@@ -247,6 +136,6 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			}
 		}
 
-		async void ICommand.Execute(object parameter) => await execute().ConfigureAwait(continueOnCapturedContext);
+		async void ICommand.Execute(object parameter) => await ExecuteAsync().ConfigureAwait(continueOnCapturedContext);
 	}
 }
