@@ -1,25 +1,44 @@
 ﻿using System;
+using System.IO;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaCapturedEventArgs : EventArgs
 	{
+		private readonly Lazy<ImageSource> imageSource;
+		private readonly Lazy<MediaSource> mediaSource;
+
 		internal MediaCapturedEventArgs(
-			object data = null,
-			ImageSource image = null,
-			MediaSource video = null)
+			string path = null,
+			byte[] imageData = null)
 		{
-			Data = data;
-			Image = image;
-			Video = video;
+			Path = path;
+			ImageData = imageData;
+			imageSource = new Lazy<ImageSource>(GetImageSource);
+			mediaSource = new Lazy<MediaSource>(GetMediaSource);
 		}
 
 		/// <summary>
-		/// Raw image data, only filled when taking a picture
+		/// Path of the saved file, only filled when taking a video or a picture and SavePhotoToFile is true
 		/// </summary>
-		public object Data { get; }
-		public ImageSource Image { get; }
-		public MediaSource Video { get; }
+		public string Path { get; }
+		/// <summary>
+		/// Raw image data, only filled when taking a picture and SavePhotoToFile is false
+		/// </summary>
+		public byte[] ImageData { get; }
+
+		public ImageSource Image => imageSource.Value;
+
+		public MediaSource Video => mediaSource.Value;
+
+		private ImageSource GetImageSource()
+		{
+			if (ImageData != null)
+				return ImageSource.FromStream(() => new MemoryStream(ImageData));
+			return !string.IsNullOrEmpty(Path) ? Path : null;
+		}
+
+		private MediaSource GetMediaSource() => !string.IsNullOrEmpty(Path) ? Path : null;
 	}
 }
