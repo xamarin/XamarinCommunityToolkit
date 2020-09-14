@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		public string Separator { get; set; }
 
 		/// <summary>
-		/// Concatenates the members of a collection, using the specified separator between each member.
+		/// Concatenates the items of a collection, using the specified separator between each item.
 		/// </summary>
 		/// <param name="value">The collection to convert.</param>
 		/// <param name="targetType">The type of the binding target property.</param>
