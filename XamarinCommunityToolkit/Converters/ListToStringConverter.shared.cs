@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	public class ListToStringConverter : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
-		/// The separator that should be between each coolection member.
+		/// The separator that should be between each item in the collection
 		/// </summary>
 		public string Separator { get; set; }
 
