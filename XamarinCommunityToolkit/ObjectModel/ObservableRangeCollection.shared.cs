@@ -55,8 +55,8 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 				return;
 			}
 
-			var changedItems = collection is List<T> 
-				? (List<T>)collection 
+			var changedItems = collection is List<T>
+				? (List<T>)collection
 				: new List<T>(collection);
 
 			RaiseChangeNotificationEvents(
