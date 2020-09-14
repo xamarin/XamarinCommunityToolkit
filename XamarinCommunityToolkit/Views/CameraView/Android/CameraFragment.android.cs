@@ -303,13 +303,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPhoto(object sender, byte[] data) =>
+		void OnPhoto(object sender, Tuple<string, byte[]> tuple) =>
 			Device.BeginInvokeOnMainThread(() =>
-				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(data, ImageSource.FromStream(() => new MemoryStream(data)))));
+				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2)));
 
-		void OnVideo(object sender, string data) =>
+		void OnVideo(object sender, string path) =>
 			Device.BeginInvokeOnMainThread(() =>
-				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(video: MediaSource.FromFile(data))));
+				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(path)));
 
 		void SetupImageReader()
 		{
@@ -320,10 +320,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var readerListener = new ImageAvailableListener();
 			readerListener.Photo += (_, bytes) =>
 			{
+				string filePath = null;
 				if (Element.SavePhotoToFile)
-					File.WriteAllBytes(ConstructMediaFilename(null, "jpg"), bytes);
+				{
+					filePath = ConstructMediaFilename(null, "jpg");
+					File.WriteAllBytes(filePath, bytes);
+				}
 				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, bytes);
+				OnPhoto(this, new Tuple<string, byte[]>(filePath, Element.SavePhotoToFile ? null : bytes));
 			};
 
 			photoReader.SetOnImageAvailableListener(readerListener, backgroundHandler);

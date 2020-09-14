@@ -107,7 +107,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (mediaRecording != null)
 						await HandleVideo();
 					else
-						Element.RaiseMediaCaptured(new MediaCapturedEventArgs(image: await GetImage()));
+					{
+						var tuple = await GetImage();
+						Element.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2));
+					}
 					break;
 				case CameraCaptureOptions.Video:
 					await HandleVideo();
@@ -120,11 +123,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (mediaRecording == null)
 					await StartRecord();
 				else
-					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(video: await StopRecord()));
+					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(await StopRecord()));
 			}
 		}
 
-		async Task<ImageSource> GetImage()
+		async Task<Tuple<string, byte[]>> GetImage()
 		{
 			IsBusy = true;
 			var imageProp = ImageEncodingProperties.CreateUncompressed(MediaPixelFormat.Bgra8);
@@ -132,6 +135,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var capturedPhoto = await lowLagCapture.CaptureAsync();
 
 			await lowLagCapture.FinishAsync();
+			string filePath = null;
 			if (Element.SavePhotoToFile)
 			{
 				//TODO replace platform specifics
@@ -139,6 +143,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var localFolder = "PhotoFolder";
 				var destinationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(localFolder, CreationCollisionOption.OpenIfExists);
 				var file = await destinationFolder.CreateFileAsync($"{DateTime.Now.ToString("yyyyddMM_HHmmss")}.jpg", CreationCollisionOption.GenerateUniqueName);
+				filePath = file.Path;
 				using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
 				{
 					var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
@@ -152,9 +157,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var outputEncoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, outputStream);
 			outputEncoder.SetSoftwareBitmap(capturedPhoto.Frame.SoftwareBitmap);
 			await outputEncoder.FlushAsync();
-
+			
+			byte[] imageData = null;
+			if (!Element.SavePhotoToFile)
+			{
+				using var memoryStream = new MemoryStream();
+				await outputStream.AsStream().CopyToAsync(memoryStream);
+				imageData = memoryStream.ToArray();
+			}
 			IsBusy = false;
-			return ImageSource.FromStream(() => outputStream.AsStream());
+			return new Tuple<string, byte[]>(filePath, imageData);
 		}
 
 		async Task StartRecord()
@@ -187,7 +199,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			await mediaRecording.StartAsync();
 		}
 
-		async Task<MediaSource> StopRecord()
+		async Task<string> StopRecord()
 		{
 			if (mediaRecording == null)
 				return null;
@@ -214,7 +226,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				videoStabilizationEffect = null;
 			}
 
-			return MediaSource.FromFile(filePath);
+			return filePath;
 		}
 
 		void MediaCaptureFailed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
@@ -374,7 +386,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				await mediaCapture.StopPreviewAsync();
 
 			if (mediaRecording != null)
-				Element.RaiseMediaCaptured(new MediaCapturedEventArgs(video: await StopRecord()));
+				Element.RaiseMediaCaptured(new MediaCapturedEventArgs(await StopRecord()));
 
 			await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
 			{
