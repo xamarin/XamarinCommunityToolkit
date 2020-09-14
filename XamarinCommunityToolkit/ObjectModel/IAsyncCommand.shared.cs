@@ -7,6 +7,16 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	public interface IAsyncCommand<in T> : System.Windows.Input.ICommand
 	{
 		/// <summary>
+		/// Returns true when the Command is currently executing. Returns false when the Command is not executing
+		/// </summary>
+		bool IsExecuting { get; }
+
+		/// <summary>
+		/// Returns true if the Command allows simultaneous executions
+		/// </summary>
+		bool AllowsMultipleExecutions { get; }
+
+		/// <summary>
 		/// Executes the Command as a Task
 		/// </summary>
 		/// <returns>The Task to execute</returns>
@@ -24,6 +34,16 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// </summary>
 	public interface IAsyncCommand : System.Windows.Input.ICommand
 	{
+		/// <summary>
+		/// Returns true when the Command is currently executing. Returns false when the Command is not executing
+		/// </summary>
+		bool IsExecuting { get; }
+
+		/// <summary>
+		/// Returns true if the Command allows simultaneous executions
+		/// </summary>
+		bool AllowsMultipleExecutions { get; }
+
 		/// <summary>
 		/// Executes the Command as a Task
 		/// </summary>
