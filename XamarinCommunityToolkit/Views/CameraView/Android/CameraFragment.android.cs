@@ -690,12 +690,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (permissionsRequested != null)
 				await permissionsRequested.Task;
 
+			var permissionsToRequest = new List<string>();
 			cameraPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.Camera) == Permission.Granted;
-			audioPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.RecordAudio) == Permission.Granted;
-			if (!cameraPermissionsGranted || !audioPermissionsGranted)
+			if (!cameraPermissionsGranted)
+				permissionsToRequest.Add(Manifest.Permission.Camera);
+			if (Element.CaptureOptions == CameraCaptureOptions.Video)
+			{
+				audioPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.RecordAudio) == Permission.Granted;
+				if (!audioPermissionsGranted)
+					permissionsToRequest.Add(Manifest.Permission.RecordAudio);
+			}
+			if (permissionsToRequest.Count > 0)
 			{
 				permissionsRequested = new TaskCompletionSource<bool>();
-				RequestPermissions(new[] { Manifest.Permission.Camera, Manifest.Permission.RecordAudio }, requestCode: 1);
+				RequestPermissions(permissionsToRequest.ToArray(), requestCode: 1);
 				await permissionsRequested.Task;
 				permissionsRequested = null;
 			}
