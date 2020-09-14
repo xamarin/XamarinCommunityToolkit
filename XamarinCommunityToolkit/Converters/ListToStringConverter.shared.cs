@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// </summary>
 		/// <param name="value">The collection to convert.</param>
 		/// <param name="targetType">The type of the binding target property.</param>
-		/// <param name="parameter">The separator that should be between each coolection member.</param>
+		/// <param name="parameter">The separator that should be between each collection item.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>Concatenated members string.</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
