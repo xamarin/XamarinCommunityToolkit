@@ -116,16 +116,16 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			}
 		}
 
-		async void ICommand.Execute(object parameter)
+		void ICommand.Execute(object parameter)
 		{
 			switch (parameter)
 			{
 				case T validParameter:
-					await ExecuteAsync(validParameter).ConfigureAwait(continueOnCapturedContext);
+					Execute(validParameter);
 					break;
 
 				case null when !typeof(T).GetTypeInfo().IsValueType:
-					await ExecuteAsync((T)parameter).ConfigureAwait(continueOnCapturedContext);
+					Execute((T)parameter);
 					break;
 
 				case null:
@@ -134,6 +134,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 				default:
 					throw new InvalidCommandParameterException(typeof(T), parameter.GetType());
 			}
+
+			// Use local method to defer async void from ICommand.Execute, allowing InvalidCommandParameterException to be thrown on the calling thread context before reaching an async method
+			async void Execute(T parameter) => await ExecuteAsync(parameter).ConfigureAwait(continueOnCapturedContext);
 		}
 	}
 
