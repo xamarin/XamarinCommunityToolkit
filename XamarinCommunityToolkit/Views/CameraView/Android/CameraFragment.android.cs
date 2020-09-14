@@ -624,10 +624,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public void SetVideoStabilization()
 		{
 			if (sessionBuilder == null || !stabilizationSupported)
-			{
-				sessionBuilder.Set(CaptureRequest.ControlVideoStabilizationMode,
-					(int)(Element.VideoStabilization ? ControlVideoStabilizationMode.On : ControlVideoStabilizationMode.Off));
-			}
+				return;
+			sessionBuilder.Set(CaptureRequest.ControlVideoStabilizationMode,
+				(int)(Element.VideoStabilization ? ControlVideoStabilizationMode.On : ControlVideoStabilizationMode.Off));
 		}
 
 		public void ApplyZoom()
