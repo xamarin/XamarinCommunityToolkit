@@ -1,28 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 {
     public abstract class BaseCommandTests
     {
-        protected event EventHandler TestEvent
-        {
-            add => TestWeakEventManager.AddEventHandler(value);
-            remove => TestWeakEventManager.RemoveEventHandler(value);
-        }
-
-        protected event EventHandler<string> TestStringEvent
-        {
-            add => TestStringWeakEventManager.AddEventHandler(value);
-            remove => TestStringWeakEventManager.RemoveEventHandler(value);
-        }
-
-        protected const int Delay = 500;
-
-        protected WeakEventManager TestWeakEventManager { get; } = new WeakEventManager();
-
-        protected WeakEventManager<string> TestStringWeakEventManager { get; } = new WeakEventManager<string>();
+        public const int Delay = 500;
 
         protected Task NoParameterTask() => Task.Delay(Delay);
 

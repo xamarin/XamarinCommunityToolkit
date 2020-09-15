@@ -5,195 +5,251 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests
 {
-    public class Tests_AsyncValueCommand : BaseAsyncValueCommandTests
+	public class AsyncValueCommandTests : BaseAsyncValueCommandTests
 	{
-        [Fact]
-        public void AsyncValueCommandNullExecuteParameter()
-        {
-            // Arrange
+		[Fact]
+		public void AsyncValueCommandNullExecuteParameter()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
+			// Assert
 #pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
-            Assert.Throws<ArgumentNullException>(() => new AsyncValueCommand(null));
+			Assert.Throws<ArgumentNullException>(() => new AsyncValueCommand(null));
 #pragma warning restore CS8625
-        }
+		}
 
-        [Fact]
-        public void AsyncValueCommandT_NullExecuteParameter()
-        {
-            // Arrange
+		[Fact]
+		public void AsyncValueCommandT_NullExecuteParameter()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
+			// Assert
 #pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
-            Assert.Throws<ArgumentNullException>(() => new AsyncValueCommand<object>(null));
+			Assert.Throws<ArgumentNullException>(() => new AsyncValueCommand<object>(null));
 #pragma warning restore CS8625
-        }
+		}
 
-        [Theory]
-        [InlineData(500)]
-        [InlineData(0)]
-        public async Task AsyncValueCommandExecuteAsync_IntParameter_Test(int parameter)
-        {
-            // Arrange
-            var command = new AsyncValueCommand<int>(IntParameterTask);
+		[Theory]
+		[InlineData(500)]
+		[InlineData(0)]
+		public async Task AsyncValueCommandExecuteAsync_IntParameter_Test(int parameter)
+		{
+			// Arrange
+			var command = new AsyncValueCommand<int>(IntParameterTask);
 
-            // Act
-            await command.ExecuteAsync(parameter);
+			// Act
+			await command.ExecuteAsync(parameter);
 
-            // Assert
-        }
+			// Assert
+		}
 
-        [Theory]
-        [InlineData("Hello")]
-        [InlineData(default)]
-        public async Task AsyncValueCommandExecuteAsync_StringParameter_Test(string parameter)
-        {
-            // Arrange
-            var command = new AsyncValueCommand<string>(StringParameterTask);
+		[Theory]
+		[InlineData("Hello")]
+		[InlineData(default)]
+		public async Task AsyncValueCommandExecuteAsync_StringParameter_Test(string parameter)
+		{
+			// Arrange
+			var command = new AsyncValueCommand<string>(StringParameterTask);
 
-            // Act
-            await command.ExecuteAsync(parameter);
+			// Act
+			await command.ExecuteAsync(parameter);
 
-            // Assert
-        }
+			// Assert
+		}
 
-        [Fact]
-        public void AsyncValueCommandParameter_CanExecuteTrue_Test()
-        {
-            // Arrange
-            var command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteTrue);
+		[Fact]
+		public void AsyncValueCommandParameter_CanExecuteTrue_Test()
+		{
+			// Arrange
+			var command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteTrue);
 
-            // Act
+			// Act
 
-            // Assert
+			// Assert
 
-            Assert.True(command.CanExecute(null));
-        }
+			Assert.True(command.CanExecute(null));
+		}
 
-        [Fact]
-        public void AsyncValueCommandParameter_CanExecuteFalse_Test()
-        {
-            // Arrange
-            var command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteFalse);
+		[Fact]
+		public void AsyncValueCommandParameter_CanExecuteFalse_Test()
+		{
+			// Arrange
+			var command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteFalse);
 
-            // Act
+			// Act
 
-            // Assert
-            Assert.False(command.CanExecute(null));
-        }
+			// Assert
+			Assert.False(command.CanExecute(null));
+		}
 
-        [Fact]
-        public void AsyncValueCommandNoParameter_CanExecuteTrue_Test()
-        {
-            // Arrange
-            var command = new AsyncValueCommand(NoParameterTask, CanExecuteTrue);
+		[Fact]
+		public void AsyncValueCommandNoParameter_CanExecuteTrue_Test()
+		{
+			// Arrange
+			var command = new AsyncValueCommand(NoParameterTask, CanExecuteTrue);
 
-            // Act
+			// Act
 
-            // Assert
-            Assert.True(command.CanExecute(null));
-        }
+			// Assert
+			Assert.True(command.CanExecute(null));
+		}
 
-        [Fact]
-        public void AsyncValueCommandNoParameter_CanExecuteFalse_Test()
-        {
-            // Arrange
-            var command = new AsyncValueCommand(NoParameterTask, CanExecuteFalse);
+		[Fact]
+		public void AsyncValueCommandNoParameter_CanExecuteFalse_Test()
+		{
+			// Arrange
+			var command = new AsyncValueCommand(NoParameterTask, CanExecuteFalse);
 
-            // Act
+			// Act
 
-            // Assert
-            Assert.False(command.CanExecute(null));
-        }
+			// Assert
+			Assert.False(command.CanExecute(null));
+		}
 
-        [Fact]
-        public void AsyncValueCommandCanExecuteChanged_Test()
-        {
-            // Arrange
-            var canCommandExecute = false;
-            var didCanExecuteChangeFire = false;
+		[Fact]
+		public void AsyncValueCommandCanExecuteChanged_Test()
+		{
+			// Arrange
+			var canCommandExecute = false;
+			var didCanExecuteChangeFire = false;
 
-            var command = new AsyncValueCommand(NoParameterTask, commandCanExecute);
-            command.CanExecuteChanged += handleCanExecuteChanged;
+			var command = new AsyncValueCommand(NoParameterTask, commandCanExecute);
+			command.CanExecuteChanged += handleCanExecuteChanged;
 
-            void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
-            bool commandCanExecute(object parameter) => canCommandExecute;
+			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+			bool commandCanExecute(object parameter) => canCommandExecute;
 
-            Assert.False(command.CanExecute(null));
+			Assert.False(command.CanExecute(null));
 
-            // Act
-            canCommandExecute = true;
+			// Act
+			canCommandExecute = true;
 
-            // Assert
-            Assert.True(command.CanExecute(null));
-            Assert.False(didCanExecuteChangeFire);
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.False(didCanExecuteChangeFire);
 
-            // Act
-            command.RaiseCanExecuteChanged();
+			// Act
+			command.RaiseCanExecuteChanged();
 
-            // Assert
-            Assert.True(didCanExecuteChangeFire);
-            Assert.True(command.CanExecute(null));
-        }
+			// Assert
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
+		}
 
-        [Fact]
-        public async Task AsyncValueCommand_CanExecuteChanged_AllowsMultipleExecutions_Test()
-        {
-            // Arrange
-            var canExecuteChangedCount = 0;
+		[Fact]
+		public async Task AsyncValueCommand_Parameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
+		{
+			// Arrange
+			var canExecuteChangedCount = 0;
 
-            var command = new AsyncValueCommand<int>(IntParameterTask);
-            command.CanExecuteChanged += handleCanExecuteChanged;
+			var command = new AsyncValueCommand<int>(IntParameterTask);
+			command.CanExecuteChanged += handleCanExecuteChanged;
 
-            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
 
-            Assert.True(command.AllowsMultipleExecutions);
+			Assert.True(command.AllowsMultipleExecutions);
 
-            // Act
-            var asyncCommandTask = command.ExecuteAsync(2000);
+			// Act
+			var asyncCommandTask = command.ExecuteAsync(Delay);
 
-            // Assert
-            Assert.True(command.IsExecuting);
-            Assert.True(command.CanExecute(null));
+			// Assert
+			Assert.True(command.IsExecuting);
+			Assert.True(command.CanExecute(null));
 
-            // Act
-            await asyncCommandTask;
+			// Act
+			await asyncCommandTask;
 
-            // Assert
-            Assert.True(command.CanExecute(null));
-            Assert.Equal(0, canExecuteChangedCount);
-        }
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(0, canExecuteChangedCount);
+		}
 
-        [Fact]
-        public async Task AsyncValueCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
-        {
-            // Arrange
-            var canExecuteChangedCount = 0;
+		[Fact]
+		public async Task AsyncValueCommand_Parameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
+		{
+			// Arrange
+			var canExecuteChangedCount = 0;
 
-            var command = new AsyncValueCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
-            command.CanExecuteChanged += handleCanExecuteChanged;
+			var command = new AsyncValueCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
+			command.CanExecuteChanged += handleCanExecuteChanged;
 
-            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
 
-            Assert.False(command.AllowsMultipleExecutions);
+			Assert.False(command.AllowsMultipleExecutions);
 
-            // Act
-            var asyncCommandTask = command.ExecuteAsync(2000);
+			// Act
+			var asyncCommandTask = command.ExecuteAsync(Delay);
 
-            // Assert
-            Assert.True(command.IsExecuting);
-            Assert.False(command.CanExecute(null));
+			// Assert
+			Assert.True(command.IsExecuting);
+			Assert.False(command.CanExecute(null));
 
-            // Act
-            await asyncCommandTask;
+			// Act
+			await asyncCommandTask;
 
-            // Assert
-            Assert.True(command.CanExecute(null));
-            Assert.Equal(2, canExecuteChangedCount);
-        }
-    }
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(2, canExecuteChangedCount);
+		}
+
+		[Fact]
+		public async Task AsyncValueCommand_NoParameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
+		{
+			// Arrange
+			var canExecuteChangedCount = 0;
+
+			var command = new AsyncValueCommand(() => IntParameterTask(Delay));
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+
+			Assert.True(command.AllowsMultipleExecutions);
+
+			// Act
+			var asyncCommandTask = command.ExecuteAsync();
+
+			// Assert
+			Assert.True(command.IsExecuting);
+			Assert.True(command.CanExecute(null));
+
+			// Act
+			await asyncCommandTask;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(0, canExecuteChangedCount);
+		}
+
+		[Fact]
+		public async Task AsyncValueCommand_NoParameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
+		{
+			// Arrange
+			var canExecuteChangedCount = 0;
+
+			var command = new AsyncValueCommand(() => IntParameterTask(Delay), allowsMultipleExecutions: false);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+
+			Assert.False(command.AllowsMultipleExecutions);
+
+			// Act
+			var asyncCommandTask = command.ExecuteAsync();
+
+			// Assert
+			Assert.True(command.IsExecuting);
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			await asyncCommandTask;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(2, canExecuteChangedCount);
+		}
+	}
 }

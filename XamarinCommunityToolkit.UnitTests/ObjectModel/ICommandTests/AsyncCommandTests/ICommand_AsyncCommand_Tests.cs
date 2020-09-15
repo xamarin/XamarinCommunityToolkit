@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncCommandTests
 {
-	public class Tests_ICommand_AsyncCommand : BaseAsyncCommandTests
+	public class ICommand_AsyncCommandTests : BaseAsyncCommandTests
 	{
 		[Theory]
 		[InlineData(500)]
@@ -154,7 +154,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		}
 
 		[Fact]
-		public async Task ICommand_CanExecuteChanged_AllowsMultipleExecutions_Test()
+		public async Task ICommand_Parameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
 		{
 			// Arrange
 			var canExecuteChangedCount = 0;
@@ -179,7 +179,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		}
 
 		[Fact]
-		public async Task ICommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
+		public async Task ICommand_Parameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
 			var canExecuteChangedCount = 0;
@@ -196,6 +196,59 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(command.CanExecute(null));
 
 			// Act
+			await IntParameterTask(Delay);
+			await IntParameterTask(Delay);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(2, canExecuteChangedCount);
+		}
+
+		[Fact]
+		public async Task ICommand_NoParameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
+		{
+			// Arrange
+			var canExecuteChangedCount = 0;
+
+			ICommand command = new AsyncCommand(() => IntParameterTask(Delay));
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+
+			// Act
+			command.Execute(null);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+
+			// Act
+			await IntParameterTask(Delay);
+			await IntParameterTask(Delay);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(0, canExecuteChangedCount);
+		}
+
+		[Fact]
+		public async Task ICommand_NoParameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
+		{
+			// Arrange
+			var canExecuteChangedCount = 0;
+
+			ICommand command = new AsyncCommand(() => IntParameterTask(Delay), allowsMultipleExecutions: false);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+
+			// Act
+			command.Execute(null);
+
+			// Assert
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			await IntParameterTask(Delay);
 			await IntParameterTask(Delay);
 
 			// Assert

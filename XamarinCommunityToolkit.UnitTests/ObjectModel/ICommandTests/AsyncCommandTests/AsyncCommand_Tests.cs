@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncCommandTests
 {
-	public class Tests_AsyncCommand : BaseAsyncCommandTests
+	public class AsyncCommandTests : BaseAsyncCommandTests
 	{
 		[Fact]
 		public void AsyncCommand_NullExecuteParameter()

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncCommandTests
 {
-    public class Tests_IAsyncCommand : BaseAsyncCommandTests
+    public class IAsyncCommandTests : BaseAsyncCommandTests
     {
         [Theory]
         [InlineData(500)]
