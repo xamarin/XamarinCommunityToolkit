@@ -73,14 +73,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (Element.CaptureOptions == CameraCaptureOptions.Video)
 						camerafragment.UpdateRepeatingRequest();
 					break;
-				//case nameof(CameraView.PreviewAspect):
-				//case "MirrorFrontPreview":
-				//	camerafragment?.ConfigureTransform();
-				//	break;
-				//case nameof(CameraView.KeepScreenOn):
-				//	if (camerafragment != null)
-				//		camerafragment.KeepScreenOn = Element.KeepScreenOn;
-				//	break;
+					//case nameof(CameraView.PreviewAspect):
+					//case "MirrorFrontPreview":
+					//	camerafragment?.ConfigureTransform();
+					//	break;
+					//case nameof(CameraView.KeepScreenOn):
+					//	if (camerafragment != null)
+					//		camerafragment.KeepScreenOn = Element.KeepScreenOn;
+					//	break;
 			}
 		}
 
