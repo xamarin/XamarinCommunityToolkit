@@ -2,11 +2,11 @@
 
 namespace Xamarin.Forms.Core.Markup
 {
-	internal static class Markup
+	public static class Markup // TODO: Markup remove class in XTC
 	{
 		static bool isExperimentalFlagSet = false;
 
-		internal static void VerifyExperimental([CallerMemberName] string memberName = "", string constructorHint = null)
+		public static void VerifyExperimental([CallerMemberName] string memberName = "", string constructorHint = null)
 		{
 			if (isExperimentalFlagSet)
 				return;
@@ -16,6 +16,6 @@ namespace Xamarin.Forms.Core.Markup
 			isExperimentalFlagSet = true;
 		}
 
-		internal static void ClearExperimental() => isExperimentalFlagSet = false;
+		public static void ClearExperimental() => isExperimentalFlagSet = false;
 	}
 }
