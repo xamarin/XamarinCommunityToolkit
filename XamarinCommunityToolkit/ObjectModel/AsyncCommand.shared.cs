@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		readonly bool continueOnCapturedContext;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:TaskExtensions.MVVM.AsyncCommand`1"/> class.
+		/// Initializes a new instance of the <see cref="T:Xamarin.CommunityToolkit.ObjectModel.AsyncCommand`1"/> class.
 		/// </summary>
 		/// <param name="execute">The Function executed when Execute or ExecuteAsync is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
 		/// <param name="canExecute">The Function that verifies whether or not AsyncCommand should execute.</param>
@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		readonly bool continueOnCapturedContext;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:TaskExtensions.MVVM.AsyncCommand`1"/> class.
+		/// Initializes a new instance of the <see cref="AsyncCommand"/> class.
 		/// </summary>
 		/// <param name="execute">The Function executed when Execute or ExecuteAsync is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
 		/// <param name="canExecute">The Function that verifies whether or not AsyncCommand should execute.</param>
