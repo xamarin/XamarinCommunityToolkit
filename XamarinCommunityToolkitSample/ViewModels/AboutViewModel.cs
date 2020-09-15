@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Octokit;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -39,7 +40,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			set => Set(ref emptyViewText, value);
 		}
 
-		public ICommand SelectedContributorCommand => selectedContributorCommand ??= new Command(async () =>
+		public ICommand SelectedContributorCommand => selectedContributorCommand ??= new AsyncCommand(async () =>
 		{
 			if (SelectedContributor is null)
 				return;
@@ -56,9 +57,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			try
 			{
 				var contributors = await gitHubClient.Repository.GetAllContributors("xamarin", "XamarinCommunityToolkit");
-				//Initiate poor mans randomizer for lists
-				//Note: there are better options for real production worthy large lists : https://stackoverflow.com/questions/273313/randomize-a-listt
-				//But for now this linq version will do
+
+				// Initiate poor mans randomizer for lists
+				// Note: there are better options for real production worthy large lists : https://stackoverflow.com/questions/273313/randomize-a-listt
+				// But for now this linq version will do
 				var random = new Random();
 				var result = contributors?.OrderBy(x => random.Next()).ToArray();
 				if (result != null)

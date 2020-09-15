@@ -1,152 +1,155 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
 using static System.String;
 
+// Inspired by AsyncAwaitBestPractices.WeakEventManager: https://github.com/brminnick/AsyncAwaitBestPractices
 namespace Xamarin.CommunityToolkit.Helpers
 {
-	// Copy from https://github.com/xamarin/Xamarin.Forms/blob/5.0.0/Xamarin.Forms.Core/WeakEventManager.cs
-	// TODO: Remove when PR complete: https://github.com/xamarin/Xamarin.Forms/pull/12063
-	class WeakEventManager
+	/// <summary>
+	/// Weak event manager that allows for garbage collection when the EventHandler is still subscribed
+	/// </summary>
+	/// <typeparam name="TEventArgs">Event args type.</typeparam>
+	public partial class WeakEventManager<TEventArgs>
 	{
 		readonly Dictionary<string, List<Subscription>> eventHandlers = new Dictionary<string, List<Subscription>>();
 
-		public void AddEventHandler<TEventArgs>(EventHandler<TEventArgs> handler,
-			[CallerMemberName] string eventName = null)
-			where TEventArgs : EventArgs
+		/// <summary>
+		/// Adds the event handler
+		/// </summary>
+		/// <param name="handler">Handler</param>
+		/// <param name="eventName">Event name</param>
+		public void AddEventHandler(EventHandler<TEventArgs> handler, [CallerMemberName] string eventName = "")
 		{
-			if (IsNullOrEmpty(eventName))
+			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (handler == null)
+			if (handler is null)
 				throw new ArgumentNullException(nameof(handler));
 
-			AddEventHandler(eventName, handler.Target, handler.GetMethodInfo());
+			EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
 		}
 
-		public void AddEventHandler(EventHandler handler, [CallerMemberName] string eventName = null)
+		/// <summary>
+		/// Adds the event handler
+		/// </summary>
+		/// <param name="action">Handler</param>
+		/// <param name="eventName">Event name</param>
+		public void AddEventHandler(Action<TEventArgs> action, [CallerMemberName] string eventName = "")
 		{
-			if (IsNullOrEmpty(eventName))
+			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (handler == null)
-				throw new ArgumentNullException(nameof(handler));
+			if (action is null)
+				throw new ArgumentNullException(nameof(action));
 
-			AddEventHandler(eventName, handler.Target, handler.GetMethodInfo());
+			EventManagerService.AddEventHandler(eventName, action.Target, action.GetMethodInfo(), eventHandlers);
 		}
 
-		public void HandleEvent(object sender, object args, string eventName)
+		/// <summary>
+		/// Removes the event handler
+		/// </summary>
+		/// <param name="handler">Handler</param>
+		/// <param name="eventName">Event name</param>
+		public void RemoveEventHandler(EventHandler<TEventArgs> handler, [CallerMemberName] string eventName = "")
 		{
-			var toRaise = new List<(object subscriber, MethodInfo handler)>();
-			var toRemove = new List<Subscription>();
-
-			if (eventHandlers.TryGetValue(eventName, out var target))
-			{
-				for (var i = 0; i < target.Count; i++)
-				{
-					var subscription = target[i];
-					var isStatic = subscription.Subscriber == null;
-					if (isStatic)
-					{
-						// For a static method, we'll just pass null as the first parameter of MethodInfo.Invoke
-						toRaise.Add((null, subscription.Handler));
-						continue;
-					}
-
-					var subscriber = subscription.Subscriber.Target;
-
-					if (subscriber == null)
-						// The subscriber was collected, so there's no need to keep this subscription around
-						toRemove.Add(subscription);
-					else
-						toRaise.Add((subscriber, subscription.Handler));
-				}
-
-				for (var i = 0; i < toRemove.Count; i++)
-				{
-					var subscription = toRemove[i];
-					target.Remove(subscription);
-				}
-			}
-
-			for (var i = 0; i < toRaise.Count; i++)
-			{
-				(var subscriber, var handler) = toRaise[i];
-				handler.Invoke(subscriber, new[] {sender, args});
-			}
-		}
-
-		public void RemoveEventHandler<TEventArgs>(EventHandler<TEventArgs> handler,
-			[CallerMemberName] string eventName = null)
-			where TEventArgs : EventArgs
-		{
-			if (IsNullOrEmpty(eventName))
+			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (handler == null)
+			if (handler is null)
 				throw new ArgumentNullException(nameof(handler));
 
-			RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo());
+			EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
 		}
 
-		public void RemoveEventHandler(EventHandler handler, [CallerMemberName] string eventName = null)
+		/// <summary>
+		/// Removes the event handler
+		/// </summary>
+		/// <param name="action">Handler</param>
+		/// <param name="eventName">Event name</param>
+		public void RemoveEventHandler(Action<TEventArgs> action, [CallerMemberName] string eventName = "")
 		{
-			if (IsNullOrEmpty(eventName))
+			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (handler == null)
+			if (action is null)
+				throw new ArgumentNullException(nameof(action));
+
+			EventManagerService.RemoveEventHandler(eventName, action.Target, action.GetMethodInfo(), eventHandlers);
+		}
+
+		/// <summary>
+		/// Invokes the event EventHandler
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="eventArgs">Event arguments</param>
+		/// <param name="eventName">Event name</param>
+		public void RaiseEvent(object sender, TEventArgs eventArgs, string eventName) =>
+			EventManagerService.HandleEvent(eventName, sender, eventArgs, eventHandlers);
+
+		/// <summary>
+		/// Invokes the event Action
+		/// </summary>
+		/// <param name="eventArgs">Event arguments</param>
+		/// <param name="eventName">Event name</param>
+		public void RaiseEvent(TEventArgs eventArgs, string eventName) =>
+			EventManagerService.HandleEvent(eventName, eventArgs, eventHandlers);
+	}
+
+	/// <summary>
+	/// Weak event manager that allows for garbage collection when the EventHandler is still subscribed
+	/// </summary>
+	public partial class WeakEventManager
+	{
+		readonly Dictionary<string, List<Subscription>> eventHandlers = new Dictionary<string, List<Subscription>>();
+
+		/// <summary>
+		/// Adds the event handler
+		/// </summary>
+		/// <param name="handler">Handler</param>
+		/// <param name="eventName">Event name</param>
+		public void AddEventHandler(Delegate handler, [CallerMemberName] string eventName = "")
+		{
+			if (IsNullOrWhiteSpace(eventName))
+				throw new ArgumentNullException(nameof(eventName));
+
+			if (handler is null)
 				throw new ArgumentNullException(nameof(handler));
 
-			RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo());
+			EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
 		}
 
-		void AddEventHandler(string eventName, object handlerTarget, MethodInfo methodInfo)
+		/// <summary>
+		/// Removes the event handler.
+		/// </summary>
+		/// <param name="handler">Handler</param>
+		/// <param name="eventName">Event name</param>
+		public void RemoveEventHandler(Delegate handler, [CallerMemberName] string eventName = "")
 		{
-			if (!eventHandlers.TryGetValue(eventName, out var targets))
-			{
-				targets = new List<Subscription>();
-				eventHandlers.Add(eventName, targets);
-			}
+			if (IsNullOrWhiteSpace(eventName))
+				throw new ArgumentNullException(nameof(eventName));
 
-			if (handlerTarget == null)
-			{
-				// This event handler is a static method
-				targets.Add(new Subscription(null, methodInfo));
-				return;
-			}
+			if (handler is null)
+				throw new ArgumentNullException(nameof(handler));
 
-			targets.Add(new Subscription(new WeakReference(handlerTarget), methodInfo));
+			EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
 		}
 
-		void RemoveEventHandler(string eventName, object handlerTarget, MemberInfo methodInfo)
-		{
-			if (!eventHandlers.TryGetValue(eventName, out var subscriptions))
-				return;
+		/// <summary>
+		/// Invokes the event EventHandler
+		/// </summary>
+		/// <param name="sender">Sender</param>
+		/// <param name="eventArgs">Event arguments</param>
+		/// <param name="eventName">Event name</param>
+		public void RaiseEvent(object sender, object? eventArgs, string eventName) =>
+			EventManagerService.HandleEvent(eventName, sender, eventArgs, eventHandlers);
 
-			for (var n = subscriptions.Count; n > 0; n--)
-			{
-				var current = subscriptions[n - 1];
-
-				if (current.Subscriber?.Target != handlerTarget || current.Handler.Name != methodInfo.Name)
-					continue;
-
-				subscriptions.Remove(current);
-				break;
-			}
-		}
-
-		struct Subscription
-		{
-			public WeakReference Subscriber { get; }
-			public MethodInfo Handler { get; }
-
-			public Subscription(WeakReference subscriber, MethodInfo handler)
-			{
-				Subscriber = subscriber;
-				Handler = handler ?? throw new ArgumentNullException(nameof(handler));
-			}
-		}
+		/// <summary>
+		/// Invokes the event Action
+		/// </summary>
+		/// <param name="eventName">Event name</param>
+		public void RaiseEvent(string eventName) => EventManagerService.HandleEvent(eventName, eventHandlers);
 	}
 }

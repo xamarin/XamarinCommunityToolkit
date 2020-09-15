@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using static System.Math;
 
@@ -12,7 +13,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		const uint defaultAnimationLength = 250;
 
-		public event EventHandler Tapped;
+		readonly WeakEventManager tappedEventManager = new WeakEventManager();
+
+		public event EventHandler Tapped
+		{
+			add => tappedEventManager.AddEventHandler(value);
+			remove => tappedEventManager.RemoveEventHandler(value);
+		}
 
 		ContentView contentHolder;
 
@@ -207,7 +214,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 					IsExpanded = !IsExpanded;
 					Command?.Execute(CommandParameter);
-					Tapped?.Invoke(this, EventArgs.Empty);
+					OnTapped();
 				})
 			};
 			control.Spacing = 0;
@@ -443,5 +450,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					State = ExpandState.Expanded;
 				});
 		}
+
+		void OnTapped() => tappedEventManager.RaiseEvent(this, EventArgs.Empty, nameof(Tapped));
 	}
 }

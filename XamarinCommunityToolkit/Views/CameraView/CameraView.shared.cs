@@ -1,18 +1,39 @@
 ﻿using System;
-using System.ComponentModel;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraView : View
 	{
-		public event EventHandler<MediaCapturedEventArgs> MediaCaptured;
+		readonly WeakEventManager<MediaCapturedEventArgs> mediaCapturedEventManager = new WeakEventManager<MediaCapturedEventArgs>();
+		readonly WeakEventManager<string> mediaCaptureFailedEventManager = new WeakEventManager<string>();
+		readonly WeakEventManager<bool> onAvailableEventManager = new WeakEventManager<bool>();
+		readonly WeakEventManager shutterClickedEventManager = new WeakEventManager();
 
-		public event EventHandler<string> MediaCaptureFailed;
+		public event EventHandler<MediaCapturedEventArgs> MediaCaptured
+		{
+			add => mediaCapturedEventManager.AddEventHandler(value);
+			remove => mediaCapturedEventManager.RemoveEventHandler(value);
+		}
 
-		public event EventHandler<bool> OnAvailable;
+		public event EventHandler<string> MediaCaptureFailed
+		{
+			add => mediaCaptureFailedEventManager.AddEventHandler(value);
+			remove => mediaCaptureFailedEventManager.RemoveEventHandler(value);
+		}
 
-		internal event EventHandler ShutterClicked;
+		public event EventHandler<bool> OnAvailable
+		{
+			add => onAvailableEventManager.AddEventHandler(value);
+			remove => onAvailableEventManager.RemoveEventHandler(value);
+		}
+
+		internal event EventHandler ShutterClicked
+		{
+			add => shutterClickedEventManager.AddEventHandler(value);
+			remove => shutterClickedEventManager.RemoveEventHandler(value);
+		}
 
 		public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(CameraView), false);
 
@@ -22,8 +43,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(IsBusyProperty, value);
 		}
 
-		public static readonly BindableProperty IsAvailableProperty = BindableProperty.Create(nameof(IsAvailable), typeof(bool), typeof(CameraView), false,
-			propertyChanged: (b, o, n) => ((CameraView)b).OnAvailable?.Invoke(b, (bool)n));
+		public static readonly BindableProperty IsAvailableProperty = BindableProperty.Create(nameof(IsAvailable), typeof(bool), typeof(CameraView), false, propertyChanged: (b, o, n) => ((CameraView)b).RaiseAvailable((bool)n));
 
 		public bool IsAvailable
 		{
@@ -96,10 +116,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(MaxZoomProperty, value);
 		}
 
-		internal void RaiseMediaCaptured(MediaCapturedEventArgs args) => MediaCaptured?.Invoke(this, args);
+		internal void RaiseMediaCaptured(MediaCapturedEventArgs args) => mediaCapturedEventManager.RaiseEvent(this, args, nameof(MediaCaptured));
 
-		internal void RaiseMediaCaptureFailed(string message) => MediaCaptureFailed?.Invoke(this, message);
+		internal void RaiseMediaCaptureFailed(string message) => mediaCaptureFailedEventManager.RaiseEvent(this, message, nameof(MediaCaptureFailed));
 
-		public void Shutter() => ShutterClicked?.Invoke(this, EventArgs.Empty);
+		public void Shutter() => shutterClickedEventManager.RaiseEvent(this, EventArgs.Empty, nameof(ShutterClicked));
+
+		void RaiseAvailable(bool isAvailable) => onAvailableEventManager.RaiseEvent(this, isAvailable, nameof(OnAvailable));
 	}
 }
