@@ -5,7 +5,7 @@ using Xamarin.CommunityToolkit.Helpers;
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	/// <summary>
-	/// Abstract Base Class for AsyncCommand, AsyncCommand<T>, AsyncValueCommand and AsyncValueCommand<T>
+	/// Abstract Base Class used by AsyncCommand and AsyncValueCommand
 	/// </summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class BaseCommand
@@ -15,6 +15,11 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 
 		int executionCount;
 
+		/// <summary>
+		/// Initializes BaseCommand
+		/// </summary>
+		/// <param name="canExecute"></param>
+		/// <param name="allowsMultipleExecutions"></param>
 		public BaseCommand(Func<object, bool> canExecute, bool allowsMultipleExecutions)
 		{
 			this.canExecute = canExecute ?? (_ => true);
