@@ -9,6 +9,7 @@ using Xamarin.Forms.Platform.Android;
 using static System.Math;
 
 [assembly: ExportRenderer(typeof(SideMenuView), typeof(SideMenuViewRenderer))]
+
 namespace Xamarin.CommunityToolkit.Android.UI.Views
 {
 	[Preserve(AllMembers = true)]

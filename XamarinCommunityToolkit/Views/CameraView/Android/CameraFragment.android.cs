@@ -66,7 +66,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		Handler backgroundHandler = null;
 
 		float zoom = 1;
+
 		bool ZoomSupported => maxDigitalZoom != 0;
+
 		float maxDigitalZoom;
 		Rect activeRect;
 
@@ -75,9 +77,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool UseSystemSound { get; set; }
 
 		CameraManager manager;
+
 		CameraManager Manager => manager ??= (CameraManager)Context.GetSystemService(Context.CameraService);
 
 		MediaActionSound mediaSound;
+
 		MediaActionSound MediaSound => mediaSound ??= new MediaActionSound();
 
 		TaskCompletionSource<CameraDevice> initTaskSource;

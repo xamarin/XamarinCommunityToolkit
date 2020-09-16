@@ -9,8 +9,11 @@ namespace Xamarin.CommunityToolkit.Helpers
 		readonly bool isParameterized;
 
 		public bool Left { get; }
+
 		public bool Top { get; }
+
 		public bool Right { get; }
+
 		public bool Bottom { get; }
 
 		public bool IsEmpty

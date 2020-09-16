@@ -23,6 +23,7 @@ using Xamarin.Forms.Platform.UWP;
 using MediaSource = Xamarin.Forms.MediaSource;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraViewRenderer : ViewRenderer<CameraView, CaptureElement>

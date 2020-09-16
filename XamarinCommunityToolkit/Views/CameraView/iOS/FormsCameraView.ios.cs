@@ -27,7 +27,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly float imgScale = 1f;
 
 		public event EventHandler<bool> Busy;
+
 		public event EventHandler<bool> Available;
+
 		public event EventHandler<Tuple<NSObject, NSError>> FinishCapture;
 
 		public bool VideoRecorded => videoOutput?.Recording == true;

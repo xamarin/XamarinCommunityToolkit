@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraViewRenderer : ViewRenderer<CameraView, FormsCameraView>

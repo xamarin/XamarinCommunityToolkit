@@ -90,6 +90,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					? layout.Padding.VerticalThickness
 					: layout.Padding.HorizontalThickness);
 			}
+
 			set
 			{
 				if (Direction.IsVertical())

@@ -23,6 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			: this(context, attrs, 0)
 		{
 		}
+
 		public AutoFitTextureView(Context context, IAttributeSet attrs, int defStyle)
 			: base(context, attrs, defStyle)
 		{
