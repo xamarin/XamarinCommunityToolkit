@@ -6,8 +6,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaCapturedEventArgs : EventArgs
 	{
-		private readonly Lazy<ImageSource> imageSource;
-		private readonly Lazy<MediaSource> mediaSource;
+		readonly Lazy<ImageSource> imageSource;
+		readonly Lazy<MediaSource> mediaSource;
 
 		internal MediaCapturedEventArgs(
 			string path = null,
@@ -33,13 +33,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public MediaSource Video => mediaSource.Value;
 
-		private ImageSource GetImageSource()
+		ImageSource GetImageSource()
 		{
 			if (ImageData != null)
 				return ImageSource.FromStream(() => new MemoryStream(ImageData));
 			return !string.IsNullOrEmpty(Path) ? Path : null;
 		}
 
-		private MediaSource GetMediaSource() => !string.IsNullOrEmpty(Path) ? Path : null;
+		MediaSource GetMediaSource() => !string.IsNullOrEmpty(Path) ? Path : null;
 	}
 }
