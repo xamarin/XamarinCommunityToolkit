@@ -137,7 +137,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						PHImageManager.DefaultManager.RequestAvAsset(asset, new PHVideoRequestOptions
 						{
 							Version = PHVideoRequestOptionsVersion.Original
-						}, ((avAsset, mix, info) =>
+						}, (avAsset, mix, info) =>
 						{
 							if (!(avAsset is AVUrlAsset urlAsset))
 							{
@@ -148,7 +148,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							{
 								Element.RaiseMediaCaptured(new MediaCapturedEventArgs(urlAsset.Url.Path));
 							});
-						}));
+						});
 					}
 				});
 			});

@@ -82,12 +82,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		TaskCompletionSource<CameraDevice> initTaskSource;
 		TaskCompletionSource<bool> permissionsRequested;
-		
+
 		public CameraFragment()
 		{
 		}
-		
-		public CameraFragment(IntPtr javaReference, JniHandleOwnership transfer): base(javaReference, transfer)
+
+		public CameraFragment(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)
 		{
 		}
 
@@ -828,7 +828,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SurfaceOrientation.Rotation270 => 270,
 				_ => 0,
 			};
-		
+
 		int GetJpegRotationDegrees() =>
 			GetDisplayRotation() switch
 			{
@@ -839,7 +839,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 
 		int GetPreviewOrientation() =>
-			(GetDisplayRotation()) switch
+			GetDisplayRotation() switch
 			{
 				SurfaceOrientation.Rotation90 => 270,
 				SurfaceOrientation.Rotation180 => 180,
