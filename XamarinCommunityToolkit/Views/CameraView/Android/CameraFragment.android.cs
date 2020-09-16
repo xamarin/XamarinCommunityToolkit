@@ -300,6 +300,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					repeatingIsRunning = false;
 					sessionBuilder.AddTarget(photoReader.Surface);
 					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
+					sessionBuilder.Set(CaptureRequest.JpegOrientation, GetJpegOrientation());
 					session.Capture(sessionBuilder.Build(), null, null);
 					sessionBuilder.RemoveTarget(photoReader.Surface);
 					UpdateRepeatingRequest();
@@ -819,13 +820,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SurfaceOrientation GetDisplayRotation()
 			=> App.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>().DefaultDisplay.Rotation;
 
-		int GetDisplayRotationiDegress() =>
-			(GetDisplayRotation()) switch
+		int GetDisplayRotationDegrees() =>
+			GetDisplayRotation() switch
 			{
 				SurfaceOrientation.Rotation90 => 90,
 				SurfaceOrientation.Rotation180 => 180,
 				SurfaceOrientation.Rotation270 => 270,
 				_ => 0,
+			};
+		
+		int GetJpegRotationDegrees() =>
+			GetDisplayRotation() switch
+			{
+				SurfaceOrientation.Rotation90 => 0,
+				SurfaceOrientation.Rotation180 => 270,
+				SurfaceOrientation.Rotation270 => 180,
+				_ => 90,
 			};
 
 		int GetPreviewOrientation() =>
@@ -852,50 +862,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var centerY = viewRect.CenterY();
 			bufferRect.Offset(centerX - bufferRect.CenterX(), centerY - bufferRect.CenterY());
 
-			// return to this when we dicided how to handle with platform specifics
-			var mirror = Element.CameraOptions == CameraOptions.Front;//&& Element.OnThisPlatform().GetMirrorFrontPreview();
 			matrix.SetRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.Fill);
-			float sx, sy;
 
-			//switch (Element.PreviewAspect)
-			//{
-			//	default:
-			//	case Aspect.AspectFit:
-			//		sx = sy = System.Math.Min(scaleHH(), scaleHW());
-			//		break;
-			//	case Aspect.AspectFill:
-			//		sx = sy = System.Math.Max(scaleHH(), scaleHW());
-			//		break;
-			//	case Aspect.Fill:
-			if (Resources.Configuration.Orientation == AOrientation.Landscape)
-			{
-				sx = scaleWW();
-				sy = scaleHH();
-			}
-			else
-			{
-				sx = scaleWH();
-				sy = scaleHW();
-			}
-			//		break;
-			//}
-
-			matrix.PostScale(mirror ? -sx : sx, sy, centerX, centerY);
 			matrix.PostRotate(GetCaptureOrientation(), centerX, centerY);
 			texture.SetTransform(matrix);
-
-
-			float scaleHH() => (float)viewHeight / previewSize.Height;
-			float scaleHW() => (float)viewHeight / previewSize.Width;
-			float scaleWW() => (float)viewWidth / previewSize.Width;
-			float scaleWH() => (float)viewWidth / previewSize.Height;
 		}
 
 		int GetCaptureOrientation()
 		{
 			var frontOffset = cameraType == LensFacing.Front ? 90 : -90;
-			return (360 + sensorOrientation - GetDisplayRotationiDegress() + frontOffset) % 360;
+			return (360 + sensorOrientation - GetDisplayRotationDegrees() + frontOffset) % 360;
 		}
+
+		int GetJpegOrientation() => (sensorOrientation + GetJpegRotationDegrees() + 270) % 360;
 
 		void Sound(MediaActionSoundType soundType)
 		{
