@@ -889,16 +889,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mediaSound.Play(soundType);
 		}
 
-		ASize GetMaxSize(ASize[] ImageSizes)
+		ASize GetMaxSize(ASize[] imageSizes)
 		{
 			ASize maxSize = null;
 			long maxPixels = 0;
-			for (var i = 0; i < ImageSizes.Length; i++)
+			for (var i = 0; i < imageSizes.Length; i++)
 			{
-				long currentPixels = ImageSizes[i].Width * ImageSizes[i].Height;
+				long currentPixels = imageSizes[i].Width * imageSizes[i].Height;
 				if (currentPixels > maxPixels)
 				{
-					maxSize = ImageSizes[i];
+					maxSize = imageSizes[i];
 					maxPixels = currentPixels;
 				}
 			}
