@@ -74,14 +74,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						camerafragment.UpdateRepeatingRequest();
 					break;
 
-					//case nameof(CameraView.PreviewAspect):
-					//case "MirrorFrontPreview":
-					//	camerafragment?.ConfigureTransform();
-					//	break;
-					//case nameof(CameraView.KeepScreenOn):
-					//	if (camerafragment != null)
-					//		camerafragment.KeepScreenOn = Element.KeepScreenOn;
-					//	break;
+					// case nameof(CameraView.PreviewAspect):
+					// case "MirrorFrontPreview":
+					// camerafragment?.ConfigureTransform();
+					// break;
+					// case nameof(CameraView.KeepScreenOn):
+					// if (camerafragment != null)
+					// camerafragment.KeepScreenOn = Element.KeepScreenOn;
+					// break;
 			}
 		}
 
@@ -129,7 +129,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				// this is just used to set ID's to the NativeViews along time ago for UITest with Test Cloud
 				// https://discordapp.com/channels/732297728826277939/738043671575920700/747629874709266449
-				//element?.SendViewInitialized(this); // this is internal
+				// element?.SendViewInitialized(this); // this is internal
 			}
 		}
 
@@ -240,7 +240,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!(element is CameraView camera))
 				throw new ArgumentException($"{nameof(element)} must be of type {nameof(CameraView)}");
 
-			//Performance.Start(out var reference);
+			// Performance.Start(out var reference);
 
 			motionEventHelper.UpdateElement(element);
 
@@ -249,7 +249,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			Element = camera;
 
-			//Performance.Stop(reference);
+			// Performance.Stop(reference);
 		}
 
 		void IVisualElementRenderer.SetLabelFor(int? id)

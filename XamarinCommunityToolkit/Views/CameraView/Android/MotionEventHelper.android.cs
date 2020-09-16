@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return false;
 
 			// Let the container know that we're "fake" handling this event
-			//renderer.NotifyFakeHandling();
+			// renderer.NotifyFakeHandling();
 
 			return true;
 		}
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			// Determine whether this control is inside a ViewCell;
 			// we don't fake handle the events because ListView needs them for row selection
-			//isInViewCell = element.IsInViewCell();
+			// isInViewCell = element.IsInViewCell();
 		}
 
 		bool ShouldPassThroughElement()

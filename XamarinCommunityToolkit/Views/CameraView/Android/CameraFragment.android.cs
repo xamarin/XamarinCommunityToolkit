@@ -191,7 +191,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				IsBusy = false;
 				captureSessionOpenCloseLock.Release();
 
-				//_texture.ClearCanvas(Element.BackgroundColor.ToAndroid()); // HANG after select valid camera...
+				// _texture.ClearCanvas(Element.BackgroundColor.ToAndroid()); // HANG after select valid camera...
 				Element.RaiseMediaCaptureFailed($"No {Element.CameraOptions} camera found");
 			}
 			else

@@ -111,7 +111,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 					var value = position.Value.ToString();
 
-					//!important - If user types in masked value, don't add masked value
+					// !important - If user types in masked value, don't add masked value
 					if (text.Substring(position.Key, 1) != value)
 						text = text.Insert(position.Key, value);
 				}
