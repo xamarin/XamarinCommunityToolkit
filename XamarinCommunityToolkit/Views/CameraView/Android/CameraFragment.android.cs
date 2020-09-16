@@ -485,9 +485,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (cameraTemplate == CameraTemplate.Record)
 					{
 						SetupMediaRecorder(previewSurface);
-						var _mediaSurface = mediaRecorder.Surface;
-						surfaces.Add(_mediaSurface);
-						sessionBuilder.AddTarget(_mediaSurface);
+						var mediaSurface = mediaRecorder.Surface;
+						surfaces.Add(mediaSurface);
+						sessionBuilder.AddTarget(mediaSurface);
 					}
 
 					// photo mode
