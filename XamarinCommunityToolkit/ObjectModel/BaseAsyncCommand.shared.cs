@@ -26,10 +26,10 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		public BaseAsyncCommand(
 			Func<TExecute, Task> execute,
-			Func<TCanExecute, bool> canExecute = null,
-			Action<Exception> onException = null,
-			bool continueOnCapturedContext = false,
-			bool allowsMultipleExecutions = true)
+			Func<TCanExecute, bool> canExecute,
+			Action<Exception> onException,
+			bool continueOnCapturedContext,
+			bool allowsMultipleExecutions)
 			: base(canExecute, allowsMultipleExecutions)
 		{
 			this.execute = execute ?? throw new ArgumentNullException(nameof(execute), $"{nameof(execute)} cannot be null");
