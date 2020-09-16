@@ -40,9 +40,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		{
 			// Arrange
 			var command = new AsyncValueCommand<int>(IntParameterTask);
+			var command2 = new AsyncValueCommand<int, string>(IntParameterTask, CanExecuteTrue);
 
 			// Act
 			await command.ExecuteAsync(parameter);
+			await command2.ExecuteAsync(parameter);
 
 			// Assert
 		}
@@ -54,9 +56,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		{
 			// Arrange
 			var command = new AsyncValueCommand<string>(StringParameterTask);
+			var command2 = new AsyncValueCommand<string, bool>(StringParameterTask, CanExecuteTrue);
 
 			// Act
 			await command.ExecuteAsync(parameter);
+			await command2.ExecuteAsync(parameter);
 
 			// Assert
 		}
@@ -66,12 +70,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		{
 			// Arrange
 			var command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteTrue);
+			var command2 = new AsyncValueCommand<int, bool>(IntParameterTask, CanExecuteTrue);
 
 			// Act
 
 			// Assert
 
 			Assert.True(command.CanExecute(null));
+			Assert.True(command2.CanExecute(true));
 		}
 
 		[Fact]
@@ -79,11 +85,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		{
 			// Arrange
 			var command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteFalse);
+			var command2 = new AsyncValueCommand<int, string>(IntParameterTask, CanExecuteFalse);
 
 			// Act
 
 			// Assert
 			Assert.False(command.CanExecute(null));
+			Assert.False(command2.CanExecute("Hello World"));
 		}
 
 		[Fact]

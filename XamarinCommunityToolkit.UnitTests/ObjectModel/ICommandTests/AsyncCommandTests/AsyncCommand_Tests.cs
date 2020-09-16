@@ -17,19 +17,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Assert
 #pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
 			Assert.Throws<ArgumentNullException>(() => new AsyncCommand(null));
-#pragma warning restore CS8625
-		}
-
-		[Fact]
-		public void AsyncCommandT_NullExecuteParameter()
-		{
-			// Arrange
-
-			// Act
-
-			// Assert
-#pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
-			Assert.Throws<ArgumentNullException>(() => new AsyncCommand<object>(null));
+			Assert.Throws<ArgumentNullException>(() => new AsyncCommand<string>(null));
+			Assert.Throws<ArgumentNullException>(() => new AsyncCommand<string, string>(null));
 #pragma warning restore CS8625
 		}
 

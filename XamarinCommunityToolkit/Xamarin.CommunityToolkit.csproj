@@ -127,9 +127,4 @@
     <Compile Include="**\*.tizen.cs" />
     <Compile Include="**\*.tizen.*.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="ObjectModel\BaseAsyncValueCommand.shared.cs">
-      <SubType></SubType>
-    </Compile>
-  </ItemGroup>
 </Project>
