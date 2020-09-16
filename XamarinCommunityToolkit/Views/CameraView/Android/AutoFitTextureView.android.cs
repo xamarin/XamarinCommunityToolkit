@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					UnlockCanvasAndPost(canvas);
 				}
 				Invalidate();
-			};
+			}
 		}
 	}
 }
