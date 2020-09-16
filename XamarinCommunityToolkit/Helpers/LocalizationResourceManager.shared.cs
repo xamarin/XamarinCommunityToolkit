@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Helpers
         }
 
         public string GetValue(string text) => resourceManager.GetString(text, CultureInfo.CurrentCulture);
-       
+
         public CultureInfo CurrentCulture => Thread.CurrentThread.CurrentUICulture;
 
         public event PropertyChangedEventHandler PropertyChanged;
