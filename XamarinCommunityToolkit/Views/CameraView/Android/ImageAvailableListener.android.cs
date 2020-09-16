@@ -24,7 +24,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			catch (Exception)
 			{
-
 			}
 			finally
 			{

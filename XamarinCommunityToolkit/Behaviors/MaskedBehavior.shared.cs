@@ -99,7 +99,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			if (!string.IsNullOrWhiteSpace(text) && positions != null)
 			{
-
 				if (text.Length > Mask.Length)
 					text = text.Remove(text.Length - 1);
 
