@@ -402,7 +402,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (IsBusy)
 				return;
-
 			else if (IsRecordingVideo)
 			{
 				Element?.RaiseMediaCaptureFailed("Video already recording.");
