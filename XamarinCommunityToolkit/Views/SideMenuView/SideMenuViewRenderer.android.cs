@@ -26,7 +26,8 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		float? startY;
 
-		public SideMenuViewRenderer(Context context) : base(context)
+		public SideMenuViewRenderer(Context context)
+            : base(context)
 			=> density = context.Resources.DisplayMetrics.Density;
 
 		public override bool OnInterceptTouchEvent(MotionEvent ev)
