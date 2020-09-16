@@ -82,6 +82,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		TaskCompletionSource<CameraDevice> initTaskSource;
 		TaskCompletionSource<bool> permissionsRequested;
+		
+		public CameraFragment()
+		{
+		}
+		
+		public CameraFragment(IntPtr javaReference, JniHandleOwnership transfer): base(javaReference, transfer)
+		{
+		}
 
 		bool IsBusy
 		{
