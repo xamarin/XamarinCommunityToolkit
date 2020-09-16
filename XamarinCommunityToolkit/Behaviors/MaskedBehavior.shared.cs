@@ -63,8 +63,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			var list = new Dictionary<int, char>();
 			for (var i = 0; i < Mask.Length; i++)
+			{
 				if (Mask[i] != UnMaskedCharacter)
 					list.Add(i, Mask[i]);
+			}
 
 			positions = list;
 		}
