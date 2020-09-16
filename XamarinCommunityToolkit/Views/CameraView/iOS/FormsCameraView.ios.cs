@@ -265,7 +265,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				videoOutput.Connections[0].VideoOrientation = previewLayer.Connection.VideoOrientation;
 				var connection = videoOutput.Connections[0];
-				
+
 				if (connection.SupportsVideoOrientation)
 					connection.VideoOrientation = previewLayer.Connection.VideoOrientation;
 				if (connection.SupportsVideoStabilization)

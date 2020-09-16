@@ -114,7 +114,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						return;
 					}
 
-					if (!(PHAsset.FetchAssetsUsingLocalIdentifiers(new []{ placeholder.LocalIdentifier }, null).firstObject is PHAsset asset))
+					if (!(PHAsset.FetchAssetsUsingLocalIdentifiers(new[] { placeholder.LocalIdentifier }, null).firstObject is PHAsset asset))
 					{
 						Element.RaiseMediaCaptureFailed($"Could not save media to photo library");
 						return;

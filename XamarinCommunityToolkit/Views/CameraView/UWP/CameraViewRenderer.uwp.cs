@@ -157,7 +157,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var outputEncoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, outputStream);
 			outputEncoder.SetSoftwareBitmap(capturedPhoto.Frame.SoftwareBitmap);
 			await outputEncoder.FlushAsync();
-			
+
 			byte[] imageData = null;
 			if (!Element.SavePhotoToFile)
 			{
