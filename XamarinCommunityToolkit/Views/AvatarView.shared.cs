@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		const string emptyText = "X";
 
 		static readonly Color[] colors =
-        {
+		{
 			RGB(69, 43, 103),
 			RGB(119, 78, 133),
 			RGB(211, 153, 184),
@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		};
 
 		static readonly Color[] textColors =
-        {
+		{
 			RGB(255, 255, 255),
 			RGB(255, 255, 255),
 			RGB(255, 255, 255),
