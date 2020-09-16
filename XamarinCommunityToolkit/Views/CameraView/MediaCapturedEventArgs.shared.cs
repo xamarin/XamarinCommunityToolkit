@@ -23,6 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Path of the saved file, only filled when taking a video or a picture and SavePhotoToFile is true
 		/// </summary>
 		public string Path { get; }
+
 		/// <summary>
 		/// Raw image data, only filled when taking a picture and SavePhotoToFile is false
 		/// </summary>
