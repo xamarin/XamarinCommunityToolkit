@@ -854,43 +854,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var centerY = viewRect.CenterY();
 			bufferRect.Offset(centerX - bufferRect.CenterX(), centerY - bufferRect.CenterY());
 
-			// return to this when we dicided how to handle with platform specifics
-			var mirror = Element.CameraOptions == CameraOptions.Front;//&& Element.OnThisPlatform().GetMirrorFrontPreview();
 			matrix.SetRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.Fill);
-			float sx, sy;
 
-			//switch (Element.PreviewAspect)
-			//{
-			//	default:
-			//	case Aspect.AspectFit:
-			//		sx = sy = System.Math.Min(scaleHH(), scaleHW());
-			//		break;
-			//	case Aspect.AspectFill:
-			//		sx = sy = System.Math.Max(scaleHH(), scaleHW());
-			//		break;
-			//	case Aspect.Fill:
-			if (Resources.Configuration.Orientation == AOrientation.Landscape)
-			{
-				sx = scaleWW();
-				sy = scaleHH();
-			}
-			else
-			{
-				sx = scaleWH();
-				sy = scaleHW();
-			}
-			//		break;
-			//}
-
-			matrix.PostScale(mirror ? -sx : sx, sy, centerX, centerY);
 			matrix.PostRotate(GetCaptureOrientation(), centerX, centerY);
 			texture.SetTransform(matrix);
-
-
-			float scaleHH() => (float)viewHeight / previewSize.Height;
-			float scaleHW() => (float)viewHeight / previewSize.Width;
-			float scaleWW() => (float)viewWidth / previewSize.Width;
-			float scaleWH() => (float)viewWidth / previewSize.Height;
 		}
 
 		int GetCaptureOrientation()
