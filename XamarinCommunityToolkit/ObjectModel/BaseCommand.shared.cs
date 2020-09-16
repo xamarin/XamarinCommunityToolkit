@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
@@ -8,9 +9,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// Abstract Base Class used by AsyncCommand and AsyncValueCommand
 	/// </summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public abstract class BaseCommand
+	public abstract class BaseCommand<TCanExecute>
 	{
-		readonly Func<object, bool> canExecute;
+		readonly Func<TCanExecute, bool> canExecute;
 		readonly WeakEventManager weakEventManager = new WeakEventManager();
 
 		int executionCount;
@@ -20,7 +21,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// </summary>
 		/// <param name="canExecute"></param>
 		/// <param name="allowsMultipleExecutions"></param>
-		public BaseCommand(Func<object, bool> canExecute, bool allowsMultipleExecutions)
+		public BaseCommand(Func<TCanExecute, bool> canExecute, bool allowsMultipleExecutions)
 		{
 			this.canExecute = canExecute ?? (_ => true);
 			AllowsMultipleExecutions = allowsMultipleExecutions;
@@ -70,7 +71,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// </summary>
 		/// <returns><c>true</c>, if this command can be executed; otherwise, <c>false</c>.</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		public bool CanExecute(object parameter) => (AllowsMultipleExecutions, IsExecuting) switch
+		public bool CanExecute(TCanExecute parameter) => (AllowsMultipleExecutions, IsExecuting) switch
 		{
 			(true, _) => canExecute(parameter),
 			(false, true) => false,
@@ -80,6 +81,10 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <summary>
 		/// Raises the CanExecuteChanged event.
 		/// </summary>
-		public void RaiseCanExecuteChanged() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
+		public void RaiseCanExecuteChanged()
+		{
+			// Automatically marshall to the Main Thread to adhere to the way that Xamarin.Forms automatically marshalls binding events to Main Thread
+			Device.BeginInvokeOnMainThread(() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)));
+		}
 	}
 }

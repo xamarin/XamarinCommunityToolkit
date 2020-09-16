@@ -120,7 +120,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var command = new AsyncValueCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
 			bool commandCanExecute(object parameter) => canCommandExecute;
 
 			Assert.False(command.CanExecute(null));
@@ -138,6 +137,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
 		}
 
 		[Fact]

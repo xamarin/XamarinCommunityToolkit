@@ -120,7 +120,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
 			bool commandCanExecute(object parameter) => canCommandExecute;
 
 			Assert.False(command.CanExecute(null));
@@ -138,6 +137,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
 		}
 
 		[Fact]
@@ -148,8 +149,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			var command = new AsyncCommand<int>(IntParameterTask);
 			command.CanExecuteChanged += handleCanExecuteChanged;
-
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
 
 			Assert.True(command.AllowsMultipleExecutions);
 
@@ -166,6 +165,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(0, canExecuteChangedCount);
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
 		}
 
 		[Fact]
@@ -176,8 +177,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			var command = new AsyncCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
-
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
 
 			Assert.False(command.AllowsMultipleExecutions);
 
@@ -194,6 +193,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
 		}
 	}
 }

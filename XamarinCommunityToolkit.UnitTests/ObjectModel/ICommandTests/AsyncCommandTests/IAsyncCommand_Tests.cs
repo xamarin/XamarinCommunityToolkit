@@ -92,8 +92,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
             IAsyncCommand<int> command = new AsyncCommand<int>(IntParameterTask);
             command.CanExecuteChanged += handleCanExecuteChanged;
 
-            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
-
             Assert.True(command.AllowsMultipleExecutions);
 
             // Act
@@ -109,6 +107,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
             // Assert
             Assert.True(command.CanExecute(null));
             Assert.Equal(0, canExecuteChangedCount);
+
+            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
         }
 
         [Fact]
@@ -119,8 +119,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
             IAsyncCommand<int> command = new AsyncCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
             command.CanExecuteChanged += handleCanExecuteChanged;
-
-            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
 
             Assert.False(command.AllowsMultipleExecutions);
 
@@ -137,6 +135,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
             // Assert
             Assert.True(command.CanExecute(null));
             Assert.Equal(2, canExecuteChangedCount);
+
+            void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
         }
     }
 }

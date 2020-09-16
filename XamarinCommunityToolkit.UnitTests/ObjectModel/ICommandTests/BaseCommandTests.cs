@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UnitTests.Mocks;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 {
     public abstract class BaseCommandTests
     {
         public const int Delay = 500;
+
+        public BaseCommandTests() => Device.PlatformServices = new MockPlatformServices();
 
         protected Task NoParameterTask() => Task.Delay(Delay);
 

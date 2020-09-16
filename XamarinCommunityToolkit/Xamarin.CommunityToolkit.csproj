@@ -22,7 +22,13 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
+      
+      
+      
       <!-- See if we can host these on MS docs? -->
+    
+    
+    
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
@@ -120,5 +126,10 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <Compile Include="**\*.tizen.cs" />
     <Compile Include="**\*.tizen.*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ObjectModel\BaseAsyncValueCommand.shared.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
 </Project>
