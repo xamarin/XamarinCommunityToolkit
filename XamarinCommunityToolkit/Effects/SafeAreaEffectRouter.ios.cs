@@ -35,8 +35,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				initialMargin.Left + (safeArea.Left ? insets.Left : 0),
 				initialMargin.Top + (safeArea.Top ? insets.Top : 0),
 				initialMargin.Right + (safeArea.Right ? insets.Right : 0),
-				initialMargin.Bottom + (safeArea.Bottom ? insets.Bottom : 0)
-			);
+				initialMargin.Bottom + (safeArea.Bottom ? insets.Bottom : 0));
 		}
 
 		protected override void OnDetached()

@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Helpers
             Invalidate();
         }
 
-        public string GetValue(string text)=> resourceManager.GetString(text, CultureInfo.CurrentCulture);
+        public string GetValue(string text) => resourceManager.GetString(text, CultureInfo.CurrentCulture);
        
         public CultureInfo CurrentCulture => Thread.CurrentThread.CurrentUICulture;
 
