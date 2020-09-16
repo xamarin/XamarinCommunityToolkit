@@ -73,6 +73,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (Element.CaptureOptions == CameraCaptureOptions.Video)
 						camerafragment.UpdateRepeatingRequest();
 					break;
+
 					//case nameof(CameraView.PreviewAspect):
 					//case "MirrorFrontPreview":
 					//	camerafragment?.ConfigureTransform();

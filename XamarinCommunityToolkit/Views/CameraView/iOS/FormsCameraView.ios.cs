@@ -189,6 +189,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			IsBusy = true;
+
 			// iOS >= 10
 			if (photoOutput != null)
 			{
@@ -213,6 +214,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				photoOutput.CapturePhoto(photoSettings, photoCaptureDelegate);
 				return;
 			}
+
 			// iOS < 10
 			try
 			{

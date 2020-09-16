@@ -190,6 +190,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				IsBusy = false;
 				captureSessionOpenCloseLock.Release();
+
 				//_texture.ClearCanvas(Element.BackgroundColor.ToAndroid()); // HANG after select valid camera...
 				Element.RaiseMediaCaptureFailed($"No {Element.CameraOptions} camera found");
 			}
@@ -483,6 +484,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						surfaces.Add(_mediaSurface);
 						sessionBuilder.AddTarget(_mediaSurface);
 					}
+
 					// photo mode
 					else
 					{
@@ -912,6 +914,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					bigEnough.Add(option);
 				}
 			}
+
 			// Pick the smallest of those, assuming we found any
 			if (bigEnough.Count > 0)
 			{
