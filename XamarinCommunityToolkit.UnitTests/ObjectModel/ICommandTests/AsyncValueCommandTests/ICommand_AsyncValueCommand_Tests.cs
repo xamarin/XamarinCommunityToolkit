@@ -223,6 +223,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Act
 			await IntParameterTask(Delay);
+			await IntParameterTask(Delay);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
