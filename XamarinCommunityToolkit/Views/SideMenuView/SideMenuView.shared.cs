@@ -369,8 +369,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Sign(shift) != -(int)state)
 				state = SideMenuState.MainViewShown;
 
-			if (state == SideMenuState.MainViewShown && absShift <= moveThreshold ||
-				state != SideMenuState.MainViewShown && absShift < menuWidth - moveThreshold)
+			if ((state == SideMenuState.MainViewShown && absShift <= moveThreshold) ||
+				(state != SideMenuState.MainViewShown && absShift < menuWidth - moveThreshold))
 			{
 				CurrentGestureState = SideMenuState.MainViewShown;
 				return;
