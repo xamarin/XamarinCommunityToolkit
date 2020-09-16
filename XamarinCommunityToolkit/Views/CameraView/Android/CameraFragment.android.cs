@@ -292,6 +292,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					repeatingIsRunning = false;
 					sessionBuilder.AddTarget(photoReader.Surface);
 					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
+					sessionBuilder.Set(CaptureRequest.JpegOrientation, GetJpegOrientation());
 					session.Capture(sessionBuilder.Build(), null, null);
 					sessionBuilder.RemoveTarget(photoReader.Surface);
 					UpdateRepeatingRequest();
@@ -811,13 +812,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SurfaceOrientation GetDisplayRotation()
 			=> App.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>().DefaultDisplay.Rotation;
 
-		int GetDisplayRotationiDegress() =>
-			(GetDisplayRotation()) switch
+		int GetDisplayRotationDegrees() =>
+			GetDisplayRotation() switch
 			{
 				SurfaceOrientation.Rotation90 => 90,
 				SurfaceOrientation.Rotation180 => 180,
 				SurfaceOrientation.Rotation270 => 270,
 				_ => 0,
+			};
+		
+		int GetJpegRotationDegrees() =>
+			GetDisplayRotation() switch
+			{
+				SurfaceOrientation.Rotation90 => 0,
+				SurfaceOrientation.Rotation180 => 270,
+				SurfaceOrientation.Rotation270 => 180,
+				_ => 90,
 			};
 
 		int GetPreviewOrientation() =>
@@ -886,8 +896,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		int GetCaptureOrientation()
 		{
 			var frontOffset = cameraType == LensFacing.Front ? 90 : -90;
-			return (360 + sensorOrientation - GetDisplayRotationiDegress() + frontOffset) % 360;
+			return (360 + sensorOrientation - GetDisplayRotationDegrees() + frontOffset) % 360;
 		}
+
+		int GetJpegOrientation() => (sensorOrientation + GetJpegRotationDegrees() + 270) % 360;
 
 		void Sound(MediaActionSoundType soundType)
 		{
