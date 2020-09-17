@@ -397,7 +397,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var trackWidth = TrackWidth;
 
 			lowerTranslation = (LowerValue - MinimumValue) / rangeValue * trackWidth;
-			upperTranslation = (UpperValue - MinimumValue) / rangeValue * trackWidth + LowerThumb.Width;
+			upperTranslation = ((UpperValue - MinimumValue) / rangeValue * trackWidth) + LowerThumb.Width;
 
 			LowerThumb.TranslationX = lowerTranslation;
 			UpperThumb.TranslationX = upperTranslation;
@@ -410,8 +410,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void OnValueLabelTranslationChanged()
 		{
 			var labelSpacing = 5;
-			var lowerLabelTranslation = lowerTranslation + (LowerThumb.Width - LowerValueLabel.Width) / 2;
-			var upperLabelTranslation = upperTranslation + (UpperThumb.Width - UpperValueLabel.Width) / 2;
+			var lowerLabelTranslation = lowerTranslation + ((LowerThumb.Width - LowerValueLabel.Width) / 2);
+			var upperLabelTranslation = upperTranslation + ((UpperThumb.Width - UpperValueLabel.Width) / 2);
 			LowerValueLabel.TranslationX = Min(Max(lowerLabelTranslation, 0), Width - LowerValueLabel.Width - UpperValueLabel.Width - labelSpacing);
 			UpperValueLabel.TranslationX = Min(Max(upperLabelTranslation, LowerValueLabel.TranslationX + LowerValueLabel.Width + labelSpacing), Width - UpperValueLabel.Width);
 		}
@@ -456,9 +456,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				labelWithSpacingHeight += ValueLabelSpacing;
 
 			var trackThumbHeight = Max(Max(lowerThumbSize, upperThumbSize), trackSize);
-			var trackVerticalPosition = labelWithSpacingHeight + (trackThumbHeight - trackSize) / 2;
-			var lowerThumbVerticalPosition = labelWithSpacingHeight + (trackThumbHeight - lowerThumbSize) / 2;
-			var upperThumbVerticalPosition = labelWithSpacingHeight + (trackThumbHeight - upperThumbSize) / 2;
+			var trackVerticalPosition = labelWithSpacingHeight + ((trackThumbHeight - trackSize) / 2);
+			var lowerThumbVerticalPosition = labelWithSpacingHeight + ((trackThumbHeight - lowerThumbSize) / 2);
+			var upperThumbVerticalPosition = labelWithSpacingHeight + ((trackThumbHeight - upperThumbSize) / 2);
 
 			if (Control != null)
 				Control.HeightRequest = labelWithSpacingHeight + trackThumbHeight;
@@ -536,10 +536,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var rangeValue = MaximumValue - MinimumValue;
 			if (view == LowerThumb)
 			{
-				LowerValue = Min(Max(MinimumValue, value / TrackWidth * rangeValue + MinimumValue), UpperValue);
+				LowerValue = Min(Max(MinimumValue, (value / TrackWidth * rangeValue) + MinimumValue), UpperValue);
 				return;
 			}
-			UpperValue = Min(Max(LowerValue, (value - LowerThumb.Width) / TrackWidth * rangeValue + MinimumValue), MaximumValue);
+			UpperValue = Min(Max(LowerValue, ((value - LowerThumb.Width) / TrackWidth * rangeValue) + MinimumValue), MaximumValue);
 		}
 
 		double GetPanShiftValue(View view)

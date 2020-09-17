@@ -369,8 +369,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Sign(shift) != -(int)state)
 				state = SideMenuState.MainViewShown;
 
-			if (state == SideMenuState.MainViewShown && absShift <= moveThreshold ||
-				state != SideMenuState.MainViewShown && absShift < menuWidth - moveThreshold)
+			if ((state == SideMenuState.MainViewShown && absShift <= moveThreshold) ||
+				(state != SideMenuState.MainViewShown && absShift < menuWidth - moveThreshold))
 			{
 				CurrentGestureState = SideMenuState.MainViewShown;
 				return;
@@ -478,8 +478,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var time = timeShiftItems.LastOrDefault().Time;
 			for (var i = timeShiftItems.Count - 1; i >= 0; --i)
+			{
 				if (time - timeShiftItems[i].Time > swipeThresholdTime)
 					timeShiftItems.RemoveAt(i);
+			}
 		}
 
 		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -491,8 +493,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void HandleChildren(IList items, Action<View> action)
 		{
 			if (items != null)
+			{
 				foreach (var item in items)
 					action?.Invoke((View)item);
+			}
 		}
 
 		void AddChild(View view)

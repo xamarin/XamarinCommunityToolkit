@@ -9,18 +9,23 @@ namespace Xamarin.CommunityToolkit.Helpers
 		readonly bool isParameterized;
 
 		public bool Left { get; }
+
 		public bool Top { get; }
+
 		public bool Right { get; }
+
 		public bool Bottom { get; }
 
 		public bool IsEmpty
 			=> !Left && !Top && !Right && !Bottom;
 
-		public SafeArea(bool uniformSafeArea) : this(uniformSafeArea, uniformSafeArea, uniformSafeArea, uniformSafeArea)
+		public SafeArea(bool uniformSafeArea)
+            : this(uniformSafeArea, uniformSafeArea, uniformSafeArea, uniformSafeArea)
 		{
 		}
 
-		public SafeArea(bool horizontal, bool vertical) : this(horizontal, vertical, horizontal, vertical)
+		public SafeArea(bool horizontal, bool vertical)
+            : this(horizontal, vertical, horizontal, vertical)
 		{
 		}
 

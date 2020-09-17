@@ -1,5 +1,6 @@
 ﻿using System;
-using System.IO;
+using System.Diagnostics;
+using AVFoundation;
 using Foundation;
 using Photos;
 using UIKit;
@@ -8,6 +9,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraViewRenderer : ViewRenderer<CameraView, FormsCameraView>
@@ -51,15 +53,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Element.IsAvailable = available;
 		}
 
-		void RaiseImageCapture(NSData photoData)
-		{
-			var data = UIImage.LoadFromData(photoData).AsJPEG().ToArray();
-			Device.BeginInvokeOnMainThread(() =>
-			{
-				Element.RaiseMediaCaptured(new MediaCapturedEventArgs(data, ImageSource.FromStream(() => new MemoryStream(data))));
-			});
-		}
-
 		void FinishCapture(object sender, Tuple<NSObject, NSError> e)
 		{
 			if (Element == null || Control == null)
@@ -74,10 +67,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var photoData = e.Item1 as NSData;
 			if (!Element.SavePhotoToFile && photoData != null)
 			{
-				RaiseImageCapture(photoData);
+				var data = UIImage.LoadFromData(photoData).AsJPEG().ToArray();
+				Device.BeginInvokeOnMainThread(() =>
+				{
+					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(imageData: data));
+				});
 				return;
 			}
 
+			PHObjectPlaceholder placeholder = null;
 			PHPhotoLibrary.RequestAuthorization(status =>
 			{
 				if (status != PHAuthorizationStatus.Authorized)
@@ -90,7 +88,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (photoData != null)
 					{
 						creationRequest.AddResource(PHAssetResourceType.Photo, photoData, null);
-						RaiseImageCapture(photoData);
+						placeholder = creationRequest.PlaceholderForCreatedAsset;
 					}
 					else if (e.Item1 is NSUrl outputFileUrl)
 					{
@@ -101,15 +99,58 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							{
 								ShouldMoveFile = true
 							});
-						Device.BeginInvokeOnMainThread(() =>
-						{
-							Element.RaiseMediaCaptured(new MediaCapturedEventArgs(video: MediaSource.FromFile(outputFileUrl.Path)));
-						});
+						placeholder = creationRequest.PlaceholderForCreatedAsset;
 					}
 				}, (success2, error2) =>
 				{
 					if (!success2)
-						Console.WriteLine($"Could not save movie to photo library: {error2}");
+					{
+						Debug.WriteLine($"Could not save media to photo library: {error2}");
+						if (error2 != null)
+						{
+							Element.RaiseMediaCaptureFailed(error2.LocalizedDescription);
+							return;
+						}
+						Element.RaiseMediaCaptureFailed($"Could not save media to photo library");
+						return;
+					}
+
+					if (!(PHAsset.FetchAssetsUsingLocalIdentifiers(new[] { placeholder.LocalIdentifier }, null).firstObject is PHAsset asset))
+					{
+						Element.RaiseMediaCaptureFailed($"Could not save media to photo library");
+						return;
+					}
+					if (asset.MediaType == PHAssetMediaType.Image)
+					{
+						asset.RequestContentEditingInput(new PHContentEditingInputRequestOptions
+						{
+							CanHandleAdjustmentData = p => true
+						}, (input, info) =>
+						{
+							Device.BeginInvokeOnMainThread(() =>
+							{
+								Element.RaiseMediaCaptured(new MediaCapturedEventArgs(input.FullSizeImageUrl.Path));
+							});
+						});
+					}
+					else if (asset.MediaType == PHAssetMediaType.Video)
+					{
+						PHImageManager.DefaultManager.RequestAvAsset(asset, new PHVideoRequestOptions
+						{
+							Version = PHVideoRequestOptionsVersion.Original
+						}, (avAsset, mix, info) =>
+						{
+							if (!(avAsset is AVUrlAsset urlAsset))
+							{
+								Element.RaiseMediaCaptureFailed($"Could not save media to photo library");
+								return;
+							}
+							Device.BeginInvokeOnMainThread(() =>
+							{
+								Element.RaiseMediaCaptured(new MediaCapturedEventArgs(urlAsset.Url.Path));
+							});
+						});
+					}
 				});
 			});
 		}
@@ -158,7 +199,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				case CameraCaptureOptions.Default:
 				case CameraCaptureOptions.Photo:
-					await Control?.TakePhoto();
+					if (Control != null)
+						await Control.TakePhoto();
 					break;
 				case CameraCaptureOptions.Video:
 					if (Control == null)

@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{47DFE508-04F1-433D-8C55-0C1ACD033573}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.UnitTests", "XamarinCommunityToolkit.UnitTests\Xamarin.CommunityToolkit.UnitTests.csproj", "{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.UnitTests", "XamarinCommunityToolkit.UnitTests\Xamarin.CommunityToolkit.UnitTests.csproj", "{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.UWP", "XamarinCommunityToolkitSample.UWP\Xamarin.CommunityToolkit.Sample.UWP.csproj", "{91C748B4-E9ED-4543-880A-26747B03DE3A}"
 EndProject

@@ -63,8 +63,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			var list = new Dictionary<int, char>();
 			for (var i = 0; i < Mask.Length; i++)
+			{
 				if (Mask[i] != UnMaskedCharacter)
 					list.Add(i, Mask[i]);
+			}
 
 			positions = list;
 		}
@@ -99,7 +101,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			if (!string.IsNullOrWhiteSpace(text) && positions != null)
 			{
-
 				if (text.Length > Mask.Length)
 					text = text.Remove(text.Length - 1);
 
@@ -111,7 +112,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 					var value = position.Value.ToString();
 
-					//!important - If user types in masked value, don't add masked value
+					// !important - If user types in masked value, don't add masked value
 					if (text.Substring(position.Key, 1) != value)
 						text = text.Insert(position.Key, value);
 				}

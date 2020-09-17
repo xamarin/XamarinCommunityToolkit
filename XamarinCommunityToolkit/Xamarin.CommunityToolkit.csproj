@@ -38,6 +38,7 @@
     <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
     <DebugType>portable</DebugType>
     <Configurations>Debug;Release</Configurations>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage TargetFrameworks for development (Debug Mode) -->
@@ -99,22 +100,27 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid')) ">
     <Compile Include="**\*.android.cs" />
     <Compile Include="**\*.android.*.cs" />
+    
+    <!--Resources-->
+    <AndroidResource Include="Resources\**\*.axml" />
+    <AndroidResource Include="Resources\**\*.xml" />
+    <AndroidResource Include="Resources\**\*.png" />
   </ItemGroup>
+  
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid9.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
     <Compile Include="**\*.ios.cs" />
     <Compile Include="**\*.ios.*.cs" />
   </ItemGroup>
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.TVOS')) ">
     <Compile Include="**\*.tvos.cs" />
     <Compile Include="**\*.tvos.*.cs" />
   </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.WatchOS')) ">
-    <Compile Include="**\*.watchos.cs" />
-    <Compile Include="**\*.watchos.*.cs" />
-  </ItemGroup>
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.Mac')) ">
     <Reference Include="netstandard" Condition=" '$(OS)' == 'Windows_NT' " />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
@@ -122,6 +128,12 @@
     <Compile Include="**\*.macos.cs" />
     <Compile Include="**\*.macos.*.cs" />
   </ItemGroup>
+  
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.WatchOS')) ">
+    <Compile Include="**\*.watchos.cs" />
+    <Compile Include="**\*.watchos.*.cs" />
+  </ItemGroup>
+  
   <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <Compile Include="**\*.tizen.cs" />
