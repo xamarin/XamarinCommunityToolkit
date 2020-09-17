@@ -13,13 +13,13 @@ namespace Xamarin.CommunityToolkit.Helpers
 		internal static void AddEventHandler(in string eventName, in object handlerTarget, in MethodInfo methodInfo, in Dictionary<string, List<Subscription>> eventHandlers)
 		{
 			var doesContainSubscriptions = eventHandlers.TryGetValue(eventName, out var targets);
-			if (!doesContainSubscriptions || targets is null)
+			if (!doesContainSubscriptions || targets == null)
 			{
 				targets = new List<Subscription>();
 				eventHandlers.Add(eventName, targets);
 			}
 
-			if (handlerTarget is null)
+			if (handlerTarget == null)
 				targets.Add(new Subscription(null, methodInfo));
 			else
 				targets.Add(new Subscription(new WeakReference(handlerTarget), methodInfo));
@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		internal static void RemoveEventHandler(in string eventName, in object handlerTarget, in MemberInfo methodInfo, in Dictionary<string, List<Subscription>> eventHandlers)
 		{
 			var doesContainSubscriptions = eventHandlers.TryGetValue(eventName, out var subscriptions);
-			if (!doesContainSubscriptions || subscriptions is null)
+			if (!doesContainSubscriptions || subscriptions == null)
 				return;
 
 			for (var n = subscriptions.Count; n > 0; n--)
@@ -135,7 +135,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 				for (var i = 0; i < target.Count; i++)
 				{
 					var subscription = target[i];
-					var isStatic = subscription.Subscriber is null;
+					var isStatic = subscription.Subscriber == null;
 
 					if (isStatic)
 					{
@@ -145,7 +145,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 					var subscriber = subscription.Subscriber?.Target;
 
-					if (subscriber is null)
+					if (subscriber == null)
 						toRemove.Add(subscription);
 					else
 						toRaise.Add((subscriber, subscription.Handler));

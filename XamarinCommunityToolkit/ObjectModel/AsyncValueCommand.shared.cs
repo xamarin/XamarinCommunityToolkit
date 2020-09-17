@@ -90,7 +90,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 
 		static Func<object, ValueTask> ConvertExecute(Func<ValueTask> execute)
 		{
-			if (execute is null)
+			if (execute == null)
 				return null;
 
 			return _ => execute();
