@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (handler is null)
+			if (handler == null)
 				throw new ArgumentNullException(nameof(handler));
 
 			EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
