@@ -133,7 +133,8 @@ namespace Xamarin.CommunityToolkit.Helpers
             var doesContainEventName = eventHandlers.TryGetValue(eventName, out var target);
             if (doesContainEventName && target != null)
             {
-                for (var i = 0; i < target.Count; i++)
+            var toRaiseCount = toRaise.Count;
+            for (var i = 0; i < toRaiseCount; i++)
                 {
                     var subscription = target[i];
                     var isStatic = subscription.Subscriber is null;
