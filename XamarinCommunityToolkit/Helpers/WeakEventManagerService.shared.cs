@@ -102,7 +102,8 @@ namespace Xamarin.CommunityToolkit.Helpers
         {
             AddRemoveEvents(eventName, eventHandlers, out var toRaise);
 
-            for (var i = 0; i < toRaise.Count; i++)
+            var toRaiseCount = toRaise.Count;
+            for (var i = 0; i < toRaiseCount; i++)
             {
                 try
                 {
