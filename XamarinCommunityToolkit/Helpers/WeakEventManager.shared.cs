@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (action is null)
+			if (action == null)
 				throw new ArgumentNullException(nameof(action));
 
 			EventManagerService.AddEventHandler(eventName, action.Target, action.GetMethodInfo(), eventHandlers);
