@@ -27,7 +27,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly float imgScale = 1f;
 
 		public event EventHandler<bool> Busy;
+
 		public event EventHandler<bool> Available;
+
 		public event EventHandler<Tuple<NSObject, NSError>> FinishCapture;
 
 		public bool VideoRecorded => videoOutput?.Recording == true;
@@ -189,6 +191,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			IsBusy = true;
+
 			// iOS >= 10
 			if (photoOutput != null)
 			{
@@ -213,6 +216,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				photoOutput.CapturePhoto(photoSettings, photoCaptureDelegate);
 				return;
 			}
+
 			// iOS < 10
 			try
 			{

@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return false;
 
 			// Let the container know that we're "fake" handling this event
-			//renderer.NotifyFakeHandling();
+			// renderer.NotifyFakeHandling();
 
 			return true;
 		}
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			// Determine whether this control is inside a ViewCell;
 			// we don't fake handle the events because ListView needs them for row selection
-			//isInViewCell = element.IsInViewCell();
+			// isInViewCell = element.IsInViewCell();
 		}
 
 		bool ShouldPassThroughElement()
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					return false;
 
 				// This is a layout, and it's transparent, and all its children are transparent, then the event
-				// can just pass through 
+				// can just pass through
 				if (layout.CascadeInputTransparent)
 					return true;
 
@@ -54,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return true;
 			}
 
-			// This is not a layout and it's transparent; the event can just pass through 
+			// This is not a layout and it's transparent; the event can just pass through
 			if (element.InputTransparent)
 				return true;
 

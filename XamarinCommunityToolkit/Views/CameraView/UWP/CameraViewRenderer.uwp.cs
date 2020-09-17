@@ -23,6 +23,7 @@ using Xamarin.Forms.Platform.UWP;
 using MediaSource = Xamarin.Forms.MediaSource;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraViewRenderer : ViewRenderer<CameraView, CaptureElement>
@@ -138,8 +139,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			string filePath = null;
 			if (Element.SavePhotoToFile)
 			{
-				//TODO replace platform specifics
-				//var localFolder = Element.OnThisPlatform().GetPhotoFolder();
+				// TODO replace platform specifics
+				// var localFolder = Element.OnThisPlatform().GetPhotoFolder();
 				var localFolder = "PhotoFolder";
 				var destinationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(localFolder, CreationCollisionOption.OpenIfExists);
 				var file = await destinationFolder.CreateFileAsync($"{DateTime.Now.ToString("yyyyddMM_HHmmss")}.jpg", CreationCollisionOption.GenerateUniqueName);
@@ -171,8 +172,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		async Task StartRecord()
 		{
-			//TODO replace platform specifics
-			//var localFolder = Element.On<PlatformConfiguration.Windows>().GetVideoFolder();
+			// TODO replace platform specifics
+			// var localFolder = Element.On<PlatformConfiguration.Windows>().GetVideoFolder();
 			var localFolder = "Video";
 			var destinationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(localFolder, CreationCollisionOption.OpenIfExists);
 			var file = await destinationFolder.CreateFileAsync($"{DateTime.Now.ToString("yyyyddMM_HHmmss")}.mp4", CreationCollisionOption.GenerateUniqueName);
@@ -244,10 +245,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (flash != null)
 						flash.IsEnabled = Element.FlashMode == CameraFlashMode.Torch || Element.FlashMode == CameraFlashMode.On;
 					break;
+
 				// Only supported by Android, removed until we have platform specifics
-				//case nameof(CameraView.PreviewAspect):
-				//	// TODO
-				//	break;
+				// case nameof(CameraView.PreviewAspect):
+				// // TODO
+				// break;
 				case nameof(CameraView.Zoom):
 					UpdateZoom();
 					break;
@@ -263,7 +265,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var settings = new ZoomSettings
 			{
-				//TODO replace clamp
+				// TODO replace clamp
 				Value = Clamp(Element.Zoom, zoomControl.Min, zoomControl.Max),
 				Mode = zoomControl.SupportedModes.Contains(ZoomTransitionMode.Smooth)
 					? ZoomTransitionMode.Smooth
