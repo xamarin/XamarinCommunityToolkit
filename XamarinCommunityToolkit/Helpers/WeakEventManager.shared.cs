@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (action is null)
+			if (action == null)
 				throw new ArgumentNullException(nameof(action));
 
 			EventManagerService.RemoveEventHandler(eventName, action.Target, action.GetMethodInfo(), eventHandlers);
@@ -115,7 +115,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (handler is null)
+			if (handler == null)
 				throw new ArgumentNullException(nameof(handler));
 
 			EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
@@ -131,7 +131,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
 
-			if (handler is null)
+			if (handler == null)
 				throw new ArgumentNullException(nameof(handler));
 
 			EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
