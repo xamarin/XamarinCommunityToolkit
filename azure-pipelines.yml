@@ -7,7 +7,7 @@ variables:
   MONO_VERSION: 6_4_0
   XCODE_VERSION: 11.4
   NETCORE_VERSION: '3.1.x'
-  NETCORE_TEST_VERSION: '2.2.x'
+  NETCORE_TEST_VERSION: '3.1.x'
   RunPoliCheck: 'false'
   PathToCsproj: 'XamarinCommunityToolkit/Xamarin.CommunityToolkit.csproj'
 
