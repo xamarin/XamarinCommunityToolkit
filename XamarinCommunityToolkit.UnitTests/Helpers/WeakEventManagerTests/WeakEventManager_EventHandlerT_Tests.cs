@@ -5,277 +5,277 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 {
-    public class WeakEventManager_EventHandlerT_Tests : BaseWeakEventManagerTests
-    {
-        [Fact]
-        public void WeakEventManagerTEventArgs_HandleEvent_ValidImplementation()
-        {
-            // Arrange
-            TestStringEvent += HandleTestEvent;
+	public class WeakEventManager_EventHandlerT_Tests : BaseWeakEventManagerTests
+	{
+		[Fact]
+		public void WeakEventManagerTEventArgs_HandleEvent_ValidImplementation()
+		{
+			// Arrange
+			TestStringEvent += HandleTestEvent;
 
-            const string stringEventArg = "Test";
-            var didEventFire = false;
+			const string stringEventArg = "Test";
+			var didEventFire = false;
 
-            void HandleTestEvent(object sender, string? e)
-            {
-                if (sender == null || e == null)
-                    throw new ArgumentNullException(nameof(sender));
+			void HandleTestEvent(object sender, string? e)
+			{
+				if (sender == null || e == null)
+					throw new ArgumentNullException(nameof(sender));
 
-                Assert.NotNull(sender);
-                Assert.Equal(GetType(), sender.GetType());
+				Assert.NotNull(sender);
+				Assert.Equal(GetType(), sender.GetType());
 
-                Assert.NotNull(e);
-                Assert.Equal(stringEventArg, e);
+				Assert.NotNull(e);
+				Assert.Equal(stringEventArg, e);
 
-                didEventFire = true;
-                TestStringEvent -= HandleTestEvent;
-            }
+				didEventFire = true;
+				TestStringEvent -= HandleTestEvent;
+			}
 
-            // Act
-            TestStringWeakEventManager.RaiseEvent(this, stringEventArg, nameof(TestStringEvent));
+			// Act
+			TestStringWeakEventManager.RaiseEvent(this, stringEventArg, nameof(TestStringEvent));
 
-            // Assert
-            Assert.True(didEventFire);
-        }
+			// Assert
+			Assert.True(didEventFire);
+		}
 
-        [Fact]
-        public void WeakEventManageTEventArgs_HandleEvent_NullSender()
-        {
-            // Arrange
-            TestStringEvent += HandleTestEvent;
+		[Fact]
+		public void WeakEventManageTEventArgs_HandleEvent_NullSender()
+		{
+			// Arrange
+			TestStringEvent += HandleTestEvent;
 
-            const string stringEventArg = "Test";
+			const string stringEventArg = "Test";
 
-            var didEventFire = false;
+			var didEventFire = false;
 
-            void HandleTestEvent(object sender, string e)
-            {
-                Assert.Null(sender);
+			void HandleTestEvent(object sender, string e)
+			{
+				Assert.Null(sender);
 
-                Assert.NotNull(e);
-                Assert.Equal(stringEventArg, e);
+				Assert.NotNull(e);
+				Assert.Equal(stringEventArg, e);
 
-                didEventFire = true;
-                TestStringEvent -= HandleTestEvent;
-            }
+				didEventFire = true;
+				TestStringEvent -= HandleTestEvent;
+			}
 
-            // Act
-            TestStringWeakEventManager.RaiseEvent(null, stringEventArg, nameof(TestStringEvent));
+			// Act
+			TestStringWeakEventManager.RaiseEvent(null, stringEventArg, nameof(TestStringEvent));
 
-            // Assert
-            Assert.True(didEventFire);
-        }
+			// Assert
+			Assert.True(didEventFire);
+		}
 
-        [Fact]
-        public void WeakEventManagerTEventArgs_HandleEvent_NullEventArgs()
-        {
-            // Arrange
-            TestStringEvent += HandleTestEvent;
-            var didEventFire = false;
+		[Fact]
+		public void WeakEventManagerTEventArgs_HandleEvent_NullEventArgs()
+		{
+			// Arrange
+			TestStringEvent += HandleTestEvent;
+			var didEventFire = false;
 
-            void HandleTestEvent(object sender, string e)
-            {
-                if (sender == null)
-                    throw new ArgumentNullException(nameof(sender));
+			void HandleTestEvent(object sender, string e)
+			{
+				if (sender == null)
+					throw new ArgumentNullException(nameof(sender));
 
-                Assert.NotNull(sender);
-                Assert.Equal(GetType(), sender.GetType());
+				Assert.NotNull(sender);
+				Assert.Equal(GetType(), sender.GetType());
 
-                Assert.Null(e);
+				Assert.Null(e);
 
-                didEventFire = true;
-                TestStringEvent -= HandleTestEvent;
-            }
+				didEventFire = true;
+				TestStringEvent -= HandleTestEvent;
+			}
 
-            // Act
+			// Act
 #pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
-            TestStringWeakEventManager.RaiseEvent(this, null, nameof(TestStringEvent));
+			TestStringWeakEventManager.RaiseEvent(this, null, nameof(TestStringEvent));
 #pragma warning restore CS8625
 
-            // Assert
-            Assert.True(didEventFire);
-        }
+			// Assert
+			Assert.True(didEventFire);
+		}
 
-        [Fact]
-        public void WeakEventManagerTEventArgs_HandleEvent_InvalidHandleEvent()
-        {
-            // Arrange
-            TestStringEvent += HandleTestEvent;
+		[Fact]
+		public void WeakEventManagerTEventArgs_HandleEvent_InvalidHandleEvent()
+		{
+			// Arrange
+			TestStringEvent += HandleTestEvent;
 
-            var didEventFire = false;
+			var didEventFire = false;
 
-            void HandleTestEvent(object sender, string e) => didEventFire = true;
+			void HandleTestEvent(object sender, string e) => didEventFire = true;
 
-            // Act
-            TestStringWeakEventManager.RaiseEvent(this, "Test", nameof(TestEvent));
+			// Act
+			TestStringWeakEventManager.RaiseEvent(this, "Test", nameof(TestEvent));
 
-            // Assert
-            Assert.False(didEventFire);
-            TestStringEvent -= HandleTestEvent;
-        }
+			// Assert
+			Assert.False(didEventFire);
+			TestStringEvent -= HandleTestEvent;
+		}
 
-        [Fact]
-        public void WeakEventManager_NullEventManager()
-        {
-            // Arrange
-            WeakEventManager unassignedEventManager = null;
+		[Fact]
+		public void WeakEventManager_NullEventManager()
+		{
+			// Arrange
+			WeakEventManager unassignedEventManager = null;
 
-            // Act
+			// Act
 
-            // Assert
+			// Assert
 #pragma warning disable CS8602 //Dereference of a possible null reference
-            Assert.Throws<NullReferenceException>(() => unassignedEventManager.RaiseEvent(null, null, nameof(TestEvent)));
+			Assert.Throws<NullReferenceException>(() => unassignedEventManager.RaiseEvent(null, null, nameof(TestEvent)));
 #pragma warning restore CS8602
-        }
+		}
 
-        [Fact]
-        public void WeakEventManagerTEventArgs_UnassignedEventManager()
-        {
-            // Arrange
-            var unassignedEventManager = new WeakEventManager<string>();
-            var didEventFire = false;
+		[Fact]
+		public void WeakEventManagerTEventArgs_UnassignedEventManager()
+		{
+			// Arrange
+			var unassignedEventManager = new WeakEventManager<string>();
+			var didEventFire = false;
 
-            TestStringEvent += HandleTestEvent;
-            void HandleTestEvent(object sender, string e) => didEventFire = true;
+			TestStringEvent += HandleTestEvent;
+			void HandleTestEvent(object sender, string e) => didEventFire = true;
 
-            // Act
+			// Act
 #pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
-            unassignedEventManager.RaiseEvent(null, null, nameof(TestStringEvent));
+			unassignedEventManager.RaiseEvent(null, null, nameof(TestStringEvent));
 #pragma warning restore CS8625
 
-            // Assert
-            Assert.False(didEventFire);
-            TestStringEvent -= HandleTestEvent;
-        }
+			// Assert
+			Assert.False(didEventFire);
+			TestStringEvent -= HandleTestEvent;
+		}
 
-        [Fact]
-        public void WeakEventManagerTEventArgs_UnassignedEvent()
-        {
-            // Arrange
-            var didEventFire = false;
+		[Fact]
+		public void WeakEventManagerTEventArgs_UnassignedEvent()
+		{
+			// Arrange
+			var didEventFire = false;
 
-            TestStringEvent += HandleTestEvent;
-            TestStringEvent -= HandleTestEvent;
-            void HandleTestEvent(object sender, string e) => didEventFire = true;
+			TestStringEvent += HandleTestEvent;
+			TestStringEvent -= HandleTestEvent;
+			void HandleTestEvent(object sender, string e) => didEventFire = true;
 
-            // Act
-            TestStringWeakEventManager.RaiseEvent(this, "Test", nameof(TestStringEvent));
+			// Act
+			TestStringWeakEventManager.RaiseEvent(this, "Test", nameof(TestStringEvent));
 
-            // Assert
-            Assert.False(didEventFire);
-        }
+			// Assert
+			Assert.False(didEventFire);
+		}
 
-        [Fact]
-        public void WeakEventManagerT_AddEventHandler_NullHandler()
-        {
-            // Arrange
+		[Fact]
+		public void WeakEventManagerT_AddEventHandler_NullHandler()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
+			// Assert
 #pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
-            Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler((EventHandler<string>)null));
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler((EventHandler<string>)null));
 #pragma warning restore CS8625
-        }
+		}
 
-        [Fact]
-        public void WeakEventManagerT_AddEventHandler_NullEventName()
-        {
-            // Arrange
+		[Fact]
+		public void WeakEventManagerT_AddEventHandler_NullEventName()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
+			// Assert
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
-            Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, null));
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, null));
 #pragma warning restore CS8625
-        }
+		}
 
-        [Fact]
-        public void WeakEventManagerT_AddEventHandler_EmptyEventName()
-        {
-            // Arrange
+		[Fact]
+		public void WeakEventManagerT_AddEventHandler_EmptyEventName()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, string.Empty));
-        }
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, string.Empty));
+		}
 
-        [Fact]
-        public void WeakEventManagerT_AddEventHandler_WhiteSpaceEventName()
-        {
-            // Arrange
+		[Fact]
+		public void WeakEventManagerT_AddEventHandler_WhiteSpaceEventName()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, " "));
-        }
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, " "));
+		}
 
-        [Fact]
-        public void WeakEventManagerT_RemoveEventHandler_NullHandler()
-        {
-            // Arrange
+		[Fact]
+		public void WeakEventManagerT_RemoveEventHandler_NullHandler()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
+			// Assert
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
-            Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.RemoveEventHandler((EventHandler<string>)null));
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.RemoveEventHandler((EventHandler<string>)null));
 #pragma warning restore CS8625
-        }
+		}
 
-        [Fact]
-        public void WeakEventManagerT_RemoveEventHandler_NullEventName()
-        {
-            // Arrange
+		[Fact]
+		public void WeakEventManagerT_RemoveEventHandler_NullEventName()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
+			// Assert
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
-            Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, null));
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, null));
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference
-        }
+		}
 
-        [Fact]
-        public void WeakEventManagerT_RemoveEventHandler_EmptyEventName()
-        {
-            // Arrange
+		[Fact]
+		public void WeakEventManagerT_RemoveEventHandler_EmptyEventName()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, string.Empty));
-        }
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, string.Empty));
+		}
 
-        [Fact]
-        public void WeakEventManagerT_RemoveEventHandler_WhiteSpaceEventName()
-        {
-            // Arrange
+		[Fact]
+		public void WeakEventManagerT_RemoveEventHandler_WhiteSpaceEventName()
+		{
+			// Arrange
 
-            // Act
+			// Act
 
-            // Assert
-            Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, string.Empty));
-        }
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, string.Empty));
+		}
 
-        [Fact]
-        public void WeakEventManagerT_HandleEvent_InvalidHandleEvent()
-        {
-            // Arrange
-            TestStringEvent += HandleTestStringEvent;
-            var didEventFire = false;
+		[Fact]
+		public void WeakEventManagerT_HandleEvent_InvalidHandleEvent()
+		{
+			// Arrange
+			TestStringEvent += HandleTestStringEvent;
+			var didEventFire = false;
 
-            void HandleTestStringEvent(object sender, string e) => didEventFire = true;
+			void HandleTestStringEvent(object sender, string e) => didEventFire = true;
 
-            // Act
+			// Act
 
-            // Assert
-            Assert.Throws<InvalidHandleEventException>(() => TestStringWeakEventManager.RaiseEvent("", nameof(TestStringEvent)));
-            Assert.False(didEventFire);
-            TestStringEvent -= HandleTestStringEvent;
-        }
-    }
+			// Assert
+			Assert.Throws<InvalidHandleEventException>(() => TestStringWeakEventManager.RaiseEvent("", nameof(TestStringEvent)));
+			Assert.False(didEventFire);
+			TestStringEvent -= HandleTestStringEvent;
+		}
+	}
 }
