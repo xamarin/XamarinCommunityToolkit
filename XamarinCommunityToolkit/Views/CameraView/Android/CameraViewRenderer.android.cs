@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		CameraFragment camerafragment;
 
 		public CameraViewRenderer(Context context)
-            : base(context)
+			: base(context)
 		{
 			motionEventHelper = new MotionEventHelper();
 			visualElementRenderer = new VisualElementRenderer(this);

@@ -20,12 +20,12 @@ namespace Xamarin.CommunityToolkit.Helpers
 			=> !Left && !Top && !Right && !Bottom;
 
 		public SafeArea(bool uniformSafeArea)
-            : this(uniformSafeArea, uniformSafeArea, uniformSafeArea, uniformSafeArea)
+			: this(uniformSafeArea, uniformSafeArea, uniformSafeArea, uniformSafeArea)
 		{
 		}
 
 		public SafeArea(bool horizontal, bool vertical)
-            : this(horizontal, vertical, horizontal, vertical)
+			: this(horizontal, vertical, horizontal, vertical)
 		{
 		}
 

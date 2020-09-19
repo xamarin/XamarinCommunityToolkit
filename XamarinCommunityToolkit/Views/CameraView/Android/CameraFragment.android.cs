@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public CameraFragment(IntPtr javaReference, JniHandleOwnership transfer)
-            : base(javaReference, transfer)
+			: base(javaReference, transfer)
 		{
 		}
 
