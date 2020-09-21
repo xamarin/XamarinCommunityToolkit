@@ -20,6 +20,7 @@
   <ItemGroup>
     <Folder Include="Converters\" />
     <Folder Include="Mocks\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>

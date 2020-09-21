@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
+#nullable enable
+
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	/// <summary>
@@ -97,7 +99,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			{
 				if (!Items.Remove(changedItems[i]))
 				{
-					changedItems.RemoveAt(i); //Can't use a foreach because changedItems is intended to be (carefully) modified
+					changedItems.RemoveAt(i); // Can't use a foreach because changedItems is intended to be (carefully) modified
 					i--;
 				}
 			}

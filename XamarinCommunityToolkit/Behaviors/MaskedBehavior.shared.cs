@@ -5,16 +5,17 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class MaskedBehavior : BaseBehavior
+	public class MaskedBehavior : BaseBehavior<InputView>
 	{
-		IDictionary<int, char> positions;
-		bool applyingMask;
-
 		public static readonly BindableProperty MaskProperty =
 			BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), propertyChanged: OnMaskPropertyChanged);
 
 		public static readonly BindableProperty UnMaskedCharacterProperty =
 			BindableProperty.Create(nameof(UnMaskedCharacter), typeof(char), typeof(MaskedBehavior), 'X', propertyChanged: OnUnMaskedCharacterPropertyChanged);
+
+		IDictionary<int, char> positions;
+
+		bool applyingMask;
 
 		public string Mask
 		{
@@ -34,6 +35,24 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((MaskedBehavior)bindable).OnMaskChanged();
 
+		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnViewPropertyChanged(sender, e);
+
+			if (e.PropertyName == InputView.TextProperty.PropertyName)
+				OnTextPropertyChanged();
+		}
+
+		void OnTextPropertyChanged()
+		{
+			if (applyingMask)
+				return;
+
+			applyingMask = true;
+			ApplyMask(View.Text);
+			applyingMask = false;
+		}
+
 		void SetPositions()
 		{
 			if (string.IsNullOrEmpty(Mask))
@@ -44,30 +63,25 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			var list = new Dictionary<int, char>();
 			for (var i = 0; i < Mask.Length; i++)
+			{
 				if (Mask[i] != UnMaskedCharacter)
 					list.Add(i, Mask[i]);
+			}
 
 			positions = list;
 		}
 
 		void OnMaskChanged()
 		{
-			var inputView = (InputView)View;
-
 			if (string.IsNullOrEmpty(Mask))
 			{
 				positions = null;
 				return;
 			}
 
-			var originalText = RemoveMask(inputView?.Text);
+			var originalText = RemoveMask(View?.Text);
 			SetPositions();
-
-			if (inputView == null) return;
-
-			var maskedText = ApplyMask(originalText);
-			if (inputView.Text != maskedText)
-				inputView.Text = maskedText;
+			ApplyMask(originalText);
 		}
 
 		string RemoveMask(string text)
@@ -83,52 +97,29 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			return string.Join(string.Empty, text.Split(maskChars));
 		}
 
-		string ApplyMask(string text)
+		void ApplyMask(string text)
 		{
-			if (string.IsNullOrWhiteSpace(text) || positions == null)
-				return text;
-
-			if (text.Length > Mask.Length)
+			if (!string.IsNullOrWhiteSpace(text) && positions != null)
 			{
-				text = text.Remove(text.Length - 1);
+				if (text.Length > Mask.Length)
+					text = text.Remove(text.Length - 1);
+
+				text = RemoveMask(text);
+				foreach (var position in positions)
+				{
+					if (text.Length < position.Key + 1)
+						continue;
+
+					var value = position.Value.ToString();
+
+					// !important - If user types in masked value, don't add masked value
+					if (text.Substring(position.Key, 1) != value)
+						text = text.Insert(position.Key, value);
+				}
 			}
 
-			text = RemoveMask(text);
-			foreach (var position in positions)
-			{
-				if (text.Length < position.Key + 1) continue;
-
-				var value = position.Value.ToString();
-
-				//!important - If user types in masked value, don't add masked value
-				if (text.Substring(position.Key, 1) != value)
-					text = text.Insert(position.Key, value);
-			}
-
-			return text;
-		}
-
-		/// <inheritdoc />
-		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnViewPropertyChanged(sender, e);
-
-			if (e.PropertyName != nameof(InputView.Text) || applyingMask)
-				return;
-
-			try
-			{
-				applyingMask = true;
-
-				var inputView = (InputView)View;
-				var maskedText = ApplyMask(inputView.Text);
-				if (inputView.Text != maskedText)
-					inputView.Text = maskedText;
-			}
-			finally
-			{
-				applyingMask = false;
-			}
+			if (View != null)
+				View.Text = text;
 		}
 	}
 }

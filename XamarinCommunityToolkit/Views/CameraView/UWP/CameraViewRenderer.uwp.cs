@@ -23,6 +23,7 @@ using Xamarin.Forms.Platform.UWP;
 using MediaSource = Xamarin.Forms.MediaSource;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
+
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraViewRenderer : ViewRenderer<CameraView, CaptureElement>
@@ -107,7 +108,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (mediaRecording != null)
 						await HandleVideo();
 					else
-						Element.RaiseMediaCaptured(new MediaCapturedEventArgs(image: await GetImage()));
+					{
+						var tuple = await GetImage();
+						Element.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2));
+					}
 					break;
 				case CameraCaptureOptions.Video:
 					await HandleVideo();
@@ -120,11 +124,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (mediaRecording == null)
 					await StartRecord();
 				else
-					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(video: await StopRecord()));
+					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(await StopRecord()));
 			}
 		}
 
-		async Task<ImageSource> GetImage()
+		async Task<Tuple<string, byte[]>> GetImage()
 		{
 			IsBusy = true;
 			var imageProp = ImageEncodingProperties.CreateUncompressed(MediaPixelFormat.Bgra8);
@@ -132,13 +136,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var capturedPhoto = await lowLagCapture.CaptureAsync();
 
 			await lowLagCapture.FinishAsync();
+			string filePath = null;
 			if (Element.SavePhotoToFile)
 			{
-				//TODO replace platform specifics
-				//var localFolder = Element.OnThisPlatform().GetPhotoFolder();
+				// TODO replace platform specifics
+				// var localFolder = Element.OnThisPlatform().GetPhotoFolder();
 				var localFolder = "PhotoFolder";
 				var destinationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(localFolder, CreationCollisionOption.OpenIfExists);
 				var file = await destinationFolder.CreateFileAsync($"{DateTime.Now.ToString("yyyyddMM_HHmmss")}.jpg", CreationCollisionOption.GenerateUniqueName);
+				filePath = file.Path;
 				using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
 				{
 					var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, stream);
@@ -153,14 +159,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			outputEncoder.SetSoftwareBitmap(capturedPhoto.Frame.SoftwareBitmap);
 			await outputEncoder.FlushAsync();
 
+			byte[] imageData = null;
+			if (!Element.SavePhotoToFile)
+			{
+				using var memoryStream = new MemoryStream();
+				await outputStream.AsStream().CopyToAsync(memoryStream);
+				imageData = memoryStream.ToArray();
+			}
 			IsBusy = false;
-			return ImageSource.FromStream(() => outputStream.AsStream());
+			return new Tuple<string, byte[]>(filePath, imageData);
 		}
 
 		async Task StartRecord()
 		{
-			//TODO replace platform specifics
-			//var localFolder = Element.On<PlatformConfiguration.Windows>().GetVideoFolder();
+			// TODO replace platform specifics
+			// var localFolder = Element.On<PlatformConfiguration.Windows>().GetVideoFolder();
 			var localFolder = "Video";
 			var destinationFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync(localFolder, CreationCollisionOption.OpenIfExists);
 			var file = await destinationFolder.CreateFileAsync($"{DateTime.Now.ToString("yyyyddMM_HHmmss")}.mp4", CreationCollisionOption.GenerateUniqueName);
@@ -187,7 +200,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			await mediaRecording.StartAsync();
 		}
 
-		async Task<MediaSource> StopRecord()
+		async Task<string> StopRecord()
 		{
 			if (mediaRecording == null)
 				return null;
@@ -214,7 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				videoStabilizationEffect = null;
 			}
 
-			return MediaSource.FromFile(filePath);
+			return filePath;
 		}
 
 		void MediaCaptureFailed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
@@ -232,10 +245,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (flash != null)
 						flash.IsEnabled = Element.FlashMode == CameraFlashMode.Torch || Element.FlashMode == CameraFlashMode.On;
 					break;
+
 				// Only supported by Android, removed until we have platform specifics
-				//case nameof(CameraView.PreviewAspect):
-				//	// TODO
-				//	break;
+				// case nameof(CameraView.PreviewAspect):
+				// // TODO
+				// break;
 				case nameof(CameraView.Zoom):
 					UpdateZoom();
 					break;
@@ -251,7 +265,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var settings = new ZoomSettings
 			{
-				//TODO replace clamp
+				// TODO replace clamp
 				Value = Clamp(Element.Zoom, zoomControl.Min, zoomControl.Max),
 				Mode = zoomControl.SupportedModes.Contains(ZoomTransitionMode.Smooth)
 					? ZoomTransitionMode.Smooth
@@ -374,7 +388,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				await mediaCapture.StopPreviewAsync();
 
 			if (mediaRecording != null)
-				Element.RaiseMediaCaptured(new MediaCapturedEventArgs(video: await StopRecord()));
+				Element.RaiseMediaCaptured(new MediaCapturedEventArgs(await StopRecord()));
 
 			await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
 			{
