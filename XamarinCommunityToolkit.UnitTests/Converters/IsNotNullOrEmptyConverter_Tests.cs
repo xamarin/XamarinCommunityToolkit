@@ -8,8 +8,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	{
 		[Theory]
 		[InlineData("Test", true)]
-		[InlineData(null, false)]
 		[InlineData(typeof(IsNotNullOrEmptyConverter), true)]
+		[InlineData(null, false)]
 		[InlineData("", false)]
 		public void IsNotNullOrEmptyConverter(object value, bool expectedResult)
 		{
