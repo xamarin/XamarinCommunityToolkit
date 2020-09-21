@@ -1,4 +1,4 @@
-Xamarin Community Toolkit
+<img src="assets/XamarinCommunityToolkit_128x128.png" width="64" /> Xamarin Community Toolkit
 ===========
 Members of the community are rebooting this library under the guidance of the Xamarin team. The Xamarin Community Toolkit is a collection of common elements for mobile development with Xamarin.Forms that people tend to replicate across multiple apps. It simplifies and demonstrates common developer tasks when building apps with Xamarin.Forms. If you're looking for the historical code to reference, please check the **legacy** branch.
 

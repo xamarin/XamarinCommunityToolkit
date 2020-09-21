@@ -11,7 +11,7 @@ using IList = System.Collections.IList;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[ContentProperty(nameof(Children))]
-	public class SideMenuView : TemplatedView
+	public class SideMenuView : BaseTemplatedView<AbsoluteLayout>
 	{
 		const string animationName = nameof(SideMenuView);
 
@@ -33,13 +33,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static readonly TimeSpan swipeThresholdTime = TimeSpan.FromMilliseconds(Device.RuntimePlatform == Device.Android ? 100 : 60);
 
-		readonly List<TimeShiftItem> timeShiftItems;
+		readonly List<TimeShiftItem> timeShiftItems = new List<TimeShiftItem>();
 
-		readonly SideMenuElementCollection children;
+		readonly SideMenuElementCollection children = new SideMenuElementCollection();
 
-		AbsoluteLayout mainLayout;
-
-		readonly View overlayView;
+		View overlayView;
 
 		View mainView;
 
@@ -90,35 +88,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty MenuGestureEnabledProperty
 			= BindableProperty.CreateAttached(nameof(GetMenuGestureEnabled), typeof(bool), typeof(SideMenuView), true);
-
-		public SideMenuView()
-		{
-			timeShiftItems = new List<TimeShiftItem>();
-
-			children = new SideMenuElementCollection();
-			children.CollectionChanged += OnChildrenCollectionChanged;
-
-			overlayView = SetupMainViewLayout(new BoxView
-			{
-				InputTransparent = true,
-				GestureRecognizers =
-				{
-					new TapGestureRecognizer
-					{
-						Command = new Command(() => State = SideMenuState.MainViewShown)
-					}
-				}
-			});
-
-			if (Device.RuntimePlatform != Device.Android)
-			{
-				var panGestureRecognizer = new PanGestureRecognizer();
-				panGestureRecognizer.PanUpdated += OnPanUpdated;
-				GestureRecognizers.Add(panGestureRecognizer);
-			}
-
-			ControlTemplate = new ControlTemplate(typeof(AbsoluteLayout));
-		}
 
 		internal void OnPanUpdated(object sender, PanUpdatedEventArgs e)
 		{
@@ -215,27 +184,49 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static void SetMenuGestureEnabled(BindableObject bindable, bool value)
 			=> bindable.SetValue(MenuGestureEnabledProperty, value);
 
-		protected override void OnChildAdded(Element child)
+		protected override void OnControlInitialized(AbsoluteLayout control)
 		{
-			mainLayout ??= child as AbsoluteLayout;
-			if (mainLayout != null)
+			children.CollectionChanged += OnChildrenCollectionChanged;
+
+			overlayView = SetupMainViewLayout(new BoxView
 			{
-				mainLayout.Children.Add(overlayView);
-				mainLayout.LayoutChanged += OnLayoutChanged;
+				InputTransparent = true,
+				GestureRecognizers =
+				{
+					new TapGestureRecognizer
+					{
+						Command = new Command(() => State = SideMenuState.MainViewShown)
+					}
+				}
+			});
+
+			if (Device.RuntimePlatform != Device.Android)
+			{
+				var panGestureRecognizer = new PanGestureRecognizer();
+				panGestureRecognizer.PanUpdated += OnPanUpdated;
+				GestureRecognizers.Add(panGestureRecognizer);
 			}
 
-			base.OnChildAdded(child);
+			control.Children.Add(overlayView);
+			control.LayoutChanged += OnLayoutChanged;
 		}
 
-		protected override void OnChildRemoved(Element child)
+		static View SetupMainViewLayout(View view)
 		{
-			if (child == mainLayout)
-			{
-				mainLayout.LayoutChanged -= OnLayoutChanged;
-				mainLayout.Children.Remove(overlayView);
-				mainLayout = null;
-			}
-			base.OnChildRemoved(child);
+			SetLayoutFlags(view, AbsoluteLayoutFlags.All);
+			SetLayoutBounds(view, new Rectangle(0, 0, 1, 1));
+			return view;
+		}
+
+		static View SetupMenuLayout(View view, bool isLeft)
+		{
+			var width = GetMenuWidthPercentage(view);
+			var flags = width > 0
+				? AbsoluteLayoutFlags.All
+				: AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.HeightProportional;
+			SetLayoutFlags(view, flags);
+			SetLayoutBounds(view, new Rectangle(isLeft ? 0 : 1, 0, width, 1));
+			return view;
 		}
 
 		static void OnStatePropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -378,8 +369,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Sign(shift) != -(int)state)
 				state = SideMenuState.MainViewShown;
 
-			if (state == SideMenuState.MainViewShown && absShift <= moveThreshold ||
-				state != SideMenuState.MainViewShown && absShift < menuWidth - moveThreshold)
+			if ((state == SideMenuState.MainViewShown && absShift <= moveThreshold) ||
+				(state != SideMenuState.MainViewShown && absShift < menuWidth - moveThreshold))
 			{
 				CurrentGestureState = SideMenuState.MainViewShown;
 				return;
@@ -422,7 +413,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (inactiveMenu == null ||
 				activeMenu == null ||
 				leftMenu.X + leftMenu.Width <= rightMenu.X ||
-				mainLayout.Children.IndexOf(inactiveMenu) < mainLayout.Children.IndexOf(activeMenu))
+				Control.Children.IndexOf(inactiveMenu) < Control.Children.IndexOf(activeMenu))
 				return;
 
 			LowerChild(inactiveMenu);
@@ -487,8 +478,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var time = timeShiftItems.LastOrDefault().Time;
 			for (var i = timeShiftItems.Count - 1; i >= 0; --i)
+			{
 				if (time - timeShiftItems[i].Time > swipeThresholdTime)
 					timeShiftItems.RemoveAt(i);
+			}
 		}
 
 		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -500,13 +493,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void HandleChildren(IList items, Action<View> action)
 		{
 			if (items != null)
+			{
 				foreach (var item in items)
 					action?.Invoke((View)item);
+			}
 		}
 
 		void AddChild(View view)
 		{
-			mainLayout.Children.Add(view);
+			Control.Children.Add(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -523,7 +518,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveChild(View view)
 		{
-			mainLayout.Children.Remove(view);
+			Control.Children.Remove(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -548,26 +543,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (mainView == null)
 				return;
 
-			mainLayout.RaiseChild(mainView);
-			mainLayout.RaiseChild(overlayView);
-		}
-
-		View SetupMainViewLayout(View view)
-		{
-			SetLayoutFlags(view, AbsoluteLayoutFlags.All);
-			SetLayoutBounds(view, new Rectangle(0, 0, 1, 1));
-			return view;
-		}
-
-		View SetupMenuLayout(View view, bool isLeft)
-		{
-			var width = GetMenuWidthPercentage(view);
-			var flags = width > 0
-				? AbsoluteLayoutFlags.All
-				: AbsoluteLayoutFlags.PositionProportional | AbsoluteLayoutFlags.HeightProportional;
-			SetLayoutFlags(view, flags);
-			SetLayoutBounds(view, new Rectangle(isLeft ? 0 : 1, 0, width, 1));
-			return view;
+			Control.RaiseChild(mainView);
+			Control.RaiseChild(overlayView);
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -22,8 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(IsBusyProperty, value);
 		}
 
-		public static readonly BindableProperty IsAvailableProperty = BindableProperty.Create(nameof(IsAvailable), typeof(bool), typeof(CameraView), false,
-			propertyChanged: (b, o, n) => ((CameraView)b).OnAvailable?.Invoke(b, (bool)n));
+		public static readonly BindableProperty IsAvailableProperty = BindableProperty.Create(nameof(IsAvailable), typeof(bool), typeof(CameraView), false, propertyChanged: (b, o, n) => ((CameraView)b).OnAvailable?.Invoke(b, (bool)n));
 
 		public bool IsAvailable
 		{
@@ -72,13 +70,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		// Only supported by Android, removed until we have platform specifics
-		//public static readonly BindableProperty PreviewAspectProperty = BindableProperty.Create(nameof(PreviewAspect), typeof(Aspect), typeof(CameraView), Aspect.AspectFit);
+		// public static readonly BindableProperty PreviewAspectProperty = BindableProperty.Create(nameof(PreviewAspect), typeof(Aspect), typeof(CameraView), Aspect.AspectFit);
 
-		//public Aspect PreviewAspect
-		//{
-		//	get => (Aspect)GetValue(PreviewAspectProperty);
-		//	set => SetValue(PreviewAspectProperty, value);
-		//}
+		// public Aspect PreviewAspect
+		// {
+		// get => (Aspect)GetValue(PreviewAspectProperty);
+		// set => SetValue(PreviewAspectProperty, value);
+		// }
 
 		public static readonly BindableProperty ZoomProperty = BindableProperty.Create(nameof(Zoom), typeof(double), typeof(CameraView), 1d);
 

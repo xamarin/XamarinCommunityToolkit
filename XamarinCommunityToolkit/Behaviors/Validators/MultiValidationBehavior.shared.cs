@@ -60,16 +60,22 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (e.NewItems != null)
+			{
 				foreach (var child in e.NewItems.OfType<ValidationBehavior>())
+				{
 					child.SetBinding(BindingContextProperty, new Binding
 					{
 						Path = BindingContextProperty.PropertyName,
 						Source = this
 					});
+				}
+			}
 
 			if (e.OldItems != null)
+			{
 				foreach (var child in e.OldItems.OfType<ValidationBehavior>())
 					child.RemoveBinding(BindingContextProperty);
+			}
 		}
 	}
 }

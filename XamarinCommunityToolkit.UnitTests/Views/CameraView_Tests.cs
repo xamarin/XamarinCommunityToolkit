@@ -45,7 +45,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		}
 
 		[Fact]
-		public void TestOnShitterClicked()
+		public void TestOnShutterClicked()
 		{
 			var camera = new CameraView();
 

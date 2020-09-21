@@ -20,12 +20,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <summary>
 		/// The object that corresponds to True value.
 		/// </summary>
-		public TObject TrueObject { set; get; }
+		public TObject TrueObject { get; set; }
 
 		/// <summary>
 		/// The object that corresponds to False value.
 		/// </summary>
-		public TObject FalseObject { set; get; }
+		public TObject FalseObject { get; set; }
 
 		/// <summary>
 		/// Converts boolean to object.
