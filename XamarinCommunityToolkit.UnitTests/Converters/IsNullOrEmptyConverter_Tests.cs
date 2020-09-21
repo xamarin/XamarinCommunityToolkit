@@ -7,10 +7,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	public class IsNullOrEmptyConverter_Tests
 	{
 		[Theory]
-		[InlineData("Test", false)]
 		[InlineData(null, true)]
-		[InlineData(typeof(IsNullOrEmptyConverter), false)]
 		[InlineData("", true)]
+		[InlineData("Test", false)]
+		[InlineData(typeof(IsNullOrEmptyConverter), false)]
 		public void IsNullOrEmptyConverter(object value, bool expectedResult)
 		{
 			var isNullOrEmptyConverter = new IsNullOrEmptyConverter();
