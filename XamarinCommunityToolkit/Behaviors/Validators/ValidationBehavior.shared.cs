@@ -168,7 +168,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			if ((View?.IsFocused ?? false) && Flags.HasFlag(ValidationFlags.ForceMakeValidWhenFocused))
 				IsValid = true;
-			else if (isForced || currentStatus != ValidationFlags.None && Flags.HasFlag(currentStatus))
+			else if (isForced || (currentStatus != ValidationFlags.None && Flags.HasFlag(currentStatus)))
 				IsValid = Validate(DecorateValue());
 
 			UpdateStyle();

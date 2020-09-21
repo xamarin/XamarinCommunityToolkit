@@ -1,5 +1,4 @@
-﻿
-namespace Xamarin.CommunityToolkit.UI.Views
+﻿namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public enum SideMenuState
 	{

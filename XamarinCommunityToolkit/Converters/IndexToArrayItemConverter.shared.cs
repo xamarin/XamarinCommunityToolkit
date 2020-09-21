@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			for (var i = 0; i < array.Length; i++)
 			{
 				var item = array.GetValue(i);
-				if (item != null && item.Equals(value) || item == null && value == null)
+				if ((item != null && item.Equals(value)) || (item == null && value == null))
 					return i;
 			}
 
