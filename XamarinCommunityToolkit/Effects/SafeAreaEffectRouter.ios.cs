@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class SafeAreaEffectRouter : PlatformEffect
 	{
-		Thickness initialMargin;
+		Thickness? initialMargin;
 
 		protected override void OnAttached()
 		{
@@ -24,24 +24,27 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
 
-			initialMargin = element.Margin;
-
 			if (insets.Top <= 0)
 				return;
+
+			initialMargin = element.Margin;
 
 			var safeArea = SafeAreaEffect.GetSafeArea(element);
 
 			element.Margin = new Thickness(
-				initialMargin.Left + (safeArea.Left ? insets.Left : 0),
-				initialMargin.Top + (safeArea.Top ? insets.Top : 0),
-				initialMargin.Right + (safeArea.Right ? insets.Right : 0),
-				initialMargin.Bottom + (safeArea.Bottom ? insets.Bottom : 0));
+				element.Margin.Left + (safeArea.Left ? insets.Left : 0),
+				element.Margin.Top + (safeArea.Top ? insets.Top : 0),
+				element.Margin.Right + (safeArea.Right ? insets.Right : 0),
+				element.Margin.Bottom + (safeArea.Bottom ? insets.Bottom : 0));
 		}
 
 		protected override void OnDetached()
 		{
-			if (Element is Layout element)
-				element.Margin = initialMargin;
+			if (Element is Layout element && initialMargin.HasValue)
+			{
+				element.Margin = initialMargin.Value;
+				initialMargin = null;
+			}
 		}
 	}
 }
