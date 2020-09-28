@@ -325,6 +325,12 @@
     <value>SideMenuView</value>
   </data>
   <data name="SideMenuViewDescription" xml:space="preserve">
+    <value>Shield is a type of badge.</value>
+  </data>
+  <data name="ShieldTitle" xml:space="preserve">
+    <value>Shield</value>
+  </data>
+  <data name="ShieldDescription" xml:space="preserve">
     <value>SideMenuView is a simple and flexible Right/Left menu control.</value>
   </data>
   <data name="MaskedDescription" xml:space="preserve">

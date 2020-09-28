@@ -19,6 +19,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(MediaElementPage), AppResources.MediaElementTitle, AppResources.MediaElementDescription),
 			new SectionModel(typeof(RangeSliderPage), AppResources.RangeSliderTitle, AppResources.RangeSliderDescription),
 			new SectionModel(typeof(SideMenuViewPage), AppResources.SideMenuViewTitle, AppResources.SideMenuViewDescription)
+			new SectionModel(typeof(ShieldPage), AppResources.ShieldTitle, AppResources.ShieldDescription)
 		};
 	}
 }
