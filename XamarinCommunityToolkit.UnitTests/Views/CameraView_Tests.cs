@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Forms;
 using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
@@ -54,6 +55,77 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			camera.Shutter();
 
 			Assert.True(fired);
+		}
+
+		[Fact]
+		public void TestShutterCommand()
+		{
+			var x = 0;
+			var camera = new CameraView
+			{
+				ShutterCommand = new Command(ShutterCommand)
+			};
+
+			camera.ShutterCommand.Execute(null);
+
+			Assert.Equal(1, x);
+
+			void ShutterCommand()
+			{
+				x++;
+			}
+		}
+
+		[Theory]
+		[InlineData(true)]
+		[InlineData(false)]
+		public void TestShutterCommandCanExecute(bool canExecute)
+		{
+			var x = 0;
+			var camera = new CameraView
+			{
+				ShutterCommand = new Command(ShutterCommand, CanExecute)
+			};
+
+			if (camera.ShutterCommand.CanExecute(null))
+				camera.ShutterCommand.Execute(null);
+
+			var expected = canExecute ? 1 : 0;
+			Assert.Equal(expected, x);
+
+			void ShutterCommand()
+			{
+				x++;
+			}
+
+			bool CanExecute()
+			{
+				return canExecute;
+			}
+		}
+
+		[Fact]
+		public void TestShutterCommandParameter()
+		{
+			var x = 0;
+			var camera = new CameraView
+			{
+				ShutterCommand = new Command<int>(ShutterCommand),
+				ShutterCommandParameter = 5
+			};
+
+			Assert.NotNull(camera.ShutterCommand);
+
+			camera.ShutterCommand.Execute(camera.ShutterCommandParameter);
+
+			camera.Shutter();
+
+			Assert.Equal(10, x);
+
+			void ShutterCommand(int value)
+			{
+				x += value;
+			}
 		}
 	}
 }
