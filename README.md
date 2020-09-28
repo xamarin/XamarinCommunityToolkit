@@ -43,7 +43,7 @@ Of course, `AvatarView` also supports `Source` for loading images plus a few oth
 
 If you have one or more of these common pieces of code that you are always replicating across apps, don't hesitate to contribute! We aim to be the first NuGet package you install when creating a new Xamarin app!
 
-Please have a look at our [contribution guide](CONTRIBUTING.md) before you get started.
+Please have a look at our [contribution guide](CONTRIBUTING.md) before you get started. Also take note of the [Code of Conduct](https://dotnetfoundation.org/code-of-conduct) we adhere to.
 
 ## Community Toolkit Principles
 - Principle #1: The toolkit will be kept simple.
@@ -66,3 +66,6 @@ To structure our project, we have adopted a range of namespaces. You can find th
 | Xamarin.CommunityToolkit.UI.Views | Controls such as TabView, etc. |
 | Xamarin.CommunityToolkit.SampleApp | Sample App where you can find all of the above for reference. Learn how to use them and see how it all looks |
 | Xamarin.CommunityToolkit.UnitTests | This is where our unit tests live. Please keep growing them! |
+
+## Code of Conduct
+As a part of the .NET Foundation, we have adopted the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct). Please familiarize yourself with that before participating with this repository. Thanks!
