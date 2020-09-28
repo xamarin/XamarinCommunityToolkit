@@ -140,14 +140,30 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 		{
 			if (playedToEndObserver != null)
 			{
-				NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
-				playedToEndObserver = null;
+				try
+				{
+					NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
+					playedToEndObserver.Dispose();
+				}
+				catch { }
+				finally
+				{
+					playedToEndObserver = null;
+				}
 			}
 
 			if (rateObserver != null)
 			{
-				rateObserver.Dispose();
-				rateObserver = null;
+				try
+				{
+					avPlayerViewController?.Player?.RemoveObserver(rateObserver, "rate");
+					rateObserver.Dispose();
+				}
+				catch { }
+				finally
+				{
+					rateObserver = null;
+				}
 			}
 
 			RemoveStatusObserver();
@@ -164,7 +180,9 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 				try
 				{
 					avPlayerViewController?.Player?.CurrentItem?.RemoveObserver(statusObserver, "status");
+					statusObserver.Dispose();
 				}
+				catch { }
 				finally
 				{
 
