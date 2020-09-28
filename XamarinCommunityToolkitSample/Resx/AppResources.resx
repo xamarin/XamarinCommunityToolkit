@@ -230,6 +230,12 @@
   </data>
   <data name="AvatarViewDescription" xml:space="preserve">
     <value>The AvatarView represents a user's name by using the initials and a generated background color.</value>
+  </data> 
+  <data name="BadgeViewTitle" xml:space="preserve">
+    <value>BadgeView</value>
+  </data>
+  <data name="BadgeViewDescription" xml:space="preserve">
+    <value>View used to used to notify users notifications, or status of something.</value>
   </data>
   <data name="AvatarViewSizeText" xml:space="preserve">
     <value>Size Property:</value>

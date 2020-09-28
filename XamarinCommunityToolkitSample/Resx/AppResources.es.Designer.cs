@@ -623,6 +623,12 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string DateTimeOffsetConverterShortDescription {
+            get {
+                return ResourceManager.GetString("DateTimeOffsetConverterShortDescription", resourceCulture);
+            }
+        }
+        
         internal static string ExpanderTitle {
             get {
                 return ResourceManager.GetString("ExpanderTitle", resourceCulture);
