@@ -62,7 +62,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 					else if (uriSource.Uri.Scheme == "ms-appdata")
 					{
-						string filePath = ResolveMsAppDataUri(uriSource.Uri);
+						var filePath = ResolveMsAppDataUri(uriSource.Uri);
 
 						if (string.IsNullOrEmpty(filePath))
 							throw new ArgumentException("Invalid Uri", "Source");
