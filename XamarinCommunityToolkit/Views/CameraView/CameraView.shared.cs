@@ -17,8 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty ShutterCommandProperty =
 			BindableProperty.Create(nameof(ShutterCommand),
 						typeof(ICommand),
-						typeof(CameraView),
-						default(ICommand));
+						typeof(CameraView));
 
 		public ICommand ShutterCommand
 		{
@@ -29,8 +28,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty ShutterCommandParameterProperty =
 			BindableProperty.Create(nameof(ShutterCommandParameter),
 						typeof(object),
-						typeof(CameraView),
-						default);
+						typeof(CameraView));
 
 		public object ShutterCommandParameter
 		{
