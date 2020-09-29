@@ -70,6 +70,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show snackbar, toast etc.
+        /// </summary>
+        internal static string ActionsPageDescription {
+            get {
+                return ResourceManager.GetString("ActionsPageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string ActionsPageTitle {
+            get {
+                return ResourceManager.GetString("ActionsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This sample demonstrates how to use ViewTappedAnimationBehaviour applying it in different UI elements..
         /// </summary>
         internal static string AnimationBehaviorTitle {
@@ -708,6 +726,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show snackbar (no action button).
+        /// </summary>
+        internal static string ShowSnackbarNoActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackbarNoActionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show snackbar with action button.
+        /// </summary>
+        internal static string ShowSnackbarWithActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackbarWithActionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SideMenuView is a simple and flexible Right/Left menu control..
         /// </summary>
         internal static string SideMenuViewDescription {
@@ -722,6 +758,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string SideMenuViewTitle {
             get {
                 return ResourceManager.GetString("SideMenuViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snackbar is closed by timeout.
+        /// </summary>
+        internal static string SnackbarIsClosedByTimeout {
+            get {
+                return ResourceManager.GetString("SnackbarIsClosedByTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snackbar is closed by user.
+        /// </summary>
+        internal static string SnackbarIsClosedByUser {
+            get {
+                return ResourceManager.GetString("SnackbarIsClosedByUser", resourceCulture);
             }
         }
         
