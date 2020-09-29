@@ -1,3 +1,5 @@
+[<img src="https://raw.githubusercontent.com/dotnet-foundation/swag/master/logo/dotnetfoundation_v4.svg" alt=".NET Foundation" width=100>](https://dotnetfoundation.org)
+
 <img src="assets/XamarinCommunityToolkit_128x128.png" width="64" /> Xamarin Community Toolkit
 ===========
 Members of the community are rebooting this library under the guidance of the Xamarin team. The Xamarin Community Toolkit is a collection of common elements for mobile development with Xamarin.Forms that people tend to replicate across multiple apps. It simplifies and demonstrates common developer tasks when building apps with Xamarin.Forms. If you're looking for the historical code to reference, please check the **legacy** branch.
@@ -69,3 +71,6 @@ To structure our project, we have adopted a range of namespaces. You can find th
 
 ## Code of Conduct
 As a part of the .NET Foundation, we have adopted the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct). Please familiarize yourself with that before participating with this repository. Thanks!
+
+## .NET Foundation
+This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
