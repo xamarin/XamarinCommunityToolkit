@@ -13,6 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(SideMenuViewPage), AppResources.SideMenuViewTitle, AppResources.SideMenuViewDescription),
 			new SectionModel(typeof(CameraViewPage), AppResources.CameraViewTitle, AppResources.CameraViewDescription),
 			new SectionModel(typeof(ExpanderPage), AppResources.ExpanderTitle, AppResources.ExpanderDescription),
+			new SectionModel(typeof(ActionsPage), AppResources.ActionsPageTitle, AppResources.ActionsPageDescription),
 		};
 	}
 }

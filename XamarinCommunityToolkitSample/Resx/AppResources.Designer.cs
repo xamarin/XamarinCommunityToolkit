@@ -70,6 +70,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show snackbar, toast etc.
+        /// </summary>
+        internal static string ActionsPageDescription {
+            get {
+                return ResourceManager.GetString("ActionsPageDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string ActionsPageTitle {
+            get {
+                return ResourceManager.GetString("ActionsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This sample demonstrates how to use ViewTappedAnimationBehaviour applying it in different UI elements..
         /// </summary>
         internal static string AnimationBehaviorTitle {
@@ -84,6 +102,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string AnimatioShortDescription {
             get {
                 return ResourceManager.GetString("AnimatioShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This behavior assigns grid row and column based on the order a view is added to the grid..
+        /// </summary>
+        internal static string AutoGridLayoutBehaviorDescription {
+            get {
+                return ResourceManager.GetString("AutoGridLayoutBehaviorDescription", resourceCulture);
             }
         }
         
@@ -313,6 +340,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable nested:.
+        /// </summary>
+        internal static string EnableNested {
+            get {
+                return ResourceManager.GetString("EnableNested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string English {
@@ -336,6 +372,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string EventToCommandShortDescription {
             get {
                 return ResourceManager.GetString("EventToCommandShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Xamarin.Forms Expander control provides an expandable container to host any content..
+        /// </summary>
+        internal static string ExpanderDescription {
+            get {
+                return ResourceManager.GetString("ExpanderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expander.
+        /// </summary>
+        internal static string ExpanderTitle {
+            get {
+                return ResourceManager.GetString("ExpanderTitle", resourceCulture);
             }
         }
         
@@ -372,6 +426,21 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Behavior that auto sets row and column assignments of child views by the order they are defined in the grid. RowSpan and ColumnSpan are honored during the auto-assignment of row and column.
+        ///
+        ///By default, if more cells in the grid are needed by the number of child views then are defined an output warning will be generated. If a row or column span exceeds the defined rows and columns output warnings will be generated.
+        ///
+        ///The user may at their choice decide to have output warnings treated as exceptions.
+        ///
+        ///If [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ImpliedOrderGridDescriptionLabel {
+            get {
+                return ResourceManager.GetString("ImpliedOrderGridDescriptionLabel", resourceCulture);
             }
         }
         
@@ -549,6 +618,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nested expander.
+        /// </summary>
+        internal static string NestedExpander {
+            get {
+                return ResourceManager.GetString("NestedExpander", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No data loaded....
         /// </summary>
         internal static string NoDataLoadedMessage {
@@ -648,6 +726,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show snackbar (no action button).
+        /// </summary>
+        internal static string ShowSnackbarNoActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackbarNoActionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show snackbar with action button.
+        /// </summary>
+        internal static string ShowSnackbarWithActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackbarWithActionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SideMenuView is a simple and flexible Right/Left menu control..
         /// </summary>
         internal static string SideMenuViewDescription {
@@ -662,6 +758,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string SideMenuViewTitle {
             get {
                 return ResourceManager.GetString("SideMenuViewTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snackbar is closed by timeout.
+        /// </summary>
+        internal static string SnackbarIsClosedByTimeout {
+            get {
+                return ResourceManager.GetString("SnackbarIsClosedByTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snackbar is closed by user.
+        /// </summary>
+        internal static string SnackbarIsClosedByUser {
+            get {
+                return ResourceManager.GetString("SnackbarIsClosedByUser", resourceCulture);
             }
         }
         
@@ -986,30 +1100,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string WelcomeTitle {
             get {
                 return ResourceManager.GetString("WelcomeTitle", resourceCulture);
-            }
-        }
-        
-        internal static string ExpanderTitle {
-            get {
-                return ResourceManager.GetString("ExpanderTitle", resourceCulture);
-            }
-        }
-        
-        internal static string ExpanderDescription {
-            get {
-                return ResourceManager.GetString("ExpanderDescription", resourceCulture);
-            }
-        }
-        
-        internal static string NestedExpander {
-            get {
-                return ResourceManager.GetString("NestedExpander", resourceCulture);
-            }
-        }
-        
-        internal static string EnableNested {
-            get {
-                return ResourceManager.GetString("EnableNested", resourceCulture);
             }
         }
     }

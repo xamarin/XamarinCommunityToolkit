@@ -123,6 +123,8 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\LauncherIcon.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -165,5 +167,8 @@
       <Project>{b0dcdf81-953d-47da-a7d4-0565339bf07c}</Project>
       <Name>Xamarin.CommunityToolkit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\LauncherIcon.imageset\" />
   </ItemGroup>
 </Project>

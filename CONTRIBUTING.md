@@ -32,7 +32,7 @@ Lastly, a big thank you for spending your precious time on our project. We appre
 
 ## Code of Conduct
 
-Please see our [Code of Conduct](CODE_OF_CONDUCT.md).
+Please see our [Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
 
 As should be clear by now: we assume everyone tries to do their best, everyone should be treated with respect and equally.
 

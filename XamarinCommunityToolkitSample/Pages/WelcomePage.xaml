@@ -1,39 +1,39 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.WelcomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.WelcomePage"
-    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+    xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
-    xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+    x:Name="Page"
     Title="{rsx:Translate WelcomeTitle}"
-    NavigationPage.BackButtonTitle=""
-    x:Name="Page">
+    NavigationPage.BackButtonTitle="">
 
     <pages:BasePage.BindingContext>
         <vm:WelcomeViewModel />
     </pages:BasePage.BindingContext>
 
     <pages:BasePage.ToolbarItems>
-        <ToolbarItem Text="{rsx:Translate Settings}" Clicked="OnSettingsClicked" />
-        <ToolbarItem Text="{rsx:Translate AboutTitle}" Clicked="OnAboutClicked" />
+        <ToolbarItem Clicked="OnSettingsClicked" Text="{rsx:Translate Settings}" />
+        <ToolbarItem Clicked="OnAboutClicked" Text="{rsx:Translate AboutTitle}" />
     </pages:BasePage.ToolbarItems>
-    
+
     <StackLayout>
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout Spacing="16">
-                <Label Margin="20,32,20,0" Style="{StaticResource label_welcome_header}" Text="{rsx:Translate IntroductionTitle}" />
+                <Label
+                    Margin="20,32,20,0"
+                    Style="{StaticResource label_welcome_header}"
+                    Text="{rsx:Translate IntroductionTitle}" />
                 <Label Margin="20,0,20,28" Text="{rsx:Translate IntroductioDescription}" />
-                <StackLayout Spacing="16"
-                             BindableLayout.ItemsSource="{Binding Items}">
+                <StackLayout BindableLayout.ItemsSource="{Binding Items}" Spacing="16">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <custom:PancakeView Style="{StaticResource card}" Margin="{StaticResource ContentPadding}">
+                            <custom:PancakeView Margin="{StaticResource ContentPadding}" Style="{StaticResource card}">
                                 <custom:PancakeView.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                        Command="{Binding NavigateCommand, Source={x:Reference Page}}"
-                                        CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:Reference Page}}" CommandParameter="{Binding .}" />
                                 </custom:PancakeView.GestureRecognizers>
                                 <Grid ColumnSpacing="20">
                                     <Grid.ColumnDefinitions>
@@ -41,7 +41,10 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <BoxView BackgroundColor="{Binding Color}" />
-                                    <StackLayout Grid.Column="1" Spacing="8" Padding="0,24,24,24">
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Padding="0,24,24,24"
+                                        Spacing="8">
                                         <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
                                         <Label Text="{Binding Description}" />
                                     </StackLayout>
@@ -49,8 +52,13 @@
                             </custom:PancakeView>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
-                </StackLayout> 
-                <Label Margin="0,32" Text="{rsx:Translate WelcomeFooter}" HorizontalOptions="Center" VerticalOptions="End" FontSize="Small"/>
+                </StackLayout>
+                <Label
+                    Margin="0,32"
+                    FontSize="Small"
+                    HorizontalOptions="Center"
+                    Text="{rsx:Translate WelcomeFooter}"
+                    VerticalOptions="End" />
             </StackLayout>
         </ScrollView>
     </StackLayout>
