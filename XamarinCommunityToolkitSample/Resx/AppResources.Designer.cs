@@ -88,6 +88,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This behavior assigns grid row and column based on the order a view is added to the grid..
+        /// </summary>
+        internal static string AutoGridLayoutBehaviorDescription {
+            get {
+                return ResourceManager.GetString("AutoGridLayoutBehaviorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The AvatarView represents a user&apos;s name by using the initials and a generated background color..
         /// </summary>
         internal static string AvatarViewDescription {
@@ -313,6 +322,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable nested:.
+        /// </summary>
+        internal static string EnableNested {
+            get {
+                return ResourceManager.GetString("EnableNested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
         internal static string English {
@@ -336,6 +354,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string EventToCommandShortDescription {
             get {
                 return ResourceManager.GetString("EventToCommandShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Xamarin.Forms Expander control provides an expandable container to host any content..
+        /// </summary>
+        internal static string ExpanderDescription {
+            get {
+                return ResourceManager.GetString("ExpanderDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expander.
+        /// </summary>
+        internal static string ExpanderTitle {
+            get {
+                return ResourceManager.GetString("ExpanderTitle", resourceCulture);
             }
         }
         
@@ -372,6 +408,21 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Behavior that auto sets row and column assignments of child views by the order they are defined in the grid. RowSpan and ColumnSpan are honored during the auto-assignment of row and column.
+        ///
+        ///By default, if more cells in the grid are needed by the number of child views then are defined an output warning will be generated. If a row or column span exceeds the defined rows and columns output warnings will be generated.
+        ///
+        ///The user may at their choice decide to have output warnings treated as exceptions.
+        ///
+        ///If [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ImpliedOrderGridDescriptionLabel {
+            get {
+                return ResourceManager.GetString("ImpliedOrderGridDescriptionLabel", resourceCulture);
             }
         }
         
@@ -545,6 +596,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nested expander.
+        /// </summary>
+        internal static string NestedExpander {
+            get {
+                return ResourceManager.GetString("NestedExpander", resourceCulture);
             }
         }
         
@@ -986,30 +1046,6 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string WelcomeTitle {
             get {
                 return ResourceManager.GetString("WelcomeTitle", resourceCulture);
-            }
-        }
-        
-        internal static string ExpanderTitle {
-            get {
-                return ResourceManager.GetString("ExpanderTitle", resourceCulture);
-            }
-        }
-        
-        internal static string ExpanderDescription {
-            get {
-                return ResourceManager.GetString("ExpanderDescription", resourceCulture);
-            }
-        }
-        
-        internal static string NestedExpander {
-            get {
-                return ResourceManager.GetString("NestedExpander", resourceCulture);
-            }
-        }
-        
-        internal static string EnableNested {
-            get {
-                return ResourceManager.GetString("EnableNested", resourceCulture);
             }
         }
     }

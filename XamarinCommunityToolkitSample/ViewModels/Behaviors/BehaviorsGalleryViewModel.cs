@@ -48,6 +48,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				typeof(UserStoppedTypingBehaviorPage),
 				nameof(UserStoppedTypingBehavior),
 				AppResources.UserStoppedTypingBehaviorShortDescription
+			),
+			new SectionModel(
+				typeof(ImpliedOrderGridBehaviorPage),
+				nameof(ImpliedOrderGridBehavior),
+				AppResources.AutoGridLayoutBehaviorDescription
 			)
 		};
 	}
