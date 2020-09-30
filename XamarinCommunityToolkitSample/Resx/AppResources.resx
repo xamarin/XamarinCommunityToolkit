@@ -470,4 +470,25 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   <data name="SnackbarIsClosedByUser" xml:space="preserve">
     <value>Snackbar is closed by user</value>
   </data>
+  <data name="GravatarImageSourceDescription" xml:space="preserve">
+    <value>The GravatarImageSource allows you to easily utilize a users Gravatar image from Gravatar.com using nothing but their email address.</value>
+  </data>
+  <data name="GravatarImageSourceTitle" xml:space="preserve">
+    <value>GravatarImageSource</value>
+  </data>
+  <data name="DefaultGravatar" xml:space="preserve">
+    <value>Default Gravatar</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FullImageSource" xml:space="preserve">
+    <value>Full Image Source</value>
+  </data>
+  <data name="GravatarSize" xml:space="preserve">
+    <value>GravatarSize</value>
+  </data>
+  <data name="XAMLExtension" xml:space="preserve">
+    <value>XAML Extension</value>
+  </data>
 </root>
