@@ -135,6 +135,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public event EventHandler VolumeRequested;
 
+		public event EventHandler MediaEnded;
+
+		public event EventHandler MediaFailed;
+
+		public event EventHandler MediaOpened;
+
+		public event EventHandler SeekCompleted;
+
 		public void Play() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Playing));
 
 		public void Pause() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Paused));
@@ -155,7 +163,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		double IMediaElementController.Volume
 		{
-			get => (double)GetValue(VolumeProperty); set => SetValue(VolumeProperty, value);
+			get => (double)GetValue(VolumeProperty);
+			set => SetValue(VolumeProperty, value);
 		}
 
 		void IMediaElementController.OnMediaEnded()
@@ -164,19 +173,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			MediaEnded?.Invoke(this, EventArgs.Empty);
 		}
 
-		public event EventHandler MediaEnded;
-
 		void IMediaElementController.OnMediaFailed() => MediaFailed?.Invoke(this, EventArgs.Empty);
-
-		public event EventHandler MediaFailed;
 
 		void IMediaElementController.OnMediaOpened() => MediaOpened?.Invoke(this, EventArgs.Empty);
 
-		public event EventHandler MediaOpened;
-
 		void IMediaElementController.OnSeekCompleted() => SeekCompleted?.Invoke(this, EventArgs.Empty);
-
-		public event EventHandler SeekCompleted;
 
 		protected override void OnBindingContextChanged()
 		{
@@ -192,7 +193,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			InvalidateMeasure();
 		}
 
-		static void OnSourcePropertyChanged(BindableObject bindable, object oldvalue, object newvalue) => ((MediaElement)bindable).OnSourcePropertyChanged((MediaSource)oldvalue, (MediaSource)newvalue);
+		static void OnSourcePropertyChanged(BindableObject bindable, object oldvalue, object newvalue) =>
+			((MediaElement)bindable).OnSourcePropertyChanged((MediaSource)oldvalue, (MediaSource)newvalue);
 
 		void OnSourcePropertyChanged(MediaSource oldvalue, MediaSource newvalue)
 		{
@@ -205,7 +207,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			InvalidateMeasure();
 		}
 
-		static void OnSourcePropertyChanging(BindableObject bindable, object oldvalue, object newvalue) => ((MediaElement)bindable).OnSourcePropertyChanging((MediaSource)oldvalue, (MediaSource)newvalue);
+		static void OnSourcePropertyChanging(BindableObject bindable, object oldvalue, object newvalue) =>
+			((MediaElement)bindable).OnSourcePropertyChanging((MediaSource)oldvalue, (MediaSource)newvalue);
 
 		void OnSourcePropertyChanging(MediaSource oldvalue, MediaSource newvalue)
 		{
