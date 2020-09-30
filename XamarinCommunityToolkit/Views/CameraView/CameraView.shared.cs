@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal static readonly BindablePropertyKey ShutterCommandPropertyKey =
 			BindableProperty.CreateReadOnly(nameof(ShutterCommand),
-				typeof(bool),
+				typeof(ICommand),
 				typeof(CameraView),
 				default,
 				BindingMode.OneWayToSource,
