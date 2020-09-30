@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.Sample.Resx;
+using Xamarin.CommunityToolkit.Sample.ViewModels.Views;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -13,6 +14,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			InitializeComponent();
 
 			zoomLabel.Text = string.Format(AppResources.CameraViewSampleZoom, zoomSlider.Value);
+			BindingContext = new CameraViewModel();
 		}
 
 		void ZoomSlider_ValueChanged(object sender, ValueChangedEventArgs e)
