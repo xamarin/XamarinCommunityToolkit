@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.macOS.SnackbarViews
 					-Snackbar.Layout.MarginTrailing);
 			CenterXConstraint = CenterXAnchor.ConstraintEqualToAnchor(ParentView.CenterXAnchor);
 
-			NSLayoutConstraint.ActivateConstraints(new[] {LeadingConstraint, TrailingConstraint, CenterXConstraint});
+			NSLayoutConstraint.ActivateConstraints(new[] { LeadingConstraint, TrailingConstraint, CenterXConstraint });
 		}
 
 		protected virtual void Initialize()
