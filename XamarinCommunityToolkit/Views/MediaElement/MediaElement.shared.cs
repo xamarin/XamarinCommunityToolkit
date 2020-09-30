@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public sealed class MediaElement : View, IMediaElementController
+	public class MediaElement : View, IMediaElementController
 	{
 		public static readonly BindableProperty AspectProperty =
 		  BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(MediaElement), Aspect.AspectFit);
@@ -45,13 +45,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty VolumeProperty =
 		  BindableProperty.Create(nameof(Volume), typeof(double), typeof(MediaElement), 1.0, BindingMode.TwoWay, new BindableProperty.ValidateValueDelegate(ValidateVolume));
-
-		static bool ValidateVolume(BindableObject o, object newValue)
-		{
-			var d = (double)newValue;
-
-			return d >= 0.0 && d <= 1.0;
-		}
 
 		public Aspect Aspect
 		{
@@ -123,17 +116,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(VolumeProperty, value);
 		}
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public event EventHandler<SeekRequested> SeekRequested;
+		internal event EventHandler<SeekRequested> SeekRequested;
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public event EventHandler<StateRequested> StateRequested;
+		internal event EventHandler<StateRequested> StateRequested;
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public event EventHandler PositionRequested;
+		internal event EventHandler PositionRequested;
 
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public event EventHandler VolumeRequested;
+		internal event EventHandler VolumeRequested;
 
 		public event EventHandler MediaEnded;
 
@@ -149,17 +138,41 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void Stop() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Stopped));
 
-		double IMediaElementController.BufferingProgress { get => (double)GetValue(BufferingProgressProperty); set => SetValue(BufferingProgressProperty, value); }
+		double IMediaElementController.BufferingProgress
+		{
+			get => (double)GetValue(BufferingProgressProperty);
+			set => SetValue(BufferingProgressProperty, value);
+		}
 
-		MediaElementState IMediaElementController.CurrentState { get => (MediaElementState)GetValue(CurrentStateProperty); set => SetValue(CurrentStateProperty, value); }
+		MediaElementState IMediaElementController.CurrentState
+		{
+			get => (MediaElementState)GetValue(CurrentStateProperty);
+			set => SetValue(CurrentStateProperty, value);
+		}
 
-		TimeSpan? IMediaElementController.Duration { get => (TimeSpan?)GetValue(DurationProperty); set => SetValue(DurationProperty, value); }
+		TimeSpan? IMediaElementController.Duration
+		{
+			get => (TimeSpan?)GetValue(DurationProperty);
+			set => SetValue(DurationProperty, value);
+		}
 
-		TimeSpan IMediaElementController.Position { get => (TimeSpan)GetValue(PositionProperty); set => SetValue(PositionProperty, value); }
+		TimeSpan IMediaElementController.Position
+		{
+			get => (TimeSpan)GetValue(PositionProperty);
+			set => SetValue(PositionProperty, value);
+		}
 
-		int IMediaElementController.VideoHeight { get => (int)GetValue(VideoHeightProperty); set => SetValue(VideoHeightProperty, value); }
+		int IMediaElementController.VideoHeight
+		{
+			get => (int)GetValue(VideoHeightProperty);
+			set => SetValue(VideoHeightProperty, value);
+		}
 
-		int IMediaElementController.VideoWidth { get => (int)GetValue(VideoWidthProperty); set => SetValue(VideoWidthProperty, value); }
+		int IMediaElementController.VideoWidth
+		{
+			get => (int)GetValue(VideoWidthProperty);
+			set => SetValue(VideoWidthProperty, value);
+		}
 
 		double IMediaElementController.Volume
 		{
@@ -194,9 +207,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnSourcePropertyChanged(BindableObject bindable, object oldvalue, object newvalue) =>
-			((MediaElement)bindable).OnSourcePropertyChanged((MediaSource)oldvalue, (MediaSource)newvalue);
+			((MediaElement)bindable).OnSourcePropertyChanged((MediaSource)newvalue);
 
-		void OnSourcePropertyChanged(MediaSource oldvalue, MediaSource newvalue)
+		void OnSourcePropertyChanged(MediaSource newvalue)
 		{
 			if (newvalue != null)
 			{
@@ -208,27 +221,32 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnSourcePropertyChanging(BindableObject bindable, object oldvalue, object newvalue) =>
-			((MediaElement)bindable).OnSourcePropertyChanging((MediaSource)oldvalue, (MediaSource)newvalue);
+			((MediaElement)bindable).OnSourcePropertyChanging((MediaSource)oldvalue);
 
-		void OnSourcePropertyChanging(MediaSource oldvalue, MediaSource newvalue)
+		void OnSourcePropertyChanging(MediaSource oldvalue)
 		{
 			if (oldvalue == null)
 				return;
 
 			oldvalue.SourceChanged -= OnSourceChanged;
 		}
+
+		static bool ValidateVolume(BindableObject o, object newValue)
+		{
+			var d = (double)newValue;
+
+			return d >= 0.0 && d <= 1.0;
+		}
 	}
 
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public class SeekRequested : EventArgs
+	class SeekRequested : EventArgs
 	{
 		public TimeSpan Position { get; }
 
 		public SeekRequested(TimeSpan position) => Position = position;
 	}
 
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public class StateRequested : EventArgs
+	class StateRequested : EventArgs
 	{
 		public MediaElementState State { get; }
 
