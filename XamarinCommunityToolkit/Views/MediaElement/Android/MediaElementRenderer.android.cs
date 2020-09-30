@@ -17,9 +17,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class MediaElementRenderer : FrameLayout, IVisualElementRenderer, IViewRenderer, MediaPlayer.IOnCompletionListener, MediaPlayer.IOnInfoListener, MediaPlayer.IOnPreparedListener, MediaPlayer.IOnErrorListener
 	{
 		VisualElementTracker tracker;
-		MediaController controller;
-		MediaPlayer mediaPlayer;
-		FormsVideoView view;
+		protected MediaController controller;
+		protected MediaPlayer mediaPlayer;
+		protected FormsVideoView view;
 		bool isDisposed;
 		int? defaultLabelFor;
 
@@ -170,7 +170,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetTracker(VisualElementTracker tracker) => this.tracker = tracker;
 
-		void UpdateBackgroundColor() => SetBackgroundColor(Element.BackgroundColor.ToAndroid());
+		protected virtual void UpdateBackgroundColor() => SetBackgroundColor(Element.BackgroundColor.ToAndroid());
 
 		void IVisualElementRenderer.UpdateLayout() => tracker?.UpdateLayout();
 
@@ -197,8 +197,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
-		// TODO: Make virtual when unsealed
-		void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
 		{
 			if (e.NewElement != null)
 			{
@@ -228,8 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Device.BeginInvokeOnMainThread(UpdateLayoutParameters);
 		}
 
-		// TODO: Make virtual when unsealed
-		void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
@@ -262,7 +260,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ElementPropertyChanged?.Invoke(this, e);
 		}
 
-		void UpdateKeepScreenOn()
+		protected virtual void UpdateKeepScreenOn()
 		{
 			if (view == null)
 				return;
@@ -270,7 +268,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			view.KeepScreenOn = MediaElement.KeepScreenOn;
 		}
 
-		void UpdateShowPlaybackControls()
+		protected void UpdateShowPlaybackControls()
 		{
 			if (controller == null)
 				return;
@@ -278,7 +276,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			controller.Visibility = MediaElement.ShowsPlaybackControls ? ViewStates.Visible : ViewStates.Gone;
 		}
 
-		void UpdateSource()
+		protected virtual void UpdateSource()
 		{
 			if (view == null)
 				return;
@@ -330,7 +328,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		string ResolveMsAppDataUri(Uri uri)
+		protected string ResolveMsAppDataUri(Uri uri)
 		{
 			if (uri.Scheme == "ms-appdata")
 			{
@@ -379,7 +377,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Controller.CurrentState = MediaElementState.Paused;
 		}
 
-		void UpdateLayoutParameters()
+		protected virtual void UpdateLayoutParameters()
 		{
 			if (view == null)
 				return;
