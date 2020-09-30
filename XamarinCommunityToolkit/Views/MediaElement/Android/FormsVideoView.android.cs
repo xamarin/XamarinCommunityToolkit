@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	class FormsVideoView : VideoView
+	public class FormsVideoView : VideoView
 	{
+		public event EventHandler MetadataRetrieved;
+
 		public FormsVideoView(Context context)
 			: base(context)
 		{
 		}
-
-		public event EventHandler MetadataRetrieved;
 
 		public override void SetVideoPath(string path)
 		{
@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void ExtractMetadata(MediaMetadataRetriever retriever)
+		protected void ExtractMetadata(MediaMetadataRetriever retriever)
 		{
 			if (int.TryParse(retriever.ExtractMetadata(MetadataKey.VideoWidth), out var videoWidth))
 				VideoWidth = videoWidth;
@@ -61,7 +61,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.SetVideoURI(uri);
 		}
 
-		void GetMetaData(global::Android.Net.Uri uri, IDictionary<string, string> headers)
+		protected void GetMetaData(global::Android.Net.Uri uri, IDictionary<string, string> headers)
 		{
 			Task.Run(() =>
 			{

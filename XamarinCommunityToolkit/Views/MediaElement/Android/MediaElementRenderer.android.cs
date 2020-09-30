@@ -5,7 +5,6 @@ using Android.Media;
 using Android.Views;
 using Android.Widget;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
@@ -15,7 +14,7 @@ using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaEleme
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public sealed class MediaElementRenderer : FrameLayout, IVisualElementRenderer, IViewRenderer, MediaPlayer.IOnCompletionListener, MediaPlayer.IOnInfoListener, MediaPlayer.IOnPreparedListener, MediaPlayer.IOnErrorListener
+	public class MediaElementRenderer : FrameLayout, IVisualElementRenderer, IViewRenderer, MediaPlayer.IOnCompletionListener, MediaPlayer.IOnInfoListener, MediaPlayer.IOnPreparedListener, MediaPlayer.IOnErrorListener
 	{
 		VisualElementTracker tracker;
 		MediaController controller;
@@ -42,9 +41,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			view.SetMediaController(controller);
 		}
 
-		ToolKitMediaElement MediaElement { get; set; }
+		protected ToolKitMediaElement MediaElement { get; set; }
 
-		IMediaElementController Controller => MediaElement;
+		protected IMediaElementController Controller => MediaElement;
 
 		public VisualElement Element => MediaElement;
 
@@ -70,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 		}
 
-		void UnsubscribeFromEvents(ToolKitMediaElement element)
+		protected virtual void UnsubscribeFromEvents(ToolKitMediaElement element)
 		{
 			if (element == null)
 				return;
@@ -434,7 +433,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void ReleaseControl()
+		protected virtual void ReleaseControl()
 		{
 			if (view != null)
 			{
