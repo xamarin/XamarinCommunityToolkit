@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS.SnackbarViews
 		readonly IOSSnackBar snackbar;
 
 		public ActionMessageSnackbarView(IOSSnackBar snackbar)
-            : base(snackbar) => this.snackbar = snackbar;
+			: base(snackbar) => this.snackbar = snackbar;
 
 		public UIButton ActionButton { get; set; }
 
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS.SnackbarViews
 		{
 			base.Initialize();
 
-			ActionButton = new UIButton(UIButtonType.System) {TranslatesAutoresizingMaskIntoConstraints = false};
+			ActionButton = new UIButton(UIButtonType.System) { TranslatesAutoresizingMaskIntoConstraints = false };
 			ActionButton.SetTitle(Snackbar.ActionButtonText, UIControlState.Normal);
 			ActionButton.TitleLabel.LineBreakMode = Snackbar.Appearance.DismissButtonLineBreakMode;
 			ActionButton.TouchUpInside += DismissButtonTouchUpInside;

@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS
 
 		public static IOSSnackBar MakeSnackbar(string message)
 		{
-			var snackbar = new IOSSnackBar {Message = message};
+			var snackbar = new IOSSnackBar { Message = message };
 			return snackbar;
 		}
 
