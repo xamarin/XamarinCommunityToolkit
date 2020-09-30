@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
 			count++;
 		}
 
-		
+
 	}
 
 }

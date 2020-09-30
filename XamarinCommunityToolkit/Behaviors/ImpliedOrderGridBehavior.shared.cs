@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			for (var r = row; r < rowEnd; r++)
 				for (var c = column; c < columnEnd; c++)
 				{
-					if(usedMatrix[r][c])
+					if (usedMatrix[r][c])
 						LogWarning($"Cell at row {r} column {c} has already been used.");
 					usedMatrix[r][c] = true;
 				}

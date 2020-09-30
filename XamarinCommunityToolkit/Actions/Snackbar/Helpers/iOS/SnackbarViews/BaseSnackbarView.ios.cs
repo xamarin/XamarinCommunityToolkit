@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS.SnackbarViews
 			CenterXConstraint = this.SafeCenterXAnchor().ConstraintEqualTo(ParentView.SafeCenterXAnchor());
 
 			NSLayoutConstraint.ActivateConstraints(
-				new[] {LeadingConstraint, TrailingConstraint, CenterXConstraint});
+				new[] { LeadingConstraint, TrailingConstraint, CenterXConstraint });
 		}
 
 		protected virtual NSLayoutYAxisAnchor GetBottomAnchor()
