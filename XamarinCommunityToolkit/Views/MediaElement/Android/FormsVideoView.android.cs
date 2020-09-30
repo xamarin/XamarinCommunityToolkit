@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	class FormsVideoView : VideoView
 	{
 		public FormsVideoView(Context context)
-            : base(context)
+			: base(context)
 		{
 		}
 
@@ -36,25 +36,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void ExtractMetadata(MediaMetadataRetriever retriever)
 		{
 			if (int.TryParse(retriever.ExtractMetadata(MetadataKey.VideoWidth), out var videoWidth))
-			{
 				VideoWidth = videoWidth;
-			}
 
 			if (int.TryParse(retriever.ExtractMetadata(MetadataKey.VideoHeight), out var videoHeight))
-			{
 				VideoHeight = videoHeight;
-			}
 
-			string? durationString = retriever.ExtractMetadata(MetadataKey.Duration);
+			var durationString = retriever.ExtractMetadata(MetadataKey.Duration);
 
 			if (!string.IsNullOrEmpty(durationString) && long.TryParse(durationString, out var durationMS))
-			{
 				DurationTimeSpan = TimeSpan.FromMilliseconds(durationMS);
-			}
 			else
-			{
 				DurationTimeSpan = null;
-			}
 		}
 
 		public override void SetVideoURI(global::Android.Net.Uri uri, IDictionary<string, string> headers)
