@@ -15,19 +15,20 @@ using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaEleme
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public sealed class MediaElementRenderer : ViewRenderer<ToolKitMediaElement, UIView>
+	public class MediaElementRenderer : ViewRenderer<ToolKitMediaElement, UIView>
 	{
 		IMediaElementController Controller => Element;
 
-		readonly AVPlayerViewController avPlayerViewController = new AVPlayerViewController();
+		protected readonly AVPlayerViewController avPlayerViewController = new AVPlayerViewController();
 		NSObject playedToEndObserver;
 		NSObject statusObserver;
 		NSObject rateObserver;
 		bool idleTimerDisabled = false;
 
-		public MediaElementRenderer() => playedToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
+		public MediaElementRenderer() =>
+			playedToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
 
-		void SetKeepScreenOn(bool value)
+		protected virtual void SetKeepScreenOn(bool value)
 		{
 			if (value)
 			{
@@ -44,7 +45,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void UpdateSource()
+		protected virtual void UpdateSource()
 		{
 			if (Element.Source != null)
 			{
@@ -104,7 +105,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		string ResolveMsAppDataUri(Uri uri)
+		protected string ResolveMsAppDataUri(Uri uri)
 		{
 			if (uri.Scheme == "ms-appdata")
 			{
@@ -148,7 +149,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
-		void RemoveStatusObserver()
+		protected void RemoveStatusObserver()
 		{
 			if (statusObserver != null)
 			{
@@ -163,7 +164,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void ObserveRate(NSObservedChange e)
+		protected virtual void ObserveRate(NSObservedChange e)
 		{
 			if (Controller is object)
 			{
@@ -182,7 +183,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void ObserveStatus(NSObservedChange e)
+		protected void ObserveStatus(NSObservedChange e)
 		{
 			Controller.Volume = avPlayerViewController.Player.Volume;
 
@@ -295,7 +296,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void Play()
+		protected virtual void Play()
 		{
 			var audioSession = AVAudioSession.SharedInstance();
 			var err = audioSession.SetCategory(AVAudioSession.CategoryPlayback);
@@ -432,6 +433,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void UpdateBackgroundColor() => BackgroundColor = Element.BackgroundColor.ToUIColor();
+		protected virtual void UpdateBackgroundColor() => BackgroundColor = Element.BackgroundColor.ToUIColor();
 	}
 }
