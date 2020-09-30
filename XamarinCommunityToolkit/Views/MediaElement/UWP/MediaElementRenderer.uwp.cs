@@ -5,18 +5,19 @@ using Xamarin.Forms.Platform.UWP;
 using Controls = Windows.UI.Xaml.Controls;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
+using WMediaElementState = Windows.UI.Xaml.Media.MediaElementState;
 
 [assembly: ExportRenderer(typeof(ToolKitMediaElement), typeof(ToolKitMediaElementRenderer))]
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public sealed class MediaElementRenderer : ViewRenderer<ToolKitMediaElement, Controls.MediaElement>
+	public class MediaElementRenderer : ViewRenderer<ToolKitMediaElement, Controls.MediaElement>
 	{
 		long bufferingProgressChangedToken;
 		long positionChangedToken;
 		readonly DisplayRequest request = new DisplayRequest();
 
-		void ReleaseControl()
+		protected virtual void ReleaseControl()
 		{
 			if (Control == null)
 				return;
@@ -50,7 +51,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ReleaseControl();
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<ToolKitMediaElement> e)
 		{
 			base.OnElementChanged(e);
 
@@ -154,14 +155,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			switch (Control.CurrentState)
 			{
-				case Windows.UI.Xaml.Media.MediaElementState.Playing:
+				case WMediaElementState.Playing:
 					if (Element.KeepScreenOn)
 						request.RequestActive();
 					break;
 
-				case Windows.UI.Xaml.Media.MediaElementState.Paused:
-				case Windows.UI.Xaml.Media.MediaElementState.Stopped:
-				case Windows.UI.Xaml.Media.MediaElementState.Closed:
+				case WMediaElementState.Paused:
+				case WMediaElementState.Stopped:
+				case WMediaElementState.Closed:
 					if (Element.KeepScreenOn)
 						request.RequestRelease();
 					break;
@@ -170,14 +171,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.CurrentState = FromWindowsMediaElementState(Control.CurrentState);
 		}
 
-		static MediaElementState FromWindowsMediaElementState(Windows.UI.Xaml.Media.MediaElementState state) => state switch
+		protected static MediaElementState FromWindowsMediaElementState(WMediaElementState state) => state switch
 		{
-			Windows.UI.Xaml.Media.MediaElementState.Buffering => MediaElementState.Buffering,
-			Windows.UI.Xaml.Media.MediaElementState.Closed => MediaElementState.Closed,
-			Windows.UI.Xaml.Media.MediaElementState.Opening => MediaElementState.Opening,
-			Windows.UI.Xaml.Media.MediaElementState.Paused => MediaElementState.Paused,
-			Windows.UI.Xaml.Media.MediaElementState.Playing => MediaElementState.Playing,
-			Windows.UI.Xaml.Media.MediaElementState.Stopped => MediaElementState.Stopped,
+			WMediaElementState.Buffering => MediaElementState.Buffering,
+			WMediaElementState.Closed => MediaElementState.Closed,
+			WMediaElementState.Opening => MediaElementState.Opening,
+			WMediaElementState.Paused => MediaElementState.Paused,
+			WMediaElementState.Playing => MediaElementState.Playing,
+			WMediaElementState.Stopped => MediaElementState.Stopped,
 			_ => throw new ArgumentOutOfRangeException(),
 		};
 
@@ -221,7 +222,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(ToolKitMediaElement.KeepScreenOn):
 					if (Element.KeepScreenOn)
 					{
-						if (Control.CurrentState == Windows.UI.Xaml.Media.MediaElementState.Playing)
+						if (Control.CurrentState == WMediaElementState.Playing)
 							request.RequestActive();
 					}
 					else
@@ -252,9 +253,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnElementPropertyChanged(sender, e);
 		}
 
-		void UpdateSource()
+		protected virtual void UpdateSource()
 		{
-			if (Element.Source is null)
+			if (Element.Source == null)
 				return;
 
 			if (Element.Source is UriMediaSource uriSource)
