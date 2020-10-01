@@ -40,6 +40,7 @@ namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS.SnackbarViews
 			ActionButton.SafeTrailingAnchor()
 				.ConstraintEqualTo(this.SafeTrailingAnchor(), -Snackbar.Layout.PaddingTrailing).Active = true;
 			ActionButton.SafeCenterYAnchor().ConstraintEqualTo(this.SafeCenterYAnchor()).Active = true;
+
 			// The following constraint makes sure that button is not wider than specified amount of available width
 			ActionButton.SafeWidthAnchor().ConstraintLessThanOrEqualTo(this.SafeWidthAnchor(), ActionButtonMaxWidth, 0f)
 				.Active = true;

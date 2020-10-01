@@ -7,7 +7,8 @@ namespace Xamarin.CommunityToolkit.Actions.Snackbar
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class SnackbarArguments : ActionArguments
 	{
-		public SnackbarArguments(string message, int duration, string actionButtonText, Func<Task> action) : base(message, duration)
+		public SnackbarArguments(string message, int duration, string actionButtonText, Func<Task> action)
+            : base(message, duration)
 		{
 			ActionButtonText = actionButtonText;
 			Action = action;
