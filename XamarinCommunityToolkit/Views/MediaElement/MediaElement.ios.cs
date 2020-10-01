@@ -240,10 +240,10 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 		{
 			get
 			{
-				if (avPlayerViewController.Player.CurrentTime.IsInvalid)
+				if (avPlayerViewController?.Player?.CurrentTime.IsInvalid == false)
+					return TimeSpan.FromSeconds(avPlayerViewController.Player.CurrentTime.Seconds);
+				else
 					return TimeSpan.Zero;
-
-				return TimeSpan.FromSeconds(avPlayerViewController.Player.CurrentTime.Seconds);
 			}
 		}
 
