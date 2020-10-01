@@ -1,11 +1,11 @@
 ﻿using System;
 using EButton = ElmSharp.Button;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar
+namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class SnackBar
+	class SnackBar
 	{
-		public void Show(Forms.Page sender, SnackbarArguments arguments)
+		internal void Show(Forms.Page sender, SnackbarArguments arguments)
 		{
 			var snackbarDialog =
 				Forms.Platform.Tizen.Native.Dialog.CreateDialog(Forms.Forms.NativeParent,

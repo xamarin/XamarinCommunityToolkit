@@ -3,16 +3,16 @@ using Xamarin.Forms;
 #if __IOS__
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
-using Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS;
 #elif __MACOS__
-using Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.macOS;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS;
 #endif
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar
+namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class SnackBar
+	class SnackBar
 	{
-		public void Show(Page sender, SnackbarArguments arguments)
+		internal void Show(Page sender, SnackbarArguments arguments)
 		{
 #if __IOS__
 			var snackbar = IOSSnackBar.MakeSnackbar(arguments.Message)

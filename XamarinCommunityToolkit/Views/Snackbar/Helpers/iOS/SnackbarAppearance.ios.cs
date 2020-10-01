@@ -1,7 +1,7 @@
 ﻿using System;
 using UIKit;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
 	class SnackbarAppearance
 	{

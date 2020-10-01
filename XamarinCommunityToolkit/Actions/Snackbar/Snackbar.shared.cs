@@ -1,10 +1,10 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar
+namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class SnackBar
+	class SnackBar
 	{
-		public void Show(Page sender, SnackbarArguments arguments) => throw new PlatformNotSupportedException();
+		internal void Show(Page sender, SnackbarArguments arguments) => throw new PlatformNotSupportedException();
 	}
 }

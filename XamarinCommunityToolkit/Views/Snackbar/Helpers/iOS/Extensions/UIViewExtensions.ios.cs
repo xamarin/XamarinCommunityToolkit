@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS.Extensions
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Extensions
 {
 	static class UIViewExtensions
 	{
