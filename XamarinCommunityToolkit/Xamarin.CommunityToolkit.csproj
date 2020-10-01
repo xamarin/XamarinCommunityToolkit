@@ -22,13 +22,7 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
-      
-      
-      
       <!-- See if we can host these on MS docs? -->
-    
-    
-    
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
@@ -78,6 +72,9 @@
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
+    <Compile Include="AttachedProperties\ProgressBarAttachedProperties.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />

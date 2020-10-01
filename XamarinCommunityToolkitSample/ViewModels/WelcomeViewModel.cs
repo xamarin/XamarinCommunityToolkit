@@ -5,6 +5,7 @@ using Xamarin.CommunityToolkit.Sample.Pages.Converters;
 using Xamarin.CommunityToolkit.Sample.Pages.Effects;
 using Xamarin.CommunityToolkit.Sample.Pages.Extensions;
 using Xamarin.CommunityToolkit.Sample.Pages.TestCases;
+using Xamarin.CommunityToolkit.Sample.Pages.AttachedProperties;
 using Xamarin.CommunityToolkit.Sample.Pages.Views;
 using Xamarin.Forms;
 
@@ -30,7 +31,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 				"Testing is important, ok?! So this is where all of the tests for our little project reside"),
 
 			new SectionModel(typeof(ViewsGalleryPage), "Views", Color.FromHex("#EF6950"),
-				"A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box")
+				"A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box"),
+				
+			new SectionModel(typeof(ProgressBarAttachedPropertiesPage), "Attached Properties", Color.FromHex("#EF6950"),
+				"TODO")
 		};
 	}
 }
