@@ -10,6 +10,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
 		byte[] avatar;
+
 		public byte[] Avatar
 		{
 			get => avatar;
@@ -17,6 +18,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		}
 
 		bool isBusy;
+
 		public bool IsBusy
 		{
 			get => isBusy;
