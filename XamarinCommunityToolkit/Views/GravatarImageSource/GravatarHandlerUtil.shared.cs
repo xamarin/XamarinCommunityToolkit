@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (!UseCacheFile(gis.CachingEnabled, gis.CacheValidity, cacheFileInfo))
 				{
 					var imageBytes = await GetGravatarAsync(gis.Email, gis.Size, scale, gis.Default).ConfigureAwait(false);
-					SaveImage(cacheFileInfo, imageBytes);
+					SaveImage(cacheFileInfo, imageBytes ?? Array.Empty<byte>());
 				}
 
 				return cacheFileInfo;
@@ -53,7 +53,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return cachingEnabled && file.Exists && file.CreationTime.Add(cacheValidity) > DateTime.Now;
 		}
 
-		static string CacheFileName(GravatarImageSource gis, float scale) => $"{GetMd5Hash(gis.Email)}-{gis.Size}@{scale}x.png";
+		static string CacheFileName(GravatarImageSource gis, float scale)
+		{
+			return $"{GetMd5Hash(gis.Email)}-{gis.Size}@{scale}x.png";
+		}
 
 		static async Task<byte[]> GetGravatarAsync(string email, int size, float scale, DefaultGravatar defaultGravatar)
 		{
@@ -66,7 +69,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 		}
 
-		static string GetGravatarUri(string email, int size, float scale, DefaultGravatar defaultGravatar) => string.Format(requestUriFormat, GetMd5Hash(email), size * scale, DefaultGravatarName(defaultGravatar));
+		static string GetGravatarUri(string email, int size, float scale, DefaultGravatar defaultGravatar)
+		{
+			return string.Format(requestUriFormat, GetMd5Hash(email), size * scale, DefaultGravatarName(defaultGravatar));
+		}
 
 		static string DefaultGravatarName(DefaultGravatar defaultGravatar)
 		{
