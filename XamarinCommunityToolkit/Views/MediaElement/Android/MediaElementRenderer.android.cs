@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected ToolKitMediaElement MediaElement { get; set; }
 
-		protected IMediaElementController Controller => MediaElement;
+		IMediaElementController Controller => MediaElement;
 
 		public VisualElement Element => MediaElement;
 
@@ -82,7 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IVisualElementRenderer.SetElement(VisualElement element)
 		{
-			if (element is null)
+			if (element == null)
 				throw new ArgumentNullException(nameof(element));
 
 			if (!(element is ToolKitMediaElement))
@@ -107,7 +107,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			// Can't set up the tracker in the constructor because it access the Element (for now)
-			if (tracker is null)
+			if (tracker == null)
 				SetTracker(new VisualElementTracker(this));
 
 			OnElementChanged(new ElementChangedEventArgs<MediaElement>(oldElement, MediaElement));
@@ -162,7 +162,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IVisualElementRenderer.SetLabelFor(int? id)
 		{
-			if (defaultLabelFor is null)
+			if (defaultLabelFor == null)
 				defaultLabelFor = LabelFor;
 
 			LabelFor = (int)(id ?? defaultLabelFor);
