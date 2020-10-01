@@ -8,41 +8,37 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
 	public class ConvertersGalleryViewModel : BaseViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
+		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		{
 			new SectionModel(
 				typeof(ItemTappedEventArgsPage),
 				"ItemTappedEventArgs",
 				Color.FromHex("#498205"),
-				AppResources.ItemTappedEventArgsShortDescription
-			),
+				AppResources.ItemTappedEventArgsShortDescription),
 
 			new SectionModel(
 				typeof(ItemSelectedEventArgsPage),
 				"ItemSelectedEventArgs",
 				Color.FromHex("#498205"),
-				AppResources.ItemTappedSelectedEventArgsShortDescription
-			),
+				AppResources.ItemTappedSelectedEventArgsShortDescription),
 
 			new SectionModel(
 				typeof(ByteArrayToImageSourcePage),
 				"ByteArrayToImageSource",
 				Color.FromHex("#498205"),
-				AppResources.ByteArrayToImageSourceShortDescription
-			),
+				AppResources.ByteArrayToImageSourceShortDescription),
 
 			new SectionModel(
 				typeof(MultiConverterPage),
 				"MultiConverter",
 				Color.FromHex("#CC0000"),
-				AppResources.MultiConverterShortDescription
-			),
+				AppResources.MultiConverterShortDescription),
 
 			new SectionModel(
 				typeof(DateTimeOffsetConverterPage),
 				"DateTimeOffsetConverter",
 				Color.FromHex("#498205"),
-				AppResources.DateTimeOffsetConverterShortDescription
-			),
+				AppResources.DateTimeOffsetConverterShortDescription),
 		};
 	}
 }

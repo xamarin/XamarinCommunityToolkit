@@ -1,5 +1,4 @@
-﻿
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors

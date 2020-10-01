@@ -8,52 +8,44 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
 	public class BehaviorsGalleryViewModel : BaseViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel> {
+		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		{
 			new SectionModel(
 				typeof(EmailValidationBehaviorPage),
 				nameof(EmailValidationBehavior),
-				AppResources.EmailValidationShortDescription
-			),
+				AppResources.EmailValidationShortDescription),
 			new SectionModel(
 				typeof(EventToCommandBehaviorPage),
 				nameof(EventToCommandBehavior),
-				AppResources.EventToCommandShortDescription
-			),
+				AppResources.EventToCommandShortDescription),
 			new SectionModel(
 				typeof(NumericValidationBehaviorPage),
 				nameof(NumericValidationBehavior),
-				AppResources.NumericValidationShortDescription
-			),
+				AppResources.NumericValidationShortDescription),
 			new SectionModel(
 				typeof(AnimationBehaviorPage),
 				nameof(AnimationBehavior),
-				AppResources.AnimatioShortDescription
-			),
+				AppResources.AnimatioShortDescription),
 			new SectionModel(
 				typeof(MaskedBehaviorPage),
 				nameof(MaskedBehavior),
-				AppResources.MaskedShortDescription
-			),
+				AppResources.MaskedShortDescription),
 			new SectionModel(
 				typeof(UriValidationBehaviorPage),
 				nameof(UriValidationBehavior),
-				AppResources.UriValidationShortDescription
-			),
+				AppResources.UriValidationShortDescription),
 			new SectionModel(
 				typeof(MultiValidationBehaviorPage),
 				nameof(MultiValidationBehavior),
-				AppResources.MultiValidationShortDescription
-			),
+				AppResources.MultiValidationShortDescription),
 			new SectionModel(
 				typeof(UserStoppedTypingBehaviorPage),
 				nameof(UserStoppedTypingBehavior),
-				AppResources.UserStoppedTypingBehaviorShortDescription
-			),
+				AppResources.UserStoppedTypingBehaviorShortDescription),
 			new SectionModel(
 				typeof(ImpliedOrderGridBehaviorPage),
 				nameof(ImpliedOrderGridBehavior),
-				AppResources.AutoGridLayoutBehaviorDescription
-			)
+				AppResources.AutoGridLayoutBehaviorDescription)
 		};
 	}
 }

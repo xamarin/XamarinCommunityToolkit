@@ -9,11 +9,13 @@ namespace Xamarin.CommunityToolkit.Actions.Snackbar
 		{
 			var snackbarDialog =
 				Forms.Platform.Tizen.Native.Dialog.CreateDialog(Forms.Forms.NativeParent,
-					(arguments.ActionButtonText != null));
+					arguments.ActionButtonText != null);
+
 			snackbarDialog.Timeout = TimeSpan.FromMilliseconds(arguments.Duration).TotalSeconds;
 
 			var message = arguments.Message.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;")
 				.Replace(Environment.NewLine, "<br>");
+
 			snackbarDialog.Message = message;
 
 			if (!string.IsNullOrEmpty(arguments.ActionButtonText) && arguments.Action != null)

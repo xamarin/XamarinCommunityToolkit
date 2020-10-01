@@ -10,6 +10,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		#region Properties
 
 		string performedSearches;
+
 		public string PerformedSearches
 		{
 			get => performedSearches;

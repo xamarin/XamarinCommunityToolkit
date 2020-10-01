@@ -143,7 +143,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		/// <param name="sender">Sender</param>
 		/// <param name="eventArgs">Event arguments</param>
 		/// <param name="eventName">Event name</param>
-		public void RaiseEvent(object sender, object? eventArgs, string eventName) =>
+		public void RaiseEvent(object sender, object eventArgs, string eventName) =>
 			EventManagerService.HandleEvent(eventName, sender, eventArgs, eventHandlers);
 
 		/// <summary>
