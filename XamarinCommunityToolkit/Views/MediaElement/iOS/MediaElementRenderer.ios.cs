@@ -20,9 +20,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		IMediaElementController Controller => Element;
 
 		protected readonly AVPlayerViewController avPlayerViewController = new AVPlayerViewController();
-		NSObject playedToEndObserver;
-		NSObject statusObserver;
-		NSObject rateObserver;
+		protected NSObject playedToEndObserver;
+		protected NSObject statusObserver;
+		protected NSObject rateObserver;
 		bool idleTimerDisabled = false;
 
 		public MediaElementRenderer() =>
