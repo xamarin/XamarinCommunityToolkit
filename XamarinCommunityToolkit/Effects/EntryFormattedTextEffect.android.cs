@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Android.Text;
 using Android.Text.Style;
 using Android.Widget;
@@ -16,8 +17,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	/// The FormattedText <see cref="PlatformEffect"/> specific
 	/// to <see cref="Entry"/> controls.
 	/// </summary>
-	public class EntryFormattedTextEffect : PlatformEffect
+	public class EntryFormattedTextEffect : PlatformEffect, IDisposable
 	{
+		bool isDisposed;
+
 		/// <summary>
 		/// Gets the native <see cref="FormsEditText"/> control.
 		/// </summary>
@@ -32,6 +35,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		protected override void OnAttached()
 		{
 			UpdateFormattedText();
+			Control.TextChanged += OnTextChanged;
 		}
 
 		/// <inheritdoc />
@@ -47,6 +51,26 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (args.PropertyName == FormattedTextEffect.FormattedTextProperty.PropertyName)
 			{
 				UpdateFormattedText();
+			}
+		}
+
+		void OnTextChanged(object sender, global::Android.Text.TextChangedEventArgs args)
+		{
+			var spannable = (SpannableStringBuilder)args.Text;
+			if (spannable == null)
+			{
+				return;
+			}
+
+			var characterStyleClass = Java.Lang.Class.FromType(typeof(CharacterStyle));
+
+			var findSpans = spannable.GetSpans(args.Start, args.AfterCount, characterStyleClass);
+			if (findSpans != null && findSpans.Length > 0)
+			{
+				var spanStartPosition = spannable.GetSpanStart(findSpans[0]);
+				var spanEndPosition = spannable.GetSpanEnd(findSpans[0]);
+
+				spannable.SetSpan(findSpans[0], spanStartPosition, spanEndPosition, SpanTypes.ExclusiveExclusive);
 			}
 		}
 
@@ -105,6 +129,31 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		protected virtual Java.Lang.Object CreateNativeSpan(Span span)
 		{
 			return new ForegroundColorSpan(span.TextColor.ToAndroid());
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (isDisposed)
+			{
+				return;
+			}
+
+			if (disposing)
+			{
+				if (Control != null)
+				{
+					Control.TextChanged -= OnTextChanged;
+				}
+			}
+
+			isDisposed = true;
+		}
+
+		/// <inheritdoc />
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
 		}
 	}
 }
