@@ -2,6 +2,7 @@
 using Android.Text;
 using Android.Text.Style;
 using Android.Widget;
+using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -9,7 +10,7 @@ using Xamarin.Forms.Platform.Android;
 [assembly: ResolutionGroupName(nameof(Xamarin.CommunityToolkit))]
 [assembly: ExportEffect(typeof(EntryFormattedTextEffect), nameof(EntryFormattedTextEffect))]
 
-namespace Xamarin.CommunityToolkit.Effects
+namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	/// <summary>
 	/// The FormattedText <see cref="PlatformEffect"/> specific

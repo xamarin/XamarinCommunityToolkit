@@ -48,20 +48,20 @@ namespace Xamarin.CommunityToolkit.Effects
 		{
 			if (bindable is View view && newValue != oldValue)
 			{
-				var effectsToRemove = view.Effects.OfType<EntryFormattedText>().ToArray();
+				var effectsToRemove = view.Effects.OfType<EntryFormattedTextEffect>().ToArray();
 				for (var index = 0; index < effectsToRemove.Length; index++)
 				{
 					view.Effects.Remove(effectsToRemove[index]);
 				}
 
-				view.Effects.Add(new EntryFormattedText());
+				view.Effects.Add(new EntryFormattedTextEffect());
 			}
 		}
 
-		class EntryFormattedText : RoutingEffect
+		class EntryFormattedTextEffect : RoutingEffect
 		{
-			public EntryFormattedText()
-				: base($"{nameof(Xamarin.CommunityToolkit)}.{nameof(EntryFormattedText)}")
+			public EntryFormattedTextEffect()
+				: base($"{nameof(Xamarin.CommunityToolkit)}.{nameof(EntryFormattedTextEffect)}")
 			{
 			}
 		}
