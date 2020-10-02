@@ -4,11 +4,11 @@ Members of the community are rebooting this library under the guidance of the Xa
 
 ## Build Status
 
-If you like to live dangerously (and while we are preparing our v1), you can use our [nightly](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json) feed to try out packages right now.
+If you like to live dangerously (and while we are preparing our v1), you can use our [nightly](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json?WT.mc_id=xamarincommunitytoolkit-github-bramin) feed to try out packages right now.
 
 | Build Server | Type         | Platform | Status |
 |--------------|--------------|----------|--------|
-| Azure DevOps         | Build        | Windows & Mac  | [![Build Status](https://dev.azure.com/xamarin/public/_apis/build/status/xamarin/CommunityToolkit/xamarin.XamarinCommunityToolkit%20(Public)?branchName=main)](https://dev.azure.com/xamarin/public/_build?definitionId=55&_a=summary)                                                  |
+| Azure DevOps         | Build        | Windows & Mac  | [![Build Status](https://dev.azure.com/xamarin/public/_apis/build/status/xamarin/CommunityToolkit/xamarin.XamarinCommunityToolkit%20(Public)?branchName=main)](https://dev.azure.com/xamarin/public/_build?definitionId=55&_a=summary&WT.mc_id=xamarincommunitytoolkit-github-bramin)                                                  |
 
 ## Sample App
 
@@ -18,8 +18,8 @@ Browsing the [sample app](./XamarinCommunityToolkitSample) is the best place to 
 
 The toolkit is available via NuGet, and should be installed into all your projects:
 
-* NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Xamarin.CommunityToolkit.svg?label=NuGet)](https://www.nuget.org/packages/Microsoft.Toolkit.Xamarin.Forms)
-* NuGet Nightly Releases: [![NuGet Nightly](https://img.shields.io/badge/NuGet-Nightly-yellow)](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json)
+* NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Xamarin.CommunityToolkit.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.CommunityToolkit/)
+* NuGet Nightly Releases: [![NuGet Nightly](https://img.shields.io/badge/NuGet-Nightly-yellow)](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json?WT.mc_id=xamarincommunitytoolkit-github-bramin)
 
 Now all you need to do is use it! 
 
