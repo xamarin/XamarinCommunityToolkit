@@ -68,9 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static string GetGravatarUri(string email, int size, float scale, DefaultGravatar defaultGravatar)
-		{
-			return string.Format(requestUriFormat, GetMd5Hash(email), size * scale, DefaultGravatarName(defaultGravatar));
-		}
+			=> string.Format(requestUriFormat, GetMd5Hash(email), size * scale, DefaultGravatarName(defaultGravatar));
 
 		static string DefaultGravatarName(DefaultGravatar defaultGravatar)
 		{
