@@ -10,10 +10,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		public async Task<UIImage> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default, float scale = 1)
 		{
-			var fileInfo = await GravatarHandlerUtil.Load(imagesource, scale, GetCacheDirectory()).ConfigureAwait(false);
+			var fileInfo = await LoadInternal(imagesource, scale, GetCacheDirectory()).ConfigureAwait(false);
 
-			if (fileInfo?.Exists ?? false)
-				return UIImage.FromFile(fileInfo.FullName);
+			lock (locker)
+			{
+				if (fileInfo?.Exists ?? false)
+					return UIImage.FromFile(fileInfo.FullName);
+			}
 
 			return null;
 		}

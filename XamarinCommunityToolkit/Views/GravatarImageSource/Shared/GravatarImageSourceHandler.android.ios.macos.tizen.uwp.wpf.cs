@@ -9,12 +9,13 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	static class GravatarHandlerUtil
+	public partial class GravatarImageSourceHandler
 	{
 		const string requestUriFormat = "https://www.gravatar.com/avatar/{0}?s={1}&d={2}";
 		static readonly Lazy<HttpClient> lazyHttp = new Lazy<HttpClient>(() => new HttpClient());
+		static readonly object locker = new object();
 
-		public static async Task<FileInfo> Load(ImageSource imageSource, float scale, string cacheDirectory)
+		public static async Task<FileInfo> LoadInternal(ImageSource imageSource, float scale, string cacheDirectory)
 		{
 			if (imageSource is GravatarImageSource gis)
 			{
@@ -38,17 +39,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (imageBytes.Length < 1)
 				return;
 
-			// Delete Cached File
-			if (cacheFileInfo.Exists)
-				cacheFileInfo.Delete();
+			lock (locker)
+			{
+				// Delete Cached File
+				if (cacheFileInfo.Exists)
+					cacheFileInfo.Delete();
 
-			File.WriteAllBytes(cacheFileInfo.FullName, imageBytes);
+				File.WriteAllBytes(cacheFileInfo.FullName, imageBytes);
+			}
 		}
 
 		static bool UseCacheFile(bool cachingEnabled, TimeSpan cacheValidity, FileInfo file)
 		{
-			if (!file.Directory.Exists)
-				file.Directory.Create();
+			lock (locker)
+			{
+				if (!file.Directory.Exists)
+					file.Directory.Create();
+			}
 
 			return cachingEnabled && file.Exists && file.CreationTime.Add(cacheValidity) > DateTime.Now;
 		}
@@ -86,10 +93,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var sBuilder = new StringBuilder();
 
 			if (hash != null)
-			{
 				for (var i = 0; i < hash.Length; i++)
 					sBuilder.Append(hash[i].ToString("x2"));
-			}
 
 			return sBuilder.ToString();
 		}

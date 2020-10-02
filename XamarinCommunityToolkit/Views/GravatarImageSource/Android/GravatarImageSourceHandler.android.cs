@@ -8,14 +8,17 @@ using Application = Android.App.Application;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class GravatarImageSourceHandler : IImageSourceHandler
+	public partial class GravatarImageSourceHandler : IImageSourceHandler
 	{
 		public async Task<Bitmap> LoadImageAsync(ImageSource imagesource, Context context, CancellationToken cancelationToken = default)
 		{
-			var fileInfo = await GravatarHandlerUtil.Load(imagesource, 1, Application.Context.CacheDir.AbsolutePath).ConfigureAwait(false);
+			var fileInfo = await LoadInternal(imagesource, 1, Application.Context.CacheDir.AbsolutePath).ConfigureAwait(false);
 
-			if (fileInfo?.Exists ?? false)
-				return await BitmapFactory.DecodeFileAsync(fileInfo.FullName);
+			lock (locker)
+			{
+				if (fileInfo?.Exists ?? false)
+					return await BitmapFactory.DecodeFileAsync(fileInfo.FullName);
+			}
 
 			return null;
 		}
