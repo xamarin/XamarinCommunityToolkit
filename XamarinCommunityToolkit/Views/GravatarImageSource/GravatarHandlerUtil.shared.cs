@@ -54,9 +54,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static string CacheFileName(GravatarImageSource gis, float scale)
-		{
-			return $"{GetMd5Hash(gis.Email)}-{gis.Size}@{scale}x.png";
-		}
+			=> $"{GetMd5Hash(gis.Email)}-{gis.Size}@{scale}x.png";
 
 		static async Task<byte[]> GetGravatarAsync(string email, int size, float scale, DefaultGravatar defaultGravatar)
 		{
