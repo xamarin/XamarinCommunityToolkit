@@ -71,14 +71,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			=> string.Format(requestUriFormat, GetMd5Hash(email), size * scale, DefaultGravatarName(defaultGravatar));
 
 		static string DefaultGravatarName(DefaultGravatar defaultGravatar)
-		{
-			return defaultGravatar switch
+			=> defaultGravatar switch
 			{
 				DefaultGravatar.FileNotFound => "404",
 				DefaultGravatar.MysteryPerson => "mp",
 				_ => $"{defaultGravatar}".ToLower(),
 			};
-		}
 
 		static string GetMd5Hash(string str)
 		{
