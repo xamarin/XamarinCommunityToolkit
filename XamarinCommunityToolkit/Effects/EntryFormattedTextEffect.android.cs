@@ -63,16 +63,19 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 
 			var characterStyleClass = Java.Lang.Class.FromType(typeof(CharacterStyle));
+			var findSpans = spannable.GetSpans(args.Start, args.Start + args.AfterCount, characterStyleClass);
 
-			var findSpans = spannable.GetSpans(args.Start, args.AfterCount, characterStyleClass);
-			if (findSpans != null && findSpans.Length > 0)
+			if (HasSpan())
 			{
-				var spanStartPosition = spannable.GetSpanStart(findSpans[0]);
-				var spanEndPosition = spannable.GetSpanEnd(findSpans[0]);
+				var startPosition = spannable.GetSpanStart(findSpans[0]);
+				var endPosition = spannable.GetSpanEnd(findSpans[0]);
 
-				spannable.SetSpan(findSpans[0], spanStartPosition, spanEndPosition, SpanTypes.ExclusiveExclusive);
+				spannable.SetSpan(findSpans[0], startPosition, endPosition, SpanTypes.ExclusiveExclusive);
 			}
+
+			bool HasSpan() => findSpans != null & findSpans.Length > 0;
 		}
+
 
 		/// <summary>
 		/// Updates the native <see cref="FormsEditText"/> with the
