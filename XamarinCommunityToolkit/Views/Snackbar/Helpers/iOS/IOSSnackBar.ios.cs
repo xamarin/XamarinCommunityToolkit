@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using Foundation;
 using UIKit;
-using Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS.SnackbarViews;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Snackbar;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackbarViews;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
 	class IOSSnackBar
 	{

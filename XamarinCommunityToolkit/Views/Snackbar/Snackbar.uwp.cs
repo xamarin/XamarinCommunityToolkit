@@ -6,12 +6,13 @@ using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar
+namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class SnackBar
+	class SnackBar
 	{
 		static DispatcherTimer snackbarTimer;
-		public void Show(Forms.Page page, SnackbarArguments arguments)
+
+		internal void Show(Forms.Page page, SnackbarArguments arguments)
 		{
 			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent as PageControl;
 			var sender = new ExtendedPageControl(pageControl);
