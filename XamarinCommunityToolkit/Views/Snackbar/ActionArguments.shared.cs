@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace Xamarin.CommunityToolkit.Actions
+namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public class ActionArguments
+	class ActionArguments
 	{
 		public ActionArguments(string message, int duration)
 		{

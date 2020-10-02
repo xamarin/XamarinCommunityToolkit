@@ -7,11 +7,11 @@ using AndroidSnackbar = Google.Android.Material.Snackbar.Snackbar;
 using AndroidSnackbar = global::Android.Support.Design.Widget.Snackbar;
 #endif
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar
+namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class SnackBar
+	class SnackBar
 	{
-		public void Show(Page sender, SnackbarArguments arguments)
+		internal void Show(Page sender, SnackbarArguments arguments)
 		{
 			var view = Platform.GetRenderer(sender).View;
 			var snackbar = AndroidSnackbar.Make(view, arguments.Message, arguments.Duration);

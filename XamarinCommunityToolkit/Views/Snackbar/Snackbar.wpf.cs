@@ -6,12 +6,13 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF.Controls;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar
+namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class SnackBar
+	class SnackBar
 	{
 		Timer snackbarTimer;
-		public void Show(Page page, SnackbarArguments arguments)
+
+		internal void Show(Page page, SnackbarArguments arguments)
 		{
 			if (System.Windows.Application.Current.MainWindow is MyFormsWindow window)
 			{
