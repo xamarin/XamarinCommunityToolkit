@@ -437,10 +437,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (IsBusy || !IsRecordingVideo || session == null || mediaRecorder == null)
 				return;
+			var capturedFile = string.Empty;
 
 			try
 			{
 				DisposeMediaRecorder();
+				capturedFile = fileName;
+
 				await PrepareSession();
 			}
 			catch (Java.Lang.Exception ex)
@@ -453,7 +456,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			Sound(MediaActionSoundType.StopVideoRecording);
-			OnVideo(this, videoFile);
+
+			if (!string.IsNullOrEmpty(capturedFile))
+				OnVideo(this, capturedFile);
 		}
 
 		async Task PrepareSession()
