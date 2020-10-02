@@ -322,6 +322,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effects all you to add additional functionality to native controls without needing a custom renderer..
+        /// </summary>
+        internal static string EffectsDescription {
+            get {
+                return ResourceManager.GetString("EffectsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effects.
+        /// </summary>
+        internal static string EffectsTitle {
+            get {
+                return ResourceManager.GetString("EffectsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to e.g..
         /// </summary>
         internal static string EG {
@@ -435,6 +453,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string FullImageSource {
             get {
                 return ResourceManager.GetString("FullImageSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The FormattedTextEffect enables input controls to specify a FormattedString which customizes the string via Spans.
+        /// </summary>
+        internal static string FormattedTextEffectShortDescription {
+            get {
+                return ResourceManager.GetString("FormattedTextEffectShortDescription", resourceCulture);
             }
         }
         

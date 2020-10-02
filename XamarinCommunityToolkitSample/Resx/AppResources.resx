@@ -500,4 +500,13 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   <data name="UserStoppedTypingBehaviorMinimumLengthThresholdOptionLabel" xml:space="preserve">
     <value>Minimum length threshold (number of characters)</value>
   </data>
+  <data name="EffectsDescription" xml:space="preserve">
+    <value>Effects all you to add additional functionality to native controls without needing a custom renderer.</value>
+  </data>
+  <data name="EffectsTitle" xml:space="preserve">
+    <value>Effects</value>
+  </data>
+  <data name="FormattedTextEffectShortDescription" xml:space="preserve">
+    <value>The FormattedTextEffect enables input controls to specify a FormattedString which customizes the string via Spans</value>
+  </data>
 </root>
