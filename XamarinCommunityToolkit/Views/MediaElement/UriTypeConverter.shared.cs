@@ -13,15 +13,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return null;
 			return new Uri(value, UriKind.RelativeOrAbsolute);
 		}
-
-		bool CanConvert(Type type)
-		{
-			if (type == typeof(string))
-				return true;
-			if (type == typeof(Uri))
-				return true;
-
-			return false;
-		}
 	}
 }
