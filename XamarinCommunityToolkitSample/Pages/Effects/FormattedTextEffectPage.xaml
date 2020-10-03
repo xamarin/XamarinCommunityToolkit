@@ -11,8 +11,9 @@
             <Entry>
                 <xct:FormattedTextEffect.FormattedText>
                     <FormattedString>
-                        <Span Text="Hello " TextColor="Red" />
+                        <Span Text="Hello" TextColor="Red" />
                         <Span Text="World" TextColor="Purple" />
+                        <Span Text="Testing" TextColor="White" BackgroundColor="Red" />
                     </FormattedString>
                 </xct:FormattedTextEffect.FormattedText>
             </Entry>

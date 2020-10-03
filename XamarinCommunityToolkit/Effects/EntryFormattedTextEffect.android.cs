@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Android.Text;
 using Android.Text.Style;
 using Android.Widget;
@@ -21,6 +23,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	{
 		bool isDisposed;
 
+		protected IList<FormattedTextSegment<Java.Lang.Object>> Segments { get; set; }
+
 		/// <summary>
 		/// Gets the native <see cref="FormsEditText"/> control.
 		/// </summary>
@@ -35,6 +39,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		protected override void OnAttached()
 		{
 			UpdateFormattedText();
+
 			Control.TextChanged += OnTextChanged;
 		}
 
@@ -57,25 +62,48 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		void OnTextChanged(object sender, global::Android.Text.TextChangedEventArgs args)
 		{
 			var spannable = (SpannableStringBuilder)args.Text;
-			if (spannable == null)
+			if (spannable == null || Segments.Count == 0)
 			{
 				return;
 			}
 
-			var characterStyleClass = Java.Lang.Class.FromType(typeof(CharacterStyle));
-			var findSpans = spannable.GetSpans(args.Start, args.Start + args.AfterCount, characterStyleClass);
+			var segment = Segments[args.Start];
+			var length = args.AfterCount - args.BeforeCount;
+			var startIndex = args.Start - segment.StartIndex;
 
-			if (HasSpan())
+			if (length > 0)
 			{
-				var startPosition = spannable.GetSpanStart(findSpans[0]);
-				var endPosition = spannable.GetSpanEnd(findSpans[0]);
+				segment.Span.Text = segment.Span.Text.Insert(startIndex, Control.Text.Substring(args.Start, length));
 
-				spannable.SetSpan(findSpans[0], startPosition, endPosition, SpanTypes.ExclusiveExclusive);
+				for (var index = 0; index < length; index++)
+				{
+					Segments.Insert(args.Start + index, segment);
+				}
+			}
+			else if (length < 0)
+			{
+				var absLength = Math.Abs(length);
+				segment.Span.Text = segment.Span.Text.Remove(startIndex, Math.Abs(length));
+
+				for (var index = 0; index < absLength; index++)
+				{
+					Segments.RemoveAt(args.Start + index);
+				}
 			}
 
-			bool HasSpan() => findSpans != null & findSpans.Length > 0;
-		}
+			var position = 0;
+			foreach (var item in Segments.Distinct())
+			{
+				item.StartIndex = position;
+				position += item.Span.Text.Length;
+			}
 
+			foreach (var nativeSpan in segment.NativeSpans)
+			{
+				spannable.RemoveSpan(nativeSpan);
+				spannable.SetSpan(nativeSpan, segment.StartIndex, segment.StartIndex + segment.Span.Text.Length, SpanTypes.ExclusiveExclusive);
+			}
+		}
 
 		/// <summary>
 		/// Updates the native <see cref="FormsEditText"/> with the
@@ -95,20 +123,33 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 			else
 			{
-				var text = new SpannableStringBuilder();
+				var spannableStringBuilder = new SpannableStringBuilder();
+				Segments = new List<FormattedTextSegment<Java.Lang.Object>>();
 				var position = 0;
 				for (var index = 0; index < formattedText.Spans.Count; index++)
 				{
 					var currentSpan = formattedText.Spans[index];
-					text.Append(currentSpan.Text);
+					spannableStringBuilder.Append(currentSpan.Text);
 
-					var nativeSpan = CreateNativeSpan(currentSpan);
-					text.SetSpan(nativeSpan, position, position + currentSpan.Text.Length, SpanTypes.ExclusiveExclusive);
+					var segment = new FormattedTextSegment<Java.Lang.Object>
+					{
+						StartIndex = position,
+						Span = currentSpan,
+						NativeSpans = CreateNativeSpan(currentSpan)
+					};
+
+					for (var textIndex = position; textIndex < (currentSpan.Text.Length + position); textIndex++)
+						Segments.Add(segment);
+
+					foreach (var nativeSpan in segment.NativeSpans)
+					{
+						spannableStringBuilder.SetSpan(nativeSpan, position, position + currentSpan.Text.Length, SpanTypes.ExclusiveExclusive);
+					}
 
 					position += currentSpan.Text.Length;
 				}
 
-				Control.SetText(text, TextView.BufferType.Spannable);
+				Control.SetText(spannableStringBuilder, TextView.BufferType.Spannable);
 			}
 
 			Control.SetSelection(selectionStart, selectionEnd);
@@ -129,9 +170,66 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		/// which allows several different types. Please refer to the Android Documentation
 		/// on usage. https://developer.android.com/reference/android/text/Spannable.
 		/// </remarks>
-		protected virtual Java.Lang.Object CreateNativeSpan(Span span)
+		protected virtual Java.Lang.Object[] CreateNativeSpan(Span span)
 		{
-			return new ForegroundColorSpan(span.TextColor.ToAndroid());
+			var nativeSpans = new List<Java.Lang.Object>();
+
+			if (span.IsSet(Span.TextColorProperty))
+			{
+				nativeSpans.Add(new ForegroundColorSpan(span.TextColor.ToAndroid()));
+			}
+
+			if (span.IsSet(Span.BackgroundColorProperty))
+			{
+				nativeSpans.Add(new BackgroundColorSpan(span.BackgroundColor.ToAndroid()));
+			}
+
+			if (span.IsSet(Span.FontAttributesProperty) && span.FontAttributes != FontAttributes.None)
+			{
+				if (span.FontAttributes.HasFlag(FontAttributes.Italic) && span.FontAttributes.HasFlag(FontAttributes.Bold))
+				{
+					nativeSpans.Add(new StyleSpan(global::Android.Graphics.TypefaceStyle.Bold));
+				}
+				else if (span.FontAttributes.HasFlag(FontAttributes.Italic))
+				{
+					nativeSpans.Add(new StyleSpan(global::Android.Graphics.TypefaceStyle.Italic));
+				}
+				else if (span.FontAttributes.HasFlag(FontAttributes.Bold))
+				{
+					nativeSpans.Add(new StyleSpan(global::Android.Graphics.TypefaceStyle.Bold));
+				}
+			}
+
+			if (span.IsSet(Span.FontProperty))
+			{
+				nativeSpans.Add(new TypefaceSpan(span.FontFamily));
+			}
+
+			if (span.IsSet(Span.FontSizeProperty))
+			{
+				nativeSpans.Add(new RelativeSizeSpan((float)span.FontSize));
+			}
+
+			if (span.IsSet(Span.TextDecorationsProperty) && span.TextDecorations != TextDecorations.None)
+			{
+				if (span.TextDecorations.HasFlag(TextDecorations.Underline))
+				{
+					nativeSpans.Add(new UnderlineSpan());
+				}
+
+				if (span.TextDecorations.HasFlag(TextDecorations.Strikethrough))
+				{
+					nativeSpans.Add(new StrikethroughSpan());
+				}
+			}
+
+			if (span.IsSet(Span.LineHeightProperty))
+			{
+				// only for android 10.0
+				//nativeSpans.Add(new LineHeightSpanStandard((int)span.LineHeight));
+			}
+
+			return nativeSpans.ToArray();
 		}
 
 		protected virtual void Dispose(bool disposing)
