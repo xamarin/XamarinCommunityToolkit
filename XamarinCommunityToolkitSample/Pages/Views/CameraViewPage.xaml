@@ -15,7 +15,6 @@
             MediaCaptured="CameraView_MediaCaptured"
             OnAvailable="CameraView_OnAvailable"
             SavePhotoToFile="True"
-            ShutterCommand="{Binding CameraShutterCommand}"
             WidthRequest="640" />
 
         <StackLayout Grid.Row="1" Orientation="Horizontal">
@@ -70,7 +69,7 @@
 
                 <Button
                     x:Name="doCameraThings"
-                    Command="{Binding ShutterCommand}"
+                    Command="{Binding ShutterCommand, Source={x:Reference cameraView}}"
                     IsEnabled="False"
                     Text="{rsx:Translate CameraViewSampleStartRecording}" />
                 <Image
