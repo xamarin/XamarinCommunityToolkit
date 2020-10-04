@@ -6,7 +6,6 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Core
 {
-	// TODO: Check if we can do these changes in Xamarin.Forms to not have our own version of the MediaSource
 	// TODO 2: Is this even used?! Not for iOS it seems...
 	public class CameraMediaSource : MediaSource
 	{
