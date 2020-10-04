@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 {
 	public class TextCharactersValidationBehavior : TextValidationBehavior
 	{
-		IEnumerable<Predicate<char>> characterPredicates;
+		List<Predicate<char>> characterPredicates;
 
 		public static readonly BindableProperty CharacterTypeProperty =
 			BindableProperty.Create(nameof(CharacterType), typeof(CharacterType), typeof(TextCharactersValidationBehavior), CharacterType.Any, propertyChanged: OnCharacterTypePropertyChanged);
@@ -49,24 +49,24 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		void OnCharacterTypePropertyChanged()
-			=> characterPredicates = GetCharacterPredicates();
+			=> characterPredicates = GetCharacterPredicates().ToList();
 
 		IEnumerable<Predicate<char>> GetCharacterPredicates()
 		{
-			if (CharacterType.HasFlag(CharacterType.LowerLetter))
+			if (CharacterType.HasFlag(CharacterType.LowercaseLetter))
 				yield return char.IsLower;
 
-			if (CharacterType.HasFlag(CharacterType.UpperLetter))
+			if (CharacterType.HasFlag(CharacterType.UppercaseLetter))
 				yield return char.IsUpper;
 
 			if (CharacterType.HasFlag(CharacterType.Digit))
 				yield return char.IsDigit;
 
-			if (CharacterType.HasFlag(CharacterType.Symbol))
-				yield return char.IsSymbol;
-
 			if (CharacterType.HasFlag(CharacterType.WhiteSpace))
 				yield return char.IsWhiteSpace;
+
+			if (CharacterType.HasFlag(CharacterType.Symbol))
+				yield return c => !char.IsLetterOrDigit(c);
 		}
 
 		bool Validate(string value)
