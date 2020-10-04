@@ -5,12 +5,18 @@ namespace Xamarin.CommunityToolkit.AttachedProperties
 {
 	public static class ProgressBarAttachedProperties
 	{
-        public static BindableProperty AnimatedProgressProperty = BindableProperty.CreateAttached("AnimatedProgress", typeof(double), typeof(ProgressBar), 0.0d, BindingMode.OneWay, propertyChanged: (b, o, n) => ProgressBarProgressChanged((ProgressBar)b, (double)n));
+		const string animatedProgress = "AnimatedProgres";
 
-        static void ProgressBarProgressChanged(ProgressBar progressBar, double progress)
-        {
-            ViewExtensions.CancelAnimations(progressBar);
-            progressBar.ProgressTo(progress, Convert.ToUInt32(Math.Max(0, 500)), Easing.Linear);
-        }
+		public static BindableProperty AnimatedProgressProperty = BindableProperty.CreateAttached(animatedProgress, typeof(double), typeof(ProgressBar), 0.0d, propertyChanged: ProgressBarProgressChanged);
+
+		static void ProgressBarProgressChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			var progressBar = bindable as ProgressBar;
+
+			if (progressBar == null)
+				return;
+
+			progressBar.ProgressTo((double)newValue, Convert.ToUInt32(Math.Max(0, 500)), Easing.Linear);
+		}
     }
 }
