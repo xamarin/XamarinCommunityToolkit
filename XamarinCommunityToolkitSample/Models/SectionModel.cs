@@ -7,8 +7,8 @@ namespace Xamarin.CommunityToolkit.Sample.Models
 	{
 		public SectionModel(Type type, string title, string description)
 			: this(type, title, Color.Default, description)
-        {
-        }
+		{
+		}
 
 		public SectionModel(Type type, string title, Color color, string description)
 		{
