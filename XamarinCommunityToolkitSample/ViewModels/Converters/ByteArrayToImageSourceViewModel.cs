@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		public byte[] Avatar
 		{
 			get => avatar;
-			set => Set(ref avatar, value);
+			set => SetProperty(ref avatar, value);
 		}
 
 		bool isBusy;
@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		public bool IsBusy
 		{
 			get => isBusy;
-			set => Set(ref isBusy, value);
+			set => SetProperty(ref isBusy, value);
 		}
 
 		public async Task OnAppearing()
