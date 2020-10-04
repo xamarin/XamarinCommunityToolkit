@@ -1,23 +1,37 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	public class EventToCommandBehavior : BaseBehavior<View>
 	{
-		public static readonly BindableProperty EventNameProperty =
-			BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), propertyChanged: OnEventNamePropertyChanged);
+		public static readonly BindableProperty EventNameProperty = new BindablePropertyBuilder()
+			.SetPropertyName(nameof(EventName))
+			.SetReturnType(typeof(string))
+			.SetDeclaringType(typeof(EventToCommandBehavior))
+			.SetPropertyChangedDelegate(OnEventNamePropertyChanged)
+			.Build();
 
-		public static readonly BindableProperty CommandProperty =
-			BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior));
+		public static readonly BindableProperty CommandProperty = new BindablePropertyBuilder()
+			.SetPropertyName(nameof(Command))
+			.SetReturnType(typeof(ICommand))
+			.SetDeclaringType(typeof(EventToCommandBehavior))
+			.Build();
 
-		public static readonly BindableProperty CommandParameterProperty =
-			BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior));
+		public static readonly BindableProperty CommandParameterProperty = new BindablePropertyBuilder()
+			.SetPropertyName(nameof(CommandParameter))
+			.SetReturnType(typeof(object))
+			.SetDeclaringType(typeof(EventToCommandBehavior))
+			.Build();
 
-		public static readonly BindableProperty EventArgsConverterProperty =
-			BindableProperty.Create(nameof(EventArgsConverter), typeof(IValueConverter), typeof(EventToCommandBehavior));
+		public static readonly BindableProperty EventArgsConverterProperty = new BindablePropertyBuilder()
+			.SetPropertyName(nameof(EventArgsConverter))
+			.SetReturnType(typeof(IValueConverter))
+			.SetDeclaringType(typeof(EventToCommandBehavior))
+			.Build();
 
 		readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnTriggerHandled));
 
