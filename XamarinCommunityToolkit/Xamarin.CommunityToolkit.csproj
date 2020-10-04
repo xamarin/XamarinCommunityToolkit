@@ -50,13 +50,17 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) ">
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage Xamarin.Forms version for development -->
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage Xamarin.Forms version for distribution -->
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
@@ -138,7 +142,7 @@
     <Compile Remove="**\Snackbar.shared.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net472')) or $(TargetFramework.StartsWith('netcoreapp'))  ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net472')) ">
     <Compile Include="**\*.wpf.cs" />
     <Compile Include="**\*.wpf.*.cs" />
     <Compile Remove="**\Snackbar.shared.cs" />
@@ -146,7 +150,15 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsBase" />
-    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.7.0.968" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netcoreapp'))  ">
+    <Compile Include="**\*.wpf.cs" />
+    <Compile Include="**\*.wpf.*.cs" />
+    <Compile Remove="**\Snackbar.shared.cs" />
+    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.7.0.968" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 
@@ -154,7 +166,7 @@
     <Compile Include="**\*.gtk.cs" />
     <Compile Include="**\*.gtk.*.cs" />
     <Compile Remove="**\Snackbar.shared.cs" />
-    <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="4.7.0.968" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

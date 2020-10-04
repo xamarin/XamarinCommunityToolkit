@@ -17,13 +17,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (System.Windows.Application.Current.MainWindow is MyFormsWindow window)
 			{
 				snackbarTimer = new Timer { Interval = arguments.Duration };
-				snackbarTimer.Tick += delegate
+				snackbarTimer.Tick += (sender, e) =>
 				{
 					window.HideSnackBar();
 					snackbarTimer.Stop();
 					arguments.SetResult(false);
 				};
-				window.OnSnackbarActionExecuted += delegate
+				window.OnSnackbarActionExecuted += () =>
 				{
 					window.HideSnackBar();
 					snackbarTimer.Stop();
@@ -46,22 +46,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			public string SnackbarActionButtonText
 			{
-				get { return (string)GetValue(SnackbarActionButtonTextProperty); }
-				private set { SetValue(SnackbarActionButtonTextProperty, value); }
+				get => (string)GetValue(SnackbarActionButtonTextProperty);
+				private set => SetValue(SnackbarActionButtonTextProperty, value);
 			}
 
 			public ICommand SnackbarActionCommand
 			{
-				get { return (ICommand)GetValue(SnackbarActionCommandProperty); }
-				private set { SetValue(SnackbarActionCommandProperty, value); }
+				get => (ICommand)GetValue(SnackbarActionCommandProperty);
+				private set => SetValue(SnackbarActionCommandProperty, value);
 			}
 
 			public string SnackbarMessage
 			{
-				get { return (string)GetValue(SnackbarMessageProperty); }
-				private set { SetValue(SnackbarMessageProperty, value); }
+				get => (string)GetValue(SnackbarMessageProperty);
+				private set => SetValue(SnackbarMessageProperty, value);
 			}
+
 			public Action OnSnackbarActionExecuted;
+
 			public void ShowSnackBar(string message, string actionButtonText, Func<Task> action)
 			{
 				SnackbarMessage = message;
