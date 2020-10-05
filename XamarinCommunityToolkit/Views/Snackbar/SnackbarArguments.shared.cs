@@ -1,14 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar
+namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public class SnackbarArguments : ActionArguments
+	class SnackbarArguments : ActionArguments
 	{
 		public SnackbarArguments(string message, int duration, string actionButtonText, Func<Task> action)
-            : base(message, duration)
+			: base(message, duration)
 		{
 			ActionButtonText = actionButtonText;
 			Action = action;

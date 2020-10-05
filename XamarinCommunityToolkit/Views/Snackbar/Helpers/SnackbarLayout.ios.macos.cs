@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 {
 	class SnackbarLayout
 	{

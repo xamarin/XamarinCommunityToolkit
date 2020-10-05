@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Actions.Snackbar;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Extensions

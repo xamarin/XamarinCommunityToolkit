@@ -1,8 +1,9 @@
 ﻿using System;
 using UIKit;
-using Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackbarViews;
 
-namespace Xamarin.CommunityToolkit.Actions.Snackbar.Helpers.iOS.SnackbarViews
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
 	class ActionMessageSnackbarView : MessageSnackbarView
 	{
