@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		public string PerformedSearches
 		{
 			get => performedSearches;
-			set => Set(ref performedSearches, value);
+			set => SetProperty(ref performedSearches, value);
 		}
 
 		public ICommand SearchCommand { get; }
