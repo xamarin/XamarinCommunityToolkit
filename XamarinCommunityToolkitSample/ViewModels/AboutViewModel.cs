@@ -25,19 +25,19 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		public RepositoryContributor[] Contributors
 		{
 			get => contributors;
-			set => Set(ref contributors, value);
+			set => SetProperty(ref contributors, value);
 		}
 
 		public RepositoryContributor SelectedContributor
 		{
 			get => selectedContributor;
-			set => Set(ref selectedContributor, value);
+			set => SetProperty(ref selectedContributor, value);
 		}
 
 		public string EmptyViewText
 		{
 			get => emptyViewText;
-			set => Set(ref emptyViewText, value);
+			set => SetProperty(ref emptyViewText, value);
 		}
 
 		public ICommand SelectedContributorCommand => selectedContributorCommand ??= new AsyncCommand(async () =>
