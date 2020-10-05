@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		public string EnteredName
 		{
 			get => enteredName;
-			set => Set(ref enteredName, value);
+			set => SetProperty(ref enteredName, value);
 		}
 	}
 }
