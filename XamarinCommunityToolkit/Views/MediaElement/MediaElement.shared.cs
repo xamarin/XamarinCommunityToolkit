@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(Position), typeof(TimeSpan), typeof(MediaElement), TimeSpan.Zero);
 
 		public static readonly BindableProperty ShowsPlaybackControlsProperty =
-		  BindableProperty.Create(nameof(ShowsPlaybackControls), typeof(bool), typeof(MediaElement), false);
+		  BindableProperty.Create(nameof(ShowsPlaybackControls), typeof(bool), typeof(MediaElement), true);
 
 		public static readonly BindableProperty SourceProperty =
 		  BindableProperty.Create(nameof(Source), typeof(MediaSource), typeof(MediaElement),
