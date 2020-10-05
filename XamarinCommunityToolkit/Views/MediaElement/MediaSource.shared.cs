@@ -18,11 +18,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return new UriMediaSource { Uri = uri };
 		}
 
-		public static implicit operator MediaSource(string source) => Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file" ? FromUri(uri) : FromFile(source);
+		public static implicit operator MediaSource(string source) =>
+			Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file" ? FromUri(uri) : FromFile(source);
 
 		public static implicit operator MediaSource(Uri uri)
 		{
-			if (uri is null)
+			if (uri == null)
 				return null;
 
 			if (!uri.IsAbsoluteUri)
@@ -35,8 +36,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal event EventHandler SourceChanged
 		{
-			add { weakEventManager.AddEventHandler(value); }
-			remove { weakEventManager.RemoveEventHandler(value); }
+			add => weakEventManager.AddEventHandler(value);
+			remove => weakEventManager.RemoveEventHandler(value);
 		}
 	}
 }

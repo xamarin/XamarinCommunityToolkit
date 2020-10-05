@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (value != null)
 				return (FileMediaSource)MediaSource.FromFile(value);
 
-			throw new InvalidOperationException(string.Format("Cannot convert \"{0}\" into {1}", value, typeof(FileMediaSource)));
+			throw new InvalidOperationException($"Cannot convert \"{value}\" into {typeof(FileMediaSource)}");
 		}
 	}
 }
