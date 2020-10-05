@@ -72,5 +72,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.IsType<UriMediaSource>(media.Source);
 			Assert.Equal(uri, ((UriMediaSource)media.Source).Uri);
 		}
+
+		[Fact]
+		public void TestDefaultValueForShowsPlaybackControls()
+		{
+			var media = new MediaElement();
+
+			Assert.True(media.ShowsPlaybackControls);
+		}
+
+		[Fact]
+		public void TestShowsPlaybackControlsSet()
+		{
+			var media = new MediaElement { ShowsPlaybackControls = false };
+
+			Assert.False(media.ShowsPlaybackControls);
+		}
 	}
 }
