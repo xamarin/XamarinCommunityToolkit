@@ -5,20 +5,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public static class AspectExtensions
 	{
-		public static WStretch ToStretch(this Aspect aspect)
+		public static WStretch ToStretch(this Aspect aspect) => aspect switch
 		{
-			switch (aspect)
-			{
-				case Aspect.Fill:
-					return WStretch.Fill;
-
-				case Aspect.AspectFill:
-					return WStretch.UniformToFill;
-
-				case Aspect.AspectFit:
-				default:
-					return WStretch.Uniform;
-			}
-		}
+			Aspect.Fill => WStretch.Fill,
+			Aspect.AspectFill => WStretch.UniformToFill,
+			_ => WStretch.Uniform,
+		};
 	}
 }

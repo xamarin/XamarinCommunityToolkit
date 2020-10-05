@@ -5,20 +5,21 @@ using Xamarin.Forms.Platform.UWP;
 using Controls = Windows.UI.Xaml.Controls;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
+using WMediaElementState = Windows.UI.Xaml.Media.MediaElementState;
 
 [assembly: ExportRenderer(typeof(ToolKitMediaElement), typeof(ToolKitMediaElementRenderer))]
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public sealed class MediaElementRenderer : ViewRenderer<ToolKitMediaElement, Controls.MediaElement>
+	public class MediaElementRenderer : ViewRenderer<ToolKitMediaElement, Controls.MediaElement>
 	{
 		long bufferingProgressChangedToken;
 		long positionChangedToken;
 		readonly DisplayRequest request = new DisplayRequest();
 
-		void ReleaseControl()
+		protected virtual void ReleaseControl()
 		{
-			if (Control is null)
+			if (Control == null)
 				return;
 
 			if (bufferingProgressChangedToken != 0)
@@ -50,14 +51,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ReleaseControl();
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<ToolKitMediaElement> e)
 		{
 			base.OnElementChanged(e);
 
 			if (e.OldElement != null)
-			{
 				ReleaseControl();
-			}
 
 			if (e.NewElement != null)
 			{
@@ -88,17 +87,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void PositionRequested(object sender, EventArgs e)
 		{
-			if (!(Control is null))
-			{
+			if (Control != null)
 				Controller.Position = Control.Position;
-			}
 		}
 
 		IMediaElementController Controller => Element as IMediaElementController;
 
 		void StateRequested(object sender, StateRequested e)
 		{
-			if (!(Control is null))
+			if (Control != null)
 			{
 				switch (e.State)
 				{
@@ -108,9 +105,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					case MediaElementState.Paused:
 						if (Control.CanPause)
-						{
 							Control.Pause();
-						}
 						break;
 
 					case MediaElementState.Stopped:
@@ -124,7 +119,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SeekRequested(object sender, SeekRequested e)
 		{
-			if (!(Control is null) && Control.CanSeek)
+			if (Control != null && Control.CanSeek)
 			{
 				Control.Position = e.Position;
 				Controller.Position = Control.Position;
@@ -135,10 +130,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void ControlMediaEnded(object sender, RoutedEventArgs e)
 		{
-			if (!(Control is null))
-			{
+			if (Control != null)
 				Controller.Position = Control.Position;
-			}
 
 			Controller.CurrentState = MediaElementState.Stopped;
 			Controller.OnMediaEnded();
@@ -155,7 +148,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.OnMediaOpened();
 		}
 
-
 		void ControlCurrentStateChanged(object sender, RoutedEventArgs e)
 		{
 			if (Element is null || Control is null)
@@ -163,71 +155,48 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			switch (Control.CurrentState)
 			{
-				case Windows.UI.Xaml.Media.MediaElementState.Playing:
+				case WMediaElementState.Playing:
 					if (Element.KeepScreenOn)
-					{
 						request.RequestActive();
-					}
 					break;
 
-				case Windows.UI.Xaml.Media.MediaElementState.Paused:
-				case Windows.UI.Xaml.Media.MediaElementState.Stopped:
-				case Windows.UI.Xaml.Media.MediaElementState.Closed:
+				case WMediaElementState.Paused:
+				case WMediaElementState.Stopped:
+				case WMediaElementState.Closed:
 					if (Element.KeepScreenOn)
-					{
 						request.RequestRelease();
-					}
 					break;
 			}
 
 			Controller.CurrentState = FromWindowsMediaElementState(Control.CurrentState);
 		}
 
-		static MediaElementState FromWindowsMediaElementState(Windows.UI.Xaml.Media.MediaElementState state)
+		protected static MediaElementState FromWindowsMediaElementState(WMediaElementState state) => state switch
 		{
-			switch (state)
-			{
-				case Windows.UI.Xaml.Media.MediaElementState.Buffering:
-					return MediaElementState.Buffering;
-
-				case Windows.UI.Xaml.Media.MediaElementState.Closed:
-					return MediaElementState.Closed;
-
-				case Windows.UI.Xaml.Media.MediaElementState.Opening:
-					return MediaElementState.Opening;
-
-				case Windows.UI.Xaml.Media.MediaElementState.Paused:
-					return MediaElementState.Paused;
-
-				case Windows.UI.Xaml.Media.MediaElementState.Playing:
-					return MediaElementState.Playing;
-
-				case Windows.UI.Xaml.Media.MediaElementState.Stopped:
-					return MediaElementState.Stopped;
-			}
-
-			throw new ArgumentOutOfRangeException();
-		}
+			WMediaElementState.Buffering => MediaElementState.Buffering,
+			WMediaElementState.Closed => MediaElementState.Closed,
+			WMediaElementState.Opening => MediaElementState.Opening,
+			WMediaElementState.Paused => MediaElementState.Paused,
+			WMediaElementState.Playing => MediaElementState.Playing,
+			WMediaElementState.Stopped => MediaElementState.Stopped,
+			_ => throw new ArgumentOutOfRangeException(),
+		};
 
 		void BufferingProgressChanged(DependencyObject sender, DependencyProperty dp)
 		{
-			if (!(Control is null))
-			{
+			if (Control != null)
 				Controller.BufferingProgress = Control.BufferingProgress;
-			}
 		}
 
 		void PositionChanged(DependencyObject sender, DependencyProperty dp)
 		{
-			if (!(Control is null))
-			{
+			if (Control != null)
 				Controller.Position = Control.Position;
-			}
 		}
 
 		void ControlSeekCompleted(object sender, RoutedEventArgs e)
 		{
-			if (!(Control is null))
+			if (Control != null)
 			{
 				Controller.Position = Control.Position;
 				Controller.OnSeekCompleted();
@@ -253,15 +222,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(ToolKitMediaElement.KeepScreenOn):
 					if (Element.KeepScreenOn)
 					{
-						if (Control.CurrentState == Windows.UI.Xaml.Media.MediaElementState.Playing)
-						{
+						if (Control.CurrentState == WMediaElementState.Playing)
 							request.RequestActive();
-						}
 					}
 					else
-					{
 						request.RequestRelease();
-					}
 					break;
 
 				case nameof(ToolKitMediaElement.ShowsPlaybackControls):
@@ -288,9 +253,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnElementPropertyChanged(sender, e);
 		}
 
-		void UpdateSource()
+		protected virtual void UpdateSource()
 		{
-			if (Element.Source is null)
+			if (Element.Source == null)
 				return;
 
 			if (Element.Source is UriMediaSource uriSource)

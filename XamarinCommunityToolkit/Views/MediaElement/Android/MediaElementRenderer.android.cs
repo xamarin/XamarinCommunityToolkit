@@ -5,7 +5,6 @@ using Android.Media;
 using Android.Views;
 using Android.Widget;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
@@ -15,17 +14,17 @@ using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaEleme
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public sealed class MediaElementRenderer : FrameLayout, IVisualElementRenderer, IViewRenderer, MediaPlayer.IOnCompletionListener, MediaPlayer.IOnInfoListener, MediaPlayer.IOnPreparedListener, MediaPlayer.IOnErrorListener
+	public class MediaElementRenderer : FrameLayout, IVisualElementRenderer, IViewRenderer, MediaPlayer.IOnCompletionListener, MediaPlayer.IOnInfoListener, MediaPlayer.IOnPreparedListener, MediaPlayer.IOnErrorListener
 	{
 		VisualElementTracker tracker;
-		MediaController controller;
-		MediaPlayer mediaPlayer;
-		FormsVideoView view;
+		protected MediaController controller;
+		protected MediaPlayer mediaPlayer;
+		protected FormsVideoView view;
 		bool isDisposed;
 		int? defaultLabelFor;
 
 		public MediaElementRenderer(Context context)
-            : base(context)
+			: base(context)
 		{
 			view = new FormsVideoView(Context);
 			view.SetZOrderMediaOverlay(true);
@@ -42,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			view.SetMediaController(controller);
 		}
 
-		ToolKitMediaElement MediaElement { get; set; }
+		protected ToolKitMediaElement MediaElement { get; set; }
 
 		IMediaElementController Controller => MediaElement;
 
@@ -70,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 		}
 
-		void UnsubscribeFromEvents(ToolKitMediaElement element)
+		protected virtual void UnsubscribeFromEvents(ToolKitMediaElement element)
 		{
 			if (element == null)
 				return;
@@ -83,7 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IVisualElementRenderer.SetElement(VisualElement element)
 		{
-			if (element is null)
+			if (element == null)
 				throw new ArgumentNullException(nameof(element));
 
 			if (!(element is ToolKitMediaElement))
@@ -92,18 +91,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var oldElement = MediaElement;
 			MediaElement = (ToolKitMediaElement)element;
 
-			Performance.Start(out var reference);
-
 			if (oldElement != null)
-			{
 				UnsubscribeFromEvents(oldElement);
-			}
 
 			var currentColor = oldElement?.BackgroundColor ?? Color.Default;
 			if (element.BackgroundColor != currentColor)
-			{
 				UpdateBackgroundColor();
-			}
 
 			if (MediaElement != null)
 			{
@@ -113,15 +106,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				MediaElement.PositionRequested += OnPositionRequested;
 			}
 
-			if (tracker is null)
-			{
-				// Can't set up the tracker in the constructor because it access the Element (for now)
+			// Can't set up the tracker in the constructor because it access the Element (for now)
+			if (tracker == null)
 				SetTracker(new VisualElementTracker(this));
-			}
 
 			OnElementChanged(new ElementChangedEventArgs<MediaElement>(oldElement, MediaElement));
-
-			Performance.Stop(reference);
 		}
 
 		void StateRequested(object sender, StateRequested e)
@@ -147,7 +136,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case MediaElementState.Stopped:
 					view.Pause();
 					view.SeekTo(0);
-
 					Controller.CurrentState = view.IsPlaying ? MediaElementState.Playing : MediaElementState.Stopped;
 					break;
 			}
@@ -174,26 +162,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IVisualElementRenderer.SetLabelFor(int? id)
 		{
-			if (defaultLabelFor is null)
-			{
+			if (defaultLabelFor == null)
 				defaultLabelFor = LabelFor;
-			}
 
 			LabelFor = (int)(id ?? defaultLabelFor);
 		}
 
 		void SetTracker(VisualElementTracker tracker) => this.tracker = tracker;
 
-		void UpdateBackgroundColor() => SetBackgroundColor(Element.BackgroundColor.ToAndroid());
+		protected virtual void UpdateBackgroundColor() => SetBackgroundColor(Element.BackgroundColor.ToAndroid());
 
 		void IVisualElementRenderer.UpdateLayout() => tracker?.UpdateLayout();
 
 		protected override void Dispose(bool disposing)
 		{
 			if (isDisposed)
-			{
 				return;
-			}
 
 			isDisposed = true;
 
@@ -207,16 +191,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				tracker?.Dispose();
 
 				if (Element != null)
-				{
 					UnsubscribeFromEvents(Element as MediaElement);
-				}
 			}
 
 			base.Dispose(disposing);
 		}
 
-		// TODO: Make virtual when unsealed
-		void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
 		{
 			if (e.NewElement != null)
 			{
@@ -246,8 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Device.BeginInvokeOnMainThread(UpdateLayoutParameters);
 		}
 
-		// TODO: Make virtual when unsealed
-		void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
@@ -257,9 +237,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				case nameof(MediaElement.IsLooping):
 					if (mediaPlayer != null)
-					{
 						mediaPlayer.Looping = MediaElement.IsLooping;
-					}
 					break;
 
 				case nameof(MediaElement.KeepScreenOn):
@@ -282,7 +260,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ElementPropertyChanged?.Invoke(this, e);
 		}
 
-		void UpdateKeepScreenOn()
+		protected virtual void UpdateKeepScreenOn()
 		{
 			if (view == null)
 				return;
@@ -290,7 +268,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			view.KeepScreenOn = MediaElement.KeepScreenOn;
 		}
 
-		void UpdateShowPlaybackControls()
+		protected void UpdateShowPlaybackControls()
 		{
 			if (controller == null)
 				return;
@@ -298,7 +276,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			controller.Visibility = MediaElement.ShowsPlaybackControls ? ViewStates.Visible : ViewStates.Gone;
 		}
 
-		void UpdateSource()
+		protected virtual void UpdateSource()
 		{
 			if (view == null)
 				return;
@@ -313,7 +291,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							return;
 
 						// Video resources should be in the raw folder with Build Action set to AndroidResource
-						var uri = "android.resource://" + Context.PackageName + "/raw/" + uriSource.Uri.LocalPath.Substring(1, uriSource.Uri.LocalPath.LastIndexOf('.') - 1).ToLower();
+						var uri = "android.resource://" + Context.PackageName + "/raw/" +
+							uriSource.Uri.LocalPath[1..uriSource.Uri.LocalPath.LastIndexOf('.')].ToLower();
 						view.SetVideoURI(global::Android.Net.Uri.Parse(uri));
 					}
 					else if (uriSource.Uri.Scheme == "ms-appdata")
@@ -328,19 +307,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					else
 					{
 						if (uriSource.Uri.IsFile)
-						{
 							view.SetVideoPath(uriSource.Uri.AbsolutePath);
-						}
 						else
-						{
 							view.SetVideoURI(global::Android.Net.Uri.Parse(uriSource.Uri.AbsoluteUri));
-						}
 					}
 				}
 				else if (MediaElement.Source is FileMediaSource fileSource)
-				{
 					view.SetVideoPath(fileSource.File);
-				}
 
 				if (MediaElement.AutoPlay)
 				{
@@ -355,30 +328,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		string ResolveMsAppDataUri(Uri uri)
+		protected string ResolveMsAppDataUri(Uri uri)
 		{
 			if (uri.Scheme == "ms-appdata")
 			{
 				string filePath;
 				if (uri.LocalPath.StartsWith("/local"))
-				{
 					filePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), uri.LocalPath.Substring(7));
-				}
 				else if (uri.LocalPath.StartsWith("/temp"))
-				{
 					filePath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), uri.LocalPath.Substring(6));
-				}
 				else
-				{
 					throw new ArgumentException("Invalid Uri", "Source");
-				}
 
 				return filePath;
 			}
 			else
-			{
 				throw new ArgumentException("uri");
-			}
 		}
 
 		void MediaPlayer.IOnCompletionListener.OnCompletion(MediaPlayer mp)
@@ -409,12 +374,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Controller.CurrentState = MediaElementState.Playing;
 			}
 			else
-			{
 				Controller.CurrentState = MediaElementState.Paused;
-			}
 		}
 
-		void UpdateLayoutParameters()
+		protected virtual void UpdateLayoutParameters()
 		{
 			if (view == null)
 				return;
@@ -468,7 +431,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void ReleaseControl()
+		protected virtual void ReleaseControl()
 		{
 			if (view != null)
 			{
@@ -511,11 +474,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				case MediaInfo.BufferingStart:
 					Controller.CurrentState = MediaElementState.Buffering;
-					mp.BufferingUpdate += Mp_BufferingUpdate;
+					mp.BufferingUpdate += OnMpBufferingUpdate;
 					break;
 
 				case MediaInfo.BufferingEnd:
-					mp.BufferingUpdate -= Mp_BufferingUpdate;
+					mp.BufferingUpdate -= OnMpBufferingUpdate;
 					Controller.CurrentState = MediaElementState.Paused;
 					break;
 
@@ -530,6 +493,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return true;
 		}
 
-		void Mp_BufferingUpdate(object sender, MediaPlayer.BufferingUpdateEventArgs e) => Controller.BufferingProgress = e.Percent / 100f;
+		void OnMpBufferingUpdate(object sender, MediaPlayer.BufferingUpdateEventArgs e) => Controller.BufferingProgress = e.Percent / 100f;
 	}
 }
