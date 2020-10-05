@@ -12,15 +12,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		public async Task<Bitmap> LoadImageAsync(ImageSource imagesource, Context context, CancellationToken cancelationToken = default)
 		{
-			var fileInfo = await LoadInternal(imagesource, 1, Application.Context.CacheDir.AbsolutePath).ConfigureAwait(false);
+			var fileInfo = await LoadInternal(imagesource, 1, Application.Context.CacheDir.AbsolutePath);
 
-			lock (locker)
+			Bitmap bitmap = null;
+			try
 			{
+				await semaphore.WaitAsync();
+
 				if (fileInfo?.Exists ?? false)
-					return await BitmapFactory.DecodeFileAsync(fileInfo.FullName);
+					bitmap = await BitmapFactory.DecodeFileAsync(fileInfo.FullName);
+			}
+			finally
+			{
+				semaphore.Release();
 			}
 
-			return null;
+			return bitmap;
 		}
 	}
 }

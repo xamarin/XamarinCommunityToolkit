@@ -11,12 +11,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		public async Task<bool> LoadImageAsync(Image image, ImageSource imageSource, CancellationToken cancelationToken = default)
 		{
-			var fileInfo = await LoadInternal(imageSource, 1, Application.Current.DirectoryInfo.Cache).ConfigureAwait(false);
+			var fileInfo = await LoadInternal(imageSource, 1, Application.Current.DirectoryInfo.Cache);
 
-			lock (locker)
+			try
 			{
+				await semaphore.WaitAsync();
+
 				if (fileInfo?.Exists ?? false)
 					return image.LoadFromFile(fileInfo.FullName);
+			}
+			finally
+			{
+				semaphore.Release();
 			}
 
 			return false;

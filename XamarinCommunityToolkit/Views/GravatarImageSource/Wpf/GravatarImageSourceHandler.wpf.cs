@@ -15,22 +15,29 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public async Task<SystemImageSource> LoadImageAsync(FormsImageSource imagesource, CancellationToken cancellationToken = default)
 		{
 			var appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-			var fileInfo = await LoadInternal(imagesource, 1, appdata).ConfigureAwait(false);
+			var fileInfo = await LoadInternal(imagesource, 1, appdata);
 
-			lock (locker)
+			BitmapImage bitmap = null;
+			try
 			{
+				await semaphore.WaitAsync();
+
 				if (fileInfo?.Exists ?? false)
 				{
-					var bitmapimage = new BitmapImage();
-					bitmapimage.BeginInit();
-					bitmapimage.StreamSource = fileInfo.OpenRead();
-					bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-					bitmapimage.EndInit();
-					return bitmapimage;
+					bitmap = new BitmapImage();
+					bitmap.BeginInit();
+					bitmap.StreamSource = fileInfo.OpenRead();
+					bitmap.CacheOption = BitmapCacheOption.OnLoad;
+					bitmap.EndInit();
+					return bitmap;
 				}
 			}
+			finally
+			{
+				semaphore.Release();
+			}
 
-			return null;
+			return bitmap;
 		}
 	}
 }

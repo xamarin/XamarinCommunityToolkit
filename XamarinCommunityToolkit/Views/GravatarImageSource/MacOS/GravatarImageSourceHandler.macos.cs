@@ -10,15 +10,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		public async Task<NSImage> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default, float scale = 1)
 		{
-			var fileInfo = await LoadInternal(imagesource, 1, GetCacheDirectory()).ConfigureAwait(false);
+			var fileInfo = await LoadInternal(imagesource, 1, GetCacheDirectory());
 
-			lock (locker)
+			NSImage image = null;
+			try
 			{
+				await semaphore.WaitAsync();
+
 				if (fileInfo?.Exists ?? false)
-					return new NSImage(fileInfo.FullName);
+					image = new NSImage(fileInfo.FullName);
+			}
+			finally
+			{
+				semaphore.Release();
 			}
 
-			return null;
+			return image;
 		}
 	}
 }
