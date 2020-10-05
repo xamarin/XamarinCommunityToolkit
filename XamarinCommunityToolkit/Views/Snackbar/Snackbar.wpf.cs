@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF.Controls;
+using System.Windows.Controls;
+using Xamarin.Forms.Platform.WPF.Helpers;
+using RowDefinition = System.Windows.Controls.RowDefinition;
+using ColumnDefinition = System.Windows.Controls.ColumnDefinition;
+using Label = System.Windows.Controls.Label;
+using Grid = System.Windows.Controls.Grid;
+using Button = System.Windows.Controls.Button;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -12,79 +17,57 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		Timer snackbarTimer;
 
-		internal void Show(Page page, SnackbarArguments arguments)
+		internal void Show(Xamarin.Forms.Page page, SnackbarArguments arguments)
 		{
-			if (System.Windows.Application.Current.MainWindow is MyFormsWindow window)
+			var formsAppBar = System.Windows.Application.Current.MainWindow.FindChild<FormsAppBar>("PART_BottomAppBar");
+			var currentContent = formsAppBar.Content;
+			var snackBar = new SnackbarWpfLayout(arguments.Message, arguments.ActionButtonText, arguments.Action);
+			snackbarTimer = new Timer { Interval = arguments.Duration };
+			snackbarTimer.Tick += (sender, e) =>
 			{
-				snackbarTimer = new Timer { Interval = arguments.Duration };
-				snackbarTimer.Tick += (sender, e) =>
-				{
-					window.HideSnackBar();
-					snackbarTimer.Stop();
-					arguments.SetResult(false);
-				};
-				window.OnSnackbarActionExecuted += () =>
-				{
-					window.HideSnackBar();
-					snackbarTimer.Stop();
-					arguments.SetResult(true);
-				};
-				snackbarTimer.Start();
-				window.ShowSnackBar(arguments.Message, arguments.ActionButtonText, arguments.Action);
-			}
-			else
-			{
+				formsAppBar.Content = currentContent;
+				snackbarTimer.Stop();
 				arguments.SetResult(false);
-			}
+			};
+			snackBar.OnSnackbarActionExecuted += () =>
+			{
+				formsAppBar.Content = currentContent;
+				snackbarTimer.Stop();
+				arguments.SetResult(true);
+			};
+			snackbarTimer.Start();
+			formsAppBar.Content = snackBar;
 		}
 
-		class MyFormsWindow : FormsWindow
+		class SnackbarWpfLayout : Grid
 		{
-			public static readonly DependencyProperty SnackbarActionCommandProperty = DependencyProperty.Register("SnackbarActionCommand", typeof(ICommand), typeof(FormsWindow));
-			public static readonly DependencyProperty SnackbarActionButtonTextProperty = DependencyProperty.Register("SnackbarActionButtonText", typeof(string), typeof(FormsWindow));
-			public static readonly DependencyProperty SnackbarMessageProperty = DependencyProperty.Register("SnackbarMessage", typeof(string), typeof(FormsWindow));
-
-			public string SnackbarActionButtonText
+			public SnackbarWpfLayout(string message, string actionButtonText, Func<Task> action)
 			{
-				get => (string)GetValue(SnackbarActionButtonTextProperty);
-				private set => SetValue(SnackbarActionButtonTextProperty, value);
-			}
-
-			public ICommand SnackbarActionCommand
-			{
-				get => (ICommand)GetValue(SnackbarActionCommandProperty);
-				private set => SetValue(SnackbarActionCommandProperty, value);
-			}
-
-			public string SnackbarMessage
-			{
-				get => (string)GetValue(SnackbarMessageProperty);
-				private set => SetValue(SnackbarMessageProperty, value);
-			}
-
-			public Action OnSnackbarActionExecuted;
-
-			public void ShowSnackBar(string message, string actionButtonText, Func<Task> action)
-			{
-				SnackbarMessage = message;
-				SnackbarActionButtonText = actionButtonText;
+				RowDefinitions.Add(new RowDefinition());
+				ColumnDefinitions.Add(new ColumnDefinition());
+				ColumnDefinitions.Add(new ColumnDefinition() { Width = System.Windows.GridLength.Auto });
+				var messageLabel = new Label() { Content = message };
+				Children.Add(messageLabel);
+				SetRow(messageLabel, 0);
+				SetColumn(messageLabel, 0);
 				if (action != null)
 				{
-					SnackbarActionCommand = new Command(async () =>
+					var button = new Button
 					{
-						OnSnackbarActionExecuted?.Invoke();
-						await action();
-					});
+						Content = actionButtonText,
+						Command = new Command(async () =>
+						{
+							OnSnackbarActionExecuted?.Invoke();
+							await action();
+						})
+					};
+					Children.Add(button);
+					SetRow(button, 0);
+					SetColumn(button, 1);
 				}
 			}
 
-			public void HideSnackBar()
-			{
-				SnackbarMessage = null;
-				SnackbarActionButtonText = null;
-				SnackbarActionCommand = null;
-			}
+			public Action OnSnackbarActionExecuted;
 		}
 	}
-
 }
