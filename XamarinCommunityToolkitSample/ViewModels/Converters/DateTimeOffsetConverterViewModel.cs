@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		public DateTimeOffset TheDate
 		{
 			get => theDate;
-			set => Set(ref theDate, value);
+			set => SetProperty(ref theDate, value);
 		}
 	}
 }
