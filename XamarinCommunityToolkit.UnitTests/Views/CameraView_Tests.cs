@@ -60,72 +60,59 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		[Fact]
 		public void TestShutterCommand()
 		{
-			var x = 0;
-			var camera = new CameraView
+			var camera = new CameraView();
+			var trigged = false;
+
+			camera.ShutterClicked += (_, __) =>
 			{
-				ShutterCommand = new Command(ShutterCommand)
+				trigged = true;
 			};
 
 			camera.ShutterCommand.Execute(null);
 
-			Assert.Equal(1, x);
-
-			void ShutterCommand()
-			{
-				x++;
-			}
-		}
-
-		[Theory]
-		[InlineData(true)]
-		[InlineData(false)]
-		public void TestShutterCommandCanExecute(bool canExecute)
-		{
-			var x = 0;
-			var camera = new CameraView
-			{
-				ShutterCommand = new Command(ShutterCommand, CanExecute)
-			};
-
-			if (camera.ShutterCommand.CanExecute(null))
-				camera.ShutterCommand.Execute(null);
-
-			var expected = canExecute ? 1 : 0;
-			Assert.Equal(expected, x);
-
-			void ShutterCommand()
-			{
-				x++;
-			}
-
-			bool CanExecute()
-			{
-				return canExecute;
-			}
+			Assert.True(trigged);
 		}
 
 		[Fact]
-		public void TestShutterCommandParameter()
+		public void TestShutterCommandFromVM()
 		{
-			var x = 0;
+			var vm = new CameraViewModel();
 			var camera = new CameraView
 			{
-				ShutterCommand = new Command<int>(ShutterCommand),
-				ShutterCommandParameter = 5
+				BindingContext = vm
 			};
 
-			Assert.NotNull(camera.ShutterCommand);
+			var trigged = false;
 
-			camera.ShutterCommand.Execute(camera.ShutterCommandParameter);
+			camera.SetBinding(CameraView.ShutterCommandProperty, nameof(vm.CameraShutterCommand));
 
-			camera.Shutter();
-
-			Assert.Equal(10, x);
-
-			void ShutterCommand(int value)
+			camera.ShutterClicked += (_, __) =>
 			{
-				x += value;
+				trigged = true;
+			};
+
+			vm.ShutterCommand.Execute(null);
+
+			Assert.True(trigged);
+		}
+
+		class CameraViewModel
+		{
+			public Command ShutterCommand { get; }
+
+			// The dev should have the set in this property
+			public Command CameraShutterCommand { get; set; }
+
+			public CameraViewModel()
+			{
+				ShutterCommand = new Command(Shutter);
+				CameraShutterCommand = new Command(DoNothing);
 			}
+
+			void Shutter() => CameraShutterCommand?.Execute(null);
+
+			void DoNothing() =>
+				Console.WriteLine("This is just to prove that the user can't override the CameraViewShutterCommand");
 		}
 	}
 }

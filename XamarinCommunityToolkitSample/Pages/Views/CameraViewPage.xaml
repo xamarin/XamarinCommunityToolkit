@@ -8,27 +8,27 @@
     xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <StackLayout>
         <views:CameraView
-                x:Name="cameraView"
-                CaptureOptions="Video"
-                FlashMode="On"
-                HeightRequest="480"
-                MediaCaptured="CameraView_MediaCaptured"
-                OnAvailable="CameraView_OnAvailable"
-                SavePhotoToFile="True"
-                WidthRequest="640" />
+            x:Name="cameraView"
+            CaptureOptions="Video"
+            FlashMode="On"
+            HeightRequest="480"
+            MediaCaptured="CameraView_MediaCaptured"
+            OnAvailable="CameraView_OnAvailable"
+            SavePhotoToFile="True"
+            WidthRequest="640" />
 
-            <StackLayout Grid.Row="1" Orientation="Horizontal">
-                <Label x:Name="zoomLabel" />
-                <Slider
-                    x:Name="zoomSlider"
-                    Margin="5,0"
-                    IsEnabled="False"
-                    Maximum="10"
-                    Minimum="1"
-                    ValueChanged="ZoomSlider_ValueChanged"
-                    Value="1" />
-            </StackLayout>
-        
+        <StackLayout Grid.Row="1" Orientation="Horizontal">
+            <Label x:Name="zoomLabel" />
+            <Slider
+                x:Name="zoomSlider"
+                Margin="5,0"
+                IsEnabled="False"
+                Maximum="10"
+                Minimum="1"
+                ValueChanged="ZoomSlider_ValueChanged"
+                Value="1" />
+        </StackLayout>
+
         <ScrollView>
             <StackLayout>
                 <Grid ColumnDefinitions="*, *" RowDefinitions="*,*">
@@ -69,7 +69,7 @@
 
                 <Button
                     x:Name="doCameraThings"
-                    Clicked="DoCameraThings_Clicked"
+                    Command="{Binding ShutterCommand, Source={x:Reference cameraView}}"
                     IsEnabled="False"
                     Text="{rsx:Translate CameraViewSampleStartRecording}" />
                 <Image
