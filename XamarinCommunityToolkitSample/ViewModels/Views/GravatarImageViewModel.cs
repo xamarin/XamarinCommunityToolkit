@@ -24,25 +24,25 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		public bool EnableCache
 		{
 			get => enableCache;
-			set => Set(ref enableCache, value);
+			set => SetProperty(ref enableCache, value);
 		}
 
 		public string Email
 		{
 			get => email;
-			set => Set(ref email, value);
+			set => SetProperty(ref email, value);
 		}
 
 		public int Size
 		{
 			get => size;
-			set => Set(ref size, value);
+			set => SetProperty(ref size, value);
 		}
 
 		public DefaultGravatar DefaultGravatar
 		{
 			get => defaultGravatar;
-			set => Set(ref defaultGravatar, value);
+			set => SetProperty(ref defaultGravatar, value);
 		}
 	}
 }
