@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -15,36 +14,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal event EventHandler ShutterClicked;
 
-		public static readonly BindableProperty ShutterCommandProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(ShutterCommand))
-			.SetReturnType(typeof(ICommand))
-			.SetDeclaringType(typeof(CameraView))
-			.Build();
+		internal static readonly BindablePropertyKey ShutterCommandPropertyKey =
+			BindableProperty.CreateReadOnly(nameof(ShutterCommand),
+				typeof(ICommand),
+				typeof(CameraView),
+				default,
+				BindingMode.OneWayToSource,
+				defaultValueCreator: ShutterCommandValueCreator);
 
-		public ICommand ShutterCommand
-		{
-			get => (ICommand)GetValue(ShutterCommandProperty);
-			set => SetValue(ShutterCommandProperty, value);
-		}
+		public static readonly BindableProperty ShutterCommandProperty = ShutterCommandPropertyKey.BindableProperty;
 
-		public static readonly BindableProperty ShutterCommandParameterProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(ShutterCommandParameter))
-			.SetReturnType(typeof(object))
-			.SetDeclaringType(typeof(CameraView))
-			.Build();
+		public ICommand ShutterCommand => (ICommand)GetValue(ShutterCommandProperty);
 
-		public object ShutterCommandParameter
-		{
-			get => GetValue(ShutterCommandParameterProperty);
-			set => SetValue(ShutterCommandParameterProperty, value);
-		}
-
-		public static readonly BindableProperty IsBusyProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(IsBusy))
-			.SetReturnType(typeof(bool))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(false)
-			.Build();
+		public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(CameraView), false);
 
 		public bool IsBusy
 		{
@@ -52,13 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(IsBusyProperty, value);
 		}
 
-		public static readonly BindableProperty IsAvailableProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(IsAvailable))
-			.SetReturnType(typeof(bool))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(false)
-			.SetPropertyChangedDelegate((b, o, n) => ((CameraView)b).OnAvailable?.Invoke(b, (bool)n))
-			.Build();
+		public static readonly BindableProperty IsAvailableProperty = BindableProperty.Create(nameof(IsAvailable), typeof(bool), typeof(CameraView), false, propertyChanged: (b, o, n) => ((CameraView)b).OnAvailable?.Invoke(b, (bool)n));
 
 		public bool IsAvailable
 		{
@@ -66,12 +42,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(IsAvailableProperty, value);
 		}
 
-		public static readonly BindableProperty CameraOptionsProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(CameraOptions))
-			.SetReturnType(typeof(CameraOptions))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(CameraOptions.Default)
-			.Build();
+		public static readonly BindableProperty CameraOptionsProperty = BindableProperty.Create(nameof(CameraOptions), typeof(CameraOptions), typeof(CameraView), CameraOptions.Default);
 
 		public CameraOptions CameraOptions
 		{
@@ -79,12 +50,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(CameraOptionsProperty, value);
 		}
 
-		public static readonly BindableProperty SavePhotoToFileProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(SavePhotoToFile))
-			.SetReturnType(typeof(bool))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(false)
-			.Build();
+		public static readonly BindableProperty SavePhotoToFileProperty = BindableProperty.Create(nameof(SavePhotoToFile), typeof(bool), typeof(CameraView), false);
 
 		public bool SavePhotoToFile
 		{
@@ -92,12 +58,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(SavePhotoToFileProperty, value);
 		}
 
-		public static readonly BindableProperty CaptureOptionsProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(CaptureOptions))
-			.SetReturnType(typeof(CameraCaptureOptions))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(CameraCaptureOptions.Default)
-			.Build();
+		public static readonly BindableProperty CaptureOptionsProperty = BindableProperty.Create(nameof(CaptureOptions), typeof(CameraCaptureOptions), typeof(CameraView), CameraCaptureOptions.Default);
 
 		public CameraCaptureOptions CaptureOptions
 		{
@@ -105,12 +66,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(CaptureOptionsProperty, value);
 		}
 
-		public static readonly BindableProperty VideoStabilizationProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(VideoStabilization))
-			.SetReturnType(typeof(bool))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(false)
-			.Build();
+		public static readonly BindableProperty VideoStabilizationProperty = BindableProperty.Create(nameof(VideoStabilization), typeof(bool), typeof(CameraView), false);
 
 		public bool VideoStabilization
 		{
@@ -118,12 +74,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(VideoStabilizationProperty, value);
 		}
 
-		public static readonly BindableProperty FlashModeProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(FlashMode))
-			.SetReturnType(typeof(CameraFlashMode))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(CameraFlashMode.Off)
-			.Build();
+		public static readonly BindableProperty FlashModeProperty = BindableProperty.Create(nameof(FlashMode), typeof(CameraFlashMode), typeof(CameraView), CameraFlashMode.Off);
 
 		public CameraFlashMode FlashMode
 		{
@@ -140,12 +91,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		// set => SetValue(PreviewAspectProperty, value);
 		// }
 
-		public static readonly BindableProperty ZoomProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(Zoom))
-			.SetReturnType(typeof(double))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(1d)
-			.Build();
+		public static readonly BindableProperty ZoomProperty = BindableProperty.Create(nameof(Zoom), typeof(double), typeof(CameraView), 1d);
 
 		public double Zoom
 		{
@@ -153,12 +99,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ZoomProperty, value);
 		}
 
-		public static readonly BindableProperty MaxZoomProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(MaxZoom))
-			.SetReturnType(typeof(double))
-			.SetDeclaringType(typeof(CameraView))
-			.SetDefaultValue(1d)
-			.Build();
+		public static readonly BindableProperty MaxZoomProperty = BindableProperty.Create(nameof(MaxZoom), typeof(double), typeof(CameraView), 1d);
 
 		public double MaxZoom
 		{
@@ -170,10 +111,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal void RaiseMediaCaptureFailed(string message) => MediaCaptureFailed?.Invoke(this, message);
 
-		public void Shutter()
+		public void Shutter() => ShutterClicked?.Invoke(this, EventArgs.Empty);
+
+		static object ShutterCommandValueCreator(BindableObject b)
 		{
-			ShutterClicked?.Invoke(this, EventArgs.Empty);
-			ShutterCommand?.Execute(ShutterCommandParameter);
+			var camera = (CameraView)b;
+			return new Command(camera.Shutter);
 		}
 	}
 }

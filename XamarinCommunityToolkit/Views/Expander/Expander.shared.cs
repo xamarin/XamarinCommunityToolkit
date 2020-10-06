@@ -434,7 +434,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			if (lastVisibleSize > 0)
-				length = Max((uint)(length * (Abs(endSize - startSize) / lastVisibleSize)), 1);
+				length = (uint)(length * (Abs(endSize - startSize) / lastVisibleSize));
+
+			length = Max(length, 1);
 
 			new Animation(v => ContentSizeRequest = v, startSize, endSize)
 				.Commit(contentHolder, expandAnimationName, 16, length, easing, (value, isInterrupted) =>
