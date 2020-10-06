@@ -1,7 +1,4 @@
-﻿using Android;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-
-[assembly: LinkerSafe]
+using Xamarin.Forms.Platform.WPF;
 
 [assembly: ExportImageSourceHandler(typeof(GravatarImageSource), typeof(GravatarImageSourceHandler))]
