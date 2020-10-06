@@ -21,6 +21,13 @@ namespace Xamarin.CommunityToolkit.Helpers
 		}
 
 		/// <summary>
+		/// (Required) Sets the type of the value that is bound to the <see cref="BindableProperty"/>
+		/// </summary>
+		/// <typeparam name="TReturn">The type of the value that is bound to the <see cref="BindableProperty"/></typeparam>
+		/// <returns>The <see cref="BindablePropertyBuilder"/> to suport the fluent syntax</returns>
+		public BindablePropertyBuilder SetReturnType<TReturn>() => SetReturnType(typeof(TReturn));
+
+		/// <summary>
 		/// (Required) Sets the name of the property that is bound to the <see cref="BindableProperty"/>
 		/// </summary>
 		/// <param name="propertyName">The name of the property that is bound to the <see cref="BindableProperty"/></param>
@@ -63,6 +70,13 @@ namespace Xamarin.CommunityToolkit.Helpers
 			bpParameters.DeclaringType = declaringType;
 			return this;
 		}
+
+		/// <summary>
+		/// (Required) Sets the type (usually a control) that's declaring the <see cref="BindableProperty"/>
+		/// </summary>
+		/// <typeparam name="TReturn">The type (usually a control) that's declaring the <see cref="BindableProperty"/></typeparam>
+		/// <returns>The <see cref="BindablePropertyBuilder"/> to support the fluent syntax</returns>
+		public BindablePropertyBuilder SetDeclaringType<TReturn>() => SetDeclaringType(typeof(TReturn));
 
 		/// <summary>
 		/// Sets the delegate that runs when a bound value is set.
