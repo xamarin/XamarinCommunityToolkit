@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		int? defaultLabelFor;
 
 		public MediaElementRenderer(Context context)
-			: base(context)
+            : base(context)
 		{
 			view = new FormsVideoView(Context);
 			view.SetZOrderMediaOverlay(true);
@@ -106,7 +106,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				MediaElement.PositionRequested += OnPositionRequested;
 			}
 
-			// Can't set up the tracker in the constructor because it access the Element (for now)
+				// Can't set up the tracker in the constructor because it access the Element (for now)
 			if (tracker == null)
 				SetTracker(new VisualElementTracker(this));
 
@@ -157,6 +157,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (view == null)
 				return;
 
+			view.SeekTo((int)e.Position.TotalMilliseconds);
 			Controller.Position = view.Position;
 		}
 
