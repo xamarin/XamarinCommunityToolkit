@@ -76,7 +76,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		/// </summary>
 		/// <typeparam name="TReturn">The type (usually a control) that's declaring the <see cref="BindableProperty"/></typeparam>
 		/// <returns>The <see cref="BindablePropertyBuilder"/> to support the fluent syntax</returns>
-		public BindablePropertyBuilder SetDeclaringType<TReturn>() => SetDeclaringType(typeof(TReturn));
+		public BindablePropertyBuilder SetDeclaringType<TDeclaring>() => SetDeclaringType(typeof(TDeclaring));
 
 		/// <summary>
 		/// Sets the delegate that runs when a bound value is set.
