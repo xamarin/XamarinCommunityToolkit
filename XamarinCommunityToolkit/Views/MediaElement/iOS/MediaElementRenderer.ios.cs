@@ -1,9 +1,9 @@
-﻿using AVFoundation;
+﻿using System;
+using System.IO;
+using AVFoundation;
 using AVKit;
 using CoreMedia;
 using Foundation;
-using System;
-using System.IO;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
