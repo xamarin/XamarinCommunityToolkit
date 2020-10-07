@@ -10,27 +10,27 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	{
 		public static readonly BindableProperty EventNameProperty = new BindablePropertyBuilder()
 			.SetPropertyName(nameof(EventName))
-			.SetReturnType(typeof(string))
-			.SetDeclaringType(typeof(EventToCommandBehavior))
+			.SetReturnType<string>()
+			.SetDeclaringType<EventToCommandBehavior>()
 			.SetPropertyChangedDelegate(OnEventNamePropertyChanged)
 			.Build();
 
 		public static readonly BindableProperty CommandProperty = new BindablePropertyBuilder()
 			.SetPropertyName(nameof(Command))
-			.SetReturnType(typeof(ICommand))
-			.SetDeclaringType(typeof(EventToCommandBehavior))
+			.SetReturnType<ICommand>()
+			.SetDeclaringType<EventToCommandBehavior>()
 			.Build();
 
 		public static readonly BindableProperty CommandParameterProperty = new BindablePropertyBuilder()
 			.SetPropertyName(nameof(CommandParameter))
-			.SetReturnType(typeof(object))
-			.SetDeclaringType(typeof(EventToCommandBehavior))
+			.SetReturnType<object>()
+			.SetDeclaringType<EventToCommandBehavior>()
 			.Build();
 
 		public static readonly BindableProperty EventArgsConverterProperty = new BindablePropertyBuilder()
 			.SetPropertyName(nameof(EventArgsConverter))
-			.SetReturnType(typeof(IValueConverter))
-			.SetDeclaringType(typeof(EventToCommandBehavior))
+			.SetReturnType<IValueConverter>()
+			.SetDeclaringType<EventToCommandBehavior>()
 			.Build();
 
 		readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnTriggerHandled));
