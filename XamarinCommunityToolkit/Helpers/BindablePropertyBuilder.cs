@@ -149,13 +149,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 		/// </exception>
 		public BindableProperty Build()
 		{
-			if (string.IsNullOrEmpty(bpParameters.PropertyName))
-				throw new ArgumentNullException(nameof(bpParameters.PropertyName), $"{nameof(bpParameters.PropertyName)} is required");
-			if (bpParameters.ReturnType == default)
-				throw new ArgumentNullException(nameof(bpParameters.ReturnType), $"{nameof(bpParameters.ReturnType)} is required");
-			if (bpParameters.DeclaringType == default)
-				throw new ArgumentNullException(nameof(bpParameters.DeclaringType), $"{nameof(bpParameters.DeclaringType)} is required");
-
+			CheckParameter(!string.IsNullOrEmpty(bpParameters.PropertyName), nameof(bpParameters.PropertyName));
+			CheckParameter(bpParameters.ReturnType != default, nameof(bpParameters.ReturnType));
+			CheckParameter(bpParameters.DeclaringType != default, nameof(bpParameters.DeclaringType));
 			if (bpParameters.ReturnType != bpParameters.DefaultValue?.GetType())
 				throw new ArgumentException($"The return type is {bpParameters.ReturnType.Name}, but the default value is of type {bpParameters.DefaultValue.GetType().Name}");
 
@@ -170,6 +166,12 @@ namespace Xamarin.CommunityToolkit.Helpers
 											 coerceValue: bpParameters.CoerceValueDelegate,
 											 defaultValueCreator: bpParameters.CreateDefaultValueDelegate);
 			return bp;
+		}
+
+		void CheckParameter(bool isParameterValid, string parameterName)
+		{
+			if (!isParameterValid)
+				throw new ArgumentNullException(parameterName, $"{parameterName} is required");
 		}
 	}
 }
