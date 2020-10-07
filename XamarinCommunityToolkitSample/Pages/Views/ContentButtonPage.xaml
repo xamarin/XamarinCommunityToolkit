@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+        xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+        x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ContentButtonPage"
+        xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+        xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
+    <pages:BasePage.BindingContext>
+        <viewmodels:ContentButtonViewModel />
+    </pages:BasePage.BindingContext>
+
+    <StackLayout Spacing="20">
+        <views:ContentButton Margin="{StaticResource ContentPadding}"
+                CornerRadius="8"
+                Clicked="ContentButton_Clicked"
+                BackgroundColor="White"
+                BorderColor="#8a8a8a">
+            <views:ContentButton.Content>
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <BoxView BackgroundColor="#00ab64" />
+                    <StackLayout Grid.Column="1" Padding="0,24,24,24"
+                            Spacing="8">
+                        <Label Style="{StaticResource label_section_header}"
+                                Text="{rsx:Translate ContentButtonTitle}" />
+                        <Label Text="{rsx:Translate ContentButtonTapDescription}" />
+                    </StackLayout>
+                </Grid>
+            </views:ContentButton.Content>
+        </views:ContentButton>
+    </StackLayout>
+</pages:BasePage>

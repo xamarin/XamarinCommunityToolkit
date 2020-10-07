@@ -497,4 +497,16 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   <data name="XAMLExtension" xml:space="preserve">
     <value>XAML Extension</value>
   </data>
+  <data name="ContentButtonTitle" xml:space="preserve">
+    <value>ContentButton</value>
+  </data>
+  <data name="ContentButtonDescription" xml:space="preserve">
+    <value>ContentButton alows you to add content view to a button</value>
+  </data>
+  <data name="ContentButtonTapDescription" xml:space="preserve">
+    <value>Tap here to see the snackbar</value>
+  </data>
+  <data name="ContentButtonTapMessage" xml:space="preserve">
+    <value>You have clicked the ContentButton</value>
+  </data>
 </root>

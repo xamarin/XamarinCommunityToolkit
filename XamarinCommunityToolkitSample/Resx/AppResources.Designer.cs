@@ -790,5 +790,29 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
                 return ResourceManager.GetString("XAMLExtension", resourceCulture);
             }
         }
+        
+        internal static string ContentButtonTitle {
+            get {
+                return ResourceManager.GetString("ContentButtonTitle", resourceCulture);
+            }
+        }
+        
+        internal static string ContentButtonDescription {
+            get {
+                return ResourceManager.GetString("ContentButtonDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ContentButtonTapDescription {
+            get {
+                return ResourceManager.GetString("ContentButtonTapDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ContentButtonTapMessage {
+            get {
+                return ResourceManager.GetString("ContentButtonTapMessage", resourceCulture);
+            }
+        }
     }
 }
