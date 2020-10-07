@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
-	public class BindablePropertyBuilder
+	public sealed class BindablePropertyBuilder
 	{
 		readonly BindablePropertyParameters bpParameters;
 
