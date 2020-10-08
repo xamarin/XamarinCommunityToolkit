@@ -324,16 +324,20 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 
 			Assert.NotEqual(bp1.DefaultValue, bp2.DefaultValue);
 		}
-	}
 
-	public class TestControl : View
-	{
-		public BindableProperty TestValueProperty { get; set; }
-
-		public int TestValue
+		/// <summary>
+		/// This control exists solely for testing the various delegates of <see cref="BindableProperty"/>
+		/// as we can't manually invoke them on an instance of <see cref="BindableProperty"/>
+		/// </summary>
+		class TestControl : View
 		{
-			get => (int)GetValue(TestValueProperty);
-			set => SetValue(TestValueProperty, value);
+			public BindableProperty TestValueProperty { get; set; }
+
+			public int TestValue
+			{
+				get => (int)GetValue(TestValueProperty);
+				set => SetValue(TestValueProperty, value);
+			}
 		}
 	}
 }
