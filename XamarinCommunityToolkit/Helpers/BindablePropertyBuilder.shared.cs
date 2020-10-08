@@ -5,9 +5,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 {
 	public sealed class BindablePropertyBuilder
 	{
-		readonly BindablePropertyParameters bpParameters;
-
-		BindablePropertyBuilder() => bpParameters = new BindablePropertyParameters();
+		BindablePropertyParameters bpParameters = new BindablePropertyParameters();
 
 		/// <summary>
 		/// Creates a new instance of <see cref="BindablePropertyBuilder"/> while setting name of the
@@ -167,6 +165,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 											 propertyChanging: bpParameters.BindingPropertyChangingDelegate,
 											 coerceValue: bpParameters.CoerceValueDelegate,
 											 defaultValueCreator: bpParameters.CreateDefaultValueDelegate);
+
+			bpParameters = new BindablePropertyParameters();
+
 			return bp;
 		}
 

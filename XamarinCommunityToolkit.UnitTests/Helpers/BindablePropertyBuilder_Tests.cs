@@ -306,6 +306,24 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 
 			Assert.Throws<ArgumentException>(buildAction);
 		}
+
+		[Fact]
+		public void CallingBuildMultipleTimesShouldCreateNewInstanceOfBindablePropertyParameters()
+		{
+			var bp1 = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+											 .SetDeclaringType<object>()
+											 .SetReturnType<Guid>()
+											 .SetDefaultValue(Guid.NewGuid())
+											 .Build();
+
+			// purposely skipping SetDefaultValue on bp2 to ensure the builder doesn't use bp1's default value
+			var bp2 = BindablePropertyBuilder.InitializeWithPropertyName("qwerty")
+											 .SetDeclaringType<object>()
+											 .SetReturnType<Guid>()
+											 .Build();
+
+			Assert.NotEqual(bp1.DefaultValue, bp2.DefaultValue);
+		}
 	}
 
 	public class TestControl : View
