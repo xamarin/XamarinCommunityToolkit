@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				nameof(RequiredStringValidationBehavior),
 				AppResources.RequiredStringValidationShortDescription
 			),
-	        new SectionModel(
+			new SectionModel(
 					typeof(UserStoppedTypingBehaviorPage),
 					nameof(UserStoppedTypingBehavior),
 					AppResources.UserStoppedTypingBehaviorShortDescription
