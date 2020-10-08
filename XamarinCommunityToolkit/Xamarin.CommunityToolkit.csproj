@@ -23,7 +23,19 @@
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
       
+      
+      
+      
+      
+      
+      
       <!-- See if we can host these on MS docs? -->
+    
+    
+    
+    
+    
+    
     
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
@@ -151,5 +163,10 @@
     <Reference Include="WindowsBase" />
     <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.5.0.356" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\SegmentedView\SegmentMode.shared.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
 </Project>
