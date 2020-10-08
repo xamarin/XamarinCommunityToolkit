@@ -50,7 +50,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Children.Add(messageLabel);
 				SetRow(messageLabel, 0);
 				SetColumn(messageLabel, 0);
-				if (action != null)
+				if (!string.IsNullOrEmpty(actionButtonText) && action != null)
 				{
 					var button = new Button
 					{
