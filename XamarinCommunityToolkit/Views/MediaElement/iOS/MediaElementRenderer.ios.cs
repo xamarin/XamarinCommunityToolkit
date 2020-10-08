@@ -127,28 +127,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				throw new ArgumentException("uri");
 		}
 
-		protected override void Dispose(bool disposing)
-		{
-			if (playedToEndObserver != null)
-			{
-				NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
-				playedToEndObserver = null;
-			}
-
-			if (rateObserver != null)
-			{
-				rateObserver.Dispose();
-				rateObserver = null;
-			}
-
-			RemoveStatusObserver();
-
-			avPlayerViewController?.Player?.Pause();
-			avPlayerViewController?.Player?.ReplaceCurrentItemWithPlayerItem(null);
-
-			base.Dispose(disposing);
-		}
-
 		protected void RemoveStatusObserver()
 		{
 			if (statusObserver != null)
@@ -399,14 +377,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					playedToEndObserver = null;
 				}
 
+				SetKeepScreenOn(false);
+				RemoveStatusObserver();
+
 				// stop video if playing
 				if (avPlayerViewController?.Player?.CurrentItem != null)
 				{
-					RemoveStatusObserver();
-
-					avPlayerViewController.Player.Pause();
-					avPlayerViewController.Player.Seek(CMTime.Zero);
-					avPlayerViewController.Player.ReplaceCurrentItemWithPlayerItem(null);
+					if (avPlayerViewController?.Player?.Rate > 0)
+					{
+						avPlayerViewController?.Player?.Pause();
+					}
+					avPlayerViewController?.Player?.ReplaceCurrentItemWithPlayerItem(null);
 					AVAudioSession.SharedInstance().SetActive(false);
 				}
 			}
