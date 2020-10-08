@@ -360,6 +360,12 @@
   <data name="UriValidationShortDescription" xml:space="preserve">
     <value>Changes an Entry's text color when an invalid URI is provided.</value>
   </data>
+  <data name="MediaElementTitle" xml:space="preserve">
+    <value>MediaElement</value>
+  </data>
+   <data name="MediaElementDescription" xml:space="preserve">
+    <value>MediaElement is a view for playing video and audio.</value>
+  </data>
   <data name="MultiValidationDescription" xml:space="preserve">
     <value>Text color will change accordingly to the style that is configured if any of child behaviors is invalid (Minimum: -10, Maximum: 5).</value>
   </data>
@@ -469,5 +475,26 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   </data>
   <data name="SnackbarIsClosedByUser" xml:space="preserve">
     <value>Snackbar is closed by user</value>
+  </data>
+  <data name="GravatarImageSourceDescription" xml:space="preserve">
+    <value>The GravatarImageSource allows you to easily utilize a users Gravatar image from Gravatar.com using nothing but their email address.</value>
+  </data>
+  <data name="GravatarImageSourceTitle" xml:space="preserve">
+    <value>GravatarImageSource</value>
+  </data>
+  <data name="DefaultGravatar" xml:space="preserve">
+    <value>Default Gravatar</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="FullImageSource" xml:space="preserve">
+    <value>Full Image Source</value>
+  </data>
+  <data name="GravatarSize" xml:space="preserve">
+    <value>GravatarSize</value>
+  </data>
+  <data name="XAMLExtension" xml:space="preserve">
+    <value>XAML Extension</value>
   </data>
 </root>
