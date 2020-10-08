@@ -76,7 +76,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		/// <summary>
 		/// (Required) Sets the type (usually a control) that's declaring the <see cref="BindableProperty"/>
 		/// </summary>
-		/// <typeparam name="TReturn">The type (usually a control) that's declaring the <see cref="BindableProperty"/></typeparam>
+		/// <typeparam name="TDeclaring">The type (usually a control) that's declaring the <see cref="BindableProperty"/></typeparam>
 		/// <returns>The <see cref="BindablePropertyBuilder"/> to support the fluent syntax</returns>
 		public BindablePropertyBuilder SetDeclaringType<TDeclaring>() => SetDeclaringType(typeof(TDeclaring));
 
