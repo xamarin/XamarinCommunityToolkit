@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(BufferingProgress), typeof(double), typeof(MediaElement), 0.0);
 
 		public static readonly BindableProperty CurrentStateProperty =
-		  BindableProperty.Create(nameof(CurrentState), typeof(MediaElementState), typeof(MediaElement), MediaElementState.Closed);
+		  BindableProperty.Create(nameof(CurrentState), typeof(MediaElementState), typeof(MediaElement), MediaElementState.Closed, propertyChanged: CurrentStateChanged);
 
 		public static readonly BindableProperty DurationProperty =
 		  BindableProperty.Create(nameof(Duration), typeof(TimeSpan?), typeof(MediaElement), null);
@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(KeepScreenOn), typeof(bool), typeof(MediaElement), false);
 
 		public static readonly BindableProperty PositionProperty =
-		  BindableProperty.Create(nameof(Position), typeof(TimeSpan), typeof(MediaElement), TimeSpan.Zero);
+		  BindableProperty.Create(nameof(Position), typeof(TimeSpan), typeof(MediaElement), TimeSpan.Zero, propertyChanged: PositionChanged);
 
 		public static readonly BindableProperty ShowsPlaybackControlsProperty =
 		  BindableProperty.Create(nameof(ShowsPlaybackControls), typeof(bool), typeof(MediaElement), true);
@@ -92,7 +92,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return (TimeSpan)GetValue(PositionProperty);
 			}
 
-			set => SeekRequested?.Invoke(this, new SeekRequested(value));
+			set
+			{
+				var currentValue = (TimeSpan)GetValue(PositionProperty);
+				if (Math.Abs(value.Subtract(currentValue).TotalMilliseconds) > 300 && !isSeeking)
+					RequestSeek(value);
+			}
 		}
 
 		[Forms.TypeConverter(typeof(MediaSourceConverter))]
@@ -190,7 +195,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IMediaElementController.OnMediaOpened() => MediaOpened?.Invoke(this, EventArgs.Empty);
 
-		void IMediaElementController.OnSeekCompleted() => SeekCompleted?.Invoke(this, EventArgs.Empty);
+		void IMediaElementController.OnSeekCompleted()
+		{
+			isSeeking = false;
+			SeekCompleted?.Invoke(this, EventArgs.Empty);
+		}
+
+		private bool isSeeking = false;
+		private void RequestSeek(TimeSpan newPosition)
+		{
+			isSeeking = true;
+			SeekRequested?.Invoke(this, new Views.SeekRequested(newPosition));
+		}
 
 		protected override void OnBindingContextChanged()
 		{
@@ -229,6 +245,42 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			oldvalue.SourceChanged -= OnSourceChanged;
+		}
+
+		private static void CurrentStateChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			var element = bindable as MediaElement;
+
+			switch ((MediaElementState)newValue)
+			{
+				case MediaElementState.Playing:
+					// start a timer to poll the native control position while playing
+					Device.StartTimer(TimeSpan.FromMilliseconds(200), () =>
+					{
+						if (!element.isSeeking)
+						{
+							Device.BeginInvokeOnMainThread(() =>
+							{
+								element.PositionRequested?.Invoke(element, EventArgs.Empty);
+							});
+						}
+
+						return element.CurrentState == MediaElementState.Playing;
+					});
+					break;
+			}
+		}
+
+		private static void PositionChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			var element = bindable as MediaElement;
+
+			var oldval = (TimeSpan)oldValue;
+			var newval = (TimeSpan)newValue;
+			if (Math.Abs(newval.Subtract(oldval).TotalMilliseconds) > 300 && !element.isSeeking)
+			{
+				element.RequestSeek(newval);
+			}
 		}
 
 		static bool ValidateVolume(BindableObject o, object newValue)

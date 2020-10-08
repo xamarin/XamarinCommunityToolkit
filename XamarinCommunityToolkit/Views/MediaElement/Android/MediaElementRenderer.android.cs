@@ -157,7 +157,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (view == null)
 				return;
 
+			view.SeekTo((int)e.Position.TotalMilliseconds);
 			Controller.Position = view.Position;
+			Controller.OnSeekCompleted();
 		}
 
 		void IVisualElementRenderer.SetLabelFor(int? id)
