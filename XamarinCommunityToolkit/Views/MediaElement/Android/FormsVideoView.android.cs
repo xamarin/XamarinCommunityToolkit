@@ -1,9 +1,9 @@
-﻿using Android.Content;
-using Android.Media;
-using Android.Widget;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Android.Content;
+using Android.Media;
+using Android.Widget;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
