@@ -152,13 +152,4 @@
     <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.5.0.356" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Helpers\BindablePropertyBuilder.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Update="Helpers\BindablePropertyParameters.shared.cs">
-      <SubType></SubType>
-    </Compile>
-  </ItemGroup>
 </Project>
