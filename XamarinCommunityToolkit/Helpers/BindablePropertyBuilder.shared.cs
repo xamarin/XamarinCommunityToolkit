@@ -154,7 +154,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			CheckParameter(!string.IsNullOrEmpty(bpParameters.PropertyName), nameof(bpParameters.PropertyName));
 			CheckParameter(bpParameters.ReturnType != default, nameof(bpParameters.ReturnType));
 			CheckParameter(bpParameters.DeclaringType != default, nameof(bpParameters.DeclaringType));
-			if (bpParameters.ReturnType != bpParameters.DefaultValue?.GetType())
+			if (bpParameters.DefaultValue != null && bpParameters.ReturnType != bpParameters.DefaultValue.GetType())
 				throw new ArgumentException($"The return type is {bpParameters.ReturnType.Name}, but the default value is of type {bpParameters.DefaultValue.GetType().Name}");
 
 			var bp = BindableProperty.Create(propertyName: bpParameters.PropertyName,
