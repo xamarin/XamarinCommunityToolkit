@@ -5,35 +5,16 @@ namespace Xamarin.CommunityToolkit.Behaviors
 {
 	public class RequiredStringValidationBehavior : ValidationBehavior
 	{
-		public static readonly BindableProperty ComparedToStringProperty =
-			BindableProperty.Create(nameof(ComparedToString), typeof(string),
+		public static readonly BindableProperty RequiredStringProperty =
+			BindableProperty.Create(nameof(RequiredString), typeof(string),
 				typeof(RequiredStringValidationBehavior));
+		
+		protected override bool Validate(object value) => value?.ToString() == RequiredString;
 
-		public static readonly BindableProperty ValidCommandProperty =
-			BindableProperty.Create(nameof(ValidCommand), typeof(ICommand),
-				typeof(RequiredStringValidationBehavior));
-
-		protected override bool Validate(object value)
+		public string RequiredString
 		{
-			if (value?.ToString() == ComparedToString)
-			{
-				ValidCommand?.Execute(value);
-				return true;
-			}
-
-			return false;
-		}
-
-		public string ComparedToString
-		{
-			get { return (string)GetValue(ComparedToStringProperty); }
-			set { SetValue(ComparedToStringProperty, value); }
-		}
-
-		public ICommand ValidCommand
-		{
-			get => (ICommand)GetValue(ValidCommandProperty);
-			set => SetValue(ValidCommandProperty, value);
+			get => (string)GetValue(RequiredStringProperty);
+			set => SetValue(RequiredStringProperty, value);
 		}
 	}
 }

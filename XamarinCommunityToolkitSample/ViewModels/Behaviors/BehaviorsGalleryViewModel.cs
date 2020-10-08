@@ -54,6 +54,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 					nameof(UserStoppedTypingBehavior),
 					AppResources.UserStoppedTypingBehaviorShortDescription
 			)
-			};
+		};
 	}
 }

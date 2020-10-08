@@ -12,9 +12,6 @@
             <Setter Property="TextColor" Value="Red" />
         </Style>
     </pages:BasePage.Resources>
-    <pages:BasePage.BindingContext>
-        <vm:RequiredStringValidationBehaviorViewModel />
-    </pages:BasePage.BindingContext>
     <StackLayout Padding="{StaticResource ContentPadding}"
                  Spacing="50"
                  VerticalOptions="CenterAndExpand">
@@ -24,8 +21,7 @@
                 <Entry.Behaviors>
                     <behaviors:RequiredStringValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"
                                                        Flags="ValidateOnValueChanging"
-                                                       ValidCommand="{Binding PasswordMatchedCommand}"
-                                                       ComparedToString="{Binding Source={x:Reference passwordEntry},Path=Text}" />
+                                                       RequiredString="{Binding Source={x:Reference passwordEntry},Path=Text}" />
                 </Entry.Behaviors>
             </Entry>
         </StackLayout>

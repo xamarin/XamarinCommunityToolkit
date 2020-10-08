@@ -19,10 +19,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			var confirmPasswordBehavior = new RequiredStringValidationBehavior();
 			confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
 			//act
-			//passwordEntry.Text = "123456";
-			confirmPasswordBehavior.ComparedToString = passwordEntry.Text;
+			confirmPasswordBehavior.RequiredString = passwordEntry.Text;
 			confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
-			//confirmPasswordEntry.Text = "123456";
 			//assert
 			Assert.True(confirmPasswordBehavior.IsValid);
 		}
@@ -37,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
 			//act
 			passwordEntry.Text = "123456";
-			confirmPasswordBehavior.ComparedToString = passwordEntry.Text;
+			confirmPasswordBehavior.RequiredString = passwordEntry.Text;
 			confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
 			confirmPasswordEntry.Text = null;
 			//assert
@@ -54,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnValueChanging;
 			//act
 			passwordEntry.Text = "123456";
-			confirmPasswordBehavior.ComparedToString = passwordEntry.Text;
+			confirmPasswordBehavior.RequiredString = passwordEntry.Text;
 			confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
 			confirmPasswordEntry.Text = "123456";
 			//assert
@@ -71,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnValueChanging;
 			//act
 			passwordEntry.Text = "123456";
-			confirmPasswordBehavior.ComparedToString = passwordEntry.Text;
+			confirmPasswordBehavior.RequiredString = passwordEntry.Text;
 			confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
 			confirmPasswordEntry.Text = "1234567";
 			//assert
