@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
     <ProjectReference Include="..\XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj" />
   </ItemGroup>
 </Project>
