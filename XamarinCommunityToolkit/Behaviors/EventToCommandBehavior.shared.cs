@@ -8,27 +8,23 @@ namespace Xamarin.CommunityToolkit.Behaviors
 {
 	public class EventToCommandBehavior : BaseBehavior<View>
 	{
-		public static readonly BindableProperty EventNameProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(EventName))
+		public static readonly BindableProperty EventNameProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(EventName))
 			.SetReturnType<string>()
 			.SetDeclaringType<EventToCommandBehavior>()
 			.SetPropertyChangedDelegate(OnEventNamePropertyChanged)
 			.Build();
 
-		public static readonly BindableProperty CommandProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(Command))
+		public static readonly BindableProperty CommandProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(Command))
 			.SetReturnType<ICommand>()
 			.SetDeclaringType<EventToCommandBehavior>()
 			.Build();
 
-		public static readonly BindableProperty CommandParameterProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(CommandParameter))
+		public static readonly BindableProperty CommandParameterProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(CommandParameter))
 			.SetReturnType<object>()
 			.SetDeclaringType<EventToCommandBehavior>()
 			.Build();
 
-		public static readonly BindableProperty EventArgsConverterProperty = new BindablePropertyBuilder()
-			.SetPropertyName(nameof(EventArgsConverter))
+		public static readonly BindableProperty EventArgsConverterProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(EventArgsConverter))
 			.SetReturnType<IValueConverter>()
 			.SetDeclaringType<EventToCommandBehavior>()
 			.Build();
