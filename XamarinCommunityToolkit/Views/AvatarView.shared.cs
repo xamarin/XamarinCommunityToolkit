@@ -1,13 +1,14 @@
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class AvatarView : TemplatedView
+	public class AvatarView : BaseTemplatedView<Frame>
 	{
 		const string emptyText = "X";
 
-		static readonly Color[] colors = {
+		static readonly Color[] colors =
+		{
 			RGB(69, 43, 103),
 			RGB(119, 78, 133),
 			RGB(211, 153, 184),
@@ -18,7 +19,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			RGB(143, 52, 87)
 		};
 
-		static readonly Color[] textColors = {
+		static readonly Color[] textColors =
+		{
 			RGB(255, 255, 255),
 			RGB(255, 255, 255),
 			RGB(255, 255, 255),
@@ -48,24 +50,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(AvatarView), -1.0, propertyChanged: OnValuePropertyChanged);
 
 		public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(AvatarView), FontAttributes.None, propertyChanged: OnValuePropertyChanged);
-
-		AvatarFrame frame;
-
-		public AvatarView()
-		{
-			IsClippedToBounds = true;
-			ControlTemplate = new ControlTemplate(typeof(AvatarFrame));
-		}
-
-		AvatarFrame Frame
-		{
-			get => frame;
-			set
-			{
-				frame = value;
-				OnValuePropertyChanged();
-			}
-		}
 
 		public double Size
 		{
@@ -127,6 +111,35 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FontAttributesProperty, value);
 		}
 
+		Image Image { get; } = new Image
+		{
+			Aspect = Aspect.AspectFill,
+			IsVisible = false
+		};
+
+		Label Label { get; } = new Label
+		{
+			HorizontalTextAlignment = TextAlignment.Center,
+			VerticalTextAlignment = TextAlignment.Center,
+			LineBreakMode = LineBreakMode.TailTruncation
+		};
+
+		AbsoluteLayout MainLayout { get; } = new AbsoluteLayout
+		{
+			IsClippedToBounds = true
+		};
+
+		protected override void OnControlInitialized(Frame control)
+		{
+			IsClippedToBounds = true;
+			MainLayout.Children.Add(Label, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
+			MainLayout.Children.Add(Image, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
+			control.IsClippedToBounds = true;
+			control.HasShadow = false;
+			control.Padding = 0;
+			control.Content = MainLayout;
+		}
+
 		protected override void OnSizeAllocated(double width, double height)
 		{
 			base.OnSizeAllocated(width, height);
@@ -147,12 +160,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnSizePropertyChanged()
 		{
-			if (Frame == null)
+			if (Control == null)
 				return;
 
 			BatchBegin();
 			var size = Size;
-			Frame.CornerRadius = CornerRadius < 0
+			Control.CornerRadius = CornerRadius < 0
 				? (float)size / 2
 				: (float)CornerRadius;
 
@@ -168,44 +181,40 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnValuePropertyChanged()
 		{
-			if (Frame == null)
+			if (Control == null)
 				return;
 
-			var image = Frame.Image;
-			var label = Frame.Label;
-			var layout = Frame.MainLayout;
-
-			image.BatchBegin();
+			Image.BatchBegin();
 			var source = Source;
-			image.IsVisible = source != null;
-			image.Source = source;
-			image.BatchCommit();
+			Image.IsVisible = source != null;
+			Image.Source = source;
+			Image.BatchCommit();
 
-			label.BatchBegin();
+			Label.BatchBegin();
 			var text = Text?.Trim() ?? string.Empty;
-			label.Text = string.IsNullOrWhiteSpace(text)
+			Label.Text = string.IsNullOrWhiteSpace(text)
 				? emptyText
 				: text?.Trim();
 
 			var textHash = Abs(text.GetHashCode());
 			var textColor = TextColor;
-			label.TextColor = textColor == Color.Default
+			Label.TextColor = textColor == Color.Default
 				? textColors[textHash % textColors.Length]
 				: textColor;
 			var fontSize = FontSize;
-			label.FontSize = fontSize < 0
+			Label.FontSize = fontSize < 0
 				? CalculateFontSize()
 				: fontSize;
-			label.FontFamily = FontFamily;
-			label.FontAttributes = FontAttributes;
-			label.BatchCommit();
+			Label.FontFamily = FontFamily;
+			Label.FontAttributes = FontAttributes;
+			Label.BatchCommit();
 
 			var color = Color;
-			layout.BackgroundColor = color == Color.Default
+			MainLayout.BackgroundColor = color == Color.Default
 				? colors[textHash % colors.Length]
 				: color;
 
-			Frame.BorderColor = BorderColor;
+			Control.BorderColor = BorderColor;
 		}
 
 		double CalculateFontSize()
@@ -218,43 +227,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return 12;
 
 			return size * .4;
-		}
-
-		class AvatarFrame : Frame
-		{
-			internal Image Image { get; } = new Image
-			{
-				Aspect = Aspect.AspectFill,
-				IsVisible = false
-			};
-
-			internal Label Label { get; } = new Label
-			{
-				HorizontalTextAlignment = TextAlignment.Center,
-				VerticalTextAlignment = TextAlignment.Center,
-				LineBreakMode = LineBreakMode.TailTruncation
-			};
-
-			internal AbsoluteLayout MainLayout { get; } = new AbsoluteLayout
-			{
-				IsClippedToBounds = true
-			};
-
-			public AvatarFrame()
-			{
-				IsClippedToBounds = true;
-				HasShadow = false;
-				Padding = 0;
-				MainLayout.Children.Add(Label, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
-				MainLayout.Children.Add(Image, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
-				Content = MainLayout;
-			}
-
-			protected override void OnParentSet()
-			{
-				base.OnParentSet();
-				((AvatarView)Parent).Frame = this;
-			}
 		}
 	}
 }

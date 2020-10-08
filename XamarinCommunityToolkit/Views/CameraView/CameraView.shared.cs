@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -14,6 +14,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal event EventHandler ShutterClicked;
 
+		internal static readonly BindablePropertyKey ShutterCommandPropertyKey =
+			BindableProperty.CreateReadOnly(nameof(ShutterCommand),
+				typeof(ICommand),
+				typeof(CameraView),
+				default,
+				BindingMode.OneWayToSource,
+				defaultValueCreator: ShutterCommandValueCreator);
+
+		public static readonly BindableProperty ShutterCommandProperty = ShutterCommandPropertyKey.BindableProperty;
+
+		public ICommand ShutterCommand => (ICommand)GetValue(ShutterCommandProperty);
+
 		public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(CameraView), false);
 
 		public bool IsBusy
@@ -22,8 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(IsBusyProperty, value);
 		}
 
-		public static readonly BindableProperty IsAvailableProperty = BindableProperty.Create(nameof(IsAvailable), typeof(bool), typeof(CameraView), false,
-			propertyChanged: (b, o, n) => ((CameraView)b).OnAvailable?.Invoke(b, (bool)n));
+		public static readonly BindableProperty IsAvailableProperty = BindableProperty.Create(nameof(IsAvailable), typeof(bool), typeof(CameraView), false, propertyChanged: (b, o, n) => ((CameraView)b).OnAvailable?.Invoke(b, (bool)n));
 
 		public bool IsAvailable
 		{
@@ -72,13 +83,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		// Only supported by Android, removed until we have platform specifics
-		//public static readonly BindableProperty PreviewAspectProperty = BindableProperty.Create(nameof(PreviewAspect), typeof(Aspect), typeof(CameraView), Aspect.AspectFit);
+		// public static readonly BindableProperty PreviewAspectProperty = BindableProperty.Create(nameof(PreviewAspect), typeof(Aspect), typeof(CameraView), Aspect.AspectFit);
 
-		//public Aspect PreviewAspect
-		//{
-		//	get => (Aspect)GetValue(PreviewAspectProperty);
-		//	set => SetValue(PreviewAspectProperty, value);
-		//}
+		// public Aspect PreviewAspect
+		// {
+		// get => (Aspect)GetValue(PreviewAspectProperty);
+		// set => SetValue(PreviewAspectProperty, value);
+		// }
 
 		public static readonly BindableProperty ZoomProperty = BindableProperty.Create(nameof(Zoom), typeof(double), typeof(CameraView), 1d);
 
@@ -101,5 +112,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		internal void RaiseMediaCaptureFailed(string message) => MediaCaptureFailed?.Invoke(this, message);
 
 		public void Shutter() => ShutterClicked?.Invoke(this, EventArgs.Empty);
+
+		static object ShutterCommandValueCreator(BindableObject b)
+		{
+			var camera = (CameraView)b;
+			return new Command(camera.Shutter);
+		}
 	}
 }

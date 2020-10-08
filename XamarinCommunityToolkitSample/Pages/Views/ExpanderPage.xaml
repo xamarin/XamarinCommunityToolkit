@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+                xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ExpanderPage"
+                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Name="page">
+
+    <pages:BasePage.BindingContext>
+        <viewmodels:ExpanderViewModel />
+    </pages:BasePage.BindingContext>
+
+    <ScrollView Padding="30, 20">
+        <StackLayout BindableLayout.ItemsSource="{Binding Items}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <views:Expander ExpandAnimationEasing="{x:Static Easing.CubicIn}"
+                                CollapseAnimationEasing="{x:Static Easing.CubicOut}"
+                                IsExpanded="{Binding IsExpanded}"
+                                Command="{Binding BindingContext.Command, Source={x:Reference page}}"
+                                CommandParameter="{Binding .}">
+                        <views:Expander.Header>
+                            <StackLayout Orientation="Horizontal" Spacing="0">
+                                <Label Text="{Binding Name}" HorizontalOptions="FillAndExpand" FontSize="32" FontAttributes="Bold"/>
+                                <Label Text="{rsx:Translate EnableNested}" FontSize="13" VerticalOptions="CenterAndExpand" />
+                                <Switch IsToggled="{Binding IsEnabled}" />
+                            </StackLayout>
+                        </views:Expander.Header>
+                        <views:Expander IsEnabled="{Binding IsEnabled}">
+                            <views:Expander.Header>
+                                <Label Text="{rsx:Translate NestedExpander}" FontSize="30" FontAttributes="Bold"/>
+                            </views:Expander.Header>
+                            <views:Expander.ContentTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="0" Margin="10" Padding="1" BackgroundColor="Black">
+                                        <BoxView HeightRequest="50" Color="White" />
+                                        <BoxView HeightRequest="50" Color="Red" />
+                                        <BoxView HeightRequest="50" Color="White" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </views:Expander.ContentTemplate>
+                        </views:Expander>
+                    </views:Expander>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </ScrollView>
+</pages:BasePage>

@@ -10,17 +10,19 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
 		byte[] avatar;
+
 		public byte[] Avatar
 		{
 			get => avatar;
-			set => Set(ref avatar, value);
+			set => SetProperty(ref avatar, value);
 		}
 
 		bool isBusy;
+
 		public bool IsBusy
 		{
 			get => isBusy;
-			set => Set(ref isBusy, value);
+			set => SetProperty(ref isBusy, value);
 		}
 
 		public async Task OnAppearing()

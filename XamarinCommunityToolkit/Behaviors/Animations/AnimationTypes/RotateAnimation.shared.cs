@@ -18,6 +18,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			=> ((RotateAnimation)bindable).DefaultRotation;
 
 		protected override uint DefaultDuration { get; set; } = 200;
+
 		protected virtual double DefaultRotation { get; set; } = 180.0;
 
 		public override async Task Animate(View view)

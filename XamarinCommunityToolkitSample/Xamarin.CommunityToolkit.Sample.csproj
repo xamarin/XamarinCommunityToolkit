@@ -3,17 +3,22 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="resources\**" />
     <EmbeddedResource Remove="resources\**" />
     <None Remove="resources\**" />
+    <EmbeddedResource Update="Pages\Behaviors\ImpliedOrderGridBehaviorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Update="Pages\Behaviors\ImpliedOrderGridBehaviorPage.xaml.cs">
+      <DependentUpon>ImpliedOrderGridBehaviorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resx\AppResources.es.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -42,10 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Pages\Views\" />
     <Folder Include="Pages\Converters\" />
     <Folder Include="Pages\Base\" />
-    <Folder Include="ViewModels\Views\" />
     <Folder Include="ViewModels\Converters\" />
     <Folder Include="ViewModels\Base\" />
     <Folder Include="Pages\Extensions\" />

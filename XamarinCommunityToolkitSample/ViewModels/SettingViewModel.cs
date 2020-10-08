@@ -15,20 +15,23 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		public SettingViewModel() => LoadLanguages();
 
 		IList<Language> supportedLanguages;
+
 		public IList<Language> SupportedLanguages
 		{
 			get => supportedLanguages;
-			private set => Set(ref supportedLanguages, value);
+			private set => SetProperty(ref supportedLanguages, value);
 		}
 
 		Language selectedLanguage;
+
 		public Language SelectedLanguage
 		{
 			get => selectedLanguage;
-			set => Set(ref selectedLanguage, value);
+			set => SetProperty(ref selectedLanguage, value);
 		}
 
 		ICommand changeLanguageCommand;
+
 		public ICommand ChangeLanguageCommand => changeLanguageCommand ??= new Command(() =>
 		{
 			LocalizationResourceManager.Current.SetCulture(CultureInfo.GetCultureInfo(SelectedLanguage.CI));
@@ -39,8 +42,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		{
 			SupportedLanguages = new List<Language>()
 			{
-				{new Language(AppResources.English, "en")},
-				{new Language(AppResources.Spanish, "es")}
+				{ new Language(AppResources.English, "en") },
+				{ new Language(AppResources.Spanish, "es") }
 			};
 			SelectedLanguage = SupportedLanguages.FirstOrDefault(pro => pro.CI == LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName);
 		}

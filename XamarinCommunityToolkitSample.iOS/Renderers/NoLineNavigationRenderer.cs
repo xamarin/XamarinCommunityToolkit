@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(BaseNavigationPage), typeof(NoLineNavigationPageRenderer))]
+
 namespace Xamarin.CommunityToolkit.Sample.iOS.Renderers
 {
 	public class NoLineNavigationPageRenderer : NavigationRenderer
@@ -16,12 +17,12 @@ namespace Xamarin.CommunityToolkit.Sample.iOS.Renderers
 			if (!(Element is NavigationPage))
 				return;
 
-			//iOS older version fix
+			// iOS older version fix
 			NavigationBar.SetBackgroundImage(new UIKit.UIImage(), UIKit.UIBarMetrics.Default);
 			NavigationBar.ShadowImage = new UIKit.UIImage();
 			NavigationBar.ClipsToBounds = true;
 
-			//Newest iOS version fix - trycatch isn't optimal
+			// Newest iOS version fix - trycatch isn't optimal
 			try
 			{
 				NavigationBar.ScrollEdgeAppearance.ShadowImage = new UIKit.UIImage();

@@ -1,5 +1,4 @@
-﻿
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
@@ -15,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		public int ClickCount
 		{
 			get => clickCount;
-			set => Set(ref clickCount, value);
+			set => SetProperty(ref clickCount, value);
 		}
 	}
 }

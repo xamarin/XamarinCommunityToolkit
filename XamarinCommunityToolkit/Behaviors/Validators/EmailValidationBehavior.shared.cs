@@ -33,6 +33,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				{
 					// Use IdnMapping class to convert Unicode domain names.
 					var idn = new IdnMapping();
+
 					// Pull out and process domain name (throws ArgumentException on invalid)
 					var domainName = idn.GetAscii(match.Groups[2].Value);
 					return match.Groups[1].Value + domainName;

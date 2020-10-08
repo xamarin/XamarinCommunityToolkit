@@ -10,10 +10,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		#region Properties
 
 		string performedSearches;
+
 		public string PerformedSearches
 		{
 			get => performedSearches;
-			set => Set(ref performedSearches, value);
+			set => SetProperty(ref performedSearches, value);
 		}
 
 		public ICommand SearchCommand { get; }
