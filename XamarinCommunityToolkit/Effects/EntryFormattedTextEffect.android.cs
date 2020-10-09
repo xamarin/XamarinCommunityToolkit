@@ -61,7 +61,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void OnTextChanged(object sender, global::Android.Text.TextChangedEventArgs args)
 		{
-			var spannable = (SpannableStringBuilder)args.Text;
+			var spannable = args.Text as SpannableStringBuilder;
 			if (spannable == null || Segments.Count == 0)
 			{
 				return;
