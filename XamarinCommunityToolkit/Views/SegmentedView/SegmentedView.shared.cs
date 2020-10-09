@@ -175,6 +175,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			int.TryParse(newValue?.ToString(), out var index);
 			segment.SelectedIndexChanged?.Invoke(segment, new SelectedItemChangedEventArgs(segment?.Items[index], index));
+			segment.SelectedItem = segment?.Items[index];
 		}
 
 		// IColorElement

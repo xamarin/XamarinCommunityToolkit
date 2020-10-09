@@ -790,5 +790,17 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
                 return ResourceManager.GetString("XAMLExtension", resourceCulture);
             }
         }
+        
+        internal static string SegmentedViewTitle {
+            get {
+                return ResourceManager.GetString("SegmentedViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string SegmentedViewDescription {
+            get {
+                return ResourceManager.GetString("SegmentedViewDescription", resourceCulture);
+            }
+        }
     }
 }

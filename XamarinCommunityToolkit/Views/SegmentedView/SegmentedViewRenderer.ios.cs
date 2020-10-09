@@ -7,41 +7,50 @@ using Xamarin.CommunityToolkit.iOS.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using UIKit;
+using NativeImage = UIKit.UIImage;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
-using System.Threading.Tasks;
-using System.Threading;
 
 [assembly: ExportRenderer(typeof(SegmentedView), typeof(SegmentedViewRenderer))]
 
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
 	[Preserve(AllMembers = true)]
-	public class SegmentedViewRenderer : VisualElementRenderer<SegmentedView>
+	public class SegmentedViewRenderer : ViewRenderer<SegmentedView, UISegmentedControl>
 	{
-		readonly UISegmentedControl control;
-
-		public SegmentedViewRenderer()
+		protected override void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
 		{
-			InvalidateControl();
+			base.OnElementChanged(e);
+
+			if (e.NewElement == null)
+				return;
+
+			if (Control == null)
+				SetNativeControl(new UISegmentedControl());
+
+			if (e.OldElement != null && Control != null)
+				InvalidateControl();
+
+			if (e.NewElement != null)
+				InitializeControl();
 		}
 
 		void InitializeControl()
 		{
 			PopulateSegments(Element.Items);
-			control.ClipsToBounds = true;
-			control.SelectedSegment = Element.SelectedIndex;
-			control.BackgroundColor = Element.BackgroundColor.ToUIColor();
-			control.Layer.MasksToBounds = true;
+			Control.ClipsToBounds = true;
+			Control.SelectedSegment = Element.SelectedIndex;
+			Control.BackgroundColor = Element.BackgroundColor.ToUIColor();
+			Control.Layer.MasksToBounds = true;
 			UpdateSelectedSegment(Element.SelectedIndex);
 
-			control.ValueChanged += OnSelectedIndexChanged;
+			Control.ValueChanged += OnSelectedIndexChanged;
 			((INotifyCollectionChanged)Element.Items).CollectionChanged += SegmentsCollectionChanged;
 
 			if (Element.IsColorSet)
 			{
-				control.SelectedSegmentTintColor = Element.Color.ToUIColor();
-				control.TintColor = Element.Color.ToUIColor();
+				Control.SelectedSegmentTintColor = Element.Color.ToUIColor();
+				Control.TintColor = Element.Color.ToUIColor();
 			}
 		}
 
@@ -60,20 +69,20 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 				case SegmentMode.Image:
 					//var img = await ((ImageSource)segment).GetNativeImageAsync();
 					//if (img != null)
-					//	control.InsertSegment(img, position, false);
+					//	Control.InsertSegment(img, position, false);
 					//else
 					//	Console.WriteLine("ImageSource is null");
 					//break;
 				default:
 				case SegmentMode.Text:
-					control.InsertSegment(segment, position, false);
+					Control.InsertSegment(segment, position, false);
 					break;
 			}
 		}
 
 		void InvalidateControl()
 		{
-			control.ValueChanged -= OnSelectedIndexChanged;
+			Control.ValueChanged -= OnSelectedIndexChanged;
 			((INotifyCollectionChanged)Element.Items).CollectionChanged -= SegmentsCollectionChanged;
 		}
 
@@ -91,11 +100,11 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 				case NotifyCollectionChangedAction.Remove:
 					for (var i = 0; i < e.OldItems.Count; i++)
 					{
-						control.RemoveSegmentAtIndex(e.OldStartingIndex, false);
+						Control.RemoveSegmentAtIndex(e.OldStartingIndex, false);
 					}
 					break;
 				case NotifyCollectionChangedAction.Reset:
-					control.RemoveAllSegments();
+					Control.RemoveAllSegments();
 					break;
 			}
 		}
@@ -104,7 +113,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 		{
 			base.OnElementPropertyChanged(sender, e);
 
-			if (control == null || Element == null)
+			if (Control == null || Element == null)
 				return;
 
 			if (e.PropertyName == SegmentedView.SelectedItemProperty.PropertyName || e.PropertyName == SegmentedView.SelectedIndexProperty.PropertyName)
@@ -112,24 +121,24 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 
 			if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
 			{
-				control.SelectedSegmentTintColor = Element.Color.ToUIColor();
+				Control.SelectedSegmentTintColor = Element.Color.ToUIColor();
 			}
 		}
 
 		void OnSelectedIndexChanged(object sender, EventArgs e)
 		{
-			Element.SelectedIndex = (int)control.SelectedSegment;
+			Element.SelectedIndex = (int)Control.SelectedSegment;
 		}
 
 		void UpdateSelectedSegment(int index)
 		{
-			control.SelectedSegment = index;
+			Control.SelectedSegment = index;
 		}
 
 		protected override void Dispose(bool disposing)
 		{
-			control.ValueChanged -= OnSelectedIndexChanged;
-			control.Dispose();
+			Control.ValueChanged -= OnSelectedIndexChanged;
+			Control.Dispose();
 			base.Dispose(disposing);
 		}
 	}

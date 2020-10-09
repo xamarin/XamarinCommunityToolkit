@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"                
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                xmlns:toolkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"  
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SegmentedViewPage"
+                Title="{Binding Title}">
+    <pages:BasePage.BindingContext>
+        <vm:SegmentedViewModel/>
+    </pages:BasePage.BindingContext>
+
+    <StackLayout VerticalOptions="Center" Margin="20">
+        <toolkit:SegmentedView ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedItem}" />
+        <Label Text="{Binding SelectedItem}"/>
+    </StackLayout>
+</pages:BasePage>

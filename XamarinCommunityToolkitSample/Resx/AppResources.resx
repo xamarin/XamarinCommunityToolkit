@@ -497,4 +497,10 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   <data name="XAMLExtension" xml:space="preserve">
     <value>XAML Extension</value>
   </data>
+  <data name="SegmentedViewTitle" xml:space="preserve">
+    <value>Segmented View</value>
+  </data>
+  <data name="SegmentedViewDescription" xml:space="preserve">
+    <value>Segmented View allows you to have a simple segments control that can display text or images</value>
+  </data>
 </root>
