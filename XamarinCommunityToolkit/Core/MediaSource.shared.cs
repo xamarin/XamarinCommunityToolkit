@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Core
 		public static MediaSource FromUri(Uri uri)
 		{
 			if (!uri.IsAbsoluteUri)
-				throw new ArgumentException("uri is relative");
+				throw new ArgumentException("Uri must be be absolute", nameof(uri));
 
 			return new UriMediaSource { Uri = uri };
 		}
