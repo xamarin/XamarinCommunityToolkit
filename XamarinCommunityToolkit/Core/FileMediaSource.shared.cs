@@ -5,7 +5,8 @@ namespace Xamarin.CommunityToolkit.Core
 	[TypeConverter(typeof(FileMediaSourceConverter))]
 	public sealed class FileMediaSource : MediaSource
 	{
-		public static readonly BindableProperty FileProperty = BindableProperty.Create(nameof(File), typeof(string), typeof(FileMediaSource), default(string));
+		public static readonly BindableProperty FileProperty 
+			= BindableProperty.Create(nameof(File), typeof(string), typeof(FileMediaSource));
 
 		public string File
 		{
