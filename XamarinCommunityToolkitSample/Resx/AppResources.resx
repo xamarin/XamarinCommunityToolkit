@@ -473,23 +473,23 @@ The user may at their choice decide to have output warnings treated as exception
 
 If the user manually assigns a row or column on a view, it will be honored.</value>
   </data>
-  <data name="ShowSnackbarWithActionButton" xml:space="preserve">
-    <value>Show snackbar with action button</value>
+  <data name="ShowSnackBarWithActionButton" xml:space="preserve">
+    <value>Show SnackBar</value>
   </data>
   <data name="ActionsPageDescription" xml:space="preserve">
-    <value>Show snackbar, toast etc</value>
+    <value>Show SnackBar, toast etc</value>
   </data>
   <data name="ActionsPageTitle" xml:space="preserve">
     <value>Actions</value>
   </data>
-  <data name="ShowSnackbarNoActionButton" xml:space="preserve">
-    <value>Show snackbar (no action button)</value>
+  <data name="ShowSnackBarNoActionButton" xml:space="preserve">
+    <value>Show toast</value>
   </data>
-  <data name="SnackbarIsClosedByTimeout" xml:space="preserve">
-    <value>Snackbar is closed by timeout</value>
+  <data name="SnackBarIsClosedByTimeout" xml:space="preserve">
+    <value>SnackBar is closed by timeout</value>
   </data>
-  <data name="SnackbarIsClosedByUser" xml:space="preserve">
-    <value>Snackbar is closed by user</value>
+  <data name="SnackBarIsClosedByUser" xml:space="preserve">
+    <value>SnackBar is closed by user</value>
   </data>
   <data name="GravatarImageSourceDescription" xml:space="preserve">
     <value>The GravatarImageSource allows you to easily utilize a users Gravatar image from Gravatar.com using nothing but their email address.</value>

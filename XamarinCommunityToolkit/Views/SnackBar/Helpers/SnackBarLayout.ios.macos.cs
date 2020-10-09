@@ -2,7 +2,7 @@
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 {
-	class SnackbarLayout
+	class SnackBarLayout
 	{
 		public nfloat MarginBottom { get; set; } = 10.0f;
 

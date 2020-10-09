@@ -1,16 +1,17 @@
 ﻿using System;
 using UIKit;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Extensions;
-using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackbarViews;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
-	class ActionMessageSnackbarView : MessageSnackbarView
+	class ActionMessageSnackBarView : MessageSnackBarView
 	{
-		readonly IOSSnackBar snackbar;
 
-		public ActionMessageSnackbarView(IOSSnackBar snackbar)
-			: base(snackbar) => this.snackbar = snackbar;
+		public ActionMessageSnackBarView(IOSSnackBar snackBar)
+			: base(snackBar)
+		{
+		}
 
 		public UIButton ActionButton { get; set; }
 
@@ -30,16 +31,16 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 		protected override void ConstrainChildren()
 		{
 			MessageLabel.SafeTrailingAnchor()
-				.ConstraintEqualTo(ActionButton.SafeLeadingAnchor(), -Snackbar.Layout.Spacing).Active = true;
-			MessageLabel.SafeLeadingAnchor().ConstraintEqualTo(this.SafeLeadingAnchor(), Snackbar.Layout.PaddingLeading)
+				.ConstraintEqualTo(ActionButton.SafeLeadingAnchor(), -SnackBar.Layout.Spacing).Active = true;
+			MessageLabel.SafeLeadingAnchor().ConstraintEqualTo(this.SafeLeadingAnchor(), SnackBar.Layout.PaddingLeading)
 				.Active = true;
-			MessageLabel.SafeBottomAnchor().ConstraintEqualTo(this.SafeBottomAnchor(), -Snackbar.Layout.PaddingBottom)
+			MessageLabel.SafeBottomAnchor().ConstraintEqualTo(this.SafeBottomAnchor(), -SnackBar.Layout.PaddingBottom)
 				.Active = true;
-			MessageLabel.SafeTopAnchor().ConstraintEqualTo(this.SafeTopAnchor(), Snackbar.Layout.PaddingTop).Active =
+			MessageLabel.SafeTopAnchor().ConstraintEqualTo(this.SafeTopAnchor(), SnackBar.Layout.PaddingTop).Active =
 				true;
 
 			ActionButton.SafeTrailingAnchor()
-				.ConstraintEqualTo(this.SafeTrailingAnchor(), -Snackbar.Layout.PaddingTrailing).Active = true;
+				.ConstraintEqualTo(this.SafeTrailingAnchor(), -SnackBar.Layout.PaddingTrailing).Active = true;
 			ActionButton.SafeCenterYAnchor().ConstraintEqualTo(this.SafeCenterYAnchor()).Active = true;
 
 			// The following constraint makes sure that button is not wider than specified amount of available width
@@ -56,15 +57,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			base.Initialize();
 
 			ActionButton = new UIButton(UIButtonType.System) { TranslatesAutoresizingMaskIntoConstraints = false };
-			ActionButton.SetTitle(Snackbar.ActionButtonText, UIControlState.Normal);
-			ActionButton.TitleLabel.LineBreakMode = Snackbar.Appearance.DismissButtonLineBreakMode;
+			ActionButton.SetTitle(SnackBar.ActionButtonText, UIControlState.Normal);
+			ActionButton.TitleLabel.LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode;
 			ActionButton.TouchUpInside += DismissButtonTouchUpInside;
 			AddSubview(ActionButton);
 		}
 
 		async void DismissButtonTouchUpInside(object sender, EventArgs e)
 		{
-			await snackbar.Action();
+			await SnackBar.Action();
 			Dismiss();
 		}
 	}

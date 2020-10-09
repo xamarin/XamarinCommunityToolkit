@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 #if __IOS__
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
@@ -12,13 +13,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackbarArguments arguments)
+		internal void Show(Page sender, SnackBarOptions arguments)
 		{
 #if __IOS__
-			var snackbar = IOSSnackBar.MakeSnackbar(arguments.Message)
+			var snackBar = IOSSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 #elif __MACOS__
 
-			var snackbar = MacOSSnackBar.MakeSnackbar(arguments.Message)
+			var snackBar = MacOSSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 #endif
 							.SetDuration(arguments.Duration)
 							.SetTimeoutAction(() =>
@@ -31,22 +32,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
 			{
 				var renderer = Platform.GetRenderer(sender);
-				snackbar.SetParentController(renderer.ViewController);
+				snackBar.SetParentController(renderer.ViewController);
 			}
 #endif
 
-			if (!string.IsNullOrEmpty(arguments.ActionButtonText) && arguments.Action != null)
+			foreach (var action in arguments.Actions)
 			{
-				snackbar.SetActionButtonText(arguments.ActionButtonText);
-				snackbar.SetAction(async () =>
+				snackBar.SetActionButtonText(action.Text);
+				snackBar.SetAction(async () =>
 				{
-					snackbar.Dismiss();
-					await arguments.Action();
+					snackBar.Dismiss();
+					await action.Action();
 					arguments.SetResult(true);
 				});
 			}
 
-			snackbar.Show();
+			snackBar.Show();
 		}
 	}
 }

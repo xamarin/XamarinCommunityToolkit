@@ -3,13 +3,14 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Xamarin.CommunityToolkit.UI.Views.Helpers;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		static DispatcherTimer snackbarTimer;
+		static DispatcherTimer snackBarTimer;
 
 		T FindVisualChildByName<T>(DependencyObject parent, string name) where T : DependencyObject
 		{
@@ -33,29 +34,29 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		internal void Show(Forms.Page page, SnackbarArguments arguments)
+		internal void Show(Forms.Page page, SnackBarOptions arguments)
 		{
 
-			var snackBarLayout = new SnackbarLayout(arguments.Message, arguments.ActionButtonText, arguments.Action);
+			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;
 			var grid = FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea").Parent as Grid;
 			var snackBarRow = new RowDefinition() { Height = GridLength.Auto };
-			snackbarTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(arguments.Duration) };
-			snackbarTimer.Tick += (sender, e) =>
+			snackBarTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(arguments.Duration) };
+			snackBarTimer.Tick += (sender, e) =>
 			{
 				grid.Children.Remove(snackBarLayout);
 				grid.RowDefinitions.Remove(snackBarRow);
-				snackbarTimer.Stop();
+				snackBarTimer.Stop();
 				arguments.SetResult(false);
 			};
-			snackBarLayout.OnSnackbarActionExecuted += () =>
+			snackBarLayout.OnSnackBarActionExecuted += () =>
 			{
 				grid.Children.Remove(snackBarLayout);
 				grid.RowDefinitions.Remove(snackBarRow);
-				snackbarTimer.Stop();
+				snackBarTimer.Stop();
 				arguments.SetResult(true);
 			};
-			snackbarTimer.Start();
+			snackBarTimer.Start();
 			grid.RowDefinitions.Add(snackBarRow);
 			grid.Children.Add(snackBarLayout);
 			Grid.SetRow(snackBarLayout, grid.RowDefinitions.Count - 1);

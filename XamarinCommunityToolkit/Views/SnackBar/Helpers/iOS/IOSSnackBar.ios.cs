@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Foundation;
 using UIKit;
-using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Snackbar;
-using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackbarViews;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
@@ -17,17 +17,17 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public string ActionButtonText { get; protected set; }
 
-		public SnackbarAppearance Appearance { get; } = new SnackbarAppearance();
+		public SnackBarAppearance Appearance { get; } = new SnackBarAppearance();
 
 		public double Duration { get; protected set; }
 
-		public SnackbarLayout Layout { get; } = new SnackbarLayout();
+		public SnackBarLayout Layout { get; } = new SnackBarLayout();
 
 		public string Message { get; protected set; }
 
 		public UIViewController ParentController { get; protected set; }
 
-		protected BaseSnackbarView SnackbarView { get; set; }
+		protected BaseSnackBarView SnackBarView { get; set; }
 
 		public void Dismiss()
 		{
@@ -38,13 +38,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 				timer = null;
 			}
 
-			SnackbarView?.Dismiss();
+			SnackBarView?.Dismiss();
 		}
 
-		public static IOSSnackBar MakeSnackbar(string message)
+		public static IOSSnackBar MakeSnackBar(string message)
 		{
-			var snackbar = new IOSSnackBar { Message = message };
-			return snackbar;
+			var snackBar = new IOSSnackBar { Message = message };
+			return snackBar;
 		}
 
 		public IOSSnackBar SetAction(Func<Task> action)
@@ -79,12 +79,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public IOSSnackBar Show()
 		{
-			SnackbarView = GetSnackbarView();
+			SnackBarView = GetSnackBarView();
 
-			SnackbarView.ParentView.AddSubview(SnackbarView);
-			SnackbarView.ParentView.BringSubviewToFront(SnackbarView);
+			SnackBarView.ParentView.AddSubview(SnackBarView);
+			SnackBarView.ParentView.BringSubviewToFront(SnackBarView);
 
-			SnackbarView.Setup();
+			SnackBarView.Setup();
 
 			timer = NSTimer.CreateScheduledTimer(TimeSpan.FromMilliseconds(Duration), async t =>
 			{
@@ -95,14 +95,14 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			return this;
 		}
 
-		BaseSnackbarView GetSnackbarView()
+		BaseSnackBarView GetSnackBarView()
 		{
 			if (Action != null && !string.IsNullOrEmpty(ActionButtonText))
 			{
-				return new ActionMessageSnackbarView(this);
+				return new ActionMessageSnackBarView(this);
 			}
 
-			return new MessageSnackbarView(this);
+			return new MessageSnackBarView(this);
 		}
 	}
 }
