@@ -23,6 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected NSObject playedToEndObserver;
 		protected NSObject statusObserver;
 		protected NSObject rateObserver;
+		protected NSObject volumeObserver;
 		bool idleTimerDisabled = false;
 
 		public MediaElementRenderer() =>
@@ -90,6 +91,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					avPlayerViewController.Player = new AVPlayer(item);
 					rateObserver = (NSObject)avPlayerViewController.Player.AddObserver("rate", NSKeyValueObservingOptions.New, ObserveRate);
+					volumeObserver = (NSObject)avPlayerViewController.Player.AddObserver("volume", NSKeyValueObservingOptions.New, ObserveVolume);
 				}
 
 				if (Element.AutoPlay)
@@ -161,6 +163,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
+		void ObserveVolume(NSObservedChange e)
+		{
+			if (Controller == null)
+				return;
+
+			Controller.Volume = avPlayerViewController.Player.Volume;
+		}
+
 		protected void ObserveStatus(NSObservedChange e)
 		{
 			Controller.Volume = avPlayerViewController.Player.Volume;
@@ -191,7 +201,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get
 			{
-				if (avPlayerViewController.Player.CurrentTime.IsInvalid)
+				if (avPlayerViewController.Player?.CurrentTime.IsInvalid ?? true)
 					return TimeSpan.Zero;
 
 				return TimeSpan.FromSeconds(avPlayerViewController.Player.CurrentTime.Seconds);
@@ -205,9 +215,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element.IsLooping)
 			{
-				avPlayerViewController.Player.Seek(CMTime.Zero);
+				avPlayerViewController.Player?.Seek(CMTime.Zero);
 				Controller.Position = Position;
-				avPlayerViewController.Player.Play();
+				avPlayerViewController.Player?.Play();
 			}
 			else
 			{
@@ -252,14 +262,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 
 				case nameof(ToolKitMediaElement.Volume):
-					avPlayerViewController.Player.Volume = (float)Element.Volume;
+					if (avPlayerViewController.Player != null)
+						avPlayerViewController.Player.Volume = (float)Element.Volume;
 					break;
 			}
 		}
 
 		void MediaElementSeekRequested(object sender, SeekRequested e)
 		{
-			if (avPlayerViewController.Player.Status != AVPlayerStatus.ReadyToPlay || avPlayerViewController.Player.CurrentItem == null)
+			if (avPlayerViewController.Player?.CurrentItem == null || avPlayerViewController.Player.Status != AVPlayerStatus.ReadyToPlay)
 				return;
 
 			var ranges = avPlayerViewController.Player.CurrentItem.SeekableTimeRanges;
@@ -302,8 +313,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void MediaElementStateRequested(object sender, StateRequested e)
 		{
-			MediaElementVolumeRequested(this, EventArgs.Empty);
-
 			switch (e.State)
 			{
 				case MediaElementState.Playing:
@@ -355,8 +364,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Controller.OnSeekCompleted();
 		}
 
-		void MediaElementVolumeRequested(object sender, EventArgs e) => Controller.Volume = avPlayerViewController.Player.Volume;
-
 		void MediaElementPositionRequested(object sender, EventArgs e) => Controller.Position = Position;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
@@ -369,7 +376,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				e.OldElement.SeekRequested -= MediaElementSeekRequested;
 				e.OldElement.StateRequested -= MediaElementStateRequested;
 				e.OldElement.PositionRequested -= MediaElementPositionRequested;
-				e.OldElement.VolumeRequested -= MediaElementVolumeRequested;
 
 				if (playedToEndObserver != null)
 				{
@@ -379,6 +385,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				SetKeepScreenOn(false);
 				RemoveStatusObserver();
+				rateObserver?.Dispose();
+				rateObserver = null;
+				volumeObserver?.Dispose();
+				volumeObserver = null;
 
 				// stop video if playing
 				if (avPlayerViewController?.Player?.CurrentItem != null)
@@ -400,7 +410,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Element.SeekRequested += MediaElementSeekRequested;
 				Element.StateRequested += MediaElementStateRequested;
 				Element.PositionRequested += MediaElementPositionRequested;
-				Element.VolumeRequested += MediaElementVolumeRequested;
 
 				avPlayerViewController.ShowsPlaybackControls = Element.ShowsPlaybackControls;
 				avPlayerViewController.VideoGravity = AspectToGravity(Element.Aspect);

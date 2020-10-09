@@ -363,7 +363,7 @@
   <data name="MediaElementTitle" xml:space="preserve">
     <value>MediaElement</value>
   </data>
-   <data name="MediaElementDescription" xml:space="preserve">
+  <data name="MediaElementDescription" xml:space="preserve">
     <value>MediaElement is a view for playing video and audio.</value>
   </data>
   <data name="MultiValidationDescription" xml:space="preserve">
@@ -443,7 +443,7 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="UserStoppedTypingBehaviorShortDescription" xml:space="preserve">
     <value>This behavior waits for the user to stop typing and then executes a Command.</value>
   </data>
-  <data name="UserStoppedTypingBehaviorThresholdOptionLabel" xml:space="preserve">
+  <data name="UserStoppedTypingBehaviorTimeThresholdOptionLabel" xml:space="preserve">
     <value>User stopped typing time threshold (in ms)</value>
   </data>
   <data name="AutoGridLayoutBehaviorDescription" xml:space="preserve">
@@ -496,5 +496,8 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   </data>
   <data name="XAMLExtension" xml:space="preserve">
     <value>XAML Extension</value>
+  </data>
+  <data name="UserStoppedTypingBehaviorMinimumLengthThresholdOptionLabel" xml:space="preserve">
+    <value>Minimum length threshold (number of characters)</value>
   </data>
 </root>

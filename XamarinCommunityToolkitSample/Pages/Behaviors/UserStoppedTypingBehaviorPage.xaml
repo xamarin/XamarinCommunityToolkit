@@ -14,22 +14,44 @@
     <pages:BasePage.Content>
         <StackLayout Spacing="20">
 
-            <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDescription}" Margin="{StaticResource ContentPadding}" />
+            <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDescription}"
+                   Margin="{StaticResource ContentPadding}" />
 
-            <Frame Margin="{StaticResource ContentPadding}" CornerRadius="10">
+            <Frame Margin="{StaticResource ContentPadding}"
+                   CornerRadius="10">
+                
                 <Grid ColumnDefinitions="2*, *">
-                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorThresholdOptionLabel}" VerticalTextAlignment="Center" />
-                    <Entry x:Name="TypingThresholdSetting" Text="1000" Keyboard="Numeric" Grid.Column="1" />
+                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorTimeThresholdOptionLabel}"
+                           VerticalTextAlignment="Center" />
+                    <Entry x:Name="TimeThresholdSetting"
+                           Text="1000"
+                           Keyboard="Numeric"
+                           Grid.Column="1" />
 
-                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDismissKeyboardOptionLabel}" VerticalTextAlignment="Center" Grid.Row="1" />
-                    <Switch x:Name="AutoDismissKeyboardSetting" HorizontalOptions="End" Grid.Row="1" Grid.Column="1" />
+                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorMinimumLengthThresholdOptionLabel}"
+                           VerticalTextAlignment="Center"
+                           Grid.Row="1" />
+                    <Entry x:Name="MinimumLengthThresholdSetting"
+                           Text="0"
+                           Keyboard="Numeric"
+                           Grid.Row="1"
+                           Grid.Column="1" />
+
+                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDismissKeyboardOptionLabel}"
+                           VerticalTextAlignment="Center"
+                           Grid.Row="2" />
+                    <Switch x:Name="AutoDismissKeyboardSetting"
+                            HorizontalOptions="End"
+                            Grid.Row="2"
+                            Grid.Column="1" />
                 </Grid>
             </Frame>
 
             <SearchBar Placeholder="{x:Static resources:AppResources.UserStoppedTypingBehaviorSearchBarPlaceholderText}" Margin="{StaticResource ContentPadding}">
                 <SearchBar.Behaviors>
                     <behaviors:UserStoppedTypingBehavior Command="{Binding SearchCommand}"
-                                                         StoppedTypingTimeThreshold="{Binding Path=Text, Source={x:Reference TypingThresholdSetting}}"
+                                                         StoppedTypingTimeThreshold="{Binding Path=Text, Source={x:Reference TimeThresholdSetting}}"
+                                                         MinimumLengthThreshold="{Binding Path=Text, Source={x:Reference MinimumLengthThresholdSetting}}"
                                                          ShouldDismissKeyboardAutomatically="{Binding Path=IsToggled, Source={x:Reference AutoDismissKeyboardSetting}}" />
                 </SearchBar.Behaviors>
             </SearchBar>
