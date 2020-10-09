@@ -9,12 +9,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			BindableProperty.Create(nameof(RequiredString), typeof(string),
 				typeof(RequiredStringValidationBehavior));
 		
-		protected override bool Validate(object value) => value?.ToString() == RequiredString;
-
 		public string RequiredString
 		{
 			get => (string)GetValue(RequiredStringProperty);
 			set => SetValue(RequiredStringProperty, value);
 		}
+		
+		protected override bool Validate(object value) 
+			=> value?.ToString() == RequiredString;
 	}
 }
