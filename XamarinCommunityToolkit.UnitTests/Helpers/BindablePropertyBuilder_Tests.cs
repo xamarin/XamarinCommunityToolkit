@@ -13,7 +13,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var propertyName = "adsf";
 
-			var bindableProperty = BindablePropertyBuilder.InitializeWithPropertyName(propertyName)
+			var bindableProperty = BindablePropertyBuilder.CreateBuilder()
+														  .SetPropertyName(propertyName)
 														  .SetReturnType<string>()
 														  .SetDeclaringType<object>()
 														  .Build();
@@ -27,7 +28,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var returnType = typeof(string);
 
-			var bindableProperty = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+			var bindableProperty = BindablePropertyBuilder.CreateBuilder()
+														  .SetPropertyName("asdf")
 														  .SetReturnType(returnType)
 														  .SetDeclaringType<object>()
 														  .Build();
@@ -38,7 +40,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		[Fact]
 		public void SetReturnTypeGenericShouldSetBindablePropertyReturnType()
 		{
-			var bindableProperty = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+			var bindableProperty = BindablePropertyBuilder.CreateBuilder()
+														  .SetPropertyName("asdf")
 														  .SetReturnType<string>()
 														  .SetDeclaringType<object>()
 														  .Build();
@@ -52,7 +55,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var declaringType = typeof(int);
 
-			var bindableProperty = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+			var bindableProperty = BindablePropertyBuilder.CreateBuilder()
+														  .SetPropertyName("asdf")
 														  .SetReturnType<string>()
 														  .SetDeclaringType(declaringType)
 														  .Build();
@@ -63,7 +67,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		[Fact]
 		public void SetDeclaringTypeGenericShouldSetBindablePropertyDeclaringType()
 		{
-			var bindableProperty = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+			var bindableProperty = BindablePropertyBuilder.CreateBuilder()
+														  .SetPropertyName("asdf")
 														  .SetReturnType<string>()
 														  .SetDeclaringType<object>()
 														  .Build();
@@ -77,7 +82,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var defaultValue = Guid.NewGuid();
 
-			var bindableProperty = BindablePropertyBuilder.InitializeWithPropertyName("guid")
+			var bindableProperty = BindablePropertyBuilder.CreateBuilder()
+				.SetPropertyName("guid")
 				.SetReturnType<Guid>()
 				.SetDeclaringType<object>()
 				.SetDefaultValue(defaultValue)
@@ -92,7 +98,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var defaultBindingMode = BindingMode.TwoWay;
 
-			var bindableProperty = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+			var bindableProperty = BindablePropertyBuilder.CreateBuilder()
+				.SetPropertyName("asdf")
 				.SetReturnType<object>()
 				.SetDeclaringType<object>()
 				.SetDefaultBindingMode(defaultBindingMode)
@@ -114,7 +121,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 
 			_ = new TestControl
 			{
-				TestValueProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(TestControl.TestValue))
+				TestValueProperty = BindablePropertyBuilder.CreateBuilder()
+					.SetPropertyName(nameof(TestControl.TestValue))
 					.SetReturnType<int>()
 					.SetDeclaringType<TestControl>()
 					.SetValidateValueDelegate(validateValueDelegate)
@@ -137,7 +145,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 
 			_ = new TestControl
 			{
-				TestValueProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(TestControl.TestValue))
+				TestValueProperty = BindablePropertyBuilder.CreateBuilder()
+					.SetPropertyName(nameof(TestControl.TestValue))
 					.SetReturnType<int>()
 					.SetDeclaringType<TestControl>()
 					.SetPropertyChangedDelegate(propertyChangedDelegate)
@@ -160,7 +169,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 
 			_ = new TestControl
 			{
-				TestValueProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(TestControl.TestValue))
+				TestValueProperty = BindablePropertyBuilder.CreateBuilder()
+					.SetPropertyName(nameof(TestControl.TestValue))
 					.SetReturnType<int>()
 					.SetDeclaringType<TestControl>()
 					.SetPropertyChangingDelegate(propertyChangingDelegate)
@@ -184,7 +194,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 
 			_ = new TestControl
 			{
-				TestValueProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(TestControl.TestValue))
+				TestValueProperty = BindablePropertyBuilder.CreateBuilder()
+					.SetPropertyName(nameof(TestControl.TestValue))
 					.SetReturnType<int>()
 					.SetDeclaringType<TestControl>()
 					.SetCoerceValueDelegate(coerceValueDelegate)
@@ -208,7 +219,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 
 			_ = new TestControl
 			{
-				TestValueProperty = BindablePropertyBuilder.InitializeWithPropertyName(nameof(TestControl.TestValue))
+				TestValueProperty = BindablePropertyBuilder.CreateBuilder()
+					.SetPropertyName(nameof(TestControl.TestValue))
 					.SetReturnType<int>()
 					.SetDeclaringType<TestControl>()
 					.SetCreateDefaultValueDelegate(createDefaultValueDelegate)
@@ -229,7 +241,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 
 			var buildAction = new Action(() =>
 			{
-				_ = BindablePropertyBuilder.InitializeWithPropertyName(propertyName)
+				_ = BindablePropertyBuilder.CreateBuilder()
+										   .SetPropertyName(propertyName)
 										   .SetReturnType<string>()
 										   .SetDeclaringType<object>()
 										   .Build();
@@ -243,7 +256,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var buildAction = new Action(() =>
 			{
-				_ = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+				_ = BindablePropertyBuilder.CreateBuilder()
+										   .SetPropertyName("asdf")
 										   .SetReturnType(null)
 										   .SetDeclaringType<object>()
 										   .Build();
@@ -257,7 +271,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var buildAction = new Action(() =>
 			{
-				_ = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+				_ = BindablePropertyBuilder.CreateBuilder()
+										   .SetPropertyName("asdf")
 										   .SetDeclaringType<object>()
 										   .Build();
 			});
@@ -270,7 +285,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var buildAction = new Action(() =>
 			{
-				_ = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+				_ = BindablePropertyBuilder.CreateBuilder()
+										   .SetPropertyName("asdf")
 										   .SetReturnType<object>()
 										   .SetDeclaringType(null)
 										   .Build();
@@ -284,7 +300,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var buildAction = new Action(() =>
 			{
-				_ = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+				_ = BindablePropertyBuilder.CreateBuilder()
+										   .SetPropertyName("asdf")
 										   .SetReturnType<object>()
 										   .Build();
 			});
@@ -297,7 +314,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		{
 			var buildAction = new Action(() =>
 			{
-				_ = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+				_ = BindablePropertyBuilder.CreateBuilder()
+										   .SetPropertyName("asdf")
 										   .SetDeclaringType<object>()
 										   .SetReturnType<DateTime>()
 										   .SetDefaultValue(123)
@@ -310,14 +328,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers
 		[Fact]
 		public void CallingBuildMultipleTimesShouldCreateNewInstanceOfBindablePropertyParameters()
 		{
-			var bp1 = BindablePropertyBuilder.InitializeWithPropertyName("asdf")
+			var bp1 = BindablePropertyBuilder.CreateBuilder()
+											 .SetPropertyName("asdf")
 											 .SetDeclaringType<object>()
 											 .SetReturnType<Guid>()
 											 .SetDefaultValue(Guid.NewGuid())
 											 .Build();
 
 			// purposely skipping SetDefaultValue on bp2 to ensure the builder doesn't use bp1's default value
-			var bp2 = BindablePropertyBuilder.InitializeWithPropertyName("qwerty")
+			var bp2 = BindablePropertyBuilder.CreateBuilder()
+											 .SetPropertyName("qwerty")
 											 .SetDeclaringType<object>()
 											 .SetReturnType<Guid>()
 											 .Build();
