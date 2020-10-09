@@ -54,9 +54,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			base.OnElementPropertyChanged(args);
 
 			if (args.PropertyName == FormattedTextEffect.FormattedTextProperty.PropertyName)
-			{
 				UpdateFormattedText();
-			}
 		}
 
 		void OnTextChanged(object sender, global::Android.Text.TextChangedEventArgs args)
