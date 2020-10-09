@@ -14,6 +14,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty StoppedTypingTimeThresholdProperty
 			= BindableProperty.Create(nameof(StoppedTypingTimeThreshold), typeof(int), typeof(UserStoppedTypingBehavior), 1000);
 
+		public static readonly BindableProperty MinimumLengthThresholdProperty
+			= BindableProperty.Create(nameof(MinimumLengthThreshold), typeof(int), typeof(UserStoppedTypingBehavior), 0);
+
 		public static readonly BindableProperty ShouldDismissKeyboardAutomaticallyProperty
 			= BindableProperty.Create(nameof(ShouldDismissKeyboardAutomatically), typeof(bool), typeof(UserStoppedTypingBehavior), false);
 
@@ -29,6 +32,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			get => (int)GetValue(StoppedTypingTimeThresholdProperty);
 			set => SetValue(StoppedTypingTimeThresholdProperty, value);
+		}
+
+		public int MinimumLengthThreshold
+		{
+			get => (int)GetValue(MinimumLengthThresholdProperty);
+			set => SetValue(MinimumLengthThresholdProperty, value);
 		}
 
 		public bool ShouldDismissKeyboardAutomatically
@@ -56,7 +65,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			_ = Task.Delay(StoppedTypingTimeThreshold, tokenSource.Token)
 				.ContinueWith(task =>
 				{
-					if (task.Status == TaskStatus.Canceled)
+					if (task.Status == TaskStatus.Canceled ||
+						View.Text.Length < MinimumLengthThreshold)
 						return;
 
 					if (ShouldDismissKeyboardAutomatically)
