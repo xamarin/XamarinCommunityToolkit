@@ -20,7 +20,9 @@ namespace Xamarin.CommunityToolkit.Core
 		}
 
 		public static implicit operator MediaSource(string source) =>
-			Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file" ? FromUri(uri) : FromFile(source);
+			Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file" 
+				? FromUri(uri) 
+				: FromFile(source);
 
 		public static implicit operator MediaSource(Uri uri)
 		{
