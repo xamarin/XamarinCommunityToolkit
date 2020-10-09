@@ -10,11 +10,11 @@
         <viewmodels:ContentButtonViewModel />
     </pages:BasePage.BindingContext>
 
-    <StackLayout Spacing="20">
-        <views:ContentButton Margin="{StaticResource ContentPadding}"
-                CornerRadius="8"
-                Clicked="ContentButton_Clicked"
-                BackgroundColor="White"
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+           RowDefinitions="Auto,*">
+        <views:ContentButton Grid.Row="0"
+                Margin="{StaticResource ContentPadding}" CornerRadius="8"
+                Command="{Binding TappedCommand}" BackgroundColor="White"
                 BorderColor="#8a8a8a">
             <views:ContentButton.Content>
                 <Grid ColumnSpacing="20">
@@ -32,5 +32,14 @@
                 </Grid>
             </views:ContentButton.Content>
         </views:ContentButton>
-    </StackLayout>
+        <Label  Grid.Row="1" HorizontalOptions="Center"
+                VerticalOptions="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{Binding Counter}" />
+                    <Span Text="{rsx:Translate ContentButtonTapMessage}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </Grid>
 </pages:BasePage>

@@ -480,9 +480,9 @@ If the user manually assigns a row or column on a view, it will be honored.</val
     <value>ContentButton allows you to add content view to a button</value>
   </data>
   <data name="ContentButtonTapDescription" xml:space="preserve">
-    <value>Tap here to see the snackbar</value>
+    <value>Tap here</value>
   </data>
   <data name="ContentButtonTapMessage" xml:space="preserve">
-    <value>You have clicked the ContentButton</value>
+    <value> ContentButton clicks</value>
   </data>
 </root>
