@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
+using XCT = Xamarin.CommunityToolkit.Core;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -101,9 +102,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		[Forms.TypeConverter(typeof(MediaSourceConverter))]
-		public MediaSource Source
+		public XCT.MediaSource Source
 		{
-			get => (MediaSource)GetValue(SourceProperty);
+			get => (XCT.MediaSource)GetValue(SourceProperty);
 			set => SetValue(SourceProperty, value);
 		}
 
@@ -217,9 +218,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnSourcePropertyChanged(BindableObject bindable, object oldvalue, object newvalue) =>
-			((MediaElement)bindable).OnSourcePropertyChanged((MediaSource)newvalue);
+			((MediaElement)bindable).OnSourcePropertyChanged((XCT.MediaSource)newvalue);
 
-		void OnSourcePropertyChanged(MediaSource newvalue)
+		void OnSourcePropertyChanged(XCT.MediaSource newvalue)
 		{
 			if (newvalue != null)
 			{
@@ -231,9 +232,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnSourcePropertyChanging(BindableObject bindable, object oldvalue, object newvalue) =>
-			((MediaElement)bindable).OnSourcePropertyChanging((MediaSource)oldvalue);
+			((MediaElement)bindable).OnSourcePropertyChanging((XCT.MediaSource)oldvalue);
 
-		void OnSourcePropertyChanging(MediaSource oldvalue)
+		void OnSourcePropertyChanging(XCT.MediaSource oldvalue)
 		{
 			if (oldvalue == null)
 				return;
