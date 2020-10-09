@@ -41,8 +41,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			new SectionModel(
 				typeof(RequiredStringValidationBehaviorPage),
 				nameof(RequiredStringValidationBehavior),
-				AppResources.RequiredStringValidationShortDescription
-			),
+				AppResources.RequiredStringValidationShortDescription),
 			new SectionModel(
 				typeof(UserStoppedTypingBehaviorPage),
 				nameof(UserStoppedTypingBehavior),
