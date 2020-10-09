@@ -55,15 +55,21 @@ namespace Xamarin.CommunityToolkit.Helpers
 		/// </summary>
 		public BindableProperty.ValidateValueDelegate ValidateValueDelegate { get; set; }
 
-		public BindablePropertyParameters()
+		public BindablePropertyParameters() => ResetParameters();
+
+		public void ResetParameters()
 		{
-			DefaultValue = null;
+			DeclaringType = null;
 			DefaultBindingMode = BindingMode.OneWay;
-			ValidateValueDelegate = null;
+			DefaultValue = null;
+			PropertyName = null;
+			ReturnType = null;
+
 			BindingPropertyChangedDelegate = null;
 			BindingPropertyChangingDelegate = null;
 			CoerceValueDelegate = null;
 			CreateDefaultValueDelegate = null;
+			ValidateValueDelegate = null;
 		}
 	}
 }
