@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			new SectionModel(
 				typeof(ImpliedOrderGridBehaviorPage),
 				nameof(ImpliedOrderGridBehavior),
-				AppResources.AutoGridLayoutBehaviorDescription),
+				AppResources.AutoGridLayoutBehaviorDescription)
 		};
 	}
 }
