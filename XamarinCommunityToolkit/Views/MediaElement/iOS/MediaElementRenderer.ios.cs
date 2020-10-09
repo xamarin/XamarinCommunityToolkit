@@ -137,7 +137,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				try
 				{
 					avPlayerViewController?.Player?.CurrentItem?.RemoveObserver(statusObserver, "status");
+					statusObserver.Dispose();
 				}
+				catch
+                {
+                }
 				finally
 				{
 					statusObserver = null;
@@ -202,10 +206,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get
 			{
-				if (avPlayerViewController.Player?.CurrentTime.IsInvalid ?? true)
+				if (avPlayerViewController?.Player?.CurrentTime.IsInvalid ?? true)
 					return TimeSpan.Zero;
-
-				return TimeSpan.FromSeconds(avPlayerViewController.Player.CurrentTime.Seconds);
+				else
+					return TimeSpan.FromSeconds(avPlayerViewController.Player.CurrentTime.Seconds);
 			}
 		}
 
@@ -380,8 +384,34 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (playedToEndObserver != null)
 				{
-					NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
-					playedToEndObserver = null;
+					try
+					{
+						NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
+						playedToEndObserver.Dispose();
+					}
+					catch
+					{
+					}
+					finally
+					{
+						playedToEndObserver = null;
+					}
+				}
+
+				if (rateObserver != null)
+				{
+					try
+					{
+						avPlayerViewController?.Player?.RemoveObserver(rateObserver, "rate");
+						rateObserver.Dispose();
+					}
+					catch
+					{
+					}
+					finally
+					{
+						rateObserver = null;
+					}
 				}
 
 				SetKeepScreenOn(false);
