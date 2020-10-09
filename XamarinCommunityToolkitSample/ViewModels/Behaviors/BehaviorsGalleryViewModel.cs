@@ -45,8 +45,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			new SectionModel(
 				typeof(UserStoppedTypingBehaviorPage),
 				nameof(UserStoppedTypingBehavior),
-				AppResources.UserStoppedTypingBehaviorShortDescription
-			),
+				AppResources.UserStoppedTypingBehaviorShortDescription),
 			new SectionModel(
 				typeof(ImpliedOrderGridBehaviorPage),
 				nameof(ImpliedOrderGridBehavior),
