@@ -39,7 +39,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				nameof(MultiValidationBehavior),
 				AppResources.MultiValidationShortDescription),
 			new SectionModel(
-<<<<<<< HEAD
 				typeof(RequiredStringValidationBehaviorPage),
 				nameof(RequiredStringValidationBehavior),
 				AppResources.RequiredStringValidationShortDescription
@@ -48,16 +47,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 					typeof(UserStoppedTypingBehaviorPage),
 					nameof(UserStoppedTypingBehavior),
 					AppResources.UserStoppedTypingBehaviorShortDescription
-			)
-=======
-				typeof(UserStoppedTypingBehaviorPage),
-				nameof(UserStoppedTypingBehavior),
-				AppResources.UserStoppedTypingBehaviorShortDescription),
+			),
 			new SectionModel(
 				typeof(ImpliedOrderGridBehaviorPage),
 				nameof(ImpliedOrderGridBehavior),
-				AppResources.AutoGridLayoutBehaviorDescription)
->>>>>>> upstream/main
+				AppResources.AutoGridLayoutBehaviorDescription),
 		};
 	}
 }
