@@ -191,7 +191,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			overlayView = SetupMainViewLayout(new BoxView
 			{
 				InputTransparent = true,
-				BackgroundColor = Color.Transparent,
+				Color = Color.Transparent,
 				GestureRecognizers =
 				{
 					new TapGestureRecognizer
