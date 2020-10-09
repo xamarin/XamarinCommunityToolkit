@@ -184,7 +184,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 											 coerceValue: bpParameters.CoerceValueDelegate,
 											 defaultValueCreator: bpParameters.CreateDefaultValueDelegate);
 
-			bpParameters = new BindablePropertyParameters();
+			bpParameters.ResetParameters();
 
 			return bp;
 		}
