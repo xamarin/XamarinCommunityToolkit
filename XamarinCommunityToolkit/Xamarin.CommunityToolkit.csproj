@@ -56,6 +56,9 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
+    <DefineConstants>UWP</DefineConstants>
+  </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage Xamarin.Forms version for development -->
     <PackageReference Include="Xamarin.Forms" Version="4.7.0.968" />
@@ -206,5 +209,9 @@
       <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\pango-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Snackbar\Helpers\WPF\" />
   </ItemGroup>
 </Project>
