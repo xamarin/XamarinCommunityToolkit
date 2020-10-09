@@ -111,8 +111,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(CommandProperty, value);
 		}
 
-		ContentView contentHolder;
-
 		DataTemplate previousTemplate;
 
 		readonly object contentSetLocker = new object();
@@ -138,11 +136,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetContent()
 		{
-			if (contentHolder != null)
-			{
-				Control.Content = null;
-				contentHolder = null;
-			}
 			if (Content != null)
 			{
 				Control.Padding = new Thickness(0);
