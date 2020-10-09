@@ -20,19 +20,11 @@ namespace Xamarin.CommunityToolkit.Core
 		}
 
 		public static implicit operator MediaSource(string source) =>
-			Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file" 
-				? FromUri(uri) 
+			Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file"
+				? FromUri(uri)
 				: FromFile(source);
 
-		public static implicit operator MediaSource(Uri uri)
-		{
-			if (uri == null)
-				return null;
-			if (!uri.IsAbsoluteUri)
-				throw new ArgumentException("uri is relative");
-
-			return FromUri(uri);
-		}
+		public static implicit operator MediaSource(Uri uri) => uri == null ? null : FromUri(uri);
 
 		protected void OnSourceChanged() =>
 			weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(SourceChanged));

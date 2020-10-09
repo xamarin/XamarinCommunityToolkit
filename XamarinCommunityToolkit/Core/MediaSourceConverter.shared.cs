@@ -10,9 +10,9 @@ namespace Xamarin.CommunityToolkit.Core
 		{
 			if (value == null)
 				throw new InvalidOperationException($"Cannot convert \"{value}\" into {typeof(MediaSource)}");
-				
-			return Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme != "file" 
-				? MediaSource.FromUri(uri) 
+
+			return Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme != "file"
+				? MediaSource.FromUri(uri)
 				: MediaSource.FromFile(value);
 		}
 	}
