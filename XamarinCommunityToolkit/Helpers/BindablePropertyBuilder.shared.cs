@@ -5,19 +5,34 @@ namespace Xamarin.CommunityToolkit.Helpers
 {
 	public sealed class BindablePropertyBuilder
 	{
-		BindablePropertyParameters bpParameters = new BindablePropertyParameters();
+		static readonly Lazy<BindablePropertyBuilder> lazyBindablePropertyBuilder = new Lazy<BindablePropertyBuilder>(() => new BindablePropertyBuilder());
+
+		readonly BindablePropertyParameters bpParameters;
+
+		BindablePropertyBuilder() => bpParameters = new BindablePropertyParameters();
 
 		/// <summary>
-		/// Creates a new instance of <see cref="BindablePropertyBuilder"/> while setting name of the
+		/// Resets the <see cref="BindablePropertyParameters"/> to its default values and
+		/// returns the <see cref="BindablePropertyBuilder"/> singleton
+		/// </summary>
+		/// <returns>The <see cref="BindablePropertyBuilder"/> singleton</returns>
+		public static BindablePropertyBuilder CreateBuilder()
+		{
+			var bpbSingleton = lazyBindablePropertyBuilder.Value;
+			bpbSingleton.bpParameters.ResetParameters();
+			return bpbSingleton;
+		}
+
+		/// <summary>
+		/// (Required) Sets the name of the property that is bound to the <see cref="BindableProperty"/>
 		/// property that is bound to the <see cref="BindableProperty"/>
 		/// </summary>
 		/// <param name="propertyName">The name of the property that is bound to the <see cref="BindableProperty"/></param>
 		/// <returns>The <see cref="BindablePropertyBuilder"/> to support the fluent syntax</returns>
-		public static BindablePropertyBuilder InitializeWithPropertyName(string propertyName)
+		public BindablePropertyBuilder SetPropertyName(string propertyName)
 		{
-			var bpb = new BindablePropertyBuilder();
-			bpb.bpParameters.PropertyName = propertyName;
-			return bpb;
+			bpParameters.PropertyName = propertyName;
+			return this;
 		}
 
 		/// <summary>
