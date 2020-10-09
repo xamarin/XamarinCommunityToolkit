@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Controls;
-using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
+using Xamarin.CommunityToolkit.UI.Views.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -12,77 +11,54 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		static DispatcherTimer snackbarTimer;
 
+		T FindVisualChildByName<T>(DependencyObject parent, string name) where T : DependencyObject
+		{
+			var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
+
+			for (var i = 0; i < childrenCount; i++)
+			{
+				var child = VisualTreeHelper.GetChild(parent, i);
+				var controlName = child.GetValue(FrameworkElement.NameProperty) as string;
+
+				if (controlName == name)
+				{
+					return child as T;
+				}
+
+				var control = FindVisualChildByName<T>(child, name);
+				if (control != null)
+					return control;
+			}
+
+			return null;
+		}
+
 		internal void Show(Forms.Page page, SnackbarArguments arguments)
 		{
-			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent as PageControl;
-			var sender = new ExtendedPageControl(pageControl);
+
+			var snackBarLayout = new SnackbarLayout(arguments.Message, arguments.ActionButtonText, arguments.Action);
+			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;
+			var grid = FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea").Parent as Grid;
+			var snackBarRow = new RowDefinition() { Height = GridLength.Auto };
 			snackbarTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(arguments.Duration) };
-			snackbarTimer.Tick += delegate
+			snackbarTimer.Tick += (sender, e) =>
 			{
-				sender.HideSnackBar();
+				grid.Children.Remove(snackBarLayout);
+				grid.RowDefinitions.Remove(snackBarRow);
 				snackbarTimer.Stop();
 				arguments.SetResult(false);
 			};
-			sender.OnSnackbarActionExecuted += delegate
+			snackBarLayout.OnSnackbarActionExecuted += () =>
 			{
-				sender.HideSnackBar();
+				grid.Children.Remove(snackBarLayout);
+				grid.RowDefinitions.Remove(snackBarRow);
 				snackbarTimer.Stop();
 				arguments.SetResult(true);
 			};
 			snackbarTimer.Start();
-			sender.ShowSnackBar(arguments.Message, arguments.ActionButtonText, arguments.Action);
-		}
-
-		class ExtendedPageControl : ContentControl
-		{
-			public ExtendedPageControl(PageControl pageControl)
-			{
-
-			}
-
-			public static readonly DependencyProperty SnackbarActionCommandProperty = DependencyProperty.Register("SnackbarActionCommand", typeof(ICommand), typeof(PageControl), new PropertyMetadata(null));
-			public static readonly DependencyProperty SnackbarActionButtonTextProperty = DependencyProperty.Register("SnackbarActionButtonText", typeof(string), typeof(PageControl), new PropertyMetadata(null));
-			public static readonly DependencyProperty SnackbarMessageProperty = DependencyProperty.Register("SnackbarMessage", typeof(string), typeof(PageControl), new PropertyMetadata(null));
-			public string SnackbarActionButtonText
-			{
-				get { return (string)GetValue(SnackbarActionButtonTextProperty); }
-				private set { SetValue(SnackbarActionButtonTextProperty, value); }
-			}
-
-			public ICommand SnackbarActionCommand
-			{
-				get { return (ICommand)GetValue(SnackbarActionCommandProperty); }
-				private set { SetValue(SnackbarActionCommandProperty, value); }
-			}
-
-			public string SnackbarMessage
-			{
-				get { return (string)GetValue(SnackbarMessageProperty); }
-				private set { SetValue(SnackbarMessageProperty, value); }
-			}
-
-			public Action OnSnackbarActionExecuted;
-			public void ShowSnackBar(string message, string actionButtonText, Func<Task> action)
-			{
-				SnackbarMessage = message;
-				SnackbarActionButtonText = actionButtonText;
-				if (action != null)
-				{
-					SnackbarActionCommand = new Command(async () =>
-					{
-						OnSnackbarActionExecuted?.Invoke();
-						await action();
-					});
-				}
-			}
-
-			public void HideSnackBar()
-			{
-				SnackbarMessage = null;
-				SnackbarActionButtonText = null;
-				SnackbarActionCommand = null;
-			}
+			grid.RowDefinitions.Add(snackBarRow);
+			grid.Children.Add(snackBarLayout);
+			Grid.SetRow(snackBarLayout, grid.RowDefinitions.Count - 1);
 		}
 	}
-
 }
