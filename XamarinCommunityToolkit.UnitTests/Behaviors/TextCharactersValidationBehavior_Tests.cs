@@ -19,7 +19,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		[InlineData(CharacterType.Digit, 1, int.MaxValue, "-1d", true)]
 		[InlineData(CharacterType.LetterOrDigit, 2, int.MaxValue, "@-3r", true)]
 		[InlineData(CharacterType.Symbol, 10, int.MaxValue, "@-&^%!+()/", true)]
-		[InlineData(CharacterType.WhiteSpace, 0, int.MaxValue, ";lkjhgfd@+fasf", true)]
+		[InlineData(CharacterType.LowercaseBasicLatinLetter, 2, int.MaxValue, "HHHH a    r.", true)]
+		[InlineData(CharacterType.UppercaseBasicLatinLetter, 2, int.MaxValue, "aaaaaa....R.R.R.aaaa", true)]
+		[InlineData(CharacterType.BasicLatinLetter, 5, int.MaxValue, "12345bBbBb", true)]
+		[InlineData(CharacterType.Whitespace, 0, int.MaxValue, ";lkjhgfd@+fasf", true)]
 		[InlineData(CharacterType.Any, 2, 2, "A", false)]
 		[InlineData(CharacterType.Any, 2, 2, "AaA", false)]
 		[InlineData(CharacterType.Any, 1, int.MaxValue, "", false)]
@@ -30,7 +33,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		[InlineData(CharacterType.Digit, 1, int.MaxValue, "-d", false)]
 		[InlineData(CharacterType.LetterOrDigit, 2, int.MaxValue, "@-3", false)]
 		[InlineData(CharacterType.Symbol, 1, int.MaxValue, "WWWWWWWW", false)]
-		[InlineData(CharacterType.WhiteSpace, 0, 0, "WWWWWW WWWWW", false)]
+		[InlineData(CharacterType.LowercaseBasicLatinLetter, 1, int.MaxValue, "Кириллица", false)]
+		[InlineData(CharacterType.UppercaseBasicLatinLetter, 1, int.MaxValue, "КИРИЛЛИЦА", false)]
+		[InlineData(CharacterType.BasicLatinLetter, 1, int.MaxValue, "Это Кириллица!", false)]
+		[InlineData(CharacterType.Whitespace, 0, 0, "WWWWWW WWWWW", false)]
 		public void IsValid(CharacterType characterType, int minimumCharactersNumber, int maximumCharactersNumber, string value, bool expectedValue)
 		{
 			var behavior = new TextCharactersValidationBehavior

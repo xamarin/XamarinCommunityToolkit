@@ -48,26 +48,32 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			OnValidationPropertyChanged(bindable, oldValue, newValue);
 		}
 
-		void OnCharacterTypePropertyChanged()
-			=> characterPredicates = GetCharacterPredicates().ToList();
-
-		IEnumerable<Predicate<char>> GetCharacterPredicates()
+		static IEnumerable<Predicate<char>> GetCharacterPredicates(CharacterType characterType)
 		{
-			if (CharacterType.HasFlag(CharacterType.LowercaseLetter))
+			if (characterType.HasFlag(CharacterType.LowercaseLetter))
 				yield return char.IsLower;
 
-			if (CharacterType.HasFlag(CharacterType.UppercaseLetter))
+			if (characterType.HasFlag(CharacterType.UppercaseLetter))
 				yield return char.IsUpper;
 
-			if (CharacterType.HasFlag(CharacterType.Digit))
+			if (characterType.HasFlag(CharacterType.Digit))
 				yield return char.IsDigit;
 
-			if (CharacterType.HasFlag(CharacterType.WhiteSpace))
+			if (characterType.HasFlag(CharacterType.Whitespace))
 				yield return char.IsWhiteSpace;
 
-			if (CharacterType.HasFlag(CharacterType.Symbol))
-				yield return c => !char.IsLetterOrDigit(c);
+			if (characterType.HasFlag(CharacterType.Symbol))
+				yield return c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c);
+
+			if (characterType.HasFlag(CharacterType.LowercaseBasicLatinLetter))
+				yield return c => c >= 'a' && c <= 'z';
+
+			if (characterType.HasFlag(CharacterType.UppercaseBasicLatinLetter))
+				yield return c => c >= 'A' && c <= 'Z';
 		}
+
+		void OnCharacterTypePropertyChanged()
+			=> characterPredicates = GetCharacterPredicates(CharacterType).ToList();
 
 		bool Validate(string value)
 		{
