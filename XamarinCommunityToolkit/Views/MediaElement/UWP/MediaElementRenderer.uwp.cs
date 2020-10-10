@@ -6,7 +6,6 @@ using Xamarin.Forms.Platform.UWP;
 using Controls = Windows.UI.Xaml.Controls;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
-//using XCT = Xamarin.CommunityToolkit.Core;
 using WMediaElementState = Windows.UI.Xaml.Media.MediaElementState;
 
 [assembly: ExportRenderer(typeof(ToolKitMediaElement), typeof(ToolKitMediaElementRenderer))]
