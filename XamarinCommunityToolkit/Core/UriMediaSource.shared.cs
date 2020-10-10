@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Core
 	public sealed class UriMediaSource : MediaSource
 	{
 		public static readonly BindableProperty UriProperty =
-			BindableProperty.Create(nameof(Uri), typeof(Uri), typeof(UriMediaSource), default(Uri), propertyChanged: OnUriSourceChanged, validateValue: UriValueValidator);
+			BindableProperty.Create(nameof(Uri), typeof(Uri), typeof(UriMediaSource), propertyChanged: OnUriSourceChanged, validateValue: UriValueValidator);
 
 		static bool UriValueValidator(BindableObject bindable, object value) =>
 			value == null || ((Uri)value).IsAbsoluteUri;
