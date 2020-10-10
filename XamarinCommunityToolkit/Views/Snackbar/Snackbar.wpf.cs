@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Input;
+﻿using System.Windows.Forms;
+using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF.Controls;
+using Xamarin.Forms.Platform.WPF.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -14,75 +12,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal void Show(Page page, SnackbarArguments arguments)
 		{
-			if (System.Windows.Application.Current.MainWindow is MyFormsWindow window)
+			var formsAppBar = System.Windows.Application.Current.MainWindow.FindChild<FormsAppBar>("PART_BottomAppBar");
+			var currentContent = formsAppBar.Content;
+			var snackBar = new SnackbarLayout(arguments.Message, arguments.ActionButtonText, arguments.Action);
+			snackbarTimer = new Timer { Interval = arguments.Duration };
+			snackbarTimer.Tick += (sender, e) =>
 			{
-				snackbarTimer = new Timer { Interval = arguments.Duration };
-				snackbarTimer.Tick += delegate
-				{
-					window.HideSnackBar();
-					snackbarTimer.Stop();
-					arguments.SetResult(false);
-				};
-				window.OnSnackbarActionExecuted += delegate
-				{
-					window.HideSnackBar();
-					snackbarTimer.Stop();
-					arguments.SetResult(true);
-				};
-				snackbarTimer.Start();
-				window.ShowSnackBar(arguments.Message, arguments.ActionButtonText, arguments.Action);
-			}
-			else
-			{
+				formsAppBar.Content = currentContent;
+				snackbarTimer.Stop();
 				arguments.SetResult(false);
-			}
-		}
-
-		class MyFormsWindow : FormsWindow
-		{
-			public static readonly DependencyProperty SnackbarActionCommandProperty = DependencyProperty.Register("SnackbarActionCommand", typeof(ICommand), typeof(FormsWindow));
-			public static readonly DependencyProperty SnackbarActionButtonTextProperty = DependencyProperty.Register("SnackbarActionButtonText", typeof(string), typeof(FormsWindow));
-			public static readonly DependencyProperty SnackbarMessageProperty = DependencyProperty.Register("SnackbarMessage", typeof(string), typeof(FormsWindow));
-
-			public string SnackbarActionButtonText
+			};
+			snackBar.OnSnackbarActionExecuted += () =>
 			{
-				get { return (string)GetValue(SnackbarActionButtonTextProperty); }
-				private set { SetValue(SnackbarActionButtonTextProperty, value); }
-			}
-
-			public ICommand SnackbarActionCommand
-			{
-				get { return (ICommand)GetValue(SnackbarActionCommandProperty); }
-				private set { SetValue(SnackbarActionCommandProperty, value); }
-			}
-
-			public string SnackbarMessage
-			{
-				get { return (string)GetValue(SnackbarMessageProperty); }
-				private set { SetValue(SnackbarMessageProperty, value); }
-			}
-			public Action OnSnackbarActionExecuted;
-			public void ShowSnackBar(string message, string actionButtonText, Func<Task> action)
-			{
-				SnackbarMessage = message;
-				SnackbarActionButtonText = actionButtonText;
-				if (action != null)
-				{
-					SnackbarActionCommand = new Command(async () =>
-					{
-						OnSnackbarActionExecuted?.Invoke();
-						await action();
-					});
-				}
-			}
-
-			public void HideSnackBar()
-			{
-				SnackbarMessage = null;
-				SnackbarActionButtonText = null;
-				SnackbarActionCommand = null;
-			}
+				formsAppBar.Content = currentContent;
+				snackbarTimer.Stop();
+				arguments.SetResult(true);
+			};
+			snackbarTimer.Start();
+			formsAppBar.Content = snackBar;
 		}
 	}
-
 }
