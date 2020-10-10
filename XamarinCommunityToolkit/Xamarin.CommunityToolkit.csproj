@@ -43,7 +43,7 @@
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage TargetFrameworks for distribution (Release Mode) -->
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' AND '$(OS)' == 'Windows_NT' ">
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <!-- Embed source files that are not tracked by the source control manager in the PDB -->
