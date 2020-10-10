@@ -123,8 +123,12 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\LauncherIcon.pdf" />
+    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\LauncherIcon.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
