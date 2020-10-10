@@ -12,11 +12,11 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty CharacterTypeProperty =
 			BindableProperty.Create(nameof(CharacterType), typeof(CharacterType), typeof(TextCharactersValidationBehavior), CharacterType.Any, propertyChanged: OnCharacterTypePropertyChanged);
 
-		public static readonly BindableProperty MinimumCharactersNumberProperty =
-			BindableProperty.Create(nameof(MinimumCharactersNumber), typeof(int), typeof(TextCharactersValidationBehavior), 0, propertyChanged: OnValidationPropertyChanged);
+		public static readonly BindableProperty MinimumCharacterCountProperty =
+			BindableProperty.Create(nameof(MinimumCharacterCount), typeof(int), typeof(TextCharactersValidationBehavior), 0, propertyChanged: OnValidationPropertyChanged);
 
-		public static readonly BindableProperty MaximumCharactersNumberProperty =
-			BindableProperty.Create(nameof(MaximumCharactersNumber), typeof(int), typeof(TextCharactersValidationBehavior), int.MaxValue, propertyChanged: OnValidationPropertyChanged);
+		public static readonly BindableProperty MaximumCharacterCountProperty =
+			BindableProperty.Create(nameof(MaximumCharacterCount), typeof(int), typeof(TextCharactersValidationBehavior), int.MaxValue, propertyChanged: OnValidationPropertyChanged);
 
 		public TextCharactersValidationBehavior()
 			=> OnCharacterTypePropertyChanged();
@@ -27,16 +27,16 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(CharacterTypeProperty, value);
 		}
 
-		public int MinimumCharactersNumber
+		public int MinimumCharacterCount
 		{
-			get => (int)GetValue(MinimumCharactersNumberProperty);
-			set => SetValue(MinimumCharactersNumberProperty, value);
+			get => (int)GetValue(MinimumCharacterCountProperty);
+			set => SetValue(MinimumCharacterCountProperty, value);
 		}
 
-		public int MaximumCharactersNumber
+		public int MaximumCharacterCount
 		{
-			get => (int)GetValue(MaximumCharactersNumberProperty);
-			set => SetValue(MaximumCharactersNumberProperty, value);
+			get => (int)GetValue(MaximumCharacterCountProperty);
+			set => SetValue(MaximumCharacterCountProperty, value);
 		}
 
 		protected override bool Validate(object value)
@@ -72,8 +72,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		bool Validate(string value)
 		{
 			var count = value?.ToCharArray().Count(character => characterPredicates.Any(predicate => predicate.Invoke(character))) ?? 0;
-			return count >= MinimumCharactersNumber
-				&& count <= MaximumCharactersNumber;
+			return count >= MinimumCharacterCount
+				&& count <= MaximumCharacterCount;
 		}
 	}
 }

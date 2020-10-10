@@ -36,8 +36,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			var behavior = new TextCharactersValidationBehavior
 			{
 				CharacterType = characterType,
-				MinimumCharactersNumber = minimumCharactersNumber,
-				MaximumCharactersNumber = maximumCharactersNumber
+				MinimumCharacterCount = minimumCharactersNumber,
+				MaximumCharacterCount = maximumCharactersNumber
 			};
 			var entry = new Entry
 			{
