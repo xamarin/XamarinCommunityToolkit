@@ -52,7 +52,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) ">
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) AND '$(OS)' == 'Windows_NT' ">
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
@@ -147,7 +147,7 @@
     <Compile Remove="**\Snackbar.shared.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net472')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net472')) AND '$(OS)' == 'Windows_NT' ">
     <Compile Include="**\*.wpf.cs" />
     <Compile Include="**\*.wpf.*.cs" />
     <Compile Remove="**\Snackbar.shared.cs" />
@@ -160,7 +160,7 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netcoreapp'))  ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) AND '$(OS)' == 'Windows_NT' ">
     <Compile Include="**\*.wpf.cs" />
     <Compile Include="**\*.wpf.*.cs" />
     <Compile Remove="**\Snackbar.shared.cs" />
@@ -168,7 +168,7 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net471')) ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net471')) AND '$(OS)' == 'Windows_NT' ">
     <Compile Include="**\*.gtk.cs" />
     <Compile Include="**\*.gtk.*.cs" />
     <Compile Remove="**\Snackbar.shared.cs" />
