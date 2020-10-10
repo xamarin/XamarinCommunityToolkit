@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(ShowsPlaybackControls), typeof(bool), typeof(MediaElement), true);
 
 		public static readonly BindableProperty SourceProperty =
-		  BindableProperty.Create(nameof(Source), typeof(MediaSource), typeof(MediaElement),
+		  BindableProperty.Create(nameof(Source), typeof(XCT.MediaSource), typeof(MediaElement),
 			  propertyChanging: OnSourcePropertyChanging, propertyChanged: OnSourcePropertyChanged);
 
 		public static readonly BindableProperty VideoHeightProperty =
@@ -101,7 +101,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		[Forms.TypeConverter(typeof(MediaSourceConverter))]
+		[Forms.TypeConverter(typeof(XCT.MediaSourceConverter))]
 		public XCT.MediaSource Source
 		{
 			get => (XCT.MediaSource)GetValue(SourceProperty);
