@@ -43,7 +43,7 @@
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage TargetFrameworks for distribution (Release Mode) -->
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <!-- Embed source files that are not tracked by the source control manager in the PDB -->
@@ -147,7 +147,7 @@
     <Compile Remove="**\Snackbar.shared.cs" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net472')) AND '$(OS)' == 'Windows_NT' ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net472')) ">
     <Compile Include="**\*.wpf.cs" />
     <Compile Include="**\*.wpf.*.cs" />
     <Compile Remove="**\Snackbar.shared.cs" />
@@ -168,7 +168,7 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net471')) AND '$(OS)' == 'Windows_NT' ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net471')) ">
     <Compile Include="**\*.gtk.cs" />
     <Compile Include="**\*.gtk.*.cs" />
     <Compile Remove="**\Snackbar.shared.cs" />
