@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 {
 	class MockPlatformServices : IPlatformServices
 	{
-		public string GetHash(string input) 
+		public string GetHash(string input)
 			=> string.Empty;
 
 		public string GetMD5Hash(string input)
@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 		public double GetNamedSize(NamedSize size, Type targetElement, bool useOldSizes)
 			=> 0;
 
-		public Color GetNamedColor(string name) 
+		public Color GetNamedColor(string name)
 			=> Color.Default;
 
 		public void OpenUriAction(Uri uri)

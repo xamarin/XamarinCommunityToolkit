@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			// act
 			entry.Text = "1";
 			await Task.Delay(10);
-            
+
 			// assert
 			Assert.False(commandHasBeenExecuted);
 		}

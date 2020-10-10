@@ -1,5 +1,5 @@
-﻿using Gtk;
-using System.Timers;
+﻿using System.Timers;
+using Gtk;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.GTK;
 
