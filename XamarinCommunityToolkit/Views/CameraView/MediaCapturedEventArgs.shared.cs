@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
 using Xamarin.Forms;
+using XCT = Xamarin.CommunityToolkit.Core;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaCapturedEventArgs : EventArgs
 	{
 		readonly Lazy<ImageSource> imageSource;
-		readonly Lazy<MediaSource> mediaSource;
+		readonly Lazy<XCT.MediaSource> mediaSource;
 
 		internal MediaCapturedEventArgs(
 			string path = null,
@@ -16,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Path = path;
 			ImageData = imageData;
 			imageSource = new Lazy<ImageSource>(GetImageSource);
-			mediaSource = new Lazy<MediaSource>(GetMediaSource);
+			mediaSource = new Lazy<XCT.MediaSource>(GetMediaSource);
 		}
 
 		/// <summary>
@@ -31,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public ImageSource Image => imageSource.Value;
 
-		public MediaSource Video => mediaSource.Value;
+		public XCT.MediaSource Video => mediaSource.Value;
 
 		ImageSource GetImageSource()
 		{
@@ -40,6 +41,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return !string.IsNullOrEmpty(Path) ? Path : null;
 		}
 
-		MediaSource GetMediaSource() => !string.IsNullOrEmpty(Path) ? Path : null;
+		XCT.MediaSource GetMediaSource() => !string.IsNullOrEmpty(Path) ? Path : null;
 	}
 }

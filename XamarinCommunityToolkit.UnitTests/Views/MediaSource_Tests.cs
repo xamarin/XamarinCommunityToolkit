@@ -9,23 +9,23 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		[Fact]
 		public void TestConstructors()
 		{
-			var filesource = new UI.Views.FileMediaSource { File = "File.mp4" };
+			var filesource = new Core.FileMediaSource { File = "File.mp4" };
 			Assert.Equal("File.mp4", filesource.File);
 
-			var urisource = new UI.Views.UriMediaSource { Uri = new Uri("http://xamarin.com/media.mp4") };
+			var urisource = new Core.UriMediaSource { Uri = new Uri("http://xamarin.com/media.mp4") };
 			Assert.Equal("http://xamarin.com/media.mp4", urisource.Uri.AbsoluteUri);
 		}
 
 		[Fact]
 		public void TestHelpers()
 		{
-			var mediasource = UI.Views.MediaSource.FromFile("File.mp4");
-			Assert.IsType<UI.Views.FileMediaSource>(mediasource);
-			Assert.Equal("File.mp4", ((UI.Views.FileMediaSource)mediasource).File);
+			var mediasource = Core.MediaSource.FromFile("File.mp4");
+			Assert.IsType<Core.FileMediaSource>(mediasource);
+			Assert.Equal("File.mp4", ((Core.FileMediaSource)mediasource).File);
 
-			var urisource = UI.Views.MediaSource.FromUri(new Uri("http://xamarin.com/media.mp4"));
-			Assert.IsType<UI.Views.UriMediaSource>(urisource);
-			Assert.Equal("http://xamarin.com/media.mp4", ((UI.Views.UriMediaSource)urisource).Uri.AbsoluteUri);
+			var urisource = Core.MediaSource.FromUri(new Uri("http://xamarin.com/media.mp4"));
+			Assert.IsType<Core.UriMediaSource>(urisource);
+			Assert.Equal("http://xamarin.com/media.mp4", ((Core.UriMediaSource)urisource).Uri.AbsoluteUri);
 		}
 
 		[Fact]
@@ -33,17 +33,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = "File.mp4" };
 			Assert.True(mediaElement.Source != null);
-			Assert.IsType<UI.Views.FileMediaSource>(mediaElement.Source);
-			Assert.Equal("File.mp4", ((UI.Views.FileMediaSource)mediaElement.Source).File);
+			Assert.IsType<Core.FileMediaSource>(mediaElement.Source);
+			Assert.Equal("File.mp4", ((Core.FileMediaSource)mediaElement.Source).File);
 		}
 
 		[Fact]
 		public void TestImplicitStringConversionWhenNull()
 		{
 			string s = null;
-			var sut = (UI.Views.MediaSource)s;
-			Assert.IsType<UI.Views.FileMediaSource>(sut);
-			Assert.Null(((UI.Views.FileMediaSource)sut).File);
+			var sut = (Core.MediaSource)s;
+			Assert.IsType<Core.FileMediaSource>(sut);
+			Assert.Null(((Core.FileMediaSource)sut).File);
 		}
 
 		[Fact]
@@ -51,8 +51,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = new Uri("http://xamarin.com/media.mp4") };
 			Assert.True(mediaElement.Source != null);
-			Assert.IsType<UI.Views.UriMediaSource>(mediaElement.Source);
-			Assert.Equal("http://xamarin.com/media.mp4", ((UI.Views.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
+			Assert.IsType<Core.UriMediaSource>(mediaElement.Source);
+			Assert.Equal("http://xamarin.com/media.mp4", ((Core.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
 		}
 
 		[Fact]
@@ -60,15 +60,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = "http://xamarin.com/media.mp4" };
 			Assert.True(mediaElement.Source != null);
-			Assert.IsType<UI.Views.UriMediaSource>(mediaElement.Source);
-			Assert.Equal("http://xamarin.com/media.mp4", ((UI.Views.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
+			Assert.IsType<Core.UriMediaSource>(mediaElement.Source);
+			Assert.Equal("http://xamarin.com/media.mp4", ((Core.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
 		}
 
 		[Fact]
 		public void TestImplicitUriConversionWhenNull()
 		{
 			Uri u = null;
-			var sut = (UI.Views.MediaSource)u;
+			var sut = (Core.MediaSource)u;
 			Assert.Null(sut);
 		}
 
@@ -78,8 +78,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			var mediaElement = new UI.Views.MediaElement();
 			mediaElement.SetValue(UI.Views.MediaElement.SourceProperty, "media.mp4");
 			Assert.NotNull(mediaElement.Source);
-			Assert.IsType<UI.Views.FileMediaSource>(mediaElement.Source);
-			Assert.Equal("media.mp4", ((UI.Views.FileMediaSource)mediaElement.Source).File);
+			Assert.IsType<Core.FileMediaSource>(mediaElement.Source);
+			Assert.Equal("media.mp4", ((Core.FileMediaSource)mediaElement.Source).File);
 		}
 
 		[Fact]
@@ -90,8 +90,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.Null(mediaElement.Source);
 			mediaElement.BindingContext = "media.mp4";
 			Assert.NotNull(mediaElement.Source);
-			Assert.IsType<UI.Views.FileMediaSource>(mediaElement.Source);
-			Assert.Equal("media.mp4", ((UI.Views.FileMediaSource)mediaElement.Source).File);
+			Assert.IsType<Core.FileMediaSource>(mediaElement.Source);
+			Assert.Equal("media.mp4", ((Core.FileMediaSource)mediaElement.Source).File);
 		}
 
 		[Fact]
@@ -102,8 +102,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.Null(mediaElement.Source);
 			mediaElement.BindingContext = "http://xamarin.com/media.mp4";
 			Assert.NotNull(mediaElement.Source);
-			Assert.IsType<UI.Views.UriMediaSource>(mediaElement.Source);
-			Assert.Equal("http://xamarin.com/media.mp4", ((UI.Views.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
+			Assert.IsType<Core.UriMediaSource>(mediaElement.Source);
+			Assert.Equal("http://xamarin.com/media.mp4", ((Core.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
 		}
 
 		[Fact]
@@ -114,8 +114,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.Null(mediaElement.Source);
 			mediaElement.BindingContext = new Uri("http://xamarin.com/media.mp4");
 			Assert.NotNull(mediaElement.Source);
-			Assert.IsType<UI.Views.UriMediaSource>(mediaElement.Source);
-			Assert.Equal("http://xamarin.com/media.mp4", ((UI.Views.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
+			Assert.IsType<Core.UriMediaSource>(mediaElement.Source);
+			Assert.Equal("http://xamarin.com/media.mp4", ((Core.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
 		}
 
 		[Fact]
@@ -142,7 +142,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		{
 			var path = "/private/var/mobile/Containers/Data/Application/B1E5AB19-F815-4B4A-AB97-BD4571D53743/Documents/temp/video.mp4";
 			var mediaElement = new UI.Views.MediaElement { Source = path };
-			Assert.IsType<UI.Views.FileMediaSource>(mediaElement.Source);
+			Assert.IsType<Core.FileMediaSource>(mediaElement.Source);
 		}
 
 		[Fact]
@@ -150,10 +150,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		{
 			var path = "C:\\Users\\Username\\Videos\\video.mp4";
 			var mediaElement = new UI.Views.MediaElement { Source = path };
-			Assert.IsType<UI.Views.FileMediaSource>(mediaElement.Source);
+			Assert.IsType<Core.FileMediaSource>(mediaElement.Source);
 		}
 
-		class MockMediaSource : UI.Views.MediaSource
+		class MockMediaSource : Core.MediaSource
 		{
 		}
 	}

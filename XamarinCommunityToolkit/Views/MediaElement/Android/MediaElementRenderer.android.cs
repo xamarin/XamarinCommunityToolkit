@@ -7,6 +7,7 @@ using Android.Widget;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
+using XCT = Xamarin.CommunityToolkit.Core;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
 
@@ -285,7 +286,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (MediaElement.Source != null)
 			{
-				if (MediaElement.Source is UriMediaSource uriSource)
+				if (MediaElement.Source is XCT.UriMediaSource uriSource)
 				{
 					if (uriSource.Uri.Scheme == "ms-appx")
 					{
@@ -314,7 +315,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							view.SetVideoURI(global::Android.Net.Uri.Parse(uriSource.Uri.AbsoluteUri));
 					}
 				}
-				else if (MediaElement.Source is FileMediaSource fileSource)
+				else if (MediaElement.Source is XCT.FileMediaSource fileSource)
 					view.SetVideoPath(fileSource.File);
 
 				if (MediaElement.AutoPlay)
