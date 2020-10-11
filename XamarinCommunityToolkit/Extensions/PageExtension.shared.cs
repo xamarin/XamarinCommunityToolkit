@@ -12,9 +12,16 @@ namespace Xamarin.CommunityToolkit.Extensions
 	{
 		public static Task<bool> DisplayToastAsync(this Page page, string message, int duration = 3000)
 		{
-			var messageOptions = new MessageOptions {Message = message};
-			var args = new SnackBarOptions(messageOptions, duration, Color.Default,
-				CultureInfo.CurrentCulture.TextInfo.IsRightToLeft, new List<SnackBarActionOptions>());
+			var messageOptions = new MessageOptions { Message = message };
+			var args = new SnackBarOptions(messageOptions,
+				duration,
+				Color.Default,
+#if NETSTANDARD1_0
+				false,
+#else
+				CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+#endif
+				new List<SnackBarActionOptions>());
 			var snackBar = new SnackBar();
 			snackBar.Show(page, args);
 			return args.Result.Task;
@@ -22,7 +29,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static Task<bool> DisplaySnackBarAsync(this Page page, string message, string actionButtonText, Func<Task> action, int duration = 3000)
 		{
-			var messageOptions = new MessageOptions{Message = message};
+			var messageOptions = new MessageOptions { Message = message };
 			var actionOptions = new List<SnackBarActionOptions>
 			{
 				new SnackBarActionOptions
@@ -30,7 +37,15 @@ namespace Xamarin.CommunityToolkit.Extensions
 					Text = actionButtonText, Action = action
 				}
 			};
-			var args = new SnackBarOptions(messageOptions, duration, Color.Default, CultureInfo.CurrentCulture.TextInfo.IsRightToLeft, actionOptions);
+			var args = new SnackBarOptions(messageOptions,
+				duration,
+				Color.Default,
+#if NETSTANDARD1_0
+				false,
+#else
+				CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+#endif
+				actionOptions);
 			var snackBar = new SnackBar();
 			snackBar.Show(page, args);
 			return args.Result.Task;

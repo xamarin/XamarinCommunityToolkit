@@ -75,6 +75,12 @@
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
   </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
+    <PackageReference Include="System.ComponentModel" Version="4.3.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard2.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />

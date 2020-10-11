@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 	{
 		public ActionsPage() => InitializeComponent();
 
-		async void Button1Clicked(object sender, EventArgs args)
+		async void DisplaySnackBarClicked(object sender, EventArgs args)
 		{
 			var result = await this.DisplaySnackBarAsync(GenerateLongText(5), "Run action", () =>
 			{
@@ -24,13 +24,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			StatusText.Text = result ? AppResources.SnackBarIsClosedByUser : AppResources.SnackBarIsClosedByTimeout;
 		}
 
-		async void Button2Clicked(object sender, EventArgs args)
+		async void DisplayToastClicked(object sender, EventArgs args)
 		{
 			var result = await this.DisplayToastAsync(GenerateLongText(5));
 			StatusText.Text = result ? AppResources.SnackBarIsClosedByUser : AppResources.SnackBarIsClosedByTimeout;
 		}
 
-		async void Button3Clicked(object sender, EventArgs args)
+		async void DisplaySnackBarAdvancedClicked(object sender, EventArgs args)
 		{
 			var messageOptions = new MessageOptions
 			{

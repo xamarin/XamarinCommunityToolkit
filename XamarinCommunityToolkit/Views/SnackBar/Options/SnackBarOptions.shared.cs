@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Options
@@ -7,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 	{
 		public SnackBarOptions(MessageOptions message, int duration, Color backgroundColor, bool isRtl, IEnumerable<SnackBarActionOptions> actions)
 			: base(message, duration, backgroundColor, isRtl) =>
-			Actions = actions ?? new List<SnackBarActionOptions>();
+			Actions = actions ?? Enumerable.Empty<SnackBarActionOptions>();
 
 		/// <summary>
 		///     Gets the text for the action buttons
