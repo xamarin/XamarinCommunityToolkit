@@ -1,6 +1,7 @@
 ﻿using System;
 using Windows.System.Display;
 using Windows.UI.Xaml;
+using Xamarin.CommunityToolkit.Core;
 using Xamarin.Forms.Platform.UWP;
 using Controls = Windows.UI.Xaml.Controls;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;

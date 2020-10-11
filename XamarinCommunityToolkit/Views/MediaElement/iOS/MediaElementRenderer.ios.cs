@@ -8,6 +8,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
+using XCT = Xamarin.CommunityToolkit.Core;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
 
@@ -52,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				AVAsset asset = null;
 
-				if (Element.Source is UriMediaSource uriSource)
+				if (Element.Source is XCT.UriMediaSource uriSource)
 				{
 					if (uriSource.Uri.Scheme == "ms-appx")
 					{
@@ -76,7 +77,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 				else
 				{
-					if (Element.Source is FileMediaSource fileSource)
+					if (Element.Source is XCT.FileMediaSource fileSource)
 						asset = AVAsset.FromUrl(NSUrl.FromFilename(fileSource.File));
 				}
 
