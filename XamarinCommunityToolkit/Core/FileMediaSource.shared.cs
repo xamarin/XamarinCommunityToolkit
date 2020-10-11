@@ -1,11 +1,13 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.UI.Views
+namespace Xamarin.CommunityToolkit.Core
 {
 	[TypeConverter(typeof(FileMediaSourceConverter))]
 	public sealed class FileMediaSource : MediaSource
 	{
-		public static readonly BindableProperty FileProperty = BindableProperty.Create(nameof(File), typeof(string), typeof(FileMediaSource), default(string));
+		public static readonly BindableProperty FileProperty
+			= BindableProperty.Create(nameof(File), typeof(string), typeof(FileMediaSource), propertyChanged: OnFileMediaSourceChanged);
 
 		public string File
 		{
@@ -19,12 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static implicit operator string(FileMediaSource file) => file?.File;
 
-		protected override void OnPropertyChanged(string propertyName = null)
-		{
-			if (propertyName == FileProperty.PropertyName)
-				OnSourceChanged();
-
-			base.OnPropertyChanged(propertyName);
-		}
+		static void OnFileMediaSourceChanged(BindableObject bindable, object oldValue, object newValue) =>
+			((FileMediaSource)bindable).OnSourceChanged();
 	}
 }
