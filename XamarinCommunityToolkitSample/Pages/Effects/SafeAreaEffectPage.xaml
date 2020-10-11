@@ -6,11 +6,7 @@
     xmlns:effects="clr-namespace:Xamarin.CommunityToolkit.Effects;assembly=Xamarin.CommunityToolkit"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
-    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Effects"
     BackgroundColor="{StaticResource NormalButtonBackgroundColor}">
-    <pages:BasePage.BindingContext>
-        <vm:SafeAreaEffectViewModel />
-    </pages:BasePage.BindingContext>
     <ContentPage.Content>
         <StackLayout
             Padding="10,10"
@@ -27,8 +23,5 @@
                 <Switch x:Name="ActivationToggle" IsToggled="False" />
             </StackLayout>
         </StackLayout>
-
     </ContentPage.Content>
 </pages:BasePage>
-
-<!--  SafeAreaLongDescription  -->
