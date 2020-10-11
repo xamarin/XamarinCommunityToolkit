@@ -117,9 +117,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 												shouldDismissKeyboardAutomatically: true);
 
 			// act
-			// "Focus" doesn't change IsFocused property in Unit Tests
-			// So we simulate this behavior ourselves
-			entry.SetValue(VisualElement.IsFocusedPropertyKey, true);
+			entry.Focus();
 
 			entry.Text = "1";
 			await Task.Delay(defaultTimeThreshold + 100);
@@ -147,7 +145,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 											 int lengthThreshold = defaultLengthThreshold,
 											 bool shouldDismissKeyboardAutomatically = false,
 											 ICommand command = null)
-			=> new Entry
+		{
+			var entry = new Entry
 			{
 				Behaviors =
 				{
@@ -160,5 +159,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 					}
 				}
 			};
+
+			// We simulate Focus/Unfocus behavior ourselves
+			// because unit tests doesn't have "platform-specific" part
+			// where IsFocused is controlled in the real app
+			entry.FocusChangeRequested += (s, e) => entry.SetValue(VisualElement.IsFocusedPropertyKey, e.Focus);
+
+			return entry;
+		}
 	}
 }
