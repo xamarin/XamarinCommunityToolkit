@@ -177,6 +177,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				? emptyText
 				: text?.Trim();
 
+			var colorTheme = ColorTheme ?? Views.ColorTheme.Default;
 			var textColor = TextColor;
 			Label.TextColor = textColor == Color.Default
 				? colorTheme.GetForegroundColor(text)
