@@ -515,4 +515,10 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   <data name="ToggleSafeAreaEffect" xml:space="preserve">
     <value>Toggle SafeAreaEffect</value>
   </data>
+  <data name="BoolToObjectConverterShortDescription" xml:space="preserve">
+    <value>The BoolToObjectConverter is a converter that allows users to convert a bool value binding to a specific object.</value>
+  </data>
+    <data name="BoolToObjectConverterLongDescription" xml:space="preserve">
+    <value>The BoolToObjectConverter is a converter that allows users to convert a bool value binding to a specific object. By providing both a TrueObject and a FalseObject in the converter the appropriate object will be used depending on the value of the binding.</value>
+  </data>
 </root>

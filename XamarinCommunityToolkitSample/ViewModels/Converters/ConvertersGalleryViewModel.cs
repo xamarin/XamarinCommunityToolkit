@@ -11,6 +11,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(
+				typeof(BoolToObjectConverterPage),
+				"BoolToObjectConverter",
+				Color.FromHex("#498205"),
+				AppResources.BoolToObjectConverterShortDescription),
+			new SectionModel(
 				typeof(ItemTappedEventArgsPage),
 				"ItemTappedEventArgs",
 				Color.FromHex("#498205"),
