@@ -856,5 +856,23 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
                 return ResourceManager.GetString("TextEntryPromt", resourceCulture);
             }
         }
+        
+        internal static string EqualConverterShortDescription {
+            get {
+                return ResourceManager.GetString("EqualConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string EqualConverterLongDescription {
+            get {
+                return ResourceManager.GetString("EqualConverterLongDescription", resourceCulture);
+            }
+        }
+        
+        internal static string EqualPromtText {
+            get {
+                return ResourceManager.GetString("EqualPromtText", resourceCulture);
+            }
+        }
     }
 }

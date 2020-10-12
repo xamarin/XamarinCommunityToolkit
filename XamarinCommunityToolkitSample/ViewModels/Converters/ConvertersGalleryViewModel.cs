@@ -21,6 +21,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				Color.FromHex("#498205"),
 				AppResources.DoubleToIntConverterShortDescription),
 			new SectionModel(
+				typeof(EqualConverterPage),
+				"EqualConverter",
+				Color.FromHex("#498205"),
+				AppResources.EqualConverterShortDescription),
+			new SectionModel(
 				typeof(ItemTappedEventArgsPage),
 				"ItemTappedEventArgs",
 				Color.FromHex("#498205"),
