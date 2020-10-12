@@ -515,4 +515,19 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   <data name="UserStoppedTypingBehaviorMinimumLengthThresholdOptionLabel" xml:space="preserve">
     <value>Minimum length threshold (number of characters)</value>
   </data>
+  <data name="Effects Description" xml:space="preserve">
+    <value>Effects are used to add visual customization on a control by control bases</value>
+  </data>
+  <data name="EffectsTitle" xml:space="preserve">
+    <value>Effects</value>
+  </data>
+  <data name="SafeAreaShortDescription" xml:space="preserve">
+    <value>The SafeAreaEffect is an effectwill help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X.</value>
+  </data>
+  <data name="SafeAreaLongDescription" xml:space="preserve">
+    <value>The SafeAreaEffect is an effect that can be added to any element through an attached property to indicate whether or not that element should take current safe areas into account. This is an area of the screen that is safe for all devices that use iOS 11 and greater. Specifically, it will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X. The effect only targets iOS, meaning that on other platforms it does not do anything.</value>
+  </data>
+  <data name="ToggleSafeAreaEffect" xml:space="preserve">
+    <value>Toggle SafeAreaEffect</value>
+  </data>
 </root>

@@ -321,6 +321,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Effects are used to add visual customization on a control by control bases.
+        /// </summary>
+        internal static string Effects_Description {
+            get {
+                return ResourceManager.GetString("Effects Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Effects.
+        /// </summary>
+        internal static string EffectsTitle {
+            get {
+                return ResourceManager.GetString("EffectsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to e.g..
         /// </summary>
         internal static string EG {
@@ -752,6 +770,24 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The SafeAreaEffect is an effect that can be added to any element through an attached property to indicate whether or not that element should take current safe areas into account. This is an area of the screen that is safe for all devices that use iOS 11 and greater. Specifically, it will help to make sure that content isn&apos;t clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X. The effect only targets iOS, meaning that on other platforms it does not do anything..
+        /// </summary>
+        internal static string SafeAreaLongDescription {
+            get {
+                return ResourceManager.GetString("SafeAreaLongDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The SafeAreaEffect is an effectwill help to make sure that content isn&apos;t clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X..
+        /// </summary>
+        internal static string SafeAreaShortDescription {
+            get {
+                return ResourceManager.GetString("SafeAreaShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string Save {
@@ -955,6 +991,15 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string Time {
             get {
                 return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle SafeAreaEffect.
+        /// </summary>
+        internal static string ToggleSafeAreaEffect {
+            get {
+                return ResourceManager.GetString("ToggleSafeAreaEffect", resourceCulture);
             }
         }
         

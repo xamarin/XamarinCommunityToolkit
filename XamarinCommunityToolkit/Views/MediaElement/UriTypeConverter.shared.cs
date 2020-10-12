@@ -7,11 +7,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	[TypeConversion(typeof(Uri))]
 	public class UriTypeConverter : TypeConverter
 	{
-		public override object ConvertFromInvariantString(string value)
-		{
-			if (string.IsNullOrWhiteSpace(value))
-				return null;
-			return new Uri(value, UriKind.RelativeOrAbsolute);
-		}
+		public override object ConvertFromInvariantString(string value) =>
+			string.IsNullOrWhiteSpace(value) ? null : (object)new Uri(value, UriKind.RelativeOrAbsolute);
 	}
 }
