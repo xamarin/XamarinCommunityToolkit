@@ -1,17 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Linq;
 using Xamarin.Forms;
 using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[EditorBrowsable(EditorBrowsableState.Never)]
 	public sealed class ColorTheme : IColorTheme
 	{
-		public Color[] BackgroundColors { get; set; }
+		readonly Color[] backgroundColors;
 
-		public Color[] ForegroundColors { get; set; }
+		readonly Color[] foregroundColors;
 
 		public ColorTheme(Color[] foregroundColors, Color[] backgroundColors)
 		{
@@ -21,20 +18,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!(backgroundColors?.Length > 0))
 				throw new ArgumentException($"{nameof(backgroundColors)} must not be null or empty");
 
-			ForegroundColors = foregroundColors;
-			BackgroundColors = backgroundColors;
+			this.foregroundColors = foregroundColors;
+			this.backgroundColors = backgroundColors;
 		}
 
 		public Color GetForegroundColor(string text)
 		{
 			var textHash = Abs(text.GetHashCode());
-			return ForegroundColors[textHash % ForegroundColors.Length];
+			return foregroundColors[textHash % foregroundColors.Length];
 		}
 
 		public Color GetBackgroundColor(string text)
 		{
 			var textHash = Abs(text.GetHashCode());
-			return BackgroundColors[textHash % BackgroundColors.Length];
+			return backgroundColors[textHash % backgroundColors.Length];
 		}
 
 		public static readonly IColorTheme Default = new ColorTheme(
