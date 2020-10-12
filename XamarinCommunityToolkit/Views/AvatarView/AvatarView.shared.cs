@@ -192,7 +192,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var color = Color;
 			MainLayout.BackgroundColor = color == Color.Default
-				? ColorTheme.GetBackgroundColor(text)
+				? colorTheme.GetBackgroundColor(text)
 				: color;
 
 			Control.BorderColor = BorderColor;
