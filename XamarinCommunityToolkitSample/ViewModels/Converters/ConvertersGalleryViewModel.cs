@@ -16,6 +16,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				Color.FromHex("#498205"),
 				AppResources.BoolToObjectConverterShortDescription),
 			new SectionModel(
+				typeof(DoubleToIntConverterPage),
+				"DoubleToIntConverter",
+				Color.FromHex("#498205"),
+				AppResources.DoubleToIntConverterShortDescription),
+			new SectionModel(
 				typeof(ItemTappedEventArgsPage),
 				"ItemTappedEventArgs",
 				Color.FromHex("#498205"),

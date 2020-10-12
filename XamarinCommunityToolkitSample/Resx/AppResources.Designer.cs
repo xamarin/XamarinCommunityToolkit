@@ -838,5 +838,23 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
                 return ResourceManager.GetString("BoolToObjectConverterLongDescription", resourceCulture);
             }
         }
+        
+        internal static string DoubleToIntConverterShortDescription {
+            get {
+                return ResourceManager.GetString("DoubleToIntConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string DoubleToIntConverterLongDescription {
+            get {
+                return ResourceManager.GetString("DoubleToIntConverterLongDescription", resourceCulture);
+            }
+        }
+        
+        internal static string TextEntryPromt {
+            get {
+                return ResourceManager.GetString("TextEntryPromt", resourceCulture);
+            }
+        }
     }
 }
