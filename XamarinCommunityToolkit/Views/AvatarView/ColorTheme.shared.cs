@@ -35,7 +35,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public Color GetBackgroundColor(string text)
 		{
 			var textHash = Abs(text.GetHashCode());
-
 			return BackgroundColors[textHash % BackgroundColors.Length];
 		}
 
