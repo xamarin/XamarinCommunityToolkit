@@ -116,7 +116,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnControlInitialized(Frame control)
 		{
 			IsClippedToBounds = true;
-			MainLayout.Children.Add(Label, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
+			MainLayout.Children.Add(Label, new Rectangle(0.5, 0.5, -1, -1), AbsoluteLayoutFlags.PositionProportional);
 			MainLayout.Children.Add(Image, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
 			control.IsClippedToBounds = true;
 			control.HasShadow = false;
@@ -172,10 +172,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Image.BatchCommit();
 
 			Label.BatchBegin();
+			Label.IsVisible = !Image.IsVisible;
 			var text = Text?.Trim() ?? string.Empty;
 			Label.Text = string.IsNullOrWhiteSpace(text)
 				? emptyText
-				: text?.Trim();
+				: text.Trim();
 
 			var colorTheme = ColorTheme ?? Views.ColorTheme.Default;
 			var textColor = TextColor;
