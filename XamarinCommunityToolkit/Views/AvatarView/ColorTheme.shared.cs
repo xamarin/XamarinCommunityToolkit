@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public ColorTheme(Color[] foregroundColors, Color[] backgroundColors)
 		{
 			if (!(foregroundColors?.Length > 0))
-				throw new ArgumentException($"{nameof(foregroundColors)} must not be null or empty");
+				throw new ArgumentException("Must not be null or empty", nameof(foregroundColors));
 
 			if (!(backgroundColors?.Length > 0))
 				throw new ArgumentException($"{nameof(backgroundColors)} must not be null or empty");
