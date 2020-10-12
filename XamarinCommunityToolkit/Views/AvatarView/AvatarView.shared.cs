@@ -179,7 +179,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var textColor = TextColor;
 			Label.TextColor = textColor == Color.Default
-				? ColorTheme.GetForegroundColor(text)
+				? colorTheme.GetForegroundColor(text)
 				: textColor;
 
 			var fontSize = FontSize;
