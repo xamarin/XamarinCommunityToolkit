@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				throw new ArgumentException("Must not be null or empty", nameof(foregroundColors));
 
 			if (!(backgroundColors?.Length > 0))
-				throw new ArgumentException($"{nameof(backgroundColors)} must not be null or empty");
+				throw new ArgumentException("Must not be null or empty", nameof(backgroundColors));
 
 			this.foregroundColors = foregroundColors;
 			this.backgroundColors = backgroundColors;
