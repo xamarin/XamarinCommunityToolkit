@@ -8,9 +8,9 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
-using XCT = Xamarin.CommunityToolkit.Core;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
+using XCT = Xamarin.CommunityToolkit.Core;
 
 [assembly: ExportRenderer(typeof(ToolKitMediaElement), typeof(ToolKitMediaElementRenderer))]
 
