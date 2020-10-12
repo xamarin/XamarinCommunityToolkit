@@ -74,16 +74,10 @@
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
-    <Compile Include="Views\AvatarView\ColorTheme.cs">
+    <Compile Include="Views\AvatarView\ColorTheme.shared.cs">
       <SubType></SubType>
     </Compile>
-    <Compile Include="Views\AvatarView\ColorThemeBase.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Views\AvatarView\ColorThemes.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Include="Views\AvatarView\IColorTheme.cs">
+    <Compile Include="Views\AvatarView\IColorTheme.shared.cs">
       <SubType></SubType>
     </Compile>
   </ItemGroup>
@@ -226,10 +220,5 @@
   <ItemGroup>
     <Folder Include="Views\Snackbar\Helpers\WPF\" />
     <Folder Include="Views\AvatarView\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\AvatarView\AvatarView.shared.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
 </Project>
