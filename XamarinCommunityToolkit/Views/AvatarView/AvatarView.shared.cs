@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Linq;
+using Xamarin.Forms;
 using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -6,30 +8,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class AvatarView : BaseTemplatedView<Frame>
 	{
 		const string emptyText = "X";
-
-		static readonly Color[] colors =
-		{
-			RGB(69, 43, 103),
-			RGB(119, 78, 133),
-			RGB(211, 153, 184),
-			RGB(249, 218, 231),
-			RGB(223, 196, 208),
-			RGB(209, 158, 180),
-			RGB(171, 116, 139),
-			RGB(143, 52, 87)
-		};
-
-		static readonly Color[] textColors =
-		{
-			RGB(255, 255, 255),
-			RGB(255, 255, 255),
-			RGB(255, 255, 255),
-			RGB(131, 81, 102),
-			RGB(53, 21, 61),
-			RGB(255, 255, 255),
-			RGB(114, 50, 75),
-			RGB(255, 255, 255)
-		};
 
 		public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(double), typeof(AvatarView), 40.0, propertyChanged: OnSizePropertyChanged);
 
@@ -50,6 +28,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(AvatarView), -1.0, propertyChanged: OnValuePropertyChanged);
 
 		public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(AvatarView), FontAttributes.None, propertyChanged: OnValuePropertyChanged);
+
+		public static readonly BindableProperty ColorThemeProperty = BindableProperty.Create(nameof(ColorTheme), typeof(IColorTheme), typeof(AvatarView), ColorThemes.Default, propertyChanged: OnValuePropertyChanged);
 
 		public double Size
 		{
@@ -111,6 +91,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FontAttributesProperty, value);
 		}
 
+		public IColorTheme ColorTheme
+		{
+			get => (IColorTheme)GetValue(ColorThemeProperty);
+			set => SetValue(ColorThemeProperty, value);
+		}
+
 		Image Image { get; } = new Image
 		{
 			Aspect = Aspect.AspectFill,
@@ -155,9 +141,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((AvatarView)bindable).OnValuePropertyChanged();
 
-		static Color RGB(int r, int g, int b)
-			=> Color.FromRgb(r, g, b);
-
 		void OnSizePropertyChanged()
 		{
 			if (Control == null)
@@ -196,11 +179,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				? emptyText
 				: text?.Trim();
 
-			var textHash = Abs(text.GetHashCode());
 			var textColor = TextColor;
 			Label.TextColor = textColor == Color.Default
-				? textColors[textHash % textColors.Length]
+				? ColorTheme.GetForegroundColor(text)
 				: textColor;
+
 			var fontSize = FontSize;
 			Label.FontSize = fontSize < 0
 				? CalculateFontSize()
@@ -211,7 +194,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var color = Color;
 			MainLayout.BackgroundColor = color == Color.Default
-				? colors[textHash % colors.Length]
+				? ColorTheme.GetBackgroundColor(text)
 				: color;
 
 			Control.BorderColor = BorderColor;
