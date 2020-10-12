@@ -1,6 +1,6 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.CommunityToolkit.Core;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
