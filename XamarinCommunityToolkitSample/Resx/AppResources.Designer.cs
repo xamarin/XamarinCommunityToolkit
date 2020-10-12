@@ -518,9 +518,9 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         /// <summary>
         ///   Looks up a localized string similar to The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms..
         /// </summary>
-        internal static string IntroductioDescription {
+        internal static string IntroductionDescription {
             get {
-                return ResourceManager.GetString("IntroductioDescription", resourceCulture);
+                return ResourceManager.GetString("IntroductionDescription", resourceCulture);
             }
         }
         

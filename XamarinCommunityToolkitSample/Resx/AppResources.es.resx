@@ -147,7 +147,7 @@
   <data name="IntroductionTitle" xml:space="preserve">
     <value>#Introducing the XamarinCommunityToolkit</value>
   </data>
-  <data name="IntroductioDescription" xml:space="preserve">
+  <data name="IntroductionDescription" xml:space="preserve">
     <value>#The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.</value>
   </data>
   <data name="WelcomeFooter" xml:space="preserve">

@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		static DispatcherTimer snackBarTimer;
+		DispatcherTimer snackBarTimer;
 
 		T FindVisualChildByName<T>(DependencyObject parent, string name) where T : DependencyObject
 		{
