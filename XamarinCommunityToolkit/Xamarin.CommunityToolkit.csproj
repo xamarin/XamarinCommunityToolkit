@@ -81,6 +81,9 @@
     <Compile Include="Converters\StringToIntConverter.shared.cs">
       <SubType></SubType>
     </Compile>
+    <Compile Include="Converters\StringToDoubleConverter.shared.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
