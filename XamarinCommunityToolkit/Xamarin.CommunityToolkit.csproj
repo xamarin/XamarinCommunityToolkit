@@ -23,7 +23,11 @@
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
       
+      
+      
       <!-- See if we can host these on MS docs? -->
+    
+    
     
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
@@ -43,7 +47,7 @@
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage TargetFrameworks for distribution (Release Mode) -->
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)'=='Release' And '$(OS)' == 'Windows_NT' ">
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' AND '$(OS)' == 'Windows_NT' ">
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <!-- Embed source files that are not tracked by the source control manager in the PDB -->
@@ -52,7 +56,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
-  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) ">
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) AND '$(OS)' == 'Windows_NT' ">
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
@@ -160,7 +164,7 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netcoreapp'))  ">
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) AND '$(OS)' == 'Windows_NT' ">
     <Compile Include="**\*.wpf.cs" />
     <Compile Include="**\*.wpf.*.cs" />
     <Compile Remove="**\Snackbar.shared.cs" />
@@ -213,5 +217,13 @@
 
   <ItemGroup>
     <Folder Include="Views\Snackbar\Helpers\WPF\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Converters\StringToIntConverter.shared.cs">
+      <SubType></SubType>
+    </Compile>
+    <Compile Update="Converters\StringToDoubleConverter.shared.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
 </Project>
