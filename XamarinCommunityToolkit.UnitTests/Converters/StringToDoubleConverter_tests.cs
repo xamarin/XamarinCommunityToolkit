@@ -15,7 +15,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var stringToDoubleConverter = new StringToDoubleConverter();
 
-			var result = stringToDoubleConverter.Convert(value, typeof(StringToIntConverter_tests), null, CultureInfo.CurrentCulture);
+			var result = stringToDoubleConverter.Convert(value, typeof(StringToIntConverter_tests), null,
+				CultureInfo.CurrentCulture);
 
 			Assert.Equal(result, expectedResult);
 		}
@@ -29,7 +30,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var doubletostring = new StringToDoubleConverter();
 
-			var result = doubletostring.ConvertBack(value, typeof(StringToIntConverter_tests), null, CultureInfo.CurrentCulture);
+			var result = doubletostring.ConvertBack(value, typeof(StringToIntConverter_tests), null,
+				CultureInfo.CurrentCulture);
 
 			Assert.Equal(result, expectedResult);
 		}

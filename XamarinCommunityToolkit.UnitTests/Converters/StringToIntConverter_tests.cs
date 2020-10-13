@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Xamarin.CommunityToolkit.Converters;
 using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
@@ -15,7 +14,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var stringToIntConverter = new StringToIntConverter();
 
-			var result = stringToIntConverter.Convert(value, typeof(StringToIntConverter_tests), null, CultureInfo.CurrentCulture);
+			var result = stringToIntConverter.Convert(value, typeof(StringToIntConverter_tests), null,
+				CultureInfo.CurrentCulture);
 
 			Assert.Equal(result, expectedResult);
 		}
@@ -29,7 +29,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var stringToIntConverter = new StringToIntConverter();
 
-			var result = stringToIntConverter.ConvertBack(value, typeof(StringToIntConverter_tests), null, CultureInfo.CurrentCulture);
+			var result = stringToIntConverter.ConvertBack(value, typeof(StringToIntConverter_tests), null,
+				CultureInfo.CurrentCulture);
 
 			Assert.Equal(result, expectedResult);
 		}
