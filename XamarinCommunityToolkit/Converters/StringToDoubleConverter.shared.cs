@@ -19,9 +19,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>The double value of the provided string</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-			=> value is string numstr && !string.IsNullOrWhiteSpace(numstr)
-				? double.TryParse(numstr, out var res)
-				: throw new ArgumentException("Value is not a valid double", nameof(value));
+		{
+			if (value is string numstr && !string.IsNullOrWhiteSpace(numstr))
+				return double.TryParse(numstr, out var number) ? number : throw new ArgumentException("Value is not a valid double", nameof(value));
+			else
+				throw new ArgumentException("Value is not a valid integer", nameof(value));
+		}
 
 		/// <summary>
 		///     Converts The Provided double into the equivalent string.

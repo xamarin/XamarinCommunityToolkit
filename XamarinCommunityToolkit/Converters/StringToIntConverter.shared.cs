@@ -19,9 +19,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>The integer value of the provided string</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-			=> value is string numstr && !string.IsNullOrWhiteSpace(numstr)
-				? int.TryParse(numstr, out var res)
-				: throw new ArgumentException("Value is not a valid integer", nameof(value));
+		{
+			if (value is string numstr && !string.IsNullOrWhiteSpace(numstr))
+				return int.TryParse(numstr, out var number) ? number : throw new ArgumentException("Value is not a valid integer", nameof(value));
+			else
+				throw new ArgumentException("Value is not a valid integer", nameof(value));
+		}
 
 		/// <summary>
 		///     Converts The Provided integer into the equivalent string.
