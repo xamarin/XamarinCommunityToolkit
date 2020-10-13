@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
+             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
+             xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+             xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors;assembly=Xamarin.CommunityToolkit.Sample"
+             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.RequiredStringValidationBehaviorPage">
+    <pages:BasePage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry"> 
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+    </pages:BasePage.Resources>
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 Spacing="50"
+                 VerticalOptions="CenterAndExpand">
+        <Label Text="{rsx:Translate RequiredStringValidationDescription}" />
+        <Entry x:Name="passwordEntry" Placeholder="{rsx:Translate Password}" />
+            <Entry Placeholder="{rsx:Translate ConfirmPassword}">
+                <Entry.Behaviors>
+                    <behaviors:RequiredStringValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                       Flags="ValidateOnValueChanging"
+                                                       RequiredString="{Binding Source={x:Reference passwordEntry},Path=Text}" />
+                </Entry.Behaviors>
+            </Entry>
+        </StackLayout>
+</pages:BasePage>
