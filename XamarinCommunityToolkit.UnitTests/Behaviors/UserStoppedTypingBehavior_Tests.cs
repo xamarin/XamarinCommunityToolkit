@@ -109,26 +109,22 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.False(commandHasBeenExecuted);
 		}
 
-		/// <summary>
-		/// Due to Focus() not setting the Entry to IsFocused = true, we cannot test if the entry still got focus or not
-		/// See for more information: https://forums.xamarin.com/discussion/181096/how-to-focus-an-entry-control-in-a-unit-test
-		/// </summary>
-		/// <returns></returns>
-		//[Fact]
-		//public async Task ShouldNotDismissKeyboardWhenMinimumLengthThreholdHasNotBeenReached()
-		//{
-		//	// arrange
-		//	var entry = CreateEntryWithBehavior(lengthThreshold: 3,
-		//										shouldDismissKeyboardAutomatically: true);
+		[Fact]
+		public async Task ShouldNotDismissKeyboardWhenMinimumLengthThreholdHasNotBeenReached()
+		{
+			// arrange
+			var entry = CreateEntryWithBehavior(lengthThreshold: 3,
+												shouldDismissKeyboardAutomatically: true);
 
-		//	// act
-		//	entry.Focus();
-		//	entry.Text = "1";
-		//	await Task.Delay(defaultTimeThreshold + 100);
+			// act
+			entry.Focus();
 
-		//	// assert
-		//	Assert.True(entry.IsFocused);
-		//}
+			entry.Text = "1";
+			await Task.Delay(defaultTimeThreshold + 100);
+
+			// assert
+			Assert.True(entry.IsFocused);
+		}
 
 		[Fact]
 		public async Task ShouldExecuteCommandImmediatelyWhenMinimumLengthThreholdHasNotBeenSet()
@@ -149,7 +145,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 											 int lengthThreshold = defaultLengthThreshold,
 											 bool shouldDismissKeyboardAutomatically = false,
 											 ICommand command = null)
-			=> new Entry
+		{
+			var entry = new Entry
 			{
 				Behaviors =
 				{
@@ -162,5 +159,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 					}
 				}
 			};
+
+			// We simulate Focus/Unfocus behavior ourselves
+			// because unit tests doesn't have "platform-specific" part
+			// where IsFocused is controlled in the real app
+			entry.FocusChangeRequested += (s, e) => entry.SetValue(VisualElement.IsFocusedPropertyKey, e.Focus);
+
+			return entry;
+		}
 	}
 }
