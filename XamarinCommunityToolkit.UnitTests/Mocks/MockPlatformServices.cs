@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 		public bool IsInvokeRequired
 			=> false;
 
-		public OSAppTheme RequestedTheme => OSAppTheme.Unspecified;
+		//public OSAppTheme RequestedTheme => OSAppTheme.Unspecified;
 
 		public string RuntimePlatform { get; set; }
 
