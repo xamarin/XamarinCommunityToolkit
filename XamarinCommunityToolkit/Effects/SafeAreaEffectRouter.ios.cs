@@ -14,34 +14,39 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	{
 		Thickness initialMargin;
 
+		new View Element
+			=> base.Element as View;
+
+		bool IsEligibleToConsumeEffect
+			=> Element != null
+				&& UIDevice.CurrentDevice.CheckSystemVersion(11, 0)
+				&& UIApplication.SharedApplication.Windows.Any();
+
 		protected override void OnAttached()
 		{
-			if (!(Element is View element))
-				return;
-
-			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0) || !UIApplication.SharedApplication.Windows.Any())
+			if (!IsEligibleToConsumeEffect)
 				return;
 
 			var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
+			var safeArea = SafeAreaEffect.GetSafeArea(Element);
 
-			initialMargin = element.Margin;
-
-			if (insets.Top <= 0)
-				return;
-
-			var safeArea = SafeAreaEffect.GetSafeArea(element);
-
-			element.Margin = new Thickness(
-				initialMargin.Left + (safeArea.Left ? insets.Left : 0),
-				initialMargin.Top + (safeArea.Top ? insets.Top : 0),
-				initialMargin.Right + (safeArea.Right ? insets.Right : 0),
-				initialMargin.Bottom + (safeArea.Bottom ? insets.Bottom : 0));
+			initialMargin = Element.Margin;
+			Element.Margin = new Thickness(
+				initialMargin.Left + CalculateInsets(insets.Left, safeArea.Left),
+				initialMargin.Top + CalculateInsets(insets.Top, safeArea.Top),
+				initialMargin.Right + CalculateInsets(insets.Right, safeArea.Right),
+				initialMargin.Bottom + CalculateInsets(insets.Bottom, safeArea.Bottom));
 		}
 
 		protected override void OnDetached()
 		{
-			if (Element is Layout element)
-				element.Margin = initialMargin;
+			if (IsEligibleToConsumeEffect)
+				Element.Margin = initialMargin;
 		}
+
+		double CalculateInsets(double insetsComponent, bool shouldUseInsetsComponent)
+			=> shouldUseInsetsComponent
+				? insetsComponent
+				: 0;
 	}
 }

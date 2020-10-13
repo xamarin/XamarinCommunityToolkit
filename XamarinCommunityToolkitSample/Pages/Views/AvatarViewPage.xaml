@@ -21,7 +21,8 @@
                                      AbsoluteLayout.LayoutFlags="All">
 
                             <views:AvatarView Size="{Binding Value, Source={x:Reference Slider}}"
-                                              Text="{Binding Initials}" Source="{Binding Source}" />
+                                              Text="{Binding Initials}" Source="{Binding Source}"
+                                              ColorTheme="{x:Static views:ColorTheme.Jungle}"/>
 
                             <Label Text="{Binding Name}" FontSize="20" VerticalOptions="CenterAndExpand" />
                         </StackLayout>
