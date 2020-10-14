@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -7,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		const string emptyText = "X";
 
-		public static readonly BindableProperty AspectProperty = BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(AvatarView), Forms.Aspect.AspectFill, propertyChanged: OnAspectPropertyChanged);
+		public static readonly BindableProperty AspectProperty = BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(AvatarView), Aspect.AspectFill, propertyChanged: OnValuePropertyChanged);
 
 		public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(double), typeof(AvatarView), 40.0, propertyChanged: OnSizePropertyChanged);
 
@@ -143,9 +146,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnValuePropertyChanged(bindable, oldValue, newValue);
 		}
 
-		static void OnAspectPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
-			=> ((AvatarView)bindable).OnAspectPropertyChanged();
-
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((AvatarView)bindable).OnValuePropertyChanged();
 
@@ -170,23 +170,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
-		void OnAspectPropertyChanged()
-		{
-			Image.BatchBegin();
-			Image.Aspect = Aspect;
-			Image.BatchCommit();
-		}
-
-		void OnValuePropertyChanged()
+		async void OnValuePropertyChanged()
 		{
 			if (Control == null)
 				return;
 
 			Image.BatchBegin();
-			var source = Source;
-			Image.IsVisible = source != null;
-			Image.Source = source;
-			Image.Aspect = Aspect;
+			Image.IsVisible = false;
+			var imageBytes = await GetImageBytesAsync(Source);
+			if (imageBytes != null && imageBytes.Any())
+			{
+				Image.IsVisible = true;
+				Image.Source = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+				Image.Aspect = Aspect;
+			}
+
 			Image.BatchCommit();
 
 			Label.BatchBegin();
@@ -228,6 +226,36 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return 12;
 
 			return size * .4;
+		}
+
+		async Task<byte[]> GetImageBytesAsync(ImageSource source)
+		{
+			byte[] imageBytes = null;
+			switch (source)
+			{
+				case FileImageSource fis:
+					if (File.Exists(fis.File))
+					{
+						imageBytes = File.ReadAllBytes(fis.File);
+					}
+
+					break;
+				case StreamImageSource sis:
+					using (var ms = new MemoryStream())
+					{
+						var cancellationToken = System.Threading.CancellationToken.None;
+						var task = sis.Stream(cancellationToken);
+						var stream = await task;
+						await stream.CopyToAsync(ms);
+						imageBytes = ms.ToArray();
+					}
+					break;
+				case UriImageSource uis:
+					imageBytes = new System.Net.WebClient().DownloadData(uis.Uri);
+					break;
+			}
+
+			return imageBytes;
 		}
 	}
 }
