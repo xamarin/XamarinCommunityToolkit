@@ -6,7 +6,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	///     Converts The Provided string into the equivalent integer.
+	/// Converts The Provided string into the equivalent integer.
 	/// </summary>
 	public class StringToIntConverter : ValueConverterExtension, IValueConverter
 	{
