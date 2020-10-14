@@ -21,6 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		AVCaptureMovieFileOutput videoOutput;
 		AVCaptureConnection captureConnection;
 		AVCaptureDevice device;
+		AVCaptureDevicePosition? lastPosition;
 		bool isBusy;
 		bool isAvailable;
 		CameraFlashMode flashMode;
@@ -413,6 +414,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case CameraOptions.External:
 					position = AVCaptureDevicePosition.Unspecified; break;
 			}
+
+			// Cache the last position requested, so we only initialize the camera if it's changed
+			if (position == lastPosition)
+				return;
+			lastPosition = position;
 
 			device = null;
 			var devs = AVCaptureDevice.DevicesWithMediaType(AVMediaType.Video);
