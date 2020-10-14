@@ -19,8 +19,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>The double value of the provided string</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		=> value is string numstr && double.TryParse(numstr, out var number)
-			? number
+		=> value is string stringValue && double.TryParse(stringValue, out var doubleValue)
+			? doubleValue
 			: throw new ArgumentException("Value is not a valid double", nameof(value));
 
 		/// <summary>
