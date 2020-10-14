@@ -6,7 +6,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	///     Converts The Provided string into the equivalent Double.
+	/// Converts The Provided string into the equivalent Double.
 	/// </summary>
 	public class StringToDoubleConverter : ValueConverterExtension, IValueConverter
 	{
