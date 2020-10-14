@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 
 			mainView.Layer.AddSublayer(previewLayer);
-			RetrieveCameraDevice(CameraOptions.Default);
+			//RetrieveCameraDevice(CameraOptions.Default);
 
 			Add(mainView);
 
