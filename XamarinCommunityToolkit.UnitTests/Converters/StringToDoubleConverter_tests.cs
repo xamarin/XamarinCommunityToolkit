@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using Xamarin.CommunityToolkit.Converters;
 using Xunit;
 
@@ -15,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var stringToDoubleConverter = new StringToDoubleConverter();
 
-			var result = stringToDoubleConverter.Convert(value, typeof(StringToIntConverter_tests), null,
+			var result = stringToDoubleConverter.Convert(value, typeof(StringToDoubleConverter_tests), null,
 				CultureInfo.CurrentCulture);
 
 			Assert.Equal(result, expectedResult);
@@ -30,10 +31,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var doubletostring = new StringToDoubleConverter();
 
-			var result = doubletostring.ConvertBack(value, typeof(StringToIntConverter_tests), null,
+			var result = doubletostring.ConvertBack(value, typeof(StringToDoubleConverter_tests), null,
 				CultureInfo.CurrentCulture);
 
 			Assert.Equal(result, expectedResult);
+		}
+
+		[Theory]
+		[InlineData(0)]
+		[InlineData("ABC")]
+		[InlineData("Ac123.2")]
+		public void InValidConverterValuesThrowArgumenException(object value)
+		{
+			var stringToDoubleConverter = new StringToDoubleConverter();
+
+			Assert.Throws<ArgumentException>(() => stringToDoubleConverter.Convert(value, typeof(StringToDoubleConverter_tests), null, CultureInfo.CurrentCulture));
 		}
 	}
 }
