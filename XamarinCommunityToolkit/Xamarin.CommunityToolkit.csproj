@@ -218,12 +218,4 @@
   <ItemGroup>
     <Folder Include="Views\Snackbar\Helpers\WPF\" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Converters\StringToIntConverter.shared.cs">
-      <SubType></SubType>
-    </Compile>
-    <Compile Update="Converters\StringToDoubleConverter.shared.cs">
-      <SubType></SubType>
-    </Compile>
-  </ItemGroup>
 </Project>
