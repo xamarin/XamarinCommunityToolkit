@@ -32,8 +32,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>The string version of the provided int</returns>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-			=> value is int num
-				? num.ToString()
+			=> value is int intValue
+				? intValue.ToString()
 				: throw new ArgumentException("Value is not a valid integer", nameof(value));
 	}
 }
