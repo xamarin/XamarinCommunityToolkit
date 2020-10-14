@@ -27,6 +27,14 @@ namespace Xamarin.CommunityToolkit.Extensions
 			return args.Result.Task;
 		}
 
+		public static Task<bool> DisplayToastAsync(this Page page, ActionOptions arguments)
+		{
+			var snackBar = new SnackBar();
+			var options = new SnackBarOptions(arguments.MessageOptions, arguments.Duration, arguments.BackgroundColor, arguments.IsRtl, null);
+			snackBar.Show(page, options);
+			return options.Result.Task;
+		}
+
 		public static Task<bool> DisplaySnackBarAsync(this Page page, string message, string actionButtonText, Func<Task> action, int duration = 3000)
 		{
 			var messageOptions = new MessageOptions { Message = message };
