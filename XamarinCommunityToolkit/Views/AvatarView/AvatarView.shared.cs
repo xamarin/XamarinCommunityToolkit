@@ -7,6 +7,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		const string emptyText = "X";
 
+		public static readonly BindableProperty AspectProperty = BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(AvatarView), Forms.Aspect.AspectFill, propertyChanged: OnAspectPropertyChanged);
+
 		public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(double), typeof(AvatarView), 40.0, propertyChanged: OnSizePropertyChanged);
 
 		public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(double), typeof(AvatarView), -1.0, propertyChanged: OnSizePropertyChanged);
@@ -28,6 +30,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(AvatarView), FontAttributes.None, propertyChanged: OnValuePropertyChanged);
 
 		public static readonly BindableProperty ColorThemeProperty = BindableProperty.Create(nameof(ColorTheme), typeof(IColorTheme), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
+
+		public Aspect Aspect
+		{
+			get => (Aspect)GetValue(AspectProperty);
+			set => SetValue(AspectProperty, value);
+		}
 
 		public double Size
 		{
@@ -97,7 +105,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		Image Image { get; } = new Image
 		{
-			Aspect = Aspect.AspectFill,
 			IsVisible = false
 		};
 
@@ -136,6 +143,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnValuePropertyChanged(bindable, oldValue, newValue);
 		}
 
+		static void OnAspectPropertyChanged(BindableObject bindable, object oldValue, object newValue) 
+			=> ((AvatarView)bindable).OnAspectPropertyChanged();
+
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((AvatarView)bindable).OnValuePropertyChanged();
 
@@ -160,6 +170,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
+		void OnAspectPropertyChanged()
+		{
+			Image.BatchBegin();
+			Image.Aspect = Aspect;
+			Image.BatchCommit();
+		}
+
 		void OnValuePropertyChanged()
 		{
 			if (Control == null)
@@ -169,14 +186,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var source = Source;
 			Image.IsVisible = source != null;
 			Image.Source = source;
+			Image.Aspect = Aspect;
 			Image.BatchCommit();
 
 			Label.BatchBegin();
 			Label.IsVisible = !Image.IsVisible;
 			var text = Text?.Trim() ?? string.Empty;
-			Label.Text = string.IsNullOrWhiteSpace(text)
+			Label.Text = string.IsNullOrEmpty(text)
 				? emptyText
-				: text.Trim();
+				: text;
 
 			var colorTheme = ColorTheme ?? Views.ColorTheme.Default;
 			var textColor = TextColor;
