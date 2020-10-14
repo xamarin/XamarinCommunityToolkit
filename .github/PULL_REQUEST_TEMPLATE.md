@@ -40,4 +40,5 @@ public static class NewClass {
 - [ ] Has samples (if omitted, state reason in description)
 - [ ] Rebased on top of main at time of PR
 - [ ] Changes adhere to coding standard
-<!-- TODO: - [ ] Updated documentation -->
+<!-- If at all possible, please update/add the documentation on the repo below. We would very much appreciate that. If you are unable to, please consider at least opening an issue on the repo below so we know that Docs still need to be adjusted/created. Thanks! <3 -->
+- [ ] Updated [documentation](https://github.com/MicrosoftDocs/xamarin-communitytoolkit)
