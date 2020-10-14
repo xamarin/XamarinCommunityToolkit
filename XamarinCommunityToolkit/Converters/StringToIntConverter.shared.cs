@@ -19,8 +19,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>The integer value of the provided string</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		=> value is string numstr && int.TryParse(numstr, out var number)
-			? number
+		=> int.TryParse(value as string, out var intValue)
+			? intValue
 			: throw new ArgumentException("Value is not a valid integer", nameof(value));
 
 		/// <summary>
