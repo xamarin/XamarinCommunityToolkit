@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	public class StringToIntConverter : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
-		///     Converts The Provided string into the equivalent integer.
+		/// Converts The Provided string into the equivalent integer.
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
 		/// <param name="targetType">The type of the binding target property.</param>
