@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Converters
 				: throw new ArgumentException("Value is not a valid double", nameof(value));
 
 		/// <summary>
-		///     Converts The Provided double into the equivalent string.
+		/// Converts The Provided double into the equivalent string.
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
 		/// <param name="targetType">The type of the binding target property.</param>
