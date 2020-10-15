@@ -6,9 +6,12 @@ using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public partial class AvatarView : BaseTemplatedView<Frame>
+	public class AvatarView : BaseTemplatedView<Frame>
 	{
 		const string emptyText = "X";
+		static readonly IImageSourceValidator imageSourceValidator;
+
+		static AvatarView() => imageSourceValidator = new ImageSourceValidator();
 
 		public static readonly BindableProperty AspectProperty = BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(AvatarView), Aspect.AspectFill, propertyChanged: OnValuePropertyChanged);
 
@@ -148,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((AvatarView)bindable).OnValuePropertyChanged(false);
-		
+
 		static void OnSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((AvatarView)bindable).OnValuePropertyChanged(true);
 
@@ -182,7 +185,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (force)
 			{
 				Image.IsVisible = false;
-				var isValid = await IsImageSourceValid(Source);
+				var isValid = await imageSourceValidator.IsImageSourceValid(Source);
 				if (isValid)
 				{
 					Image.IsVisible = true;
