@@ -6,7 +6,7 @@ using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class AvatarView : BaseTemplatedView<Frame>
+	public partial class AvatarView : BaseTemplatedView<Frame>
 	{
 		const string emptyText = "X";
 
@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
 
-		public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
+		public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(AvatarView), propertyChanged: OnSourcePropertyChanged);
 
 		public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
 
@@ -147,7 +147,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-			=> ((AvatarView)bindable).OnValuePropertyChanged();
+			=> ((AvatarView)bindable).OnValuePropertyChanged(false);
+		
+		static void OnSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> ((AvatarView)bindable).OnValuePropertyChanged(true);
 
 		void OnSizePropertyChanged()
 		{
@@ -170,21 +173,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
-		async void OnValuePropertyChanged()
+		async void OnValuePropertyChanged(bool force)
 		{
 			if (Control == null)
 				return;
 
 			Image.BatchBegin();
-			Image.IsVisible = false;
-			var imageBytes = await GetImageBytesAsync(Source);
-			if (imageBytes != null && imageBytes.Any())
+			if (force)
 			{
-				Image.IsVisible = true;
-				Image.Source = ImageSource.FromStream(() => new MemoryStream(imageBytes));
-				Image.Aspect = Aspect;
+				Image.IsVisible = false;
+				var isValid = await IsImageSourceValid(Source);
+				if (isValid)
+				{
+					Image.IsVisible = true;
+					Image.Source = Source;
+				}
 			}
 
+			Image.Aspect = Aspect;
 			Image.BatchCommit();
 
 			Label.BatchBegin();
@@ -226,36 +232,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return 12;
 
 			return size * .4;
-		}
-
-		async Task<byte[]> GetImageBytesAsync(ImageSource source)
-		{
-			byte[] imageBytes = null;
-			switch (source)
-			{
-				case FileImageSource fis:
-					if (File.Exists(fis.File))
-					{
-						imageBytes = File.ReadAllBytes(fis.File);
-					}
-
-					break;
-				case StreamImageSource sis:
-					using (var ms = new MemoryStream())
-					{
-						var cancellationToken = System.Threading.CancellationToken.None;
-						var task = sis.Stream(cancellationToken);
-						var stream = await task;
-						await stream.CopyToAsync(ms);
-						imageBytes = ms.ToArray();
-					}
-					break;
-				case UriImageSource uis:
-					imageBytes = new System.Net.WebClient().DownloadData(uis.Uri);
-					break;
-			}
-
-			return imageBytes;
 		}
 	}
 }
