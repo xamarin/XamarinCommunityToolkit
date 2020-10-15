@@ -6,7 +6,7 @@ using Xamarin.CommunityToolkit.UI.Views.Options;
 using System.Threading.Tasks;
 using NSubstitute;
 
-namespace Xamarin.CommunityToolkit.UnitTests.Actions.SnackBar
+namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
 	public class SnackBar_Tests
 	{
@@ -30,6 +30,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Actions.SnackBar
 		{
 			var page = new ContentPage();
 			await Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync("message"));
+		}
+
+		[Fact]
+		public async void PageExtension_DisplayToastAsyncWithOptions_PlatformNotSupportedException()
+		{
+			var page = new ContentPage();
+			await Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync(Arg.Any<ActionOptions>()));
 		}
 #endif
 	}

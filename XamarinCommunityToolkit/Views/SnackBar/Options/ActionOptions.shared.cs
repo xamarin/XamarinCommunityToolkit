@@ -8,6 +8,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 	/// </summary>
 	public class ActionOptions
 	{
+		public ActionOptions()
+		{
+			MessageOptions = new MessageOptions();
+			Duration = 3000;
+			BackgroundColor = Color.Default;
+			IsRtl = false;
+			Result = new TaskCompletionSource<bool>(false);
+		}
+
 		public ActionOptions(MessageOptions messageOptions, int duration, Color backgroundColor, bool isRtl)
 		{
 			MessageOptions = messageOptions;

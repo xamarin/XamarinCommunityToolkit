@@ -27,9 +27,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 			return args.Result.Task;
 		}
 
-		public static Task<bool> DisplayToastAsync(this Page page, ActionOptions arguments)
+		public static Task<bool> DisplayToastAsync(this Page page, ActionOptions actionOptions)
 		{
 			var snackBar = new SnackBar();
+			var arguments = actionOptions ?? new ActionOptions();
 			var options = new SnackBarOptions(arguments.MessageOptions, arguments.Duration, arguments.BackgroundColor, arguments.IsRtl, null);
 			snackBar.Show(page, options);
 			return options.Result.Task;
@@ -59,9 +60,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 			return args.Result.Task;
 		}
 
-		public static Task<bool> DisplaySnackBarAsync(this Page page, SnackBarOptions arguments)
+		public static Task<bool> DisplaySnackBarAsync(this Page page, SnackBarOptions snackBarOptions)
 		{
 			var snackBar = new SnackBar();
+			var arguments = snackBarOptions ?? new SnackBarOptions();
 			snackBar.Show(page, arguments);
 			return arguments.Result.Task;
 		}

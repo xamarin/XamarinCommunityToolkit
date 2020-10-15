@@ -10,6 +10,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 			: base(message, duration, backgroundColor, isRtl) =>
 			Actions = actions ?? Enumerable.Empty<SnackBarActionOptions>();
 
+		public SnackBarOptions() => Actions = Enumerable.Empty<SnackBarActionOptions>();
+
 		/// <summary>
 		///     Gets the text for the action buttons
 		/// </summary>
