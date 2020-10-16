@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace Xamarin.Forms.StateSquid
+namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public static class StateLayout
 	{

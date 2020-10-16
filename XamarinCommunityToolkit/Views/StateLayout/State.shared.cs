@@ -1,13 +1,13 @@
-﻿namespace Xamarin.Forms.StateSquid
+﻿namespace Xamarin.CommunityToolkit.UI.Views
 {
-    public enum State
-    {
-        None,
-        Loading,
-        Saving,
-        Success,
-        Error,
-        Empty,
-        Custom
-    }
+	public enum State
+	{
+		None,
+		Loading,
+		Saving,
+		Success,
+		Error,
+		Empty,
+		Custom
+	}
 }

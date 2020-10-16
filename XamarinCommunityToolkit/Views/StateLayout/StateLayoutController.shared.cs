@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
-namespace Xamarin.Forms.StateSquid
+namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class StateLayoutController
 	{
@@ -158,7 +159,7 @@ namespace Xamarin.Forms.StateSquid
 			if (template != null)
 				return template;
 
-			return new Label() { Text = $"Template for {state.ToString()}{customState} not defined." };
+			return new Label() { Text = $"Template for {state}{customState} not defined." };
 		}
 
 		async Task ChildrenFadeTo(Layout<View> layout, bool animate, bool isHide)

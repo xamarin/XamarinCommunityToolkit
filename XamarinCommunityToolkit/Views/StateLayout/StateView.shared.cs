@@ -1,6 +1,7 @@
 ﻿using System;
+using Xamarin.Forms;
 
-namespace Xamarin.Forms.StateSquid
+namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class StateView : ContentView
 	{
