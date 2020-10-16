@@ -24,7 +24,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty CornerRadiusProperty 
 			= BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(ContentButton), 0.0f, propertyChanged: OnCornerRadiusPropertyChanged);
 
-		public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(ContentButton), Color.Default, propertyChanged: OnBorderColorPropertyChanged);
+		public static readonly BindableProperty BorderColorProperty 
+			= BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(ContentButton), Color.Default, propertyChanged: OnBorderColorPropertyChanged);
 
 		public static new readonly BindableProperty BackgroundColorProperty = BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(ContentButton), Color.Default, propertyChanged: OnBackgroundColorPropertyChanged);
 
