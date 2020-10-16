@@ -153,7 +153,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected override void OnControlInitialized(Frame control)
 		{
-			Control.GestureRecognizers.Add(new TapGestureRecognizer
+			control.Padding = 0;
+			control.GestureRecognizers.Add(new TapGestureRecognizer
 			{
 				Command = new Command(async (parameter) =>
 				{
