@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				return;
 
 			if (ShouldDismissKeyboardAutomatically)
-				Device.BeginInvokeOnMainThread(View.Unfocus);
+				View.Unfocus();
 
 			MaxLengthReached?.Invoke(View, new MaxLengthReachedEventArgs(View.Text));
 			
