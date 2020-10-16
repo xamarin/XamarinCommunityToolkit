@@ -57,19 +57,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			=> SetContent();
 
 		void OnCornerRadiusPropertyChanged()
-		{
-			Control.CornerRadius = CornerRadius;
-		}
+			=> Control.CornerRadius = CornerRadius;
 
 		void OnBorderColorPropertyChanged()
-		{
-			Control.BorderColor = BorderColor;
-		}
+			=> Control.BorderColor = BorderColor;
 
 		void OnBackgroundColorPropertyChanged()
-		{
-			Control.BackgroundColor = BackgroundColor;
-		}
+			=> Control.BackgroundColor = BackgroundColor;
 
 		public DataTemplate ContentTemplate
 		{
