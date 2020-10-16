@@ -214,4 +214,8 @@
   <ItemGroup>
     <Folder Include="Views\Snackbar\Helpers\WPF\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Behaviors\MaxLengthReachedBehavior.shared.cs" />
+  </ItemGroup>
 </Project>
