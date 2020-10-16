@@ -133,10 +133,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void SetContent()
 		{
 			if (Content != null)
-			{
-				Control.Padding = new Thickness(0);
 				Control.Content = Content;
-			}
 			if (!shouldIgnoreContentSetting)
 				SetContent(true);
 		}
