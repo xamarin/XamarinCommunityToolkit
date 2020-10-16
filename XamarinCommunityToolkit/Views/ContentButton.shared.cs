@@ -135,6 +135,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (Content != null)
 				Control.Content = Content;
+				
 			if (!shouldIgnoreContentSetting)
 				SetContent(true);
 		}
