@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Core;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
