@@ -394,7 +394,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					cameraAccess = true;
 					break;
 				case AVAuthorizationStatus.NotDetermined:
-					AVCaptureDevice.RequestAccessForMediaType(AVMediaType.Video, granted => 
+					AVCaptureDevice.RequestAccessForMediaType(AVMediaType.Video, granted =>
 						InvokeOnMainThread(() => RetrieveCameraDevice(cameraOptions)));
 					return;
 			}
