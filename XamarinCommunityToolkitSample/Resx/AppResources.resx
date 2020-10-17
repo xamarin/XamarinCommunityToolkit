@@ -363,7 +363,7 @@
   <data name="MediaElementTitle" xml:space="preserve">
     <value>MediaElement</value>
   </data>
-   <data name="MediaElementDescription" xml:space="preserve">
+  <data name="MediaElementDescription" xml:space="preserve">
     <value>MediaElement is a view for playing video and audio.</value>
   </data>
   <data name="MultiValidationDescription" xml:space="preserve">
@@ -413,6 +413,21 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="CameraViewSampleStopRecording" xml:space="preserve">
     <value>Stop Recording</value>
   </data>
+  <data name="RequiredStringValidationDescription" xml:space="preserve">
+   <value>Text color will change accordingly to the style that is configured when password confirmation doesn't match password.</value>
+  </data>
+  <data name="RequiredStringValidationShortDescription" xml:space="preserve">
+    <value>Changes an Entry's style when its text does not match another string.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="PasswordMatched" xml:space="preserve">
+    <value>Password matched</value>
+  </data>
   <data name="DateTimeOffsetConverterShortDescription" xml:space="preserve">
     <value>A converter that allows to convert from a DateTimeOffset type to a DateTime type.</value>
   </data>
@@ -443,7 +458,7 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="UserStoppedTypingBehaviorShortDescription" xml:space="preserve">
     <value>This behavior waits for the user to stop typing and then executes a Command.</value>
   </data>
-  <data name="UserStoppedTypingBehaviorThresholdOptionLabel" xml:space="preserve">
+  <data name="UserStoppedTypingBehaviorTimeThresholdOptionLabel" xml:space="preserve">
     <value>User stopped typing time threshold (in ms)</value>
   </data>
   <data name="AutoGridLayoutBehaviorDescription" xml:space="preserve">
@@ -508,5 +523,23 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   </data>
   <data name="ContentButtonTapMessage" xml:space="preserve">
     <value> ContentButton clicks</value>
+  </data>
+  <data name="UserStoppedTypingBehaviorMinimumLengthThresholdOptionLabel" xml:space="preserve">
+    <value>Minimum length threshold (number of characters)</value>
+  </data>
+  <data name="Effects Description" xml:space="preserve">
+    <value>Effects are used to add visual customization on a control by control bases</value>
+  </data>
+  <data name="EffectsTitle" xml:space="preserve">
+    <value>Effects</value>
+  </data>
+  <data name="SafeAreaShortDescription" xml:space="preserve">
+    <value>The SafeAreaEffect is an effectwill help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X.</value>
+  </data>
+  <data name="SafeAreaLongDescription" xml:space="preserve">
+    <value>The SafeAreaEffect is an effect that can be added to any element through an attached property to indicate whether or not that element should take current safe areas into account. This is an area of the screen that is safe for all devices that use iOS 11 and greater. Specifically, it will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X. The effect only targets iOS, meaning that on other platforms it does not do anything.</value>
+  </data>
+  <data name="ToggleSafeAreaEffect" xml:space="preserve">
+    <value>Toggle SafeAreaEffect</value>
   </data>
 </root>

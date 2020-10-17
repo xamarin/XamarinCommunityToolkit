@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
+using XCT = Xamarin.CommunityToolkit.Core;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -34,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(ShowsPlaybackControls), typeof(bool), typeof(MediaElement), true);
 
 		public static readonly BindableProperty SourceProperty =
-		  BindableProperty.Create(nameof(Source), typeof(MediaSource), typeof(MediaElement),
+		  BindableProperty.Create(nameof(Source), typeof(XCT.MediaSource), typeof(MediaElement),
 			  propertyChanging: OnSourcePropertyChanging, propertyChanged: OnSourcePropertyChanged);
 
 		public static readonly BindableProperty VideoHeightProperty =
@@ -100,10 +101,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		[Forms.TypeConverter(typeof(MediaSourceConverter))]
-		public MediaSource Source
+		[Forms.TypeConverter(typeof(XCT.MediaSourceConverter))]
+		public XCT.MediaSource Source
 		{
-			get => (MediaSource)GetValue(SourceProperty);
+			get => (XCT.MediaSource)GetValue(SourceProperty);
 			set => SetValue(SourceProperty, value);
 		}
 
@@ -113,11 +114,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public double Volume
 		{
-			get
-			{
-				VolumeRequested?.Invoke(this, EventArgs.Empty);
-				return (double)GetValue(VolumeProperty);
-			}
+			get => (double)GetValue(VolumeProperty);
 			set => SetValue(VolumeProperty, value);
 		}
 
@@ -126,8 +123,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		internal event EventHandler<StateRequested> StateRequested;
 
 		internal event EventHandler PositionRequested;
-
-		internal event EventHandler VolumeRequested;
 
 		public event EventHandler MediaEnded;
 
@@ -223,9 +218,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnSourcePropertyChanged(BindableObject bindable, object oldvalue, object newvalue) =>
-			((MediaElement)bindable).OnSourcePropertyChanged((MediaSource)newvalue);
+			((MediaElement)bindable).OnSourcePropertyChanged((XCT.MediaSource)newvalue);
 
-		void OnSourcePropertyChanged(MediaSource newvalue)
+		void OnSourcePropertyChanged(XCT.MediaSource newvalue)
 		{
 			if (newvalue != null)
 			{
@@ -237,9 +232,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnSourcePropertyChanging(BindableObject bindable, object oldvalue, object newvalue) =>
-			((MediaElement)bindable).OnSourcePropertyChanging((MediaSource)oldvalue);
+			((MediaElement)bindable).OnSourcePropertyChanging((XCT.MediaSource)oldvalue);
 
-		void OnSourcePropertyChanging(MediaSource oldvalue)
+		void OnSourcePropertyChanging(XCT.MediaSource oldvalue)
 		{
 			if (oldvalue == null)
 				return;

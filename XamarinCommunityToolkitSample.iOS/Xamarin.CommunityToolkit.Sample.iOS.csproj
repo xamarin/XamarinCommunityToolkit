@@ -25,7 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>x86_64</MtouchArch>
-    <MtouchLink>None</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <MtouchDebug>true</MtouchDebug>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -123,8 +123,12 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\LauncherIcon.pdf" />
+    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\LauncherIcon.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -157,7 +161,9 @@
   <ItemGroup>
     <BundleResource Include="Resources\info%402x.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\LauncherIcon.imageset\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamarinCommunityToolkitSample\Xamarin.CommunityToolkit.Sample.csproj">
       <Project>{81AADE72-D666-4AB0-83D9-8FE366E0755E}</Project>
@@ -168,7 +174,5 @@
       <Name>Xamarin.CommunityToolkit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets.xcassets\LauncherIcon.imageset\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
