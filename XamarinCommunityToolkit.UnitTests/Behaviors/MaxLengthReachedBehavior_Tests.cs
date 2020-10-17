@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Net.Http.Headers;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
@@ -10,8 +8,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class MaxLengthReachedBehavior_Tests
 	{
-		const int defaultMaxLength = 6;
-
 		[Fact]
 		public void ShouldExecuteCommandWhenMaxLengthHasBeenReached()
 		{
@@ -40,6 +36,38 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 			// assert
 			Assert.True(eventHandlerHasBeenInvoked);
+		}
+
+		[Fact]
+		public void ShouldExecuteCommandWithTextValueNoLargerThenMaxLength()
+		{
+			// arrange
+			var expectedLength = 6;
+			var actualLength = int.MaxValue;
+			var entry = CreateEntry(maxLength: 6,
+									command: new Command<string>((text) => actualLength = text.Length));
+
+			// act
+			entry.Text = "123456789";
+
+			// assert
+			Assert.Equal(expectedLength, actualLength);
+		}
+
+		[Fact]
+		public void ShouldInvokeEventHandlerWithTextValueNoLargerThenMaxLength()
+		{
+			// arrange
+			var expectedLength = 6;
+			var actualLength = int.MaxValue;
+			var entry = CreateEntry(maxLength: 6,
+									eventHandler: (sender, text) => actualLength = text.Text.Length);
+
+			// act
+			entry.Text = "123456789";
+
+			// assert
+			Assert.Equal(expectedLength, actualLength);
 		}
 
 		[Fact]

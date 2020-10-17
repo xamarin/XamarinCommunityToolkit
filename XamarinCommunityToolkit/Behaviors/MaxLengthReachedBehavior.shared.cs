@@ -42,10 +42,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (ShouldDismissKeyboardAutomatically)
 				View.Unfocus();
 
-			MaxLengthReached?.Invoke(View, new MaxLengthReachedEventArgs(View.Text));
+			var newTextValue = View.Text.Substring(0, View.MaxLength);
+
+			MaxLengthReached?.Invoke(View, new MaxLengthReachedEventArgs(newTextValue));
 			
-			if (Command?.CanExecute(View.Text) ?? false)
-				Command.Execute(View.Text);
+			if (Command?.CanExecute(newTextValue) ?? false)
+				Command.Execute(newTextValue);
 		}
 	}
 }
