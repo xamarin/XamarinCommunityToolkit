@@ -35,7 +35,7 @@
                     <BoxView HeightRequest="1" BackgroundColor="#cccccc" Margin="0,16" />
 
                     <Label Text="Cycle all possible states" HorizontalOptions="Center" />
-                    <Label Text="This will show all states at an interval of 3 seconds. Just to show what this squid can do."
+                    <Label Text="This will show all states at an interval of 3 seconds."
                            FontSize="14" Margin="0,8,0,16" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
 
                     <Button Command="{Binding CycleStatesCommand}" IsVisible="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:State.None}}"
