@@ -7,8 +7,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
 	public class MaxLengthReachedBehaviorViewModel : BaseViewModel
 	{
-		#region Properties
-
 		string commandExecutions;
 
 		public string CommandExecutions
@@ -18,8 +16,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		}
 
 		public ICommand MaxLengthReachedCommand { get; }
-
-		#endregion Properties
 
 		public MaxLengthReachedBehaviorViewModel()
 			=> MaxLengthReachedCommand = new Command<string>(OnCommandExecuted);

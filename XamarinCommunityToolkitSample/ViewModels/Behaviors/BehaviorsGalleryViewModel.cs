@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			new SectionModel(
 				typeof(MaxLengthReachedBehaviorPage),
 				nameof(MaxLengthReachedBehavior),
-				AppResources.MaxLengthReachedBehaviorShortDescription)
+				AppResources.MaxLengthReachedBehaviorShortDescription),
 		};
 	}
 }

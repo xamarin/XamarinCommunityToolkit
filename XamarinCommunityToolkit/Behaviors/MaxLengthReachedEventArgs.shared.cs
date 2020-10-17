@@ -7,8 +7,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public string Text { get; }
 
 		public MaxLengthReachedEventArgs(string text)
-		{
-			Text = text;
-		}
+			=> Text = text;
 	}
 }

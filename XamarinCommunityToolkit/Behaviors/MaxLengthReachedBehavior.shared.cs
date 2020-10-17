@@ -5,13 +5,13 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-    public class MaxLengthReachedBehavior : BaseBehavior<InputView>
+	public class MaxLengthReachedBehavior : BaseBehavior<InputView>
 	{
 		public static readonly BindableProperty CommandProperty
-			= BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(UserStoppedTypingBehavior));
+			= BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MaxLengthReachedBehavior));
 
 		public static readonly BindableProperty ShouldDismissKeyboardAutomaticallyProperty
-			= BindableProperty.Create(nameof(ShouldDismissKeyboardAutomatically), typeof(bool), typeof(UserStoppedTypingBehavior), false);
+			= BindableProperty.Create(nameof(ShouldDismissKeyboardAutomatically), typeof(bool), typeof(MaxLengthReachedBehavior), false);
 
 		public event EventHandler<MaxLengthReachedEventArgs> MaxLengthReached;
 
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		void OnTextPropertyChanged()
 		{
-			if (View.Text == null || View.Text.Length < View.MaxLength)
+			if (!(View.Text?.Length >= View.MaxLength))
 				return;
 
 			if (ShouldDismissKeyboardAutomatically)
