@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.UI.Views;
 
-namespace Xamarin.CommunityToolkit.UI.Views
+namespace Xamarin.CommunityToolkit.Converters
 {
 	public class StateToBooleanConverter : IValueConverter
 	{
