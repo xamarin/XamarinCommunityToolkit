@@ -34,15 +34,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var handler = GetHandler(source);
 			if (handler == null)
-    			return true;
+    			return false;
 
 #if TIZEN
 			return await handler.LoadImageAsync(null, source).ConfigureAwait(false);
 #elif MONOANDROID
-			var imageSource = await handler.LoadImageAsync(source, null);
+			var imageSource = await handler.LoadImageAsync(source, null).ConfigureAwait(false);
 			return imageSource != null;
 #else
-			var imageSource = await handler.LoadImageAsync(source);
+			var imageSource = await handler.LoadImageAsync(source).ConfigureAwait(false);
 			return imageSource != null;
 #endif
 		}
@@ -54,6 +54,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (source is StreamImageSource)
 				return new StreamImageSourceHandler();
+
+#if !NET471
+			if (source is GravatarImageSource)
+				return new GravatarImageSourceHandler();
+#endif
+
+#if !TIZEN
+			if (source is FontImageSource)
+				return new FontImageSourceHandler();
+#endif
 
 			if (source is FileImageSource fileSource && File.Exists(fileSource.File))
 				return new FileImageSourceHandler();
