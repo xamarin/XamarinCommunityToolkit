@@ -5,20 +5,20 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class TextCharactersValidationBehavior : TextValidationBehavior
+	public class CharactersValidationBehavior : TextValidationBehavior
 	{
 		List<Predicate<char>> characterPredicates;
 
 		public static readonly BindableProperty CharacterTypeProperty =
-			BindableProperty.Create(nameof(CharacterType), typeof(CharacterType), typeof(TextCharactersValidationBehavior), CharacterType.Any, propertyChanged: OnCharacterTypePropertyChanged);
+			BindableProperty.Create(nameof(CharacterType), typeof(CharacterType), typeof(CharactersValidationBehavior), CharacterType.Any, propertyChanged: OnCharacterTypePropertyChanged);
 
 		public static readonly BindableProperty MinimumCharacterCountProperty =
-			BindableProperty.Create(nameof(MinimumCharacterCount), typeof(int), typeof(TextCharactersValidationBehavior), 0, propertyChanged: OnValidationPropertyChanged);
+			BindableProperty.Create(nameof(MinimumCharacterCount), typeof(int), typeof(CharactersValidationBehavior), 0, propertyChanged: OnValidationPropertyChanged);
 
 		public static readonly BindableProperty MaximumCharacterCountProperty =
-			BindableProperty.Create(nameof(MaximumCharacterCount), typeof(int), typeof(TextCharactersValidationBehavior), int.MaxValue, propertyChanged: OnValidationPropertyChanged);
+			BindableProperty.Create(nameof(MaximumCharacterCount), typeof(int), typeof(CharactersValidationBehavior), int.MaxValue, propertyChanged: OnValidationPropertyChanged);
 
-		public TextCharactersValidationBehavior()
+		public CharactersValidationBehavior()
 			=> OnCharacterTypePropertyChanged();
 
 		public CharacterType CharacterType
@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		static void OnCharacterTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			((TextCharactersValidationBehavior)bindable).OnCharacterTypePropertyChanged();
+			((CharactersValidationBehavior)bindable).OnCharacterTypePropertyChanged();
 			OnValidationPropertyChanged(bindable, oldValue, newValue);
 		}
 

@@ -5,9 +5,9 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
-	public class TextCharactersValidationBehavior_Tests
+	public class CharactersValidationBehavior_Tests
 	{
-		public TextCharactersValidationBehavior_Tests()
+		public CharactersValidationBehavior_Tests()
 			=> Device.PlatformServices = new MockPlatformServices();
 
 		[Theory]
