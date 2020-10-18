@@ -33,9 +33,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public async Task<bool> IsImageSourceValidAsync(ImageSource source)
 		{
 			var handler = GetHandler(source);
+			if (handler == null)
+    			return true;
 
 #if TIZEN
-			return await handler.LoadImageAsync(null, source).ConfiguraAwait(false);
+			return await handler.LoadImageAsync(null, source).ConfigureAwait(false);
 #elif MONOANDROID
 			var imageSource = await handler.LoadImageAsync(source, null);
 			return imageSource != null;
