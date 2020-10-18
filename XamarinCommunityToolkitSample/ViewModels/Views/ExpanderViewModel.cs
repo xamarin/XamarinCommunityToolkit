@@ -51,19 +51,19 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			public string Name
 			{
 				get => name;
-				set => Set(ref name, value);
+				set => SetProperty(ref name, value);
 			}
 
 			public bool IsExpanded
 			{
 				get => isExpanded;
-				set => Set(ref isExpanded, value);
+				set => SetProperty(ref isExpanded, value);
 			}
 
 			public bool IsEnabled
 			{
 				get => isEnabled;
-				set => Set(ref isEnabled, value);
+				set => SetProperty(ref isEnabled, value);
 			}
 		}
 	}

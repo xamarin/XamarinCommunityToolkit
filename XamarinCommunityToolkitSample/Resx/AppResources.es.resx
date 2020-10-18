@@ -389,6 +389,21 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
   </data>
+  <data name="RequiredStringValidationDescription" xml:space="preserve">
+   <value>#Text color will change accordingly to the style that is configured when password confirmation doesn't match password.</value>
+  </data>
+  <data name="RequiredStringValidationShortDescription" xml:space="preserve">
+    <value>#Changes an Entry's style when its text does not match another string.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>#Password</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>#Confirm password</value>
+  </data>
+  <data name="PasswordMatched" xml:space="preserve">
+    <value>#Password matched</value>
+  </data>
   <data name="CameraViewTitle" xml:space="preserve">
     <value>CameraView</value>
   </data>
@@ -451,5 +466,26 @@ By default, if more cells in the grid are needed by the number of child views th
 The user may at their choice decide to have output warnings treated as exceptions.
 
 If the user manually assigns a row or column on a view, it will be honored.</value>
+  </data>
+  <data name="DefaultGravatar" xml:space="preserve">
+    <value>#Default Gravatar</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>#Email</value>
+  </data>
+  <data name="FullImageSource" xml:space="preserve">
+    <value>#Full Image Source</value>
+  </data>
+  <data name="GravatarImageSourceDescription" xml:space="preserve">
+    <value>GravatarImageSource le permite utilizar fácilmente la imagen de Gravatar de un usuario de Gravatar.com usando nada más que su dirección de correo electrónico.</value>
+  </data>
+  <data name="GravatarImageSourceTitle" xml:space="preserve">
+    <value>#GravatarImageSource</value>
+  </data>
+  <data name="GravatarSize" xml:space="preserve">
+    <value>#GravatarSize</value>
+  </data>
+  <data name="XAMLExtension" xml:space="preserve">
+    <value>#XAML Extension</value>
   </data>
 </root>
