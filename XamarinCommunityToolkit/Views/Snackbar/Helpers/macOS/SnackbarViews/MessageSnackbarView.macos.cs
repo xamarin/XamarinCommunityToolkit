@@ -4,8 +4,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 {
 	class MessageSnackbarView : BaseSnackbarView
 	{
-		public MessageSnackbarView(MacOSSnackBar snackbar)
-			: base(snackbar)
+		public MessageSnackbarView(MacOSSnackBar snackbar) : base(snackbar)
 		{
 		}
 

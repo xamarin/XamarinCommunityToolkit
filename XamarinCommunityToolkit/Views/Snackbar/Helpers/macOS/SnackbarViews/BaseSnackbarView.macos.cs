@@ -4,10 +4,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 {
 	abstract class BaseSnackbarView : NSView
 	{
-		public BaseSnackbarView(MacOSSnackBar snackbar)
-		{
-			Snackbar = snackbar;
-		}
+		public BaseSnackbarView(MacOSSnackBar snackbar) => Snackbar = snackbar;
 
 		public NSLayoutConstraint BottomConstraint { get; protected set; }
 

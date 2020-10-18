@@ -19,10 +19,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 		{
 			base.RemoveFromSuperview();
 
-			if (ActionButton != null)
-			{
+			if (ActionButton != null) 
 				ActionButton.Activated -= DismissButtonTouchUpInside;
-			}
 		}
 
 		protected override void ConstrainChildren()

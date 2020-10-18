@@ -21,10 +21,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 		{
 			base.RemoveFromSuperview();
 
-			if (ActionButton != null)
-			{
+			if (ActionButton != null) 
 				ActionButton.TouchUpInside -= DismissButtonTouchUpInside;
-			}
 		}
 
 		protected override void ConstrainChildren()
