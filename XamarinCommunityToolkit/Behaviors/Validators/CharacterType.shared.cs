@@ -9,12 +9,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		UppercaseLetter = 2,
 		Letter = LowercaseLetter | UppercaseLetter,
 		Digit = 4,
-		LetterOrDigit = Letter | Digit,
+		Alphanumeric = Letter | Digit,
 		Whitespace = 8,
-		Symbol = 16,
-		LowercaseBasicLatinLetter = 32,
-		UppercaseBasicLatinLetter = 64,
-		BasicLatinLetter = LowercaseBasicLatinLetter | UppercaseBasicLatinLetter,
-		Any = LetterOrDigit | Symbol | Whitespace
+		NonAlphanumericSymbol = 16,
+		LowercaseLatinLetter = 32,
+		UppercaseLatinLetter = 64,
+		LatinLetter = LowercaseLatinLetter | UppercaseLatinLetter,
+		Any = Alphanumeric | NonAlphanumericSymbol | Whitespace
 	}
 }

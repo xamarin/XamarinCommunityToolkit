@@ -62,13 +62,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (characterType.HasFlag(CharacterType.Whitespace))
 				yield return char.IsWhiteSpace;
 
-			if (characterType.HasFlag(CharacterType.Symbol))
+			if (characterType.HasFlag(CharacterType.NonAlphanumericSymbol))
 				yield return c => !char.IsLetterOrDigit(c) && !char.IsWhiteSpace(c);
 
-			if (characterType.HasFlag(CharacterType.LowercaseBasicLatinLetter))
+			if (characterType.HasFlag(CharacterType.LowercaseLatinLetter))
 				yield return c => c >= 'a' && c <= 'z';
 
-			if (characterType.HasFlag(CharacterType.UppercaseBasicLatinLetter))
+			if (characterType.HasFlag(CharacterType.UppercaseLatinLetter))
 				yield return c => c >= 'A' && c <= 'Z';
 		}
 
