@@ -183,12 +183,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Image.BatchBegin();
 			if (shouldUpdateSource)
 			{
-				var isImageSourceValid = await imageSourceValidator.IsImageSourceValidAsync(Source);
-				Image.IsVisible = isImageSourceValid;
-				if (isImageSourceValid)
-				{
-					Image.Source = Source;
-				}
+				Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(Source);
+				Image.Source = Source;
 			}
 
 			Image.Aspect = Aspect;
