@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
@@ -10,21 +11,27 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty CommandProperty
 			= BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(MaxLengthReachedBehavior));
 
-		public static readonly BindableProperty ShouldDismissKeyboardAutomaticallyProperty
-			= BindableProperty.Create(nameof(ShouldDismissKeyboardAutomatically), typeof(bool), typeof(MaxLengthReachedBehavior), false);
-
-		public event EventHandler<MaxLengthReachedEventArgs> MaxLengthReached;
-
 		public ICommand Command
 		{
 			get => (ICommand)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
+		public static readonly BindableProperty ShouldDismissKeyboardAutomaticallyProperty
+			= BindableProperty.Create(nameof(ShouldDismissKeyboardAutomatically), typeof(bool), typeof(MaxLengthReachedBehavior), false);
+
 		public bool ShouldDismissKeyboardAutomatically
 		{
 			get => (bool)GetValue(ShouldDismissKeyboardAutomaticallyProperty);
 			set => SetValue(ShouldDismissKeyboardAutomaticallyProperty, value);
+		}
+
+		readonly WeakEventManager maxLengthReachedEventManager = new WeakEventManager();
+
+		public event EventHandler<MaxLengthReachedEventArgs> MaxLengthReached
+		{
+			add => maxLengthReachedEventManager.AddEventHandler(value);
+			remove => maxLengthReachedEventManager.RemoveEventHandler(value);
 		}
 
 		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -44,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			var newTextValue = View.Text.Substring(0, View.MaxLength);
 
-			MaxLengthReached?.Invoke(View, new MaxLengthReachedEventArgs(newTextValue));
+			maxLengthReachedEventManager.RaiseEvent(this, new MaxLengthReachedEventArgs(newTextValue), nameof(MaxLengthReached));
 			
 			if (Command?.CanExecute(newTextValue) ?? false)
 				Command.Execute(newTextValue);
