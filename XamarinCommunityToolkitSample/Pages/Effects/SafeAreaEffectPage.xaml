@@ -9,10 +9,9 @@
     BackgroundColor="{StaticResource NormalButtonBackgroundColor}">
     <ContentPage.Content>
         <StackLayout
+            x:Name="stack"
             Padding="10,10"
-            effects:SafeAreaEffect.SafeArea="{Binding Path=IsToggled}"
             BackgroundColor="{StaticResource AppBackgroundColor}"
-            BindingContext="{x:Reference Name=ActivationToggle}"
             HorizontalOptions="Fill"
             Spacing="10"
             VerticalOptions="Fill">
@@ -20,7 +19,10 @@
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <Label Text="{rsx:Translate ToggleSafeAreaEffect}" TextColor="{StaticResource NormalLabelTextColor}" />
 
-                <Switch x:Name="ActivationToggle" IsToggled="False" />
+                <Switch
+                    x:Name="ActivationToggle"
+                    IsToggled="False"
+                    Toggled="ActivationToggle_Toggled" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

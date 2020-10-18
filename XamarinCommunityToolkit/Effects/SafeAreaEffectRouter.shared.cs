@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
@@ -7,6 +8,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		public SafeAreaEffectRouter()
 			: base($"{nameof(CommunityToolkit)}.{nameof(SafeAreaEffectRouter)}")
 		{
+#if __IOS__
+			if (DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.iOS.Effects.SafeAreaEffectRouter();
+#endif
 		}
 	}
 }
