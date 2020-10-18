@@ -9,7 +9,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class AvatarView : BaseTemplatedView<Frame>
 	{
 		const string emptyText = "X";
-		
 		static readonly IImageSourceValidator imageSourceValidator = new ImageSourceValidator();
 
 		public static readonly BindableProperty AspectProperty = BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(AvatarView), Aspect.AspectFill, propertyChanged: OnValuePropertyChanged);

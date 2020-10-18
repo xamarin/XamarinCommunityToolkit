@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var handler = GetHandler(source);
 
 #if TIZEN
-			return await handler.LoadImageAsync(null, source);
+			return await handler.LoadImageAsync(null, source).ConfiguraAwait(false);
 #elif MONOANDROID
 			var imageSource = await handler.LoadImageAsync(source, null);
 			return imageSource != null;
