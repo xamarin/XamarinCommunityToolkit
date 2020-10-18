@@ -176,19 +176,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
-		async void OnValuePropertyChanged(bool force)
+		async void OnValuePropertyChanged(bool shouldUpdateSource)
 		{
 			if (Control == null)
 				return;
 
 			Image.BatchBegin();
-			if (force)
+			if (shouldUpdateSource)
 			{
-				Image.IsVisible = false;
-				var isValid = await imageSourceValidator.IsImageSourceValid(Source);
-				if (isValid)
+				var isImageSourceValid = await imageSourceValidator.IsImageSourceValidAsync(Source);
+				Image.IsVisible = isImageSourceValid;
+				if (isImageSourceValid)
 				{
-					Image.IsVisible = true;
 					Image.Source = Source;
 				}
 			}

@@ -3,8 +3,8 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public interface IImageSourceValidator
+	interface IImageSourceValidator
 	{
-		Task<bool> IsImageSourceValid(ImageSource source);
+		Task<bool> IsImageSourceValidAsync(ImageSource source);
 	}
 }

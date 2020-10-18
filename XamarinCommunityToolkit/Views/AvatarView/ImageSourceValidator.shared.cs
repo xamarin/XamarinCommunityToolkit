@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	class ImageSourceValidator : IImageSourceValidator
 	{
 		// we should still try to load image
-		public Task<bool> IsImageSourceValid(ImageSource source) => Task.FromResult(true);
+		public Task<bool> IsImageSourceValidAsync(ImageSource source) => Task.FromResult(true);
 	}
 #endif
 }
