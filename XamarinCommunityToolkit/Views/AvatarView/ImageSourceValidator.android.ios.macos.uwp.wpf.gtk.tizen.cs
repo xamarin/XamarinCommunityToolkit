@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var handler = GetHandler(source);
 			if (handler == null)
-    			return false;
+				return false;
 
 #if TIZEN
 			return await handler.LoadImageAsync(null, source).ConfigureAwait(false);
