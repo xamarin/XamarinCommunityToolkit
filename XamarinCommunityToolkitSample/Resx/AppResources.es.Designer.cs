@@ -107,7 +107,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
-        internal static string IntroductioDescription {
+        internal static string IntroductionDescription {
             get {
                 return ResourceManager.GetString("IntroductioDescription", resourceCulture);
             }
