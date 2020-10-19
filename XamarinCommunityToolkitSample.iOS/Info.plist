@@ -42,5 +42,9 @@
 	<string>This app would like to save files to your gallery</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app would like to access your gallery</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 </dict>
 </plist>
