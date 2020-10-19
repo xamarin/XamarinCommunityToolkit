@@ -1,13 +1,10 @@
 ﻿using AppKit;
 
-namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
-	abstract class BaseSnackbarView : NSView
+	abstract class BaseSnackBarView : NSView
 	{
-		public BaseSnackbarView(MacOSSnackBar snackbar)
-		{
-			Snackbar = snackbar;
-		}
+		public BaseSnackBarView(MacOSSnackBar snackBar) => SnackBar = snackBar;
 
 		public NSLayoutConstraint BottomConstraint { get; protected set; }
 
@@ -23,12 +20,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 
 		public NSLayoutConstraint TrailingConstraint { get; protected set; }
 
-		protected MacOSSnackBar Snackbar { get; }
+		protected MacOSSnackBar SnackBar { get; }
 
-		public virtual void Dismiss()
-		{
-			RemoveFromSuperview();
-		}
+		public virtual void Dismiss() => RemoveFromSuperview();
 
 		public virtual void Setup()
 		{
@@ -44,19 +38,19 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 		protected virtual void ConstrainInParent()
 		{
 			BottomConstraint =
-				BottomAnchor.ConstraintEqualToAnchor(ParentView.BottomAnchor, -Snackbar.Layout.MarginBottom);
+				BottomAnchor.ConstraintEqualToAnchor(ParentView.BottomAnchor, -SnackBar.Layout.MarginBottom);
 			BottomConstraint.Active = true;
 
 			TopConstraint =
-				TopAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TopAnchor, Snackbar.Layout.MarginTop);
+				TopAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TopAnchor, SnackBar.Layout.MarginTop);
 			TopConstraint.Active = true;
 
 			LeadingConstraint =
 				LeadingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.LeadingAnchor,
-					Snackbar.Layout.MarginLeading);
+					SnackBar.Layout.MarginLeading);
 			TrailingConstraint =
 				TrailingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TrailingAnchor,
-					-Snackbar.Layout.MarginTrailing);
+					-SnackBar.Layout.MarginTrailing);
 			CenterXConstraint = CenterXAnchor.ConstraintEqualToAnchor(ParentView.CenterXAnchor);
 
 			NSLayoutConstraint.ActivateConstraints(new[] { LeadingConstraint, TrailingConstraint, CenterXConstraint });
@@ -67,8 +61,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 			WantsLayer = true;
 			if (Layer != null)
 			{
-				Layer.BackgroundColor = Snackbar.Appearance.Color.CGColor;
-				Layer.CornerRadius = Snackbar.Appearance.CornerRadius;
+				Layer.BackgroundColor = SnackBar.Appearance.Color.CGColor;
+				Layer.CornerRadius = SnackBar.Appearance.CornerRadius;
 			}
 
 			TranslatesAutoresizingMaskIntoConstraints = false;

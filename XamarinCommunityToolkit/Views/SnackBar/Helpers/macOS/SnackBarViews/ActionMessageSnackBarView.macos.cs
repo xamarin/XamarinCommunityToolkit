@@ -1,14 +1,14 @@
 ﻿using System;
 using AppKit;
 
-namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
-	class ActionMessageSnackbarView : MessageSnackbarView
+	class ActionMessageSnackBarView : MessageSnackBarView
 	{
-		readonly MacOSSnackBar snackbar;
-
-		public ActionMessageSnackbarView(MacOSSnackBar snackbar)
-			: base(snackbar) => this.snackbar = snackbar;
+		public ActionMessageSnackBarView(MacOSSnackBar snackBar)
+			: base(snackBar)
+		{
+		}
 
 		public NSButton ActionButton { get; set; }
 
@@ -28,14 +28,14 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 		protected override void ConstrainChildren()
 		{
 			MessageLabel.TrailingAnchor
-				.ConstraintLessThanOrEqualToAnchor(ActionButton.LeadingAnchor, -Snackbar.Layout.Spacing).Active = true;
-			MessageLabel.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, Snackbar.Layout.PaddingLeading)
+				.ConstraintLessThanOrEqualToAnchor(ActionButton.LeadingAnchor, -SnackBar.Layout.Spacing).Active = true;
+			MessageLabel.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeading)
 				.Active = true;
-			MessageLabel.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -Snackbar.Layout.PaddingBottom)
+			MessageLabel.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom)
 				.Active = true;
-			MessageLabel.TopAnchor.ConstraintEqualToAnchor(TopAnchor, Snackbar.Layout.PaddingTop).Active = true;
+			MessageLabel.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
 
-			ActionButton.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -Snackbar.Layout.PaddingTrailing)
+			ActionButton.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingTrailing)
 				.Active = true;
 			ActionButton.CenterYAnchor.ConstraintEqualToAnchor(CenterYAnchor).Active = true;
 
@@ -55,8 +55,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 			ActionButton = new NSButton
 			{
 				TranslatesAutoresizingMaskIntoConstraints = false,
-				Title = Snackbar.ActionButtonText,
-				LineBreakMode = Snackbar.Appearance.DismissButtonLineBreakMode
+				Title = SnackBar.ActionButtonText,
+				LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode
 			};
 			ActionButton.Activated += DismissButtonTouchUpInside;
 			AddSubview(ActionButton);
@@ -64,7 +64,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews
 
 		async void DismissButtonTouchUpInside(object sender, EventArgs e)
 		{
-			await snackbar.Action();
+			await SnackBar.Action();
 			Dismiss();
 		}
 	}

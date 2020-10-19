@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Foundation;
-using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackbarViews;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 {
@@ -15,15 +15,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		public string ActionButtonText { get; protected set; }
 
-		public SnackbarAppearance Appearance { get; } = new SnackbarAppearance();
+		public SnackBarAppearance Appearance { get; } = new SnackBarAppearance();
 
 		public double Duration { get; protected set; }
 
-		public SnackbarLayout Layout { get; } = new SnackbarLayout();
+		public SnackBarLayout Layout { get; } = new SnackBarLayout();
 
 		public string Message { get; protected set; }
 
-		protected BaseSnackbarView SnackbarView { get; set; }
+		protected BaseSnackBarView SnackBarView { get; set; }
 
 		public void Dismiss()
 		{
@@ -34,10 +34,10 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 				timer = null;
 			}
 
-			SnackbarView?.Dismiss();
+			SnackBarView?.Dismiss();
 		}
 
-		public static MacOSSnackBar MakeSnackbar(string message)
+		public static MacOSSnackBar MakeSnackBar(string message)
 		{
 			var snackbar = new MacOSSnackBar { Message = message };
 			return snackbar;
@@ -69,11 +69,11 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		public MacOSSnackBar Show()
 		{
-			SnackbarView = GetSnackbarView();
+			SnackBarView = GetSnackBarView();
 
-			SnackbarView.ParentView.AddSubview(SnackbarView);
+			SnackBarView.ParentView.AddSubview(SnackBarView);
 
-			SnackbarView.Setup();
+			SnackBarView.Setup();
 
 			timer = NSTimer.CreateScheduledTimer(TimeSpan.FromMilliseconds(Duration), async t =>
 			{
@@ -84,14 +84,14 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 			return this;
 		}
 
-		BaseSnackbarView GetSnackbarView()
+		BaseSnackBarView GetSnackBarView()
 		{
 			if (Action != null && !string.IsNullOrEmpty(ActionButtonText))
 			{
-				return new ActionMessageSnackbarView(this);
+				return new ActionMessageSnackBarView(this);
 			}
 
-			return new MessageSnackbarView(this);
+			return new MessageSnackBarView(this);
 		}
 	}
 }
