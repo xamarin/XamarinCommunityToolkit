@@ -133,7 +133,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected void RemoveStatusObserver()
 		{
 			if (statusObserver != null)
-				avPlayerViewController?.Player?.CurrentItem?.RemoveObserver(statusObserver, "status");
+			avPlayerViewController?.Player?.CurrentItem?.RemoveObserver(statusObserver, "status");
 			statusObserver?.Dispose();
 			statusObserver = null;
 		}
