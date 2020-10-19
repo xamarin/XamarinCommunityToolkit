@@ -78,9 +78,6 @@
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
-    <Compile Include="Views\StateLayout\StateView.cs">
-      <SubType></SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
