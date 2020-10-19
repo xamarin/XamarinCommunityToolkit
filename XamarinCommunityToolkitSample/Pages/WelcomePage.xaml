@@ -27,7 +27,7 @@
                     Margin="20,32,20,0"
                     Style="{StaticResource label_welcome_header}"
                     Text="{rsx:Translate IntroductionTitle}" />
-                <Label Margin="20,0,20,28" Text="{rsx:Translate IntroductioDescription}" />
+                <Label Margin="20,0,20,28" Text="{rsx:Translate IntroductionDescription}" />
                 <StackLayout BindableLayout.ItemsSource="{Binding Items}" Spacing="16">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
