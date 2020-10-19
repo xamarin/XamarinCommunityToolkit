@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show snackbar, toast etc.
+        ///   Looks up a localized string similar to Show SnackBar, toast etc.
         /// </summary>
         internal static string ActionsPageDescription {
             get {
@@ -518,9 +518,9 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         /// <summary>
         ///   Looks up a localized string similar to The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms..
         /// </summary>
-        internal static string IntroductioDescription {
+        internal static string IntroductionDescription {
             get {
-                return ResourceManager.GetString("IntroductioDescription", resourceCulture);
+                return ResourceManager.GetString("IntroductionDescription", resourceCulture);
             }
         }
         
@@ -833,20 +833,20 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show snackbar (no action button).
+        ///   Looks up a localized string similar to Show toast.
         /// </summary>
-        internal static string ShowSnackbarNoActionButton {
+        internal static string ShowSnackBarNoActionButton {
             get {
-                return ResourceManager.GetString("ShowSnackbarNoActionButton", resourceCulture);
+                return ResourceManager.GetString("ShowSnackBarNoActionButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show snackbar with action button.
+        ///   Looks up a localized string similar to Show SnackBar.
         /// </summary>
-        internal static string ShowSnackbarWithActionButton {
+        internal static string ShowSnackBarWithActionButton {
             get {
-                return ResourceManager.GetString("ShowSnackbarWithActionButton", resourceCulture);
+                return ResourceManager.GetString("ShowSnackBarWithActionButton", resourceCulture);
             }
         }
         
@@ -869,20 +869,20 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Snackbar is closed by timeout.
+        ///   Looks up a localized string similar to SnackBar is closed by timeout.
         /// </summary>
-        internal static string SnackbarIsClosedByTimeout {
+        internal static string SnackBarIsClosedByTimeout {
             get {
-                return ResourceManager.GetString("SnackbarIsClosedByTimeout", resourceCulture);
+                return ResourceManager.GetString("SnackBarIsClosedByTimeout", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Snackbar is closed by user.
+        ///   Looks up a localized string similar to SnackBar is closed by user.
         /// </summary>
-        internal static string SnackbarIsClosedByUser {
+        internal static string SnackBarIsClosedByUser {
             get {
-                return ResourceManager.GetString("SnackbarIsClosedByUser", resourceCulture);
+                return ResourceManager.GetString("SnackBarIsClosedByUser", resourceCulture);
             }
         }
         

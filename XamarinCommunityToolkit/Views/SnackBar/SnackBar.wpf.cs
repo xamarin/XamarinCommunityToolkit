@@ -1,34 +1,35 @@
 ﻿using System.Windows.Forms;
-using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF.Controls;
 using Xamarin.Forms.Platform.WPF.Helpers;
+using Xamarin.CommunityToolkit.UI.Views.Helpers;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		Timer snackbarTimer;
+		Timer snackBarTimer;
 
-		internal void Show(Page page, SnackbarArguments arguments)
+		internal void Show(Page page, SnackBarOptions arguments)
 		{
 			var formsAppBar = System.Windows.Application.Current.MainWindow.FindChild<FormsAppBar>("PART_BottomAppBar");
 			var currentContent = formsAppBar.Content;
-			var snackBar = new SnackbarLayout(arguments.Message, arguments.ActionButtonText, arguments.Action);
-			snackbarTimer = new Timer { Interval = arguments.Duration };
-			snackbarTimer.Tick += (sender, e) =>
+			var snackBar = new SnackBarLayout(arguments);
+			snackBarTimer = new Timer { Interval = arguments.Duration };
+			snackBarTimer.Tick += (sender, e) =>
 			{
 				formsAppBar.Content = currentContent;
-				snackbarTimer.Stop();
+				snackBarTimer.Stop();
 				arguments.SetResult(false);
 			};
-			snackBar.OnSnackbarActionExecuted += () =>
+			snackBar.OnSnackBarActionExecuted += () =>
 			{
 				formsAppBar.Content = currentContent;
-				snackbarTimer.Stop();
+				snackBarTimer.Stop();
 				arguments.SetResult(true);
 			};
-			snackbarTimer.Start();
+			snackBarTimer.Start();
 			formsAppBar.Content = snackBar;
 		}
 	}

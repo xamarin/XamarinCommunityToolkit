@@ -3,7 +3,7 @@ using AppKit;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 {
-	class SnackbarAppearance
+	class SnackBarAppearance
 	{
 		public NSColor Color { get; set; } = NSColor.SystemGrayColor;
 

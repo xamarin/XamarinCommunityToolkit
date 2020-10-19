@@ -133,16 +133,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected void RemoveStatusObserver()
 		{
 			if (statusObserver != null)
-			{
-				try
-				{
-					avPlayerViewController?.Player?.CurrentItem?.RemoveObserver(statusObserver, "status");
-				}
-				finally
-				{
-					statusObserver = null;
-				}
-			}
+				avPlayerViewController?.Player?.CurrentItem?.RemoveObserver(statusObserver, "status");
+			statusObserver?.Dispose();
+			statusObserver = null;
 		}
 
 		protected virtual void ObserveRate(NSObservedChange e)
@@ -202,7 +195,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get
 			{
-				if (avPlayerViewController.Player?.CurrentTime.IsInvalid ?? true)
+				if (avPlayerViewController?.Player?.CurrentTime.IsInvalid ?? true)
 					return TimeSpan.Zero;
 
 				return TimeSpan.FromSeconds(avPlayerViewController.Player.CurrentTime.Seconds);
@@ -377,19 +370,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				e.OldElement.SeekRequested -= MediaElementSeekRequested;
 				e.OldElement.StateRequested -= MediaElementStateRequested;
 				e.OldElement.PositionRequested -= MediaElementPositionRequested;
-
-				if (playedToEndObserver != null)
-				{
-					NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
-					playedToEndObserver = null;
-				}
-
 				SetKeepScreenOn(false);
-				RemoveStatusObserver();
-				rateObserver?.Dispose();
-				rateObserver = null;
-				volumeObserver?.Dispose();
-				volumeObserver = null;
 
 				// stop video if playing
 				if (avPlayerViewController?.Player?.CurrentItem != null)
@@ -401,6 +382,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					avPlayerViewController?.Player?.ReplaceCurrentItemWithPlayerItem(null);
 					AVAudioSession.SharedInstance().SetActive(false);
 				}
+
+				if (playedToEndObserver != null)
+					NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
+				playedToEndObserver?.Dispose();
+				playedToEndObserver = null;
+
+				if (rateObserver != null)
+					avPlayerViewController?.Player?.RemoveObserver(rateObserver, "rate");
+				rateObserver?.Dispose();
+				rateObserver = null;
+
+				if (volumeObserver != null)
+					avPlayerViewController?.Player?.RemoveObserver(volumeObserver, "volume");
+				volumeObserver?.Dispose();
+				volumeObserver = null;
+
+				RemoveStatusObserver();
 			}
 
 			if (e.NewElement != null)

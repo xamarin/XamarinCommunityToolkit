@@ -52,18 +52,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Pages\Converters\" />
-    <Folder Include="Pages\Base\" />
-    <Folder Include="ViewModels\Converters\" />
-    <Folder Include="ViewModels\Base\" />
-    <Folder Include="Pages\Extensions\" />
-    <Folder Include="Pages\TestCases\" />
-    <Folder Include="ViewModels\TestCases\" />
-    <Folder Include="ViewModels\Extensions\" />
-    <Folder Include="Resx\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DependentUpon>AppResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
