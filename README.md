@@ -121,6 +121,42 @@ Of course, `AvatarView` also supports `Source` for loading images plus a few oth
 
 ![AvatarView](./images/avatar-do.png)
 
+## DrawingView
+
+### Using DrawingView on Xamarin.Forms
+
+```xml
+<!-- xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit" -->
+
+<views:DrawingView
+            x:Name="DrawingViewControl"
+            Points="{Binding MyPoints}"
+            ClearOnFinish="true"
+            GestureCompletedCommand="{Binding GestureCompletedCommand}"
+            LineColor="Blue"
+            LineWidth="5"
+            BackgroundColor="DarkGray"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand" />
+```
+
+### Get Image from points
+
+```
+var stream = DrawingView.GetImageStream(
+                points,
+                new Size(GestureImage.Width, GestureImage.Height),
+                10, Color.White, Color.Black);
+GestureImage.Source = ImageSource.FromStream(() => stream);
+```
+
+or 
+
+```
+var stream = DrawingViewControl.GetImageStream(GestureImage.Width, GestureImage.Height);
+GestureImage.Source = ImageSource.FromStream(() => stream);
+```
+
 ## Contributions welcome!
 
 If you have one or more of these common pieces of code that you are always replicating across apps, don't hesitate to contribute! We aim to be the first NuGet package you install when creating a new Xamarin app!

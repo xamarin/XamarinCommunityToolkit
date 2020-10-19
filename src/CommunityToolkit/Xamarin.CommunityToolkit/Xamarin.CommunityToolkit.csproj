@@ -57,7 +57,7 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <DefineConstants>UWP</DefineConstants>
+    <DefineConstants>$(DefineConstants);UAP10_0</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage Xamarin.Forms version for development -->
@@ -139,6 +139,7 @@
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.80.2" />
     <Compile Include="**\*.tizen.cs" />
     <Compile Include="**\*.tizen.*.cs" />
   </ItemGroup>
@@ -200,6 +201,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\pango-sharp.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cairo">
+      <HintPath>..\Libs\gtk-sharp\Mono.Cairo\Mono.Cairo.dll</HintPath>
     </Reference>
   </ItemGroup>
 
