@@ -1,7 +1,7 @@
 ﻿#if NETSTANDARD || __TVOS__ || __WATCHOS__
 using System;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.UI.Views.Options;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
