@@ -89,6 +89,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FontFamilyProperty, value);
 		}
 
+		[TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);
