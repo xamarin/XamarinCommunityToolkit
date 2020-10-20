@@ -309,9 +309,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			// if no Source is set, do nothing
 			if (avPlayerViewController.Player?.CurrentItem == null)
-            {
 				return;
-            }
 			
 			switch (e.State)
 			{
