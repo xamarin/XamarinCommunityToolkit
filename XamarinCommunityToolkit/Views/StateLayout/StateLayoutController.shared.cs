@@ -9,9 +9,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class StateLayoutController
 	{
 		readonly WeakReference<Layout<View>> layoutWeakReference;
-		bool layoutIsGrid = false;
+		bool layoutIsGrid;
+		State previousState;
 		IList<View> originalContent;
-		State previousState = State.None;
 
 		public IList<StateView> StateViews { get; set; }
 
@@ -166,11 +166,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (animate && layout?.Children?.Count > 0)
 			{
-				var tasks = new List<Task<bool>>();
-				foreach (var a in layout.Children)
-					tasks.Add(a.FadeTo(isHide ? 0 : 1, isHide ? 100u : 500u));
+				var opacity = 1;
+				var time = 500u;
 
-				await Task.WhenAll(tasks);
+				if (isHide)
+				{
+					opacity = 0;
+					time = 100u;
+				}
+
+				await Task.WhenAll(layout.Children.Select(a => a.FadeTo(opacity, time)));
 			}
 		}
 	}

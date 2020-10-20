@@ -7,10 +7,20 @@ namespace Xamarin.CommunityToolkit.Converters
 {
 	public class StateToBooleanConverter : IValueConverter
 	{
+		public State StateToCompare { get; set; }
+
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-			=> value is State state && parameter is State stateToCompare && state == stateToCompare;
+		{
+			if (!(value is State state))
+				throw new ArgumentException("Value is not a valid State", nameof(value));
+
+			if (parameter is State stateToCompare)
+				return state == stateToCompare;
+
+			return state == StateToCompare;
+		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-			=> State.None;
+			=> throw new NotImplementedException();
 	}
 }

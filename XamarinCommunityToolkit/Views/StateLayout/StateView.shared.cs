@@ -9,13 +9,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.Create(nameof(StateKey), typeof(State), typeof(StateView), default(State));
 
 		public static readonly BindableProperty CustomStateKeyProperty
-			= BindableProperty.Create(nameof(CustomStateKey), typeof(string), typeof(StateView), default(string));
+			= BindableProperty.Create(nameof(CustomStateKey), typeof(string), typeof(StateView));
 
 		public static readonly BindableProperty RepeatCountProperty
 			= BindableProperty.Create(nameof(RepeatCount), typeof(int), typeof(StateView), 1);
 
 		public static readonly BindableProperty RepeatTemplateProperty
-			= BindableProperty.Create(nameof(RepeatTemplate), typeof(DataTemplate), typeof(StateView), null);
+			= BindableProperty.Create(nameof(RepeatTemplate), typeof(DataTemplate), typeof(StateView));
 
 		public State StateKey
 		{

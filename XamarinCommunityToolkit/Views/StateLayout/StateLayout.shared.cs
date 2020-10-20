@@ -59,29 +59,41 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnCurrentStateChanged(BindableObject bindable, State oldValue, State newValue)
 		{
+			if (oldValue == newValue)
+				return;
+
 			// Swap out the current children for the Loading Template.
-			if (oldValue != newValue && newValue != State.None && newValue != State.Custom)
+			switch (newValue)
 			{
-				GetLayoutController(bindable).SwitchToTemplate(newValue, null, GetAnimateStateChanges(bindable));
-			}
-			else if (oldValue != newValue && newValue == State.None)
-			{
-				GetLayoutController(bindable).SwitchToContent(GetAnimateStateChanges(bindable));
+				case State.Custom:
+					break;
+				case State.None:
+					GetLayoutController(bindable).SwitchToContent(GetAnimateStateChanges(bindable));
+					break;
+				default:
+					GetLayoutController(bindable).SwitchToTemplate(newValue, null, GetAnimateStateChanges(bindable));
+					break;
 			}
 		}
 
 		static void OnCurrentCustomStateKeyChanged(BindableObject bindable, string oldValue, string newValue)
 		{
+			if (oldValue == newValue)
+				return;
+
 			var state = GetCurrentState(bindable);
 
 			// Swap out the current children for the Loading Template.
-			if (oldValue != newValue && state == State.Custom)
+			switch (state)
 			{
-				GetLayoutController(bindable).SwitchToTemplate(newValue, GetAnimateStateChanges(bindable));
-			}
-			else if (oldValue != newValue && state == State.None)
-			{
-				GetLayoutController(bindable).SwitchToContent(GetAnimateStateChanges(bindable));
+				case State.None:
+					GetLayoutController(bindable).SwitchToContent(GetAnimateStateChanges(bindable));
+					break;
+				case State.Custom:
+					GetLayoutController(bindable).SwitchToTemplate(newValue, GetAnimateStateChanges(bindable));
+					break;
+				default:
+					break;
 			}
 		}
 	}

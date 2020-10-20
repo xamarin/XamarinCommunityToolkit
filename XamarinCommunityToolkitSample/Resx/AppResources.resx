@@ -149,13 +149,13 @@
   <data name="ChangeLanguage" xml:space="preserve">
     <value>Change language below, hit Save and see the texts in this page change. This will not affect the rest of the application, it just serves as a demo.</value>
   </data>
-    <data name="English" xml:space="preserve">
+  <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
-    <data name="Spanish" xml:space="preserve">
+  <data name="Spanish" xml:space="preserve">
     <value>Spanish</value>
   </data>
-    <data name="Save" xml:space="preserve">
+  <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
 </root>
