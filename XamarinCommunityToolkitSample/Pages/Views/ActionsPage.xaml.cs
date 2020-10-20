@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.CommunityToolkit.UI.Views.Options;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
@@ -34,7 +34,10 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		{
 			var messageOptions = new MessageOptions
 			{
-				Foreground = Color.DeepSkyBlue, FontSize = 40, FontFamily = "Sans-serif", Message = GenerateLongText(5)
+				Foreground = Color.DeepSkyBlue,
+				FontSize = 40,
+				FontFamily = "Sans-serif",
+				Message = GenerateLongText(5)
 			};
 
 			var actionOptions = new List<SnackBarActionOptions>
