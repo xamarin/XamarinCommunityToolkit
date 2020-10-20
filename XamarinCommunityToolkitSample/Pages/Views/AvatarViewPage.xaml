@@ -25,7 +25,7 @@
                             <views:AvatarView ColorTheme="{x:Static views:ColorTheme.Jungle}"
                                               FontSize="Medium"
                                               Size="{Binding Value,
-                                                             Source={x:Reference Slider}}"
+                                              Source={x:Reference Slider}}"
                                               Source="{Binding Source}"
                                               Text="{Binding Initials}" />
 
