@@ -1,10 +1,10 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms;
-using Xunit;
-using Xamarin.CommunityToolkit.UI.Views.Options;
 using System.Threading.Tasks;
 using NSubstitute;
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
+using Xamarin.Forms;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
 {

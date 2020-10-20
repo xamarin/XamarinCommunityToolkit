@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.UI.Views.Options;
-using System.Globalization;
-using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
