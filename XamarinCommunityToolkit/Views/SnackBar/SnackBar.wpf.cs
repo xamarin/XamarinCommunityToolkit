@@ -1,9 +1,9 @@
 ﻿using System.Windows.Forms;
+using Xamarin.CommunityToolkit.UI.Views.Helpers;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF.Controls;
 using Xamarin.Forms.Platform.WPF.Helpers;
-using Xamarin.CommunityToolkit.UI.Views.Helpers;
-using Xamarin.CommunityToolkit.UI.Views.Options;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
