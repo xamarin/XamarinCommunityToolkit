@@ -307,6 +307,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void MediaElementStateRequested(object sender, StateRequested e)
 		{
+			// if no Source is set, do nothing
+			if (avPlayerViewController.Player?.CurrentItem == null)
+            {
+				return;
+            }
+			
 			switch (e.State)
 			{
 				case MediaElementState.Playing:
