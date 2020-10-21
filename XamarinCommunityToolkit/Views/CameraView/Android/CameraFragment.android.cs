@@ -221,7 +221,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.MaxZoom = maxDigitalZoom = (float)characteristics.Get(CameraCharacteristics.ScalerAvailableMaxDigitalZoom);
 					activeRect = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
 					photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
-					videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
+					 videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
 					previewSize = ChooseOptimalSize(
 						map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))),
 						texture.Width,
@@ -230,7 +230,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					sensorOrientation = (int)characteristics.Get(CameraCharacteristics.SensorOrientation);
 					cameraType = (LensFacing)(int)characteristics.Get(CameraCharacteristics.LensFacing);
 
-					if (Resources.Configuration.Orientation == AOrientation.Landscape)
+					if (Resources.Configuration.Orientation == AOrientation.Portrait)
 						texture.SetAspectRatio(previewSize.Width, previewSize.Height);
 					else
 						texture.SetAspectRatio(previewSize.Height, previewSize.Width);
@@ -330,7 +330,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			DisposeImageReader();
 
-			photoReader = ImageReader.NewInstance(640, 480, ImageFormatType.Jpeg, maxImages: 1);
+			photoReader = ImageReader.NewInstance(width: photoSize.Width, height: photoSize.Height, ImageFormatType.Jpeg, maxImages: 1);
 
 			var readerListener = new ImageAvailableListener();
 			readerListener.Photo += (_, bytes) =>
@@ -428,7 +428,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			catch (Java.Lang.Exception error)
 			{
 				LogError("Failed to take video", error);
-				Element?.RaiseMediaCaptureFailed($"Failed to take video: {error}");
+				Element?.RaiseMediaCaptureFailed(message:$"Failed to take video: {error}");
 				DisposeMediaRecorder();
 			}
 		}
@@ -569,7 +569,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (cameraTemplate == CameraTemplate.Record)
 					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
 
-				session.SetRepeatingRequest(sessionBuilder.Build(), null, backgroundHandler);
+				session.SetRepeatingRequest(sessionBuilder.Build(), listener:null, backgroundHandler);
 				repeatingIsRunning = true;
 			}
 			catch (Java.Lang.Exception error)
@@ -594,8 +594,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				DisposeMediaRecorder();
 			}
-			catch
+			catch (Java.Lang.Exception e)
 			{
+				LogError("Error close device", e);
 			}
 			CloseSession();
 			try
