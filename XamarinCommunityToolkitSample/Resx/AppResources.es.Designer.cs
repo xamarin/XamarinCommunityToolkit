@@ -109,7 +109,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         
         internal static string IntroductionDescription {
             get {
-                return ResourceManager.GetString("IntroductioDescription", resourceCulture);
+                return ResourceManager.GetString("IntroductionDescription", resourceCulture);
             }
         }
         
@@ -587,6 +587,36 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string RequiredStringValidationDescription {
+            get {
+                return ResourceManager.GetString("RequiredStringValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string RequiredStringValidationShortDescription {
+            get {
+                return ResourceManager.GetString("RequiredStringValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        internal static string PasswordMatched {
+            get {
+                return ResourceManager.GetString("PasswordMatched", resourceCulture);
+            }
+        }
+        
         internal static string CameraViewTitle {
             get {
                 return ResourceManager.GetString("CameraViewTitle", resourceCulture);
@@ -623,6 +653,12 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string DateTimeOffsetConverterShortDescription {
+            get {
+                return ResourceManager.GetString("DateTimeOffsetConverterShortDescription", resourceCulture);
+            }
+        }
+        
         internal static string ExpanderTitle {
             get {
                 return ResourceManager.GetString("ExpanderTitle", resourceCulture);
@@ -644,6 +680,90 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         internal static string EnableNested {
             get {
                 return ResourceManager.GetString("EnableNested", resourceCulture);
+            }
+        }
+        
+        internal static string ActionsPageDescription {
+            get {
+                return ResourceManager.GetString("ActionsPageDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ActionsPageTitle {
+            get {
+                return ResourceManager.GetString("ActionsPageTitle", resourceCulture);
+            }
+        }
+        
+        internal static string SnackBarIsClosedByTimeout {
+            get {
+                return ResourceManager.GetString("SnackBarIsClosedByTimeout", resourceCulture);
+            }
+        }
+        
+        internal static string SnackBarIsClosedByUser {
+            get {
+                return ResourceManager.GetString("SnackBarIsClosedByUser", resourceCulture);
+            }
+        }
+        
+        internal static string ShowSnackBarNoActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackBarNoActionButton", resourceCulture);
+            }
+        }
+        
+        internal static string ShowSnackBarWithActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackBarWithActionButton", resourceCulture);
+            }
+        }
+        
+        internal static string ImpliedOrderGridDescriptionLabel {
+            get {
+                return ResourceManager.GetString("ImpliedOrderGridDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        internal static string DefaultGravatar {
+            get {
+                return ResourceManager.GetString("DefaultGravatar", resourceCulture);
+            }
+        }
+        
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        internal static string FullImageSource {
+            get {
+                return ResourceManager.GetString("FullImageSource", resourceCulture);
+            }
+        }
+        
+        internal static string GravatarImageSourceDescription {
+            get {
+                return ResourceManager.GetString("GravatarImageSourceDescription", resourceCulture);
+            }
+        }
+        
+        internal static string GravatarImageSourceTitle {
+            get {
+                return ResourceManager.GetString("GravatarImageSourceTitle", resourceCulture);
+            }
+        }
+        
+        internal static string GravatarSize {
+            get {
+                return ResourceManager.GetString("GravatarSize", resourceCulture);
+            }
+        }
+        
+        internal static string XAMLExtension {
+            get {
+                return ResourceManager.GetString("XAMLExtension", resourceCulture);
             }
         }
     }
