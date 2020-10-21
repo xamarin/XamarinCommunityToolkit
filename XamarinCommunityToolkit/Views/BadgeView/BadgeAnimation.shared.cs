@@ -6,14 +6,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
     public class BadgeAnimation : IBadgeAnimation
     {
         protected uint AnimationLength { get; } = 150;
-        protected uint Offset { get; } = 24;
+		protected uint Offset { get; } = 24;
 
-        double? _translationY;
+        double? translationY;
 
         public Task OnAppearing(View badgeView)
         {
-            if (_translationY == null)
-                _translationY = badgeView.TranslationY;
+            if (translationY == null)
+                translationY = badgeView.TranslationY;
 
             var tcs = new TaskCompletionSource<bool>();
 
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
             appearingAnimation.WithConcurrent(
                 (f) => badgeView.TranslationY = f,
-                _translationY.Value + Offset, _translationY.Value);
+                translationY.Value + Offset, translationY.Value);
 
             appearingAnimation.Commit(badgeView, nameof(OnAppearing), length: AnimationLength,
                finished: (v, t) => tcs.SetResult(true));
@@ -35,8 +35,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
         public Task OnDisappering(View badgeView)
         {
-            if (_translationY == null)
-                _translationY = badgeView.TranslationY;
+            if (translationY == null)
+				translationY = badgeView.TranslationY;
 
             var tcs = new TaskCompletionSource<bool>();
 
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
             disapperingAnimation.WithConcurrent(
                 (f) => badgeView.TranslationY = f,
-                _translationY.Value, _translationY.Value + Offset);
+                translationY.Value, translationY.Value + Offset);
 
             disapperingAnimation.Commit(badgeView, nameof(OnAppearing), length: AnimationLength,
                 finished: (v, t) => tcs.SetResult(true));

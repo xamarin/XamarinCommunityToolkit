@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
         bool placementDone;
 
         public static readonly BindableProperty ContentProperty =
-            BindableProperty.Create(nameof(Content), typeof(View), typeof(BadgeView), null,
+            BindableProperty.Create(nameof(Content), typeof(View), typeof(BadgeView),
                 propertyChanged: OnLayoutPropertyChanged);
 
         static void OnLayoutPropertyChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as BadgeView)?.UpdateLayout();
