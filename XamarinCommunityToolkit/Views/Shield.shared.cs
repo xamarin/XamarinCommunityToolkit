@@ -5,13 +5,13 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class Shield : BaseTemplatedView<Frame>
+    public class Shield : BaseTemplatedView<Frame>
     {
         public static readonly BindableProperty SubjectProperty =
-              BindableProperty.Create(nameof(Subject), typeof(string), typeof(Shield), string.Empty,
+              BindableProperty.Create(nameof(Subject), typeof(string), typeof(Shield), null,
                   propertyChanged: OnSubjectChanged);
 
-        static void OnSubjectChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as Shield)?.UpdateSubject();
+        static void OnSubjectChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubject();
 
         public string Subject
         {
@@ -20,10 +20,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
         }
 
         public static readonly BindableProperty StatusProperty =
-            BindableProperty.Create(nameof(Status), typeof(string), typeof(Shield), string.Empty,
+            BindableProperty.Create(nameof(Status), typeof(string), typeof(Shield), null,
                 propertyChanged: OnStatusChanged);
 
-        static void OnStatusChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as Shield)?.UpdateStatus();
+        static void OnStatusChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubject();
 
         public string Status
         {
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), Color.Default,
                 propertyChanged: OnColorChanged);
 
-        static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as Shield)?.UpdateColor();
+        static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateColor();
 
         public Color Color
         {
@@ -47,7 +47,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
                 propertyChanged: OnTextColorChanged);
 
-        static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as Shield)?.UpdateTextColor();
+        static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateTextColor();
 
         public Color TextColor
         {
@@ -158,16 +158,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
         {
             if (IsEnabled)
             {
-                Opacity = 1.0d;
-
                 var tapGestureRecognizer = new TapGestureRecognizer();
                 tapGestureRecognizer.Tapped += OnCloseButtonTapped;
                 GestureRecognizers.Add(tapGestureRecognizer);
             }
             else
             {
-                Opacity = 0.4d;
-
                 GestureRecognizers.Clear();
             }
 
@@ -177,5 +173,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
                 Command?.Execute(CommandParameter);
             }
         }
-	}
+    }
 }
