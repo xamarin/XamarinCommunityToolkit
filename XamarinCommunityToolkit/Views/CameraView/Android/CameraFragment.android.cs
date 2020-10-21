@@ -35,6 +35,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Camera = Android.Hardware.Camera;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -64,6 +65,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		CameraTemplate cameraTemplate;
 		HandlerThread backgroundThread;
 		Handler backgroundHandler = null;
+		
+
 
 		float zoom = 1;
 
@@ -230,7 +233,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					sensorOrientation = (int)characteristics.Get(CameraCharacteristics.SensorOrientation);
 					cameraType = (LensFacing)(int)characteristics.Get(CameraCharacteristics.LensFacing);
 
-					if (Resources.Configuration.Orientation == AOrientation.Portrait)
+					if (Resources.Configuration.Orientation == AOrientation.Landscape)
 						texture.SetAspectRatio(previewSize.Width, previewSize.Height);
 					else
 						texture.SetAspectRatio(previewSize.Height, previewSize.Width);
@@ -338,7 +341,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				string filePath = null;
 				if (Element.SavePhotoToFile)
 				{
-					filePath = ConstructMediaFilename(null, "jpg");
+					filePath = ConstructMediaFilename(null, extension:"jpg");
 					File.WriteAllBytes(filePath, bytes);
 				}
 				Sound(MediaActionSoundType.ShutterClick);
@@ -503,12 +506,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					surfaces,
 					new CameraCaptureStateListener()
 					{
-						OnConfigureFailedAction = session =>
+						OnConfigureFailedAction = captureSession =>
 						{
 							tcs.SetResult(null);
 							Element.RaiseMediaCaptureFailed("Failed to create captire sesstion");
 						},
-						OnConfiguredAction = session => tcs.SetResult(session)
+						OnConfiguredAction = captureSession => tcs.SetResult(captureSession)
 					},
 					null);
 
