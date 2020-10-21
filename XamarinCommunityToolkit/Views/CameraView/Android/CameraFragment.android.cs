@@ -224,7 +224,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.MaxZoom = maxDigitalZoom = (float)characteristics.Get(CameraCharacteristics.ScalerAvailableMaxDigitalZoom);
 					activeRect = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
 					photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
-					 videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
+					videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
 					previewSize = ChooseOptimalSize(
 						map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))),
 						texture.Width,
