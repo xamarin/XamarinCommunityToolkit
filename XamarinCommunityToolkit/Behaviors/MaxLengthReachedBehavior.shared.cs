@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			var newTextValue = View.Text.Substring(0, View.MaxLength);
 
 			maxLengthReachedEventManager.RaiseEvent(this, new MaxLengthReachedEventArgs(newTextValue), nameof(MaxLengthReached));
-			
+
 			if (Command?.CanExecute(newTextValue) ?? false)
 				Command.Execute(newTextValue);
 		}
