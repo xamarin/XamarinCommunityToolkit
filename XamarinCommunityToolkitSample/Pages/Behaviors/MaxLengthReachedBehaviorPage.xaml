@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx"
+                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.MaxLengthReachedBehaviorPage">
+
+    <pages:BasePage.BindingContext>
+        <vm:MaxLengthReachedBehaviorViewModel />
+    </pages:BasePage.BindingContext>
+
+    <pages:BasePage.Content>
+        <ScrollView>
+            <StackLayout Spacing="20">
+
+                <Label Text="{x:Static resources:AppResources.MaxLengthReachedBehaviorDescription}"
+                       Margin="{StaticResource ContentPadding}" />
+
+                <!-- Settings -->
+                <Frame Margin="{StaticResource ContentPadding}"
+                       CornerRadius="10">
+                    <Grid ColumnDefinitions="2*, *">
+                        <Label Text="{x:Static resources:AppResources.MaxLengthReachedBehaviorMaxLengthSettingLabel}"
+                               VerticalTextAlignment="Center" />
+                        <Entry x:Name="MaxLengthSetting"
+                               Text="6"
+                               Keyboard="Numeric"
+                               Grid.Column="1" />
+
+                        <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDismissKeyboardOptionLabel}"
+                               VerticalTextAlignment="Center"
+                               Grid.Row="1" />
+                        <Switch x:Name="AutoDismissKeyboardSetting"
+                                HorizontalOptions="End"
+                                Grid.Row="1"
+                                Grid.Column="1" />
+                    </Grid>
+                </Frame>
+
+                <!-- First Scenario -->
+                <Label Text="{x:Static resources:AppResources.MaxLengthReachedBehaviorFirstScenarioDescription}"
+                       Margin="{StaticResource ContentPadding}" />
+
+                <Entry Placeholder="{x:Static resources:AppResources.MaxLengthReachedBehaviorEntryPlaceholder}"
+                       MaxLength="{Binding Path=Text, Source={x:Reference MaxLengthSetting}}"
+                       Margin="{StaticResource ContentPadding}">
+                    <Entry.Behaviors>
+                        <behaviors:MaxLengthReachedBehavior MaxLengthReached="MaxLengthReachedBehavior_MaxLengthReached"
+                                                            ShouldDismissKeyboardAutomatically="{Binding Path=IsToggled, Source={x:Reference AutoDismissKeyboardSetting}}" />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Entry x:Name="nextEntry"
+                       Placeholder="{x:Static resources:AppResources.MaxLengthReachedBehaviorNextEntryPlaceholder}"
+                       Margin="{StaticResource ContentPadding}" />
+
+
+                <!-- Second Scenario -->
+                <Label Text="{x:Static resources:AppResources.MaxLengthReachedBehaviorSecondScenarioDescription}"
+                       Margin="{StaticResource ContentPadding}" />
+                
+                <Entry Placeholder="{x:Static resources:AppResources.MaxLengthReachedBehaviorEntryPlaceholder}"
+                       MaxLength="{Binding Path=Text, Source={x:Reference MaxLengthSetting}}"
+                       Margin="{StaticResource ContentPadding}">
+                    <Entry.Behaviors>
+                        <behaviors:MaxLengthReachedBehavior Command="{Binding MaxLengthReachedCommand}"
+                                                            ShouldDismissKeyboardAutomatically="{Binding Path=IsToggled, Source={x:Reference AutoDismissKeyboardSetting}}" />
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Label Text="{Binding CommandExecutions}" Margin="{StaticResource ContentPadding}" />
+
+            </StackLayout>
+        </ScrollView>
+    </pages:BasePage.Content>
+</pages:BasePage>
