@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             BindableProperty.Create(nameof(Status), typeof(string), typeof(Shield), null,
                 propertyChanged: OnStatusChanged);
 
-        static void OnStatusChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubject();
+        static void OnStatusChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatus();
 
         public string Status
         {
