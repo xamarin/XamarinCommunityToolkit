@@ -97,9 +97,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		BaseSnackbarView GetSnackbarView()
 		{
-			return Action != null && !string.IsNullOrEmpty(ActionButtonText)
-				? new ActionMessageSnackbarView(this)
-				: new MessageSnackbarView(this);
+			if (Action != null && !string.IsNullOrEmpty(ActionButtonText))
+			{
+				return new ActionMessageSnackbarView(this);
+			}
+
+			return new MessageSnackbarView(this);
 		}
 	}
 }
