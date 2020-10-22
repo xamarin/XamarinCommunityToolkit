@@ -8,17 +8,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		public sealed override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is TTo valueFrom))
-			{
-				throw new ArgumentException($"value needs to be of type {typeof(TTo)}");
-			}
-			else if (targetType != typeof(TFrom))
-			{
-				throw new ArgumentException($"targetType needs to be typeof {typeof(TFrom)}");
-			}
-			else
-			{
-				return ConvertBackTo(valueFrom);
-			}
+				throw new ArgumentException($"value needs to be of type {typeof(TTo)}", nameof(value));
+				
+			if (targetType != typeof(TFrom))
+				throw new ArgumentException($"targetType needs to be typeof {typeof(TFrom)}", nameof(targetType));
+				
+			return ConvertBackTo(valueFrom);
 		}
 
 		public abstract TFrom ConvertBackTo(TTo value);
