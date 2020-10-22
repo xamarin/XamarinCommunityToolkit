@@ -14,6 +14,8 @@ using Xamarin.Forms.Platform.UWP;
 using Xamarin.Forms.Platform.GTK.Renderers;
 #elif TIZEN
 using Xamarin.Forms.Platform.Tizen;
+using NImage = Xamarin.Forms.Platform.Tizen.Native.Image;
+using XForms = Xamarin.Forms.Forms;
 #else
 using Xamarin.Forms.Platform.WPF;
 #endif
@@ -37,7 +39,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return false;
 
 #if TIZEN
-			return await handler.LoadImageAsync(null, source).ConfigureAwait(false);
+			return await handler.LoadImageAsync(new NImage(XForms.NativeParent), source).ConfigureAwait(false);
 #elif MONOANDROID
 			var imageSource = await handler.LoadImageAsync(source, null).ConfigureAwait(false);
 			return imageSource != null;
