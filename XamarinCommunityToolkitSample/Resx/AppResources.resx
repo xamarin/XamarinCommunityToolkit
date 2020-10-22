@@ -233,6 +233,12 @@
   </data>
   <data name="AvatarViewSizeText" xml:space="preserve">
     <value>Size Property:</value>
+  </data>  
+  <data name="BadgeViewTitle" xml:space="preserve">
+    <value>BadgeView</value>
+  </data>
+  <data name="BadgeViewDescription" xml:space="preserve">
+    <value>View used to used to notify users notifications, or status of something.</value>
   </data>
   <data name="RangeSliderTitle" xml:space="preserve">
     <value>RangeSlider</value>
@@ -414,7 +420,7 @@ It converts the entered text to Upper Case and checks that it is Not Equal to th
     <value>Stop Recording</value>
   </data>
   <data name="RequiredStringValidationDescription" xml:space="preserve">
-   <value>Text color will change accordingly to the style that is configured when password confirmation doesn't match password.</value>
+    <value>Text color will change accordingly to the style that is configured when password confirmation doesn't match password.</value>
   </data>
   <data name="RequiredStringValidationShortDescription" xml:space="preserve">
     <value>Changes an Entry's style when its text does not match another string.</value>
@@ -476,6 +482,12 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   <data name="ShowSnackBarWithActionButton" xml:space="preserve">
     <value>Show SnackBar</value>
   </data>
+  <data name="ShieldTitle" xml:space="preserve">
+    <value>Shield</value>
+  </data>
+  <data name="ShieldDescription" xml:space="preserve">
+    <value>Shields can show some status information or call-to-action in a badge-like way.</value>
+  </data>
   <data name="ActionsPageDescription" xml:space="preserve">
     <value>Show SnackBar, toast etc</value>
   </data>
@@ -529,5 +541,32 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   </data>
   <data name="ToggleSafeAreaEffect" xml:space="preserve">
     <value>Toggle SafeAreaEffect</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorShortDescription" xml:space="preserve">
+    <value>This behavior invokes an EventHandler and executes a Command when the MaxLength of an InputView has been reached.</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorCommandExecutionLabelFormat" xml:space="preserve">
+    <value>MaxLength reached with value: '{0}'.</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorDescription" xml:space="preserve">
+    <value>When the MaxLength on an Entry field has been reached, any configured EventHandler gets invoked and a Command gets Executed.</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorDismissKeyboardOptionLabel" xml:space="preserve">
+    <value>Should dismiss keyboard automatically</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorEntryPlaceholder" xml:space="preserve">
+    <value>Start typing till MaxLength is reached...</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorFirstScenarioDescription" xml:space="preserve">
+    <value>When the MaxLength of the first Entry has been reached, the focus will be set to the next Entry field.</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorMaxLengthSettingLabel" xml:space="preserve">
+    <value>MaxLength setting on Entry field</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorNextEntryPlaceholder" xml:space="preserve">
+    <value>This Entry will then get focus...</value>
+  </data>
+  <data name="MaxLengthReachedBehaviorSecondScenarioDescription" xml:space="preserve">
+    <value>When the MaxLength of this Entry is reached, a Command is executed. Below are all Command executions shown.</value>
   </data>
 </root>
