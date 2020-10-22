@@ -570,7 +570,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (cameraTemplate == CameraTemplate.Record)
 					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
 
-				session.SetRepeatingRequest(sessionBuilder.Build(), listener:null, backgroundHandler);
+				session.SetRepeatingRequest(sessionBuilder.Build(), listener: null, backgroundHandler);
 				repeatingIsRunning = true;
 			}
 			catch (Java.Lang.Exception error)
