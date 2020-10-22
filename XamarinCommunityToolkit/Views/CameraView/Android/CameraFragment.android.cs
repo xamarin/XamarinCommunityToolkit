@@ -429,7 +429,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			catch (Java.Lang.Exception error)
 			{
 				LogError("Failed to take video", error);
-				Element?.RaiseMediaCaptureFailed(s$"Failed to take video: {error}");
+				Element?.RaiseMediaCaptureFailed($"Failed to take video: {error}");
 				DisposeMediaRecorder();
 			}
 		}
