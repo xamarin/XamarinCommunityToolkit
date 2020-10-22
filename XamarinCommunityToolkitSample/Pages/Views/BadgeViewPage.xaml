@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -56,12 +56,21 @@
                 </controls:BadgeView>
                 <controls:BadgeView
                     BackgroundColor="Red"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    TextColor="White"
+                    Text="1">
+                    <Label
+                        Text="Named Font Size"/>
+                </controls:BadgeView>
+                <controls:BadgeView
+                    BackgroundColor="Red"
                     BorderColor="Orange"
                     TextColor="White"
                     Text="1">
                     <Label
                         Text="Border Customization"/>
-                    </controls:BadgeView>
+                </controls:BadgeView>
                 <controls:BadgeView
                     BackgroundColor="Red"
                     BorderColor="Orange"
