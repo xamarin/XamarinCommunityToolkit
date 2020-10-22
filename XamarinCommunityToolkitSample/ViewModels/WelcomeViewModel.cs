@@ -15,12 +15,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 	{
 		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
-			new SectionModel(typeof(BehaviorsGalleryPage), AppResources.BehaviorsTitle, Color.FromHex("#8E8CD8"), AppResources.BehaviorsDescription),
-			new SectionModel(typeof(ConvertersGalleryPage), AppResources.ConvertersTitle, Color.FromHex("#EA005E"), AppResources.ConvertersDescription),
-			new SectionModel(typeof(ExtensionsGalleryPage), AppResources.ExtensionsTitle, Color.FromHex("#00CC6A"), AppResources.ExtensionsDescription),
-			new SectionModel(typeof(TestCasesGalleryPage), AppResources.TestCasesTitle, Color.FromHex("#FF8C00"), AppResources.TestCasesDescription),
-			new SectionModel(typeof(ViewsGalleryPage), AppResources.ViewsTitle, Color.FromHex("#EF6950"), AppResources.ViewsDescription),
-			new SectionModel(typeof(EffectsGalleryPage), AppResources.EffectsTitle, Color.FromHex("#EFB950"), AppResources.Effects_Description)
+			new SectionModel(typeof(BehaviorsGalleryPage), "Behaviors", Color.FromHex("#8E8CD8"), AppResources.BehaviorsDescription),
+			new SectionModel(typeof(ConvertersGalleryPage), "Converters", Color.FromHex("#EA005E"), AppResources.ConvertersDescription),
+			new SectionModel(typeof(ExtensionsGalleryPage), "Extensions", Color.FromHex("#00CC6A"), AppResources.ExtensionsDescription),
+			new SectionModel(typeof(TestCasesGalleryPage), "Test Cases", Color.FromHex("#FF8C00"), AppResources.TestCasesDescription),
+			new SectionModel(typeof(ViewsGalleryPage), "Views", Color.FromHex("#EF6950"), AppResources.ViewsDescription),
+			new SectionModel(typeof(EffectsGalleryPage), "Effects", Color.FromHex("#EFB950"), AppResources.Effects_Description)
 		};
 	}
 }

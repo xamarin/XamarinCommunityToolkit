@@ -21,13 +21,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				Debug.WriteLine("SnackBar action button clicked");
 				return Task.CompletedTask;
 			});
-			StatusText.Text = result ? AppResources.SnackBarIsClosedByUser : AppResources.SnackBarIsClosedByTimeout;
+			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
 		}
 
 		async void DisplayToastClicked(object sender, EventArgs args)
 		{
 			var result = await this.DisplayToastAsync(GenerateLongText(5));
-			StatusText.Text = result ? AppResources.SnackBarIsClosedByUser : AppResources.SnackBarIsClosedByTimeout;
+			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
 		}
 
 		async void DisplaySnackBarAdvancedClicked(object sender, EventArgs args)
@@ -71,7 +71,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			};
 			var options = new SnackBarOptions(messageOptions, 5000, Color.Coral, true, actionOptions);
 			var result = await this.DisplaySnackBarAsync(options);
-			StatusText.Text = result ? AppResources.SnackBarIsClosedByUser : AppResources.SnackBarIsClosedByTimeout;
+			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
 		}
 
 		string GenerateLongText(int stringDuplicationTimes)

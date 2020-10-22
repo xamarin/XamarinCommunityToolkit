@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			if (Contributors.Any())
 				return;
 
-			EmptyViewText = AppResources.NoDataLoadedMessage;
+			EmptyViewText = "No data loaded...";
 		}
 	}
 }

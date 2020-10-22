@@ -15,7 +15,7 @@
         <ScrollView>
             <StackLayout Spacing="20">
 
-                <Label Text="{x:Static resources:AppResources.MaxLengthReachedBehaviorDescription}"
+                <Label Text="When the MaxLength on an Entry field has been reached, any configured EventHandler gets invoked and a Command gets Executed."
                        Margin="{StaticResource ContentPadding}" />
 
                 <!-- Settings -->
