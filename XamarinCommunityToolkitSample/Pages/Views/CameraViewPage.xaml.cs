@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				: AppResources.CameraViewSampleSnapPicture;
 		}
 
-		void CameraView_OnAvailable(object _, bool e)
+		void CameraView_OnAvailable(object sender, bool e)
 		{
 			if (e)
 			{
