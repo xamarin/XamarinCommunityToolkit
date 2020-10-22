@@ -281,6 +281,485 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
             }
         }
         
+        internal static string BadgeViewTitle {
+            get {
+                return ResourceManager.GetString("BadgeViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string BadgeViewDescription {
+            get {
+                return ResourceManager.GetString("BadgeViewDescription", resourceCulture);
+            }
+        }
+        
+        internal static string RangeSliderTitle {
+            get {
+                return ResourceManager.GetString("RangeSliderTitle", resourceCulture);
+            }
+        }
+        
+        internal static string RangeSliderDescription {
+            get {
+                return ResourceManager.GetString("RangeSliderDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ThumbText {
+            get {
+                return ResourceManager.GetString("ThumbText", resourceCulture);
+            }
+        }
+        
+        internal static string ThumbSizeText {
+            get {
+                return ResourceManager.GetString("ThumbSizeText", resourceCulture);
+            }
+        }
+        
+        internal static string SetLowerUpperThumb {
+            get {
+                return ResourceManager.GetString("SetLowerUpperThumb", resourceCulture);
+            }
+        }
+        
+        internal static string LowerThumbSize {
+            get {
+                return ResourceManager.GetString("LowerThumbSize", resourceCulture);
+            }
+        }
+        
+        internal static string UpperThumbSize {
+            get {
+                return ResourceManager.GetString("UpperThumbSize", resourceCulture);
+            }
+        }
+        
+        internal static string ThumbColor {
+            get {
+                return ResourceManager.GetString("ThumbColor", resourceCulture);
+            }
+        }
+        
+        internal static string LowerThumbColor {
+            get {
+                return ResourceManager.GetString("LowerThumbColor", resourceCulture);
+            }
+        }
+        
+        internal static string UpperThumbColor {
+            get {
+                return ResourceManager.GetString("UpperThumbColor", resourceCulture);
+            }
+        }
+        
+        internal static string ThumbBorderColor {
+            get {
+                return ResourceManager.GetString("ThumbBorderColor", resourceCulture);
+            }
+        }
+        
+        internal static string LowerThumbBorderColor {
+            get {
+                return ResourceManager.GetString("LowerThumbBorderColor", resourceCulture);
+            }
+        }
+        
+        internal static string UpperThumbBorderColor {
+            get {
+                return ResourceManager.GetString("UpperThumbBorderColor", resourceCulture);
+            }
+        }
+        
+        internal static string LowerThumbViewSet {
+            get {
+                return ResourceManager.GetString("LowerThumbViewSet", resourceCulture);
+            }
+        }
+        
+        internal static string UpperThumbViewSet {
+            get {
+                return ResourceManager.GetString("UpperThumbViewSet", resourceCulture);
+            }
+        }
+        
+        internal static string ControlThumbsRadius {
+            get {
+                return ResourceManager.GetString("ControlThumbsRadius", resourceCulture);
+            }
+        }
+        
+        internal static string ThumbRadius {
+            get {
+                return ResourceManager.GetString("ThumbRadius", resourceCulture);
+            }
+        }
+        
+        internal static string SetLowerUpperThumbSeparately {
+            get {
+                return ResourceManager.GetString("SetLowerUpperThumbSeparately", resourceCulture);
+            }
+        }
+        
+        internal static string LowerThumbRadius {
+            get {
+                return ResourceManager.GetString("LowerThumbRadius", resourceCulture);
+            }
+        }
+        
+        internal static string UpperThumbRadius {
+            get {
+                return ResourceManager.GetString("UpperThumbRadius", resourceCulture);
+            }
+        }
+        
+        internal static string Track {
+            get {
+                return ResourceManager.GetString("Track", resourceCulture);
+            }
+        }
+        
+        internal static string TrackSize {
+            get {
+                return ResourceManager.GetString("TrackSize", resourceCulture);
+            }
+        }
+        
+        internal static string TrackColor {
+            get {
+                return ResourceManager.GetString("TrackColor", resourceCulture);
+            }
+        }
+        
+        internal static string TrackHighlightColor {
+            get {
+                return ResourceManager.GetString("TrackHighlightColor", resourceCulture);
+            }
+        }
+        
+        internal static string TrackBorderColor {
+            get {
+                return ResourceManager.GetString("TrackBorderColor", resourceCulture);
+            }
+        }
+        
+        internal static string TrackHighlightBorderColor {
+            get {
+                return ResourceManager.GetString("TrackHighlightBorderColor", resourceCulture);
+            }
+        }
+        
+        internal static string ControlTrackRadius {
+            get {
+                return ResourceManager.GetString("ControlTrackRadius", resourceCulture);
+            }
+        }
+        
+        internal static string IsEnabled {
+            get {
+                return ResourceManager.GetString("IsEnabled", resourceCulture);
+            }
+        }
+        
+        internal static string ValueLabelSpacing {
+            get {
+                return ResourceManager.GetString("ValueLabelSpacing", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewTitle {
+            get {
+                return ResourceManager.GetString("SideMenuViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string SideMenuViewDescription {
+            get {
+                return ResourceManager.GetString("SideMenuViewDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MaskedDescription {
+            get {
+                return ResourceManager.GetString("MaskedDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MaskedShortDescription {
+            get {
+                return ResourceManager.GetString("MaskedShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string CreditCardNumber {
+            get {
+                return ResourceManager.GetString("CreditCardNumber", resourceCulture);
+            }
+        }
+        
+        internal static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        internal static string EG {
+            get {
+                return ResourceManager.GetString("EG", resourceCulture);
+            }
+        }
+        
+        internal static string PhoneNumber {
+            get {
+                return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        internal static string SocialSecurityNumber {
+            get {
+                return ResourceManager.GetString("SocialSecurityNumber", resourceCulture);
+            }
+        }
+        
+        internal static string SortCode {
+            get {
+                return ResourceManager.GetString("SortCode", resourceCulture);
+            }
+        }
+        
+        internal static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
+            }
+        }
+        
+        internal static string UriValidationDescription {
+            get {
+                return ResourceManager.GetString("UriValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UriValidationShortDescription {
+            get {
+                return ResourceManager.GetString("UriValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MediaElementTitle {
+            get {
+                return ResourceManager.GetString("MediaElementTitle", resourceCulture);
+            }
+        }
+        
+        internal static string MediaElementDescription {
+            get {
+                return ResourceManager.GetString("MediaElementDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiValidationDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiValidationShortDescription {
+            get {
+                return ResourceManager.GetString("MultiValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiConverterDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterDescription", resourceCulture);
+            }
+        }
+        
+        internal static string MultiConverterShortDescription {
+            get {
+                return ResourceManager.GetString("MultiConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        internal static string ChangeLanguage {
+            get {
+                return ResourceManager.GetString("ChangeLanguage", resourceCulture);
+            }
+        }
+        
+        internal static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        internal static string Spanish {
+            get {
+                return ResourceManager.GetString("Spanish", resourceCulture);
+            }
+        }
+        
+        internal static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewTitle {
+            get {
+                return ResourceManager.GetString("CameraViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewDescription {
+            get {
+                return ResourceManager.GetString("CameraViewDescription", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleZoom {
+            get {
+                return ResourceManager.GetString("CameraViewSampleZoom", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleSnapPicture {
+            get {
+                return ResourceManager.GetString("CameraViewSampleSnapPicture", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleStartRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStartRecording", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleStopRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStopRecording", resourceCulture);
+            }
+        }
+        
+        internal static string RequiredStringValidationDescription {
+            get {
+                return ResourceManager.GetString("RequiredStringValidationDescription", resourceCulture);
+            }
+        }
+        
+        internal static string RequiredStringValidationShortDescription {
+            get {
+                return ResourceManager.GetString("RequiredStringValidationShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        internal static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        internal static string PasswordMatched {
+            get {
+                return ResourceManager.GetString("PasswordMatched", resourceCulture);
+            }
+        }
+        
+        internal static string DateTimeOffsetConverterShortDescription {
+            get {
+                return ResourceManager.GetString("DateTimeOffsetConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ExpanderTitle {
+            get {
+                return ResourceManager.GetString("ExpanderTitle", resourceCulture);
+            }
+        }
+        
+        internal static string ExpanderDescription {
+            get {
+                return ResourceManager.GetString("ExpanderDescription", resourceCulture);
+            }
+        }
+        
+        internal static string NestedExpander {
+            get {
+                return ResourceManager.GetString("NestedExpander", resourceCulture);
+            }
+        }
+        
+        internal static string EnableNested {
+            get {
+                return ResourceManager.GetString("EnableNested", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorDescription {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorDismissKeyboardOptionLabel {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorDismissKeyboardOptionLabel", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorSearchBarPlaceholderText {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorSearchBarPlaceholderText", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorSearchResultLabelFormat {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorSearchResultLabelFormat", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorShortDescription {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorTimeThresholdOptionLabel {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorTimeThresholdOptionLabel", resourceCulture);
+            }
+        }
+        
+        internal static string AutoGridLayoutBehaviorDescription {
+            get {
+                return ResourceManager.GetString("AutoGridLayoutBehaviorDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ImpliedOrderGridDescriptionLabel {
+            get {
+                return ResourceManager.GetString("ImpliedOrderGridDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        internal static string ShowSnackBarWithActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackBarWithActionButton", resourceCulture);
+        }
+        
         internal static string RangeSliderTitle {
             get {
                 return ResourceManager.GetString("RangeSliderTitle", resourceCulture);

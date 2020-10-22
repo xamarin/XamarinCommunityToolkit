@@ -10,6 +10,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(typeof(AvatarViewPage), AppResources.AvatarViewTitle, AppResources.AvatarViewDescription),
+			new SectionModel(typeof(BadgeViewPage), AppResources.BadgeViewTitle, AppResources.BadgeViewDescription),
 			new SectionModel(typeof(GravatarImagePage), AppResources.GravatarImageSourceTitle, AppResources.GravatarImageSourceDescription),
 			new SectionModel(typeof(RangeSliderPage), AppResources.RangeSliderTitle, AppResources.RangeSliderDescription),
 			new SectionModel(typeof(SideMenuViewPage), AppResources.SideMenuViewTitle, AppResources.SideMenuViewDescription),
