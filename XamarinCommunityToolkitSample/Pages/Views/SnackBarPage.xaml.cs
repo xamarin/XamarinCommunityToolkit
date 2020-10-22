@@ -10,9 +10,9 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
-	public partial class ActionsPage : BasePage
+	public partial class SnackBarPage : BasePage
 	{
-		public ActionsPage() => InitializeComponent();
+		public SnackBarPage() => InitializeComponent();
 
 		async void DisplaySnackBarClicked(object sender, EventArgs args)
 		{
