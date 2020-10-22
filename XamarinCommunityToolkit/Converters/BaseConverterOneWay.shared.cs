@@ -11,17 +11,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (!(value is TFrom valueFrom))
-			{
 				throw new ArgumentException($"value needs to be of type {typeof(TFrom)}");
-			}
-			else if (targetType != typeof(TTo))
-			{
+				
+			if (targetType != typeof(TTo))
 				throw new ArgumentException($"targetType needs to be typeof {typeof(TTo)}");
-			}
-			else
-			{
-				return ConvertFrom(valueFrom);
-			}
+				
+			return ConvertFrom(valueFrom);
 		}
 
 		public abstract TTo ConvertFrom(TFrom value);
