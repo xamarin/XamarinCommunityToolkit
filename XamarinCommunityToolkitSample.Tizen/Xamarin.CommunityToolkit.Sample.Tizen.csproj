@@ -1,0 +1,13 @@
+﻿<Project Sdk="Tizen.NET.Sdk/1.1.4">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>tizen40</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XamarinCommunityToolkitSample\Xamarin.CommunityToolkit.Sample.csproj" />
+    <ProjectReference Include="..\XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj" />
+  </ItemGroup>
+
+</Project>
