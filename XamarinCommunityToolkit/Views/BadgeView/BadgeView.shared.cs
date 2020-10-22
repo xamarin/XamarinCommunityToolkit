@@ -122,13 +122,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
             }
         }
 
-        public static BindableProperty FontSizeProperty =
+		public static BindableProperty FontSizeProperty =
             BindableProperty.Create(nameof(FontSize), typeof(double), typeof(BadgeView), 10.0d,
                 propertyChanged: OnFontChanged);
 
         static void OnFontChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as BadgeView)?.UpdateFont();
 
-        public double FontSize
+		[TypeConverter(typeof(FontSizeConverter))]
+		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);
 			set => SetValue(FontSizeProperty, value);
