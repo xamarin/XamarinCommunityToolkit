@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
     public class BadgeAnimation : IBadgeAnimation
     {
         protected uint AnimationLength { get; } = 150;
-		protected uint Offset { get; } = 24;
+        protected uint Offset { get; } = 24;
 
         double? translationY;
 
