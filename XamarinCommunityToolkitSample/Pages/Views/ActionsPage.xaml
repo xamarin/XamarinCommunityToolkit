@@ -5,8 +5,9 @@
                 xmlns:extensions="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ActionsPage">
     <StackLayout Spacing="10" Margin="20">
-        <Button Clicked="Button1_Clicked" Text="{extensions:Translate ShowSnackbarWithActionButton}"></Button>
-        <Button Clicked="Button2_Clicked" Text="{extensions:Translate ShowSnackbarNoActionButton}"></Button>
+        <Button Clicked="DisplaySnackBarClicked" Text="{extensions:Translate ShowSnackBarWithActionButton}"></Button>
+        <Button Clicked="DisplayToastClicked" Text="{extensions:Translate ShowSnackBarNoActionButton}"></Button>
+        <Button Clicked="DisplaySnackBarAdvancedClicked" Text="{extensions:Translate ShowSnackBarWithActionButton}"></Button>
         <Label x:Name="StatusText"></Label>
     </StackLayout>
 </pages:BasePage>
