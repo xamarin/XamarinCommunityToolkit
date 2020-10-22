@@ -89,6 +89,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FontFamilyProperty, value);
 		}
 
+		[TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);
@@ -128,7 +129,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			IsClippedToBounds = true;
 			MainLayout.Children.Add(Label, new Rectangle(0.5, 0.5, -1, -1), AbsoluteLayoutFlags.PositionProportional);
-			MainLayout.Children.Add(Image, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
+			MainLayout.Children.Add(Image, new Rectangle(0.5, 0.5, -1, -1), AbsoluteLayoutFlags.PositionProportional);
 			control.IsClippedToBounds = true;
 			control.HasShadow = false;
 			control.Padding = 0;
