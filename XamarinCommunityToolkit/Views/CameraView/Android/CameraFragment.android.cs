@@ -65,6 +65,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		CameraTemplate cameraTemplate;
 		HandlerThread backgroundThread;
 		Handler backgroundHandler = null;
+		
 		float zoom = 1;
 
 		bool ZoomSupported => maxDigitalZoom != 0;
