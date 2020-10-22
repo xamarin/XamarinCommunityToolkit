@@ -26,8 +26,7 @@ namespace Xamarin.CommunityToolkit.Converters
 
 		public abstract TTo ConvertFrom(TFrom value);
 
-		public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
-			throw new
-				NotImplementedException("Impossible to revert to original value. Consider setting BindingMode to OneWay.");
+		public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) 
+			=> throw new NotImplementedException("Impossible to revert to original value. Consider setting BindingMode to OneWay.");
 	}
 }
