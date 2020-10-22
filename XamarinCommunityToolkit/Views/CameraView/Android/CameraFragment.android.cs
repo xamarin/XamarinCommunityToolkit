@@ -65,9 +65,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		CameraTemplate cameraTemplate;
 		HandlerThread backgroundThread;
 		Handler backgroundHandler = null;
-		
-
-
 		float zoom = 1;
 
 		bool ZoomSupported => maxDigitalZoom != 0;
@@ -224,7 +221,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.MaxZoom = maxDigitalZoom = (float)characteristics.Get(CameraCharacteristics.ScalerAvailableMaxDigitalZoom);
 					activeRect = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
 					photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
-					 videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
+					videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
 					previewSize = ChooseOptimalSize(
 						map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))),
 						texture.Width,
@@ -333,7 +330,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			DisposeImageReader();
 
-			photoReader = ImageReader.NewInstance(width: photoSize.Width, height: photoSize.Height, ImageFormatType.Jpeg, maxImages: 1);
+			photoReader = ImageReader.NewInstance(photoSize.Width, photoSize.Height, ImageFormatType.Jpeg, maxImages: 1);
 
 			var readerListener = new ImageAvailableListener();
 			readerListener.Photo += (_, bytes) =>
@@ -431,7 +428,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			catch (Java.Lang.Exception error)
 			{
 				LogError("Failed to take video", error);
-				Element?.RaiseMediaCaptureFailed(message:$"Failed to take video: {error}");
+				Element?.RaiseMediaCaptureFailed(s$"Failed to take video: {error}");
 				DisposeMediaRecorder();
 			}
 		}
