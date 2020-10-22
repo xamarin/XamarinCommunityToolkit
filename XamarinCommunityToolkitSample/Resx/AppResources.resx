@@ -480,7 +480,7 @@ If the user manually assigns a row or column on a view, it will be honored.</val
     <value>Shield</value>
   </data>
   <data name="ShieldDescription" xml:space="preserve">
-    <value>SideMenuView is a simple and flexible Right/Left menu control.</value>
+    <value>Shields can show some status information or call-to-action in a badge-like way.</value>
   </data>
   <data name="ActionsPageDescription" xml:space="preserve">
     <value>Show SnackBar, toast etc</value>
