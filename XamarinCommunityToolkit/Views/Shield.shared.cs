@@ -53,9 +53,42 @@ namespace Xamarin.CommunityToolkit.UI.Views
         {
             get => (Color)GetValue(TextColorProperty);
             set => SetValue(TextColorProperty, value);
-        }
+		}
 
-        public static readonly BindableProperty CommandProperty =
+		public static BindableProperty FontSizeProperty =
+			BindableProperty.Create(nameof(FontSize), typeof(double), typeof(Shield), Label.FontSizeProperty.DefaultValue,
+				propertyChanged: OnFontChanged);
+
+		static void OnFontChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateFont();
+
+		[TypeConverter(typeof(FontSizeConverter))]
+		public double FontSize
+		{
+			get => (double)GetValue(FontSizeProperty);
+			set => SetValue(FontSizeProperty, value);
+		}
+
+		public static BindableProperty FontFamilyProperty =
+			BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(Shield), Label.FontFamilyProperty.DefaultValue,
+				propertyChanged: OnFontChanged);
+
+		public string FontFamily
+		{
+			get => (string)GetValue(FontFamilyProperty);
+			set => SetValue(FontFamilyProperty, value);
+		}
+
+		public static BindableProperty FontAttributesProperty =
+			BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(Shield), Label.FontAttributesProperty.DefaultValue,
+				propertyChanged: OnFontChanged);
+
+		public FontAttributes FontAttributes
+		{
+			get => (FontAttributes)GetValue(FontAttributesProperty);
+			set => SetValue(FontAttributesProperty, value);
+		}
+
+		public static readonly BindableProperty CommandProperty =
             BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(Shield), null);
 
         public ICommand Command
@@ -153,6 +186,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
         void UpdateColor() => ShieldStatusContainer.BackgroundColor = Color;
 
         void UpdateTextColor() => ShieldStatus.TextColor = TextColor;
+		
+		void UpdateFont()
+		{
+			ShieldSubject.FontSize = FontSize;
+			ShieldSubject.FontFamily = FontFamily;
+			ShieldSubject.FontAttributes = FontAttributes;
+
+			ShieldStatus.FontSize = FontSize;
+			ShieldStatus.FontFamily = FontFamily;
+			ShieldStatus.FontAttributes = FontAttributes;
+		}
 
         void UpdateIsEnabled()
         {
