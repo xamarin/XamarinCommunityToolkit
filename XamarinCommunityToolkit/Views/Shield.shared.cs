@@ -122,7 +122,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
             control.HorizontalOptions = LayoutOptions.Center;
             control.VerticalOptions = LayoutOptions.Start;
             control.Padding = 0;
-            control.HeightRequest = 20;
             control.HasShadow = false;
             control.IsClippedToBounds = true;
 
