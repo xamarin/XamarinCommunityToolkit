@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Octokit;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
@@ -18,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		RepositoryContributor selectedContributor;
 
-		string emptyViewText = AppResources.LoadingDataMessage;
+		string emptyViewText = "Loading data...";
 
 		ICommand selectedContributorCommand;
 

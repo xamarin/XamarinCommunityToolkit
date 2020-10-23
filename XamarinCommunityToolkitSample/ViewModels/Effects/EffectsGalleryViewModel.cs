@@ -2,7 +2,6 @@
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Effects;
-using Xamarin.CommunityToolkit.Sample.Resx;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 {

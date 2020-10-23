@@ -2,7 +2,6 @@
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
-using Xamarin.CommunityToolkit.Sample.Resx;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {

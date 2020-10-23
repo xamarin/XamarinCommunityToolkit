@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
 

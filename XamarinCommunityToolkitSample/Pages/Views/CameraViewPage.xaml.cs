@@ -1,5 +1,4 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
