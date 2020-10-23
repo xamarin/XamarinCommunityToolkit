@@ -18,13 +18,13 @@
     <StackLayout Padding="{StaticResource ContentPadding}"
                  VerticalOptions="Center"
                  Spacing="10">
-        <Label Text="{rsx:Translate  ChangeLanguage}"/>
+        <Label Text="{rsx:Translate ChangeLanguage}"/>
 
         <Picker ItemsSource="{Binding SupportedLanguages}"
                 ItemDisplayBinding="{Binding Name}"
                 SelectedItem="{Binding SelectedLanguage}"/>
 
-        <Button Text="{rsx:Translate  Save}"
+        <Button Text="{rsx:Translate Save}"
                 Command="{Binding ChangeLanguageCommand, Mode=OneTime}"/>
     </StackLayout>
 </pages:BasePage>
