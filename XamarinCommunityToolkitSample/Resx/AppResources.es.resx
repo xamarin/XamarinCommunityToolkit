@@ -485,4 +485,52 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   <data name="XAMLExtension" xml:space="preserve">
     <value>#XAML Extension</value>
   </data>
+  <data name="RemoveBorderShortDescription" xml:space="preserve">
+    <value>RemoveBorderShortDescription_ES_TRANSLATE</value>
+  </data>
+  <data name="RemoveBorderLongDescription" xml:space="preserve">
+    <value>RemoveBorderLongDescription_ES_TRANSLATE</value>
+  </data>
+  <data name="RemoveBorderDefaultEntryLabel" xml:space="preserve">
+    <value>RemoveBorderDefaultEntryLabel_ES_TRANSLATE</value>
+  </data>
+  <data name="RemoveBorderEffectEntryLabel" xml:space="preserve">
+    <value>RemoveBorderEffectEntryLabel_ES_TRANSLATE</value>
+  </data>
+  <data name="RemoveBorderDefaultEntryPlaceholder" xml:space="preserve">
+    <value>RemoveBorderDefaultEntryPlaceholder_ES_TRANSLATE</value>
+  </data>
+  <data name="RemoveBorderEffectEntryPlaceholder" xml:space="preserve">
+    <value>RemoveBorderEffectEntryPlaceholder_ES_TRANSLATE</value>
+  </data>
+  <data name="SelectAllTextShortDescription" xml:space="preserve">
+    <value>SelectAllTextShortDescription_ES_TRANSLATE</value>
+  </data>
+  <data name="SelectAllTextLongDescription" xml:space="preserve">
+    <value>SelectAllTextLongDescription_ES_TRANSLATE</value>
+  </data>
+  <data name="SelectAllTextEntryNoEffect" xml:space="preserve">
+    <value>SelectAllTextEntryNoEffect_ES_TRANSLATE</value>
+  </data>
+  <data name="SelectAllTextEntryWithEffect" xml:space="preserve">
+    <value>SelectAllTextEntryWithEffect_ES_TRANSLATE</value>
+  </data>
+  <data name="SelectAllTextEditorNoEffect" xml:space="preserve">
+    <value>SelectAllTextEntryWithEffect_ES_TRANSLATE</value>
+  </data>
+  <data name="SelectAllTextEditorWithEffect" xml:space="preserve">
+    <value>SelectAllTextEditorWithEffect_ES_TRANSLATE</value>
+  </data>
+  <data name="EntryLabel" xml:space="preserve">
+    <value>EntryLabel_ES_TRANSLATE</value>
+  </data>
+  <data name="EditorLabel" xml:space="preserve">
+    <value>EntryLabel_ES_TRANSLATE</value>
+  </data>
+  <data name="SelectAllTextEntryExampleText" xml:space="preserve">
+    <value>https://github.com/xamarin/XamarinCommunityToolkit</value>
+  </data>
+  <data name="SelectAllTextEditorExampleText" xml:space="preserve">
+    <value>EntryLabel_ES_TRANSLATE</value>
+  </data>
 </root>

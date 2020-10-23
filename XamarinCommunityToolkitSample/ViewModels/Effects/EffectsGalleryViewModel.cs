@@ -13,7 +13,17 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(SafeAreaEffectPage),
 				nameof(SafeAreaEffect),
-				AppResources.SafeAreaShortDescription)
+				AppResources.SafeAreaShortDescription),
+
+			new SectionModel(
+				typeof(RemoveBorderEffectPage),
+				nameof(RemoveBorderEffect),
+				AppResources.RemoveBorderShortDescription),
+
+			new SectionModel(
+				typeof(SelectAllTextEffectPage),
+				nameof(SelectAllTextEffect),
+				AppResources.SelectAllTextShortDescription),
 		};
 	}
 }

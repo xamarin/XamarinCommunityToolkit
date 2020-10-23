@@ -534,7 +534,7 @@ If the user manually assigns a row or column on a view, it will be honored.</val
     <value>Effects</value>
   </data>
   <data name="SafeAreaShortDescription" xml:space="preserve">
-    <value>The SafeAreaEffect is an effectwill help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X.</value>
+    <value>The SafeAreaEffect is an effect that will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X.</value>
   </data>
   <data name="SafeAreaLongDescription" xml:space="preserve">
     <value>The SafeAreaEffect is an effect that can be added to any element through an attached property to indicate whether or not that element should take current safe areas into account. This is an area of the screen that is safe for all devices that use iOS 11 and greater. Specifically, it will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X. The effect only targets iOS, meaning that on other platforms it does not do anything.</value>
@@ -568,5 +568,55 @@ If the user manually assigns a row or column on a view, it will be honored.</val
   </data>
   <data name="MaxLengthReachedBehaviorSecondScenarioDescription" xml:space="preserve">
     <value>When the MaxLength of this Entry is reached, a Command is executed. Below are all Command executions shown.</value>
+  </data>
+  <data name="RemoveBorderShortDescription" xml:space="preserve">
+    <value>The RemoveBorderEffect is an effect that will remove the border from an Entry on iOS and the underline from an entry on Android</value>
+  </data>
+  <data name="RemoveBorderLongDescription" xml:space="preserve">
+    <value>The RemoveBorderEffect is an effect that will remove the border from an Entry on iOS and the underline from an entry on Android. This effect has been backported from the original version of this repository.</value>
+  </data>
+  <data name="RemoveBorderDefaultEntryLabel" xml:space="preserve">
+    <value>Default Entry</value>
+  </data>
+  <data name="RemoveBorderEffectEntryLabel" xml:space="preserve">
+    <value>Entry With Effect</value>
+  </data>
+  <data name="RemoveBorderDefaultEntryPlaceholder" xml:space="preserve">
+    <value>I have a border</value>
+  </data>
+  <data name="RemoveBorderEffectEntryPlaceholder" xml:space="preserve">
+    <value>I don't have a border</value>
+  </data>
+  <data name="SelectAllTextShortDescription" xml:space="preserve">
+    <value>The SelectAllTextEffect is an effect that will select all text in an Entry / Editor when it becomes focussed</value>
+  </data>
+  <data name="SelectAllTextLongDescription" xml:space="preserve">
+    <value>The SelectAllTextEffect is an effect that will select all text in an Entry / Editor when it becomes focussed. Useful applications for this effect would be custom url address bars, a copy paste button etc.</value>
+  </data>
+  <data name="SelectAllTextEntryNoEffect" xml:space="preserve">
+    <value>Entry without the effect, when focussed no text will be selected</value>
+  </data>
+  <data name="SelectAllTextEntryWithEffect" xml:space="preserve">
+    <value>Entry with the effect, when focussed all text will be selected</value>
+  </data>
+  <data name="SelectAllTextEditorNoEffect" xml:space="preserve">
+    <value>Editor without the effect, when focussed no text will be selected</value>
+  </data>
+  <data name="SelectAllTextEditorWithEffect" xml:space="preserve">
+    <value>Editor with the effect, when focussed all text will be selected</value>
+  </data>
+  <data name="EntryLabel" xml:space="preserve">
+    <value>Entry</value>
+  </data>
+  <data name="EditorLabel" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="SelectAllTextEntryExampleText" xml:space="preserve">
+    <value>https://github.com/xamarin/XamarinCommunityToolkit</value>
+  </data>
+  <data name="SelectAllTextEditorExampleText" xml:space="preserve">
+    <value>Yeah, but your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should. Must go faster... go, go, go, go, go! You know what? It is beets. I've crashed into a beet truck. Is this my espresso machine? Wh-what is-h-how did you get my espresso machine?
+
+Just my luck, no ice. I gave it a cold? I gave it a virus. A computer virus. Must go faster... go, go, go, go, go! God creates dinosaurs. God destroys dinosaurs. God creates Man. Man destroys God. Man creates Dinosaurs. Yeah, but your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should.</value>
   </data>
 </root>

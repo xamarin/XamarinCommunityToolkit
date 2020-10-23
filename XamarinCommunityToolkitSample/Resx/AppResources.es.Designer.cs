@@ -766,5 +766,101 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
                 return ResourceManager.GetString("XAMLExtension", resourceCulture);
             }
         }
+        
+        internal static string RemoveBorderShortDescription {
+            get {
+                return ResourceManager.GetString("RemoveBorderShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string RemoveBorderLongDescription {
+            get {
+                return ResourceManager.GetString("RemoveBorderLongDescription", resourceCulture);
+            }
+        }
+        
+        internal static string RemoveBorderDefaultEntryLabel {
+            get {
+                return ResourceManager.GetString("RemoveBorderDefaultEntryLabel", resourceCulture);
+            }
+        }
+        
+        internal static string RemoveBorderEffectEntryLabel {
+            get {
+                return ResourceManager.GetString("RemoveBorderEffectEntryLabel", resourceCulture);
+            }
+        }
+        
+        internal static string RemoveBorderDefaultEntryPlaceholder {
+            get {
+                return ResourceManager.GetString("RemoveBorderDefaultEntryPlaceholder", resourceCulture);
+            }
+        }
+        
+        internal static string RemoveBorderEffectEntryPlaceholder {
+            get {
+                return ResourceManager.GetString("RemoveBorderEffectEntryPlaceholder", resourceCulture);
+            }
+        }
+        
+        internal static string SelectAllTextShortDescription {
+            get {
+                return ResourceManager.GetString("SelectAllTextShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string SelectAllTextLongDescription {
+            get {
+                return ResourceManager.GetString("SelectAllTextLongDescription", resourceCulture);
+            }
+        }
+        
+        internal static string SelectAllTextEntryNoEffect {
+            get {
+                return ResourceManager.GetString("SelectAllTextEntryNoEffect", resourceCulture);
+            }
+        }
+        
+        internal static string SelectAllTextEntryWithEffect {
+            get {
+                return ResourceManager.GetString("SelectAllTextEntryWithEffect", resourceCulture);
+            }
+        }
+        
+        internal static string SelectAllTextEditorNoEffect {
+            get {
+                return ResourceManager.GetString("SelectAllTextEditorNoEffect", resourceCulture);
+            }
+        }
+        
+        internal static string SelectAllTextEditorWithEffect {
+            get {
+                return ResourceManager.GetString("SelectAllTextEditorWithEffect", resourceCulture);
+            }
+        }
+        
+        internal static string EntryLabel {
+            get {
+                return ResourceManager.GetString("EntryLabel", resourceCulture);
+            }
+        }
+        
+        internal static string EditorLabel {
+            get {
+                return ResourceManager.GetString("EditorLabel", resourceCulture);
+            }
+        }
+        
+        internal static string SelectAllTextEntryExampleText {
+            get {
+                return ResourceManager.GetString("SelectAllTextEntryExampleText", resourceCulture);
+            }
+        }
+        
+        internal static string SelectAllTextEditorExampleText {
+            get {
+                return ResourceManager.GetString("SelectAllTextEditorExampleText", resourceCulture);
+            }
+        }
     }
 }
