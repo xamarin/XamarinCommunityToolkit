@@ -54,6 +54,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				typeof(MaxLengthReachedBehaviorPage),
 				nameof(MaxLengthReachedBehavior),
 				AppResources.MaxLengthReachedBehaviorShortDescription),
+			new SectionModel(
+				typeof(CharactersValidationBehaviorPage),
+				nameof(CharactersValidationBehavior),
+				"Changes an Entry's text color when an invalid string is provided."),
 		};
 	}
 }
