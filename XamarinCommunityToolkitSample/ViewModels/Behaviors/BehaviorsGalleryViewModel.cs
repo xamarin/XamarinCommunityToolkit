@@ -53,6 +53,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				typeof(MaxLengthReachedBehaviorPage),
 				nameof(MaxLengthReachedBehavior),
 				"This behavior invokes an EventHandler and executes a Command when the MaxLength of an InputView has been reached"),
+			new SectionModel(
+				typeof(CharactersValidationBehaviorPage),
+				nameof(CharactersValidationBehavior),
+				"Changes an Entry's text color when an invalid string is provided."),
 		};
 	}
 }
