@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		FragmentManager FragmentManager => fragmentManager ??= Context.GetFragmentManager();
 
-		CameraFragment camerafragment;
+		CameraDroid camerafragment;
 
 		public CameraViewRenderer(Context context)
 			: base(context)
@@ -51,44 +51,44 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			ElementPropertyChanged?.Invoke(this, e);
 
-			switch (e.PropertyName)
-			{
-				case nameof(CameraView.CameraOptions):
-					await camerafragment.RetrieveCameraDevice();
-					break;
-				case nameof(CameraView.CaptureOptions):
-					camerafragment.UpdateCaptureOptions();
-					await camerafragment.RetrieveCameraDevice();
-					break;
-				case nameof(CameraView.FlashMode):
-					camerafragment.SetFlash();
-					if (Element.CaptureOptions == CameraCaptureOptions.Video)
-						camerafragment.UpdateRepeatingRequest();
-					break;
-				case nameof(CameraView.Zoom):
-					camerafragment.ApplyZoom();
-					camerafragment.UpdateRepeatingRequest();
-					break;
-				case nameof(CameraView.VideoStabilization):
-					camerafragment.SetVideoStabilization();
-					if (Element.CaptureOptions == CameraCaptureOptions.Video)
-						camerafragment.UpdateRepeatingRequest();
-					break;
+			//switch (e.PropertyName)
+			//{
+			//	case nameof(CameraView.CameraOptions):
+			//		await camerafragment.RetrieveCameraDevice();
+			//		break;
+			//	case nameof(CameraView.CaptureOptions):
+			//		camerafragment.UpdateCaptureOptions();
+			//		await camerafragment.RetrieveCameraDevice();
+			//		break;
+			//	case nameof(CameraView.FlashMode):
+			//		camerafragment.SetFlash();
+			//		if (Element.CaptureOptions == CameraCaptureOptions.Video)
+			//			camerafragment.UpdateRepeatingRequest();
+			//		break;
+			//	case nameof(CameraView.Zoom):
+			//		camerafragment.ApplyZoom();
+			//		camerafragment.UpdateRepeatingRequest();
+			//		break;
+			//	case nameof(CameraView.VideoStabilization):
+			//		camerafragment.SetVideoStabilization();
+			//		if (Element.CaptureOptions == CameraCaptureOptions.Video)
+			//			camerafragment.UpdateRepeatingRequest();
+			//		break;
 
-					// case nameof(CameraView.PreviewAspect):
-					// case "MirrorFrontPreview":
-					// camerafragment?.ConfigureTransform();
-					// break;
-					// case nameof(CameraView.KeepScreenOn):
-					// if (camerafragment != null)
-					// camerafragment.KeepScreenOn = Element.KeepScreenOn;
-					// break;
-			}
+			//		// case nameof(CameraView.PreviewAspect):
+			//		// case "MirrorFrontPreview":
+			//		// camerafragment?.ConfigureTransform();
+			//		// break;
+			//		// case nameof(CameraView.KeepScreenOn):
+			//		// if (camerafragment != null)
+			//		// camerafragment.KeepScreenOn = Element.KeepScreenOn;
+			//		// break;
+			//}
 		}
 
 		void OnElementChanged(ElementChangedEventArgs<CameraView> e)
 		{
-			CameraFragment newfragment = null;
+			CameraDroid newfragment = null;
 
 			if (e.OldElement != null)
 			{
@@ -105,7 +105,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				e.NewElement.ShutterClicked += OnShutterClicked;
 
 				ElevationHelper.SetElevation(this, e.NewElement);
-				newfragment = new CameraFragment() { Element = element };
+				newfragment = new CameraDroid() { Element = element };
 			}
 
 			FragmentManager.BeginTransaction()
@@ -182,20 +182,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnShutterClicked(object sender, EventArgs e)
 		{
-			switch (Element.CaptureOptions)
-			{
-				default:
-				case CameraCaptureOptions.Default:
-				case CameraCaptureOptions.Photo:
-					camerafragment.TakePhoto();
-					break;
-				case CameraCaptureOptions.Video:
-					if (!camerafragment.IsRecordingVideo)
-						camerafragment.StartRecord();
-					else
-						camerafragment.StopRecord();
-					break;
-			}
+			//switch (Element.CaptureOptions)
+			//{
+			//	default:
+			//	case CameraCaptureOptions.Default:
+			//	case CameraCaptureOptions.Photo:
+			//		camerafragment.TakePhoto();
+			//		break;
+			//	case CameraCaptureOptions.Video:
+			//		if (!camerafragment.IsRecordingVideo)
+			//			camerafragment.StartRecord();
+			//		else
+			//			camerafragment.StopRecord();
+			//		break;
+			//}
 		}
 
 		void IViewRenderer.MeasureExactly() => MeasureExactly(this, Element, Context);

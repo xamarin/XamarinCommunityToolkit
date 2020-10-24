@@ -7,22 +7,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class CameraStateListener : CameraDevice.StateCallback
 	{
-		readonly CameraFragment owner;
+		readonly CameraDroid owner;
 
-		public CameraStateListener(CameraFragment cameraFragment) =>
+		public CameraStateListener(CameraDroid cameraFragment) =>
 			owner = cameraFragment ?? throw new ArgumentNullException(nameof(cameraFragment));
 
 		public override void OnDisconnected(CameraDevice camera)
 		{
 			owner.mCameraOpenCloseLock.Release();
-			cameraDevice.Close();
+		//	cameraDevice.Close();
 			owner.mCameraDevice = null;
 		}
 
 		public override void OnError(CameraDevice camera, [GeneratedEnum] CameraError error)
 		{
 			owner.mCameraOpenCloseLock.Release();
-			cameraDevice.Close();
+		//	cameraDevice.Close();
 			owner.mCameraDevice = null;
 			if (owner == null)
 				return;
@@ -35,8 +35,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void OnOpened(CameraDevice camera)
 		{
 			owner.mCameraOpenCloseLock.Release();
-			owner.mCameraDevice = cameraDevice;
-			owner.CreateCameraPreviewSession();
+		//	owner.mCameraDevice = cameraDevice;
+		//	owner.CreateCameraPreviewSession();
 		}
 	}
 }

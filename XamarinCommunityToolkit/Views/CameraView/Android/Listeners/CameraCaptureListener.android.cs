@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						if (afState == null)
 						{
 							cameraFragment.CurrentState = CameraFragment.StatePictureTaken;
-							cameraFragment.TakePhoto();
+						//	cameraFragment.TakePhoto();
 						}
 						else if ((afState.IntValue() == ((int)ControlAFState.FocusedLocked)) ||
 								   (afState.IntValue() == ((int)ControlAFState.NotFocusedLocked)))
@@ -40,11 +40,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							if (aeState == null || aeState.IntValue() == ((int)ControlAEState.Converged))
 							{
 								cameraFragment.CurrentState = CameraFragment.StatePictureTaken;
-								cameraFragment.TakePhoto();
+					//			cameraFragment.TakePhoto();
 							}
 							else
 							{
-								cameraFragment.RunPrecaptureSequence();
+					//			cameraFragment.RunPrecaptureSequence();
 							}
 						}
 						break;
@@ -68,7 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						if (aeState == null || aeState.IntValue() != ((int)ControlAEState.Precapture))
 						{
 							cameraFragment.CurrentState = CameraFragment.StatePictureTaken;
-							cameraFragment.TakePhoto();
+						//	cameraFragment.TakePhoto();
 						}
 						break;
 					}

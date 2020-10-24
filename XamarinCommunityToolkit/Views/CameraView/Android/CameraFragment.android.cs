@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 
 #if __ANDROID_29__
 using AndroidX.Core.Content;
@@ -18,24 +16,14 @@ using Android.Content.PM;
 using Android.Hardware.Camera2;
 using Android.Media;
 using Android.Views;
-using Android.Runtime;
 using Android.OS;
 using AOrientation = Android.Content.Res.Orientation;
-using AVideoSource = Android.Media.VideoSource;
 using AView = Android.Views.View;
-using ASize = Android.Util.Size;
-using App = Android.App.Application;
-using Env = Android.OS.Environment;
 
 using Java.Lang;
 using Java.Util.Concurrent;
 using AGraphics = Android.Graphics;
-using AContent = Android.Content;
-using Xamarin.Forms.Internals;
 using System.Threading.Tasks;
-using System.Linq;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
 using Android.Widget;
 using Android.Util;
 using Size = Android.Util.Size;
@@ -101,7 +89,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
-			mStateCallback = new CameraStateListener(this);
+			mStateCallback = new CameraStateListener(null);
 			mSurfaceTextureListener = new CameraSurfaceTextureListener(this);
 
 			orientations.Append((int)SurfaceOrientation.Rotation0, 90);
@@ -248,11 +236,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							}
 							break;
 						default:
-							//Log.Error(TAG, "Display rotation is invalid: " + displayRotation);
+							// Log.Error(TAG, "Display rotation is invalid: " + displayRotation);
 							break;
 					}
 
-					var displaySize = new AGraphics.Point();
+					var displaySize = new Point();
 					activity.WindowManager.DefaultDisplay.GetSize(displaySize);
 					var rotatedPreviewWidth = width;
 					var rotatedPreviewHeight = height;
@@ -466,24 +454,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		public void UnlockFocus()
-		{
-			try
-			{
-				// Reset the auto-focus trigger
-				mPreviewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, (int)ControlAFTrigger.Cancel);
-				SetAutoFlash(mPreviewRequestBuilder);
-				mCaptureSession.Capture(mPreviewRequestBuilder.Build(), mCaptureCallback,
-						mBackgroundHandler);
-				// After this, the camera will go back to the normal state of preview.
-				mState = STATE_PREVIEW;
-				mCaptureSession.SetRepeatingRequest(mPreviewRequest, mCaptureCallback,
-						mBackgroundHandler);
-			}
-			catch (CameraAccessException e)
-			{
-				e.PrintStackTrace();
-			}
-		}
+		//public void UnlockFocus()
+		//{
+		//	try
+		//	{
+		//		// Reset the auto-focus trigger
+		//		mPreviewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, (int)ControlAFTrigger.Cancel);
+		//		SetAutoFlash(mPreviewRequestBuilder);
+		//		mCaptureSession.Capture(mPreviewRequestBuilder.Build(), mCaptureCallback,
+		//				mBackgroundHandler);
+		//		// After this, the camera will go back to the normal state of preview.
+		//		mState = STATE_PREVIEW;
+		//		mCaptureSession.SetRepeatingRequest(mPreviewRequest, mCaptureCallback,
+		//				mBackgroundHandler);
+		//	}
+		//	catch (CameraAccessException e)
+		//	{
+		//		e.PrintStackTrace();
+		//	}
+		//}
 	}
 }

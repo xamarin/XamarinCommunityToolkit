@@ -16,9 +16,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			// If something goes wrong with the save (or the handler isn't even 
 			// registered, this code will toast a success message regardless...)
-			owner.ShowToast("Saved: " + owner.mFile);
-			Log.Debug(TAG, owner.mFile.ToString());
-			owner.UnlockFocus();
+			//owner.ShowToast("Saved: " + owner.mFile);
+		//	Log.Debug(TAG, owner.mFile.ToString());
+			//owner.UnlockFocus();
 		}
 	}
 }
