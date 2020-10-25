@@ -10,25 +10,23 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class RemoveBorderEffect : PlatformEffect
 	{
-		UITextBorderStyle old;
-
+		UITextBorderStyle? oldBorderStyle;
+		
+		UITextField TextField => Control as UITextField;
+		
 		protected override void OnAttached()
 		{
-			var editText = Control as UITextField;
-			if (editText == null)
-				return;
-
-			old = editText.BorderStyle;
-			editText.BorderStyle = UITextBorderStyle.None;
+			oldBorderStyle = TextField?.BorderStyle;
+			SetBorderStyle(UITextBorderStyle.None);
 		}
 
 		protected override void OnDetached()
+			=> SetBorderStyle(oldBorderStyle);
+		
+		void SetBorderStyle(UITextBorderStyle? borderStyle)
 		{
-			var editText = Control as UITextField;
-			if (editText == null)
-				return;
-
-			editText.BorderStyle = old;
+			if (TextField != null && borderStyle.HasValue)
+				TextField.BorderStyle = borderStyle.Value;
 		}
 	}
 }
