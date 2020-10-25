@@ -10,23 +10,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class SelectAllTextEffect : PlatformEffect
 	{
-        protected override void OnAttached()
-        {
-            AttachEffect(true);
-        }
+		EditText EditText => Control as EditText;
 
-        protected override void OnDetached()
-        {
-            AttachEffect(false);
-        }
-
-        void AttachEffect(bool apply)
-		{
-            var editText = Control as EditText;
-            if (editText == null)
-                return;
-
-            editText.SetSelectAllOnFocus(apply);
-        }
+		protected override void OnAtthached()
+			=> EditText?.SetSelectAllOnFocus(true);
+		
+		protected override void OnDetached()
+			=> EditText?.SetSelectAllOnFocus(false);
     }
 }
