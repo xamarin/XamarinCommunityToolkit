@@ -5,9 +5,9 @@ using Xamarin.CommunityToolkit.Sample.Pages.Effects;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 {
-	public class EffectsGalleryViewModel : BaseViewModel
+	public class EffectsGalleryViewModel : BaseGalleryViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(
 				typeof(SafeAreaEffectPage),
