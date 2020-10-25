@@ -9,14 +9,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class CameraSurfaceTextureListener : Java.Lang.Object, TextureView.ISurfaceTextureListener
 	{
-		readonly CameraFragment owner;
+		readonly CameraDroid owner;
 
-		public CameraSurfaceTextureListener(CameraFragment cameraFragment) =>
+		public CameraSurfaceTextureListener(CameraDroid cameraFragment) =>
 			owner = cameraFragment ?? throw new ArgumentNullException(nameof(cameraFragment));
 
 		public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
 		{
-
+			owner.OpenCamera(width, height);
 		}
 
 		public bool OnSurfaceTextureDestroyed(SurfaceTexture surface)
@@ -26,6 +26,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height)
 		{
+			owner.ConfigureTransform(width, height);
 		}
 
 		public void OnSurfaceTextureUpdated(SurfaceTexture surface)

@@ -40,10 +40,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		AutoFitTextureView texture;
 		CameraStateListener mStateCallback;
 		HandlerThread mBackgroundThread;
-		Handler mBackgroundHandler;
+		public Handler mBackgroundHandler;
 		CameraSurfaceTextureListener surfaceTextureListener;
 		public CameraDevice mCameraDevice;
 		ImageReader mImageReader;
+		public CameraCaptureListener mCaptureCallback;
 
 		public CameraCaptureSession mCaptureSession;
 		public Semaphore mCameraOpenCloseLock = new Semaphore(1);
@@ -52,12 +53,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool mFlashSupported;
 		string mCameraId;
 		Size previewSize;
+		public CaptureRequest mPreviewRequest;
+
+		public CaptureRequest.Builder mPreviewRequestBuilder;
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
 			inflater.Inflate(Resource.Layout.CameraFragment, container, false);
 
-		public override void OnViewCreated(View view, Bundle savedInstanceState) =>
+		public override void OnViewCreated(View view, Bundle savedInstanceState)
+		{
 			texture = view.FindViewById<AutoFitTextureView>(Resource.Id.cameratexture);
+			surfaceTextureListener = new CameraSurfaceTextureListener(this);
+			mStateCallback = new CameraStateListener(this);
+		}
 
 		public override void OnResume()
 		{
@@ -78,7 +86,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnPause();
 		}
 
-		void CloseCamera()
+		public void CloseCamera()
 		{
 			try
 			{
@@ -127,7 +135,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		async void OpenCamera(int width, int height)
+		public async void OpenCamera(int width, int height)
 		{
 			if (ContextCompat.CheckSelfPermission(Activity, Manifest.Permission.Camera) != Permission.Granted)
 			{
@@ -156,7 +164,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void ConfigureTransform(int viewWidth, int viewHeight)
+		public void ConfigureTransform(int viewWidth, int viewHeight)
 		{
 			var activity = Activity;
 
@@ -388,6 +396,47 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			mBackgroundThread = new HandlerThread(cameraBackground);
 			mBackgroundThread.Start();
 			mBackgroundHandler = new Handler(mBackgroundThread.Looper);
+		}
+
+		public void CreateCameraPreviewSession()
+		{
+			try
+			{
+				var surfaceTexture = texture.SurfaceTexture;
+				if (surfaceTexture == null)
+				{
+					throw new IllegalStateException("texture is null");
+				}
+
+				// We configure the size of default buffer to be the size of camera preview we want.
+				surfaceTexture.SetDefaultBufferSize(previewSize.Width, previewSize.Height);
+
+				// This is the output Surface we need to start preview.
+				var surface = new Surface(surfaceTexture);
+
+				// We set up a CaptureRequest.Builder with the output Surface.
+				mPreviewRequestBuilder = mCameraDevice.CreateCaptureRequest(CameraTemplate.Preview);
+				mPreviewRequestBuilder.AddTarget(surface);
+
+				// Here, we create a CameraCaptureSession for camera preview.
+				var surfaces = new List<Surface>
+				{
+					surface,
+					mImageReader.Surface
+				};
+
+				mCameraDevice.CreateCaptureSession(surfaces, new CameraCaptureSessionCallback(this), null);
+			}
+			catch (CameraAccessException e)
+			{
+				e.PrintStackTrace();
+			}
+		}
+
+		public void SetAutoFlash(CaptureRequest.Builder builder)
+		{
+			if (mFlashSupported)
+				builder.Set(CaptureRequest.ControlAeMode, (int)ControlAEMode.OnAutoFlash);
 		}
 	}
 }

@@ -15,14 +15,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void OnDisconnected(CameraDevice camera)
 		{
 			owner.mCameraOpenCloseLock.Release();
-		//	cameraDevice.Close();
+			camera.Close();
 			owner.mCameraDevice = null;
 		}
 
 		public override void OnError(CameraDevice camera, [GeneratedEnum] CameraError error)
 		{
 			owner.mCameraOpenCloseLock.Release();
-		//	cameraDevice.Close();
+			camera.Close();
 			owner.mCameraDevice = null;
 			if (owner == null)
 				return;
@@ -35,8 +35,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void OnOpened(CameraDevice camera)
 		{
 			owner.mCameraOpenCloseLock.Release();
-		//	owner.mCameraDevice = cameraDevice;
-		//	owner.CreateCameraPreviewSession();
+			owner.mCameraDevice = camera;
+			owner.CreateCameraPreviewSession();
 		}
 	}
 }

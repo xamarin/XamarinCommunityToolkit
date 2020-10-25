@@ -90,7 +90,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnCreate(savedInstanceState);
 			mStateCallback = new CameraStateListener(null);
-			mSurfaceTextureListener = new CameraSurfaceTextureListener(this);
+			mSurfaceTextureListener = new CameraSurfaceTextureListener(null);
 
 			orientations.Append((int)SurfaceOrientation.Rotation0, 90);
 			orientations.Append((int)SurfaceOrientation.Rotation90, 0);

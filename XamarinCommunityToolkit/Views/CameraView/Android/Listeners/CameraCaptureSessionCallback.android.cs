@@ -24,14 +24,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			try
 			{
 				// Auto focus should be continuous for camera preview.
-				//owner.mPreviewRequestBuilder.Set(CaptureRequest.ControlAfMode, (int)ControlAFMode.ContinuousPicture);
+				owner.mPreviewRequestBuilder.Set(CaptureRequest.ControlAfMode, (int)ControlAFMode.ContinuousPicture);
+
 				// Flash is automatically enabled when necessary.
-			//	owner.SetAutoFlash(owner.mPreviewRequestBuilder);
+				owner.SetAutoFlash(owner.mPreviewRequestBuilder);
 
 				// Finally, we start displaying the camera preview.
-			//	owner.mPreviewRequest = owner.mPreviewRequestBuilder.Build();
-			//	owner.mCaptureSession.SetRepeatingRequest(owner.mPreviewRequest,
-			//			owner.mCaptureCallback, owner.mBackgroundHandler);
+				owner.mPreviewRequest = owner.mPreviewRequestBuilder.Build();
+				owner.mCaptureSession.SetRepeatingRequest(owner.mPreviewRequest, owner.mCaptureCallback, owner.mBackgroundHandler);
 			}
 			catch (CameraAccessException e)
 			{
