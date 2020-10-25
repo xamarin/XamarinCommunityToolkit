@@ -15,9 +15,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void OnConfigured(CameraCaptureSession session)
 		{
 			if (owner.mCameraDevice == null)
-			{
 				return;
-			}
 
 			// When the session is ready, we start displaying the preview.
 			owner.mCaptureSession = session;

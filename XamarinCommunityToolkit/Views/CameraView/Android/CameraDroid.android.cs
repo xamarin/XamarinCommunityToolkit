@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public CaptureRequest.Builder mPreviewRequestBuilder;
 
 		public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
-			inflater.Inflate(Resource.Layout.CameraFragment, container, false);
+			inflater.Inflate(Resource.Layout.CameraFragment, null);
 
 		public override void OnViewCreated(View view, Bundle savedInstanceState)
 		{
@@ -177,6 +177,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var bufferRect = new RectF(0, 0, previewSize.Height, previewSize.Width);
 			var centerX = viewRect.CenterX();
 			var centerY = viewRect.CenterY();
+
 			if (rotation == (int)SurfaceOrientation.Rotation90 || rotation == (int)SurfaceOrientation.Rotation270)
 			{
 				bufferRect.Offset(centerX - bufferRect.CenterX(), centerY - bufferRect.CenterY());
@@ -191,35 +192,32 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			texture.SetTransform(matrix);
 		}
 
-		void SetUpCameraOutputs(int width, int height)
+		public void SetUpCameraOutputs(int width, int height)
 		{
 			var activity = Activity;
 			var manager = (CameraManager)activity.GetSystemService(AContent.Context.CameraService);
 			try
 			{
-				var cameraIdListCount = manager.GetCameraIdList().Length;
+				var cameraList = manager.GetCameraIdList();
+				var cameraIdListCount = cameraList.Length;
+
 				for (var i = 0; i < cameraIdListCount; i++)
 				{
-					var cameraId = manager.GetCameraIdList()[i];
+					var cameraId = cameraList[i];
 					var characteristics = manager.GetCameraCharacteristics(cameraId);
 
 					// We don't use a front facing camera in this sample.
 					var facing = (Integer)characteristics.Get(CameraCharacteristics.LensFacing);
 					if (facing != null && facing == Integer.ValueOf((int)LensFacing.Front))
-					{
 						continue;
-					}
 
 					var map = (StreamConfigurationMap)characteristics.Get(CameraCharacteristics.ScalerStreamConfigurationMap);
 					if (map == null)
-					{
 						continue;
-					}
 
 					// For still image captures, we use the largest available size.
-					var largest = (Size)Collections.Max(Arrays.AsList(map.GetOutputSizes((int)ImageFormatType.Jpeg)),
-						new CompareSizesByArea());
-					mImageReader = ImageReader.NewInstance(largest.Width, largest.Height, ImageFormatType.Jpeg, /*maxImages*/2);
+					var largest = (Size)Collections.Max(Arrays.AsList(map.GetOutputSizes((int)ImageFormatType.Jpeg)), new CompareSizesByArea());
+					mImageReader = ImageReader.NewInstance(largest.Width, largest.Height, ImageFormatType.Jpeg, 2);
 					mImageReader.SetOnImageAvailableListener(mOnImageAvailableListener, mBackgroundHandler);
 
 					// Find out if we need to swap dimension to get the preview size relative to sensor
@@ -234,16 +232,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						case SurfaceOrientation.Rotation0:
 						case SurfaceOrientation.Rotation180:
 							if (mSensorOrientation == 90 || mSensorOrientation == 270)
-							{
 								swappedDimensions = true;
-							}
 							break;
 						case SurfaceOrientation.Rotation90:
 						case SurfaceOrientation.Rotation270:
 							if (mSensorOrientation == 0 || mSensorOrientation == 180)
-							{
 								swappedDimensions = true;
-							}
 							break;
 						default:
 							// Log.Error(TAG, "Display rotation is invalid: " + displayRotation);
@@ -266,14 +260,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 
 					if (maxPreviewWidth > MAX_PREVIEW_WIDTH)
-					{
 						maxPreviewWidth = MAX_PREVIEW_WIDTH;
-					}
 
 					if (maxPreviewHeight > MAX_PREVIEW_HEIGHT)
-					{
 						maxPreviewHeight = MAX_PREVIEW_HEIGHT;
-					}
 
 					// Danger, W.R.! Attempting to use too large a preview size could  exceed the camera
 					// bus' bandwidth limitation, resulting in gorgeous previews but the storage of
@@ -306,7 +296,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				// Currently an NPE is thrown when the Camera2API is used but not supported on the
 				// device this code runs.
-				// ErrorDialog.NewInstance(GetString(Resource.String.camera_error)).Show(ChildFragmentManager, FRAGMENT_DIALOG);
+				e.PrintStackTrace();
 			}
 		}
 

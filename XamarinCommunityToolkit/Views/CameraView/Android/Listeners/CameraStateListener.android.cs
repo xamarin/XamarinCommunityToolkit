@@ -16,6 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			owner.mCameraOpenCloseLock.Release();
 			camera.Close();
+			owner.mCameraDevice.Dispose(); // Se if this will be helpful
 			owner.mCameraDevice = null;
 		}
 
@@ -23,9 +24,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			owner.mCameraOpenCloseLock.Release();
 			camera.Close();
+			owner.mCameraDevice.Dispose(); // Se if this will be helpful
 			owner.mCameraDevice = null;
+
 			if (owner == null)
 				return;
+
 			var activity = owner.Activity;
 
 			if (activity != null)
