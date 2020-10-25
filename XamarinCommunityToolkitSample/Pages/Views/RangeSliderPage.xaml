@@ -35,6 +35,7 @@
                 x:Name="RangeSlider"
                 MaximumValue="10"
                 MinimumValue="-10"
+                StepValue="0.01"
                 LowerValue="-10"
                 UpperValue="10"
                 ValueLabelStringFormat="{StaticResource CustomValueLabeStringFormat}"
