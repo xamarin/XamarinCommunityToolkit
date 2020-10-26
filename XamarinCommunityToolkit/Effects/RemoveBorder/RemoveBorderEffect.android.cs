@@ -23,6 +23,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		protected override void OnDetached()
 		{
+			Control.Background = null;
 		}
 	}
 }

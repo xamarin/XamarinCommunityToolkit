@@ -13,21 +13,21 @@
                          Spacing="20"
                          VerticalOptions="Fill">
 
-                <Label Text="{rsx:Translate SelectAllTextLongDescription}"/>
+                <Label Text="The SelectAllTextEffect is an effect that will select all text in an Entry / Editor when it becomes focussed. Useful applications for this effect would be custom url address bars, a copy paste button etc."/>
 
-                <Label Text="{rsx:Translate EntryLabel}" TextColor="{StaticResource DarkLabelTextColor}" FontAttributes="Bold"/>
+                <Label Text="Entry" TextColor="{StaticResource DarkLabelTextColor}" FontAttributes="Bold"/>
 
                 <StackLayout>
-                    <Label Text="{rsx:Translate SelectAllTextEntryNoEffect}" FontAttributes="Italic"/>
+                    <Label Text="Entry without the effect, when focussed no text will be selected" FontAttributes="Italic"/>
                     <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
-                        <Entry Text="{rsx:Translate SelectAllTextEntryExampleText}" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}"/>
+                        <Entry Text="https://github.com/xamarin/XamarinCommunityToolkit" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}"/>
                     </Frame>
                 </StackLayout>
                 
                 <StackLayout>
-                    <Label Text="{rsx:Translate SelectAllTextEntryWithEffect}" FontAttributes="Italic"/>
+                    <Label Text="Entry with the effect, when focussed all text will be selected" FontAttributes="Italic"/>
                     <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
-                        <Entry Text="{rsx:Translate SelectAllTextEntryExampleText}" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
+                        <Entry Text="https://github.com/xamarin/XamarinCommunityToolkit" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
                             <Entry.Effects>
                                 <effects:SelectAllTextEffect/>
                             </Entry.Effects>
@@ -35,22 +35,33 @@
                     </Frame>
                 </StackLayout>
 
-                <Label Text="{rsx:Translate EditorLabel}" TextColor="{StaticResource DarkLabelTextColor}" FontAttributes="Bold"/>
+                <Label Text="Editor" TextColor="{StaticResource DarkLabelTextColor}" FontAttributes="Bold"/>
 
                 <StackLayout>
-                    <Label Text="{rsx:Translate SelectAllTextEditorNoEffect}" FontAttributes="Italic"/>
+                    <Label Text="Editor without the effect, when focussed no text will be selected" FontAttributes="Italic"/>
                     <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
-                        <Editor Text="{rsx:Translate SelectAllTextEditorExampleText}" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}"/>
+                        <Editor TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
+                            <Editor.Text>
+                                Yeah, but your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should. Must go faster... go, go, go, go, go! You know what? It is beets. I've crashed into a beet truck. Is this my espresso machine? Wh-what is-h-how did you get my espresso machine?
+
+Just my luck, no ice. I gave it a cold? I gave it a virus. A computer virus. Must go faster... go, go, go, go, go! God creates dinosaurs. God destroys dinosaurs. God creates Man. Man destroys God. Man creates Dinosaurs. Yeah, but your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should.
+                            </Editor.Text>
+                        </Editor>
                     </Frame>
                 </StackLayout>
 
                 <StackLayout>
-                    <Label Text="{rsx:Translate SelectAllTextEditorWithEffect}" FontAttributes="Italic"/>
+                    <Label Text="Editor with the effect, when focussed all text will be selected" FontAttributes="Italic"/>
                     <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
-                        <Editor Text="{rsx:Translate SelectAllTextEditorExampleText}" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
+                        <Editor TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
                             <Editor.Effects>
                                 <effects:SelectAllTextEffect/>
                             </Editor.Effects>
+                            <Editor.Text>
+                                Yeah, but your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should. Must go faster... go, go, go, go, go! You know what? It is beets. I've crashed into a beet truck. Is this my espresso machine? Wh-what is-h-how did you get my espresso machine?
+
+Just my luck, no ice. I gave it a cold? I gave it a virus. A computer virus. Must go faster... go, go, go, go, go! God creates dinosaurs. God destroys dinosaurs. God creates Man. Man destroys God. Man creates Dinosaurs. Yeah, but your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should.
+                            </Editor.Text>
                         </Editor>
                     </Frame>
                 </StackLayout>

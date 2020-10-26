@@ -11,9 +11,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	public class RemoveBorderEffect : PlatformEffect
 	{
 		UITextBorderStyle? oldBorderStyle;
-		
+
 		UITextField TextField => Control as UITextField;
-		
+
 		protected override void OnAttached()
 		{
 			oldBorderStyle = TextField?.BorderStyle;
@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected override void OnDetached()
 			=> SetBorderStyle(oldBorderStyle);
-		
+
 		void SetBorderStyle(UITextBorderStyle? borderStyle)
 		{
 			if (TextField != null && borderStyle.HasValue)

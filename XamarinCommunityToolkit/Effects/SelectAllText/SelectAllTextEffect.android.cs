@@ -12,9 +12,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	{
 		EditText EditText => Control as EditText;
 
-		protected override void OnAtthached()
+		protected override void OnAttached()
 			=> EditText?.SetSelectAllOnFocus(true);
-		
+
 		protected override void OnDetached()
 			=> EditText?.SetSelectAllOnFocus(false);
     }
