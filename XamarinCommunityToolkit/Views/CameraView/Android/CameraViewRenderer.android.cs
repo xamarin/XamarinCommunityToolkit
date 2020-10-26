@@ -47,7 +47,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
 
-		async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			ElementPropertyChanged?.Invoke(this, e);
 
@@ -182,6 +182,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnShutterClicked(object sender, EventArgs e)
 		{
+			camerafragment.TakePhoto();
 			//switch (Element.CaptureOptions)
 			//{
 			//	default:
@@ -232,7 +233,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SizeRequest IVisualElementRenderer.GetDesiredSize(int widthConstraint, int heightConstraint)
 		{
 			Measure(widthConstraint, heightConstraint);
-			var result = new SizeRequest(new Size(MeasuredWidth, MeasuredHeight), new Size(Context.ToPixels(20), Context.ToPixels(20)));
+			var result = new SizeRequest(new Size(MeasuredWidth, MeasuredHeight), new Size(/*Context.ToPixels(20), Context.ToPixels(20)*/));
 			return result;
 		}
 
@@ -241,16 +242,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!(element is CameraView camera))
 				throw new ArgumentException($"{nameof(element)} must be of type {nameof(CameraView)}");
 
-			// Performance.Start(out var reference);
-
 			motionEventHelper.UpdateElement(element);
 
 			if (visualElementTracker == null)
 				visualElementTracker = new VisualElementTracker(this);
 
 			Element = camera;
-
-			// Performance.Stop(reference);
 		}
 
 		void IVisualElementRenderer.SetLabelFor(int? id)

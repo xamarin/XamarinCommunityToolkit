@@ -18,6 +18,7 @@ using Android.Util;
 using Java.Util;
 
 using AOrientation = Android.Content.Res.Orientation;
+using Android.Provider;
 #if __ANDROID_29__
 using AndroidX.Core.Content;
 using AndroidX.Fragment.App;
@@ -30,6 +31,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class CameraDroid : Fragment
 	{
+		public const int STATE_PREVIEW = 0;
+
+		// Camera state: Waiting for the focus to be locked.
+		public const int STATE_WAITING_LOCK = 1;
+
+		// Camera state: Waiting for the exposure to be precapture state.
+		public const int STATE_WAITING_PRECAPTURE = 2;
+
+		// Camera state: Waiting for the exposure state to be something other than precapture.
+		public const int STATE_WAITING_NON_PRECAPTURE = 3;
+
+		// Camera state: Picture was taken.
+		public const int STATE_PICTURE_TAKEN = 4;
+
+
 		// Max preview width that is guaranteed by Camera2 API
 		const int MAX_PREVIEW_WIDTH = 1920;
 
@@ -37,7 +53,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		const int MAX_PREVIEW_HEIGHT = 1080;
 		const string cameraBackground = "CameraBackground";
 
-		AutoFitTextureView texture;
+		static readonly SparseIntArray ORIENTATIONS = new SparseIntArray();
+		public AutoFitTextureView texture;
 		CameraStateListener mStateCallback;
 		HandlerThread mBackgroundThread;
 		public Handler mBackgroundHandler;
@@ -65,6 +82,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			texture = view.FindViewById<AutoFitTextureView>(Resource.Id.cameratexture);
 			surfaceTextureListener = new CameraSurfaceTextureListener(this);
 			mStateCallback = new CameraStateListener(this);
+			mCaptureCallback = new CameraCaptureListener(this);
+			mOnImageAvailableListener = new ImageAvailableListener();
+
+			// fill ORIENTATIONS list
+			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation0, 90);
+			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation90, 0);
+			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation180, 270);
+			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation270, 180);
 		}
 
 		public override void OnResume()
@@ -338,22 +363,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return choices[0]; // Couldn't find any suitable preview size
 		}
 
-		class CompareSizesByArea : Java.Lang.Object, IComparator
-		{
-			public int Compare(Java.Lang.Object lhs, Java.Lang.Object rhs)
-			{
-				var lhsSize = (Size)lhs;
-				var rhsSize = (Size)rhs;
-
-				// We cast here to ensure the multiplications won't overflow
-				return Long.Signum(((long)lhsSize.Width * lhsSize.Height) - ((long)rhsSize.Width * rhsSize.Height));
-			}
-		}
-
 		TaskCompletionSource<bool> permissionsRequested;
 
 		bool audioPermissionsGranted;
 		bool cameraPermissionsGranted;
+		public int mState;
 
 		public CameraView Element { get; set; }
 
@@ -427,6 +441,106 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (mFlashSupported)
 				builder.Set(CaptureRequest.ControlAeMode, (int)ControlAEMode.OnAutoFlash);
+		}
+
+		public void TakePhoto()
+		{
+			try
+			{
+				mPreviewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, (int)ControlAFTrigger.Start);
+
+				mState = STATE_WAITING_LOCK;
+				mCaptureSession.Capture(mPreviewRequestBuilder.Build(), mCaptureCallback, mBackgroundHandler);
+			}
+			catch (CameraAccessException e)
+			{
+				e.PrintStackTrace();
+			}
+		}
+
+		CaptureRequest.Builder stillCaptureBuilder;
+
+		public void CaptureStillPicture()
+		{
+			try
+			{
+				var activity = Activity;
+
+				if (activity == null || mCameraDevice == null)
+					return;
+
+				if (stillCaptureBuilder == null)
+					stillCaptureBuilder = mCameraDevice.CreateCaptureRequest(CameraTemplate.StillCapture);
+
+				stillCaptureBuilder.AddTarget(mImageReader.Surface);
+
+				stillCaptureBuilder.Set(CaptureRequest.ControlAfMode, (int)ControlAFMode.ContinuousPicture);
+				SetAutoFlash(stillCaptureBuilder);
+
+				var rotation = (int)activity.WindowManager.DefaultDisplay.Rotation;
+				stillCaptureBuilder.Set(CaptureRequest.JpegOrientation, GetOrientation(rotation));
+
+				mCaptureSession.StopRepeating();
+				mCaptureSession.Capture(stillCaptureBuilder.Build(), new CameraCaptureStillPictureSessionCallback(this), null);
+			}
+			catch (CameraAccessException e)
+			{
+				e.PrintStackTrace();
+			}
+		}
+
+		int GetOrientation(int rotation)
+		{
+			// Sensor orientation is 90 for most devices, or 270 for some devices (eg. Nexus 5X)
+			// We have to take that into account and rotate JPEG properly.
+			// For devices with orientation of 90, we simply return our mapping from ORIENTATIONS.
+			// For devices with orientation of 270, we need to rotate the JPEG 180 degrees.
+			return (ORIENTATIONS.Get(rotation) + mSensorOrientation + 270) % 360;
+		}
+
+		public void UnlockFocus()
+		{
+			try
+			{
+				mPreviewRequestBuilder.Set(CaptureRequest.ControlAfTrigger, (int)ControlAFTrigger.Cancel);
+				SetAutoFlash(mPreviewRequestBuilder);
+				mCaptureSession.Capture(mPreviewRequestBuilder.Build(), mCaptureCallback, mBackgroundHandler);
+
+				mState = STATE_PREVIEW;
+				mCaptureSession.SetRepeatingRequest(mPreviewRequest, mCaptureCallback, mBackgroundHandler);
+			}
+			catch (CameraAccessException e)
+			{
+				e.PrintStackTrace();
+			}
+		}
+
+		public void RunPrecaptureSequence()
+		{
+			try
+			{
+				mPreviewRequestBuilder.Set(CaptureRequest.ControlAePrecaptureTrigger, (int)ControlAEPrecaptureTrigger.Start);
+
+				mState = STATE_WAITING_PRECAPTURE;
+				mCaptureSession.Capture(mPreviewRequestBuilder.Build(), mCaptureCallback, mBackgroundHandler);
+			}
+			catch (CameraAccessException e)
+			{
+				e.PrintStackTrace();
+			}
+		}
+
+
+		class CompareSizesByArea : Java.Lang.Object, IComparator
+		{
+			public int Compare(Java.Lang.Object lhs, Java.Lang.Object rhs)
+			{
+				var lhsSize = (Size)lhs;
+				var rhsSize = (Size)rhs;
+
+				// We cast here to ensure the multiplications won't overflow
+				return Long.Signum(((long)lhsSize.Width * lhsSize.Height) - ((long)rhsSize.Width * rhsSize.Height));
+			}
 		}
 	}
 }

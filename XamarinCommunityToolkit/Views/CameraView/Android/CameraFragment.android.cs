@@ -81,6 +81,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool audioPermissionsGranted;
 		bool cameraPermissionsGranted;
 		TaskCompletionSource<bool> permissionsRequested;
+
 		public CameraView Element { get; set; }
 
 		private int mSensorOrientation;
@@ -107,7 +108,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void OnActivityCreated(Bundle savedInstanceState)
 		{
 			base.OnActivityCreated(savedInstanceState);
-			mCaptureCallback = new CameraCaptureListener(this);
+			mCaptureCallback = new CameraCaptureListener(null);
 			mOnImageAvailableListener = new ImageAvailableListener();
 		}
 

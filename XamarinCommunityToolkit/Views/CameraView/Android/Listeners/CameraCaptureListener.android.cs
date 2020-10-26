@@ -6,9 +6,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class CameraCaptureListener : CameraCaptureSession.CaptureCallback
 	{
-		readonly CameraFragment cameraFragment;
+		readonly CameraDroid cameraFragment;
 
-		public CameraCaptureListener(CameraFragment camera) =>
+		public CameraCaptureListener(CameraDroid camera) =>
 			cameraFragment = camera ?? throw new ArgumentNullException(nameof(camera));
 
 		public Action<TotalCaptureResult> OnCompleted { get; set; }
@@ -21,57 +21,59 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void Process(CaptureResult result)
 		{
-			switch (cameraFragment.CurrentState)
+			switch (cameraFragment.mState)
 			{
 				case CameraFragment.StateWaitingLock:
-					{
-						var afState = (Integer)result.Get(CaptureResult.ControlAfState);
-						if (afState == null)
-						{
-							cameraFragment.CurrentState = CameraFragment.StatePictureTaken;
-						//	cameraFragment.TakePhoto();
-						}
-						else if ((afState.IntValue() == ((int)ControlAFState.FocusedLocked)) ||
-								   (afState.IntValue() == ((int)ControlAFState.NotFocusedLocked)))
-						{
-							// ControlAeState can be null on some devices
-							var aeState = (Integer)result.Get(CaptureResult.ControlAeState);
-
-							if (aeState == null || aeState.IntValue() == ((int)ControlAEState.Converged))
-							{
-								cameraFragment.CurrentState = CameraFragment.StatePictureTaken;
-					//			cameraFragment.TakePhoto();
-							}
-							else
-							{
-					//			cameraFragment.RunPrecaptureSequence();
-							}
-						}
-						break;
-					}
+					StateWaitingLock(result, cameraFragment);
+					break;
 				case CameraFragment.StateWaitingPrecapture:
-					{
-						// ControlAeState can be null on some devices
-						var aeState = (Integer)result.Get(CaptureResult.ControlAeState);
-						if (aeState == null ||
-								aeState.IntValue() == ((int)ControlAEState.Precapture) ||
-								aeState.IntValue() == ((int)ControlAEState.FlashRequired))
-						{
-							cameraFragment.CurrentState = CameraFragment.StateWaitingNonPrecapture;
-						}
-						break;
-					}
+					StateWaitingPrecapture(result, cameraFragment);
+					break;
 				case CameraFragment.StateWaitingNonPrecapture:
+					StateWaitingNonPrecapture(result, cameraFragment);
+					break;
+			}
+
+			static void StateWaitingLock(CaptureResult result, CameraDroid cameraFragment)
+			{
+				var afState = (Integer)result.Get(CaptureResult.ControlAfState);
+				if (afState == null)
+				{
+					cameraFragment.mState = CameraFragment.StatePictureTaken;
+					cameraFragment.CaptureStillPicture();
+				}
+				else if ((afState.IntValue() == ((int)ControlAFState.FocusedLocked))
+						|| (afState.IntValue() == ((int)ControlAFState.NotFocusedLocked)))
+				{
+					var aeState = (Integer)result.Get(CaptureResult.ControlAeState);
+
+					if (aeState == null || aeState.IntValue() == ((int)ControlAEState.Converged))
 					{
-						// ControlAeState can be null on some devices
-						var aeState = (Integer)result.Get(CaptureResult.ControlAeState);
-						if (aeState == null || aeState.IntValue() != ((int)ControlAEState.Precapture))
-						{
-							cameraFragment.CurrentState = CameraFragment.StatePictureTaken;
-						//	cameraFragment.TakePhoto();
-						}
-						break;
+						cameraFragment.mState = CameraFragment.StatePictureTaken;
+						cameraFragment.CaptureStillPicture();
 					}
+					else
+						cameraFragment.RunPrecaptureSequence();
+				}
+			}
+			static void StateWaitingPrecapture(CaptureResult result, CameraDroid cameraFragment)
+			{
+				var aeState = (Integer)result.Get(CaptureResult.ControlAeState);
+				if (aeState == null
+					|| aeState.IntValue() == ((int)ControlAEState.Precapture)
+					|| aeState.IntValue() == ((int)ControlAEState.FlashRequired))
+				{
+					cameraFragment.mState = CameraFragment.StateWaitingNonPrecapture;
+				}
+			}
+			static void StateWaitingNonPrecapture(CaptureResult result, CameraDroid cameraFragment)
+			{
+				var aeState = (Integer)result.Get(CaptureResult.ControlAeState);
+				if (aeState == null || aeState.IntValue() != ((int)ControlAEState.Precapture))
+				{
+					cameraFragment.mState = CameraFragment.StatePictureTaken;
+					cameraFragment.CaptureStillPicture();
+				}
 			}
 		}
 	}
