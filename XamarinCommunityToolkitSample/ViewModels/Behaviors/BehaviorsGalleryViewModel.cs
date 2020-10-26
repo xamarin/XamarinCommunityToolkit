@@ -5,9 +5,9 @@ using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
-	public class BehaviorsGalleryViewModel : BaseViewModel
+	public class BehaviorsGalleryViewModel : BaseGalleryViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(
 				typeof(EmailValidationBehaviorPage),

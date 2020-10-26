@@ -4,9 +4,9 @@ using Xamarin.CommunityToolkit.Sample.Pages.Views;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
-	public class ViewsGalleryViewModel : BaseViewModel
+	public class ViewsGalleryViewModel : BaseGalleryViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(typeof(AvatarViewPage), "AvatarView",
 				"The AvatarView represents a user's name by using the initials and a generated background color"),
