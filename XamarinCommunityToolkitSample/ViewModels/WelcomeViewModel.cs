@@ -32,9 +32,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 			new SectionModel(typeof(ViewsGalleryPage), "Views", Color.FromHex("#EF6950"),
 				"A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box"),
-				
-			new SectionModel(typeof(ProgressBarAttachedPropertiesPage), "Attached Properties", Color.FromHex("#EF6950"),
-				"TODO")
+
+			new SectionModel(typeof(AttachedPropertiesGalleryPage), "Attached Properties", Color.FromHex("#50A2EF"),
+				"Attached properties enable an object to assign a value for a property that its own class doesn't define")
 		};
 	}
 }

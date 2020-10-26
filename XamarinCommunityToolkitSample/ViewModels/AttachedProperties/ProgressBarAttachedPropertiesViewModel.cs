@@ -15,7 +15,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.AttachedProperties
 		public double Progress
 		{
 			get => progress;
-			set => Set<double>(ref progress, value);
+			set
+			{
+				progress = value;
+				OnPropertyChanged();
+			}
 		}
 
 		public ICommand SetTo0Command => setTo0Command ??= new AsyncCommand(() => SetProgress(0));
