@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
@@ -17,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			};
 
 		public ICommand ItemTappedCommand { get; private set; } = new AsyncCommand<Person>(person
-			=> Application.Current.MainPage.DisplayAlert($"{AppResources.ItemTapped}: ", person.Name, AppResources.Cancel));
+			=> Application.Current.MainPage.DisplayAlert("Item Tapped: ", person.Name, "Cancel"));
 	}
 
 	public class Person

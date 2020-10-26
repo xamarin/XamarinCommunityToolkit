@@ -2,28 +2,30 @@
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Effects;
-using Xamarin.CommunityToolkit.Sample.Resx;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 {
-	public class EffectsGalleryViewModel : BaseViewModel
+	public class EffectsGalleryViewModel : BaseGalleryViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(
 				typeof(SafeAreaEffectPage),
 				nameof(SafeAreaEffect),
-				AppResources.SafeAreaShortDescription),
+				"The SafeAreaEffect is an effectwill help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"
+				),
 
 			new SectionModel(
 				typeof(RemoveBorderEffectPage),
 				nameof(RemoveBorderEffect),
-				AppResources.RemoveBorderShortDescription),
+				"The RemoveBorderEffect is an effect that will remove the border from an Entry on iOS and the underline from an entry on Android"
+				),
 
 			new SectionModel(
 				typeof(SelectAllTextEffectPage),
 				nameof(SelectAllTextEffect),
-				AppResources.SelectAllTextShortDescription),
+				"The SelectAllTextEffect is an effect that will select all text in an Entry / Editor when it becomes focussed"
+				)
 		};
 	}
 }
