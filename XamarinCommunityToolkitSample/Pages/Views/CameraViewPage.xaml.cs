@@ -76,7 +76,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				case CameraCaptureOptions.Photo:
 					previewPicture.IsVisible = true;
 					previewPicture.Source = e.Image;
-					doCameraThings.Text = "CameraViewSampleSnapPicture";
+					doCameraThings.Text = "Snap Picture";
 					break;
 				case CameraCaptureOptions.Video:
 					previewPicture.IsVisible = false;
