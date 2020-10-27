@@ -1,4 +1,5 @@
-﻿using UIKit;
+﻿using Foundation;
+using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -8,6 +9,7 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
+	[Preserve(AllMembers = true)]
 	public class RemoveBorderEffect : PlatformEffect
 	{
 		UITextBorderStyle? oldBorderStyle;

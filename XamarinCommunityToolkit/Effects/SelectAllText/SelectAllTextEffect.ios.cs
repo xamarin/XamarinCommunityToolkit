@@ -1,4 +1,5 @@
 ﻿using System;
+using Foundation;
 using ObjCRuntime;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
@@ -10,7 +11,8 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class SelectAllTextEffect : PlatformEffect
+    [Preserve(AllMembers = true)]
+    public class SelectAllTextEffect : PlatformEffect
 	{
         protected override void OnAttached()
         {

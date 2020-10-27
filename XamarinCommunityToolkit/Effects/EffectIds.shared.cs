@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
-	public class EffectIds
+	public sealed class EffectIds
 	{
         static string effectResolutionGroupName = $"{nameof(Xamarin)}.{nameof(CommunityToolkit)}.{nameof(Effects)}";
 

@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
@@ -9,6 +10,7 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
+	[Preserve(AllMembers =true)]
 	public class SafeAreaEffectRouter : PlatformEffect
 	{
 		Thickness initialMargin;
