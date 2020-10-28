@@ -10,28 +10,35 @@ namespace Xamarin.CommunityToolkit.Extensions
 {
 	public static class PageExtension
 	{
-		public static Task<bool> DisplayToastAsync(this Page page, string message, int duration = 3000)
+		public static Task DisplayToastAsync(this Page page, string message, int duration = 3000)
 		{
 			var messageOptions = new MessageOptions { Message = message };
-			var args = new SnackBarOptions(messageOptions,
-				duration,
-				Color.Default,
+			var args = new SnackBarOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = duration,
 #if NETSTANDARD1_0
-				false,
+				IsRtl = false,
 #else
-				CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
 #endif
-				new List<SnackBarActionOptions>());
+			};
 			var snackBar = new SnackBar();
 			snackBar.Show(page, args);
 			return args.Result.Task;
 		}
 
-		public static Task<bool> DisplayToastAsync(this Page page, ActionOptions actionOptions)
+		public static Task DisplayToastAsync(this Page page, ToastOptions toastOptions)
 		{
 			var snackBar = new SnackBar();
-			var arguments = actionOptions ?? new ActionOptions();
-			var options = new SnackBarOptions(arguments.MessageOptions, arguments.Duration, arguments.BackgroundColor, arguments.IsRtl, null);
+			var arguments = toastOptions ?? new ToastOptions();
+			var options = new SnackBarOptions
+			{
+				MessageOptions = arguments.MessageOptions,
+				Duration = arguments.Duration,
+				BackgroundColor = arguments.BackgroundColor,
+				IsRtl = arguments.IsRtl
+			};
 			snackBar.Show(page, options);
 			return options.Result.Task;
 		}
@@ -46,18 +53,20 @@ namespace Xamarin.CommunityToolkit.Extensions
 					Text = actionButtonText, Action = action
 				}
 			};
-			var args = new SnackBarOptions(messageOptions,
-				duration,
-				Color.Default,
+			var options = new SnackBarOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = duration,
+				Actions = actionOptions,
 #if NETSTANDARD1_0
-				false,
+				IsRtl = false,
 #else
-				CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
 #endif
-				actionOptions);
+			};
 			var snackBar = new SnackBar();
-			snackBar.Show(page, args);
-			return args.Result.Task;
+			snackBar.Show(page, options);
+			return options.Result.Task;
 		}
 
 		public static Task<bool> DisplaySnackBarAsync(this Page page, SnackBarOptions snackBarOptions)

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
+using System.Globalization;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
@@ -25,8 +26,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		async void DisplayToastClicked(object sender, EventArgs args)
 		{
-			var result = await this.DisplayToastAsync(GenerateLongText(5));
-			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
+			await this.DisplayToastAsync(GenerateLongText(5));
+			StatusText.Text = "Toast is closed by timeout";
 		}
 
 		async void DisplaySnackBarAdvancedClicked(object sender, EventArgs args)
@@ -68,7 +69,14 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					}
 				}
 			};
-			var options = new SnackBarOptions(messageOptions, 5000, Color.Coral, true, actionOptions);
+			var options = new SnackBarOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = 5000,
+				BackgroundColor = Color.Coral,
+				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+				Actions = actionOptions
+			};
 			var result = await this.DisplaySnackBarAsync(options);
 			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
 		}
