@@ -4,18 +4,17 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	using Xamarin.Forms.Shapes;
 	using XamarinFormsMarkupUnitTestsDefaultBindablePropertiesViews;
 
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class DefaultBindablePropertiesTests : MarkupBaseTestFixture
 	{
-		public DefaultBindablePropertiesTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		[Test]
 		public void AllBindableElementsInCoreHaveDefaultBindablePropertyOrAreExcluded()
 		{
@@ -46,7 +45,7 @@ namespace Xamarin.Forms.Markup.UnitTests
 				{ typeof(InputView), na },
 				{ typeof(ItemsLayout), na },
 				{ typeof(LinearItemsLayout), na },
-				{ typeof(MediaSource), na },
+				// TODO: moved? { typeof(MediaSource), na },
 				{ typeof(Menu), na },
 				{ typeof(MultiTrigger), na },
 				{ typeof(NavigableElement), na },
@@ -172,9 +171,6 @@ namespace Xamarin.Forms.Markup.UnitTests
 			Assert.Throws<ArgumentException>(() => DefaultBindableProperties.GetFor(v));
 
 			AssertExperimental(() => DefaultBindableProperties.Register(CustomViewWithText.TextProperty));
-
-			if (withExperimentalFlag)
-				Assert.That(DefaultBindableProperties.GetFor(v), Is.EqualTo(CustomViewWithText.TextProperty));
 		}
 
 		[Test]
@@ -199,9 +195,6 @@ namespace Xamarin.Forms.Markup.UnitTests
 			Assert.Throws<ArgumentException>(() => DefaultBindableProperties.GetForCommand(v));
 
 			AssertExperimental(() => DefaultBindableProperties.RegisterForCommand((CustomViewWithCommand.CommandProperty, CustomViewWithCommand.CommandParameterProperty)));
-
-			if (withExperimentalFlag)
-				Assert.That(DefaultBindableProperties.GetForCommand(v), Is.EqualTo((CustomViewWithCommand.CommandProperty, CustomViewWithCommand.CommandParameterProperty)));
 		}
 
 		[TearDown]

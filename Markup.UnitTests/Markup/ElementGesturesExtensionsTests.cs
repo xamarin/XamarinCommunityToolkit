@@ -2,17 +2,15 @@
 using System.Linq;
 using System.Windows.Input;
 using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(typeof(Label), true)] // Derived from View
-	[TestFixture(typeof(Label), false)]
-	[TestFixture(typeof(Span), true)]  // Derived from GestureElement
-	[TestFixture(typeof(Span), false)]
+	[TestFixture(typeof(Label))] // Derived from View
+	[TestFixture(typeof(Span))]  // Derived from GestureElement
 	public class ElementGesturesExtensionsTests<TGestureElement> : ElementGesturesBaseTestFixture where TGestureElement : Element, IGestureRecognizers, new()
 	{
-		public ElementGesturesExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		[Test]
 		public void BindClickGestureDefaults() => AssertExperimental(() =>
 		{
@@ -86,12 +84,9 @@ namespace Xamarin.Forms.Markup.UnitTests
 		});
 	}
 
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class ElementGesturesExtensionsTests : ElementGesturesBaseTestFixture
 	{
-		public ElementGesturesExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		[Test]
 		public void BindSwipeGestureDefaults() => AssertExperimental(() =>
 		{
@@ -195,8 +190,6 @@ namespace Xamarin.Forms.Markup.UnitTests
 
 	public class ElementGesturesBaseTestFixture : MarkupBaseTestFixture
 	{
-		public ElementGesturesBaseTestFixture(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		protected const string commandPath = nameof(ViewModel.Command), parameterPath = nameof(ViewModel.Id);
 
 		protected TGestureRecognizer AssertHasGestureRecognizer<TGestureRecognizer>(IGestureRecognizers element)

@@ -2,18 +2,17 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class BindableObjectMultiBindExtensionsTests : MarkupBaseTestFixture
 	{
 		ViewModel viewModel;
 		List<BindingBase> testBindings;
 		List<object> testConvertValues;
-
-		public BindableObjectMultiBindExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
 
 		[SetUp]
 		public override void Setup()

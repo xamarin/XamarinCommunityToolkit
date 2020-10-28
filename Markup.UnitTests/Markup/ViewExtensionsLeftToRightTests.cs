@@ -1,14 +1,13 @@
 ﻿using NUnit.Framework;
-using Xamarin.Forms.Markup.LeftToRight;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
+using Xamarin.CommunityToolkit.Markup.LeftToRight;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class ViewExtensionsLeftToRightTests : MarkupBaseTestFixture<BoxView>
 	{
-		public ViewExtensionsLeftToRightTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		[Test]
 		public void Left()
 			=> TestPropertiesSet(v => v.Left(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.Start));

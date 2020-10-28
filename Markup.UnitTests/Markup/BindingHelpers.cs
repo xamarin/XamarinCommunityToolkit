@@ -4,8 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	internal static class BindingHelpers
 	{
@@ -136,7 +138,7 @@ namespace Xamarin.Forms.Markup.UnitTests
 		/// </remarks>
 		internal static BindingBase GetBindingBase(BindableObject bindable, BindableProperty property)
 		{
-			return bindable.GetContext(property)?.Binding as BindingBase;
+			return null; // TODO: bindable.GetContext(property)?.Binding as BindingBase;
 			// Both BindableObject.GetContext and BindableObject.BindablePropertyContext are private; 
 			// use reflection instead of above line.
 

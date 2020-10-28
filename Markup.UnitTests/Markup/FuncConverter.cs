@@ -1,13 +1,13 @@
 ﻿using System.Globalization;
 using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class FuncConverter : MarkupBaseTestFixture
 	{
-		public FuncConverter(bool withExperimentalFlag) : base(withExperimentalFlag) { }
 
 		[Test]
 		public void TwoWayMultiWithParamAndCulture() => AssertExperimental(() =>
@@ -281,20 +281,7 @@ namespace Xamarin.Forms.Markup.UnitTests
 		[Test]
 		public void NotConverter()
 		{
-			if (withExperimentalFlag)
-			{
-				Markup.NotConverter.Instance // Ensure instance create path covered
-					.AssertConvert(true, false, twoWay: true)
-					.AssertConvert(false, true, twoWay: true);
-
-				Markup.NotConverter.Instance // Ensure instance reuse path covered
-					.AssertConvert(true, false, twoWay: true)
-					.AssertConvert(false, true, twoWay: true);
-			} 
-			else
-			{
-				AssertExperimental(() => { var _ = new NotConverter(); });
-			}
+			AssertExperimental(() => { var _ = new NotConverter(); });
 		}
 	}
 }

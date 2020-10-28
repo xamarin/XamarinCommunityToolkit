@@ -1,13 +1,12 @@
 ﻿using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class ViewExtensionsTests : MarkupBaseTestFixture<BoxView>
 	{
-		public ViewExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		[Test]
 		public void Start()
 			=> TestPropertiesSet(v => v.Start(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.Start));

@@ -1,13 +1,12 @@
 ﻿using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class LabelExtensionsTests : MarkupBaseTestFixture<Label>
 	{
-		public LabelExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		Label Label => Bindable;
 
 		[Test]

@@ -1,19 +1,18 @@
 ﻿using System;
 using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	using System.Linq;
 	using System.Windows.Input;
 	using XamarinFormsMarkupUnitTestsBindableObjectViews;
 
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class BindableObjectExtensionsTests : MarkupBaseTestFixture
 	{
 		ViewModel viewModel;
-
-		public BindableObjectExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
 
 		[SetUp]
 		public override void Setup()

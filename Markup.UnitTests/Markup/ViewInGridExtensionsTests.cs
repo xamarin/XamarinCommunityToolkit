@@ -1,15 +1,14 @@
 ﻿using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class ViewInGridExtensionsTests : MarkupBaseTestFixture<BoxView>
 	{
 		enum TestRow { First, Second }
 		enum TestColumn { First, Second }
-
-		public ViewInGridExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
 
 		[Test]
 		public void Row()

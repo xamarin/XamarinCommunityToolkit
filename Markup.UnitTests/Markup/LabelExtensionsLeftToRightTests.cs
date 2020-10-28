@@ -1,14 +1,13 @@
 ﻿using NUnit.Framework;
-using Xamarin.Forms.Markup.LeftToRight;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
+using Xamarin.CommunityToolkit.Markup.LeftToRight;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class LabelExtensionsLeftToRightTests : MarkupBaseTestFixture<Label>
 	{
-		public LabelExtensionsLeftToRightTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		[Test]
 		public void TextLeft()
 			=> TestPropertiesSet(l => l.TextLeft(), (Label.HorizontalTextAlignmentProperty, TextAlignment.End, TextAlignment.Start));

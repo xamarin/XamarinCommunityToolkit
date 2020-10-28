@@ -1,14 +1,13 @@
 ﻿using System;
 using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class BindableLayoutExtensionsTests : MarkupBaseTestFixture<StackLayout>
 	{
-		public BindableLayoutExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		[Test]
 		public void EmptyView()
 		{

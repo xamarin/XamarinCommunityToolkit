@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTestFixture.cs" />
     <Compile Include="Markup\BindableLayoutExtensionsTests.cs" />
     <Compile Include="Markup\BindableObjectExtensionsTests.cs" />
     <Compile Include="Markup\BindableObjectMultiBindExtensionsTests.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Markup\ViewInFlexLayoutExtensionsTests.cs" />
     <Compile Include="Markup\ViewInGridExtensionsTests.cs" />
     <Compile Include="Markup\VisualElementExtensionsTests.cs" />
+    <Compile Include="UnitExpressionSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
@@ -71,19 +73,14 @@
     <PackageReference Include="NUnit3TestAdapter">
       <Version>3.15.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version>5.0.0.5736</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Markup\Markup.csproj">
       <Project>{848b3b27-8dfb-4bcb-94fa-1d4eba9c5614}</Project>
       <Name>Markup</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xamarin.Forms.Core.UnitTests\Xamarin.Forms.Core.UnitTests.csproj">
-      <Project>{00259593-a283-47a5-acb7-9c3819b16364}</Project>
-      <Name>Xamarin.Forms.Core.UnitTests</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xamarin.Forms.Core\Xamarin.Forms.Core.csproj">
-      <Project>{57b8b73d-c3b5-4c42-869e-7b2f17d354ac}</Project>
-      <Name>Xamarin.Forms.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

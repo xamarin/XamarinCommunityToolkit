@@ -1,13 +1,12 @@
 ﻿using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class VisualElementExtensionsTests : MarkupBaseTestFixture<BoxView>
 	{
-		public VisualElementExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		BoxView BoxView => Bindable;
 
 		[Test]

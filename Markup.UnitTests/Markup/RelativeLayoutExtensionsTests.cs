@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
 using Xamarin.Forms.Internals;
-using UnitExpressionSearch = Xamarin.Forms.Core.UnitTests.RelativeLayoutTests.UnitExpressionSearch;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class RelativeLayoutExtensionsTests : MarkupBaseTestFixture<RelativeLayout>
 	{
 		[SetUp]
@@ -21,8 +21,6 @@ namespace Xamarin.Forms.Markup.UnitTests
 			base.TearDown();
 			ExpressionSearch.Default = new UnitExpressionSearch();
 		}
-
-		public RelativeLayoutExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
 
 		RelativeLayout Layout => Bindable;
 

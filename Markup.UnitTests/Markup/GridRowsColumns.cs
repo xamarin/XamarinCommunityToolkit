@@ -1,17 +1,16 @@
 ﻿using System;
 using NUnit.Framework;
-using static Xamarin.Forms.Markup.GridRowsColumns;
+using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Markup;
+using static Xamarin.CommunityToolkit.Markup.GridRowsColumns;
 
-namespace Xamarin.Forms.Markup.UnitTests
+namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(true)]
-	[TestFixture(false)]
+	[TestFixture]
 	public class GridRowsColumns : MarkupBaseTestFixture
 	{
 		const double starsValue = 1.5;
 		readonly GridLength starsLength = new GridLength(starsValue, GridUnitType.Star);
-
-		public GridRowsColumns(bool withExperimentalFlag) : base(withExperimentalFlag) { }
 
 		enum Row { First, Second, Third, Fourth }
 		enum Col { First, Second, Third, Fourth, Fifth }
@@ -54,12 +53,11 @@ namespace Xamarin.Forms.Markup.UnitTests
 		[Test]
 		public void InvalidRowEnumOrder()
 		{
-			if (withExperimentalFlag)
-				Assert.Throws<ArgumentException>(
-					() => Rows.Define((Row.First, 8), (Row.Third, 8)),
-					$"Value of row name Third is not 1. " +
-					"Rows must be defined with enum names whose values form the sequence 0,1,2,..."
-				);
+			Assert.Throws<ArgumentException>(
+				() => Rows.Define((Row.First, 8), (Row.Third, 8)),
+				$"Value of row name Third is not 1. " +
+				"Rows must be defined with enum names whose values form the sequence 0,1,2,..."
+			);
 		}
 
 		[Test]
@@ -103,8 +101,7 @@ namespace Xamarin.Forms.Markup.UnitTests
 		[Test]
 		public void InvalidColumnEnumOrder()
 		{
-			if (withExperimentalFlag)
-				Assert.Throws<ArgumentException>(
+			Assert.Throws<ArgumentException>(
 				() => AssertExperimental(() => Columns.Define((Col.Second, 8), (Col.First, 8))),
 				$"Value of column name Second is not 0. " +
 				"Columns must be defined with enum names whose values form the sequence 0,1,2,..."
