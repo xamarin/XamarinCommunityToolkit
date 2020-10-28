@@ -11,12 +11,8 @@ namespace Xamarin.CommunityToolkit.AttachedProperties
 
 		static void ProgressBarProgressChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var progressBar = bindable as ProgressBar;
-
-			if (progressBar == null)
-				return;
-
-			progressBar.ProgressTo((double)newValue, Convert.ToUInt32(Math.Max(0, 500)), Easing.Linear);
+			var progressBar = (ProgressBar)bindable;
+			progressBar.ProgressTo((double)newValue, 500, Easing.Linear);
 		}
     }
 }
