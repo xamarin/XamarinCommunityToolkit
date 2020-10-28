@@ -9,7 +9,6 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	[Preserve(AllMembers = true)]
 	public class SelectAllTextEffect : PlatformEffect
 	{
 		EditText EditText => Control as EditText;

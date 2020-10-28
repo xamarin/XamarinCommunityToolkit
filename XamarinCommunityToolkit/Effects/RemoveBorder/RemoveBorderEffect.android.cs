@@ -11,7 +11,6 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	[Preserve(AllMembers = true)]
 	public class RemoveBorderEffect : PlatformEffect
 	{
 		Drawable originalBackground;
