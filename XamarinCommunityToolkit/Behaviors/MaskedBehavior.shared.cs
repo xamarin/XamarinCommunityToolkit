@@ -5,130 +5,121 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-    public class MaskedBehavior : BaseBehavior
-    {
-        IDictionary<int, char> positions;
-        bool applyingMask;
+	public class MaskedBehavior : BaseBehavior<InputView>
+	{
+		public static readonly BindableProperty MaskProperty =
+			BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), propertyChanged: OnMaskPropertyChanged);
 
-        public static readonly BindableProperty MaskProperty =
-            BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), propertyChanged: OnMaskPropertyChanged);
+		public static readonly BindableProperty UnMaskedCharacterProperty =
+			BindableProperty.Create(nameof(UnMaskedCharacter), typeof(char), typeof(MaskedBehavior), 'X', propertyChanged: OnUnMaskedCharacterPropertyChanged);
 
-        public static readonly BindableProperty UnMaskedCharacterProperty =
-            BindableProperty.Create(nameof(UnMaskedCharacter), typeof(char), typeof(MaskedBehavior), 'X', propertyChanged: OnUnMaskedCharacterPropertyChanged);
+		IDictionary<int, char> positions;
 
-        public string Mask
-        {
-            get => (string)GetValue(MaskProperty);
-            set => SetValue(MaskProperty, value);
-        }
+		bool applyingMask;
 
-        public char UnMaskedCharacter
-        {
-            get => (char)GetValue(UnMaskedCharacterProperty);
-            set => SetValue(UnMaskedCharacterProperty, value);
-        }
+		public string Mask
+		{
+			get => (string)GetValue(MaskProperty);
+			set => SetValue(MaskProperty, value);
+		}
 
-        static void OnMaskPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-            => ((MaskedBehavior)bindable).SetPositions();
+		public char UnMaskedCharacter
+		{
+			get => (char)GetValue(UnMaskedCharacterProperty);
+			set => SetValue(UnMaskedCharacterProperty, value);
+		}
 
-        static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-            => ((MaskedBehavior)bindable).OnMaskChanged();
+		static void OnMaskPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> ((MaskedBehavior)bindable).SetPositions();
 
-        void SetPositions()
-        {
-            if (string.IsNullOrEmpty(Mask))
-            {
-                positions = null;
-                return;
-            }
+		static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> ((MaskedBehavior)bindable).OnMaskChanged();
 
-            var list = new Dictionary<int, char>();
-            for (var i = 0; i < Mask.Length; i++)
-                if (Mask[i] != UnMaskedCharacter)
-                    list.Add(i, Mask[i]);
+		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnViewPropertyChanged(sender, e);
 
-            positions = list;
-        }
+			if (e.PropertyName == InputView.TextProperty.PropertyName)
+				OnTextPropertyChanged();
+		}
 
-        void OnMaskChanged()
-        {
-            var inputView = (InputView)View;
+		void OnTextPropertyChanged()
+		{
+			if (applyingMask)
+				return;
 
-            if (string.IsNullOrEmpty(Mask))
-            {
-                positions = null;
-                return;
-            }
+			applyingMask = true;
+			ApplyMask(View.Text);
+			applyingMask = false;
+		}
 
-            var originalText = RemoveMask(inputView?.Text);
-            SetPositions();
+		void SetPositions()
+		{
+			if (string.IsNullOrEmpty(Mask))
+			{
+				positions = null;
+				return;
+			}
 
-            if (inputView == null) return;
+			var list = new Dictionary<int, char>();
+			for (var i = 0; i < Mask.Length; i++)
+			{
+				if (Mask[i] != UnMaskedCharacter)
+					list.Add(i, Mask[i]);
+			}
 
-            var maskedText = ApplyMask(originalText);
-            if (inputView.Text != maskedText)
-                inputView.Text = maskedText;
-        }
+			positions = list;
+		}
 
-        string RemoveMask(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                return text;
+		void OnMaskChanged()
+		{
+			if (string.IsNullOrEmpty(Mask))
+			{
+				positions = null;
+				return;
+			}
 
-            var maskChars = positions
-                .Select(c => c.Value)
-                .Distinct()
-                .ToArray();
+			var originalText = RemoveMask(View?.Text);
+			SetPositions();
+			ApplyMask(originalText);
+		}
 
-            return string.Join(string.Empty, text.Split(maskChars));
-        }
+		string RemoveMask(string text)
+		{
+			if (string.IsNullOrEmpty(text))
+				return text;
 
-        string ApplyMask(string text)
-        {
-            if (string.IsNullOrWhiteSpace(text) || positions == null)
-                return text;
+			var maskChars = positions
+				.Select(c => c.Value)
+				.Distinct()
+				.ToArray();
 
-            if (text.Length > Mask.Length)
-            {
-                text = text.Remove(text.Length - 1);
-            }
+			return string.Join(string.Empty, text.Split(maskChars));
+		}
 
-            text = RemoveMask(text);
-            foreach (var position in positions)
-            {
-                if (text.Length < position.Key + 1) continue;
+		void ApplyMask(string text)
+		{
+			if (!string.IsNullOrWhiteSpace(text) && positions != null)
+			{
+				if (text.Length > Mask.Length)
+					text = text.Remove(text.Length - 1);
 
-                var value = position.Value.ToString();
+				text = RemoveMask(text);
+				foreach (var position in positions)
+				{
+					if (text.Length < position.Key + 1)
+						continue;
 
-                //!important - If user types in masked value, don't add masked value
-                if (text.Substring(position.Key, 1) != value)
-                    text = text.Insert(position.Key, value);
-            }
+					var value = position.Value.ToString();
 
-            return text;
-        }
+					// !important - If user types in masked value, don't add masked value
+					if (text.Substring(position.Key, 1) != value)
+						text = text.Insert(position.Key, value);
+				}
+			}
 
-        /// <inheritdoc />
-        protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            base.OnViewPropertyChanged(sender, e);
-
-            if (e.PropertyName != nameof(InputView.Text) || applyingMask)
-                return;
-
-            try
-            {
-                applyingMask = true;
-
-                var inputView = (InputView)View;
-                var maskedText = ApplyMask(inputView.Text);
-                if (inputView.Text != maskedText)
-                    inputView.Text = maskedText;
-            }
-            finally
-            {
-                applyingMask = false;
-            }
-        }
-    }
+			if (View != null)
+				View.Text = text;
+		}
+	}
 }

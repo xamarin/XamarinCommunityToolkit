@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.Forms;
 
@@ -11,8 +12,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 
 		public Color DetailColor { get; set; }
 
-		public ICommand NavigateCommand => navigateCommand ??= new Command(parameter
-			=> Navigation.PushAsync(PreparePage((SectionModel)parameter)));
+		public ICommand NavigateCommand => navigateCommand ??= new AsyncCommand<SectionModel>(sectionModel
+			=> Navigation.PushAsync(PreparePage(sectionModel)));
 
 		Page PreparePage(SectionModel model)
 		{

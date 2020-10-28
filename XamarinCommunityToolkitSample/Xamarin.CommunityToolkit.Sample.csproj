@@ -3,13 +3,39 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="resources\**" />
     <EmbeddedResource Remove="resources\**" />
     <None Remove="resources\**" />
+    <EmbeddedResource Update="Pages\Behaviors\ImpliedOrderGridBehaviorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Behaviors\MaxLengthReachedBehaviorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Effects\EffectsGalleryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Effects\SafeAreaEffectPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resx\AppResources.es.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Pages\Behaviors\ImpliedOrderGridBehaviorPage.xaml.cs">
+      <DependentUpon>ImpliedOrderGridBehaviorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Behaviors\CharactersValidationBehaviorPage.xaml.cs">
+      <DependentUpon>CharactersValidationBehaviorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Resx\AppResources.es.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.es.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +46,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Pages\Behaviors\UserStoppedTypingBehaviorPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\BehaviorsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -27,22 +56,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Pages\Views\" />
-    <Folder Include="Pages\Behaviors\" />
-    <Folder Include="Pages\Converters\" />
-    <Folder Include="Pages\Base\" />
-    <Folder Include="ViewModels\Views\" />
-    <Folder Include="ViewModels\Behaviors\" />
-    <Folder Include="ViewModels\Converters\" />
-    <Folder Include="ViewModels\Base\" />
-    <Folder Include="Pages\Extensions\" />
-    <Folder Include="Pages\TestCases\" />
-    <Folder Include="ViewModels\TestCases\" />
-    <Folder Include="ViewModels\Extensions\" />
-    <Folder Include="Resx\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resx\AppResources.Designer.cs">

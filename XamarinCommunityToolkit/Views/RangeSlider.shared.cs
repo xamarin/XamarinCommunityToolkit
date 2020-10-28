@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using static System.Math;
@@ -7,17 +9,38 @@ using static Xamarin.Forms.AbsoluteLayout;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class RangeSlider : TemplatedView
+	public class RangeSlider : BaseTemplatedView<AbsoluteLayout>
 	{
 		const double enabledOpacity = 1;
 
 		const double disabledOpacity = .6;
+
+		public event EventHandler ValueChanged;
+
+		public event EventHandler LowerValueChanged;
+
+		public event EventHandler UpperValueChanged;
+
+		public event EventHandler DragStarted;
+
+		public event EventHandler LowerDragStarted;
+
+		public event EventHandler UpperDragStarted;
+
+		public event EventHandler DragCompleted;
+
+		public event EventHandler LowerDragCompleted;
+
+		public event EventHandler UpperDragCompleted;
 
 		public static BindableProperty MinimumValueProperty
 			= BindableProperty.Create(nameof(MinimumValue), typeof(double), typeof(RangeSlider), .0, propertyChanged: OnMinimumMaximumValuePropertyChanged);
 
 		public static BindableProperty MaximumValueProperty
 			= BindableProperty.Create(nameof(MaximumValue), typeof(double), typeof(RangeSlider), 1.0, propertyChanged: OnMinimumMaximumValuePropertyChanged);
+
+		public static BindableProperty StepValueProperty
+			= BindableProperty.Create(nameof(StepValue), typeof(double), typeof(RangeSlider), 0.0, propertyChanged: OnMinimumMaximumValuePropertyChanged);
 
 		public static BindableProperty LowerValueProperty
 			= BindableProperty.Create(nameof(LowerValue), typeof(double), typeof(RangeSlider), .0, BindingMode.TwoWay, propertyChanged: OnLowerUpperValuePropertyChanged, coerceValue: CoerceValue);
@@ -114,8 +137,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		double upperTranslation;
 
-		public RangeSlider()
-			=> ControlTemplate = new ControlTemplate(typeof(AbsoluteLayout));
+		int dragCount;
 
 		public double MinimumValue
 		{
@@ -127,6 +149,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get => (double)GetValue(MaximumValueProperty);
 			set => SetValue(MaximumValueProperty, value);
+		}
+
+		public double StepValue
+		{
+			get => (double)GetValue(StepValueProperty);
+			set => SetValue(StepValueProperty, value);
 		}
 
 		public double LowerValue
@@ -291,8 +319,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(TrackRadiusProperty, value);
 		}
 
-		View Content { get; set; }
-
 		Frame Track { get; } = CreateFrameElement();
 
 		Frame TrackHighlight { get; } = CreateFrameElement();
@@ -310,8 +336,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			base.OnPropertyChanged(propertyName);
-			if (propertyName == IsEnabledProperty.PropertyName)
-				OnIsEnabledChanged();
+			switch (propertyName)
+			{
+				case nameof(IsEnabled):
+					OnIsEnabledChanged();
+					break;
+				case nameof(LowerValue):
+					RaiseEvent(LowerValueChanged);
+					RaiseEvent(ValueChanged);
+					break;
+				case nameof(UpperValue):
+					RaiseEvent(UpperValueChanged);
+					RaiseEvent(ValueChanged);
+					break;
+			}
 		}
 
 		protected override void OnSizeAllocated(double width, double height)
@@ -325,19 +363,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnLayoutPropertyChanged();
 		}
 
-		protected override void OnChildAdded(Element child)
+		protected override void OnControlInitialized(AbsoluteLayout control)
 		{
-			base.OnChildAdded(child);
-			if (!(child is AbsoluteLayout layout) || Content != null)
-				return;
-
-			Content = layout;
-			layout.Children.Add(Track);
-			layout.Children.Add(TrackHighlight);
-			layout.Children.Add(LowerThumb);
-			layout.Children.Add(UpperThumb);
-			layout.Children.Add(LowerValueLabel);
-			layout.Children.Add(UpperValueLabel);
+			control.Children.Add(Track);
+			control.Children.Add(TrackHighlight);
+			control.Children.Add(LowerThumb);
+			control.Children.Add(UpperThumb);
+			control.Children.Add(LowerValueLabel);
+			control.Children.Add(UpperValueLabel);
 
 			AddGestureRecognizer(LowerThumb, lowerThumbGestureRecognizer);
 			AddGestureRecognizer(UpperThumb, upperThumbGestureRecognizer);
@@ -348,31 +381,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpperValueLabel.SizeChanged += OnViewSizeChanged;
 			OnIsEnabledChanged();
 			OnLayoutPropertyChanged();
-		}
-
-		protected override void OnChildRemoved(Element child)
-		{
-			base.OnChildRemoved(child);
-			if (!(child is AbsoluteLayout layout) || layout != Content)
-				return;
-
-			layout.Children.Remove(Track);
-			layout.Children.Remove(TrackHighlight);
-			layout.Children.Remove(LowerThumb);
-			layout.Children.Remove(UpperThumb);
-			layout.Children.Remove(LowerValueLabel);
-			layout.Children.Remove(UpperValueLabel);
-
-			LowerValueLabel.RemoveBinding(Label.TextProperty);
-			UpperValueLabel.RemoveBinding(Label.TextProperty);
-			RemoveGestureRecognizer(LowerThumb, lowerThumbGestureRecognizer);
-			RemoveGestureRecognizer(UpperThumb, upperThumbGestureRecognizer);
-			Track.SizeChanged -= OnViewSizeChanged;
-			LowerThumb.SizeChanged -= OnViewSizeChanged;
-			UpperThumb.SizeChanged -= OnViewSizeChanged;
-			LowerValueLabel.SizeChanged -= OnViewSizeChanged;
-			UpperValueLabel.SizeChanged -= OnViewSizeChanged;
-			Content = null;
 		}
 
 		static Frame CreateFrameElement()
@@ -409,16 +417,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnIsEnabledChanged()
 		{
-			if (Content == null)
+			if (Control == null)
 				return;
 
-			Content.Opacity = IsEnabled
+			Control.Opacity = IsEnabled
 				? enabledOpacity
 				: disabledOpacity;
 		}
 
 		double CoerceValue(double value)
-			=> value.Clamp(MinimumValue, MaximumValue);
+		{
+			if (StepValue > 0 && value < MaximumValue)
+			{
+				var stepIndex = (int)((value - MinimumValue) / StepValue);
+				value = MinimumValue + (stepIndex * StepValue);
+			}
+			return value.Clamp(MinimumValue, MaximumValue);
+		}
 
 		void OnMinimumMaximumValuePropertyChanged()
 		{
@@ -432,7 +447,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var trackWidth = TrackWidth;
 
 			lowerTranslation = (LowerValue - MinimumValue) / rangeValue * trackWidth;
-			upperTranslation = (UpperValue - MinimumValue) / rangeValue * trackWidth + LowerThumb.Width;
+			upperTranslation = ((UpperValue - MinimumValue) / rangeValue * trackWidth) + LowerThumb.Width;
 
 			LowerThumb.TranslationX = lowerTranslation;
 			UpperThumb.TranslationX = upperTranslation;
@@ -445,8 +460,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void OnValueLabelTranslationChanged()
 		{
 			var labelSpacing = 5;
-			var lowerLabelTranslation = lowerTranslation + (LowerThumb.Width - LowerValueLabel.Width) / 2;
-			var upperLabelTranslation = upperTranslation + (UpperThumb.Width - UpperValueLabel.Width) / 2;
+			var lowerLabelTranslation = lowerTranslation + ((LowerThumb.Width - LowerValueLabel.Width) / 2);
+			var upperLabelTranslation = upperTranslation + ((UpperThumb.Width - UpperValueLabel.Width) / 2);
 			LowerValueLabel.TranslationX = Min(Max(lowerLabelTranslation, 0), Width - LowerValueLabel.Width - UpperValueLabel.Width - labelSpacing);
 			UpperValueLabel.TranslationX = Min(Max(upperLabelTranslation, LowerValueLabel.TranslationX + LowerValueLabel.Width + labelSpacing), Width - UpperValueLabel.Width);
 		}
@@ -491,12 +506,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				labelWithSpacingHeight += ValueLabelSpacing;
 
 			var trackThumbHeight = Max(Max(lowerThumbSize, upperThumbSize), trackSize);
-			var trackVerticalPosition = labelWithSpacingHeight + (trackThumbHeight - trackSize) / 2;
-			var lowerThumbVerticalPosition = labelWithSpacingHeight + (trackThumbHeight - lowerThumbSize) / 2;
-			var upperThumbVerticalPosition = labelWithSpacingHeight + (trackThumbHeight - upperThumbSize) / 2;
+			var trackVerticalPosition = labelWithSpacingHeight + ((trackThumbHeight - trackSize) / 2);
+			var lowerThumbVerticalPosition = labelWithSpacingHeight + ((trackThumbHeight - lowerThumbSize) / 2);
+			var upperThumbVerticalPosition = labelWithSpacingHeight + ((trackThumbHeight - upperThumbSize) / 2);
 
-			if (Content != null)
-				Content.HeightRequest = labelWithSpacingHeight + trackThumbHeight;
+			if (Control != null)
+				Control.HeightRequest = labelWithSpacingHeight + trackThumbHeight;
 
 			var trackHighlightBounds = GetLayoutBounds(TrackHighlight);
 			SetLayoutBounds(TrackHighlight, new Rectangle(trackHighlightBounds.X, trackVerticalPosition, trackHighlightBounds.Width, trackSize));
@@ -546,35 +561,46 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					OnPanRunning(view, e.TotalX);
 					break;
 				case GestureStatus.Completed:
-					OnPanCompleted(view);
-					break;
 				case GestureStatus.Canceled:
-					OnPanCanceled(view);
+					OnPanCompleted(view);
 					break;
 			}
 		}
 
 		void OnPanStarted(View view)
-			=> thumbPositionMap[view] = view.TranslationX;
+		{
+			thumbPositionMap[view] = view.TranslationX;
+			RaiseEvent(view == LowerThumb
+				? LowerDragStarted
+				: UpperDragStarted);
+
+			if (Interlocked.Increment(ref dragCount) == 1)
+				RaiseEvent(DragStarted);
+		}
 
 		void OnPanRunning(View view, double value)
 			=> UpdateValue(view, value + GetPanShiftValue(view));
 
 		void OnPanCompleted(View view)
-			=> thumbPositionMap[view] = view.TranslationX;
+		{
+			thumbPositionMap[view] = view.TranslationX;
+			RaiseEvent(view == LowerThumb
+				? LowerDragCompleted
+				: UpperDragCompleted);
 
-		void OnPanCanceled(View view)
-			=> UpdateValue(view, thumbPositionMap[view]);
+			if (Interlocked.Decrement(ref dragCount) == 0)
+				RaiseEvent(DragCompleted);
+		}
 
 		void UpdateValue(View view, double value)
 		{
 			var rangeValue = MaximumValue - MinimumValue;
 			if (view == LowerThumb)
 			{
-				LowerValue = Min(Max(MinimumValue, value / TrackWidth * rangeValue + MinimumValue), UpperValue);
+				LowerValue = Min(Max(MinimumValue, (value / TrackWidth * rangeValue) + MinimumValue), UpperValue);
 				return;
 			}
-			UpperValue = Min(Max(LowerValue, (value - LowerThumb.Width) / TrackWidth * rangeValue + MinimumValue), MaximumValue);
+			UpperValue = Min(Max(LowerValue, ((value - LowerThumb.Width) / TrackWidth * rangeValue) + MinimumValue), MaximumValue);
 		}
 
 		double GetPanShiftValue(View view)
@@ -585,8 +611,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void SetValueLabelBinding(Label label, BindableProperty bindableProperty)
 			=> label.SetBinding(Label.TextProperty, new Binding
 			{
-				Path = bindableProperty.PropertyName,
 				Source = this,
+				Path = bindableProperty.PropertyName,
 				StringFormat = ValueLabelStringFormat
 			});
 
@@ -594,12 +620,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			gestureRecognizer.PanUpdated += OnPanUpdated;
 			view.GestureRecognizers.Add(gestureRecognizer);
-		}
-
-		void RemoveGestureRecognizer(View view, PanGestureRecognizer gestureRecognizer)
-		{
-			gestureRecognizer.PanUpdated -= OnPanUpdated;
-			view.GestureRecognizers.Remove(gestureRecognizer);
 		}
 
 		Color GetColorOrDefault(Color color, Color defaultColor)
@@ -611,5 +631,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			=> value < 0
 				? defaultSize
 				: value;
+
+		void RaiseEvent(EventHandler eventHandler)
+			=> eventHandler?.Invoke(this, EventArgs.Empty);
 	}
 }

@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.RangeSliderPage"
-             xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx">
+             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.RangeSliderPage">
 
     <pages:BasePage.Resources>
         <x:String x:Key="CustomValueLabeStringFormat">{0:0.#}</x:String>
@@ -36,6 +35,7 @@
                 x:Name="RangeSlider"
                 MaximumValue="10"
                 MinimumValue="-10"
+                StepValue="0.01"
                 LowerValue="-10"
                 UpperValue="10"
                 ValueLabelStringFormat="{StaticResource CustomValueLabeStringFormat}"
@@ -68,75 +68,75 @@
         <ScrollView Padding="15, 20">
             <StackLayout Spacing="20">
 
-                <Label Text="{x:Static resources:AppResources.ThumbText}" FontSize="Title" FontAttributes="Bold"/>
+                <Label Text="Thumb" FontSize="Title" FontAttributes="Bold"/>
 
                 <Frame Padding="15, 10" BackgroundColor="LightBlue">
                     <StackLayout Spacing="10">
-                        <Label Text="{x:Static resources:AppResources.ThumbSizeText}" FontAttributes="Bold"/>
+                        <Label Text="Thumb Size" FontAttributes="Bold"/>
                         <Slider x:Name="ThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
-                        <Label Text="{x:Static resources:AppResources.SetLowerUpperThumb}" />
+                        <Label Text="Set Lower/Upper Thumb Size separately" />
                         <Switch x:Name="ThumbSizeSwitch" Toggled="OnThumbSizeSwitchToggled"/>
                         <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference ThumbSizeSwitch}}">
-                            <Label Text="{x:Static resources:AppResources.LowerThumbSize}" />
+                            <Label Text="Lower Thumb Size" />
                             <Slider x:Name="LowerThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
-                            <Label Text="{x:Static resources:AppResources.UpperThumbSize}" />
+                            <Label Text="Upper Thumb Size" />
                             <Slider x:Name="UpperThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
                         </StackLayout>
 
-                        <Label Text="{x:Static resources:AppResources.ThumbColor}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Thumb Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Picker x:Name="ThumbColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{x:Static resources:AppResources.LowerThumbColor}" />
+                        <Label Text="Lower Thumb Color" />
                         <Picker x:Name="LowerThumbColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{x:Static resources:AppResources.UpperThumbColor}" />
+                        <Label Text="Upper Thumb Color" />
                         <Picker x:Name="UpperThumbColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="{x:Static resources:AppResources.ThumbBorderColor}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Thumb Border Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Picker x:Name="ThumbBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{x:Static resources:AppResources.LowerThumbBorderColor}" />
+                        <Label Text="Lower Thumb Border Color" />
                         <Picker x:Name="LowerThumbBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{x:Static resources:AppResources.UpperThumbBorderColor}" />
+                        <Label Text="Upper Thumb Border Color" />
                         <Picker x:Name="UpperThumbBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="{x:Static resources:AppResources.LowerThumbViewSet}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Lower Thumb View Set" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="LowerThumbViewSwitch" />
-                        <Label Text="{x:Static resources:AppResources.UpperThumbViewSet}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Upper Thumb View Set" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="UpperThumbViewSwitch" />
 
-                        <Label Text="{x:Static resources:AppResources.ControlThumbsRadius}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Control Thumbs Radius" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="ThumbRadiusSwitch" Toggled="OnThumbRadiusSwitchToggled"/>
                         <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference ThumbRadiusSwitch}}">
-                            <Label Text="{x:Static resources:AppResources.ThumbRadius}" />
+                            <Label Text="Thumb Radius" />
                             <Slider x:Name="ThumbRadiusSlider" Maximum="25" Minimum="0" />
-                            <Label Text="{x:Static resources:AppResources.SetLowerUpperThumbSeparately}" />
+                            <Label Text="Set Lower/Upper Thumb Radius separately" />
                             <Switch x:Name="LowerUpperThumbRadiusSwitch" Toggled="OnThumbRadiusSwitchToggled"/>
                             <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference LowerUpperThumbRadiusSwitch}}">
-                                <Label Text="{x:Static resources:AppResources.LowerThumbRadius}" />
+                                <Label Text="Lower Thumb Radius" />
                                 <Slider x:Name="LowerThumbRadiusSlider" Maximum="25" Minimum="0" />
-                                <Label Text="{x:Static resources:AppResources.UpperThumbRadius}" />
+                                <Label Text="Upper Thumb Radius" />
                                 <Slider x:Name="UpperThumbRadiusSlider" Maximum="25" Minimum="0" />
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
                 </Frame>
 
-                <Label Text="{x:Static resources:AppResources.Track}" FontSize="Title" FontAttributes="Bold"/>
+                <Label Text="Track" FontSize="Title" FontAttributes="Bold"/>
 
                 <Frame Padding="15, 10" BackgroundColor="LightBlue">
                     <StackLayout>
-                        <Label Text="{x:Static resources:AppResources.TrackSize}" FontAttributes="Bold" />
+                        <Label Text="Track Size" FontAttributes="Bold" />
                         <Slider x:Name="TrackSizeSlider" Maximum="50" Minimum="1" Value="3" />
 
-                        <Label Text="{x:Static resources:AppResources.TrackColor}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Track Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Picker x:Name="TrackColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{x:Static resources:AppResources.TrackHighlightColor}"  />
+                        <Label Text="Track Highlight Color"  />
                         <Picker x:Name="TrackHighlightColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="{x:Static resources:AppResources.TrackHighlightColor}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Track Border Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Picker x:Name="TrackBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{x:Static resources:AppResources.TrackHighlightBorderColor}" />
+                        <Label Text="Track Highlight Border Color" />
                         <Picker x:Name="TrackHighlightBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="{x:Static resources:AppResources.ControlTrackRadius}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Control Track Radius" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="TrackRadiusSwitch" Toggled="OnTrackRadiusSwitchToggled"/>
                         <Slider x:Name="TrackRadiusSlider" IsVisible="{Binding IsToggled, Source={x:Reference TrackRadiusSwitch}}" Maximum="25" Minimum="0" />
                     </StackLayout>
@@ -146,10 +146,10 @@
 
                 <Frame Padding="15, 10" BackgroundColor="LightBlue">
                     <StackLayout>
-                        <Label Text="{x:Static resources:AppResources.IsEnabled}" FontAttributes="Bold" />
+                        <Label Text="Is Enabled" FontAttributes="Bold" />
                         <Switch x:Name="IsEnabledSwitch" IsToggled="True" />
 
-                        <Label Text="{x:Static resources:AppResources.ValueLabelSpacing}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Value Label Spacing" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Slider x:Name="ValueLabelSpacingSlider" Maximum="25" Minimum="0" Value="5" />
                     </StackLayout>
                 </Frame>

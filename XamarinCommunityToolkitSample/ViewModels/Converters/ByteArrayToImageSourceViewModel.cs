@@ -1,55 +1,57 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Net.Http;
-using System.Linq;
+using System.Threading.Tasks;
 using Octokit;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
-    public class ByteArrayToImageSourceViewModel : BaseViewModel
-    {
-        readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
+	public class ByteArrayToImageSourceViewModel : BaseViewModel
+	{
+		readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
-        byte[] avatar;
-        public byte[] Avatar
-        {
-            get => avatar;
-            set => Set(ref avatar, value);
-        }
+		byte[] avatar;
 
-        bool isBusy;
-        public bool IsBusy
-        {
-            get => isBusy;
-            set => Set(ref isBusy, value);
-        }
+		public byte[] Avatar
+		{
+			get => avatar;
+			set => SetProperty(ref avatar, value);
+		}
 
-        public async Task OnAppearing()
-        {
-            try
-            {
-                IsBusy = true;
+		bool isBusy;
 
-                var contributors = await gitHubClient.Repository.GetAllContributors("xamarin", "XamarinCommunityToolkit");
-                var avatarUrl = contributors?.FirstOrDefault(c => c.Login == "almirvuk")?.AvatarUrl;
+		public bool IsBusy
+		{
+			get => isBusy;
+			set => SetProperty(ref isBusy, value);
+		}
 
-                if (avatarUrl == null)
-                    return;
+		public async Task OnAppearing()
+		{
+			try
+			{
+				IsBusy = true;
 
-                // Needed to produce some kind of byte array for sample testing
-                using var client = new HttpClient();
-                using var response = await client.GetAsync(avatarUrl);
+				var contributors = await gitHubClient.Repository.GetAllContributors("xamarin", "XamarinCommunityToolkit");
+				var avatarUrl = contributors?.FirstOrDefault(c => c.Login == "almirvuk")?.AvatarUrl;
 
-                if (!response.IsSuccessStatusCode)
-                    return;
+				if (avatarUrl == null)
+					return;
 
-                var imageBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+				// Needed to produce some kind of byte array for sample testing
+				using var client = new HttpClient();
+				using var response = await client.GetAsync(avatarUrl);
 
-                Avatar = imageBytes;
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-    }
+				if (!response.IsSuccessStatusCode)
+					return;
+
+				var imageBytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+
+				Avatar = imageBytes;
+			}
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+	}
 }

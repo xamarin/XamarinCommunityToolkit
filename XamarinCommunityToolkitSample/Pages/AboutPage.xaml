@@ -5,9 +5,9 @@
                 xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.AboutPage"
-                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx"
-                Title="{x:Static resources:AppResources.AboutTitle}">
-    
+                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
+                Title="About...">
+
     <pages:BasePage.ToolbarItems>
         <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
     </pages:BasePage.ToolbarItems>
@@ -18,7 +18,7 @@
     
     <pages:BasePage.Content>
         <StackLayout Padding="{StaticResource ContentPadding}">
-            <Label Text="{x:Static resources:AppResources.GratitudeMessage}"
+            <Label Text="Thank you Xamarin Community Toolkit contributors"
                    Margin="0,10,0,10" FontSize="Large" HorizontalOptions="Center"
                    HorizontalTextAlignment="Center" />
             <CollectionView x:Name="ContributorsCollectionView"

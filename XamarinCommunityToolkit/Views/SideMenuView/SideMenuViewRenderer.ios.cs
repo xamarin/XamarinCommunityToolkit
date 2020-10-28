@@ -1,12 +1,13 @@
 ﻿using Foundation;
-using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.CommunityToolkit.iOS.UI.Views;
 using UIKit;
+using Xamarin.CommunityToolkit.iOS.UI.Views;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using static System.Math;
 
 [assembly: ExportRenderer(typeof(SideMenuView), typeof(SideMenuViewRenderer))]
+
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
 	[Preserve(AllMembers = true)]
