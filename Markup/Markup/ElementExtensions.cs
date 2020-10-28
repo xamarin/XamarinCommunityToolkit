@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Markup
 	{
 		// Padding
 
-		public static TLayout Padding<TLayout>(this TLayout paddingElement, Thickness padding) where TLayout : Element/*TODO:, IPaddingElement*/
+		public static TLayout Padding<TLayout>(this TLayout paddingElement, Thickness padding) where TLayout : Element/*TODO:, IPaddingElement - Get new NuGets from https://github.com/xamarin/Xamarin.Forms/pull/12623 after IPaddingElement is made public*/
 		{ paddingElement.SetValue(PaddingElement.PaddingProperty, padding); return paddingElement; }
 
 		public static TLayout Padding<TLayout>(this TLayout paddingElement, double horizontalSize, double verticalSize) where TLayout : Element/*TODO:, IPaddingElement*/
