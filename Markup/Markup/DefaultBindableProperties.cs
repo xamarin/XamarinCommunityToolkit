@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using static Xamarin.Forms.Core.Markup.Markup;
+using Xamarin.Forms;
 
-namespace Xamarin.Forms.Markup
+namespace Xamarin.CommunityToolkit.Markup
 {
 	public static class DefaultBindableProperties
 	{
@@ -24,7 +24,7 @@ namespace Xamarin.Forms.Markup
 			{ "Xamarin.Forms.Entry", Entry.TextProperty },
 			{ "Xamarin.Forms.EntryCell", EntryCell.TextProperty },
 			{ "Xamarin.Forms.FileImageSource", FileImageSource.FileProperty },
-			{ "Xamarin.Forms.FileMediaSource", FileMediaSource.FileProperty },
+			// TODO: moved to XCT? { "Xamarin.Forms.FileMediaSource", FileMediaSource.FileProperty },
 			{ "Xamarin.Forms.HtmlWebViewSource", HtmlWebViewSource.HtmlProperty },
 			{ "Xamarin.Forms.Image", Image.SourceProperty },
 			{ "Xamarin.Forms.ImageButton", ImageButton.CommandProperty },
@@ -33,7 +33,7 @@ namespace Xamarin.Forms.Markup
 			{ "Xamarin.Forms.Label", Label.TextProperty },
 			{ "Xamarin.Forms.ListView", ListView.ItemsSourceProperty },
 			{ "Xamarin.Forms.MasterDetailPage", Page.TitleProperty },
-			{ "Xamarin.Forms.MediaElement", MediaElement.SourceProperty },
+			// TODO: moved to XCT? { "Xamarin.Forms.MediaElement", MediaElement.SourceProperty },
 			{ "Xamarin.Forms.MenuItem", MenuItem.CommandProperty },
 			{ "Xamarin.Forms.MultiPage", Page.TitleProperty },
 			{ "Xamarin.Forms.NavigationPage", Page.TitleProperty },
@@ -62,7 +62,7 @@ namespace Xamarin.Forms.Markup
 			{ "Xamarin.Forms.TimePicker", TimePicker.TimeProperty },
 			{ "Xamarin.Forms.ToolbarItem", ToolbarItem.CommandProperty },
 			{ "Xamarin.Forms.UriImageSource", UriImageSource.UriProperty },
-			{ "Xamarin.Forms.UriMediaSource", UriMediaSource.UriProperty },
+			// TODO: moved to XCT? { "Xamarin.Forms.UriMediaSource", UriMediaSource.UriProperty },
 			{ "Xamarin.Forms.UrlWebViewSource", UrlWebViewSource.UrlProperty },
 			{ "Xamarin.Forms.WebView", WebView.SourceProperty }
 		};
@@ -82,14 +82,12 @@ namespace Xamarin.Forms.Markup
 
 		public static void Register(params BindableProperty[] properties)
 		{
-			VerifyExperimental();
 			foreach (var property in properties)
 				bindableObjectTypeDefaultProperty.Add(property.DeclaringType.FullName, property);
 		}
 
 		public static void RegisterForCommand(params (BindableProperty commandProperty, BindableProperty parameterProperty)[] propertyPairs)
 		{
-			VerifyExperimental();
 			foreach (var propertyPair in propertyPairs)
 				bindableObjectTypeDefaultCommandAndParameterProperties.Add(propertyPair.commandProperty.DeclaringType.FullName, propertyPair);
 		}

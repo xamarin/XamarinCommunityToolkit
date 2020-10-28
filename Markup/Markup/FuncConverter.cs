@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using static Xamarin.Forms.Core.Markup.Markup;
+using Xamarin.Forms;
 
-namespace Xamarin.Forms.Markup
+namespace Xamarin.CommunityToolkit.Markup
 {
 	public class FuncConverter<TSource, TDest, TParam> : IValueConverter
 	{
@@ -16,13 +16,13 @@ namespace Xamarin.Forms.Markup
 		readonly Func<TDest, TParam, CultureInfo, TSource> convertBackWithParamAndCulture;
 
 		public FuncConverter(Func<TSource, TParam, CultureInfo, TDest> convertWithParamAndCulture = null, Func<TDest, TParam, CultureInfo, TSource> convertBackWithParamAndCulture = null)
-		{ VerifyExperimental(constructorHint: nameof(FuncConverter)); this.convertWithParamAndCulture = convertWithParamAndCulture; this.convertBackWithParamAndCulture = convertBackWithParamAndCulture; }
+		{ this.convertWithParamAndCulture = convertWithParamAndCulture; this.convertBackWithParamAndCulture = convertBackWithParamAndCulture; }
 
 		public FuncConverter(Func<TSource, TParam, TDest> convertWithParam = null, Func<TDest, TParam, TSource> convertBackWithParam = null)
-		{ VerifyExperimental(constructorHint: nameof(FuncConverter)); this.convertWithParam = convertWithParam; this.convertBackWithParam = convertBackWithParam; }
+		{ this.convertWithParam = convertWithParam; this.convertBackWithParam = convertBackWithParam; }
 
 		public FuncConverter(Func<TSource, TDest> convert = null, Func<TDest, TSource> convertBack = null)
-		{ VerifyExperimental(constructorHint: nameof(FuncConverter)); this.convert = convert; this.convertBack = convertBack; }
+		{ this.convert = convert; this.convertBack = convertBack; }
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{

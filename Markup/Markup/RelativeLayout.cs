@@ -1,18 +1,17 @@
-﻿using Bounds = System.Linq.Expressions.Expression<System.Func<Xamarin.Forms.Rectangle>>;
+﻿using Xamarin.Forms;
+using Bounds = System.Linq.Expressions.Expression<System.Func<Xamarin.Forms.Rectangle>>;
 using Expression = System.Linq.Expressions.Expression<System.Func<double>>;
 using ParentMeasure = System.Func<Xamarin.Forms.RelativeLayout, double>;
 using ViewMeasure = System.Func<Xamarin.Forms.RelativeLayout, Xamarin.Forms.View, double>;
 using static Xamarin.Forms.Constraint;
-using static Xamarin.Forms.Core.Markup.Markup;
 
-namespace Xamarin.Forms.Markup
+namespace Xamarin.CommunityToolkit.Markup
 {
     public static class RelativeLayoutExtensions
     {
 		// TODO: Mark obsolete after we implement factory method in MAUI: public static RelativeLayout RelativeLayout(params ConstrainedView?[] constrainedViews) { ... }
         public static TRelativeLayout Children<TRelativeLayout>(this TRelativeLayout layout, params ConstrainedView[] constrainedViews) where TRelativeLayout : RelativeLayout
         {
-			VerifyExperimental();
             foreach (var constrainedView in constrainedViews) constrainedView?.AddTo(layout);
             return layout;
         }
@@ -87,7 +86,7 @@ namespace Xamarin.Forms.Markup
     {
         readonly protected View view;
 
-		protected ConstrainedView(View view) { VerifyExperimental(constructorHint: nameof(ConstrainedView)); this.view = view; }
+		protected ConstrainedView(View view) { this.view = view; }
 
         public abstract void AddTo(RelativeLayout layout);
     }

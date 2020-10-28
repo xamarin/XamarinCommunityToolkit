@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using static Xamarin.Forms.Core.Markup.Markup;
+using Xamarin.Forms;
 
-namespace Xamarin.Forms.Markup
+namespace Xamarin.CommunityToolkit.Markup
 {
 	public static class BindableObjectMultiBindExtensions
 	{
@@ -172,7 +172,6 @@ namespace Xamarin.Forms.Markup
 			object fallbackValue = null
 		) where TBindable : BindableObject
 		{
-			VerifyExperimental();
 			bindable.SetBinding(targetProperty, new MultiBinding {
 				Bindings = bindings,
 				Converter = converter,

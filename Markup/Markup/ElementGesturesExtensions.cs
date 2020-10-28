@@ -1,7 +1,7 @@
 ﻿using System;
-using static Xamarin.Forms.Core.Markup.Markup;
+using Xamarin.Forms;
 
-namespace Xamarin.Forms.Markup
+namespace Xamarin.CommunityToolkit.Markup
 {
 	public static class ElementGesturesExtensions
 	{
@@ -81,7 +81,6 @@ namespace Xamarin.Forms.Markup
 		) where TGestureElement : Element, IGestureRecognizers
 		  where TGestureRecognizer : GestureRecognizer, new()
 		{
-			VerifyExperimental();
 			var gestureRecognizer = new TGestureRecognizer();
 			init.Invoke(gestureRecognizer);
 
