@@ -1,5 +1,4 @@
 ﻿using System;
-using Foundation;
 using ObjCRuntime;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
@@ -18,55 +17,30 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
         protected override void OnDetached() => ApplyEffect(false);
 
         void ApplyEffect(bool apply)
-		{
-            var controlType = Control.GetType();
+		    => ApplyToControl(Control, apply);
 
-            if (!ControlIsSupported(controlType))
-                return;
+        bool ApplyToControl<T>(T controlType, bool apply) =>
+            controlType switch
+            {
+                UITextField textField => ApplyToUITextField(textField, apply),
+                UITextView _ => ApplyToUITextView(apply),
+                _ => throw new NotSupportedException($"Control of type: {controlType.GetType().Name} is not supported by this effect.")
+            };
 
-            if (controlType == typeof(UITextField))
-			{
-                var textField = Control as UITextField;
-                if (textField == null)
-                    return;
+        #region - UITextField
 
-                if (apply)
-                    textField.EditingDidBegin += OnEditingDidBegin;
-                else
-                    textField.EditingDidBegin -= OnEditingDidBegin;
-            }
-            else if (controlType.BaseType == typeof(UITextView))
-			{
-                var formsControl = Element as Editor;
-                if (formsControl == null)
-                    return;
+        bool ApplyToUITextField(UITextField textField, bool apply)
+        {
+            if (textField == null)
+                return false;
 
-                if (apply)
-                    formsControl.Focused += OnTextViewFocussed;
-                else
-                    formsControl.Focused -= OnTextViewFocussed;
-            }
+            if (apply)
+                textField.EditingDidBegin += OnEditingDidBegin;
             else
-			{
-                throw new NotSupportedException($"Control of type: {controlType.Name} is not supported by this effect.");
-			}
+                textField.EditingDidBegin -= OnEditingDidBegin;
+
+            return true;
         }
-
-        void OnTextViewFocussed(object sender, FocusEventArgs e)
-		{
-            var formsControl = Element as Editor;
-            if (formsControl == null)
-                return;
-
-            var textView = Control as UITextView;
-            if (textView == null)
-                return;
-
-            if (formsControl.IsFocused)
-			{
-                textView.SelectAll(textView);
-            }
-		}
 
         void OnEditingDidBegin(object sender, EventArgs e)
         {
@@ -78,19 +52,40 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
             textfield.PerformSelector(new Selector("selectAll"), null, 0.0f);
         }
 
-        bool ControlIsSupported(Type controlType)
-		{
-            if (controlType == null)
-                throw new ArgumentException("Type was null", nameof(controlType));
+        #endregion - UI TextField
 
-            switch (controlType.Name)
-			{
-                case "UITextField":
-                case "FormsUITextView":
-	                return true;
-                default:
-	                return false;
+        #region - UI TextView
+
+        bool ApplyToUITextView(bool apply)
+        {
+            var formsControl = Element as Editor;
+            if (formsControl == null)
+                return false;
+
+            if (apply)
+                formsControl.Focused += OnTextViewFocussed;
+            else
+                formsControl.Focused -= OnTextViewFocussed;
+
+            return true;
+        }
+
+        void OnTextViewFocussed(object sender, FocusEventArgs e)
+        {
+            var formsControl = Element as Editor;
+            if (formsControl == null)
+                return;
+
+            var textView = Control as UITextView;
+            if (textView == null)
+                return;
+
+            if (formsControl.IsFocused)
+            {
+                textView.SelectAll(textView);
             }
-		}
+        }
+
+        #endregion - UI TextView
     }
 }
