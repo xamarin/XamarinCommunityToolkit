@@ -5,7 +5,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
-[assembly: ResolutionGroupName(nameof(Xamarin.CommunityToolkit))]
 [assembly: ExportEffect(typeof(Effects.SafeAreaEffectRouter), nameof(SafeAreaEffectRouter))]
 
 namespace Xamarin.CommunityToolkit.iOS.Effects

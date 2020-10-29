@@ -19,6 +19,9 @@
         <Color x:Key="NormalButtonTextColor">#FFFFFF</Color>
         <Color x:Key="HeadingLabelTextColor">#5D5D5D</Color>
         <Color x:Key="NormalLabelTextColor">#888888</Color>
+        <Color x:Key="DarkLabelTextColor">#000000</Color>
+        <Color x:Key="DarkLabelPlaceholderColor">#333d47</Color>
+        <Color x:Key="SoftFrameBackgroundColor">#ecf0f9</Color>
 
         <!-- Fonts -->
         <OnPlatform x:TypeArguments="x:String" x:Key="font_bold">
