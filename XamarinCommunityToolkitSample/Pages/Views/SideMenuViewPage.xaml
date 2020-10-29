@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SideMenuViewPage">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SideMenuViewPage">
 
     <pages:BasePage.Resources>
         <Style x:Key="BaseMenuButtonStyle" TargetType="Button">
@@ -14,7 +14,7 @@
         </Style>
     </pages:BasePage.Resources>
 
-    <views:SideMenuView x:Name="SideMenuView">
+    <xct:SideMenuView x:Name="SideMenuView">
         <!-- MainView -->
         <StackLayout
             Orientation="Horizontal"
@@ -31,15 +31,15 @@
         <!-- LeftMenu -->
         <BoxView
             BackgroundColor="Orange"
-            views:SideMenuView.Position="LeftMenu"
-            views:SideMenuView.MenuWidthPercentage=".5" />
+            xct:SideMenuView.Position="LeftMenu"
+            xct:SideMenuView.MenuWidthPercentage=".5" />
 
         <!-- RightMenu -->
         <BoxView
             BackgroundColor="LightGreen"
-            views:SideMenuView.Position="RightMenu"
-            views:SideMenuView.MenuWidthPercentage=".3" />
+            xct:SideMenuView.Position="RightMenu"
+            xct:SideMenuView.MenuWidthPercentage=".3" />
 
-    </views:SideMenuView>
+    </xct:SideMenuView>
 
 </pages:BasePage>

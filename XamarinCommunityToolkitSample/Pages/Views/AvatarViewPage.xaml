@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.AvatarViewPage"
-                xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
                 xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
-                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.AvatarViewPage">
 
     <pages:BasePage.BindingContext>
         <viewmodels:AvatarViewViewModel />
@@ -22,7 +21,7 @@
                                      Orientation="Horizontal"
                                      Spacing="10">
 
-                            <views:AvatarView ColorTheme="{x:Static views:ColorTheme.Jungle}"
+                            <xct:AvatarView ColorTheme="{x:Static xct:ColorTheme.Jungle}"
                                               FontSize="Medium"
                                               Size="{Binding Value,
                                               Source={x:Reference Slider}}"
@@ -45,7 +44,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <StackLayout Padding="{StaticResource ContentPadding}">
-            <Label Text="{rsx:Translate AvatarViewSizeText}" />
+            <Label Text="{xct:Translate AvatarViewSizeText}" />
             <Slider x:Name="Slider"
                     Maximum="80"
                     Minimum="40"
