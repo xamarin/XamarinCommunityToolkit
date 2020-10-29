@@ -31,13 +31,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
                     return;
 
                 if (apply)
-                {
                     textField.EditingDidBegin += OnEditingDidBegin;
-                }
                 else
-                {
-                    textField.EditingDidBegin -= OnEditingDidBegin;
-                }
+         textField.EditingDidBegin -= OnEditingDidBegin;
             }
             else if (controlType.BaseType == typeof(UITextView))
 			{
