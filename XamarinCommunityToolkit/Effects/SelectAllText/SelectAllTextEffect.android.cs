@@ -1,5 +1,4 @@
-﻿using Android.Runtime;
-using Android.Widget;
+﻿using Android.Widget;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;

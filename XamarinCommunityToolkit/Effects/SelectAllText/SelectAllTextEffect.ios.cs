@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
                 if (apply)
                     textField.EditingDidBegin += OnEditingDidBegin;
                 else
-         textField.EditingDidBegin -= OnEditingDidBegin;
+                    textField.EditingDidBegin -= OnEditingDidBegin;
             }
             else if (controlType.BaseType == typeof(UITextView))
 			{
@@ -42,14 +42,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
                     return;
 
                 if (apply)
-				{
-					formsControl.Focused += OnTextViewFocussed;
-				}
+                    formsControl.Focused += OnTextViewFocussed;
                 else
-				{
                     formsControl.Focused -= OnTextViewFocussed;
-                }
-			}
+            }
             else
 			{
                 throw new NotSupportedException($"Control of type: {controlType.Name} is not supported by this effect.");

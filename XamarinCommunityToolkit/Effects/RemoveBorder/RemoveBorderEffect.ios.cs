@@ -1,5 +1,4 @@
-﻿using Foundation;
-using UIKit;
+﻿using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
