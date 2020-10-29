@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;

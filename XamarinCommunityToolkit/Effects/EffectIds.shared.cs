@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Effects
 {
 	sealed class EffectIds
 	{
-        static string effectResolutionGroupName = $"{nameof(Xamarin)}.{nameof(CommunityToolkit)}.{nameof(Effects)}";
+        static string EffectResolutionGroupName = $"{nameof(Xamarin)}.{nameof(CommunityToolkit)}.{nameof(Effects)}";
 
         /// <summary>
         /// Id for <see cref="RemoveBorderEffect"/>

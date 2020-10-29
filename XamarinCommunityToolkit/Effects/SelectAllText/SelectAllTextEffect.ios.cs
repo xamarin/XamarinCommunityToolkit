@@ -13,15 +13,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
     public class SelectAllTextEffect : PlatformEffect
 	{
-        protected override void OnAttached()
-        {
-            ApplyEffect(true);
-        }
+        protected override void OnAttached() => ApplyEffect(true);
 
-        protected override void OnDetached()
-        {
-            ApplyEffect(false);
-        }
+        protected override void OnDetached() => ApplyEffect(false);
 
         void ApplyEffect(bool apply)
 		{

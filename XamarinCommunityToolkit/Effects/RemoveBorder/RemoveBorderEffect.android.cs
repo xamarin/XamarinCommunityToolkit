@@ -26,9 +26,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			Control.Background = shape;
 		}
 
-		protected override void OnDetached()
-		{
-			Control.Background = originalBackground;
-		}
+		protected override void OnDetached() => Control.Background = originalBackground;
 	}
 }
