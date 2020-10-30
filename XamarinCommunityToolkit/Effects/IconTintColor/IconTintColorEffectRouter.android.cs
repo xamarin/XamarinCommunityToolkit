@@ -13,20 +13,18 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	public class IconTintColorEffectRouter : PlatformEffect
 	{
 		protected override void OnAttached()
-		{
-			ApplyTintColor();
-		}
+			=> ApplyTintColor();
 
 		protected override void OnDetached()
-		{
-			ClearTintColor();
-		}
+			=> ClearTintColor();
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
 			base.OnElementPropertyChanged(args);
 
-			if (!args.PropertyName.Equals(IconTintColorEffect.TintColorProperty.PropertyName))
+			if (!args.PropertyName.Equals(IconTintColorEffect.TintColorProperty.PropertyName) &&
+				!args.PropertyName.Equals(Forms.Image.SourceProperty.PropertyName) &&
+				!args.PropertyName.Equals(Forms.ImageButton.SourceProperty.PropertyName))
 				return;
 
 			ApplyTintColor();
