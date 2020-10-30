@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class StateView : ContentView
 	{
 		public static readonly BindableProperty StateKeyProperty
-			= BindableProperty.Create(nameof(StateKey), typeof(State), typeof(StateView), default(State));
+			= BindableProperty.Create(nameof(StateKey), typeof(LayoutState), typeof(StateView), default(LayoutState));
 
 		public static readonly BindableProperty CustomStateKeyProperty
 			= BindableProperty.Create(nameof(CustomStateKey), typeof(string), typeof(StateView));
@@ -17,9 +17,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty RepeatTemplateProperty
 			= BindableProperty.Create(nameof(RepeatTemplate), typeof(DataTemplate), typeof(StateView));
 
-		public State StateKey
+		public LayoutState StateKey
 		{
-			get => (State)GetValue(StateKeyProperty);
+			get => (LayoutState)GetValue(StateKeyProperty);
 			set => SetValue(StateKeyProperty, value);
 		}
 

@@ -10,16 +10,16 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		ICommand fullscreenLoadingCommand;
 		ICommand cycleStatesCommand;
 		string customState;
-		State currentState;
-		State mainState;
+		LayoutState currentState;
+		LayoutState mainState;
 
-		public State MainState
+		public LayoutState MainState
 		{
 			get => mainState;
 			set => SetProperty(ref mainState, value);
 		}
 
-		public State CurrentState
+		public LayoutState CurrentState
 		{
 			get => currentState;
 			set => SetProperty(ref currentState, value);
@@ -47,9 +47,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		{
 			FullscreenLoadingCommand = new Command(async (x) =>
 			{
-				MainState = State.Loading;
+				MainState = LayoutState.Loading;
 				await Task.Delay(2000);
-				MainState = State.None;
+				MainState = LayoutState.None;
 			});
 
 			CycleStatesCommand = new Command(async (x) => await CycleStates());
@@ -57,22 +57,22 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 		async Task CycleStates()
 		{
-			CurrentState = State.Loading;
+			CurrentState = LayoutState.Loading;
 			await Task.Delay(3000);
-			CurrentState = State.Saving;
+			CurrentState = LayoutState.Saving;
 			await Task.Delay(3000);
-			CurrentState = State.Error;
+			CurrentState = LayoutState.Error;
 			await Task.Delay(3000);
-			CurrentState = State.Empty;
+			CurrentState = LayoutState.Empty;
 			await Task.Delay(3000);
-			CurrentState = State.Custom;
+			CurrentState = LayoutState.Custom;
 			CustomState = "ThisIsCustomHi";
 			await Task.Delay(3000);
 			CustomState = "ThisIsCustomToo";
 			await Task.Delay(3000);
-			CurrentState = State.Success;
+			CurrentState = LayoutState.Success;
 			await Task.Delay(3000);
-			CurrentState = State.None;
+			CurrentState = LayoutState.None;
 		}
 	}
 }

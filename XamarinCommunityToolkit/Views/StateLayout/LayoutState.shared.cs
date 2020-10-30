@@ -1,6 +1,6 @@
 ﻿namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public enum State
+	public enum LayoutState
 	{
 		None,
 		Loading,

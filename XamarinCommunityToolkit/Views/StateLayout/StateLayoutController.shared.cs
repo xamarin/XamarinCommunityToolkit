@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		readonly WeakReference<Layout<View>> layoutWeakReference;
 		bool layoutIsGrid;
-		State previousState;
+		LayoutState previousState;
 		IList<View> originalContent;
 
 		public IList<StateView> StateViews { get; set; }
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!layoutWeakReference.TryGetTarget(out var layout))
 				return;
 
-			previousState = State.None;
+			previousState = LayoutState.None;
 			await ChildrenFadeTo(layout, animate, true);
 
 			// Put the original content back in.
@@ -39,15 +39,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public void SwitchToTemplate(string customState, bool animate)
-			=> SwitchToTemplate(State.Custom, customState, animate);
+			=> SwitchToTemplate(LayoutState.Custom, customState, animate);
 
-		public async void SwitchToTemplate(State state, string customState, bool animate)
+		public async void SwitchToTemplate(LayoutState state, string customState, bool animate)
 		{
 			if (!layoutWeakReference.TryGetTarget(out var layout))
 				return;
 
 			// Put the original content somewhere where we can restore it.
-			if (previousState == State.None)
+			if (previousState == LayoutState.None)
 			{
 				originalContent = new List<View>();
 
@@ -119,18 +119,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		bool HasTemplateForState(State state, string customState)
+		bool HasTemplateForState(LayoutState state, string customState)
 		{
-			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != State.Custom) ||
-							(state == State.Custom && x.CustomStateKey == customState));
+			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
+							(state == LayoutState.Custom && x.CustomStateKey == customState));
 
 			return template != null;
 		}
 
-		int GetRepeatCount(State state, string customState)
+		int GetRepeatCount(LayoutState state, string customState)
 		{
-			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != State.Custom) ||
-						   (state == State.Custom && x.CustomStateKey == customState));
+			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
+						   (state == LayoutState.Custom && x.CustomStateKey == customState));
 
 			if (template != null)
 				return template.RepeatCount;
@@ -138,10 +138,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return 1;
 		}
 
-		DataTemplate GetRepeatTemplate(State state, string customState)
+		DataTemplate GetRepeatTemplate(LayoutState state, string customState)
 		{
-			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != State.Custom) ||
-						   (state == State.Custom && x.CustomStateKey == customState));
+			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
+						   (state == LayoutState.Custom && x.CustomStateKey == customState));
 
 			if (template != null)
 				return template.RepeatTemplate;
@@ -149,10 +149,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		View CreateItemView(State state, string customState)
+		View CreateItemView(LayoutState state, string customState)
 		{
-			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != State.Custom) ||
-							(state == State.Custom && x.CustomStateKey == customState));
+			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
+							(state == LayoutState.Custom && x.CustomStateKey == customState));
 
 			// TODO: This only allows for a repeatcount of 1.
 			// Internally in Xamarin.Forms we cannot add the same element to Children multiple times.

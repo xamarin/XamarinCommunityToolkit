@@ -21,7 +21,7 @@
             <state:StateLayout.StateViews>
                 <state:StateView StateKey="Loading" BackgroundColor="White" VerticalOptions="FillAndExpand">
                     <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                        <ActivityIndicator Color="#1abc9c" IsRunning="{Binding MainState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:State.Loading}}" />
+                        <ActivityIndicator Color="#1abc9c" IsRunning="{Binding MainState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:LayoutState.Loading}}" />
                         <Label Text="Loading..." HorizontalOptions="Center" />
                     </StackLayout>
                 </state:StateView>
@@ -38,7 +38,7 @@
                     <Label Text="This will show all states at an interval of 3 seconds."
                            FontSize="14" Margin="0,8,0,16" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
 
-                    <Button Command="{Binding CycleStatesCommand}" IsVisible="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:State.None}}"
+                    <Button Command="{Binding CycleStatesCommand}" IsVisible="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:LayoutState.None}}"
                             Text="Cycle All States" Margin="0,0,0,16" />
 
                     <StackLayout Padding="10" state:StateLayout.CurrentState="{Binding CurrentState}"
@@ -50,14 +50,14 @@
                             </state:StateView>
                             <state:StateView StateKey="Saving">
                                 <StackLayout>
-                                    <ActivityIndicator IsRunning="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:State.Saving}}" Color="Fuchsia" />
+                                    <ActivityIndicator IsRunning="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:LayoutState.Saving}}" Color="Fuchsia" />
                                     <Label Text="Saving the world!" VerticalOptions="Center" VerticalTextAlignment="Center"
                                            HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
                                 </StackLayout>
                             </state:StateView>
                             <state:StateView StateKey="Loading">
                                 <StackLayout>
-                                    <ActivityIndicator IsRunning="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:State.Loading}}" Color="Fuchsia" />
+                                    <ActivityIndicator IsRunning="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:LayoutState.Loading}}" Color="Fuchsia" />
                                     <Label Text="This is the loading state. So we have a loader!" VerticalOptions="Center"
                                            VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
                                 </StackLayout>
