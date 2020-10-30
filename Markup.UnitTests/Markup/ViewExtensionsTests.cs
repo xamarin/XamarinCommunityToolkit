@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Markup;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {

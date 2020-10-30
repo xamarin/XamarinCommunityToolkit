@@ -1,9 +1,8 @@
 ﻿using System;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Markup;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {

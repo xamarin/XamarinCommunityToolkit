@@ -1,7 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Markup;
 using static Xamarin.CommunityToolkit.Markup.GridRowsColumns;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests

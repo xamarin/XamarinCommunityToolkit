@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using NUnit.Framework;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Markup;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
@@ -279,9 +278,16 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		});
 
 		[Test]
-		public void NotConverter()
+		public void NotConverterTest()
 		{
-			AssertExperimental(() => { var _ = new NotConverter(); });
+			AssertExperimental(() => {
+				var c = NotConverter.Instance; 
+				c = NotConverter.Instance; // 2nd time to test instance reuse
+				Assert.IsTrue((bool)c.Convert(false, null, null, null));
+				Assert.IsFalse((bool)c.Convert(true, null, null, null));
+				Assert.IsTrue((bool)c.ConvertBack(false, null, null, null));
+				Assert.IsFalse((bool)c.ConvertBack(true, null, null, null));
+			});
 		}
 	}
 }

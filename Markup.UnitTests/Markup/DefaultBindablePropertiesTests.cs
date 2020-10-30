@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text;
 using NUnit.Framework;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Markup;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
@@ -49,7 +48,6 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				{ typeof(ItemsLayout), na },
 				{ typeof(LinearItemsLayout), na },
 				{ typeof(LinearGradientBrush), na },
-				// TODO: moved? { typeof(MediaSource), na },
 				{ typeof(Menu), na },
 				{ typeof(MultiTrigger), na },
 				{ typeof(NavigableElement), na },
