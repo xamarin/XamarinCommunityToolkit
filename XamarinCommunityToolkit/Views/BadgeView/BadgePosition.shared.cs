@@ -1,10 +1,10 @@
 ﻿namespace Xamarin.CommunityToolkit.UI.Views
 {
-    public enum BadgePosition
-    {
-        TopLeft,
-        TopRight,
-        BottomLeft,
-        BottomRight
-    }
+	public enum BadgePosition
+	{
+		TopLeft,
+		TopRight,
+		BottomLeft,
+		BottomRight
+	}
 }

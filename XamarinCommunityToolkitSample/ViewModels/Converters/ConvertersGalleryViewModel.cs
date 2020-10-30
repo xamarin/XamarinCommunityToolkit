@@ -6,9 +6,9 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
-	public class ConvertersGalleryViewModel : BaseViewModel
+	public class ConvertersGalleryViewModel : BaseGalleryViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(
 				typeof(ItemTappedEventArgsPage),

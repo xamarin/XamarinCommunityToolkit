@@ -4,9 +4,9 @@ using Xamarin.CommunityToolkit.Sample.Pages.Views;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
-	public class ViewsGalleryViewModel : BaseViewModel
+	public class ViewsGalleryViewModel : BaseGalleryViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(typeof(AvatarViewPage), "AvatarView",
 				"The AvatarView represents a user's name by using the initials and a generated background color"),
@@ -36,7 +36,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"SideMenuView is a simple and flexible Right/Left menu control"),
 
 			new SectionModel(typeof(ShieldPage), "Shield",
-				"Shields can show some status information or call-to-action in a badge-like way")
+				"Shields can show some status information or call-to-action in a badge-like way"),
+
+			new SectionModel(typeof(StateLayoutPage), "StateLayout",
+				"A collection of attached properties that let you specify one or more state views for any of your existing layouts.")
 		};
 	}
 }
