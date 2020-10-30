@@ -17,5 +17,5 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		protected override void OnDetached()
 			=> EditText?.SetSelectAllOnFocus(false);
-    }
+	}
 }
