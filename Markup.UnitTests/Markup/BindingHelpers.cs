@@ -11,8 +11,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	internal static class BindingHelpers
 	{
-		//static MethodInfo getContextMethodInfo;
-		//static FieldInfo bindingFieldInfo;
+		static MethodInfo getContextMethodInfo;
+		static FieldInfo bindingFieldInfo;
 
 		internal static void AssertBindingExists(
 			BindableObject bindable,
@@ -138,21 +138,17 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		/// </remarks>
 		internal static BindingBase GetBindingBase(BindableObject bindable, BindableProperty property)
 		{
-			return null; // TODO: bindable.GetContext(property)?.Binding as BindingBase;
-			// Both BindableObject.GetContext and BindableObject.BindablePropertyContext are private; 
-			// use reflection instead of above line.
+			if (getContextMethodInfo == null)
+				getContextMethodInfo = typeof(BindableObject).GetMethod("GetContext", BindingFlags.NonPublic | BindingFlags.Instance);
 
-			//if (getContextMethodInfo == null)
-			//	getContextMethodInfo = typeof(BindableObject).GetMethod("GetContext", BindingFlags.NonPublic | BindingFlags.Instance);
+			var context = getContextMethodInfo?.Invoke(bindable, new object[] { property });
+			if (context == null)
+				return null;
 
-			//var context = getContextMethodInfo?.Invoke(bindable, new object[] { property });
-			//if (context == null)
-			//	return null;
+			if (bindingFieldInfo == null)
+				bindingFieldInfo = context?.GetType().GetField("Binding");
 
-			//if (bindingFieldInfo == null)
-			//	bindingFieldInfo = context?.GetType().GetField("Binding");
-
-			//return bindingFieldInfo?.GetValue(context) as BindingBase;
+			return bindingFieldInfo?.GetValue(context) as BindingBase;
 		}
 
 		internal static IValueConverter AssertConvert<TValue, TConvertedValue>(this IValueConverter converter, TValue value, object parameter, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo culture = null)

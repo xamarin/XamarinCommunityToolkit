@@ -7,13 +7,13 @@ namespace Xamarin.CommunityToolkit.Markup
 	{
 		// Padding
 
-		public static TLayout Padding<TLayout>(this TLayout paddingElement, Thickness padding) where TLayout : Element/*TODO:, IPaddingElement - Get new NuGets from https://github.com/xamarin/Xamarin.Forms/pull/12623 after IPaddingElement is made public*/
+		public static TLayout Padding<TLayout>(this TLayout paddingElement, Thickness padding) where TLayout : Element, IPaddingElement
 		{ paddingElement.SetValue(PaddingElement.PaddingProperty, padding); return paddingElement; }
 
-		public static TLayout Padding<TLayout>(this TLayout paddingElement, double horizontalSize, double verticalSize) where TLayout : Element/*TODO:, IPaddingElement*/
+		public static TLayout Padding<TLayout>(this TLayout paddingElement, double horizontalSize, double verticalSize) where TLayout : Element, IPaddingElement
 		{ paddingElement.SetValue(PaddingElement.PaddingProperty, new Thickness(horizontalSize, verticalSize)); return paddingElement; }
 
-		public static TLayout Paddings<TLayout>(this TLayout paddingElement, double left = 0, double top = 0, double right = 0, double bottom = 0) where TLayout : Element/*TODO:, IPaddingElement*/
+		public static TLayout Paddings<TLayout>(this TLayout paddingElement, double left = 0, double top = 0, double right = 0, double bottom = 0) where TLayout : Element, IPaddingElement
 		{ paddingElement.SetValue(PaddingElement.PaddingProperty, new Thickness(left, top, right, bottom)); return paddingElement; }
 
 		// DynamicResource

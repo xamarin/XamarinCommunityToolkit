@@ -9,6 +9,6 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.5736" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.5787" />
   </ItemGroup>
 </Project>

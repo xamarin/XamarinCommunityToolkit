@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading;
+using Xamarin.Forms;
 
 using NUnit.Framework;
 
@@ -16,13 +17,13 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			_defaultCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
 			_defaultUICulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
-			//TODO: Device.PlatformServices = new MockPlatformServices();
+			Device.PlatformServices = new MockPlatformServices();
 		}
 
 		[TearDown]
 		public virtual void TearDown()
 		{
-			//TODO: Device.PlatformServices = null;
+			Device.PlatformServices = null;
 			System.Threading.Thread.CurrentThread.CurrentCulture = _defaultCulture;
 			System.Threading.Thread.CurrentThread.CurrentUICulture = _defaultUICulture;
 		}

@@ -33,18 +33,22 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				{ typeof(CompareStateTrigger), na },
 				{ typeof(DataTrigger), na },
 				{ typeof(DeviceStateTrigger), na },
+				{ typeof(DragGestureRecognizer), na },
+				{ typeof(DropGestureRecognizer), na },
 				{ typeof(Element), na },
 				{ typeof(EventTrigger), na },
 				{ typeof(FontImageSource), na },
 				{ typeof(FormattedString), na },
 				{ typeof(GestureElement), na },
 				{ typeof(GestureRecognizer), na },
+				{ typeof(GradientStop), na },
 				{ typeof(GridItemsLayout), na },
 				{ typeof(GroupableItemsView), na },
 				{ typeof(ImageSource), na },
 				{ typeof(InputView), na },
 				{ typeof(ItemsLayout), na },
 				{ typeof(LinearItemsLayout), na },
+				{ typeof(LinearGradientBrush), na },
 				// TODO: moved? { typeof(MediaSource), na },
 				{ typeof(Menu), na },
 				{ typeof(MultiTrigger), na },
@@ -53,6 +57,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				{ typeof(OrientationStateTrigger), na },
 				{ typeof(PanGestureRecognizer), na },
 				{ typeof(PinchGestureRecognizer), na },
+				{ typeof(RadialGradientBrush), na },
+				{ typeof(RoundRectangleGeometry), na },
 				{ typeof(RowDefinition), na },
 				{ typeof(SelectableItemsView), na },
 				{ typeof(StateTrigger), na },
@@ -114,7 +120,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			var failMessage = new StringBuilder();
 			var bindableObjectTypes = typeof(BindableObject).Assembly.GetExportedTypes()
-				.Where(t => typeof(BindableObject).IsAssignableFrom(t) && !typeof(Layout).IsAssignableFrom(t) && !t.ContainsGenericParameters);
+				.Where(t => typeof(BindableObject).IsAssignableFrom(t) && !t.IsAbstract && !typeof(Layout).IsAssignableFrom(t) && !t.ContainsGenericParameters);
 			// The logical default property for a Layout is for its child view(s), which is not a bindable property. 
 			// So we exclude Layouts from this test. Note that it is still perfectly OK to define a default 
 			// bindable property for a Layout where that makes sense.

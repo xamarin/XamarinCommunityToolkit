@@ -1,24 +1,16 @@
-﻿/* TODO: Get new NuGets from https://github.com/xamarin/Xamarin.Forms/pull/12623 after IPaddingElement is made public
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Markup;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	[TestFixture(typeof(Button), true)]
-	[TestFixture(typeof(Button), false)]
-	[TestFixture(typeof(Frame), true)]
-	[TestFixture(typeof(Frame), false)]
-	[TestFixture(typeof(ImageButton), true)]
-	[TestFixture(typeof(ImageButton), false)]
-	[TestFixture(typeof(Label), true)]
-	[TestFixture(typeof(Label), false)]
-	[TestFixture(typeof(Page), true)]
-	[TestFixture(typeof(Page), false)]
+	[TestFixture(typeof(Button))]
+	[TestFixture(typeof(Frame))]
+	[TestFixture(typeof(ImageButton))]
+	[TestFixture(typeof(Label))]
+	[TestFixture(typeof(Page))]
 	public class PaddingElementExtensionsTests<TPaddingElement> : MarkupBaseTestFixture<TPaddingElement> where TPaddingElement : Element, IPaddingElement, new()
 	{
-		public PaddingElementExtensionsTests(bool withExperimentalFlag) : base(withExperimentalFlag) { }
-
 		[Test]
 		public void PaddingThickness()
 			=> TestPropertiesSet(l => l.Padding(new Thickness(1)), (PaddingElement.PaddingProperty, new Thickness(0), new Thickness(1)));
@@ -48,4 +40,3 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		class DerivedFrom : ContentView { }
 	}
 }
-*/
