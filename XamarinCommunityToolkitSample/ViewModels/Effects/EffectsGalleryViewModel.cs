@@ -13,7 +13,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(SafeAreaEffectPage),
 				nameof(SafeAreaEffect),
-				AppResources.SafeAreaShortDescription)
+				AppResources.SafeAreaShortDescription),
+			new SectionModel(
+				typeof(IconTintColorEffectPage),
+				nameof(IconTintColorEffect),
+				"With the IconTintColorEffect you set the tint color of an Image or ImageButton."),
 		};
 	}
 }
