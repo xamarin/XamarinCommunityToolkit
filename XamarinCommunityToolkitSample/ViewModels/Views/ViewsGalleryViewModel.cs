@@ -36,7 +36,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"SideMenuView is a simple and flexible Right/Left menu control"),
 
 			new SectionModel(typeof(ShieldPage), "Shield",
-				"Shields can show some status information or call-to-action in a badge-like way")
+				"Shields can show some status information or call-to-action in a badge-like way"),
+
+			new SectionModel(typeof(StateLayoutPage), "StateLayout",
+				"A collection of attached properties that let you specify one or more state views for any of your existing layouts.")
 		};
 	}
 }
