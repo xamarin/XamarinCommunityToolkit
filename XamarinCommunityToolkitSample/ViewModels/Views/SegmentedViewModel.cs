@@ -15,10 +15,13 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 		public IList<string> Options => new List<string>
         {
-			"Option A",
-			"Option B",
-			"Option C",
-        };
+			//"Option A",
+			//"Option B",
+			//"Option C",
+			"https://raw.githubusercontent.com/xamarin/Xamarin.Forms/master/Xamarin.Forms.Controls/coffee.png",
+			"https://raw.githubusercontent.com/xamarin/Xamarin.Forms/master/Xamarin.Forms.Controls/coffee.png",
+			"https://raw.githubusercontent.com/xamarin/Xamarin.Forms/master/Xamarin.Forms.Controls/coffee.png"
+		};
 
 		object selectedItem;
 

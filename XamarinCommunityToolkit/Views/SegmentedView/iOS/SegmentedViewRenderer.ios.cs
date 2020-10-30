@@ -7,15 +7,18 @@ using Xamarin.CommunityToolkit.iOS.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using UIKit;
-using NativeImage = UIKit.UIImage;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
+using System.Threading.Tasks;
+using System.Threading;
+using Foundation;
+using Xamarin.Forms.Internals;
+using Xamarin.CommunityToolkit.Extensions.iOS;
 
 [assembly: ExportRenderer(typeof(SegmentedView), typeof(SegmentedViewRenderer))]
 
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
-	[Preserve(AllMembers = true)]
+	[Xamarin.Forms.Internals.Preserve(AllMembers = true)]
 	public class SegmentedViewRenderer : ViewRenderer<SegmentedView, UISegmentedControl>
 	{
 		protected override void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
@@ -67,12 +70,12 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			switch (Element.DisplayMode)
 			{
 				case SegmentMode.Image:
-					//var img = await ((ImageSource)segment).GetNativeImageAsync();
-					//if (img != null)
-					//	Control.InsertSegment(img, position, false);
-					//else
-					//	Console.WriteLine("ImageSource is null");
-					//break;
+					var img = await ((ImageSource)segment).GetNativeImageAsync();
+					if (img != null)
+						Control.InsertSegment(img, position, false);
+					else
+						Console.WriteLine("ImageSource is null");
+					break;
 				default:
 				case SegmentMode.Text:
 					Control.InsertSegment(segment, position, false);
@@ -140,6 +143,27 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			Control.ValueChanged -= OnSelectedIndexChanged;
 			Control.Dispose();
 			base.Dispose(disposing);
+		}
+
+		public async Task<UIImage> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default(CancellationToken), float scale = 1f)
+		{
+			UIImage image = null;
+			var streamsource = imagesource as StreamImageSource;
+			if (streamsource?.Stream != null)
+			{
+				using (var streamImage = await ((IStreamImageSource)streamsource).GetStreamAsync(cancelationToken).ConfigureAwait(false))
+				{
+					if (streamImage != null)
+						image = UIImage.LoadFromData(NSData.FromStream(streamImage), scale);
+				}
+			}
+
+			if (image == null)
+			{
+				Log.Warning(nameof(StreamImagesourceHandler), "Could not load image: {0}", streamsource);
+			}
+
+			return image;
 		}
 	}
 }

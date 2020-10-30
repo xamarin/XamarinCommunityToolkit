@@ -11,7 +11,7 @@
     </pages:BasePage.BindingContext>
 
     <StackLayout VerticalOptions="Center" Margin="20">
-        <toolkit:SegmentedView ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedItem}" />
+        <toolkit:SegmentedView DisplayMode="Image" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedItem}" />
         <Label Text="{Binding SelectedItem}"/>
     </StackLayout>
 </pages:BasePage>
