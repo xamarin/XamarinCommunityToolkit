@@ -21,6 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		AVCaptureMovieFileOutput videoOutput;
 		AVCaptureConnection captureConnection;
 		AVCaptureDevice device;
+		AVCaptureDevicePosition? lastPosition;
 		bool isBusy;
 		bool isAvailable;
 		CameraFlashMode flashMode;
@@ -51,7 +52,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 
 			mainView.Layer.AddSublayer(previewLayer);
-			RetrieveCameraDevice(CameraOptions.Default);
 
 			Add(mainView);
 
@@ -394,8 +394,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					cameraAccess = true;
 					break;
 				case AVAuthorizationStatus.NotDetermined:
-					AVCaptureDevice.RequestAccessForMediaType(AVMediaType.Video, granted => cameraAccess = granted);
-					break;
+					AVCaptureDevice.RequestAccessForMediaType(AVMediaType.Video, granted =>
+						InvokeOnMainThread(() => RetrieveCameraDevice(cameraOptions)));
+					return;
 			}
 
 			if (!cameraAccess)
@@ -413,6 +414,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case CameraOptions.External:
 					position = AVCaptureDevicePosition.Unspecified; break;
 			}
+
+			// Cache the last position requested, so we only initialize the camera if it's changed
+			if (position == lastPosition)
+				return;
+			lastPosition = position;
 
 			device = null;
 			var devs = AVCaptureDevice.DevicesWithMediaType(AVMediaType.Video);

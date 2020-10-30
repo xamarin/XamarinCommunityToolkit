@@ -4,7 +4,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-    xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
     xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <StackLayout>
         <views:CameraView
@@ -71,7 +70,7 @@
                     x:Name="doCameraThings"
                     Command="{Binding ShutterCommand, Source={x:Reference cameraView}}"
                     IsEnabled="False"
-                    Text="{rsx:Translate CameraViewSampleStartRecording}" />
+                    Text="Start Recording" />
                 <Image
                     x:Name="previewPicture"
                     Aspect="AspectFit"

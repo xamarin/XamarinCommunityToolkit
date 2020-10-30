@@ -1,44 +1,40 @@
 ﻿using System.Collections.Generic;
+using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Converters;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
-	public class ConvertersGalleryViewModel : BaseViewModel
+	public class ConvertersGalleryViewModel : BaseGalleryViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
 		{
 			new SectionModel(
 				typeof(ItemTappedEventArgsPage),
-				"ItemTappedEventArgs",
-				Color.FromHex("#498205"),
-				AppResources.ItemTappedEventArgsShortDescription),
+				nameof(ItemTappedEventArgsConverter),
+				"A converter that allows you to extract the value from ItemTappedEventArgs that can be used in combination with EventToCommandBehavior"),
 
 			new SectionModel(
 				typeof(ItemSelectedEventArgsPage),
-				"ItemSelectedEventArgs",
-				Color.FromHex("#498205"),
-				AppResources.ItemTappedSelectedEventArgsShortDescription),
+				nameof(ItemSelectedEventArgsConverter),
+				"A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior"),
 
 			new SectionModel(
 				typeof(ByteArrayToImageSourcePage),
-				"ByteArrayToImageSource",
+				nameof(ByteArrayToImageSourceConverter),
 				Color.FromHex("#498205"),
-				AppResources.ByteArrayToImageSourceShortDescription),
+				"A converter that allows you to convert byte array to an object of a type ImageSource"),
 
 			new SectionModel(
 				typeof(MultiConverterPage),
-				"MultiConverter",
-				Color.FromHex("#CC0000"),
-				AppResources.MultiConverterShortDescription),
+				nameof(MultiConverter),
+				"This sample demonstrates how to use Multibinding Converter"),
 
 			new SectionModel(
 				typeof(DateTimeOffsetConverterPage),
-				"DateTimeOffsetConverter",
-				Color.FromHex("#498205"),
-				AppResources.DateTimeOffsetConverterShortDescription),
+				nameof(DateTimeOffsetConverter),
+				"A converter that allows to convert from a DateTimeOffset type to a DateTime type"),
 		};
 	}
 }
