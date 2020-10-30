@@ -10,8 +10,23 @@
         <vm:SegmentedViewModel/>
     </pages:BasePage.BindingContext>
 
-    <StackLayout VerticalOptions="Center" Margin="20">
-        <toolkit:SegmentedView DisplayMode="Image" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedItem}" />
-        <Label Text="{Binding SelectedItem}"/>
-    </StackLayout>
+    <Grid RowDefinitions="*,Auto,Auto,*"
+          Margin="20"
+          RowSpacing="20">
+        <toolkit:SegmentedView
+            Grid.Row="1"
+            DisplayMode="Text"
+            ItemsSource="{Binding Options}"
+            SelectedItem="{Binding SelectedItem}"/>
+
+        <toolkit:SegmentedView
+            Grid.Row="2"
+            DisplayMode="Image"
+            ItemsSource="{Binding IconOptions}"
+            SelectedItem="{Binding SelectedItem}"/>
+
+        <Label Text="{Binding SelectedItem, StringFormat='Selected: {0}'}"
+               Grid.Row="3"
+               VerticalOptions="Center"/>
+    </Grid>
 </pages:BasePage>
