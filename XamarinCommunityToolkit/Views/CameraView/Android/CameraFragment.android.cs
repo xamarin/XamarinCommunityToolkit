@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		CameraTemplate cameraTemplate;
 		HandlerThread backgroundThread;
 		Handler backgroundHandler = null;
-		
+
 		float zoom = 1;
 
 		bool ZoomSupported => maxDigitalZoom != 0;
@@ -339,7 +339,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				string filePath = null;
 				if (Element.SavePhotoToFile)
 				{
-					filePath = ConstructMediaFilename(null, extension:"jpg");
+					filePath = ConstructMediaFilename(null, extension: "jpg");
 					File.WriteAllBytes(filePath, bytes);
 				}
 				Sound(MediaActionSoundType.ShutterClick);

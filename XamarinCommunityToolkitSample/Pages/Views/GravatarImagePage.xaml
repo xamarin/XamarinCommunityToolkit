@@ -5,7 +5,6 @@
                 xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
                 xmlns:toolkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
                 xmlns:xaml="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.GravatarImagePage">
     <pages:BasePage.BindingContext>
         <viewmodels:GravatarImageViewModel />
@@ -14,7 +13,7 @@
     <StackLayout>
         <Frame Padding="15, 20" Margin="5">
             <StackLayout>
-                <Label Text="{rsx:Translate FullImageSource}" />
+                <Label Text="Full Image Source" />
                 <Image>
                     <Image.Source>
                         <toolkit:GravatarImageSource Email="{Binding Email}"
@@ -23,23 +22,23 @@
                     </Image.Source>
                 </Image>
 
-                <Label Text="{rsx:Translate XAMLExtension}" />
+                <Label Text="XAML Extension" />
                 <Image Source="{xaml:GravatarImage {Binding Email}, Size=65, CachingEnabled={Binding EnableCache}}" />
 
-                <Label Text="{rsx:Translate DefaultGravatar}" />
+                <Label Text="Default Gravatar" />
                 <Image Source="{xaml:GravatarImage '', Default={Binding DefaultGravatar}, Size={Binding Size}, CachingEnabled={Binding EnableCache}}" />
             </StackLayout>
         </Frame>
 
         <ScrollView Padding="15, 20">
             <StackLayout Spacing="20">
-                <Label Text="{rsx:Translate Email}" />
+                <Label Text="Email" />
                 <Entry Text="{Binding Email}"
                        Keyboard="Email"/>
 
                 <Grid RowDefinitions="*,Auto"
                       ColumnDefinitions="*, Auto">
-                    <Label Text="{rsx:Translate GravatarSize}" />
+                    <Label Text="GravatarSize" />
                     <Slider Value="{Binding Size}"
                             Maximum="100"
                             Minimum="20"
@@ -50,7 +49,7 @@
                            Grid.Column="1"/>
                 </Grid>
 
-                <Label Text="{rsx:Translate DefaultGravatar}" />
+                <Label Text="Default Gravatar" />
                 <Picker ItemsSource="{Binding Defaults}"
                         SelectedItem="{Binding DefaultGravatar}" />
 
