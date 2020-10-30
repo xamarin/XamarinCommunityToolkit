@@ -26,5 +26,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// Effect Id for <see cref="SafeAreaEffect"/>
 		/// </summary>
 		public static string SafeArea => $"{effectResolutionGroupName}.{nameof(SafeAreaEffectRouter)}";
+		
+		/// <summary>
+		/// Effect Id for <see cref="IconTintColorEffect"/>
+		/// </summary>
+		public static string IconTintColor => $"{effectResolutionGroupName}.{nameof(IconTintColorEffectRouter)}";
 	}
 }

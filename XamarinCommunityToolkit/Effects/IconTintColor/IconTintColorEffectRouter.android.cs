@@ -6,7 +6,6 @@ using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms.Platform.Android;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
-[assembly: Xamarin.Forms.ResolutionGroupName(nameof(Xamarin.CommunityToolkit))]
 [assembly: Xamarin.Forms.ExportEffect(typeof(Effects.IconTintColorEffectRouter), nameof(IconTintColorEffectRouter))]
 
 namespace Xamarin.CommunityToolkit.Android.Effects
