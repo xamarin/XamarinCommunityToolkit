@@ -26,8 +26,12 @@
                                               FontSize="Medium"
                                               Size="{Binding Value,
                                               Source={x:Reference Slider}}"
-                                              Source="{Binding Source}"
-                                              Text="{Binding Initials}" />
+                                              Text="{Binding Initials}">
+
+                                <views:AvatarView.Source>
+                                    <UriImageSource Uri="{Binding Source}" />
+                                </views:AvatarView.Source>
+                            </views:AvatarView>
 
                             <Label FontSize="20"
                                    Text="{Binding Name}"
