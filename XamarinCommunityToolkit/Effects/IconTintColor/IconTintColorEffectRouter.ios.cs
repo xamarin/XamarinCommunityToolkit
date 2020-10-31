@@ -53,9 +53,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			{
 				case UIImageView imageView:
 					if (imageView.Image != null)
-					{
 						imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
-					}
 					break;
 				case UIButton button:
 					if (button.CurrentImage != null)
@@ -84,7 +82,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			var templatedImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 
 			button.SetImage(null, UIControlState.Normal);
-			
+
 			button.TintColor = color.ToUIColor();
 			button.ImageView.TintColor = color.ToUIColor();
 			button.SetImage(templatedImage, UIControlState.Normal);

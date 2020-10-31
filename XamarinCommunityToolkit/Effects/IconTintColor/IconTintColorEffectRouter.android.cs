@@ -57,11 +57,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					break;
 				case Button button:
 					var drawables = button.GetCompoundDrawables().Where(d => d != null);
-
 					foreach (var img in drawables)
-					{
 						img.ClearColorFilter();
-					}
 					break;
 			}
 		}
@@ -69,9 +66,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		void SetImageViewTintColor(ImageView image, Forms.Color color)
 		{
 			if (color == Forms.Color.Default)
-			{
 				image.ClearColorFilter();
-			}
 
 			image.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn));
 		}
@@ -83,15 +78,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (color == Forms.Color.Default)
 			{
 				foreach (var img in drawables)
-				{
 					img.ClearColorFilter();
-				}
 			}
 
 			foreach (var img in drawables)
-			{
 				img.SetTint(color.ToAndroid());
-			}
 		}
 	}
 }
