@@ -14,6 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public event EventHandler<SelectedItemChangedEventArgs> SelectedIndexChanged;
+
 		public static BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(SegmentedView));
 		public static BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(SegmentedView), 0, propertyChanged: OnSegmentSelected);
 		public static BindableProperty DisplayModeProperty = BindableProperty.Create(nameof(DisplayMode), typeof(SegmentMode), typeof(SegmentedView));
@@ -46,23 +47,36 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set { SetValue(DisplayModeProperty, value); }
 		}
 
-		BindingBase _itemDisplayBinding;
+#if MONOANDROID || MONOANDROID90
+		public static readonly BindableProperty CornerRadiusProperty =
+			BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(SegmentedView));
+
+		public CornerRadius CornerRadius
+		{
+			get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+			set { SetValue(CornerRadiusProperty, value); }
+		}
+#endif
+
+		BindingBase itemDisplayBinding;
+
 		public BindingBase ItemDisplayBinding
 		{
-			get { return _itemDisplayBinding; }
+			get => itemDisplayBinding;
+
 			set
 			{
-				if (_itemDisplayBinding == value)
+				if (itemDisplayBinding == value)
 					return;
 
 				OnPropertyChanging();
-				_itemDisplayBinding = value;
+				itemDisplayBinding = value;
 				ResetItems();
 				OnPropertyChanged();
 			}
 		}
 
-		static readonly BindableProperty s_displayProperty =
+		static readonly BindableProperty displayProperty =
 			BindableProperty.Create("Display", typeof(string), typeof(SegmentedView), default(string));
 
 		static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
@@ -137,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			//ItemDisplayBinding.Apply(item, this, s_displayProperty);
 			//ItemDisplayBinding.Unapply();
 
-			return (string)GetValue(s_displayProperty);
+			return (string)GetValue(displayProperty);
 		}
 
 		static void OnSelectedItemChanged(BindableObject bindable, object oldValue, object newValue)
