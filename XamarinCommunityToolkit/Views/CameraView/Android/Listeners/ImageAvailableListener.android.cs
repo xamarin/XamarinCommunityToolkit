@@ -22,6 +22,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				OnPhotoReady?.Invoke(imageData);
 				buffer.Clear();
+				buffer.Dispose();
 			}
 			catch (Exception)
 			{

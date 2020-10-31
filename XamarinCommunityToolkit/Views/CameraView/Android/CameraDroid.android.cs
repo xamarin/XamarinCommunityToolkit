@@ -16,9 +16,10 @@ using Android.Content.PM;
 using System.Threading.Tasks;
 using Android.Util;
 using Java.Util;
-
+using Env = Android.OS.Environment;
 using AOrientation = Android.Content.Res.Orientation;
 using Android.Provider;
+using System.IO;
 #if __ANDROID_29__
 using AndroidX.Core.Content;
 using AndroidX.Fragment.App;
@@ -95,10 +96,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation270, 180);
 		}
 
-		void OnPhotoReady(byte[] obj)
+		void OnPhotoReady(byte[] bytes)
 		{
-			var p = new MediaCapturedEventArgs(null, obj);
+			var filePath = ConstructMediaFilename(null, extension: "jpg");
+			File.WriteAllBytes(filePath, bytes);
+
+			var p = new MediaCapturedEventArgs(filePath, bytes);
 			Element.RaiseMediaCaptured(p);
+
+			string ConstructMediaFilename(string prefix, string extension)
+			{
+				// "To improve user privacy, direct access to shared/external storage devices is deprecated"
+				// Env.GetExternalStoragePublicDirectory(Env.DirectoryDcim).AbsolutePath
+				var path = Context.GetExternalFilesDir(Env.DirectoryDcim).AbsolutePath;
+				if (!Directory.Exists(path))
+					Directory.CreateDirectory(path);
+				var fileName = DateTime.Now.ToString("yyyyddMM_HHmmss");
+				if (!string.IsNullOrEmpty(prefix))
+					fileName = $"{prefix}_{fileName}";
+				return System.IO.Path.Combine(path, $"{fileName}.{extension}");
+			}
 		}
 
 		public override void OnResume()
