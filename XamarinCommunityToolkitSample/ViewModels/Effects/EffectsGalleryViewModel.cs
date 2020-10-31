@@ -25,7 +25,13 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				typeof(SelectAllTextEffectPage),
 				nameof(SelectAllTextEffect),
 				"The SelectAllTextEffect is an effect that will select all text in an Entry / Editor when it becomes focussed"
-				)
+				),
+
+			new SectionModel(
+				typeof(IconTintColorEffectPage),
+				nameof(IconTintColorEffect),
+				"With the IconTintColorEffect you set the tint color of an Image or ImageButton."
+				),
 		};
 	}
 }
