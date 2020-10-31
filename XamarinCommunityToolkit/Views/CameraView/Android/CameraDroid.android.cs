@@ -83,13 +83,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			surfaceTextureListener = new CameraSurfaceTextureListener(this);
 			mStateCallback = new CameraStateListener(this);
 			mCaptureCallback = new CameraCaptureListener(this);
-			mOnImageAvailableListener = new ImageAvailableListener();
+			mOnImageAvailableListener = new ImageAvailableListener
+			{
+				OnPhotoReady = OnPhotoReady
+			};
 
 			// fill ORIENTATIONS list
 			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation0, 90);
 			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation90, 0);
 			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation180, 270);
 			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation270, 180);
+		}
+
+		void OnPhotoReady(byte[] obj)
+		{
+			var p = new MediaCapturedEventArgs(null, obj);
+			Element.RaiseMediaCaptured(p);
 		}
 
 		public override void OnResume()
@@ -529,7 +538,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				e.PrintStackTrace();
 			}
 		}
-
 
 		class CompareSizesByArea : Java.Lang.Object, IComparator
 		{
