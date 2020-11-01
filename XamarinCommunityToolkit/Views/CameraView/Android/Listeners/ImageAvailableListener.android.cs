@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
 	{
-		public Action<byte[]> OnPhotoReady;
+		public Action<byte[]> OnPhotoReady { get; set; }
 
 		public void OnImageAvailable(ImageReader reader)
 		{

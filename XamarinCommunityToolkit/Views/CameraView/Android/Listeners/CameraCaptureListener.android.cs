@@ -6,10 +6,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class CameraCaptureListener : CameraCaptureSession.CaptureCallback
 	{
-		readonly CameraDroid cameraFragment;
+		readonly CameraDroid cameraDroid;
 
 		public CameraCaptureListener(CameraDroid camera) =>
-			cameraFragment = camera ?? throw new ArgumentNullException(nameof(camera));
+			cameraDroid = camera ?? throw new ArgumentNullException(nameof(camera));
 
 		public Action<TotalCaptureResult> OnCompleted { get; set; }
 
@@ -21,16 +21,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void Process(CaptureResult result)
 		{
-			switch (cameraFragment.mState)
+			switch (cameraDroid.mState)
 			{
-				case CameraFragment.StateWaitingLock:
-					StateWaitingLock(result, cameraFragment);
+				case CameraDroid.STATE_WAITING_LOCK:
+					StateWaitingLock(result, cameraDroid);
 					break;
-				case CameraFragment.StateWaitingPrecapture:
-					StateWaitingPrecapture(result, cameraFragment);
+				case CameraDroid.STATE_WAITING_PRECAPTURE:
+					StateWaitingPrecapture(result, cameraDroid);
 					break;
-				case CameraFragment.StateWaitingNonPrecapture:
-					StateWaitingNonPrecapture(result, cameraFragment);
+				case CameraDroid.STATE_WAITING_NON_PRECAPTURE:
+					StateWaitingNonPrecapture(result, cameraDroid);
 					break;
 			}
 
