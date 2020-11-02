@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard1.0</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup> 
+    <GitInfoReportImportance>high</GitInfoReportImportance>
+  </PropertyGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.5787" />
+  </ItemGroup>
+</Project>
