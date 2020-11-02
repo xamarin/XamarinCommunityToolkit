@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Xamarin.Forms;
+using PaddingElement = Xamarin.Forms.Label; // TODO: Get rid of this after we have default interface implementation in Forms for IPaddingElement
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {

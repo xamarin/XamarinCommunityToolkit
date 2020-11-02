@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Xamarin.Forms;
+using FontElement = Xamarin.Forms.Label; // TODO: Get rid of this after we have default interface implementation in Forms for IFontElement
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
