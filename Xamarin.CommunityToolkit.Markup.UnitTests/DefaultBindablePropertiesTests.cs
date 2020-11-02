@@ -9,7 +9,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	using Xamarin.Forms.Shapes;
-	using XamarinFormsMarkupUnitTestsDefaultBindablePropertiesViews;
+	using Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews;
 
 	[TestFixture]
 	public class DefaultBindablePropertiesTests : MarkupBaseTestFixture
@@ -214,7 +214,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	}
 }
 
-namespace XamarinFormsMarkupUnitTestsDefaultBindablePropertiesViews
+namespace Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews
 {
 	using System.Windows.Input;
 	using Xamarin.Forms;

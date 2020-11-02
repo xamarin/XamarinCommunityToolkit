@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	using System.Linq;
 	using System.Windows.Input;
-	using XamarinFormsMarkupUnitTestsBindableObjectViews;
+	using Xamarin.CommunityToolkit.Markup.UnitTests.BindableObjectViews;
 
 	[TestFixture]
 	public class BindableObjectExtensionsTests : MarkupBaseTestFixture
@@ -672,7 +672,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	}
 }
 
-namespace XamarinFormsMarkupUnitTestsBindableObjectViews
+namespace Xamarin.CommunityToolkit.Markup.UnitTests.BindableObjectViews
 {
 	using Xamarin.Forms;
 

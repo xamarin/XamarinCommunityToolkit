@@ -1,3 +1,3 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("Markup.UnitTests")]
+[assembly: InternalsVisibleTo("Xamarin.CommunityToolkit.Markup.UnitTests")]
