@@ -1,0 +1,5 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)PreserveXamarinCommunityToolkit.cs" />
+  </ItemGroup>
+</Project>
