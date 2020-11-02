@@ -59,7 +59,11 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			public Task<bool> GetDirectoryExistsAsync(string path) => Task.FromResult(isolatedStorageFile.DirectoryExists(path));
 
-			public Task CreateDirectoryAsync(string path) => throw new NotImplementedException();
+			public Task CreateDirectoryAsync(string path)
+			{
+				isolatedStorageFile.CreateDirectory(path);
+				return Task.FromResult(true);
+			}
 
 			public Task<Stream> OpenFileAsync(string path, FileMode mode, FileAccess access) => throw new NotImplementedException();
 

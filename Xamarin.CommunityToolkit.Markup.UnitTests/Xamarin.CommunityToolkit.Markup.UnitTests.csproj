@@ -42,28 +42,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTestFixture.cs" />
-    <Compile Include="Markup\BindableLayoutExtensionsTests.cs" />
-    <Compile Include="Markup\BindableObjectExtensionsTests.cs" />
-    <Compile Include="Markup\BindableObjectMultiBindExtensionsTests.cs" />
-    <Compile Include="Markup\BindingHelpers.cs" />
-    <Compile Include="Markup\DefaultBindablePropertiesTests.cs" />
-    <Compile Include="Markup\ElementExtensionsTests.cs" />
-    <Compile Include="Markup\ElementGesturesExtensionsTests.cs" />
-    <Compile Include="Markup\FuncConverter.cs" />
-    <Compile Include="Markup\GridRowsColumns.cs" />
-    <Compile Include="Markup\LabelExtensionsLeftToRightTests.cs" />
-    <Compile Include="Markup\LabelExtensionsRightToLeftTests.cs" />
-    <Compile Include="Markup\LabelExtensionsTests.cs" />
-    <Compile Include="Markup\MarkupBaseTestFixture.cs" />
-    <Compile Include="Markup\PaddingElementExtensionsTests.cs" />
-    <Compile Include="Markup\RelativeLayoutExtensionsTests.cs" />
-    <Compile Include="Markup\StyleTests.cs" />
-    <Compile Include="Markup\ViewExtensionsLeftToRightTests.cs" />
-    <Compile Include="Markup\ViewExtensionsRightToLeftTests.cs" />
-    <Compile Include="Markup\ViewExtensionsTests.cs" />
-    <Compile Include="Markup\ViewInFlexLayoutExtensionsTests.cs" />
-    <Compile Include="Markup\ViewInGridExtensionsTests.cs" />
-    <Compile Include="Markup\VisualElementExtensionsTests.cs" />
+    <Compile Include="BindableLayoutExtensionsTests.cs" />
+    <Compile Include="BindableObjectExtensionsTests.cs" />
+    <Compile Include="BindableObjectMultiBindExtensionsTests.cs" />
+    <Compile Include="BindingHelpers.cs" />
+    <Compile Include="DefaultBindablePropertiesTests.cs" />
+    <Compile Include="ElementExtensionsTests.cs" />
+    <Compile Include="ElementGesturesExtensionsTests.cs" />
+    <Compile Include="FuncConverter.cs" />
+    <Compile Include="GridRowsColumns.cs" />
+    <Compile Include="LabelExtensionsLeftToRightTests.cs" />
+    <Compile Include="LabelExtensionsRightToLeftTests.cs" />
+    <Compile Include="LabelExtensionsTests.cs" />
+    <Compile Include="MarkupBaseTestFixture.cs" />
+    <Compile Include="PaddingElementExtensionsTests.cs" />
+    <Compile Include="RelativeLayoutExtensionsTests.cs" />
+    <Compile Include="StyleTests.cs" />
+    <Compile Include="ViewExtensionsLeftToRightTests.cs" />
+    <Compile Include="ViewExtensionsRightToLeftTests.cs" />
+    <Compile Include="ViewExtensionsTests.cs" />
+    <Compile Include="ViewInFlexLayoutExtensionsTests.cs" />
+    <Compile Include="ViewInGridExtensionsTests.cs" />
+    <Compile Include="VisualElementExtensionsTests.cs" />
     <Compile Include="MockPlatformServices.cs" />
     <Compile Include="UnitExpressionSearch.cs" />
   </ItemGroup>
@@ -79,13 +79,13 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Markup\Markup.csproj">
-      <Project>{848b3b27-8dfb-4bcb-94fa-1d4eba9c5614}</Project>
-      <Name>Markup</Name>
-    </ProjectReference>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\Xamarin.CommunityToolkit.Markup\Xamarin.CommunityToolkit.Markup.csproj">
+      <Project>{ab7bc9c1-e0e5-41f0-a1b9-9aedd3a3c91a}</Project>
+      <Name>Xamarin.CommunityToolkit.Markup</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
