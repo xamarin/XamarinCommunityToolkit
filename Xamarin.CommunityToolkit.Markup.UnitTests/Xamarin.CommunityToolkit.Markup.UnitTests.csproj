@@ -89,4 +89,5 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\Xamarin.CommunityToolkit.MarkupNuGetsDownload.targets" />
 </Project>

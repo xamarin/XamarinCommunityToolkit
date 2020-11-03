@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <NuGetsUrl>https://dev.azure.com/xamarin/6fd3d886-57a5-4e31-8db7-52a1b47c07a8/_apis/build/builds/29642/artifacts?artifactName=nuget&amp;api-version=6.0&amp;%24format=zip</NuGetsUrl>
+  </PropertyGroup>
+  
+  <Target Name="NuGetsDownload" BeforeTargets="DispatchToInnerBuilds">
+    <DownloadFile SourceUrl="$(NuGetsUrl)" DestinationFolder="$(BaseIntermediateOutputPath)">
+      <Output TaskParameter="DownloadedFile" ItemName="NuGetsZip" />
+    </DownloadFile>
+    <Unzip SourceFiles="@(NuGetsZip)" DestinationFolder="$(BaseIntermediateOutputPath)\unzipped" />
+  </Target>
+
+  <PropertyGroup>
+    <RestoreAdditionalProjectSources>$(BaseIntermediateOutputPath)\unzipped\nuget\debug</RestoreAdditionalProjectSources>
+  </PropertyGroup>
+</Project>
