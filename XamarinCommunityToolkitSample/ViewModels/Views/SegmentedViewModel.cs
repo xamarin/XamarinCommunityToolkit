@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 		public SegmentedViewModel()
 		{
-			Title = "SegmentedView";
+			Title = "Segmented View";
 		}
 	}
 }

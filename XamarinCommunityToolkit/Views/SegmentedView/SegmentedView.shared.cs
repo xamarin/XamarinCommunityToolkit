@@ -47,16 +47,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set { SetValue(DisplayModeProperty, value); }
 		}
 
-#if MONOANDROID || MONOANDROID90
+// #if MONOANDROID || MONOANDROID90
 		public static readonly BindableProperty CornerRadiusProperty =
-			BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(SegmentedView));
+			BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(SegmentedView), new CornerRadius(6.0));
 
 		public CornerRadius CornerRadius
 		{
 			get { return (CornerRadius)GetValue(CornerRadiusProperty); }
 			set { SetValue(CornerRadiusProperty, value); }
 		}
-#endif
+
+// #endif
 
 		BindingBase itemDisplayBinding;
 

@@ -4,16 +4,83 @@
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"                
                 xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
                 xmlns:toolkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"  
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SegmentedViewPage"
-                Title="{Binding Title}">
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SegmentedViewPage">
+    
     <pages:BasePage.BindingContext>
         <vm:SegmentedViewModel/>
     </pages:BasePage.BindingContext>
+    <Grid RowDefinitions="*,Auto,Auto,Auto,*"
+        Margin="20"
+        RowSpacing="20">
 
-    <Grid RowDefinitions="*,Auto,Auto,*"
-          Margin="20"
-          RowSpacing="20">
+        <Grid
+            RowDefinitions="Auto,Auto,Auto"
+            ColumnDefinitions="*,2*,*">
+            <Grid.IsVisible>
+                <OnPlatform iOS="false" Android="true"/>
+            </Grid.IsVisible>
+
+            <Slider
+                    x:Name="TopLeftSlider"
+                    Minimum="0"
+                    Maximum="20"
+                    HeightRequest="40"
+                    MinimumTrackColor="Blue"
+                    MaximumTrackColor="DarkBlue"
+                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                    ValueChanged="TopLeftSlider_ValueChanged"/>
+
+            <Slider Grid.Row="0" Grid.Column="2"
+                    x:Name="TopRightSlider"
+                    Minimum="0"
+                    Maximum="20"
+                    HeightRequest="40"
+                    MinimumTrackColor="Blue"
+                    MaximumTrackColor="DarkBlue"
+                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                    ValueChanged="TopRightSlider_ValueChanged"/>
+
+            <StackLayout Grid.Row="1" Grid.Column="1">
+                <Label VerticalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Text="{Binding Source={x:Reference Slider},
+                    Path=Value,
+                    StringFormat='Corner Radius: {0}'}" />
+                <Slider
+                    x:Name="Slider"
+                    Minimum="0"
+                    Maximum="20"
+                    HeightRequest="40"
+                    MinimumTrackColor="Blue"
+                    MaximumTrackColor="DarkBlue"
+                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                    ValueChanged="Slider_ValueChanged"
+                    Value="{Binding Source={x:Reference TextSegments},
+                    Path=CornerRadius}"/>
+            </StackLayout>
+
+            <Slider Grid.Row="2" Grid.Column="0"
+                    x:Name="BottomLeftSlider"
+                    Minimum="0"
+                    Maximum="20"
+                    HeightRequest="40"
+                    MinimumTrackColor="Blue"
+                    MaximumTrackColor="DarkBlue"
+                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                    ValueChanged="BottomLeftSlider_ValueChanged"/>
+
+            <Slider Grid.Row="2" Grid.Column="2"
+                    x:Name="BottomRightSlider"
+                    Minimum="0"
+                    Maximum="20"
+                    HeightRequest="40"
+                    MinimumTrackColor="Blue"
+                    MaximumTrackColor="DarkBlue"
+                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                    ValueChanged="BottomRightSlider_ValueChanged"/>
+        </Grid>
         <toolkit:SegmentedView
+            x:Name="TextSegments"
             Grid.Row="1"
             DisplayMode="Text"
             ItemsSource="{Binding Options}"
@@ -26,7 +93,7 @@
             SelectedItem="{Binding SelectedItem}"/>
 
         <Label Text="{Binding SelectedItem, StringFormat='Selected: {0}'}"
-               Grid.Row="3"
-               VerticalOptions="Center"/>
+                Grid.Row="4"
+                VerticalOptions="Center"/>
     </Grid>
 </pages:BasePage>

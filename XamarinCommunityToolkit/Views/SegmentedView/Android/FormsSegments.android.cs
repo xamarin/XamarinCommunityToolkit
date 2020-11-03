@@ -191,30 +191,6 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			rb.SetAllCaps(true);
 			rb.SetTypeface(null, TypefaceStyle.Bold);
 			rb.SetTextColor(TextColorSelector);
-			
-			//TODO: Reconsider SegmentsItem to have title and image
-			//switch (DisplayMode)
-			//{
-			//	case SegmentMode.ImageLeft:
-			//		icon = GetImage(title);
-			//		rb.SetCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-			//		break;
-			//	case SegmentMode.ImageTop:
-			//		icon = GetImage(title);
-			//		rb.SetCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
-			//		break;
-			//	case SegmentMode.ImageRight:
-			//		icon = GetImage(title);
-			//		rb.SetCompoundDrawablesWithIntrinsicBounds(null, null, icon, null);
-			//		break;
-			//	case SegmentMode.ImageBottom:
-			//		icon = GetImage(title);
-			//		rb.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, icon);
-			//		break;
-			//	default:
-			//		break;
-			//}
-
 			return rb;
 		}
 
@@ -258,11 +234,11 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			switch (position)
 			{
 				case Position.Left:
-					rect.SetCornerRadii(new float[] { (float)CornerRadius.TopLeft, (float)CornerRadius.TopLeft, 0, 0, 0, 0, (float)CornerRadius.BottomLeft, (float)CornerRadius.BottomLeft });
+					rect.SetCornerRadii(new float[] { context.ToPixels(CornerRadius.TopLeft), context.ToPixels(CornerRadius.TopLeft), 0, 0, 0, 0, context.ToPixels(CornerRadius.BottomLeft), context.ToPixels(CornerRadius.BottomLeft) });
 					insetDrawable = new InsetDrawable(rect, 0);
 					break;
 				case Position.Right:
-					rect.SetCornerRadii(new float[] { 0, 0, (float)CornerRadius.TopRight, (float)CornerRadius.TopRight, (float)CornerRadius.BottomRight, (float)CornerRadius.BottomRight, 0, 0 });
+					rect.SetCornerRadii(new float[] { 0, 0, context.ToPixels(CornerRadius.TopRight), context.ToPixels(CornerRadius.TopRight), context.ToPixels(CornerRadius.BottomRight), context.ToPixels(CornerRadius.BottomRight), 0, 0 });
 					break;
 				default:
 					rect.SetCornerRadius(0);

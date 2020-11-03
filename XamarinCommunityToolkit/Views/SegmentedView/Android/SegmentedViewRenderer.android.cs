@@ -5,10 +5,13 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using Android.Content;
 using Android.Widget;
+using Xamarin.CommunityToolkit.Android.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
+
+[assembly: ExportRenderer(typeof(SegmentedView), typeof(SegmentedViewRenderer))]
 
 namespace Xamarin.CommunityToolkit.Android.UI.Views
 {
@@ -16,8 +19,6 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 	{
 		readonly Context context;
 		FormsSegments control;
-
-		SegmentedView Segments => Element as SegmentedView;
 
 		public SegmentedViewRenderer(Context context)
 			: base(context)
@@ -107,8 +108,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 			if (e.PropertyName == SegmentedView.SelectedIndexProperty.PropertyName)
 			{
-				var selectedRadioButton = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
-				Control.CurrentSegment = selectedRadioButton;
+				Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
 			}
 
 			if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
