@@ -14,6 +14,7 @@
         RowSpacing="20">
 
         <Grid
+            VerticalOptions="End"
             RowDefinitions="Auto,Auto,Auto"
             ColumnDefinitions="*,2*,*">
             <Grid.IsVisible>
@@ -90,7 +91,8 @@
             Grid.Row="2"
             DisplayMode="Image"
             ItemsSource="{Binding IconOptions}"
-            SelectedItem="{Binding SelectedItem}"/>
+            SelectedItem="{Binding SelectedItem}"
+            CornerRadius="20,0,0,20"/>
 
         <Label Text="{Binding SelectedItem, StringFormat='Selected: {0}'}"
                 Grid.Row="4"

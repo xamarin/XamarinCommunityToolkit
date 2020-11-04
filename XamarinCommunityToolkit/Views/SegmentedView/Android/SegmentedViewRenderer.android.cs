@@ -55,6 +55,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			PopulateSegments(segments);
 
 			Control.DisplayMode = Element.DisplayMode;
+			Control.CornerRadius = Element.CornerRadius;
 			Control.SegmentSelected += SegmentSelected;
 		}
 
