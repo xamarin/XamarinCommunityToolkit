@@ -10,7 +10,7 @@ variables:
   NETCORE_TEST_VERSION: '3.1.x'
   RunPoliCheck: 'false'
   PathToCsproj: 'XamarinCommunityToolkit/Xamarin.CommunityToolkit.csproj'
-  PathToMarkupCsproj: 'XamarinCommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
+  PathToMarkupCsproj: 'Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
 
 resources:
   repositories:
@@ -101,7 +101,7 @@ jobs:
         displayName: Run Markup Tests
         inputs:
           command: test
-          projects: 'XamarinCommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
+          projects: 'Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
           arguments: '--configuration Release'
 
       # publish the packages
