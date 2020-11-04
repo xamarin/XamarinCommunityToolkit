@@ -70,21 +70,6 @@ jobs:
           solution: $(PathToCsproj)
           configuration: Release
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
-#      - task: DotNetCoreCLI@2
-#        displayName: Publish to GitHub NuGet Packages
-#        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))
-#        inputs:
-#          command: 'custom'
-#          custom: 'nuget'
-#          arguments: 'push --source https://nuget.pkg.github.com/xamarin/index.json --api-key $(GitHub.NuGet.Token) "$(Build.ArtifactStagingDirectory)\nuget\*.nupkg"'
-      - task: DotNetCoreCLI@2
-        displayName: Run Tests
-        inputs:
-          command: test
-          projects: 'XamarinCommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
-          arguments: '--configuration Release'
-
-      # Markup
       - task: MSBuild@1
         displayName: Build Markup Project
         inputs:
@@ -97,13 +82,19 @@ jobs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+#      - task: DotNetCoreCLI@2
+#        displayName: Publish to GitHub NuGet Packages
+#        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))
+#        inputs:
+#          command: 'custom'
+#          custom: 'nuget'
+#          arguments: 'push --source https://nuget.pkg.github.com/xamarin/index.json --api-key $(GitHub.NuGet.Token) "$(Build.ArtifactStagingDirectory)\nuget\*.nupkg"'
       - task: DotNetCoreCLI@2
-        displayName: Run Markup Tests
+        displayName: Run Tests
         inputs:
           command: test
-          projects: 'Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
+          projects: '**/*.UnitTests.csproj'
           arguments: '--configuration Release'
-
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
