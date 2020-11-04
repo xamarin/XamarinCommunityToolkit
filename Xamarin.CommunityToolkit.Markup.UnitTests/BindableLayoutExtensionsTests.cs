@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void EmptyViewTemplate()
 		{
 			var template = new DataTemplate(() => new BoxView());
-			TestPropertiesSet(l => l.EmptyViewTemplate(template), (BindableLayout.EmptyViewTemplateProperty, template));
+			TestPropertiesSet(l => l.EmptyViewTemplate(template), (BindableLayout.EmptyViewProperty, template)); // TODO: this will fail after fix https://github.com/xamarin/Xamarin.Forms/pull/12689 is merged; then change to EmptyViewTemplateProperty
 		}
 
 		[Test]
@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			Func<object> loadTemplate = () => new BoxView();
 			Bindable.EmptyViewTemplate(loadTemplate);
-			Assert.That(BindableLayout.GetEmptyViewTemplate(Bindable), Is.Not.Null);
+			Assert.That(BindableLayout.GetEmptyView(Bindable), Is.Not.Null); // TODO: this will fail after fix https://github.com/xamarin/Xamarin.Forms/pull/12689 is merged; then change to GetEmptyViewTemplate
 		});
 
 		[Test]
