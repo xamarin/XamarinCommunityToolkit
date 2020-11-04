@@ -10,6 +10,7 @@ variables:
   NETCORE_TEST_VERSION: '3.1.x'
   RunPoliCheck: 'false'
   PathToCsproj: 'XamarinCommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  PathToMarkupCsproj: 'XamarinCommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
 
 resources:
   repositories:
@@ -82,6 +83,27 @@ jobs:
           command: test
           projects: 'XamarinCommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
           arguments: '--configuration Release'
+
+      # Markup
+      - task: MSBuild@1
+        displayName: Build Markup Project
+        inputs:
+          solution: $(PathToMarkupCsproj)
+          configuration: Release
+          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: MSBuild@1
+        displayName: Pack Markup NuGet
+        inputs:
+          solution: $(PathToMarkupCsproj)
+          configuration: Release
+          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+      - task: DotNetCoreCLI@2
+        displayName: Run Markup Tests
+        inputs:
+          command: test
+          projects: 'XamarinCommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
+          arguments: '--configuration Release'
+
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
