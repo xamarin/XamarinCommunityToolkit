@@ -82,8 +82,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			=> TestPropertiesSet(
 					v => v.Fill(),
 					(View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.Fill),
-					(View.VerticalOptionsProperty, LayoutOptions.End, LayoutOptions.Fill)
-					);
+					(View.VerticalOptionsProperty, LayoutOptions.End, LayoutOptions.Fill));
 
 		[Test]
 		public void CenterExpand()
@@ -118,7 +117,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerivedFromView()
 		{
-			DerivedFromView _ =
+			Assert.IsInstanceOf<DerivedFromView>(
 				new DerivedFromView()
 				.Start()
 				.CenterHorizontal()
@@ -142,7 +141,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.FillExpand()
 				.Margin(new Thickness(1))
 				.Margin(1, 2)
-				.Margins(left: 1, top: 2, right: 3, bottom: 4);
+				.Margins(left: 1, top: 2, right: 3, bottom: 4));
 		}
 
 		class DerivedFromView : BoxView { }

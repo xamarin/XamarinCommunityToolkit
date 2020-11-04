@@ -55,8 +55,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.Throws<ArgumentException>(
 				() => Rows.Define((Row.First, 8), (Row.Third, 8)),
 				$"Value of row name Third is not 1. " +
-				"Rows must be defined with enum names whose values form the sequence 0,1,2,..."
-			);
+				"Rows must be defined with enum names whose values form the sequence 0,1,2,...");
 		}
 
 		[Test]
@@ -103,8 +102,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.Throws<ArgumentException>(
 				() => Columns.Define((Col.Second, 8), (Col.First, 8)),
 				$"Value of column name Second is not 0. " +
-				"Columns must be defined with enum names whose values form the sequence 0,1,2,..."
-			);
+				"Columns must be defined with enum names whose values form the sequence 0,1,2,...");
 		}
 
 		[Test]

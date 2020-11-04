@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Markup
 
 		public static class Columns
 		{
-			public static ColumnDefinitionCollection Define(params GridLength [] widths)
+			public static ColumnDefinitionCollection Define(params GridLength[] widths)
 			{
 				var columnDefinitions = new ColumnDefinitionCollection();
 
@@ -30,10 +30,12 @@ namespace Xamarin.CommunityToolkit.Markup
 				for (int i = 0; i < columns.Length; i++)
 				{
 					if (i != columns[i].name.ToInt())
+					{
 						throw new ArgumentException(
-							$"Value of column name { columns[i].name } is not { i }. " +
-							"Columns must be defined with enum names whose values form the sequence 0,1,2,..."
-						);
+							$"Value of column name {columns[i].name} is not {i}. " +
+							"Columns must be defined with enum names whose values form the sequence 0,1,2,...");
+					}
+
 					columnDefinitions.Add(new ColumnDefinition { Width = columns[i].width });
 				}
 				return columnDefinitions;
@@ -58,10 +60,12 @@ namespace Xamarin.CommunityToolkit.Markup
 				for (int i = 0; i < rows.Length; i++)
 				{
 					if (i != rows[i].name.ToInt())
+					{
 						throw new ArgumentException(
-							$"Value of row name { rows[i].name } is not { i }. " +
-							"Rows must be defined with enum names whose values form the sequence 0,1,2,..."
-						);
+							$"Value of row name {rows[i].name} is not {i}. " +
+							"Rows must be defined with enum names whose values form the sequence 0,1,2,...");
+					}
+
 					rowDefinitions.Add(new RowDefinition { Height = rows[i].height });
 				}
 				return rowDefinitions;

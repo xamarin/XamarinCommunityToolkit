@@ -15,8 +15,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			string commandPath = bindingContextPath,
 			object commandSource = null,
 			string parameterPath = null,
-			object parameterSource = null
-		) where TGestureElement : Element, IGestureRecognizers
+			object parameterSource = null) where TGestureElement : Element, IGestureRecognizers
 			=> ClickGesture(gestureElement, g => g.BindCommand(commandPath, commandSource, parameterPath, parameterSource));
 
 		/// <summary>Add a <see cref="SwipeGestureRecognizer"/>,
@@ -27,8 +26,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			string commandPath = bindingContextPath,
 			object commandSource = null,
 			string parameterPath = null,
-			object parameterSource = null
-		) where TGestureElement : Element, IGestureRecognizers
+			object parameterSource = null) where TGestureElement : Element, IGestureRecognizers
 			=> SwipeGesture(gestureElement, g => g.BindCommand(commandPath, commandSource, parameterPath, parameterSource));
 
 		/// <summary>Add a <see cref="TapGestureRecognizer"/>,
@@ -39,8 +37,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			string commandPath = bindingContextPath,
 			object commandSource = null,
 			string parameterPath = null,
-			object parameterSource = null
-		) where TGestureElement : Element, IGestureRecognizers
+			object parameterSource = null) where TGestureElement : Element, IGestureRecognizers
 			=> TapGesture(gestureElement, g => g.BindCommand(commandPath, commandSource, parameterPath, parameterSource));
 
 		/// <summary>Add a <see cref="ClickGestureRecognizer"/>,
@@ -77,9 +74,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		/// and pass it to the supplied <paramref name="init"/> Action</summary>
 		public static TGestureElement Gesture<TGestureElement, TGestureRecognizer>(
 			this TGestureElement gestureElement,
-			Action<TGestureRecognizer> init
-		) where TGestureElement : Element, IGestureRecognizers
-		  where TGestureRecognizer : GestureRecognizer, new()
+			Action<TGestureRecognizer> init) where TGestureElement : Element, IGestureRecognizers where TGestureRecognizer : GestureRecognizer, new()
 		{
 			var gestureRecognizer = new TGestureRecognizer();
 			init.Invoke(gestureRecognizer);

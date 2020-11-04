@@ -25,11 +25,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			object source = null,
 			object targetNullValue = default,
 			object fallbackValue = default,
-			Action<IValueConverter> assertConvert = null
-		) => AssertBindingExists<object, object>(
+			Action<IValueConverter> assertConvert = null)
+			=> AssertBindingExists<object, object>(
 				bindable, targetProperty, path, mode, assertConverterInstanceIsAnyNotNull, converter, converterParameter,
-				stringFormat, source, targetNullValue, fallbackValue, assertConvert
-		);
+				stringFormat, source, targetNullValue, fallbackValue, assertConvert);
 
 		internal static void AssertBindingExists<TDest>(
 			BindableObject bindable,
@@ -42,11 +41,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			object source = null,
 			TDest targetNullValue = default,
 			TDest fallbackValue = default,
-			Action<IValueConverter> assertConvert = null
-		) => AssertBindingExists<TDest, object>(
+			Action<IValueConverter> assertConvert = null)
+			=> AssertBindingExists<TDest, object>(
 				bindable, targetProperty, path, mode, assertConverterInstanceIsAnyNotNull, converter, null,
-				stringFormat, source, targetNullValue, fallbackValue, assertConvert
-		);
+				stringFormat, source, targetNullValue, fallbackValue, assertConvert);
 
 		internal static void AssertBindingExists<TDest, TParam>(
 			BindableObject bindable,
@@ -60,8 +58,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			object source = null,
 			TDest targetNullValue = default,
 			TDest fallbackValue = default,
-			Action<IValueConverter> assertConvert = null
-		)
+			Action<IValueConverter> assertConvert = null)
 		{
 			var binding = BindingHelpers.GetBinding(bindable, targetProperty);
 			Assert.That(binding, Is.Not.Null);
@@ -90,11 +87,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			string stringFormat = null,
 			TDest targetNullValue = default,
 			TDest fallbackValue = default,
-			Action<IMultiValueConverter> assertConvert = null
-		) => AssertBindingExists<TDest, object>(
+			Action<IMultiValueConverter> assertConvert = null)
+			=> AssertBindingExists<TDest, object>(
 			bindable, targetProperty, bindings, converter, null, mode, assertConverterInstanceIsAnyNotNull,
 			stringFormat, targetNullValue, fallbackValue, assertConvert);
-
 
 		internal static void AssertBindingExists<TDest, TParam>(
 			BindableObject bindable,
@@ -107,8 +103,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			string stringFormat = null,
 			TDest targetNullValue = default,
 			TDest fallbackValue = default,
-			Action<IMultiValueConverter> assertConvert = null
-		)
+			Action<IMultiValueConverter> assertConvert = null)
 		{
 			var binding = BindingHelpers.GetMultiBinding(bindable, targetProperty);
 			Assert.That(binding, Is.Not.Null);

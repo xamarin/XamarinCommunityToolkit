@@ -43,14 +43,13 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.That(object.ReferenceEquals(Layout.Children[1], child1), Is.True);
 		}
 
-
 		[Test]
 		public void AddBoundsConstrainedChild()
 		{
 			Layout.IsPlatformEnabled = true;
 			Layout.Children(
-				new Label { IsPlatformEnabled = true } 
-				.Assign(out Label child) 
+				new Label { IsPlatformEnabled = true }
+				.Assign(out Label child)
 				.Constrain(() => new Rectangle(30, 20, Layout.Height / 2, Layout.Height / 4))
 			);
 			Layout.Layout(new Rectangle(0, 0, 100, 100));
@@ -71,7 +70,6 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 							 .Y      (() => 20)
 							 .Width  (() => Layout.Height / 2)
 							 .Height (() => Layout.Height / 4)
-							 
 			);
 			Layout.Layout(new Rectangle(0, 0, 100, 100));
 
@@ -121,9 +119,9 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerived()
 		{
-			DerivedFromRelativeLayout _ =
+			Assert.IsInstanceOf<DerivedFromRelativeLayout>(
 				new DerivedFromRelativeLayout()
-				.Children();
+				.Children());
 		}
 
 		class DerivedFromRelativeLayout : RelativeLayout { }

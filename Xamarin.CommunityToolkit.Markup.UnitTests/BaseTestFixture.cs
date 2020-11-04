@@ -6,14 +6,14 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	public class BaseTestFixture
 	{
-		CultureInfo _defaultCulture;
-		CultureInfo _defaultUICulture;
+		CultureInfo defaultCulture;
+		CultureInfo defaultUICulture;
 
 		[SetUp]
 		public virtual void Setup()
 		{
-			_defaultCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
-			_defaultUICulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
+			defaultCulture = System.Threading.Thread.CurrentThread.CurrentCulture;
+			defaultUICulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
 			Device.PlatformServices = new MockPlatformServices();
 		}
 
@@ -21,8 +21,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public virtual void TearDown()
 		{
 			Device.PlatformServices = null;
-			System.Threading.Thread.CurrentThread.CurrentCulture = _defaultCulture;
-			System.Threading.Thread.CurrentThread.CurrentUICulture = _defaultUICulture;
+			System.Threading.Thread.CurrentThread.CurrentCulture = defaultCulture;
+			System.Threading.Thread.CurrentThread.CurrentUICulture = defaultUICulture;
 		}
 	}
 }

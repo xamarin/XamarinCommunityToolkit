@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		};
 
 		static Dictionary<string, (BindableProperty, BindableProperty)> bindableObjectTypeDefaultCommandAndParameterProperties = new Dictionary<string, (BindableProperty, BindableProperty)>
-		{ // Key: full type name of BindableObject, Value: command property and corresponding commandParameter property 
+		{ // Key: full type name of BindableObject, Value: command property and corresponding commandParameter property
 			{ "Xamarin.Forms.Button", (Button.CommandProperty, Button.CommandParameterProperty) },
 			{ "Xamarin.Forms.TextCell", (TextCell.CommandProperty, TextCell.CommandParameterProperty) },
 			{ "Xamarin.Forms.ClickGestureRecognizer", (ClickGestureRecognizer.CommandProperty, ClickGestureRecognizer.CommandParameterProperty) },
@@ -99,9 +99,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			var type = bindableObject.GetType();
 			var defaultProperty = GetFor(type);
 			if (defaultProperty == null)
+			{
 				throw new ArgumentException(
 					"No default bindable property is registered for BindableObject type " + type.FullName +
 					"\r\nEither specify a property when calling Bind() or register a default bindable property for this BindableObject type");
+			}
+
 			return defaultProperty;
 		}
 
@@ -118,7 +121,8 @@ namespace Xamarin.CommunityToolkit.Markup
 					break;
 
 				bindableObjectType = bindableObjectType.GetTypeInfo().BaseType;
-			} while (bindableObjectType != null);
+			}
+            while (bindableObjectType != null);
 
 			return defaultProperty;
 		}
@@ -131,9 +135,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			var type = bindableObject.GetType();
 			(var commandProperty, var parameterProperty) = GetForCommand(type);
 			if (commandProperty == null)
+			{
 				throw new ArgumentException(
 					"No command + command parameter properties are registered for BindableObject type " + type.FullName +
 					"\r\nRegister command + command parameter properties for this BindableObject type");
+			}
+
 			return (commandProperty, parameterProperty);
 		}
 
@@ -150,7 +157,8 @@ namespace Xamarin.CommunityToolkit.Markup
 					break;
 
 				bindableObjectType = bindableObjectType.GetTypeInfo().BaseType;
-			} while (bindableObjectType != null);
+			}
+            while (bindableObjectType != null);
 
 			return commandAndParameterProperties;
 		}

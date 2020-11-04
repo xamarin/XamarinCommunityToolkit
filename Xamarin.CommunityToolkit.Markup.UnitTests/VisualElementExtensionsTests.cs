@@ -88,7 +88,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerivedFromBoxView()
 		{
-			DerivedFromBoxView _ =
+			Assert.IsInstanceOf<DerivedFromBoxView>(
 				new DerivedFromBoxView()
 				.Height(2)
 				.Width(2)
@@ -98,7 +98,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.Size(2)
 				.MinSize(2, 3)
 				.MinSize(2)
-				.Style(new Style<DerivedFromBoxView>());
+				.Style(new Style<DerivedFromBoxView>()));
 		}
 
 		class DerivedFromBoxView : BoxView { }

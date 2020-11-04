@@ -11,6 +11,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	{
 		List<object> results;
 		Type targeType;
+
 		public List<T> FindObjects<T>(Expression expression) where T : class
 		{
 			results = new List<object>();

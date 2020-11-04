@@ -27,19 +27,25 @@ namespace Xamarin.CommunityToolkit.Markup
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (convert != null)
+			{
 				return convert.Invoke(
 					value != null ? (TSource)value : default(TSource));
+			}
 
 			if (convertWithParam != null)
+			{
 				return convertWithParam.Invoke(
 					value != null ? (TSource)value : default(TSource),
 					parameter != null ? (TParam)parameter : default(TParam));
+			}
 
 			if (convertWithParamAndCulture != null)
+			{
 				return convertWithParamAndCulture.Invoke(
 					value != null ? (TSource)value : default(TSource),
 					parameter != null ? (TParam)parameter : default(TParam),
 					culture);
+			}
 
 			return default(TDest);
 		}
@@ -47,19 +53,25 @@ namespace Xamarin.CommunityToolkit.Markup
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (convertBack != null)
+			{
 				return convertBack.Invoke(
 					value != null ? (TDest)value : default(TDest));
+			}
 
 			if (convertBackWithParam != null)
+			{
 				return convertBackWithParam.Invoke(
 					value != null ? (TDest)value : default(TDest),
 					parameter != null ? (TParam)parameter : default(TParam));
+			}
 
 			if (convertBackWithParamAndCulture != null)
+			{
 				return convertBackWithParamAndCulture.Invoke(
 					value != null ? (TDest)value : default(TDest),
 					parameter != null ? (TParam)parameter : default(TParam),
 					culture);
+			}
 
 			return default(TSource);
 		}
@@ -92,7 +104,10 @@ namespace Xamarin.CommunityToolkit.Markup
 	public class NotConverter : FuncConverter<bool, bool>
 	{
 		static readonly Lazy<NotConverter> instance = new Lazy<NotConverter>(() => new NotConverter());
+
 		public static NotConverter Instance => instance.Value;
-		public NotConverter() : base(t => !t, t => !t) { }
+
+		public NotConverter()
+            : base(t => !t, t => !t) { }
 	}
 }

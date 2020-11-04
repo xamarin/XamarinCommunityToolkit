@@ -8,8 +8,11 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
+#pragma warning disable SA1200 // Using directives should be placed correctly
+	// These usings are placed here to avoid ambiguities
 	using Xamarin.Forms.Shapes;
 	using Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews;
+#pragma warning restore SA1200 // Using directives should be placed correctly
 
 	[TestFixture]
 	public class DefaultBindablePropertiesTests : MarkupBaseTestFixture
@@ -72,7 +75,6 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				{ typeof(ViewCell), na },
 				{ typeof(VisualElement), na },
 				{ typeof(WebViewSource), na },
-
 				{ typeof(AppLinkEntry), tbd },
 				{ typeof(FlyoutItem), tbd },
 				{ typeof(Shell), tbd },
@@ -82,7 +84,6 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				{ typeof(ShellSection), tbd },
 				{ typeof(Tab), tbd },
 				{ typeof(TabBar), tbd },
-
 				{ typeof(ArcSegment), tbd },
 				{ typeof(BezierSegment), tbd },
 				{ typeof(CompositeTransform), tbd },
@@ -104,7 +105,6 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				{ typeof(RotateTransform), tbd },
 				{ typeof(ScaleTransform), tbd },
 				{ typeof(SkewTransform), tbd },
-
 				{ typeof(Shape), tbd },
 				{ typeof(Transform), tbd },
 				{ typeof(TransformGroup), tbd },
@@ -119,8 +119,9 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var failMessage = new StringBuilder();
 			var bindableObjectTypes = typeof(BindableObject).Assembly.GetExportedTypes()
 				.Where(t => typeof(BindableObject).IsAssignableFrom(t) && !t.IsAbstract && !typeof(Layout).IsAssignableFrom(t) && !t.ContainsGenericParameters);
-			// The logical default property for a Layout is for its child view(s), which is not a bindable property. 
-			// So we exclude Layouts from this test. Note that it is still perfectly OK to define a default 
+
+			// The logical default property for a Layout is for its child view(s), which is not a bindable property.
+			// So we exclude Layouts from this test. Note that it is still perfectly OK to define a default
 			// bindable property for a Layout where that makes sense.
 			// We also do not support specifying default properties for unconstructed generic types.
 
@@ -147,10 +148,11 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			}
 
 			if (failMessage.Length > 0)
+			{
 				Assert.Fail(
 					$"Missing default BindableProperty / exclusion for BindableObject types:\n{failMessage}\n" +
-					$"Either register these types in {typeof(DefaultBindableProperties).FullName} or exclude them in this test"
-				);
+					$"Either register these types in {typeof(DefaultBindableProperties).FullName} or exclude them in this test");
+			}
 		}
 
 		[Test]
@@ -214,17 +216,23 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	}
 }
 
-namespace Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews
+#pragma warning disable SA1403 // File may only contain a single namespace
+namespace Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews // This namespace simulates derived controls defined in a separate app, for use in the tests in this file only
+#pragma warning restore SA1403 // File may only contain a single namespace
 {
+	#pragma warning disable SA1200 // Using directives should be placed correctly
+	// These usings are placed here to avoid ambiguities
 	using System.Windows.Input;
 	using Xamarin.Forms;
+	#pragma warning restore SA1200 // Using directives should be placed correctly
 
-	internal class DerivedFromBoxView : BoxView { }
-	internal class DerivedFromButton : Button { }
+	class DerivedFromBoxView : BoxView { }
 
-	internal class CustomView : View { }
+	class DerivedFromButton : Button { }
 
-	internal class CustomViewWithText : View
+	class CustomView : View { }
+
+	class CustomViewWithText : View
 	{
 		public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(CustomViewWithText), default(string));
 
@@ -235,7 +243,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesVie
 		}
 	}
 
-	internal class CustomViewWithCommand : View
+	class CustomViewWithCommand : View
 	{
 		public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CustomViewWithCommand), default(ICommand));
 		public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(CustomViewWithCommand), default(object));

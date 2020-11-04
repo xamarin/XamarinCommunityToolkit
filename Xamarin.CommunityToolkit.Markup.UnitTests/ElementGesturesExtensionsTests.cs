@@ -7,7 +7,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	[TestFixture(typeof(Label))] // Derived from View
-	[TestFixture(typeof(Span))]  // Derived from GestureElement
+	[TestFixture(typeof(Span))] // Derived from GestureElement
 	public class ElementGesturesExtensionsTests<TGestureElement> : ElementGesturesBaseTestFixture where TGestureElement : Element, IGestureRecognizers, new()
 	{
 		[Test]
@@ -173,17 +173,17 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerivedFromLabel() // A View
 		{
-			DerivedFromLabel _ =
+			Assert.IsInstanceOf<DerivedFromLabel>(
 				new DerivedFromLabel()
-				.Gesture((TapGestureRecognizer g) => g.Bind(nameof(ViewModel.Command)));
+				.Gesture((TapGestureRecognizer g) => g.Bind(nameof(ViewModel.Command))));
 		}
 
 		[Test]
 		public void SupportDerivedFromSpan() // A GestureElement
 		{
-			DerivedFromSpan _ =
+			Assert.IsInstanceOf<DerivedFromSpan>(
 				new DerivedFromSpan()
-				.Gesture((TapGestureRecognizer g) => g.Bind(nameof(ViewModel.Command)));
+				.Gesture((TapGestureRecognizer g) => g.Bind(nameof(ViewModel.Command))));
 		}
 	}
 
@@ -212,7 +212,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.That(gestureRecognizers.Length, Is.EqualTo(count));
 
 			foreach (var gestureRecognizer in gestureRecognizers)
-				Assert.That(element?.GestureRecognizers?.Count(g => Object.ReferenceEquals(g, gestureRecognizer)) ?? 0, Is.EqualTo(1));
+				Assert.That(element?.GestureRecognizers?.Count(g => ReferenceEquals(g, gestureRecognizer)) ?? 0, Is.EqualTo(1));
 
 			return gestureRecognizers;
 		}

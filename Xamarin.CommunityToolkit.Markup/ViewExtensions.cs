@@ -74,6 +74,10 @@ namespace Xamarin.CommunityToolkit.Markup
 		{ view.Margin = new Thickness(left, top, right, bottom); return view; }
 	}
 
+	#pragma warning disable SA1403 // File may only contain a single namespace
+
+	// The extensions in these sub-namespaces are designed to be used together with the extensions in the parent namespace.
+	// Keep them in a single file for better maintainability
 	namespace LeftToRight
 	{
 		public static class ViewExtensions
@@ -109,4 +113,5 @@ namespace Xamarin.CommunityToolkit.Markup
 			{ view.HorizontalOptions = LayoutOptions.StartAndExpand; return view; }
 		}
 	}
+	#pragma warning restore SA1403 // File may only contain a single namespace
 }

@@ -17,8 +17,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingMode mode = BindingMode.Default,
 			string stringFormat = null,
 			TDest targetNullValue = default,
-			TDest fallbackValue = default
-		) where TBindable : BindableObject
+			TDest fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2 },
@@ -27,8 +26,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			mode,
 			stringFormat,
 			targetNullValue,
-			fallbackValue
-		);
+			fallbackValue);
 
 		/// <summary>Bind to a specified property with 2 bindings, an inline convertor and a converter parameter</summary>
 		public static TBindable Bind<TBindable, TSource1, TSource2, TParam, TDest>(
@@ -42,8 +40,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingMode mode = BindingMode.Default,
 			string stringFormat = null,
 			TDest targetNullValue = default,
-			TDest fallbackValue = default
-		) where TBindable : BindableObject
+			TDest fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2 },
@@ -52,8 +49,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			mode,
 			stringFormat,
 			targetNullValue,
-			fallbackValue
-		);
+			fallbackValue);
 
 		/// <summary>Bind to a specified property with 3 bindings and an inline convertor</summary>
 		public static TBindable Bind<TBindable, TSource1, TSource2, TSource3, TDest>(
@@ -67,8 +63,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingMode mode = BindingMode.Default,
 			string stringFormat = null,
 			TDest targetNullValue = default,
-			TDest fallbackValue = default
-		) where TBindable : BindableObject
+			TDest fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2, binding3 },
@@ -77,8 +72,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			mode,
 			stringFormat,
 			targetNullValue,
-			fallbackValue
-		);
+			fallbackValue);
 
 		/// <summary>Bind to a specified property with 3 bindings, an inline convertor and a convertor parameter</summary>
 		public static TBindable Bind<TBindable, TSource1, TSource2, TSource3, TParam, TDest>(
@@ -93,8 +87,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingMode mode = BindingMode.Default,
 			string stringFormat = null,
 			TDest targetNullValue = default,
-			TDest fallbackValue = default
-		) where TBindable : BindableObject
+			TDest fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2, binding3 },
@@ -103,8 +96,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			mode,
 			stringFormat,
 			targetNullValue,
-			fallbackValue
-		);
+			fallbackValue);
 
 		/// <summary>Bind to a specified property with 4 bindings and an inline convertor</summary>
 		public static TBindable Bind<TBindable, TSource1, TSource2, TSource3, TSource4, TDest>(
@@ -119,8 +111,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingMode mode = BindingMode.Default,
 			string stringFormat = null,
 			TDest targetNullValue = default,
-			TDest fallbackValue = default
-		) where TBindable : BindableObject
+			TDest fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2, binding3, binding4 },
@@ -129,8 +120,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			mode,
 			stringFormat,
 			targetNullValue,
-			fallbackValue
-		);
+			fallbackValue);
 
 		/// <summary>Bind to a specified property with 4 bindings, an inline convertor and a converter parameter</summary>
 		public static TBindable Bind<TBindable, TSource1, TSource2, TSource3, TSource4, TParam, TDest>(
@@ -146,8 +136,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingMode mode = BindingMode.Default,
 			string stringFormat = null,
 			TDest targetNullValue = default,
-			TDest fallbackValue = default
-		) where TBindable : BindableObject
+			TDest fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2, binding3, binding4 },
@@ -156,8 +145,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			mode,
 			stringFormat,
 			targetNullValue,
-			fallbackValue
-		);
+			fallbackValue);
 
 		/// <summary>Bind to a specified property with multiple bindings and a multi convertor</summary>
 		public static TBindable Bind<TBindable>(
@@ -169,10 +157,10 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingMode mode = BindingMode.Default,
 			string stringFormat = null,
 			object targetNullValue = null,
-			object fallbackValue = null
-		) where TBindable : BindableObject
+			object fallbackValue = null) where TBindable : BindableObject
 		{
-			bindable.SetBinding(targetProperty, new MultiBinding {
+			bindable.SetBinding(targetProperty, new MultiBinding
+            {
 				Bindings = bindings,
 				Converter = converter,
 				ConverterParameter = converterParameter,
@@ -180,7 +168,7 @@ namespace Xamarin.CommunityToolkit.Markup
 				StringFormat = stringFormat,
 				TargetNullValue = targetNullValue,
 				FallbackValue = fallbackValue
-			});
+            });
 			return bindable;
 		}
 	}

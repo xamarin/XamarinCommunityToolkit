@@ -18,10 +18,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerivedFromLabel()
 		{
-			DerivedFromLabel _ =
+			Assert.IsInstanceOf<DerivedFromLabel>(
 				new DerivedFromLabel()
 				.TextLeft()
-				.TextRight();
+				.TextRight());
 		}
 
 		class DerivedFromLabel : Label { }

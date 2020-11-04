@@ -1,13 +1,12 @@
 ﻿using System;
 using NUnit.Framework;
 using Xamarin.Forms;
+using System.Linq;
+using System.Windows.Input;
+using Xamarin.CommunityToolkit.Markup.UnitTests.BindableObjectViews;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	using System.Linq;
-	using System.Windows.Input;
-	using Xamarin.CommunityToolkit.Markup.UnitTests.BindableObjectViews;
-
 	[TestFixture]
 	public class BindableObjectExtensionsTests : MarkupBaseTestFixture
 	{
@@ -620,7 +619,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void Assign()
 		{
 			var createdLabel = new Label().Assign(out Label assignLabel);
-			Assert.That(Object.ReferenceEquals(createdLabel, assignLabel));
+			Assert.That(ReferenceEquals(createdLabel, assignLabel));
 		}
 
 		[Test]
@@ -633,7 +632,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerivedElements()
 		{
-			DerivedFromLabel _ =
+			Assert.IsInstanceOf<DerivedFromLabel>(
 				new DerivedFromLabel()
 				.Bind(nameof(viewModel.Text))
 				.Bind(
@@ -654,28 +653,33 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 					nameof(viewModel.IsRed),
 					convert: (bool isRed, double alpha) => (isRed ? Color.Red : Color.Green).MultiplyAlpha(alpha))
 				.Invoke(l => l.Text = nameof(SupportDerivedElements))
-				.Assign(out DerivedFromLabel assignDerivedFromLabel);
+				.Assign(out DerivedFromLabel assignDerivedFromLabel));
 
-			DerivedFromTextCell __ =
+			Assert.IsInstanceOf<DerivedFromTextCell>(
 				new DerivedFromTextCell()
-				.BindCommand(nameof(viewModel.Command));
+				.BindCommand(nameof(viewModel.Command)));
 		}
 
 		class ViewModel
 		{
 			public Guid Id { get; set; }
+
 			public ICommand Command { get; set; }
+
 			public string Text { get; set; }
+
 			public Color TextColor { get; set; }
+
 			public bool IsRed { get; set; }
 		}
 	}
 }
 
-namespace Xamarin.CommunityToolkit.Markup.UnitTests.BindableObjectViews
+#pragma warning disable SA1403 // File may only contain a single namespace
+namespace Xamarin.CommunityToolkit.Markup.UnitTests.BindableObjectViews // This namespace simulates derived controls defined in a separate app, for use in the tests in this file only
+#pragma warning restore SA1403 // File may only contain a single namespace
 {
-	using Xamarin.Forms;
-
 	class DerivedFromLabel : Label { }
+
 	class DerivedFromTextCell : TextCell { }
 }

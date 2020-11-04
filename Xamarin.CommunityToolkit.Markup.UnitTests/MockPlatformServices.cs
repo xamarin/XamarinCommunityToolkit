@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	{
 		public string GetHash(string input) => throw new NotImplementedException();
 
-		string IPlatformServices.GetMD5Hash(string input)  => throw new NotImplementedException();
+		string IPlatformServices.GetMD5Hash(string input) => throw new NotImplementedException();
 
 		public double GetNamedSize(NamedSize size, Type targetElement, bool useOldSizes)
 		{
@@ -78,7 +78,6 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 		public SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint) => throw new NotImplementedException();
 
-		public OSAppTheme RequestedTheme  => throw new NotImplementedException();
-
+		public OSAppTheme RequestedTheme => throw new NotImplementedException();
 	}
 }

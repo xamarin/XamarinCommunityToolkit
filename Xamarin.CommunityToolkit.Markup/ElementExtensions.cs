@@ -24,10 +24,18 @@ namespace Xamarin.CommunityToolkit.Markup
 		{ element.SetDynamicResource(property, key); return element; }
 
 		public static TElement DynamicResources<TElement>(this TElement element, params (BindableProperty property, string key)[] resources) where TElement : Element
-		{ foreach (var resource in resources) element.SetDynamicResource(resource.property, resource.key); return element; }
+		{
+			foreach (var resource in resources)
+				element.SetDynamicResource(resource.property, resource.key);
+			return element;
+		}
 
 		public static TElement RemoveDynamicResources<TElement>(this TElement element, params BindableProperty[] properties) where TElement : Element
-		{ foreach (var property in properties) element.RemoveDynamicResource(property); return element; }
+		{
+			foreach (var property in properties)
+				element.RemoveDynamicResource(property);
+			return element;
+		}
 
 		// Effects
 
@@ -54,8 +62,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			string family = null,
 			double? size = null,
 			bool? bold = null,
-			bool? italic = null
-		) where TFontElement : Element, IFontElement
+			bool? italic = null) where TFontElement : Element, IFontElement
 		{
 			if (family != null)
 				fontElement.SetValue(FontElement.FontFamilyProperty, family);

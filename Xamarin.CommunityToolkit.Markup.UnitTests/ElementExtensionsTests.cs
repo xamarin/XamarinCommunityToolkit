@@ -55,12 +55,12 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void EffectSingle()
 		{
 			Label.Effects?.Clear();
-			Assume.That((Label.Effects?.Count ?? 0), Is.EqualTo(0));
+			Assume.That(Label.Effects?.Count ?? 0, Is.EqualTo(0));
 
 			NullEffect effect1 = new NullEffect();
 			Label.Effects(effect1);
 
-			Assert.That((Label.Effects?.Count ?? 0), Is.EqualTo(1));
+			Assert.That(Label.Effects?.Count ?? 0, Is.EqualTo(1));
 			Assert.That(Label.Effects.Contains(effect1));
 		}
 
@@ -68,12 +68,12 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void EffectsMultiple()
 		{
 			Label.Effects?.Clear();
-			Assume.That((Label.Effects?.Count ?? 0), Is.EqualTo(0));
+			Assume.That(Label.Effects?.Count ?? 0, Is.EqualTo(0));
 
 			NullEffect effect1 = new NullEffect(), effect2 = new NullEffect();
 			Label.Effects(effect1, effect2);
 
-			Assert.That((Label.Effects?.Count ?? 0), Is.EqualTo(2));
+			Assert.That(Label.Effects?.Count ?? 0, Is.EqualTo(2));
 			Assert.That(Label.Effects.Contains(effect1));
 			Assert.That(Label.Effects.Contains(effect2));
 		}
@@ -96,7 +96,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 					l => l.Font("AFontName", 8, true, true),
 					(FontElement.FontSizeProperty, 6.0, 8.0),
 					(FontElement.FontAttributesProperty, FontAttributes.None, FontAttributes.Bold | FontAttributes.Italic),
-					(FontElement.FontFamilyProperty, "", "AFontName"));
+					(FontElement.FontFamilyProperty, string.Empty, "AFontName"));
 
 		[Test]
 		public void FontWithSizeNamedParameter()
@@ -112,18 +112,18 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 		[Test]
 		public void FontWithFamilyNamedParameter()
-			=> TestPropertiesSet(l => l.Font(family: "AFontName"), (FontElement.FontFamilyProperty, "", "AFontName"));
+			=> TestPropertiesSet(l => l.Font(family: "AFontName"), (FontElement.FontFamilyProperty, string.Empty, "AFontName"));
 
 		[Test]
 		public void SupportDerivedFromLabel()
 		{
-			DerivedFromLabel _ =
+			Assert.IsInstanceOf<DerivedFromLabel>(
 				new DerivedFromLabel()
 				.Effects(new NullEffect())
 				.FontSize(8)
 				.Bold()
 				.Italic()
-				.Font("AFontName", 8, true, true);
+				.Font("AFontName", 8, true, true));
 		}
 
 		class DerivedFromLabel : Label { }

@@ -17,15 +17,14 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			style = new Style<Label>();
 			formsStyle = style;
-			Assert.That(Object.ReferenceEquals(style.FormsStyle, formsStyle));
+			Assert.That(ReferenceEquals(style.FormsStyle, formsStyle));
 		}
 
 		[Test]
 		public void StyleSingleSetter()
 		{
 			var style = new Style<Label>(
-				(Label.TextColorProperty, Color.Red)
-			);
+				(Label.TextColorProperty, Color.Red));
 			Style formsStyle = style;
 
 			Assert.That(formsStyle.Setters?.Count, Is.EqualTo(1));
@@ -40,8 +39,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			var style = new Style<Label>(
 				(Label.TextColorProperty, Color.Red),
-				(Label.TranslationXProperty, 8.0)
-			);
+				(Label.TranslationXProperty, 8.0));
 			Style formsStyle = style;
 
 			Assert.That(formsStyle.Setters?.Count, Is.EqualTo(2));
@@ -73,7 +71,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var style = new Style<Label>().BasedOn(baseStyle);
 			Style formsStyle = style, formsBaseStyle = baseStyle;
 
-			Assert.That(Object.ReferenceEquals(formsStyle.BasedOn, formsBaseStyle));
+			Assert.That(ReferenceEquals(formsStyle.BasedOn, formsBaseStyle));
 		}
 
 		[Test]
@@ -102,8 +100,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			style.Add(
 				(Label.TextColorProperty, Color.Red),
-				(Label.TranslationXProperty, 8.0)
-			);
+				(Label.TranslationXProperty, 8.0));
 
 			Assert.That(formsStyle.Setters?.Count, Is.EqualTo(2));
 
@@ -127,7 +124,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			style.Add(behavior);
 
 			Assert.That(formsStyle.Behaviors?.Count, Is.EqualTo(1));
-			Assert.That(Object.ReferenceEquals(formsStyle.Behaviors[0], behavior));
+			Assert.That(ReferenceEquals(formsStyle.Behaviors[0], behavior));
 		}
 
 		[Test]
@@ -142,8 +139,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			style.Add(behavior1, behavior2);
 
 			Assert.That(formsStyle.Behaviors?.Count, Is.EqualTo(2));
-			Assert.That(Object.ReferenceEquals(formsStyle.Behaviors[0], behavior1));
-			Assert.That(Object.ReferenceEquals(formsStyle.Behaviors[1], behavior2));
+			Assert.That(ReferenceEquals(formsStyle.Behaviors[0], behavior1));
+			Assert.That(ReferenceEquals(formsStyle.Behaviors[1], behavior2));
 		}
 
 		[Test]
@@ -157,7 +154,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			style.Add(trigger);
 
 			Assert.That(formsStyle.Triggers?.Count, Is.EqualTo(1));
-			Assert.That(Object.ReferenceEquals(formsStyle.Triggers[0], trigger));
+			Assert.That(ReferenceEquals(formsStyle.Triggers[0], trigger));
 		}
 
 		[Test]
@@ -172,8 +169,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			style.Add(trigger1, trigger2);
 
 			Assert.That(formsStyle.Triggers?.Count, Is.EqualTo(2));
-			Assert.That(Object.ReferenceEquals(formsStyle.Triggers[0], trigger1));
-			Assert.That(Object.ReferenceEquals(formsStyle.Triggers[1], trigger2));
+			Assert.That(ReferenceEquals(formsStyle.Triggers[0], trigger1));
+			Assert.That(ReferenceEquals(formsStyle.Triggers[1], trigger2));
 		}
 
 		[Test]

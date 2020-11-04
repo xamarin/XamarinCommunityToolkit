@@ -30,11 +30,11 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerivedFrom()
 		{
-			DerivedFrom _ =
+			Assert.IsInstanceOf<DerivedFrom>(
 				new DerivedFrom()
 				.Padding(1)
 				.Padding(1, 2)
-				.Paddings(left: 1, top: 2, right: 3, bottom: 4);
+				.Paddings(left: 1, top: 2, right: 3, bottom: 4));
 		}
 
 		class DerivedFrom : ContentView { }

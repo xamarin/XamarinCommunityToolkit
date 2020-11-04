@@ -79,7 +79,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerivedFromLabel()
 		{
-			DerivedFromLabel _ =
+			Assert.IsInstanceOf<DerivedFromLabel>(
 				new DerivedFromLabel()
 				.TextStart()
 				.TextCenterHorizontal()
@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.FontSize(8.0)
 				.Bold()
 				.Italic()
-				.FormattedText();
+				.FormattedText());
 		}
 
 		class DerivedFromLabel : Label { }

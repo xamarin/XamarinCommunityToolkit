@@ -28,7 +28,6 @@ namespace Xamarin.CommunityToolkit.Markup
 		public static TElement MinSize<TElement>(this TElement element, double sizeRequest) where TElement : VisualElement
 			=> element.MinWidth(sizeRequest).MinHeight(sizeRequest);
 
-		public static T Style<T>(this T view, Style<T> style) where T : VisualElement
-		{ view.Style = style; return view; }
+		public static T Style<T>(this T view, Style<T> style) where T : VisualElement { view.Style = style; return view; }
 	}
 }

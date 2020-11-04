@@ -26,12 +26,12 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void SupportDerivedFromView()
 		{
-			DerivedFromView _ =
+			Assert.IsInstanceOf<DerivedFromView>(
 				new DerivedFromView()
 				.Left()
 				.Right()
 				.LeftExpand()
-				.RightExpand();
+				.RightExpand());
 		}
 
 		class DerivedFromView : BoxView { }

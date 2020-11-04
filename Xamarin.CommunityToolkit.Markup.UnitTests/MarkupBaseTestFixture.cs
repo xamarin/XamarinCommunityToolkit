@@ -24,18 +24,18 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 		protected void TestPropertiesSet<TPropertyValue>(
 			Action<TBindable> modify,
-			params (BindableProperty property, TPropertyValue beforeValue, TPropertyValue expectedValue)[] propertyChanges
-		) => TestPropertiesSet(Bindable, modify, propertyChanges);
+			params (BindableProperty property, TPropertyValue beforeValue, TPropertyValue expectedValue)[] propertyChanges)
+			=> TestPropertiesSet(Bindable, modify, propertyChanges);
 
 		protected void TestPropertiesSet(
 			Action<TBindable> modify,
-			params (BindableProperty property, object beforeValue, object expectedValue)[] propertyChanges
-		) => TestPropertiesSet(Bindable, modify, propertyChanges);
+			params (BindableProperty property, object beforeValue, object expectedValue)[] propertyChanges)
+			=> TestPropertiesSet(Bindable, modify, propertyChanges);
 
 		protected void TestPropertiesSet(
 			Action<TBindable> modify,
-			params (BindableProperty property, object expectedValue)[] propertyChanges
-		) => TestPropertiesSet(Bindable, modify, propertyChanges);
+			params (BindableProperty property, object expectedValue)[] propertyChanges)
+			=> TestPropertiesSet(Bindable, modify, propertyChanges);
 	}
 
 	public class MarkupBaseTestFixture : BaseTestFixture
@@ -43,8 +43,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		protected void TestPropertiesSet<TBindable, TPropertyValue>(
 			TBindable bindable,
 			Action<TBindable> modify,
-			params (BindableProperty property, TPropertyValue beforeValue, TPropertyValue expectedValue)[] propertyChanges
-		) where TBindable : BindableObject
+			params (BindableProperty property, TPropertyValue beforeValue, TPropertyValue expectedValue)[] propertyChanges) where TBindable : BindableObject
 		{
 			foreach (var change in propertyChanges)
 			{
@@ -61,8 +60,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		protected void TestPropertiesSet<TBindable, TPropertyValue>(
 			TBindable bindable,
 			Action<TBindable> modify,
-			params (BindableProperty property, TPropertyValue expectedValue)[] propertyChanges
-		) where TBindable : BindableObject
+			params (BindableProperty property, TPropertyValue expectedValue)[] propertyChanges) where TBindable : BindableObject
 		{
 			foreach (var change in propertyChanges)
 			{

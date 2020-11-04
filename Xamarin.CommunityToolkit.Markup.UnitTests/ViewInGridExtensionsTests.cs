@@ -7,6 +7,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	public class ViewInGridExtensionsTests : MarkupBaseTestFixture<BoxView>
 	{
 		enum TestRow { First, Second }
+
 		enum TestColumn { First, Second }
 
 		[Test]
