@@ -6,9 +6,13 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <NoWarn>1701;1702;SA1500;SA1502;SA1516;SA1111;SA1115;SA1136;SA1001;SA1008;SA1009;SA1019;SA1025;SA1107</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" >
+    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
