@@ -174,7 +174,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var v = new CustomViewWithText();
 			Assert.Throws<ArgumentException>(() => DefaultBindableProperties.GetFor(v));
 
-			AssertExperimental(() => DefaultBindableProperties.Register(CustomViewWithText.TextProperty));
+			DefaultBindableProperties.Register(CustomViewWithText.TextProperty);
 		}
 
 		[Test]
@@ -198,7 +198,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var v = new CustomViewWithCommand();
 			Assert.Throws<ArgumentException>(() => DefaultBindableProperties.GetForCommand(v));
 
-			AssertExperimental(() => DefaultBindableProperties.RegisterForCommand((CustomViewWithCommand.CommandProperty, CustomViewWithCommand.CommandParameterProperty)));
+			DefaultBindableProperties.RegisterForCommand((CustomViewWithCommand.CommandProperty, CustomViewWithCommand.CommandParameterProperty));
 		}
 
 		[TearDown]

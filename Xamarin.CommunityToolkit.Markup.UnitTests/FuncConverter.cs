@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	{
 
 		[Test]
-		public void TwoWayMultiWithParamAndCulture() => AssertExperimental(() =>
+		public void TwoWayMultiWithParamAndCulture()
 		{
 			CultureInfo convertCulture = null, convertBackCulture = null;
 			var expectedCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
@@ -40,10 +40,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var backValues = converter.ConvertBack(null, null, null, CultureInfo.InvariantCulture);
 			Assert.That((char)backValues[0], Is.EqualTo('\0'));
 			Assert.That((int)backValues[1], Is.EqualTo(0));
-		});
+		}
 
 		[Test]
-		public void TwoWayMultiWithParam() => AssertExperimental(() =>
+		public void TwoWayMultiWithParam()
 		{
 			// Convert char a and int i values to string of a repeated i times, or double that if parameter was true
 			var converter = new FuncMultiConverter<string, bool>(
@@ -66,10 +66,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var backValues = converter.ConvertBack(null, null, null, CultureInfo.InvariantCulture);
 			Assert.That((char)backValues[0], Is.EqualTo('\0'));
 			Assert.That((int)backValues[1], Is.EqualTo(0));
-		});
+		}
 
 		[Test]
-		public void TwoWayMulti() => AssertExperimental(() =>
+		public void TwoWayMulti()
 		{
 			// Convert char a and int i values to string of a repeated i times
 			var converter = new FuncMultiConverter<string, bool>(
@@ -91,10 +91,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var backValues = converter.ConvertBack(null, null, null, CultureInfo.InvariantCulture);
 			Assert.That((char)backValues[0], Is.EqualTo('\0'));
 			Assert.That((int)backValues[1], Is.EqualTo(0));
-		});
+		}
 
 		[Test]
-		public void FullyTypedTwoWayWithParamAndCulture() => AssertExperimental(() =>
+		public void FullyTypedTwoWayWithParamAndCulture()
 		{
 			CultureInfo convertCulture = null, convertBackCulture = null;
 			var expectedCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
@@ -110,10 +110,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			Assert.That(converter.Convert(null, typeof(object), null, CultureInfo.InvariantCulture), Is.EqualTo(Color.Green.MultiplyAlpha(default(double))));
 			Assert.That(converter.ConvertBack(null, typeof(object), null, CultureInfo.InvariantCulture), Is.EqualTo(default(bool)));
-		});
+		}
 
 		[Test]
-		public void FullyTypedTwoWayWithParam() => AssertExperimental(() =>
+		public void FullyTypedTwoWayWithParam()
 		{
 			var converter = new FuncConverter<bool, Color, double>(
 				(isRed, alpha) => (isRed ? Color.Red : Color.Green).MultiplyAlpha(alpha),
@@ -123,10 +123,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			Assert.That(converter.Convert(null, typeof(object), null, CultureInfo.InvariantCulture), Is.EqualTo(Color.Green.MultiplyAlpha(default(double))));
 			Assert.That(converter.ConvertBack(null, typeof(object), null, CultureInfo.InvariantCulture), Is.EqualTo(default(bool)));
-		});
+		}
 
 		[Test]
-		public void FullyTypedTwoWay() => AssertExperimental(() =>
+		public void FullyTypedTwoWay()
 		{
 			var converter = new FuncConverter<bool, Color, object>(
 				isRed => isRed ? Color.Red : Color.Green,
@@ -136,158 +136,156 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			Assert.That(converter.Convert(null, typeof(object), null, CultureInfo.InvariantCulture), Is.EqualTo(Color.Green));
 			Assert.That(converter.ConvertBack(null, typeof(object), null, CultureInfo.InvariantCulture), Is.EqualTo(default(bool)));
-		});
+		}
 
 		[Test]
-		public void FullyTypedOneWayWithParam() => AssertExperimental(() =>
+		public void FullyTypedOneWayWithParam()
 		{
 			new FuncConverter<bool, Color, double>(
 				(isRed, alpha) => (isRed ? Color.Red : Color.Green).MultiplyAlpha(alpha)
 			).AssertConvert(true, 0.5, Color.Red.MultiplyAlpha(0.5))
 			 .AssertConvert(false, 0.2, Color.Green.MultiplyAlpha(0.2));
-		});
+		}
 
 		[Test]
-		public void FullyTypedOneWay() => AssertExperimental(() =>
+		public void FullyTypedOneWay()
 		{
 			new FuncConverter<bool, Color, object>(
 				isRed => isRed ? Color.Red : Color.Green
 			).AssertConvert(true, Color.Red)
 			 .AssertConvert(false, Color.Green);
-		});
+		}
 
 		[Test]
-		public void FullyTypedBackOnlyWithParam() => AssertExperimental(() =>
+		public void FullyTypedBackOnlyWithParam()
 		{
 			new FuncConverter<bool, Color, double>(
 				null,
 				(color, alpha) => color == Color.Red.MultiplyAlpha(alpha)
 			).AssertConvert(true, 0.5, Color.Red.MultiplyAlpha(0.5), backOnly: true)
 			 .AssertConvert(false, 0.2, Color.Green.MultiplyAlpha(0.2), backOnly: true);
-		});
+		}
 
 		[Test]
-		public void FullyTypedBackOnly() => AssertExperimental(() =>
+		public void FullyTypedBackOnly()
 		{
 			new FuncConverter<bool, Color, object>(
 				null,
 				color => color == Color.Red
 			).AssertConvert(true, Color.Red, backOnly: true)
 			 .AssertConvert(false, Color.Green, backOnly: true);
-		});
+		}
 
 		[Test]
-		public void TwoWay() => AssertExperimental(() =>
+		public void TwoWay()
 		{
 			new FuncConverter<bool, Color>(
 				isRed => isRed ? Color.Red : Color.Green,
 				color => color == Color.Red
 			).AssertConvert(true, Color.Red, twoWay: true)
 			 .AssertConvert(false, Color.Green, twoWay: true);
-		});
+		}
 
 		[Test]
-		public void OneWay() => AssertExperimental(() =>
+		public void OneWay()
 		{
 			new FuncConverter<bool, Color>(
 				isRed => isRed ? Color.Red : Color.Green
 			).AssertConvert(true, Color.Red)
 			 .AssertConvert(false, Color.Green);
-		});
+		}
 
 		[Test]
-		public void BackOnly() => AssertExperimental(() =>
+		public void BackOnly()
 		{
 			new FuncConverter<bool, Color>(
 				null,
 				color => color == Color.Red
 			).AssertConvert(true, Color.Red, backOnly: true)
 			 .AssertConvert(false, Color.Green, backOnly: true);
-		});
+		}
 
 		[Test]
-		public void TypedSourceTwoWay() => AssertExperimental(() =>
+		public void TypedSourceTwoWay()
 		{
 			new FuncConverter<bool>(
 				isRed => isRed ? Color.Red : Color.Green,
 				color => (Color)color == Color.Red
 			).AssertConvert(true, Color.Red, twoWay: true)
 			 .AssertConvert(false, Color.Green, twoWay: true);
-		});
+		}
 
 		[Test]
-		public void TypedSourceOneWay() => AssertExperimental(() =>
+		public void TypedSourceOneWay()
 		{
 			new FuncConverter<bool>(
 				isRed => isRed ? Color.Red : Color.Green
 			).AssertConvert(true, Color.Red)
 			 .AssertConvert(false, Color.Green);
-		});
+		}
 
 		[Test]
-		public void TypedSourceBackOnly() => AssertExperimental(() =>
+		public void TypedSourceBackOnly()
 		{
 			new FuncConverter<bool>(
 				null,
 				color => (Color)color == Color.Red
 			).AssertConvert(true, (object)Color.Red, backOnly: true)
 			 .AssertConvert(false, (object)Color.Green, backOnly: true);
-		});
+		}
 
 		[Test]
-		public void UntypedTwoWay() => AssertExperimental(() =>
+		public void UntypedTwoWay()
 		{
 			new Markup.FuncConverter(
 				isRed => (bool)isRed ? Color.Red : Color.Green,
 				color => (Color)color == Color.Red
 			).AssertConvert((object)true, (object)Color.Red, twoWay: true)
 			 .AssertConvert((object)false, (object)Color.Green, twoWay: true);
-		});
+		}
 
 		[Test]
-		public void UntypedOneWay() => AssertExperimental(() =>
+		public void UntypedOneWay()
 		{
 			new Markup.FuncConverter(
 				isRed => (bool)isRed ? Color.Red : Color.Green
 			).AssertConvert((object)true, (object)Color.Red)
 			 .AssertConvert((object)false, (object)Color.Green);
-		});
+		}
 
 		[Test]
-		public void UntypedBackOnly() => AssertExperimental(() =>
+		public void UntypedBackOnly()
 		{
 			new Markup.FuncConverter(
 				null,
 				color => (Color)color == Color.Red
 			).AssertConvert((object)true, (object)Color.Red, backOnly: true)
 			 .AssertConvert((object)false, (object)Color.Green, backOnly: true);
-		});
+		}
 
 		[Test]
-		public void ToStringConverter() => AssertExperimental(() =>
+		public void ToStringConverter()
 		{
 			new ToStringConverter("Converted {0}")
 				.AssertConvert((object)3, "Converted 3");
-		});
+		}
 
 		[Test]
-		public void ToStringConverterDefault() => AssertExperimental(() =>
+		public void ToStringConverterDefault()
 		{
 			new ToStringConverter()
 				.AssertConvert((object)3, "3");
-		});
+		}
 
 		[Test]
 		public void NotConverterTest()
 		{
-			AssertExperimental(() => {
-				var c = NotConverter.Instance; 
-				c = NotConverter.Instance; // 2nd time to test instance reuse
-				Assert.IsTrue((bool)c.Convert(false, null, null, null));
-				Assert.IsFalse((bool)c.Convert(true, null, null, null));
-				Assert.IsTrue((bool)c.ConvertBack(false, null, null, null));
-				Assert.IsFalse((bool)c.ConvertBack(true, null, null, null));
-			});
+			var c = NotConverter.Instance; 
+			c = NotConverter.Instance; // 2nd time to test instance reuse
+			Assert.IsTrue((bool)c.Convert(false, null, null, null));
+			Assert.IsFalse((bool)c.Convert(true, null, null, null));
+			Assert.IsTrue((bool)c.ConvertBack(false, null, null, null));
+			Assert.IsFalse((bool)c.ConvertBack(true, null, null, null));
 		}
 	}
 }

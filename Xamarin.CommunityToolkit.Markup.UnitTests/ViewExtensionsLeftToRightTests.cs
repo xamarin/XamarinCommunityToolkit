@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			=> TestPropertiesSet(v => v.RightExpand(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.EndAndExpand));
 
 		[Test]
-		public void SupportDerivedFromView() => AssertExperimental(() =>
+		public void SupportDerivedFromView()
 		{
 			DerivedFromView _ =
 				new DerivedFromView()
@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.Right()
 				.LeftExpand()
 				.RightExpand();
-		});
+		}
 
 		class DerivedFromView : BoxView { }
 	}

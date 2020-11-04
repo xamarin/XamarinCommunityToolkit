@@ -10,20 +10,20 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		Label Label => Bindable;
 
 		[Test]
-		public void DynamicResource() => AssertExperimental(() =>
+		public void DynamicResource()
 		{
 			var label = new Label { Resources = new ResourceDictionary { { "TextKey", "TextValue" } } };
 			Assert.That(label.Text, Is.EqualTo(Label.TextProperty.DefaultValue));
 
 			label.DynamicResource(Label.TextProperty, "TextKey");
 			Assert.That(label.Text, Is.EqualTo("TextValue"));
-		});
+		}
 
 		[Test]
-		public void DynamicResources() => AssertExperimental(() => AssertDynamicResources());
+		public void DynamicResources() => AssertDynamicResources();
 
 		[Test]
-		public void RemoveDynamicResources() => AssertExperimental(() =>
+		public void RemoveDynamicResources()
 		{
 			var label = AssertDynamicResources();
 
@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			Assert.That(label.Text, Is.EqualTo("TextValue"));
 			Assert.That(label.TextColor, Is.EqualTo(Color.Green));
-		});
+		}
 
 		Label AssertDynamicResources()
 		{
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		}
 
 		[Test]
-		public void EffectSingle() => AssertExperimental(() =>
+		public void EffectSingle()
 		{
 			Label.Effects?.Clear();
 			Assume.That((Label.Effects?.Count ?? 0), Is.EqualTo(0));
@@ -62,10 +62,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			Assert.That((Label.Effects?.Count ?? 0), Is.EqualTo(1));
 			Assert.That(Label.Effects.Contains(effect1));
-		});
+		}
 
 		[Test]
-		public void EffectsMultiple() => AssertExperimental(() =>
+		public void EffectsMultiple()
 		{
 			Label.Effects?.Clear();
 			Assume.That((Label.Effects?.Count ?? 0), Is.EqualTo(0));
@@ -76,7 +76,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.That((Label.Effects?.Count ?? 0), Is.EqualTo(2));
 			Assert.That(Label.Effects.Contains(effect1));
 			Assert.That(Label.Effects.Contains(effect2));
-		});
+		}
 
 		[Test]
 		public void FontSize()
@@ -115,7 +115,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			=> TestPropertiesSet(l => l.Font(family: "AFontName"), (FontElement.FontFamilyProperty, "", "AFontName"));
 
 		[Test]
-		public void SupportDerivedFromLabel() => AssertExperimental(() =>
+		public void SupportDerivedFromLabel()
 		{
 			DerivedFromLabel _ =
 				new DerivedFromLabel()
@@ -124,7 +124,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.Bold()
 				.Italic()
 				.Font("AFontName", 8, true, true);
-		});
+		}
 
 		class DerivedFromLabel : Label { }
 	}

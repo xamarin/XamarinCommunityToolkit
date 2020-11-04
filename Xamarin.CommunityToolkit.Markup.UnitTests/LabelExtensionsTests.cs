@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			=> TestPropertiesSet(l => l.Italic(), (Label.FontAttributesProperty, FontAttributes.None, FontAttributes.Italic));
 
 		[Test]
-		public void FormattedTextSingleSpan() => AssertExperimental(() =>
+		public void FormattedTextSingleSpan()
 		{
 			Label.FormattedText = null;
 			Label.FormattedText(
@@ -61,10 +61,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			var spans = Label.FormattedText?.Spans;
 			Assert.That(spans?.Count == 1 && spans[0].BackgroundColor == Color.Blue);
-		});
+		}
 
 		[Test]
-		public void FormattedTextMultipleSpans() => AssertExperimental(() =>
+		public void FormattedTextMultipleSpans()
 		{
 			Label.FormattedText = null;
 			Label.FormattedText(
@@ -74,10 +74,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			var spans = Label.FormattedText?.Spans;
 			Assert.That(spans?.Count == 2 && spans[0].BackgroundColor == Color.Blue && spans[1].BackgroundColor == Color.Green);
-		});
+		}
 
 		[Test]
-		public void SupportDerivedFromLabel() => AssertExperimental(() =>
+		public void SupportDerivedFromLabel()
 		{
 			DerivedFromLabel _ =
 				new DerivedFromLabel()
@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.Bold()
 				.Italic()
 				.FormattedText();
-		});
+		}
 
 		class DerivedFromLabel : Label { }
 	}

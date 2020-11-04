@@ -16,13 +16,13 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			=> TestPropertiesSet(l => l.TextRight(), (Label.HorizontalTextAlignmentProperty, TextAlignment.End, TextAlignment.Start));
 
 		[Test]
-		public void SupportDerivedFromLabel() => AssertExperimental(() =>
+		public void SupportDerivedFromLabel()
 		{
 			DerivedFromLabel _ =
 				new DerivedFromLabel()
 				.TextLeft()
 				.TextRight();
-		});
+		}
 
 		class DerivedFromLabel : Label { }
 	}

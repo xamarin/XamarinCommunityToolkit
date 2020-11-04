@@ -116,7 +116,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			=> TestPropertiesSet(v => v.Margins(left: 1, top: 2, right: 3, bottom: 4), (View.MarginProperty, new Thickness(0), new Thickness(1, 2, 3, 4)));
 
 		[Test]
-		public void SupportDerivedFromView() => AssertExperimental(() =>
+		public void SupportDerivedFromView()
 		{
 			DerivedFromView _ =
 				new DerivedFromView()
@@ -143,7 +143,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.Margin(new Thickness(1))
 				.Margin(1, 2)
 				.Margins(left: 1, top: 2, right: 3, bottom: 4);
-		});
+		}
 
 		class DerivedFromView : BoxView { }
 	}

@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		enum Col { First, Second, Third, Fourth, Fifth }
 
 		[Test]
-		public void DefineRowsWithoutEnums() => AssertExperimental(() =>
+		public void DefineRowsWithoutEnums()
 		{
 			var grid = new Forms.Grid
 			{
@@ -27,10 +27,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.That(grid.RowDefinitions[1]?.Height, Is.EqualTo(GridLength.Star));
 			Assert.That(grid.RowDefinitions[2]?.Height, Is.EqualTo(starsLength));
 			Assert.That(grid.RowDefinitions[3]?.Height, Is.EqualTo(new GridLength(20)));
-		});
+		}
 
 		[Test]
-		public void DefineRowsWithEnums() => AssertExperimental(() =>
+		public void DefineRowsWithEnums()
 		{
 			var grid = new Forms.Grid
 			{
@@ -47,7 +47,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.That(grid.RowDefinitions[1]?.Height, Is.EqualTo(GridLength.Star));
 			Assert.That(grid.RowDefinitions[2]?.Height, Is.EqualTo(starsLength));
 			Assert.That(grid.RowDefinitions[3]?.Height, Is.EqualTo(new GridLength(20)));
-		});
+		}
 
 		[Test]
 		public void InvalidRowEnumOrder()
@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		}
 
 		[Test]
-		public void DefineColumnsWithoutEnums() => AssertExperimental(() =>
+		public void DefineColumnsWithoutEnums()
 		{
 			var grid = new Forms.Grid
 			{
@@ -73,10 +73,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.That(grid.ColumnDefinitions[2]?.Width, Is.EqualTo(starsLength));
 			Assert.That(grid.ColumnDefinitions[3]?.Width, Is.EqualTo(new GridLength(20)));
 			Assert.That(grid.ColumnDefinitions[4]?.Width, Is.EqualTo(new GridLength(40)));
-		});
+		}
 
 		[Test]
-		public void DefineColumnsWithEnums() => AssertExperimental(() =>
+		public void DefineColumnsWithEnums()
 		{
 			var grid = new Forms.Grid
 			{
@@ -95,24 +95,22 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Assert.That(grid.ColumnDefinitions[2]?.Width, Is.EqualTo(starsLength));
 			Assert.That(grid.ColumnDefinitions[3]?.Width, Is.EqualTo(new GridLength(20)));
 			Assert.That(grid.ColumnDefinitions[4]?.Width, Is.EqualTo(new GridLength(40)));
-		});
+		}
 
 		[Test]
 		public void InvalidColumnEnumOrder()
 		{
 			Assert.Throws<ArgumentException>(
-				() => AssertExperimental(() => Columns.Define((Col.Second, 8), (Col.First, 8))),
+				() => Columns.Define((Col.Second, 8), (Col.First, 8)),
 				$"Value of column name Second is not 0. " +
 				"Columns must be defined with enum names whose values form the sequence 0,1,2,..."
 			);
 		}
 
 		[Test]
-		public void AllColumns() => AssertExperimental(()
-			=> Assert.That(All<Col>(), Is.EqualTo(5)));
+		public void AllColumns() => Assert.That(All<Col>(), Is.EqualTo(5));
 
 		[Test]
-		public void LastRow() => AssertExperimental(()
-			=> Assert.That(Last<Row>(), Is.EqualTo(3)));
+		public void LastRow() => Assert.That(Last<Row>(), Is.EqualTo(3));
 	}
 }

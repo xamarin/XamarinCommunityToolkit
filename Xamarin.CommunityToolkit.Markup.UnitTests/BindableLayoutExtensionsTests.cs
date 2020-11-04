@@ -22,12 +22,12 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		}
 
 		[Test]
-		public void EmptyViewTemplateFunction() => AssertExperimental(() =>
+		public void EmptyViewTemplateFunction()
 		{
 			Func<object> loadTemplate = () => new BoxView();
 			Bindable.EmptyViewTemplate(loadTemplate);
 			Assert.That(BindableLayout.GetEmptyView(Bindable), Is.Not.Null); // TODO: this will fail after fix https://github.com/xamarin/Xamarin.Forms/pull/12689 is merged; then change to GetEmptyViewTemplate
-		});
+		}
 
 		[Test]
 		public void ItemsSource()
@@ -44,12 +44,12 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		}
 
 		[Test]
-		public void ItemTemplateFunction() => AssertExperimental(() =>
+		public void ItemTemplateFunction()
 		{
 			Func<object> loadTemplate = () => new BoxView();
 			Bindable.ItemTemplate(loadTemplate);
 			Assert.That(BindableLayout.GetItemTemplate(Bindable), Is.Not.Null);
-		});
+		}
 
 		[Test]
 		public void ItemTemplateSelector()
@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		}
 
 		[Test]
-		public void SupportDerivedFromView() => AssertExperimental(() =>
+		public void SupportDerivedFromView()
 		{
 			_ = new DerivedFromView()
 				.EmptyView(new BoxView())
@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.ItemsSource(new string[] { })
 				.ItemTemplate(new DataTemplate(() => new BoxView()))
 				.ItemTemplateSelector(new Selector());
-		});
+		}
 
 		class DerivedFromView : StackLayout { }
 	}

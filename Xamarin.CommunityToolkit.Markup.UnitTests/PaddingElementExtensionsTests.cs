@@ -28,14 +28,14 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			=> TestPropertiesSet(l => l.Paddings(left: 1, top: 2, right: 3, bottom: 4), (PaddingElement.PaddingProperty, new Thickness(0), new Thickness(1, 2, 3, 4)));
 
 		[Test]
-		public void SupportDerivedFrom() => AssertExperimental(() =>
+		public void SupportDerivedFrom()
 		{
 			DerivedFrom _ =
 				new DerivedFrom()
 				.Padding(1)
 				.Padding(1, 2)
 				.Paddings(left: 1, top: 2, right: 3, bottom: 4);
-		});
+		}
 
 		class DerivedFrom : ContentView { }
 	}

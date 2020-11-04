@@ -40,11 +40,6 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 	public class MarkupBaseTestFixture : BaseTestFixture
 	{
-		protected void AssertExperimental(TestDelegate test) // TODO: Remove
-		{
-			test();
-		}
-
 		protected void TestPropertiesSet<TBindable, TPropertyValue>(
 			TBindable bindable,
 			Action<TBindable> modify,
