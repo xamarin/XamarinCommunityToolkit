@@ -39,7 +39,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"Shields can show some status information or call-to-action in a badge-like way"),
 
 			new SectionModel(typeof(StateLayoutPage), "StateLayout",
-				"A collection of attached properties that let you specify one or more state views for any of your existing layouts.")
+				"A collection of attached properties that let you specify one or more state views for any of your existing layouts."),
+        
+			new SectionModel(typeof(SegmentedView), "Segmented View",
+				"Segmented View allows you to have a simple segments control that can display text or images.")
 		};
 	}
 }

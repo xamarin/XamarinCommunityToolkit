@@ -70,5 +70,209 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
         }
+        
+        internal static string CameraViewTitle {
+            get {
+                return ResourceManager.GetString("CameraViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewDescription {
+            get {
+                return ResourceManager.GetString("CameraViewDescription", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleZoom {
+            get {
+                return ResourceManager.GetString("CameraViewSampleZoom", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleSnapPicture {
+            get {
+                return ResourceManager.GetString("CameraViewSampleSnapPicture", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleStartRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStartRecording", resourceCulture);
+            }
+        }
+        
+        internal static string CameraViewSampleStopRecording {
+            get {
+                return ResourceManager.GetString("CameraViewSampleStopRecording", resourceCulture);
+            }
+        }
+        
+        internal static string DateTimeOffsetConverterShortDescription {
+            get {
+                return ResourceManager.GetString("DateTimeOffsetConverterShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ExpanderTitle {
+            get {
+                return ResourceManager.GetString("ExpanderTitle", resourceCulture);
+            }
+        }
+        
+        internal static string ExpanderDescription {
+            get {
+                return ResourceManager.GetString("ExpanderDescription", resourceCulture);
+            }
+        }
+        
+        internal static string NestedExpander {
+            get {
+                return ResourceManager.GetString("NestedExpander", resourceCulture);
+            }
+        }
+        
+        internal static string EnableNested {
+            get {
+                return ResourceManager.GetString("EnableNested", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorDescription {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorDismissKeyboardOptionLabel {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorDismissKeyboardOptionLabel", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorSearchBarPlaceholderText {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorSearchBarPlaceholderText", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorSearchResultLabelFormat {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorSearchResultLabelFormat", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorShortDescription {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorShortDescription", resourceCulture);
+            }
+        }
+        
+        internal static string UserStoppedTypingBehaviorThresholdOptionLabel {
+            get {
+                return ResourceManager.GetString("UserStoppedTypingBehaviorThresholdOptionLabel", resourceCulture);
+            }
+        }
+        
+        internal static string AutoGridLayoutBehaviorDescription {
+            get {
+                return ResourceManager.GetString("AutoGridLayoutBehaviorDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ImpliedOrderGridDescriptionLabel {
+            get {
+                return ResourceManager.GetString("ImpliedOrderGridDescriptionLabel", resourceCulture);
+            }
+        }
+        
+        internal static string ShowSnackbarWithActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackbarWithActionButton", resourceCulture);
+            }
+        }
+        
+        internal static string ActionsPageDescription {
+            get {
+                return ResourceManager.GetString("ActionsPageDescription", resourceCulture);
+            }
+        }
+        
+        internal static string ActionsPageTitle {
+            get {
+                return ResourceManager.GetString("ActionsPageTitle", resourceCulture);
+            }
+        }
+        
+        internal static string ShowSnackbarNoActionButton {
+            get {
+                return ResourceManager.GetString("ShowSnackbarNoActionButton", resourceCulture);
+            }
+        }
+        
+        internal static string SnackbarIsClosedByTimeout {
+            get {
+                return ResourceManager.GetString("SnackbarIsClosedByTimeout", resourceCulture);
+            }
+        }
+        
+        internal static string SnackbarIsClosedByUser {
+            get {
+                return ResourceManager.GetString("SnackbarIsClosedByUser", resourceCulture);
+            }
+        }
+        
+        internal static string GravatarImageSourceDescription {
+            get {
+                return ResourceManager.GetString("GravatarImageSourceDescription", resourceCulture);
+            }
+        }
+        
+        internal static string GravatarImageSourceTitle {
+            get {
+                return ResourceManager.GetString("GravatarImageSourceTitle", resourceCulture);
+            }
+        }
+        
+        internal static string DefaultGravatar {
+            get {
+                return ResourceManager.GetString("DefaultGravatar", resourceCulture);
+            }
+        }
+        
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        internal static string FullImageSource {
+            get {
+                return ResourceManager.GetString("FullImageSource", resourceCulture);
+            }
+        }
+        
+        internal static string GravatarSize {
+            get {
+                return ResourceManager.GetString("GravatarSize", resourceCulture);
+            }
+        }
+        
+        internal static string XAMLExtension {
+            get {
+                return ResourceManager.GetString("XAMLExtension", resourceCulture);
+            }
+        }
+        
+        internal static string SegmentedViewTitle {
+            get {
+                return ResourceManager.GetString("SegmentedViewTitle", resourceCulture);
+            }
+        }
+        
+        internal static string SegmentedViewDescription {
+            get {
+                return ResourceManager.GetString("SegmentedViewDescription", resourceCulture);
+            }
+        }
     }
 }
