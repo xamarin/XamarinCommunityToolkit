@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.CustomTabsPage"  
+    xmlns:controls="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" >
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+
+            <x:String x:Key="IconPlay">&#xf40a;</x:String>
+            <x:String x:Key="IconDownload">&#xf1da;</x:String>
+
+            <ControlTemplate
+		        x:Key="TabItemTemplate">
+                <Grid
+			        RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image
+				        Grid.Row="0"
+				        VerticalOptions="Center"
+				        HorizontalOptions="Center"
+				        WidthRequest="24"
+				        HeightRequest="24"
+                        Margin="6"
+				        Source="{TemplateBinding CurrentIcon}" />
+                    <Label
+				        Grid.Row="1"
+				        HorizontalOptions="Center"
+				        FontSize="{TemplateBinding FontSize}"
+				        Text="{TemplateBinding Text}"
+				        TextColor="{TemplateBinding CurrentTextColor}" />
+                </Grid>
+            </ControlTemplate>
+
+            <ControlTemplate
+                x:Key="FabTabItemTemplate">
+                <Grid>
+                    <ImageButton
+                        InputTransparent="True"
+                        Source="{TemplateBinding CurrentIcon}"
+                        Padding="10"
+                        HorizontalOptions="Center"
+                        BackgroundColor="#FF0000"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        Margin="6">
+                        <ImageButton.CornerRadius>
+                            <OnPlatform x:TypeArguments="x:Int32">
+                                <On Platform="iOS" Value="30"/>
+                                <On Platform="Android" Value="60"/>
+                                <On Platform="UWP" Value="24"/>
+                            </OnPlatform>
+                        </ImageButton.CornerRadius>
+                        <ImageButton.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean">
+                                <On Platform="Android, iOS, UWP">True</On>
+                                <On Platform="macOS">False</On>
+                            </OnPlatform>
+                        </ImageButton.IsVisible>
+                    </ImageButton>
+                    <BoxView
+                        InputTransparent="True"
+                        HorizontalOptions="Center"
+                        CornerRadius="30"
+                        BackgroundColor="#FF0000"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        Margin="6">
+                        <BoxView.IsVisible>
+                            <OnPlatform x:TypeArguments="x:Boolean">
+                                <On Platform="Android, iOS, UWP">False</On>
+                                <On Platform="macOS">True</On>
+                            </OnPlatform>
+                        </BoxView.IsVisible>
+                    </BoxView>
+                </Grid>
+            </ControlTemplate>
+
+            <Style
+		        x:Key="TabItemStyle"
+		        TargetType="controls:TabViewItem">
+                <Setter
+			        Property="FontSize"
+			        Value="12" />
+                <Setter
+			        Property="TextColor"
+			        Value="#979797" />
+                <Setter
+			        Property="TextColorSelected"
+			        Value="#FF0000" />
+            </Style>
+
+            <Style
+		        x:Key="CustomTabStyle"
+		        TargetType="controls:TabView">
+                <Setter
+			        Property="IsTabTransitionEnabled"
+			        Value="True" />
+                <Setter
+			        Property="TabStripBackgroundColor"
+			        Value="#E6F9F9F9" />
+                <Setter
+			        Property="TabStripHeight"
+			        Value="48" />
+                <Setter
+			        Property="TabContentBackgroundColor"
+			        Value="#F5F5F5" />
+                <Setter
+			        Property="TabStripPlacement"
+			        Value="Bottom" />
+            </Style>
+
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <pages:BasePage.Content>
+        <Grid>
+            <controls:TabView 
+                Style="{StaticResource CustomTabStyle}">
+                <controls:TabViewItem
+                    Text="Tab 1"
+                    ControlTemplate="{StaticResource TabItemTemplate}"
+                    Style="{StaticResource TabItemStyle}">
+                    <controls:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource IconPlay}"
+                            Size="24"
+                            Color="#979797" />
+                    </controls:TabViewItem.Icon>
+                    <controls:TabViewItem.IconSelected>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource IconPlay}"
+                            Size="24"
+                            Color="#FF0000" />
+                    </controls:TabViewItem.IconSelected>
+                    <Grid 
+                        BackgroundColor="LawnGreen">
+                        <Label
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent1" />
+                    </Grid>
+                </controls:TabViewItem>
+                <controls:TabViewItem
+                    Text="Tab 2"
+                    ControlTemplate="{StaticResource FabTabItemTemplate}"
+                    Style="{StaticResource TabItemStyle}"
+                    TabTapped="OnFabTabTapped">
+                    <controls:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource IconPlay}"
+                            Size="24"
+                            Color="#FFFFFF" />
+                    </controls:TabViewItem.Icon>
+                </controls:TabViewItem>
+                <controls:TabViewItem
+                    Text="Tab 3"
+                    ControlTemplate="{StaticResource TabItemTemplate}"
+                    Style="{StaticResource TabItemStyle}">
+                    <controls:TabViewItem.Icon>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource IconDownload}"
+                            Size="24"
+                            Color="#979797" />
+                    </controls:TabViewItem.Icon>
+                    <controls:TabViewItem.IconSelected>
+                        <FontImageSource
+                            FontFamily="{DynamicResource MaterialFontFamily}"
+                            Glyph="{StaticResource IconDownload}"
+                            Size="24"
+                            Color="#FF0000" />
+                    </controls:TabViewItem.IconSelected>
+                    <Grid
+                        BackgroundColor="LightCoral">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent3" />
+                    </Grid>
+                </controls:TabViewItem>
+            </controls:TabView>
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>

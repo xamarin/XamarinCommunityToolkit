@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views

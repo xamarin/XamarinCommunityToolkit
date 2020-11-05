@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.IsTabStripVisiblePage"  
+    xmlns:controls="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
+    <pages:BasePage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <controls:TabView
+                x:Name="TabView"
+                TabStripPlacement="Bottom"
+                TabStripBackgroundColor="Blue"
+                TabStripHeight="60"
+                TabIndicatorColor="Yellow"
+                TabContentBackgroundColor="Yellow"
+                IsTabStripVisible="{Binding Source={x:Reference IsTabStripVisibleCheckBox}, Path=IsChecked}">
+                <controls:TabViewItem
+                    Icon="triangle.png"
+                    Text="Tab 1"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                    <Grid 
+                        BackgroundColor="Gray">
+                        <Label
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent1" />
+                    </Grid>
+                </controls:TabViewItem>
+                <controls:TabViewItem
+                    Icon="circle.png"
+                    Text="Tab 2"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                    <Grid>
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent2" />
+                    </Grid>
+                </controls:TabViewItem>
+            </controls:TabView>
+            <Grid
+                Grid.Row="1"
+                Padding="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <CheckBox
+                    x:Name="IsTabStripVisibleCheckBox"
+                    IsChecked="True"
+                    VerticalOptions="Center"/>
+                <Label
+                    Grid.Column="1"
+                    Text="IsTabStripVisible"
+                    VerticalOptions="Center"/>
+                <Button
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="1"
+                    Text="Change TabStripPlacement"
+                    Clicked="OnChangeTabStripPlacementClicked"/>
+            </Grid>
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>

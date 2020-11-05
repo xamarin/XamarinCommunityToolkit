@@ -30,5 +30,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// Effect Id for <see cref="IconTintColorEffect"/>
 		/// </summary>
 		public static string IconTintColor => $"{effectResolutionGroupName}.{nameof(IconTintColorEffectRouter)}";
+
+		/// <summary>
+		/// Effect Id for <see cref="VisualFeedbackEffect"/>
+		/// </summary>
+		public static string VisualFeedback => $"{effectResolutionGroupName}.{nameof(VisualFeedbackEffect)}";
 	}
 }

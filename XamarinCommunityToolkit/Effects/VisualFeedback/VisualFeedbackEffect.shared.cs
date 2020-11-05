@@ -1,12 +1,12 @@
 ﻿using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.UI.Views
+namespace Xamarin.CommunityToolkit.Effects
 {
     public class VisualFeedbackEffect : RoutingEffect
     {
 		public VisualFeedbackEffect()
-            : base($"TabView.{nameof(VisualFeedbackEffect)}")
-        {
+			: base(EffectIds.VisualFeedback)
+		{
         }
 
 		public static readonly BindableProperty FeedbackColorProperty =
