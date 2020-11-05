@@ -9,10 +9,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class SegmentedView : View
 	{
-		public SegmentedView()
-		{
-		}
-
 		public event EventHandler<SelectedItemChangedEventArgs> SelectedIndexChanged;
 
 		public static BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(SegmentedView));
@@ -76,6 +72,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static readonly BindableProperty displayProperty =
 			BindableProperty.Create("Display", typeof(string), typeof(SegmentedView), default(string));
+
+		string GetDisplayMember(object item)
+		{
+			if (ItemDisplayBinding == null)
+				return item.ToString();
+
+			//TODO: Fix this
+			//ItemDisplayBinding.Apply(item, this, displayProperty);
+			//ItemDisplayBinding.Unapply();
+
+			return (string)GetValue(displayProperty);
+		}
 
 		static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
 		{
@@ -141,17 +149,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateSelectedItem(SelectedIndex);
 		}
 
-		string GetDisplayMember(object item)
-		{
-			if (ItemDisplayBinding == null)
-				return item.ToString();
-			//TODO: Fix this
-			//ItemDisplayBinding.Apply(item, this, s_displayProperty);
-			//ItemDisplayBinding.Unapply();
-
-			return (string)GetValue(displayProperty);
-		}
-
 		static void OnSelectedItemChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var segments = (SegmentedView)bindable;
@@ -181,7 +178,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(SelectedIndexProperty, value);
 		}
 
-		private static void OnSegmentSelected(BindableObject bindable, object oldValue, object newValue)
+		static void OnSegmentSelected(BindableObject bindable, object oldValue, object newValue)
 		{
 			if (!(bindable is SegmentedView segment))
 				return;
