@@ -9,6 +9,7 @@ using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
+using XCT = Xamarin.CommunityToolkit.Core;
 
 [assembly: ExportRenderer(typeof(ToolKitMediaElement), typeof(ToolKitMediaElementRenderer))]
 
@@ -157,7 +158,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (view == null)
 				return;
 
+			view.SeekTo((int)e.Position.TotalMilliseconds);
 			Controller.Position = view.Position;
+			Controller.OnSeekCompleted();
 		}
 
 		void IVisualElementRenderer.SetLabelFor(int? id)
@@ -283,7 +286,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (MediaElement.Source != null)
 			{
-				if (MediaElement.Source is UriMediaSource uriSource)
+				if (MediaElement.Source is XCT.UriMediaSource uriSource)
 				{
 					if (uriSource.Uri.Scheme == "ms-appx")
 					{
@@ -312,7 +315,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							view.SetVideoURI(global::Android.Net.Uri.Parse(uriSource.Uri.AbsoluteUri));
 					}
 				}
-				else if (MediaElement.Source is FileMediaSource fileSource)
+				else if (MediaElement.Source is XCT.FileMediaSource fileSource)
 					view.SetVideoPath(fileSource.File);
 
 				if (MediaElement.AutoPlay)

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
+    <!-- 
     Microsoft ResX Schema 
     
     Version 2.0
@@ -59,448 +59,74 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+        <xsd:element name="root" msdata:IsDataSet="true">
             <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string" />
+                            <xsd:attribute name="type" type="xsd:string" />
+                            <xsd:attribute name="mimetype" type="xsd:string" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string" />
+                            <xsd:attribute name="name" type="xsd:string" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="NoDataLoadedMessage" xml:space="preserve">
-    <value>No data loaded...</value>
-  </data>
-  <data name="LoadingDataMessage" xml:space="preserve">
-    <value>Loading data...</value>
-  </data>
-  <data name="Id" xml:space="preserve">
-    <value>Id</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="ItemTapped" xml:space="preserve">
-    <value>Item Tapped</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="AboutTitle" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="GratitudeMessage" xml:space="preserve">
-    <value>Thank you XamarinCommunityToolkit contributors</value>
-  </data>
-  <data name="WelcomeTitle" xml:space="preserve">
-    <value>Welcome</value>
-  </data>
-  <data name="IntroductionTitle" xml:space="preserve">
-    <value>Introducing the XamarinCommunityToolkit</value>
-  </data>
-  <data name="IntroductioDescription" xml:space="preserve">
-    <value>The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms.</value>
-  </data>
-  <data name="WelcomeFooter" xml:space="preserve">
-    <value>Microsoft Corporation © 2020</value>
-  </data>
-  <data name="BehaviorsTitle" xml:space="preserve">
-    <value>Behaviors</value>
-  </data>
-  <data name="BehaviorsDescription" xml:space="preserve">
-    <value>Behaviors lets you add functionality to user interface controls without having to subclass them. Behaviors are written in code and added to controls in XAML or code.</value>
-  </data>
-  <data name="AnimatioShortDescription" xml:space="preserve">
-    <value>Perform animation when the specified UI element event is triggered.</value>
-  </data>
-  <data name="AnimationBehaviorTitle" xml:space="preserve">
-    <value>This sample demonstrates how to use ViewTappedAnimationBehaviour applying it in different UI elements.</value>
-  </data>
-  <data name="TestingFadeAnimation" xml:space="preserve">
-    <value>Testing Fade Animation</value>
-  </data>
-  <data name="Shake" xml:space="preserve">
-    <value>Shake</value>
-  </data>
-  <data name="EmailValidationDescription" xml:space="preserve">
-    <value>Text color will change accordingly to the style that is configured when a invalid value (email address) is entered.</value>
-  </data>
-  <data name="EmailValidationShortDescription" xml:space="preserve">
-    <value>Changes an Entry's text color when an invalid e-mail address is provided.</value>
-  </data>
-  <data name="EventToCommandBehaviorDescription" xml:space="preserve">
-    <value>This sample demonstrates how to use EventToCommandBehavior. Here we observe Clicked event of the button and trigger IncrementCommand from ViewModel.</value>
-  </data>
-  <data name="EventToCommandShortDescription" xml:space="preserve">
-    <value>Turns any event into a command that can be bound to.</value>
-  </data>
-  <data name="ClickMe" xml:space="preserve">
-    <value>Click Me</value>
-  </data>
-  <data name="NumericValidationShortDescription" xml:space="preserve">
-    <value>Changes an Entry's text color when an invalid number is provided.</value>
-  </data>
-  <data name="NumericValidationBehaviorDescription" xml:space="preserve">
-    <value>Text color will be changed according to the configured style in case of an invalid numeric format or when the numeric value is outside of the configured boundaries (min: 1.0, max: 100.0). Maximum decimal places value equals 2.</value>
-  </data>
-  <data name="ConvertersTitle" xml:space="preserve">
-    <value>Converters</value>
-  </data>
-  <data name="ConvertersDescription" xml:space="preserve">
-    <value>Converters let you convert bindings of a certain type to a different value, based on custom logic.</value>
-  </data>
-  <data name="ItemTappedEventArgsShortDescription" xml:space="preserve">
-    <value>A converter that allows you to extract the value from ItemTappedEventArgs that can be used in combination with EventToCommandBehavior.</value>
-  </data>
-  <data name="ItemTappedSelectedEventArgsShortDescription" xml:space="preserve">
-    <value>A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior.</value>
-  </data>
-  <data name="ByteArrayToImageSourceShortDescription" xml:space="preserve">
-    <value>A converter that allows you to convert byte array to an object of a type ImageSource.</value>
-  </data>
-  <data name="ExtensionsTitle" xml:space="preserve">
-    <value>Extensions</value>
-  </data>
-  <data name="ExtensionsDescription" xml:space="preserve">
-    <value>Extensions are used to supplement existing functionalities by making them easier to use.</value>
-  </data>
-  <data name="TestCasesTitle" xml:space="preserve">
-    <value>Test Cases</value>
-  </data>
-  <data name="TestCasesDescription" xml:space="preserve">
-    <value>Testing is important, ok?! So this is where all of the tests for our little project reside.</value>
-  </data>
-  <data name="ViewsTitle" xml:space="preserve">
-    <value>Views</value>
-  </data>
-  <data name="ViewsDescription" xml:space="preserve">
-    <value>A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box.</value>
-  </data>
-  <data name="AvatarViewTitle" xml:space="preserve">
-    <value>AvatarView</value>
-  </data>
-  <data name="AvatarViewDescription" xml:space="preserve">
-    <value>The AvatarView represents a user's name by using the initials and a generated background color.</value>
-  </data>
-  <data name="AvatarViewSizeText" xml:space="preserve">
-    <value>Size Property:</value>
-  </data>
-  <data name="RangeSliderTitle" xml:space="preserve">
-    <value>RangeSlider</value>
-  </data>
-  <data name="RangeSliderDescription" xml:space="preserve">
-    <value>The RangeSlider is a slider with two thumbs allowing to select numeric ranges.</value>
-  </data>
-  <data name="ThumbText" xml:space="preserve">
-    <value>Thumb</value>
-  </data>
-  <data name="ThumbSizeText" xml:space="preserve">
-    <value>Thumb Size</value>
-  </data>
-  <data name="SetLowerUpperThumb" xml:space="preserve">
-    <value>Set Lower/Upper Thumb Size separately</value>
-  </data>
-  <data name="LowerThumbSize" xml:space="preserve">
-    <value>Lower Thumb Size</value>
-  </data>
-  <data name="UpperThumbSize" xml:space="preserve">
-    <value>Upper Thumb Size</value>
-  </data>
-  <data name="ThumbColor" xml:space="preserve">
-    <value>Thumb Color</value>
-  </data>
-  <data name="LowerThumbColor" xml:space="preserve">
-    <value>Lower Thumb Color</value>
-  </data>
-  <data name="UpperThumbColor" xml:space="preserve">
-    <value>Upper Thumb Color</value>
-  </data>
-  <data name="ThumbBorderColor" xml:space="preserve">
-    <value>Thumb Border Color</value>
-  </data>
-  <data name="LowerThumbBorderColor" xml:space="preserve">
-    <value>"Lower Thumb Border Color</value>
-  </data>
-  <data name="UpperThumbBorderColor" xml:space="preserve">
-    <value>Upper Thumb Border Color</value>
-  </data>
-  <data name="LowerThumbViewSet" xml:space="preserve">
-    <value>Lower Thumb View Set</value>
-  </data>
-  <data name="UpperThumbViewSet" xml:space="preserve">
-    <value>Upper Thumb View Set</value>
-  </data>
-  <data name="ControlThumbsRadius" xml:space="preserve">
-    <value>Control Thumbs Radius</value>
-  </data>
-  <data name="ThumbRadius" xml:space="preserve">
-    <value>Thumb Radius</value>
-  </data>
-  <data name="SetLowerUpperThumbSeparately" xml:space="preserve">
-    <value>Set Lower/Upper Thumb Radius separately</value>
-  </data>
-  <data name="LowerThumbRadius" xml:space="preserve">
-    <value>Lower Thumb Radius</value>
-  </data>
-  <data name="UpperThumbRadius" xml:space="preserve">
-    <value>Upper Thumb Radius</value>
-  </data>
-  <data name="Track" xml:space="preserve">
-    <value>Track</value>
-  </data>
-  <data name="TrackSize" xml:space="preserve">
-    <value>Track Size</value>
-  </data>
-  <data name="TrackColor" xml:space="preserve">
-    <value>Track Color</value>
-  </data>
-  <data name="TrackHighlightColor" xml:space="preserve">
-    <value>Track Highlight Color</value>
-  </data>
-  <data name="TrackBorderColor" xml:space="preserve">
-    <value>Track Border Color</value>
-  </data>
-  <data name="TrackHighlightBorderColor" xml:space="preserve">
-    <value>Track Highlight Border Color</value>
-  </data>
-  <data name="ControlTrackRadius" xml:space="preserve">
-    <value>Control Track Radius</value>
-  </data>
-  <data name="IsEnabled" xml:space="preserve">
-    <value>Is Enabled</value>
-  </data>
-  <data name="ValueLabelSpacing" xml:space="preserve">
-    <value>Value Label Spacing</value>
-  </data>
-  <data name="SideMenuViewTitle" xml:space="preserve">
-    <value>SideMenuView</value>
-  </data>
-  <data name="SideMenuViewDescription" xml:space="preserve">
-    <value>SideMenuView is a simple and flexible Right/Left menu control.</value>
-  </data>
-  <data name="MaskedDescription" xml:space="preserve">
-    <value>This sample demonstrates how to use MaskedBehavior</value>
-  </data>
-  <data name="MaskedShortDescription" xml:space="preserve">
-    <value>Masked text in entry with specific pattern</value>
-  </data>
-  <data name="CreditCardNumber" xml:space="preserve">
-    <value>Credit Card Number</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>Date</value>
-  </data>
-  <data name="EG" xml:space="preserve">
-    <value>e.g.</value>
-  </data>
-  <data name="PhoneNumber" xml:space="preserve">
-    <value>Phone Number</value>
-  </data>
-  <data name="SocialSecurityNumber" xml:space="preserve">
-    <value>Social Security Number</value>
-  </data>
-  <data name="SortCode" xml:space="preserve">
-    <value>Sort code</value>
-  </data>
-  <data name="Time" xml:space="preserve">
-    <value>Time</value>
-  </data>
-  <data name="UriValidationDescription" xml:space="preserve">
-    <value>Text color will change accordingly to the style that is configured when a invalid URI is entered.</value>
-  </data>
-  <data name="UriValidationShortDescription" xml:space="preserve">
-    <value>Changes an Entry's text color when an invalid URI is provided.</value>
-  </data>
-  <data name="MediaElementTitle" xml:space="preserve">
-    <value>MediaElement</value>
-  </data>
-   <data name="MediaElementDescription" xml:space="preserve">
-    <value>MediaElement is a view for playing video and audio.</value>
-  </data>
-  <data name="MultiValidationDescription" xml:space="preserve">
-    <value>Text color will change accordingly to the style that is configured if any of child behaviors is invalid (Minimum: -10, Maximum: 5).</value>
-  </data>
-  <data name="MultiValidationShortDescription" xml:space="preserve">
-    <value>Combines multiple validation behavior.</value>
-  </data>
-  <data name="MultiConverterDescription" xml:space="preserve">
-    <value>This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. 
-
-It converts the entered text to Upper Case and checks that it is Not Equal to the string 'ANDREI'.</value>
-  </data>
-  <data name="MultiConverterShortDescription" xml:space="preserve">
-    <value>This sample demonstrates how to use Multibinding Converter</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="ChangeLanguage" xml:space="preserve">
-    <value>Change language</value>
-  </data>
-  <data name="English" xml:space="preserve">
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ChangeLanguage" xml:space="preserve">
+    <value>Change language below, hit Save and see the texts in this page change. This will not affect the rest of the application, it just serves as a demo.</value>
+  </data>
+    <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
-  <data name="Spanish" xml:space="preserve">
+    <data name="Spanish" xml:space="preserve">
     <value>Spanish</value>
   </data>
-  <data name="Save" xml:space="preserve">
+    <data name="Save" xml:space="preserve">
     <value>Save</value>
-  </data>
-  <data name="CameraViewTitle" xml:space="preserve">
-    <value>CameraView</value>
-  </data>
-  <data name="CameraViewDescription" xml:space="preserve">
-    <value>The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!</value>
-  </data>
-  <data name="CameraViewSampleZoom" xml:space="preserve">
-    <value>Zoom: {0}</value>
-  </data>
-  <data name="CameraViewSampleSnapPicture" xml:space="preserve">
-    <value>Snap Picture</value>
-  </data>
-  <data name="CameraViewSampleStartRecording" xml:space="preserve">
-    <value>Start Recording</value>
-  </data>
-  <data name="CameraViewSampleStopRecording" xml:space="preserve">
-    <value>Stop Recording</value>
-  </data>
-  <data name="DateTimeOffsetConverterShortDescription" xml:space="preserve">
-    <value>A converter that allows to convert from a DateTimeOffset type to a DateTime type.</value>
-  </data>
-  <data name="ExpanderTitle" xml:space="preserve">
-    <value>Expander</value>
-  </data>
-  <data name="ExpanderDescription" xml:space="preserve">
-    <value>The Xamarin.Forms Expander control provides an expandable container to host any content.</value>
-  </data>
-  <data name="NestedExpander" xml:space="preserve">
-    <value>Nested expander</value>
-  </data>
-  <data name="EnableNested" xml:space="preserve">
-    <value>Enable nested:</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorDescription" xml:space="preserve">
-    <value>This behavior waits for the user to stop typing and then executes a Command. The waiting threshold is adjustable, as well as there is an option to dismiss the keyboard after the user has stopped typing.</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorDismissKeyboardOptionLabel" xml:space="preserve">
-    <value>Should dismiss keyboard automatically</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorSearchBarPlaceholderText" xml:space="preserve">
-    <value>Start searching...</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorSearchResultLabelFormat" xml:space="preserve">
-    <value>Performed search for '{0}'</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorShortDescription" xml:space="preserve">
-    <value>This behavior waits for the user to stop typing and then executes a Command.</value>
-  </data>
-  <data name="UserStoppedTypingBehaviorThresholdOptionLabel" xml:space="preserve">
-    <value>User stopped typing time threshold (in ms)</value>
-  </data>
-  <data name="AutoGridLayoutBehaviorDescription" xml:space="preserve">
-    <value>This behavior assigns grid row and column based on the order a view is added to the grid.</value>
-  </data>
-  <data name="ImpliedOrderGridDescriptionLabel" xml:space="preserve">
-    <value>Behavior that auto sets row and column assignments of child views by the order they are defined in the grid. RowSpan and ColumnSpan are honored during the auto-assignment of row and column.
-
-By default, if more cells in the grid are needed by the number of child views then are defined an output warning will be generated. If a row or column span exceeds the defined rows and columns output warnings will be generated.
-
-The user may at their choice decide to have output warnings treated as exceptions.
-
-If the user manually assigns a row or column on a view, it will be honored.</value>
-  </data>
-  <data name="ShowSnackbarWithActionButton" xml:space="preserve">
-    <value>Show snackbar with action button</value>
-  </data>
-  <data name="ActionsPageDescription" xml:space="preserve">
-    <value>Show snackbar, toast etc</value>
-  </data>
-  <data name="ActionsPageTitle" xml:space="preserve">
-    <value>Actions</value>
-  </data>
-  <data name="ShowSnackbarNoActionButton" xml:space="preserve">
-    <value>Show snackbar (no action button)</value>
-  </data>
-  <data name="SnackbarIsClosedByTimeout" xml:space="preserve">
-    <value>Snackbar is closed by timeout</value>
-  </data>
-  <data name="SnackbarIsClosedByUser" xml:space="preserve">
-    <value>Snackbar is closed by user</value>
-  </data>
-  <data name="GravatarImageSourceDescription" xml:space="preserve">
-    <value>The GravatarImageSource allows you to easily utilize a users Gravatar image from Gravatar.com using nothing but their email address.</value>
-  </data>
-  <data name="GravatarImageSourceTitle" xml:space="preserve">
-    <value>GravatarImageSource</value>
-  </data>
-  <data name="DefaultGravatar" xml:space="preserve">
-    <value>Default Gravatar</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="FullImageSource" xml:space="preserve">
-    <value>Full Image Source</value>
-  </data>
-  <data name="GravatarSize" xml:space="preserve">
-    <value>GravatarSize</value>
-  </data>
-  <data name="XAMLExtension" xml:space="preserve">
-    <value>XAML Extension</value>
-  </data>
-  <data name="SegmentedViewTitle" xml:space="preserve">
-    <value>Segmented View</value>
-  </data>
-  <data name="SegmentedViewDescription" xml:space="preserve">
-    <value>Segmented View allows you to have a simple segments control that can display text or images</value>
   </data>
 </root>

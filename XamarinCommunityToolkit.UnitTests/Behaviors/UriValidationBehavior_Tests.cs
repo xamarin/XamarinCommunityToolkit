@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			{
 				UriKind = uriKind,
 			};
-			new Entry
+			var entry = new Entry
 			{
 				Text = value,
 				Behaviors =
@@ -32,6 +32,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 					behavior
 				}
 			};
+			entry.Behaviors.Add(behavior);
 			behavior.ForceValidate();
 			Assert.Equal(expectedValue, behavior.IsValid);
 		}

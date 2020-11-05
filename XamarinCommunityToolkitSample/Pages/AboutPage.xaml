@@ -6,7 +6,7 @@
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.AboutPage"
                 xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
-                Title="{rsx:Translate AboutTitle}">
+                Title="About...">
 
     <pages:BasePage.ToolbarItems>
         <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
@@ -18,7 +18,7 @@
     
     <pages:BasePage.Content>
         <StackLayout Padding="{StaticResource ContentPadding}">
-            <Label Text="{rsx:Translate GratitudeMessage}"
+            <Label Text="Thank you Xamarin Community Toolkit contributors"
                    Margin="0,10,0,10" FontSize="Large" HorizontalOptions="Center"
                    HorizontalTextAlignment="Center" />
             <CollectionView x:Name="ContributorsCollectionView"
