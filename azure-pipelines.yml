@@ -80,8 +80,8 @@ jobs:
         displayName: Run Tests
         inputs:
           command: test
-          projects: 'XamarinCommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
-          arguments: '--configuration Release'
+          projects: '**/*.UnitTests.csproj'
+          arguments: '--configuration Release --collect "Code coverage"'
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
