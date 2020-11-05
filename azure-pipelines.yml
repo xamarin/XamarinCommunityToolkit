@@ -94,7 +94,7 @@ jobs:
         inputs:
           command: test
           projects: '**/*.UnitTests.csproj'
-          arguments: '--configuration Release'
+          arguments: '--configuration Release --collect "Code coverage"'
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
