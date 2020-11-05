@@ -18,6 +18,9 @@
     <EmbeddedResource Update="Pages\Effects\EffectsGalleryPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Effects\IconTintColorEffectPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\Effects\SafeAreaEffectPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -27,6 +30,9 @@
     </EmbeddedResource>
     <Compile Update="Pages\Behaviors\ImpliedOrderGridBehaviorPage.xaml.cs">
       <DependentUpon>ImpliedOrderGridBehaviorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Behaviors\CharactersValidationBehaviorPage.xaml.cs">
+      <DependentUpon>CharactersValidationBehaviorPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Resx\AppResources.es.Designer.cs">
       <DesignTime>True</DesignTime>

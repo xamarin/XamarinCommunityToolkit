@@ -5,173 +5,216 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-    public class Shield : BaseTemplatedView<Frame>
-    {
-        public static readonly BindableProperty SubjectProperty =
-              BindableProperty.Create(nameof(Subject), typeof(string), typeof(Shield), null,
-                  propertyChanged: OnSubjectChanged);
+	public class Shield : BaseTemplatedView<Frame>
+	{
+		public static readonly BindableProperty SubjectProperty =
+			  BindableProperty.Create(nameof(Subject), typeof(string), typeof(Shield), null,
+				  propertyChanged: OnSubjectChanged);
 
-        static void OnSubjectChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubject();
+		static void OnSubjectChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubject();
 
-        public string Subject
-        {
-            get => (string)GetValue(SubjectProperty);
-            set => SetValue(SubjectProperty, value);
-        }
+		public string Subject
+		{
+			get => (string)GetValue(SubjectProperty);
+			set => SetValue(SubjectProperty, value);
+		}
 
-        public static readonly BindableProperty StatusProperty =
-            BindableProperty.Create(nameof(Status), typeof(string), typeof(Shield), null,
-                propertyChanged: OnStatusChanged);
+		public static readonly BindableProperty StatusProperty =
+			BindableProperty.Create(nameof(Status), typeof(string), typeof(Shield), null,
+				propertyChanged: OnStatusChanged);
 
-        static void OnStatusChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatus();
+		static void OnStatusChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatus();
 
-        public string Status
-        {
-            get => (string)GetValue(StatusProperty);
-            set => SetValue(StatusProperty, value);
-        }
+		public string Status
+		{
+			get => (string)GetValue(StatusProperty);
+			set => SetValue(StatusProperty, value);
+		}
 
-        public static readonly BindableProperty ColorProperty =
-            BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), Color.Default,
-                propertyChanged: OnColorChanged);
+		public static readonly BindableProperty ColorProperty =
+			BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnColorChanged);
 
-        static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateColor();
+		static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateColor();
 
-        public Color Color
-        {
-            get => (Color)GetValue(ColorProperty);
-            set => SetValue(ColorProperty, value);
-        }
+		public Color Color
+		{
+			get => (Color)GetValue(ColorProperty);
+			set => SetValue(ColorProperty, value);
+		}
 
-        public static readonly BindableProperty TextColorProperty =
-            BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
-                propertyChanged: OnTextColorChanged);
+		public static readonly BindableProperty TextColorProperty =
+			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnTextColorChanged);
 
-        static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateTextColor();
+		static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateTextColor();
 
-        public Color TextColor
-        {
-            get => (Color)GetValue(TextColorProperty);
-            set => SetValue(TextColorProperty, value);
-        }
+		public Color TextColor
+		{
+			get => (Color)GetValue(TextColorProperty);
+			set => SetValue(TextColorProperty, value);
+		}
 
-        public static readonly BindableProperty CommandProperty =
-            BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(Shield), null);
+		public static BindableProperty FontSizeProperty =
+			BindableProperty.Create(nameof(FontSize), typeof(double), typeof(Shield), Label.FontSizeProperty.DefaultValue,
+				propertyChanged: OnFontChanged);
 
-        public ICommand Command
-        {
-            get => (ICommand)GetValue(CommandProperty);
-            set => SetValue(CommandProperty, value);
-        }
+		static void OnFontChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateFont();
 
-        public static readonly BindableProperty CommandParameterProperty =
-            BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(Shield), null);
+		[TypeConverter(typeof(FontSizeConverter))]
+		public double FontSize
+		{
+			get => (double)GetValue(FontSizeProperty);
+			set => SetValue(FontSizeProperty, value);
+		}
 
-        public object CommandParameter
-        {
-            get => GetValue(CommandParameterProperty);
-            set => SetValue(CommandParameterProperty, value);
-        }
+		public static BindableProperty FontFamilyProperty =
+			BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(Shield), Label.FontFamilyProperty.DefaultValue,
+				propertyChanged: OnFontChanged);
 
-        public event EventHandler Tapped;
+		public string FontFamily
+		{
+			get => (string)GetValue(FontFamilyProperty);
+			set => SetValue(FontFamilyProperty, value);
+		}
 
-        Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
+		public static BindableProperty FontAttributesProperty =
+			BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(Shield), Label.FontAttributesProperty.DefaultValue,
+				propertyChanged: OnFontChanged);
 
-        Label ShieldSubject { get; } = CreateSubjectElement();
+		public FontAttributes FontAttributes
+		{
+			get => (FontAttributes)GetValue(FontAttributesProperty);
+			set => SetValue(FontAttributesProperty, value);
+		}
 
-        Grid ShieldStatusContainer { get; } = CreateStatusContainerElement();
+		public static readonly BindableProperty CommandProperty =
+			BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(Shield), null);
 
-        Label ShieldStatus { get; } = CreateStatusElement();
+		public ICommand Command
+		{
+			get => (ICommand)GetValue(CommandProperty);
+			set => SetValue(CommandProperty, value);
+		}
 
-        protected override void OnControlInitialized(Frame control)
-        {
-            control.CornerRadius = 4;
-            control.HorizontalOptions = LayoutOptions.Center;
-            control.VerticalOptions = LayoutOptions.Start;
-            control.Padding = 0;
-            control.HeightRequest = 20;
-            control.HasShadow = false;
-            control.IsClippedToBounds = true;
+		public static readonly BindableProperty CommandParameterProperty =
+			BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(Shield), null);
 
-            var content = new Grid
-            {
-                ColumnSpacing = 0
-            };
+		public object CommandParameter
+		{
+			get => GetValue(CommandParameterProperty);
+			set => SetValue(CommandParameterProperty, value);
+		}
 
-            content.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-            content.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+		public event EventHandler Tapped;
 
-            control.Content = content;
+		Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
 
-            ShieldSubjectContainer.Children.Add(ShieldSubject);
-            content.Children.Add(ShieldSubjectContainer);
-            Grid.SetColumn(ShieldSubjectContainer, 0);
+		Label ShieldSubject { get; } = CreateSubjectElement();
 
-            ShieldStatusContainer.Children.Add(ShieldStatus);
-            content.Children.Add(ShieldStatusContainer);
-            Grid.SetColumn(ShieldStatusContainer, 1);
+		Grid ShieldStatusContainer { get; } = CreateStatusContainerElement();
 
-            UpdateIsEnabled();
-        }
+		Label ShieldStatus { get; } = CreateStatusElement();
 
-        static Grid CreateSubjectContainerElement()
-            => new Grid
-            {
-                BackgroundColor = Color.FromHex("#555555")
-            };
+		protected override void OnControlInitialized(Frame control)
+		{
+			control.CornerRadius = 4;
+			control.HorizontalOptions = LayoutOptions.Center;
+			control.VerticalOptions = LayoutOptions.Start;
+			control.Padding = 0;
+			control.HasShadow = false;
+			control.IsClippedToBounds = true;
 
-        static Label CreateSubjectElement()
-          => new Label
-          {
-              TextColor = Color.White,
-              VerticalOptions = LayoutOptions.Center,
-              Margin = new Thickness(4, 0)
-          };
+			var content = new Grid
+			{
+				ColumnSpacing = 0
+			};
 
-        static Grid CreateStatusContainerElement()
-         => new Grid();
+			content.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+			content.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
-        static Label CreateStatusElement()
-           => new Label
-           {
-               VerticalOptions = LayoutOptions.Center,
-               Margin = new Thickness(4, 0)
-           };
+			control.Content = content;
 
-        protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            base.OnPropertyChanged(propertyName);
+			ShieldSubjectContainer.Children.Add(ShieldSubject);
+			content.Children.Add(ShieldSubjectContainer);
+			Grid.SetColumn(ShieldSubjectContainer, 0);
 
-            if (propertyName == IsEnabledProperty.PropertyName)
-                UpdateIsEnabled();
-        }
+			ShieldStatusContainer.Children.Add(ShieldStatus);
+			content.Children.Add(ShieldStatusContainer);
+			Grid.SetColumn(ShieldStatusContainer, 1);
 
-        void UpdateSubject() => ShieldSubject.Text = Subject;
+			UpdateIsEnabled();
+		}
 
-        void UpdateStatus() => ShieldStatus.Text = Status;
+		static Grid CreateSubjectContainerElement()
+			=> new Grid
+			{
+				BackgroundColor = Color.FromHex("#555555")
+			};
 
-        void UpdateColor() => ShieldStatusContainer.BackgroundColor = Color;
+		static Label CreateSubjectElement()
+		  => new Label
+		  {
+			  TextColor = Color.White,
+			  VerticalOptions = LayoutOptions.Center,
+			  Margin = new Thickness(4, 0)
+		  };
 
-        void UpdateTextColor() => ShieldStatus.TextColor = TextColor;
+		static Grid CreateStatusContainerElement()
+		 => new Grid();
 
-        void UpdateIsEnabled()
-        {
-            if (IsEnabled)
-            {
-                var tapGestureRecognizer = new TapGestureRecognizer();
-                tapGestureRecognizer.Tapped += OnCloseButtonTapped;
-                GestureRecognizers.Add(tapGestureRecognizer);
-            }
-            else
-            {
-                GestureRecognizers.Clear();
-            }
+		static Label CreateStatusElement()
+		   => new Label
+		   {
+			   VerticalOptions = LayoutOptions.Center,
+			   Margin = new Thickness(4, 0)
+		   };
 
-            void OnCloseButtonTapped(object sender, EventArgs e)
-            {
-                Tapped?.Invoke(this, EventArgs.Empty);
-                Command?.Execute(CommandParameter);
-            }
-        }
-    }
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		{
+			base.OnPropertyChanged(propertyName);
+
+			if (propertyName == IsEnabledProperty.PropertyName)
+				UpdateIsEnabled();
+		}
+
+		void UpdateSubject() => ShieldSubject.Text = Subject;
+
+		void UpdateStatus() => ShieldStatus.Text = Status;
+
+		void UpdateColor() => ShieldStatusContainer.BackgroundColor = Color;
+
+		void UpdateTextColor() => ShieldStatus.TextColor = TextColor;
+
+		void UpdateFont()
+		{
+			ShieldSubject.FontSize = FontSize;
+			ShieldSubject.FontFamily = FontFamily;
+			ShieldSubject.FontAttributes = FontAttributes;
+
+			ShieldStatus.FontSize = FontSize;
+			ShieldStatus.FontFamily = FontFamily;
+			ShieldStatus.FontAttributes = FontAttributes;
+		}
+
+		void UpdateIsEnabled()
+		{
+			if (IsEnabled)
+			{
+				var tapGestureRecognizer = new TapGestureRecognizer();
+				tapGestureRecognizer.Tapped += OnCloseButtonTapped;
+				GestureRecognizers.Add(tapGestureRecognizer);
+			}
+			else
+			{
+				GestureRecognizers.Clear();
+			}
+
+			void OnCloseButtonTapped(object sender, EventArgs e)
+			{
+				Tapped?.Invoke(this, EventArgs.Empty);
+				Command?.Execute(CommandParameter);
+			}
+		}
+	}
 }

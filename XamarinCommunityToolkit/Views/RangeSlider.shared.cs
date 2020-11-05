@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using static System.Math;
@@ -13,11 +15,32 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		const double disabledOpacity = .6;
 
+		public event EventHandler ValueChanged;
+
+		public event EventHandler LowerValueChanged;
+
+		public event EventHandler UpperValueChanged;
+
+		public event EventHandler DragStarted;
+
+		public event EventHandler LowerDragStarted;
+
+		public event EventHandler UpperDragStarted;
+
+		public event EventHandler DragCompleted;
+
+		public event EventHandler LowerDragCompleted;
+
+		public event EventHandler UpperDragCompleted;
+
 		public static BindableProperty MinimumValueProperty
 			= BindableProperty.Create(nameof(MinimumValue), typeof(double), typeof(RangeSlider), .0, propertyChanged: OnMinimumMaximumValuePropertyChanged);
 
 		public static BindableProperty MaximumValueProperty
 			= BindableProperty.Create(nameof(MaximumValue), typeof(double), typeof(RangeSlider), 1.0, propertyChanged: OnMinimumMaximumValuePropertyChanged);
+
+		public static BindableProperty StepValueProperty
+			= BindableProperty.Create(nameof(StepValue), typeof(double), typeof(RangeSlider), 0.0, propertyChanged: OnMinimumMaximumValuePropertyChanged);
 
 		public static BindableProperty LowerValueProperty
 			= BindableProperty.Create(nameof(LowerValue), typeof(double), typeof(RangeSlider), .0, BindingMode.TwoWay, propertyChanged: OnLowerUpperValuePropertyChanged, coerceValue: CoerceValue);
@@ -114,6 +137,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		double upperTranslation;
 
+		int dragCount;
+
 		public double MinimumValue
 		{
 			get => (double)GetValue(MinimumValueProperty);
@@ -124,6 +149,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get => (double)GetValue(MaximumValueProperty);
 			set => SetValue(MaximumValueProperty, value);
+		}
+
+		public double StepValue
+		{
+			get => (double)GetValue(StepValueProperty);
+			set => SetValue(StepValueProperty, value);
 		}
 
 		public double LowerValue
@@ -305,8 +336,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			base.OnPropertyChanged(propertyName);
-			if (propertyName == IsEnabledProperty.PropertyName)
-				OnIsEnabledChanged();
+			switch (propertyName)
+			{
+				case nameof(IsEnabled):
+					OnIsEnabledChanged();
+					break;
+				case nameof(LowerValue):
+					RaiseEvent(LowerValueChanged);
+					RaiseEvent(ValueChanged);
+					break;
+				case nameof(UpperValue):
+					RaiseEvent(UpperValueChanged);
+					RaiseEvent(ValueChanged);
+					break;
+			}
 		}
 
 		protected override void OnSizeAllocated(double width, double height)
@@ -383,7 +426,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		double CoerceValue(double value)
-			=> value.Clamp(MinimumValue, MaximumValue);
+		{
+			if (StepValue > 0 && value < MaximumValue)
+			{
+				var stepIndex = (int)((value - MinimumValue) / StepValue);
+				value = MinimumValue + (stepIndex * StepValue);
+			}
+			return value.Clamp(MinimumValue, MaximumValue);
+		}
 
 		void OnMinimumMaximumValuePropertyChanged()
 		{
@@ -511,25 +561,36 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					OnPanRunning(view, e.TotalX);
 					break;
 				case GestureStatus.Completed:
-					OnPanCompleted(view);
-					break;
 				case GestureStatus.Canceled:
-					OnPanCanceled(view);
+					OnPanCompleted(view);
 					break;
 			}
 		}
 
 		void OnPanStarted(View view)
-			=> thumbPositionMap[view] = view.TranslationX;
+		{
+			thumbPositionMap[view] = view.TranslationX;
+			RaiseEvent(view == LowerThumb
+				? LowerDragStarted
+				: UpperDragStarted);
+
+			if (Interlocked.Increment(ref dragCount) == 1)
+				RaiseEvent(DragStarted);
+		}
 
 		void OnPanRunning(View view, double value)
 			=> UpdateValue(view, value + GetPanShiftValue(view));
 
 		void OnPanCompleted(View view)
-			=> thumbPositionMap[view] = view.TranslationX;
+		{
+			thumbPositionMap[view] = view.TranslationX;
+			RaiseEvent(view == LowerThumb
+				? LowerDragCompleted
+				: UpperDragCompleted);
 
-		void OnPanCanceled(View view)
-			=> UpdateValue(view, thumbPositionMap[view]);
+			if (Interlocked.Decrement(ref dragCount) == 0)
+				RaiseEvent(DragCompleted);
+		}
 
 		void UpdateValue(View view, double value)
 		{
@@ -550,8 +611,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void SetValueLabelBinding(Label label, BindableProperty bindableProperty)
 			=> label.SetBinding(Label.TextProperty, new Binding
 			{
-				Path = bindableProperty.PropertyName,
 				Source = this,
+				Path = bindableProperty.PropertyName,
 				StringFormat = ValueLabelStringFormat
 			});
 
@@ -559,12 +620,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			gestureRecognizer.PanUpdated += OnPanUpdated;
 			view.GestureRecognizers.Add(gestureRecognizer);
-		}
-
-		void RemoveGestureRecognizer(View view, PanGestureRecognizer gestureRecognizer)
-		{
-			gestureRecognizer.PanUpdated -= OnPanUpdated;
-			view.GestureRecognizers.Remove(gestureRecognizer);
 		}
 
 		Color GetColorOrDefault(Color color, Color defaultColor)
@@ -576,5 +631,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			=> value < 0
 				? defaultSize
 				: value;
+
+		void RaiseEvent(EventHandler eventHandler)
+			=> eventHandler?.Invoke(this, EventArgs.Empty);
 	}
 }
