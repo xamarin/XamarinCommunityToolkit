@@ -40,8 +40,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 			new SectionModel(typeof(StateLayoutPage), "StateLayout",
 				"A collection of attached properties that let you specify one or more state views for any of your existing layouts."),
-        
-			new SectionModel(typeof(SegmentedView), "Segmented View",
+
+			new SectionModel(typeof(SegmentedViewPage), "SegmentedView",
 				"Segmented View allows you to have a simple segments control that can display text or images.")
 		};
 	}

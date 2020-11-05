@@ -16,6 +16,7 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Extensions.Android;
+using RadioButton = Android.Widget.RadioButton;
 
 namespace Xamarin.CommunityToolkit.Android.UI.Views
 {

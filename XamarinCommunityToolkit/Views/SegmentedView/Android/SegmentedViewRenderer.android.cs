@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using Android.Content;
-using Android.Widget;
 using Xamarin.CommunityToolkit.Android.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
+using RadioButton = Android.Widget.RadioButton;
 
 [assembly: ExportRenderer(typeof(SegmentedView), typeof(SegmentedViewRenderer))]
 
