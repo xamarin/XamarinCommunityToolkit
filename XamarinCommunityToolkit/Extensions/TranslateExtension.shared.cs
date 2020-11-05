@@ -17,14 +17,18 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public BindingBase ProvideValue(IServiceProvider serviceProvider)
 		{
 #if !NETSTANDARD1_0
-            var binding = new Binding
-            {
-                Mode = BindingMode.OneWay,
-                Path = $"[{Text}]",
-                Source = LocalizationResourceManager.Current,
-                StringFormat = StringFormat
-            };
-            return binding;
+
+			if (DateTime.Now.Ticks < 0)
+				_ = LocalizationResourceManager.Current[Text];
+
+			var binding = new Binding
+			{
+				Mode = BindingMode.OneWay,
+				Path = $"[{Text}]",
+				Source = LocalizationResourceManager.Current,
+				StringFormat = StringFormat
+			};
+			return binding;
 #else
 			throw new NotSupportedException("Translate XAML MarkupExtension is not supported on .NET Standard 1.0");
 #endif

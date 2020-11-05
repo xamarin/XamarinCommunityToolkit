@@ -35,6 +35,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Camera = Android.Hardware.Camera;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -330,7 +331,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			DisposeImageReader();
 
-			photoReader = ImageReader.NewInstance(640, 480, ImageFormatType.Jpeg, maxImages: 1);
+			photoReader = ImageReader.NewInstance(photoSize.Width, photoSize.Height, ImageFormatType.Jpeg, maxImages: 1);
 
 			var readerListener = new ImageAvailableListener();
 			readerListener.Photo += (_, bytes) =>
@@ -338,7 +339,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				string filePath = null;
 				if (Element.SavePhotoToFile)
 				{
-					filePath = ConstructMediaFilename(null, "jpg");
+					filePath = ConstructMediaFilename(null, extension: "jpg");
 					File.WriteAllBytes(filePath, bytes);
 				}
 				Sound(MediaActionSoundType.ShutterClick);
@@ -503,12 +504,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					surfaces,
 					new CameraCaptureStateListener()
 					{
-						OnConfigureFailedAction = session =>
+						OnConfigureFailedAction = captureSession =>
 						{
 							tcs.SetResult(null);
 							Element.RaiseMediaCaptureFailed("Failed to create captire sesstion");
 						},
-						OnConfiguredAction = session => tcs.SetResult(session)
+						OnConfiguredAction = captureSession => tcs.SetResult(captureSession)
 					},
 					null);
 
@@ -569,7 +570,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (cameraTemplate == CameraTemplate.Record)
 					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
 
-				session.SetRepeatingRequest(sessionBuilder.Build(), null, backgroundHandler);
+				session.SetRepeatingRequest(sessionBuilder.Build(), listener: null, backgroundHandler);
 				repeatingIsRunning = true;
 			}
 			catch (Java.Lang.Exception error)
@@ -594,8 +595,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				DisposeMediaRecorder();
 			}
-			catch
+			catch (Java.Lang.Exception e)
 			{
+				LogError("Error close device", e);
 			}
 			CloseSession();
 			try
