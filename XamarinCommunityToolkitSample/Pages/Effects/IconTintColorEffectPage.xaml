@@ -2,7 +2,7 @@
 <pages:BasePage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:effects="clr-namespace:Xamarin.CommunityToolkit.Effects;assembly=Xamarin.CommunityToolkit"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.IconTintColorEffectPage">
 
@@ -20,7 +20,7 @@
         <ScrollView>
             <StackLayout
                 Padding="20">
-                
+
                 <Label
                     Text="With the IconTintColorEffect you set the tint color of an image. This effects works on the Image and ImageButton controls and is implemented for the Android and iOS platform."
                     Margin="0,0,0,20"/>
@@ -39,17 +39,17 @@
                     <Image
                         Source="https://image.flaticon.com/icons/png/512/48/48639.png"
                         Grid.Row="1" />
-                    
+
                     <Image
                         Source="https://image.flaticon.com/icons/png/512/48/48639.png"
-                        effects:IconTintColorEffect.TintColor="Red"
+                        xct:IconTintColorEffect.TintColor="Red"
                         Grid.Row="2" />
-                    
+
                     <Image
                         Source="https://image.flaticon.com/icons/png/512/48/48639.png"
-                        effects:IconTintColorEffect.TintColor="Green"
+                        xct:IconTintColorEffect.TintColor="Green"
                         Grid.Row="3" />
-                    
+
 
                     <Label
                         Text="ImageButton control"
@@ -65,13 +65,13 @@
 
                     <ImageButton
                         Source="https://image.flaticon.com/icons/png/512/48/48639.png"
-                        effects:IconTintColorEffect.TintColor="Red"
+                        xct:IconTintColorEffect.TintColor="Red"
                         Grid.Row="2"
                         Grid.Column="1" />
 
                     <ImageButton
                         Source="https://image.flaticon.com/icons/png/512/48/48639.png"
-                        effects:IconTintColorEffect.TintColor="Green"
+                        xct:IconTintColorEffect.TintColor="Green"
                         Grid.Row="3"
                         Grid.Column="1" />
 

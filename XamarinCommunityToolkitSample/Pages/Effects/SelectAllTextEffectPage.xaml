@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:effects="clr-namespace:Xamarin.CommunityToolkit.Effects;assembly=Xamarin.CommunityToolkit"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.SelectAllTextEffectPage">
     <ContentPage.Content>
         <ScrollView>
@@ -23,13 +22,13 @@
                         <Entry Text="https://github.com/xamarin/XamarinCommunityToolkit" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}"/>
                     </Frame>
                 </StackLayout>
-                
+
                 <StackLayout>
                     <Label Text="Entry with the effect, when focussed all text will be selected" FontAttributes="Italic"/>
                     <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
                         <Entry Text="https://github.com/xamarin/XamarinCommunityToolkit" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
                             <Entry.Effects>
-                                <effects:SelectAllTextEffect/>
+                                <xct:SelectAllTextEffect/>
                             </Entry.Effects>
                         </Entry>
                     </Frame>
@@ -55,7 +54,7 @@ Just my luck, no ice. I gave it a cold? I gave it a virus. A computer virus. Mus
                     <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
                         <Editor TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
                             <Editor.Effects>
-                                <effects:SelectAllTextEffect/>
+                                <xct:SelectAllTextEffect/>
                             </Editor.Effects>
                             <Editor.Text>
                                 Yeah, but your scientists were so preoccupied with whether or not they could, they didn't stop to think if they should. Must go faster... go, go, go, go, go! You know what? It is beets. I've crashed into a beet truck. Is this my espresso machine? Wh-what is-h-how did you get my espresso machine?
