@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
-                xmlns:toolkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-                xmlns:xaml="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.GravatarImagePage">
     <pages:BasePage.BindingContext>
         <viewmodels:GravatarImageViewModel />
@@ -16,17 +15,17 @@
                 <Label Text="Full Image Source" />
                 <Image>
                     <Image.Source>
-                        <toolkit:GravatarImageSource Email="{Binding Email}"
-                                                     Size="{Binding Size}"
-                                                     CachingEnabled="{Binding EnableCache}" />
+                        <xct:GravatarImageSource Email="{Binding Email}"
+                                                 Size="{Binding Size}"
+                                                 CachingEnabled="{Binding EnableCache}" />
                     </Image.Source>
                 </Image>
 
                 <Label Text="XAML Extension" />
-                <Image Source="{xaml:GravatarImage {Binding Email}, Size=65, CachingEnabled={Binding EnableCache}}" />
+                <Image Source="{xct:GravatarImage {Binding Email}, Size=65, CachingEnabled={Binding EnableCache}}" />
 
                 <Label Text="Default Gravatar" />
-                <Image Source="{xaml:GravatarImage '', Default={Binding DefaultGravatar}, Size={Binding Size}, CachingEnabled={Binding EnableCache}}" />
+                <Image Source="{xct:GravatarImage '', Default={Binding DefaultGravatar}, Size={Binding Size}, CachingEnabled={Binding EnableCache}}" />
             </StackLayout>
         </Frame>
 

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-          xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
-          xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
-          xmlns:behaviors1="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Behaviors;assembly=Xamarin.CommunityToolkit.Sample"
-          x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.ImpliedOrderGridBehaviorPage">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Behaviors;assembly=Xamarin.CommunityToolkit.Sample"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.ImpliedOrderGridBehaviorPage">
     <StackLayout>
         <StackLayout Orientation="Horizontal" Spacing="5" Margin="10">
             <Button Text="Add Row" Clicked="ButtonAddRow_OnClicked"></Button>
@@ -27,7 +27,7 @@ If the user manually assigns a row or column on a view, it will be honored.
 
         <Grid x:Name="TestGrid" Margin="30" BackgroundColor="Gray">
             <Grid.Behaviors>
-                <behaviors:ImpliedOrderGridBehavior/>
+                <xct:ImpliedOrderGridBehavior/>
             </Grid.Behaviors>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
@@ -42,20 +42,20 @@ If the user manually assigns a row or column on a view, it will be honored.
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <behaviors1:ImpliedOrderGridBehaviorLabel Grid.RowSpan="2"/>
-            <behaviors1:ImpliedOrderGridBehaviorLabel />
-            <behaviors1:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel Grid.RowSpan="2"/>
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
 
-            <behaviors1:ImpliedOrderGridBehaviorLabel Grid.ColumnSpan="2"/>
-            <behaviors1:ImpliedOrderGridBehaviorLabel/>
+            <behaviors:ImpliedOrderGridBehaviorLabel Grid.ColumnSpan="2"/>
+            <behaviors:ImpliedOrderGridBehaviorLabel/>
 
-            <behaviors1:ImpliedOrderGridBehaviorLabel />
-            <behaviors1:ImpliedOrderGridBehaviorLabel Grid.ColumnSpan="2" Grid.RowSpan="2" />
-            <behaviors1:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel Grid.ColumnSpan="2" Grid.RowSpan="2" />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
 
-            <behaviors1:ImpliedOrderGridBehaviorLabel />
-            <behaviors1:ImpliedOrderGridBehaviorLabel />
-            <behaviors1:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
 
         </Grid>
 

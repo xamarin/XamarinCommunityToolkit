@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="MSBuild.Sdk.Extras/2.0.54">
+<Project Sdk="MSBuild.Sdk.Extras/2.1.2">
   <PropertyGroup>
     <TargetFrameworks>netstandard1.0;netstandard2.0;netstandard2.1;Xamarin.iOS10;MonoAndroid90;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;Xamarin.Mac20;tizen40</TargetFrameworks>
     <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.17763;netcoreapp3.1;net472;net471</TargetFrameworks>
@@ -22,21 +22,7 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
-      
-      
-      
-      
-      
-      
-      
       <!-- See if we can host these on MS docs? -->
-    
-    
-    
-    
-    
-    
-    
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
@@ -120,7 +106,7 @@
     <AndroidResource Include="Resources\**\*.xml" />
     <AndroidResource Include="Resources\**\*.png" />
   </ItemGroup>
-  
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('MonoAndroid9.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
@@ -142,12 +128,12 @@
     <Compile Include="**\*.macos.cs" />
     <Compile Include="**\*.macos.*.cs" />
   </ItemGroup>
-  
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.WatchOS')) ">
     <Compile Include="**\*.watchos.cs" />
     <Compile Include="**\*.watchos.*.cs" />
   </ItemGroup>
-  
+
   <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <Compile Include="**\*.tizen.cs" />
@@ -213,5 +199,10 @@
       <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\pango-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="build\*.cs" />
+    <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
   </ItemGroup>
 </Project>

@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"
-                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.EventToCommandBehaviorPage"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.EventToCommandBehaviorPage">
 
     <pages:BasePage.BindingContext>
         <vm:EventToCommandBehaviorViewModel />
@@ -20,7 +19,7 @@
                     TextColor="White"
                     BackgroundColor="{StaticResource NormalButtonBackgroundColor}">
                 <Button.Behaviors>
-                    <behaviors:EventToCommandBehavior
+                    <xct:EventToCommandBehavior
                         EventName="Clicked"
                         Command="{Binding IncrementCommand}" />
                 </Button.Behaviors>
