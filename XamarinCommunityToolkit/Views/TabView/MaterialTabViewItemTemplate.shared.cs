@@ -2,9 +2,11 @@
 using System.Globalization;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	[Preserve(AllMembers = true)]
 	public class MaterialTabViewItemTemplate : Grid
 	{
 		readonly VisualFeedbackEffect visualFeedback;

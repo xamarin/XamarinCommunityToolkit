@@ -8,9 +8,6 @@
     <pages:BasePage.Resources>
         <ResourceDictionary>
 
-            <x:String x:Key="IconPlay">&#xf40a;</x:String>
-            <x:String x:Key="IconDownload">&#xf1da;</x:String>
-
             <ControlTemplate
 		        x:Key="TabItemTemplate">
                 <Grid
@@ -102,13 +99,13 @@
 			        Value="True" />
                 <Setter
 			        Property="TabStripBackgroundColor"
-			        Value="#E6F9F9F9" />
+			        Value="#E6484848" />
                 <Setter
 			        Property="TabStripHeight"
 			        Value="48" />
                 <Setter
 			        Property="TabContentBackgroundColor"
-			        Value="#F5F5F5" />
+			        Value="#484848" />
                 <Setter
 			        Property="TabStripPlacement"
 			        Value="Bottom" />
@@ -121,23 +118,10 @@
             <controls:TabView 
                 Style="{StaticResource CustomTabStyle}">
                 <controls:TabViewItem
-                    Text="Tab 1"
+                    Text="Tab 1"  
+                    Icon="triangle.png"
                     ControlTemplate="{StaticResource TabItemTemplate}"
                     Style="{StaticResource TabItemStyle}">
-                    <controls:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="{DynamicResource MaterialFontFamily}"
-                            Glyph="{StaticResource IconPlay}"
-                            Size="24"
-                            Color="#979797" />
-                    </controls:TabViewItem.Icon>
-                    <controls:TabViewItem.IconSelected>
-                        <FontImageSource
-                            FontFamily="{DynamicResource MaterialFontFamily}"
-                            Glyph="{StaticResource IconPlay}"
-                            Size="24"
-                            Color="#FF0000" />
-                    </controls:TabViewItem.IconSelected>
                     <Grid 
                         BackgroundColor="LawnGreen">
                         <Label
@@ -147,36 +131,16 @@
                     </Grid>
                 </controls:TabViewItem>
                 <controls:TabViewItem
-                    Text="Tab 2"
+                    Text="Tab 2"   
+                    Icon="circle.png"
                     ControlTemplate="{StaticResource FabTabItemTemplate}"
                     Style="{StaticResource TabItemStyle}"
-                    TabTapped="OnFabTabTapped">
-                    <controls:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="{DynamicResource MaterialFontFamily}"
-                            Glyph="{StaticResource IconPlay}"
-                            Size="24"
-                            Color="#FFFFFF" />
-                    </controls:TabViewItem.Icon>
-                </controls:TabViewItem>
+                    TabTapped="OnFabTabTapped" />
                 <controls:TabViewItem
-                    Text="Tab 3"
+                    Text="Tab 3"  
+                    Icon="square.png"
                     ControlTemplate="{StaticResource TabItemTemplate}"
                     Style="{StaticResource TabItemStyle}">
-                    <controls:TabViewItem.Icon>
-                        <FontImageSource
-                            FontFamily="{DynamicResource MaterialFontFamily}"
-                            Glyph="{StaticResource IconDownload}"
-                            Size="24"
-                            Color="#979797" />
-                    </controls:TabViewItem.Icon>
-                    <controls:TabViewItem.IconSelected>
-                        <FontImageSource
-                            FontFamily="{DynamicResource MaterialFontFamily}"
-                            Glyph="{StaticResource IconDownload}"
-                            Size="24"
-                            Color="#FF0000" />
-                    </controls:TabViewItem.IconSelected>
                     <Grid
                         BackgroundColor="LightCoral">
                         <Label    

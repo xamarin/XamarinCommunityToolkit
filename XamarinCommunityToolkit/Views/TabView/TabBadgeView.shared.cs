@@ -3,10 +3,12 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-    public class TabBadgeView : TemplatedView
+	[Preserve(AllMembers = true)]
+	public class TabBadgeView : TemplatedView
     {
         internal const string ElementBorder = "PART_Border";
         internal const string ElementText = "PART_Text";

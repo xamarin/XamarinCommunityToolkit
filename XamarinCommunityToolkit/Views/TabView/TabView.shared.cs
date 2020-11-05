@@ -8,9 +8,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	[Preserve(AllMembers = true)]
 	[ContentProperty(nameof(TabItems))]
 	public class TabView : ContentView, IDisposable
 	{
@@ -524,13 +526,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			while (enumerator.MoveNext())
 				count++;
 
-			BatchBegin();
-
 			VerticalOptions = count != 0 ? LayoutOptions.FillAndExpand : LayoutOptions.Start;
 			mainContainer.HeightRequest = count != 0 ? (TabContentHeight + TabStripHeight) : TabStripHeight;
 			UpdateTabContentHeight(count != 0 ? TabContentHeight : 0);
-
-			BatchCommit();
 		}
 
 		void AddTabViewItemFromTemplate(object item, int index = -1) => AddTabViewItemFromTemplateToTabStrip(item, index);
@@ -820,8 +818,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateTabContentLayout()
 		{
-			BatchBegin();
-
 			if (tabStripContainer.IsVisible)
 			{
 				if (TabStripPlacement == TabStripPlacement.Top)
@@ -840,8 +836,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Grid.SetRow(contentContainer, 0);
 				Grid.SetRowSpan(contentContainer, 3);
 			}
-
-			BatchCommit();
 		}
 
 		void UpdateTabStripBackgroundColor(Color tabStripBackgroundColor)

@@ -1,9 +1,11 @@
 ﻿using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-    public class WindowsTabViewItemTemplate : Grid
+	[Preserve(AllMembers = true)]
+	public class WindowsTabViewItemTemplate : Grid
     {
         readonly Image icon;
         readonly Label text;

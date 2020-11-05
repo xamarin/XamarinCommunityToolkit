@@ -14,20 +14,20 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(BadgeViewPage), "BadgeView",
 				"View used to used to notify users notifications, or status of something"),
 
-			new SectionModel(typeof(GravatarImagePage), "GravatarImageSource",
-				"The GravatarImageSource allows you to easily utilize a users Gravatar image from Gravatar.com using nothing but their email address"),
-
-			new SectionModel(typeof(RangeSliderPage), "RangeSlider",
-				"The RangeSlider is a slider with two thumbs allowing to select numeric ranges"),
-
 			new SectionModel(typeof(CameraViewPage), "CameraView",
 				"The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!"),
+
+			new SectionModel(typeof(GravatarImagePage), "GravatarImageSource",
+				"The GravatarImageSource allows you to easily utilize a users Gravatar image from Gravatar.com using nothing but their email address"),
 
 			new SectionModel(typeof(ExpanderPage), "Expander",
 				"The Expander control provides an expandable container to host any content"),
 
 			new SectionModel(typeof(MediaElementPage), "MediaElement",
 				"MediaElement is a view for playing video and audio"),
+
+			new SectionModel(typeof(RangeSliderPage), "RangeSlider",
+				"The RangeSlider is a slider with two thumbs allowing to select numeric ranges"),
 
 			new SectionModel(typeof(SnackBarPage), "SnackBar/Toast",
 				"Show SnackBar, Toast etc"),

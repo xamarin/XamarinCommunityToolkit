@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using Android.Content.Res;
+﻿using Android.Content.Res;
 using Android.Graphics.Drawables;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Xamarin.CommunityToolkit.Effects;
@@ -14,6 +14,7 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
+	[Preserve(AllMembers = true)]
 	public class VisualFeedbackEffectRouter : PlatformEffect
 	{
 		AView view;

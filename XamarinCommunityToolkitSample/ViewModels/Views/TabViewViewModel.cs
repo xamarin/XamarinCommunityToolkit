@@ -23,6 +23,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(NestedTabsPage), "Nested Tabs",
 				"Nest tabs!"),
 
+			new SectionModel(typeof(TabBadgePage), "Tab Badge",
+				"Badge support in tabs!"),
+
+			new SectionModel(typeof(TabItemAnimationPage), "TabItem Animation",
+				"We can use custom animations with tabs"),
+
 			new SectionModel(typeof(IsTabStripVisiblePage), "IsTabStripVisible",
 				"Show or hide the TabStrip"),
 
@@ -30,7 +36,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"Be able to change the position of the tabs dynamically"),
 
 			new SectionModel(typeof(TabWidthPage), "TabWidth",
-				"Customize the tabs width")
+				"Customize the tabs width"),
+
+			new SectionModel(typeof(NoContentPage), "Tab without Content",
+				"Only the TabStrip is visible")
 		};
 	}
 }

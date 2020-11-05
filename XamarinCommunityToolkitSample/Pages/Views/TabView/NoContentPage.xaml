@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.NoContentPage"   
     xmlns:controls="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" >
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
     <pages:BasePage.Content>
         <StackLayout>
             <controls:TabView

@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	[Preserve(AllMembers = true)]
 	[ContentProperty(nameof(Content))]
 	public class TabViewItem : TemplatedView
 	{

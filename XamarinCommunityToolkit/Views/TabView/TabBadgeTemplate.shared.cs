@@ -3,7 +3,8 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-    public class TabBadgeTemplate : Grid
+	[Preserve(AllMembers = true)]
+	public class TabBadgeTemplate : Grid
     {
         public TabBadgeTemplate()
         {
