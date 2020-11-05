@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.RangeSliderPage">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.RangeSliderPage">
 
     <pages:BasePage.Resources>
         <x:String x:Key="CustomValueLabeStringFormat">{0:0.#}</x:String>
@@ -31,7 +31,7 @@
     <StackLayout>
 
         <Frame Padding="15, 20">
-            <views:RangeSlider
+            <xct:RangeSlider
                 x:Name="RangeSlider"
                 MaximumValue="10"
                 MinimumValue="-10"
@@ -56,13 +56,13 @@
                 IsEnabled="{Binding IsToggled, Source={x:Reference IsEnabledSwitch}}"
                 ValueLabelSpacing="{Binding Value, Source={x:Reference ValueLabelSpacingSlider}}">
 
-                <views:RangeSlider.LowerThumbView>
+                <xct:RangeSlider.LowerThumbView>
                     <Label Text="L" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsToggled, Source={x:Reference LowerThumbViewSwitch}}" />
-                </views:RangeSlider.LowerThumbView>
-                <views:RangeSlider.UpperThumbView>
+                </xct:RangeSlider.LowerThumbView>
+                <xct:RangeSlider.UpperThumbView>
                     <Label Text="U" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsToggled, Source={x:Reference UpperThumbViewSwitch}}" />
-                </views:RangeSlider.UpperThumbView>
-            </views:RangeSlider>
+                </xct:RangeSlider.UpperThumbView>
+            </xct:RangeSlider>
         </Frame>
 
         <ScrollView Padding="15, 20">
