@@ -174,5 +174,13 @@
       <Name>Xamarin.CommunityToolkit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\square.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\triangle.png" />
+  </ItemGroup>
 </Project>
