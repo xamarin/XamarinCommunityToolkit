@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.DateTimeOffsetConverterPage"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
-                xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.DateTimeOffsetConverterPage">
     <pages:BasePage.BindingContext>
         <vm:DateTimeOffsetConverterViewModel />
     </pages:BasePage.BindingContext>
 
     <ContentPage.Resources>
          <ResourceDictionary>
-             <converters:DateTimeOffsetConverter x:Key="DateTimeOffsetConverter" />
+             <xct:DateTimeOffsetConverter x:Key="DateTimeOffsetConverter" />
          </ResourceDictionary>
     </ContentPage.Resources>
 

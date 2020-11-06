@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ByteArrayToImageSourcePage"
-                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
-                xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-                >
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ByteArrayToImageSourcePage">
 
     <pages:BasePage.BindingContext>
         <vm:ByteArrayToImageSourceViewModel />
@@ -14,7 +12,7 @@
 
     <ContentPage.Resources>
          <ResourceDictionary>
-             <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+             <xct:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
          </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -27,9 +25,9 @@
                    HorizontalOptions="Center"
                    Text="Image below uses byte array from ViewModel which is converted to ImageSource using ByteArrayToImageSource converter." />
 
-            <views:AvatarView Size="300"
-                              Source="{Binding Avatar, Converter={StaticResource ByteArrayToImageSourceConverter}}"
-                              HorizontalOptions="Center" VerticalOptions="Center" />
+            <xct:AvatarView Size="300"
+                            Source="{Binding Avatar, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                            HorizontalOptions="Center" VerticalOptions="Center" />
 
             <Label Text="Please wait..."
                    Margin="16"

@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:state="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"                
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
              xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
-             xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
              x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.StateLayoutPage"
              ios:Page.UseSafeArea="true">
 
@@ -14,18 +13,18 @@
     </pages:BasePage.BindingContext>
 
     <pages:BasePage.Resources>
-        <converters:StateToBooleanConverter x:Key="StateToBooleanConverter" />
+        <xct:StateToBooleanConverter x:Key="StateToBooleanConverter" />
     </pages:BasePage.Resources>
     <pages:BasePage.Content>
-        <Grid state:StateLayout.CurrentState="{Binding MainState}" state:StateLayout.AnimateStateChanges="False">
-            <state:StateLayout.StateViews>
-                <state:StateView StateKey="Loading" BackgroundColor="White" VerticalOptions="FillAndExpand">
+        <Grid xct:StateLayout.CurrentState="{Binding MainState}" xct:StateLayout.AnimateStateChanges="False">
+            <xct:StateLayout.StateViews>
+                <xct:StateView StateKey="Loading" BackgroundColor="White" VerticalOptions="FillAndExpand">
                     <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                        <ActivityIndicator Color="#1abc9c" IsRunning="{Binding MainState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:LayoutState.Loading}}" />
+                        <ActivityIndicator Color="#1abc9c" IsRunning="{Binding MainState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static xct:LayoutState.Loading}}" />
                         <Label Text="Loading..." HorizontalOptions="Center" />
                     </StackLayout>
-                </state:StateView>
-            </state:StateLayout.StateViews>
+                </xct:StateView>
+            </xct:StateLayout.StateViews>
             <ScrollView>
                 <StackLayout Spacing="0" Padding="40,30,40,40">
 
@@ -38,51 +37,51 @@
                     <Label Text="This will show all states at an interval of 3 seconds."
                            FontSize="14" Margin="0,8,0,16" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
 
-                    <Button Command="{Binding CycleStatesCommand}" IsVisible="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:LayoutState.None}}"
+                    <Button Command="{Binding CycleStatesCommand}" IsVisible="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static xct:LayoutState.None}}"
                             Text="Cycle All States" Margin="0,0,0,16" />
 
-                    <StackLayout Padding="10" state:StateLayout.CurrentState="{Binding CurrentState}"
-                                 state:StateLayout.CurrentCustomStateKey="{Binding CustomState}" BackgroundColor="#f0f1f2">
-                        <state:StateLayout.StateViews>
-                            <state:StateView StateKey="Empty">
+                    <StackLayout Padding="10" xct:StateLayout.CurrentState="{Binding CurrentState}"
+                                 xct:StateLayout.CurrentCustomStateKey="{Binding CustomState}" BackgroundColor="#f0f1f2">
+                        <xct:StateLayout.StateViews>
+                            <xct:StateView StateKey="Empty">
                                 <Label Text="This is the empty state. Nothing in here!" VerticalOptions="Center"
                                        VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
-                            </state:StateView>
-                            <state:StateView StateKey="Saving">
+                            </xct:StateView>
+                            <xct:StateView StateKey="Saving">
                                 <StackLayout>
-                                    <ActivityIndicator IsRunning="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:LayoutState.Saving}}" Color="Fuchsia" />
+                                    <ActivityIndicator IsRunning="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static xct:LayoutState.Saving}}" Color="Fuchsia" />
                                     <Label Text="Saving the world!" VerticalOptions="Center" VerticalTextAlignment="Center"
                                            HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
                                 </StackLayout>
-                            </state:StateView>
-                            <state:StateView StateKey="Loading">
+                            </xct:StateView>
+                            <xct:StateView StateKey="Loading">
                                 <StackLayout>
-                                    <ActivityIndicator IsRunning="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static state:LayoutState.Loading}}" Color="Fuchsia" />
+                                    <ActivityIndicator IsRunning="{Binding CurrentState, Converter={StaticResource StateToBooleanConverter}, ConverterParameter={x:Static xct:LayoutState.Loading}}" Color="Fuchsia" />
                                     <Label Text="This is the loading state. So we have a loader!" VerticalOptions="Center"
                                            VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
                                 </StackLayout>
-                            </state:StateView>
-                            <state:StateView StateKey="Error" RepeatCount="4">
-                                <state:StateView.RepeatTemplate>
+                            </xct:StateView>
+                            <xct:StateView StateKey="Error" RepeatCount="4">
+                                <xct:StateView.RepeatTemplate>
                                     <DataTemplate>
                                         <Label Text="Something went horribly wrong!" VerticalOptions="Center"
                                                VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
                                     </DataTemplate>
-                                </state:StateView.RepeatTemplate>
-                            </state:StateView>
-                            <state:StateView StateKey="Custom" CustomStateKey="ThisIsCustomHi">
+                                </xct:StateView.RepeatTemplate>
+                            </xct:StateView>
+                            <xct:StateView StateKey="Custom" CustomStateKey="ThisIsCustomHi">
                                 <Label Text="Hi, I'm a custom state!" VerticalOptions="Center" VerticalTextAlignment="Center"
                                        HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
-                            </state:StateView>
-                            <state:StateView StateKey="Custom" CustomStateKey="ThisIsCustomToo">
+                            </xct:StateView>
+                            <xct:StateView StateKey="Custom" CustomStateKey="ThisIsCustomToo">
                                 <Label Text="Hi, I'm a custom state too!" VerticalOptions="Center" VerticalTextAlignment="Center"
                                        HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
-                            </state:StateView>
-                            <state:StateView StateKey="Success">
+                            </xct:StateView>
+                            <xct:StateView StateKey="Success">
                                 <Label Text="Hooray! Great success!" VerticalOptions="Center" VerticalTextAlignment="Center"
                                        HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
-                            </state:StateView>
-                        </state:StateLayout.StateViews>
+                            </xct:StateView>
+                        </xct:StateLayout.StateViews>
                         <Label Text="This is the normal state." VerticalOptions="Center" VerticalTextAlignment="Center"
                                HorizontalOptions="Center" HorizontalTextAlignment="Center" />
                     </StackLayout>
