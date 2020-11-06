@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Globalization;
+using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			icon.SetBinding(Image.SourceProperty, "CurrentIcon");
 
-			text.SetBinding(Label.TextProperty, "Text", BindingMode.OneWay, new ToUpperConverter());
+			text.SetBinding(Label.TextProperty, "Text", BindingMode.OneWay, new TextCaseConverter { Type = TextCaseType.Upper });
 			text.SetBinding(Label.TextColorProperty, "CurrentTextColor");
 			text.SetBinding(Label.FontSizeProperty, "CurrentFontSize");
 			text.SetBinding(Label.FontAttributesProperty, "CurrentFontAttributes");
@@ -120,12 +120,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (badge.TranslationY == 0)
 				badge.TranslationY = 2;
 		}
-	}
-
-	public class ToUpperConverter : IValueConverter
-	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => $"{value}".ToUpper();
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => null;
 	}
 }
