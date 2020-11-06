@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xamarin.Forms.PancakeView.Platforms.WPF;
 using Xamarin.Forms.Platform.WPF;
 
 namespace Xamarin.CommunityToolkit.Sample.WPF
@@ -25,6 +26,7 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 		{
 			InitializeComponent();
 			Xamarin.Forms.Forms.Init();
+			PancakeViewRenderer.Init();
 			LoadApplication(new Xamarin.CommunityToolkit.Sample.App());
 		}
 	}

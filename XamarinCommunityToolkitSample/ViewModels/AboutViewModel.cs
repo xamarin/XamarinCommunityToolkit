@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Octokit;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
@@ -18,26 +16,26 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		RepositoryContributor selectedContributor;
 
-		string emptyViewText = AppResources.LoadingDataMessage;
+		string emptyViewText = "Loading data...";
 
 		ICommand selectedContributorCommand;
 
 		public RepositoryContributor[] Contributors
 		{
 			get => contributors;
-			set => Set(ref contributors, value);
+			set => SetProperty(ref contributors, value);
 		}
 
 		public RepositoryContributor SelectedContributor
 		{
 			get => selectedContributor;
-			set => Set(ref selectedContributor, value);
+			set => SetProperty(ref selectedContributor, value);
 		}
 
 		public string EmptyViewText
 		{
 			get => emptyViewText;
-			set => Set(ref emptyViewText, value);
+			set => SetProperty(ref emptyViewText, value);
 		}
 
 		public ICommand SelectedContributorCommand => selectedContributorCommand ??= new AsyncCommand(async () =>
@@ -74,7 +72,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			if (Contributors.Any())
 				return;
 
-			EmptyViewText = AppResources.NoDataLoadedMessage;
+			EmptyViewText = "No data loaded...";
 		}
 	}
 }

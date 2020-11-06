@@ -1,5 +1,4 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -12,13 +11,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		{
 			InitializeComponent();
 
-			zoomLabel.Text = string.Format(AppResources.CameraViewSampleZoom, zoomSlider.Value);
+			zoomLabel.Text = string.Format("Zoom: {0}", zoomSlider.Value);
 		}
 
 		void ZoomSlider_ValueChanged(object sender, ValueChangedEventArgs e)
 		{
 			cameraView.Zoom = (float)zoomSlider.Value;
-			zoomLabel.Text = string.Format(AppResources.CameraViewSampleZoom, Math.Round(zoomSlider.Value));
+			zoomLabel.Text = string.Format("Zoom: {0}", Math.Round(zoomSlider.Value));
 		}
 
 		void VideoSwitch_Toggled(object sender, ToggledEventArgs e)
@@ -32,8 +31,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 			previewPicture.IsVisible = !captureVideo;
 
-			doCameraThings.Text = e.Value ? AppResources.CameraViewSampleStartRecording
-				: AppResources.CameraViewSampleSnapPicture;
+			doCameraThings.Text = e.Value ? "Start Recording"
+				: "Snap Picture";
 		}
 
 		// You can also set it to Default and External
@@ -48,11 +47,11 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		{
 			cameraView.Shutter();
 			doCameraThings.Text = cameraView.CaptureOptions == CameraCaptureOptions.Video
-				? AppResources.CameraViewSampleStopRecording
-				: AppResources.CameraViewSampleSnapPicture;
+				? "Stop Recording"
+				: "Snap Picture";
 		}
 
-		void CameraView_OnAvailable(object _, bool e)
+		void CameraView_OnAvailable(object sender, bool e)
 		{
 			if (e)
 			{
@@ -77,11 +76,11 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				case CameraCaptureOptions.Photo:
 					previewPicture.IsVisible = true;
 					previewPicture.Source = e.Image;
-					doCameraThings.Text = AppResources.CameraViewSampleSnapPicture;
+					doCameraThings.Text = "Snap Picture";
 					break;
 				case CameraCaptureOptions.Video:
 					previewPicture.IsVisible = false;
-					doCameraThings.Text = AppResources.CameraViewSampleStartRecording;
+					doCameraThings.Text = "Start Recording";
 					break;
 			}
 		}

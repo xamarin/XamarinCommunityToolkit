@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"
-                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.MultiValidationBehaviorPage"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.MultiValidationBehaviorPage">
 
     <pages:BasePage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
@@ -16,17 +14,17 @@
     <StackLayout Padding="{StaticResource ContentPadding}"
                  Spacing="50"
                  VerticalOptions="CenterAndExpand">
-        <Label Text="{rsx:Translate MultiValidationDescription}" />
+        <Label Text="Start typing until MaxLength is reached..." />
         <Entry Placeholder="Number">
             <Entry.Behaviors>
-                <behaviors:MultiValidationBehavior x:Name="MultiValidation"
-                                                   InvalidStyle="{StaticResource InvalidEntryStyle}">
-                    <behaviors:NumericValidationBehavior behaviors:MultiValidationBehavior.Error="NaN" />
-                    <behaviors:NumericValidationBehavior MinimumValue="-10"
-                                                         behaviors:MultiValidationBehavior.Error="Min: -10" />
-                    <behaviors:NumericValidationBehavior MaximumValue="5"
-                                                         behaviors:MultiValidationBehavior.Error="Max: 5" />
-                </behaviors:MultiValidationBehavior>
+                <xct:MultiValidationBehavior x:Name="MultiValidation"
+                                             InvalidStyle="{StaticResource InvalidEntryStyle}">
+                    <xct:NumericValidationBehavior xct:MultiValidationBehavior.Error="NaN" />
+                    <xct:NumericValidationBehavior MinimumValue="-10"
+                                                   xct:MultiValidationBehavior.Error="Min: -10" />
+                    <xct:NumericValidationBehavior MaximumValue="5"
+                                                   xct:MultiValidationBehavior.Error="Max: 5" />
+                </xct:MultiValidationBehavior>
             </Entry.Behaviors>
         </Entry>
         <Label

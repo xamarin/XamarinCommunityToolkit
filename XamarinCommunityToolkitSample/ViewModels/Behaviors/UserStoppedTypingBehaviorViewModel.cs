@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
@@ -14,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		public string PerformedSearches
 		{
 			get => performedSearches;
-			set => Set(ref performedSearches, value);
+			set => SetProperty(ref performedSearches, value);
 		}
 
 		public ICommand SearchCommand { get; }
@@ -25,6 +24,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			=> SearchCommand = new Command<string>(PerformSearch);
 
 		void PerformSearch(string searchTerms)
-			=> PerformedSearches += string.Format(AppResources.UserStoppedTypingBehaviorSearchResultLabelFormat, searchTerms) + Environment.NewLine;
+			=> PerformedSearches += string.Format("Performed search for '{0}'.", searchTerms) + Environment.NewLine;
 	}
 }

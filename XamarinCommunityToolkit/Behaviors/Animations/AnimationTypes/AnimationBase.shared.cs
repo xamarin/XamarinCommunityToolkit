@@ -3,10 +3,11 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public abstract class AnimationBase : BindableObject
+	public abstract class AnimationBase<TView> : BindableObject
+		where TView : View
 	{
 		public static readonly BindableProperty DurationProperty =
-			BindableProperty.Create(nameof(Duration), typeof(uint), typeof(AnimationBase), default(uint),
+			BindableProperty.Create(nameof(Duration), typeof(uint), typeof(AnimationBase<TView>), default(uint),
 				BindingMode.TwoWay, defaultValueCreator: GetDefaultDurationProperty);
 
 		public uint Duration
@@ -16,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		public static readonly BindableProperty EasingTypeProperty =
-		   BindableProperty.Create(nameof(Easing), typeof(Easing), typeof(AnimationBase), Easing.Linear,
+		   BindableProperty.Create(nameof(Easing), typeof(Easing), typeof(AnimationBase<TView>), Easing.Linear,
 			   BindingMode.TwoWay);
 
 		public Easing Easing
@@ -26,10 +27,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		static object GetDefaultDurationProperty(BindableObject bindable)
-			=> ((AnimationBase)bindable).DefaultDuration;
+			=> ((AnimationBase<TView>)bindable).DefaultDuration;
 
 		protected abstract uint DefaultDuration { get; set; }
 
-		public abstract Task Animate(View view);
+		public abstract Task Animate(TView view);
+	}
+
+	public abstract class AnimationBase : AnimationBase<View>
+	{
 	}
 }

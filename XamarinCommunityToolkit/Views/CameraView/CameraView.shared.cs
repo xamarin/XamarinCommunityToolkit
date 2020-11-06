@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -14,27 +15,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal event EventHandler ShutterClicked;
 
-		public static readonly BindableProperty ShutterCommandProperty =
-			BindableProperty.Create(nameof(ShutterCommand),
-						typeof(ICommand),
-						typeof(CameraView));
+		internal static readonly BindablePropertyKey ShutterCommandPropertyKey =
+			BindableProperty.CreateReadOnly(nameof(ShutterCommand),
+				typeof(ICommand),
+				typeof(CameraView),
+				default,
+				BindingMode.OneWayToSource,
+				defaultValueCreator: ShutterCommandValueCreator);
 
-		public ICommand ShutterCommand
-		{
-			get => (ICommand)GetValue(ShutterCommandProperty);
-			set => SetValue(ShutterCommandProperty, value);
-		}
+		public static readonly BindableProperty ShutterCommandProperty = ShutterCommandPropertyKey.BindableProperty;
 
-		public static readonly BindableProperty ShutterCommandParameterProperty =
-			BindableProperty.Create(nameof(ShutterCommandParameter),
-						typeof(object),
-						typeof(CameraView));
-
-		public object ShutterCommandParameter
-		{
-			get => GetValue(ShutterCommandParameterProperty);
-			set => SetValue(ShutterCommandParameterProperty, value);
-		}
+		[Preserve(Conditional = true)]
+		public ICommand ShutterCommand => (ICommand)GetValue(ShutterCommandProperty);
 
 		public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(CameraView), false);
 
@@ -121,10 +113,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal void RaiseMediaCaptureFailed(string message) => MediaCaptureFailed?.Invoke(this, message);
 
-		public void Shutter()
+		public void Shutter() => ShutterClicked?.Invoke(this, EventArgs.Empty);
+
+		static object ShutterCommandValueCreator(BindableObject b)
 		{
-			ShutterClicked?.Invoke(this, EventArgs.Empty);
-			ShutterCommand?.Execute(ShutterCommandParameter);
+			var camera = (CameraView)b;
+			return new Command(camera.Shutter);
 		}
 	}
 }

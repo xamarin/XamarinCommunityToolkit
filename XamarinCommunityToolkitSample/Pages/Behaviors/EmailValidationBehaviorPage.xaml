@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.EmailValidationBehaviorPage"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.EmailValidationBehaviorPage">
 
     <pages:BasePage.Resources>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
@@ -15,10 +14,10 @@
     <StackLayout Padding="{StaticResource ContentPadding}"
                  Spacing="50"
                  VerticalOptions="CenterAndExpand">
-        <Label Text="{rsx:Translate EmailValidationDescription}" />
+        <Label Text="Text color will change accordingly to the style that is configured when a invalid value (email address) is entered." />
         <Entry Placeholder="Email">
             <Entry.Behaviors>
-                <behaviors:EmailValidationBehavior DecorationFlags="Trim" InvalidStyle="{StaticResource InvalidEntryStyle}"/>
+                <xct:EmailValidationBehavior DecorationFlags="Trim" InvalidStyle="{StaticResource InvalidEntryStyle}"/>
             </Entry.Behaviors>
         </Entry>
     </StackLayout>

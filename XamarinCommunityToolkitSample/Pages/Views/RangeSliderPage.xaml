@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.RangeSliderPage"
-             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.RangeSliderPage">
 
     <pages:BasePage.Resources>
         <x:String x:Key="CustomValueLabeStringFormat">{0:0.#}</x:String>
@@ -32,10 +31,11 @@
     <StackLayout>
 
         <Frame Padding="15, 20">
-            <views:RangeSlider
+            <xct:RangeSlider
                 x:Name="RangeSlider"
                 MaximumValue="10"
                 MinimumValue="-10"
+                StepValue="0.01"
                 LowerValue="-10"
                 UpperValue="10"
                 ValueLabelStringFormat="{StaticResource CustomValueLabeStringFormat}"
@@ -56,87 +56,87 @@
                 IsEnabled="{Binding IsToggled, Source={x:Reference IsEnabledSwitch}}"
                 ValueLabelSpacing="{Binding Value, Source={x:Reference ValueLabelSpacingSlider}}">
 
-                <views:RangeSlider.LowerThumbView>
+                <xct:RangeSlider.LowerThumbView>
                     <Label Text="L" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsToggled, Source={x:Reference LowerThumbViewSwitch}}" />
-                </views:RangeSlider.LowerThumbView>
-                <views:RangeSlider.UpperThumbView>
+                </xct:RangeSlider.LowerThumbView>
+                <xct:RangeSlider.UpperThumbView>
                     <Label Text="U" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" IsVisible="{Binding IsToggled, Source={x:Reference UpperThumbViewSwitch}}" />
-                </views:RangeSlider.UpperThumbView>
-            </views:RangeSlider>
+                </xct:RangeSlider.UpperThumbView>
+            </xct:RangeSlider>
         </Frame>
 
         <ScrollView Padding="15, 20">
             <StackLayout Spacing="20">
 
-                <Label Text="{rsx:Translate ThumbText}" FontSize="Title" FontAttributes="Bold"/>
+                <Label Text="Thumb" FontSize="Title" FontAttributes="Bold"/>
 
                 <Frame Padding="15, 10" BackgroundColor="LightBlue">
                     <StackLayout Spacing="10">
-                        <Label Text="{rsx:Translate ThumbSizeText}" FontAttributes="Bold"/>
+                        <Label Text="Thumb Size" FontAttributes="Bold"/>
                         <Slider x:Name="ThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
-                        <Label Text="{rsx:Translate SetLowerUpperThumb}" />
+                        <Label Text="Set Lower/Upper Thumb Size separately" />
                         <Switch x:Name="ThumbSizeSwitch" Toggled="OnThumbSizeSwitchToggled"/>
                         <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference ThumbSizeSwitch}}">
-                            <Label Text="{rsx:Translate LowerThumbSize}" />
+                            <Label Text="Lower Thumb Size" />
                             <Slider x:Name="LowerThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
-                            <Label Text="{rsx:Translate UpperThumbSize}" />
+                            <Label Text="Upper Thumb Size" />
                             <Slider x:Name="UpperThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
                         </StackLayout>
 
-                        <Label Text="{rsx:Translate ThumbColor}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Thumb Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Picker x:Name="ThumbColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{rsx:Translate LowerThumbColor}" />
+                        <Label Text="Lower Thumb Color" />
                         <Picker x:Name="LowerThumbColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{rsx:Translate UpperThumbColor}" />
+                        <Label Text="Upper Thumb Color" />
                         <Picker x:Name="UpperThumbColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="{rsx:Translate ThumbBorderColor}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Thumb Border Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Picker x:Name="ThumbBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{rsx:Translate LowerThumbBorderColor}" />
+                        <Label Text="Lower Thumb Border Color" />
                         <Picker x:Name="LowerThumbBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{rsx:Translate UpperThumbBorderColor}" />
+                        <Label Text="Upper Thumb Border Color" />
                         <Picker x:Name="UpperThumbBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="{rsx:Translate LowerThumbViewSet}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Lower Thumb View Set" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="LowerThumbViewSwitch" />
-                        <Label Text="{rsx:Translate UpperThumbViewSet}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Upper Thumb View Set" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="UpperThumbViewSwitch" />
 
-                        <Label Text="{rsx:Translate ControlThumbsRadius}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Control Thumbs Radius" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="ThumbRadiusSwitch" Toggled="OnThumbRadiusSwitchToggled"/>
                         <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference ThumbRadiusSwitch}}">
-                            <Label Text="{rsx:Translate ThumbRadius}" />
+                            <Label Text="Thumb Radius" />
                             <Slider x:Name="ThumbRadiusSlider" Maximum="25" Minimum="0" />
-                            <Label Text="{rsx:Translate SetLowerUpperThumbSeparately}" />
+                            <Label Text="Set Lower/Upper Thumb Radius separately" />
                             <Switch x:Name="LowerUpperThumbRadiusSwitch" Toggled="OnThumbRadiusSwitchToggled"/>
                             <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference LowerUpperThumbRadiusSwitch}}">
-                                <Label Text="{rsx:Translate LowerThumbRadius}" />
+                                <Label Text="Lower Thumb Radius" />
                                 <Slider x:Name="LowerThumbRadiusSlider" Maximum="25" Minimum="0" />
-                                <Label Text="{rsx:Translate UpperThumbRadius}" />
+                                <Label Text="Upper Thumb Radius" />
                                 <Slider x:Name="UpperThumbRadiusSlider" Maximum="25" Minimum="0" />
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
                 </Frame>
 
-                <Label Text="{rsx:Translate Track}" FontSize="Title" FontAttributes="Bold"/>
+                <Label Text="Track" FontSize="Title" FontAttributes="Bold"/>
 
                 <Frame Padding="15, 10" BackgroundColor="LightBlue">
                     <StackLayout>
-                        <Label Text="{rsx:Translate TrackSize}" FontAttributes="Bold" />
+                        <Label Text="Track Size" FontAttributes="Bold" />
                         <Slider x:Name="TrackSizeSlider" Maximum="50" Minimum="1" Value="3" />
 
-                        <Label Text="{rsx:Translate TrackColor}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Track Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Picker x:Name="TrackColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{rsx:Translate TrackHighlightColor}"  />
+                        <Label Text="Track Highlight Color"  />
                         <Picker x:Name="TrackHighlightColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="{rsx:Translate TrackHighlightColor}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Track Border Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Picker x:Name="TrackBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
-                        <Label Text="{rsx:Translate TrackHighlightBorderColor}" />
+                        <Label Text="Track Highlight Border Color" />
                         <Picker x:Name="TrackHighlightBorderColorPicker" ItemsSource="{StaticResource Colors}" SelectedIndex="0"/>
 
-                        <Label Text="{rsx:Translate ControlTrackRadius}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Control Track Radius" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Switch x:Name="TrackRadiusSwitch" Toggled="OnTrackRadiusSwitchToggled"/>
                         <Slider x:Name="TrackRadiusSlider" IsVisible="{Binding IsToggled, Source={x:Reference TrackRadiusSwitch}}" Maximum="25" Minimum="0" />
                     </StackLayout>
@@ -146,10 +146,10 @@
 
                 <Frame Padding="15, 10" BackgroundColor="LightBlue">
                     <StackLayout>
-                        <Label Text="{rsx:Translate IsEnabled}" FontAttributes="Bold" />
+                        <Label Text="Is Enabled" FontAttributes="Bold" />
                         <Switch x:Name="IsEnabledSwitch" IsToggled="True" />
 
-                        <Label Text="{rsx:Translate ValueLabelSpacing}" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
+                        <Label Text="Value Label Spacing" FontAttributes="Bold" Margin="0, 20, 0, 0"/>
                         <Slider x:Name="ValueLabelSpacingSlider" Maximum="25" Minimum="0" Value="5" />
                     </StackLayout>
                 </Frame>

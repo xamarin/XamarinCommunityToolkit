@@ -1,12 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
-             xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
-             xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ItemSelectedEventArgsPage"
-             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-             xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ItemSelectedEventArgsPage">
 
     <pages:BasePage.BindingContext>
         <vm:ItemSelectedEventArgsViewModel />
@@ -14,7 +12,7 @@
 
     <ContentPage.Resources>
          <ResourceDictionary>
-             <converters:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
+             <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
          </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -30,8 +28,8 @@
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="{rsx:Translate Id}" />
-                                     <Span Text=":" />
+                                    <Span Text="Id" />
+                                    <Span Text=":" />
                                     <Span Text="{Binding Id}" />
                                 </FormattedString>
                             </Label.FormattedText>
@@ -40,7 +38,7 @@
                         <Label>
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="{rsx:Translate Name}" />
+                                    <Span Text="Name" />
                                     <Span Text=":" />
                                     <Span Text="{Binding Name}" />
                                 </FormattedString>
@@ -54,7 +52,7 @@
         </ListView.ItemTemplate>
 
         <ListView.Behaviors>
-            <behaviors:EventToCommandBehavior EventName="ItemSelected"
+            <xct:EventToCommandBehavior EventName="ItemSelected"
                                               Command="{Binding ItemSelectedCommand}"
                                               EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}" />
         </ListView.Behaviors>

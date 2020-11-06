@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
@@ -19,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		public IList<Language> SupportedLanguages
 		{
 			get => supportedLanguages;
-			private set => Set(ref supportedLanguages, value);
+			private set => SetProperty(ref supportedLanguages, value);
 		}
 
 		Language selectedLanguage;
@@ -27,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		public Language SelectedLanguage
 		{
 			get => selectedLanguage;
-			set => Set(ref selectedLanguage, value);
+			set => SetProperty(ref selectedLanguage, value);
 		}
 
 		ICommand changeLanguageCommand;

@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.Create(nameof(CollapseAnimationEasing), typeof(Easing), typeof(Expander));
 
 		public static readonly BindableProperty StateProperty
-			= BindableProperty.Create(nameof(State), typeof(ExpandState), typeof(Expander), default(ExpandState), BindingMode.OneWayToSource);
+			= BindableProperty.Create(nameof(State), typeof(ExpandState), typeof(Expander), ExpandState.Collapsed, BindingMode.OneWayToSource);
 
 		public static readonly BindableProperty CommandParameterProperty
 			= BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(Expander));

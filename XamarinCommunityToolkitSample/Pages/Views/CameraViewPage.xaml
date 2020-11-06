@@ -1,34 +1,32 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<pages:BasePage
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.CameraViewPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-    xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit"
-    xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.CameraViewPage">
     <StackLayout>
-        <views:CameraView
-                x:Name="cameraView"
-                CaptureOptions="Video"
-                FlashMode="On"
-                HeightRequest="480"
-                MediaCaptured="CameraView_MediaCaptured"
-                OnAvailable="CameraView_OnAvailable"
-                SavePhotoToFile="True"
-                WidthRequest="640" />
+        <xct:CameraView
+            x:Name="cameraView"
+            CaptureOptions="Video"
+            FlashMode="On"
+            HeightRequest="480"
+            MediaCaptured="CameraView_MediaCaptured"
+            OnAvailable="CameraView_OnAvailable"
+            SavePhotoToFile="True"
+            WidthRequest="640" />
 
-            <StackLayout Grid.Row="1" Orientation="Horizontal">
-                <Label x:Name="zoomLabel" />
-                <Slider
-                    x:Name="zoomSlider"
-                    Margin="5,0"
-                    IsEnabled="False"
-                    Maximum="10"
-                    Minimum="1"
-                    ValueChanged="ZoomSlider_ValueChanged"
-                    Value="1" />
-            </StackLayout>
-        
+        <StackLayout Grid.Row="1" Orientation="Horizontal">
+            <Label x:Name="zoomLabel" />
+            <Slider
+                x:Name="zoomSlider"
+                Margin="5,0"
+                IsEnabled="False"
+                Maximum="10"
+                Minimum="1"
+                ValueChanged="ZoomSlider_ValueChanged"
+                Value="1" />
+        </StackLayout>
+
         <ScrollView>
             <StackLayout>
                 <Grid ColumnDefinitions="*, *" RowDefinitions="*,*">
@@ -69,9 +67,9 @@
 
                 <Button
                     x:Name="doCameraThings"
-                    Clicked="DoCameraThings_Clicked"
+                    Command="{Binding ShutterCommand, Source={x:Reference cameraView}}"
                     IsEnabled="False"
-                    Text="{rsx:Translate CameraViewSampleStartRecording}" />
+                    Text="Start Recording" />
                 <Image
                     x:Name="previewPicture"
                     Aspect="AspectFit"

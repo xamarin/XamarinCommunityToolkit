@@ -12,7 +12,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			=> Device.PlatformServices = new MockPlatformServices();
 
 		[Theory]
-		// Positive
 		[InlineData("en-US", "15.2", 1.0, 16.0, 0, 16, true)]
 		[InlineData("en-US", "15.", 1.0, 16.0, 0, 1, true)]
 		[InlineData("en-US", "15.88", 1.0, 16.0, 2, 2, true)]
@@ -25,7 +24,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		[InlineData("de-DE", "0,99", 0.9, 2.0, 0, 16, true)]
 		[InlineData("de-DE", ",99", 0.9, 2.0, 0, 16, true)]
 		[InlineData("de-DE", "1.115,2", 1.0, 2000.0, 0, 16, true)]
-		// Negative
 		[InlineData("en-US", "15.3", 16.0, 20.0, 0, 16, false)]
 		[InlineData("en-US", "15.3", 0.0, 15.0, 0, 16, false)]
 		[InlineData("en-US", "15.", 1.0, 16.0, 0, 0, false)]
@@ -60,14 +58,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 					MinimumDecimalPlaces = minDecimalPlaces,
 					MaximumDecimalPlaces = maxDecimalPlaces
 				};
-				new Entry
+				var entry = new Entry
 				{
-					Text = value,
-					Behaviors =
-					{
-						behavior
-					}
+					Text = value
 				};
+				entry.Behaviors.Add(behavior);
 				behavior.ForceValidate();
 				Assert.Equal(expectedValue, behavior.IsValid);
 			}

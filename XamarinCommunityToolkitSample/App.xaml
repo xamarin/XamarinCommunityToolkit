@@ -19,6 +19,9 @@
         <Color x:Key="NormalButtonTextColor">#FFFFFF</Color>
         <Color x:Key="HeadingLabelTextColor">#5D5D5D</Color>
         <Color x:Key="NormalLabelTextColor">#888888</Color>
+        <Color x:Key="DarkLabelTextColor">#000000</Color>
+        <Color x:Key="DarkLabelPlaceholderColor">#333d47</Color>
+        <Color x:Key="SoftFrameBackgroundColor">#ecf0f9</Color>
 
         <!-- Fonts -->
         <OnPlatform x:TypeArguments="x:String" x:Key="font_bold">
@@ -91,38 +94,47 @@
 
         <!-- Content templates -->
         <ControlTemplate x:Key="GalleryPageTemplate">
-            <CollectionView ItemsSource="{TemplateBinding BindingContext.Items}">
-                <CollectionView.Header>
-                    <BoxView HeightRequest="32" />
-                </CollectionView.Header>
-                <CollectionView.Footer>
-                    <BoxView HeightRequest="32" />
-                </CollectionView.Footer>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="20,12">
-                            <custom:PancakeView Style="{StaticResource card}">
-                                <custom:PancakeView.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                        Command="{Binding NavigateCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
-                                        CommandParameter="{Binding .}" />
-                                </custom:PancakeView.GestureRecognizers>
-                                <Grid ColumnSpacing="20">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="12" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <BoxView BackgroundColor="{Binding DetailColor, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" />
-                                    <StackLayout Grid.Column="1" Spacing="8" Padding="0,24,24,24">
-                                        <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
-                                        <Label Text="{Binding Description}" />
-                                    </StackLayout>
-                                </Grid>
-                            </custom:PancakeView>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <StackLayout Spacing="0">
+                <CollectionView ItemsSource="{TemplateBinding BindingContext.FilteredItems}">
+                    <CollectionView.Header>
+                        <ContentView Padding="20,12">
+                            <Entry Placeholder="Filter"
+                                   HeightRequest="40"
+                                   IsTextPredictionEnabled="False"
+                                   ReturnType="Search"
+                                   ReturnCommand="{TemplateBinding BindingContext.FilterCommand}"
+                                   Text="{TemplateBinding BindingContext.FilterValue, Mode=OneWayToSource}"/>
+                        </ContentView>
+                    </CollectionView.Header>
+                    <CollectionView.Footer>
+                        <BoxView HeightRequest="32" />
+                    </CollectionView.Footer>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="20,12">
+                                <custom:PancakeView Style="{StaticResource card}">
+                                    <custom:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            Command="{Binding NavigateCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding .}" />
+                                    </custom:PancakeView.GestureRecognizers>
+                                    <Grid ColumnSpacing="20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <BoxView BackgroundColor="{Binding DetailColor, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" />
+                                        <StackLayout Grid.Column="1" Spacing="8" Padding="0,24,24,24">
+                                            <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
+                                            <Label Text="{Binding Description}" />
+                                        </StackLayout>
+                                    </Grid>
+                                </custom:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
         </ControlTemplate>
 
     </Application.Resources>
