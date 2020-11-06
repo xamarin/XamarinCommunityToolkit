@@ -3,7 +3,7 @@
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	[Foundation.Preserve(AllMembers = true)]
-	internal class TouchEventsGestureRecognizer : UIGestureRecognizer
+	class TouchEventsGestureRecognizer : UIGestureRecognizer
 	{
 		readonly TouchEvents events;
 

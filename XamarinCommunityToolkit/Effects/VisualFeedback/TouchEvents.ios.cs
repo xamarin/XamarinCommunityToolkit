@@ -3,7 +3,7 @@
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	[Foundation.Preserve(AllMembers = true)]
-	internal class TouchEvents
+	class TouchEvents
 	{
 		public event EventHandler TouchBegin;
 
