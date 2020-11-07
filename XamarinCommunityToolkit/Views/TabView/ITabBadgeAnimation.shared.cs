@@ -2,10 +2,10 @@
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-    public interface ITabBadgeAnimation
-    {
-        Task OnAppearing(TabBadgeView badgeView);
+	public interface ITabBadgeAnimation
+	{
+		Task OnAppearing(TabBadgeView badgeView);
 
-        Task OnDisappering(TabBadgeView badgeView);
-    }
+		Task OnDisappering(TabBadgeView badgeView);
+	}
 }

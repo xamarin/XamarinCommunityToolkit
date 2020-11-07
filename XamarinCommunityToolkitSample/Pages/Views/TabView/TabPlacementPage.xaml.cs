@@ -5,7 +5,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
 {
 	public partial class TabPlacementPage : BasePage
 	{
-		public TabPlacementPage() => InitializeComponent(); 
+		public TabPlacementPage() => InitializeComponent();
 
 		void OnChangeTabStripPlacementClicked(object sender, EventArgs e)
 		{
