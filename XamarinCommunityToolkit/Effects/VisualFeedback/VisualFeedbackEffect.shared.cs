@@ -2,15 +2,15 @@
 
 namespace Xamarin.CommunityToolkit.Effects
 {
-    public class VisualFeedbackEffect : RoutingEffect
-    {
+	public class VisualFeedbackEffect : RoutingEffect
+	{
 		public VisualFeedbackEffect()
 			: base(EffectIds.VisualFeedback)
 		{
-        }
+		}
 
 		public static readonly BindableProperty FeedbackColorProperty =
-            BindableProperty.CreateAttached("FeedbackColor", typeof(Color), typeof(VisualFeedbackEffect), Color.Default);
+			BindableProperty.CreateAttached("FeedbackColor", typeof(Color), typeof(VisualFeedbackEffect), Color.Default);
 
 		public static Color GetFeedbackColor(BindableObject view) => (Color)view.GetValue(FeedbackColorProperty);
 

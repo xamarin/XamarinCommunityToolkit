@@ -1,7 +1,7 @@
 ﻿using System;
 using UIKit;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
@@ -96,7 +96,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		async void OnTouchBegin(object sender, EventArgs e)
 		{
 			if (!(Element is VisualElement visualElement) || !visualElement.IsEnabled)
-                return;
+				return;
 
 			view.BecomeFirstResponder();
 
