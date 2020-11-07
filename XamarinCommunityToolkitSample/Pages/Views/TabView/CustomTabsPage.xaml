@@ -98,9 +98,6 @@
 			        Property="IsTabTransitionEnabled"
 			        Value="True" />
                 <Setter
-			        Property="TabStripBackgroundColor"
-			        Value="#E6484848" />
-                <Setter
 			        Property="TabStripHeight"
 			        Value="48" />
                 <Setter
@@ -117,6 +114,11 @@
         <Grid>
             <controls:TabView 
                 Style="{StaticResource CustomTabStyle}">
+                <controls:TabView.TabStripBackgroundView>
+                    <BoxView
+                        Color="#484848"
+                        CornerRadius="36, 36, 0, 0"/>
+                </controls:TabView.TabStripBackgroundView>
                 <controls:TabViewItem
                     Text="Tab 1"  
                     Icon="triangle.png"

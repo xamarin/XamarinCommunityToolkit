@@ -765,7 +765,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					contentIndex = contentTabItems.IndexOf(currentItem ?? tabViewItem);
 					tabStripIndex = TabItems.IndexOf(currentItem ?? tabViewItem);
 
-					position = SelectedIndex = tabStripIndex;
+					position = tabStripIndex;
 
 					for (var index = 0; index < TabItems.Count; index++)
 					{
@@ -863,6 +863,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Grid.SetRow(contentContainer, 0);
 				Grid.SetRowSpan(contentContainer, 3);
 			}
+
+			if (TabStripBackgroundView != null)
+			{
+				var tabStripBackgroundViewHasCornerRadius =
+					(TabStripBackgroundView is IBorderElement borderElement && borderElement.CornerRadius != default) ||
+					(TabStripBackgroundView is BoxView boxView && boxView.CornerRadius != default);
+
+				if (tabStripBackgroundViewHasCornerRadius)
+				{
+					Grid.SetRow(contentContainer, 0);
+					Grid.SetRowSpan(contentContainer, 3);
+				}
+			}
 		}
 
 		void UpdateTabStripBackgroundColor(Color tabStripBackgroundColor)
@@ -879,6 +892,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				tabStripBackground.Children.Add(tabStripBackgroundView);
 			else
 				tabStripBackground.Children.Clear();
+
+			UpdateTabContentLayout();
 		}
 
 		void UpdateTabStripBorderColor(Color tabStripBorderColor)
