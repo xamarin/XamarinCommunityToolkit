@@ -10,6 +10,7 @@
             <controls:TabView
                 TabStripPlacement="Bottom"
                 TabStripBackgroundColor="Blue"
+                TabStripBorderColor="Yellow"
                 TabStripHeight="60"
                 TabIndicatorColor="Yellow"
                 TabContentBackgroundColor="Yellow">

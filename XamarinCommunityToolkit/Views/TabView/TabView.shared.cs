@@ -21,6 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly Grid mainContainer;
 		readonly Grid tabStripContainer;
 		readonly Grid tabStripBackground;
+		readonly BoxView tabStripBorder;
 		readonly ScrollView tabStripContainerScroll;
 		readonly Grid tabStripIndicator;
 		readonly Grid tabStripContent;
@@ -45,6 +46,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				HeightRequest = TabStripHeight,
 				VerticalOptions = LayoutOptions.Start
 			};
+
+			tabStripBorder = new BoxView
+			{
+				Color = TabStripBorderColor,
+				HeightRequest = 1,
+				VerticalOptions = LayoutOptions.Start
+			};
+
+			tabStripBackground.Children.Add(tabStripBorder);
 
 			tabStripIndicator = new Grid
 			{
@@ -245,6 +255,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnTabStripBackgroundViewChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as TabView)?.UpdateTabStripBackgroundView((View)newValue);
+
+		public static readonly BindableProperty TabStripBorderColorProperty =
+			BindableProperty.Create(nameof(TabStripBorderColor), typeof(Color), typeof(TabView), Color.Default,
+				propertyChanged: OnTabStripBorderColorChanged);
+
+		public Color TabStripBorderColor
+		{
+			get => (Color)GetValue(TabStripBorderColorProperty);
+			set => SetValue(TabStripBorderColorProperty, value);
+		}
+
+		static void OnTabStripBorderColorChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as TabView)?.UpdateTabStripBorderColor((Color)newValue);
 
 		public static readonly BindableProperty TabContentBackgroundColorProperty =
 			BindableProperty.Create(nameof(TabContentBackgroundColor), typeof(Color), typeof(TabView), Color.Default,
@@ -799,6 +821,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mainContainer.RowDefinitions[0].Height = TabStripHeight > 0 ? TabStripHeight : GridLength.Auto;
 				mainContainer.RowDefinitions[1].Height = GridLength.Auto;
 				mainContainer.RowDefinitions[2].Height = GridLength.Star;
+
+				tabStripBorder.VerticalOptions = LayoutOptions.End;
 			}
 
 			if (tabStripPlacement == TabStripPlacement.Bottom)
@@ -811,9 +835,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mainContainer.RowDefinitions[0].Height = GridLength.Star;
 				mainContainer.RowDefinitions[1].Height = GridLength.Auto;
 				mainContainer.RowDefinitions[2].Height = TabStripHeight > 0 ? TabStripHeight : GridLength.Auto;
+
+				tabStripBorder.VerticalOptions = LayoutOptions.Start;
 			}
 
 			UpdateTabContentLayout();
+			UpdateTabIndicatorMargin();
 		}
 
 		void UpdateTabContentLayout()
@@ -852,6 +879,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				tabStripBackground.Children.Add(tabStripBackgroundView);
 			else
 				tabStripBackground.Children.Clear();
+		}
+
+		void UpdateTabStripBorderColor(Color tabStripBorderColor)
+		{
+			tabStripBorder.Color = tabStripBorderColor;
+
+			UpdateTabIndicatorMargin();
+		}
+
+		void UpdateTabIndicatorMargin()
+		{
+			if (TabStripBorderColor == Color.Default)
+				return;
+
+			if (TabStripPlacement == TabStripPlacement.Top && TabIndicatorPlacement == TabIndicatorPlacement.Bottom)
+				tabStripIndicator.Margin = new Thickness(0, 0, 0, 1);
+
+			if (TabStripPlacement == TabStripPlacement.Bottom && TabIndicatorPlacement == TabIndicatorPlacement.Top)
+				tabStripIndicator.Margin = new Thickness(0, 1, 0, 0);
 		}
 
 		void UpdateTabContentBackgroundColor(Color tabContentBackgroundColor) => contentContainer.BackgroundColor = tabContentBackgroundColor;
@@ -896,6 +942,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					tabStripIndicator.VerticalOptions = LayoutOptions.End;
 					break;
 			}
+
+			UpdateTabIndicatorMargin();
 		}
 
 		void UpdateIsSwipeEnabled(bool isSwipeEnabled) => contentContainer.IsSwipeEnabled = isSwipeEnabled;
