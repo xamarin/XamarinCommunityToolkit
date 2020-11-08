@@ -2,28 +2,28 @@
 <pages:BasePage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.ScrollTabsPage"
-    xmlns:controls="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" >
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.ScrollTabsPage">
+    
     <pages:BasePage.Resources>
         <ResourceDictionary>
-
-            <Style x:Key="CustomTabViewItemStyle" TargetType="controls:TabViewItem">
+            <Style x:Key="CustomTabViewItemStyle" TargetType="xct:TabViewItem">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="TextColorSelected" Value="Yellow" />
                 <Setter Property="TabWidth" Value="100" />
             </Style>
-
         </ResourceDictionary>
     </pages:BasePage.Resources>
+
     <pages:BasePage.Content>
         <Grid>
-            <controls:TabView 
+            <xct:TabView 
                 TabStripPlacement="Bottom"
                 TabIndicatorColor="White"
                 TabStripBackgroundColor="Red"
                 TabStripHeight="60">
-                <controls:TabViewItem
+                <xct:TabViewItem
                     Icon="circle.png"
                     Text="Tab 1"  
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -34,8 +34,8 @@
                             VerticalOptions="Center"
                             Text="TabContent1" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="square.png"
                     Text="Tab 2"
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -46,8 +46,8 @@
                             VerticalOptions="Center"
                             Text="TabContent2" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="triangle.png"
                     Text="Tab 3"
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -58,8 +58,8 @@
                             VerticalOptions="Center"
                             Text="TabContent3" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="circle.png"
                     Text="Tab 4"   
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -70,8 +70,8 @@
                             VerticalOptions="Center"
                             Text="TabContent4" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="square.png"
                     Text="Tab 5"   
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -82,8 +82,8 @@
                             VerticalOptions="Center"
                             Text="TabContent5" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="triangle.png"
                     Text="Tab 6"
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -94,8 +94,8 @@
                             VerticalOptions="Center"
                             Text="TabContent6" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="circle.png"
                     Text="Tab 7"   
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -106,8 +106,8 @@
                             VerticalOptions="Center"
                             Text="TabContent7" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="square.png"
                     Text="Tab 8"   
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -118,8 +118,8 @@
                             VerticalOptions="Center"
                             Text="TabContent8" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="triangle.png"
                     Text="Tab 9"
                     Style="{StaticResource CustomTabViewItemStyle}">
@@ -130,8 +130,8 @@
                             VerticalOptions="Center"
                             Text="TabContent9" />
                     </Grid>
-                </controls:TabViewItem>
-            </controls:TabView>
+                </xct:TabViewItem>
+            </xct:TabView>
         </Grid>
     </pages:BasePage.Content>
 </pages:BasePage>
