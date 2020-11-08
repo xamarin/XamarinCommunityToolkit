@@ -50,7 +50,7 @@
                             <OnPlatform x:TypeArguments="x:Int32">
                                 <On Platform="iOS" Value="30"/>
                                 <On Platform="Android" Value="60"/>
-                                <On Platform="UWP" Value="24"/>
+                                <On Platform="UWP" Value="36"/>
                             </OnPlatform>
                         </ImageButton.CornerRadius>
                         <ImageButton.IsVisible>
