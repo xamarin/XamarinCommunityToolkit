@@ -145,7 +145,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			BatchCommit();
 
+			DisableLoop();
 			UpdateIsEnabled();
+		}
+
+		void DisableLoop()
+		{
+			// If TabView is used with Xamarin.Forms >= 5.0, the default value of the CarouselView Loop property is true,
+			// whereas in TabView we are not yet ready to support it. Access the property and disable the loop.
+			var loopProperty = contentContainer.GetType().GetProperty("Loop");
+
+			if (loopProperty != null && loopProperty.CanWrite)
+				loopProperty.SetValue(contentContainer, false, null);
 		}
 
 		public void Dispose()
