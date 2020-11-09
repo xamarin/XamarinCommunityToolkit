@@ -2,9 +2,10 @@
 <pages:BasePage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.TabPlacementPage" 
-    xmlns:controls="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" >
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.TabPlacementPage">
+    
     <pages:BasePage.Content>
         <Grid
             RowSpacing="0">
@@ -12,7 +13,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <controls:TabView
+            <xct:TabView
                 x:Name="TabView"
                 TabStripPlacement="Bottom"
                 TabStripBackgroundColor="Blue"
@@ -20,7 +21,7 @@
                 TabStripHeight="60"
                 TabIndicatorColor="Yellow"
                 TabContentBackgroundColor="Yellow">
-                <controls:TabViewItem
+                <xct:TabViewItem
                     Icon="triangle.png"
                     Text="Tab 1"
                     TextColor="White"
@@ -33,8 +34,8 @@
                             VerticalOptions="Center"
                             Text="TabContent1" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Icon="circle.png"
                     Text="Tab 2"
                     TextColor="White"
@@ -46,8 +47,8 @@
                             VerticalOptions="Center"
                             Text="TabContent2" />
                     </Grid>
-                </controls:TabViewItem>
-            </controls:TabView>
+                </xct:TabViewItem>
+            </xct:TabView>
             <Grid
                 Grid.Row="1">
                 <Button
