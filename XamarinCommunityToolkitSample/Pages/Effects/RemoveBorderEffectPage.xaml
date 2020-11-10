@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.RemoveBorderEffectPage"
+                Title="RemoveBorderEffect">
+    <ContentPage.Content>
+        <StackLayout Padding="10,10"
+                     BackgroundColor="{StaticResource AppBackgroundColor}"
+                     HorizontalOptions="Fill"
+                     Spacing="20"
+                     VerticalOptions="Fill">
+
+            <Label Text="The RemoveBorderEffect is an effect that will remove the border from an Entry on iOS and the underline from an entry on Android. This effect has been backported from the original version of this repository."/>
+
+            <StackLayout>
+                <Label Text="Default Entry" FontAttributes="Italic"/>
+                <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
+                    <Entry Placeholder="I have a border" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}"/>
+                </Frame>
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Entry With Effect" FontAttributes="Italic"/>
+                <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
+                    <Entry Placeholder="I don't have a border" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
+                        <Entry.Effects>
+                            <xct:RemoveBorderEffect/>
+                        </Entry.Effects>
+                    </Entry>
+                </Frame>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

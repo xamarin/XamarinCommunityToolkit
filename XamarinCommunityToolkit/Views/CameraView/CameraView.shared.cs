@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -24,6 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty ShutterCommandProperty = ShutterCommandPropertyKey.BindableProperty;
 
+		[Preserve(Conditional = true)]
 		public ICommand ShutterCommand => (ICommand)GetValue(ShutterCommandProperty);
 
 		public static readonly BindableProperty IsBusyProperty = BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(CameraView), false);
