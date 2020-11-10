@@ -1016,7 +1016,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var itemsCount = TabItems.Count;
 
-			if (previousIndex > 0 && previousIndex < itemsCount)
+			if (previousIndex >= 0 && previousIndex < itemsCount)
 			{
 				var currentTabViewItem = TabItems[previousIndex];
 				var currentTabViewItemWidth = currentTabViewItem.Width;
@@ -1025,7 +1025,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				var contentItemsCount = contentWidthCollection.Count;
 
-				if (previousIndex > 0 && previousIndex < contentItemsCount)
+				if (previousIndex >= 0 && previousIndex < contentItemsCount)
 				{
 					var progress = (offset - contentWidthCollection[previousIndex]) / (contentWidthCollection[nextIndex] - contentWidthCollection[previousIndex]);
 					var position = toRight ? currentTabViewItem.X + (currentTabViewItemWidth * progress) : currentTabViewItem.X - (currentTabViewItemWidth * progress);
