@@ -12,7 +12,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		int mRatioWidth = 0;
 		int mRatioHeight = 0;
-		readonly object locker = new object();
 
 		public AutoFitTextureView(Context context)
 			: this(context, null)
@@ -54,26 +53,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else
 			{
 				if (width < (float)height * mRatioWidth / mRatioHeight)
-					SetMeasuredDimension(width, width * mRatioHeight / mRatioWidth);
-				else
 					SetMeasuredDimension(height * mRatioWidth / mRatioHeight, height);
-			}
-		}
-
-		public void ClearCanvas(AColor color)
-		{
-			using var canvas = LockCanvas(null);
-			lock (locker)
-			{
-				try
-				{
-					canvas.DrawColor(color);
-				}
-				finally
-				{
-					UnlockCanvasAndPost(canvas);
-				}
-				Invalidate();
+				else
+					SetMeasuredDimension(width, width * mRatioHeight / mRatioWidth);
 			}
 		}
 	}
