@@ -2,10 +2,11 @@
 <pages:BasePage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.TabItemsSourcePage"
-    xmlns:controls="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"  
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" >
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.TabItemsSourcePage">
+    
     <pages:BasePage.BindingContext>
         <vm:TabItemsSourceViewModel />
     </pages:BasePage.BindingContext>
@@ -59,7 +60,7 @@
         </ResourceDictionary>
     </pages:BasePage.Resources>
     <pages:BasePage.Content>
-        <controls:TabView
+        <xct:TabView
             TabItemsSource="{Binding Monkeys}"
             TabStripPlacement="Bottom"
             TabStripBackgroundColor="Blue"

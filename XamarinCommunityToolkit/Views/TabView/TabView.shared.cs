@@ -145,7 +145,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			BatchCommit();
 
+			DisableLoop();
 			UpdateIsEnabled();
+		}
+
+		void DisableLoop()
+		{
+			// If TabView is used with Xamarin.Forms >= 5.0, the default value of the CarouselView Loop property is true,
+			// whereas in TabView we are not yet ready to support it. Access the property and disable the loop.
+			var loopProperty = contentContainer.GetType().GetProperty("Loop");
+
+			if (loopProperty != null && loopProperty.CanWrite)
+				loopProperty.SetValue(contentContainer, false, null);
 		}
 
 		public void Dispose()
@@ -1005,7 +1016,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var itemsCount = TabItems.Count;
 
-			if (previousIndex > 0 && previousIndex < itemsCount)
+			if (previousIndex >= 0 && previousIndex < itemsCount)
 			{
 				var currentTabViewItem = TabItems[previousIndex];
 				var currentTabViewItemWidth = currentTabViewItem.Width;
@@ -1014,7 +1025,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				var contentItemsCount = contentWidthCollection.Count;
 
-				if (previousIndex > 0 && previousIndex < contentItemsCount)
+				if (previousIndex >= 0 && previousIndex < contentItemsCount)
 				{
 					var progress = (offset - contentWidthCollection[previousIndex]) / (contentWidthCollection[nextIndex] - contentWidthCollection[previousIndex]);
 					var position = toRight ? currentTabViewItem.X + (currentTabViewItemWidth * progress) : currentTabViewItem.X - (currentTabViewItemWidth * progress);

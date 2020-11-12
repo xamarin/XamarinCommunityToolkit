@@ -2,9 +2,10 @@
 <pages:BasePage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.CustomTabsPage"  
-    xmlns:controls="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" >
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.CustomTabsPage">
+    
     <pages:BasePage.Resources>
         <ResourceDictionary>
 
@@ -49,7 +50,7 @@
                             <OnPlatform x:TypeArguments="x:Int32">
                                 <On Platform="iOS" Value="30"/>
                                 <On Platform="Android" Value="60"/>
-                                <On Platform="UWP" Value="24"/>
+                                <On Platform="UWP" Value="36"/>
                             </OnPlatform>
                         </ImageButton.CornerRadius>
                         <ImageButton.IsVisible>
@@ -79,7 +80,7 @@
 
             <Style
 		        x:Key="TabItemStyle"
-		        TargetType="controls:TabViewItem">
+		        TargetType="xct:TabViewItem">
                 <Setter
 			        Property="FontSize"
 			        Value="12" />
@@ -93,7 +94,7 @@
 
             <Style
 		        x:Key="CustomTabStyle"
-		        TargetType="controls:TabView">
+		        TargetType="xct:TabView">
                 <Setter
 			        Property="IsTabTransitionEnabled"
 			        Value="True" />
@@ -112,14 +113,14 @@
     </pages:BasePage.Resources>
     <pages:BasePage.Content>
         <Grid>
-            <controls:TabView 
+            <xct:TabView 
                 Style="{StaticResource CustomTabStyle}">
-                <controls:TabView.TabStripBackgroundView>
+                <xct:TabView.TabStripBackgroundView>
                     <BoxView
                         Color="#484848"
                         CornerRadius="36, 36, 0, 0"/>
-                </controls:TabView.TabStripBackgroundView>
-                <controls:TabViewItem
+                </xct:TabView.TabStripBackgroundView>
+                <xct:TabViewItem
                     Text="Tab 1"  
                     Icon="triangle.png"
                     ControlTemplate="{StaticResource TabItemTemplate}"
@@ -131,14 +132,14 @@
                             VerticalOptions="Center"
                             Text="TabContent1" />
                     </Grid>
-                </controls:TabViewItem>
-                <controls:TabViewItem
+                </xct:TabViewItem>
+                <xct:TabViewItem
                     Text="Tab 2"   
                     Icon="circle.png"
                     ControlTemplate="{StaticResource FabTabItemTemplate}"
                     Style="{StaticResource TabItemStyle}"
                     TabTapped="OnFabTabTapped" />
-                <controls:TabViewItem
+                <xct:TabViewItem
                     Text="Tab 3"  
                     Icon="square.png"
                     ControlTemplate="{StaticResource TabItemTemplate}"
@@ -150,8 +151,8 @@
                             VerticalOptions="Center"
                             Text="TabContent3" />
                     </Grid>
-                </controls:TabViewItem>
-            </controls:TabView>
+                </xct:TabViewItem>
+            </xct:TabView>
         </Grid>
     </pages:BasePage.Content>
 </pages:BasePage>
