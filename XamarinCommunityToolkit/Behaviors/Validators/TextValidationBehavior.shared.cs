@@ -53,15 +53,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(RegexOptionsProperty, value);
 		}
 
+		public TextValidationBehavior()
+		{
+			OnRegexPropertyChanged();
+		}
+
 		protected virtual string DefaultRegexPattern => string.Empty;
 
 		protected virtual RegexOptions DefaultRegexOptions => RegexOptions.None;
-
-		protected override void OnAttachedTo(View bindable)
-		{
-			OnRegexPropertyChanged();
-			base.OnAttachedTo(bindable);
-		}
 
 		protected override object DecorateValue()
 		{
