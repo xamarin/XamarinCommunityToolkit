@@ -18,7 +18,6 @@ using Xamarin.CommunityToolkit.Extensions.iOS;
 
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
-	[Xamarin.Forms.Internals.Preserve(AllMembers = true)]
 	public class SegmentedViewRenderer : ViewRenderer<SegmentedView, UISegmentedControl>
 	{
 		protected override void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
@@ -74,7 +73,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 					if (img != null)
 						Control.InsertSegment(img, position, false);
 					else
-						Console.WriteLine("ImageSource is null");
+						Log.Warning("SegmentedViewRenderer", "ImageSource is null");
 					break;
 				default:
 				case SegmentMode.Text:
@@ -123,9 +122,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 				UpdateSelectedSegment(Element.SelectedIndex);
 
 			if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
-			{
 				Control.SelectedSegmentTintColor = Element.Color.ToUIColor();
-			}
 		}
 
 		void OnSelectedIndexChanged(object sender, EventArgs e)

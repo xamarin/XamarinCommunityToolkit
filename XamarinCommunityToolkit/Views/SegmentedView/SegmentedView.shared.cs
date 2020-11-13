@@ -70,7 +70,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		static readonly BindableProperty displayProperty =
+		static readonly BindableProperty DisplayProperty =
 			BindableProperty.Create("Display", typeof(string), typeof(SegmentedView), default(string));
 
 		string GetDisplayMember(object item)
@@ -78,11 +78,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (ItemDisplayBinding == null)
 				return item.ToString();
 
-			//TODO: Fix this
-			//ItemDisplayBinding.Apply(item, this, displayProperty);
-			//ItemDisplayBinding.Unapply();
-
-			return (string)GetValue(displayProperty);
+			return (string)GetValue(DisplayProperty);
 		}
 
 		static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
@@ -92,15 +88,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnItemsSourceChanged(IList oldValue, IList newValue)
 		{
-			var oldObservable = oldValue as INotifyCollectionChanged;
-			if (oldObservable != null)
+			if (oldValue is INotifyCollectionChanged oldObservable)
 				oldObservable.CollectionChanged -= CollectionChanged;
 
-			var newObservable = newValue as INotifyCollectionChanged;
-			if (newObservable != null)
-			{
+			if (newValue is INotifyCollectionChanged newObservable)
 				newObservable.CollectionChanged += CollectionChanged;
-			}
 
 			if (newValue != null)
 				ResetItems();
@@ -116,7 +108,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case NotifyCollectionChangedAction.Remove:
 					RemoveItems(e);
 					break;
-				default: //Move, Replace, Reset
+				default:
 					ResetItems();
 					break;
 			}
@@ -182,7 +174,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (!(bindable is SegmentedView segment))
 				return;
-			int.TryParse(newValue?.ToString(), out var index);
+
+			var index = 0;
+
+			if (!int.TryParse(newValue?.ToString(), out index))
+				index = 0;
+
 			segment.SelectedIndexChanged?.Invoke(segment, new SelectedItemChangedEventArgs(segment?.Items[index], index));
 			segment.SelectedItem = segment?.Items[index];
 		}

@@ -14,13 +14,11 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 {
 	public class SegmentedViewRenderer : ViewRenderer<SegmentedView, FormsSegments>
 	{
-		readonly Context context;
-		FormsSegments control;
+		FormsSegments formsControl;
 
 		public SegmentedViewRenderer(Context context)
 			: base(context)
 		{
-			this.context = context;
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
@@ -44,11 +42,11 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		void InitializeControl(IList<string> segments)
 		{
-			control = new FormsSegments(context);
+			formsControl = new FormsSegments(Context);
 
 			((INotifyCollectionChanged)Element.Items).CollectionChanged += SegmentsCollectionChanged;
 
-			SetNativeControl(control);
+			SetNativeControl(formsControl);
 			PopulateSegments(segments);
 
 			Control.DisplayMode = Element.DisplayMode;
@@ -105,22 +103,16 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 				return;
 
 			if (e.PropertyName == SegmentedView.SelectedIndexProperty.PropertyName)
-			{
 				Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
-			}
 
 			if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
-			{
 				Control.TintColor = Element.Color.ToAndroid();
-			}
 
 			if (e.PropertyName == SegmentedView.DisplayModeProperty.PropertyName)
 				Control.DisplayMode = Element.DisplayMode;
 
 			if (e.PropertyName == SegmentedView.CornerRadiusProperty.PropertyName)
-			{
 				Control.CornerRadius = Element.CornerRadius;
-			}
 		}
 
 		RadioButton GetSegment(int index)

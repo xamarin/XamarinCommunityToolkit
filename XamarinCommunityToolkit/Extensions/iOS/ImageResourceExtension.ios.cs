@@ -25,11 +25,7 @@ namespace Xamarin.CommunityToolkit.Extensions.iOS
 
 			try
 			{
-#if __MOBILE__
 				var scale = (float)UIScreen.MainScreen.Scale;
-#else
-				var scale = (float)NSScreen.MainScreen.BackingScaleFactor;
-#endif
 
 				return await handler.LoadImageAsync(source, scale: scale, cancelationToken: cancellationToken);
 			}

@@ -25,7 +25,13 @@
       
       
       
+      
+      
+      
+      
       <!-- See if we can host these on MS docs? -->
+    
+    
     
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>

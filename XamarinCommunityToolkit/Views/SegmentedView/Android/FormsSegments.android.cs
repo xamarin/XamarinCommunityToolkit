@@ -97,7 +97,10 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
             : base(context)
 		{
 			this.context = context;
-			Children.CollectionChanged += CollectionChanged;
+			
+			if(Children != null)
+					Children.CollectionChanged += CollectionChanged;
+					
 			Build();
 		}
 
@@ -166,8 +169,6 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			CurrentSegment = FindViewById<RadioButton>(e.CheckedId);
 			SegmentSelected?.Invoke(this, new SelectedPositionChangedEventArgs(IndexOfChild(CurrentSegment)));
 		}
-
-		#region Drawable Resources
 
 		RadioButton GetRadioButton(string title, Position position)
 		{
@@ -265,8 +266,6 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			return insetDrawable;
 		}
 
-		#endregion
-
 		protected override void Dispose(bool disposing)
 		{
 			if (disposed)
@@ -275,7 +274,8 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			disposed = true;
 			if (disposing)
 			{
-				Children.CollectionChanged -= CollectionChanged;
+				if(Children != null)
+					Children.CollectionChanged -= CollectionChanged;
 				CheckedChange -= OnCheckChanged;
 			}
 			base.Dispose(disposing);
