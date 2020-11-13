@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -97,6 +98,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			UpdateState(false);
 			isAttaching = false;
 		}
+
 
 		protected override void OnDetachingFrom(View bindable)
 		{

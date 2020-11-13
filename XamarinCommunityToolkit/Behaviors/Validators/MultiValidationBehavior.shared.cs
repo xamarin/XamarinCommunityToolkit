@@ -68,13 +68,17 @@ namespace Xamarin.CommunityToolkit.Behaviors
 						Path = BindingContextProperty.PropertyName,
 						Source = this
 					});
+					child.OnAttached();
 				}
 			}
 
 			if (e.OldItems != null)
 			{
 				foreach (var child in e.OldItems.OfType<ValidationBehavior>())
+				{
 					child.RemoveBinding(BindingContextProperty);
+					child.OnDeattached();
+				}
 			}
 		}
 	}
