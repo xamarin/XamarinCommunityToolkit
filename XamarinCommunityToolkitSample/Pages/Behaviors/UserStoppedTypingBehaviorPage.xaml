@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:resources="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx"
-                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.UserStoppedTypingBehaviorPage">
 
     <pages:BasePage.BindingContext>
@@ -14,21 +13,21 @@
     <pages:BasePage.Content>
         <StackLayout Spacing="20">
 
-            <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDescription}"
+            <Label Text="This behavior waits for the user to stop typing and then executes a Command. The waiting threshold is adjustable, as well as there is an option to dismiss the keyboard after the user has stopped typing."
                    Margin="{StaticResource ContentPadding}" />
 
             <Frame Margin="{StaticResource ContentPadding}"
                    CornerRadius="10">
                 
                 <Grid ColumnDefinitions="2*, *">
-                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorTimeThresholdOptionLabel}"
+                    <Label Text="User stopped typing time threshold (in ms)"
                            VerticalTextAlignment="Center" />
                     <Entry x:Name="TimeThresholdSetting"
                            Text="1000"
                            Keyboard="Numeric"
                            Grid.Column="1" />
 
-                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorMinimumLengthThresholdOptionLabel}"
+                    <Label Text="Minimum length threshold (number of characters)"
                            VerticalTextAlignment="Center"
                            Grid.Row="1" />
                     <Entry x:Name="MinimumLengthThresholdSetting"
@@ -37,7 +36,7 @@
                            Grid.Row="1"
                            Grid.Column="1" />
 
-                    <Label Text="{x:Static resources:AppResources.UserStoppedTypingBehaviorDismissKeyboardOptionLabel}"
+                    <Label Text="Should dismiss keyboard automatically"
                            VerticalTextAlignment="Center"
                            Grid.Row="2" />
                     <Switch x:Name="AutoDismissKeyboardSetting"
@@ -47,12 +46,12 @@
                 </Grid>
             </Frame>
 
-            <SearchBar Placeholder="{x:Static resources:AppResources.UserStoppedTypingBehaviorSearchBarPlaceholderText}" Margin="{StaticResource ContentPadding}">
+            <SearchBar Placeholder="Start searching..." Margin="{StaticResource ContentPadding}">
                 <SearchBar.Behaviors>
-                    <behaviors:UserStoppedTypingBehavior Command="{Binding SearchCommand}"
-                                                         StoppedTypingTimeThreshold="{Binding Path=Text, Source={x:Reference TimeThresholdSetting}}"
-                                                         MinimumLengthThreshold="{Binding Path=Text, Source={x:Reference MinimumLengthThresholdSetting}}"
-                                                         ShouldDismissKeyboardAutomatically="{Binding Path=IsToggled, Source={x:Reference AutoDismissKeyboardSetting}}" />
+                    <xct:UserStoppedTypingBehavior Command="{Binding SearchCommand}"
+                                                   StoppedTypingTimeThreshold="{Binding Path=Text, Source={x:Reference TimeThresholdSetting}}"
+                                                   MinimumLengthThreshold="{Binding Path=Text, Source={x:Reference MinimumLengthThresholdSetting}}"
+                                                   ShouldDismissKeyboardAutomatically="{Binding Path=IsToggled, Source={x:Reference AutoDismissKeyboardSetting}}" />
                 </SearchBar.Behaviors>
             </SearchBar>
 

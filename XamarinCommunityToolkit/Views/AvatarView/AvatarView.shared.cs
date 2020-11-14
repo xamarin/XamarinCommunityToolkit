@@ -6,6 +6,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class AvatarView : BaseTemplatedView<Frame>
 	{
 		const string emptyText = "X";
+		static readonly IImageSourceValidator imageSourceValidator = new ImageSourceValidator();
+
+		public static readonly BindableProperty AspectProperty = BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(AvatarView), Aspect.AspectFill, propertyChanged: OnValuePropertyChanged);
 
 		public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(double), typeof(AvatarView), 40.0, propertyChanged: OnSizePropertyChanged);
 
@@ -15,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
 
-		public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
+		public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(AvatarView), propertyChanged: OnSourcePropertyChanged);
 
 		public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
 
@@ -28,6 +31,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(AvatarView), FontAttributes.None, propertyChanged: OnValuePropertyChanged);
 
 		public static readonly BindableProperty ColorThemeProperty = BindableProperty.Create(nameof(ColorTheme), typeof(IColorTheme), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
+
+		public Aspect Aspect
+		{
+			get => (Aspect)GetValue(AspectProperty);
+			set => SetValue(AspectProperty, value);
+		}
 
 		public double Size
 		{
@@ -77,6 +86,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FontFamilyProperty, value);
 		}
 
+		[TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);
@@ -97,7 +107,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		Image Image { get; } = new Image
 		{
-			Aspect = Aspect.AspectFill,
 			IsVisible = false
 		};
 
@@ -116,12 +125,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnControlInitialized(Frame control)
 		{
 			IsClippedToBounds = true;
-			MainLayout.Children.Add(Label, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
-			MainLayout.Children.Add(Image, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
+			MainLayout.Children.Add(Label, new Rectangle(0.5, 0.5, -1, -1), AbsoluteLayoutFlags.PositionProportional);
+			MainLayout.Children.Add(Image, new Rectangle(0.5, 0.5, -1, -1), AbsoluteLayoutFlags.PositionProportional);
 			control.IsClippedToBounds = true;
 			control.HasShadow = false;
 			control.Padding = 0;
 			control.Content = MainLayout;
+
+			Image.BindingContextChanged += (s, e) => OnValuePropertyChanged(true);
 		}
 
 		protected override void OnSizeAllocated(double width, double height)
@@ -137,7 +148,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-			=> ((AvatarView)bindable).OnValuePropertyChanged();
+			=> ((AvatarView)bindable).OnValuePropertyChanged(false);
+
+		static void OnSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> ((AvatarView)bindable).OnValuePropertyChanged(true);
 
 		void OnSizePropertyChanged()
 		{
@@ -160,22 +174,29 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
-		void OnValuePropertyChanged()
+		async void OnValuePropertyChanged(bool shouldUpdateSource)
 		{
 			if (Control == null)
 				return;
 
 			Image.BatchBegin();
-			var source = Source;
-			Image.IsVisible = source != null;
-			Image.Source = source;
+			if (shouldUpdateSource)
+			{
+				if (Image.Source == Source)
+					Image.Source = null;
+
+				Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(Source);
+				Image.Source = Source;
+			}
+			Image.Aspect = Aspect;
 			Image.BatchCommit();
 
 			Label.BatchBegin();
+			Label.IsVisible = !Image.IsVisible;
 			var text = Text?.Trim() ?? string.Empty;
-			Label.Text = string.IsNullOrWhiteSpace(text)
+			Label.Text = string.IsNullOrEmpty(text)
 				? emptyText
-				: text?.Trim();
+				: text;
 
 			var colorTheme = ColorTheme ?? Views.ColorTheme.Default;
 			var textColor = TextColor;

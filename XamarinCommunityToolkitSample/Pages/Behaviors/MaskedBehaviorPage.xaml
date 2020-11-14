@@ -2,58 +2,36 @@
 <pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.MaskedBehaviorPage"
                 xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Behaviors;assembly=Xamarin.CommunityToolkit"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
-                xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample">
     <ScrollView>
         <StackLayout Padding="{StaticResource ContentPadding}" Spacing="5">
 
-            <Label Padding="10,10,10,50" Text="{rsx:Translate MaskedDescription}" />
+            <Label Padding="10,10,10,50" Text="This sample demonstrates how to use MaskedBehavior" />
 
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
-                    <behaviors:MaskedBehavior Mask="XX-XX-XX" />
+                    <xct:MaskedBehavior Mask="XX-XX-XX" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Padding="10,0,10,50" FontSize="Small" Text="e.g. Sort code 'XX-XX-XX'" />
+
+            <Entry Keyboard="Numeric">
+                <Entry.Behaviors>
+                    <xct:MaskedBehavior Mask="AA-AA-AA" UnMaskedCharacter="A" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Padding="10,0,10,50" FontSize="Small" Text="e.g. Sort code 'AA-AA-AA'" />
+
+            <Entry Keyboard="Numeric">
+                <Entry.Behaviors>
+                    <xct:MaskedBehavior Mask="XXXX XXXX XXXX XXXX" />
                 </Entry.Behaviors>
             </Entry>
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{rsx:Translate EG}" />
-                        <Span Text=" " />
-                        <Span Text="{rsx:Translate SortCode}" />
-                        <Span Text=" 'XX-XX-XX'" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-
-            <Entry Keyboard="Numeric">
-                <Entry.Behaviors>
-                    <behaviors:MaskedBehavior Mask="AA-AA-AA" UnMaskedCharacter="A" />
-                </Entry.Behaviors>
-            </Entry>
-            <Label Padding="10,0,10,50" FontSize="Small">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{rsx:Translate EG}" />
-                        <Span Text=" " />
-                        <Span Text="{rsx:Translate SortCode}" />
-                        <Span Text=" 'AA-AA-AA'" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
-
-            <Entry Keyboard="Numeric">
-                <Entry.Behaviors>
-                    <behaviors:MaskedBehavior Mask="XXXX XXXX XXXX XXXX" />
-                </Entry.Behaviors>
-            </Entry>
-            <Label Padding="10,0,10,50" FontSize="Small">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{rsx:Translate EG}" />
-                        <Span Text=" " />
-                        <Span Text="{rsx:Translate CreditCardNumber}" />
-                        <Span Text=" 'XXXX XXXX XXXX XXXX'" />
+                        <Span Text="e.g. Credit Card Number 'XXXX XXXX XXXX XXXX'" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -61,32 +39,20 @@
 
             <Entry Keyboard="Numeric" Placeholder="dd/mm/yyyy">
                 <Entry.Behaviors>
-                    <behaviors:MaskedBehavior Mask="XX/XX/XXXX" />
+                    <xct:MaskedBehavior Mask="XX/XX/XXXX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50" FontSize="Small">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{rsx:Translate EG}" />
-                        <Span Text=" " />
-                        <Span Text="{rsx:Translate Date}" />
-                        <Span Text=" 'XX/XX/XXXX'" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <Label Padding="10,0,10,50" FontSize="Small" Text="e.g. Date 'XX/XX/XXXX'" />
 
             <Entry Keyboard="Numeric" Placeholder="hh:mm">
                 <Entry.Behaviors>
-                    <behaviors:MaskedBehavior Mask="XX:XX" />
+                    <xct:MaskedBehavior Mask="XX:XX" />
                 </Entry.Behaviors>
             </Entry>
             <Label Padding="10,0,10,50" FontSize="Small">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{rsx:Translate EG}" />
-                        <Span Text=" " />
-                        <Span Text="{rsx:Translate Time}" />
-                        <Span Text=" 'XX:XX'" />
+                        <Span Text="e.g. Time 'XX:XX'" />
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
@@ -94,35 +60,17 @@
 
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
-                    <behaviors:MaskedBehavior Mask="XXX-XX-XXXX" />
+                    <xct:MaskedBehavior Mask="XXX-XX-XXXX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50" FontSize="Small">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{rsx:Translate EG}" />
-                        <Span Text=" " />
-                        <Span Text="{rsx:Translate SocialSecurityNumber}" />
-                        <Span Text=" 'XXX-XX-XXXX'" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <Label Padding="10,0,10,50" FontSize="Small" Text="e.g. Social Security Number 'XXX-XX-XXXX'" />
 
             <Entry Keyboard="Numeric">
                 <Entry.Behaviors>
-                    <behaviors:MaskedBehavior Mask="(XXX) XXX-XXXX" />
+                    <xct:MaskedBehavior Mask="(XXX) XXX-XXXX" />
                 </Entry.Behaviors>
             </Entry>
-            <Label Padding="10,0,10,50" FontSize="Small">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span Text="{rsx:Translate EG}" />
-                        <Span Text=" " />
-                        <Span Text="{rsx:Translate PhoneNumber}" />
-                        <Span Text=" '(XXX) XXX-XXXX'" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <Label Padding="10,0,10,50" FontSize="Small" Text="e.g. Phone Number '(XXX) XXX-XXXX'" />
         </StackLayout>
     </ScrollView>
 </pages:BasePage>
