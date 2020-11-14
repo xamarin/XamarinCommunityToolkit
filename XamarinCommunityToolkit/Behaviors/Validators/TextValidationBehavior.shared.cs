@@ -55,11 +55,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		public TextValidationBehavior()
 		{
-		}
-
-		internal override void OnAttached()
-		{
-			base.OnAttached();
 			OnRegexPropertyChanged();
 		}
 

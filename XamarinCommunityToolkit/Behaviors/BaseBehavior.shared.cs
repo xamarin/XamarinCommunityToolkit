@@ -37,12 +37,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				};
 				SetBinding(BindingContextProperty, defaultBindingContextBinding);
 			}
-
-			OnAttached();
-		}
-
-		internal virtual void OnAttached()
-		{
 		}
 
 		protected override void OnDetachingFrom(TView bindable)
@@ -57,12 +51,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			bindable.PropertyChanged -= OnViewPropertyChanged;
 			View = null;
-
-			OnDeattached();
-		}
-
-		internal virtual void OnDeattached()
-		{
 		}
 
 		protected bool IsBound(BindableProperty property, BindingBase defaultBinding = null)

@@ -99,7 +99,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			isAttaching = false;
 		}
 
-
 		protected override void OnDetachingFrom(View bindable)
 		{
 			if (defaultValueBinding != null)
