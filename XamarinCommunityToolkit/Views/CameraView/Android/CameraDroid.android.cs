@@ -96,11 +96,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ORIENTATIONS.Append((int)SurfaceOrientation.Rotation270, 90);
 		}
 
-		async void OnPhotoReady(byte[] bytes)
+		void OnPhotoReady(byte[] bytes)
 		{
 			var filePath = ConstructMediaFilename(null, extension: "jpg");
 			File.WriteAllBytes(filePath, bytes);
-			await FixOrientation(filePath);
 			Element.RaiseMediaCaptured(new MediaCapturedEventArgs(filePath, bytes));
 
 			string ConstructMediaFilename(string prefix, string extension)
@@ -114,60 +113,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (!string.IsNullOrEmpty(prefix))
 					fileName = $"{prefix}_{fileName}";
 				return System.IO.Path.Combine(path, $"{fileName}.{extension}");
-			}
-
-			static Task FixOrientation(string filePath)
-			{
-				if (string.IsNullOrEmpty(filePath))
-					return Task.CompletedTask;
-
-				var originalMetadata = new ExifInterface(filePath);
-
-				return Task.Run(() =>
-				{
-					var rotation = GetRotation(originalMetadata);
-					if (rotation == 0)
-						return;
-
-					var originalImage = BitmapFactory.DecodeFile(filePath);
-					var matrix = new Matrix();
-					matrix.PostRotate(rotation);
-					using var rotatedImage = Bitmap.CreateBitmap(originalImage);
-					using var stream = File.Open(filePath, FileMode.Create, FileAccess.ReadWrite);
-					rotatedImage.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
-
-					stream.Close();
-					rotatedImage.Recycle();
-					originalMetadata.SetAttribute(ExifInterface.TagOrientation, Java.Lang.Integer.ToString((int)Orientation.Normal));
-
-					GC.Collect();
-				});
-			}
-		}
-
-		static int GetRotation(ExifInterface exif)
-		{
-			if (exif == null)
-				return 0;
-			try
-			{
-				var orientation = (Orientation)exif.GetAttributeInt(ExifInterface.TagOrientation, (int)Orientation.Normal);
-
-				return orientation switch
-				{
-					Orientation.Rotate90 => 90,
-					Orientation.Rotate180 => 180,
-					Orientation.Rotate270 => 270,
-					_ => 0,
-				};
-			}
-			catch (System.Exception ex)
-			{
-#if DEBUG
-				throw ex;
-#else
-                return 0;
-#endif
 			}
 		}
 
