@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var afState = (Integer)result.Get(CaptureResult.ControlAfState);
 				if (afState == null)
 				{
-					cameraFragment.mState = CameraFragment.StatePictureTaken;
+					cameraFragment.mState = CameraDroid.STATE_PICTURE_TAKEN;
 					cameraFragment.CaptureStillPicture();
 				}
 				else if ((afState.IntValue() == ((int)ControlAFState.FocusedLocked))
@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					if (aeState == null || aeState.IntValue() == ((int)ControlAEState.Converged))
 					{
-						cameraFragment.mState = CameraFragment.StatePictureTaken;
+						cameraFragment.mState = CameraDroid.STATE_PICTURE_TAKEN;
 						cameraFragment.CaptureStillPicture();
 					}
 					else
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					|| aeState.IntValue() == ((int)ControlAEState.Precapture)
 					|| aeState.IntValue() == ((int)ControlAEState.FlashRequired))
 				{
-					cameraFragment.mState = CameraFragment.StateWaitingNonPrecapture;
+					cameraFragment.mState = CameraDroid.STATE_WAITING_NON_PRECAPTURE;
 				}
 			}
 			static void StateWaitingNonPrecapture(CaptureResult result, CameraDroid cameraFragment)
@@ -71,7 +71,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var aeState = (Integer)result.Get(CaptureResult.ControlAeState);
 				if (aeState == null || aeState.IntValue() != ((int)ControlAEState.Precapture))
 				{
-					cameraFragment.mState = CameraFragment.StatePictureTaken;
+					cameraFragment.mState = CameraDroid.STATE_PICTURE_TAKEN;
 					cameraFragment.CaptureStillPicture();
 				}
 			}
