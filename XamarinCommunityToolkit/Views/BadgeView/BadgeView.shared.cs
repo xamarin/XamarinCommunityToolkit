@@ -119,7 +119,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				badgeView.UpdateLayout();
 				await badgeView.UpdateVisibilityAsync();
-				badgeView.UpdateBadgeViewPlacement(true);
 			}
 		}
 
