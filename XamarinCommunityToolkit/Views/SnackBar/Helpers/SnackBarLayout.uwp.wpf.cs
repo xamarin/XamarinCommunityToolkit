@@ -27,7 +27,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			{
 				Text = options.MessageOptions.Message,
 				FontSize = options.MessageOptions.FontSize,
-				FontFamily = new FontFamily(options.MessageOptions.FontFamily)
+				FontFamily = new FontFamily(options.MessageOptions.FontFamily),
+				Foreground = options.MessageOptions.Foreground.ToBrush()
 			};
 #else
 			Background = options.BackgroundColor.ToBrush();
@@ -35,7 +36,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			{
 				Content = options.MessageOptions.Message,
 				FontSize = options.MessageOptions.FontSize,
-				FontFamily = new FontFamily(options.MessageOptions.FontFamily)
+				FontFamily = new FontFamily(options.MessageOptions.FontFamily),
+				Foreground = options.MessageOptions.Foreground.ToBrush()
 			};
 #endif
 			Children.Add(messageLabel);

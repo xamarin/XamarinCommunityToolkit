@@ -108,13 +108,13 @@ The result is `Boolean`. True - if snackbar is closed by user. False - if snackb
 You first include the toolkit namespace:
 
 ```xaml
-xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
 ```
 
 Then place the view in your XAML:
 
 ```xaml
-<views:AvatarView Text="DO" Size="46" Color="#FF3300" TextColor="White" />
+<xct:AvatarView Text="DO" Size="46" Color="#FF3300" TextColor="White" />
 ```
 
 Of course, `AvatarView` also supports `Source` for loading images plus a few other properties. Check it out!

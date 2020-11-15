@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:effects="clr-namespace:Xamarin.CommunityToolkit.Effects;assembly=Xamarin.CommunityToolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.RemoveBorderEffectPage"
                 Title="RemoveBorderEffect">
     <ContentPage.Content>
@@ -26,7 +26,7 @@
                 <Frame BackgroundColor="{StaticResource SoftFrameBackgroundColor}" HasShadow="False">
                     <Entry Placeholder="I don't have a border" TextColor="{StaticResource DarkLabelTextColor}" PlaceholderColor="{StaticResource DarkLabelPlaceholderColor}">
                         <Entry.Effects>
-                            <effects:RemoveBorderEffect/>
+                            <xct:RemoveBorderEffect/>
                         </Entry.Effects>
                     </Entry>
                 </Frame>

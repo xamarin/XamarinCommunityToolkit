@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
@@ -75,6 +76,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			eventInfo = View.GetType().GetRuntimeEvent(eventName) ??
 				throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't resolve the event.", nameof(EventName));
 
+			_ = eventHandlerMethodInfo ?? throw new NullReferenceException($"{nameof(eventHandlerMethodInfo)} is null, maybe it's a linker issue, please open a bug here: https://github.com/xamarin/XamarinCommunityToolkit/issues/");
+
 			eventHandler = eventHandlerMethodInfo.CreateDelegate(eventInfo.EventHandlerType, this) ??
 				throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't create event handler.", nameof(EventName));
 
@@ -90,6 +93,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			eventHandler = null;
 		}
 
+		[Preserve(Conditional = true)]
 		protected virtual void OnTriggerHandled(object sender = null, object eventArgs = null)
 		{
 			var parameter = CommandParameter
