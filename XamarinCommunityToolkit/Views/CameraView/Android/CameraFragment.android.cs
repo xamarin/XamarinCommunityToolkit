@@ -860,19 +860,29 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void ConfigureTransform(int viewWidth, int viewHeight)
 		{
-			if (texture == null || previewSize == null || previewSize.Width == 0 || previewSize.Height == 0)
+			var activity = Activity;
+
+			if (texture == null || previewSize == null || activity == null)
 				return;
 
+			var rotation = (int)activity.WindowManager.DefaultDisplay.Rotation;
 			var matrix = new Matrix();
 			var viewRect = new RectF(0, 0, viewWidth, viewHeight);
 			var bufferRect = new RectF(0, 0, previewSize.Height, previewSize.Width);
 			var centerX = viewRect.CenterX();
 			var centerY = viewRect.CenterY();
-			bufferRect.Offset(centerX - bufferRect.CenterX(), centerY - bufferRect.CenterY());
 
-			matrix.SetRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.Fill);
+			if (rotation == (int)SurfaceOrientation.Rotation90 || rotation == (int)SurfaceOrientation.Rotation270)
+			{
+				bufferRect.Offset(centerX - bufferRect.CenterX(), centerY - bufferRect.CenterY());
+				matrix.SetRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.Fill);
+				var scale = System.Math.Max((float)viewHeight / previewSize.Height, (float)viewWidth / previewSize.Width);
+				matrix.PostScale(scale, scale, centerX, centerY);
+				matrix.PostRotate(90 * (rotation - 2), centerX, centerY);
+			}
+			else if (rotation == (int)SurfaceOrientation.Rotation180)
+				matrix.PostRotate(180, centerX, centerY);
 
-			matrix.PostRotate(GetCaptureOrientation(), centerX, centerY);
 			texture.SetTransform(matrix);
 		}
 
