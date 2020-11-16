@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Options
@@ -34,9 +35,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// <summary>
 		/// The duration for the SnackBar.
 		/// </summary>
-		public int Duration { get; set; } = DefaultDuration;
+		public TimeSpan Duration { get; set; } = DefaultDuration;
 
-		public static int DefaultDuration { get; set; } = 3000;
+		public static TimeSpan DefaultDuration { get; set; } = TimeSpan.FromMilliseconds(3000);
 
 		/// <summary>
 		/// Result is true if ActionButton is clicked.

@@ -10,13 +10,13 @@ namespace Xamarin.CommunityToolkit.Extensions
 {
 	public static class PageExtension
 	{
-		public static Task DisplayToastAsync(this Page page, string message, int duration = 3000)
+		public static Task DisplayToastAsync(this Page page, string message, int durationMilliseconds = 3000)
 		{
 			var messageOptions = new MessageOptions { Message = message };
 			var args = new SnackBarOptions
 			{
 				MessageOptions = messageOptions,
-				Duration = duration,
+				Duration = TimeSpan.FromMilliseconds(durationMilliseconds),
 #if NETSTANDARD1_0
 				IsRtl = false,
 #else
@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			return options.Result.Task;
 		}
 
-		public static Task<bool> DisplaySnackBarAsync(this Page page, string message, string actionButtonText, Func<Task> action, int duration = 3000)
+		public static Task<bool> DisplaySnackBarAsync(this Page page, string message, string actionButtonText, Func<Task> action, int durationMilliseconds = 3000)
 		{
 			var messageOptions = new MessageOptions { Message = message };
 			var actionOptions = new List<SnackBarActionOptions>
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			var options = new SnackBarOptions
 			{
 				MessageOptions = messageOptions,
-				Duration = duration,
+				Duration = TimeSpan.FromMilliseconds(durationMilliseconds),
 				Actions = actionOptions,
 #if NETSTANDARD1_0
 				IsRtl = false,

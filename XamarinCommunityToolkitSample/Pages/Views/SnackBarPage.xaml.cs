@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			var options = new SnackBarOptions
 			{
 				MessageOptions = messageOptions,
-				Duration = 5000,
+				Duration = TimeSpan.FromMilliseconds(5000),
 				BackgroundColor = Color.Coral,
 				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
 				Actions = actionOptions
@@ -83,7 +83,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		string GenerateLongText(int stringDuplicationTimes)
 		{
-			const string message = "It is a very long message to test multiple strings. A B C D E F G H I I J K LO P Q R S T U V W X Y Z";
+			const string message = "It is a very long message to test multiple strings. A B C D E F G H I I J K L M N O P Q R S T U V W X Y Z";
 			var result = new StringBuilder();
 			for (var i = 0; i < stringDuplicationTimes; i++)
 			{
