@@ -1,5 +1,4 @@
-﻿#if !NETCOREAPP1_1
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.Converters;
@@ -64,4 +63,3 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		}
 	}
 }
-#endif
