@@ -47,7 +47,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		public void IsValid(string culture, string value, double minValue, double maxValue, int minDecimalPlaces, int maxDecimalPlaces, bool expectedValue)
 		{
 			var origCulture = CultureInfo.CurrentCulture;
-			CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(culture);
+			CultureInfo.CurrentCulture = new CultureInfo(culture);
 
 			try
 			{
