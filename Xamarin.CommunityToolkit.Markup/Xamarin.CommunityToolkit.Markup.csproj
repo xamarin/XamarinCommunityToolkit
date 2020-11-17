@@ -49,11 +49,10 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.5844" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1709-pre4" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
   </ItemGroup>
-  <Import Project="..\Xamarin.CommunityToolkit.MarkupNuGetsDownload.targets" />
 </Project>

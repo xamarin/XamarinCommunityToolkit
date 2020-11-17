@@ -22,6 +22,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.CommunityToolkit.Markup\Xamarin.CommunityToolkit.Markup.csproj" />
   </ItemGroup>
-
-  <Import Project="..\Xamarin.CommunityToolkit.MarkupNuGetsDownload.targets" />
 </Project>
