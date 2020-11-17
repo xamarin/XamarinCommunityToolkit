@@ -28,13 +28,13 @@ Now all you need to do is use it!
 For example, to use the `AvatarView` you first include the toolkit namespace:
 
 ```xaml
-xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
 ```
 
 Then place the view in your XAML:
 
 ```xaml
-<views:AvatarView Text="DO" Size="46" Color="#FF3300" TextColor="White" />
+<xct:AvatarView Text="DO" Size="46" Color="#FF3300" TextColor="White" />
 ```
 
 Of course, `AvatarView` also supports `Source` for loading images plus a few other properties. Check it out!

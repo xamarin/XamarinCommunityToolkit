@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:local="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Views.TabView"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.TabItemAnimationPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <ControlTemplate
+		        x:Key="TabItemTemplate">
+                <Grid
+			        RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image
+                        x:Name="TabIcon"
+				        Grid.Row="0"
+				        VerticalOptions="Center"
+				        HorizontalOptions="Center"
+				        WidthRequest="24"
+				        HeightRequest="24"
+                        Margin="6"
+				        Source="{TemplateBinding CurrentIcon}" />
+                    <Label
+                        x:Name="TabText"
+				        Grid.Row="1"
+				        HorizontalOptions="Center"
+				        FontSize="{TemplateBinding FontSize}"
+				        Text="{TemplateBinding Text}"
+				        TextColor="{TemplateBinding CurrentTextColor}"
+                        Margin="0, 6"/>
+                </Grid>
+            </ControlTemplate>
+
+            <Style
+		        x:Key="TabItemStyle"
+		        TargetType="xct:TabViewItem">
+                <Setter
+			        Property="ControlTemplate"
+			        Value="{StaticResource TabItemTemplate}" />
+                <Setter
+			        Property="FontSize"
+			        Value="12" />
+                <Setter
+			        Property="TextColor"
+			        Value="White" />
+                <Setter
+			        Property="TextColorSelected"
+			        Value="Yellow" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <xct:TabView 
+                TabStripPlacement="Bottom"
+                TabStripBackgroundColor="Blue"
+                TabStripHeight="60"
+                TabIndicatorColor="Yellow"
+                TabContentBackgroundColor="Yellow">
+                <xct:TabViewItem
+                    Icon="triangle.png"
+                    Text="Tab 1"
+                    Style="{StaticResource TabItemStyle}">
+                    <xct:TabViewItem.TabAnimation>
+                        <local:CustomTabViewItemAnimation />
+                    </xct:TabViewItem.TabAnimation>
+                    <Grid 
+                        BackgroundColor="Gray">
+                        <Label
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent1" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="Tab 2"
+                    Style="{StaticResource TabItemStyle}">
+                    <xct:TabViewItem.TabAnimation>
+                        <local:CustomTabViewItemAnimation />
+                    </xct:TabViewItem.TabAnimation>
+                    <Grid>
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent2" />
+                    </Grid>
+                </xct:TabViewItem>
+            </xct:TabView>
+        </Grid>
+    </ContentPage.Content>
+</pages:BasePage>
