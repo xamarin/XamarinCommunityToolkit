@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.DynamicTabAddingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:views="http://xamarin.com/schemas/2020/toolkit">
+    <StackLayout>
+        <Button Text="Add Three with Content Tab 3" Clicked="OnAdd" />
+        <views:TabView x:Name="MyTabView">
+            <views:TabView.TabItems>
+                <views:TabViewItem Text="One">
+                    <Grid>
+                        <Label Text="Tab 1" />
+                    </Grid>
+                </views:TabViewItem>
+                <views:TabViewItem Text="Two">
+                    <Grid>
+                        <Label Text="Tab 2" />
+                    </Grid>
+                </views:TabViewItem>
+            </views:TabView.TabItems>
+        </views:TabView>
+    </StackLayout>
+</pages:BasePage>
