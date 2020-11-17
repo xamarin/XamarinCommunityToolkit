@@ -261,45 +261,58 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (placementDone)
 				return;
 
-			const double Padding = 6;
+			var containerMargin = new Thickness(0);
+			var contentMargin = new Thickness(0);
 
-			var size = Math.Max(BadgeText.Height, BadgeText.Width) + Padding;
+			if (BadgeIndicatorContainer.IsVisible)
+			{
+				const double Padding = 6;
+				var size = Math.Max(BadgeText.Height, BadgeText.Width) + Padding;
+				BadgeIndicatorBackground.HeightRequest = size;
+				var margins = GetMargins(size);
+				containerMargin = margins.Item1;
+				contentMargin = margins.Item2;
+			}
 
-			BadgeIndicatorBackground.HeightRequest = size / 1.5;
+			BadgeIndicatorContainer.Margin = containerMargin;
+			BadgeContent.Margin = contentMargin;
+			placementDone = true;
+		}
 
+		Tuple<Thickness, Thickness> GetMargins(double size)
+		{
 			double verticalMargin;
 			double horizontalMargin;
-
+			var containerMargin = new Thickness(0);
+			var contentMargin = new Thickness(0);
 			switch (BadgePosition)
 			{
-				case BadgePosition.TopLeft:
-					verticalMargin = size / 2;
-					horizontalMargin = BadgeContent.Width + verticalMargin;
-					BadgeIndicatorContainer.Margin = new Thickness(0, 0, horizontalMargin, 0);
-					BadgeContent.Margin = new Thickness(verticalMargin, verticalMargin, 0, 0);
-					break;
 				case BadgePosition.TopRight:
 					verticalMargin = size / 2;
 					horizontalMargin = BadgeContent.Width - verticalMargin;
-					BadgeIndicatorContainer.Margin = new Thickness(horizontalMargin, 0, 0, 0);
-					BadgeContent.Margin = new Thickness(0, verticalMargin, 0, 0);
+					containerMargin = new Thickness(horizontalMargin, 0, 0, 0);
+					contentMargin = new Thickness(0, verticalMargin, verticalMargin, 0);
 					break;
-				case BadgePosition.BottomLeft:
+				case BadgePosition.TopLeft:
 					verticalMargin = size / 2;
-					var bottomLeftverticalMargin = BadgeContent.Height - verticalMargin;
-					BadgeIndicatorContainer.Margin = new Thickness(0, bottomLeftverticalMargin, 0, 0);
-					BadgeContent.Margin = new Thickness(verticalMargin, 0, 0, 0);
+					containerMargin = new Thickness(0, 0, 0, 0);
+					contentMargin = new Thickness(verticalMargin, verticalMargin, 0, 0);
 					break;
 				case BadgePosition.BottomRight:
 					verticalMargin = size / 2;
+					var bottomLeftverticalMargin = BadgeContent.Height - verticalMargin;
+					containerMargin = new Thickness(0, bottomLeftverticalMargin, 0, 0);
+					BadgeContent.Margin = new Thickness(verticalMargin, 0, 0, 0);
+					break;
+				case BadgePosition.BottomLeft:
+					verticalMargin = size / 2;
 					var bottomRightverticalMargin = BadgeContent.Height - verticalMargin;
 					horizontalMargin = BadgeContent.Width - verticalMargin;
-					BadgeIndicatorContainer.Margin = new Thickness(horizontalMargin, bottomRightverticalMargin, 0, 0);
-					BadgeContent.Margin = new Thickness(0, 0, 0, verticalMargin);
+					containerMargin = new Thickness(horizontalMargin, bottomRightverticalMargin, 0, 0);
+					contentMargin = new Thickness(0, 0, verticalMargin, 0);
 					break;
 			}
-
-			placementDone = true;
+			return new Tuple<Thickness, Thickness>(containerMargin, contentMargin);
 		}
 
 		async Task UpdateVisibilityAsync()
