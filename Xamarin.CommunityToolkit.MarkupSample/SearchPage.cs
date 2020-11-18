@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 {
     public partial class SearchPage
     {
-        void Build() => Content = 
+        void Build() => Content =
             new StackLayout { Children = {
                 Header .Assign (out header),
                 SearchResults,
@@ -24,18 +24,18 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 
             new Entry { Placeholder = "Search" }
                        .FillExpandHorizontal ()
-                       .Invoke (entry => 
+                       .Invoke (entry =>
                         {
-                            entry.Focused   += Search_FocusChanged; 
-                            entry.Unfocused += Search_FocusChanged; 
+                            entry.Focused   += Search_FocusChanged;
+                            entry.Unfocused += Search_FocusChanged;
                         })
                        .Bind (nameof(vm.SearchText))
-        }} .Horizontal ();
+        }}.Horizontal ();
 
         enum TweetRow { Separator, Title, Body, Actions }
         enum TweetColumn { AuthorImage, Content }
 
-        CollectionView SearchResults => new CollectionView { ItemTemplate = new DataTemplate(() => 
+        CollectionView SearchResults => new CollectionView { ItemTemplate = new DataTemplate(() =>
             new Grid {
                 RowDefinitions = Rows.Define (
                     (TweetRow.Separator, 2   ),
@@ -62,14 +62,13 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 
                     new Label { } .FontSize (15)
                                .Row (TweetRow.Body) .Column (TweetColumn.Content) .Margins (right: 10)
-                               .Bind (Label.FormattedTextProperty, nameof(Tweet.Body), 
+                               .Bind (Label.FormattedTextProperty, nameof(Tweet.Body),
                                         convert: (List<TextFragment> fragments) => Format(fragments)),
 
-                    LikeButton ( nameof(Tweet.IsLikedByMe) )
+                    LikeButton ( )
                                 .Row (TweetRow.Actions) .Column (TweetColumn.Content) .Left () .Top () .Size (24)
-                                .BindCommand (nameof(vm.LikeCommand), source: vm)
                 }
-            })}.Background (Color.FromHex("171F2A")) 
+            })}.Background (Color.FromHex("171F2A"))
                .Bind (nameof(vm.SearchResults));
 
         Frame RoundImage(float size, string path) => new Frame
@@ -85,28 +84,23 @@ namespace Xamarin.CommunityToolkit.MarkupSample
             var s = new FormattedString();
             fragments?.ForEach(fragment => s.Spans.Add(fragment.IsMatch ?
                 new Span { Text = fragment.Text, TextColor = Color.CornflowerBlue } .FontSize (15) .Bold ()
-                          .BindTapGesture (nameof(vm.OpenTwitterSearchCommand), commandSource: vm) :
+                          .BindTapGesture (nameof(vm.OpenTwitterSearchCommand), vm) :
                 new Span { Text = fragment.Text }
             ));
             return s;
         }
 
-        ImageButton LikeButton(string isLikedPath) => new ImageButton { BackgroundColor = Color.Transparent, Source = 
-            new FontImageSource { Color = Color.White }
-                                 .Bind (FontImageSource.GlyphProperty, isLikedPath, 
-                                        convert: (bool like) => like ? "\u2764" : "\u2661")
-        };
+        Label LikeButton() => new Label { }
+			.BindTapGesture (nameof(vm.LikeCommand), vm, ".")
+            .Bind (nameof(Tweet.IsLikedByMe), convert: (bool like) => like ? "\u2764" : "\u2661");
 
         Label Footer => new Label { }
              .FontSize (14)
              .FormattedText (
-				 new Span { Text = "See " },
-				 new Span { Text = "C# Markup", Style = Link }
+				 new Span { Text = "See the " },
+				 new Span { Text = "Xamarin Community Toolkit C# Markup", Style = Link }
 						   .BindTapGesture(nameof(vm.OpenHelpCommand)),
-				 new Span { Text = " and " },
-				 new Span { Text = "C# Markup Part 2", Style = Link }
-						   .BindTapGesture(nameof(vm.OpenHelp2Command)),
-				 new Span { Text = " for more information" })
+				 new Span { Text = " docs" })
              .CenterHorizontal () .Margins (bottom: 6);
     }
 }

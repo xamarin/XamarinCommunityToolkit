@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 {
     public class SearchViewModel : BaseViewModel
     {
-        ICommand backCommand, likeCommand, openTwitterSearchCommand, openHelpCommand, openHelp2Command;
+        ICommand backCommand, likeCommand, openTwitterSearchCommand, openHelpCommand;
 
         public string SearchText { get; set; }
 
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.MarkupSample
                 new Tweet
                 {
                     AuthorImage = "https://pbs.twimg.com/profile_images/1267649264391503873/I6w-glU8_400x400.jpg",
-                    Header = "David Ortinau @davidortinau · 25/10/2020",
+                    Header = "David Ortinau @davidortinau · 25/01/2020",
                     Body = new List<TextFragment>
                     {
                         new TextFragment { Text = "would it surprise you to know that the last project I personally shipped was Xamarin.Forms, C# w/ " },
@@ -59,19 +59,14 @@ namespace Xamarin.CommunityToolkit.MarkupSample
         public ICommand BackCommand => backCommand ??= new RelayCommand(Back);
         public ICommand LikeCommand => likeCommand ??= new RelayCommand<Tweet>(Like);
         public ICommand OpenTwitterSearchCommand => openTwitterSearchCommand ??= new RelayCommandAsync(OpenTwitterSearch);
-		public ICommand OpenHelpCommand => openHelpCommand ??= new RelayCommandAsync(OpenHelp);
-		public ICommand OpenHelp2Command => openHelp2Command ??= new RelayCommandAsync(OpenHelp2);
+        public ICommand OpenHelpCommand => openHelpCommand ??= new RelayCommandAsync(OpenHelp);
 
-		void Back() { }
-        
-        void Like(Tweet tweet) 
-        {
-            tweet.IsLikedByMe = !tweet.IsLikedByMe;
-        }
+        void Back() { }
 
-		Task OpenHelp() => Launcher.OpenAsync(new Uri("https://docs.microsoft.com/xamarin/xamarin-forms/user-interface/csharp-markup"));
-		Task OpenHelp2() => Launcher.OpenAsync(new Uri("https://github.com/xamarin/Xamarin.Forms/pull/11428"));
-		Task OpenTwitterSearch() => Launcher.OpenAsync(new Uri("https://twitter.com/search?q=%23CSharpForMarkup"));
+        void Like(Tweet tweet) => tweet.IsLikedByMe = !tweet.IsLikedByMe;
+
+        Task OpenHelp() => Launcher.OpenAsync(new Uri("https://github.com/VincentH-Net/xamarin-communitytoolkit/blob/master/docs/markup.md"));
+        Task OpenTwitterSearch() => Launcher.OpenAsync(new Uri("https://twitter.com/search?q=%23CSharpForMarkup"));
 
         public class Tweet : BaseViewModel
         {
