@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -25,8 +26,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		async void DisplayToastClicked(object sender, EventArgs args)
 		{
-			var result = await this.DisplayToastAsync(GenerateLongText(5));
-			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
+			await this.DisplayToastAsync(GenerateLongText(5));
+			StatusText.Text = "Toast is closed by timeout";
 		}
 
 		async void DisplaySnackBarAdvancedClicked(object sender, EventArgs args)
@@ -68,14 +69,21 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					}
 				}
 			};
-			var options = new SnackBarOptions(messageOptions, 5000, Color.Coral, true, actionOptions);
+			var options = new SnackBarOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = TimeSpan.FromMilliseconds(5000),
+				BackgroundColor = Color.Coral,
+				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+				Actions = actionOptions
+			};
 			var result = await this.DisplaySnackBarAsync(options);
 			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
 		}
 
 		string GenerateLongText(int stringDuplicationTimes)
 		{
-			const string message = "It is a very long message to test multiple strings. A B C D E F G H I I J K LO P Q R S T U V W X Y Z";
+			const string message = "It is a very long message to test multiple strings. A B C D E F G H I I J K L M N O P Q R S T U V W X Y Z";
 			var result = new StringBuilder();
 			for (var i = 0; i < stringDuplicationTimes; i++)
 			{

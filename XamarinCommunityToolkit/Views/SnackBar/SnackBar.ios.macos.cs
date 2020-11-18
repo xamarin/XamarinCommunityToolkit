@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var snackBar = MacOSSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 #endif
-							.SetDuration(arguments.Duration)
+							.SetDuration(arguments.Duration.TotalMilliseconds)
 							.SetTimeoutAction(() =>
 							{
 								arguments.SetResult(false);

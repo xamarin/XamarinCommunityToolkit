@@ -4,17 +4,13 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Options
 {
-	public class SnackBarOptions : ActionOptions
+	public class SnackBarOptions : ToastOptions
 	{
-		public SnackBarOptions(MessageOptions message, int duration, Color backgroundColor, bool isRtl, IEnumerable<SnackBarActionOptions> actions)
-			: base(message, duration, backgroundColor, isRtl) =>
-			Actions = actions ?? Enumerable.Empty<SnackBarActionOptions>();
-
-		public SnackBarOptions() => Actions = Enumerable.Empty<SnackBarActionOptions>();
-
 		/// <summary>
-		///     Gets the text for the action buttons
+		/// Action options
 		/// </summary>
-		public IEnumerable<SnackBarActionOptions> Actions { get; }
+		public IEnumerable<SnackBarActionOptions> Actions { get; set; } = DefaultActions;
+
+		public static IEnumerable<SnackBarActionOptions> DefaultActions { get; set; } = Enumerable.Empty<SnackBarActionOptions>();
 	}
 }

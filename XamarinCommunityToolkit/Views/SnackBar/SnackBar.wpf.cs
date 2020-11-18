@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var formsAppBar = System.Windows.Application.Current.MainWindow.FindChild<FormsAppBar>("PART_BottomAppBar");
 			var currentContent = formsAppBar.Content;
 			var snackBar = new SnackBarLayout(arguments);
-			snackBarTimer = new Timer { Interval = arguments.Duration };
+			snackBarTimer = new Timer { Interval = (int)arguments.Duration.TotalMilliseconds };
 			snackBarTimer.Tick += (sender, e) =>
 			{
 				formsAppBar.Content = currentContent;

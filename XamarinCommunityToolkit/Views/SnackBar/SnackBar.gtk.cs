@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var mainWindow = (Platform.GetRenderer(page).Container.Child as Forms.Platform.GTK.Controls.Page)?.Children[0] as VBox;
 			var snackBarLayout = GetSnackBarLayout(mainWindow, arguments);
 			AddSnackBarContainer(mainWindow, snackBarLayout);
-			snackBarTimer = new Timer(arguments.Duration);
+			snackBarTimer = new Timer(arguments.Duration.TotalMilliseconds);
 			snackBarTimer.Elapsed += (sender, e) =>
 			{
 				mainWindow.Remove(snackBarLayout);
