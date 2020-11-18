@@ -31,9 +31,9 @@ namespace Xamarin.CommunityToolkit.MarkupSample
         }
 
         /// <summary>
-        /// If the DEBUG constant is defined in a build, DebugLog logs to the debug output and to the native logging 
+        /// If the DEBUG constant is defined in a build, DebugLog logs to the debug output and to the native logging
         /// mechanism of the mobile platform (NSLog on iOS or android.util.Log on Android).
-        /// 
+        ///
         /// String format: "[tag] memberName: data sourcefilePath:sourceLineNumber"
         /// </summary>
         /// <remarks>
@@ -60,9 +60,9 @@ namespace Xamarin.CommunityToolkit.MarkupSample
         }
 
         /// <summary>
-        /// If the TRACE constant is defined in a build, TraceLog logs to the trace output and to the native logging 
+        /// If the TRACE constant is defined in a build, TraceLog logs to the trace output and to the native logging
         /// mechanism of the mobile platform (NSLog on iOS or android.util.Log on Android).
-        /// 
+        ///
         /// String format: "[tag] memberName: data sourcefilePath:sourceLineNumber"
         /// </summary>
         /// <remarks>
@@ -94,12 +94,12 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 
         static string FormatLogString(object data = null, string tag = null, string memberName = null, string sourceFilePath = null, int sourceLineNumber = -1)
         {
-
             StringBuilder line = new StringBuilder();
 
             if (!string.IsNullOrEmpty(tag))
             {
-                if (line.Length > 0) line.Append(' ');
+                if (line.Length > 0)
+					line.Append(' ');
                 line.Append('[');
                 line.Append(tag);
                 line.Append(']');
@@ -107,7 +107,8 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 
             if (!string.IsNullOrEmpty(memberName))
             {
-                if (line.Length > 0) line.Append(' ');
+                if (line.Length > 0)
+					line.Append(' ');
                 line.Append(memberName);
                 line.Append(':');
             }
@@ -115,7 +116,8 @@ namespace Xamarin.CommunityToolkit.MarkupSample
             string dataString = data?.ToString();
             if (!string.IsNullOrEmpty(dataString))
             {
-                if (line.Length > 0) line.Append(' ');
+                if (line.Length > 0)
+					line.Append(' ');
                 line.Append(dataString);
             }
 
@@ -124,10 +126,12 @@ namespace Xamarin.CommunityToolkit.MarkupSample
                 if (!string.IsNullOrEmpty(rootFolderPattern))
                 {
                     int rootFolderIndex = sourceFilePath.IndexOf(rootFolderPattern);
-                    if (rootFolderIndex >= 0) sourceFilePath = sourceFilePath.Substring(rootFolderIndex);
+                    if (rootFolderIndex >= 0)
+						sourceFilePath = sourceFilePath.Substring(rootFolderIndex);
                 }
 
-                if (line.Length > 0) line.Append(' ');
+                if (line.Length > 0)
+					line.Append(' ');
                 line.Append("at ");
                 line.Append(sourceFilePath);
 
