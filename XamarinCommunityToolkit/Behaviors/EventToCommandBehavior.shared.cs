@@ -6,7 +6,7 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class EventToCommandBehavior : BaseBehavior<View>
+	public class EventToCommandBehavior : BaseBehavior<VisualElement>
 	{
 		public static readonly BindableProperty EventNameProperty =
 			BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), propertyChanged: OnEventNamePropertyChanged);
@@ -50,13 +50,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(EventArgsConverterProperty, value);
 		}
 
-		protected override void OnAttachedTo(View bindable)
+		protected override void OnAttachedTo(VisualElement bindable)
 		{
 			base.OnAttachedTo(bindable);
 			RegisterEvent();
 		}
 
-		protected override void OnDetachingFrom(View bindable)
+		protected override void OnDetachingFrom(VisualElement bindable)
 		{
 			UnregisterEvent();
 			base.OnDetachingFrom(bindable);
