@@ -16,20 +16,20 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		bool isAnimating;
 		TapGestureRecognizer tapGestureRecognizer;
 
-		protected override void OnAttachedTo(View bindable)
+		protected override void OnAttachedTo(VisualElement bindable)
 		{
 			base.OnAttachedTo(bindable);
 
-			if (!string.IsNullOrWhiteSpace(EventName))
+			if (!string.IsNullOrWhiteSpace(EventName) || !(bindable is View view))
 				return;
 
 			tapGestureRecognizer = new TapGestureRecognizer();
 			tapGestureRecognizer.Tapped += OnTriggerHandled;
-			View.GestureRecognizers.Clear();
-			View.GestureRecognizers.Add(tapGestureRecognizer);
+			view.GestureRecognizers.Clear();
+			view.GestureRecognizers.Add(tapGestureRecognizer);
 		}
 
-		protected override void OnDetachingFrom(View bindable)
+		protected override void OnDetachingFrom(VisualElement bindable)
 		{
 			if (tapGestureRecognizer != null)
 				tapGestureRecognizer.Tapped -= OnTriggerHandled;

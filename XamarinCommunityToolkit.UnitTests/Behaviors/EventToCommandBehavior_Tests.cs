@@ -32,5 +32,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			};
 			listView.Behaviors.Add(behavior);
 		}
+
+		[Fact]
+		public void NoExceptionIfAttachedToPage()
+		{
+			var page = new ContentPage();
+			var behavior = new EventToCommandBehavior
+			{
+				EventName = nameof(Page.Appearing)
+			};
+			page.Behaviors.Add(behavior);
+		}
 	}
 }
