@@ -10,7 +10,8 @@ namespace Xamarin.CommunityToolkit.MarkupSample
         protected virtual void RaisePropertyChanged(string propertyName)
         {
             var handler = PropertyChanged;
-            if (handler != null) MainThread.BeginInvokeOnMainThread(() => handler(this, new PropertyChangedEventArgs(propertyName)));
+            if (handler != null)
+				MainThread.BeginInvokeOnMainThread(() => handler(this, new PropertyChangedEventArgs(propertyName)));
         }
     }
 }

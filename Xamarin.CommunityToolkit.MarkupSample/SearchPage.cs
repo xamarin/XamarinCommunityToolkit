@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 {
     public partial class SearchPage
     {
-        void Build() => Content = 
+        void Build() => Content =
             new StackLayout { Children = {
                 Header .Assign (out header),
                 SearchResults,
@@ -24,18 +24,18 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 
             new Entry { Placeholder = "Search" }
                        .FillExpandHorizontal ()
-                       .Invoke (entry => 
+                       .Invoke (entry =>
                         {
-                            entry.Focused   += Search_FocusChanged; 
-                            entry.Unfocused += Search_FocusChanged; 
+                            entry.Focused   += Search_FocusChanged;
+                            entry.Unfocused += Search_FocusChanged;
                         })
                        .Bind (nameof(vm.SearchText))
-        }} .Horizontal ();
+        }}.Horizontal ();
 
         enum TweetRow { Separator, Title, Body, Actions }
         enum TweetColumn { AuthorImage, Content }
 
-        CollectionView SearchResults => new CollectionView { ItemTemplate = new DataTemplate(() => 
+        CollectionView SearchResults => new CollectionView { ItemTemplate = new DataTemplate(() =>
             new Grid {
                 RowDefinitions = Rows.Define (
                     (TweetRow.Separator, 2   ),
@@ -62,13 +62,13 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 
                     new Label { } .FontSize (15)
                                .Row (TweetRow.Body) .Column (TweetColumn.Content) .Margins (right: 10)
-                               .Bind (Label.FormattedTextProperty, nameof(Tweet.Body), 
+                               .Bind (Label.FormattedTextProperty, nameof(Tweet.Body),
                                         convert: (List<TextFragment> fragments) => Format(fragments)),
 
                     LikeButton ( )
                                 .Row (TweetRow.Actions) .Column (TweetColumn.Content) .Left () .Top () .Size (24)
                 }
-            })}.Background (Color.FromHex("171F2A")) 
+            })}.Background (Color.FromHex("171F2A"))
                .Bind (nameof(vm.SearchResults));
 
         Frame RoundImage(float size, string path) => new Frame
