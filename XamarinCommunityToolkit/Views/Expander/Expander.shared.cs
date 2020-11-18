@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using static System.Math;
+using WeakEventManager = Xamarin.CommunityToolkit.Helpers.WeakEventManager;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

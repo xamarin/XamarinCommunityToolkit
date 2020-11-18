@@ -36,6 +36,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Camera = Android.Hardware.Camera;
+using Rect = Android.Graphics.Rect;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
