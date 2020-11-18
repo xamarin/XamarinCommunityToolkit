@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.MarkupSample
                 new Tweet
                 {
                     AuthorImage = "https://pbs.twimg.com/profile_images/1267649264391503873/I6w-glU8_400x400.jpg",
-                    Header = "David Ortinau @davidortinau · 25/10/2020",
+                    Header = "David Ortinau @davidortinau · 25/01/2020",
                     Body = new List<TextFragment>
                     {
                         new TextFragment { Text = "would it surprise you to know that the last project I personally shipped was Xamarin.Forms, C# w/ " },
