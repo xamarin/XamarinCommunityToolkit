@@ -65,9 +65,8 @@ namespace Xamarin.CommunityToolkit.MarkupSample
                                .Bind (Label.FormattedTextProperty, nameof(Tweet.Body), 
                                         convert: (List<TextFragment> fragments) => Format(fragments)),
 
-                    LikeButton ( nameof(Tweet.IsLikedByMe) )
+                    LikeButton ( )
                                 .Row (TweetRow.Actions) .Column (TweetColumn.Content) .Left () .Top () .Size (24)
-                                .BindCommand (nameof(vm.LikeCommand), source: vm)
                 }
             })}.Background (Color.FromHex("171F2A")) 
                .Bind (nameof(vm.SearchResults));
@@ -85,28 +84,23 @@ namespace Xamarin.CommunityToolkit.MarkupSample
             var s = new FormattedString();
             fragments?.ForEach(fragment => s.Spans.Add(fragment.IsMatch ?
                 new Span { Text = fragment.Text, TextColor = Color.CornflowerBlue } .FontSize (15) .Bold ()
-                          .BindTapGesture (nameof(vm.OpenTwitterSearchCommand), commandSource: vm) :
+                          .BindTapGesture (nameof(vm.OpenTwitterSearchCommand), vm) :
                 new Span { Text = fragment.Text }
             ));
             return s;
         }
 
-        ImageButton LikeButton(string isLikedPath) => new ImageButton { BackgroundColor = Color.Transparent, Source = 
-            new FontImageSource { Color = Color.White }
-                                 .Bind (FontImageSource.GlyphProperty, isLikedPath, 
-                                        convert: (bool like) => like ? "\u2764" : "\u2661")
-        };
+        Label LikeButton() => new Label { }
+			.BindTapGesture (nameof(vm.LikeCommand), vm, ".")
+            .Bind (nameof(Tweet.IsLikedByMe), convert: (bool like) => like ? "\u2764" : "\u2661");
 
         Label Footer => new Label { }
              .FontSize (14)
              .FormattedText (
-				 new Span { Text = "See " },
-				 new Span { Text = "C# Markup", Style = Link }
+				 new Span { Text = "See the " },
+				 new Span { Text = "Xamarin Community Toolkit C# Markup", Style = Link }
 						   .BindTapGesture(nameof(vm.OpenHelpCommand)),
-				 new Span { Text = " and " },
-				 new Span { Text = "C# Markup Part 2", Style = Link }
-						   .BindTapGesture(nameof(vm.OpenHelp2Command)),
-				 new Span { Text = " for more information" })
+				 new Span { Text = " docs" })
              .CenterHorizontal () .Margins (bottom: 6);
     }
 }

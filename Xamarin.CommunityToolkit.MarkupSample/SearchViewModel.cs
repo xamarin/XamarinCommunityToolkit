@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 {
     public class SearchViewModel : BaseViewModel
     {
-        ICommand backCommand, likeCommand, openTwitterSearchCommand, openHelpCommand, openHelp2Command;
+        ICommand backCommand, likeCommand, openTwitterSearchCommand, openHelpCommand;
 
         public string SearchText { get; set; }
 
@@ -60,17 +60,12 @@ namespace Xamarin.CommunityToolkit.MarkupSample
         public ICommand LikeCommand => likeCommand ??= new RelayCommand<Tweet>(Like);
         public ICommand OpenTwitterSearchCommand => openTwitterSearchCommand ??= new RelayCommandAsync(OpenTwitterSearch);
 		public ICommand OpenHelpCommand => openHelpCommand ??= new RelayCommandAsync(OpenHelp);
-		public ICommand OpenHelp2Command => openHelp2Command ??= new RelayCommandAsync(OpenHelp2);
 
 		void Back() { }
         
-        void Like(Tweet tweet) 
-        {
-            tweet.IsLikedByMe = !tweet.IsLikedByMe;
-        }
+        void Like(Tweet tweet) => tweet.IsLikedByMe = !tweet.IsLikedByMe;
 
-		Task OpenHelp() => Launcher.OpenAsync(new Uri("https://docs.microsoft.com/xamarin/xamarin-forms/user-interface/csharp-markup"));
-		Task OpenHelp2() => Launcher.OpenAsync(new Uri("https://github.com/xamarin/Xamarin.Forms/pull/11428"));
+		Task OpenHelp() => Launcher.OpenAsync(new Uri("https://github.com/VincentH-Net/xamarin-communitytoolkit/blob/master/docs/markup.md"));
 		Task OpenTwitterSearch() => Launcher.OpenAsync(new Uri("https://twitter.com/search?q=%23CSharpForMarkup"));
 
         public class Tweet : BaseViewModel
