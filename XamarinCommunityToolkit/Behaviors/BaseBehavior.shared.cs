@@ -6,7 +6,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public abstract class BaseBehavior<TView> : Behavior<TView> where TView : View
+	public abstract class BaseBehavior<TView> : Behavior<TView> where TView : VisualElement
 	{
 		static readonly MethodInfo getContextMethod
 			= typeof(BindableObject).GetRuntimeMethods()?.FirstOrDefault(m => m.Name == "GetContext");
