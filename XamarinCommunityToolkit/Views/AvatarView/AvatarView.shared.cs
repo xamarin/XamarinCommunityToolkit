@@ -1,5 +1,7 @@
 ﻿using Xamarin.Forms;
 using static System.Math;
+using System.Threading;
+using System;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -185,7 +187,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (Image.Source == Source)
 					Image.Source = null;
 
-				Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(Source);
+				try
+				{
+					Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(Source);
+				}
+				catch (OperationCanceledException)
+				{
+					Xamarin.Forms.Internals.Log.Warning("CancellationException", "IsImageSourceValidAsync was cancelled.");
+				}
+				catch (System.Exception ex)
+				{
+					Xamarin.Forms.Internals.Log.Warning("Error", ex.Message);
+					throw;
+				}
 				Image.Source = Source;
 			}
 			Image.Aspect = Aspect;
