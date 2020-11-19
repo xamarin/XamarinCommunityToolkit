@@ -2,19 +2,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.Android", "src\CommunityToolkit\XamarinCommunityToolkitSample.Android\Xamarin.CommunityToolkit.Sample.Android.csproj", "{8B80BFA6-7B19-4DE7-BD97-7D84194AD0C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.Android", "src\CommunityToolkit\Xamarin.CommunityToolkit.Sample.Android\Xamarin.CommunityToolkit.Sample.Android.csproj", "{8B80BFA6-7B19-4DE7-BD97-7D84194AD0C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.iOS", "src\CommunityToolkit\XamarinCommunityToolkitSample.iOS\Xamarin.CommunityToolkit.Sample.iOS.csproj", "{B10BD8BF-43EA-4F95-BE5C-42ED8028CC6B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.iOS", "src\CommunityToolkit\Xamarin.CommunityToolkit.Sample.iOS\Xamarin.CommunityToolkit.Sample.iOS.csproj", "{B10BD8BF-43EA-4F95-BE5C-42ED8028CC6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.Sample", "src\CommunityToolkit\XamarinCommunityToolkitSample\Xamarin.CommunityToolkit.Sample.csproj", "{81AADE72-D666-4AB0-83D9-8FE366E0755E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.Sample", "src\CommunityToolkit\Xamarin.CommunityToolkit.Sample\Xamarin.CommunityToolkit.Sample.csproj", "{81AADE72-D666-4AB0-83D9-8FE366E0755E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit", "src\CommunityToolkit\XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj", "{B0DCDF81-953D-47DA-A7D4-0565339BF07C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit", "src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj", "{B0DCDF81-953D-47DA-A7D4-0565339BF07C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{47DFE508-04F1-433D-8C55-0C1ACD033573}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.UnitTests", "src\CommunityToolkit\XamarinCommunityToolkit.UnitTests\Xamarin.CommunityToolkit.UnitTests.csproj", "{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.UnitTests", "src\CommunityToolkit\Xamarin.CommunityToolkit.UnitTests\Xamarin.CommunityToolkit.UnitTests.csproj", "{54B7812B-45A5-4FE2-9CEA-C5F17D65BDE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.UWP", "src\CommunityToolkit\XamarinCommunityToolkitSample.UWP\Xamarin.CommunityToolkit.Sample.UWP.csproj", "{91C748B4-E9ED-4543-880A-26747B03DE3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.UWP", "src\CommunityToolkit\Xamarin.CommunityToolkit.Sample.UWP\Xamarin.CommunityToolkit.Sample.UWP.csproj", "{91C748B4-E9ED-4543-880A-26747B03DE3A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F695F5E8-420F-475F-A4CF-F5BB3FA6E818}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.GTK", "src\CommunityToolkit\Xamarin.CommunityToolkit.Sample.GTK\Xamarin.CommunityToolkit.Sample.GTK.csproj", "{1C9105B3-2BB2-4333-9C52-2E0FC99135CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.Sample.Tizen", "src\CommunityToolkit\XamarinCommunityToolkitSample.Tizen\Xamarin.CommunityToolkit.Sample.Tizen.csproj", "{416FAAA0-D6FD-4F95-BAB9-4A9438053CFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.Sample.Tizen", "src\CommunityToolkit\Xamarin.CommunityToolkit.Sample.Tizen\Xamarin.CommunityToolkit.Sample.Tizen.csproj", "{416FAAA0-D6FD-4F95-BAB9-4A9438053CFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

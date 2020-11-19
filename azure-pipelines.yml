@@ -9,8 +9,8 @@ variables:
   NETCORE_VERSION: '3.1.x'
   NETCORE_TEST_VERSION: '3.1.x'
   RunPoliCheck: 'false'
-  PathToCsproj: 'XamarinCommunityToolkit/Xamarin.CommunityToolkit.csproj'
-  PathToMarkupCsproj: 'Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
+  PathToCsproj: 'src/CommunityToolkit/XamarinCommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
 
 resources:
   repositories:

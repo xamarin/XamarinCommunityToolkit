@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -95,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.CommunityToolkit.MarkupSample\Xamarin.CommunityToolkit.MarkupSample.csproj">
-      <Project>{C5010869-5697-4C8A-9715-1791228F8569}</Project>
+      <Project>{BC630A82-C833-4FF8-88E0-1B6748A20EE3}</Project>
       <Name>Xamarin.CommunityToolkit.MarkupSample</Name>
     </ProjectReference>
   </ItemGroup>
