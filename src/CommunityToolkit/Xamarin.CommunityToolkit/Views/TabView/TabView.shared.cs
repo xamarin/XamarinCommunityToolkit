@@ -30,7 +30,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		readonly List<double> contentWidthCollection;
 		IList tabItemsSource;
-		ObservableCollection<TabViewItem> contentTabItems;
 
 		public TabView()
 		{
@@ -103,11 +102,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			contentContainer = new CarouselView
 			{
 				BackgroundColor = Color.Transparent,
-				ItemsSource = TabItems.Where(t => t.Content != null),
 				ItemTemplate = new DataTemplate(() =>
 				{
 					var tabViewItemContent = new ContentView();
-					tabViewItemContent.SetBinding(ContentProperty, "CurrentContent");
+					tabViewItemContent.SetBinding(ContentProperty, TabViewItem.CurrentContentProperty.PropertyName);
 					return tabViewItemContent;
 				}),
 				IsSwipeEnabled = IsSwipeEnabled,
@@ -174,7 +172,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				TabItems.CollectionChanged -= OnTabItemsCollectionChanged;
 		}
 
-		public ObservableCollection<TabViewItem> TabItems { get; set; }
+		public ObservableCollection<TabViewItem> TabItems { get; }
 
 		public static readonly BindableProperty TabItemsSourceProperty =
 			BindableProperty.Create(nameof(TabItemsSource), typeof(IList), typeof(TabView), null,
@@ -444,6 +442,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (e.PropertyName == TabViewItem.TabWidthProperty.PropertyName)
 				UpdateTabViewItemTabWidth(tabViewItem);
+			else if (e.PropertyName == TabViewItem.ContentProperty.PropertyName) 
+				UpdateVisibleTabItems();
+		}
+
+		void UpdateVisibleTabItems()
+		{
+			contentContainer.ItemsSource = new ObservableCollection<TabViewItem>(TabItems.Where(t => t.Content != null));
 		}
 
 		void OnTabItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -463,6 +468,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					AddTabViewItem(newTabViewItem, TabItems.IndexOf(newTabViewItem));
 				}
 			}
+
+			UpdateVisibleTabItems();
 		}
 
 		void OnContentContainerPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -551,6 +558,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void UpdateTabContentSize()
 		{
 			var items = contentContainer.ItemsSource;
+			if (items == null)
+				return;
 
 			var count = 0;
 
@@ -758,9 +767,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			Device.BeginInvokeOnMainThread(async () =>
 			{
-				if (contentTabItems == null)
-					contentTabItems = new ObservableCollection<TabViewItem>(TabItems.Where(t => t.Content != null));
-
 				var contentIndex = position;
 				var tabStripIndex = position;
 
@@ -773,7 +779,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					var tabViewItem = TabItems[SelectedIndex];
 
-					contentIndex = contentTabItems.IndexOf(currentItem ?? tabViewItem);
+					contentIndex = contentContainer.ItemsSource.Cast<TabViewItem>().IndexOf(currentItem ?? tabViewItem);
 					tabStripIndex = TabItems.IndexOf(currentItem ?? tabViewItem);
 
 					position = tabStripIndex;
