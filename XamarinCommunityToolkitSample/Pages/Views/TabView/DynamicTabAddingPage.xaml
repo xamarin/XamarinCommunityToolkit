@@ -6,8 +6,8 @@
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:views="http://xamarin.com/schemas/2020/toolkit">
     <StackLayout>
-        <Button Text="Add Three with Content Tab 3" Clicked="OnAdd" />
-        <views:TabView x:Name="MyTabView">
+        <Button Clicked="OnAdd" Text="Add Three with Content Tab 3" />
+        <views:TabView x:Name="MyTabView" TabStripBackgroundColor="BlanchedAlmond">
             <views:TabView.TabItems>
                 <views:TabViewItem Text="One">
                     <Grid>
@@ -20,6 +20,18 @@
                     </Grid>
                 </views:TabViewItem>
             </views:TabView.TabItems>
+        </views:TabView>
+        <views:TabView TabItemsSource="{Binding TabSource}" TabStripBackgroundColor="YellowGreen">
+            <views:TabView.TabViewItemDataTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding}" />
+                </DataTemplate>
+            </views:TabView.TabViewItemDataTemplate>
+            <views:TabView.TabContentDataTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding}" TextColor="CornflowerBlue" />
+                </DataTemplate>
+            </views:TabView.TabContentDataTemplate>
         </views:TabView>
     </StackLayout>
 </pages:BasePage>

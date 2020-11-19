@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -6,8 +7,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
 {
 	public partial class DynamicTabAddingPage
 	{
+		public ObservableCollection<string> TabSource { get; }
+
 		public DynamicTabAddingPage()
 		{
+			TabSource = new ObservableCollection<string> {"One", "Two"};
+			BindingContext = this;
 			InitializeComponent();
 		}
 
@@ -24,6 +29,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
 					}
 				}
 			});
+
+			TabSource.Add("Three");
 		}
 	}
 }
