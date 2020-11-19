@@ -70,8 +70,8 @@
     <PackageReference Include="Xamarin.Build.TypeRedirector" Version="0.1.2-preview" PrivateAssets="all" />
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
-    <None Include="..\LICENSE" PackagePath="" Pack="true" />
-    <None Include="..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
+    <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
+    <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
@@ -166,37 +166,37 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\atk-sharp.dll</HintPath>
+      <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\atk-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\gdk-sharp.dll</HintPath>
+      <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\gdk-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\glade-sharp.dll</HintPath>
+      <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\glade-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\glib-sharp.dll</HintPath>
+      <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\glib-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="gtk-dotnet, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\gtk-dotnet.dll</HintPath>
+      <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\gtk-dotnet.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\gtk-sharp.dll</HintPath>
+      <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\gtk-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\gtk-sharp\gtk-sharp-2.0\pango-sharp.dll</HintPath>
+      <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\pango-sharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
