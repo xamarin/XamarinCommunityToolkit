@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.MarkupSample.UWP", "Xamarin.CommunityToolkit.MarkupSample.UWP\Xamarin.CommunityToolkit.MarkupSample.UWP.csproj", "{D29128C9-67D2-434E-AEF9-96E8F6048D8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.MarkupSample.UWP", "src\Markup\Xamarin.CommunityToolkit.MarkupSample.UWP\Xamarin.CommunityToolkit.MarkupSample.UWP.csproj", "{D29128C9-67D2-434E-AEF9-96E8F6048D8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.MarkupSample.Android", "Xamarin.CommunityToolkit.MarkupSample.Android\Xamarin.CommunityToolkit.MarkupSample.Android.csproj", "{B2D89B8C-9B90-4FC3-AB54-0872A592B21C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.MarkupSample.Android", "src\Markup\Xamarin.CommunityToolkit.MarkupSample.Android\Xamarin.CommunityToolkit.MarkupSample.Android.csproj", "{B2D89B8C-9B90-4FC3-AB54-0872A592B21C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.MarkupSample.iOS", "Xamarin.CommunityToolkit.MarkupSample.iOS\Xamarin.CommunityToolkit.MarkupSample.iOS.csproj", "{06635C4A-89CF-4D2E-A891-B90D04BC4CE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.MarkupSample.iOS", "src\Markup\Xamarin.CommunityToolkit.MarkupSample.iOS\Xamarin.CommunityToolkit.MarkupSample.iOS.csproj", "{06635C4A-89CF-4D2E-A891-B90D04BC4CE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.MarkupSample", "Xamarin.CommunityToolkit.MarkupSample\Xamarin.CommunityToolkit.MarkupSample.csproj", "{BC630A82-C833-4FF8-88E0-1B6748A20EE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.MarkupSample", "src\Markup\Xamarin.CommunityToolkit.MarkupSample\Xamarin.CommunityToolkit.MarkupSample.csproj", "{BC630A82-C833-4FF8-88E0-1B6748A20EE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
