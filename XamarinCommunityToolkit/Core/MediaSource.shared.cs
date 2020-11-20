@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Core
 {
 	public abstract class MediaSource : Element
 	{
-		readonly Helpers.WeakEventManager weakEventManager = new Helpers.WeakEventManager();
+		readonly WeakEventManager weakEventManager = new WeakEventManager();
 
 		public static MediaSource FromFile(string file) =>
 			new FileMediaSource { File = file };

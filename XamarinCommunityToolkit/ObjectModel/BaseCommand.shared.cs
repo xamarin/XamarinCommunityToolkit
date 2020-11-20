@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	public abstract class BaseCommand<TCanExecute>
 	{
 		readonly Func<TCanExecute, bool> canExecute;
-		readonly Helpers.WeakEventManager weakEventManager = new Helpers.WeakEventManager();
+		readonly WeakEventManager weakEventManager = new WeakEventManager();
 
 		int executionCount;
 
