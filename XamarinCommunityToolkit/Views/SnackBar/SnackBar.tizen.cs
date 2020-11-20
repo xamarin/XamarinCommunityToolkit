@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Forms.Platform.Tizen.Native.Dialog.CreateDialog(Forms.Forms.NativeParent,
 					arguments.Actions.Any());
 
-			snackBarDialog.Timeout = TimeSpan.FromMilliseconds(arguments.Duration).TotalSeconds;
+			snackBarDialog.Timeout = arguments.Duration.TotalSeconds;
 
 			var message = arguments.MessageOptions.Message.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;")
 				.Replace(Environment.NewLine, "<br>");

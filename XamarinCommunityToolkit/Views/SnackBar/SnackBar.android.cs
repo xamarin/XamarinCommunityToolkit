@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		internal void Show(Page sender, SnackBarOptions arguments)
 		{
 			var view = Platform.GetRenderer(sender).View;
-			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, arguments.Duration);
+			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
 			snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
 

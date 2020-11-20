@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;
 			var grid = FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea").Parent as Grid;
 			var snackBarRow = new RowDefinition() { Height = GridLength.Auto };
-			snackBarTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(arguments.Duration) };
+			snackBarTimer = new DispatcherTimer { Interval = arguments.Duration };
 			snackBarTimer.Tick += (sender, e) =>
 			{
 				grid.Children.Remove(snackBarLayout);

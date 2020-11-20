@@ -25,7 +25,87 @@ The toolkit is available via NuGet, and should be installed into all your projec
 
 Now all you need to do is use it! 
 
-For example, to use the `AvatarView` you first include the toolkit namespace:
+## Documentation
+
+### Toast
+
+There are 2 different ways to use Toast.
+1. On your Page call the method: 
+```csharp
+await MyPage.DisplayToastAsync(message, duration);
+```
+where `message` is your text, and duration is optional parameter. Default duration = 3000;
+
+2. For advanced settings:
+```csharp
+    var messageOptions = new MessageOptions
+    {
+        Foreground = Color.Black,
+        FontSize = 14,
+        FontFamily = "Arial",
+        Message = "My text"
+    };
+    var options = new ToastOptions
+    {
+        MessageOptions = messageOptions,
+        Duration = 3000,
+        BackgroundColor = Color.Default,
+        IsRtl = false,
+    };
+    await this.DisplayToastAsync(options);
+```
+
+### Snackbar
+
+Snackbar has API which is similar to the Toast.
+1. On your Page call the method: 
+```csharp
+var result = await MyPage.DisplaySnackbarAsync(message, actionButtonText, action, duration);
+```
+where `message` is your text, `actionButtonText` is the text for the button, `action` is a `Func<Task>` and duration is optional parameter. Default duration = 3000;
+
+2. For advanced settings:
+```csharp
+    var messageOptions = new MessageOptions
+    {
+        Foreground = Color.Black,
+        FontSize = 14,
+        FontFamily = "Arial",
+        Message = "My text"
+    };
+    var actionOptions = new List<SnackBarActionOptions>
+    {
+        new SnackBarActionOptions
+        {
+            ForegroundColor = Color.Black,
+            BackgroundColor = Color.White,
+            FontSize = 14,
+            FontFamily = "Arial",
+            Text = "My text",
+            Action = () => // null by default
+            {
+                Debug.WriteLine("1");
+                return Task.CompletedTask;
+            }
+        }
+    };
+    var options = new SnackbarOptions
+    {
+        MessageOptions = messageOptions,
+        Duration = 3000,
+        BackgroundColor = Color.Default,
+        IsRtl = false,
+        Actions = actionOptions
+    };
+    var result = await this.DisplayToastAsync(options);
+```
+The result is `Boolean`. True - if snackbar is closed by user. False - if snackbar is closed by timeout.
+
+
+
+### AvatarView
+
+You first include the toolkit namespace:
 
 ```xaml
 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"

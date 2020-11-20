@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public abstract class ValidationBehavior : BaseBehavior<View>
+	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
 		public static readonly BindableProperty IsValidProperty =
 			BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(ValidationBehavior), true, BindingMode.OneWayToSource);
@@ -86,7 +87,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected abstract bool Validate(object value);
 
-		protected override void OnAttachedTo(View bindable)
+		protected override void OnAttachedTo(VisualElement bindable)
 		{
 			base.OnAttachedTo(bindable);
 
@@ -98,7 +99,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			isAttaching = false;
 		}
 
-		protected override void OnDetachingFrom(View bindable)
+		protected override void OnDetachingFrom(VisualElement bindable)
 		{
 			if (defaultValueBinding != null)
 			{
