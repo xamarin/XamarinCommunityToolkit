@@ -198,9 +198,4 @@
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Helpers\DelegateWeakEventManager.shared.cs">
-      <SubType></SubType>
-    </Compile>
-  </ItemGroup>
 </Project>
