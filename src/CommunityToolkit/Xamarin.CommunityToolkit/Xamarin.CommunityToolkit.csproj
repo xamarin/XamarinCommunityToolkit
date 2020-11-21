@@ -68,6 +68,7 @@
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1709-pre4" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />

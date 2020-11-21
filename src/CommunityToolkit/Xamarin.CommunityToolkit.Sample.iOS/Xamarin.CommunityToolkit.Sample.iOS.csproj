@@ -165,11 +165,11 @@
     <Folder Include="Assets.xcassets\LauncherIcon.imageset\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XamarinCommunityToolkitSample\Xamarin.CommunityToolkit.Sample.csproj">
+    <ProjectReference Include="..\Xamarin.CommunityToolkit.Sample\Xamarin.CommunityToolkit.Sample.csproj">
       <Project>{81AADE72-D666-4AB0-83D9-8FE366E0755E}</Project>
       <Name>Xamarin.CommunityToolkit.Sample</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XamarinCommunityToolkit\Xamarin.CommunityToolkit.csproj">
+    <ProjectReference Include="..\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj">
       <Project>{b0dcdf81-953d-47da-a7d4-0565339bf07c}</Project>
       <Name>Xamarin.CommunityToolkit</Name>
     </ProjectReference>
