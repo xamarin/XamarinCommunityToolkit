@@ -4,6 +4,8 @@
                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                ios:Page.UseSafeArea="true"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.AvatarViewPage">
 
     <pages:BasePage.BindingContext>
