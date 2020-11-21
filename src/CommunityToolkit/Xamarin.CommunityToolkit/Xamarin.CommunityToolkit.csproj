@@ -203,7 +203,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Mono.Cairo">
-      <HintPath>..\Libs\gtk-sharp\Mono.Cairo\Mono.Cairo.dll</HintPath>
+      <HintPath>..\..\..\Libs\gtk-sharp\Mono.Cairo\Mono.Cairo.dll</HintPath>
     </Reference>
   </ItemGroup>
 
