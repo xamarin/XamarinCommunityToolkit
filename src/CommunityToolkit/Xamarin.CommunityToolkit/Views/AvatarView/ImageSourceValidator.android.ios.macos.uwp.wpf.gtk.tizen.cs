@@ -8,7 +8,7 @@ using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.iOS;
 #elif __MACOS__
 using Xamarin.Forms.Platform.MacOS;
-#elif UWP
+#elif UAP10_0
 using Xamarin.Forms.Platform.UWP;
 #elif NET471
 using Xamarin.Forms.Platform.GTK.Renderers;

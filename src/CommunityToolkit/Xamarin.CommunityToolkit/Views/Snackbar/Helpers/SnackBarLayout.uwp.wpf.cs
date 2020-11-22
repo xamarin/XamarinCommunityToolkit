@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using System.Linq;
-#if UWP
+#if UAP10_0
 using Xamarin.Forms.Platform.UWP;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 		{
 			RowDefinitions.Add(new RowDefinition());
 			ColumnDefinitions.Add(new ColumnDefinition());
-#if UWP
+#if UAP10_0
 			Background = options.BackgroundColor.ToBrush();
 			var messageLabel = new TextBlock
 			{
