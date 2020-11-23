@@ -16,17 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		SKCanvasView canvasView;
 		bool isDrawing;
-
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
-			{
-				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
-				LoadPoints();
-				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
-			}
-		}
+		bool disposed;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
 		{
@@ -38,10 +28,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					BackgroundColor = Element.BackgroundColor.ToNative()
 				};
 				canvasView.Show();
-				Element.Points.CollectionChanged += (sender, args) =>
-				{
-					LoadPoints();
-				};
+				Element.Points.CollectionChanged += OnPointsCollectionChanged;
 				SetNativeControl(canvasView);
 			}
 
@@ -62,6 +49,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnElementPropertyChanged(sender, e);
+			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
+			{
+				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
+				LoadPoints();
+				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
+			}
+		}
+
+		void OnPointsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
+
 		void MouseMove()
 		{
 			if (isDrawing)
@@ -77,9 +77,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void MouseDown()
 		{
 			if (Element == null)
-			{
 				return;
-			}
 
 			Element.Points.Clear();
 			canvasView?.Invalidate();
@@ -89,32 +87,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void MouseUp()
 		{
 			if (Element == null)
-			{
 				return;
-			}
 
 			isDrawing = false;
 
-			if (Element.Points.Any())
+			if (Element.Points.Count > 0)
 			{
 				if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
-				{
 					Element.DrawingCompletedCommand.Execute(Element.Points);
-				}
 			}
 
 			if (Element.ClearOnFinish)
-			{
 				Element.Points.Clear();
-			}
 		}
 
 		void LoadPoints()
 		{
 			if (Element == null)
-			{
 				return;
-			}
 
 			canvasView.Invalidate();
 		}
@@ -123,11 +113,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			canvas.Clear(SKColor.Empty);
 			if (Element.Points.Count == 0)
-			{
 				return;
-			}
 
-			var strokePaint = new SKPaint
+			using var strokePaint = new SKPaint
 			{
 				Style = SKPaintStyle.Stroke,
 				Color = Element.LineColor.ToNative().ToSKColor(),
@@ -136,17 +124,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 
 			var skPoints = Element.Points.Select(p => new SKPoint((float)p.X, (float)p.Y)).ToArray();
-			var path = new SKPath();
+			using var path = new SKPath();
 			path.MoveTo(skPoints[0]);
 
 			foreach (var point in skPoints)
-			{
 				path.LineTo(point);
-			}
 
 			canvas.DrawPath(path, strokePaint);
-			path.Dispose();
-			strokePaint.Dispose();
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposed)
+				return;
+			disposed = true;
+
+			if (Element != null)
+			{
+				Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
+				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
+				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseMove, MouseMove);
+				canvasView.PaintSurface -= OnPaintSurface;
+			}
+
+			base.Dispose(disposing);
 		}
 	}
 }
