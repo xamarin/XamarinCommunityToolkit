@@ -1,12 +1,11 @@
-﻿using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using Cairo;
 using Gdk;
 using global::Gtk;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.GTK;
 using Xamarin.Forms.Platform.GTK.Extensions;
 using Point = Xamarin.Forms.Point;
@@ -24,17 +23,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		PointD point;
 		PointD previousPoint;
 		ImageSurface surface;
-
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
-			{
-				surface = new ImageSurface(Format.Argb32, Convert.ToInt32(Element.Width),
-										   Convert.ToInt32(Element.Height));
-				LoadPoints(surface);
-			}
-		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
 		{
@@ -54,10 +42,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				isDrawing = false;
 
 				vBox.Add(area);
-				Element.Points.CollectionChanged += (sender, args) =>
-				{
-					LoadPoints(surface);
-				};
+				Element.Points.CollectionChanged += OnPointsCollectionChanged;
 				SetNativeControl(vBox);
 			}
 
@@ -78,6 +63,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnElementPropertyChanged(sender, e);
+			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
+			{
+				surface = new ImageSurface(Format.Argb32, Convert.ToInt32(Element.Width),
+										   Convert.ToInt32(Element.Height));
+				LoadPoints(surface);
+			}
+		}
+
+		void OnPointsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints(surface);
+
 		void OnDrawingAreaExposed(object source, ExposeEventArgs args)
 		{
 			Context ctx;
@@ -90,9 +88,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (isDrawing)
 			{
 				using (ctx = CairoHelper.Create(area.GdkWindow))
-				{
 					DrawPoint(ctx, point);
-				}
 			}
 		}
 
@@ -112,27 +108,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			point.X = args.Event.X;
 			point.Y = args.Event.Y;
-
+			var points = Element.Points;
 			isDrawing = false;
 
-			using (var ctx = new Context(surface))
-			{
-				DrawPoint(ctx, point);
-			}
+			using var ctx = new Context(surface);
+			DrawPoint(ctx, point);
 
 			area.QueueDraw();
-			if (Element.Points.Any())
+			if (points.Count > 0)
 			{
 				if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
-				{
 					Element.DrawingCompletedCommand.Execute(Element.Points);
-				}
 			}
 
 			if (Element.ClearOnFinish)
-			{
-				Element.Points.Clear();
-			}
+				points.Clear();
 		}
 
 		void OnMouseMotion(object source, MotionNotifyEventArgs args)
@@ -142,10 +132,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				point.X = args.Event.X;
 				point.Y = args.Event.Y;
 
-				using (var ctx = new Context(surface))
-				{
-					DrawPoint(ctx, point);
-				}
+				using var ctx = new Context(surface);
+				DrawPoint(ctx, point);
 
 				area.QueueDraw();
 			}
@@ -164,18 +152,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void LoadPoints(ImageSurface imageSurface)
 		{
-			var stylusPoints = Element?.Points?.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y))
-									  .ToList();
-			if (stylusPoints != null && stylusPoints.Any())
+			var stylusPoints = Element?.Points?.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y)).ToList();
+			if (stylusPoints != null && stylusPoints.Count > 0)
 			{
 				previousPoint = stylusPoints[0];
-				using (var ctx = new Context(imageSurface))
-				{
-					foreach (var stylusPoint in stylusPoints)
-					{
-						DrawPoint(ctx, stylusPoint);
-					}
-				}
+				using var ctx = new Context(imageSurface);
+
+				foreach (var stylusPoint in stylusPoints)
+					DrawPoint(ctx, stylusPoint);
 
 				area.QueueDraw();
 			}
@@ -184,14 +168,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void Dispose(bool disposing)
 		{
 			if (disposed)
-			{
 				return;
-			}
 
 			if (disposing)
 			{
+				area.ExposeEvent -= OnDrawingAreaExposed;
+				area.ButtonPressEvent -= OnMousePress;
+				area.ButtonReleaseEvent -= OnMouseRelease;
+				area.MotionNotifyEvent -= OnMouseMotion;
 				area.Dispose();
 				surface.Dispose();
+				if (Element != null)
+					Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			}
 
 			disposed = true;
