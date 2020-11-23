@@ -21,15 +21,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public DrawingViewRenderer() => currentPath = new NSBezierPath();
 
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
-			{
-				LoadPoints();
-			}
-		}
-
 		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
@@ -39,12 +30,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Layer.BackgroundColor = Element.BackgroundColor.ToCGColor();
 				currentPath.LineWidth = Element.LineWidth;
 				lineColor = Element.LineColor.ToNSColor();
-				Element.Points.CollectionChanged += (sender, args) =>
-				{
-					LoadPoints();
-				};
+				Element.Points.CollectionChanged += OnPointsCollectionChanged;
 			}
 		}
+
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			base.OnElementPropertyChanged(sender, e);
+			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
+				LoadPoints();
+		}
+
+		void OnPointsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
 
 		public override void MouseDown(NSEvent theEvent)
 		{
@@ -60,18 +57,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void MouseUp(NSEvent theEvent)
 		{
 			UpdatePath();
-			if (Element.Points.Any())
+			if (Element.Points.Count > 0)
 			{
 				if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
-				{
 					Element.DrawingCompletedCommand.Execute(Element.Points);
-				}
 			}
 
 			if (Element.ClearOnFinish)
-			{
 				Element.Points.Clear();
-			}
 		}
 
 		public override void MouseDragged(NSEvent theEvent)
@@ -98,14 +91,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var stylusPoints = Element.Points.Select(point => new CGPoint(point.X, point.Y)).ToList();
 			currentPath.RemoveAllPoints();
-			if (stylusPoints.Any())
+			if (stylusPoints.Count > 0)
 			{
 				previousPoint = stylusPoints[0];
 				currentPath.MoveTo(previousPoint);
 				foreach (var point in stylusPoints)
-				{
 					AddPointToPath(point);
-				}
 
 				UpdatePath();
 			}
@@ -119,9 +110,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			InvokeOnMainThread(Layer.SetNeedsDisplay);
 			Element.Points.Clear();
 			foreach (var point in smoothedPoints)
-			{
 				Element.Points.Add(point);
-			}
 		}
 
 		ObservableCollection<Point> SmoothedPathWithGranularity(ObservableCollection<Point> currentPoints,
@@ -130,9 +119,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			// not enough points to smooth effectively, so return the original path and points.
 			if (currentPoints.Count < 4)
-			{
 				return new ObservableCollection<Point>(currentPoints);
-			}
 
 			// create a new bezier path to hold the smoothed path.
 			smoothedPath.RemoveAllPoints();
@@ -185,25 +172,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				X = 0.5f *
 					((2f * p1.X) +
 					 ((p2.X - p0.X) * t) +
-					 (((((2f * p0.X) - (5f * p1.X)) + (4f * p2.X)) - p3.X) * tt) +
-					 ((((3f * p1.X) - p0.X - (3f * p2.X)) + p3.X) * ttt)),
+					 (((2f * p0.X) - (5f * p1.X) + (4f * p2.X) - p3.X) * tt) +
+					 (((3f * p1.X) - p0.X - (3f * p2.X) + p3.X) * ttt)),
 				Y = 0.5f *
 					((2 * p1.Y) +
 					 ((p2.Y - p0.Y) * t) +
-					 (((((2 * p0.Y) - (5 * p1.Y)) + (4 * p2.Y)) - p3.Y) * tt) +
-					 ((((3 * p1.Y) - p0.Y - (3 * p2.Y)) + p3.Y) * ttt))
+					 (((2 * p0.Y) - (5 * p1.Y) + (4 * p2.Y) - p3.Y) * tt) +
+					 (((3 * p1.Y) - p0.Y - (3 * p2.Y) + p3.Y) * ttt))
 			};
 
 		protected override void Dispose(bool disposing)
 		{
 			if (disposed)
-			{
 				return;
-			}
 
 			if (disposing)
 			{
 				currentPath.Dispose();
+				if (Element != null)
+					Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			}
 
 			disposed = true;
