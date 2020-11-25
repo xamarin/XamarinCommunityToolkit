@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms.PancakeView.Platforms.WPF;
+﻿using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Forms.PancakeView.Platforms.WPF;
 using Xamarin.Forms.Platform.WPF;
 
 namespace Xamarin.CommunityToolkit.Sample.WPF
@@ -14,6 +15,7 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 			Forms.Forms.Init();
 			PancakeViewRenderer.Init();
 			LoadApplication(new Xamarin.CommunityToolkit.Sample.App());
+			_ = new DrawingViewRenderer();
 		}
 	}
 }

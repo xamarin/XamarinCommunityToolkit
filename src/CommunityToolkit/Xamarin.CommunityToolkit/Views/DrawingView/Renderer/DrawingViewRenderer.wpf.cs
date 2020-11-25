@@ -11,9 +11,16 @@ using Xamarin.Forms.Platform.WPF;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	// solve stackoverflow exception
+	// Why ExportRenderer doesn't work?
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, InkCanvas>
 	{
 		InkCanvas canvas;
+
+		public DrawingViewRenderer()
+		{
+
+		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
