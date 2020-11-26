@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			{
 				Foreground = Color.DeepSkyBlue,
 				FontSize = 40,
-				FontFamily = "Sans-serif",
+				FontFamily = "Times New Roman",
 				Message = GenerateLongText(5)
 			};
 
@@ -47,7 +47,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					ForegroundColor = Color.Red,
 					BackgroundColor = Color.Green,
 					FontSize = 40,
-					FontFamily = "Sans-serif",
+					FontFamily = "Times New Roman",
 					Text = "Action1",
 					Action = () =>
 					{
@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					ForegroundColor = Color.Green,
 					BackgroundColor = Color.Red,
 					FontSize = 20,
-					FontFamily = "Sans-serif",
+					FontFamily = "Times New Roman",
 					Text = "Action2",
 					Action = () =>
 					{

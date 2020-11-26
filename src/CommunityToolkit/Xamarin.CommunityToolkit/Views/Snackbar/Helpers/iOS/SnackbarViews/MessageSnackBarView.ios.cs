@@ -36,7 +36,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
 				Text = SnackBar.Message,
 				Lines = 0,
 				AdjustsFontSizeToFitWidth = true,
-				MinimumFontSize = 10f,
+				Font = UIFont.FromName(SnackBar.Appearance.TextFontName, SnackBar.Appearance.TextFontSize),
+				BackgroundColor = SnackBar.Appearance.BackgroundColor,
+				TextColor = SnackBar.Appearance.TextForeground,
 				TextAlignment = SnackBar.Appearance.MessageTextAlignment,
 				TranslatesAutoresizingMaskIntoConstraints = false
 			};

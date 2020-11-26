@@ -4,7 +4,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
 	abstract class BaseSnackBarView : NSView
 	{
-		public BaseSnackBarView(MacOSSnackBar snackBar) => SnackBar = snackBar;
+		protected BaseSnackBarView(MacOSSnackBar snackBar) => SnackBar = snackBar;
 
 		public NSLayoutConstraint BottomConstraint { get; protected set; }
 
@@ -61,7 +61,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 			WantsLayer = true;
 			if (Layer != null)
 			{
-				Layer.BackgroundColor = SnackBar.Appearance.Color.CGColor;
+				Layer.BackgroundColor = SnackBar.Appearance.BackgroundColor.CGColor;
 				Layer.CornerRadius = SnackBar.Appearance.CornerRadius;
 			}
 
