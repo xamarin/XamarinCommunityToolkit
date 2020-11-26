@@ -19,7 +19,6 @@
       <DependentUpon>AppResources.es.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1709-pre4" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
@@ -35,17 +34,16 @@
     <EmbeddedResource Update="Views\BehaviorsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+
     <EmbeddedResource Update="Resx\AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DependentUpon>AppResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-  </ItemGroup>
+    </ItemGroup>
 </Project>
 

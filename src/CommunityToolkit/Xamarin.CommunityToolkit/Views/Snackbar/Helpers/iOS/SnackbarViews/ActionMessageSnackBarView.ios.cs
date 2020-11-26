@@ -56,7 +56,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 		{
 			base.Initialize();
 
-			ActionButton = new UIButton(UIButtonType.System) { TranslatesAutoresizingMaskIntoConstraints = false };
+			ActionButton = new UIButton(UIButtonType.System)
+			{
+				TranslatesAutoresizingMaskIntoConstraints = false,
+				BackgroundColor = SnackBar.Appearance.ButtonBackgroundColor,
+				Font = UIFont.FromName(SnackBar.Appearance.ButtonFontName, SnackBar.Appearance.ButtonFontSize),
+			};
+			ActionButton.SetTitleColor(SnackBar.Appearance.ButtonForegroundColor, UIControlState.Normal);
 			ActionButton.SetTitle(SnackBar.ActionButtonText, UIControlState.Normal);
 			ActionButton.TitleLabel.LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode;
 			ActionButton.TouchUpInside += DismissButtonTouchUpInside;

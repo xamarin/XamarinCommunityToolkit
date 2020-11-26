@@ -85,6 +85,7 @@
     <PackageReference Include="Xamarin.Forms.Platform.GTK">
       <Version>5.0.0.1709-pre4</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.CommunityToolkit.Sample\Xamarin.CommunityToolkit.Sample.csproj">

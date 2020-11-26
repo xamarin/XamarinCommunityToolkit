@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		public string ActionButtonText { get; protected set; }
 
-		public SnackBarAppearance Appearance { get; } = new SnackBarAppearance();
+		public SnackBarAppearance Appearance { get; protected set; } = new SnackBarAppearance();
 
 		public double Duration { get; protected set; }
 
@@ -64,6 +64,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 		public MacOSSnackBar SetDuration(double duration)
 		{
 			Duration = duration;
+			return this;
+		}
+
+		public MacOSSnackBar SetAppearance(SnackBarAppearance appearance)
+		{
+			Appearance = appearance;
 			return this;
 		}
 
