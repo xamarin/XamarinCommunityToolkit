@@ -305,7 +305,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void SwitchFlash(CameraFlashMode newFlashMode)
 		{
-			if (isAvailable && device != null && newFlashMode != flashMode)
+			if (isAvailable && device != null && newFlashMode != flashMode && device.FlashAvailable)
 			{
 				flashMode = newFlashMode;
 				SwitchFlash();
