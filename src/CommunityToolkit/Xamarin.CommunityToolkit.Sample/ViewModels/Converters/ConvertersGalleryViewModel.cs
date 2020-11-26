@@ -35,6 +35,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(DateTimeOffsetConverterPage),
 				nameof(DateTimeOffsetConverter),
 				"A converter that allows to convert from a DateTimeOffset type to a DateTime type"),
+
+			new SectionModel(
+				typeof(MathOperationValueConverterPage),
+				nameof(MathOperationValueConverter),
+				"A converter that adds the ability to perform simple math operations that can be used in a number of scenarios such as calculating perfectly round corners"),
 		};
 	}
 }

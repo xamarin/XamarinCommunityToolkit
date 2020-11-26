@@ -13,6 +13,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Update="Pages\Converters\MathOperationValueConverterPage.xaml.cs">
+      <DependentUpon>MathOperationValueConverterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resx\AppResources.es.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
