@@ -119,7 +119,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			effect?.HandleHover(HoverStatus.Exited);
 		}
 
-		private void OnPointerCanceled(object sender, PointerRoutedEventArgs e)
+		void OnPointerCanceled(object sender, PointerRoutedEventArgs e)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -131,7 +131,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			AnimateTilt(pointerUpStoryboard);
 		}
 
-		private void OnPointerCaptureLost(object sender, PointerRoutedEventArgs e)
+		void OnPointerCaptureLost(object sender, PointerRoutedEventArgs e)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -152,7 +152,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			AnimateTilt(pointerUpStoryboard);
 		}
 
-		private void OnPointerReleased(object sender, PointerRoutedEventArgs e)
+		void OnPointerReleased(object sender, PointerRoutedEventArgs e)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -173,7 +173,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			isIntentionalCaptureLoss = true;
 		}
 
-		private void OnPointerPressed(object sender, PointerRoutedEventArgs e)
+		void OnPointerPressed(object sender, PointerRoutedEventArgs e)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -186,7 +186,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			isIntentionalCaptureLoss = false;
 		}
 
-		private void AnimateTilt(Storyboard storyboard)
+		void AnimateTilt(Storyboard storyboard)
 		{
 			if ((effect?.NativeAnimation ?? false) && storyboard != null)
 			{
