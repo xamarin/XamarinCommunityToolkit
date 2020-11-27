@@ -128,7 +128,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			IsClippedToBounds = true;
 			MainLayout.Children.Add(Label, new Rectangle(0.5, 0.5, -1, -1), AbsoluteLayoutFlags.PositionProportional);
-			MainLayout.Children.Add(Image, new Rectangle(0.5, 0.5, -1, -1), AbsoluteLayoutFlags.PositionProportional);
+			MainLayout.Children.Add(Image, new Rectangle(0, 0, 1, 1), AbsoluteLayoutFlags.All);
 			control.IsClippedToBounds = true;
 			control.HasShadow = false;
 			control.Padding = 0;
@@ -193,16 +193,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 				catch (OperationCanceledException)
 				{
-					Xamarin.Forms.Internals.Log.Warning("CancellationException", "IsImageSourceValidAsync was cancelled.");
+					Forms.Internals.Log.Warning("CancellationException", "IsImageSourceValidAsync was cancelled.");
 				}
-				catch (System.Exception ex)
+				catch (Exception ex)
 				{
-					Xamarin.Forms.Internals.Log.Warning("Error", ex.Message);
+					Forms.Internals.Log.Warning("Error", ex.Message);
 					throw;
 				}
 				Image.Source = Source;
 			}
+
 			Image.Aspect = Aspect;
+			if (Aspect == Aspect.AspectFit)
+			{
+				AbsoluteLayout.SetLayoutBounds(Image, new Rectangle(.5, .5, -1, -1));
+				AbsoluteLayout.SetLayoutFlags(Image, AbsoluteLayoutFlags.PositionProportional);
+			}
+			else
+			{
+				AbsoluteLayout.SetLayoutBounds(Image, new Rectangle(0, 0, 1, 1));
+				AbsoluteLayout.SetLayoutFlags(Image, AbsoluteLayoutFlags.All);
+			}
+
 			Image.BatchCommit();
 
 			Label.BatchBegin();
