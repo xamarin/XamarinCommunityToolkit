@@ -35,5 +35,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// Effect Id for <see cref="VisualFeedbackEffect"/>
 		/// </summary>
 		public static string VisualFeedback => $"{effectResolutionGroupName}.{nameof(VisualFeedbackEffect)}";
+
+		/// <summary>
+		/// Effect Id for <see cref="TouchEffect"/>
+		/// </summary>
+		public static string TouchEffect => $"{effectResolutionGroupName}.{nameof(TouchEffect)}";
 	}
 }

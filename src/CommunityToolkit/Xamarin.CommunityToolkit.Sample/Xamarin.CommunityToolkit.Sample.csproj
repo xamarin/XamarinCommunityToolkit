@@ -9,6 +9,7 @@
     <Compile Remove="resources\**" />
     <EmbeddedResource Remove="resources\**" />
     <None Remove="resources\**" />
+    <EmbeddedResource Include="Images\**" />
     <EmbeddedResource Update="Resx\AppResources.es.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.es.Designer.cs</LastGenOutput>
