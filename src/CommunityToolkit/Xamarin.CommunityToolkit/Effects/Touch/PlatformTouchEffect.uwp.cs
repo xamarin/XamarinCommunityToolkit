@@ -14,6 +14,10 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
+		const string PointerDownAnimationKey = "PointerDownAnimation";
+
+		const string PointerUpAnimationKey = "PointerUpAnimation";
+
 		TouchEffect effect;
 
 		bool isPressed;
@@ -37,26 +41,26 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 				if (string.IsNullOrEmpty(nativeControl.Name))
 					nativeControl.Name = Guid.NewGuid().ToString();
 
-				if (nativeControl.Resources.ContainsKey("PointerDownAnimation"))
-					pointerDownStoryboard = (Storyboard)nativeControl.Resources["PointerDownAnimation"];
+				if (nativeControl.Resources.ContainsKey(PointerDownAnimationKey))
+					pointerDownStoryboard = (Storyboard)nativeControl.Resources[PointerDownAnimationKey];
 				else
 				{
 					pointerDownStoryboard = new Storyboard();
 					var downThemeAnimation = new PointerDownThemeAnimation();
 					Storyboard.SetTargetName(downThemeAnimation, nativeControl.Name);
 					pointerDownStoryboard.Children.Add(downThemeAnimation);
-					nativeControl.Resources.Add(new KeyValuePair<object, object>("PointerDownAnimation", pointerDownStoryboard));
+					nativeControl.Resources.Add(new KeyValuePair<object, object>(PointerDownAnimationKey, pointerDownStoryboard));
 				}
 
-				if (nativeControl.Resources.ContainsKey("PointerUpAnimation"))
-					pointerUpStoryboard = (Storyboard)nativeControl.Resources["PointerUpAnimation"];
+				if (nativeControl.Resources.ContainsKey(PointerUpAnimationKey))
+					pointerUpStoryboard = (Storyboard)nativeControl.Resources[PointerUpAnimationKey];
 				else
 				{
 					pointerUpStoryboard = new Storyboard();
 					var upThemeAnimation = new PointerUpThemeAnimation();
 					Storyboard.SetTargetName(upThemeAnimation, nativeControl.Name);
 					pointerUpStoryboard.Children.Add(upThemeAnimation);
-					nativeControl.Resources.Add(new KeyValuePair<object, object>("PointerUpAnimation", pointerUpStoryboard));
+					nativeControl.Resources.Add(new KeyValuePair<object, object>(PointerUpAnimationKey, pointerUpStoryboard));
 				}
 			}
 
