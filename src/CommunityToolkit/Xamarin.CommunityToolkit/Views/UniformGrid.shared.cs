@@ -67,6 +67,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             return Math.Min((int)(widthConstraint / maxChildWidth), visibleChildrenCount);
         }
 
-        int GetRowsCount(int visibleChildrenCount, int columnsCount) => (int)Math.Ceiling((double)visibleChildrenCount / columnsCount);
+        int GetRowsCount(int visibleChildrenCount, int columnsCount) 
+            => (int)Math.Ceiling((double)visibleChildrenCount / columnsCount);
 	}
 }
