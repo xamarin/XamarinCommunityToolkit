@@ -305,13 +305,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void SwitchFlash(CameraFlashMode newFlashMode)
 		{
-			if (!isAvailable || device == null || newFlashMode == flashMode)
-			{
-				return;
-			}
+			var isSupported = newFlashMode == CameraFlashMode.Torch
+				? device.TorchAvailable
+				: device.FlashAvailable;
 
-			if ((flashMode == CameraFlashMode.Torch && device.TorchAvailable)
-				|| (flashMode != CameraFlashMode.Torch && device.FlashAvailable))
+			if (isSupported && isAvailable && device != null && newFlashMode != flashMode)
 			{
 				flashMode = newFlashMode;
 				SwitchFlash();
