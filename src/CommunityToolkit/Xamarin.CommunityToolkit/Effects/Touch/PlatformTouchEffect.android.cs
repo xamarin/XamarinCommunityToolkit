@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			effect.Element = Element as VisualElement;
+			effect.Element = (VisualElement)Element;
 
 			View.Touch += OnTouch;
 			UpdateClickHandler();

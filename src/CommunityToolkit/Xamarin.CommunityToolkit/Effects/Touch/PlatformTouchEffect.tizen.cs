@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			effect.Element = Element as VisualElement;
+			effect.Element = (VisualElement)Element;
 			gestureLayer = new TouchTapGestureRecognizer(Control, effect);
 		}
 

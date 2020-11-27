@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			effect.Element = Element as VisualElement;
+			effect.Element = (VisualElement)Element;
 			if (effect.NativeAnimation)
 			{
 				var nativeControl = Container;
