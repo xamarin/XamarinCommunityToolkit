@@ -90,7 +90,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			nameof(LongPressDuration),
 			typeof(int),
 			typeof(TouchEffect),
-			1500,
+			500,
 			propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty StatusProperty = BindableProperty.CreateAttached(

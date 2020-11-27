@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using static System.Math;
 
@@ -211,8 +212,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (element == null)
 				return;
 
-			ViewExtensions.CancelAnimations(element);
-			element.AbortAnimation(nameof(SetBackgroundColor));
+			element.AbortAnimations();
 		}
 
 		void UpdateStatusAndState(TouchEffect sender, TouchStatus status, TouchState state)
@@ -319,15 +319,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				return Task.FromResult(true);
 			}
 
-			var animationCompletionSource = new TaskCompletionSource<bool>();
-			new Animation
-			{
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(v, element.BackgroundColor.G, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.R, color.R) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, v, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.G, color.G) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, v, element.BackgroundColor.A), element.BackgroundColor.B, color.B) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, element.BackgroundColor.B, v), element.BackgroundColor.A, color.A) },
-			}.Commit(sender.Element, nameof(SetBackgroundColor), 16, (uint)duration, easing, (d, b) => animationCompletionSource.SetResult(true));
-			return animationCompletionSource.Task;
+			return element.ColorTo(color, (uint)duration, easing);
 		}
 
 		Task SetOpacity(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
