@@ -132,21 +132,21 @@ namespace Xamarin.CommunityToolkit.Effects
 			nameof(NormalBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			default(Color),
+			Color.Default,
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty HoveredBackgroundColorProperty = BindableProperty.CreateAttached(
 			nameof(HoveredBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			default(Color),
+			Color.Default,
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.CreateAttached(
 			nameof(PressedBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			default(Color),
+			Color.Default,
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty NormalOpacityProperty = BindableProperty.CreateAttached(

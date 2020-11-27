@@ -207,12 +207,12 @@ namespace Xamarin.CommunityToolkit.Effects
 			animationTokenSource?.Cancel();
 			animationTokenSource?.Dispose();
 			animationTokenSource = null;
-			var control = sender.Element;
-			if (control == null)
+			var element = sender.Element;
+			if (element == null)
 				return;
 
-			ViewExtensions.CancelAnimations(control);
-			control.AbortAnimation(nameof(SetBackgroundColor));
+			ViewExtensions.CancelAnimations(element);
+			element.AbortAnimation(nameof(SetBackgroundColor));
 		}
 
 		void UpdateStatusAndState(TouchEffect sender, TouchStatus status, TouchState state)
@@ -273,7 +273,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			try
 			{
-				if (sender.ShouldSetImageOnAnimationEnd)
+				if (sender.ShouldSetImageOnAnimationEnd && duration > 0)
 					await Task.Delay(duration, token);
 			}
 			catch (TaskCanceledException)
@@ -302,9 +302,9 @@ namespace Xamarin.CommunityToolkit.Effects
 				hoveredBackgroundColor == Color.Default)
 				return Task.FromResult(false);
 
-			var control = sender.Element;
+			var element = sender.Element;
 			if (defaultBackgroundColor == default)
-				defaultBackgroundColor = control.BackgroundColor;
+				defaultBackgroundColor = element.BackgroundColor;
 
 			var color = GetBackgroundColor(normalBackgroundColor);
 
@@ -315,17 +315,17 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (duration <= 0)
 			{
-				control.BackgroundColor = color;
+				element.BackgroundColor = color;
 				return Task.FromResult(true);
 			}
 
 			var animationCompletionSource = new TaskCompletionSource<bool>();
 			new Animation
 			{
-				{ 0, 1,  new Animation(v => control.BackgroundColor = new Color(v, control.BackgroundColor.G, control.BackgroundColor.B, control.BackgroundColor.A), control.BackgroundColor.R, color.R) },
-				{ 0, 1,  new Animation(v => control.BackgroundColor = new Color(control.BackgroundColor.R, v, control.BackgroundColor.B, control.BackgroundColor.A), control.BackgroundColor.G, color.G) },
-				{ 0, 1,  new Animation(v => control.BackgroundColor = new Color(control.BackgroundColor.R, control.BackgroundColor.G, v, control.BackgroundColor.A), control.BackgroundColor.B, color.B) },
-				{ 0, 1,  new Animation(v => control.BackgroundColor = new Color(control.BackgroundColor.R, control.BackgroundColor.G, control.BackgroundColor.B, v), control.BackgroundColor.A, color.A) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(v, element.BackgroundColor.G, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.R, color.R) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, v, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.G, color.G) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, v, element.BackgroundColor.A), element.BackgroundColor.B, color.B) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, element.BackgroundColor.B, v), element.BackgroundColor.A, color.A) },
 			}.Commit(sender.Element, nameof(SetBackgroundColor), 16, (uint)duration, easing, (d, b) => animationCompletionSource.SetResult(true));
 			return animationCompletionSource.Task;
 		}
@@ -348,7 +348,14 @@ namespace Xamarin.CommunityToolkit.Effects
 			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredOpacityProperty))
 				opacity = hoveredOpacity;
 
-			return sender.Element.FadeTo(opacity, (uint)Abs(duration), easing);
+			var element = sender.Element;
+			if (duration <= 0)
+			{
+				element.Opacity = opacity;
+				return Task.FromResult(true);
+			}
+
+			return element.FadeTo(opacity, (uint)Abs(duration), easing);
 		}
 
 		Task SetScale(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
@@ -369,22 +376,22 @@ namespace Xamarin.CommunityToolkit.Effects
 			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredScaleProperty))
 				scale = hoveredScale;
 
-			var control = sender.Element;
+			var element = sender.Element;
 			if (duration <= 0)
 			{
-				control.Scale = scale;
+				element.Scale = scale;
 				return Task.FromResult(true);
 			}
 
-			var tcs = new TaskCompletionSource<bool>();
-			control.Animate($"{nameof(SetScale)}{control.Id}", v =>
+			var animationCompletionSource = new TaskCompletionSource<bool>();
+			element.Animate($"{nameof(SetScale)}{element.Id}", v =>
 			{
 				if (double.IsNaN(v))
 					return;
 
-				control.Scale = v;
-			}, control.Scale, scale, 16, (uint)Abs(duration), easing, (v, b) => tcs.SetResult(b));
-			return tcs.Task;
+				element.Scale = v;
+			}, element.Scale, scale, 16, (uint)Abs(duration), easing, (v, b) => animationCompletionSource.SetResult(b));
+			return animationCompletionSource.Task;
 		}
 
 		Task SetTranslation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
@@ -422,7 +429,15 @@ namespace Xamarin.CommunityToolkit.Effects
 					translationY = hoveredTranslationY;
 			}
 
-			return sender.Element.TranslateTo(translationX, translationY, (uint)Abs(duration), easing);
+			var element = sender.Element;
+			if (duration <= 0)
+			{
+				element.TranslationX = translationX;
+				element.TranslationY = translationY;
+				return Task.FromResult(true);
+			}
+
+			return element.TranslateTo(translationX, translationY, (uint)Abs(duration), easing);
 		}
 
 		Task SetRotation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
@@ -443,7 +458,14 @@ namespace Xamarin.CommunityToolkit.Effects
 			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationProperty))
 				rotation = hoveredRotation;
 
-			return sender.Element.RotateTo(rotation, (uint)Abs(duration), easing);
+			var element = sender.Element;
+			if (duration <= 0)
+			{
+				element.Rotation = rotation;
+				return Task.FromResult(true);
+			}
+
+			return element.RotateTo(rotation, (uint)Abs(duration), easing);
 		}
 
 		Task SetRotationX(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
@@ -464,7 +486,14 @@ namespace Xamarin.CommunityToolkit.Effects
 			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationXProperty))
 				rotationX = hoveredRotationX;
 
-			return sender.Element.RotateXTo(rotationX, (uint)Abs(duration), easing);
+			var element = sender.Element;
+			if (duration <= 0)
+			{
+				element.RotationX = rotationX;
+				return Task.FromResult(true);
+			}
+
+			return element.RotateXTo(rotationX, (uint)Abs(duration), easing);
 		}
 
 		Task SetRotationY(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
@@ -485,7 +514,14 @@ namespace Xamarin.CommunityToolkit.Effects
 			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationYProperty))
 				rotationY = hoveredRotationY;
 
-			return sender.Element.RotateYTo(rotationY, (uint)Abs(duration), easing);
+			var element = sender.Element;
+			if (duration <= 0)
+			{
+				element.RotationY = rotationY;
+				return Task.FromResult(true);
+			}
+
+			return element.RotateYTo(rotationY, (uint)Abs(duration), easing);
 		}
 
 		Color GetBackgroundColor(Color color)
@@ -530,10 +566,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (durationMultiplier.HasValue)
 				duration = (int)durationMultiplier.Value * duration;
 
-			if (duration <= 0 &&
-				Device.RuntimePlatform != Device.iOS &&
-				Device.RuntimePlatform != Device.macOS)
-				duration = 1;
+			duration = Max(duration, 0);
 
 			return Task.WhenAll(
 				animationTaskFactory?.Invoke(sender, touchState, hoverState, duration, easing, token) ?? Task.FromResult(true),
