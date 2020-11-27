@@ -41,9 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             foreach (var child in Children)
             {
                 if (!child.IsVisible)
-                {
                     continue;
-                }
 
                 var sizeRequest = child.Measure(double.PositiveInfinity, double.PositiveInfinity, 0);
                 var minimum = sizeRequest.Minimum;
