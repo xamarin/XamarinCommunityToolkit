@@ -32,10 +32,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\BehaviorsPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-
     <EmbeddedResource Update="Resx\AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
