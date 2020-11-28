@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 		public UIColor BackgroundColor { get; set; } = UIColor.SystemGrayColor;
 
 		public UIColor TextForeground { get; set; } = UIColor.SystemGrayColor;
-		
+
 		public UIColor ButtonForegroundColor { get; set; } = UIColor.SystemGrayColor;
 
 		public UIColor ButtonBackgroundColor { get; set; } = UIColor.SystemGrayColor;
