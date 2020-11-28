@@ -18,7 +18,7 @@ using StreamImageSourceHandler = Xamarin.Forms.Platform.MacOS.StreamImagesourceH
 using Xamarin.Forms.Platform.UWP;
 #elif NET471
 using Xamarin.Forms.Platform.GTK.Renderers;
-using StreamImageSourceHandler = Xamarin.Forms.Platform.GTK.StreamImagesourceHandler;
+using StreamImageSourceHandler = Xamarin.Forms.Platform.GTK.Renderers.StreamImagesourceHandler;
 #elif TIZEN
 using Xamarin.Forms.Platform.Tizen;
 using NImage = Xamarin.Forms.Platform.Tizen.Native.Image;
