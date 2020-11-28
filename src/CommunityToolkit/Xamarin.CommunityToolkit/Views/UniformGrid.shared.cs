@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
         }
 
         int GetColumnsCount(int visibleChildrenCount, double widthConstraint, double maxChildWidth)
-            => double.IsPositiveInfinity(widthConstraint))
+            => double.IsPositiveInfinity(widthConstraint)
                 ? visibleChildrenCount
                 : Math.Min((int)(widthConstraint / maxChildWidth), visibleChildrenCount);
 
