@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	sealed class ThumbFrameRenderer : FrameRenderer
 	{
 		public ThumbFrameRenderer(Context context)
-            : base(context)
+			: base(context)
 		{
 		}
 
