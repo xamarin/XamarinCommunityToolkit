@@ -109,8 +109,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var sBuilder = new StringBuilder();
 
 			if (hash != null)
+			{
 				for (var i = 0; i < hash.Length; i++)
 					sBuilder.Append(hash[i].ToString("x2"));
+			}
 
 			return sBuilder.ToString();
 		}

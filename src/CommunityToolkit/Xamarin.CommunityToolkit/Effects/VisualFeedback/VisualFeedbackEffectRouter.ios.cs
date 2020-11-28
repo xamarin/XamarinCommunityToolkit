@@ -108,7 +108,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		async void OnTouchEnd(object sender, EventArgs e)
 		{
-			if (!(Element is VisualElement visualElement) || !visualElement.IsEnabled) return;
+			if (!(Element is VisualElement visualElement) || !visualElement.IsEnabled)
+				return;
 
 			await UIView.AnimateAsync(0.5, () =>
 			{
