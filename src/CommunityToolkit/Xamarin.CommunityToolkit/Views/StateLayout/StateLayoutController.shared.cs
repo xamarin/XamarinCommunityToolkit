@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -12,6 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool layoutIsGrid;
 		LayoutState previousState;
 		IList<View> originalContent;
+		CancellationTokenSource animationTokenSource;
 
 		public IList<StateView> StateViews { get; set; }
 
@@ -23,8 +25,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!layoutWeakReference.TryGetTarget(out var layout))
 				return;
 
+			var token = RebuildAnimationTokenSource(layout);
+
 			previousState = LayoutState.None;
 			await ChildrenFadeTo(layout, animate, true);
+
+			if (token.IsCancellationRequested)
+				return;
 
 			// Put the original content back in.
 			layout.Children.Clear();
@@ -46,6 +53,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!layoutWeakReference.TryGetTarget(out var layout))
 				return;
 
+			var token = RebuildAnimationTokenSource(layout);
+
 			// Put the original content somewhere where we can restore it.
 			if (previousState == LayoutState.None)
 			{
@@ -60,6 +69,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				previousState = state;
 
 				await ChildrenFadeTo(layout, animate, true);
+
+				if (token.IsCancellationRequested)
+					return;
 
 				layout.Children.Clear();
 
@@ -177,6 +189,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				await Task.WhenAll(layout.Children.Select(a => a.FadeTo(opacity, time)));
 			}
+		}
+
+		CancellationToken RebuildAnimationTokenSource(Layout<View> layout)
+		{
+			animationTokenSource?.Cancel();
+			animationTokenSource?.Dispose();
+
+			foreach (var child in layout.Children)
+				ViewExtensions.CancelAnimations(child);
+
+			animationTokenSource = new CancellationTokenSource();
+			return animationTokenSource.Token;
 		}
 	}
 }
