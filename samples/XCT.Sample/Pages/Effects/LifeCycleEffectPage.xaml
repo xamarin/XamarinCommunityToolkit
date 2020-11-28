@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.LifeCycleEffectPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout.Effects>
+                <xct:LifeCycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
+            </StackLayout.Effects>
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand">
+                <Label.Effects>
+                    <xct:LifeCycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
+                </Label.Effects>
+            </Label>
+            <Image
+                x:Name="img"
+                IsVisible="false"
+                Source="https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/main/assets/XamarinCommunityToolkit_128x128.png">
+                <Image.Effects>
+                    <xct:LifeCycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
+                </Image.Effects>
+            </Image>
+            <Button Clicked="Button_Clicked" Text="Awesome Button">
+                <Button.Effects>
+                    <xct:LifeCycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
+                </Button.Effects>
+            </Button>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

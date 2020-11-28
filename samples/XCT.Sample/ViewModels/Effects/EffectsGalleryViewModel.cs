@@ -38,6 +38,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				nameof(TouchEffect),
 				"The TouchEffect is an effect that allows changing the view's appearance depending on the touch state (normal, pressed, hovered). Also, it allows to handle long presses."
 				),
+
+			new SectionModel(
+				typeof(LifeCycleEffectPage),
+				nameof(LifeCycleEffect),
+				"The LifeCycle is an effect that allows you to know when a control or layout is loaded or/and unloaded in the screen and perform actions based on that."
+				),
 		};
 	}
 }
