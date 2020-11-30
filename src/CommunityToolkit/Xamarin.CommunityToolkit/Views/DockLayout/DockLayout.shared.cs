@@ -142,10 +142,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
                                 finalHeight = Math.Max(finalHeight, height);
                                 break;
                             }
-                        default:
-                            {
-                                goto case Dock.Right;
-                            }
                     }
                 }
             }
