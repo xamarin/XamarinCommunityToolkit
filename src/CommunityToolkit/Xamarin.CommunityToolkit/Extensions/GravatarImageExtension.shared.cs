@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
