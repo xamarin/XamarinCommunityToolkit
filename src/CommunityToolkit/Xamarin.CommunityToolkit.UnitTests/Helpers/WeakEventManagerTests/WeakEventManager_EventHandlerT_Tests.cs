@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
 using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
@@ -118,7 +119,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		public void WeakEventManager_NullEventManager()
 		{
 			// Arrange
-			WeakEventManager unassignedEventManager = null;
+			WeakEventManager<string> unassignedEventManager = null;
 
 			// Act
 

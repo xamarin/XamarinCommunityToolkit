@@ -1,5 +1,4 @@
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
