@@ -3,14 +3,6 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-    public enum Dock
-    {
-        Left,
-        Top,
-        Right,
-        Bottom
-    }
-
     /// <summary>
     /// The DockLayout makes it easy to dock content in all four directions (top, bottom, left and right).
     /// This makes it a great choice in many situations, where you want to divide the screen into specific areas,
