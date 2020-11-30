@@ -13,8 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
     public class DockLayout : Layout<View>
     {
         public static readonly BindableProperty DockProperty =
-            BindableProperty.Create(nameof(Dock), typeof(Dock), typeof(DockLayout), Dock.Left,
-                BindingMode.TwoWay, null);
+            BindableProperty.CreateAttached(nameof(Dock), typeof(Dock), typeof(DockLayout), Dock.Left);
 
         public Dock Dock
         {
@@ -22,7 +21,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
             set => SetValue(DockProperty, value);
         }
 
-        Dock GetDock(BindableObject bindable) => (Dock)bindable.GetValue(DockProperty);
+        public static Dock GetDock(BindableObject bindable)
+            => (Dock)bindable.GetValue(DockProperty);
+
+        public static void SetDock(BindableObject bindable, Dock value)
+            => bindable.SetValue(DockProperty, value);
 
         public static readonly BindableProperty LastChildFillProperty =
            BindableProperty.Create(nameof(LastChildFill), typeof(bool), typeof(DockLayout), true,
