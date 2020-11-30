@@ -10,12 +10,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
     public class HexLayout : Layout<View>
     {
         public static readonly BindableProperty OrientationProperty =
-         BindableProperty.Create(nameof(Orientation), typeof(StackOrientation), typeof(HexLayout), StackOrientation.Vertical,
+         BindableProperty.Create(nameof(Orientation), typeof(HexOrientation), typeof(HexLayout), HexOrientation.Vertical,
              BindingMode.TwoWay, propertyChanged: (bindable, oldvalue, newvalue) => ((HexLayout)bindable).InvalidateMeasure());
 
-        public StackOrientation Orientation
+        public HexOrientation Orientation
         {
-            get => (StackOrientation)GetValue(OrientationProperty);
+            get => (HexOrientation)GetValue(OrientationProperty);
             set => SetValue(OrientationProperty, value);
         }
 
@@ -49,13 +49,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             set => SetValue(ColumnProperty, value);
         }
 
-        int GetColumn(VisualElement e)
-        {
-            var column = (int)e.GetValue(ColumnProperty);
-            if (column >= ColumnCount)
-                column = ColumnCount - 1;
-            return column;
-        }
+        int GetColumn(VisualElement e) => Math.Min((int)e.GetValue(ColumnProperty), ColumnCount - 1);
 
         public static readonly BindableProperty RowProperty =
             BindableProperty.Create(nameof(Row), typeof(int), typeof(HexLayout), 1,
@@ -67,13 +61,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             set => SetValue(RowProperty, value);
         }
 
-        int GetRow(VisualElement e)
-        {
-            var row = (int)e.GetValue(RowProperty);
-            if (row >= RowCount)
-                row = RowCount - 1;
-            return row;
-        }
+        int GetRow(VisualElement e) => Math.Min((int)e.GetValue(RowProperty), RowCount - 1);
 
         protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
         {
@@ -96,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
                         w = childSize.Request.Width;
                 }
 
-                if (Orientation == StackOrientation.Horizontal)
+                if (Orientation == HexOrientation.Horizontal)
                     return new SizeRequest(new Size(w * ((ColumnCount * 3) + 1) / 4, h * ((RowCount * 2) + 1) / 2));
 
                 return new SizeRequest(new Size(w * ((ColumnCount * 2) + 1) / 2, h * ((RowCount * 3) + 1) / 4));
@@ -113,7 +101,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
             double columnWidth, rowHeight;
 
-            if (Orientation == StackOrientation.Horizontal)
+            if (Orientation == HexOrientation.Horizontal)
             {
                 rowHeight = 0.5 * hexSize.Height;
                 columnWidth = 0.25 * hexSize.Width;
@@ -142,7 +130,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             double x;
             double y;
 
-            if (Orientation == StackOrientation.Horizontal)
+            if (Orientation == HexOrientation.Horizontal)
             {
                 x = 3 * columnWidth * column;
                 y = rowHeight * ((2 * row) + (column % 2 == 1 ? 1 : 0) + (shift ? -1 : 0));
@@ -158,7 +146,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
         void HasShift(out bool first, out bool last)
         {
-            if (Orientation == StackOrientation.Horizontal)
+            if (Orientation == HexOrientation.Horizontal)
                 HasRowShift(out first, out last);
             else
                 HasColumnShift(out first, out last);
@@ -247,7 +235,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
         {
             HasShift(out var first, out var last);
 
-            if (Orientation == StackOrientation.Horizontal)
+            if (Orientation == HexOrientation.Horizontal)
                 return GetPossibleSizeHorizontal(gridSize, first, last);
 
             return GetPossibleSizeVertical(gridSize, first, last);
