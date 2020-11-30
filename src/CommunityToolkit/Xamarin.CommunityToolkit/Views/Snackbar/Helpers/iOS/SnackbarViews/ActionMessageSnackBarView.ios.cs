@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			{
 				TranslatesAutoresizingMaskIntoConstraints = false,
 				BackgroundColor = SnackBar.Appearance.ButtonBackgroundColor,
-				Font = UIFont.FromName(SnackBar.Appearance.ButtonFontName, SnackBar.Appearance.ButtonFontSize),
+				Font = SnackBar.Appearance.ButtonFont,
 			};
 			ActionButton.SetTitleColor(SnackBar.Appearance.ButtonForegroundColor, UIControlState.Normal);
 			ActionButton.SetTitle(SnackBar.ActionButtonText, UIControlState.Normal);

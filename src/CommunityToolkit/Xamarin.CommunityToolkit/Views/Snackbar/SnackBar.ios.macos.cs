@@ -23,9 +23,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							.SetAppearance(new SnackBarAppearance
 							{
 								BackgroundColor = arguments.BackgroundColor.ToUIColor(),
-								TextFontSize = (nfloat)arguments.MessageOptions.FontSize,
 								TextForeground = arguments.MessageOptions.Foreground.ToUIColor(),
-								TextFontName = arguments.MessageOptions.FontFamily,
+								TextFont = arguments.MessageOptions.Font.ToUIFont(),
 								MessageTextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left
 							})
 #elif __MACOS__
@@ -34,9 +33,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							.SetAppearance(new SnackBarAppearance
 							{
 								BackgroundColor = arguments.BackgroundColor.ToNSColor(),
-								TextFontSize = (nfloat)arguments.MessageOptions.FontSize,
 								TextForeground = arguments.MessageOptions.Foreground.ToNSColor(),
-								TextFontName = arguments.MessageOptions.FontFamily,
+								TextFont = arguments.MessageOptions.Font.ToNSFont(),
 								MessageTextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left
 							})
 #endif
@@ -61,12 +59,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #if __IOS__
 				snackBar.Appearance.ButtonBackgroundColor = action.BackgroundColor.ToUIColor();
 				snackBar.Appearance.ButtonForegroundColor = action.ForegroundColor.ToUIColor();
+				snackBar.Appearance.ButtonFont = action.Font.ToUIFont();
 #elif __MACOS__
 				snackBar.Appearance.ButtonBackgroundColor = action.BackgroundColor.ToNSColor();
 				snackBar.Appearance.ButtonForegroundColor = action.ForegroundColor.ToNSColor();
+				snackBar.Appearance.ButtonFont = action.Font.ToNSFont();
 #endif
-				snackBar.Appearance.ButtonFontSize = (nfloat)action.FontSize;
-				snackBar.Appearance.ButtonFontName = action.FontFamily;
 				snackBar.SetAction(async () =>
 				{
 					snackBar.Dismiss();

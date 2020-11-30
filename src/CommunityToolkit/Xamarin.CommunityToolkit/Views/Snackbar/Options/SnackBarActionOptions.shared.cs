@@ -21,18 +21,11 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		public static string DefaultText { get; set; }
 
 		/// <summary>
-		/// Gets or sets the font size for the SnackBar action button.
+		/// Gets or sets the font for the SnackBar action button.
 		/// </summary>
-		public double FontSize { get; set; } = DefaultFontSize;
+		public Font Font { get; set; } = DefaultFont;
 
-		public static double DefaultFontSize { get; set; } = 14;
-
-		/// <summary>
-		/// Gets or sets the font family for the SnackBar action button.
-		/// </summary>
-		public string FontFamily { get; set; } = DefaultFontFamily;
-
-		public static string DefaultFontFamily { get; set; } = "Arial";
+		public static Font DefaultFont { get; set; } = Font.Default;
 
 		/// <summary>
 		/// Gets or sets the background color for the SnackBar action button.

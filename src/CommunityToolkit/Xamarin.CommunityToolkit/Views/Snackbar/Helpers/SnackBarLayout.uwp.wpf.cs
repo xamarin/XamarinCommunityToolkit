@@ -26,8 +26,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			var messageLabel = new TextBlock
 			{
 				Text = options.MessageOptions.Message,
-				FontSize = options.MessageOptions.FontSize,
-				FontFamily = new FontFamily(options.MessageOptions.FontFamily),
+				FontSize = options.MessageOptions.Font.FontSize,
+				FontFamily = new FontFamily(options.MessageOptions.Font.FontFamily),
 				Foreground = options.MessageOptions.Foreground.ToBrush()
 			};
 #else
@@ -35,8 +35,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			var messageLabel = new Label
 			{
 				Content = options.MessageOptions.Message,
-				FontSize = options.MessageOptions.FontSize,
-				FontFamily = new FontFamily(options.MessageOptions.FontFamily),
+				FontSize = options.MessageOptions.Font.FontSize,
+				FontFamily = new FontFamily(options.MessageOptions.Font.FontFamily),
 				Foreground = options.MessageOptions.Foreground.ToBrush()
 			};
 #endif
@@ -52,8 +52,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 					Content = action.Text,
 					Foreground = action.ForegroundColor.ToBrush(),
 					Background = action.BackgroundColor.ToBrush(),
-					FontSize = action.FontSize,
-					FontFamily = new FontFamily(action.FontFamily),
+					FontSize = action.Font.FontSize,
+					FontFamily = new FontFamily(action.Font.FontFamily),
 					Command = new Forms.Command(async () =>
 					{
 						OnSnackBarActionExecuted?.Invoke();

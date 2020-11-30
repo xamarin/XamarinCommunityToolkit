@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 			ActionButton = new NSButton
 			{
 				TranslatesAutoresizingMaskIntoConstraints = false,
-				Font = NSFont.FromFontName(SnackBar.Appearance.ButtonFontName, SnackBar.Appearance.ButtonFontSize),
+				Font = SnackBar.Appearance.ButtonFont,
 				Title = SnackBar.ActionButtonText,
 				WantsLayer = true,
 				LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode,

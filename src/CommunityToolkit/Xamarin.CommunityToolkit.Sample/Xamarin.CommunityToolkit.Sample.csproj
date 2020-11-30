@@ -19,6 +19,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.es.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Update="Resx\AppResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Resx\AppResources.Designer.cs">
+      <DependentUpon>AppResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <EmbeddedResource Include="Resx\Font Awesome 5 Free-Regular-400.otf" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1709-pre4" />  
@@ -31,16 +41,5 @@
     <ProjectReference Include="..\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Resx\AppResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Compile Update="Resx\AppResources.Designer.cs">
-      <DependentUpon>AppResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    </ItemGroup>
 </Project>
 

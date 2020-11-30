@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 			{
 				StringValue = SnackBar.Message,
 				Selectable = false,
-				Font = NSFont.FromFontName(SnackBar.Appearance.TextFontName, SnackBar.Appearance.TextFontSize),
+				Font = SnackBar.Appearance.TextFont,
 				BackgroundColor = SnackBar.Appearance.BackgroundColor,
 				TextColor = SnackBar.Appearance.TextForeground,
 				Alignment = SnackBar.Appearance.MessageTextAlignment,

@@ -15,13 +15,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public nfloat CornerRadius { get; set; } = 5;
 
-		public string TextFontName { get; set; } = "Arial";
+		public UIFont TextFont { get; set; } = UIFont.FromName("Times New Roman", 14);
 
-		public nfloat TextFontSize { get; set; } = 5;
-
-		public string ButtonFontName { get; set; } = "Arial";
-
-		public nfloat ButtonFontSize { get; set; } = 5;
+		public UIFont ButtonFont { get; set; } = UIFont.FromName("Times New Roman", 14);
 
 		public UILineBreakMode DismissButtonLineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
 
