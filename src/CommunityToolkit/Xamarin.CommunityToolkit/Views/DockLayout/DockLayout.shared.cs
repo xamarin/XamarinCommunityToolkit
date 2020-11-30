@@ -68,6 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
                     switch (GetDock(child))
                     {
+                        default:
                         case Dock.Left:
                             {
                                 childX = x;
@@ -101,10 +102,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
                                 childWidth = width;
                                 height -= childHeight;
                                 break;
-                            }
-                        default:
-                            {
-                                goto case Dock.Left;
                             }
                     }
 
