@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.SafeAreaEffectPage"
-                BackgroundColor="{StaticResource NormalButtonBackgroundColor}">
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.SafeAreaEffectPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    BackgroundColor="{StaticResource NormalButtonBackgroundColor}">
     <ContentPage.Content>
         <StackLayout
             x:Name="stack"

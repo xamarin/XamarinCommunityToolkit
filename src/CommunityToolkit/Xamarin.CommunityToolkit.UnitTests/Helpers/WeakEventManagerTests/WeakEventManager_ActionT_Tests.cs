@@ -88,7 +88,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		public void WeakEventManagerActionT_UnassignedEventManager()
 		{
 			// Arrange
-			var unassignedEventManager = new WeakEventManager();
+			var unassignedEventManager = new WeakEventManager<string>();
 			var didEventFire = false;
 
 			ActionEvent += HandleDelegateTest;
@@ -101,7 +101,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			}
 
 			// Act
-			unassignedEventManager.RaiseEvent(nameof(ActionEvent));
+			unassignedEventManager.RaiseEvent(string.Empty, nameof(ActionEvent));
 
 			// Assert
 			Assert.False(didEventFire);

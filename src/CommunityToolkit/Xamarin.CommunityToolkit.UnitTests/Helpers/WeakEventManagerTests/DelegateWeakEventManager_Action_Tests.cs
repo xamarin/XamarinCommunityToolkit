@@ -5,9 +5,9 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 {
-	public class WeakEventManager_Action_Tests : BaseWeakEventManagerTests
+	public class DelegateWeakEventManager_Action_Tests : BaseWeakEventManagerTests
 	{
-		readonly WeakEventManager actionEventManager = new WeakEventManager();
+		readonly DelegateWeakEventManager actionEventManager = new DelegateWeakEventManager();
 
 		public event Action ActionEvent
 		{
@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		public void WeakEventManagerAction_UnassignedEventManager()
 		{
 			// Arrange
-			var unassignedEventManager = new WeakEventManager();
+			var unassignedEventManager = new DelegateWeakEventManager();
 			var didEventFire = false;
 
 			ActionEvent += HandleDelegateTest;

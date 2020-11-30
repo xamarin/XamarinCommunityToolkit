@@ -4,14 +4,21 @@ using Xamarin.Forms;
 
 #if MONOANDROID
 using Xamarin.Forms.Platform.Android;
+using UriImageSourceHandler = Xamarin.Forms.Platform.Android.ImageLoaderSourceHandler;
+using StreamImageSourceHandler = Xamarin.Forms.Platform.Android.StreamImagesourceHandler;
 #elif __IOS__
 using Xamarin.Forms.Platform.iOS;
+using UriImageSourceHandler = Xamarin.Forms.Platform.iOS.ImageLoaderSourceHandler;
+using StreamImageSourceHandler = Xamarin.Forms.Platform.iOS.StreamImagesourceHandler;
 #elif __MACOS__
 using Xamarin.Forms.Platform.MacOS;
+using UriImageSourceHandler = Xamarin.Forms.Platform.MacOS.ImageLoaderSourceHandler;
+using StreamImageSourceHandler = Xamarin.Forms.Platform.MacOS.StreamImagesourceHandler;
 #elif UWP
 using Xamarin.Forms.Platform.UWP;
 #elif NET471
 using Xamarin.Forms.Platform.GTK.Renderers;
+using StreamImageSourceHandler = Xamarin.Forms.Platform.GTK.Renderers.StreamImagesourceHandler;
 #elif TIZEN
 using Xamarin.Forms.Platform.Tizen;
 using NImage = Xamarin.Forms.Platform.Tizen.Native.Image;
@@ -22,14 +29,6 @@ using Xamarin.Forms.Platform.WPF;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-#if MONOANDROID || __IOS__ || __MACOS__
-	using UriImageSourceHandler = ImageLoaderSourceHandler;
-#endif
-
-#if MONOANDROID || __IOS__ || __MACOS__ || NET471
-	using StreamImageSourceHandler = StreamImagesourceHandler;
-#endif
-
 	class ImageSourceValidator : IImageSourceValidator
 	{
 		public async Task<bool> IsImageSourceValidAsync(ImageSource source)
