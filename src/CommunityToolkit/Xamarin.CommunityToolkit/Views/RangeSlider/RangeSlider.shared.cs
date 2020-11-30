@@ -112,7 +112,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.Create(nameof(ValueLabelSpacing), typeof(double), typeof(RangeSlider), 5.0, propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty ThumbRadiusProperty
-		   = BindableProperty.Create(nameof(ThumbRadius), typeof(double), typeof(RangeSlider), -1.0, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(ThumbRadius), typeof(double), typeof(RangeSlider), -1.0, propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty LowerThumbRadiusProperty
 			= BindableProperty.Create(nameof(LowerThumbRadius), typeof(double), typeof(RangeSlider), -1.0, propertyChanged: OnLayoutPropertyChanged);
@@ -319,13 +319,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(TrackRadiusProperty, value);
 		}
 
-		Frame Track { get; } = CreateFrameElement();
+		Frame Track { get; } = CreateFrameElement<Frame>();
 
-		Frame TrackHighlight { get; } = CreateFrameElement();
+		Frame TrackHighlight { get; } = CreateFrameElement<Frame>();
 
-		Frame LowerThumb { get; } = CreateFrameElement();
+		Frame LowerThumb { get; } = CreateFrameElement<ThumbFrame>();
 
-		Frame UpperThumb { get; } = CreateFrameElement();
+		Frame UpperThumb { get; } = CreateFrameElement<ThumbFrame>();
 
 		Label LowerValueLabel { get; } = CreateLabelElement();
 
@@ -383,8 +383,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnLayoutPropertyChanged();
 		}
 
-		static Frame CreateFrameElement()
-			=> new Frame
+		static Frame CreateFrameElement<TFrame>() where TFrame : Frame, new()
+			=> new TFrame
 			{
 				Padding = 0,
 				HasShadow = false,
