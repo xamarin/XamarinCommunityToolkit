@@ -196,8 +196,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SeekCompleted?.Invoke(this, EventArgs.Empty);
 		}
 
-		private bool isSeeking = false;
-		private void RequestSeek(TimeSpan newPosition)
+		bool isSeeking = false;
+
+		void RequestSeek(TimeSpan newPosition)
 		{
 			isSeeking = true;
 			SeekRequested?.Invoke(this, new Views.SeekRequested(newPosition));
@@ -242,7 +243,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			oldvalue.SourceChanged -= OnSourceChanged;
 		}
 
-		private static void CurrentStateChanged(BindableObject bindable, object oldValue, object newValue)
+		static void CurrentStateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var element = bindable as MediaElement;
 
@@ -266,7 +267,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		private static void PositionChanged(BindableObject bindable, object oldValue, object newValue)
+		static void PositionChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var element = bindable as MediaElement;
 

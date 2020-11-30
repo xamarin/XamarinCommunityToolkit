@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
 			snackTextView.SetMaxLines(10);
 			snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
-			snackTextView.SetTextSize(ComplexUnitType.Pt, (float)arguments.MessageOptions.FontSize);
+			snackTextView.SetTextSize(ComplexUnitType.Px, (float)arguments.MessageOptions.FontSize);
 			snackTextView.LayoutDirection = arguments.IsRtl
 				? global::Android.Views.LayoutDirection.Rtl
 				: global::Android.Views.LayoutDirection.Inherit;
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
 				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action);
 				snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
-				snackActionButtonView.SetTextSize(ComplexUnitType.Pt, (float)action.FontSize);
+				snackActionButtonView.SetTextSize(ComplexUnitType.Px, (float)action.FontSize);
 				snackActionButtonView.LayoutDirection = arguments.IsRtl
 					? global::Android.Views.LayoutDirection.Rtl
 					: global::Android.Views.LayoutDirection.Inherit;

@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(ShouldDismissKeyboardAutomaticallyProperty, value);
 		}
 
-		readonly WeakEventManager maxLengthReachedEventManager = new WeakEventManager();
+		readonly WeakEventManager<MaxLengthReachedEventArgs> maxLengthReachedEventManager = new WeakEventManager<MaxLengthReachedEventArgs>();
 
 		public event EventHandler<MaxLengthReachedEventArgs> MaxLengthReached
 		{
