@@ -126,6 +126,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
                     switch (GetDock(child))
                     {
+                        default:
                         case Dock.Left:
                         case Dock.Right:
                             {
