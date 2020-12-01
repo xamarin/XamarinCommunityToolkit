@@ -101,8 +101,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			switch (Element.CaptureOptions)
 			{
 				default:
-				case CameraCaptureOptions.Default:
-				case CameraCaptureOptions.Photo:
+				case CameraCaptureMode.Default:
+				case CameraCaptureMode.Photo:
 					if (mediaRecording != null)
 						await HandleVideo();
 					else
@@ -111,7 +111,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						Element.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2));
 					}
 					break;
-				case CameraCaptureOptions.Video:
+				case CameraCaptureMode.Video:
 					await HandleVideo();
 					break;
 			}
@@ -135,7 +135,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			await lowLagCapture.FinishAsync();
 			string filePath = null;
-			if (Element.SavePhotoToFile)
+
+			// See TODO on CameraView.SavePhotoToFile
+			/*if (Element.SavePhotoToFile)
 			{
 				// TODO replace platform specifics
 				// var localFolder = Element.OnThisPlatform().GetPhotoFolder();
@@ -149,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					encoder.SetSoftwareBitmap(capturedPhoto.Frame.SoftwareBitmap);
 					await encoder.FlushAsync();
 				}
-			}
+			}*/
 
 			// Encode an output stream, it seems you can't use the UWP Frame stream directly
 			var outputStream = new InMemoryRandomAccessStream();
@@ -158,12 +160,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			await outputEncoder.FlushAsync();
 
 			byte[] imageData = null;
-			if (!Element.SavePhotoToFile)
-			{
-				using var memoryStream = new MemoryStream();
-				await outputStream.AsStream().CopyToAsync(memoryStream);
-				imageData = memoryStream.ToArray();
-			}
+
+			// See TODO on CameraView.SavePhotoToFile
+			// if (!Element.SavePhotoToFile)
+			// {
+
+			using var memoryStream = new MemoryStream();
+			await outputStream.AsStream().CopyToAsync(memoryStream);
+			imageData = memoryStream.ToArray();
+
+			// }
+
 			IsBusy = false;
 			return new Tuple<string, byte[]>(filePath, imageData);
 		}
