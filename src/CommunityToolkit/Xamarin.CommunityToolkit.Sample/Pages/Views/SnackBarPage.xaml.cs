@@ -32,11 +32,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		async void DisplaySnackBarAdvancedClicked(object sender, EventArgs args)
 		{
+			const string SmileIcon = "\uf118";
 			var messageOptions = new MessageOptions
 			{
 				Foreground = Color.DeepSkyBlue,
 				Font = Font.OfSize("FARegular", 40),
-				Message = "\uf2bb"
+				Message = SmileIcon
 			};
 
 			var actionOptions = new List<SnackBarActionOptions>

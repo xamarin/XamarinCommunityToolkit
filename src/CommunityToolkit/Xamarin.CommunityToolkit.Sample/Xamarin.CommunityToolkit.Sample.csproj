@@ -10,7 +10,7 @@
     <EmbeddedResource Remove="resources\**" />
     <None Remove="resources\**" />
     <EmbeddedResource Include="Images\**" />
-    <EmbeddedResource Include="Resx\Font Awesome 5 Free-Regular-400.otf" />
+    <EmbeddedResource Include="Fonts\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1709-pre4" />  
@@ -22,6 +22,5 @@
   <ItemGroup>
     <ProjectReference Include="..\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj" />
   </ItemGroup>
-
 </Project>
 
