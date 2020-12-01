@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
-	public class VariableMultiConverter : IMultiValueConverter
+	public class VariableMultiConverter : MultiValueConverterExtension, IMultiValueConverter
 	{
 		public MultiBindingCondition ConditionType { get; set; }
 
