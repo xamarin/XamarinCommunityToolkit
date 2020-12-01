@@ -22,16 +22,16 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			foreach (var value in values)
 			{
-				if (!(value is bool b))
+				if (!(value is bool boolValue))
 					return false;
 
-				if (ConditionType == MultiBindingCondition.All && !b)
+				if (ConditionType == MultiBindingCondition.All && !boolValue)
 					return false;
 
-				if (ConditionType == MultiBindingCondition.Any && b)
+				if (ConditionType == MultiBindingCondition.Any && boolValue)
 					return true;
 
-				if (ConditionType == MultiBindingCondition.Count && b)
+				if (ConditionType == MultiBindingCondition.Count && boolValue)
 					amount++;
 			}
 
@@ -46,13 +46,10 @@ namespace Xamarin.CommunityToolkit.Converters
 
 		public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
 		{
-			if (!(value is bool b) || targetTypes.Any(t => !t.IsAssignableFrom(typeof(bool))))
+			if (!(value is bool boolValue) || targetTypes.Any(t => !t.IsAssignableFrom(typeof(bool))))
 				return null;
 
-			if (b)
-				return targetTypes.Select(t => ConditionType == MultiBindingCondition.All ? (object)true : (object)false).ToArray();
-			else
-				return null;
+			return boolValue ? targetTypes.Select(t => ConditionType == MultiBindingCondition.All ? (object)true : (object)false).ToArray()	: null;
 		}
 	}
 }

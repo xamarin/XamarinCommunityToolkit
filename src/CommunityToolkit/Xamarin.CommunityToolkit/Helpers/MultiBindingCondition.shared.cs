@@ -2,8 +2,9 @@
 {
 	public enum MultiBindingCondition
 	{
-		All = 0,
-		Any = 1,
-		Count = 2
+		None = 1,
+		All = 2,
+		Any = 4,
+		Count = 8
 	}
 }
