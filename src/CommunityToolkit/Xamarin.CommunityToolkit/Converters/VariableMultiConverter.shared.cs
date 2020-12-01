@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (!(value is bool boolValue) || targetTypes.Any(t => !t.IsAssignableFrom(typeof(bool))))
 				return null;
 
-			return boolValue ? targetTypes.Select(t => ConditionType == MultiBindingCondition.All ? (object)true : (object)false).ToArray()	: null;
+			return boolValue ? targetTypes.Select(t => ConditionType == MultiBindingCondition.All).OfType<object>().ToArray() : null;
 		}
 	}
 }
