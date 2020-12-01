@@ -45,7 +45,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				{
 					ForegroundColor = Color.Red,
 					BackgroundColor = Color.Green,
-					Font = Font.SystemFontOfSize(15),
+					Font = Font.OfSize("Times New Roman", 15),
 					Text = "Action1",
 					Action = () =>
 					{

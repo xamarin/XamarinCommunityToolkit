@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
 
-		public static Color DefaultBackgroundColor { get; set; } = Color.Default;
+		public static Color DefaultBackgroundColor { get; set; } = Color.White;
 
 		/// <summary>
 		/// Is Right to left

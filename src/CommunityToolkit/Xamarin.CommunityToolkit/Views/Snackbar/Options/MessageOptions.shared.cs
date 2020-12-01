@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public Font Font { get; set; } = DefaultFont;
 
-		public static Font DefaultFont { get; set; } = Font.Default;
+		public static Font DefaultFont { get; set; } = Font.OfSize("Times New Roman", 14);
 
 		/// <summary>
 		/// Gets or sets the font color for the SnackBar message.
