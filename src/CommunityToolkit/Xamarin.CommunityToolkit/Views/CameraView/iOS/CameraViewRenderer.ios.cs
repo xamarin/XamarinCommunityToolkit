@@ -198,7 +198,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		async void HandleShutter(object sender, EventArgs e)
 		{
-			switch (Element.CaptureOptions)
+			switch (Element.CaptureMode)
 			{
 				case CameraCaptureMode.Default:
 				case CameraCaptureMode.Photo:

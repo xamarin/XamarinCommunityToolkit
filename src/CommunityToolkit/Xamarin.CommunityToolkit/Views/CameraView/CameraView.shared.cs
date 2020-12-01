@@ -62,9 +62,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(SavePhotoToFileProperty, value);
 		}*/
 
-		public static readonly BindableProperty CaptureOptionsProperty = BindableProperty.Create(nameof(CaptureOptions), typeof(CameraCaptureMode), typeof(CameraView), CameraCaptureMode.Default);
+		public static readonly BindableProperty CaptureOptionsProperty = BindableProperty.Create(nameof(CaptureMode), typeof(CameraCaptureMode), typeof(CameraView), CameraCaptureMode.Default);
 
-		public CameraCaptureMode CaptureOptions
+		public CameraCaptureMode CaptureMode
 		{
 			get => (CameraCaptureMode)GetValue(CaptureOptionsProperty);
 			set => SetValue(CaptureOptionsProperty, value);

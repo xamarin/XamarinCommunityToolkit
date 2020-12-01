@@ -283,7 +283,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void UpdateCaptureOptions()
 		{
-			switch (Element.CaptureOptions)
+			switch (Element.CaptureMode)
 			{
 				default:
 				case CameraCaptureMode.Photo:
@@ -717,7 +717,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			cameraPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.Camera) == Permission.Granted;
 			if (!cameraPermissionsGranted)
 				permissionsToRequest.Add(Manifest.Permission.Camera);
-			if (Element.CaptureOptions == CameraCaptureMode.Video)
+			if (Element.CaptureMode == CameraCaptureMode.Video)
 			{
 				audioPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.RecordAudio) == Permission.Granted;
 				if (!audioPermissionsGranted)

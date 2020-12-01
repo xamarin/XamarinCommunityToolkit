@@ -56,13 +56,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(CameraView.CameraOptions):
 					await camerafragment.RetrieveCameraDevice();
 					break;
-				case nameof(CameraView.CaptureOptions):
+				case nameof(CameraView.CaptureMode):
 					camerafragment.UpdateCaptureOptions();
 					await camerafragment.RetrieveCameraDevice();
 					break;
 				case nameof(CameraView.FlashMode):
 					camerafragment.SetFlash();
-					if (Element.CaptureOptions == CameraCaptureMode.Video)
+					if (Element.CaptureMode == CameraCaptureMode.Video)
 						camerafragment.UpdateRepeatingRequest();
 					break;
 				case nameof(CameraView.Zoom):
@@ -71,7 +71,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 				case nameof(CameraView.VideoStabilization):
 					camerafragment.SetVideoStabilization();
-					if (Element.CaptureOptions == CameraCaptureMode.Video)
+					if (Element.CaptureMode == CameraCaptureMode.Video)
 						camerafragment.UpdateRepeatingRequest();
 					break;
 
@@ -182,7 +182,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnShutterClicked(object sender, EventArgs e)
 		{
-			switch (Element.CaptureOptions)
+			switch (Element.CaptureMode)
 			{
 				default:
 				case CameraCaptureMode.Default:
