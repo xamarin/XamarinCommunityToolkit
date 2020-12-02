@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -231,6 +231,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BadgeIndicatorBackground.HasShadow = HasShadow;
 
 			BadgeText.Text = Text;
+			isVisible = BadgeIndicatorContainer.IsVisible;
+			UpdateVisibilityAsync();
 			BadgeText.TextColor = TextColor;
 
 			BadgeContent.BatchCommit();
