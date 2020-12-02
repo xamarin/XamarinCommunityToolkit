@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			remove => TestStringWeakEventManager.RemoveEventHandler(value);
 		}
 
-		protected WeakEventManager TestWeakEventManager { get; } = new WeakEventManager();
+		protected DelegateWeakEventManager TestWeakEventManager { get; } = new DelegateWeakEventManager();
 
 		protected WeakEventManager<string> TestStringWeakEventManager { get; } = new WeakEventManager<string>();
 	}

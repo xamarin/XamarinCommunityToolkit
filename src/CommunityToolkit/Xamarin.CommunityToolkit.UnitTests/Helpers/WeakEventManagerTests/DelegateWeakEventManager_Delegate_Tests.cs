@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 {
 	public class WeakEventManager_Delegate_Tests : BaseWeakEventManagerTests, INotifyPropertyChanged
 	{
-		readonly WeakEventManager propertyChangedWeakEventManager = new WeakEventManager();
+		readonly DelegateWeakEventManager propertyChangedWeakEventManager = new DelegateWeakEventManager();
 
 		public event PropertyChangedEventHandler PropertyChanged
 		{
@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleDelegateTest(object sender, PropertyChangedEventArgs e)
 			{
 				Assert.NotNull(sender);
-				Assert.Equal(this.GetType(), sender.GetType());
+				Assert.Equal(GetType(), sender.GetType());
 
 				Assert.NotNull(e);
 
@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleDelegateTest(object sender, PropertyChangedEventArgs e)
 			{
 				Assert.NotNull(sender);
-				Assert.Equal(this.GetType(), sender.GetType());
+				Assert.Equal(GetType(), sender.GetType());
 
 				Assert.Null(e);
 
@@ -166,7 +166,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		public void WeakEventManagerDelegate_UnassignedEventManager()
 		{
 			// Arrange
-			var unassignedEventManager = new WeakEventManager();
+			var unassignedEventManager = new DelegateWeakEventManager();
 			var didEventFire = false;
 
 			PropertyChanged += HandleDelegateTest;

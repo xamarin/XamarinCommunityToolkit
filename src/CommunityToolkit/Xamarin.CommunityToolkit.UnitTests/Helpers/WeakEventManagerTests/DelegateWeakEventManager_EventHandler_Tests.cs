@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 {
-	public class WeakEventManager_EventHandler_Tests : BaseWeakEventManagerTests
+	public class DelegateWeakEventManager_EventHandler_Tests : BaseWeakEventManagerTests
 	{
 		[Fact]
 		public void WeakEventManager_HandleEvent_ValidImplementation()
@@ -155,7 +155,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		public void WeakEventManager_UnassignedEventManager()
 		{
 			// Arrange
-			var unassignedEventManager = new WeakEventManager();
+			var unassignedEventManager = new DelegateWeakEventManager();
 			var didEventFire = false;
 
 			TestEvent += HandleTestEvent;

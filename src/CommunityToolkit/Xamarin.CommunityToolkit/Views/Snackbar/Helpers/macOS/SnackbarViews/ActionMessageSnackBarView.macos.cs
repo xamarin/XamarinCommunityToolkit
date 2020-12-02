@@ -55,8 +55,11 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 			ActionButton = new NSButton
 			{
 				TranslatesAutoresizingMaskIntoConstraints = false,
+				Font = NSFont.FromFontName(SnackBar.Appearance.ButtonFontName, SnackBar.Appearance.ButtonFontSize),
 				Title = SnackBar.ActionButtonText,
-				LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode
+				WantsLayer = true,
+				LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode,
+				Layer = { BackgroundColor = SnackBar.Appearance.ButtonBackgroundColor.CGColor }
 			};
 			ActionButton.Activated += DismissButtonTouchUpInside;
 			AddSubview(ActionButton);

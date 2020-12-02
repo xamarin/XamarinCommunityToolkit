@@ -93,7 +93,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		protected virtual void Initialize()
 		{
-			BackgroundColor = SnackBar.Appearance.Color;
+			BackgroundColor = SnackBar.Appearance.BackgroundColor;
 			Layer.CornerRadius = SnackBar.Appearance.CornerRadius;
 			TranslatesAutoresizingMaskIntoConstraints = false;
 		}

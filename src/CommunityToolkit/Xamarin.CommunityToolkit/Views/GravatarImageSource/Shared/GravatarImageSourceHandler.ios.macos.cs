@@ -1,4 +1,4 @@
-using Foundation;
+﻿using Foundation;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

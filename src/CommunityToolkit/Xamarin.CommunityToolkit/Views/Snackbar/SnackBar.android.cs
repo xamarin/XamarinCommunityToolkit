@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using Android.Graphics;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
@@ -22,8 +23,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
 			snackTextView.SetMaxLines(10);
-			snackTextView.SetBackgroundColor(arguments.MessageOptions.Foreground.ToAndroid());
-			snackTextView.SetTextSize(ComplexUnitType.Pt, (float)arguments.MessageOptions.FontSize);
+			snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
+			snackTextView.SetTextSize(ComplexUnitType.Px, (float)arguments.MessageOptions.FontSize);
 			snackTextView.LayoutDirection = arguments.IsRtl
 				? global::Android.Views.LayoutDirection.Rtl
 				: global::Android.Views.LayoutDirection.Inherit;
@@ -32,6 +33,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				snackBar.SetAction(action.Text, async v => await action.Action());
 				snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
+				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action);
+				snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
+				snackActionButtonView.SetTextSize(ComplexUnitType.Px, (float)action.FontSize);
+				snackActionButtonView.LayoutDirection = arguments.IsRtl
+					? global::Android.Views.LayoutDirection.Rtl
+					: global::Android.Views.LayoutDirection.Inherit;
 			}
 
 			snackBar.AddCallback(new SnackBarCallback(arguments));
