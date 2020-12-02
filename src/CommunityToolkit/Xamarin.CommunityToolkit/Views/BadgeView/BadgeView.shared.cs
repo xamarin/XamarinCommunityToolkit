@@ -185,7 +185,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		   {
 			   HorizontalOptions = LayoutOptions.Start,
 			   VerticalOptions = LayoutOptions.Start,
-   			   IsVisible = false
+			   IsVisible = false
 		   };
 
 		static Frame CreateIndicatorBackgroundElement()
