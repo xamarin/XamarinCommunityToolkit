@@ -98,7 +98,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			IsBusy = true;
-			switch (Element.CaptureOptions)
+			switch (Element.CaptureMode)
 			{
 				default:
 				case CameraCaptureMode.Default:
