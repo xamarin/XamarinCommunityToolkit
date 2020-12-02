@@ -184,7 +184,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		   => new Grid
 		   {
 			   HorizontalOptions = LayoutOptions.Start,
-			   VerticalOptions = LayoutOptions.Start
+			   VerticalOptions = LayoutOptions.Start,
+   			   IsVisible = false
 		   };
 
 		static Frame CreateIndicatorBackgroundElement()
@@ -231,8 +232,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BadgeIndicatorBackground.HasShadow = HasShadow;
 
 			BadgeText.Text = Text;
-			isVisible = BadgeIndicatorContainer.IsVisible;
-			UpdateVisibilityAsync();
 			BadgeText.TextColor = TextColor;
 
 			BadgeContent.BatchCommit();
