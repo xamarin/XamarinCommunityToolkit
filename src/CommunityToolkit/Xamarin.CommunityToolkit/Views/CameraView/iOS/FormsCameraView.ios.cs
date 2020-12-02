@@ -24,6 +24,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		AVCaptureDevicePosition? lastPosition;
 		bool isBusy;
 		bool isAvailable;
+		bool isDisposed;
 		CameraFlashMode flashMode;
 		readonly float imgScale = 1f;
 
@@ -528,14 +529,27 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (input != null)
 					captureSession.RemoveInput(input);
 			}
+
 			input?.Dispose();
+			input = null;
+
 			imageOutput?.Dispose();
+			imageOutput = null;
+
 			photoOutput?.Dispose();
+			photoOutput = null;
+
 			videoOutput?.Dispose();
+			videoOutput = null;
 		}
 
 		protected override void Dispose(bool disposing)
 		{
+			if (isDisposed)
+				return;
+
+			isDisposed = true;
+
 			if (device?.TorchMode == AVCaptureTorchMode.On)
 			{
 				flashMode = CameraFlashMode.Off;
@@ -543,6 +557,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			ClearCaptureSession();
+			captureSession?.Dispose();
+
 			base.Dispose(disposing);
 		}
 	}
