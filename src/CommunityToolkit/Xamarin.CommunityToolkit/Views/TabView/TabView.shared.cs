@@ -506,12 +506,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void ClearTabViewItem(TabViewItem tabViewItem)
 		{
+			tabViewItem.Parent = null;
 			tabViewItem.PropertyChanged -= OnTabViewItemPropertyChanged;
 			tabStripContent.Children.Remove(tabViewItem);
 		}
 
 		void AddTabViewItem(TabViewItem tabViewItem, int index = -1)
 		{
+			tabViewItem.Parent = this;
+
 			tabViewItem.PropertyChanged -= OnTabViewItemPropertyChanged;
 			tabViewItem.PropertyChanged += OnTabViewItemPropertyChanged;
 
