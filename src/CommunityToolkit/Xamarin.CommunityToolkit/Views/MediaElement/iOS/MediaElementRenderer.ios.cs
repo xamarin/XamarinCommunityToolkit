@@ -22,10 +22,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected readonly AVPlayerViewController avPlayerViewController = new AVPlayerViewController();
 		protected NSObject playedToEndObserver;
-		protected NSObject statusObserver;
-		protected NSObject rateObserver;
-		protected NSObject volumeObserver;
+		protected IDisposable statusObserver;
+		protected IDisposable rateObserver;
+		protected IDisposable volumeObserver;
 		bool idleTimerDisabled = false;
+		bool disposed;
 
 		public MediaElementRenderer() =>
 			playedToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
@@ -132,8 +133,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected void RemoveStatusObserver()
 		{
-			if (statusObserver != null)
-				avPlayerViewController?.Player?.CurrentItem?.RemoveObserver(statusObserver, "status");
 			statusObserver?.Dispose();
 			statusObserver = null;
 		}
@@ -364,43 +363,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnElementChanged(e);
 
-			if (e.OldElement != null)
-			{
-				e.OldElement.PropertyChanged -= OnElementPropertyChanged;
-				e.OldElement.SeekRequested -= MediaElementSeekRequested;
-				e.OldElement.StateRequested -= MediaElementStateRequested;
-				e.OldElement.PositionRequested -= MediaElementPositionRequested;
-				SetKeepScreenOn(false);
-
-				// stop video if playing
-				if (avPlayerViewController?.Player?.CurrentItem != null)
-				{
-					if (avPlayerViewController?.Player?.Rate > 0)
-					{
-						avPlayerViewController?.Player?.Pause();
-					}
-					avPlayerViewController?.Player?.ReplaceCurrentItemWithPlayerItem(null);
-					AVAudioSession.SharedInstance().SetActive(false);
-				}
-
-				if (playedToEndObserver != null)
-					NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
-				playedToEndObserver?.Dispose();
-				playedToEndObserver = null;
-
-				if (rateObserver != null)
-					avPlayerViewController?.Player?.RemoveObserver(rateObserver, "rate");
-				rateObserver?.Dispose();
-				rateObserver = null;
-
-				if (volumeObserver != null)
-					avPlayerViewController?.Player?.RemoveObserver(volumeObserver, "volume");
-				volumeObserver?.Dispose();
-				volumeObserver = null;
-
-				RemoveStatusObserver();
-			}
-
 			if (e.NewElement != null)
 			{
 				SetNativeControl(avPlayerViewController.View);
@@ -423,5 +385,44 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		protected virtual void UpdateBackgroundColor() => BackgroundColor = Element.BackgroundColor.ToUIColor();
+
+		protected override void Dispose(bool disposing)
+		{
+			if (disposed)
+				return;
+
+			Element.PropertyChanged -= OnElementPropertyChanged;
+			Element.SeekRequested -= MediaElementSeekRequested;
+			Element.StateRequested -= MediaElementStateRequested;
+			Element.PositionRequested -= MediaElementPositionRequested;
+			SetKeepScreenOn(false);
+
+			// stop video if playing
+			if (avPlayerViewController?.Player?.CurrentItem != null)
+			{
+				if (avPlayerViewController?.Player?.Rate > 0)
+					avPlayerViewController?.Player?.Pause();
+
+				avPlayerViewController?.Player?.ReplaceCurrentItemWithPlayerItem(null);
+				AVAudioSession.SharedInstance().SetActive(false);
+			}
+
+			if (playedToEndObserver != null)
+				NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
+
+			playedToEndObserver?.Dispose();
+			playedToEndObserver = null;
+
+			rateObserver?.Dispose();
+			rateObserver = null;
+
+			volumeObserver?.Dispose();
+			volumeObserver = null;
+
+			RemoveStatusObserver();
+
+			base.Dispose(disposing);
+			disposed = true;
+		}
 	}
 }
