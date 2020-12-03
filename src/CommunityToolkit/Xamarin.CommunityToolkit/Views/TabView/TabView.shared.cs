@@ -571,7 +571,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tabViewItem == null || tabViewItem.Content == null)
 				return;
 
-			tabViewItem.Content.BindingContext = BindingContext;
+			SetInheritedBindingContext(tabViewItem.Content, BindingContext);
 		}
 
 		void AddSelectionTapRecognizer(View view)
