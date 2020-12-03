@@ -35,6 +35,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(DateTimeOffsetConverterPage),
 				nameof(DateTimeOffsetConverter),
 				"A converter that allows to convert from a DateTimeOffset type to a DateTime type"),
+
+			new SectionModel(
+				typeof(VariableMultiValueConverterPage),
+				nameof(VariableMultiValueConverter),
+				"A converter that allows you to combine multiple boolean bindings into a single binding."),
 		};
 	}
 }
