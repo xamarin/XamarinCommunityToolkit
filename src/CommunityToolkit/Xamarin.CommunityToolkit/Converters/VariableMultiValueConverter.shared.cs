@@ -8,7 +8,7 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
-	public class VariableMultiConverter : MultiValueConverterExtension, IMultiValueConverter
+	public class VariableMultiValueConverter : MultiValueConverterExtension, IMultiValueConverter
 	{
 		public MultiBindingCondition ConditionType { get; set; }
 
@@ -16,32 +16,24 @@ namespace Xamarin.CommunityToolkit.Converters
 
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (values == null || !targetType.IsAssignableFrom(typeof(bool)))
+			if (values == null)
 				return false;
 
-			var amount = 0;
+			var boolValues = values.OfType<bool>();
 
-			foreach (var value in values)
-			{
-				if (!(value is bool boolValue))
-					return false;
+			if (boolValues.Count() != values.Count())
+				return false;
 
-				if (ConditionType == MultiBindingCondition.All && !boolValue)
-					return false;
-
-				if (ConditionType == MultiBindingCondition.Any && boolValue)
-					return true;
-
-				if (ConditionType == MultiBindingCondition.Count && boolValue)
-					amount++;
-			}
+			var count = boolValues.Where(v => v).Count();
 
 			return ConditionType switch
 			{
-				MultiBindingCondition.Any => false,
-				MultiBindingCondition.Count => Count == amount,
-				MultiBindingCondition.All => true,
-				_ => true,
+				MultiBindingCondition.Any => count >= 1,
+				MultiBindingCondition.None => count == 0,
+				MultiBindingCondition.Exact => count == Count,
+				MultiBindingCondition.GreaterThan => count > Count,
+				MultiBindingCondition.LessThan => count < Count,
+				_ => count == boolValues.Count(),
 			};
 		}
 
