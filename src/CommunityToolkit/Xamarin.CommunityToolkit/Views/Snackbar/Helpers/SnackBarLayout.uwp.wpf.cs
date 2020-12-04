@@ -21,14 +21,14 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 		{
 			RowDefinitions.Add(new RowDefinition());
 			ColumnDefinitions.Add(new ColumnDefinition());
-			if (options.Backgrouund != Color.Default)
+			if (options.BackgroundColor != Forms.Color.Default)
 			{
 				Background = options.BackgroundColor.ToBrush();
 			}
 #if UWP
 			var messageLabel = new TextBlock
 			{
-				Text = options.MessageOptions.Message				
+				Text = options.MessageOptions.Message
 			};
 #else
 			var messageLabel = new Label
@@ -36,13 +36,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 				Content = options.MessageOptions.Message,
 			};
 #endif
-			if (options.MessageOptions.Font != Font.Default)
+			if (options.MessageOptions.Font != Forms.Font.Default)
 			{
 				messageLabel.FontSize = options.MessageOptions.Font.FontSize;
 				messageLabel.FontFamily = new FontFamily(options.MessageOptions.Font.FontFamily);
 			}
 
-			if (options.MessageOptions.Foreground != Color.Default)
+			if (options.MessageOptions.Foreground != Forms.Color.Default)
 			{
 				messageLabel.Foreground = options.MessageOptions.Foreground.ToBrush();
 			}
@@ -63,18 +63,18 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 						await action.Action();
 					})
 				};
-				if (action.Font != Font.Default)
+				if (action.Font != Forms.Font.Default)
 				{
 					button.FontSize = action.Font.FontSize;
 					button.FontFamily = new FontFamily(action.Font.FontFamily);
 				}
 
-				if (action.Background != Color.Default)
+				if (action.BackgroundColor != Forms.Color.Default)
 				{
-					button.Background = action.Background.ToBrush();
+					button.Background = action.BackgroundColor.ToBrush();
 				}
 
-				if (action.Foreground != Color.Default)
+				if (action.ForegroundColor != Forms.Color.Default)
 				{
 					button.Foreground = action.ForegroundColor.ToBrush();
 				}
