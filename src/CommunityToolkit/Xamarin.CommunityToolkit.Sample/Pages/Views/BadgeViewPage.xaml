@@ -79,7 +79,7 @@
                     <Label
                         Text="Shadow Customization"/>
                 </xct:BadgeView>
-<Grid
+                <Grid
                     RowDefinitions="auto,auto"
                     ColumnDefinitions="*,*"
                     ColumnSpacing="30">
