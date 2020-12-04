@@ -124,7 +124,7 @@
                     <xct:BadgeView
                         Grid.Row="1"
                         Grid.Column="0"
-                        HorizontalOptions="Center"
+                        HorizontalOptions="Start"
                         BadgePosition="BottomLeft"
                         BackgroundColor="Red"
                         Text="7"
