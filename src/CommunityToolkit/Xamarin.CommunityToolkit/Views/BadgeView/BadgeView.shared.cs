@@ -214,7 +214,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnSizeAllocated(width, height);
 
-			UpdateBadgeViewPlacement(true);
+			UpdateBadgeViewPlacement();
 		}
 
 		void UpdateLayout()
