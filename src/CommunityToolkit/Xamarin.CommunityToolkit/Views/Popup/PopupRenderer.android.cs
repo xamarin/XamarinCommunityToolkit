@@ -305,7 +305,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void OnCancel(IDialogInterface dialog)
 		{
-			if (IsShowing && Element.IsLightDismissEnabled)
+			if (Element.IsLightDismissEnabled)
 				Element.LightDismiss();
 		}
 
