@@ -302,7 +302,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					verticalMargin = size / 2;
 					var bottomLeftverticalMargin = BadgeContent.Height - verticalMargin;
 					containerMargin = new Thickness(0, bottomLeftverticalMargin, 0, 0);
-					BadgeContent.Margin = new Thickness(verticalMargin, 0, 0, 0);
+					contentMargin = new Thickness(verticalMargin, 0, 0, 0);
 					break;
 				case BadgePosition.BottomRight:
 					verticalMargin = size / 2;
