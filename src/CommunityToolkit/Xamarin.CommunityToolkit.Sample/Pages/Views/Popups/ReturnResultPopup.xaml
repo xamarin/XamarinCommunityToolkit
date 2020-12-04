@@ -1,10 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
            xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-           Size="{OnPlatform Android='800, 800', UWP='300, 300', iOS='250, 400'}"
-           x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.ButtonPopup">
-    
+           Size="{OnPlatform Android='800, 800', UWP='300, 300', iOS='250, 350'}"
+           x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.ReturnResultPopup"
+           x:TypeArguments="x:String">
+
     <xct:Popup.Resources>
         <ResourceDictionary>
             <Style x:Key="Title" TargetType="Label">
@@ -34,13 +35,13 @@
 
     <StackLayout Style="{StaticResource PopupLayout}">
         <Label Style="{StaticResource Title}" 
-                Text="Button Popup" />
+                Text="Return Result Popup" />
         <BoxView Style="{StaticResource Divider}" />
         <Label Style="{StaticResource Content}" 
-                Text="This is a native popup with a Xamarin.Forms View being rendered. The behaviors of the popup will confirm to 100% native look and feel, but still allows you to use your Xamarin.Forms controls." />
-        <Button Text="OKAY"
+                Text="This popup returns a value when it is dismissed. The value varies depending if you tap on the CLOSE button or dismis the popup by tapping outside of it's bounds." />
+        <Button Text="CLOSE"
                 Style="{StaticResource ConfirmButton}"
                 Clicked="Button_Clicked" />
     </StackLayout>
-    
+
 </xct:Popup>
