@@ -127,7 +127,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void CreateControl()
 		{
-			var view = Element.View;
+			var view = Element.Content;
 			var contentPage = new ContentPage { Content = view, Padding = new Thickness(25) };
 
 			Control = Platform.CreateRenderer(contentPage);

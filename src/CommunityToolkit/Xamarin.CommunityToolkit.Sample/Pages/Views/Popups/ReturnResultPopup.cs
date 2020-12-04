@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.CommunityToolkit.UI.Views;
+﻿using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
@@ -10,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
 	{
 		public ReturnResultPopup()
 		{
-			View = new StackLayout
+			Content = new StackLayout
 			{
 				Children = { Message(), CloseButton() }
 			};

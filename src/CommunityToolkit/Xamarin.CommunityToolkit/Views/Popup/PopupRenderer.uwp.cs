@@ -66,7 +66,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (Control == null)
 			{
-				Control = new Xamarin.CommunityToolkit.UI.Views.ViewToRendererConverter.WrapperControl(Element.View);
+				Control = new Xamarin.CommunityToolkit.UI.Views.ViewToRendererConverter.WrapperControl(Element.Content);
 				Content = Control;
 			}
 		}
@@ -160,9 +160,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetColor()
 		{
-			// REVIEW - AH 12/3/2020
-			// Should this be using BackgroundColor or Color?
-			if (Element.View.BackgroundColor == default(Color))
+			if (Element.Content.BackgroundColor == default(Color))
 				panelStyle.Setters.Add(new Windows.UI.Xaml.Setter(Panel.BackgroundProperty, Element.Color.ToWindowsColor()));
 
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BackgroundProperty, Element.Color.ToWindowsColor()));

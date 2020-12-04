@@ -111,7 +111,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (container == null)
 			{
-				container = new ContainerView(Context, Element.View);
+				container = new ContainerView(Context, Element.Content);
 				SetContentView(container);
 			}
 		}
@@ -140,7 +140,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				child.LayoutParameters = childLayoutParams;
 
 				var horizontalParams = -1;
-				switch (Element.View.HorizontalOptions.Alignment)
+				switch (Element.Content.HorizontalOptions.Alignment)
 				{
 					case LayoutAlignment.Center:
 					case LayoutAlignment.End:
@@ -153,7 +153,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				var verticalParams = -1;
-				switch (Element.View.VerticalOptions.Alignment)
+				switch (Element.Content.VerticalOptions.Alignment)
 				{
 					case LayoutAlignment.Center:
 					case LayoutAlignment.End:
@@ -165,10 +165,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						break;
 				}
 
-				if (Element.View.WidthRequest > -1)
+				if (Element.Content.WidthRequest > -1)
 				{
-					var inputMeasuredWidth = Element.View.WidthRequest > Element.Size.Width ?
-						(int)Element.Size.Width : (int)Element.View.WidthRequest;
+					var inputMeasuredWidth = Element.Content.WidthRequest > Element.Size.Width ?
+						(int)Element.Size.Width : (int)Element.Content.WidthRequest;
 					container.Measure(inputMeasuredWidth, (int)MeasureSpecMode.Unspecified);
 					horizontalParams = container.MeasuredWidth;
 				}
@@ -179,13 +179,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						(int)Element.Size.Width : container.MeasuredWidth;
 				}
 
-				if (Element.View.HeightRequest > -1)
+				if (Element.Content.HeightRequest > -1)
 				{
-					verticalParams = (int)Element.View.HeightRequest;
+					verticalParams = (int)Element.Content.HeightRequest;
 				}
 				else
 				{
-					var inputMeasuredWidth = Element.View.WidthRequest > -1 ? horizontalParams : (int)Element.Size.Width;
+					var inputMeasuredWidth = Element.Content.WidthRequest > -1 ? horizontalParams : (int)Element.Size.Width;
 					container.Measure(inputMeasuredWidth, (int)MeasureSpecMode.Unspecified);
 					verticalParams = container.MeasuredHeight > Element.Size.Height ?
 						(int)Element.Size.Height : container.MeasuredHeight;
@@ -193,7 +193,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				var containerLayoutParams = new FrameLayout.LayoutParams(horizontalParams, verticalParams);
 
-				switch (Element.View.VerticalOptions.Alignment)
+				switch (Element.Content.VerticalOptions.Alignment)
 				{
 					case LayoutAlignment.Start:
 						containerLayoutParams.Gravity = GravityFlags.Top;
@@ -209,7 +209,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						break;
 				}
 
-				switch (Element.View.HorizontalOptions.Alignment)
+				switch (Element.Content.HorizontalOptions.Alignment)
 				{
 					case LayoutAlignment.Start:
 						containerLayoutParams.Gravity |= GravityFlags.Left;

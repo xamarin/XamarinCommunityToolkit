@@ -29,14 +29,12 @@
         </ResourceDictionary>
     </xct:Popup.Resources>
 
-    <xct:Popup.View>
-        <StackLayout Style="{StaticResource PopupLayout}">
-            <Label x:Name="title" 
-                   Style="{StaticResource Title}" />
-            <BoxView Style="{StaticResource Divider}" />
-            <Label x:Name="message" 
-                   Style="{StaticResource Content}" />
-        </StackLayout>
-    </xct:Popup.View>
+    <StackLayout Style="{StaticResource PopupLayout}">
+        <Label x:Name="title" 
+                Style="{StaticResource Title}" />
+        <BoxView Style="{StaticResource Divider}" />
+        <Label x:Name="message" 
+                Style="{StaticResource Content}" />
+    </StackLayout>
     
 </xct:Popup>

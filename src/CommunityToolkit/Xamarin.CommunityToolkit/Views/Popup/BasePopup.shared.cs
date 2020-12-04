@@ -6,6 +6,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// <summary>
 	/// The popup controls base implementation.
 	/// </summary>
+	[ContentProperty(nameof(Content))]
 	public abstract class BasePopup : VisualElement
 	{
 		/// <summary>
@@ -27,12 +28,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static BindableProperty HorizontalOptionsProperty = BindableProperty.Create(nameof(HorizontalOptions), typeof(LayoutOptions), typeof(BasePopup), LayoutOptions.CenterAndExpand);
 
 		/// <summary>
-		/// Gets or sets the <see cref="View"/> to render in the Popup.
+		/// Gets or sets the <see cref="View"/> content to render in the Popup.
 		/// </summary>
 		/// <remarks>
 		/// The View can be or type: <see cref="View"/>, <see cref="ContentPage"/> or <see cref="NavigationPage"/>
 		/// </remarks>
-		public virtual View View { get; set; }
+		public virtual View Content { get; set; }
 
 		/// <summary>
 		/// Gets or sets the <see cref="Color"/> of the Popup.
@@ -166,9 +167,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnBindingContextChanged();
 
-			if (View != null)
+			if (Content != null)
 			{
-				SetInheritedBindingContext(View, BindingContext);
+				SetInheritedBindingContext(Content, BindingContext);
 			}
 		}
 	}
