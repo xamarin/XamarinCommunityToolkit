@@ -269,7 +269,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				const double Padding = 6;
 				var size = Math.Max(BadgeText.Height, BadgeText.Width) + Padding;
-				BadgeIndicatorBackground.HeightRequest = size;
+				BadgeIndicatorBackground.HeightRequest = BadgeText.Height + Padding;
 				var margins = GetMargins(size);
 				containerMargin = margins.Item1;
 				contentMargin = margins.Item2;
