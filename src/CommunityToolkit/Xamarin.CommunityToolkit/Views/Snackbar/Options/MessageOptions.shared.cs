@@ -16,13 +16,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public Font Font { get; set; } = DefaultFont;
 
-		public static Font DefaultFont { get; set; } = Font.OfSize("Times New Roman", 14);
+		public static Font DefaultFont { get; set; } = Font.Default;
 
 		/// <summary>
 		/// Gets or sets the font color for the SnackBar message.
 		/// </summary>
 		public Color Foreground { get; set; } = DefaultForeground;
 
-		public static Color DefaultForeground { get; set; } = Color.Black;
+		public static Color DefaultForeground { get; set; } = Color.Default;
 	}
 }

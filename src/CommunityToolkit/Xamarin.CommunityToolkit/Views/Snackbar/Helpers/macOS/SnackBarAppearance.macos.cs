@@ -9,9 +9,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		public NSColor TextForeground { get; set; } = NSColor.SystemGrayColor;
 
-		public NSColor ButtonForegroundColor { get; set; } = NSColor.SystemGrayColor;
-
 		public NSColor ButtonBackgroundColor { get; set; } = NSColor.SystemGrayColor;
+
+		public NSColor ButtonForegroundColor { get; set; } = NSColor.SystemGrayColor;
 
 		public nfloat CornerRadius { get; set; } = 5;
 

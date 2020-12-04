@@ -21,25 +21,32 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 		{
 			RowDefinitions.Add(new RowDefinition());
 			ColumnDefinitions.Add(new ColumnDefinition());
+			if (options.Backgrouund != Color.Default)
+			{
+				Background = options.BackgroundColor.ToBrush();
+			}
 #if UWP
-			Background = options.BackgroundColor.ToBrush();
 			var messageLabel = new TextBlock
 			{
-				Text = options.MessageOptions.Message,
-				FontSize = options.MessageOptions.Font.FontSize,
-				FontFamily = new FontFamily(options.MessageOptions.Font.FontFamily),
-				Foreground = options.MessageOptions.Foreground.ToBrush()
+				Text = options.MessageOptions.Message				
 			};
 #else
-			Background = options.BackgroundColor.ToBrush();
 			var messageLabel = new Label
 			{
 				Content = options.MessageOptions.Message,
-				FontSize = options.MessageOptions.Font.FontSize,
-				FontFamily = new FontFamily(options.MessageOptions.Font.FontFamily),
-				Foreground = options.MessageOptions.Foreground.ToBrush()
 			};
 #endif
+			if (options.MessageOptions.Font != Font.Default)
+			{
+				messageLabel.FontSize = options.MessageOptions.Font.FontSize;
+				messageLabel.FontFamily = new FontFamily(options.MessageOptions.Font.FontFamily);
+			}
+
+			if (options.MessageOptions.Foreground != Color.Default)
+			{
+				messageLabel.Foreground = options.MessageOptions.Foreground.ToBrush();
+			}
+
 			Children.Add(messageLabel);
 			SetRow(messageLabel, 0);
 			SetColumn(messageLabel, 0);
@@ -50,16 +57,28 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 				var button = new Button
 				{
 					Content = action.Text,
-					Foreground = action.ForegroundColor.ToBrush(),
-					Background = action.BackgroundColor.ToBrush(),
-					FontSize = action.Font.FontSize,
-					FontFamily = new FontFamily(action.Font.FontFamily),
 					Command = new Forms.Command(async () =>
 					{
 						OnSnackBarActionExecuted?.Invoke();
 						await action.Action();
 					})
 				};
+				if (action.Font != Font.Default)
+				{
+					button.FontSize = action.Font.FontSize;
+					button.FontFamily = new FontFamily(action.Font.FontFamily);
+				}
+
+				if (action.Background != Color.Default)
+				{
+					button.Background = action.Background.ToBrush();
+				}
+
+				if (action.Foreground != Color.Default)
+				{
+					button.Foreground = action.ForegroundColor.ToBrush();
+				}
+
 				Children.Add(button);
 				SetRow(button, 0);
 				SetColumn(button, i + 1);

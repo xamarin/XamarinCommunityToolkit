@@ -25,20 +25,20 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public Font Font { get; set; } = DefaultFont;
 
-		public static Font DefaultFont { get; set; } = Font.OfSize("Times New Roman", 14);
+		public static Font DefaultFont { get; set; } = Font.Default;
 
 		/// <summary>
 		/// Gets or sets the background color for the SnackBar action button.
 		/// </summary>
 		public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
 
-		public static Color DefaultBackgroundColor { get; set; } = Color.White;
+		public static Color DefaultBackgroundColor { get; set; } = Color.Default;
 
 		/// <summary>
 		/// Gets or sets the font color for the SnackBar action button.
 		/// </summary>
 		public Color ForegroundColor { get; set; } = DefaultForegroundColor;
 
-		public static Color DefaultForegroundColor { get; set; } = Color.Black;
+		public static Color DefaultForegroundColor { get; set; } = Color.Default;
 	}
 }

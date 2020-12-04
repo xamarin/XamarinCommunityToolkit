@@ -5,13 +5,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
 	class SnackBarAppearance
 	{
-		public UIColor BackgroundColor { get; set; } = UIColor.SystemGrayColor;
+		public UIColor BackgroundColor { get; set; } = UIColor.SystemBackgroundColor;
 
 		public UIColor TextForeground { get; set; } = UIColor.SystemGrayColor;
 
-		public UIColor ButtonForegroundColor { get; set; } = UIColor.SystemGrayColor;
+		public UIColor ButtonBackgroundColor { get; set; } = UIColor.SystemBackgroundColor;
 
-		public UIColor ButtonBackgroundColor { get; set; } = UIColor.SystemGrayColor;
+		public UIColor ButtonForegroundColor { get; set; } = UIColor.SystemGrayColor;
 
 		public nfloat CornerRadius { get; set; } = 5;
 
