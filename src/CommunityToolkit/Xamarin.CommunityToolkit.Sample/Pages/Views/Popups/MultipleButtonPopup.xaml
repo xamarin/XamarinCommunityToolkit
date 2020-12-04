@@ -41,22 +41,20 @@
         </ResourceDictionary>
     </xct:Popup.Resources>
 
-    <xct:Popup.View>
-        <StackLayout Style="{StaticResource PopupLayout}">
-            <Label Style="{StaticResource Title}" 
-                   Text="Button Popup" />
-            <BoxView Style="{StaticResource Divider}" />
-            <Label Style="{StaticResource Content}" 
-                   Text="This is a native popup with a Xamarin.Forms View being rendered. The behaviors of the popup will confirm to 100% native look and feel, but still allows you to use your Xamarin.Forms controls." />
-            <StackLayout Style="{StaticResource ButtonGroup}">
-                <Button Text="Cancel"
-                        Style="{StaticResource CancelButton}"
-                        Clicked="Cancel_Clicked" />
-                <Button Text="OKAY"
-                        Clicked="Okay_Clicked" />    
-            </StackLayout>
-            
+    <StackLayout Style="{StaticResource PopupLayout}">
+        <Label Style="{StaticResource Title}" 
+                Text="Button Popup" />
+        <BoxView Style="{StaticResource Divider}" />
+        <Label Style="{StaticResource Content}" 
+                Text="This is a native popup with a Xamarin.Forms View being rendered. The behaviors of the popup will confirm to 100% native look and feel, but still allows you to use your Xamarin.Forms controls." />
+        <StackLayout Style="{StaticResource ButtonGroup}">
+            <Button Text="Cancel"
+                    Style="{StaticResource CancelButton}"
+                    Clicked="Cancel_Clicked" />
+            <Button Text="OKAY"
+                    Clicked="Okay_Clicked" />    
         </StackLayout>
-    </xct:Popup.View>
+            
+    </StackLayout>
     
 </xct:Popup>

@@ -7,11 +7,9 @@
            BorderColor="Transparent"
            x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.TransparentPopup">
 
-    <xct:Popup.View>
-        <Frame 
-            CornerRadius="{OnPlatform Android='50', UWP='25', iOS='25'}" 
-            HeightRequest="{OnPlatform Android='100', UWP='50'}" WidthRequest="{OnPlatform Android='100', UWP='50'}" 
-            BackgroundColor="Red" />
-    </xct:Popup.View>
+    <Frame 
+        CornerRadius="{OnPlatform Android='50', UWP='25', iOS='25'}" 
+        HeightRequest="{OnPlatform Android='100', UWP='50'}" WidthRequest="{OnPlatform Android='100', UWP='50'}" 
+        BackgroundColor="Red" />
     
 </xct:Popup>

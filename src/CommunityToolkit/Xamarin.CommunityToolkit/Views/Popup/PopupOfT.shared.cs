@@ -7,26 +7,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public abstract class Popup<T> : BasePopup
 	{
 		TaskCompletionSource<T> taskCompletionSource;
-		View view;
 
 		/// <summary>
 		/// Initalizes a default implementation of <see cref="Popup{T}"/>.
 		/// </summary>
 		protected Popup() =>
 			taskCompletionSource = new TaskCompletionSource<T>();
-
-		/// <inheritdoc />
-		public override View View
-		{
-			get => view;
-			set
-			{
-				if (view == value)
-					return;
-
-				view = value;
-			}
-		}
 
 		/// <summary>
 		/// Resets the Popup.
