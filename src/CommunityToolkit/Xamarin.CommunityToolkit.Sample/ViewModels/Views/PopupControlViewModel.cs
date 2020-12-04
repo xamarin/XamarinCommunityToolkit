@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
-	public class PopupControlViewModel
+	public class PopupGalleryViewModel
 	{
 		INavigation Navigation => App.Current.MainPage.Navigation;
 
@@ -23,20 +23,27 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(TransparentPopup), "Transparent Popup", Color.Red, "Displays a popup with a transparent background"),
 			new SectionModel(typeof(PopupAnchorPage), "Anchor Popup", Color.Red, "Popups can be anchored to other view's on the screen"),
 			new SectionModel(typeof(OpenedEventSimplePopup), "Opened Event Popup", Color.Red, "Popup with opened event"),
+			new SectionModel(typeof(ReturnResultPopup), "Return Result Popup", Color.Red, "A popup that returns a string message when dismissed")
 		};
 
 		public ICommand DisplayPopup => new Command<Type>(OnDisplayPopup);
 
-		void OnDisplayPopup(Type popupType)
+		async void OnDisplayPopup(Type popupType)
 		{
 			var view = (VisualElement)Activator.CreateInstance(popupType);
-			if (view is BasePopup popup)
+
+			if (view is Popup<string> popup)
 			{
-				Navigation.ShowPopup(popup);
+				var result = await Navigation.ShowPopupAsync(popup);
+				await App.Current.MainPage.DisplayAlert("Popup Result", result, "OKAY");
+			}
+			else if (view is BasePopup basePopup)
+			{
+				Navigation.ShowPopup(basePopup);
 			}
 			else if (view is Page page)
 			{
-				Navigation.PushAsync(page);
+				await Navigation.PushAsync(page);
 			}
 		}
 	}

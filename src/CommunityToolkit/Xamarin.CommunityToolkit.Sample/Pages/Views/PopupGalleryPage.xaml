@@ -9,7 +9,7 @@
                 x:Name="root">
 
     <ContentPage.BindingContext>
-        <viewModels:PopupControlViewModel />
+        <viewModels:PopupGalleryViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Resources>

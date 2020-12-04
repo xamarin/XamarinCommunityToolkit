@@ -121,7 +121,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void SetEvents()
 		{
 			if (Element.IsLightDismissEnabled)
-				Closed += OnClosed;
+				Closing += OnClosing;
 
 			Element.Dismissed += OnDismissed;
 		}
@@ -249,7 +249,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Hide();
 		}
 
-		void OnClosed(object sender, object e)
+		void OnClosing(object sender, object e)
 		{
 			if (IsOpen && Element.IsLightDismissEnabled)
 				Element.LightDismiss();
@@ -268,7 +268,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Element.Dismissed -= OnDismissed;
 				Element = null;
 
-				Closed -= OnClosed;
+				Closed -= OnClosing;
 			}
 
 			isDisposed = true;

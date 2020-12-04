@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			Platform.CreateRenderer(popup);
 		}
 
-		static Task<T> OnShowPopup<T>(Popup<T> popup)
+		static Task<T> OnShowPopupAsync<T>(Popup<T> popup)
 		{
 			OnShowPopup(popup);
 			return popup.Result;
