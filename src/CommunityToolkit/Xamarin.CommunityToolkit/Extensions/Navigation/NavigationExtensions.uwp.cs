@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
@@ -28,6 +29,12 @@ namespace Xamarin.CommunityToolkit.Extensions
 				else
 					return currentPage;
 			}
+		}
+
+		static Task<T> OnShowPopupAsync<T>(Popup<T> popup)
+		{
+			OnShowPopup(popup);
+			return popup.Result;
 		}
 	}
 }
