@@ -1,4 +1,5 @@
-﻿using Xamarin.CommunityToolkit.UI.Views;
+﻿using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.Extensions
@@ -8,6 +9,12 @@ namespace Xamarin.CommunityToolkit.Extensions
 		static void OnShowPopup(BasePopup popup)
 		{
 			Platform.CreateRenderer(popup);
+		}
+
+		static Task<T> OnShowPopup<T>(Popup<T> popup)
+		{
+			OnShowPopup(popup);
+			return popup.Result;
 		}
 	}
 }
