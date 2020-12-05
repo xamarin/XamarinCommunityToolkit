@@ -231,7 +231,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BadgeIndicatorBackground.BorderColor = BorderColor;
 			BadgeIndicatorBackground.HasShadow = HasShadow;
 
-			BadgeText.Text = Text;
+			BadgeText.Text = string.IsNullOrEmpty(Text) ? "0" : Text;
 			BadgeText.TextColor = TextColor;
 
 			BadgeContent.BatchCommit();
