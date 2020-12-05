@@ -82,7 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				var item = new AVPlayerItem(asset);
-				RemoveStatusObserver();
+				DisposeObservers(ref statusObserver);
 
 				statusObserver = (NSObject)item.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
 
@@ -128,12 +128,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			else
 				throw new ArgumentException("uri");
-		}
-
-		protected void RemoveStatusObserver()
-		{
-			statusObserver?.Dispose();
-			statusObserver = null;
 		}
 
 		protected virtual void ObserveRate(NSObservedChange e)
@@ -282,15 +276,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var audioSession = AVAudioSession.SharedInstance();
 			var err = audioSession.SetCategory(AVAudioSession.CategoryPlayback);
 
-			if (!(err is null))
+			if (err != null)
 				Log.Warning("MediaElement", "Failed to set AVAudioSession Category {0}", err.Code);
 
 			audioSession.SetMode(AVAudioSession.ModeMoviePlayback, out err);
-			if (!(err is null))
+			if (err != null)
 				Log.Warning("MediaElement", "Failed to set AVAudioSession Mode {0}", err.Code);
 
 			err = audioSession.SetActive(true);
-			if (!(err is null))
+			if (err != null)
 				Log.Warning("MediaElement", "Failed to set AVAudioSession Active {0}", err.Code);
 
 			if (avPlayerViewController.Player != null)
@@ -333,7 +327,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					var err = AVAudioSession.SharedInstance().SetActive(false);
 
-					if (!(err is null))
+					if (err != null)
 						Log.Warning("MediaElement", "Failed to set AVAudioSession Inactive {0}", err.Code);
 
 					break;
@@ -362,26 +356,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnElementChanged(e);
 
-			if (e.NewElement != null)
-			{
-				SetNativeControl(avPlayerViewController.View);
-
-				Element.PropertyChanged += OnElementPropertyChanged;
-				Element.SeekRequested += MediaElementSeekRequested;
-				Element.StateRequested += MediaElementStateRequested;
-				Element.PositionRequested += MediaElementPositionRequested;
-
-				avPlayerViewController.ShowsPlaybackControls = Element.ShowsPlaybackControls;
-				avPlayerViewController.VideoGravity = AspectToGravity(Element.Aspect);
-				if (Element.KeepScreenOn)
-					SetKeepScreenOn(true);
-
-				playedToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
-
-				UpdateBackgroundColor();
-				UpdateSource();
-			}
-
 			if (e.OldElement != null)
 			{
 				Element.PropertyChanged -= OnElementPropertyChanged;
@@ -403,19 +377,46 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (playedToEndObserver != null)
 					NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
 
-				playedToEndObserver?.Dispose();
-				playedToEndObserver = null;
+				DisposeObservers(ref playedToEndObserver);
+				DisposeObservers(ref rateObserver);
+				DisposeObservers(ref volumeObserver);
+				DisposeObservers(ref statusObserver);
+			}
 
-				rateObserver?.Dispose();
-				rateObserver = null;
+			if (e.NewElement != null)
+			{
+				SetNativeControl(avPlayerViewController.View);
 
-				volumeObserver?.Dispose();
-				volumeObserver = null;
+				Element.PropertyChanged += OnElementPropertyChanged;
+				Element.SeekRequested += MediaElementSeekRequested;
+				Element.StateRequested += MediaElementStateRequested;
+				Element.PositionRequested += MediaElementPositionRequested;
 
-				RemoveStatusObserver();
+				avPlayerViewController.ShowsPlaybackControls = Element.ShowsPlaybackControls;
+				avPlayerViewController.VideoGravity = AspectToGravity(Element.Aspect);
+
+				if (Element.KeepScreenOn)
+					SetKeepScreenOn(true);
+
+				playedToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
+
+				UpdateBackgroundColor();
+				UpdateSource();
 			}
 		}
 
 		protected virtual void UpdateBackgroundColor() => BackgroundColor = Element.BackgroundColor.ToUIColor();
+
+		protected void DisposeObservers(ref IDisposable disposable)
+		{
+			disposable?.Dispose();
+			disposable = null;
+		}
+
+		protected void DisposeObservers(ref NSObject disposable)
+		{
+			disposable?.Dispose();
+			disposable = null;
+		}
 	}
 }
