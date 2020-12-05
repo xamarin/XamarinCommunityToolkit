@@ -358,10 +358,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (e.OldElement != null)
 			{
-				Element.PropertyChanged -= OnElementPropertyChanged;
-				Element.SeekRequested -= MediaElementSeekRequested;
-				Element.StateRequested -= MediaElementStateRequested;
-				Element.PositionRequested -= MediaElementPositionRequested;
+				e.OldElement.PropertyChanged -= OnElementPropertyChanged;
+				e.OldElement.SeekRequested -= MediaElementSeekRequested;
+				e.OldElement.StateRequested -= MediaElementStateRequested;
+				e.OldElement.PositionRequested -= MediaElementPositionRequested;
 				SetKeepScreenOn(false);
 
 				// stop video if playing
