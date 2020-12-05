@@ -168,6 +168,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BadgeIndicatorBackground.Content = BadgeText;
 
 			BadgeIndicatorContainer.Children.Add(BadgeIndicatorBackground);
+			BadgeIndicatorContainer.PropertyChanged += BadgeIndicatorContainerPropertyChanged;
+			BadgeText.SizeChanged += OnBadgeTextSizeChanged;
 
 			control.Children.Add(BadgeContent);
 			control.Children.Add(BadgeIndicatorContainer);
@@ -184,7 +186,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		   => new Grid
 		   {
 			   HorizontalOptions = LayoutOptions.Start,
-			   VerticalOptions = LayoutOptions.Start
+			   VerticalOptions = LayoutOptions.Start,
+			   IsVisible = false
 		   };
 
 		static Frame CreateIndicatorBackgroundElement()
@@ -351,5 +354,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else
 				BadgeIndicatorContainer.IsVisible = badgeIsVisible;
 		}
+
+		void OnBadgeTextSizeChanged(object sender, EventArgs e)
+			=> UpdateBadgeViewPlacement(true);
+
+		void BadgeIndicatorContainerPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+			=> UpdateBadgeViewPlacement(true);
 	}
 }
