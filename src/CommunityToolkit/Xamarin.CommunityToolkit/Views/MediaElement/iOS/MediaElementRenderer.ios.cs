@@ -84,15 +84,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var item = new AVPlayerItem(asset);
 				DisposeObservers(ref statusObserver);
 
-				statusObserver = (NSObject)item.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
+				statusObserver = item.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
 
 				if (avPlayerViewController.Player != null)
 					avPlayerViewController.Player.ReplaceCurrentItemWithPlayerItem(item);
 				else
 				{
 					avPlayerViewController.Player = new AVPlayer(item);
-					rateObserver = (NSObject)avPlayerViewController.Player.AddObserver("rate", NSKeyValueObservingOptions.New, ObserveRate);
-					volumeObserver = (NSObject)avPlayerViewController.Player.AddObserver("volume", NSKeyValueObservingOptions.New, ObserveVolume);
+					rateObserver = avPlayerViewController.Player.AddObserver("rate", NSKeyValueObservingOptions.New, ObserveRate);
+					volumeObserver = avPlayerViewController.Player.AddObserver("volume", NSKeyValueObservingOptions.New, ObserveVolume);
 				}
 
 				if (Element.AutoPlay)
