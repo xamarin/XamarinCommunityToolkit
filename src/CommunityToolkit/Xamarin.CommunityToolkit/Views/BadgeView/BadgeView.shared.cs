@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -168,6 +169,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BadgeIndicatorBackground.Content = BadgeText;
 
 			BadgeIndicatorContainer.Children.Add(BadgeIndicatorBackground);
+			BadgeIndicatorContainer.PropertyChanged += OnBadgeIndicatorContainerPropertyChanged;
+			BadgeText.SizeChanged += OnBadgeTextSizeChanged;
 
 			control.Children.Add(BadgeContent);
 			control.Children.Add(BadgeIndicatorContainer);
@@ -352,5 +355,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else
 				BadgeIndicatorContainer.IsVisible = badgeIsVisible;
 		}
+
+		void OnBadgeTextSizeChanged(object sender, EventArgs e)
+			=> UpdateBadgeViewPlacement(true);
+
+		void OnBadgeIndicatorContainerPropertyChanged(object sender, PropertyChangedEventArgs e)
+			=> UpdateBadgeViewPlacement(true);
 	}
 }
