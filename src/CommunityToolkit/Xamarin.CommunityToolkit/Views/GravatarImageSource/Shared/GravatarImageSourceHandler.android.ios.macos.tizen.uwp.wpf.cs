@@ -52,6 +52,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #else
 				await File.WriteAllBytesAsync(cacheFileInfo.FullName, imageBytes);
 #endif
+				cacheFileInfo.Refresh();
 			}
 			finally
 			{
