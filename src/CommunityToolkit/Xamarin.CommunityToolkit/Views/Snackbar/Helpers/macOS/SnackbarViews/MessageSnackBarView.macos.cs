@@ -9,52 +9,29 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 		{
 		}
 
-		public NSStackView StackView { get; set; }
-
-		protected override void ConstrainChildren()
-		{
-			base.ConstrainChildren();
-			StackView.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeading).Active = true;
-			StackView.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingTrailing).Active = true;
-			StackView.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom).Active = true;
-			StackView.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
-		}
-
 		protected override void Initialize()
 		{
 			base.Initialize();
-			StackView = new NSStackView();
-			StackView.NeedsLayout = true;
-			AddSubview(StackView);
-			if (SnackBar.Appearance.BackgroundColor != SnackBarAppearance.DefaultColor)
-			{
-				StackView.Layer.BackgroundColor = SnackBar.Appearance.BackgroundColor.CGColor;
-			}
-
-			StackView.Orientation = NSUserInterfaceLayoutOrientation.Horizontal;
-			StackView.TranslatesAutoresizingMaskIntoConstraints = false;
-			StackView.Spacing = 5;
 			var messageLabel = new NSTextField
 			{
 				StringValue = SnackBar.Message,
 				Selectable = false,
-				Alignment = SnackBar.Appearance.MessageTextAlignment,
-				LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode,
+				Alignment = SnackBar.Appearance.TextAlignment,
 				TranslatesAutoresizingMaskIntoConstraints = false
 			};
-			if (SnackBar.Appearance.BackgroundColor != SnackBarAppearance.DefaultColor)
+			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor)
 			{
-				messageLabel.BackgroundColor = SnackBar.Appearance.BackgroundColor;
+				messageLabel.BackgroundColor = SnackBar.Appearance.Background;
 			}
 
-			if (SnackBar.Appearance.TextForeground != SnackBarAppearance.DefaultColor)
+			if (SnackBar.Appearance.Foreground != NativeSnackBarAppearance.DefaultColor)
 			{
-				messageLabel.TextColor = SnackBar.Appearance.TextForeground;
+				messageLabel.TextColor = SnackBar.Appearance.Foreground;
 			}
 
-			if (SnackBar.Appearance.TextFont != SnackBarAppearance.DefaultFont)
+			if (SnackBar.Appearance.Font != NativeSnackBarAppearance.DefaultFont)
 			{
-				messageLabel.Font = SnackBar.Appearance.TextFont;
+				messageLabel.Font = SnackBar.Appearance.Font;
 			}
 
 			StackView.AddArrangedSubview(messageLabel);

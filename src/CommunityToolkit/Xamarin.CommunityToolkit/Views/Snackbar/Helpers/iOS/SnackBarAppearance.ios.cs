@@ -4,28 +4,33 @@ using Xamarin.Forms.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
-	class SnackBarAppearance
+	class NativeSnackBarAppearance
 	{
-		public UIColor BackgroundColor { get; set; } = DefaultColor;
+		public UIColor Background { get; set; } = UIColor.SystemBackgroundColor;
 
-		public UIColor TextForeground { get; set; } = DefaultColor;
+		public UIColor Foreground { get; set; } = DefaultColor;
 
-		public UIColor ButtonBackgroundColor { get; set; } = DefaultColor;
+		public UIFont Font { get; set; } = DefaultFont;
 
-		public UIColor ButtonForegroundColor { get; set; } = DefaultColor;
+		public UITextAlignment TextAlignment { get; set; } = UITextAlignment.Left;
 
-		public nfloat CornerRadius { get; set; } = 5;
+		public static UIColor DefaultColor { get; } = Forms.Color.Default.ToUIColor();
 
-		public UIFont TextFont { get; set; } = DefaultFont;
+		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
+	}
 
-		public UIFont ButtonFont { get; set; } = DefaultFont;
+	class NativeSnackButtonAppearance
+	{
+		public UIColor Background { get; set; } = DefaultColor;
 
-		public UILineBreakMode DismissButtonLineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
+		public UIColor Foreground { get; set; } = DefaultColor;
 
-		public UITextAlignment MessageTextAlignment { get; set; } = UITextAlignment.Left;
+		public UIFont Font { get; set; } = DefaultFont;
 
-		public static UIColor DefaultColor = Forms.Color.Default.ToUIColor();
+		public UILineBreakMode LineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
 
-		public static UIFont DefaultFont = Forms.Font.Default.ToUIFont();
+		public static UIColor DefaultColor { get; } = Forms.Color.Default.ToUIColor();
+
+		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
 	}
 }

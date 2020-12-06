@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public Func<Task> TimeoutAction { get; protected set; }
 
-		public SnackBarAppearance Appearance { get; protected set; } = new SnackBarAppearance();
+		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
 
 		public double Duration { get; protected set; }
 

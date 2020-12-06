@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		public List<NativeActionButton> Actions { get; protected set; } = new List<NativeActionButton>();
 
-		public SnackBarAppearance Appearance { get; protected set; } = new SnackBarAppearance();
+		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
 
 		public double Duration { get; protected set; }
 

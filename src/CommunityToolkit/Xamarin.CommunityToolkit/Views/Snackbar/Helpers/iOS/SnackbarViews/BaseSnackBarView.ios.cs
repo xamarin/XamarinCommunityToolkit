@@ -13,6 +13,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		protected NativeSnackBar SnackBar { get; }
 
+		protected UIStackView StackView { get; set; }
+
 		public virtual void Dismiss() => RemoveFromSuperview();
 
 		public virtual void Setup()
@@ -33,6 +35,11 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 			this.SafeLeadingAnchor().ConstraintGreaterThanOrEqualTo(ParentView.SafeLeadingAnchor(), SnackBar.Layout.MarginLeading).Active = true;
 			this.SafeTrailingAnchor().ConstraintLessThanOrEqualTo(ParentView.SafeTrailingAnchor(), -SnackBar.Layout.MarginTrailing).Active = true;
 			this.SafeCenterXAnchor().ConstraintEqualTo(ParentView.SafeCenterXAnchor()).Active = true;
+
+			StackView.SafeLeadingAnchor().ConstraintEqualTo(this.SafeLeadingAnchor(), SnackBar.Layout.PaddingLeading).Active = true;
+			StackView.SafeTrailingAnchor().ConstraintEqualTo(this.SafeTrailingAnchor(), -SnackBar.Layout.PaddingTrailing).Active = true;
+			StackView.SafeBottomAnchor().ConstraintEqualTo(this.SafeBottomAnchor(), -SnackBar.Layout.PaddingBottom).Active = true;
+			StackView.SafeTopAnchor().ConstraintEqualTo(this.SafeTopAnchor(), SnackBar.Layout.PaddingTop).Active = true;
 		}
 
 		protected virtual NSLayoutYAxisAnchor GetBottomAnchor()
@@ -67,7 +74,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		protected virtual void Initialize()
 		{
-			Layer.CornerRadius = SnackBar.Appearance.CornerRadius;
+			StackView = new UIStackView();
+			AddSubview(StackView);
+			StackView.Axis = UILayoutConstraintAxis.Horizontal;
+			StackView.TranslatesAutoresizingMaskIntoConstraints = false;
+			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor)
+			{
+				StackView.BackgroundColor = SnackBar.Appearance.Background;
+			}
+
 			TranslatesAutoresizingMaskIntoConstraints = false;
 		}
 	}

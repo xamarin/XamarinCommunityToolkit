@@ -21,23 +21,23 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			foreach (var action in SnackBar.Actions)
 			{
 				var actionButton = new UIButton(UIButtonType.System);
-				if (action.Appearance.ButtonBackgroundColor != SnackBarAppearance.DefaultColor)
+				if (action.Appearance.Background != NativeSnackButtonAppearance.DefaultColor)
 				{
-					actionButton.BackgroundColor = action.Appearance.ButtonBackgroundColor;
+					actionButton.BackgroundColor = action.Appearance.Background;
 				}
 
-				if (action.Appearance.ButtonForegroundColor != SnackBarAppearance.DefaultColor)
+				if (action.Appearance.Foreground != NativeSnackButtonAppearance.DefaultColor)
 				{
-					actionButton.SetTitleColor(action.Appearance.ButtonForegroundColor, UIControlState.Normal);
+					actionButton.SetTitleColor(action.Appearance.Foreground, UIControlState.Normal);
 				}
 
-				if (action.Appearance.ButtonFont != SnackBarAppearance.DefaultFont)
+				if (action.Appearance.Font != NativeSnackButtonAppearance.DefaultFont)
 				{
-					actionButton.Font = action.Appearance.ButtonFont;
+					actionButton.Font = action.Appearance.Font;
 				}
 
 				actionButton.SetTitle(action.ActionButtonText, UIControlState.Normal);
-				actionButton.TitleLabel.LineBreakMode = action.Appearance.DismissButtonLineBreakMode;
+				actionButton.TitleLabel.LineBreakMode = action.Appearance.LineBreakMode;
 				actionButton.TouchUpInside += async (s, e) =>
 				{
 					await action.Action();

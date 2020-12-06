@@ -30,20 +30,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #if __IOS__
 			if (arguments.BackgroundColor != Color.Default)
 			{
-				snackBar.Appearance.BackgroundColor = arguments.BackgroundColor.ToUIColor();
+				snackBar.Appearance.Background = arguments.BackgroundColor.ToUIColor();
 			}
 
 			if (arguments.MessageOptions.Font != Font.Default)
 			{
-				snackBar.Appearance.TextFont = arguments.MessageOptions.Font.ToUIFont();
+				snackBar.Appearance.Font = arguments.MessageOptions.Font.ToUIFont();
 			}
 
 			if (arguments.MessageOptions.Foreground != Color.Default)
 			{
-				snackBar.Appearance.TextForeground = arguments.MessageOptions.Foreground.ToUIColor();
+				snackBar.Appearance.Foreground = arguments.MessageOptions.Foreground.ToUIColor();
 			}
 
-			snackBar.Appearance.MessageTextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
+			snackBar.Appearance.TextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
 
 			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
 			{
@@ -53,20 +53,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #elif __MACOS__
 			if (arguments.BackgroundColor != Color.Default)
 			{
-				snackBar.Appearance.BackgroundColor = arguments.BackgroundColor.ToNSColor();
+				snackBar.Appearance.Background = arguments.BackgroundColor.ToNSColor();
 			}
 
 			if (arguments.MessageOptions.Font != Font.Default)
 			{
-				snackBar.Appearance.TextFont = arguments.MessageOptions.Font.ToNSFont();
+				snackBar.Appearance.Font = arguments.MessageOptions.Font.ToNSFont();
 			}
 
 			if (arguments.MessageOptions.Foreground != Color.Default)
 			{
-				snackBar.Appearance.TextForeground = arguments.MessageOptions.Foreground.ToNSColor();
+				snackBar.Appearance.Foreground = arguments.MessageOptions.Foreground.ToNSColor();
 			}
 
-			snackBar.Appearance.MessageTextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left;
+			snackBar.Appearance.TextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left;
 #endif
 
 			foreach (var action in arguments.Actions)
@@ -76,32 +76,32 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #if __IOS__
 				if (action.BackgroundColor != Color.Default)
 				{
-					actionButton.Appearance.ButtonBackgroundColor = action.BackgroundColor.ToUIColor();
+					actionButton.Appearance.Background = action.BackgroundColor.ToUIColor();
 				}
 
 				if (action.Font != Font.Default)
 				{
-					actionButton.Appearance.ButtonFont = action.Font.ToUIFont();
+					actionButton.Appearance.Font = action.Font.ToUIFont();
 				}
 
 				if (action.ForegroundColor != Color.Default)
 				{
-					actionButton.Appearance.ButtonForegroundColor = action.ForegroundColor.ToUIColor();
+					actionButton.Appearance.Foreground = action.ForegroundColor.ToUIColor();
 				}
 #elif __MACOS__
 				if (action.BackgroundColor != Color.Default)
 				{
-					actionButton.Appearance.ButtonBackgroundColor = action.BackgroundColor.ToNSColor();
+					actionButton.Appearance.Background = action.BackgroundColor.ToNSColor();
 				}
 
 				if (action.Font != Font.Default)
 				{
-					actionButton.Appearance.ButtonFont = action.Font.ToNSFont();
+					actionButton.Appearance.Font = action.Font.ToNSFont();
 				}
 
 				if (action.ForegroundColor != Color.Default)
 				{
-					actionButton.Appearance.ButtonForegroundColor = action.ForegroundColor.ToNSColor();
+					actionButton.Appearance.Foreground = action.ForegroundColor.ToNSColor();
 				}
 #endif
 				actionButton.SetAction(async () =>

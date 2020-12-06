@@ -22,16 +22,16 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 				{
 					Title = action.ActionButtonText,
 					WantsLayer = true,
-					LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode,
+					LineBreakMode = action.Appearance.LineBreakMode,
 				};
-				if (SnackBar.Appearance.ButtonBackgroundColor != SnackBarAppearance.DefaultColor)
+				if (SnackBar.Appearance.Background != NativeSnackButtonAppearance.DefaultColor)
 				{
-					actionButton.Layer.BackgroundColor = action.Appearance.ButtonBackgroundColor.CGColor;
+					actionButton.Layer.BackgroundColor = action.Appearance.Background.CGColor;
 				}
 
-				if (SnackBar.Appearance.ButtonFont != SnackBarAppearance.DefaultFont)
+				if (SnackBar.Appearance.Font != NativeSnackButtonAppearance.DefaultFont)
 				{
-					actionButton.Font = action.Appearance.ButtonFont;
+					actionButton.Font = action.Appearance.Font;
 				}
 
 				actionButton.Activated += async (s, e) =>

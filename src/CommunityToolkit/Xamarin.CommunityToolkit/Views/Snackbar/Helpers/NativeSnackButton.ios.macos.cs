@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Views.Snackbar.Helpers
 
 		public string ActionButtonText { get; protected set; }
 
-		public SnackBarAppearance Appearance { get; protected set; } = new SnackBarAppearance();
+		public NativeSnackButtonAppearance Appearance { get; protected set; } = new NativeSnackButtonAppearance();
 
 		public NativeActionButton SetAction(Func<Task> action)
 		{

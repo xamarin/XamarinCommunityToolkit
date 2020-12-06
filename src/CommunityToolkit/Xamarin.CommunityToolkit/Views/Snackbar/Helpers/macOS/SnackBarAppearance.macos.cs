@@ -1,31 +1,35 @@
-﻿using System;
-using AppKit;
+﻿using AppKit;
 using Xamarin.Forms.Platform.MacOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 {
-	class SnackBarAppearance
+	class NativeSnackBarAppearance
 	{
-		public NSColor BackgroundColor { get; set; } = DefaultColor;
+		public NSColor Background { get; set; } = NSColor.SystemGrayColor;
 
-		public NSColor TextForeground { get; set; } = DefaultColor;
+		public NSColor Foreground { get; set; } = DefaultColor;
 
-		public NSColor ButtonBackgroundColor { get; set; } = DefaultColor;
+		public NSFont Font { get; set; } = DefaultFont;
 
-		public NSColor ButtonForegroundColor { get; set; } = DefaultColor;
+		public NSTextAlignment TextAlignment { get; set; } = NSTextAlignment.Left;
 
-		public nfloat CornerRadius { get; set; } = 5;
+		public static NSColor DefaultColor { get; } = Forms.Color.Default.ToNSColor();
 
-		public NSFont TextFont { get; set; } = DefaultFont;
+		public static NSFont DefaultFont { get; } = Forms.Font.Default.ToNSFont();
+	}
 
-		public NSFont ButtonFont { get; set; } = DefaultFont;
+	class NativeSnackButtonAppearance
+	{
+		public NSColor Background { get; set; } = DefaultColor;
 
-		public NSLineBreakMode DismissButtonLineBreakMode { get; set; } = NSLineBreakMode.ByWordWrapping;
+		public NSColor Foreground { get; set; } = DefaultColor;
 
-		public NSTextAlignment MessageTextAlignment { get; set; } = NSTextAlignment.Left;
+		public NSFont Font { get; set; } = DefaultFont;
 
-		public static NSColor DefaultColor = Forms.Color.Default.ToNSColor();
+		public NSLineBreakMode LineBreakMode { get; set; } = NSLineBreakMode.TruncatingMiddle;
 
-		public static NSFont DefaultFont = Forms.Font.Default.ToNSFont();
+		public static NSColor DefaultColor { get; } = Forms.Color.Default.ToNSColor();
+
+		public static NSFont DefaultFont { get; } = Forms.Font.Default.ToNSFont();
 	}
 }
