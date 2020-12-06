@@ -4,42 +4,60 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
 	class MessageSnackBarView : BaseSnackBarView
 	{
-		public MessageSnackBarView(MacOSSnackBar snackBar)
+		public MessageSnackBarView(NativeSnackBar snackBar)
 			: base(snackBar)
 		{
 		}
 
-		public NSTextField MessageLabel { get; set; }
+		public NSStackView StackView { get; set; }
 
 		protected override void ConstrainChildren()
 		{
 			base.ConstrainChildren();
-
-			MessageLabel.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeading).Active =
-				true;
-			MessageLabel.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingTrailing)
-				.Active = true;
-			MessageLabel.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom).Active =
-				true;
-			MessageLabel.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
+			StackView.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeading).Active = true;
+			StackView.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingTrailing).Active = true;
+			StackView.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom).Active = true;
+			StackView.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
 		}
 
 		protected override void Initialize()
 		{
 			base.Initialize();
+			StackView = new NSStackView();
+			StackView.NeedsLayout = true;
+			AddSubview(StackView);
+			if (SnackBar.Appearance.BackgroundColor != SnackBarAppearance.DefaultColor)
+			{
+				StackView.Layer.BackgroundColor = SnackBar.Appearance.BackgroundColor.CGColor;
+			}
 
-			MessageLabel = new NSTextField
+			StackView.Orientation = NSUserInterfaceLayoutOrientation.Horizontal;
+			StackView.TranslatesAutoresizingMaskIntoConstraints = false;
+			StackView.Spacing = 5;
+			var messageLabel = new NSTextField
 			{
 				StringValue = SnackBar.Message,
 				Selectable = false,
-				Font = SnackBar.Appearance.TextFont,
-				BackgroundColor = SnackBar.Appearance.BackgroundColor,
-				TextColor = SnackBar.Appearance.TextForeground,
 				Alignment = SnackBar.Appearance.MessageTextAlignment,
 				LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode,
 				TranslatesAutoresizingMaskIntoConstraints = false
 			};
-			AddSubview(MessageLabel);
+			if (SnackBar.Appearance.BackgroundColor != SnackBarAppearance.DefaultColor)
+			{
+				messageLabel.BackgroundColor = SnackBar.Appearance.BackgroundColor;
+			}
+
+			if (SnackBar.Appearance.TextForeground != SnackBarAppearance.DefaultColor)
+			{
+				messageLabel.TextColor = SnackBar.Appearance.TextForeground;
+			}
+
+			if (SnackBar.Appearance.TextFont != SnackBarAppearance.DefaultFont)
+			{
+				messageLabel.Font = SnackBar.Appearance.TextFont;
+			}
+
+			StackView.AddArrangedSubview(messageLabel);
 		}
 	}
 }

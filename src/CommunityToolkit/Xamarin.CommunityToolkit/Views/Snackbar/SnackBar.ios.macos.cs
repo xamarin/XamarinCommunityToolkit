@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
 #if __IOS__
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
@@ -18,26 +19,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		internal void Show(Page sender, SnackBarOptions arguments)
 		{
-#if __IOS__
-			var snackBar = IOSSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
-							.SetAppearance(new SnackBarAppearance
-							{
-								BackgroundColor = arguments.BackgroundColor.ToUIColor(),
-								TextForeground = arguments.MessageOptions.Foreground.ToUIColor(),
-								TextFont = arguments.MessageOptions.Font.ToUIFont(),
-								MessageTextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left
-							})
-#elif __MACOS__
-
-			var snackBar = MacOSSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
-							.SetAppearance(new SnackBarAppearance
-							{
-								BackgroundColor = arguments.BackgroundColor.ToNSColor(),
-								TextForeground = arguments.MessageOptions.Foreground.ToNSColor(),
-								TextFont = arguments.MessageOptions.Font.ToNSFont(),
-								MessageTextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left
-							})
-#endif
+			var snackBar = NativeSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 							.SetDuration(arguments.Duration.TotalMilliseconds)
 							.SetTimeoutAction(() =>
 							{
@@ -46,31 +28,90 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							});
 
 #if __IOS__
+			if (arguments.BackgroundColor != Color.Default)
+			{
+				snackBar.Appearance.BackgroundColor = arguments.BackgroundColor.ToUIColor();
+			}
+
+			if (arguments.MessageOptions.Font != Font.Default)
+			{
+				snackBar.Appearance.TextFont = arguments.MessageOptions.Font.ToUIFont();
+			}
+
+			if (arguments.MessageOptions.Foreground != Color.Default)
+			{
+				snackBar.Appearance.TextForeground = arguments.MessageOptions.Foreground.ToUIColor();
+			}
+
+			snackBar.Appearance.MessageTextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
+
 			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
 			{
 				var renderer = Platform.GetRenderer(sender);
 				snackBar.SetParentController(renderer.ViewController);
 			}
+#elif __MACOS__
+			if (arguments.BackgroundColor != Color.Default)
+			{
+				snackBar.Appearance.BackgroundColor = arguments.BackgroundColor.ToNSColor();
+			}
+
+			if (arguments.MessageOptions.Font != Font.Default)
+			{
+				snackBar.Appearance.TextFont = arguments.MessageOptions.Font.ToNSFont();
+			}
+
+			if (arguments.MessageOptions.Foreground != Color.Default)
+			{
+				snackBar.Appearance.TextForeground = arguments.MessageOptions.Foreground.ToNSColor();
+			}
+
+			snackBar.Appearance.MessageTextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left;
 #endif
 
 			foreach (var action in arguments.Actions)
 			{
-				snackBar.SetActionButtonText(action.Text);
+				var actionButton = new NativeActionButton();
+				actionButton.SetActionButtonText(action.Text);
 #if __IOS__
-				snackBar.Appearance.ButtonBackgroundColor = action.BackgroundColor.ToUIColor();
-				snackBar.Appearance.ButtonForegroundColor = action.ForegroundColor.ToUIColor();
-				snackBar.Appearance.ButtonFont = action.Font.ToUIFont();
+				if (action.BackgroundColor != Color.Default)
+				{
+					actionButton.Appearance.ButtonBackgroundColor = action.BackgroundColor.ToUIColor();
+				}
+
+				if (action.Font != Font.Default)
+				{
+					actionButton.Appearance.ButtonFont = action.Font.ToUIFont();
+				}
+
+				if (action.ForegroundColor != Color.Default)
+				{
+					actionButton.Appearance.ButtonForegroundColor = action.ForegroundColor.ToUIColor();
+				}
 #elif __MACOS__
-				snackBar.Appearance.ButtonBackgroundColor = action.BackgroundColor.ToNSColor();
-				snackBar.Appearance.ButtonForegroundColor = action.ForegroundColor.ToNSColor();
-				snackBar.Appearance.ButtonFont = action.Font.ToNSFont();
+				if (action.BackgroundColor != Color.Default)
+				{
+					actionButton.Appearance.ButtonBackgroundColor = action.BackgroundColor.ToNSColor();
+				}
+
+				if (action.Font != Font.Default)
+				{
+					actionButton.Appearance.ButtonFont = action.Font.ToNSFont();
+				}
+
+				if (action.ForegroundColor != Color.Default)
+				{
+					actionButton.Appearance.ButtonForegroundColor = action.ForegroundColor.ToNSColor();
+				}
 #endif
-				snackBar.SetAction(async () =>
+				actionButton.SetAction(async () =>
 				{
 					snackBar.Dismiss();
 					await action.Action();
 					arguments.SetResult(true);
 				});
+
+				snackBar.Actions.Add(actionButton);
 			}
 
 			snackBar.Show();

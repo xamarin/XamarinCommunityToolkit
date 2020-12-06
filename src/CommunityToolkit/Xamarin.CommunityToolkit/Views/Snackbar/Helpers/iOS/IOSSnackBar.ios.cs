@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
+using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
-	class IOSSnackBar
+	class NativeSnackBar
 	{
 		NSTimer timer;
 
-		public Func<Task> Action { get; protected set; }
+		public List<NativeActionButton> Actions { get; protected set; } = new List<NativeActionButton>();
 
 		public Func<Task> TimeoutAction { get; protected set; }
-
-		public string ActionButtonText { get; protected set; }
 
 		public SnackBarAppearance Appearance { get; protected set; } = new SnackBarAppearance();
 
@@ -41,49 +42,31 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			SnackBarView?.Dismiss();
 		}
 
-		public static IOSSnackBar MakeSnackBar(string message)
+		public static NativeSnackBar MakeSnackBar(string message)
 		{
-			var snackBar = new IOSSnackBar { Message = message };
+			var snackBar = new NativeSnackBar { Message = message };
 			return snackBar;
 		}
 
-		public IOSSnackBar SetAppearance(SnackBarAppearance appearance)
-		{
-			Appearance = appearance;
-			return this;
-		}
-
-		public IOSSnackBar SetAction(Func<Task> action)
-		{
-			Action = action;
-			return this;
-		}
-
-		public IOSSnackBar SetTimeoutAction(Func<Task> action)
+		public NativeSnackBar SetTimeoutAction(Func<Task> action)
 		{
 			TimeoutAction = action;
 			return this;
 		}
 
-		public IOSSnackBar SetActionButtonText(string title)
-		{
-			ActionButtonText = title;
-			return this;
-		}
-
-		public IOSSnackBar SetDuration(double duration)
+		public NativeSnackBar SetDuration(double duration)
 		{
 			Duration = duration;
 			return this;
 		}
 
-		public IOSSnackBar SetParentController(UIViewController controller)
+		public NativeSnackBar SetParentController(UIViewController controller)
 		{
 			ParentController = controller;
 			return this;
 		}
 
-		public IOSSnackBar Show()
+		public NativeSnackBar Show()
 		{
 			SnackBarView = GetSnackBarView();
 
@@ -103,7 +86,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		BaseSnackBarView GetSnackBarView()
 		{
-			if (Action != null && !string.IsNullOrEmpty(ActionButtonText))
+			if (Actions.Count() > 0)
 			{
 				return new ActionMessageSnackBarView(this);
 			}
