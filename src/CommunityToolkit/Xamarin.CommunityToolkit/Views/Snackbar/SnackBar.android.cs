@@ -19,12 +19,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var view = Platform.GetRenderer(sender).View;
 			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
-			snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
+			if (arguments.BackgroundColor != Forms.Color.Default)
+			{
+				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
+			}
 
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
 			snackTextView.SetMaxLines(10);
-			snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
-			snackTextView.SetTextSize(ComplexUnitType.Px, (float)arguments.MessageOptions.FontSize);
+			if (arguments.MessageOptions.Foreground != Forms.Color.Default)
+			{
+				snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
+			}
+
+			if (arguments.MessageOptions.Font != Font.Default)
+			{
+				snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.FontSize);
+				snackTextView.SetTypeface(arguments.MessageOptions.Font.ToTypeface(), TypefaceStyle.Normal);
+			}
+
 			snackTextView.LayoutDirection = arguments.IsRtl
 				? global::Android.Views.LayoutDirection.Rtl
 				: global::Android.Views.LayoutDirection.Inherit;
@@ -32,10 +44,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			foreach (var action in arguments.Actions)
 			{
 				snackBar.SetAction(action.Text, async v => await action.Action());
-				snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
+				if (action.ForegroundColor != Forms.Color.Default)
+				{
+					snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
+				}
+
 				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action);
-				snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
-				snackActionButtonView.SetTextSize(ComplexUnitType.Px, (float)action.FontSize);
+				if (arguments.BackgroundColor != Forms.Color.Default)
+				{
+					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
+				}
+
+				if (action.Font != Forms.Font.Default)
+				{
+					snackActionButtonView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
+					snackActionButtonView.SetTypeface(action.Font.ToTypeface(), TypefaceStyle.Normal);
+				}
+				
 				snackActionButtonView.LayoutDirection = arguments.IsRtl
 					? global::Android.Views.LayoutDirection.Rtl
 					: global::Android.Views.LayoutDirection.Inherit;
