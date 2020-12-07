@@ -16,15 +16,15 @@ namespace Xamarin.CommunityToolkit.Converters
 
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (values == null)
+			if (values == null || values.Length == 0)
 				return false;
 
-			var boolValues = values.OfType<bool>();
+			var boolValues = values.OfType<bool>().ToArray();
 
-			if (boolValues.Count() != values.Count())
+			if (boolValues.Length != values.Length)
 				return false;
 
-			var count = boolValues.Where(v => v).Count();
+			var count = boolValues.Count(v => v);
 
 			return ConditionType switch
 			{
