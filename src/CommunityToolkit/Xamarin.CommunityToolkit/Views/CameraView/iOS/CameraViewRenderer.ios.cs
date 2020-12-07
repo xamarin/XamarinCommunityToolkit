@@ -65,7 +65,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			var photoData = e.Item1 as NSData;
-			if (!Element.SavePhotoToFile && photoData != null)
+
+			// See TODO on CameraView.SavePhotoToFile
+			// if (!Element.SavePhotoToFile && photoData != null)
+			if (photoData != null)
 			{
 				var data = UIImage.LoadFromData(photoData).AsJPEG().ToArray();
 				Device.BeginInvokeOnMainThread(() =>
@@ -195,14 +198,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		async void HandleShutter(object sender, EventArgs e)
 		{
-			switch (Element.CaptureOptions)
+			switch (Element.CaptureMode)
 			{
-				case CameraCaptureOptions.Default:
-				case CameraCaptureOptions.Photo:
+				case CameraCaptureMode.Default:
+				case CameraCaptureMode.Photo:
 					if (Control != null)
 						await Control.TakePhoto();
 					break;
-				case CameraCaptureOptions.Video:
+				case CameraCaptureMode.Video:
 					if (Control == null)
 						return;
 
