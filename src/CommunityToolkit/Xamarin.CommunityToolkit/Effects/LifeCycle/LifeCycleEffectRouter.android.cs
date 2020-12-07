@@ -31,15 +31,14 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void OnNativeViewViewAttachedToWindow(object sender, View.ViewAttachedToWindowEventArgs e) => lifeCycleEffect.RaiseLoadedEvent(Element);
 
-		void OnNativeViewViewDetachedFromWindow(object sender, View.ViewDetachedFromWindowEventArgs e) => lifeCycleEffect.RaiseUnloadedEvent(Element);
-
-		protected override void OnDetached()
+		void OnNativeViewViewDetachedFromWindow(object sender, View.ViewDetachedFromWindowEventArgs e)
 		{
 			lifeCycleEffect.RaiseUnloadedEvent(Element);
-			nativeView.ViewAttachedToWindow -= OnNativeViewViewAttachedToWindow;
 			nativeView.ViewDetachedFromWindow -= OnNativeViewViewDetachedFromWindow;
 			nativeView = null;
 			lifeCycleEffect = null;
 		}
+
+		protected override void OnDetached() => nativeView.ViewAttachedToWindow -= OnNativeViewViewAttachedToWindow;
 	}
 }

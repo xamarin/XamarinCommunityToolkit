@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
-		const NSKeyValueObservingOptions observingOptions = NSKeyValueObservingOptions.Initial | NSKeyValueObservingOptions.OldNew | NSKeyValueObservingOptions.Prior; 
+		const NSKeyValueObservingOptions observingOptions = NSKeyValueObservingOptions.Initial | NSKeyValueObservingOptions.OldNew | NSKeyValueObservingOptions.Prior;
 		LifeCycleEffect lifeCycleEffect;
 		IDisposable isLoadedObserverDisposable;
 
@@ -31,15 +31,16 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (!nSObservedChange?.NewValue?.Equals(NSNull.Null) ?? false)
 				lifeCycleEffect.RaiseLoadedEvent(Element);
 			else if (!nSObservedChange?.OldValue?.Equals(NSNull.Null) ?? false)
+			{
 				lifeCycleEffect.RaiseUnloadedEvent(Element);
+				isLoadedObserverDisposable.Dispose();
+				isLoadedObserverDisposable = null;
+				lifeCycleEffect = null;
+			}
 		}
 
 		protected override void OnDetached()
 		{
-			lifeCycleEffect.RaiseUnloadedEvent(Element);
-			isLoadedObserverDisposable.Dispose();
-			isLoadedObserverDisposable = null;
-			lifeCycleEffect = null;
 		}
 	}
 }
