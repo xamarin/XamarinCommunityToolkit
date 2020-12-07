@@ -41,8 +41,7 @@ where `message` is your text, and duration is optional parameter. Default durati
     var messageOptions = new MessageOptions
     {
         Foreground = Color.Black,
-        FontSize = 14,
-        FontFamily = "Arial",
+        Font = Font.OfSize("Arial", 14),
         Message = "My text"
     };
     var options = new ToastOptions
@@ -69,8 +68,7 @@ where `message` is your text, `actionButtonText` is the text for the button, `ac
     var messageOptions = new MessageOptions
     {
         Foreground = Color.Black,
-        FontSize = 14,
-        FontFamily = "Arial",
+        Font = Font.OfSize("Arial", 14),
         Message = "My text"
     };
     var actionOptions = new List<SnackBarActionOptions>
@@ -79,8 +77,7 @@ where `message` is your text, `actionButtonText` is the text for the button, `ac
         {
             ForegroundColor = Color.Black,
             BackgroundColor = Color.White,
-            FontSize = 14,
-            FontFamily = "Arial",
+            FontFamily = Font.OfSize("Arial", 14),
             Text = "My text",
             Action = () => // null by default
             {
