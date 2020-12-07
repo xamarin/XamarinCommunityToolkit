@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews;
+using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 {
-	class MacOSSnackBar
+	class NativeSnackBar
 	{
 		NSTimer timer;
 
-		public Func<Task> Action { get; protected set; }
-
 		public Func<Task> TimeoutAction { get; protected set; }
 
-		public string ActionButtonText { get; protected set; }
+		public List<NativeActionButton> Actions { get; protected set; } = new List<NativeActionButton>();
 
-		public SnackBarAppearance Appearance { get; protected set; } = new SnackBarAppearance();
+		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
 
 		public double Duration { get; protected set; }
 
@@ -37,43 +38,25 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 			SnackBarView?.Dismiss();
 		}
 
-		public static MacOSSnackBar MakeSnackBar(string message)
+		public static NativeSnackBar MakeSnackBar(string message)
 		{
-			var snackbar = new MacOSSnackBar { Message = message };
+			var snackbar = new NativeSnackBar { Message = message };
 			return snackbar;
 		}
 
-		public MacOSSnackBar SetAction(Func<Task> action)
-		{
-			Action = action;
-			return this;
-		}
-
-		public MacOSSnackBar SetTimeoutAction(Func<Task> action)
+		public NativeSnackBar SetTimeoutAction(Func<Task> action)
 		{
 			TimeoutAction = action;
 			return this;
 		}
 
-		public MacOSSnackBar SetActionButtonText(string title)
-		{
-			ActionButtonText = title;
-			return this;
-		}
-
-		public MacOSSnackBar SetDuration(double duration)
+		public NativeSnackBar SetDuration(double duration)
 		{
 			Duration = duration;
 			return this;
 		}
 
-		public MacOSSnackBar SetAppearance(SnackBarAppearance appearance)
-		{
-			Appearance = appearance;
-			return this;
-		}
-
-		public MacOSSnackBar Show()
+		public NativeSnackBar Show()
 		{
 			SnackBarView = GetSnackBarView();
 
@@ -92,7 +75,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		BaseSnackBarView GetSnackBarView()
 		{
-			if (Action != null && !string.IsNullOrEmpty(ActionButtonText))
+			if (Actions.Count() > 0)
 			{
 				return new ActionMessageSnackBarView(this);
 			}

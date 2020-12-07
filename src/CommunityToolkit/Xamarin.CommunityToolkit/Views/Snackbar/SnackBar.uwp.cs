@@ -36,7 +36,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal void Show(Forms.Page page, SnackBarOptions arguments)
 		{
-
 			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;
 			var grid = FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea").Parent as Grid;
