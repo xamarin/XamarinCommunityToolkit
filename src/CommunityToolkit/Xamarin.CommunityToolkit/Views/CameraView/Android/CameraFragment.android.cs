@@ -283,13 +283,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void UpdateCaptureOptions()
 		{
-			switch (Element.CaptureOptions)
+			switch (Element.CaptureMode)
 			{
 				default:
-				case CameraCaptureOptions.Photo:
+				case CameraCaptureMode.Photo:
 					cameraTemplate = CameraTemplate.Preview;
 					break;
-				case CameraCaptureOptions.Video:
+				case CameraCaptureMode.Video:
 					cameraTemplate = CameraTemplate.Record;
 					break;
 			}
@@ -338,13 +338,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			readerListener.Photo += (_, bytes) =>
 			{
 				string filePath = null;
-				if (Element.SavePhotoToFile)
+
+				// See TODO on CameraView.SavePhotoToFile
+				/*if (Element.SavePhotoToFile)
 				{
 					filePath = ConstructMediaFilename(null, extension: "jpg");
 					File.WriteAllBytes(filePath, bytes);
 				}
 				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, new Tuple<string, byte[]>(filePath, Element.SavePhotoToFile ? null : bytes));
+				OnPhoto(this, new Tuple<string, byte[]>(filePath, Element.SavePhotoToFile ? null : bytes));*/
+
+				Sound(MediaActionSoundType.ShutterClick);
+				OnPhoto(this, new Tuple<string, byte[]>(filePath, bytes));
 			};
 
 			photoReader.SetOnImageAvailableListener(readerListener, backgroundHandler);
@@ -712,7 +717,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			cameraPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.Camera) == Permission.Granted;
 			if (!cameraPermissionsGranted)
 				permissionsToRequest.Add(Manifest.Permission.Camera);
-			if (Element.CaptureOptions == CameraCaptureOptions.Video)
+			if (Element.CaptureMode == CameraCaptureMode.Video)
 			{
 				audioPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.RecordAudio) == Permission.Granted;
 				if (!audioPermissionsGranted)
