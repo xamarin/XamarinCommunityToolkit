@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					snackActionButtonView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
 					snackActionButtonView.SetTypeface(action.Font.ToTypeface(), TypefaceStyle.Normal);
 				}
-				
+
 				snackActionButtonView.LayoutDirection = arguments.IsRtl
 					? global::Android.Views.LayoutDirection.Rtl
 					: global::Android.Views.LayoutDirection.Inherit;
