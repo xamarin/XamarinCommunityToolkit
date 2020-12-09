@@ -1,6 +1,6 @@
 ﻿namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public enum CameraCaptureOptions
+	public enum CameraCaptureMode
 	{
 		Default,
 		Photo,

@@ -196,7 +196,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void PlayedToEnd(NSNotification notification)
 		{
-			if (Element == null)
+			if (Element == null || notification.Object != avPlayerViewController.Player?.CurrentItem)
 				return;
 
 			if (Element.IsLooping)

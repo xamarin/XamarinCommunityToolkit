@@ -4,42 +4,37 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
 	class MessageSnackBarView : BaseSnackBarView
 	{
-		public MessageSnackBarView(MacOSSnackBar snackBar)
+		public MessageSnackBarView(NativeSnackBar snackBar)
 			: base(snackBar)
 		{
-		}
-
-		public NSTextField MessageLabel { get; set; }
-
-		protected override void ConstrainChildren()
-		{
-			base.ConstrainChildren();
-
-			MessageLabel.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeading).Active =
-				true;
-			MessageLabel.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingTrailing)
-				.Active = true;
-			MessageLabel.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom).Active =
-				true;
-			MessageLabel.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
 		}
 
 		protected override void Initialize()
 		{
 			base.Initialize();
-
-			MessageLabel = new NSTextField
+			var messageLabel = new NSTextField
 			{
 				StringValue = SnackBar.Message,
 				Selectable = false,
-				Font = NSFont.FromFontName(SnackBar.Appearance.TextFontName, SnackBar.Appearance.TextFontSize),
-				BackgroundColor = SnackBar.Appearance.BackgroundColor,
-				TextColor = SnackBar.Appearance.TextForeground,
-				Alignment = SnackBar.Appearance.MessageTextAlignment,
-				LineBreakMode = SnackBar.Appearance.DismissButtonLineBreakMode,
+				Alignment = SnackBar.Appearance.TextAlignment,
 				TranslatesAutoresizingMaskIntoConstraints = false
 			};
-			AddSubview(MessageLabel);
+			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor)
+			{
+				messageLabel.BackgroundColor = SnackBar.Appearance.Background;
+			}
+
+			if (SnackBar.Appearance.Foreground != NativeSnackBarAppearance.DefaultColor)
+			{
+				messageLabel.TextColor = SnackBar.Appearance.Foreground;
+			}
+
+			if (SnackBar.Appearance.Font != NativeSnackBarAppearance.DefaultFont)
+			{
+				messageLabel.Font = SnackBar.Appearance.Font;
+			}
+
+			StackView.AddArrangedSubview(messageLabel);
 		}
 	}
 }
