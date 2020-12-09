@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			string path = null,
 			byte[] imageData = null)
 		{
-			//Path = path;
+			// Path = path;
 			this.path = path;
 			ImageData = imageData;
 			imageSource = new Lazy<ImageSource>(GetImageSource);
@@ -24,10 +24,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		// TODO See note on CameraView.SavePhotoToFile.
 		// Taken out Path for now, just return the stream data
+
 		/// <summary>
 		/// Path of the saved file, only filled when taking a video or a picture and SavePhotoToFile is true
 		/// </summary>
-		//public string Path { get; }
+		// public string Path { get; }
 
 		/// <summary>
 		/// Raw image data, only filled when taking a picture and SavePhotoToFile is false
