@@ -371,6 +371,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				e.OldElement.StateRequested -= MediaElementStateRequested;
 				e.OldElement.PositionRequested -= MediaElementPositionRequested;
 				SetKeepScreenOn(false);
+				RemoveStatusObserver();
 
 				// stop video if playing
 				if (avPlayerViewController?.Player?.CurrentItem != null)
