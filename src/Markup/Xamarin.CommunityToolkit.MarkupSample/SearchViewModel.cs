@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 
         void Like(Tweet tweet) => tweet.IsLikedByMe = !tweet.IsLikedByMe;
 
-        Task OpenHelp() => Launcher.OpenAsync(new Uri("https://github.com/VincentH-Net/xamarin-communitytoolkit/blob/master/docs/markup.md"));
+        Task OpenHelp() => Launcher.OpenAsync(new Uri("https://github.com/MicrosoftDocs/xamarin-communitytoolkit/blob/master/docs/markup.md"));
         Task OpenTwitterSearch() => Launcher.OpenAsync(new Uri("https://twitter.com/search?q=%23CSharpForMarkup"));
 
         public class Tweet : BaseViewModel

@@ -23,7 +23,11 @@
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
       
+      
+      
       <!-- See if we can host these on MS docs? -->
+    
+    
     
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
@@ -68,7 +72,7 @@
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1709-pre4" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1791-pre5" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
@@ -197,5 +201,11 @@
   <ItemGroup>
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="5.0.0.1791-pre5" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="5.0.0.1791-pre5" />
   </ItemGroup>
 </Project>
