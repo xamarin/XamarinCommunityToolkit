@@ -234,7 +234,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BadgeIndicatorBackground.BorderColor = BorderColor;
 			BadgeIndicatorBackground.HasShadow = HasShadow;
 
-			BadgeText.Text = string.IsNullOrEmpty(Text) ? "0" : Text;
+			BadgeText.Text = Text;
 			BadgeText.TextColor = TextColor;
 
 			BadgeContent.BatchCommit();
@@ -272,7 +272,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				const double Padding = 6;
 				var size = Math.Max(BadgeText.Height, BadgeText.Width) + Padding;
-				BadgeIndicatorBackground.HeightRequest = BadgeText.Height + Padding;
+				BadgeIndicatorBackground.HeightRequest = size;
 				var margins = GetMargins(size);
 				containerMargin = margins.Item1;
 				contentMargin = margins.Item2;
@@ -328,12 +328,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (string.IsNullOrEmpty(badgeText))
 			{
-				IsVisible = false;
+				BadgeIndicatorBackground.IsVisible = false;
 				return;
 			}
 
 			var badgeIsVisible = !AutoHide || !badgeText.Trim().Equals("0");
-
+            BadgeIndicatorBackground.IsVisible = badgeIsVisible;
+			
 			if (IsAnimated)
 			{
 				if (badgeIsVisible == isVisible)
