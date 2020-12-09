@@ -333,7 +333,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			var badgeIsVisible = !AutoHide || !badgeText.Trim().Equals("0");
-            BadgeIndicatorBackground.IsVisible = badgeIsVisible;
+			BadgeIndicatorBackground.IsVisible = badgeIsVisible;
 			
 			if (IsAnimated)
 			{
