@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
     public class UniformGrid : Layout<View>
     {
         double childWidth;
-        
+
         double childHeight;
 
         protected override void LayoutChildren(double x, double y, double width, double height)
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
                 ? visibleChildrenCount
                 : Math.Min((int)(widthConstraint / maxChildWidth), visibleChildrenCount);
 
-        int GetRowsCount(int visibleChildrenCount, int columnsCount) 
+        int GetRowsCount(int visibleChildrenCount, int columnsCount)
             => (int)Math.Ceiling((double)visibleChildrenCount / columnsCount);
 	}
 }
