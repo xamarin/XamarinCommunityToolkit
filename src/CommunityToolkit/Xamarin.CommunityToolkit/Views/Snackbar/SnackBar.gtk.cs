@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBarLayout.ModifyBg(StateType.Normal, arguments.BackgroundColor.ToGtkColor());
 
 			var message = new Gtk.Label(arguments.MessageOptions.Message);
-			message.ModifyFont(new FontDescription { AbsoluteSize = arguments.MessageOptions.FontSize, Family = arguments.MessageOptions.FontFamily });
+			message.ModifyFont(new FontDescription { AbsoluteSize = arguments.MessageOptions.Font.FontSize, Family = arguments.MessageOptions.Font.FontFamily });
 			message.ModifyFg(StateType.Normal, arguments.MessageOptions.Foreground.ToGtkColor());
 			snackBarLayout.Add(message);
 			snackBarLayout.SetChildPacking(message, false, false, 0, PackType.Start);
@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					Label = action.Text
 				};
-				button.ModifyFont(new FontDescription { AbsoluteSize = action.FontSize, Family = action.FontFamily });
+				button.ModifyFont(new FontDescription { AbsoluteSize = action.Font.FontSize, Family = action.Font.FontFamily });
 				button.ModifyBg(StateType.Normal, action.BackgroundColor.ToGtkColor());
 				button.ModifyFg(StateType.Normal, action.ForegroundColor.ToGtkColor());
 

@@ -32,12 +32,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		async void DisplaySnackBarAdvancedClicked(object sender, EventArgs args)
 		{
+			const string SmileIcon = "\uf118";
 			var messageOptions = new MessageOptions
 			{
 				Foreground = Color.DeepSkyBlue,
-				FontSize = 40,
-				FontFamily = "Times New Roman",
-				Message = GenerateLongText(5)
+				Font = Font.OfSize("FARegular", 40),
+				Message = SmileIcon
 			};
 
 			var actionOptions = new List<SnackBarActionOptions>
@@ -46,8 +46,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				{
 					ForegroundColor = Color.Red,
 					BackgroundColor = Color.Green,
-					FontSize = 40,
-					FontFamily = "Times New Roman",
+					Font = Font.OfSize("Times New Roman", 15),
 					Text = "Action1",
 					Action = () =>
 					{
@@ -59,8 +58,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				{
 					ForegroundColor = Color.Green,
 					BackgroundColor = Color.Red,
-					FontSize = 20,
-					FontFamily = "Times New Roman",
+					Font = Font.OfSize("Times New Roman", 20),
 					Text = "Action2",
 					Action = () =>
 					{

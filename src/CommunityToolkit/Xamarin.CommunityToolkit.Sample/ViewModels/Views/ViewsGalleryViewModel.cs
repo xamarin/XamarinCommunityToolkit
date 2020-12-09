@@ -17,6 +17,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(CameraViewPage), "CameraView",
 				"The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!"),
 
+			new SectionModel(typeof(DockLayoutPage), "DockLayout",
+ 				"Makes it easy to dock content in all four directions (top, bottom, left and right)"),
+
 			new SectionModel(typeof(GravatarImagePage), "GravatarImageSource",
 				"The GravatarImageSource allows you to easily utilize a users Gravatar image from Gravatar.com using nothing but their email address"),
 
@@ -42,7 +45,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"A collection of attached properties that let you specify one or more state views for any of your existing layouts."),
 
 			new SectionModel(typeof(TabViewPage), "TabView",
-				"A control to display a set of tabs and their respective content.")
+				"A control to display a set of tabs and their respective content."),
+
+			new SectionModel(typeof(UniformGridPage), "UniformGrid",
+				"The UniformGrid is just like the Grid, with all rows and columns will have the same size.")
 		};
 	}
 }

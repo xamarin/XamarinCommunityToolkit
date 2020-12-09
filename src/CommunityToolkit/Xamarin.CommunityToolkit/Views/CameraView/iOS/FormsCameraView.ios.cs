@@ -24,6 +24,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		AVCaptureDevicePosition? lastPosition;
 		bool isBusy;
 		bool isAvailable;
+		bool isDisposed;
 		CameraFlashMode flashMode;
 		readonly float imgScale = 1f;
 
@@ -305,45 +306,41 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void SwitchFlash(CameraFlashMode newFlashMode)
 		{
-			var isSupported = newFlashMode == CameraFlashMode.Torch
-				? device.TorchAvailable
-				: device.FlashAvailable;
-
-			if (isSupported && isAvailable && device != null && newFlashMode != flashMode)
-			{
-				flashMode = newFlashMode;
-				SwitchFlash();
-			}
+			if (isAvailable && device != null && newFlashMode != flashMode)
+				UpdateFlash(newFlashMode);
 		}
 
-		void SwitchFlash()
+		void UpdateFlash(CameraFlashMode? newFlashMode = null)
 		{
 			try
 			{
+				var desiredFlashMode = newFlashMode ?? flashMode;
+
 				device.LockForConfiguration(out var err);
 
-				switch (flashMode)
+				if (CheckFlashModeSupported(desiredFlashMode))
 				{
-					default:
-					case CameraFlashMode.Off:
-						if (device.IsFlashModeSupported(AVCaptureFlashMode.Off))
+					switch (desiredFlashMode)
+					{
+						default:
+						case CameraFlashMode.Off:
 							device.FlashMode = AVCaptureFlashMode.Off;
-						break;
-					case CameraFlashMode.On:
-						if (device.IsFlashModeSupported(AVCaptureFlashMode.On))
+							break;
+						case CameraFlashMode.On:
 							device.FlashMode = AVCaptureFlashMode.On;
-						break;
-					case CameraFlashMode.Auto:
-						if (device.IsFlashModeSupported(AVCaptureFlashMode.Auto))
+							break;
+						case CameraFlashMode.Auto:
 							device.FlashMode = AVCaptureFlashMode.Auto;
-						break;
-					case CameraFlashMode.Torch:
-						if (device.IsTorchModeSupported(AVCaptureTorchMode.On))
+							break;
+						case CameraFlashMode.Torch:
 							device.TorchMode = AVCaptureTorchMode.On;
-						break;
+							break;
+					}
+
+					flashMode = desiredFlashMode;
 				}
 
-				if (flashMode != CameraFlashMode.Torch &&
+				if (desiredFlashMode != CameraFlashMode.Torch &&
 					device.TorchMode == AVCaptureTorchMode.On &&
 					device.IsTorchModeSupported(AVCaptureTorchMode.Off))
 					device.TorchMode = AVCaptureTorchMode.Off;
@@ -355,6 +352,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				LogError("Failed to switch flash on/off", error);
 			}
 		}
+
+		bool CheckFlashModeSupported(CameraFlashMode flashMode)
+			=> flashMode switch
+			{
+				CameraFlashMode.Off => device.IsFlashModeSupported(AVCaptureFlashMode.Off),
+				CameraFlashMode.On => device.IsFlashModeSupported(AVCaptureFlashMode.On),
+				CameraFlashMode.Auto => device.IsFlashModeSupported(AVCaptureFlashMode.Auto),
+				CameraFlashMode.Torch => device.IsTorchModeSupported(AVCaptureTorchMode.On),
+				_ => device.IsFlashModeSupported(AVCaptureFlashMode.Off)
+			};
 
 		public bool VideoStabilization { get; set; }
 
@@ -442,7 +449,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			isAvailable = device != null;
 
 			InitializeCamera();
-			SwitchFlash();
+			UpdateFlash();
 		}
 
 		void InitializeCamera()
@@ -522,21 +529,36 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (input != null)
 					captureSession.RemoveInput(input);
 			}
+
 			input?.Dispose();
+			input = null;
+
 			imageOutput?.Dispose();
+			imageOutput = null;
+
 			photoOutput?.Dispose();
+			photoOutput = null;
+
 			videoOutput?.Dispose();
+			videoOutput = null;
 		}
 
 		protected override void Dispose(bool disposing)
 		{
+			if (isDisposed)
+				return;
+
+			isDisposed = true;
+
 			if (device?.TorchMode == AVCaptureTorchMode.On)
 			{
 				flashMode = CameraFlashMode.Off;
-				SwitchFlash();
+				UpdateFlash();
 			}
 
 			ClearCaptureSession();
+			captureSession?.Dispose();
+
 			base.Dispose(disposing);
 		}
 	}
