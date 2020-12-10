@@ -114,11 +114,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public double Volume
 		{
-			get
-			{
-				VolumeRequested?.Invoke(this, EventArgs.Empty);
-				return (double)GetValue(VolumeProperty);
-			}
+			get => (double)GetValue(VolumeProperty);
 			set => SetValue(VolumeProperty, value);
 		}
 
@@ -127,8 +123,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		internal event EventHandler<StateRequested> StateRequested;
 
 		internal event EventHandler PositionRequested;
-
-		internal event EventHandler VolumeRequested;
 
 		public event EventHandler MediaEnded;
 
