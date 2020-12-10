@@ -80,7 +80,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 						Clickable = false,
 						Focusable = false,
 					};
-					View.LayoutChange += LayoutChange;
+					View.LayoutChange += OnLayoutChange;
 					rippleView.Background = ripple;
 					Group.AddView(rippleView);
 					rippleView.BringToFront();
@@ -106,12 +106,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					accessibilityManager.RemoveTouchExplorationStateChangeListener(accessibilityListener);
 					accessibilityListener.Dispose();
 					accessibilityManager = null;
-					accessibilityManager = null;
+					accessibilityListener = null;
 				}
 
 				if (View != null)
 				{
-					View.LayoutChange -= LayoutChange;
+					View.LayoutChange -= OnLayoutChange;
 					View.Touch -= OnTouch;
 					View.Click -= OnClick;
 				}
@@ -129,6 +129,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 						Group?.RemoveView(rippleView);
 						rippleView.Dispose();
 					}
+					rippleView = null;
 					ripple?.Dispose();
 				}
 			}
@@ -352,7 +353,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				new[] { (int)nativeAnimationColor.ToAndroid() });
 		}
 
-		void LayoutChange(object sender, AView.LayoutChangeEventArgs e)
+		void OnLayoutChange(object sender, AView.LayoutChangeEventArgs e)
 		{
 			var group = (ViewGroup)sender;
 			if (group == null || (Group as IVisualElementRenderer)?.Element == null)
