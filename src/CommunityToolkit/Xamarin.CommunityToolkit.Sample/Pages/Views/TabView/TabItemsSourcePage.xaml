@@ -60,12 +60,20 @@
         </ResourceDictionary>
     </pages:BasePage.Resources>
     <pages:BasePage.Content>
-        <xct:TabView
+        <Grid>
+            
+            <xct:TabView
             TabItemsSource="{Binding Monkeys}"
             TabStripPlacement="Bottom"
             TabStripBackgroundColor="Blue"
             TabIndicatorColor="Yellow"
             TabViewItemDataTemplate="{StaticResource TabViewItemTemplate}"
             TabContentDataTemplate="{StaticResource TabContentTemplate}" />
+
+            <Button Text="Update data" Command="{Binding UpdateDataCommand}"
+                    HorizontalOptions="Center" VerticalOptions="Start"
+                    />
+
+        </Grid>
     </pages:BasePage.Content>
 </pages:BasePage>
