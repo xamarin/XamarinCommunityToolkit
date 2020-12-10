@@ -500,6 +500,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tabStripContent.Children.Count > 0)
 				tabStripContent.Children.Clear();
 
+			tabStripContent.ColumnDefinitions.Clear();
+
 			var hasItems = TabItems.Count > 0 || TabItemsSource.Count > 0;
 			tabStripContainer.IsVisible = hasItems;
 		}

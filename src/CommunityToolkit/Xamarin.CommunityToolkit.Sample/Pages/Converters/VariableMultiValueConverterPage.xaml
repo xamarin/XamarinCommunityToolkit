@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.VariableMultiValueConverterPage"
+                Title="VariableMultiValueConverter">
+    <pages:BasePage.BindingContext>
+        <vm:VariableMultiValueConverterViewModel />
+    </pages:BasePage.BindingContext>
+    <pages:BasePage.Resources>
+        <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All" />
+        <xct:VariableMultiValueConverter x:Key="AnyTrueConverter" ConditionType="Any" />
+        <xct:VariableMultiValueConverter x:Key="TwoTrueConverter" ConditionType="Exact" Count="2" />
+    </pages:BasePage.Resources>
+    <pages:BasePage.Content>
+        <StackLayout Padding="40" >
+            <Label Text="Check the checkboxes below. Checking the checkboxes should light up the boxes below them to indicate which condition has been met."/>
+
+            <Grid Margin="0,32,0,0" RowDefinitions="Auto, Auto, 80">
+                <CheckBox HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" IsChecked="{Binding CheckBoxValue1}" />
+                <CheckBox HorizontalOptions="Center" Grid.Row="0" Grid.Column="1" IsChecked="{Binding CheckBoxValue2}" />
+                <CheckBox HorizontalOptions="Center" Grid.Row="0" Grid.Column="2" IsChecked="{Binding CheckBoxValue3}" />
+
+                <Label Margin="0,40,0,0" HorizontalOptions="Center" Grid.Row="1" Grid.Column="0" Text="All Checked" />
+                <Label Margin="0,40,0,0" HorizontalOptions="Center" Grid.Row="1" Grid.Column="1" Text="Any Checked" />
+                <Label Margin="0,40,0,0" HorizontalOptions="Center" Grid.Row="1" Grid.Column="2" Text="2 Checked" />
+
+                <BoxView Grid.Row="2" Grid.Column="0" BackgroundColor="Red" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Value="true">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource AllTrueConverter}">
+                                    <Binding Path="CheckBoxValue1" />
+                                    <Binding Path="CheckBoxValue2" />
+                                    <Binding Path="CheckBoxValue3" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="BackgroundColor" Value="LimeGreen" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+                <BoxView Grid.Row="2" Grid.Column="1" BackgroundColor="Red" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Value="true">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource AnyTrueConverter}">
+                                    <Binding Path="CheckBoxValue1" />
+                                    <Binding Path="CheckBoxValue2" />
+                                    <Binding Path="CheckBoxValue3" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="BackgroundColor" Value="LimeGreen" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+                <BoxView Grid.Row="2" Grid.Column="2" BackgroundColor="Red" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="80" WidthRequest="80">
+                    <BoxView.Triggers>
+                        <DataTrigger TargetType="BoxView" Value="true">
+                            <DataTrigger.Binding>
+                                <MultiBinding Converter="{StaticResource TwoTrueConverter}">
+                                    <Binding Path="CheckBoxValue1" />
+                                    <Binding Path="CheckBoxValue2" />
+                                    <Binding Path="CheckBoxValue3" />
+                                </MultiBinding>
+                            </DataTrigger.Binding>
+                            <Setter Property="BackgroundColor" Value="LimeGreen" />
+                        </DataTrigger>
+                    </BoxView.Triggers>
+                </BoxView>
+            </Grid>
+        </StackLayout>
+    </pages:BasePage.Content>
+</pages:BasePage>

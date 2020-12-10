@@ -85,7 +85,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			var parent = Element?.Parent;
 			while (parent != null)
 			{
-				if (parent is MasterDetailPage)
+				if (parent is FlyoutPage)
 				{
 					var velocity = panGesture.VelocityInView(this);
 					return Abs(velocity.Y) > Abs(velocity.X);

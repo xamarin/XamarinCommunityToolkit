@@ -25,9 +25,9 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			var captureVideo = e.Value;
 
 			if (captureVideo)
-				cameraView.CaptureOptions = CameraCaptureOptions.Video;
+				cameraView.CaptureMode = CameraCaptureMode.Video;
 			else
-				cameraView.CaptureOptions = CameraCaptureOptions.Photo;
+				cameraView.CaptureMode = CameraCaptureMode.Photo;
 
 			previewPicture.IsVisible = !captureVideo;
 
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		void DoCameraThings_Clicked(object sender, EventArgs e)
 		{
 			cameraView.Shutter();
-			doCameraThings.Text = cameraView.CaptureOptions == CameraCaptureOptions.Video
+			doCameraThings.Text = cameraView.CaptureMode == CameraCaptureMode.Video
 				? "Stop Recording"
 				: "Snap Picture";
 		}
@@ -69,16 +69,16 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		void CameraView_MediaCaptured(object sender, MediaCapturedEventArgs e)
 		{
-			switch (cameraView.CaptureOptions)
+			switch (cameraView.CaptureMode)
 			{
 				default:
-				case CameraCaptureOptions.Default:
-				case CameraCaptureOptions.Photo:
+				case CameraCaptureMode.Default:
+				case CameraCaptureMode.Photo:
 					previewPicture.IsVisible = true;
 					previewPicture.Source = e.Image;
 					doCameraThings.Text = "Snap Picture";
 					break;
-				case CameraCaptureOptions.Video:
+				case CameraCaptureMode.Video:
 					previewPicture.IsVisible = false;
 					doCameraThings.Text = "Start Recording";
 					break;
