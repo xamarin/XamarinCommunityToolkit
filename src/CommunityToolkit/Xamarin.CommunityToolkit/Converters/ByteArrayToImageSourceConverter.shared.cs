@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters

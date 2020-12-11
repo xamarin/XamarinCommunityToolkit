@@ -5,7 +5,7 @@ using Xamarin.Forms.Internals;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[Preserve(AllMembers = true)]
-	public class CupertinoTabViewItemTemplate : Grid
+	class CupertinoTabViewItemTemplate : Grid
 	{
 		readonly VisualFeedbackEffect visualFeedback;
 

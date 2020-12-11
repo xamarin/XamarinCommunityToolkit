@@ -1,9 +1,7 @@
-﻿using System.ComponentModel;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.UI.Views
+namespace Xamarin.CommunityToolkit.UI.Views.Internals
 {
-	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class BaseTemplatedView<TControl> : TemplatedView where TControl : View, new()
 	{
 		protected TControl Control { get; private set; }
