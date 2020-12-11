@@ -10,27 +10,6 @@
     <EmbeddedResource Remove="resources\**" />
     <None Remove="resources\**" />
     <EmbeddedResource Include="Images\**" />
-    <EmbeddedResource Update="Pages\Effects\LifeCycleEffectPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resx\AppResources.es.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.es.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Compile Update="Resx\AppResources.es.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>AppResources.es.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Update="Resx\AppResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Compile Update="Resx\AppResources.Designer.cs">
-      <DependentUpon>AppResources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <EmbeddedResource Include="Fonts\**" />
   </ItemGroup>
   <ItemGroup>
