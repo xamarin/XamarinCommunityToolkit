@@ -43,7 +43,8 @@ namespace Xamarin.CommunityToolkit.UnitTests
 
 			foreach (var type in allTheTypes.Where(t => t.Name.EndsWith("Extension") && t.GetInterface("IMarkupExtension") != null))
 			{
-				Assert.True(type.Namespace.Equals("Xamarin.CommunityToolkit.Extensions"),
+				Assert.True(type.Namespace.Equals("Xamarin.CommunityToolkit.Extensions") ||
+					type.Namespace.Equals("Xamarin.CommunityToolkit.Extensions.Internals"),
 					$"{type.FullName} not in nameof(Xamarin.CommunityToolkit.Extensions namespace");
 			}
 		}
@@ -67,7 +68,8 @@ namespace Xamarin.CommunityToolkit.UnitTests
 
 			foreach (var type in allTheTypes.Where(t => t.IsSubclassOf(typeof(View))))
 			{
-				Assert.True(type.Namespace.Equals("Xamarin.CommunityToolkit.UI.Views"),
+				Assert.True(type.Namespace.Equals("Xamarin.CommunityToolkit.UI.Views") ||
+					type.Namespace.Equals("Xamarin.CommunityToolkit.UI.Views.Internals"),
 					$"{type.FullName} not in Xamarin.CommunityToolkit.UI.Views namespace");
 			}
 		}
