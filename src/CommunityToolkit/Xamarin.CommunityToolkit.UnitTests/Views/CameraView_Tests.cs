@@ -15,8 +15,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			Assert.False(camera.IsBusy);
 			Assert.False(camera.IsAvailable);
 			Assert.Equal(CameraOptions.Default, camera.CameraOptions);
-			Assert.False(camera.SavePhotoToFile);
-			Assert.Equal(CameraCaptureOptions.Default, camera.CaptureOptions);
+
+			// See TODO on CameraView.SavePhotoToFile
+			// Assert.False(camera.SavePhotoToFile);
+
+			Assert.Equal(CameraCaptureMode.Default, camera.CaptureMode);
 			Assert.Equal(CameraFlashMode.Off, camera.FlashMode);
 		}
 

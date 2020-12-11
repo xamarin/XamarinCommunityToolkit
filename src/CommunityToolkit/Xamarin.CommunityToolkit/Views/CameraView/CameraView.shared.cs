@@ -52,19 +52,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(CameraOptionsProperty, value);
 		}
 
-		public static readonly BindableProperty SavePhotoToFileProperty = BindableProperty.Create(nameof(SavePhotoToFile), typeof(bool), typeof(CameraView), false);
+		// TODO: See if we re-add this and implement it in a sane way
+		// Right now this doesn't work on all platforms and the user has no control over where things are saved
+		/*public static readonly BindableProperty SavePhotoToFileProperty = BindableProperty.Create(nameof(SavePhotoToFile), typeof(bool), typeof(CameraView), false);
 
 		public bool SavePhotoToFile
 		{
 			get => (bool)GetValue(SavePhotoToFileProperty);
 			set => SetValue(SavePhotoToFileProperty, value);
-		}
+		}*/
 
-		public static readonly BindableProperty CaptureOptionsProperty = BindableProperty.Create(nameof(CaptureOptions), typeof(CameraCaptureOptions), typeof(CameraView), CameraCaptureOptions.Default);
+		public static readonly BindableProperty CaptureOptionsProperty = BindableProperty.Create(nameof(CaptureMode), typeof(CameraCaptureMode), typeof(CameraView), CameraCaptureMode.Default);
 
-		public CameraCaptureOptions CaptureOptions
+		public CameraCaptureMode CaptureMode
 		{
-			get => (CameraCaptureOptions)GetValue(CaptureOptionsProperty);
+			get => (CameraCaptureMode)GetValue(CaptureOptionsProperty);
 			set => SetValue(CaptureOptionsProperty, value);
 		}
 

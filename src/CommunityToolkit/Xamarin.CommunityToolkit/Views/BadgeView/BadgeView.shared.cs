@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -168,6 +169,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BadgeIndicatorBackground.Content = BadgeText;
 
 			BadgeIndicatorContainer.Children.Add(BadgeIndicatorBackground);
+			BadgeIndicatorContainer.PropertyChanged += OnBadgeIndicatorContainerPropertyChanged;
+			BadgeText.SizeChanged += OnBadgeTextSizeChanged;
 
 			control.Children.Add(BadgeContent);
 			control.Children.Add(BadgeIndicatorContainer);
@@ -184,7 +187,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		   => new Grid
 		   {
 			   HorizontalOptions = LayoutOptions.Start,
-			   VerticalOptions = LayoutOptions.Start
+			   VerticalOptions = LayoutOptions.Start,
+			   IsVisible = false
 		   };
 
 		static Frame CreateIndicatorBackgroundElement()
@@ -298,13 +302,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					containerMargin = new Thickness(0, 0, 0, 0);
 					contentMargin = new Thickness(verticalMargin, verticalMargin, 0, 0);
 					break;
-				case BadgePosition.BottomRight:
+				case BadgePosition.BottomLeft:
 					verticalMargin = size / 2;
 					var bottomLeftverticalMargin = BadgeContent.Height - verticalMargin;
 					containerMargin = new Thickness(0, bottomLeftverticalMargin, 0, 0);
-					BadgeContent.Margin = new Thickness(verticalMargin, 0, 0, 0);
+					contentMargin = new Thickness(verticalMargin, 0, 0, 0);
 					break;
-				case BadgePosition.BottomLeft:
+				case BadgePosition.BottomRight:
 					verticalMargin = size / 2;
 					var bottomRightverticalMargin = BadgeContent.Height - verticalMargin;
 					horizontalMargin = BadgeContent.Width - verticalMargin;
@@ -324,12 +328,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (string.IsNullOrEmpty(badgeText))
 			{
-				IsVisible = false;
+				BadgeIndicatorBackground.IsVisible = false;
 				return;
 			}
 
 			var badgeIsVisible = !AutoHide || !badgeText.Trim().Equals("0");
-
+			BadgeIndicatorBackground.IsVisible = badgeIsVisible;
+			
 			if (IsAnimated)
 			{
 				if (badgeIsVisible == isVisible)
@@ -351,5 +356,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else
 				BadgeIndicatorContainer.IsVisible = badgeIsVisible;
 		}
+
+		void OnBadgeTextSizeChanged(object sender, EventArgs e)
+			=> UpdateBadgeViewPlacement(true);
+
+		void OnBadgeIndicatorContainerPropertyChanged(object sender, PropertyChangedEventArgs e)
+			=> UpdateBadgeViewPlacement(true);
 	}
 }

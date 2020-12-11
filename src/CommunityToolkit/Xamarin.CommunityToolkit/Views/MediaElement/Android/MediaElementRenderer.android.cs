@@ -35,6 +35,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			view.SetOnErrorListener(this);
 			view.MetadataRetrieved += MetadataRetrieved;
 
+			SetForegroundGravity(GravityFlags.Center);
+
 			AddView(view, -1, -1);
 
 			controller = new MediaController(Context);
@@ -312,7 +314,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						if (uriSource.Uri.IsFile)
 							view.SetVideoPath(uriSource.Uri.AbsolutePath);
 						else
-							view.SetVideoURI(global::Android.Net.Uri.Parse(uriSource.Uri.AbsoluteUri));
+							view.SetVideoURI(global::Android.Net.Uri.Parse(uriSource.Uri.ToString()));
 					}
 				}
 				else if (MediaElement.Source is XCT.FileMediaSource fileSource)
@@ -405,14 +407,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (ratio > controlRatio)
 					{
 						var requiredHeight = (int)(Width / ratio);
+						SetMinimumHeight(requiredHeight);
 						var vertMargin = (Height - requiredHeight) / 2;
-						view.LayoutParameters = new LayoutParams(Width, requiredHeight, GravityFlags.FillHorizontal | GravityFlags.CenterVertical) { LeftMargin = 0, RightMargin = 0, TopMargin = vertMargin, BottomMargin = vertMargin };
+						view.LayoutParameters = new LayoutParams(Width, requiredHeight, GravityFlags.Center) { LeftMargin = 0, RightMargin = 0, TopMargin = vertMargin, BottomMargin = vertMargin };
 					}
 					else
 					{
 						var requiredWidth = (int)(Height * ratio);
+						SetMinimumWidth(requiredWidth);
 						var horizMargin = (Width - requiredWidth) / 2;
-						view.LayoutParameters = new LayoutParams(requiredWidth, Height, GravityFlags.CenterHorizontal | GravityFlags.FillVertical) { LeftMargin = horizMargin, RightMargin = horizMargin, TopMargin = 0, BottomMargin = 0 };
+						view.LayoutParameters = new LayoutParams(requiredWidth, Height, GravityFlags.Center) { LeftMargin = horizMargin, RightMargin = horizMargin, TopMargin = 0, BottomMargin = 0 };
 					}
 					break;
 

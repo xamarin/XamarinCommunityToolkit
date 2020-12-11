@@ -14,6 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public FormsVideoView(Context context)
 			: base(context)
 		{
+			SetBackgroundColor(global::Android.Graphics.Color.Transparent);
 		}
 
 		public override void SetVideoPath(string path)
@@ -55,21 +56,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.SetVideoURI(uri, headers);
 		}
 
-		public override void SetVideoURI(global::Android.Net.Uri uri)
-		{
-			GetMetaData(uri, new Dictionary<string, string>());
-			base.SetVideoURI(uri);
-		}
-
 		protected void GetMetaData(global::Android.Net.Uri uri, IDictionary<string, string> headers)
 		{
 			Task.Run(() =>
 			{
 				var retriever = new MediaMetadataRetriever();
 
-				if (uri.Scheme != null && uri.Scheme.StartsWith("http") && headers != null)
+				if (uri.Scheme != null && uri.Scheme.StartsWith("http"))
 				{
-					retriever.SetDataSource(uri.ToString(), headers);
+					retriever.SetDataSource(uri.ToString(), headers ?? new Dictionary<string, string>());
 				}
 				else
 				{

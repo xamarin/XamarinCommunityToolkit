@@ -19,6 +19,7 @@
             MediaOpened="OnMediaOpened"
             MediaFailed="OnMediaFailed"
             MediaEnded="OnMediaEnded"
+            HorizontalOptions="Fill"
             SeekCompleted="OnSeekCompleted" />
         <Slider Grid.Row="1" BindingContext="{x:Reference mediaElement}" Value="{Binding Position, Converter={StaticResource TimeSpanConverter}}" Maximum="{Binding Duration, Converter={StaticResource TimeSpanConverter}}"/>
     </Grid>

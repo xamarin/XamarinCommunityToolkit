@@ -9,12 +9,11 @@
         <StackLayout>
             <xct:CameraView
                 x:Name="cameraView"
-                CaptureOptions="Video"
+                CaptureMode="Video"
                 FlashMode="On"
                 HorizontalOptions="FillAndExpand"
                 MediaCaptured="CameraView_MediaCaptured"
                 OnAvailable="CameraView_OnAvailable"
-                SavePhotoToFile="True"
                 VerticalOptions="FillAndExpand" />
 
             <StackLayout Grid.Row="1" Orientation="Horizontal">
