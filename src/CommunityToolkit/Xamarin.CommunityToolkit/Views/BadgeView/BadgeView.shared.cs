@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
@@ -328,12 +328,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (string.IsNullOrEmpty(badgeText))
 			{
-				IsVisible = false;
+				BadgeIndicatorBackground.IsVisible = false;
 				return;
 			}
 
 			var badgeIsVisible = !AutoHide || !badgeText.Trim().Equals("0");
-
+			BadgeIndicatorBackground.IsVisible = badgeIsVisible;
+			
 			if (IsAnimated)
 			{
 				if (badgeIsVisible == isVisible)
