@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 

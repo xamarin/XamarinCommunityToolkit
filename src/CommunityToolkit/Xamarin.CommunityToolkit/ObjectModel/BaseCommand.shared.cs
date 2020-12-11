@@ -1,14 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.ObjectModel
+namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
 	/// <summary>
 	/// Abstract Base Class used by AsyncCommand and AsyncValueCommand
 	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class BaseCommand<TCanExecute>
 	{
 		readonly Func<TCanExecute, bool> canExecute;

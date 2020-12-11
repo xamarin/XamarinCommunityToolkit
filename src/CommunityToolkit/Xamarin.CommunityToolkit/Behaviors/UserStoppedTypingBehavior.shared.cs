@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors

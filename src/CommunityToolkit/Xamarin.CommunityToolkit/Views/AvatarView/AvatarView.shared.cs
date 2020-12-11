@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading;
+using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using static System.Math;
 

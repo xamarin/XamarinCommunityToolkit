@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel.Internals;
 
 // Inspired by AsyncAwaitBestPractices.MVVM.AsyncCommand<T>: https://github.com/brminnick/AsyncAwaitBestPractices
 namespace Xamarin.CommunityToolkit.ObjectModel

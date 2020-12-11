@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Globalization;
-using System.Linq;
-using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters

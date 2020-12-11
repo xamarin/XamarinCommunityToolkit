@@ -3,9 +3,8 @@ using System.Linq;
 using System.Reflection;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Behaviors
+namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
-	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class BaseBehavior<TView> : Behavior<TView> where TView : VisualElement
 	{
 		static readonly MethodInfo getContextMethod

@@ -7,7 +7,7 @@ using Xamarin.Forms.Internals;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[Preserve(AllMembers = true)]
-	public class MaterialTabViewItemTemplate : Grid
+	class MaterialTabViewItemTemplate : Grid
 	{
 		readonly VisualFeedbackEffect visualFeedback;
 

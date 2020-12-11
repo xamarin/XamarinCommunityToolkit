@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using static System.Math;
 using static Xamarin.Forms.AbsoluteLayout;

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
