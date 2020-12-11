@@ -77,11 +77,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
                 {
                     var childSize = child.Measure(widthConstraint, heightConstraint);
 
-                    if (childSize.Request.Height > h)
-                        h = childSize.Request.Height;
-
-                    if (childSize.Request.Width > w)
-                        w = childSize.Request.Width;
+					h = Math.Max(h, childSize.Request.Height);
+					w = Math.Max(w, childSize.Request.Width);
                 }
 
                 if (Orientation == HexOrientation.Horizontal)
