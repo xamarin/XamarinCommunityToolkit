@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Xamarin.CommunityToolkit.Behaviors.Internals;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {

@@ -1,8 +1,8 @@
 ﻿using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.UI.Views
+namespace Xamarin.CommunityToolkit.UI.Views.Internals
 {
-	abstract class BaseTemplatedView<TControl> : TemplatedView where TControl : View, new()
+	public abstract class BaseTemplatedView<TControl> : TemplatedView where TControl : View, new()
 	{
 		protected TControl Control { get; private set; }
 

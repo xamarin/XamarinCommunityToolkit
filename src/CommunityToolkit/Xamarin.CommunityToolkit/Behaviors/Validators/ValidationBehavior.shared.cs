@@ -1,11 +1,9 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Behaviors
+namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
-	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
 		public static readonly BindableProperty IsValidProperty =

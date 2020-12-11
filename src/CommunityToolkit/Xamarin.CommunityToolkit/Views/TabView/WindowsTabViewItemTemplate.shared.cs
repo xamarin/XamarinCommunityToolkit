@@ -66,9 +66,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			text.SetBinding(Label.FontSizeProperty, "CurrentFontSize");
 			text.SetBinding(Label.FontAttributesProperty, "CurrentFontAttributes");
 
-			badge.SetBinding(BadgeView.BackgroundColorProperty, "CurrentBadgeBackgroundColor");
-			badge.SetBinding(BadgeView.TextProperty, "BadgeText");
-			badge.SetBinding(BadgeView.TextColorProperty, "BadgeTextColor");
+			badge.SetBinding(TabBadgeView.BackgroundColorProperty, "CurrentBadgeBackgroundColor");
+			badge.SetBinding(TabBadgeView.TextProperty, "BadgeText");
+			badge.SetBinding(TabBadgeView.TextColorProperty, "BadgeTextColor");
 		}
 
 		protected override void OnSizeAllocated(double width, double height)

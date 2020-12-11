@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using static System.Math;

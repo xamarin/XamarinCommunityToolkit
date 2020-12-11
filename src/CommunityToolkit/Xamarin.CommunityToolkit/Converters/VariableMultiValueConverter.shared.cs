@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
-using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
