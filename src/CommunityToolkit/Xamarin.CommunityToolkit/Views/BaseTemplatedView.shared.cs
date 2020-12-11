@@ -1,14 +1,12 @@
-﻿using System.ComponentModel;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[EditorBrowsable(EditorBrowsableState.Never)]
-	public abstract class BaseTemplatedView<TControl> : TemplatedView where TControl : View, new()
+	abstract class BaseTemplatedView<TControl> : TemplatedView where TControl : View, new()
 	{
 		protected TControl Control { get; private set; }
 
-		public BaseTemplatedView()
+		internal BaseTemplatedView()
 			=> ControlTemplate = new ControlTemplate(typeof(TControl));
 
 		protected override void OnBindingContextChanged()
