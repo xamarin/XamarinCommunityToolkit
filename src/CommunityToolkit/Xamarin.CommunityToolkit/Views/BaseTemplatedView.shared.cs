@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Internals
 	{
 		protected TControl Control { get; private set; }
 
-		internal BaseTemplatedView()
+		public BaseTemplatedView()
 			=> ControlTemplate = new ControlTemplate(typeof(TControl));
 
 		protected override void OnBindingContextChanged()
