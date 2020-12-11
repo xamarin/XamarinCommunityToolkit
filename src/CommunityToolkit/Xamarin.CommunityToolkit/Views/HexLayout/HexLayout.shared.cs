@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
         public static readonly BindableProperty RowProperty =
             BindableProperty.Create(nameof(Row), typeof(int), typeof(HexLayout), 1,
-                BindingMode.TwoWay, null);
+                BindingMode.TwoWay);
 
         public int Row
         {
