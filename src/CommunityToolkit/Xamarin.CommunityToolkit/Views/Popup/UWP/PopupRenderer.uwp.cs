@@ -50,16 +50,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Element = popup;
 			CreateControl();
 
-			Performance.Start(out var reference);
-
 			if (oldElement != null)
 				oldElement.PropertyChanged -= OnElementPropertyChanged;
 
 			element.PropertyChanged += OnElementPropertyChanged;
 
 			OnElementChanged(new ElementChangedEventArgs<BasePopup>(oldElement, Element));
-
-			Performance.Stop(reference);
 		}
 
 		void CreateControl()

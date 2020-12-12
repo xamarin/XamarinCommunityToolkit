@@ -70,20 +70,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Element = popup;
 			CreateControl();
 
-			// REVIEW - AH 12/4/2020
-			// This is a hold over from Xamarin.Forms
-			// internal code. I don't think it is still
-			// needed but I left it in for now.
-			Performance.Start(out var reference);
-
 			if (oldElement != null)
 				oldElement.PropertyChanged -= OnElementPropertyChanged;
 
 			element.PropertyChanged += OnElementPropertyChanged;
 
 			OnElementChanged(new ElementChangedEventArgs<BasePopup>(oldElement, Element));
-
-			Performance.Stop(reference);
 		}
 
 		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup> e)
