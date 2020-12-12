@@ -7,9 +7,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// </summary>
 	public class PopupDismissedEventArgs : EventArgs
 	{
+		public PopupDismissedEventArgs(object result) =>
+			Result = result;
+
 		/// <summary>
 		/// The resulting object to return.
 		/// </summary>
-		public object Result { get; set; }
+		public object Result { get; }
 	}
 }
