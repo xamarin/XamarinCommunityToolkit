@@ -10,7 +10,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class ViewToRendererConverter
 	{
-		// This class is ported from Xamarin.Forms and should remain in sync
+		// This class is ported from Xamarin.Forms and should remain in sync.
+		// This is used in the PopupRenderer.uwp.cs
 		internal class WrapperControl : Panel
 		{
 			readonly View _view;
