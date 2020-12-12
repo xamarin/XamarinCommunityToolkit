@@ -13,5 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		void OnMediaEnded(object sender, EventArgs e) => Console.WriteLine("Media ended.");
 
 		void OnSeekCompleted(object sender, EventArgs e) => Console.WriteLine("Seek completed.");
+
+		void OnResetClicked(object sender, EventArgs e) => mediaElement.Source = null;
 	}
 }

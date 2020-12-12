@@ -326,9 +326,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Controller.CurrentState = view.IsPlaying ? MediaElementState.Playing : MediaElementState.Stopped;
 				}
 			}
-			else if (view.IsPlaying)
+			else
 			{
 				view.StopPlayback();
+				view.SeekTo(0);
+				view.SetVideoURI(null);
+				view.Visibility = ViewStates.Gone;
+				view.Visibility = ViewStates.Visible;
 				Controller.CurrentState = MediaElementState.Stopped;
 			}
 		}
