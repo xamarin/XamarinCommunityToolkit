@@ -26,9 +26,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal ViewToRendererConverter.WrapperControl Control { get; private set; }
 
-		FrameworkElement IVisualElementRenderer.ContainerElement { get => null; }
+		FrameworkElement IVisualElementRenderer.ContainerElement => null;
 
-		VisualElement IVisualElementRenderer.Element { get => Element; }
+		VisualElement IVisualElementRenderer.Element => Element;
 
 		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
 

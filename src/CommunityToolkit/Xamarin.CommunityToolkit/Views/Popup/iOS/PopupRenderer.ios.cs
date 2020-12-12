@@ -20,9 +20,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public BasePopup Element { get; private set; }
 
-		VisualElement IVisualElementRenderer.Element { get => Element; }
+		VisualElement IVisualElementRenderer.Element => Element;
 
-		public UIView NativeView { get => base.View; }
+		public UIView NativeView => base.View;
 
 		public UIViewController ViewController { get; private set; }
 
