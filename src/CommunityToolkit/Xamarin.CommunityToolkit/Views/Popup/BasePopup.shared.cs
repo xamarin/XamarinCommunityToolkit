@@ -116,7 +116,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </param>
 		protected void OnDismissed(object result)
 		{
-			Dismissed?.Invoke(this, new PopupDismissedEventArgs { Result = result });
+			Dismissed?.Invoke(this, new PopupDismissedEventArgs(result));
 		}
 
 		/// <summary>
