@@ -146,16 +146,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SetDialogPosition(Element.VerticalOptions, Element.HorizontalOptions);
 		}
 
-		// this should be converted to an attached property
 		void SetBorderColor()
 		{
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.PaddingProperty, 0));
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderThicknessProperty, new UWPThickness(defaultBorderThickness)));
 
-			if (Element.BorderColor == default(Color))
+			var borderColor = Views.WindowsSpecific.Popup.GetBorderColor(Element);
+			if (borderColor == default(Color))
 				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, Color.FromHex("#2e6da0").ToWindowsColor()));
 			else
-				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, Element.BorderColor.ToWindowsColor()));
+				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, borderColor.ToWindowsColor()));
 		}
 
 		void SetColor()

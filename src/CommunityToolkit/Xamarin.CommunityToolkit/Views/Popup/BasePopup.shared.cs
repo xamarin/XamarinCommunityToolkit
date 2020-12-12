@@ -15,7 +15,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public BasePopup()
 		{
 			Color = Color.White;
-			BorderColor = default(Color);
 			VerticalOptions = LayoutOptions.CenterAndExpand;
 			HorizontalOptions = LayoutOptions.CenterAndExpand;
 			IsLightDismissEnabled = true;
@@ -65,23 +64,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			get => (LayoutOptions)GetValue(HorizontalOptionsProperty);
 			set => SetValue(HorizontalOptionsProperty, value);
 		}
-
-		// REVIEW - 11/30/2020 - ahoefling
-		// In the original code review https://github.com/xamarin/Xamarin.Forms/pull/9616
-		// It was recommended to configure BorderColor as a platform specific attached
-		// property since it is only usable on UWP. 
-		//
-		// Do we want to leave this as part of the API with plans to implement or
-		// should we move it as an attached property.
-
-		/// <summary>
-		/// Gets or sets the <see cref="Color"/> of the Popup Border.
-		/// </summary>
-		/// <remarks>
-		/// This color sets the native border color of the <see cref="Popup"/>, which is
-		/// independent of any border color configured in the actual view.
-		/// </remarks>
-		public Color BorderColor { get; set; } // UWP ONLY - wasn't originally in spec
 
 		/// <summary>
 		/// Gets or sets the <see cref="View"/> anchor.
