@@ -211,13 +211,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ViewController.PresentViewController(this, true, () => Element.OnOpened());
 		}
 
-		async void OnDismissed(object sender, PopupDismissedEventArgs e)
-		{
-			if (!FormsToolkit.IsiOS9OrNewer)
-				await ViewController.DismissViewControllerAsync(true);
-			else
-				ViewController.DismissViewController(true, null);
-		}
+		async void OnDismissed(object sender, PopupDismissedEventArgs e) =>
+			await ViewController.DismissViewControllerAsync(true);
 
 		protected override void Dispose(bool disposing)
 		{
