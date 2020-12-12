@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		int? defaultLabelFor;
 		VisualElementTracker tracker;
 		ContainerView container;
-		bool isDisposed = false;
+		bool isDisposed;
 
 		public BasePopup Element { get; private set; }
 
