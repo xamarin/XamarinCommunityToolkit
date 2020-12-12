@@ -77,13 +77,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (e.NewElement != null && !isDisposed)
 			{
-				InitializeStyles();
-				SetEvents();
-				SetColor();
-				SetBorderColor();
-				SetSize();
-				SetLayout();
-				ApplyStyles();
+				ConfigureControl();
 				Show();
 			}
 
