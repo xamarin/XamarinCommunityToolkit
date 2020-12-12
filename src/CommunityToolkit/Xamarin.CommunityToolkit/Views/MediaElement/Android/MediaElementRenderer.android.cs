@@ -258,7 +258,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 
 				case nameof(MediaElement.Volume):
-					mediaPlayer?.SetVolume((float)MediaElement.Volume, (float)MediaElement.Volume);
+					UpdateVolume();
 					break;
 			}
 
@@ -337,6 +337,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
+		protected void UpdateVolume()
+		{
+			if (view == null)
+				return;
+
+			mediaPlayer?.SetVolume((float)MediaElement.Volume, (float)MediaElement.Volume);
+		}
+
 		protected string ResolveMsAppDataUri(Uri uri)
 		{
 			if (uri.Scheme == "ms-appdata")
@@ -374,6 +382,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateLayoutParameters();
 
 			mediaPlayer = mp;
+			UpdateVolume();
 			mp.Looping = MediaElement.IsLooping;
 			mp.SeekTo(0);
 
