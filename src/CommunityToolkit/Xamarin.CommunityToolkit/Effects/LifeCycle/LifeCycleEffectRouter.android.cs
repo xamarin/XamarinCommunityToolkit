@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Xamarin.Forms;
-using View = Android.Views.View;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Android.Effects;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using View = Android.Views.View;
 
 [assembly: ExportEffect(typeof(LifeCycleEffectRouter), nameof(LifeCycleEffect))]
 
@@ -35,10 +33,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			lifeCycleEffect.RaiseUnloadedEvent(Element);
 			nativeView.ViewDetachedFromWindow -= OnNativeViewViewDetachedFromWindow;
+			nativeView.ViewAttachedToWindow -= OnNativeViewViewAttachedToWindow;
 			nativeView = null;
 			lifeCycleEffect = null;
 		}
 
-		protected override void OnDetached() => nativeView.ViewAttachedToWindow -= OnNativeViewViewAttachedToWindow;
+		protected override void OnDetached()
+		{
+		}
 	}
 }

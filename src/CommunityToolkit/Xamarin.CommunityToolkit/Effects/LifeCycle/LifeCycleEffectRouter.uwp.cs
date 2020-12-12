@@ -33,10 +33,13 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 		{
 			lifeCycleEffect.RaiseUnloadedEvent(Element);
 			nativeView.Unloaded -= OnNativeViewUnloaded;
+			nativeView.Loaded -= OnNativeViewLoaded;
 			lifeCycleEffect = null;
 			nativeView = null;
 		}
 
-		protected override void OnDetached() => nativeView.Loaded -= OnNativeViewLoaded;
+		protected override void OnDetached()
+		{
+		}
 	}
 }
