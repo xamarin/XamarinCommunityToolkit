@@ -6,20 +6,20 @@ using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportEffect(typeof(LifeCycleEffectRouter), nameof(LifeCycleEffect))]
+[assembly: ExportEffect(typeof(LifeCycleEffectRouter), nameof(LifecycleEffect))]
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
 		const NSKeyValueObservingOptions observingOptions = NSKeyValueObservingOptions.Initial | NSKeyValueObservingOptions.OldNew | NSKeyValueObservingOptions.Prior;
-		LifeCycleEffect lifeCycleEffect;
+		LifecycleEffect lifeCycleEffect;
 		IDisposable isLoadedObserverDisposable;
 
 		protected override void OnAttached()
 		{
-			lifeCycleEffect = Element.Effects.OfType<LifeCycleEffect>().FirstOrDefault();
-			_ = lifeCycleEffect ?? throw new ArgumentNullException($"The effect {nameof(LifeCycleEffect)} can't be null.");
+			lifeCycleEffect = Element.Effects.OfType<LifecycleEffect>().FirstOrDefault();
+			_ = lifeCycleEffect ?? throw new ArgumentNullException($"The effect {nameof(LifecycleEffect)} can't be null.");
 
 			var nativeView = Control ?? Container;
 			var key = nativeView.Superview == null ? "subviews" : "superview";

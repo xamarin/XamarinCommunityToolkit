@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 
 			new SectionModel(
 				typeof(LifeCycleEffectPage),
-				nameof(LifeCycleEffect),
+				nameof(LifecycleEffect),
 				"The LifeCycle is an effect that allows you to know when a control or layout is loaded or/and unloaded in the screen and perform actions based on that."
 				),
 		};

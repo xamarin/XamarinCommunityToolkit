@@ -41,6 +41,6 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// </summary>
 		public static string TouchEffect => $"{effectResolutionGroupName}.{nameof(TouchEffect)}";
 
-		public static string LifeCycleEffect => $"{effectResolutionGroupName}.{nameof(LifeCycleEffect)}";
+		public static string LifeCycleEffect => $"{effectResolutionGroupName}.{nameof(LifecycleEffect)}";
 	}
 }

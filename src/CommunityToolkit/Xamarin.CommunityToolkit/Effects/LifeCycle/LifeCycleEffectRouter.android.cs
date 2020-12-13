@@ -6,20 +6,20 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using View = Android.Views.View;
 
-[assembly: ExportEffect(typeof(LifeCycleEffectRouter), nameof(LifeCycleEffect))]
+[assembly: ExportEffect(typeof(LifeCycleEffectRouter), nameof(LifecycleEffect))]
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
 		View nativeView;
-		LifeCycleEffect lifeCycleEffect;
+		LifecycleEffect lifeCycleEffect;
 
 		protected override void OnAttached()
 		{
-			lifeCycleEffect = Element.Effects.OfType<LifeCycleEffect>().FirstOrDefault();
+			lifeCycleEffect = Element.Effects.OfType<LifecycleEffect>().FirstOrDefault();
 
-			_ = lifeCycleEffect ?? throw new ArgumentNullException($"The effect {nameof(LifeCycleEffect)} can't be null.");
+			_ = lifeCycleEffect ?? throw new ArgumentNullException($"The effect {nameof(LifecycleEffect)} can't be null.");
 
 			nativeView = Control ?? Container;
 

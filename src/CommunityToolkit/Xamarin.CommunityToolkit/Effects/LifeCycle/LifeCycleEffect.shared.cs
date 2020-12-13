@@ -3,13 +3,13 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
-	public class LifeCycleEffect : RoutingEffect
+	public class LifecycleEffect : RoutingEffect
 	{
 		public event EventHandler Loaded;
 
 		public event EventHandler Unloaded;
 
-		public LifeCycleEffect()
+		public LifecycleEffect()
 			: base(EffectIds.LifeCycleEffect)
 		{
 #if __ANDROID__
@@ -24,8 +24,8 @@ namespace Xamarin.CommunityToolkit.Effects
 #endif
 		}
 
-		public void RaiseLoadedEvent(Element element) => Loaded?.Invoke(element, EventArgs.Empty);
+		internal void RaiseLoadedEvent(Element element) => Loaded?.Invoke(element, EventArgs.Empty);
 
-		public void RaiseUnloadedEvent(Element element) => Unloaded?.Invoke(element, EventArgs.Empty);
+		internal void RaiseUnloadedEvent(Element element) => Unloaded?.Invoke(element, EventArgs.Empty);
 	}
 }
