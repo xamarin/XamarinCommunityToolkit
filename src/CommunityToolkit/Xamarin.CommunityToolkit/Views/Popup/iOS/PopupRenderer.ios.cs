@@ -14,6 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class PopupRenderer : UIViewController, IVisualElementRenderer
 	{
+		readonly WeakEventManager eventManager = new WeakEventManager();
 		bool isDisposed;
 
 		public IVisualElementRenderer Control { get; private set; }
@@ -33,6 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		[Preserve(Conditional = true)]
 		public PopupRenderer()
 		{
+			eventManager.AddEventHandler(OnDismiss, nameof(OnDismiss));
 		}
 
 		public void SetElementSize(Size size)
@@ -203,7 +205,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			// Setting PermittedArrowDirector to 0 breaks the Popover layout. It would be nice if there is no anchor to remove the arrow.
 			((UIPopoverPresentationController)PresentationController).PermittedArrowDirections = UIPopoverArrowDirection.Up;
-			((UIPopoverPresentationController)PresentationController).Delegate = new PopoverDelegate(this);
+			((UIPopoverPresentationController)PresentationController).Delegate = new PopoverDelegate(eventManager);
 		}
 
 		void AddToCurrentPageViewController()
@@ -253,23 +255,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
+		void OnDismiss(object sender, EventArgs e)
+		{
+			if (IsViewLoaded && Element.IsLightDismissEnabled)
+				Element.LightDismiss();
+		}
+
 		class PopoverDelegate : UIPopoverPresentationControllerDelegate
 		{
-			PopupRenderer popupRenderer;
+			readonly WeakEventManager eventManager;
 
-			public PopoverDelegate(PopupRenderer renderer) =>
-				popupRenderer = renderer;
+			public PopoverDelegate(WeakEventManager eventManager) =>
+				this.eventManager = eventManager;
 
-			public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController forPresentationController)
-			{
-				return UIModalPresentationStyle.None;
-			}
+			public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController forPresentationController) =>
+				UIModalPresentationStyle.None;
 
-			public override void DidDismiss(UIPresentationController presentationController)
-			{
-				if (popupRenderer.IsViewLoaded && popupRenderer.Element.IsLightDismissEnabled)
-					popupRenderer.Element.LightDismiss();
-			}
+			public override void DidDismiss(UIPresentationController presentationController) =>
+				eventManager.RaiseEvent(this, new EventArgs(), nameof(OnDismiss));
 		}
 	}
 }
