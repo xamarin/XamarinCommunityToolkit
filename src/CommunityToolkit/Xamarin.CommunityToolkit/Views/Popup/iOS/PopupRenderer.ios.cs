@@ -230,7 +230,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					{
 						// NOTE - AH 9/12/2020
 						// This used to use the internal property
-						// 'Xamarin.Forms.Platform.Android.Platform.RendererProperty'
+						// 'Xamarin.Forms.Platform.iOS.Platform.RendererProperty'
 						// That property is marked internal so the closest thing we can do
 						// is duplicate the implementation here.
 						//
