@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
@@ -19,18 +18,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 		/// <param name="popup">
 		/// The <see cref="BasePopup"/> to display.
 		/// </param>
-		public static void ShowPopup(this INavigation navigation, BasePopup popup)
-		{
-#if __ANDROID__
-			OnShowPopup(popup);
-#elif __IOS__
-			OnShowPopup(popup);
-#elif WINDOWS_UWP
-			OnShowPopup(popup);
-#else
-			throw new NotSupportedException($"The current platform '{Device.RuntimePlatform}' does not support Xamarin Community Toolkit Popups.");
-#endif
-		}
+		public static void ShowPopup(this INavigation navigation, BasePopup popup) =>
+			PlatformShowPopup(popup);
 
 		/// <summary>
 		/// Displays a popup and returns a result.
@@ -47,17 +36,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		/// <returns>
 		/// A task that will complete once the <see cref="Popup{T}"/> is dismissed.
 		/// </returns>
-		public static Task<T> ShowPopupAsync<T>(this INavigation navigation, Popup<T> popup)
-		{
-#if __ANDROID__
-			return OnShowPopupAsync(popup);
-#elif __IOS__
-			return OnShowPopupAsync(popup);
-#elif WINDOWS_UWP
-			return OnShowPopupAsync(popup);
-#else
-			throw new NotSupportedException($"The current platform '{Device.RuntimePlatform}' does not support Xamarin Community Toolkit Popups.");
-#endif
-		}
+		public static Task<T> ShowPopupAsync<T>(this INavigation navigation, Popup<T> popup) =>
+			PlatformShowPopupAsync(popup);
 	}
 }
