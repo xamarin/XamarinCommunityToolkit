@@ -100,11 +100,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			else
 			{
-				if (Element.CurrentState == MediaElementState.Playing || Element.CurrentState == MediaElementState.Buffering)
-				{
-					avPlayerViewController.Player.Pause();
-					Controller.CurrentState = MediaElementState.Stopped;
-				}
+				avPlayerViewController.Player?.Pause();
+				avPlayerViewController.Player?.ReplaceCurrentItemWithPlayerItem(null);
+				DisposeObservers(ref statusObserver);
+				Controller.CurrentState = MediaElementState.Stopped;
 			}
 		}
 

@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <xct:MediaElement
             x:Name="mediaElement"
@@ -22,5 +23,6 @@
             HorizontalOptions="Fill"
             SeekCompleted="OnSeekCompleted" />
         <Slider Grid.Row="1" BindingContext="{x:Reference mediaElement}" Value="{Binding Position, Converter={StaticResource TimeSpanConverter}}" Maximum="{Binding Duration, Converter={StaticResource TimeSpanConverter}}"/>
+        <Button Grid.Row="2" Text="Reset Source (Set Null)" Clicked="OnResetClicked" />
     </Grid>
 </pages:BasePage>
