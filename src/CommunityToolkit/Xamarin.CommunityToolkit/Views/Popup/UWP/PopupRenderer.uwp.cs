@@ -256,6 +256,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Element.Dismissed -= OnDismissed;
 				Element = null;
 
+				Control.CleanUp();
+				Control = null;
+
 				Closed -= OnClosing;
 			}
 
