@@ -6,14 +6,12 @@ namespace Xamarin.CommunityToolkit.Extensions
 {
 	public static partial class NavigationExtensions
 	{
-		static void OnShowPopup(BasePopup popup)
-		{
+		static void PlatformShowPopup(BasePopup popup) =>
 			Platform.CreateRenderer(popup);
-		}
 
-		static Task<T> OnShowPopupAsync<T>(Popup<T> popup)
+		static Task<T> PlatformShowPopupAsync<T>(Popup<T> popup)
 		{
-			OnShowPopup(popup);
+			PlatformShowPopup(popup);
 			return popup.Result;
 		}
 	}
