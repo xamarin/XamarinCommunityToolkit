@@ -221,7 +221,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SizeRequest IVisualElementRenderer.GetDesiredSize(double widthConstraint, double heightConstraint)
 		{
 			if (isDisposed || Control == null)
-				return new SizeRequest();
+				return default(SizeRequest);
 
 			var constraint = new Windows.Foundation.Size(widthConstraint, heightConstraint);
 			Control.Measure(constraint);
