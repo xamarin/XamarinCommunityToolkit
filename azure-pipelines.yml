@@ -178,7 +178,7 @@ jobs:
       displayName: Signing NuGets
       dependsOn: build_windows
       pool:
-        name: windows-latest
+        vmImage: 'windows-latest'
       condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
       steps:
         # don't checkout code and sign the packages
