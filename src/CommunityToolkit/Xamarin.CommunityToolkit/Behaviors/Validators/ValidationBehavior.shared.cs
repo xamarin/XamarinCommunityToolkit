@@ -178,9 +178,17 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			if (View == null || (ValidStyle ?? InvalidStyle) == null)
 				return;
 
-			View.Style = IsValid
-				? ValidStyle
-				: InvalidStyle;
+			using (View.Batch())
+			{
+				var style = IsValid
+					? ValidStyle
+					: InvalidStyle;
+
+				if (style == null)
+					View.ClearValue(VisualElement.StyleProperty);
+
+				View.Style = style;
+			}
 		}
 	}
 }
