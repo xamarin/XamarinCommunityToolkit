@@ -44,6 +44,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			view.SetMediaController(controller);
 		}
 
+		public override float Alpha
+		{
+			get => view.Alpha;
+			set =>
+
+				// VideoView opens a separate Window above the current one.
+				// This is because it is based on the SurfaceView.
+				// And we cannot set alpha or perform animations with it because it is not synchronized with your other UI elements.
+				// We may set 0 or 1 alpha only.
+				view.Alpha = Math.Sign(Math.Abs(value));
+		}
+
 		protected ToolKitMediaElement MediaElement { get; set; }
 
 		IMediaElementController Controller => MediaElement;
