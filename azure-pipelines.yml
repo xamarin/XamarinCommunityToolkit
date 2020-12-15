@@ -78,6 +78,10 @@ jobs:
           solution: $(PathToCsproj)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CopyFiles@2
+        inputs:
+          Contents: 'SignList.xml'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
       - task: MSBuild@1
         displayName: Pack NuGets
         inputs:
