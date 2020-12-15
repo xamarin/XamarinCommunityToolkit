@@ -15,7 +15,7 @@ variables:
 
 resources:
   repositories:
-    - repository: xamarin-templates
+    - repository: internal-templates
       type: github
       name: xamarin/yaml-templates
       endpoint: xamarin
@@ -183,7 +183,7 @@ jobs:
       steps:
         # don't checkout code and sign the packages
         - checkout: none
-        - template: sign-artifacts.yml@xamarin-templates
+        - template: sign-artifacts/jobs/v2.yml@internal-templates
           parameters:
             targetFolder: '$(Build.ArtifactStagingDirectory)/signed'
         # publish the signed packages
