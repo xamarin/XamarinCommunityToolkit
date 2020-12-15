@@ -15,7 +15,7 @@ variables:
 
 resources:
   repositories:
-    - repository: xamarin-templates
+    - repository: internal-templates
       type: github
       name: xamarin/yaml-templates
       endpoint: xamarin
