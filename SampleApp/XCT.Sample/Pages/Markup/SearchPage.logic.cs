@@ -1,15 +1,22 @@
-﻿using Xamarin.Forms;
+﻿using Xamarin.CommunityToolkit.Sample.Pages;
+using Xamarin.CommunityToolkit.Sample.ViewModels.Markup;
+using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Xamarin.CommunityToolkit.Sample
 {
-    public partial class SearchPage : BaseContentPage
+    public partial class SearchPage : BasePage
     {
         readonly SearchViewModel vm;
         View header;
 
-        public SearchPage(SearchViewModel vm)
+        public SearchPage()
         {
-            BindingContext = this.vm = vm;
+            On<iOS>().SetUseSafeArea(true);
+            BackgroundColor = Color.Black;
+
+            BindingContext = new SearchViewModel();
             Build();
         }
 

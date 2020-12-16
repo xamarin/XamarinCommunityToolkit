@@ -32,8 +32,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			new SectionModel(typeof(ViewsGalleryPage), "Views", Color.FromHex("#EF6950"),
 				"A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box"),
 
-			new SectionModel(typeof(SearchPage), "Markup", Color.FromHex("#EF6950"),
-				"C# Markup Extensions")
+			new SectionModel(typeof(SearchPage), "C# Markup", Color.FromHex("#50D6EF"),
+				"C# Markup Extensions make it easier on the eyes to write your layouts in C# code instead of XAML")
 		};
 	}
 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 
-namespace Xamarin.CommunityToolkit.MarkupSample
+namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 {
     public class SearchViewModel : BaseViewModel
     {
@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.MarkupSample
 
         public List<Tweet> SearchResults { get; set; }
 
-        public void Initialize()
+        public SearchViewModel()
         {
             SearchText = "#CSharpForMarkup";
 
@@ -57,8 +57,11 @@ namespace Xamarin.CommunityToolkit.MarkupSample
         }
 
         public ICommand BackCommand => backCommand ??= new RelayCommand(Back);
+
         public ICommand LikeCommand => likeCommand ??= new RelayCommand<Tweet>(Like);
+
         public ICommand OpenTwitterSearchCommand => openTwitterSearchCommand ??= new RelayCommandAsync(OpenTwitterSearch);
+
         public ICommand OpenHelpCommand => openHelpCommand ??= new RelayCommandAsync(OpenHelp);
 
         void Back() { }
@@ -66,13 +69,17 @@ namespace Xamarin.CommunityToolkit.MarkupSample
         void Like(Tweet tweet) => tweet.IsLikedByMe = !tweet.IsLikedByMe;
 
         Task OpenHelp() => Launcher.OpenAsync(new Uri("https://github.com/MicrosoftDocs/xamarin-communitytoolkit/blob/master/docs/markup.md"));
+
         Task OpenTwitterSearch() => Launcher.OpenAsync(new Uri("https://twitter.com/search?q=%23CSharpForMarkup"));
 
         public class Tweet : BaseViewModel
         {
             public string AuthorImage { get; set; }
+
             public string Header { get; set; }
+
             public List<TextFragment> Body { get; set; }
+
             public bool IsLikedByMe { get; set; }
         }
 
