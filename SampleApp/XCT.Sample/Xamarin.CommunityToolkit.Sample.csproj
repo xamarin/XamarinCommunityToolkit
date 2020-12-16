@@ -16,14 +16,12 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1791-pre5" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
     <PackageReference Include="Octokit" Version="0.48.0" />
+    <PackageReference Include="Xamarin.Forms.DebugRainbows" Version="1.1.4" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pages\Markup\" />
   </ItemGroup>
 </Project>
 

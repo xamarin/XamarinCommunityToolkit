@@ -30,7 +30,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 				"Testing is important, ok?! So this is where all of the tests for our little project reside"),
 
 			new SectionModel(typeof(ViewsGalleryPage), "Views", Color.FromHex("#EF6950"),
-				"A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box")
+				"A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box"),
+
+			new SectionModel(typeof(SearchPage), "Markup", Color.FromHex("#EF6950"),
+				"C# Markup Extensions")
 		};
 	}
 }
