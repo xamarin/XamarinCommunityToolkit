@@ -165,7 +165,7 @@
     <Folder Include="Assets.xcassets\LauncherIcon.imageset\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj">
+    <ProjectReference Include="..\..\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj">
       <Project>{b0dcdf81-953d-47da-a7d4-0565339bf07c}</Project>
       <Name>Xamarin.CommunityToolkit</Name>
     </ProjectReference>
