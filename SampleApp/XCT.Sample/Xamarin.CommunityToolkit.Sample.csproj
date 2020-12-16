@@ -22,5 +22,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Markup\" />
+  </ItemGroup>
 </Project>
 
