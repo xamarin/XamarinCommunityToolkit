@@ -11,7 +11,7 @@ variables:
   RunPoliCheck: 'false'
   PathToCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
-  PathToSln: 'Xamarin.CommunityToolkit.Sample.sln'
+  PathToSln: 'samples/XCT.Sample.sln'
 
 resources:
   repositories:

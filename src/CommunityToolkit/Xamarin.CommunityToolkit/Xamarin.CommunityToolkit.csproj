@@ -22,7 +22,13 @@
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
     <PackageReleaseNotes>
+      
+      
+      
       <!-- See if we can host these on MS docs? -->
+    
+    
+    
     </PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
@@ -195,5 +201,8 @@
   <ItemGroup>
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Markup\Xamarin.CommunityToolkit.Markup\Xamarin.CommunityToolkit.Markup.csproj" />
   </ItemGroup>
 </Project>
