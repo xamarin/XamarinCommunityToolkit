@@ -20,31 +20,35 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 		void LifeCycleEffect_Loaded(object sender, EventArgs e)
 		{
 			if (sender is Button)
-				Debug.WriteLine("Button loaded");
+				lbl.Text += "Button loaded \n";
 			if (sender is Image)
-				Debug.WriteLine("Image loaded");
+				lbl.Text += "Image loaded \n";
 			if (sender is Label)
-				Debug.WriteLine("Label loaded");
+				lbl.Text += "Label loaded \n";
 			if (sender is StackLayout)
-				Debug.WriteLine("StackLayout loaded");
+				lbl.Text += "StackLayout loaded \n";
 		}
 
 		void LifeCycleEffect_Unloaded(object sender, EventArgs e)
 		{
 			if (sender is Button)
-				Debug.WriteLine("Button unloaded");
+				lbl.Text += "Button unloaded \n";
 			if (sender is Image)
-				Debug.WriteLine("Image unloaded");
+				lbl.Text += "Image unloaded \n";
 			if (sender is Label)
-				Debug.WriteLine("Label unloaded");
+				lbl.Text += "Label unloaded \n";
 			if (sender is StackLayout)
-				Debug.WriteLine("StackLayout unloaded");
-
+				lbl.Text += "StackLayout unloaded \n";
 		}
 
 		void Button_Clicked(object sender, EventArgs e)
 		{
 			img.IsVisible = !img.IsVisible;
+			Device.StartTimer(TimeSpan.FromSeconds(3), () =>
+			{
+				stack.Children.Remove(img);
+				return false;
+			});
 		}
 	}
 }

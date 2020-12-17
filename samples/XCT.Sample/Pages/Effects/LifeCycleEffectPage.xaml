@@ -6,13 +6,13 @@
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout x:Name="stack">
             <StackLayout.Effects>
                 <xct:LifecycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
             </StackLayout.Effects>
             <Label
                 HorizontalOptions="CenterAndExpand"
-                Text="Welcome to Xamarin.Forms!"
+                Text="When you press the button, the Image will appear and after 3 seconds will be removed!"
                 VerticalOptions="CenterAndExpand">
                 <Label.Effects>
                     <xct:LifecycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
@@ -26,11 +26,13 @@
                     <xct:LifecycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
                 </Image.Effects>
             </Image>
-            <Button Clicked="Button_Clicked" Text="Awesome Button">
+            <Button Clicked="Button_Clicked" Text="Present Image and Remove it">
                 <Button.Effects>
                     <xct:LifecycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
                 </Button.Effects>
             </Button>
+            <Label Text="Log:" />
+            <Label x:Name="lbl" TextColor="Red" />
         </StackLayout>
     </ContentPage.Content>
 </pages:BasePage>
