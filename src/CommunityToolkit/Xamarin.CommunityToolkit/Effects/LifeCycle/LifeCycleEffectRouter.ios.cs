@@ -18,8 +18,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected override void OnAttached()
 		{
-			lifeCycleEffect = Element.Effects.OfType<LifecycleEffect>().FirstOrDefault();
-			_ = lifeCycleEffect ?? throw new ArgumentNullException($"The effect {nameof(LifecycleEffect)} can't be null.");
+			lifeCycleEffect = Element.Effects.OfType<LifecycleEffect>().FirstOrDefault() ??
+				throw new ArgumentNullException($"The effect {nameof(LifecycleEffect)} can't be null.");
 
 			var nativeView = Control ?? Container;
 			var key = nativeView.Superview == null ? "subviews" : "superview";
