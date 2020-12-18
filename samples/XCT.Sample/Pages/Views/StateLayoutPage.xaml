@@ -14,9 +14,17 @@
 
     <pages:BasePage.Resources>
         <xct:StateToBooleanConverter x:Key="StateToBooleanConverter" />
+
+        <DataTemplate x:Key="error_template">
+            <Label Text="Something went horribly wrong!"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"  />
+        </DataTemplate>
     </pages:BasePage.Resources>
     <pages:BasePage.Content>
-        <Grid xct:StateLayout.CurrentState="{Binding MainState}" xct:StateLayout.AnimateStateChanges="False">
+        <Grid xct:StateLayout.CurrentState="{Binding MainState}" xct:StateLayout.AnimateStateChanges="true">
             <xct:StateLayout.StateViews>
                 <xct:StateView StateKey="Loading" BackgroundColor="White" VerticalOptions="FillAndExpand">
                     <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
@@ -61,14 +69,7 @@
                                            VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
                                 </StackLayout>
                             </xct:StateView>
-                            <xct:StateView StateKey="Error" RepeatCount="4">
-                                <xct:StateView.RepeatTemplate>
-                                    <DataTemplate>
-                                        <Label Text="Something went horribly wrong!" VerticalOptions="Center"
-                                               VerticalTextAlignment="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
-                                    </DataTemplate>
-                                </xct:StateView.RepeatTemplate>
-                            </xct:StateView>
+                            <xct:StateView StateKey="Error" RepeatCount="4" Template="{StaticResource error_template}" />
                             <xct:StateView StateKey="Custom" CustomStateKey="ThisIsCustomHi">
                                 <Label Text="Hi, I'm a custom state!" VerticalOptions="Center" VerticalTextAlignment="Center"
                                        HorizontalOptions="Center" HorizontalTextAlignment="Center"  />
