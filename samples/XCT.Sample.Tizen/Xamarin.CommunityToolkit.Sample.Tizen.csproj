@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj" />
+    <ProjectReference Include="..\..\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj" />
     <ProjectReference Include="..\XCT.Sample\Xamarin.CommunityToolkit.Sample.csproj" />
   </ItemGroup>
 
