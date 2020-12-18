@@ -14,7 +14,7 @@ If you like to live dangerously (and while we are preparing our v1), you can use
 
 ## Sample App
 
-Browsing the [sample app](./src/CommunityToolkit/Xamarin.CommunityToolkit.Sample) is the best place to start exploring what's available today. 
+Browsing the [sample app](./samples) is the best place to start exploring what's available today. 
 
 ## Installation
 
