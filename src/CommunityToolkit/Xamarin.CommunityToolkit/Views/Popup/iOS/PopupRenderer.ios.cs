@@ -14,8 +14,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class PopupRenderer : UIViewController, IVisualElementRenderer
 	{
-		readonly WeakEventManager eventManager = new WeakEventManager();
 		bool isDisposed;
+
+		protected static WeakEventManager EventManager { get; private set; } = new WeakEventManager();
 
 		public IVisualElementRenderer Control { get; private set; }
 
@@ -32,15 +33,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
 
 		[Preserve(Conditional = true)]
-		public PopupRenderer()
-		{
-			eventManager.AddEventHandler(OnDismiss, nameof(OnDismiss));
-		}
+		public PopupRenderer() =>
+			EventManager.AddEventHandler(OnDismiss, nameof(OnDismiss));
 
-		public void SetElementSize(Size size)
-		{
+		public void SetElementSize(Size size) =>
 			Control?.SetElementSize(size);
-		}
 
 		public override void ViewDidLayoutSubviews()
 		{
@@ -55,10 +52,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ModalInPopover = !Element.IsLightDismissEnabled;
 		}
 
-		public SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint)
-		{
-			return NativeView.GetSizeRequest(widthConstraint, heightConstraint);
-		}
+		public SizeRequest GetDesiredSize(double widthConstraint, double heightConstraint) =>
+			NativeView.GetSizeRequest(widthConstraint, heightConstraint);
 
 		void IVisualElementRenderer.SetElement(VisualElement element)
 		{
@@ -135,10 +130,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ViewController = currentPageRenderer.ViewController;
 		}
 
-		void SetEvents()
-		{
+		void SetEvents() =>
 			Element.Dismissed += OnDismissed;
-		}
 
 		void SetSize()
 		{
@@ -187,10 +180,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void SetBackgroundColor()
-		{
+		void SetBackgroundColor() =>
 			Control.NativeView.BackgroundColor = Element.Color.ToUIColor();
-		}
 
 		void SetView()
 		{
@@ -205,13 +196,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			// Setting PermittedArrowDirector to 0 breaks the Popover layout. It would be nice if there is no anchor to remove the arrow.
 			((UIPopoverPresentationController)PresentationController).PermittedArrowDirections = UIPopoverArrowDirection.Up;
-			((UIPopoverPresentationController)PresentationController).Delegate = new PopoverDelegate(eventManager);
+			((UIPopoverPresentationController)PresentationController).Delegate = new PopoverDelegate();
 		}
 
-		void AddToCurrentPageViewController()
-		{
+		void AddToCurrentPageViewController() =>
 			ViewController.PresentViewController(this, true, () => Element.OnOpened());
-		}
 
 		void OnDismissed(object sender, PopupDismissedEventArgs e) =>
 			ViewController.DismissViewControllerAsync(true);
@@ -224,6 +213,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			isDisposed = true;
 			if (disposing)
 			{
+				EventManager.RemoveEventHandler(OnDismiss, nameof(OnDismiss));
+				EventManager = null;
+
 				if (Element != null)
 				{
 					Element.PropertyChanged -= OnElementPropertyChanged;
@@ -263,16 +255,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		class PopoverDelegate : UIPopoverPresentationControllerDelegate
 		{
-			readonly WeakEventManager eventManager;
-
-			public PopoverDelegate(WeakEventManager eventManager) =>
-				this.eventManager = eventManager;
-
 			public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController forPresentationController) =>
 				UIModalPresentationStyle.None;
 
 			public override void DidDismiss(UIPresentationController presentationController) =>
-				eventManager.RaiseEvent(this, new EventArgs(), nameof(OnDismiss));
+				EventManager.RaiseEvent(this, new EventArgs(), nameof(OnDismiss));
 		}
 	}
 }
