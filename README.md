@@ -47,7 +47,7 @@ where `message` is your text, and duration is optional parameter. Default durati
     var options = new ToastOptions
     {
         MessageOptions = messageOptions,
-        Duration = 3000,
+        Duration = TimeSpan.FromMilliseconds(3000),
         BackgroundColor = Color.Default,
         IsRtl = false,
     };
