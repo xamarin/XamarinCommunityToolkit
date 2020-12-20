@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -9,6 +10,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	[ContentProperty(nameof(Content))]
 	public abstract class BasePopup : VisualElement
 	{
+		readonly WeakEventManager<PopupDismissedEventArgs> dismissWeakEventManager = new WeakEventManager<PopupDismissedEventArgs>();
+		readonly WeakEventManager<PopupOpenedEventArgs> openedWeakEventManager = new WeakEventManager<PopupOpenedEventArgs>();
+
 		/// <summary>
 		/// Instantiates a new instance of <see cref="BasePopup"/>.
 		/// </summary>
@@ -101,12 +105,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Dismissed event is invoked when the popup is closed.
 		/// </summary>
-		public event EventHandler<PopupDismissedEventArgs> Dismissed;
+		public event EventHandler<PopupDismissedEventArgs> Dismissed
+		{
+			add => dismissWeakEventManager.AddEventHandler(value);
+			remove => dismissWeakEventManager.RemoveEventHandler(value);
+		}
 
 		/// <summary>
 		/// Opened event is invoked when the popup is opened.
 		/// </summary>
-		public event EventHandler<PopupOpenedEventArgs> Opened;
+		public event EventHandler<PopupOpenedEventArgs> Opened
+		{
+			add => openedWeakEventManager.AddEventHandler(value);
+			remove => openedWeakEventManager.RemoveEventHandler(value);
+		}
 
 		/// <summary>
 		/// Invokes the <see cref="Dismissed"/> event.
@@ -114,18 +126,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <param name="result">
 		/// The results to add to the <see cref="PopupDismissedEventArgs"/>.
 		/// </param>
-		protected void OnDismissed(object result)
-		{
-			Dismissed?.Invoke(this, new PopupDismissedEventArgs(result));
-		}
+		protected void OnDismissed(object result) =>
+			dismissWeakEventManager.RaiseEvent(this, new PopupDismissedEventArgs(result), nameof(Dismissed));
 
 		/// <summary>
 		/// Invokes the <see cref="Opened"/> event.
 		/// </summary>
-		internal virtual void OnOpened()
-		{
-			Opened?.Invoke(this, new PopupOpenedEventArgs());
-		}
+		internal virtual void OnOpened() =>
+			openedWeakEventManager.RaiseEvent(this, new PopupOpenedEventArgs(), nameof(Opened));
 
 		/// <summary>
 		/// Invoked when the popup is light dismissed. In other words when the
