@@ -191,11 +191,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetPresentationController()
 		{
+			var popOverDelegate = new PopoverDelegate();
+			popOverDelegate.PopoverDismissed += HandlePopoverDelegateDismissed;
+
 			((UIPopoverPresentationController)PresentationController).SourceView = ViewController.View;
 
 			// Setting PermittedArrowDirector to 0 breaks the Popover layout. It would be nice if there is no anchor to remove the arrow.
 			((UIPopoverPresentationController)PresentationController).PermittedArrowDirections = UIPopoverArrowDirection.Up;
-			((UIPopoverPresentationController)PresentationController).Delegate = new PopoverDelegate(OnDismiss);
+			((UIPopoverPresentationController)PresentationController).Delegate = popOverDelegate;
+		}
+
+		void HandlePopoverDelegateDismissed(object sender, UIPresentationController e)
+		{
+			if (IsViewLoaded && Element.IsLightDismissEnabled)
+				Element.LightDismiss();
 		}
 
 		void AddToCurrentPageViewController() =>
@@ -212,7 +221,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			isDisposed = true;
 			if (disposing)
 			{
-
 				if (Element != null)
 				{
 					Element.PropertyChanged -= OnElementPropertyChanged;
@@ -229,8 +237,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						// leaving it in so it can be reviewed.
 						var rendererProperty = BindableProperty.CreateAttached("Renderer", typeof(IVisualElementRenderer), typeof(Platform), default(IVisualElementRenderer), propertyChanged: (bindable, oldvalue, newvalue) =>
 						{
-							var view = bindable as VisualElement;
-							if (view != null)
+							if (bindable is VisualElement view)
 								view.IsPlatformEnabled = newvalue != null;
 						});
 
@@ -248,26 +255,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
-		void OnDismiss()
-		{
-			if (IsViewLoaded && Element.IsLightDismissEnabled)
-				Element.LightDismiss();
-		}
-
 		class PopoverDelegate : UIPopoverPresentationControllerDelegate
 		{
-			Action dismissCallback;
+			readonly WeakEventManager<UIPresentationController> popoverDismissedEventManager = new WeakEventManager<UIPresentationController>();
 
-			public PopoverDelegate(Action callback)
+			public event EventHandler<UIPresentationController> PopoverDismissed
 			{
-				dismissCallback = callback;
+				add => popoverDismissedEventManager.AddEventHandler(value);
+				remove => popoverDismissedEventManager.RemoveEventHandler(value);
 			}
 
 			public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController forPresentationController) =>
 				UIModalPresentationStyle.None;
 
 			public override void DidDismiss(UIPresentationController presentationController) =>
-				dismissCallback?.Invoke();
+				popoverDismissedEventManager.RaiseEvent(this, presentationController, nameof(PopoverDismissed));
 		}
 	}
 }
