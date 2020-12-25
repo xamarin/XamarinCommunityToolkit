@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		UIGestureRecognizer gesture;
+		TouchUITapGestureRecognizer gesture;
 
 		TouchEffect effect;
 
@@ -26,8 +26,15 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			effect.Element = (VisualElement)Element;
 
 			gesture = new TouchUITapGestureRecognizer(effect);
+
 			if (Container != null)
 			{
+				if ((Container as IVisualNativeElementRenderer)?.Control is UIButton button)
+				{
+					button.AllTouchEvents += PreventButtonHighlight;
+					gesture.IsButton = true;
+				}
+
 				Container.AddGestureRecognizer(gesture);
 				Container.UserInteractionEnabled = true;
 			}
@@ -38,12 +45,18 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.Element == null)
 				return;
 
+			if ((Container as IVisualNativeElementRenderer)?.Control is UIButton button)
+				button.AllTouchEvents -= PreventButtonHighlight;
+
 			Container?.RemoveGestureRecognizer(gesture);
 			gesture?.Dispose();
 			gesture = null;
 			effect.Element = null;
 			effect = null;
 		}
+
+		void PreventButtonHighlight(object sender, EventArgs args)
+			=> ((UIButton)sender).Highlighted = false;
 	}
 
 	sealed class TouchUITapGestureRecognizer : UIGestureRecognizer
@@ -62,6 +75,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		}
 
 		public bool IsCanceled { get; set; } = true;
+
+		public bool IsButton { get; set; }
 
 		UIView Renderer => effect?.Element.GetRenderer() as UIView;
 
@@ -158,7 +173,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (interactionStatus.HasValue)
 				effect?.HandleUserInteraction(interactionStatus.Value);
 
-			if (effect == null || !effect.NativeAnimation || !effect.CanExecute)
+			if (effect == null || (!effect.NativeAnimation && !IsButton) || !effect.CanExecute)
 				return;
 
 			var control = effect.Element;

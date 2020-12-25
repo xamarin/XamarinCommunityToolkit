@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                ios:Page.UseSafeArea="true"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.TouchEffectButtonPage"
+                x:Name="Page">
+    <pages:BasePage.Resources>
+        <Style x:Key="ButtonStyle" TargetType="View">
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="WidthRequest" Value="200" />
+            <Setter Property="BackgroundColor" Value="LightSkyBlue" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
+    </pages:BasePage.Resources>
+
+
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 Spacing="20">
+
+        <Label Text="When you click over the button you should see that button's command is executed." />
+
+        <Button Style="{StaticResource ButtonStyle}"
+                Text="Button"
+                Command="{Binding Command, Source={x:Reference Page}}"
+                xct:TouchEffect.PressedScale="1.2" />
+
+        <ImageButton Style="{StaticResource ButtonStyle}"
+                     Source="help"
+                     Command="{Binding Command, Source={x:Reference Page}}"
+                     xct:TouchEffect.PressedRotation="180" />
+    </StackLayout>
+
+</pages:BasePage>
