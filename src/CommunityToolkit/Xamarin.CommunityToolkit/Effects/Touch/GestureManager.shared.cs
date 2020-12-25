@@ -199,6 +199,9 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (!sender.CanExecute || (sender.LongPressCommand != null && sender.InteractionStatus == TouchInteractionStatus.Completed))
 				return;
 
+			if (sender.Element is IButtonController button)
+				button.SendClicked();
+
 			sender.Command?.Execute(sender.CommandParameter);
 			sender.RaiseCompleted();
 		}
