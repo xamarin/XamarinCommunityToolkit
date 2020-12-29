@@ -24,14 +24,20 @@
         <ScrollView>
             <StackLayout
                 Padding="12">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="IsRounded"/>
+                    <Switch IsToggled="{Binding IsRounded}"/>
+                </StackLayout>
+                
                 <Label
                     Text="Getting started"
                     Style="{StaticResource SectionStyle}"/>
                 <xct:BadgeView
                     BackgroundColor="Red"
                     TextColor="White"
-                    Text="1">
-                    <Label
+                    Text="1"
+                    IsRounded="{Binding IsRounded}">
+                <Label
                         Text="BadgeView"/>
                 </xct:BadgeView>
                 <Label
@@ -40,16 +46,34 @@
                 <xct:BadgeView
                     BackgroundColor="Blue"
                     TextColor="White"
-                    Text="1003">
+                    Text="1003"
+                    IsRounded="{Binding IsRounded}">
                     <Label
                         Text="Long Text"/>
+                </xct:BadgeView>
+                <xct:BadgeView
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    Text="2"
+                    IsRounded="{Binding IsRounded}">
+                    <Label
+                        Text="Custom short"/>
+                </xct:BadgeView>
+                <xct:BadgeView
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    Text="10034053020"
+                    IsRounded="{Binding IsRounded}">
+                    <Label
+                        Text="Really long value"/>
                 </xct:BadgeView>
                 <xct:BadgeView
                     BackgroundColor="Red"
                     FontAttributes="Bold"
                     FontSize="8"
                     TextColor="White"
-                    Text="1">
+                    Text="1"
+                    IsRounded="{Binding IsRounded}">
                     <Label
                         Text="Font Customization"/>
                 </xct:BadgeView>
@@ -58,7 +82,8 @@
                     FontAttributes="Bold"
                     FontSize="Medium"
                     TextColor="White"
-                    Text="1">
+                    Text="1"
+                    IsRounded="{Binding IsRounded}">
                     <Label
                         Text="Named Font Size"/>
                 </xct:BadgeView>
@@ -66,7 +91,8 @@
                     BackgroundColor="Red"
                     BorderColor="Orange"
                     TextColor="White"
-                    Text="1">
+                    Text="1"
+                    IsRounded="{Binding IsRounded}">
                     <Label
                         Text="Border Customization"/>
                 </xct:BadgeView>
@@ -75,7 +101,8 @@
                     BorderColor="Orange"
                     HasShadow="True"
                     TextColor="White"
-                    Text="1">
+                    Text="1"
+                    IsRounded="{Binding IsRounded}">
                     <Label
                         Text="Shadow Customization"/>
                 </xct:BadgeView>
@@ -90,7 +117,8 @@
                         BadgePosition="TopLeft"
                         BackgroundColor="Red"
                         Text="7"
-                        TextColor="White">
+                        TextColor="White"
+                        IsRounded="{Binding IsRounded}">
                         <Grid
                             HeightRequest="48"
                             WidthRequest="150"
@@ -109,7 +137,8 @@
                         BadgePosition="TopRight"
                         BackgroundColor="Red"
                         Text="7"
-                        TextColor="White">
+                        TextColor="White"
+                        IsRounded="{Binding IsRounded}">
                         <Grid
                             HeightRequest="48"
                             WidthRequest="150"
@@ -128,7 +157,8 @@
                         BadgePosition="BottomLeft"
                         BackgroundColor="Red"
                         Text="7"
-                        TextColor="White">
+                        TextColor="White"
+                        IsRounded="{Binding IsRounded}">
                         <Grid
                             HeightRequest="48"
                             WidthRequest="150"
@@ -147,7 +177,8 @@
                         BadgePosition="BottomRight"
                         BackgroundColor="Red"
                         Text="7"
-                        TextColor="White">
+                        TextColor="White"
+                        IsRounded="{Binding IsRounded}">
                         <Grid
                             HeightRequest="48"
                             WidthRequest="150"
@@ -166,7 +197,8 @@
                 <xct:BadgeView
                     BackgroundColor="Red"
                     Text="{Binding Counter}"
-                    TextColor="White">
+                    TextColor="White"
+                    IsRounded="{Binding IsRounded}">
                     <StackLayout
                         BackgroundColor="LightGray">
                         <Button

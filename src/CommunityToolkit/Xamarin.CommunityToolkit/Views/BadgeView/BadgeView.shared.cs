@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Numerics;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Markup;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
@@ -157,6 +159,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
             set => SetValue(FontAttributesProperty, value);
         }
 
+        static void IsRoundedChanged(BindableObject bindable, object oldvalue, object newvalue) =>
+	        (bindable as BadgeView)?.UpdateRounded();
+
+        
+
+
+        public static BindableProperty IsRoundedProperty =
+	        BindableProperty.Create(nameof(IsRounded), typeof(bool), typeof(BadgeView), true,
+		        propertyChanged:IsRoundedChanged);
+
+        
+
+
+        public bool IsRounded
+        {
+	        get => (bool) GetValue(IsRoundedProperty);
+	        set => SetValue(IsRoundedProperty, value);
+        }
+
         ContentPresenter BadgeContent { get; } = CreateContentElement();
 
         Grid BadgeIndicatorContainer { get; } = CreateIndicatorContainerElement();
@@ -172,6 +193,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             BadgeIndicatorContainer.Children.Add(BadgeIndicatorBackground);
             BadgeIndicatorContainer.PropertyChanged += OnBadgeIndicatorContainerPropertyChanged;
             BadgeText.SizeChanged += OnBadgeTextSizeChanged;
+            BadgeIndicatorBackground.SizeChanged += OnBadgeIndicatorSizeChanged;
 
             control.Children.Add(BadgeContent);
             control.Children.Add(BadgeIndicatorContainer);
@@ -204,7 +226,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
            {
                HorizontalOptions = LayoutOptions.Center,
                VerticalOptions = LayoutOptions.Center,
-               Margin = new Thickness(4, 0)
            };
 
         protected override void OnBindingContextChanged()
@@ -218,9 +239,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
         {
             base.OnSizeAllocated(width, height);
 
-            UpdateBadgeViewPlacement();
+            UpdateBadgeViewPlacement(); 
         }
-
+        
         void UpdateLayout()
         {
             BatchBegin();
@@ -234,7 +255,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             BadgeIndicatorBackground.BackgroundColor = BackgroundColor;
             BadgeIndicatorBackground.BorderColor = BorderColor;
             BadgeIndicatorBackground.HasShadow = HasShadow;
-
+            
             BadgeText.Text = Text;
             BadgeText.TextColor = TextColor;
 
@@ -253,6 +274,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
             BadgeText.FontSize = FontSize;
             BadgeText.FontFamily = FontFamily;
             BadgeText.FontAttributes = FontAttributes;
+        }
+        
+        void UpdateRounded()
+        {
+	        UpdateBadgeViewPlacement(true);
+	        UpdateLayout();
         }
 
         void UpdateBadgeViewPlacement(bool force = false)
@@ -279,10 +306,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
                 contentMargin = margins.Item2;
             }
 
+            BadgeText.Margin = GetMarginsLengthIsOne();
             BadgeIndicatorContainer.Margin = containerMargin;
             BadgeContent.Margin = contentMargin;
             placementDone = true;
         }
+
+        private Thickness GetMarginsLengthIsOne()
+			=> BadgeText.Text.Length == 1 && IsRounded
+				? Device.RuntimePlatform == Device.Android  
+					? new Thickness(10,0,10,0)
+					: new Thickness(8,0,8,0)
+				: new Thickness(4,0,4,0);
 
         Tuple<Thickness, Thickness> GetMargins(double size)
         {
@@ -354,10 +389,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
                 isVisible = badgeIsVisible;
             }
-            else
-                BadgeIndicatorContainer.IsVisible = badgeIsVisible;
+            else BadgeIndicatorContainer.IsVisible = badgeIsVisible;
         }
-
+        
+        void OnBadgeIndicatorSizeChanged(object sender, EventArgs e)
+        {
+	        if (!IsRounded)
+	        {
+		        BadgeIndicatorBackground.CornerRadius = Device.RuntimePlatform == Device.Android ? 12 : 8;
+	        }
+	        else
+	        {
+		        var min = Math.Min(BadgeIndicatorBackground.Width, BadgeIndicatorBackground.Height);
+		        if (min != -1)
+		        {
+			        BadgeIndicatorBackground.CornerRadius = (float) (min / 2) ;
+		        }
+	        }
+        }
+        
         void OnBadgeTextSizeChanged(object sender, EventArgs e)
             => UpdateBadgeViewPlacement(true);
 

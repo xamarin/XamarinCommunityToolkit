@@ -6,9 +6,20 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 	public class BadgeViewViewModel : BaseViewModel
 	{
 		int counter;
+		private bool isRounded = true;
 
 		public BadgeViewViewModel() => Counter = 3;
 
+		public bool IsRounded
+		{
+			get => isRounded;
+			set
+			{
+				isRounded = value;
+				OnPropertyChanged();
+			}
+		}
+		
 		public int Counter
 		{
 			get => counter;
