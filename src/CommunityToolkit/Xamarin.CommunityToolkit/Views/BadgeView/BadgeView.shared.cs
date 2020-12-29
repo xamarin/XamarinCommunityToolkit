@@ -403,7 +403,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		        var min = Math.Min(BadgeIndicatorBackground.Width, BadgeIndicatorBackground.Height);
 		        if (min != -1)
 		        {
-			        BadgeIndicatorBackground.CornerRadius = (float) (min / 2) ;
+			        BadgeIndicatorBackground.CornerRadius = (float) (min / 2);
 		        }
 	        }
         }
