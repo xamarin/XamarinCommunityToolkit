@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.MediaElementSourcePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.TestCases"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.BindingContext>
+        <vm:MediaElementViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto, *, *">
+            <Label Text="Both videos should execute" />
+
+            <xct:MediaElement Grid.Row="1" Source="{Binding VideoAsString}" />
+            <xct:MediaElement Grid.Row="2" Source="{Binding VideoAsMediaSource}" />
+        </Grid>
+    </ContentPage.Content>
+</pages:BasePage>
