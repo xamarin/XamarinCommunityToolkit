@@ -26,6 +26,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
 			snackTextView.SetMaxLines(10);
+
+			if (arguments.MessageOptions.Padding != MessageOptions.DefaultPadding)
+			{
+				snackBarView.SetPadding((int)arguments.MessageOptions.Padding.Left,
+					(int)arguments.MessageOptions.Padding.Top,
+					(int)arguments.MessageOptions.Padding.Right,
+					(int)arguments.MessageOptions.Padding.Bottom);
+			}
+
 			if (arguments.MessageOptions.Foreground != Forms.Color.Default)
 			{
 				snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
@@ -33,7 +42,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (arguments.MessageOptions.Font != Font.Default)
 			{
-				snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.FontSize);
+				if (arguments.MessageOptions.Font.FontSize > 0)
+				{
+					snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.FontSize);
+				}
+
 				snackTextView.SetTypeface(arguments.MessageOptions.Font.ToTypeface(), TypefaceStyle.Normal);
 			}
 
@@ -55,9 +68,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
 				}
 
-				if (action.Font != Forms.Font.Default)
+				if (action.Padding != SnackBarActionOptions.DefaultPadding)
 				{
-					snackActionButtonView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
+					snackActionButtonView.SetPadding((int)action.Padding.Left,
+						(int)action.Padding.Top,
+						(int)action.Padding.Right,
+						(int)action.Padding.Bottom);
+				}
+
+				if (action.Font != Font.Default)
+				{
+					if (action.Font.FontSize > 0)
+					{
+						snackTextView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
+					}
+
 					snackActionButtonView.SetTypeface(action.Font.ToTypeface(), TypefaceStyle.Normal);
 				}
 
