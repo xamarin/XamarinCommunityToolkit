@@ -165,6 +165,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
         public static BindableProperty IsRoundedProperty =
 	        BindableProperty.Create(nameof(IsRounded), typeof(bool), typeof(BadgeView), true,
 		        propertyChanged:IsRoundedChanged);
+		        
         public bool IsRounded
         {
 	        get => (bool) GetValue(IsRoundedProperty);
