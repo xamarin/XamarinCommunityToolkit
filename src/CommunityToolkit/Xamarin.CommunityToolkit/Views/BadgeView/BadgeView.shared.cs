@@ -162,9 +162,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
         static void IsRoundedChanged(BindableObject bindable, object oldvalue, object newvalue) =>
 	        (bindable as BadgeView)?.UpdateRounded();
 
-        
-
-
         public static BindableProperty IsRoundedProperty =
 	        BindableProperty.Create(nameof(IsRounded), typeof(bool), typeof(BadgeView), true,
 		        propertyChanged:IsRoundedChanged);
