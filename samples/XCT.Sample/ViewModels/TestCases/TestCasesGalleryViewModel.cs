@@ -12,6 +12,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(TouchEffectButtonPage),
 				"TouchEffect + Button",
 				"TouchEffect must automatically invoke button'c command execution."),
+
+			new SectionModel(
+				typeof(MediaElementSourcePage),
+				"MediaElement with Source as string",
+				"MediaElement should reproduce the video."),
 		};
 	}
 }
