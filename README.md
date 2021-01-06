@@ -18,7 +18,7 @@ Browsing the [sample app](./samples) is the best place to start exploring what's
 
 ## Installation
 
-The Toolkit is available via NuGet, and should be installed into all (shared and each platform) your projects:
+The Toolkit is available via NuGet, and should be installed into all of your projects (shared and individual platforms):
 
 * NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Xamarin.CommunityToolkit.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.CommunityToolkit/)
 * NuGet Nightly Releases: [![NuGet Nightly](https://img.shields.io/badge/NuGet-Nightly-yellow)](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json)
