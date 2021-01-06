@@ -33,10 +33,13 @@ trigger:
     - README.md
 
 pr:
-  autoCancel: false
+  autoCancel: true
   branches:
     include:
     - main
+  paths:
+    exclude:
+    - README.md
 
 schedules:
 - cron: "0 0 * * *"
