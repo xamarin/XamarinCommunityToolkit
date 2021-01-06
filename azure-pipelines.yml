@@ -37,6 +37,9 @@ pr:
   branches:
     include:
     - main
+  paths:
+    exclude:
+    - README.md
 
 schedules:
 - cron: "0 0 * * *"
