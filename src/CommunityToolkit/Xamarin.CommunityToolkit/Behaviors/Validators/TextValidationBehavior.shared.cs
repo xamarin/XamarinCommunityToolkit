@@ -80,8 +80,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (flags.HasFlag(TextDecorationFlags.TrimEnd))
 				value = value.TrimEnd();
 
-			if (flags.HasFlag(TextDecorationFlags.ReduceWhiteSpaces))
-				value = ReduceWhiteSpaces(value);
+			if (flags.HasFlag(TextDecorationFlags.NormalizeWhiteSpace))
+				value = NormalizeWhiteSpace(value);
 
 			return value;
 		}
@@ -115,7 +115,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				? new Regex(RegexPattern, RegexOptions)
 				: null;
 
-		string ReduceWhiteSpaces(string value)
+		// This method trims down multiple consecutive whitespaces
+		// back to one whitespace.
+		// I.e. "Hello    World" will become "Hello World"
+		string NormalizeWhiteSpace(string value)
 		{
 			var builder = new StringBuilder();
 			var isSpace = false;
