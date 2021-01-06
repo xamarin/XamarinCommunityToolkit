@@ -18,12 +18,31 @@ Browsing the [sample app](./samples) is the best place to start exploring what's
 
 ## Installation
 
-The toolkit is available via NuGet, and should be installed into all (shared and each platform) your projects:
+The Toolkit is available via NuGet, and should be installed into all (shared and each platform) your projects:
 
 * NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Xamarin.CommunityToolkit.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.CommunityToolkit/)
 * NuGet Nightly Releases: [![NuGet Nightly](https://img.shields.io/badge/NuGet-Nightly-yellow)](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json)
 
-Now all you need to do is use it! 
+Browse with the NuGet manager in your IDE to install them or run this command:
+
+`Install-Package Xamarin.CommunityToolkit`
+
+## Getting Started
+
+After installation, start using the features you're after.
+
+If you're using XAML, you can add this namespace to your root node to get access to all the goodness the Toolkit has to offer without having to add all kinds of namespaces seperately: `xmlns:xct="http://xamarin.com/schemas/2020/toolkit"`. I.e.:
+
+```xaml
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+<xct:AvatarView />
+
+<!-- The rest of your page here -->
+
+</ContentPage>
+```
 
 ## Documentation
 
@@ -37,7 +56,7 @@ Please have a look at our [contribution guide](CONTRIBUTING.md) before you get s
 
 ## Project Structure
 
-To structure our project, we have adopted a range of namespaces. You can find them below with a short description of what you will find where.
+To structure our project, we have adopted a range of namespaces. You can find them below with a short description of what you will find where. For simply consuming the Toolkit in XAML you can use our simplified namespace. See the Getting Started section above.
 
 | Namespace | Description |
 |--------------|--------------|
