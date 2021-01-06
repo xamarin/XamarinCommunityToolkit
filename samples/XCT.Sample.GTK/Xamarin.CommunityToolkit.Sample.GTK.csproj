@@ -81,10 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.1791-pre5</Version>
+      <Version>5.0.0.1874</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms.Platform.GTK">
-      <Version>5.0.0.1791-pre5</Version>
+      <Version>5.0.0.1874</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
   </ItemGroup>
