@@ -24,6 +24,7 @@
                     IsEnabled="False"
                     Maximum="10"
                     Minimum="1"
+                    HorizontalOptions="FillAndExpand"
                     ValueChanged="ZoomSlider_ValueChanged"
                     Value="1" />
             </StackLayout>
