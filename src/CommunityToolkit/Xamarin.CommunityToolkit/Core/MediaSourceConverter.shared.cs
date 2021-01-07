@@ -1,9 +1,9 @@
 ﻿using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Core
 {
-	[Forms.Xaml.TypeConversion(typeof(MediaSource))]
 	public sealed class MediaSourceConverter : TypeConverter
 	{
 		public override object ConvertFromInvariantString(string value)
