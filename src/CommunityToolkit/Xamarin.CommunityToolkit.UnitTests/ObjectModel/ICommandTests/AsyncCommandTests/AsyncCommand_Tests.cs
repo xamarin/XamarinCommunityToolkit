@@ -100,7 +100,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		}
 
 		[Fact]
-		public void AsyncCommand_CanExecuteChanged_Test()
+		public void AsyncCommand_RaiseCanExecuteChanged_Test()
 		{
 			// Arrange
 			var canCommandExecute = false;
@@ -122,6 +122,37 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.RaiseCanExecuteChanged();
+
+			// Assert
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+		}
+
+		[Fact]
+		public void AsyncCommand_ChangeCanExecute_Test()
+		{
+			// Arrange
+			var canCommandExecute = false;
+			var didCanExecuteChangeFire = false;
+
+			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			bool commandCanExecute(object parameter) => canCommandExecute;
+
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			canCommandExecute = true;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.False(didCanExecuteChangeFire);
+
+			// Act
+			command.ChangeCanExecute();
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);

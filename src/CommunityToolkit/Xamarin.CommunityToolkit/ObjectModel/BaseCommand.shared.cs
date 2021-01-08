@@ -77,12 +77,17 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		};
 
 		/// <summary>
-		/// Raises the CanExecuteChanged event.
+		/// Raises the `ICommand.CanExecuteChanged` event.
 		/// </summary>
 		public void RaiseCanExecuteChanged()
 		{
 			// Automatically marshall to the Main Thread to adhere to the way that Xamarin.Forms automatically marshalls binding events to Main Thread
 			Device.BeginInvokeOnMainThread(() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)));
 		}
+
+		/// <summary>
+		/// Raises the `ICommand.CanExecuteChanged` event. Performs the same functionality as RaiseCanExecuteChanged leveraging the Xamarin.Forms.Command nomencalture to make the transition from Xamarin.Forms.Command easier.
+		/// </summary>
+		public void ChangeCanExecute() => RaiseCanExecuteChanged();
 	}
 }
