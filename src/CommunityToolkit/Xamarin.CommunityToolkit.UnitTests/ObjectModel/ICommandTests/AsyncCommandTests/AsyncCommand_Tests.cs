@@ -152,7 +152,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(didCanExecuteChangeFire);
 
 			// Act
+#pragma warning disable CS0618 // Type or member is obsolete
 			command.ChangeCanExecute();
+#pragma warning restore CS0618 // Type or member is obsolete
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);

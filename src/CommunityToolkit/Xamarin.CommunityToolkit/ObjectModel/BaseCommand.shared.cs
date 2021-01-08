@@ -86,8 +86,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		}
 
 		/// <summary>
-		/// Raises the `ICommand.CanExecuteChanged` event. Performs the same functionality as RaiseCanExecuteChanged leveraging the Xamarin.Forms.Command nomencalture to make the transition from Xamarin.Forms.Command easier.
+		/// Raises the `ICommand.CanExecuteChanged` event.
 		/// </summary>
+		[Obsolete("Use RaiseCanExecuteChanged() instead")]
 		public void ChangeCanExecute() => RaiseCanExecuteChanged();
 	}
 }
