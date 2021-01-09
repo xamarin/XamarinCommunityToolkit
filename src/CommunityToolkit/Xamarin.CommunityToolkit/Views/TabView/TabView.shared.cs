@@ -227,7 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					return;
 				}
 
-				tabView.UpdateSelectedIndex(selectedIndex);
+				tabView.UpdateSelectedIndex((int)oldValue, selectedIndex);
 			}
 		}
 
@@ -478,7 +478,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var selectedIndex = contentContainer.Position;
 
-				UpdateSelectedIndex(selectedIndex, true);
+				UpdateSelectedIndex(this.SelectedIndex, selectedIndex, true);
 			}
 		}
 
@@ -539,7 +539,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateTabContentSize();
 			UpdateTabStripSize();
 
-			UpdateSelectedIndex(0);
+			UpdateSelectedIndex(this.SelectedIndex, 0);
 		}
 
 		void UpdateTabStripSize()
@@ -591,7 +591,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				if (CanUpdateSelectedIndex(capturedIndex))
-					UpdateSelectedIndex(capturedIndex);
+					UpdateSelectedIndex(this.SelectedIndex, capturedIndex);
 			};
 
 			view.GestureRecognizers.Add(tapRecognizer);
@@ -708,7 +708,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateTabContentSize();
 			UpdateTabStripSize();
 
-			UpdateSelectedIndex(0);
+			UpdateSelectedIndex(this.SelectedIndex, 0);
 		}
 
 		void OnTabItemsSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => UpdateTabItemsSource();
@@ -745,12 +745,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return true;
 		}
 
-		void UpdateSelectedIndex(int position, bool hasCurrentItem = false)
+		void UpdateSelectedIndex(int oldPosition, int position, bool hasCurrentItem = false)
 		{
 			if (position < 0)
 				return;
-
-			var oldPosition = SelectedIndex;
 			var newPosition = position;
 
 			if (oldPosition == newPosition)
