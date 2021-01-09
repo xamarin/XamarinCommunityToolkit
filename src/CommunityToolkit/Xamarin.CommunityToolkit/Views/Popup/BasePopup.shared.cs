@@ -139,12 +139,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Invoked when the popup is light dismissed. In other words when the
 		/// user taps outside of the popup and it closes.
 		/// </summary>
-		public virtual void LightDismiss()
+		protected internal virtual void LightDismiss()
 		{
-			// REVIEW - AH 12/3/2020
-			// Should this API be protected internal? It is not intended
-			// to be called outside of XCT, but it should allow for subclassing.
-
 			// TODO - AH 12/3/2020
 			// This is not being tested correctly. It is not
 			// implemented in iOS or UWP.
