@@ -141,11 +141,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		protected internal virtual void LightDismiss()
 		{
-			// TODO - AH 12/3/2020
-			// This is not being tested correctly. It is not
-			// implemented in iOS or UWP.
-
-			// empty default implementation
+			// Note 1/9/2021
+			// Left empty be design
+			//
+			// This method needs to be left empty as it is not
+			// required for a child class to have an implementation
+			// of LightDismiss. This means if a renderer invokes
+			// this method nothing will happen unless the child
+			// class has an implementation.
 		}
 
 		/// <inheritdoc />
