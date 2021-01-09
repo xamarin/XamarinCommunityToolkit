@@ -5,7 +5,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	/// <summary>
-	/// The popup controls base implementation.
+	/// The popup control's base implementation.
 	/// </summary>
 	[ContentProperty(nameof(Content))]
 	public abstract class BasePopup : VisualElement

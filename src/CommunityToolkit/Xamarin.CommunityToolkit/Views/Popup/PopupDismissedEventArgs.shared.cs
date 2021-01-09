@@ -7,6 +7,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// </summary>
 	public class PopupDismissedEventArgs : EventArgs
 	{
+		/// <summary>
+		/// Initialization an instance of <see cref="PopupDismissedEventArgs"/>.
+		/// </summary>
+		/// <param name="result">
+		/// The result of the popup.
+		/// </param>
 		public PopupDismissedEventArgs(object result) =>
 			Result = result;
 
