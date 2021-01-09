@@ -14,7 +14,7 @@ using StreamImageSourceHandler = Xamarin.Forms.Platform.iOS.StreamImagesourceHan
 using Xamarin.Forms.Platform.MacOS;
 using UriImageSourceHandler = Xamarin.Forms.Platform.MacOS.ImageLoaderSourceHandler;
 using StreamImageSourceHandler = Xamarin.Forms.Platform.MacOS.StreamImagesourceHandler;
-#elif UWP
+#elif UAP10_0
 using Xamarin.Forms.Platform.UWP;
 #elif NET471
 using Xamarin.Forms.Platform.GTK.Renderers;
