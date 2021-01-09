@@ -1,16 +1,36 @@
 ﻿using System;
 using UIKit;
+using Xamarin.Forms.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
-	class SnackBarAppearance
+	class NativeSnackBarAppearance
 	{
-		public UIColor Color { get; set; } = UIColor.SystemGrayColor;
+		public UIColor Background { get; set; } = UIColor.SystemBackgroundColor;
 
-		public nfloat CornerRadius { get; set; } = 5;
+		public UIColor Foreground { get; set; } = DefaultColor;
 
-		public UILineBreakMode DismissButtonLineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
+		public UIFont Font { get; set; } = DefaultFont;
 
-		public UITextAlignment MessageTextAlignment { get; set; } = UITextAlignment.Left;
+		public UITextAlignment TextAlignment { get; set; } = UITextAlignment.Left;
+
+		public static UIColor DefaultColor { get; } = Forms.Color.Default.ToUIColor();
+
+		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
+	}
+
+	class NativeSnackButtonAppearance
+	{
+		public UIColor Background { get; set; } = DefaultColor;
+
+		public UIColor Foreground { get; set; } = DefaultColor;
+
+		public UIFont Font { get; set; } = DefaultFont;
+
+		public UILineBreakMode LineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
+
+		public static UIColor DefaultColor { get; } = Forms.Color.Default.ToUIColor();
+
+		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
 	}
 }

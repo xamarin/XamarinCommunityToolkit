@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -12,6 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool layoutIsGrid;
 		LayoutState previousState;
 		IList<View> originalContent;
+		CancellationTokenSource animationTokenSource;
 
 		public IList<StateView> StateViews { get; set; }
 
@@ -23,8 +25,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!layoutWeakReference.TryGetTarget(out var layout))
 				return;
 
+			var token = RebuildAnimationTokenSource(layout);
+
 			previousState = LayoutState.None;
 			await ChildrenFadeTo(layout, animate, true);
+
+			if (token.IsCancellationRequested)
+				return;
 
 			// Put the original content back in.
 			layout.Children.Clear();
@@ -46,6 +53,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!layoutWeakReference.TryGetTarget(out var layout))
 				return;
 
+			var token = RebuildAnimationTokenSource(layout);
+
 			// Put the original content somewhere where we can restore it.
 			if (previousState == LayoutState.None)
 			{
@@ -55,52 +64,43 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					originalContent.Add(item);
 			}
 
-			if (HasTemplateForState(state, customState))
+			var view = GetViewForState(state, customState);
+
+			if (view != null)
 			{
 				previousState = state;
 
 				await ChildrenFadeTo(layout, animate, true);
 
+				if (token.IsCancellationRequested)
+					return;
+
 				layout.Children.Clear();
 
 				var repeatCount = GetRepeatCount(state, customState);
+				var template = GetTemplate(state, customState);
 
-				if (repeatCount == 1)
+				if (template != null)
 				{
-					var s = new StackLayout { Opacity = animate ? 0 : 1 };
-
-					if (layout is Grid grid)
-					{
-						if (grid.RowDefinitions.Any())
-							Grid.SetRowSpan(s, grid.RowDefinitions.Count);
-
-						if (grid.ColumnDefinitions.Any())
-							Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
-
-						layout.Children.Add(s);
-						layoutIsGrid = true;
-					}
-
-					var view = CreateItemView(state, customState);
-
-					if (view != null)
-					{
-						if (layoutIsGrid)
-							s.Children.Add(view);
-						else
-							layout.Children.Add(view);
-					}
-				}
-				else
-				{
-					var template = GetRepeatTemplate(state, customState);
+					// We have a template we can use.
 					var items = new List<int>();
 
 					for (var i = 0; i < repeatCount; i++)
 						items.Add(i);
 
-					var s = new StackLayout { Opacity = animate ? 0 : 1 };
+					// We create a StackLayout to stack repeating items.
+					// It takes VerticalOptions and HorizontalOptions from the
+					// StateView to allow for more control over how it layouts.
+					var s = new StackLayout
+					{
+						Opacity = animate ? 0 : 1,
+						VerticalOptions = view.VerticalOptions,
+						HorizontalOptions = view.HorizontalOptions
+					};
 
+					// If the layout we're applying StateLayout to is a Grid,
+					// we want to have the StateLayout span the entire Grid surface.
+					// Otherwise it would just end up in row 0 : column 0.
 					if (layout is Grid grid)
 					{
 						if (grid.RowDefinitions.Any())
@@ -115,16 +115,58 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					layout.Children.Add(s);
 				}
+				else
+				{
+					if (repeatCount > 1)
+						throw new ArgumentException("Please use a Template instead of directly defining content when using a RepeatCount > 1.");
+
+					// No template, so we use the children of the StateView.
+					// We create a StackLayout to stack repeating items.
+					// It takes VerticalOptions and HorizontalOptions from the
+					// StateView to allow for more control over how it layouts.
+					var s = new StackLayout
+					{
+						Opacity = animate ? 0 : 1,
+						VerticalOptions = view.VerticalOptions,
+						HorizontalOptions = view.HorizontalOptions
+					};
+
+					// If the layout we're applying StateLayout to is a Grid,
+					// we want to have the StateLayout span the entire Grid surface.
+					// Otherwise it would just end up in row 0 : column 0.
+					if (layout is Grid grid)
+					{
+						if (grid.RowDefinitions.Any())
+							Grid.SetRowSpan(s, grid.RowDefinitions.Count);
+
+						if (grid.ColumnDefinitions.Any())
+							Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
+
+						layout.Children.Add(s);
+						layoutIsGrid = true;
+					}
+
+					var itemView = CreateItemView(state, customState);
+
+					if (itemView != null)
+					{
+						if (layoutIsGrid)
+							s.Children.Add(itemView);
+						else
+							layout.Children.Add(itemView);
+					}
+				}
+
 				await ChildrenFadeTo(layout, animate, false);
 			}
 		}
 
-		bool HasTemplateForState(LayoutState state, string customState)
+		StateView GetViewForState(LayoutState state, string customState)
 		{
-			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
+			var view = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
 							(state == LayoutState.Custom && x.CustomStateKey == customState));
 
-			return template != null;
+			return view;
 		}
 
 		int GetRepeatCount(LayoutState state, string customState)
@@ -138,28 +180,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return 1;
 		}
 
-		DataTemplate GetRepeatTemplate(LayoutState state, string customState)
+		DataTemplate GetTemplate(LayoutState state, string customState)
 		{
-			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
+			var view = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
 						   (state == LayoutState.Custom && x.CustomStateKey == customState));
 
-			if (template != null)
-				return template.RepeatTemplate;
+			if (view != null)
+				return view.Template;
 
 			return null;
 		}
 
 		View CreateItemView(LayoutState state, string customState)
 		{
-			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
+			var view = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
 							(state == LayoutState.Custom && x.CustomStateKey == customState));
 
 			// TODO: This only allows for a repeatcount of 1.
 			// Internally in Xamarin.Forms we cannot add the same element to Children multiple times.
-			if (template != null)
-				return template;
+			if (view != null)
+				return view;
 
-			return new Label() { Text = $"Template for {state}{customState} not defined." };
+			return new Label() { Text = $"View for {state}{customState} not defined." };
 		}
 
 		async Task ChildrenFadeTo(Layout<View> layout, bool animate, bool isHide)
@@ -177,6 +219,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				await Task.WhenAll(layout.Children.Select(a => a.FadeTo(opacity, time)));
 			}
+		}
+
+		CancellationToken RebuildAnimationTokenSource(Layout<View> layout)
+		{
+			animationTokenSource?.Cancel();
+			animationTokenSource?.Dispose();
+
+			foreach (var child in layout.Children)
+				ViewExtensions.CancelAnimations(child);
+
+			animationTokenSource = new CancellationTokenSource();
+			return animationTokenSource.Token;
 		}
 	}
 }

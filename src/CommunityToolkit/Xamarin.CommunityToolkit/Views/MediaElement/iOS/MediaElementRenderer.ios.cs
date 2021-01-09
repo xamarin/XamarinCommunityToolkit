@@ -22,9 +22,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected readonly AVPlayerViewController avPlayerViewController = new AVPlayerViewController();
 		protected NSObject playedToEndObserver;
-		protected NSObject statusObserver;
-		protected NSObject rateObserver;
-		protected NSObject volumeObserver;
+		protected IDisposable statusObserver;
+		protected IDisposable rateObserver;
+		protected IDisposable volumeObserver;
 		bool idleTimerDisabled = false;
 
 		public MediaElementRenderer() =>
@@ -82,29 +82,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				var item = new AVPlayerItem(asset);
-				RemoveStatusObserver();
+				DisposeObservers(ref statusObserver);
 
-				statusObserver = (NSObject)item.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
+				statusObserver = item.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
 
 				if (avPlayerViewController.Player != null)
 					avPlayerViewController.Player.ReplaceCurrentItemWithPlayerItem(item);
 				else
 				{
 					avPlayerViewController.Player = new AVPlayer(item);
-					rateObserver = (NSObject)avPlayerViewController.Player.AddObserver("rate", NSKeyValueObservingOptions.New, ObserveRate);
-					volumeObserver = (NSObject)avPlayerViewController.Player.AddObserver("volume", NSKeyValueObservingOptions.New, ObserveVolume);
+					rateObserver = avPlayerViewController.Player.AddObserver("rate", NSKeyValueObservingOptions.New, ObserveRate);
+					volumeObserver = avPlayerViewController.Player.AddObserver("volume", NSKeyValueObservingOptions.New, ObserveVolume);
 				}
+
+				UpdateVolume();
 
 				if (Element.AutoPlay)
 					Play();
 			}
 			else
 			{
-				if (Element.CurrentState == MediaElementState.Playing || Element.CurrentState == MediaElementState.Buffering)
-				{
-					avPlayerViewController.Player.Pause();
-					Controller.CurrentState = MediaElementState.Stopped;
-				}
+				avPlayerViewController.Player?.Pause();
+				avPlayerViewController.Player?.ReplaceCurrentItemWithPlayerItem(null);
+				DisposeObservers(ref statusObserver);
+				Controller.CurrentState = MediaElementState.Stopped;
 			}
 		}
 
@@ -128,14 +129,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			else
 				throw new ArgumentException("uri");
-		}
-
-		protected void RemoveStatusObserver()
-		{
-			if (statusObserver != null)
-				avPlayerViewController?.Player?.CurrentItem?.RemoveObserver(statusObserver, "status");
-			statusObserver?.Dispose();
-			statusObserver = null;
 		}
 
 		protected virtual void ObserveRate(NSObservedChange e)
@@ -204,7 +197,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void PlayedToEnd(NSNotification notification)
 		{
-			if (Element == null)
+			if (Element == null || notification.Object != avPlayerViewController.Player?.CurrentItem)
 				return;
 
 			if (Element.IsLooping)
@@ -256,8 +249,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 
 				case nameof(ToolKitMediaElement.Volume):
-					if (avPlayerViewController.Player != null)
-						avPlayerViewController.Player.Volume = (float)Element.Volume;
+					UpdateVolume();
 					break;
 			}
 		}
@@ -284,15 +276,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var audioSession = AVAudioSession.SharedInstance();
 			var err = audioSession.SetCategory(AVAudioSession.CategoryPlayback);
 
-			if (!(err is null))
+			if (err != null)
 				Log.Warning("MediaElement", "Failed to set AVAudioSession Category {0}", err.Code);
 
 			audioSession.SetMode(AVAudioSession.ModeMoviePlayback, out err);
-			if (!(err is null))
+			if (err != null)
 				Log.Warning("MediaElement", "Failed to set AVAudioSession Mode {0}", err.Code);
 
 			err = audioSession.SetActive(true);
-			if (!(err is null))
+			if (err != null)
 				Log.Warning("MediaElement", "Failed to set AVAudioSession Active {0}", err.Code);
 
 			if (avPlayerViewController.Player != null)
@@ -303,6 +295,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element.KeepScreenOn)
 				SetKeepScreenOn(true);
+		}
+
+		void UpdateVolume()
+		{
+			if (avPlayerViewController.Player != null)
+				avPlayerViewController.Player.Volume = (float)Element.Volume;
 		}
 
 		void MediaElementStateRequested(object sender, StateRequested e)
@@ -335,7 +333,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					var err = AVAudioSession.SharedInstance().SetActive(false);
 
-					if (!(err is null))
+					if (err != null)
 						Log.Warning("MediaElement", "Failed to set AVAudioSession Inactive {0}", err.Code);
 
 					break;
@@ -376,29 +374,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (avPlayerViewController?.Player?.CurrentItem != null)
 				{
 					if (avPlayerViewController?.Player?.Rate > 0)
-					{
 						avPlayerViewController?.Player?.Pause();
-					}
+
 					avPlayerViewController?.Player?.ReplaceCurrentItemWithPlayerItem(null);
 					AVAudioSession.SharedInstance().SetActive(false);
 				}
 
 				if (playedToEndObserver != null)
 					NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
-				playedToEndObserver?.Dispose();
-				playedToEndObserver = null;
 
-				if (rateObserver != null)
-					avPlayerViewController?.Player?.RemoveObserver(rateObserver, "rate");
-				rateObserver?.Dispose();
-				rateObserver = null;
-
-				if (volumeObserver != null)
-					avPlayerViewController?.Player?.RemoveObserver(volumeObserver, "volume");
-				volumeObserver?.Dispose();
-				volumeObserver = null;
-
-				RemoveStatusObserver();
+				DisposeObservers(ref playedToEndObserver);
+				DisposeObservers(ref rateObserver);
+				DisposeObservers(ref volumeObserver);
+				DisposeObservers(ref statusObserver);
 			}
 
 			if (e.NewElement != null)
@@ -412,6 +400,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				avPlayerViewController.ShowsPlaybackControls = Element.ShowsPlaybackControls;
 				avPlayerViewController.VideoGravity = AspectToGravity(Element.Aspect);
+
 				if (Element.KeepScreenOn)
 					SetKeepScreenOn(true);
 
@@ -423,5 +412,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		protected virtual void UpdateBackgroundColor() => BackgroundColor = Element.BackgroundColor.ToUIColor();
+
+		protected void DisposeObservers(ref IDisposable disposable)
+		{
+			disposable?.Dispose();
+			disposable = null;
+		}
+
+		protected void DisposeObservers(ref NSObject disposable)
+		{
+			disposable?.Dispose();
+			disposable = null;
+		}
 	}
 }

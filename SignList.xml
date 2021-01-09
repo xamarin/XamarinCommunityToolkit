@@ -1,0 +1,13 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FirstParty Include="Xamarin.*.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- <ThirdParty Include="Newtonsoft.Json.dll" /> -->
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- <Skip Include="System.*.dll" /> -->
+  </ItemGroup>
+</Project>

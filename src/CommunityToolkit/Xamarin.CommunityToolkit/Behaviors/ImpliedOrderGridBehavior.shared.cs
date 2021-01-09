@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 

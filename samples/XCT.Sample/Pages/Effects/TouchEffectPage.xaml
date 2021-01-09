@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.TouchEffectPage"
+                x:Name="Page">
+
+    <pages:BasePage.Resources>
+        <Style x:Key="GridRowContentStyle" TargetType="StackLayout">
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+            <Setter Property="Spacing" Value="10" />
+        </Style>
+    </pages:BasePage.Resources>
+    <ScrollView>
+        <StackLayout Padding="{StaticResource ContentPadding}">
+
+            <Label
+               HorizontalOptions="CenterAndExpand"
+               FontSize="Title"
+               TextColor="Black"
+               Text="{Binding Count, StringFormat='Touches: {0}', Source={x:Reference Page}}" />
+
+            <StackLayout Style="{StaticResource GridRowContentStyle}">
+                <Label Text="Image | Toggle | Hover" />
+                <Image xct:TouchEffect.NormalBackgroundImageSource="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.button.png}"
+                   xct:TouchEffect.PressedBackgroundImageSource="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.button_pressed.png}"
+                   xct:TouchEffect.HoveredOpacity="0.8"
+                   xct:TouchEffect.IsToggled="False"
+                   xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}"/>
+
+            </StackLayout>
+
+            <StackLayout Style="{StaticResource GridRowContentStyle}">
+
+                <Label Text="Scale | Fade | Animated" />
+
+                <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         xct:TouchEffect.AnimationDuration="250"
+                         xct:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                         xct:TouchEffect.PressedScale="0.8"
+                         xct:TouchEffect.PressedOpacity="0.6"
+                         xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}">
+                    <BoxView Color="Gold" />
+                    <Label Text="The entire layout receives touches" />
+                    <BoxView Color="Gold"/>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Style="{StaticResource GridRowContentStyle}">
+
+                <Label Text="Native | Long Press" />
+
+                <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         BackgroundColor="Black"
+                         Padding="20"
+                         xct:TouchEffect.HoveredScale="1.2"
+                         xct:TouchEffect.NativeAnimation="True"
+                         xct:TouchEffect.LongPressCommand="{Binding LongPressCommand, Source={x:Reference Page}}"
+                         xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}">
+                    <Label Text="TITLE"
+                       TextColor="White"
+                       FontSize="Large"/>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Style="{StaticResource GridRowContentStyle}">
+
+                <Label Text="Color | Rotation | Pulse | Animated" />
+
+                <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Padding="20"
+                         xct:TouchEffect.AnimationDuration="500"
+                         xct:TouchEffect.PulseCount="2"
+                         xct:TouchEffect.NormalBackgroundColor="Gold"
+                         xct:TouchEffect.PressedBackgroundColor="Orange"
+                         xct:TouchEffect.PressedRotation="15"
+                         xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}">
+                    <Label Text="TITLE"
+                       TextColor="White"
+                       FontSize="Large"/>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Style="{StaticResource GridRowContentStyle}">
+                <Label Text="Image | Native" />
+                <Image Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.button.png}"
+                  xct:TouchEffect.NativeAnimation="True" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</pages:BasePage>
