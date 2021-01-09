@@ -224,26 +224,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (Element != null)
 				{
 					Element.PropertyChanged -= OnElementPropertyChanged;
-
-					if (Platform.GetRenderer(Element) == this)
-					{
-						// NOTE - AH 9/12/2020
-						// This used to use the internal property
-						// 'Xamarin.Forms.Platform.iOS.Platform.RendererProperty'
-						// That property is marked internal so the closest thing we can do
-						// is duplicate the implementation here.
-						//
-						// I don't think this is really needed for the control, but I am
-						// leaving it in so it can be reviewed.
-						var rendererProperty = BindableProperty.CreateAttached("Renderer", typeof(IVisualElementRenderer), typeof(Platform), default(IVisualElementRenderer), propertyChanged: (bindable, oldvalue, newvalue) =>
-						{
-							if (bindable is VisualElement view)
-								view.IsPlatformEnabled = newvalue != null;
-						});
-
-						Element.ClearValue(rendererProperty);
-					}
-
 					Element = null;
 
 					var presentationController = (UIPopoverPresentationController)PresentationController;
