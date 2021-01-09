@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Ink;
@@ -11,26 +12,19 @@ using Xamarin.Forms.Platform.WPF;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	// solve stackoverflow exception
-	// Why ExportRenderer doesn't work?
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, InkCanvas>
 	{
 		InkCanvas canvas;
-
-		public DrawingViewRenderer()
-		{
-
-		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
 			{
-				canvas.Strokes.StrokesChanged -= Strokes_StrokesChanged;
+				canvas.Strokes.StrokesChanged -= OnStrokesChanged;
 				canvas.Strokes.Clear();
 				LoadPoints();
-				canvas.Strokes.StrokesChanged += Strokes_StrokesChanged;
+				canvas.Strokes.StrokesChanged += OnStrokesChanged;
 			}
 		}
 
@@ -49,70 +43,56 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					},
 					Background = Element.BackgroundColor.ToBrush()
 				};
-				Element.Points.CollectionChanged += (sender, args) =>
-				{
-					LoadPoints();
-				};
+				Element.Points.CollectionChanged += OnCollectionChanged;
 				SetNativeControl(canvas);
+
+				canvas.Strokes.StrokesChanged += OnStrokesChanged;
+				Control.PreviewMouseDown += OnPreviewMouseDown;
 			}
 
 			if (e.OldElement != null)
 			{
-				// Unsubscribe
-				canvas.Strokes.StrokesChanged -= Strokes_StrokesChanged;
+				canvas.Strokes.StrokesChanged -= OnStrokesChanged;
+				Element.Points.CollectionChanged -= OnCollectionChanged;
 				if (Control != null)
-				{
-					Control.PreviewMouseDown -= Control_PreviewMouseDown;
-				}
-			}
-
-			if (e.NewElement != null)
-			{
-				// Subscribe
-				canvas.Strokes.StrokesChanged += Strokes_StrokesChanged;
-				if (Control != null)
-				{
-					Control.PreviewMouseDown += Control_PreviewMouseDown;
-				}
+					Control.PreviewMouseDown -= OnPreviewMouseDown;
 			}
 		}
 
-		void Control_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+		void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args) => LoadPoints();
+
+		void OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
 		{
 			canvas.Strokes.Clear();
 			Element.Points.Clear();
 		}
 
-		void Strokes_StrokesChanged(object sender, StrokeCollectionChangedEventArgs e)
+		void OnStrokesChanged(object sender, StrokeCollectionChangedEventArgs e)
 		{
-			if (e.Added.Any())
+			Element.Points.CollectionChanged -= OnCollectionChanged;
+			if (e.Added.Count > 0)
 			{
-				var points = e.Added.First().StylusPoints.Select(point => new Point(point.X, point.Y)).ToList();
+				var points = e.Added.First().StylusPoints.Select(point => new Point(point.X, point.Y));
 				Element.Points.Clear();
 				foreach (var point in points)
-				{
 					Element.Points.Add(point);
-				}
 
-				if (Element.Points.Any())
+				if (Element.Points.Count > 0)
 				{
 					if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
-					{
 						Element.DrawingCompletedCommand.Execute(Element.Points);
-					}
 				}
 
 				if (Element.ClearOnFinish)
-				{
 					Element.Points.Clear();
-				}
 			}
+			Element.Points.CollectionChanged += OnCollectionChanged;
 		}
 
 		void LoadPoints()
 		{
 			var stylusPoints = Element?.Points?.Select(point => new StylusPoint(point.X, point.Y)).ToList();
-			if (stylusPoints != null && stylusPoints.Any())
+			if (stylusPoints != null && stylusPoints.Count > 0)
 			{
 				var stroke = new Stroke(new StylusPointCollection(stylusPoints), canvas.DefaultDrawingAttributes);
 				canvas.Strokes.Add(stroke);
