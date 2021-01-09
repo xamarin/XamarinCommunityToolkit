@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace Xamarin.CommunityToolkit.UI.Views
+﻿namespace Xamarin.CommunityToolkit.UI.Views
 {
 	/// <summary>
 	/// Default popup implementation that uses a
