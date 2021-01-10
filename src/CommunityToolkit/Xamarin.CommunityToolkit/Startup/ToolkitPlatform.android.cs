@@ -1,26 +1,24 @@
 ﻿using Android.Content;
+using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit
 {
 	/// <summary>
 	/// Platform extension methods.
 	/// </summary>
-	public static partial class ToolkitPlatform
+	static class ToolkitPlatform
 	{
 		/// <summary>
 		/// Gets the <see cref="Context"/>.
 		/// </summary>
-		internal static Context Context { get; private set; }
-
-		/// <summary>
-		/// Initializes the Android <see cref="Context"/>.
-		/// </summary>
-		/// <param name="context">
-		/// The current <see cref="Context"/>.
-		/// </param>
-		public static void Init(Context context)
+		public static Context Context
 		{
-			Context = context;
+			get
+			{
+				var page = Forms.Application.Current.MainPage;
+				var renderer = page.GetRenderer();
+				return renderer.View.Context;
+			}
 		}
 	}
 }
