@@ -94,8 +94,11 @@ namespace Xamarin.CommunityToolkit.Effects
 				sender.RaiseHoverStateChanged();
 			}
 
-			sender.HoverStatus = status;
-			sender.RaiseHoverStatusChanged();
+			if (sender.HoverStatus != status)
+			{
+				sender.HoverStatus = status;
+				sender.RaiseHoverStatusChanged();
+			}
 		}
 
 		internal async Task ChangeStateAsync(TouchEffect sender, bool animated)
