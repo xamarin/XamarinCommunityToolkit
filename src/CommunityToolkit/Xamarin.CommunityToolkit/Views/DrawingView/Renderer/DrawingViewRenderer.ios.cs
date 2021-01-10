@@ -45,6 +45,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override void TouchesBegan(NSSet touches, UIEvent evt)
 		{
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			Element.Points.Clear();
 			currentPath.RemoveAllPoints();
 
@@ -52,7 +53,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			previousPoint = touch.PreviousLocationInView(this);
 			currentPath.MoveTo(previousPoint);
 
-			InvokeOnMainThread(SetNeedsDisplay);
+			SetNeedsDisplay();
+
+			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
 		public override void TouchesMoved(NSSet touches, UIEvent evt)
@@ -65,8 +68,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void AddPointToPath(CGPoint currentPoint)
 		{
 			currentPath.AddLineTo(currentPoint);
-			InvokeOnMainThread(SetNeedsDisplay);
-			Element.Points.Add(currentPoint.ToPoint());
+			SetNeedsDisplay();
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+			var point = currentPoint.ToPoint();
+			Element.Points.Add(point);
+			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
 		public override void TouchesEnded(NSSet touches, UIEvent evt)
@@ -110,11 +116,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var smoothedPoints = Element.EnableSmoothedPath
 				? SmoothedPathWithGranularity(Element.Points, Element.Granularity, ref currentPath)
 				: new ObservableCollection<Point>(Element.Points);
-			InvokeOnMainThread(SetNeedsDisplay);
+
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+			SetNeedsDisplay();
 			Element.Points.Clear();
 
 			foreach (var point in smoothedPoints)
 				Element.Points.Add(point);
+
+			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
 		ObservableCollection<Point> SmoothedPathWithGranularity(ObservableCollection<Point> currentPoints,
