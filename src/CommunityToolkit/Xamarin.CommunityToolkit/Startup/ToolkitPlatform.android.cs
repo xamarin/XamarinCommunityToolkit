@@ -6,12 +6,12 @@ namespace Xamarin.CommunityToolkit
 	/// <summary>
 	/// Platform extension methods.
 	/// </summary>
-	static class ToolkitPlatform
+	internal static class ToolkitPlatform
 	{
 		/// <summary>
 		/// Gets the <see cref="Context"/>.
 		/// </summary>
-		public static Context Context
+		internal static Context Context
 		{
 			get
 			{
