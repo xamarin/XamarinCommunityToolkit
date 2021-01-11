@@ -13,6 +13,7 @@ using AndroidOS = Android.OS;
 using System.ComponentModel;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Android.Effects;
+using Android.OS;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 
@@ -66,30 +67,30 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				accessibilityManager.AddTouchExplorationStateChangeListener(accessibilityListener);
 			}
 
-			if (effect.NativeAnimation && AndroidOS.Build.VERSION.SdkInt >= AndroidOS.BuildVersionCodes.Lollipop)
-			{
-				View.Clickable = true;
-				View.LongClickable = true;
-				CreateRipple();
+			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop || !effect.NativeAnimation)
+				return;
 
-				if (Group != null)
+			View.Clickable = true;
+			View.LongClickable = true;
+			CreateRipple();
+
+			if (Group != null)
+			{
+				rippleView = new FrameLayout(Group.Context)
 				{
-					rippleView = new FrameLayout(Group.Context)
-					{
-						LayoutParameters = new ViewGroup.LayoutParams(-1, -1),
-						Clickable = false,
-						Focusable = false,
-					};
-					View.LayoutChange += OnLayoutChange;
-					rippleView.Background = ripple;
-					Group.AddView(rippleView);
-					rippleView.BringToFront();
-				}
-				else
-				{
-					rippleView = View;
-					rippleView.Foreground = ripple;
-				}
+					LayoutParameters = new ViewGroup.LayoutParams(-1, -1),
+					Clickable = false,
+					Focusable = false,
+				};
+				View.LayoutChange += OnLayoutChange;
+				rippleView.Background = ripple;
+				Group.AddView(rippleView);
+				rippleView.BringToFront();
+			}
+			else if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+			{
+				rippleView = View;
+				rippleView.Foreground = ripple;
 			}
 		}
 
@@ -359,8 +360,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (group == null || (Group as IVisualElementRenderer)?.Element == null)
 				return;
 
-			rippleView.Right = group.Width;
-			rippleView.Bottom = group.Height;
+			if (rippleView != null)
+			{
+				rippleView.Right = group.Width;
+				rippleView.Bottom = group.Height;
+			}
 		}
 
 		sealed class AccessibilityListener : Java.Lang.Object,
