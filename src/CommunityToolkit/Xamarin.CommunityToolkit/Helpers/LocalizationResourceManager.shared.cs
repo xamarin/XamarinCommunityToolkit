@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
 using System.Threading;
@@ -11,30 +12,40 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public static LocalizationResourceManager Current { get; } = new LocalizationResourceManager();
 
 		ResourceManager resourceManager;
+		CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
 
-		public void Init(ResourceManager resource)
+		public void Init(ResourceManager resource) =>
+			resourceManager = resource;
+
+		public void Init(ResourceManager resource, CultureInfo initialCulture)
 		{
 			resourceManager = resource;
+			CurrentCulture = initialCulture;
 		}
 
-		public string this[string text] => resourceManager.GetString(text, CurrentCulture);
+		public string GetValue(string text) =>
+			resourceManager.GetString(text, CurrentCulture);
 
-		public void SetCulture(CultureInfo language)
+		public string this[string text] =>
+			GetValue(text);
+
+		[Obsolete("Use " + nameof(CurrentCulture) + " to set culture")]
+		public void SetCulture(CultureInfo language) => CurrentCulture = language;
+
+		public CultureInfo CurrentCulture
 		{
-			Thread.CurrentThread.CurrentUICulture = language;
-			Invalidate();
+			get => currentCulture;
+			set
+			{
+				currentCulture = value;
+				Invalidate();
+			}
 		}
-
-		public string GetValue(string text) => resourceManager.GetString(text, CultureInfo.CurrentCulture);
-
-		public CultureInfo CurrentCulture => Thread.CurrentThread.CurrentUICulture;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public void Invalidate()
-		{
+		public void Invalidate() =>
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
-		}
 	}
 #endif
 }
