@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
 
 		[Fact]
-		public void LocalizationResourceManager_GetCulture_Equal_Indexer()
+		public void LocalizedStringTests_Localized_ValidImplementation()
 		{
 			// Arrange
 			var testString = "test";
