@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public LocalizedString(Func<string> generator = null)
 		{
 			Generator = generator;
-			LocalizationResourceManager.Current.PropertyChanged += (_, _) => Invalidate();
+			LocalizationResourceManager.Current.PropertyChanged += (sender, args) => Invalidate();
 		}
 
 		Func<string> generator;

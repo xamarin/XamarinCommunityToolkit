@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			var localizedString = new LocalizedString(() => localizationManager[testString]);
 
 			string responceOnCultureChanged = null;
-			localizedString.PropertyChanged += (_, _) => responceOnCultureChanged = localizedString.Localized;
+			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
 
 			// Act
 			var responceCulture1 = localizedString.Localized;
