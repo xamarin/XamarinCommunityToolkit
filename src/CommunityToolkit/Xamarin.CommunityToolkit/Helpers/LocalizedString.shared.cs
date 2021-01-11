@@ -3,6 +3,7 @@ using System.ComponentModel;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
+#if !NETSTANDARD1_0
 	public class LocalizedString : INotifyPropertyChanged
 	{
 		public LocalizedString(Func<string> generator = null)
@@ -32,4 +33,5 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public void Invalidate()
 			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
 	}
+#endif
 }
