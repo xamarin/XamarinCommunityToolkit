@@ -13,9 +13,13 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		TouchUITapGestureRecognizer gesture;
+		TouchUITapGestureRecognizer touchGesture;
+
+		UIHoverGestureRecognizer hoverGesture;
 
 		TouchEffect effect;
+
+		UIView View => Container ?? Control;
 
 		protected override void OnAttached()
 		{
@@ -25,18 +29,20 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			effect.Element = (VisualElement)Element;
 
-			gesture = new TouchUITapGestureRecognizer(effect);
+			touchGesture = new TouchUITapGestureRecognizer(effect);
+			hoverGesture = new UIHoverGestureRecognizer(OnHover);
 
-			if (Container != null)
+			if (View != null)
 			{
-				if ((Container as IVisualNativeElementRenderer)?.Control is UIButton button)
+				if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
 				{
 					button.AllTouchEvents += PreventButtonHighlight;
-					gesture.IsButton = true;
+					touchGesture.IsButton = true;
 				}
 
-				Container.AddGestureRecognizer(gesture);
-				Container.UserInteractionEnabled = true;
+				View.AddGestureRecognizer(touchGesture);
+				View.AddGestureRecognizer(hoverGesture);
+				View.UserInteractionEnabled = true;
 			}
 		}
 
@@ -45,14 +51,34 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.Element == null)
 				return;
 
-			if ((Container as IVisualNativeElementRenderer)?.Control is UIButton button)
+			if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
 				button.AllTouchEvents -= PreventButtonHighlight;
 
-			Container?.RemoveGestureRecognizer(gesture);
-			gesture?.Dispose();
-			gesture = null;
+			View?.RemoveGestureRecognizer(touchGesture);
+			View?.RemoveGestureRecognizer(hoverGesture);
+			touchGesture?.Dispose();
+			hoverGesture?.Dispose();
+			touchGesture = null;
+			hoverGesture = null;
 			effect.Element = null;
 			effect = null;
+		}
+
+		void OnHover()
+		{
+			if (effect?.IsDisabled ?? true)
+				return;
+
+			switch (hoverGesture.State)
+			{
+				case UIGestureRecognizerState.Began:
+				case UIGestureRecognizerState.Changed:
+					effect?.HandleHover(HoverStatus.Entered);
+					break;
+				case UIGestureRecognizerState.Ended:
+					effect?.HandleHover(HoverStatus.Exited);
+					break;
+			}
 		}
 
 		void PreventButtonHighlight(object sender, EventArgs args)
