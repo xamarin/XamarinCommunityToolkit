@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Arrange
 			var testString = "test";
 			var culture2 = new CultureInfo("en");
-			var localizedString = new LocalizedString(() => localizationManager[testString]);
+			var localizedString = new LocalizedString(localizationManager, () => localizationManager[testString]);
 
 			string responceOnCultureChanged = null;
 			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;

@@ -7,9 +7,14 @@ namespace Xamarin.CommunityToolkit.Helpers
 	public class LocalizedString : INotifyPropertyChanged
 	{
 		public LocalizedString(Func<string> generator = null)
+            : this(LocalizationResourceManager.Current, generator)
+        {
+        }
+
+		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator = null)
 		{
 			Generator = generator;
-			LocalizationResourceManager.Current.PropertyChanged += (sender, args) => Invalidate();
+			localizationManager.PropertyChanged += (sender, args) => Invalidate();
 		}
 
 		Func<string> generator;
