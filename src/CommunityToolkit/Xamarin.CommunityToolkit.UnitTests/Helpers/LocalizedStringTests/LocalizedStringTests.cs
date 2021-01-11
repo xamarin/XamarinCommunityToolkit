@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 
 			// Act
 			var responceCulture1 = localizedString.Localized;
-			var responceResourceManagerCulture1 = resourceManager.GetString(testString, culture2);
+			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
 			localizationManager.SetCulture(culture2);
 			var responceCulture2 = localizedString.Localized;
 			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
