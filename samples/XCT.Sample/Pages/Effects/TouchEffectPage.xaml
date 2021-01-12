@@ -20,13 +20,12 @@
                HorizontalOptions="CenterAndExpand"
                FontSize="Title"
                TextColor="Black"
-               Text="{Binding Count, StringFormat='Touches: {0}', Source={x:Reference Page}}" />
+               Text="{Binding TouchCount, StringFormat='Touches: {0}', Source={x:Reference Page}}" />
 
             <StackLayout Style="{StaticResource GridRowContentStyle}">
-                <Label Text="Image | Toggle | Hover" />
+                <Label Text="Image | Toggle" />
                 <Image xct:TouchEffect.NormalBackgroundImageSource="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.button.png}"
                    xct:TouchEffect.PressedBackgroundImageSource="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.button_pressed.png}"
-                   xct:TouchEffect.HoveredOpacity="0.8"
                    xct:TouchEffect.IsToggled="False"
                    xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}"/>
 
@@ -51,7 +50,12 @@
 
             <StackLayout Style="{StaticResource GridRowContentStyle}">
 
-                <Label Text="Native | Long Press" />
+                <Label Text="Native | Long Press | Hover" />
+
+                <Label HorizontalOptions="CenterAndExpand"
+                       FontSize="Body"
+                       TextColor="Black"
+                       Text="{Binding LongPressCount, StringFormat='Long press count: {0}', Source={x:Reference Page}}" />
 
                 <StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand"
