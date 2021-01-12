@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
@@ -86,9 +87,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		}
 
 		/// <summary>
-		/// Raises the `ICommand.CanExecuteChanged` event.
+		/// Raises the `ICommand.CanExecuteChanged` event. Recommend using RaiseCanExecuteChanged() instead.
 		/// </summary>
-		[Obsolete("Use RaiseCanExecuteChanged() instead")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public void ChangeCanExecute() => RaiseCanExecuteChanged();
 	}
 }
