@@ -29,13 +29,12 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public string this[string text] =>
 			GetValue(text);
 
-		[Obsolete("Use " + nameof(CurrentCulture) + " to set culture")]
 		public void SetCulture(CultureInfo language) => CurrentCulture = language;
 
 		public CultureInfo CurrentCulture
 		{
 			get => currentCulture;
-			set
+			private set
 			{
 				currentCulture = value;
 				Invalidate();
