@@ -1,3 +1,13 @@
+<!-- 
+Hey there! First of all thank you so much for this PR!
+
+Please check if you are targeting the correct branch, we work on two branchs and you should target the:
+**main**: If you are fixing a bug and this bug doesn't change our public APIs
+**develop**: If you are fixing a bug that introduces an API change, if you are implementing a new feature.
+
+If you are not sure what branch target, you can ask on the issue first or open the PR and the Amazing XCT team will let you know!
+-->
+
 ### Description of Change ###
 
 <!-- Describe your changes here. -->
