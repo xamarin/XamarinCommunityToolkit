@@ -1,3 +1,16 @@
+<!-- 
+Hey there! First of all, thank you so much for this PR!
+Some things that you should be aware of before opening this amazing PR❣
+
+1. Please check if you are targeting the correct branch, we work on two branches and you should target the:
+**main**: If you are fixing a bug and this bug doesn't change our public APIs
+**develop**: If you are fixing a bug that introduces an API change if you are implementing a new feature.
+If you are not sure what branch target, you can ask about the issue first or open the PR and the Amazing XCT team will let you know!
+
+2. Check if there's an open issue for this change, if don't please open an issue first let us review it. You always can check our Contribution guide here 
+(https://github.com/xamarin/XamarinCommunityToolkit/blob/pj/update-pr-template/CONTRIBUTING.md)
+-->
+
 ### Description of Change ###
 
 <!-- Describe your changes here. -->
