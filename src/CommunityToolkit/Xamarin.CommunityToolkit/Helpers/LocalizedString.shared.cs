@@ -1,11 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
 #if !NETSTANDARD1_0
-	public class LocalizedString : INotifyPropertyChanged
+	public class LocalizedString : INotifyPropertyChanged, IDisposable
 	{
+		readonly Func<string> generator;
+		readonly LocalizationResourceManager localizationManager;
+
 		public LocalizedString(Func<string> generator = null)
             : this(LocalizationResourceManager.Current, generator)
         {
@@ -13,30 +17,24 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator = null)
 		{
-			Generator = generator;
-			localizationManager.PropertyChanged += (sender, args) => Invalidate();
+			this.localizationManager = localizationManager;
+			this.generator = generator;
+			localizationManager.PropertyChanged += Invalidate;
 		}
 
-		Func<string> generator;
+		public string Localized => generator?.Invoke();
 
-		public Func<string> Generator
-		{
-			get => generator;
-			set
-			{
-				generator = value;
-				Invalidate();
-			}
-		}
-
-		public string Localized => Generator?.Invoke();
-
+		[Preserve(Conditional = true)]
 		public static implicit operator LocalizedString(Func<string> func) => new LocalizedString(func);
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		public void Invalidate()
+		void Invalidate(object sender, PropertyChangedEventArgs e)
 			=> PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+
+		public void Dispose() => localizationManager.PropertyChanged -= Invalidate;
+
+		~LocalizedString() => Dispose();
 	}
 #endif
 }
