@@ -47,7 +47,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 				{ new Language(AppResources.English, "en") },
 				{ new Language(AppResources.Spanish, "es") }
 			};
-			SelectedLanguage = SupportedLanguages.FirstOrDefault(pro => pro.CI == LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName);
+			SelectedLanguage = SupportedLanguages.Single(pro => pro.CI == LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName);
 		}
 	}
 }
