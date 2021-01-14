@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public void Init(ResourceManager resource, CultureInfo initialCulture)
 		{
 			resourceManager = resource;
-			CurrentCulture = initialCulture;
+			currentCulture = initialCulture;
 		}
 
 		public string GetValue(string text) =>
@@ -29,17 +29,13 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public string this[string text] =>
 			GetValue(text);
 
-		public void SetCulture(CultureInfo language) => CurrentCulture = language;
-
-		public CultureInfo CurrentCulture
+		public void SetCulture(CultureInfo language)
 		{
-			get => currentCulture;
-			private set
-			{
-				currentCulture = value;
-				Invalidate();
-			}
+			currentCulture = language;
+			Invalidate();
 		}
+
+		public CultureInfo CurrentCulture => currentCulture;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
