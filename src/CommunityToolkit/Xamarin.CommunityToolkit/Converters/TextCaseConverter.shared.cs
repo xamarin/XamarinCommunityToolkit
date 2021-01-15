@@ -37,7 +37,9 @@ namespace Xamarin.CommunityToolkit.Converters
 			{
 				TextCaseType.Lower => value?.ToLowerInvariant(),
 				TextCaseType.Upper => value?.ToUpperInvariant(),
-				TextCaseType.FirstUpperRestLower => string.IsNullOrEmpty(value) ? string.Empty : value?.Substring(0, 1).ToUpperInvariant() + value?.Substring(1).ToLowerInvariant(),
+				TextCaseType.FirstUpperRestLower => !string. IsNullOrWhiteSpace(value) 
+					? value.Substring(0, 1).ToUpperInvariant() + value.Substring(1).ToLowerInvariant()
+					: value
 				_ => value
 			};
 
