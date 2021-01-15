@@ -38,7 +38,6 @@ namespace Xamarin.CommunityToolkit.Converters
 				TextCaseType.Lower => value?.ToLowerInvariant(),
 				TextCaseType.Upper => value?.ToUpperInvariant(),
 				TextCaseType.FirstUpperRestLower => value?.Substring(0, 1).ToUpperInvariant() + value?.Substring(1).ToLowerInvariant(),
-
 				_ => value
 			};
 
