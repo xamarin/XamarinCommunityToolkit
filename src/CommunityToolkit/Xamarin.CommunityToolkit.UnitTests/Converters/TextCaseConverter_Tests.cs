@@ -14,9 +14,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[InlineData(test, TextCaseType.Lower, test)]
 		[InlineData(test, TextCaseType.Upper, "TEST")]
 		[InlineData(test, TextCaseType.None, test)]
+		[InlineData(test, TextCaseType.FirstUpperRestLower, "Test")]
 		[InlineData(t, TextCaseType.Upper, "T")]
 		[InlineData(t, TextCaseType.Lower, t)]
 		[InlineData(t, TextCaseType.None, t)]
+		[InlineData(t, TextCaseType.FirstUpperRestLower, "T")]
+		[InlineData("", TextCaseType.FirstUpperRestLower, "")]
 		[InlineData(null, null, null)]
 		public void TextCaseConverter(object value, object comparedValue, object expectedResult)
 		{
