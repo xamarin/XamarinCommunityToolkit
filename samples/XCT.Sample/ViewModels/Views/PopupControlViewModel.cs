@@ -23,7 +23,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(TransparentPopup), "Transparent Popup", Color.Red, "Displays a popup with a transparent background"),
 			new SectionModel(typeof(PopupAnchorPage), "Anchor Popup", Color.Red, "Popups can be anchored to other view's on the screen"),
 			new SectionModel(typeof(OpenedEventSimplePopup), "Opened Event Popup", Color.Red, "Popup with opened event"),
-			new SectionModel(typeof(ReturnResultPopup), "Return Result Popup", Color.Red, "A popup that returns a string message when dismissed")
+			new SectionModel(typeof(ReturnResultPopup), "Return Result Popup", Color.Red, "A popup that returns a string message when dismissed"),
+			new SectionModel(typeof(XamlBindingPopup), "Xaml Binding Popup", Color.Red, "A simple popup that uses XAML BindingContext"),
+			new SectionModel(typeof(CsharpBindingPopup), "C# Binding Popup", Color.Red, "A simple popup that uses C# BindingContext")
 		};
 
 		public ICommand DisplayPopup => new Command<Type>(OnDisplayPopup);
