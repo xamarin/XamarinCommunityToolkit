@@ -216,37 +216,26 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void HandleCollectionViewSelection(TouchEffect sender)
 		{
-			Element element = sender.Element;
-			while (element.Parent != null)
+			if (!sender.Element.TryFindParentElementWithParentOfType(out var element, out CollectionView collectionView))
+				return;
+
+			var item = element.BindingContext ?? element;
+
+			switch (collectionView.SelectionMode)
 			{
-				if (!(element.Parent is CollectionView collectionView))
-				{
-					element = element.Parent;
-					continue;
-				}
+				case SelectionMode.Single:
+					collectionView.SelectedItem = !item.Equals(collectionView.SelectedItem) ? item : null;
+					break;
+				case SelectionMode.Multiple:
+					var selectedItems = collectionView.SelectedItems?.ToList() ?? new List<object>();
 
-				var item = element.BindingContext ?? element;
+					if (selectedItems.Contains(item))
+						selectedItems.Remove(item);
+					else
+						selectedItems.Add(item);
 
-				switch (collectionView.SelectionMode)
-				{
-					case SelectionMode.Single:
-						var selectedItem = collectionView.SelectedItem;
-						collectionView.SelectedItem = selectedItem == item
-							? null
-							: item;
-						break;
-					case SelectionMode.Multiple:
-						var selectedItems = collectionView.SelectedItems?.ToList() ?? new List<object>();
-
-						if (selectedItems.Contains(item))
-							selectedItems.Remove(item);
-						else
-							selectedItems.Add(item);
-
-						collectionView.UpdateSelectedItems(selectedItems);
-						break;
-				}
-				break;
+					collectionView.UpdateSelectedItems(selectedItems);
+					break;
 			}
 		}
 

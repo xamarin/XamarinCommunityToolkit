@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Extensions
@@ -29,5 +30,26 @@ namespace Xamarin.CommunityToolkit.Extensions
 			foreach (var name in otherAnimationNames)
 				element.AbortAnimation(name);
 		}
+
+		public static bool TryFindParentElementWithParentOfType<T>(this VisualElement element, out VisualElement result, out T parent) where T : VisualElement
+		{
+			result = null;
+			parent = null;
+			while (element.Parent != null)
+			{
+				if (!(element.Parent is T parentElement))
+				{
+					element = element.Parent as VisualElement;
+					continue;
+				}
+				result = element;
+				parent = parentElement;
+				return true;
+			}
+			return false;
+		}
+
+		public static bool TryFindParentOfType<T>(this VisualElement element, out T parent) where T : VisualElement
+			=> TryFindParentElementWithParentOfType<T>(element, out _, out parent);
 	}
 }
