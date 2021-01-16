@@ -11,9 +11,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 		readonly Func<string> generator;
 
 		public LocalizedString(Func<string> generator = null)
-            : this(LocalizationResourceManager.Current, generator)
-        {
-        }
+			: this(LocalizationResourceManager.Current, generator)
+		{
+		}
 
 		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator = null)
 		{
