@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			var responceIndexerCulture1 = localizationManager[testString];
 			var responceGetValueCulture1 = localizationManager.GetValue(testString);
 			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
-			localizationManager.SetCulture(culture2);
+			localizationManager.CurrentCulture = culture2;
 			var responceIndexerCulture2 = localizationManager[testString];
 			var responceGetValueCulture2 = localizationManager.GetValue(testString);
 			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);

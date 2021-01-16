@@ -1,13 +1,13 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
 using System.Threading;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
 #if !NETSTANDARD1_0
-	public class LocalizationResourceManager : INotifyPropertyChanged
+	public class LocalizationResourceManager : ObservableObject
 	{
 		public static LocalizationResourceManager Current { get; } = new LocalizationResourceManager();
 
@@ -29,18 +29,14 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public string this[string text] =>
 			GetValue(text);
 
-		public void SetCulture(CultureInfo language)
+		[Obsolete("Use " + nameof(CurrentCulture) + " to set culture")]
+		public void SetCulture(CultureInfo language) => CurrentCulture = language;
+
+		public CultureInfo CurrentCulture
 		{
-			currentCulture = language;
-			Invalidate();
+			get => currentCulture;
+			set => SetProperty(ref currentCulture, value, null);
 		}
-
-		public CultureInfo CurrentCulture => currentCulture;
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public void Invalidate() =>
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
 	}
 #endif
 }

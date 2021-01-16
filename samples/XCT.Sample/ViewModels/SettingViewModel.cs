@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		public ICommand ChangeLanguageCommand => changeLanguageCommand ??= new Command(() =>
 		{
-			LocalizationResourceManager.Current.SetCulture(CultureInfo.GetCultureInfo(SelectedLanguage.CI));
+			LocalizationResourceManager.Current.CurrentCulture = CultureInfo.GetCultureInfo(SelectedLanguage.CI);
 			LoadLanguages();
 		});
 
