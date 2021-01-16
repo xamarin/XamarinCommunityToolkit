@@ -3,8 +3,18 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
            xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
            xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups"
-           Size="{OnPlatform Android='800, 700', UWP='300, 250', iOS='250, 350'}"
+           xmlns:local="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Views.Popups"
            x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.XamlBindingPopup">
+
+    <xct:Popup.Size>
+        <OnPlatform x:TypeArguments="Size">
+            <OnPlatform.Platforms>
+                <On Platform="Android" Value="{x:Static local:PopupSize.Android}" />
+                <On Platform="UWP" Value="{x:Static local:PopupSize.UWP}" />
+                <On Platform="iOS" Value="{x:Static local:PopupSize.iOS}" />
+            </OnPlatform.Platforms>
+        </OnPlatform>
+    </xct:Popup.Size>
 
     <xct:Popup.BindingContext>
         <vm:XamlBindingPopupViewModel />
