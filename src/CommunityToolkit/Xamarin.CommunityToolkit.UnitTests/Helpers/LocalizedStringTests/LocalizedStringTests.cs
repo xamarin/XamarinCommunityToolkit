@@ -12,14 +12,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		public LocalizedStringTests()
 		{
 			resourceManager = new MockResourceManager();
-			localizationManager = new LocalizationResourceManager();
 			localizationManager.Init(resourceManager);
 			localizationManager.SetCulture(initialCulture);
 		}
 
-		readonly LocalizationResourceManager localizationManager;
-		readonly ResourceManager resourceManager;
+		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
+		readonly ResourceManager resourceManager;
 		LocalizedString localizedString;
 
 		[Fact]
