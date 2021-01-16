@@ -14,6 +14,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 		ResourceManager resourceManager;
 		CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
 
+		LocalizationResourceManager()
+		{
+		}
+
 		public void Init(ResourceManager resource) =>
 			resourceManager = resource;
 
