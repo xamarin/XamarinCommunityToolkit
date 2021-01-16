@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Extensions
 					return;
 				}
 
-				action.Invoke(s, sender, e);
+				action(s, sender, e);
 			}
 		}
 	}
