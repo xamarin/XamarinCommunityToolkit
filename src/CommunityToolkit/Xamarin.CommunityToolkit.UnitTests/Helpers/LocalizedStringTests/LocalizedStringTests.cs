@@ -46,6 +46,30 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		}
 
 		[Fact]
+		public void LocalizedStringTests_Localized_ValidImplementation_With_Func()
+		{
+			// Arrange
+			var testString = "test";
+			var culture2 = new CultureInfo("en");
+			localizedString = (Func<string>)(() => localizationManager[testString]);
+
+			string responceOnCultureChanged = null;
+			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
+
+			// Act
+			var responceCulture1 = localizedString.Localized;
+			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
+			localizationManager.SetCulture(culture2);
+			var responceCulture2 = localizedString.Localized;
+			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
+
+			// Assert
+			Assert.Equal(responceResourceManagerCulture1, responceCulture1);
+			Assert.Equal(responceResourceManagerCulture2, responceOnCultureChanged);
+			Assert.Equal(responceResourceManagerCulture2, responceResourceManagerCulture2);
+		}
+
+		[Fact]
 		public void LocalizedStringTests_Disposed_IfNoReferences()
 		{
 			// Arrange
