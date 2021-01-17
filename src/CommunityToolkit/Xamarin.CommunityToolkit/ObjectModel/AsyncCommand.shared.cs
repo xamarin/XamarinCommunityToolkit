@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// <summary>
 	/// An implementation of IAsyncCommand. Allows Commands to safely be used asynchronously with Task.
 	/// </summary>
-	public class AsyncCommand<T> : BaseAsyncCommand<T, object>, IAsyncCommand<T>
+	public class AsyncCommand<T> : BaseAsyncCommand<T, T>, IAsyncCommand<T>
 	{
 		/// <summary>
 		/// Initializes a new instance of AsyncCommand
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		public AsyncCommand(
 			Func<T, Task> execute,
-			Func<object, bool> canExecute = null,
+			Func<T, bool> canExecute = null,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
@@ -77,11 +77,11 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		public AsyncCommand(
 			Func<Task> execute,
-			Func<object, bool> canExecute = null,
+			Func<bool> canExecute = null,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
-			: base(ConvertExecute(execute), canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions)
+			: base(ConvertExecute(execute), ConvertCanExecute(canExecute), onException, continueOnCapturedContext, allowsMultipleExecutions)
 		{
 		}
 
@@ -97,6 +97,14 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 				return null;
 
 			return _ => execute();
+		}
+
+		static Func<object, bool> ConvertCanExecute(Func<bool> canExecute)
+		{
+			if (canExecute == null)
+				return null;
+
+			return _ => canExecute();
 		}
 	}
 }
