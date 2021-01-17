@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Instantiates a new instance of <see cref="BasePopup"/>.
 		/// </summary>
-		public BasePopup()
+		protected BasePopup()
 		{
 			Color = Color.White;
 			VerticalOptions = LayoutOptions.CenterAndExpand;
@@ -24,11 +24,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			IsLightDismissEnabled = true;
 		}
 
-		public static BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(BasePopup));
-		public static BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(Size), typeof(BasePopup));
+		public static readonly BindableProperty ContentProperty = BindableProperty.Create(nameof(Content), typeof(View), typeof(BasePopup), propertyChanged: OnContentChanged);
 
-		public static BindableProperty VerticalOptionsProperty = BindableProperty.Create(nameof(VerticalOptions), typeof(LayoutOptions), typeof(BasePopup), LayoutOptions.CenterAndExpand);
-		public static BindableProperty HorizontalOptionsProperty = BindableProperty.Create(nameof(HorizontalOptions), typeof(LayoutOptions), typeof(BasePopup), LayoutOptions.CenterAndExpand);
+		public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(BasePopup));
+		public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(Size), typeof(BasePopup));
+
+		public static readonly BindableProperty VerticalOptionsProperty = BindableProperty.Create(nameof(VerticalOptions), typeof(LayoutOptions), typeof(BasePopup), LayoutOptions.CenterAndExpand);
+		public static readonly BindableProperty HorizontalOptionsProperty = BindableProperty.Create(nameof(HorizontalOptions), typeof(LayoutOptions), typeof(BasePopup), LayoutOptions.CenterAndExpand);
 
 		/// <summary>
 		/// Gets or sets the <see cref="View"/> content to render in the Popup.
@@ -36,7 +38,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <remarks>
 		/// The View can be or type: <see cref="View"/>, <see cref="ContentPage"/> or <see cref="NavigationPage"/>
 		/// </remarks>
-		public virtual View Content { get; set; }
+		public virtual View Content
+		{
+			get => (View)GetValue(ContentProperty);
+			set => SetValue(ContentProperty, value);
+		}
 
 		/// <summary>
 		/// Gets or sets the <see cref="Color"/> of the Popup.
@@ -157,9 +163,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnBindingContextChanged();
 
 			if (Content != null)
-			{
 				SetInheritedBindingContext(Content, BindingContext);
-			}
+		}
+
+		static void OnContentChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			if (bindable is BasePopup popup)
+				popup.OnBindingContextChanged();
 		}
 	}
 }
