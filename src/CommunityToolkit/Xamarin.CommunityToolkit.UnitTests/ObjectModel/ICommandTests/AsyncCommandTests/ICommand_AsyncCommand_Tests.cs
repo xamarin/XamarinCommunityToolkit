@@ -100,7 +100,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Act
 
 			// Assert
-			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(0));
 		}
 
 		[Fact]
@@ -112,7 +112,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Act
 
 			// Assert
-			Assert.False(command.CanExecute(null));
+			Assert.False(command.CanExecute(0));
 		}
 
 		[Fact]
@@ -131,7 +131,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public void ICommand_Parameter_CanExecuteDynamic_Test()
 		{
 			// Arrange
-			ICommand command = new AsyncCommand<int>(IntParameterTask, CanExecuteDynamic);
+			ICommand command = new AsyncCommand<int, object>(IntParameterTask, CanExecuteDynamic);
 
 			// Act
 
@@ -144,7 +144,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public void ICommand_Parameter_CanExecuteChanged_Test()
 		{
 			// Arrange
-			ICommand command = new AsyncCommand<int>(IntParameterTask, CanExecuteDynamic);
+			ICommand command = new AsyncCommand<int, object>(IntParameterTask, CanExecuteDynamic);
 
 			// Act
 
@@ -167,14 +167,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			command.Execute(Delay);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(0));
 
 			// Act
 			await IntParameterTask(Delay);
 			await IntParameterTask(Delay);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(0));
 			Assert.Equal(0, canExecuteChangedCount);
 
 			command.CanExecuteChanged += handleCanExecuteChanged;
@@ -193,14 +193,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			command.Execute(Delay);
 
 			// Assert
-			Assert.False(command.CanExecute(null));
+			Assert.False(command.CanExecute(0));
 
 			// Act
 			await IntParameterTask(Delay);
 			await IntParameterTask(Delay);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(0));
 			Assert.Equal(2, canExecuteChangedCount);
 
 			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;

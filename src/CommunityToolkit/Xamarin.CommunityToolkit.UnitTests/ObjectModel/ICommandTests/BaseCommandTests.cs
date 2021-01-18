@@ -33,11 +33,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 			throw new NullReferenceException();
 		}
 
+		protected bool CanExecuteTrue() => true;
+
+		protected bool CanExecuteTrue(int parameter) => true;
+
 		protected bool CanExecuteTrue(bool parameter) => true;
 
 		protected bool CanExecuteTrue(string parameter) => true;
 
 		protected bool CanExecuteTrue(object parameter) => true;
+
+		protected bool CanExecuteFalse() => false;
+
+		protected bool CanExecuteFalse(int parameter) => false;
 
 		protected bool CanExecuteFalse(bool parameter) => false;
 
