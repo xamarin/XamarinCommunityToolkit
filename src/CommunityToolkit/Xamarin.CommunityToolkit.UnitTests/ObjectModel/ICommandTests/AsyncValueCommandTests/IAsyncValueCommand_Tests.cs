@@ -97,8 +97,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute("Hello World"));
+			Assert.True(command.CanExecute(0));
+			Assert.True(command2.CanExecute("Hello World"));
 		}
 
 		[Fact]
@@ -111,7 +111,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.False(command.CanExecute(null));
+			Assert.False(command.CanExecute(0));
 			Assert.False(command2.CanExecute(true));
 		}
 
