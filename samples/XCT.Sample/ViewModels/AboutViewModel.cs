@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Octokit;
-using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
@@ -18,7 +18,18 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		string emptyViewText = "Loading data...";
 
-		ICommand selectedContributorCommand;
+		public AboutViewModel()
+		{
+			PageAppearingCommand = CommandHelper.Create(OnAppearing);
+			SelectedContributorCommand = CommandHelper.Create(async () =>
+			{
+				if (SelectedContributor is null)
+					return;
+
+				await Launcher.OpenAsync(SelectedContributor.HtmlUrl);
+				SelectedContributor = null;
+			});
+		}
 
 		public RepositoryContributor[] Contributors
 		{
@@ -38,14 +49,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			set => SetProperty(ref emptyViewText, value);
 		}
 
-		public ICommand SelectedContributorCommand => selectedContributorCommand ??= new AsyncCommand(async () =>
-		{
-			if (SelectedContributor is null)
-				return;
+		public ICommand PageAppearingCommand { get; }
 
-			await Launcher.OpenAsync(SelectedContributor.HtmlUrl);
-			SelectedContributor = null;
-		});
+		public ICommand SelectedContributorCommand { get; }
 
 		public async Task OnAppearing()
 		{
