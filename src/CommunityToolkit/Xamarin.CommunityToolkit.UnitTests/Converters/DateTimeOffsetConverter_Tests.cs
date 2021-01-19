@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Converters;
@@ -19,23 +19,23 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		public static IEnumerable<object[]> GetData() =>
 			new List<object[]>
 			{
-				new object[] { testDateTimeNow, testDateTimeNow},
-				new object[] { DateTimeOffset.MinValue, DateTime.MinValue},
-				new object[] { DateTimeOffset.MaxValue, DateTime.MaxValue},
-				new object[] {  testDateTimeOffsetLocal, testDateTimeLocal },
+				new object[] { testDateTimeNow, testDateTimeNow },
+				new object[] { DateTimeOffset.MinValue, DateTime.MinValue },
+				new object[] { DateTimeOffset.MaxValue, DateTime.MaxValue },
+				new object[] { testDateTimeOffsetLocal, testDateTimeLocal },
 				new object[] { testDateTimeOffsetUtc, testDateTimeUtc },
-				new object[] { testDateTimeOffsetUtc, testDateTimeUnspecified},
+				new object[] { testDateTimeOffsetUtc, testDateTimeUnspecified },
 			};
 
 		public static IEnumerable<object[]> GetDataReverse() =>
 			new List<object[]>
 			{
-				new object[] { testDateTimeNow, testDateTimeNow},
-				new object[] { DateTime.MinValue, DateTimeOffset.MinValue},
-				new object[] { DateTime.MaxValue, DateTimeOffset.MaxValue},
+				new object[] { testDateTimeNow, testDateTimeNow },
+				new object[] { DateTime.MinValue, DateTimeOffset.MinValue },
+				new object[] { DateTime.MaxValue, DateTimeOffset.MaxValue },
 				new object[] { testDateTimeLocal, testDateTimeOffsetLocal },
-				new object[] { testDateTimeUtc, testDateTimeOffsetUtc},
-				new object[] { testDateTimeUnspecified, testDateTimeOffsetUtc},
+				new object[] { testDateTimeUtc, testDateTimeOffsetUtc },
+				new object[] { testDateTimeUnspecified, testDateTimeOffsetUtc },
 			};
 
 		[Theory]
