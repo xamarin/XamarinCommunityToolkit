@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		ResourceManager resourceManager;
 		CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
 
-		[Obsolete("Please use the Current property instead of create a new instance of this class")]
+		[Obsolete("Please use the Current property instead of creating a new instance of this class")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public LocalizationResourceManager()
 		{
