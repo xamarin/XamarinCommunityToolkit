@@ -35,6 +35,16 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			this.continueOnCapturedContext = continueOnCapturedContext;
 		}
 
+		protected static Func<object, ValueTask> ConvertExecute(Func<ValueTask> execute)
+		{
+			if (execute == null)
+				return null;
+
+			return _ => execute();
+		}
+
+		protected static Func<object, bool> ConvertCanExecute(Func<bool> execute) => _ => execute();
+
 		/// <summary>
 		/// Executes the Command as a Task
 		/// </summary>
