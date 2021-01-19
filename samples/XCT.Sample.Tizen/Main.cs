@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Tizen
