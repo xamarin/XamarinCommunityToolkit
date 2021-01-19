@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Extensions.Internals;
+using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.CommunityToolkit.ObjectModel.Extensions;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
@@ -11,6 +14,21 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// </summary>
 	public class ListIsNullOrEmptyConverter : ValueConverterExtension, IValueConverter
 	{
+		public class ObservableCollectionWrapper : ObservableObject
+		{
+			readonly ICollection collection;
+
+			public ObservableCollectionWrapper(INotifyCollectionChanged observable, ICollection collection)
+			{
+				this.collection = collection;
+				observable.WeakSubscribe(this, (t, sender, e) => t.OnPropertyChanged(null));
+			}
+
+			public bool IsEmpty => collection.Count == 0;
+
+			public bool IsNotEmpty => !IsEmpty;
+		}
+
 		/// <summary>
 		/// Converts the incoming value to a boolean indicating whether or not the value is null or empty.
 		/// </summary>
@@ -23,6 +41,17 @@ namespace Xamarin.CommunityToolkit.Converters
 		{
 			if (value is null)
 				return true;
+
+			if (value is INotifyCollectionChanged observable && value is ICollection collection)
+			{
+				var binding = new Binding
+				{
+					Mode = BindingMode.OneWay,
+					Path = nameof(ObservableCollectionWrapper.IsEmpty),
+					Source = new ObservableCollectionWrapper(observable, collection),
+				};
+				return binding;
+			}
 
 			if (value is IEnumerable list)
 				return !list.GetEnumerator().MoveNext();

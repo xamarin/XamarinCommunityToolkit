@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.Forms;
+using static Xamarin.CommunityToolkit.Converters.ListIsNullOrEmptyConverter;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
@@ -23,6 +25,17 @@ namespace Xamarin.CommunityToolkit.Converters
 		{
 			if (value is null)
 				return false;
+
+			if (value is INotifyCollectionChanged observable && value is ICollection collection)
+			{
+				var binding = new Binding
+				{
+					Mode = BindingMode.OneWay,
+					Path = nameof(ObservableCollectionWrapper.IsNotEmpty),
+					Source = new ObservableCollectionWrapper(observable, collection),
+				};
+				return binding;
+			}
 
 			if (value is IEnumerable list)
 				return list.GetEnumerator().MoveNext();
