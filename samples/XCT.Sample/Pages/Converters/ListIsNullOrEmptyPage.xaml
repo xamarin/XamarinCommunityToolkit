@@ -11,8 +11,7 @@
     </pages:BasePage.BindingContext>
 
     <AbsoluteLayout>
-        <ListView ItemsSource="{Binding Items}" 
-                  HasUnevenRows="True" 
+        <ListView ItemsSource="{Binding Items}"
                   IsVisible="{Binding Items, Converter={xct:ListIsNotNullOrEmptyConverter}}">
             <ListView.ItemTemplate>
                 <DataTemplate>
