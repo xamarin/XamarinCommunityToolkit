@@ -1,5 +1,5 @@
-﻿using Xamarin.Forms.DebugRainbows;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.DebugRainbows;
 
 namespace Xamarin.CommunityToolkit.Sample
 {
