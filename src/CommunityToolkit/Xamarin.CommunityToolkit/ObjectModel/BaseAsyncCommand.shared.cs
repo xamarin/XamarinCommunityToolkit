@@ -35,7 +35,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			this.continueOnCapturedContext = continueOnCapturedContext;
 		}
 
-		protected static Func<object, Task> ConvertExecute(Func<Task> execute)
+		/// <summary>
+		/// Converts `Func<Task>` to `Func<object, Task>`
+		/// </summary>
+		/// <param name="execute"></param>
+		/// <returns></returns>
+		private protected static Func<object, Task> ConvertExecute(Func<Task> execute)
 		{
 			if (execute == null)
 				return null;
@@ -43,7 +48,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			return _ => execute();
 		}
 
-		protected static Func<object, bool> ConvertCanExecute(Func<bool> execute) => _ => execute();
+		/// <summary>
+		/// Converts `Func<bool>` to `Func<object, bool>`
+		/// </summary>
+		/// <param name="execute"></param>
+		/// <returns></returns>
+		private protected static Func<object, bool> ConvertCanExecute(Func<bool> execute) => _ => execute();
 
 		/// <summary>
 		/// Executes the Command as a Task
