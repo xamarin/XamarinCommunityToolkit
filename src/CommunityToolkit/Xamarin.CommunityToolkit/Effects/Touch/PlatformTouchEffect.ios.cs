@@ -3,6 +3,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -20,8 +21,6 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		TouchEffect effect;
 
 		UIView View => Container ?? Control;
-
-		bool IsiOS13OrNewer => UIDevice.CurrentDevice.CheckSystemVersion(13, 0);
 
 		protected override void OnAttached()
 		{
@@ -44,7 +43,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			View.AddGestureRecognizer(touchGesture);
 
-			if (IsiOS13OrNewer)
+			if (XCT.IsiOS13OrNewer)
 			{
 				hoverGesture = new UIHoverGestureRecognizer(OnHover);
 				View.AddGestureRecognizer(hoverGesture);
