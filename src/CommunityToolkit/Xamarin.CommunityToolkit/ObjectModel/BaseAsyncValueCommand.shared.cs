@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// Converts `Func<ValueTask>` to `Func<object, ValueTask>`
 		/// </summary>
 		/// <param name="execute"></param>
-		/// <returns></returns>
+		/// <returns>The Execute parameter required for ICommand</returns>
 		private protected static Func<object, ValueTask> ConvertExecute(Func<ValueTask> execute)
 		{
 			if (execute == null)
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// Converts `Func<bool>` to `Func<object, bool>`
 		/// </summary>
 		/// <param name="execute"></param>
-		/// <returns></returns>
+		/// <returns>The CanExecute parameter required for ICommand</returns>
 		private protected static Func<object, bool> ConvertCanExecute(Func<bool> execute) => _ => execute();
 
 		/// <summary>
