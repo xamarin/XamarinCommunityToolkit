@@ -48,10 +48,15 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			return _ => execute();
 		}
 
+		/// <summary>
+		/// Converts `Func<bool>` to `Func<object, bool>`
+		/// </summary>
+		/// <param name="execute"></param>
+		/// <returns></returns>
 		private protected static Func<object, bool> ConvertCanExecute(Func<bool> execute) => _ => execute();
 
 		/// <summary>
-		/// Converts `Func<bool>` to `Func<object, bool>`
+		/// Executes the Command as a Task
 		/// </summary>
 		/// <returns>The executed Value</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
