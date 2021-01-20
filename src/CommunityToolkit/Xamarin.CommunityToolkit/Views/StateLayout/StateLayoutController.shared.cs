@@ -10,6 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class StateLayoutController
 	{
 		readonly WeakReference<Layout<View>> layoutWeakReference;
+		readonly object childrenLocker = new object();
 		bool layoutIsGrid;
 		LayoutState previousState;
 		IList<View> originalContent;
@@ -33,13 +34,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (token.IsCancellationRequested)
 				return;
 
-			// Put the original content back in.
-			layout.Children.Clear();
-
-			foreach (var item in originalContent)
+			lock (childrenLocker)
 			{
-				item.Opacity = animate ? 0 : 1;
-				layout.Children.Add(item);
+				// Put the original content back in.
+				layout.Children.Clear();
+
+				foreach (var item in originalContent)
+				{
+					item.Opacity = animate ? 0 : 1;
+					layout.Children.Add(item);
+				}
 			}
 
 			await ChildrenFadeTo(layout, animate, false);
@@ -60,8 +64,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				originalContent = new List<View>();
 
-				foreach (var item in layout.Children)
-					originalContent.Add(item);
+				lock (childrenLocker)
+				{
+					foreach (var item in layout.Children)
+						originalContent.Add(item);
+				}
 			}
 
 			var view = GetViewForState(state, customState);
@@ -75,7 +82,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (token.IsCancellationRequested)
 					return;
 
-				layout.Children.Clear();
+				lock (childrenLocker)
+				{
+					layout.Children.Clear();
+				}
 
 				var repeatCount = GetRepeatCount(state, customState);
 				var template = GetTemplate(state, customState);
@@ -113,7 +123,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					BindableLayout.SetItemTemplate(s, template);
 					BindableLayout.SetItemsSource(s, items);
 
-					layout.Children.Add(s);
+					lock (childrenLocker)
+					{
+						layout.Children.Add(s);
+					}
 				}
 				else
 				{
@@ -142,7 +155,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						if (grid.ColumnDefinitions.Any())
 							Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
 
-						layout.Children.Add(s);
+						lock (childrenLocker)
+						{
+							layout.Children.Add(s);
+						}
 						layoutIsGrid = true;
 					}
 
@@ -150,10 +166,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					if (itemView != null)
 					{
-						if (layoutIsGrid)
-							s.Children.Add(itemView);
-						else
-							layout.Children.Add(itemView);
+						lock (childrenLocker)
+						{
+							if (layoutIsGrid)
+								s.Children.Add(itemView);
+							else
+								layout.Children.Add(itemView);
+						}
 					}
 				}
 
@@ -206,8 +225,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		async Task ChildrenFadeTo(Layout<View> layout, bool animate, bool isHide)
 		{
-			if (animate && layout?.Children?.Count > 0)
+			if (layout == null || !animate)
+				return;
+
+			Task task = null;
+
+			lock (childrenLocker)
 			{
+				if (!layout.Children.Any())
+					return;
+
 				var opacity = 1;
 				var time = 500u;
 
@@ -217,8 +244,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					time = 100u;
 				}
 
-				await Task.WhenAll(layout.Children.Select(a => a.FadeTo(opacity, time)));
+				task = Task.WhenAll(layout.Children.Select(a => a.FadeTo(opacity, time)).ToArray());
 			}
+
+			await task;
 		}
 
 		CancellationToken RebuildAnimationTokenSource(Layout<View> layout)
@@ -226,8 +255,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			animationTokenSource?.Cancel();
 			animationTokenSource?.Dispose();
 
-			foreach (var child in layout.Children)
-				ViewExtensions.CancelAnimations(child);
+			lock (childrenLocker)
+			{
+				foreach (var child in layout.Children)
+					ViewExtensions.CancelAnimations(child);
+			}
 
 			animationTokenSource = new CancellationTokenSource();
 			return animationTokenSource.Token;
