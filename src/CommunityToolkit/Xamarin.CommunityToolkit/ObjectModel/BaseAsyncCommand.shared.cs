@@ -36,6 +36,26 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		}
 
 		/// <summary>
+		/// Converts `Func<Task>` to `Func<object, Task>`
+		/// </summary>
+		/// <param name="execute"></param>
+		/// <returns>The Execute parameter required for ICommand</returns>
+		private protected static Func<object, Task> ConvertExecute(Func<Task> execute)
+		{
+			if (execute == null)
+				return null;
+
+			return _ => execute();
+		}
+
+		/// <summary>
+		/// Converts `Func<bool>` to `Func<object, bool>`
+		/// </summary>
+		/// <param name="execute"></param>
+		/// <returns>The CanExecute parameter required for ICommand </returns>
+		private protected static Func<object, bool> ConvertCanExecute(Func<bool> execute) => _ => execute();
+
+		/// <summary>
 		/// Executes the Command as a Task
 		/// </summary>
 		/// <returns>The executed Task</returns>
