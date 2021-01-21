@@ -3,6 +3,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -13,9 +14,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		TouchUITapGestureRecognizer touchGesture;
+		UIGestureRecognizer touchGesture;
 
-		UIHoverGestureRecognizer hoverGesture;
+		UIGestureRecognizer hoverGesture;
 
 		TouchEffect effect;
 
@@ -29,21 +30,26 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			effect.Element = (VisualElement)Element;
 
+			if (View == null)
+				return;
+
 			touchGesture = new TouchUITapGestureRecognizer(effect);
-			hoverGesture = new UIHoverGestureRecognizer(OnHover);
 
-			if (View != null)
+			if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
 			{
-				if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
-				{
-					button.AllTouchEvents += PreventButtonHighlight;
-					touchGesture.IsButton = true;
-				}
-
-				View.AddGestureRecognizer(touchGesture);
-				View.AddGestureRecognizer(hoverGesture);
-				View.UserInteractionEnabled = true;
+				button.AllTouchEvents += PreventButtonHighlight;
+				((TouchUITapGestureRecognizer)touchGesture).IsButton = true;
 			}
+
+			View.AddGestureRecognizer(touchGesture);
+
+			if (XCT.IsiOS13OrNewer)
+			{
+				hoverGesture = new UIHoverGestureRecognizer(OnHover);
+				View.AddGestureRecognizer(hoverGesture);
+			}
+
+			View.UserInteractionEnabled = true;
 		}
 
 		protected override void OnDetached()
@@ -54,12 +60,20 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
 				button.AllTouchEvents -= PreventButtonHighlight;
 
-			View?.RemoveGestureRecognizer(touchGesture);
-			View?.RemoveGestureRecognizer(hoverGesture);
-			touchGesture?.Dispose();
-			hoverGesture?.Dispose();
-			touchGesture = null;
-			hoverGesture = null;
+			if (touchGesture != null)
+			{
+				View?.RemoveGestureRecognizer(touchGesture);
+				touchGesture?.Dispose();
+				touchGesture = null;
+			}
+
+			if (hoverGesture != null)
+			{
+				View?.RemoveGestureRecognizer(hoverGesture);
+				hoverGesture?.Dispose();
+				hoverGesture = null;
+			}
+
 			effect.Element = null;
 			effect = null;
 		}
