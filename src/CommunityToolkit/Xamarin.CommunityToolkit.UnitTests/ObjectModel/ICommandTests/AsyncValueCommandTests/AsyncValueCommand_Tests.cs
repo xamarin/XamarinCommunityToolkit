@@ -172,6 +172,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		}
 
 		[Fact]
+		public void AsyncValueCommandNoParameter_NoCanExecute_Test()
+		{
+			// Arrange
+			Func<bool> canExecute = null;
+			var command = new AsyncValueCommand(NoParameterTask, canExecute);
+
+			// Act
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+		}
+
+		[Fact]
 		public void AsyncValueCommand_RaiseCanExecuteChanged_Test()
 		{
 			// Arrange
