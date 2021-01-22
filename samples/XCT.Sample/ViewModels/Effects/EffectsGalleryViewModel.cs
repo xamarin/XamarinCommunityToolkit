@@ -38,6 +38,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				nameof(TouchEffect),
 				"The TouchEffect is an effect that allows changing the view's appearance depending on the touch state (normal, pressed, hovered). Also, it allows to handle long presses."
 				),
+
+			new SectionModel(
+				typeof(ShadowEffectPage),
+				nameof(ShadowEffect),
+				"The ShadowEffect allows all views to display shadow."
+				),
 		};
 	}
 }
