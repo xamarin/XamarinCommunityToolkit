@@ -1,15 +1,26 @@
 ﻿using System;
 using System.ComponentModel;
 using CoreGraphics;
-using UIKit;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
+
+#if __IOS__
+using NativeView = UIKit.UIView;
 using Xamarin.Forms.Platform.iOS;
+using Xamarin.CommunityToolkit.iOS.Effects;
+#elif __MACOS__
+using NativeView = AppKit.NSView;
+using Xamarin.Forms.Platform.MacOS;
+using Xamarin.CommunityToolkit.macOS.Effects;
+#endif
 
 [assembly: ExportEffect(typeof(PlatformShadowEffect), nameof(ShadowEffect))]
 
+#if __IOS__
 namespace Xamarin.CommunityToolkit.iOS.Effects
+#elif __MACOS__
+namespace Xamarin.CommunityToolkit.macOS.Effects
+#endif
 {
 	public class PlatformShadowEffect : PlatformEffect
 	{
@@ -17,7 +28,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		const float defaultOpacity = .5f;
 
-		UIView View => Control ?? Container;
+		NativeView View => Control ?? Container;
 
 		protected override void OnAttached()
 		{

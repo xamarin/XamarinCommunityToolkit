@@ -2,7 +2,6 @@
 using Xamarin.Forms;
 using Android.Views;
 using AView = Android.Views.View;
-using Android.Content;
 using Android.OS;
 using System.ComponentModel;
 using Xamarin.CommunityToolkit.Effects;
@@ -22,20 +21,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		AView View => Control ?? Container;
 
 		protected override void OnAttached()
-		{
-			if (View == null)
-				return;
-
-			Update();
-		}
+			=> Update();
 
 		protected override void OnDetached()
-		{
-			if (View == null)
-				return;
-
-			View.SetElevation(0);
-		}
+			=> View?.SetElevation(0);
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
@@ -51,7 +40,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				case nameof(ShadowEffect.RadiusPropertyName):
 				case nameof(ShadowEffect.OffsetXPropertyName):
 				case nameof(ShadowEffect.OffsetYPropertyName):
-					View.Invalidate();
+					View?.Invalidate();
 					Update();
 					break;
 			}
@@ -59,7 +48,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void Update()
 		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+			if (View == null || Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
 				return;
 
 			var color = ShadowEffect.GetColor(Element);
