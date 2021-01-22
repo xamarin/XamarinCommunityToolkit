@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
 using System.Threading;
@@ -30,6 +31,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			GetValue(text);
 
 		[Obsolete("Use " + nameof(CurrentCulture) + " to set culture")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public void SetCulture(CultureInfo language) => CurrentCulture = language;
 
 		public CultureInfo CurrentCulture
