@@ -157,7 +157,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
 			OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
 
-			if (changedItems is null)
+			if (changedItems == null)
 				OnCollectionChanged(new NotifyCollectionChangedEventArgs(action));
 			else
 				OnCollectionChanged(new NotifyCollectionChangedEventArgs(action, changedItems: changedItems, startingIndex: startingIndex));

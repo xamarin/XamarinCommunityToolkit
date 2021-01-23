@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			PageAppearingCommand = CommandFactory.Create(OnAppearing);
 			SelectedContributorCommand = CommandFactory.Create(async () =>
 			{
-				if (SelectedContributor is null)
+				if (SelectedContributor == null)
 					return;
 
 				await Launcher.OpenAsync(SelectedContributor.HtmlUrl);

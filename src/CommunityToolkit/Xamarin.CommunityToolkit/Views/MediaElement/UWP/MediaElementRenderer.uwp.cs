@@ -151,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void ControlCurrentStateChanged(object sender, RoutedEventArgs e)
 		{
-			if (Element is null || Control is null)
+			if (Element == null || Control == null)
 				return;
 
 			switch (Control.CurrentState)

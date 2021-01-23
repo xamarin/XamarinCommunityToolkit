@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		static Action<object> ConvertExecute<T>(Action<T> execute)
 		{
-			if (execute is null)
+			if (execute == null)
 				return null;
 
 			return e => execute((T)e);
@@ -50,7 +50,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		static Func<object, bool> ConvertCanExecute(Func<bool> canExecute)
 		{
-			if (canExecute is null)
+			if (canExecute == null)
 				return _ => true;
 
 			return _ => canExecute();
@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		static Func<object, bool> ConvertCanExecute<T>(Func<T, bool> canExecute)
 		{
-			if (canExecute is null)
+			if (canExecute == null)
 				return _ => true;
 
 			return e => canExecute((T)e);
