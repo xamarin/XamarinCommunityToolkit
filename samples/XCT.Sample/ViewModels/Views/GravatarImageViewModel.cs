@@ -1,4 +1,6 @@
-﻿using Xamarin.CommunityToolkit.UI.Views;
+﻿using System;
+using System.Linq;
+using Xamarin.CommunityToolkit.UI.Views;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
@@ -9,17 +11,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		int size = 50;
 		DefaultGravatar defaultGravatar = DefaultGravatar.MysteryPerson;
 
-		public DefaultGravatar[] Defaults { get; } = new[]
-		{
-			DefaultGravatar.Blank,
-			DefaultGravatar.FileNotFound,
-			DefaultGravatar.Identicon,
-			DefaultGravatar.MonsterId,
-			DefaultGravatar.MysteryPerson,
-			DefaultGravatar.Retro,
-			DefaultGravatar.Robohash,
-			DefaultGravatar.Wavatar
-		};
+		public DefaultGravatar[] Defaults { get; } = Enum.GetValues(typeof(DefaultGravatar)).Cast<DefaultGravatar>().ToArray();
 
 		public bool EnableCache
 		{

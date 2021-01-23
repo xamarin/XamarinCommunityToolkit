@@ -1,21 +1,23 @@
 ﻿using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public partial class ExpanderViewModel : BaseViewModel
 	{
-		ICommand command;
-
-		public ICommand Command => command ??= new Command(p =>
+		public ExpanderViewModel()
 		{
-			var sender = (Item)p;
-			if (!sender.IsExpanded)
-				return;
+			Command = CommandHelper.Create<Item>(sender =>
+			{
+				if (!sender.IsExpanded)
+					return;
 
-			foreach (var item in Items)
-				item.IsExpanded = sender == item;
-		});
+				foreach (var item in Items)
+					item.IsExpanded = sender == item;
+			});
+		}
+
+		public ICommand Command { get; }
 
 		public Item[] Items { get; } = new Item[]
 		{

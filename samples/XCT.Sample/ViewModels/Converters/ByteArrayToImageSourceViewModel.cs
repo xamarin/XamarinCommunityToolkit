@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Octokit;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
@@ -24,6 +26,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			get => isBusy;
 			set => SetProperty(ref isBusy, value);
 		}
+
+		public ICommand PageAppearingCommand { get; }
+
+		public ByteArrayToImageSourceViewModel() =>
+			PageAppearingCommand = CommandHelper.Create(OnAppearing);
 
 		public async Task OnAppearing()
 		{

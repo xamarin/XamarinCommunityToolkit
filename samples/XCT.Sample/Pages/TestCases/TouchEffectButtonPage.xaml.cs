@@ -1,15 +1,16 @@
 ﻿using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.TestCases
 {
 	public partial class TouchEffectButtonPage
 	{
-		ICommand command;
-
 		public TouchEffectButtonPage()
-			=> InitializeComponent();
+		{
+			Command = CommandHelper.Create(() => DisplayAlert("Command executed ", null, "OK"));
+			InitializeComponent();
+		}
 
-		public ICommand Command => command ??= new Command(() => this.DisplayAlert("Command executed ", null, "OK"));
+		public ICommand Command { get; }
 	}
 }

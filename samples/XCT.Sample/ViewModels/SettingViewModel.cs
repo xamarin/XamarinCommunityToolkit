@@ -6,14 +6,11 @@ using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
 	public class SettingViewModel : BaseViewModel
 	{
-		public SettingViewModel() => LoadLanguages();
-
 		IList<Language> supportedLanguages;
 
 		public IList<Language> SupportedLanguages
@@ -32,13 +29,18 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		public LocalizedString AppVersion { get; } = new LocalizedString(() => string.Format(AppResources.Version, AppInfo.VersionString));
 
-		ICommand changeLanguageCommand;
+		public ICommand ChangeLanguageCommand { get; }
 
-		public ICommand ChangeLanguageCommand => changeLanguageCommand ??= new Command(() =>
+		public SettingViewModel()
 		{
-			LocalizationResourceManager.Current.SetCulture(CultureInfo.GetCultureInfo(SelectedLanguage.CI));
 			LoadLanguages();
-		});
+
+			ChangeLanguageCommand = CommandHelper.Create(() =>
+			{
+				LocalizationResourceManager.Current.SetCulture(CultureInfo.GetCultureInfo(SelectedLanguage.CI));
+				LoadLanguages();
+			});
+		}
 
 		void LoadLanguages()
 		{

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		#endregion Properties
 
 		public UserStoppedTypingBehaviorViewModel()
-			=> SearchCommand = new Command<string>(PerformSearch);
+			=> SearchCommand = CommandHelper.Create<string>(PerformSearch);
 
 		void PerformSearch(string searchTerms)
 			=> PerformedSearches += string.Format("Performed search for '{0}'.", searchTerms) + Environment.NewLine;
