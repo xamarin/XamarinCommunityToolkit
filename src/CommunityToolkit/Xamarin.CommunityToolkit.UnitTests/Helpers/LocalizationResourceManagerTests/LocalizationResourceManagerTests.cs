@@ -11,13 +11,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		public LocalizationResourceManagerTests()
 		{
 			resourceManager = new MockResourceManager();
-			localizationManager = LocalizationResourceManager.Current;
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
-		readonly LocalizationResourceManager localizationManager;
-		readonly ResourceManager resourceManager;
+		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
+		readonly ResourceManager resourceManager;
 
 		[Fact]
 		public void LocalizationResourceManager_GetCulture_Equal_Indexer()

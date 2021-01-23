@@ -12,8 +12,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		public LocalizedStringTests()
 		{
 			resourceManager = new MockResourceManager();
-			localizationManager.Init(resourceManager);
-			localizationManager.SetCulture(initialCulture);
+			localizationManager.Init(resourceManager, initialCulture);
 		}
 
 		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
@@ -35,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Act
 			var responceCulture1 = localizedString.Localized;
 			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
-			localizationManager.SetCulture(culture2);
+			localizationManager.CurrentCulture = culture2;
 			var responceCulture2 = localizedString.Localized;
 			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
 
@@ -51,7 +50,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Arrange
 			var testString = "test";
 			var culture2 = new CultureInfo("en");
-			localizedString = (Func<string>)(() => localizationManager[testString]);
+			Func<string> generator = () => localizationManager[testString];
+			localizedString = generator;
 
 			string responceOnCultureChanged = null;
 			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Act
 			var responceCulture1 = localizedString.Localized;
 			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
-			localizationManager.SetCulture(culture2);
+			localizationManager.CurrentCulture = culture2;
 			var responceCulture2 = localizedString.Localized;
 			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
 
