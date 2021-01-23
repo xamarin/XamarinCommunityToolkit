@@ -79,6 +79,15 @@ namespace Xamarin.CommunityToolkit.Effects
 				OnTapped(sender);
 		}
 
+		internal void HandleUserInteraction(TouchEffect sender, TouchInteractionStatus interactionStatus)
+		{
+			if (sender.InteractionStatus != interactionStatus)
+			{
+				sender.InteractionStatus = interactionStatus;
+				sender.RaiseInteractionStatusChanged();
+			}
+		}
+
 		internal void HandleHover(TouchEffect sender, HoverStatus status)
 		{
 			if (!sender.Element.IsEnabled)
