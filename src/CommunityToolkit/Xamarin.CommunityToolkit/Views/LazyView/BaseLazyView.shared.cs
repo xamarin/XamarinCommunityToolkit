@@ -1,10 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[EditorBrowsable(EditorBrowsableState.Never)]
+	[Preserve(Conditional =true)]
 	public abstract class BaseLazyView : ContentView, IDisposable
 	{
 		internal static readonly BindablePropertyKey IsLoadedPropertyKey = BindableProperty.CreateReadOnly(nameof(IsLoaded), typeof(bool), typeof(BaseLazyView), default);
