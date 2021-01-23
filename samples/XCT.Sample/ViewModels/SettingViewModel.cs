@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Resx;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
@@ -28,6 +29,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			get => selectedLanguage;
 			set => SetProperty(ref selectedLanguage, value);
 		}
+
+		public LocalizedString AppVersion { get; } = new LocalizedString(() => string.Format(AppResources.Version, AppInfo.VersionString));
 
 		ICommand changeLanguageCommand;
 

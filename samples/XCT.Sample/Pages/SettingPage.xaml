@@ -26,5 +26,7 @@
 
         <Button Text="{xct:Translate Save}"
                 Command="{Binding ChangeLanguageCommand, Mode=OneTime}"/>
+
+        <Label HorizontalTextAlignment="Center" Text="{Binding AppVersion.Localized}"/>
     </StackLayout>
 </pages:BasePage>
