@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public string this[string text] =>
 			GetValue(text);
 
-		[Obsolete("Use " + nameof(CurrentCulture) + " to set culture")]
+		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public void SetCulture(CultureInfo language) => CurrentCulture = language;
 
