@@ -11,10 +11,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		public LocalizationResourceManagerTests()
 		{
 			resourceManager = new MockResourceManager();
+#pragma warning disable CS0618 // Type or member is obsolete
+			localizationManager = new LocalizationResourceManager();
+#pragma warning restore CS0618 // Type or member is obsolete
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
-		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
+		readonly LocalizationResourceManager localizationManager;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
 		readonly ResourceManager resourceManager;
 
