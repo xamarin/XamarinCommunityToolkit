@@ -67,9 +67,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 
 		public ICommand OpenHelpCommand { get; }
 
-		void Back()
-		{
-		}
+		void Back() { }
 
 		void Like(Tweet tweet) => tweet.IsLikedByMe = !tweet.IsLikedByMe;
 
