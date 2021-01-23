@@ -4,6 +4,7 @@
                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.ShadowEffectPage"
+                BackgroundColor="White"
                 x:Name="Page">
 
     <pages:BasePage.Resources>
@@ -57,16 +58,16 @@
                         <xct:ImpliedOrderGridBehavior/>
                     </Grid.Behaviors>
 
-                    <BoxView Color="Red" xct:ShadowEffect.Color="Blue" />
-                    <BoxView Color="Green" xct:ShadowEffect.Color="Gold" />
-                    <BoxView Color="Gold" xct:ShadowEffect.Color="Purple" />
-                    <BoxView Color="Azure" xct:ShadowEffect.Color="Pink" />
-                    <BoxView Color="Purple" xct:ShadowEffect.Color="GhostWhite" />
-                    <BoxView Color="Pink" xct:ShadowEffect.Color="Brown" />
-                    <BoxView Color="Brown" xct:ShadowEffect.Color="Lime" />
-                    <BoxView Color="Black" xct:ShadowEffect.Color="Yellow" />
-                    <BoxView Color="Khaki" xct:ShadowEffect.Color="DarkRed" />
-                    <BoxView Color="Navy" xct:ShadowEffect.Color="LightSalmon" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Blue" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Gold" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Purple" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="HotPink" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Orange" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Brown" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Lime" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Yellow" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="DarkRed" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="LightSalmon" />
 
                 </Grid>
             </StackLayout>

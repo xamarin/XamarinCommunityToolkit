@@ -24,7 +24,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			=> Update();
 
 		protected override void OnDetached()
-			=> View?.SetElevation(0);
+		{
+			if (View == null)
+				return;
+
+			View.Elevation = 0;
+		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
@@ -54,7 +59,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			var color = ShadowEffect.GetColor(Element);
 			if (color.IsDefault)
 			{
-				View.SetElevation(0);
+				View.Elevation = 0;
 				return;
 			}
 
@@ -76,7 +81,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return;
 			}
 
-			View.SetElevation(View.Context.ToPixels(radius));
+			View.OutlineProvider = (Element as VisualElement)?.BackgroundColor.A > 0
+				? ViewOutlineProvider.PaddedBounds
+				: ViewOutlineProvider.Bounds;
+
+			View.Elevation = View.Context.ToPixels(radius);
 
 			if (Build.VERSION.SdkInt < BuildVersionCodes.P)
 				return;
