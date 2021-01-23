@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 
 		protected override void OnDetached()
 		{
-			if (View == null)
+			if (View?.Layer == null)
 				return;
 
 			View.Layer.ShadowOpacity = 0;
