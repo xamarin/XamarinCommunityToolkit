@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		int clickCount;
 
 		public EventToCommandBehaviorViewModel() =>
-			IncrementCommand = CommandHelper.Create(() => ClickCount++);
+			IncrementCommand = CommandFactory.Create(() => ClickCount++);
 
 		public int ClickCount
 		{

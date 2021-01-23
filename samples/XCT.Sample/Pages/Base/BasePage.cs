@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 	public class BasePage : ContentPage
 	{
 		public BasePage() =>
-			NavigateCommand = CommandHelper.Create<SectionModel>(sectionModel => Navigation.PushAsync(PreparePage(sectionModel)));
+			NavigateCommand = CommandFactory.Create<SectionModel>(sectionModel => Navigation.PushAsync(PreparePage(sectionModel)));
 
 		public Color DetailColor { get; set; }
 

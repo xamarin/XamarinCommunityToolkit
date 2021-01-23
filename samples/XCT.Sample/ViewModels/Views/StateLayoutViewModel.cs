@@ -35,13 +35,13 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 		public StateLayoutViewModel()
 		{
-			FullscreenLoadingCommand = CommandHelper.Create(async () =>
+			FullscreenLoadingCommand = CommandFactory.Create(async () =>
 			{
 				MainState = LayoutState.Loading;
 				await Task.Delay(2000);
 				MainState = LayoutState.None;
 			});
-			CycleStatesCommand = CommandHelper.Create(CycleStates);
+			CycleStatesCommand = CommandFactory.Create(CycleStates);
 		}
 
 		async Task CycleStates()

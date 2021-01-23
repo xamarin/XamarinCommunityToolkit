@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 	{
 		public ExpanderViewModel()
 		{
-			Command = CommandHelper.Create<Item>(sender =>
+			Command = CommandFactory.Create<Item>(sender =>
 			{
 				if (!sender.IsExpanded)
 					return;

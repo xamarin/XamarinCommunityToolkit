@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		public ICommand PageAppearingCommand { get; }
 
 		public ByteArrayToImageSourceViewModel() =>
-			PageAppearingCommand = CommandHelper.Create(OnAppearing);
+			PageAppearingCommand = CommandFactory.Create(OnAppearing);
 
 		public async Task OnAppearing()
 		{

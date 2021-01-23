@@ -20,8 +20,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		public AboutViewModel()
 		{
-			PageAppearingCommand = CommandHelper.Create(OnAppearing);
-			SelectedContributorCommand = CommandHelper.Create(async () =>
+			PageAppearingCommand = CommandFactory.Create(OnAppearing);
+			SelectedContributorCommand = CommandFactory.Create(async () =>
 			{
 				if (SelectedContributor is null)
 					return;

@@ -11,8 +11,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		{
 			Counter = 3;
 
-			IncreaseCommand = CommandHelper.Create(Increase);
-			DecreaseCommand = CommandHelper.Create(Decrease);
+			IncreaseCommand = CommandFactory.Create(Increase);
+			DecreaseCommand = CommandFactory.Create(Decrease);
 		}
 
 		public int Counter

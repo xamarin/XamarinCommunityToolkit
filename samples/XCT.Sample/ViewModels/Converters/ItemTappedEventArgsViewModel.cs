@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			};
 
 		public ICommand ItemTappedCommand { get; } =
-			CommandHelper.Create<Person>(person => Application.Current.MainPage.DisplayAlert("Item Tapped: ", person.Name, "Cancel"));
+			CommandFactory.Create<Person>(person => Application.Current.MainPage.DisplayAlert("Item Tapped: ", person.Name, "Cancel"));
 	}
 
 	public class Person

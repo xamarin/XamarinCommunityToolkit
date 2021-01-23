@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 
 		public ListIsNullOrEmptyViewModel()
 		{
-			AddItemCommand = CommandHelper.Create(() =>
+			AddItemCommand = CommandFactory.Create(() =>
 			{
 				Items.Add(new Person
 				{
@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 					Name = $"Person {Items.Count}"
 				});
 			});
-			RemoveItemCommand = CommandHelper.Create(() => Items.RemoveAt(0));
+			RemoveItemCommand = CommandFactory.Create(() => Items.RemoveAt(0));
 
 			// ListIsNullOrEmptyConvertor needs to know that Items are updated
 			Items.CollectionChanged += (sender, e) => OnPropertyChanged(nameof(Items));

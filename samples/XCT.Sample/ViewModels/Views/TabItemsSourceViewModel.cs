@@ -21,8 +21,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		{
 			LoadMonkeys();
 
-			ClearDataCommand = CommandHelper.Create(ClearData);
-			UpdateDataCommand = CommandHelper.Create(UpdateData);
+			ClearDataCommand = CommandFactory.Create(ClearData);
+			UpdateDataCommand = CommandFactory.Create(UpdateData);
 		}
 
 		public ObservableCollection<Monkey> Monkeys { get; set; }

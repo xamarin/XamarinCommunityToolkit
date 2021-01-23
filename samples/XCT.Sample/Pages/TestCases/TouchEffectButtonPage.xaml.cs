@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.TestCases
 	{
 		public TouchEffectButtonPage()
 		{
-			Command = CommandHelper.Create(() => DisplayAlert("Command executed ", null, "OK"));
+			Command = CommandFactory.Create(() => DisplayAlert("Command executed ", null, "OK"));
 			InitializeComponent();
 		}
 

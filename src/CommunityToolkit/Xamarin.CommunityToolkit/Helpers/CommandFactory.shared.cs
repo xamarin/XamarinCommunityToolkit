@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
-	public static class CommandHelper
+	public static class CommandFactory
 	{
 		public static Command Create(Action execute, Func<bool> canExecute = null) =>
 			new Command(execute, canExecute ?? (() => true));

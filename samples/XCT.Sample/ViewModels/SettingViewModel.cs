@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		{
 			LoadLanguages();
 
-			ChangeLanguageCommand = CommandHelper.Create(() =>
+			ChangeLanguageCommand = CommandFactory.Create(() =>
 			{
 				LocalizationResourceManager.Current.SetCulture(CultureInfo.GetCultureInfo(SelectedLanguage.CI));
 				LoadLanguages();

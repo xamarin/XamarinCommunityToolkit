@@ -9,12 +9,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 	{
 		public TouchEffectPage()
 		{
-			Command = CommandHelper.Create(() =>
+			Command = CommandFactory.Create(() =>
 			{
 				TouchCount++;
 				OnPropertyChanged(nameof(TouchCount));
 			});
-			LongPressCommand = CommandHelper.Create(() =>
+			LongPressCommand = CommandFactory.Create(() =>
 			{
 				LongPressCount++;
 				OnPropertyChanged(nameof(LongPressCount));

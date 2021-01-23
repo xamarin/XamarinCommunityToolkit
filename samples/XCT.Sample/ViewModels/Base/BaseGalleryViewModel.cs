@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		public BaseGalleryViewModel()
 		{
 			Filter();
-			FilterCommand = CommandHelper.Create(Filter);
+			FilterCommand = CommandFactory.Create(Filter);
 		}
 
 		public abstract IEnumerable<SectionModel> Items { get; }
