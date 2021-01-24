@@ -1064,13 +1064,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			=> gestureManager.HandleTouch(this, status);
 
 		internal void HandleUserInteraction(TouchInteractionStatus interactionStatus)
-		{
-			if (InteractionStatus != interactionStatus)
-			{
-				InteractionStatus = interactionStatus;
-				RaiseInteractionStatusChanged();
-			}
-		}
+			=> gestureManager.HandleUserInteraction(this, interactionStatus);
 
 		internal void HandleHover(HoverStatus status)
 			=> gestureManager.HandleHover(this, status);

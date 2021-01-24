@@ -11,10 +11,14 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 		{
 			Command = new Command(() =>
 			{
-				Count++;
-				OnPropertyChanged(nameof(Count));
+				TouchCount++;
+				OnPropertyChanged(nameof(TouchCount));
 			});
-			LongPressCommand = new Command(() => Application.Current.MainPage.DisplayAlert("LongPressCommand", "LongPressCommand was executed.", "OK"));
+			LongPressCommand = new Command(() =>
+			{
+				LongPressCount++;
+				OnPropertyChanged(nameof(LongPressCount));
+			});
 			InitializeComponent();
 
 		}
@@ -23,6 +27,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 
 		public ICommand LongPressCommand { get; }
 
-		public int Count { get; private set; }
+		public int TouchCount { get; private set; }
+
+		public int LongPressCount { get; private set; }
 	}
 }

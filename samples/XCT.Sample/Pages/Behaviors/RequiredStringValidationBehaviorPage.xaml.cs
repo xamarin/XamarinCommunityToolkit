@@ -1,4 +1,4 @@
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
 {

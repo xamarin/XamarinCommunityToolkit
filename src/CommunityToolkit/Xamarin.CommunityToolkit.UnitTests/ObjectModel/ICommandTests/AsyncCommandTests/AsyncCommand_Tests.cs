@@ -54,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public void AsyncCommand_Parameter_CanExecuteTrue_Test()
 		{
 			// Arrange
-			var command = new AsyncCommand<int>(IntParameterTask, CanExecuteTrue);
+			var command = new AsyncCommand<int>(IntParameterTask, parameter => CanExecuteTrue(parameter));
 
 			// Act
 
@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public void AsyncCommand_Parameter_CanExecuteFalse_Test()
 		{
 			// Arrange
-			var command = new AsyncCommand<int>(IntParameterTask, CanExecuteFalse);
+			var command = new AsyncCommand<int>(IntParameterTask, parameter => CanExecuteFalse(parameter));
 
 			// Act
 
@@ -79,7 +79,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public void AsyncCommand_NoParameter_CanExecuteTrue_Test()
 		{
 			// Arrange
-			var command = new AsyncCommand(NoParameterTask, CanExecuteTrue);
+			var command = new AsyncCommand(NoParameterTask, parameter => CanExecuteTrue(parameter));
 
 			// Act
 
@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public void AsyncCommand_NoParameter_CanExecuteFalse_Test()
 		{
 			// Arrange
-			var command = new AsyncCommand(NoParameterTask, CanExecuteFalse);
+			var command = new AsyncCommand(NoParameterTask, parameter => CanExecuteFalse(parameter));
 
 			// Act
 
@@ -100,7 +100,69 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		}
 
 		[Fact]
-		public void AsyncCommand_CanExecuteChanged_Test()
+		public void AsyncCommand_Parameter_CanExecuteTrue_NoParameter_Test()
+		{
+			// Arrange
+			var command = new AsyncCommand<int>(IntParameterTask, () => CanExecuteTrue());
+
+			// Act
+
+			// Assert
+
+			Assert.True(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void AsyncCommand_Parameter_CanExecuteFalse_NoParameter_Test()
+		{
+			// Arrange
+			var command = new AsyncCommand<int>(IntParameterTask, () => CanExecuteFalse());
+
+			// Act
+
+			// Assert
+			Assert.False(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void AsyncCommand_NoParameter_CanExecuteTrue_NoParameter_Test()
+		{
+			// Arrange
+			var command = new AsyncCommand(NoParameterTask, () => CanExecuteTrue());
+
+			// Act
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void AsyncCommand_NoParameter_CanExecuteFalse_NoParameter_Test()
+		{
+			// Arrange
+			var command = new AsyncCommand(NoParameterTask, () => CanExecuteFalse());
+
+			// Act
+
+			// Assert
+			Assert.False(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void AsyncCommand_NoParameter_NoCanExecute_Test()
+		{
+			// Arrange
+			Func<bool> canExecute = null;
+			var command = new AsyncCommand(NoParameterTask, canExecute);
+
+			// Act
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void AsyncCommand_RaiseCanExecuteChanged_Test()
 		{
 			// Arrange
 			var canCommandExecute = false;
@@ -122,6 +184,39 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.RaiseCanExecuteChanged();
+
+			// Assert
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+		}
+
+		[Fact]
+		public void AsyncCommand_ChangeCanExecute_Test()
+		{
+			// Arrange
+			var canCommandExecute = false;
+			var didCanExecuteChangeFire = false;
+
+			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			bool commandCanExecute(object parameter) => canCommandExecute;
+
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			canCommandExecute = true;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.False(didCanExecuteChangeFire);
+
+			// Act
+#pragma warning disable CS0618 // Type or member is obsolete
+			command.ChangeCanExecute();
+#pragma warning restore CS0618 // Type or member is obsolete
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
