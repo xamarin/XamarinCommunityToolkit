@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Numerics;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Markup;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
