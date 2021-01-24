@@ -307,12 +307,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
         }
 
         private Thickness GetMarginsLengthIsOne()
-			=> BadgeText.Text.Length == 1 && IsRounded
-				? Device.RuntimePlatform == Device.Android  
-					? new Thickness(10,0,10,0)
-					: new Thickness(8,0,8,0)
-				: new Thickness(4,0,4,0);
-
+        {
+	        if (BadgeText.Text.Length == 1 && IsRounded)
+	        {
+		        if (Device.RuntimePlatform == Device.Android)
+		        {
+			        return new Thickness(10,0,10,0);
+		        }
+		        else
+		        {
+			        return new Thickness(8,0,8,0);
+		        }
+	        }
+	        return new Thickness(4,0,4,0);
+        }
+        
         Tuple<Thickness, Thickness> GetMargins(double size)
         {
             double verticalMargin;
