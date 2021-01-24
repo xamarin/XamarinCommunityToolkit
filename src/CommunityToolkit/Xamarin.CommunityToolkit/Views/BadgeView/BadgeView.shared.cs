@@ -157,10 +157,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
             get => (FontAttributes)GetValue(FontAttributesProperty);
             set => SetValue(FontAttributesProperty, value);
         }
-
-        static void IsRoundedChanged(BindableObject bindable, object oldvalue, object newvalue) =>
-	        (bindable as BadgeView)?.UpdateRounded();
-
+        
         public static BindableProperty IsRoundedProperty =
 	        BindableProperty.Create(nameof(IsRounded), typeof(bool), typeof(BadgeView), true,
 		        propertyChanged:IsRoundedChanged);
@@ -170,6 +167,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	        get => (bool) GetValue(IsRoundedProperty);
 	        set => SetValue(IsRoundedProperty, value);
         }
+        
+        
+        static void IsRoundedChanged(BindableObject bindable, object oldvalue, object newvalue) =>
+	        (bindable as BadgeView)?.UpdateRounded();
 
         ContentPresenter BadgeContent { get; } = CreateContentElement();
 
