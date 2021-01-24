@@ -90,10 +90,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.P)
 				return;
 
-#pragma warning disable XA0001 // Find issues with Android API usage
 			View.SetOutlineAmbientShadowColor(androidColor);
 			View.SetOutlineSpotShadowColor(androidColor);
-#pragma warning restore XA0001 // Find issues with Android API usage
 		}
 	}
 }
