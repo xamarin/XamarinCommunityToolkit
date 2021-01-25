@@ -100,11 +100,11 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (!(bindable is VisualElement view))
 				return;
 
-			var shadowEffects = view.Effects.OfType<ShadowEffect>().ToArray();
+			var shadowEffects = view.Effects.OfType<ShadowEffect>();
 
 			if (GetColor(view) == Color.Default)
 			{
-				foreach (var effect in shadowEffects)
+				foreach (var effect in shadowEffects.ToArray())
 					view.Effects.Remove(effect);
 
 				return;
