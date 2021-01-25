@@ -45,7 +45,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				case nameof(ShadowEffect.RadiusPropertyName):
 				case nameof(ShadowEffect.OffsetXPropertyName):
 				case nameof(ShadowEffect.OffsetYPropertyName):
-					View?.Invalidate();
+					View.Invalidate();
 					Update();
 					break;
 			}
@@ -56,13 +56,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (View == null || Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
 				return;
 
-			var color = ShadowEffect.GetColor(Element);
-			if (color.IsDefault)
-			{
-				View.Elevation = 0;
-				return;
-			}
-
 			var radius = (float)ShadowEffect.GetRadius(Element);
 			if (radius < 0)
 				radius = defaultRadius;
@@ -71,7 +64,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (opacity < 0)
 				opacity = defaultOpacity;
 
-			var androidColor = color.MultiplyAlpha(opacity).ToAndroid();
+			var androidColor = ShadowEffect.GetColor(Element).MultiplyAlpha(opacity).ToAndroid();
 
 			if (View is TextView textView)
 			{

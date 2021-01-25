@@ -97,10 +97,21 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		static void TryGenerateEffect(BindableObject bindable, object oldValue, object newValue)
 		{
-			if (!(bindable is VisualElement view) || view.Effects.OfType<ShadowEffect>().Any())
+			if (!(bindable is VisualElement view))
 				return;
 
-			view.Effects.Add(new ShadowEffect());
+			var shadowEffects = view.Effects.OfType<ShadowEffect>().ToArray();
+
+			if (GetColor(view) == Color.Default)
+			{
+				foreach (var effect in shadowEffects)
+					view.Effects.Remove(effect);
+
+				return;
+			}
+
+			if (!shadowEffects.Any())
+				view.Effects.Add(new ShadowEffect());
 		}
 	}
 }
