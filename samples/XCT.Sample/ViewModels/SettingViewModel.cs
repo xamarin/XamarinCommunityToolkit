@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Essentials;

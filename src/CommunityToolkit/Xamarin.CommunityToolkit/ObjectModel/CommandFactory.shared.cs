@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Helpers
+namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	public static class CommandFactory
 	{

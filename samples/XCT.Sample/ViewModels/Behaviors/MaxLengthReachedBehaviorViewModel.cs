@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
