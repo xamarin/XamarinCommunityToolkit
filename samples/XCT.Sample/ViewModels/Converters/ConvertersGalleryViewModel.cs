@@ -40,6 +40,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(VariableMultiValueConverterPage),
 				nameof(VariableMultiValueConverter),
 				"A converter that allows you to combine multiple boolean bindings into a single binding."),
+
+			new SectionModel(
+				typeof(ListIsNullOrEmptyPage),
+				nameof(ListIsNullOrEmptyConverter),
+				"A converter that allows you to check if collection is null or empty"),
 		};
 	}
 }
