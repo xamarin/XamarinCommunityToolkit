@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand<TExecute, TCanExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
-		public static IAsyncValueCommand Create(
+		public static IAsyncValueCommand CreateValue(
 			Func<ValueTask> execute,
 			Func<bool> canExecute = null,
 			Action<Exception> onException = null,
@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			bool allowsMultipleExecutions = true) =>
 			new AsyncValueCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
-		public static IAsyncValueCommand<TExecute> Create<TExecute>(
+		public static IAsyncValueCommand<TExecute> CreateValue<TExecute>(
 			Func<TExecute, ValueTask> execute,
 			Func<bool> canExecute = null,
 			Action<Exception> onException = null,
@@ -57,7 +57,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			bool allowsMultipleExecutions = true) =>
 			new AsyncValueCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
-		public static IAsyncValueCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
+		public static IAsyncValueCommand<TExecute, TCanExecute> CreateValue<TExecute, TCanExecute>(
 			Func<TExecute, ValueTask> execute,
 			Func<TCanExecute, bool> canExecute = null,
 			Action<Exception> onException = null,
