@@ -47,6 +47,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 			get => currentCulture;
 			set => SetProperty(ref currentCulture, value, null);
 		}
+
+		[Obsolete("This method is no longer needed with new implementation of " + nameof(LocalizationResourceManager) + ". Please, remove all references to it.")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public void Invalidate() => OnPropertyChanged(null);
 	}
 #endif
 }
