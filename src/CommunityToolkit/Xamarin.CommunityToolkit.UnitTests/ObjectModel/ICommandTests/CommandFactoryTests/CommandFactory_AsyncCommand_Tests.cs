@@ -109,5 +109,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
 		}
+
+		[Fact]
+		public void LambdaExecuteTiebreakerTest()
+		{
+			// Arrange
+			CommandFactory.Create(async () => await NoParameterTask());
+			CommandFactory.Create(async () => await NoParameterTask(), CanExecuteTrue);
+			CommandFactory.Create<int>(async p => await IntParameterTask(p));
+			CommandFactory.Create<int>(async p => await IntParameterTask(p), CanExecuteTrue);
+			CommandFactory.Create<int, bool>(async p => await IntParameterTask(p));
+			CommandFactory.Create<int, bool>(async p => await IntParameterTask(p), CanExecuteTrue);
+
+			// Act
+
+			// Assert
+		}
 	}
 }

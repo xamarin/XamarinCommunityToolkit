@@ -17,6 +17,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		public static Command Create<TExecute, TCanExecute>(Action<TExecute> execute, Func<TCanExecute, bool> canExecute) =>
 			new Command(ConvertExecute(execute), ConvertCanExecute(canExecute));
 
+		public static IAsyncCommand Create(Func<Task> execute) =>
+			new AsyncCommand(execute);
+
+		public static IAsyncCommand Create(Func<Task> execute, Func<bool> canExecute) =>
+			new AsyncCommand(execute, canExecute);
+
 		public static IAsyncCommand Create(
 			Func<Task> execute,
 			Func<bool> canExecute = null,
@@ -25,6 +31,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
+		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> execute) =>
+			new AsyncCommand<TExecute>(execute);
+
+		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> execute, Func<bool> canExecute) =>
+			new AsyncCommand<TExecute>(execute, canExecute);
+
 		public static IAsyncCommand<TExecute> Create<TExecute>(
 			Func<TExecute, Task> execute,
 			Func<bool> canExecute = null,
@@ -32,6 +44,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+
+		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(Func<TExecute, Task> execute) =>
+			new AsyncCommand<TExecute, TCanExecute>(execute);
+
+		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(Func<TExecute, Task> execute, Func<TCanExecute, bool> canExecute) =>
+			new AsyncCommand<TExecute, TCanExecute>(execute, canExecute);
 
 		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
 			Func<TExecute, Task> execute,
