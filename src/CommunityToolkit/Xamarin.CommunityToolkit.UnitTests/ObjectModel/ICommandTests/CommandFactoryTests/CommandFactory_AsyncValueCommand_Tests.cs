@@ -9,6 +9,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 {
 	public class CommandFactoryAsyncValueCommandTests : BaseAsyncValueCommandTests
 	{
+
 		[Fact]
 		public void NullExecuteParameter()
 		{
@@ -18,14 +19,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
-			Assert.Throws<ArgumentNullException>(() => CommandFactory.CreateValue(execute));
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
 		}
 
 		[Fact]
 		public void NullCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.CreateValue(NoParameterTask, null);
+			var command = CommandFactory.Create(NoParameterTask, null);
 
 			// Act
 
@@ -39,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void IntExecuteNullCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.CreateValue<int>(IntParameterTask, null);
+			var command = CommandFactory.Create<int>(IntParameterTask, null);
 
 			// Act
 
@@ -57,7 +58,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void IntExecuteTrueCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.CreateValue<int>(IntParameterTask, CanExecuteTrue);
+			var command = CommandFactory.Create<int>(IntParameterTask, CanExecuteTrue);
 
 			// Act
 
@@ -71,7 +72,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void IntExecuteFalseCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.CreateValue<int>(IntParameterTask, CanExecuteFalse);
+			var command = CommandFactory.Create<int>(IntParameterTask, CanExecuteFalse);
 
 			// Act
 
@@ -85,7 +86,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void IntExecuteNullTypedCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.CreateValue<int, bool>(IntParameterTask, null);
+			var command = CommandFactory.Create<int, bool>(IntParameterTask, null);
 
 			// Act
 
@@ -100,7 +101,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void IntExecuteBoolCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.CreateValue<int, bool>(IntParameterTask, CanExecuteTrue);
+			var command = CommandFactory.Create<int, bool>(IntParameterTask, CanExecuteTrue);
 
 			// Act
 
