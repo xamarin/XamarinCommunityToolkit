@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reflection;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.ObjectModel
@@ -44,7 +46,27 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			if (execute == null)
 				return null;
 
-			return e => execute((T)e);
+			return p => Execute(execute, p);
+		}
+
+		static void Execute<T>(Action<T> execute, object parameter)
+		{
+			switch (parameter)
+			{
+				case T validParameter:
+					execute(validParameter);
+					break;
+
+				case null when !typeof(T).GetTypeInfo().IsValueType:
+					execute((T)parameter);
+					break;
+
+				case null:
+					throw new InvalidCommandParameterException(typeof(T));
+
+				default:
+					throw new InvalidCommandParameterException(typeof(T), parameter.GetType());
+			}
 		}
 
 		static Func<object, bool> ConvertCanExecute(Func<bool> canExecute)
@@ -60,7 +82,15 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			if (canExecute == null)
 				return _ => true;
 
-			return e => canExecute((T)e);
+			return p => CanExecute(canExecute, p);
 		}
+
+		static bool CanExecute<T>(Func<T, bool> canExecute, object parameter) => parameter switch
+		{
+			T validParameter => canExecute(validParameter),
+			null when !typeof(T).GetTypeInfo().IsValueType => canExecute((T)parameter),
+			null => throw new InvalidCommandParameterException(typeof(T)),
+			_ => throw new InvalidCommandParameterException(typeof(T), parameter.GetType()),
+		};
 	}
 }
