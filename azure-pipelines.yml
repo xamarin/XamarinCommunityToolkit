@@ -9,19 +9,23 @@ variables:
   NETCORE_VERSION: '3.1.x'
   NETCORE_TEST_VERSION: '3.1.x'
   RunPoliCheck: 'false'
-  PathToCsproj: 'XamarinCommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  PathToCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
+  PathToSln: 'samples/XCT.Sample.sln'
 
 resources:
   repositories:
-    - repository: xamarin-templates
+    - repository: internal-templates
       type: github
       name: xamarin/yaml-templates
       endpoint: xamarin
+      ref: refs/heads/main
 
 trigger:
   branches:
     include:
     - main
+    - develop
   tags:
     include:
     - '*'
@@ -30,10 +34,14 @@ trigger:
     - README.md
 
 pr:
-  autoCancel: false
+  autoCancel: true
   branches:
     include:
     - main
+    - develop
+  paths:
+    exclude:
+    - README.md
 
 schedules:
 - cron: "0 0 * * *"
@@ -43,6 +51,18 @@ schedules:
     - main
 
 jobs:
+  - job: build_windows_samples
+    displayName: Build Windows Samples
+    pool:
+      vmImage: windows-2019
+    steps:
+      - task: MSBuild@1
+        displayName: Build Solution
+        inputs:
+          solution: $(PathToSln)
+          configuration: Release
+          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      
   - job: build_windows
     displayName: Build Windows Library
     pool:
@@ -63,10 +83,26 @@ jobs:
           solution: $(PathToCsproj)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CopyFiles@2
+        inputs:
+          Contents: 'SignList.xml'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
       - task: MSBuild@1
         displayName: Pack NuGets
         inputs:
           solution: $(PathToCsproj)
+          configuration: Release
+          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+      - task: MSBuild@1
+        displayName: Build Markup Project
+        inputs:
+          solution: $(PathToMarkupCsproj)
+          configuration: Release
+          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: MSBuild@1
+        displayName: Pack Markup NuGet
+        inputs:
+          solution: $(PathToMarkupCsproj)
           configuration: Release
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 #      - task: DotNetCoreCLI@2
@@ -146,25 +182,7 @@ jobs:
           configuration: Release
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
-    # only sign the packages when running on Windows, and using the private server which has the certificates
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
-    - job: signing
-      displayName: Signing NuGets
-      dependsOn: build_windows
-      pool:
-        name: VSEng-XamarinCustom
-        demands:
-          - corpnet
-      condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
-      steps:
-        # don't checkout code and sign the packages
-        - checkout: none
-        - template: sign-artifacts.yml@xamarin-templates
-          parameters:
-            targetFolder: '$(Build.ArtifactStagingDirectory)/signed'
-        # publish the signed packages
-        - task: PublishBuildArtifacts@1
-          displayName: 'Publish Signed NuGets'
-          inputs:
-            artifactName: nuget-signed
-            pathToPublish: '$(Build.ArtifactStagingDirectory)/signed'
+    - template: sign-artifacts/jobs/v2.yml@internal-templates
+      parameters:
+        dependsOn: [ build_windows ]
