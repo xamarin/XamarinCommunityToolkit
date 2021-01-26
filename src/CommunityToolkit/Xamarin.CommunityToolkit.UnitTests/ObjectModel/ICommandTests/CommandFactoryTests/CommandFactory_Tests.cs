@@ -170,12 +170,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 
 			// Assert
 			Assert.True(command.CanExecute(true));
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(null));
+			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
+			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
 		}
 
-		[Fact(Skip = "AsyncCommand validates type here. Is this correct behavior?")]
+		[Fact]
 		public void IntAsyncCommandNullTypedCanExecuteParameter()
 		{
 			// Arrange
@@ -185,9 +185,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 
 			// Assert
 			Assert.True(command.CanExecute(true));
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(null));
+			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
+			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
 		}
 
 		[Fact]
