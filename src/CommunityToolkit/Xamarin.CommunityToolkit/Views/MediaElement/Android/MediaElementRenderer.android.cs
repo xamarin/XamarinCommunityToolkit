@@ -35,11 +35,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			view.SetOnErrorListener(this);
 			view.MetadataRetrieved += MetadataRetrieved;
 
+			SetForegroundGravity(GravityFlags.Center);
+
 			AddView(view, -1, -1);
 
 			controller = new MediaController(Context);
 			controller.SetAnchorView(this);
 			view.SetMediaController(controller);
+		}
+
+		public override float Alpha
+		{
+			get => view.Alpha;
+			set =>
+
+				// VideoView opens a separate Window above the current one.
+				// This is because it is based on the SurfaceView.
+				// And we cannot set alpha or perform animations with it because it is not synchronized with your other UI elements.
+				// We may set 0 or 1 alpha only.
+				view.Alpha = Math.Sign(Math.Abs(value));
 		}
 
 		protected ToolKitMediaElement MediaElement { get; set; }
@@ -256,7 +270,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 
 				case nameof(MediaElement.Volume):
-					mediaPlayer?.SetVolume((float)MediaElement.Volume, (float)MediaElement.Volume);
+					UpdateVolume();
 					break;
 			}
 
@@ -312,7 +326,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						if (uriSource.Uri.IsFile)
 							view.SetVideoPath(uriSource.Uri.AbsolutePath);
 						else
-							view.SetVideoURI(global::Android.Net.Uri.Parse(uriSource.Uri.AbsoluteUri));
+							view.SetVideoURI(global::Android.Net.Uri.Parse(uriSource.Uri.ToString()));
 					}
 				}
 				else if (MediaElement.Source is XCT.FileMediaSource fileSource)
@@ -324,11 +338,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Controller.CurrentState = view.IsPlaying ? MediaElementState.Playing : MediaElementState.Stopped;
 				}
 			}
-			else if (view.IsPlaying)
+			else
 			{
 				view.StopPlayback();
+				view.SeekTo(0);
+				view.SetVideoURI(null);
+				view.Visibility = ViewStates.Gone;
+				view.Visibility = ViewStates.Visible;
 				Controller.CurrentState = MediaElementState.Stopped;
 			}
+		}
+
+		protected void UpdateVolume()
+		{
+			if (view == null)
+				return;
+
+			mediaPlayer?.SetVolume((float)MediaElement.Volume, (float)MediaElement.Volume);
 		}
 
 		protected string ResolveMsAppDataUri(Uri uri)
@@ -368,6 +394,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateLayoutParameters();
 
 			mediaPlayer = mp;
+			UpdateVolume();
 			mp.Looping = MediaElement.IsLooping;
 			mp.SeekTo(0);
 
@@ -405,14 +432,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (ratio > controlRatio)
 					{
 						var requiredHeight = (int)(Width / ratio);
+						SetMinimumHeight(requiredHeight);
 						var vertMargin = (Height - requiredHeight) / 2;
-						view.LayoutParameters = new LayoutParams(Width, requiredHeight, GravityFlags.FillHorizontal | GravityFlags.CenterVertical) { LeftMargin = 0, RightMargin = 0, TopMargin = vertMargin, BottomMargin = vertMargin };
+						view.LayoutParameters = new LayoutParams(Width, requiredHeight, GravityFlags.Center) { LeftMargin = 0, RightMargin = 0, TopMargin = vertMargin, BottomMargin = vertMargin };
 					}
 					else
 					{
 						var requiredWidth = (int)(Height * ratio);
+						SetMinimumWidth(requiredWidth);
 						var horizMargin = (Width - requiredWidth) / 2;
-						view.LayoutParameters = new LayoutParams(requiredWidth, Height, GravityFlags.CenterHorizontal | GravityFlags.FillVertical) { LeftMargin = horizMargin, RightMargin = horizMargin, TopMargin = 0, BottomMargin = 0 };
+						view.LayoutParameters = new LayoutParams(requiredWidth, Height, GravityFlags.Center) { LeftMargin = horizMargin, RightMargin = horizMargin, TopMargin = 0, BottomMargin = 0 };
 					}
 					break;
 

@@ -95,16 +95,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					volumeObserver = avPlayerViewController.Player.AddObserver("volume", NSKeyValueObservingOptions.New, ObserveVolume);
 				}
 
+				UpdateVolume();
+
 				if (Element.AutoPlay)
 					Play();
 			}
 			else
 			{
-				if (Element.CurrentState == MediaElementState.Playing || Element.CurrentState == MediaElementState.Buffering)
-				{
-					avPlayerViewController.Player.Pause();
-					Controller.CurrentState = MediaElementState.Stopped;
-				}
+				avPlayerViewController.Player?.Pause();
+				avPlayerViewController.Player?.ReplaceCurrentItemWithPlayerItem(null);
+				DisposeObservers(ref statusObserver);
+				Controller.CurrentState = MediaElementState.Stopped;
 			}
 		}
 
@@ -248,8 +249,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 
 				case nameof(ToolKitMediaElement.Volume):
-					if (avPlayerViewController.Player != null)
-						avPlayerViewController.Player.Volume = (float)Element.Volume;
+					UpdateVolume();
 					break;
 			}
 		}
@@ -295,6 +295,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element.KeepScreenOn)
 				SetKeepScreenOn(true);
+		}
+
+		void UpdateVolume()
+		{
+			if (avPlayerViewController.Player != null)
+				avPlayerViewController.Player.Volume = (float)Element.Volume;
 		}
 
 		void MediaElementStateRequested(object sender, StateRequested e)

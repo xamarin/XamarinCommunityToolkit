@@ -1,16 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
 
-namespace Xamarin.CommunityToolkit.ObjectModel
+namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
 	/// <summary>
 	/// Abstract Base Class used by AsyncValueCommand
 	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class BaseAsyncCommand<TExecute, TCanExecute> : BaseCommand<TCanExecute>, ICommand
 	{
 		readonly Func<TExecute, Task> execute;
@@ -35,6 +33,32 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			this.execute = execute ?? throw new ArgumentNullException(nameof(execute), $"{nameof(execute)} cannot be null");
 			this.onException = onException;
 			this.continueOnCapturedContext = continueOnCapturedContext;
+		}
+
+		/// <summary>
+		/// Converts `Func<Task>` to `Func<object, Task>`
+		/// </summary>
+		/// <param name="execute"></param>
+		/// <returns>The Execute parameter required for ICommand</returns>
+		private protected static Func<object, Task> ConvertExecute(Func<Task> execute)
+		{
+			if (execute == null)
+				return null;
+
+			return _ => execute();
+		}
+
+		/// <summary>
+		/// Converts `Func<bool>` to `Func<object, bool>`
+		/// </summary>
+		/// <param name="canExecute"></param>
+		/// <returns>The CanExecute parameter required for ICommand</returns>
+		private protected static Func<object, bool> ConvertCanExecute(Func<bool> canExecute)
+		{
+			if (canExecute == null)
+				return null;
+
+			return _ => canExecute();
 		}
 
 		/// <summary>

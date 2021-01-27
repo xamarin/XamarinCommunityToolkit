@@ -3,12 +3,11 @@ using System.ComponentModel;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.ObjectModel
+namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
 	/// <summary>
 	/// Abstract Base Class used by AsyncCommand and AsyncValueCommand
 	/// </summary>
-	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class BaseCommand<TCanExecute>
 	{
 		readonly Func<TCanExecute, bool> canExecute;
@@ -79,12 +78,18 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		};
 
 		/// <summary>
-		/// Raises the CanExecuteChanged event.
+		/// Raises the `ICommand.CanExecuteChanged` event.
 		/// </summary>
 		public void RaiseCanExecuteChanged()
 		{
 			// Automatically marshall to the Main Thread to adhere to the way that Xamarin.Forms automatically marshalls binding events to Main Thread
 			Device.BeginInvokeOnMainThread(() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)));
 		}
+
+		/// <summary>
+		/// Raises the `ICommand.CanExecuteChanged` event. Recommend using RaiseCanExecuteChanged() instead.
+		/// </summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public void ChangeCanExecute() => RaiseCanExecuteChanged();
 	}
 }

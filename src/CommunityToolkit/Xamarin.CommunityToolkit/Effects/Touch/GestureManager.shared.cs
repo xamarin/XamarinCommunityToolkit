@@ -79,6 +79,15 @@ namespace Xamarin.CommunityToolkit.Effects
 				OnTapped(sender);
 		}
 
+		internal void HandleUserInteraction(TouchEffect sender, TouchInteractionStatus interactionStatus)
+		{
+			if (sender.InteractionStatus != interactionStatus)
+			{
+				sender.InteractionStatus = interactionStatus;
+				sender.RaiseInteractionStatusChanged();
+			}
+		}
+
 		internal void HandleHover(TouchEffect sender, HoverStatus status)
 		{
 			if (!sender.Element.IsEnabled)
@@ -94,8 +103,11 @@ namespace Xamarin.CommunityToolkit.Effects
 				sender.RaiseHoverStateChanged();
 			}
 
-			sender.HoverStatus = status;
-			sender.RaiseHoverStatusChanged();
+			if (sender.HoverStatus != status)
+			{
+				sender.HoverStatus = status;
+				sender.RaiseHoverStatusChanged();
+			}
 		}
 
 		internal async Task ChangeStateAsync(TouchEffect sender, bool animated)
@@ -198,6 +210,9 @@ namespace Xamarin.CommunityToolkit.Effects
 		{
 			if (!sender.CanExecute || (sender.LongPressCommand != null && sender.InteractionStatus == TouchInteractionStatus.Completed))
 				return;
+
+			if (sender.Element is IButtonController button)
+				button.SendClicked();
 
 			sender.Command?.Execute(sender.CommandParameter);
 			sender.RaiseCompleted();
