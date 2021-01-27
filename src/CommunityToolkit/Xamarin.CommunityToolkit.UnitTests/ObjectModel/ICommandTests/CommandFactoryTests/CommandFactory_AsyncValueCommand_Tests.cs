@@ -111,5 +111,25 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
 		}
+
+		[Fact]
+		public void LambdaExecuteTiebreakerTest()
+		{
+			// Arrange
+			CommandFactory.Create((Func<ValueTask>)(async () => await NoParameterTask()));
+			CommandFactory.Create(executeValueTask: async () => await NoParameterTask());
+			CommandFactory.Create(executeValueTask: async () => await NoParameterTask(), CanExecuteTrue);
+			CommandFactory.Create(executeValueTask: async () => await NoParameterTask(), CanExecuteTrue, null);
+			CommandFactory.Create<int>(executeValueTask: async p => await IntParameterTask(p));
+			CommandFactory.Create<int>(executeValueTask: async p => await IntParameterTask(p), CanExecuteTrue);
+			CommandFactory.Create<int>(executeValueTask: async p => await IntParameterTask(p), CanExecuteTrue, null);
+			CommandFactory.Create<int, bool>(executeValueTask: async p => await IntParameterTask(p));
+			CommandFactory.Create<int, bool>(executeValueTask: async p => await IntParameterTask(p), CanExecuteTrue);
+			CommandFactory.Create<int, bool>(executeValueTask: async p => await IntParameterTask(p), CanExecuteTrue, null);
+
+			// Act
+
+			// Assert
+		}
 	}
 }

@@ -116,10 +116,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Arrange
 			CommandFactory.Create(async () => await NoParameterTask());
 			CommandFactory.Create(async () => await NoParameterTask(), CanExecuteTrue);
+			CommandFactory.Create(executeTask: async () => await NoParameterTask(), CanExecuteTrue, null);
 			CommandFactory.Create<int>(async p => await IntParameterTask(p));
 			CommandFactory.Create<int>(async p => await IntParameterTask(p), CanExecuteTrue);
+			CommandFactory.Create<int>(executeTask: async p => await IntParameterTask(p), CanExecuteTrue, null);
 			CommandFactory.Create<int, bool>(async p => await IntParameterTask(p));
 			CommandFactory.Create<int, bool>(async p => await IntParameterTask(p), CanExecuteTrue);
+			CommandFactory.Create<int, bool>(executeTask: async p => await IntParameterTask(p), CanExecuteTrue, null);
 
 			// Act
 

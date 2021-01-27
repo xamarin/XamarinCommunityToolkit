@@ -17,71 +17,71 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		public static Command Create<TExecute, TCanExecute>(Action<TExecute> execute, Func<TCanExecute, bool> canExecute) =>
 			new Command(ConvertExecute(execute), ConvertCanExecute(canExecute));
 
-		public static IAsyncCommand Create(Func<Task> execute) =>
-			new AsyncCommand(execute);
+		public static IAsyncCommand Create(Func<Task> executeTask) =>
+			new AsyncCommand(executeTask);
 
-		public static IAsyncCommand Create(Func<Task> execute, Func<bool> canExecute) =>
-			new AsyncCommand(execute, canExecute);
+		public static IAsyncCommand Create(Func<Task> executeTask, Func<bool> canExecute) =>
+			new AsyncCommand(executeTask, canExecute);
 
 		public static IAsyncCommand Create(
-			Func<Task> execute,
+			Func<Task> executeTask,
 			Func<bool> canExecute = null,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncCommand(executeTask, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
-		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> execute) =>
-			new AsyncCommand<TExecute>(execute);
+		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> executeTask) =>
+			new AsyncCommand<TExecute>(executeTask);
 
-		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> execute, Func<bool> canExecute) =>
-			new AsyncCommand<TExecute>(execute, canExecute);
+		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> executeTask, Func<bool> canExecute) =>
+			new AsyncCommand<TExecute>(executeTask, canExecute);
 
 		public static IAsyncCommand<TExecute> Create<TExecute>(
-			Func<TExecute, Task> execute,
+			Func<TExecute, Task> executeTask,
 			Func<bool> canExecute = null,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncCommand<TExecute>(executeTask, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
-		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(Func<TExecute, Task> execute) =>
-			new AsyncCommand<TExecute, TCanExecute>(execute);
+		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(Func<TExecute, Task> executeTask) =>
+			new AsyncCommand<TExecute, TCanExecute>(executeTask);
 
-		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(Func<TExecute, Task> execute, Func<TCanExecute, bool> canExecute) =>
-			new AsyncCommand<TExecute, TCanExecute>(execute, canExecute);
+		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(Func<TExecute, Task> executeTask, Func<TCanExecute, bool> canExecute) =>
+			new AsyncCommand<TExecute, TCanExecute>(executeTask, canExecute);
 
 		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
-			Func<TExecute, Task> execute,
+			Func<TExecute, Task> executeTask,
 			Func<TCanExecute, bool> canExecute = null,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncCommand<TExecute, TCanExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncCommand<TExecute, TCanExecute>(executeTask, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		public static IAsyncValueCommand Create(
-			Func<ValueTask> execute,
+			Func<ValueTask> executeValueTask,
 			Func<bool> canExecute = null,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncValueCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncValueCommand(executeValueTask, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		public static IAsyncValueCommand<TExecute> Create<TExecute>(
-			Func<TExecute, ValueTask> execute,
+			Func<TExecute, ValueTask> executeValueTask,
 			Func<bool> canExecute = null,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncValueCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncValueCommand<TExecute>(executeValueTask, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		public static IAsyncValueCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
-			Func<TExecute, ValueTask> execute,
+			Func<TExecute, ValueTask> executeValueTask,
 			Func<TCanExecute, bool> canExecute = null,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
-			new AsyncValueCommand<TExecute, TCanExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
+			new AsyncValueCommand<TExecute, TCanExecute>(executeValueTask, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
 
 		static Action<object> ConvertExecute<T>(Action<T> execute)
 		{
