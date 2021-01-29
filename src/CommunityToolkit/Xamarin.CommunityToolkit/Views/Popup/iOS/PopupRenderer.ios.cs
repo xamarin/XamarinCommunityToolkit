@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		VisualElement IVisualElementRenderer.Element => Element;
 
-		public UIView NativeView => base.View;
+		public UIView NativeView => View;
 
 		public UIViewController ViewController { get; private set; }
 
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void ViewDidLayoutSubviews()
 		{
 			base.ViewDidLayoutSubviews();
-			SetElementSize(new Size(base.View.Bounds.Width, base.View.Bounds.Height));
+			SetElementSize(new Size(View.Bounds.Width, View.Bounds.Height));
 		}
 
 		public override void ViewDidAppear(bool animated)
@@ -184,8 +184,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetView()
 		{
-			base.View.AddSubview(Control.ViewController.View);
-			base.View.Bounds = new CGRect(0, 0, PreferredContentSize.Width, PreferredContentSize.Height);
+			View.AddSubview(Control.ViewController.View);
+			View.Bounds = new CGRect(0, 0, PreferredContentSize.Width, PreferredContentSize.Height);
 			AddChildViewController(Control.ViewController);
 		}
 
