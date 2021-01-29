@@ -146,17 +146,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element.Anchor == null)
 			{
-				var originX = Element.VerticalOptions.Alignment switch
-				{
-					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Width,
-					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Width / 2,
-					_ => 0f
-				};
-
-				var originY = Element.HorizontalOptions.Alignment switch
+				var originY = Element.VerticalOptions.Alignment switch
 				{
 					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height - PreferredContentSize.Height,
 					LayoutAlignment.Center => (UIScreen.MainScreen.Bounds.Height / 2) - (PreferredContentSize.Height / 2),
+					_ => 0f
+				};
+
+				var originX = Element.HorizontalOptions.Alignment switch
+				{
+					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Width,
+					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Width / 2,
 					_ => 0f
 				};
 
