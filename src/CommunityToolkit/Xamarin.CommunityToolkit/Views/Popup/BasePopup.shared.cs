@@ -26,8 +26,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty ContentProperty = BindableProperty.Create(nameof(Content), typeof(View), typeof(BasePopup), propertyChanged: OnContentChanged);
 
-		public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(BasePopup));
-		public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(Size), typeof(BasePopup));
+		public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(BasePopup), Color.Default);
+		public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(Size), typeof(BasePopup), default(Size));
 
 		public static readonly BindableProperty VerticalOptionsProperty = BindableProperty.Create(nameof(VerticalOptions), typeof(LayoutOptions), typeof(BasePopup), LayoutOptions.CenterAndExpand);
 		public static readonly BindableProperty HorizontalOptionsProperty = BindableProperty.Create(nameof(HorizontalOptions), typeof(LayoutOptions), typeof(BasePopup), LayoutOptions.CenterAndExpand);
@@ -85,7 +85,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public View Anchor { get; set; }
 
 		/// <summary>
-		/// Gets or sets the <see cref="Size"/> of the Popup Display. 
+		/// Gets or sets the <see cref="Size"/> of the Popup Display.
 		/// </summary>
 		/// <remarks>
 		/// The Popup will always try to constrain the actual size of the <see cref="Popup" />
@@ -148,7 +148,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected internal virtual void LightDismiss()
 		{
 			// Note 1/9/2021
-			// Left empty be design
+			// Left empty by design
 			//
 			// This method needs to be left empty as it is not
 			// required for a child class to have an implementation
