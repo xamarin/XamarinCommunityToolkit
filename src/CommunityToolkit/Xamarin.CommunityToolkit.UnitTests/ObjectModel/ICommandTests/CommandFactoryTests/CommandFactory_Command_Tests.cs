@@ -42,18 +42,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void Action_NullCanExecuteParameter()
 		{
 			// Arrange
+			Func<bool> canExecute = null;
 
 			// Act
 
 			// Assert
-			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(NoParameterAction, null));
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(NoParameterAction, canExecute));
 		}
 
 		[Fact]
 		public void Action_ValidCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.Create(NoParameterAction, CanExecuteTrue);
+			var command = CommandFactory.Create(NoParameterAction, () => true);
 
 			// Act
 			command.Execute(null);
@@ -83,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void ActionObject_ValidExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.Create(ObjectParameterAction);
+			var command = CommandFactory.Create<object>(ObjectParameterAction);
 
 			// Act
 			command.Execute(null);
@@ -105,14 +106,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
-			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(ObjectParameterAction, null));
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<object, object>(ObjectParameterAction, null));
 		}
 
 		[Fact]
 		public void ActionObject_ValidCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.Create(ObjectParameterAction, _ => true);
+			var command = CommandFactory.Create<object>(ObjectParameterAction, _ => true);
 
 			// Act
 			command.Execute(1);
@@ -137,25 +138,26 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
-			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(execute, CanExecuteTrue));
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(execute, () => true));
 		}
 
 		[Fact]
 		public void ActionInt_NullCanExecuteParameter()
 		{
 			// Arrange
+			Func<bool> canExecute = null;
 
 			// Act
 
 			// Assert
-			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(IntParameterAction, null));
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(IntParameterAction, canExecute));
 		}
 
 		[Fact]
 		public void ActionInt_ValidCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.Create<int>(IntParameterAction, CanExecuteTrue);
+			var command = CommandFactory.Create<int, int>(IntParameterAction, CanExecuteTrue);
 
 			// Act
 
@@ -164,8 +166,25 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.False(command.CanExecute(null));
 			Assert.False(command.CanExecute(string.Empty));
 
-			Assert.IsType<Forms.Command<int>>(command);
+			Assert.IsType<Forms.Command>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
+		}
+
+		[Fact]
+		public void ActionInt_ValidExecuteParameter()
+		{
+			// Arrange
+			var executeResult = -1;
+			var executeParameter = 0;
+			var command = CommandFactory.Create<int>(parameter => executeResult = parameter);
+
+			// Act
+			command.Execute(executeParameter);
+			command.Execute(null);
+			command.Execute(string.Empty);
+
+			// Assert
+			Assert.Equal(executeParameter, executeResult);
 		}
 	}
 }
