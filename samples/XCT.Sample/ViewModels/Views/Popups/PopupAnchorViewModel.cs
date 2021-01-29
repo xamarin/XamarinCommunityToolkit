@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups
 			ShowPopup = new Command<View>(OnShowPopup);
 		}
 
-		INavigation Navigation => App.Current.MainPage.Navigation;
+		INavigation Navigation => Application.Current.MainPage.Navigation;
 
 		public ICommand ShowPopup { get; }
 
