@@ -138,7 +138,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnResume();
 			StartBackgroundThread();
-			if (texture is null)
+			if (texture == null)
 				return;
 			if (texture.IsAvailable)
 			{
