@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests;
@@ -9,12 +10,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 {
 	public class CommandFactoryAsyncValueCommandTests : BaseAsyncValueCommandTests
 	{
-
 		[Fact]
-		public void NullExecuteParameter()
+		public void AsyncValueCommand_NullExecuteParameter()
 		{
 			// Arrange
-			Func<ValueTask> execute = null;
+			Func<Task> execute = null;
 
 			// Act
 
@@ -23,113 +23,243 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		}
 
 		[Fact]
-		public void NullCanExecuteParameter()
+		public async Task AsyncValueCommand_NullCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.Create(NoParameterTask, null);
+			var command = CommandFactory.Create(NoParameterTask);
 
 			// Act
-
-			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
-		}
-
-		[Fact]
-		public void IntExecuteNullCanExecuteParameter()
-		{
-			// Arrange
-			var command = CommandFactory.Create<int>(IntParameterTask, null);
-
-			// Act
+			await command.ExecuteAsync();
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.True(command.CanExecute(string.Empty));
 			Assert.True(command.CanExecute(0));
 
-			command.Execute(0);
-			Assert.Throws<InvalidCommandParameterException>(() => command.Execute(null));
-			Assert.Throws<InvalidCommandParameterException>(() => command.Execute(string.Empty));
+			Assert.IsType<AsyncValueCommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand>(command);
 		}
 
 		[Fact]
-		public void IntExecuteTrueCanExecuteParameter()
+		public async Task AsyncValueCommand_ObjectCanExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.Create<int>(IntParameterTask, CanExecuteTrue);
+			var command = CommandFactory.Create(NoParameterTask, parameter => true);
 
 			// Act
+			await command.ExecuteAsync();
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.True(command.CanExecute(string.Empty));
 			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<AsyncValueCommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand>(command);
 		}
 
 		[Fact]
-		public void IntExecuteFalseCanExecuteParameter()
+		public void AsyncValueCommand_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.Create<int>(IntParameterTask, CanExecuteFalse);
+			Func<ValueTask> execute = null;
 
 			// Act
 
 			// Assert
-			Assert.False(command.CanExecute(null));
-			Assert.False(command.CanExecute(string.Empty));
-			Assert.False(command.CanExecute(0));
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute, () => true));
 		}
 
 		[Fact]
-		public void IntExecuteNullTypedCanExecuteParameter()
+		public async Task AsyncValueCommand_FuncBool_NullCanExecuteParameter()
+		{
+			// Arrange
+			Func<bool> canExecute = null;
+			var command = CommandFactory.Create(NoParameterTask, canExecute);
+
+			// Act
+			await command.ExecuteAsync();
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<AsyncValueCommand>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand>(command);
+		}
+
+		[Fact]
+		public async Task AsyncValueCommand_FuncBool_ValidExecuteParameter_ValidCanExecuteParameter()
+		{
+			// Arrange
+			var command = CommandFactory.Create(NoParameterTask, () => true);
+
+			// Act
+			await command.ExecuteAsync();
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<AsyncValueCommand>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand>(command);
+		}
+
+		[Fact]
+		public void AsyncValueCommandT_NullExecuteParameter()
+		{
+			// Arrange
+			Func<int, ValueTask> execute = null;
+
+			// Act
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+		}
+
+		[Fact]
+		public async Task AsyncValueCommandT_NullCanExecuteParameter()
+		{
+			// Arrange
+			var command = CommandFactory.Create<int>(IntParameterTask);
+
+			// Act
+			await command.ExecuteAsync(0);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<AsyncValueCommand<int>>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand<int>>(command);
+		}
+
+		[Fact]
+		public async Task AsyncValueCommandT_ObjectCanExecuteParameter()
+		{
+			// Arrange
+			var command = CommandFactory.Create<int>(IntParameterTask, parameter => true);
+
+			// Act
+			await command.ExecuteAsync(0);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<AsyncValueCommand<int>>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand<int>>(command);
+		}
+
+		[Fact]
+		public void AsyncValueCommandT_FuncBool_NullExecuteParameter()
+		{
+			// Arrange
+			Func<int, ValueTask> execute = null;
+
+			// Act
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(execute, () => true));
+		}
+
+		[Fact]
+		public async Task AsyncValueCommandT_FuncBool_NullCanExecuteParameter()
+		{
+			// Arrange
+			Func<bool> canExecute = null;
+			var command = CommandFactory.Create<int>(IntParameterTask, canExecute);
+
+			// Act
+			await command.ExecuteAsync(0);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<AsyncValueCommand<int>>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand<int>>(command);
+		}
+
+		[Fact]
+		public async Task AsyncValueCommandT_FuncBool_ValidExecuteParameter_ValidCanExecuteParameter()
+		{
+			// Arrange
+			var command = CommandFactory.Create<int>(IntParameterTask, () => true);
+
+			// Act
+			await command.ExecuteAsync(0);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<AsyncValueCommand<int>>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand<int>>(command);
+		}
+
+		[Fact]
+		public void AsyncValueCommandTExecuteTCanExecute_NullExecuteParameter()
+		{
+			// Arrange
+			Func<int, ValueTask> execute = null;
+
+			// Act
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+		}
+
+		[Fact]
+		public async Task AsyncValueCommandTExecuteTCanExecute_NullCanExecuteParameter()
 		{
 			// Arrange
 			var command = CommandFactory.Create<int, bool>(IntParameterTask, null);
 
 			// Act
+			await command.ExecuteAsync(0);
 
 			// Assert
 			Assert.True(command.CanExecute(true));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(null));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
+
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
+			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
+
+			Assert.IsType<AsyncValueCommand<int, bool>>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand<int, bool>>(command);
 		}
 
 		[Fact]
-		public void IntExecuteBoolCanExecuteParameter()
+		public async Task AsyncValueCommandTExecuteTCanExecute_ObjectCanExecuteParameter()
 		{
 			// Arrange
 			var command = CommandFactory.Create<int, bool>(IntParameterTask, CanExecuteTrue);
 
 			// Act
+			await command.ExecuteAsync(0);
 
 			// Assert
 			Assert.True(command.CanExecute(true));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(null));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
+
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
-		}
+			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
 
-		[Fact]
-		public void LambdaExecuteTiebreakerTest()
-		{
-			// Arrange
-			CommandFactory.Create((Func<ValueTask>)(async () => await NoParameterTask()));
-			CommandFactory.Create(executeValueTask: async () => await NoParameterTask());
-			CommandFactory.Create(executeValueTask: async () => await NoParameterTask(), CanExecuteTrue);
-			CommandFactory.Create(executeValueTask: async () => await NoParameterTask(), CanExecuteTrue, null);
-			CommandFactory.Create<int>(executeValueTask: async p => await IntParameterTask(p));
-			CommandFactory.Create<int>(executeValueTask: async p => await IntParameterTask(p), CanExecuteTrue);
-			CommandFactory.Create<int>(executeValueTask: async p => await IntParameterTask(p), CanExecuteTrue, null);
-			CommandFactory.Create<int, bool>(executeValueTask: async p => await IntParameterTask(p));
-			CommandFactory.Create<int, bool>(executeValueTask: async p => await IntParameterTask(p), CanExecuteTrue);
-			CommandFactory.Create<int, bool>(executeValueTask: async p => await IntParameterTask(p), CanExecuteTrue, null);
-
-			// Act
-
-			// Assert
+			Assert.IsType<AsyncValueCommand<int, bool>>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsAssignableFrom<IAsyncValueCommand<int, bool>>(command);
 		}
 	}
 }

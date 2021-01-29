@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
@@ -8,16 +8,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 {
 	public class CommandFactoryCommandTests : BaseCommandTests
 	{
-		protected void NoParameterAction()
-        {
-        }
-
-		protected void IntParameterAction(int i)
-        {
-        }
-
 		[Fact]
-		public void NullExecuteParameter()
+		public void Action_NullExecuteParameter()
 		{
 			// Arrange
 			Action execute = null;
@@ -29,39 +21,138 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		}
 
 		[Fact]
-		public void NullCanExecuteParameter()
+		public void Action_ValidExecuteParameter()
 		{
 			// Arrange
-			var command = CommandFactory.Create(NoParameterAction, null);
+			var command = CommandFactory.Create(NoParameterAction);
 
 			// Act
-
-			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
-		}
-
-		[Fact]
-		public void IntExecuteNullCanExecuteParameter()
-		{
-			// Arrange
-			var command = CommandFactory.Create<int>(IntParameterAction, null);
-
-			// Act
+			command.Execute(null);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.True(command.CanExecute(string.Empty));
 			Assert.True(command.CanExecute(0));
 
-			command.Execute(0);
-			Assert.Throws<InvalidCommandParameterException>(() => command.Execute(null));
-			Assert.Throws<InvalidCommandParameterException>(() => command.Execute(string.Empty));
+			Assert.IsType<Forms.Command>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
 		}
 
 		[Fact]
-		public void IntExecuteTrueCanExecuteParameter()
+		public void Action_NullCanExecuteParameter()
+		{
+			// Arrange
+
+			// Act
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(NoParameterAction, null));
+		}
+
+		[Fact]
+		public void Action_ValidCanExecuteParameter()
+		{
+			// Arrange
+			var command = CommandFactory.Create(NoParameterAction, CanExecuteTrue);
+
+			// Act
+			command.Execute(null);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<Forms.Command>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+		}
+
+		[Fact]
+		public void ActionObject_NullExecuteParameter()
+		{
+			// Arrange
+			Action<object> execute = null;
+
+			// Act
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+		}
+
+		[Fact]
+		public void ActionObject_ValidExecuteParameter()
+		{
+			// Arrange
+			var command = CommandFactory.Create(ObjectParameterAction);
+
+			// Act
+			command.Execute(null);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<Forms.Command>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+		}
+
+		[Fact]
+		public void ActionObject_NullCanExecuteParameter()
+		{
+			// Arrange
+
+			// Act
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(ObjectParameterAction, null));
+		}
+
+		[Fact]
+		public void ActionObject_ValidCanExecuteParameter()
+		{
+			// Arrange
+			var command = CommandFactory.Create(ObjectParameterAction, _ => true);
+
+			// Act
+			command.Execute(1);
+			command.Execute(null);
+			command.Execute(string.Empty);
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute(string.Empty));
+			Assert.True(command.CanExecute(0));
+
+			Assert.IsType<Forms.Command>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
+		}
+
+		[Fact]
+		public void ActionInt_NullExecuteParameter()
+		{
+			// Arrange
+			Action<int> execute = null;
+
+			// Act
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(execute, CanExecuteTrue));
+		}
+
+		[Fact]
+		public void ActionInt_NullCanExecuteParameter()
+		{
+			// Arrange
+
+			// Act
+
+			// Assert
+			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(IntParameterAction, null));
+		}
+
+		[Fact]
+		public void ActionInt_ValidCanExecuteParameter()
 		{
 			// Arrange
 			var command = CommandFactory.Create<int>(IntParameterAction, CanExecuteTrue);
@@ -69,53 +160,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
 			Assert.True(command.CanExecute(0));
-		}
-
-		[Fact]
-		public void IntExecuteFalseCanExecuteParameter()
-		{
-			// Arrange
-			var command = CommandFactory.Create<int>(IntParameterAction, CanExecuteFalse);
-
-			// Act
-
-			// Assert
 			Assert.False(command.CanExecute(null));
 			Assert.False(command.CanExecute(string.Empty));
-			Assert.False(command.CanExecute(0));
-		}
 
-		[Fact]
-		public void IntExecuteNullTypedCanExecuteParameter()
-		{
-			// Arrange
-			var command = CommandFactory.Create<int, bool>(IntParameterAction, null);
-
-			// Act
-
-			// Assert
-			Assert.True(command.CanExecute(true));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(null));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
-		}
-
-		[Fact]
-		public void IntExecuteBoolCanExecuteParameter()
-		{
-			// Arrange
-			var command = CommandFactory.Create<int, bool>(IntParameterAction, CanExecuteTrue);
-
-			// Act
-
-			// Assert
-			Assert.True(command.CanExecute(true));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(null));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
-			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
+			Assert.IsType<Forms.Command<int>>(command);
+			Assert.IsAssignableFrom<ICommand>(command);
 		}
 	}
 }
