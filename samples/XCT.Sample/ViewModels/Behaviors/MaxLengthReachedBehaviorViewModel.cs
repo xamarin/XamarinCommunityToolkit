@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		public ICommand MaxLengthReachedCommand { get; }
 
 		public MaxLengthReachedBehaviorViewModel()
-			=> MaxLengthReachedCommand = new Command<string>(OnCommandExecuted);
+			=> MaxLengthReachedCommand = CommandFactory.Create<string>(OnCommandExecuted);
 
 		void OnCommandExecuted(string text)
 			=> CommandExecutions += string.Format("MaxLength reached with value: '{0}'.", text) + Environment.NewLine;
