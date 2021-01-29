@@ -146,28 +146,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element.Anchor == null)
 			{
-				nfloat originX = 0;
-				nfloat originY = 0;
-
-				switch (Element.VerticalOptions.Alignment)
+				var originX = Element.VerticalOptions.Alignment switch
 				{
-					case LayoutAlignment.End:
-						originY = UIScreen.MainScreen.Bounds.Height - PreferredContentSize.Height;
-						break;
-					case LayoutAlignment.Center:
-						originY = (UIScreen.MainScreen.Bounds.Height / 2) - (PreferredContentSize.Height / 2);
-						break;
-				}
+					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Width,
+					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Width / 2,
+					_ => 0f
+				};
 
-				switch (Element.HorizontalOptions.Alignment)
+				var originY = Element.VerticalOptions.Alignment switch
 				{
-					case LayoutAlignment.End:
-						originX = UIScreen.MainScreen.Bounds.Width;
-						break;
-					case LayoutAlignment.Center:
-						originX = UIScreen.MainScreen.Bounds.Width / 2;
-						break;
-				}
+					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height - PreferredContentSize.Height,
+					LayoutAlignment.Center => (UIScreen.MainScreen.Bounds.Height / 2) - (PreferredContentSize.Height / 2),
+					_ => 0f
+				};
 
 				PopoverPresentationController.SourceRect = new CGRect(originX, originY, 0, 0);
 			}
@@ -210,8 +201,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void AddToCurrentPageViewController() =>
 			ViewController.PresentViewController(this, true, () => Element.OnOpened());
 
-		void OnDismissed(object sender, PopupDismissedEventArgs e) =>
-			ViewController.DismissViewControllerAsync(true);
+		async void OnDismissed(object sender, PopupDismissedEventArgs e) =>
+			await ViewController.DismissViewControllerAsync(true);
 
 		protected override void Dispose(bool disposing)
 		{
