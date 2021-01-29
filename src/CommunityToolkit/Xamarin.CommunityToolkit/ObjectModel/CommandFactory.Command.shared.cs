@@ -4,7 +4,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	/// <summary>
-	/// Factory for IAsyncCommand
+	/// Factory for Xamarin.Forms.Command
 	/// </summary>
 	public partial class CommandFactory
 	{

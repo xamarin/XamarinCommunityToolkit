@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	/// <summary>
-	/// Factory for IAsyncCommand
+	/// Factory for IAsyncValueCommand
 	/// </summary>
 	public partial class CommandFactory
 	{
