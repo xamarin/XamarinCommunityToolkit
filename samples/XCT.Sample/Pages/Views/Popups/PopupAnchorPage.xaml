@@ -37,7 +37,7 @@
         <StackLayout>
             <Label Style="{StaticResource Header}"
                    Text="Popup's can be anchored to other Views on the page. Tap and drag the X to change where the popup will be centered." />
-            <Label x:Name="indicator" 
+            <Label x:Name="Indicator" 
                    Style="{StaticResource Indicator}" 
                    Text="❌">
                 <Label.GestureRecognizers>

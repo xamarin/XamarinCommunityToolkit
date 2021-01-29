@@ -7,9 +7,14 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups
 {
 	public class PopupPositionViewModel
 	{
-		INavigation Navigation => App.Current.MainPage.Navigation;
+		public PopupPositionViewModel()
+		{
+			DisplayPopup = new Command<PopupPosition>(OnDisplayPopup);
+		}
 
-		public ICommand DisplayPopup => new Command<PopupPosition>(OnDisplayPopup);
+		INavigation Navigation => Application.Current.MainPage.Navigation;
+
+		public ICommand DisplayPopup { get; }
 
 		void OnDisplayPopup(PopupPosition position)
 		{

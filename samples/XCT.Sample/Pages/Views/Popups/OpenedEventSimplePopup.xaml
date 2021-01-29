@@ -40,10 +40,10 @@
     </xct:Popup.Resources>
 
     <StackLayout Style="{StaticResource PopupLayout}">
-        <Label x:Name="title" 
+        <Label x:Name="Title" 
                 Style="{StaticResource Title}" />
         <BoxView Style="{StaticResource Divider}" />
-        <Label x:Name="message" 
+        <Label x:Name="Message" 
                 Style="{StaticResource Content}" />
     </StackLayout>
     

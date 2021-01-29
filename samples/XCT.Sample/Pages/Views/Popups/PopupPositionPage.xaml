@@ -5,7 +5,7 @@
                 xmlns:viewModels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.PopupPositionPage"
                 Title="Popup Position"
-                x:Name="root">
+                x:Name="Root">
 
     <ContentPage.BindingContext>
         <viewModels:PopupPositionViewModel />

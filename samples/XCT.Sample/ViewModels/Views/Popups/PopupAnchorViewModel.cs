@@ -7,9 +7,14 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups
 {
 	public class PopupAnchorViewModel
 	{
+		public PopupAnchorViewModel()
+		{
+			ShowPopup = new Command<View>(OnShowPopup);
+		}
+
 		INavigation Navigation => App.Current.MainPage.Navigation;
 
-		public ICommand ShowPopup => new Command<View>(OnShowPopup);
+		public ICommand ShowPopup { get; }
 
 		void OnShowPopup(View anchor)
 		{

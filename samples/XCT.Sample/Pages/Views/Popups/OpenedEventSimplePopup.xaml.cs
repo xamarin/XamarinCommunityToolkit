@@ -14,8 +14,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
 		{
 			Opened -= OnOpened;
 
-			title.Text = "Opened Event Popup";
-			message.Text = "The content of this popup was updated after the popup was rendered";
+			Title.Text = "Opened Event Popup";
+			Message.Text = "The content of this popup was updated after the popup was rendered";
 		}
 	}
 }
