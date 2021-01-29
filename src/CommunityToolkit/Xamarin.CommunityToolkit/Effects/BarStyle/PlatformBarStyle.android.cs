@@ -69,8 +69,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			var currentWindow = GetCurrentWindow();
-			currentWindow?.SetStatusBarColor(color);
+			Activity?.SetStatusBarColor(color);
 		}
 
 		public void SetStatusBarStyle(StatusBarStyle style)
@@ -101,8 +100,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			var currentWindow = GetCurrentWindow();
-			currentWindow?.SetNavigationBarColor(color);
+			Activity?.Window.SetNavigationBarColor(color);
 		}
 
 		public void SetNavigationBarStyle(NavigationBarStyle style)
@@ -130,7 +128,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		static void SetBarAppearance(Func<StatusBarVisibility, WindowInsetsControllerAppearance, (StatusBarVisibility, WindowInsetsControllerAppearance)> updateAppearance)
 		{
-			var currentWindow = GetCurrentWindow();
+			var currentWindow = Activity?.Window;
 			if (currentWindow == null)
 				return;
 
@@ -161,10 +159,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		static Window GetCurrentWindow()
-		{
-			var window = App.Context.GetActivity()?.Window;
-			return window;
-		}
+		static FormsAppCompatActivity Activity => App.Context.GetActivity() as FormsAppCompatActivity;
 	}
 }
