@@ -36,12 +36,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 			new Command(execute, canExecute);
 
 		/// <summary>
-		/// Initializes Xamarin.Forms.Command
+		/// Initializes Xamarin.Forms.Command<typeparamref name="TExecute"/>
 		/// </summary>
 		/// <param name="execute">The Function executed when Execute is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
-		/// <returns>Xamarin.Forms.Command</returns>
-		public static Command Create<TExecute>(Action<TExecute> execute) =>
-			new Command(ConvertExecute(execute));
+		/// <returns>Xamarin.Forms.Command<typeparamref name="TExecute"/></returns>
+		public static Command<TExecute> Create<TExecute>(Action<TExecute> execute) =>
+			new Command<TExecute>(execute);
 
 		/// <summary>
 		/// Initializes Xamarin.Forms.Command

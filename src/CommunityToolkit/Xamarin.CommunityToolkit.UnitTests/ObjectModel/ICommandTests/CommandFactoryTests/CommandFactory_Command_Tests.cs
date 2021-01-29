@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.True(command.CanExecute(string.Empty));
 			Assert.True(command.CanExecute(0));
 
-			Assert.IsType<Forms.Command>(command);
+			Assert.IsType<Forms.Command<object>>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
 		}
 
