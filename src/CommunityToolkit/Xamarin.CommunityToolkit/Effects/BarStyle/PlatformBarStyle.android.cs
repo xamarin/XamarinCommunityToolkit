@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using Android.OS;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using App = Android.App;
+using App = Android.App.Application;
 using Color = Android.Graphics.Color;
 
 [assembly: ExportEffect(typeof(PlatformBarStyle), nameof(BarStyle))]
@@ -24,29 +25,58 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		protected override void OnDetached()
 		{
-			SetStatusBarColor(Color.Black);
-			SetStatusBarStyle(StatusBarStyle.Default);
-			SetNavigationBarColor(Color.Black);
-			SetNavigationBarStyle(NavigationBarStyle.Default);
+			if (BarStyle.GetStatusBarColor(Element) != (Forms.Color)BarStyle.StatusBarColorProperty.DefaultValue)
+			{
+				SetStatusBarColor(Color.Black);
+			}
+			if (BarStyle.GetStatusBarStyle(Element) != (StatusBarStyle)BarStyle.StatusBarStyleProperty.DefaultValue)
+			{
+				SetStatusBarStyle(StatusBarStyle.Default);
+			}
+			if (BarStyle.GetNavigationBarColor(Element) != (Forms.Color)BarStyle.NavigationBarColorProperty.DefaultValue)
+			{
+				SetNavigationBarColor(Color.Black);
+			}
+			if (BarStyle.GetNavigationBarStyle(Element) != (NavigationBarStyle)BarStyle.NavigationBarStyleProperty.DefaultValue)
+			{
+				SetNavigationBarStyle(NavigationBarStyle.Default);
+			}
+		}
+
+		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+		{
+			base.OnElementPropertyChanged(args);
+			if (args.PropertyName == BarStyle.StatusBarColorProperty.PropertyName)
+			{
+				SetStatusBarColor(BarStyle.GetStatusBarColor(Element).ToAndroid());
+			}
+			else if (args.PropertyName == BarStyle.StatusBarStyleProperty.PropertyName)
+			{
+				SetStatusBarStyle(BarStyle.GetStatusBarStyle(Element));
+			}
+			else if (args.PropertyName == BarStyle.NavigationBarColorProperty.PropertyName)
+			{
+				SetNavigationBarColor(BarStyle.GetNavigationBarColor(Element).ToAndroid());
+			}
+			else if (args.PropertyName == BarStyle.NavigationBarStyleProperty.PropertyName)
+			{
+				SetNavigationBarStyle(BarStyle.GetNavigationBarStyle(Element));
+			}
 		}
 
 		public void SetStatusBarColor(Color color)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-			{
 				return;
-			}
 
 			var currentWindow = GetCurrentWindow();
-			currentWindow.SetStatusBarColor(color);
+			currentWindow?.SetStatusBarColor(color);
 		}
 
 		public void SetStatusBarStyle(StatusBarStyle style)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-			{
 				return;
-			}
 
 			SetBarAppearance((barAppearanceLegacy, barAppearance) =>
 			{
@@ -69,20 +99,16 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		public void SetNavigationBarColor(Color color)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-			{
 				return;
-			}
 
 			var currentWindow = GetCurrentWindow();
-			currentWindow.SetNavigationBarColor(color);
+			currentWindow?.SetNavigationBarColor(color);
 		}
 
 		public void SetNavigationBarStyle(NavigationBarStyle style)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-			{
 				return;
-			}
 
 			SetBarAppearance((appearanceLegacy, appearance) =>
 			{
@@ -105,6 +131,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		static void SetBarAppearance(Func<StatusBarVisibility, WindowInsetsControllerAppearance, (StatusBarVisibility, WindowInsetsControllerAppearance)> updateAppearance)
 		{
 			var currentWindow = GetCurrentWindow();
+			if (currentWindow == null)
+				return;
 
 			StatusBarVisibility appearanceLegacy = 0;
 			WindowInsetsControllerAppearance appearance = 0;
@@ -129,13 +157,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 			else
 			{
-				currentWindow.InsetsController?.SetSystemBarsAppearance((int)appearance, (int)appearance);
+				currentWindow.InsetsController.SetSystemBarsAppearance((int)appearance, (int)appearance);
 			}
 		}
 
 		static Window GetCurrentWindow()
 		{
-			var window = (App.Application.Context.GetActivity() as FormsAppCompatActivity)?.Window;
+			var window = App.Context.GetActivity()?.Window;
 			return window;
 		}
 	}
