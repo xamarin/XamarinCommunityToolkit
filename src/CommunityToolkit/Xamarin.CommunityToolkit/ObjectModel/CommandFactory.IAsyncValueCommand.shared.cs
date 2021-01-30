@@ -82,7 +82,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <returns>IAsyncValueCommand></returns>
 		public static IAsyncValueCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
 			Func<TExecute, ValueTask> execute,
-			Func<TCanExecute, bool> canExecute = null,
+			Func<TCanExecute, bool> canExecute,
 			Action<Exception> onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
