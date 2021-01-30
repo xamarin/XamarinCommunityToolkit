@@ -1,8 +1,8 @@
 ﻿using ElmSharp;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Tizen.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Tizen;
-using Xamarin.CommunityToolkit.Tizen.Effects;
-using Xamarin.CommunityToolkit.Effects;
 using EColor = ElmSharp.Color;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
