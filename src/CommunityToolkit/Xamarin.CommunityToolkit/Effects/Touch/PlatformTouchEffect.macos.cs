@@ -1,8 +1,8 @@
-﻿using Xamarin.Forms.Platform.MacOS;
-using AppKit;
-using Xamarin.Forms;
-using Xamarin.CommunityToolkit.macOS.Effects;
+﻿using AppKit;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.macOS.Effects;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.MacOS;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 

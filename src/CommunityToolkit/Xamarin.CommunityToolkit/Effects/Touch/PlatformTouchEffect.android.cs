@@ -1,19 +1,19 @@
-﻿using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
-using Android.Views;
-using AView = Android.Views.View;
-using System;
-using Android.Graphics.Drawables;
-using Android.Widget;
-using Color = Android.Graphics.Color;
-using Android.Content.Res;
-using Android.Views.Accessibility;
-using Android.Content;
-using AndroidOS = Android.OS;
+﻿using System;
 using System.ComponentModel;
-using Xamarin.CommunityToolkit.Effects;
-using Xamarin.CommunityToolkit.Android.Effects;
+using Android.Content;
+using Android.Content.Res;
+using Android.Graphics.Drawables;
 using Android.OS;
+using Android.Views;
+using Android.Views.Accessibility;
+using Android.Widget;
+using Xamarin.CommunityToolkit.Android.Effects;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using AndroidOS = Android.OS;
+using AView = Android.Views.View;
+using Color = Android.Graphics.Color;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 
