@@ -6,7 +6,6 @@ using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using App = Android.App.Application;
 using Color = Android.Graphics.Color;
 
 [assembly: ExportEffect(typeof(PlatformBarStyle), nameof(BarStyle))]
@@ -126,7 +125,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			});
 		}
 
-		static void SetBarAppearance(Func<StatusBarVisibility, WindowInsetsControllerAppearance, (StatusBarVisibility, WindowInsetsControllerAppearance)> updateAppearance)
+		void SetBarAppearance(Func<StatusBarVisibility, WindowInsetsControllerAppearance, (StatusBarVisibility, WindowInsetsControllerAppearance)> updateAppearance)
 		{
 			var currentWindow = Activity?.Window;
 			if (currentWindow == null)
@@ -159,6 +158,15 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		static FormsAppCompatActivity Activity => App.Context.GetActivity() as FormsAppCompatActivity;
+		FormsAppCompatActivity Activity
+		{
+			get
+			{
+				if (Control != null)
+					return (FormsAppCompatActivity)Control.Context;
+				else
+					return (FormsAppCompatActivity)Container.Context;
+			}
+		}
 	}
 }
