@@ -967,7 +967,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			foreach (var option in choices)
 			{
 				if (option.Width <= maxWidth && option.Height <= maxHeight &&
-				    option.Height == option.Width * h / w)
+					option.Height == option.Width * h / w)
 				{
 					if (option.Width >= width && option.Height >= height)
 					{
