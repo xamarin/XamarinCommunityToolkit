@@ -12,11 +12,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		public LocalizedStringTests()
 		{
 			resourceManager = new MockResourceManager();
-			localizationManager.Init(resourceManager);
-			localizationManager.SetCulture(initialCulture);
+#pragma warning disable CS0618 // Type or member is obsolete
+			localizationManager = new LocalizationResourceManager();
+#pragma warning restore CS0618 // Type or member is obsolete
+			localizationManager.Init(resourceManager, initialCulture);
 		}
 
-		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
+		readonly LocalizationResourceManager localizationManager;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
 		readonly ResourceManager resourceManager;
 		LocalizedString localizedString;
@@ -35,7 +37,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Act
 			var responceCulture1 = localizedString.Localized;
 			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
-			localizationManager.SetCulture(culture2);
+			localizationManager.CurrentCulture = culture2;
 			var responceCulture2 = localizedString.Localized;
 			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
 
@@ -46,27 +48,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		}
 
 		[Fact]
-		public void LocalizedStringTests_Localized_ValidImplementation_With_Func()
+		public void LocalizedStringTests_ImplicitConversion_ValidImplementation()
 		{
 			// Arrange
 			var testString = "test";
-			var culture2 = new CultureInfo("en");
-			localizedString = (Func<string>)(() => localizationManager[testString]);
-
-			string responceOnCultureChanged = null;
-			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
+			Func<string> generator = () => testString;
 
 			// Act
-			var responceCulture1 = localizedString.Localized;
-			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
-			localizationManager.SetCulture(culture2);
-			var responceCulture2 = localizedString.Localized;
-			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
+			localizedString = generator;
 
 			// Assert
-			Assert.Equal(responceResourceManagerCulture1, responceCulture1);
-			Assert.Equal(responceResourceManagerCulture2, responceOnCultureChanged);
-			Assert.Equal(responceResourceManagerCulture2, responceResourceManagerCulture2);
+			Assert.NotNull(localizedString);
 		}
 
 		[Fact]

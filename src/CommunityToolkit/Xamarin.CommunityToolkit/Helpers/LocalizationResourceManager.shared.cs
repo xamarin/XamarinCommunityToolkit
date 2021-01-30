@@ -3,11 +3,12 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
 using System.Threading;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
 #if !NETSTANDARD1_0
-	public class LocalizationResourceManager : INotifyPropertyChanged
+	public class LocalizationResourceManager : ObservableObject
 	{
 #pragma warning disable CS0618 // Type or member is obsolete
 		public static LocalizationResourceManager Current { get; } = new LocalizationResourceManager();
@@ -37,18 +38,19 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public string this[string text] =>
 			GetValue(text);
 
-		public void SetCulture(CultureInfo language)
+		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public void SetCulture(CultureInfo language) => CurrentCulture = language;
+
+		public CultureInfo CurrentCulture
 		{
-			currentCulture = language;
-			Invalidate();
+			get => currentCulture;
+			set => SetProperty(ref currentCulture, value, null);
 		}
 
-		public CultureInfo CurrentCulture => currentCulture;
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public void Invalidate() =>
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+		[Obsolete("This method is no longer needed with new implementation of " + nameof(LocalizationResourceManager) + ". Please, remove all references to it.")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public void Invalidate() => OnPropertyChanged(null);
 	}
 #endif
 }

@@ -11,13 +11,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		public LocalizationResourceManagerTests()
 		{
 			resourceManager = new MockResourceManager();
-			localizationManager = LocalizationResourceManager.Current;
+#pragma warning disable CS0618 // Type or member is obsolete
+			localizationManager = new LocalizationResourceManager();
+#pragma warning restore CS0618 // Type or member is obsolete
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
 		readonly LocalizationResourceManager localizationManager;
-		readonly ResourceManager resourceManager;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
+		readonly ResourceManager resourceManager;
 
 		[Fact]
 		public void LocalizationResourceManager_GetCulture_Equal_Indexer()
@@ -30,11 +32,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			var responceIndexerCulture1 = localizationManager[testString];
 			var responceGetValueCulture1 = localizationManager.GetValue(testString);
 			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
-			localizationManager.SetCulture(culture2);
+			localizationManager.CurrentCulture = culture2;
 			var responceIndexerCulture2 = localizationManager[testString];
 			var responceGetValueCulture2 = localizationManager.GetValue(testString);
 			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
-			resourceManager.GetString(testString, culture2);
 
 			// Assert
 			Assert.Equal(responceResourceManagerCulture1, responceIndexerCulture1);

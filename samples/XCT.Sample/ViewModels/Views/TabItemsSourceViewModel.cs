@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
@@ -19,13 +20,16 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		public TabItemsSourceViewModel()
 		{
 			LoadMonkeys();
+
+			ClearDataCommand = CommandFactory.Create(ClearData);
+			UpdateDataCommand = CommandFactory.Create(UpdateData);
 		}
 
 		public ObservableCollection<Monkey> Monkeys { get; set; }
 
-		public ICommand ClearDataCommand => new Command(ClearData);
+		public ICommand ClearDataCommand { get; }
 
-		public ICommand UpdateDataCommand => new Command(UpdateData);
+		public ICommand UpdateDataCommand { get; }
 
 		void LoadMonkeys()
 		{
