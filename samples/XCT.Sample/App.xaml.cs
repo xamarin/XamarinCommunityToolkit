@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Sample
 			LocalizationResourceManager.Current.Init(AppResources.ResourceManager);
 
 			InitializeComponent();
-			MainPage = new BaseNavigationPage(new DrawingViewPage());
+			MainPage = new BaseNavigationPage(new WelcomePage());
 		}
 	}
 }
