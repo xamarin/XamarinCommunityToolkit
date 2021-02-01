@@ -15,7 +15,6 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 			Forms.Forms.Init();
 			PancakeViewRenderer.Init();
 			LoadApplication(new Xamarin.CommunityToolkit.Sample.App());
-			_ = new DrawingViewRenderer();
 		}
 	}
 }
