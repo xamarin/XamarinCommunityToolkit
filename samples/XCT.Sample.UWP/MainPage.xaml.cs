@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Sample.UWP
 	{
 		public MainPage()
 		{
-			this.InitializeComponent();
+			InitializeComponent();
 
 			LoadApplication(new Xamarin.CommunityToolkit.Sample.App());
 		}

@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources {
+    public class AppResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Xamarin.CommunityToolkit.Sample.Resx.AppResources", typeof(AppResources).Assembly);
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         /// <summary>
         ///   Looks up a localized string similar to Change language below, hit Save and see the texts in this page change. This will not affect the rest of the application, it just serves as a demo..
         /// </summary>
-        internal static string ChangeLanguage {
+        public static string ChangeLanguage {
             get {
                 return ResourceManager.GetString("ChangeLanguage", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
-        internal static string English {
+        public static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
-        internal static string Save {
+        public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
@@ -90,9 +90,18 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         /// <summary>
         ///   Looks up a localized string similar to Spanish.
         /// </summary>
-        internal static string Spanish {
+        public static string Spanish {
             get {
                 return ResourceManager.GetString("Spanish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App version: {0}.
+        /// </summary>
+        public static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
     }

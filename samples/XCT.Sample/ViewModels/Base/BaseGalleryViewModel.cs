@@ -4,21 +4,22 @@ using System.Linq;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
 	public abstract class BaseGalleryViewModel : BaseViewModel
 	{
-		ICommand filterCommand;
-
-		public BaseGalleryViewModel() => Filter();
+		public BaseGalleryViewModel()
+		{
+			Filter();
+			FilterCommand = CommandFactory.Create(Filter);
+		}
 
 		public abstract IEnumerable<SectionModel> Items { get; }
 
 		public IEnumerable<SectionModel> FilteredItems { get; private set; }
 
-		public ICommand FilterCommand => filterCommand ??= new Command(Filter);
+		public ICommand FilterCommand { get; }
 
 		public string FilterValue { private get; set; }
 

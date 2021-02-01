@@ -6,14 +6,14 @@
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.ImpliedOrderGridBehaviorPage">
     <StackLayout>
-        <StackLayout Orientation="Horizontal" Spacing="5" Margin="10">
-            <Button Text="Add Row" Clicked="ButtonAddRow_OnClicked"></Button>
-            <Button Text="Add Column" Clicked="ButtonAddColumn_OnClicked"></Button>
-            <Button Text="Remove Row" Clicked="ButtonRemoveRow_OnClicked"></Button>
-            <Button Text="Remove Column" Clicked="ButtonRemoveColumn_OnClicked"></Button>
-        </StackLayout>
+        <Grid Margin="10" HorizontalOptions="Center" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+            <Button Grid.Row="0" Grid.Column="0" Text="Add Row" Clicked="ButtonAddRow_OnClicked"/>
+            <Button Grid.Row="1" Grid.Column="0" Text="Add Column" Clicked="ButtonAddColumn_OnClicked"/>
+            <Button Grid.Row="0" Grid.Column="1" Text="Remove Row" Clicked="ButtonRemoveRow_OnClicked"/>
+            <Button Grid.Row="1" Grid.Column="1" Text="Remove Column" Clicked="ButtonRemoveColumn_OnClicked"/>
+        </Grid>
 
-        <Label Padding="10,10,10,50">
+        <Label Padding="10,10,10,20">
             <Label.Text>
 Behavior that auto sets row and column assignments of child views by the order they are defined in the grid. RowSpan and ColumnSpan are honored during the auto-assignment of row and column.
 

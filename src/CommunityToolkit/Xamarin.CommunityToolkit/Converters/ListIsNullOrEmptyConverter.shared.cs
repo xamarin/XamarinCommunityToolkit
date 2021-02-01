@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>A boolean indicating if the incoming value is null or empty.</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is null)
+			if (value == null)
 				return true;
 
 			if (value is IEnumerable list)

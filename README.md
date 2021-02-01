@@ -46,7 +46,7 @@ xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
 ## Documentation
 
-The documentation is currently under construction at the [official Docs repo](https://github.com/MicrosoftDocs/xamarin-communitytoolkit). We're working to get these published as soon as possible. For now, please refer to the markdown files that are in the repo. Contributions to the Docs are very much welcomed!
+The documentation is still under construction, but we've published the most important things over at [Microsoft Docs](https://docs.microsoft.com/en-us/xamarin/community-toolkit/). If you want to contribute some of the missing bits you can do this over at the [official Docs repo](https://github.com/MicrosoftDocs/xamarin-communitytoolkit) as contributions are very much welcomed!
 
 ## DrawingView
 

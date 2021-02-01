@@ -8,5 +8,6 @@
 		None,
 		Upper,
 		Lower,
+		FirstUpperRestLower,
 	}
 }
