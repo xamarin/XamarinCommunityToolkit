@@ -33,12 +33,6 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		public override bool OnInterceptTouchEvent(MotionEvent ev)
 		{
-			if (Element.AllowInterceptGesture)
-			{
-				base.OnInterceptTouchEvent(ev);
-				return false;
-			}
-
 			if (ev.ActionMasked == MotionEventActions.Move)
 			{
 				if (lastTouchHandlerId.HasValue && lastTouchHandlerId != elementId)
@@ -64,7 +58,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			}
 
 			HandleDownUpEvents(e);
-			return true;
+			return false;
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<SideMenuView> e)
@@ -81,7 +75,10 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		{
 			var xDeltaAbs = Abs(xDelta);
 			var yDeltaAbs = Abs(yDelta);
-			var isHandled = xDeltaAbs > yDeltaAbs && xDeltaAbs > Element.GestureThreshold;
+			var isHandled = xDeltaAbs > yDeltaAbs
+				&& xDeltaAbs > Element.GestureThreshold
+				&& ((xDelta > 0 && Element.CheckGestureEnabled(SideMenuPosition.LeftMenu))
+				|| (xDelta < 0 && Element.CheckGestureEnabled(SideMenuPosition.RightMenu)));
 
 			Parent?.RequestDisallowInterceptTouchEvent(isHandled);
 			return isHandled;
