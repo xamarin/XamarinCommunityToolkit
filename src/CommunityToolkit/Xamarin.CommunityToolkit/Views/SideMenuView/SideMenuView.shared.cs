@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.Create(nameof(CurrentGestureShift), typeof(double), typeof(SideMenuView), 0.0, BindingMode.OneWayToSource);
 
 		public static readonly BindableProperty GestureThresholdProperty
-			= BindableProperty.Create(nameof(GestureThreshold), typeof(double), typeof(SideMenuView), 7.0);
+			= BindableProperty.Create(nameof(GestureThreshold), typeof(double), typeof(SideMenuView), -1.0);
 
 		public static readonly BindableProperty CancelVerticalGestureThresholdProperty
 			= BindableProperty.Create(nameof(CancelVerticalGestureThreshold), typeof(double), typeof(SideMenuView), 1.0);

@@ -16,29 +16,32 @@
 
     <xct:SideMenuView x:Name="SideMenuView">
         <!-- MainView -->
-        <StackLayout
-            Orientation="Horizontal"
-            BackgroundColor="Gold">
+        <StackLayout BackgroundColor="Gold">
+            <StackLayout
+                Orientation="Horizontal">
 
-            <Button Style="{StaticResource BaseMenuButtonStyle}"
-                    Clicked="OnLeftButtonClicked" />
+                <Button Style="{StaticResource BaseMenuButtonStyle}"
+                        Clicked="OnLeftButtonClicked" />
 
-            <Button Style="{StaticResource BaseMenuButtonStyle}"
-                    HorizontalOptions="EndAndExpand"
-                    Clicked="OnRightButtonClicked" />
+                <Button Style="{StaticResource BaseMenuButtonStyle}"
+                        HorizontalOptions="EndAndExpand"
+                        Clicked="OnRightButtonClicked" />
+
+            </StackLayout>
+            <Slider />
         </StackLayout>
 
         <!-- LeftMenu -->
         <BoxView
-            BackgroundColor="Orange"
             xct:SideMenuView.Position="LeftMenu"
-            xct:SideMenuView.MenuWidthPercentage=".5" />
+            xct:SideMenuView.MenuWidthPercentage=".5"
+            BackgroundColor="Orange"/>
 
         <!-- RightMenu -->
         <BoxView
-            BackgroundColor="LightGreen"
             xct:SideMenuView.Position="RightMenu"
-            xct:SideMenuView.MenuWidthPercentage=".3" />
+            xct:SideMenuView.MenuWidthPercentage=".3"
+            BackgroundColor="LightGreen" />
 
     </xct:SideMenuView>
 
