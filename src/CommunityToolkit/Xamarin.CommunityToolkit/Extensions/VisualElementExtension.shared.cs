@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			return false;
 		}
 
-		public static bool TryFindParentOfType<T>(this VisualElement element, out T parent) where T : VisualElement
+		internal static bool TryFindParentOfType<T>(this VisualElement element, out T parent) where T : VisualElement
 			=> TryFindParentElementWithParentOfType<T>(element, out _, out parent);
 	}
 }
