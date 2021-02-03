@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(null);
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer(null);
+				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
 #endif
 		}
 
