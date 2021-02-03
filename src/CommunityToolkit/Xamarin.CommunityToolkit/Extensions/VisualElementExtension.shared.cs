@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 				element.AbortAnimation(name);
 		}
 
-		public static bool TryFindParentElementWithParentOfType<T>(this VisualElement element, out VisualElement result, out T parent) where T : VisualElement
+		internal static bool TryFindParentElementWithParentOfType<T>(this VisualElement element, out VisualElement result, out T parent) where T : VisualElement
 		{
 			result = null;
 			parent = null;
