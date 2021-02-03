@@ -10,6 +10,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		TrimEnd = 2,
 		Trim = 3,
 		NullToEmpty = 4,
-		ReduceWhiteSpaces = 8
+		NormalizeWhiteSpace = 8
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms.Xaml;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
@@ -9,20 +9,26 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 	{
 		public TouchEffectPage()
 		{
-			Command = new Command(() =>
+			Command = CommandFactory.Create(() =>
 			{
-				Count++;
-				OnPropertyChanged(nameof(Count));
+				TouchCount++;
+				OnPropertyChanged(nameof(TouchCount));
 			});
-			LongPressCommand = new Command(() => Application.Current.MainPage.DisplayAlert("LongPressCommand", "LongPressCommand was executed.", "OK"));
-			InitializeComponent();
+			LongPressCommand = CommandFactory.Create(() =>
+			{
+				LongPressCount++;
+				OnPropertyChanged(nameof(LongPressCount));
+			});
 
+			InitializeComponent();
 		}
 
 		public ICommand Command { get; }
 
 		public ICommand LongPressCommand { get; }
 
-		public int Count { get; private set; }
+		public int TouchCount { get; private set; }
+
+		public int LongPressCount { get; private set; }
 	}
 }
