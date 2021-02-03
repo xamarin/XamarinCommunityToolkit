@@ -1,6 +1,6 @@
 # See available software and versions on hosted agents here: https://docs.microsoft.com/azure/devops/pipelines/agents/hosted
 variables:
-  CurrentSemanticVersionBase: '1.0.0'
+  CurrentSemanticVersionBase: '1.1.0'
   PreviewNumber: $[counter(variables['CurrentSemanticVersionBase'], 1001)]
   CurrentSemanticVersion: '$(CurrentSemanticVersionBase)-preview$(PreviewNumber)'
   NugetPackageVersion: '$(CurrentSemanticVersion)'
@@ -48,7 +48,7 @@ schedules:
   displayName: Daily midnight build
   branches:
     include:
-    - main
+    - develop
 
 jobs:
   - job: build_windows_samples
