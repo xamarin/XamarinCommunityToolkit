@@ -10,7 +10,7 @@ using static System.Math;
 
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
-	[Preserve(AllMembers = true)]
+	[Preserve(Conditional = true)]
 	public class SideMenuViewRenderer : VisualElementRenderer<SideMenuView>
 	{
 		const double defaultGestureThreshold = 7.0;

@@ -87,6 +87,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty MenuGestureEnabledProperty
 			= BindableProperty.CreateAttached(nameof(GetMenuGestureEnabled), typeof(bool), typeof(SideMenuView), true);
 
+		public SideMenuView()
+		{
+#if __ANDROID__
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(null);
+#elif __IOS__
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer(null);
+#endif
+		}
+
 		public new ISideMenuList<View> Children
 			=> children;
 
