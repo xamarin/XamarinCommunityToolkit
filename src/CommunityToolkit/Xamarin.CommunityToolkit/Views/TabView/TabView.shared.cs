@@ -172,6 +172,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (TabItems != null)
 				TabItems.CollectionChanged -= OnTabItemsCollectionChanged;
+
+			var lazyView = (((TabViewItem)contentContainer.CurrentItem).Content as BaseLazyView) ?? (TabItems[SelectedIndex].Content as BaseLazyView);
+			lazyView?.Dispose();
 		}
 
 		public ObservableCollection<TabViewItem> TabItems { get; set; }
@@ -775,6 +778,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					var tabViewItem = TabItems[SelectedIndex];
 
+					var lazyView = (currentItem?.Content as BaseLazyView) ?? (tabViewItem?.Content as BaseLazyView);
+
 					contentIndex = contentTabItems.IndexOf(currentItem ?? tabViewItem);
 					tabStripIndex = TabItems.IndexOf(currentItem ?? tabViewItem);
 
@@ -788,6 +793,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							TabItems[index].IsSelected = false;
 					}
 
+					if (!lazyView?.IsLoaded ?? false)
+						lazyView?.LoadView();
 					var currentTabItem = TabItems[position];
 					currentTabItem.SizeChanged += OnCurrentTabItemSizeChanged;
 					UpdateTabIndicatorPosition(currentTabItem);
