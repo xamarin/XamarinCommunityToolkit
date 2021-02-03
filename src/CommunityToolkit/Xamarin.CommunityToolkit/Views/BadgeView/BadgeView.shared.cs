@@ -197,7 +197,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void OnFontChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as BadgeView)?.UpdateFont();
 
 		/// <summary>
-		/// Font size of all the text on the <see cref="BadgeView" />. <see cref="NamedSize" /> values can be used. This is a bindable preoprty.
+		/// Font size of all the text on the <see cref="BadgeView" />. <see cref="NamedSize" /> values can be used. This is a bindable property.
 		/// </summary>
 		[TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
