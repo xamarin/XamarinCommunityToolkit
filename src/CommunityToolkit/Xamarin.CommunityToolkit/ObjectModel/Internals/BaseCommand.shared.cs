@@ -9,6 +9,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	/// <summary>
 	/// Abstract Base Class used by AsyncCommand and AsyncValueCommand
 	/// </summary>
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class BaseCommand<TCanExecute>
 	{
 		readonly Func<TCanExecute, bool> canExecute;
@@ -24,9 +25,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// <param name="allowsMultipleExecutions"></param>
 		public BaseCommand(Func<TCanExecute, bool> canExecute, bool allowsMultipleExecutions)
 		{
-			synchronizationContext = SynchronizationContext.Current;
 			this.canExecute = canExecute ?? (_ => true);
 			AllowsMultipleExecutions = allowsMultipleExecutions;
+			synchronizationContext = SynchronizationContext.Current;
 		}
 
 		/// <summary>
