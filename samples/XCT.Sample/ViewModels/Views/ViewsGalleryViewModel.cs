@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class ViewsGalleryViewModel : BaseGalleryViewModel
 	{
-		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(typeof(AvatarViewPage), "AvatarView",
 				"The AvatarView represents a user's name by using the initials and a generated background color"),
