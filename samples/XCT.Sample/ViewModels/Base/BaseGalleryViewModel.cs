@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
@@ -10,6 +11,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 	{
 		public BaseGalleryViewModel()
 		{
+			Items = CreateItems().OrderBy(x => x.Title).ToList();
 			Filter();
 			FilterCommand = CommandFactory.Create(Filter);
 		}
@@ -19,6 +21,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		public ICommand FilterCommand { get; }
 
 		public string FilterValue { private get; set; }
+
+		public IEnumerable<SectionModel> FilteredItems { get; private set; }
 
 		protected abstract IEnumerable<SectionModel> CreateItems();
 
