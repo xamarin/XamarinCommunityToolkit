@@ -794,7 +794,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 
 					if (!lazyView?.IsLoaded ?? false)
-						lazyView?.LoadView();
+						await lazyView.LoadViewAsync();
+
 					var currentTabItem = TabItems[position];
 					currentTabItem.SizeChanged += OnCurrentTabItemSizeChanged;
 					UpdateTabIndicatorPosition(currentTabItem);
