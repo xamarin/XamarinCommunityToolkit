@@ -182,7 +182,7 @@ jobs:
           configuration: Release
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
-  - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
+  - ${{ if and(eq(variables['System.TeamProject'], 'devdiv'), ne(variables['System.DefinitionId'], '13296')) }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
       parameters:
         dependsOn: [ build_windows ]
