@@ -14,8 +14,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			FilterCommand = CommandFactory.Create(Filter);
 		}
 
-		public ICommand FilterCommand => filterCommand ??= new Command(Filter);
-
 		public IReadOnlyList<SectionModel> Items { get; }
 
 		public ICommand FilterCommand { get; }
