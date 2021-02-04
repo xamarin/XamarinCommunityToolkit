@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
@@ -12,6 +13,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	{
 		readonly Func<TCanExecute, bool> canExecute;
 		readonly WeakEventManager weakEventManager = new WeakEventManager();
+		readonly SynchronizationContext synchronizationContext;
 
 		int executionCount;
 
@@ -22,6 +24,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// <param name="allowsMultipleExecutions"></param>
 		public BaseCommand(Func<TCanExecute, bool> canExecute, bool allowsMultipleExecutions)
 		{
+			synchronizationContext = SynchronizationContext.Current;
 			this.canExecute = canExecute ?? (_ => true);
 			AllowsMultipleExecutions = allowsMultipleExecutions;
 		}
@@ -83,7 +86,10 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		public void RaiseCanExecuteChanged()
 		{
 			// Automatically marshall to the Main Thread to adhere to the way that Xamarin.Forms automatically marshalls binding events to Main Thread
-			Device.BeginInvokeOnMainThread(() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)));
+			if (synchronizationContext != null && synchronizationContext != SynchronizationContext.Current)
+				synchronizationContext.Post(o => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)), null);
+			else
+				weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
 		}
 
 		/// <summary>
