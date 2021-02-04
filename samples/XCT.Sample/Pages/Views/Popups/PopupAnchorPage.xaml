@@ -46,7 +46,7 @@
             </Label>
             <Button Text="Show Popup"
                     Command="{Binding ShowPopup}"
-                    CommandParameter="{x:Reference indicator}"/>
+                    CommandParameter="{x:Reference Indicator}"/>
         </StackLayout>
     </ContentPage.Content>
 
