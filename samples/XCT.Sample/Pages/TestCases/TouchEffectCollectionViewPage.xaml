@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                ios:Page.UseSafeArea="true"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.TouchEffectCollectionViewPage"
+                x:Name="Page">
+
+    <CollectionView x:Name="Collection"
+                    SelectionMode="Multiple">
+    <CollectionView.ItemsSource>
+        <x:Array Type="{x:Type x:String}">
+            <x:String>One</x:String>
+            <x:String>Two</x:String>
+            <x:String>Three</x:String>
+            <x:String>Four</x:String>
+            <x:String>Five</x:String>
+            <x:String>Six</x:String>
+        </x:Array>
+    </CollectionView.ItemsSource>
+    <CollectionView.ItemsLayout>
+        <GridItemsLayout
+            Orientation="Vertical"
+            Span="2"
+            HorizontalItemSpacing="8"
+            VerticalItemSpacing="8"/>
+    </CollectionView.ItemsLayout>
+    <CollectionView.ItemTemplate>
+        <DataTemplate>
+            <Frame HeightRequest="120"
+                   CornerRadius="0"
+                   Padding="0"
+                   HasShadow="True"
+                   xct:TouchEffect.LongPressCommand="{Binding LongPressCommand, Source={x:Reference Page}}"
+                   xct:TouchEffect.NativeAnimation="True">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter
+                                    TargetName="Label"
+                                    Property="Label.TextColor"
+                                    Value="Black"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter
+                                    TargetName="Label"
+                                    Property="Label.TextColor"
+                                    Value="Red"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Label x:Name="Label"
+                       Text="{Binding .}"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/>
+            </Frame>
+        </DataTemplate>
+    </CollectionView.ItemTemplate>
+</CollectionView>
+
+</pages:BasePage>
