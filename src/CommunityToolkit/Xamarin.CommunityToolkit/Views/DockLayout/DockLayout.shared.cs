@@ -4,36 +4,54 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	/// <summary>
-	/// The DockLayout makes it easy to dock content in all four directions (top, bottom, left and right).
+	/// The <see cref="DockLayout"/> makes it easy to dock content in all four directions (top, bottom, left and right).
 	/// This makes it a great choice in many situations, where you want to divide the screen into specific areas,
-	/// especially because by default, the last element inside the DockLayout, unless this feature is specifically disabled,
+	/// especially because by default, the last element inside the <see cref="DockLayout"/>, unless this feature is specifically disabled,
 	/// will automatically fill the rest of the space (center).
-	/// Inspired by WPF DockPanel: https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.dockpanel?view=netframework-4.8
+	/// Inspired by WPF DockPanel: https://docs.microsoft.com/dotnet/api/system.windows.controls.dockpanel?view=netframework-4.8
 	/// </summary>
 	public class DockLayout : Layout<View>
 	{
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Dock"/> property.
+		/// </summary>
 		public static readonly BindableProperty DockProperty =
 			BindableProperty.CreateAttached(nameof(Dock), typeof(Dock), typeof(DockLayout), Dock.Left);
 
+		/// <summary>
+		/// Gets or sets in what direction the child element is docked. Attached property that needs to be set on children of the <see cref="DockLayout"/>. This is a bindable property.
+		/// </summary>
 		public Dock Dock
 		{
 			get => (Dock)GetValue(DockProperty);
 			set => SetValue(DockProperty, value);
 		}
 
+		/// <summary>
+		/// For internal use by the Xamarin Community Toolkit. This method gets the <see cref="Dock"/> property on a child element.
+		/// </summary>
+		/// <param name="bindable">The <see cref="BindableObject"/> the attached <see cref="Dock"/> property value is retrieved from</param>
+		/// <returns>The direction in which the child element wants to be docked</returns>
 		public static Dock GetDock(BindableObject bindable)
 			=> (Dock)bindable.GetValue(DockProperty);
 
+		/// <summary>
+		/// For internal use by the Xamarin Community Toolkit. This method sets the <see cref="Dock"/> property on a child element.
+		/// </summary>
+		/// <param name="bindable">The <see cref="BindableObject"/> the attached <see cref="Dock"/> property value is set on</param>
+		/// <returns>The direction in which the child element will be docked</returns>
 		public static void SetDock(BindableObject bindable, Dock value)
 			=> bindable.SetValue(DockProperty, value);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="LastChildFill"/> property.
+		/// </summary>
 		public static readonly BindableProperty LastChildFillProperty =
 		   BindableProperty.Create(nameof(LastChildFill), typeof(bool), typeof(DockLayout), true,
 			   BindingMode.TwoWay, null);
 
 		/// <summary>
-		/// The default behavior is that the last child of the DockLayout takes up the rest of the space,
-		/// but this can be disabled using the LastChildFill.
+		/// The default behavior is that the last child of the <see cref="DockLayout"/> takes up the rest of the space, this can be disabled setting the <see cref="LastChildFill"/> property to false.
 		/// </summary>
 		public bool LastChildFill
 		{
