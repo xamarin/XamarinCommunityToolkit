@@ -20,11 +20,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Content = view;
 
 			SetIsLoaded(true);
-#if !NETSTANDARD1_0
-			return new ValueTask(Task.CompletedTask);
-#else
-			return new ValueTask(Task.FromResult<object>(null));
-#endif
+			return new ValueTask(Task.FromResult(true));
 		}
 	}
 }
