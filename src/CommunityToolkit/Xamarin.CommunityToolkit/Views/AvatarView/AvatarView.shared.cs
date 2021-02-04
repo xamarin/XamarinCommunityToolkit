@@ -5,89 +5,158 @@ using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// The <see cref="AvatarView"/> control allows the user to display an avatar or the user's initials if no avatar is available. By binding the <see cref="Source"/> property the user can assign an image to the <see cref="AvatarView"/>. Simultaneously binding the <see cref="Text"/> property will allow the user to also set the initials to be shown if no valid image is provided.
+	/// </summary>
 	public class AvatarView : BaseTemplatedView<Frame>
 	{
 		const string emptyText = "X";
 		static readonly IImageSourceValidator imageSourceValidator = new ImageSourceValidator();
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Aspect"/> property.
+		/// </summary>
 		public static readonly BindableProperty AspectProperty = BindableProperty.Create(nameof(Aspect), typeof(Aspect), typeof(AvatarView), Aspect.AspectFill, propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Size"/> property.
+		/// </summary>
 		public static readonly BindableProperty SizeProperty = BindableProperty.Create(nameof(Size), typeof(double), typeof(AvatarView), 40.0, propertyChanged: OnSizePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="CornerRadius"/> property.
+		/// </summary>
 		public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(double), typeof(AvatarView), -1.0, propertyChanged: OnSizePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="BorderColor"/> property.
+		/// </summary>
 		public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Color"/> property.
+		/// </summary>
 		public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Source"/> property.
+		/// </summary>
 		public static readonly BindableProperty SourceProperty = BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(AvatarView), propertyChanged: OnSourcePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Text"/> property.
+		/// </summary>
 		public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="TextColor"/> property.
+		/// </summary>
 		public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="FontFamily"/> property.
+		/// </summary>
 		public static readonly BindableProperty FontFamilyProperty = BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="FontSize"/> property.
+		/// </summary>
 		public static readonly BindableProperty FontSizeProperty = BindableProperty.Create(nameof(FontSize), typeof(double), typeof(AvatarView), -1.0, propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="FontAttributes"/> property.
+		/// </summary>
 		public static readonly BindableProperty FontAttributesProperty = BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(AvatarView), FontAttributes.None, propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="ColorTheme"/> property.
+		/// </summary>
 		public static readonly BindableProperty ColorThemeProperty = BindableProperty.Create(nameof(ColorTheme), typeof(IColorTheme), typeof(AvatarView), propertyChanged: OnValuePropertyChanged);
 
+		/// <summary>
+		/// Setting the <see cref="Aspect"/> property determines how the avatar image is shown. Depending on the <see cref="Forms.Aspect"/> value it might crop the assigned image. This only applies when <see cref="Source"/> is set and results in showing an image. This is a bindable property.
+		/// </summary>
 		public Aspect Aspect
 		{
 			get => (Aspect)GetValue(AspectProperty);
 			set => SetValue(AspectProperty, value);
 		}
 
+		/// <summary>
+		/// Gets or sets the size of the image for the <see cref="AvatarView"/>. This is a bindable property.
+		/// </summary>
 		public double Size
 		{
 			get => (double)GetValue(SizeProperty);
 			set => SetValue(SizeProperty, value);
 		}
 
+		/// <summary>
+		/// Gets or sets the corner radius of the image for the <see cref="AvatarView"/>. This is a bindable property.
+		/// </summary>
 		public double CornerRadius
 		{
 			get => (double)GetValue(CornerRadiusProperty);
 			set => SetValue(CornerRadiusProperty, value);
 		}
 
+		/// <summary>
+		/// Gets or sets the border <see cref="Forms.Color"/> of the image for the <see cref="AvatarView"/>. This is a bindable property.
+		/// </summary>
 		public Color BorderColor
 		{
 			get => (Color)GetValue(BorderColorProperty);
 			set => SetValue(BorderColorProperty, value);
 		}
 
+		/// <summary>
+		/// Gets or sets the background <see cref="Forms.Color"/> of the  for the <see cref="AvatarView"/>. This only applies when <see cref="Source"/> is not set or doesn't result in a showing image. This is a bindable property.
+		/// </summary>
 		public Color Color
 		{
 			get => (Color)GetValue(ColorProperty);
 			set => SetValue(ColorProperty, value);
 		}
 
+		/// <summary>
+		/// Gets or sets the <see cref="ImageSource"/> that is used to try and show an avatar image. If the image could not be loaded, the <see cref="Text"/> will be shown. This is a bindable property.
+		/// </summary>
 		public ImageSource Source
 		{
 			get => (ImageSource)GetValue(SourceProperty);
 			set => SetValue(SourceProperty, value);
 		}
 
+		/// <summary>
+		/// Gets or sets the text for the <see cref="AvatarView"/>. Which is shown instead of the image when the <see cref="Source"/> is either not set or doesn't result in showing an image. This is a bindable property.
+		/// </summary>
 		public string Text
 		{
 			get => (string)GetValue(TextProperty);
 			set => SetValue(TextProperty, value);
 		}
 
+		/// <summary>
+		/// Gets or sets the <see cref="Forms.Color"/> of the <see cref="Text"/> for the <see cref="AvatarView"/>. This is a bindable property.
+		/// </summary>
 		public Color TextColor
 		{
 			get => (Color)GetValue(TextColorProperty);
 			set => SetValue(TextColorProperty, value);
 		}
 
+		/// <summary>
+		/// Font of the <see cref="Text"/> on the <see cref="AvatarView" />. This is a bindable property.
+		/// </summary>
 		public string FontFamily
 		{
 			get => (string)GetValue(FontFamilyProperty);
 			set => SetValue(FontFamilyProperty, value);
 		}
 
+		/// <summary>
+		/// Font size of the text on the <see cref="AvatarView" />. <see cref="NamedSize" /> values can be used. This is a bindable property.
+		/// </summary>
 		[TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
@@ -95,12 +164,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FontSizeProperty, value);
 		}
 
+		/// <summary>
+		/// Font attributes of the text on the <see cref="AvatarView" />. This is a bindable property.
+		/// </summary>
 		public FontAttributes FontAttributes
 		{
 			get => (FontAttributes)GetValue(FontAttributesProperty);
 			set => SetValue(FontAttributesProperty, value);
 		}
 
+		/// <summary>
+		/// Gets or sets the <see cref="ColorTheme"/> to be used on the <see cref="AvatarView"/>. This only applies when the <see cref="Source"/> is not set or doesn't result in showing an image. This is a bindable property.
+		/// </summary>
 		public IColorTheme ColorTheme
 		{
 			get => (IColorTheme)GetValue(ColorThemeProperty);
