@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -211,11 +213,39 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (!sender.CanExecute || (sender.LongPressCommand != null && sender.InteractionStatus == TouchInteractionStatus.Completed))
 				return;
 
+			if (Device.RuntimePlatform == Device.Android)
+				HandleCollectionViewSelection(sender);
+
 			if (sender.Element is IButtonController button)
 				button.SendClicked();
 
 			sender.Command?.Execute(sender.CommandParameter);
 			sender.RaiseCompleted();
+		}
+
+		void HandleCollectionViewSelection(TouchEffect sender)
+		{
+			if (!sender.Element.TryFindParentElementWithParentOfType(out var element, out CollectionView collectionView))
+				return;
+
+			var item = element.BindingContext ?? element;
+
+			switch (collectionView.SelectionMode)
+			{
+				case SelectionMode.Single:
+					collectionView.SelectedItem = !item.Equals(collectionView.SelectedItem) ? item : null;
+					break;
+				case SelectionMode.Multiple:
+					var selectedItems = collectionView.SelectedItems?.ToList() ?? new List<object>();
+
+					if (selectedItems.Contains(item))
+						selectedItems.Remove(item);
+					else
+						selectedItems.Add(item);
+
+					collectionView.UpdateSelectedItems(selectedItems);
+					break;
+			}
 		}
 
 		internal void AbortAnimations(TouchEffect sender)
