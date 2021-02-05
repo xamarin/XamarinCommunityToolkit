@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 
@@ -30,12 +32,14 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			}
 		}
 
-		static void BeginInvokeOnMainThread(Action action)
+		static async void BeginInvokeOnMainThread(Action action)
 		{
-			if (IsMainThread)
-				action();
-			else
-				EcoreMainloop.PostAndWakeUp(action);
+			var dispatcher = CoreApplication.MainView?.CoreWindow?.Dispatcher;
+
+			if (dispatcher == null)
+				throw new InvalidOperationException("Unable to find main thread.");
+
+			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => action());
 		}
 	}
 }
