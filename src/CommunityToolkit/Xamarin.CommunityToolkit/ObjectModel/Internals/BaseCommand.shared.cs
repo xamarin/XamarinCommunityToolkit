@@ -10,11 +10,10 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	/// Abstract Base Class used by AsyncCommand and AsyncValueCommand
 	/// </summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
-	public abstract class BaseCommand<TCanExecute>
+	public abstract partial class BaseCommand<TCanExecute>
 	{
 		readonly Func<TCanExecute, bool> canExecute;
 		readonly WeakEventManager weakEventManager = new WeakEventManager();
-		readonly SynchronizationContext synchronizationContext;
 
 		int executionCount;
 
@@ -27,7 +26,6 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		{
 			this.canExecute = canExecute ?? (_ => true);
 			AllowsMultipleExecutions = allowsMultipleExecutions;
-			synchronizationContext = SynchronizationContext.Current;
 		}
 
 		/// <summary>
@@ -87,10 +85,10 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		public void RaiseCanExecuteChanged()
 		{
 			// Automatically marshall to the Main Thread to adhere to the way that Xamarin.Forms automatically marshalls binding events to Main Thread
-			if (synchronizationContext != null && synchronizationContext != SynchronizationContext.Current)
-				synchronizationContext.Post(o => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)), null);
-			else
+			if (IsMainThread)
 				weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
+			else
+				BeginInvokeOnMainThread(() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)));
 		}
 
 		/// <summary>
