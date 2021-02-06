@@ -19,6 +19,11 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		public static MessageOptions DefaultMessageOptions { get; set; } = new MessageOptions();
 
 		/// <summary>
+		/// Show the SnackBar above AnchorView.
+		/// </summary>
+		public View AnchorView { get; set; }
+
+		/// <summary>
 		/// Background color.
 		/// </summary>
 		public Color BackgroundColor { get; set; } = DefaultBackgroundColor;

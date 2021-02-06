@@ -18,6 +18,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var view = Platform.GetRenderer(sender).View;
 			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
+			var anchorView = arguments.AnchorView?.GetRenderer()?.View;
+			if (!(anchorView is null))
+			{
+				snackBar.SetAnchorView(anchorView);
+			}
 			var snackBarView = snackBar.View;
 			if (arguments.BackgroundColor != Forms.Color.Default)
 			{
@@ -55,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
 				}
 
-				if (action.Font != Forms.Font.Default)
+				if (action.Font != Font.Default)
 				{
 					snackActionButtonView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
 					snackActionButtonView.SetTypeface(action.Font.ToTypeface(), TypefaceStyle.Normal);

@@ -8,6 +8,8 @@
         <Button Clicked="DisplaySnackBarClicked" Text="Show SnackBar"></Button>
         <Button Clicked="DisplayToastClicked" Text="Show toast"></Button>
         <Button Clicked="DisplaySnackBarAdvancedClicked" Text="Show SnackBar"></Button>
+        <Button Clicked="DisplaySnackBarAnchoredClicked" Text="Show SnackBar Above the Floating Button"></Button>
         <Label x:Name="StatusText"></Label>
+        <Button x:Name="Fab" Text="+" VerticalOptions="EndAndExpand" HorizontalOptions="End" CornerRadius="20" WidthRequest="40" HeightRequest="40"/>
     </StackLayout>
 </pages:BasePage>
