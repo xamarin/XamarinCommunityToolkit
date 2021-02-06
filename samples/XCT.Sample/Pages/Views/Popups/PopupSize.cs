@@ -1,17 +1,13 @@
 ﻿using Xamarin.Forms;
-using Xamarin.Essentials;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
 {
 	static class PopupSize
 	{
-		public static Size Android => new Size(0.9 * DeviceDisplay.MainDisplayInfo.Width,
-									   0.6 * DeviceDisplay.MainDisplayInfo.Height);
+		public static Size Android => new Size(1000, 1200);
 
-		public static Size iOS => new Size(0.9 * DeviceDisplay.MainDisplayInfo.Width,
-									   0.6 * DeviceDisplay.MainDisplayInfo.Height);
-
-		public static Size UWP => new Size(0.9 * DeviceDisplay.MainDisplayInfo.Width,
-									   0.6 * DeviceDisplay.MainDisplayInfo.Height);
+ 		public static Size iOS => new Size(250, 350);
+		
+		public static Size UWP => new Size(300, 400);
 	}
 }
