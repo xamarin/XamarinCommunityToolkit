@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
 {
