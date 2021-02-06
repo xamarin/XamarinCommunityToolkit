@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class SegmentedViewModel : BaseViewModel
 	{
-		string title;
+		public ICommand AddTextCommand { get; }
 
-		public string Title
-		{
-			get => title;
-			set => SetProperty(ref title, value);
-		}
+		public ICommand RemoveTextCommand { get; }
 
 		public IList<string> Options => new List<string>
 		{
 			"Option A",
 			"Option B",
 			"Option C"
-        };
+		};
 
 		public IList<string> IconOptions => new List<string>
 		{
@@ -37,7 +35,41 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 		public SegmentedViewModel()
 		{
-			Title = "Segmented View";
+			AddTextCommand = new Command<int>(AddTextExecuted);
+			RemoveTextCommand = new Command<int>(RemoveTextExecuted);
+		}
+
+		void AddTextExecuted(int index)
+		{
+			int i;
+
+			if (index < 0)
+				i = 0;
+			else if (index > Options.Count + 1)
+				i = Options.Count;
+			else
+				i = index;
+
+			try
+			{
+				Options.Insert(i, $"New {Options.Count + 1}");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
+
+		void RemoveTextExecuted(int index)
+		{
+			try
+			{
+				Options.RemoveAt(index);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
 		}
 	}
 }

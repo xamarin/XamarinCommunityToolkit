@@ -7,95 +7,179 @@
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SegmentedViewPage">
     
     <pages:BasePage.BindingContext>
-        <vm:SegmentedViewModel/>
+        <vm:SegmentedViewModel />
     </pages:BasePage.BindingContext>
-    <Grid RowDefinitions="*,Auto,Auto,Auto,*"
-        Margin="20"
-        RowSpacing="20">
 
-        <Grid
-            VerticalOptions="End"
-            RowDefinitions="Auto,Auto,Auto"
-            ColumnDefinitions="*,2*,*">
-            <Grid.IsVisible>
-                <OnPlatform iOS="false" Android="true"/>
-            </Grid.IsVisible>
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,*"
+            Margin="20"
+            RowSpacing="20">
+            <Frame CornerRadius="10" Grid.Row="0">
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label  Text="Display Mode"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="DisplayMode_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Text</x:String>
+                                <x:String>Image</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                    Spacing="20">
+                        <Label Text="Color"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="Picker_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Red</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Blue</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                    Spacing="20"
+                                    >
+                        <Label Text="Background Color"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="BG_Picker_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Red</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Blue</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="10" Grid.Row="1">
+                <Frame.IsVisible>
+                    <OnPlatform iOS="false" Android="true"/>
+                </Frame.IsVisible>
+                <Grid
+                    Grid.Row="1"
+                    x:Name="CornerRadiiGrid"
+                    VerticalOptions="End"
+                    RowDefinitions="Auto,Auto,Auto"
+                    ColumnDefinitions="*,2*,*">
+                    
+                    <Slider Grid.Row="1" Grid.Column="0"
+                            x:Name="TopLeftSlider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="TopLeftSlider_ValueChanged"/>
 
-            <Slider
-                    x:Name="TopLeftSlider"
-                    Minimum="0"
-                    Maximum="20"
-                    HeightRequest="40"
-                    MinimumTrackColor="Blue"
-                    MaximumTrackColor="DarkBlue"
-                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
-                    ValueChanged="TopLeftSlider_ValueChanged"/>
+                    <Slider Grid.Row="1" Grid.Column="2"
+                            x:Name="TopRightSlider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="TopRightSlider_ValueChanged"/>
 
-            <Slider Grid.Row="0" Grid.Column="2"
-                    x:Name="TopRightSlider"
-                    Minimum="0"
-                    Maximum="20"
-                    HeightRequest="40"
-                    MinimumTrackColor="Blue"
-                    MaximumTrackColor="DarkBlue"
-                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
-                    ValueChanged="TopRightSlider_ValueChanged"/>
+                    <StackLayout Grid.Row="2" Grid.Column="1">
+                        <Label VerticalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding Source={x:Reference Slider},
+                            Path=Value,
+                            StringFormat='Corner Radius: {0}'}" />
+                        <Slider
+                            x:Name="Slider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="Slider_ValueChanged"/>
+                    </StackLayout>
 
-            <StackLayout Grid.Row="1" Grid.Column="1">
-                <Label VerticalOptions="Center"
-                   HorizontalTextAlignment="Center"
-                   Text="{Binding Source={x:Reference Slider},
-                    Path=Value,
-                    StringFormat='Corner Radius: {0}'}" />
-                <Slider
-                    x:Name="Slider"
-                    Minimum="0"
-                    Maximum="20"
-                    HeightRequest="40"
-                    MinimumTrackColor="Blue"
-                    MaximumTrackColor="DarkBlue"
-                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
-                    ValueChanged="Slider_ValueChanged"
-                    Value="{Binding Source={x:Reference TextSegments},
-                    Path=CornerRadius}"/>
+                    <Slider Grid.Row="3" Grid.Column="0"
+                            x:Name="BottomLeftSlider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="BottomLeftSlider_ValueChanged"/>
+
+                    <Slider Grid.Row="3" Grid.Column="2"
+                            x:Name="BottomRightSlider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="BottomRightSlider_ValueChanged"/>
+                </Grid>
+            </Frame>
+
+            <StackLayout Grid.Row="2" Spacing="10">
+                <toolkit:SegmentedView
+                    x:Name="TextSegments"
+                    DisplayMode="{Binding DisplayMode}"
+                    ItemsSource="{Binding Options}"
+                    SelectedItem="{Binding SelectedItem}"
+                    SelectedIndex="0"/>
+
+                <!--<StackLayout Orientation="Horizontal">
+
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="8"
+                    Padding="20">
+                    <Button Text="Add First"
+                            Command="{Binding AddTextCommand}"
+                            CommandParameter="0"/>
+                    <Button Text="Add Mid"
+                            Command="{Binding AddTextCommand}"
+                            CommandParameter="1"/>
+                    <Button Text="Add Last"
+                            Command="{Binding AddTextCommand}"
+                            CommandParameter="9"/>
+                </StackLayout>
+
+                    
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="8"
+                    Padding="20">
+                    <Button Text="Del First"
+                            Command="{Binding RemoveTextCommand}"
+                            CommandParameter="0"/>
+                    <Button Text="Del Mid" 
+                            Command="{Binding RemoveTextCommand}"
+                            CommandParameter="1"/>
+                    <Button Text="Del Last"
+                            Command="{Binding RemoveTextCommand}"
+                            CommandParameter="9"/>
+                </StackLayout>
+                </StackLayout>-->
             </StackLayout>
+            
+            <!--<toolkit:SegmentedView
+                x:Name="ImageSegments"
+                Grid.Row="3"
+                DisplayMode="Image"
+                ItemsSource="{Binding Options}"
+                SelectedItem="{Binding SelectedItem}"
+                CornerRadius="20,0,0,20"/>-->
 
-            <Slider Grid.Row="2" Grid.Column="0"
-                    x:Name="BottomLeftSlider"
-                    Minimum="0"
-                    Maximum="20"
-                    HeightRequest="40"
-                    MinimumTrackColor="Blue"
-                    MaximumTrackColor="DarkBlue"
-                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
-                    ValueChanged="BottomLeftSlider_ValueChanged"/>
-
-            <Slider Grid.Row="2" Grid.Column="2"
-                    x:Name="BottomRightSlider"
-                    Minimum="0"
-                    Maximum="20"
-                    HeightRequest="40"
-                    MinimumTrackColor="Blue"
-                    MaximumTrackColor="DarkBlue"
-                    ThumbColor="{StaticResource NormalButtonBackgroundColor}"
-                    ValueChanged="BottomRightSlider_ValueChanged"/>
+            <Label Text="{Binding SelectedItem, StringFormat='Selected: {0}'}"
+                    Grid.Row="4"
+                    VerticalOptions="Center"/>
         </Grid>
-        <toolkit:SegmentedView
-            x:Name="TextSegments"
-            Grid.Row="1"
-            DisplayMode="Text"
-            ItemsSource="{Binding Options}"
-            SelectedItem="{Binding SelectedItem}"/>
-
-        <toolkit:SegmentedView
-            Grid.Row="2"
-            DisplayMode="Image"
-            ItemsSource="{Binding IconOptions}"
-            SelectedItem="{Binding SelectedItem}"
-            CornerRadius="20,0,0,20"/>
-
-        <Label Text="{Binding SelectedItem, StringFormat='Selected: {0}'}"
-                Grid.Row="4"
-                VerticalOptions="Center"/>
-    </Grid>
+    </ScrollView>
 </pages:BasePage>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using Android.Content;
 using Xamarin.CommunityToolkit.Android.UI.Views;
@@ -7,6 +6,10 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using RadioButton = Android.Widget.RadioButton;
+using System.Linq;
+using System;
+using Android.Util;
+using System.Threading.Tasks;
 
 [assembly: ExportRenderer(typeof(SegmentedView), typeof(SegmentedViewRenderer))]
 
@@ -14,20 +17,27 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 {
 	public class SegmentedViewRenderer : ViewRenderer<SegmentedView, FormsSegments>
 	{
-		FormsSegments formsControl;
+		const string TAG = "SegmentedView";
 
 		public SegmentedViewRenderer(Context context)
 			: base(context)
 		{
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
+		protected override async void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
 		{
 			base.OnElementChanged(e);
 
 			if (Control == null)
 			{
-				InitializeControl(Element.Items);
+				try
+				{
+					await InitializeControl();
+				}
+				catch (Exception ex)
+				{
+					Log.Error(TAG, ex.Message);
+				}
 			}
 
 			if (e.OldElement != null && Control != null)
@@ -40,25 +50,26 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			((INotifyCollectionChanged)Element.Items).CollectionChanged -= SegmentsCollectionChanged;
 		}
 
-		void InitializeControl(IList<string> segments)
+		async Task InitializeControl()
 		{
-			formsControl = new FormsSegments(Context);
-
 			((INotifyCollectionChanged)Element.Items).CollectionChanged += SegmentsCollectionChanged;
 
-			SetNativeControl(formsControl);
-			PopulateSegments(segments);
-
+			SetNativeControl(new FormsSegments(Context));
 			Control.DisplayMode = Element.DisplayMode;
 			Control.CornerRadius = Element.CornerRadius;
 			Control.SegmentSelected += SegmentSelected;
+
+			PopulateSegments();
+
+			Control.ShouldReactToCollectionChanges = true;
+			await Control.Initialize();
 		}
 
-		void PopulateSegments(IList<string> segments)
+		void PopulateSegments()
 		{
-			for (var i = 0; i < segments.Count; i++)
+			for (var i = 0; i < Element.Items.Count(); i++)
 			{
-				Control.Children.Add(segments[i]);
+				Control.Children.Add(Element.Items.ElementAt(i));
 			}
 		}
 
@@ -95,29 +106,46 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="e">Xamarin.Forms Elements</param>
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
 
 			if (Control == null || Element == null)
 				return;
 
-			if (e.PropertyName == SegmentedView.SelectedIndexProperty.PropertyName)
-				Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
+			try
+			{
+				if (e.PropertyName == SegmentedView.SelectedIndexProperty.PropertyName)
+					Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
 
-			if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
-				Control.TintColor = Element.Color.ToAndroid();
+				//if (e.PropertyName == SegmentedView.BackgroundColorProperty.PropertyName)
+				//{
+				//	Control.BackgroundColor = Element.BackgroundColor.ToAndroid();
+				//	await Control.Initialize();
+				//}
 
-			if (e.PropertyName == SegmentedView.DisplayModeProperty.PropertyName)
-				Control.DisplayMode = Element.DisplayMode;
+				if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
+				{
+					Control.TintColor = Element.Color.ToAndroid();
+					await Control.Initialize();
+				}
 
-			if (e.PropertyName == SegmentedView.CornerRadiusProperty.PropertyName)
-				Control.CornerRadius = Element.CornerRadius;
-		}
+				if (e.PropertyName == SegmentedView.DisplayModeProperty.PropertyName)
+				{
+					Control.DisplayMode = Element.DisplayMode;
+					await Control.Initialize();
+				}
 
-		RadioButton GetSegment(int index)
-		{
-			return (RadioButton)Control?.GetChildAt(index);
+				if (e.PropertyName == SegmentedView.CornerRadiusProperty.PropertyName)
+				{
+					Control.CornerRadius = Element.CornerRadius;
+					await Control.Initialize();
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error(TAG, ex.Message);
+			}
 		}
 
 		protected override void Dispose(bool disposing)

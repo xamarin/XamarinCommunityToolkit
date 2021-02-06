@@ -20,7 +20,9 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
 	public class SegmentedViewRenderer : ViewRenderer<SegmentedView, UISegmentedControl>
 	{
-		protected override void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
+		const string TAG = "SegmentedView";
+
+		protected override async void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
 		{
 			base.OnElementChanged(e);
 
@@ -34,12 +36,21 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 				InvalidateControl();
 
 			if (e.NewElement != null)
-				InitializeControl();
+			{
+				try
+				{
+					await InitializeControl();
+				}
+				catch (Exception ex)
+				{
+					Log.Warning(TAG, ex.Message);
+				}
+			}
 		}
 
-		void InitializeControl()
+		async Task InitializeControl()
 		{
-			PopulateSegments(Element.Items);
+			await PopulateSegments(Element.Items);
 			Control.ClipsToBounds = true;
 			Control.SelectedSegment = Element.SelectedIndex;
 			Control.BackgroundColor = Element.BackgroundColor.ToUIColor();
@@ -56,15 +67,15 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			}
 		}
 
-		void PopulateSegments(IList<string> segments)
+		async Task PopulateSegments(IEnumerable<string> segments)
 		{
-			for (var i = 0; i < segments.Count; i++)
+			for (var i = 0; i < segments.Count(); i++)
 			{
-				InsertSegment(segments.ElementAt(i), i);
+				await InsertSegment(segments.ElementAt(i), i);
 			}
 		}
 
-		async void InsertSegment(string segment, int position)
+		async Task InsertSegment(string segment, int position)
 		{
 			switch (Element.DisplayMode)
 			{
@@ -73,7 +84,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 					if (img != null)
 						Control.InsertSegment(img, position, false);
 					else
-						Log.Warning("SegmentedViewRenderer", "ImageSource is null");
+						Log.Warning(TAG, "ImageSource is null");
 					break;
 				default:
 				case SegmentMode.Text:
@@ -88,7 +99,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			((INotifyCollectionChanged)Element.Items).CollectionChanged -= SegmentsCollectionChanged;
 		}
 
-		void SegmentsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		async void SegmentsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
 			switch (e.Action)
 			{
@@ -96,7 +107,14 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 					var startIndex = e.NewStartingIndex;
 					foreach (var item in e.NewItems)
 					{
-						InsertSegment((string)item, startIndex++);
+						try
+						{
+							await InsertSegment((string)item, startIndex++);
+						}
+						catch (Exception ex)
+						{
+							Log.Warning(TAG, ex.Message);
+						}
 					}
 					break;
 				case NotifyCollectionChangedAction.Remove:
@@ -157,7 +175,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 
 			if (image == null)
 			{
-				Log.Warning(nameof(StreamImagesourceHandler), "Could not load image: {0}", streamsource);
+				Log.Warning(TAG, "Could not load image: {0}", streamsource);
 			}
 
 			return image;

@@ -22,122 +22,94 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 {
 	public class FormsSegments : RadioGroup, IDisposable
 	{
+		const string TAG = "FormsSegments";
+
 		readonly Context context;
 		readonly float defaultTextSize = 15.0f;
 		readonly float defaultStrokeWidth = 2.5f;
 		readonly int defaultButtonPadding = 16;
 
-		SegmentMode mode;
-
-		public SegmentMode DisplayMode
-		{
-			get => mode;
-			set
-			{
-				mode = value;
-				InitializeSegments();
-			}
-		}
-
-		CornerRadius cornerRadius = 8.0f;
-
-		public CornerRadius CornerRadius
-		{
-			get => cornerRadius;
-			set
-			{
-				cornerRadius = value;
-				InitializeSegments();
-			}
-		}
-
-		AColor tintColor = AColor.Rgb(14, 98, 255);
-
-		public AColor TintColor
-		{
-			get => tintColor;
-			set
-			{
-				tintColor = value;
-				InitializeSegments();
-			}
-		}
-
-		AColor backgroundColor = AColor.Transparent;
-
-		public AColor BackgroundColor
-		{
-			get => backgroundColor;
-			set
-			{
-				backgroundColor = value;
-				SetBackgroundColor(value);
-			}
-		}
-
-		public ObservableCollection<string> Children { get; } = new ObservableCollection<string>();
-
-		RadioButton currentSegment;
-
-		public RadioButton CurrentSegment
-		{
-			get => currentSegment;
-			set
-			{
-				currentSegment = value;
-			}
-		}
-
-		public event EventHandler<SelectedPositionChangedEventArgs> SegmentSelected;
-
 		int strokeWidth;
 		bool disposed;
 
+		public SegmentMode DisplayMode { get; set; }
+
+		public CornerRadius CornerRadius { get; set; } = 8.0f;
+
+		public AColor TintColor { get; set; } = AColor.Rgb(14, 98, 255);
+
+		public RadioButton CurrentSegment { get; set; }
+
+		public ObservableCollection<string> Children { get; } = new ObservableCollection<string>();
+
+		public event EventHandler<SelectedPositionChangedEventArgs> SegmentSelected;
+
+		public AColor BackgroundColor { get; set; }
+
+		public bool ShouldReactToCollectionChanges { get; set; }
+
 		public FormsSegments(Context context)
-            : base(context)
+			: base(context)
 		{
 			this.context = context;
-			
-			if(Children != null)
-					Children.CollectionChanged += CollectionChanged;
-					
+
+			Background = null;
+
+			//if (Children != null)
+			//	Children.CollectionChanged += CollectionChanged;
+
 			Build();
 		}
 
-		void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		async void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			InitializeSegments();
+			if (!ShouldReactToCollectionChanges)
+				return;
+
+			try
+			{
+				await Initialize();
+			}
+			catch (Exception ex)
+			{
+				Log.Error(TAG, ex.Message);
+			}
 		}
 
 		void Build()
 		{
 			strokeWidth = (int)context.ToPixels(defaultStrokeWidth);
-
-			SetBackgroundColor(backgroundColor);
-
 			Orientation = Orientation.Horizontal;
 			LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
 			CheckedChange += OnCheckChanged;
 		}
 
-		public void InitializeSegments()
+		public async Task Initialize()
 		{
 			if (ChildCount > 0)
+			{
+				if (Children != null)
+					Children.CollectionChanged -= CollectionChanged;
+
 				RemoveAllViews();
+			}
 
 			for (var i = 0; i < Children.Count; i++)
 			{
-				var rb = InsertSegment(Children[i].ToString(), i);
+				var rb = await InsertSegment(Children[i].ToString(), i);
 				if (i == 0)
 					rb.Checked = true;
 			}
+
+			if (Children != null)
+				Children.CollectionChanged += CollectionChanged;
 		}
 
-		RadioButton InsertSegment(string title, int index)
+		async Task<RadioButton> InsertSegment(string title, int index)
 		{
 			var isLeft = index == 0;
 			var position = isLeft ? Position.Left : index == Children.Count - 1 ? Position.Right : Position.Middle;
-			var rb = GetRadioButton(title, position);
+			var rb = await GetRadioButton(title, position);
 			AddView(rb);
 			return rb;
 		}
@@ -150,7 +122,8 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			},
 			new int[] // colors
 			{
-				AColor.White, TintColor
+				AColor.White,
+				TintColor
 			});
 
 		AContentRes.ColorStateList SegmentColorSelector => new AContentRes.ColorStateList(
@@ -161,7 +134,8 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			},
 			new int[] // colors
 			{
-				TintColor, BackgroundColor
+				TintColor,
+				BackgroundColor
 			});
 
 		void OnCheckChanged(object sender, CheckedChangeEventArgs e)
@@ -170,7 +144,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			SegmentSelected?.Invoke(this, new SelectedPositionChangedEventArgs(IndexOfChild(CurrentSegment)));
 		}
 
-		RadioButton GetRadioButton(string title, Position position)
+		async Task<RadioButton> GetRadioButton(string title, Position position)
 		{
 			BitmapDrawable icon;
 			var rb = new RadioButton(context);
@@ -179,41 +153,28 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			rb.Gravity = GravityFlags.Center;
 			rb.SetButtonDrawable(null);
 
-			if(DisplayMode == SegmentMode.Image)
+			if (DisplayMode == SegmentMode.Image)
 			{
-				icon = GetImage(title);
+				icon = await GetImage(title);
 				rb.SetBackground(GetRadioButtonStateListDrawable(position, icon));
-				return rb;
+			}
+			else
+			{
+				rb.SetBackground(GetRadioButtonStateListDrawable(position));
+				rb.Text = title;
+				rb.TextAlignment = AViews.TextAlignment.Center;
+				rb.SetTextSize(ComplexUnitType.Sp, defaultTextSize);
+				rb.SetAllCaps(true);
+				rb.SetTypeface(null, TypefaceStyle.Bold);
+				rb.SetTextColor(TextColorSelector);
 			}
 
-			rb.SetBackground(GetRadioButtonStateListDrawable(position));
-			rb.Text = title;
-			rb.TextAlignment = AViews.TextAlignment.Center;
-			rb.SetTextSize(ComplexUnitType.Sp, defaultTextSize);
-			rb.SetAllCaps(true);
-			rb.SetTypeface(null, TypefaceStyle.Bold);
-			rb.SetTextColor(TextColorSelector);
 			return rb;
 		}
 
-		BitmapDrawable GetImage(ImageSource filePath)
+		async Task<BitmapDrawable> GetImage(ImageSource filePath)
 		{
-			var tcs = new TaskCompletionSource<BitmapDrawable>();
-
-			Task.Run(async () =>
-			{
-				try
-				{
-					var result = await context.GetFormsBitmapAsync(filePath);
-					tcs.SetResult(new BitmapDrawable(Resources, result));
-				}
-				catch (Exception ex)
-				{
-					tcs.SetException(ex);
-				}
-			});
-
-			return tcs.Task.Result;
+			return new BitmapDrawable(Resources, await context.GetFormsBitmapAsync(filePath));
 		}
 
 		StateListDrawable GetRadioButtonStateListDrawable(Position position, BitmapDrawable icon = null)
@@ -226,9 +187,8 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		Drawable GetSegmentDrawable(Position position, BitmapDrawable icon)
 		{
-			var rect = new GradientDrawable();
 			InsetDrawable insetDrawable = null;
-
+			var rect = new GradientDrawable();
 			rect.SetShape(ShapeType.Rectangle);
 			rect.SetStroke(strokeWidth, TintColor);
 			rect.SetColor(SegmentColorSelector);
@@ -247,9 +207,9 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 					break;
 			}
 
-			insetDrawable = insetDrawable ?? new InsetDrawable(rect, -strokeWidth, 0, 0, 0);
+			insetDrawable ??= new InsetDrawable(rect, -strokeWidth, 0, 0, 0);
 
-			if (mode == SegmentMode.Image)
+			if (DisplayMode == SegmentMode.Image)
 			{
 				if (icon == null)
 					throw new MissingMemberException("BitmapDrawable for icon is missing");
@@ -260,7 +220,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 				layers[0] = insetDrawable;
 				layers[1] = icon;
 
-				return new LayerDrawable(layers);
+				return new InsetDrawable(new LayerDrawable(layers), 0, 0, 0, 0);
 			}
 
 			return insetDrawable;
@@ -274,7 +234,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			disposed = true;
 			if (disposing)
 			{
-				if(Children != null)
+				if (Children != null)
 					Children.CollectionChanged -= CollectionChanged;
 				CheckedChange -= OnCheckChanged;
 			}
@@ -285,7 +245,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 	/// <summary>
 	/// Position of the segment. Left, Middle, Right.
 	/// </summary>
-	internal enum Position
+	enum Position
 	{
 		Middle,
 		Left,
