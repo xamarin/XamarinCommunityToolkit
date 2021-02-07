@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.GravatarImagePage">
+    <pages:BasePage.BindingContext>
+        <viewmodels:GravatarImageViewModel />
+    </pages:BasePage.BindingContext>
+
+    <StackLayout>
+        <Frame Padding="15, 20" Margin="5">
+            <StackLayout>
+                <Label Text="Full Image Source" />
+                <Image>
+                    <Image.Source>
+                        <xct:GravatarImageSource Email="{Binding Email}"
+                                                 Size="{Binding Size}"
+                                                 CachingEnabled="{Binding EnableCache}" />
+                    </Image.Source>
+                </Image>
+
+                <Label Text="XAML Extension" />
+                <Image Source="{xct:GravatarImage {Binding Email}, Size=65, CachingEnabled={Binding EnableCache}}" />
+
+                <Label Text="Default Gravatar" />
+                <Image Source="{xct:GravatarImage '', Default={Binding DefaultGravatar}, Size={Binding Size}, CachingEnabled={Binding EnableCache}}" />
+            </StackLayout>
+        </Frame>
+
+        <ScrollView Padding="15, 20">
+            <StackLayout Spacing="20">
+                <Label Text="Email" />
+                <Entry Text="{Binding Email}"
+                       Keyboard="Email"/>
+
+                <Grid RowDefinitions="*,Auto"
+                      ColumnDefinitions="*, Auto">
+                    <Label Text="GravatarSize" />
+                    <Slider Value="{Binding Size}"
+                            Maximum="100"
+                            Minimum="20"
+                            Grid.Row="1" />
+                    <Entry Text="{Binding Size}"
+                           Keyboard="Numeric"
+                           Grid.Row="1"
+                           Grid.Column="1"/>
+                </Grid>
+
+                <Label Text="Default Gravatar" />
+                <Picker ItemsSource="{Binding Defaults}"
+                        SelectedItem="{Binding DefaultGravatar}" />
+
+                <Label Text="Enable Cache" />
+                <Switch IsToggled="{Binding EnableCache}" />
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</pages:BasePage>

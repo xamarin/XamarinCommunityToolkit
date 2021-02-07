@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ItemSelectedEventArgsPage">
+
+    <pages:BasePage.BindingContext>
+        <vm:ItemSelectedEventArgsViewModel />
+    </pages:BasePage.BindingContext>
+
+    <ContentPage.Resources>
+         <ResourceDictionary>
+             <xct:ItemSelectedEventArgsConverter x:Key="ItemSelectedEventArgsConverter" />
+         </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ListView ItemsSource="{Binding Items}"
+              HasUnevenRows="True">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+
+                    <StackLayout Orientation="Vertical"
+                                 Margin="6">
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Id" />
+                                    <Span Text=":" />
+                                    <Span Text="{Binding Id}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Name" />
+                                    <Span Text=":" />
+                                    <Span Text="{Binding Name}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                    </StackLayout>
+                </ViewCell>
+                
+            </DataTemplate>
+        </ListView.ItemTemplate>
+
+        <ListView.Behaviors>
+            <xct:EventToCommandBehavior EventName="ItemSelected"
+                                              Command="{Binding ItemSelectedCommand}"
+                                              EventArgsConverter="{StaticResource ItemSelectedEventArgsConverter}" />
+        </ListView.Behaviors>
+
+    </ListView>
+</pages:BasePage>

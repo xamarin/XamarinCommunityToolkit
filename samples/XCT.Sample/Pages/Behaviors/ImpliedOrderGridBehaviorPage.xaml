@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Behaviors;assembly=Xamarin.CommunityToolkit.Sample"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.ImpliedOrderGridBehaviorPage">
+    <StackLayout>
+        <Grid Margin="10" HorizontalOptions="Center" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">
+            <Button Grid.Row="0" Grid.Column="0" Text="Add Row" Clicked="ButtonAddRow_OnClicked"/>
+            <Button Grid.Row="1" Grid.Column="0" Text="Add Column" Clicked="ButtonAddColumn_OnClicked"/>
+            <Button Grid.Row="0" Grid.Column="1" Text="Remove Row" Clicked="ButtonRemoveRow_OnClicked"/>
+            <Button Grid.Row="1" Grid.Column="1" Text="Remove Column" Clicked="ButtonRemoveColumn_OnClicked"/>
+        </Grid>
+
+        <Label Padding="10,10,10,20">
+            <Label.Text>
+Behavior that auto sets row and column assignments of child views by the order they are defined in the grid. RowSpan and ColumnSpan are honored during the auto-assignment of row and column.
+
+By default, if more cells in the grid are needed by the number of child views then are defined an output warning will be generated. If a row or column span exceeds the defined rows and columns output warnings will be generated.
+
+The user may at their choice decide to have output warnings treated as exceptions.
+
+If the user manually assigns a row or column on a view, it will be honored.
+            </Label.Text>
+        </Label>
+
+        <Grid x:Name="TestGrid" Margin="30" BackgroundColor="Gray">
+            <Grid.Behaviors>
+                <xct:ImpliedOrderGridBehavior/>
+            </Grid.Behaviors>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <behaviors:ImpliedOrderGridBehaviorLabel Grid.RowSpan="2"/>
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+
+            <behaviors:ImpliedOrderGridBehaviorLabel Grid.ColumnSpan="2"/>
+            <behaviors:ImpliedOrderGridBehaviorLabel/>
+
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel Grid.ColumnSpan="2" Grid.RowSpan="2" />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+            <behaviors:ImpliedOrderGridBehaviorLabel />
+
+        </Grid>
+
+    </StackLayout>
+</pages:BasePage>

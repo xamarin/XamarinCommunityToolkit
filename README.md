@@ -6,55 +6,57 @@ Members of the community are rebooting this library under the guidance of the Xa
 
 ## Build Status
 
-If you like to live dangerously (and while we are preparing our v1), you can use our [nightly](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json) feed to try out packages right now.
+If you like to live dangerously, you can use our [nightly](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json) feed to try out the latest and greatest.
 
 | Build Server | Type         | Platform | Status |
 |--------------|--------------|----------|--------|
-| Azure DevOps         | Build        | Windows & Mac  | [![Build Status](https://dev.azure.com/xamarin/public/_apis/build/status/xamarin/CommunityToolkit/xamarin.XamarinCommunityToolkit%20(Public)?branchName=main)](https://dev.azure.com/xamarin/public/_build?definitionId=55&_a=summary)                                                  |
+| Azure DevOps         | Build        | Windows & Mac  | [![Build Status](https://dev.azure.com/xamarin/public/_apis/build/status/xamarin/CommunityToolkit/xamarin.XamarinCommunityToolkit%20(Public)?branchName=main)](https://dev.azure.com/xamarin/public/_build?definitionId=55&_a=summary) |
 
 ## Sample App
 
-Browsing the [sample app](./XamarinCommunityToolkitSample) is the best place to start exploring what's available today. 
+Browsing the [sample app](./samples) is the best place to start exploring what's available today.
 
 ## Installation
 
-The toolkit is available via NuGet, and should be installed into all your projects:
+The Toolkit is available via NuGet, and should be installed into all of your projects (shared and individual platforms):
 
 * NuGet Official Releases: [![NuGet](https://img.shields.io/nuget/vpre/Xamarin.CommunityToolkit.svg?label=NuGet)](https://www.nuget.org/packages/Xamarin.CommunityToolkit/)
 * NuGet Nightly Releases: [![NuGet Nightly](https://img.shields.io/badge/NuGet-Nightly-yellow)](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json)
 
-Now all you need to do is use it! 
+Browse with the NuGet manager in your IDE to install them or run this command:
 
-For example, to use the `AvatarView` you first include the toolkit namespace:
+`Install-Package Xamarin.CommunityToolkit`
+
+## Getting Started
+
+After installation, start using the features you're after.
+
+If you're using XAML, you can add this namespace to your root node to get access to all the goodness the Toolkit has to offer without having to add all kinds of namespaces seperately: `xmlns:xct="http://xamarin.com/schemas/2020/toolkit"`. I.e.:
 
 ```xaml
-xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+<xct:AvatarView />
+
+<!-- The rest of your page here -->
+
+</ContentPage>
 ```
 
-Then place the view in your XAML:
+## Documentation
 
-```xaml
-<views:AvatarView Text="DO" Size="46" Color="#FF3300" TextColor="White" />
-```
-
-Of course, `AvatarView` also supports `Source` for loading images plus a few other properties. Check it out!
-
-![AvatarView](./images/avatar-do.png)
+The documentation is still under construction, but we've published the most important things over at [Microsoft Docs](https://docs.microsoft.com/en-us/xamarin/community-toolkit/). If you want to contribute some of the missing bits you can do this over at the [official Docs repo](https://github.com/MicrosoftDocs/xamarin-communitytoolkit) as contributions are very much welcomed!
 
 ## Contributions welcome!
 
-If you have one or more of these common pieces of code that you are always replicating across apps, don't hesitate to contribute! We aim to be the first NuGet package you install when creating a new Xamarin app!
+If you have one or more of these common pieces of code that you are always replicating across apps, don't hesitate to contribute! We aim to be the first NuGet package you install when creating a new Xamarin.Forms app!
 
-Please have a look at our [contribution guide](CONTRIBUTING.md) before you get started. Also take note of the [Code of Conduct](https://dotnetfoundation.org/code-of-conduct) we adhere to.
-
-## Community Toolkit Principles
-- Principle #1: The toolkit will be kept simple.
-- Principle #2: As soon as a comparable feature is available in Xamarin.Forms, it will be marked as deprecated.
-- Principle #3: All features will be supported for two Xamarin.Forms release cycles or until another principle supersedes it.
+Please have a look at our [contribution guide](CONTRIBUTING.md) before you get started, as well as some information on [the wiki](https://github.com/xamarin/XamarinCommunityToolkit/wiki/Contributing-to-XamarinCommunityToolkit). Also take note of the [Code of Conduct](https://dotnetfoundation.org/code-of-conduct) we adhere to.
 
 ## Project Structure
 
-To structure our project, we have adopted a range of namespaces. You can find them below with a short description of what you will find where.
+To structure our project, we have adopted a range of namespaces. You can find them below with a short description of what you will find where. For simply consuming the Toolkit in XAML you can use our simplified namespace. See the Getting Started section above.
 
 | Namespace | Description |
 |--------------|--------------|
@@ -64,7 +66,6 @@ To structure our project, we have adopted a range of namespaces. You can find th
 | Xamarin.CommunityToolkit.Effects | Effects to apply light-weight renderer changes to the Xamarin.Forms renderers |
 | Xamarin.CommunityToolkit.Extensions | XAML Markup Extensions to make your XAML even more functional |
 | Xamarin.CommunityToolkit.ObjectModel | Things that have to do with your models and objects. Probably handy for your MVVM needs |
-| Xamarin.CommunityToolkit.UI.Layout | Layouts such as WrapLayout, etc. |
 | Xamarin.CommunityToolkit.UI.Views | Controls such as TabView, etc. |
 | Xamarin.CommunityToolkit.SampleApp | Sample App where you can find all of the above for reference. Learn how to use them and see how it all looks |
 | Xamarin.CommunityToolkit.UnitTests | This is where our unit tests live. Please keep growing them! |

@@ -1,0 +1,58 @@
+﻿using System;
+using System.Globalization;
+using Xamarin.CommunityToolkit.Extensions.Internals;
+using Xamarin.Forms;
+
+namespace Xamarin.CommunityToolkit.Converters
+{
+	/// <summary>
+	/// Converts an integer index to corresponding array item and vice versa.
+	/// </summary>
+	public class IndexToArrayItemConverter : ValueConverterExtension, IValueConverter
+	{
+		/// <summary>
+		/// Converts an integer index to corresponding array item.
+		/// </summary>
+		/// <param name="value">The index of items array.</param>
+		/// <param name="targetType">The type of the binding target property.</param>
+		/// <param name="parameter">The items array.</param>
+		/// <param name="culture">The culture to use in the converter.</param>
+		/// <returns>The item from the array that corresponds to passed index.</returns>
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (!(value is int index))
+				throw new ArgumentException("Value is not a valid integer", nameof(value));
+
+			if (!(parameter is Array array))
+				throw new ArgumentException("Parameter is not a valid array", nameof(parameter));
+
+			if (index < 0 || index >= array.Length)
+				throw new ArgumentOutOfRangeException(nameof(value), "Index was out of range");
+
+			return array.GetValue(index);
+		}
+
+		/// <summary>
+		/// Converts back an array item to corresponding index of the item in the array.
+		/// </summary>
+		/// <param name="value">The item from the array.</param>
+		/// <param name="targetType">The type of the binding target property.</param>
+		/// <param name="parameter">The items array.</param>
+		/// <param name="culture">The culture to use in the converter.</param>
+		/// <returns>The index of the item from the array.</returns>
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (!(parameter is Array array))
+				throw new ArgumentException("Parameter is not a valid array", nameof(parameter));
+
+			for (var i = 0; i < array.Length; i++)
+			{
+				var item = array.GetValue(i);
+				if ((item != null && item.Equals(value)) || (item == null && value == null))
+					return i;
+			}
+
+			throw new ArgumentException("Value does not exist in the array", nameof(value));
+		}
+	}
+}

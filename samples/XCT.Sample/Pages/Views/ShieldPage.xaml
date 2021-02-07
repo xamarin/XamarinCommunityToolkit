@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ShieldPage"
+                Title="Shield">
+
+    <StackLayout
+        Spacing="10">
+
+        <StackLayout
+            Orientation="Horizontal">
+
+            <xct:Shield
+                Subject="C#"
+                Status=">=4.5"
+                Color="DodgerBlue"
+                TextColor="White"
+                Margin="2,0"
+                Tapped="OnShieldTapped" />
+
+            <xct:Shield
+                Subject="IDE"
+                Status="2019"
+                Color="DodgerBlue"
+                TextColor="White"
+                Margin="2,0" />
+
+            <xct:Shield
+                Subject="chat"
+                Status="on discord"
+                Color="SeaGreen"
+                TextColor="White"
+                Margin="2,0" />
+        </StackLayout>
+
+        <StackLayout
+            Orientation="Horizontal">
+
+            <xct:Shield
+                Subject="IDE"
+                Status="2019"
+                Color="DodgerBlue"
+                TextColor="White"
+                FontSize="20"
+                Margin="2,0" />
+
+            <xct:Shield
+                Subject="IDE"
+                Status="2019"
+                Color="DodgerBlue"
+                TextColor="White"
+                FontSize="Title"
+                Margin="2,0" />
+
+            <xct:Shield
+                Subject="IDE"
+                Status="2019"
+                Color="DodgerBlue"
+                TextColor="White"
+                FontAttributes="Bold"
+                Margin="2,0" />
+
+            <xct:Shield
+                Subject="IDE"
+                Status="2019"
+                Color="DodgerBlue"
+                TextColor="White"
+                FontAttributes="Italic"
+                Margin="2,0" />
+            
+        </StackLayout>
+        
+    </StackLayout>
+    
+</pages:BasePage>
