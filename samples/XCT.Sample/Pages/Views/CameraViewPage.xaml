@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.CameraViewPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ScrollView>
+        <StackLayout>
+            <xct:CameraView
+                x:Name="cameraView"
+                CaptureMode="Video"
+                FlashMode="On"
+                HorizontalOptions="FillAndExpand"
+                MediaCaptured="CameraView_MediaCaptured"
+                OnAvailable="CameraView_OnAvailable"
+                VerticalOptions="FillAndExpand" />
+
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                <Label x:Name="zoomLabel" />
+                <Slider
+                    x:Name="zoomSlider"
+                    Margin="5,0"
+                    IsEnabled="False"
+                    Maximum="10"
+                    Minimum="1"
+                    HorizontalOptions="FillAndExpand"
+                    ValueChanged="ZoomSlider_ValueChanged"
+                    Value="1" />
+            </StackLayout>
+
+            <StackLayout>
+                <Grid ColumnDefinitions="*, *" RowDefinitions="*,*">
+                    <StackLayout
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="5"
+                        Orientation="Horizontal">
+                        <Switch
+                            Margin="0,0,5,0"
+                            IsToggled="True"
+                            Toggled="VideoSwitch_Toggled" />
+                        <Label Text="Video" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5"
+                        Orientation="Horizontal">
+                        <Switch
+                            Margin="0,0,5,0"
+                            IsToggled="False"
+                            Toggled="FrontCameraSwitch_Toggled" />
+                        <Label Text="Front camera" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5"
+                        Orientation="Horizontal">
+                        <Switch
+                            Margin="0,0,5,0"
+                            IsToggled="True"
+                            Toggled="FlashSwitch_Toggled" />
+                        <Label Text="Flash" />
+                    </StackLayout>
+                </Grid>
+
+                <Button
+                    x:Name="doCameraThings"
+                    Command="{Binding ShutterCommand, Source={x:Reference cameraView}}"
+                    IsEnabled="False"
+                    Text="Start Recording" />
+                <Image
+                    x:Name="previewPicture"
+                    Aspect="AspectFit"
+                    BackgroundColor="LightGray"
+                    HeightRequest="250"
+                    IsVisible="False" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</pages:BasePage>

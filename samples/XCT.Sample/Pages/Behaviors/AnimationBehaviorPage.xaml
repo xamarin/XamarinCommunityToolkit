@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.AnimationBehaviorPage">
+      <ScrollView>
+        <StackLayout Padding="{StaticResource ContentPadding}"
+                     Spacing="10">
+
+            <Label Text="This sample demonstrates how to use ViewTappedAnimationBehaviour applying it in different UI elements."
+                   Padding="10,10,10,50"/>
+
+            <Button Text="Testing Fade Animation"
+                   TextColor="HotPink">
+                 <Button.Behaviors>
+                      <xct:AnimationBehavior EventName="Clicked">
+                            <xct:AnimationBehavior.AnimationType>
+                                <xct:FadeAnimation Easing="{x:Static Easing.Linear}"
+                                                   Duration="100"/>
+                            </xct:AnimationBehavior.AnimationType>
+                        </xct:AnimationBehavior>
+                </Button.Behaviors>
+            </Button>
+
+             <BoxView BackgroundColor="Blue"
+                     HeightRequest="40"
+                     HorizontalOptions="Fill">
+                <BoxView.Behaviors>
+                    <xct:AnimationBehavior Command="{Binding MyCommand}">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:RotateAnimation/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </BoxView.Behaviors>
+            </BoxView>
+
+             <ImageButton Source="xamarinstore.jpg"
+                          BackgroundColor="Transparent"
+                          HeightRequest="50">
+                <ImageButton.Behaviors>
+                    <xct:AnimationBehavior EventName="Clicked">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:FlipVerticalAnimation/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </ImageButton.Behaviors>
+            </ImageButton>
+            
+ 
+             <Label Text="{xct:Translate Shake}">
+                <Label.Behaviors>
+                    <xct:AnimationBehavior Command="{Binding MyCommand}">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:ShakeAnimation/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </Label.Behaviors>
+            </Label>
+
+            <Entry>
+                <Entry.Behaviors>
+                    <xct:AnimationBehavior Command="{Binding MyCommand}"
+                                           EventName="Focused">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:ShakeAnimation/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </Entry.Behaviors>
+            </Entry>
+           
+             <Switch>
+                <Switch.Behaviors>
+                    <xct:AnimationBehavior EventName="Toggled"
+                                           Command="{Binding MyCommand}">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:FadeAnimation/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </Switch.Behaviors>
+            </Switch>
+
+            <CheckBox>
+                <CheckBox.Behaviors>
+                    <xct:AnimationBehavior EventName="CheckedChanged"
+                                           Command="{Binding MyCommand}">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:FadeAnimation/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </CheckBox.Behaviors>
+            </CheckBox>
+        </StackLayout>
+  </ScrollView>
+</pages:BasePage>
