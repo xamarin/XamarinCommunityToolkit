@@ -12,6 +12,10 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		double bl = 0.0;
 		double br = 0.0;
 
+		Color MyRed = Color.FromHex("#97DC91");
+		Color MyGreen = Color.FromHex("#688ff4");
+		Color MyBlue = Color.FromHex("#FFA7A3");
+
 		public SegmentedViewPage()
 		{
 			InitializeComponent();
@@ -69,20 +73,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 			var color = Color.Default;
 
-			switch (picker.SelectedIndex)
+			color = picker.SelectedIndex switch
 			{
-				case 1:
-					color = Color.Green;
-					break;
-				case 2:
-					color = Color.Blue;
-					break;
-				default:
-				case 0:
-					color = Color.Red;
-					break;
-			}
-
+				1 => Color.Green,
+				2 => Color.Blue,
+				_ => Color.Red,
+			};
 			TextSegments.Color = color;
 			//ImageSegments.Color = color;
 		}
@@ -94,20 +90,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 			var color = Color.Default;
 
-			switch (picker.SelectedIndex)
+			color = picker.SelectedIndex switch
 			{
-				case 1:
-					color = Color.FromHex("#97DC91");
-					break;
-				case 2:
-					color = Color.FromHex("#688ff4");
-					break;
-				default:
-				case 0:
-					color = Color.FromHex("#FFA7A3");
-					break;
-			}
-
+				1 => MyRed,
+				2 => MyGreen,
+				_ => MyBlue,
+			};
 			TextSegments.BackgroundColor = color;
 			//ImageSegments.BackgroundColor = color;
 		}
@@ -136,19 +124,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			if (!(sender is Picker picker))
 				return;
 
-			switch (picker.SelectedIndex)
+			TextSegments.NormalTextColor = picker.SelectedIndex switch
 			{
-				case 1:
-					TextSegments.NormalTextColor = Color.FromHex("#97DC91");
-					break;
-				case 2:
-					TextSegments.NormalTextColor = Color.FromHex("#688ff4");
-					break;
-				default:
-				case 0:
-					TextSegments.NormalTextColor = Color.FromHex("#FFA7A3");
-					break;
-			}
+				1 => MyRed,
+				2 => MyGreen,
+				_ => MyBlue,
+			};
 		}
 
 		void Selected_Text_Picker_SelectedIndexChanged(System.Object sender, System.EventArgs e)
@@ -156,19 +137,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			if (!(sender is Picker picker))
 				return;
 
-			switch (picker.SelectedIndex)
+			TextSegments.SelectedTextColor = picker.SelectedIndex switch
 			{
-				case 1:
-					TextSegments.SelectedTextColor = Color.FromHex("#97DC91");
-					break;
-				case 2:
-					TextSegments.SelectedTextColor = Color.FromHex("#688ff4");
-					break;
-				default:
-				case 0:
-					TextSegments.SelectedTextColor = Color.FromHex("#FFA7A3");
-					break;
-			}
+				1 => MyRed,
+				2 => MyGreen,
+				_ => MyBlue,
+			};
 		}
 	}
 }

@@ -29,20 +29,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public IList ItemsSource
 		{
-			get { return (IList)GetValue(ItemsSourceProperty); }
-			set { SetValue(ItemsSourceProperty, value); }
+			get => (IList)GetValue(ItemsSourceProperty);
+			set => SetValue(ItemsSourceProperty, value);
 		}
 
 		public object SelectedItem
 		{
-			get { return GetValue(SelectedItemProperty); }
-			set { SetValue(SelectedItemProperty, value); }
+			get => GetValue(SelectedItemProperty);
+			set => SetValue(SelectedItemProperty, value);
 		}
 
 		public SegmentMode DisplayMode
 		{
-			get { return (SegmentMode)GetValue(DisplayModeProperty); }
-			set { SetValue(DisplayModeProperty, value); }
+			get => (SegmentMode)GetValue(DisplayModeProperty);
+			set => SetValue(DisplayModeProperty, value);
 		}
 
 		public static readonly BindableProperty CornerRadiusProperty =
@@ -50,8 +50,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public CornerRadius CornerRadius
 		{
-			get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-			set { SetValue(CornerRadiusProperty, value); }
+			get => (CornerRadius)GetValue(CornerRadiusProperty);
+			set => SetValue(CornerRadiusProperty, value);
 		}
 
 		BindingBase itemDisplayBinding;
@@ -177,9 +177,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!(bindable is SegmentedView segment))
 				return;
 
-			var index = 0;
-
-			if (!int.TryParse(newValue?.ToString(), out index))
+			if (!int.TryParse(newValue?.ToString(), out var index))
 				index = 0;
 
 			segment.SelectedIndexChanged?.Invoke(segment, new SelectedItemChangedEventArgs(segment?.Items[index], index));
@@ -190,19 +188,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public Color Color
 		{
 			get => (Color)GetValue(ColorProperty);
-			set { SetValue(ColorProperty, value); }
+			set => SetValue(ColorProperty, value);
 		}
 
 		public Color NormalTextColor
 		{
 			get => (Color)GetValue(NormalTextColorProperty);
-			set { SetValue(NormalTextColorProperty, value); }
+			set => SetValue(NormalTextColorProperty, value);
 		}
 
 		public Color SelectedTextColor
 		{
 			get => (Color)GetValue(SelectedTextColorProperty);
-			set { SetValue(SelectedTextColorProperty, value); }
+			set => SetValue(SelectedTextColorProperty, value);
 		}
 
 		public bool IsColorSet => IsSet(ColorProperty);

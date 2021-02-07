@@ -38,6 +38,10 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		public AColor TintColor { get; set; } = AColor.Rgb(14, 98, 255);
 
+		public AColor NormalTextColor { get; set; }
+
+		public AColor SelectedTextColor { get; set; }
+
 		public RadioButton CurrentSegment { get; set; }
 
 		public ObservableCollection<string> Children { get; } = new ObservableCollection<string>();
@@ -78,6 +82,9 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		void Build()
 		{
+			NormalTextColor = TintColor;
+			SelectedTextColor = AColor.White;
+
 			strokeWidth = (int)context.ToPixels(defaultStrokeWidth);
 			Orientation = Orientation.Horizontal;
 			LayoutParameters = new LayoutParams(LayoutParams.MatchParent, LayoutParams.WrapContent);
@@ -122,8 +129,10 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			},
 			new int[] // colors
 			{
-				AColor.White,
-				TintColor
+				SelectedTextColor,
+				NormalTextColor
+				//AColor.White,
+				//TintColor
 			});
 
 		AContentRes.ColorStateList SegmentColorSelector => new AContentRes.ColorStateList(

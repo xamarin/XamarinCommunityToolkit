@@ -130,6 +130,18 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 					await Control.Initialize();
 				}
 
+				if (e.PropertyName == SegmentedView.NormalTextColorProperty.PropertyName)
+				{
+					Control.NormalTextColor = Element.NormalTextColor.ToAndroid();
+					await Control.Initialize();
+				}
+
+				if (e.PropertyName == SegmentedView.SelectedTextColorProperty.PropertyName)
+				{
+					Control.SelectedTextColor = Element.SelectedTextColor.ToAndroid();
+					await Control.Initialize();
+				}
+
 				if (e.PropertyName == SegmentedView.DisplayModeProperty.PropertyName)
 				{
 					Control.DisplayMode = Element.DisplayMode;
