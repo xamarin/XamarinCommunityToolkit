@@ -283,7 +283,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					await Task.Delay(5);
 				}
 
-				// Image has probles with loading images with disabled caching
+				// Image has problems with loading images with disabled caching
 				// that's why we force to enable caching
 				Image.Source = Source is UriImageSource uriImageSource && !uriImageSource.CachingEnabled
 					? new UriImageSource
