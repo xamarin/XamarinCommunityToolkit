@@ -148,25 +148,27 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var originY = Element.VerticalOptions.Alignment switch
 				{
-					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height - PreferredContentSize.Height,
-					LayoutAlignment.Center => (UIScreen.MainScreen.Bounds.Height / 2) - (PreferredContentSize.Height / 2),
+					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height,
+					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Height * 0.5,
 					_ => 0f
 				};
 
 				var originX = Element.HorizontalOptions.Alignment switch
 				{
 					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Width,
-					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Width / 2,
+					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Width * 0.5,
 					_ => 0f
 				};
 
 				PopoverPresentationController.SourceRect = new CGRect(originX, originY, 0, 0);
+				PopoverPresentationController.PermittedArrowDirections = 0;
 			}
 			else
 			{
 				var view = Platform.GetRenderer(Element.Anchor).NativeView;
 				PopoverPresentationController.SourceView = view;
 				PopoverPresentationController.SourceRect = view.Bounds;
+				PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Up;
 			}
 		}
 
@@ -187,8 +189,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			((UIPopoverPresentationController)PresentationController).SourceView = ViewController.View;
 
-			// Setting PermittedArrowDirector to 0 breaks the Popover layout. It would be nice if there is no anchor to remove the arrow.
-			((UIPopoverPresentationController)PresentationController).PermittedArrowDirections = UIPopoverArrowDirection.Up;
 			((UIPopoverPresentationController)PresentationController).Delegate = popOverDelegate;
 		}
 
