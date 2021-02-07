@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using static System.Math;
@@ -11,7 +13,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class AvatarView : BaseTemplatedView<Frame>
 	{
 		const string emptyText = "X";
+
 		static readonly IImageSourceValidator imageSourceValidator = new ImageSourceValidator();
+
+		readonly SemaphoreSlim imageSourceSemaphore = new SemaphoreSlim(1);
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="Aspect"/> property.
@@ -259,23 +264,37 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Image.BatchBegin();
 			if (shouldUpdateSource)
 			{
-				if (Image.Source == Source)
-					Image.Source = null;
-
+				await imageSourceSemaphore.WaitAsync();
 				try
 				{
 					Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(Source);
 				}
 				catch (OperationCanceledException)
 				{
-					Forms.Internals.Log.Warning("CancellationException", "IsImageSourceValidAsync was cancelled.");
+					// Loading was canceled due to a new loading is started.
 				}
-				catch (Exception ex)
+
+				if (Image.Source == Source)
 				{
-					Forms.Internals.Log.Warning("Error", ex.Message);
-					throw;
+					Image.Source = null;
+
+					// We put a short delay to ensure that Image will refresh its Source
+					// in case Source's BindingContex updated.
+					await Task.Delay(5);
 				}
-				Image.Source = Source;
+
+				// Image has probles with loading images with disabled caching
+				// that's why we force to enable caching
+				Image.Source = Source is UriImageSource uriImageSource && !uriImageSource.CachingEnabled
+					? new UriImageSource
+					{
+						Uri = uriImageSource.Uri,
+						CachingEnabled = true,
+						CacheValidity = TimeSpan.FromSeconds(1)
+					}
+					: Source;
+
+				imageSourceSemaphore.Release();
 			}
 
 			Image.Aspect = Aspect;
