@@ -53,8 +53,8 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			await PopulateSegments(Element.Items);
 			Control.ClipsToBounds = true;
 			Control.SelectedSegment = Element.SelectedIndex;
-			Control.BackgroundColor = Element.BackgroundColor.ToUIColor();
 			Control.Layer.MasksToBounds = true;
+			Control.BackgroundColor = Element.BackgroundColor.ToUIColor();
 			UpdateSelectedSegment(Element.SelectedIndex);
 
 			Control.ValueChanged += OnSelectedIndexChanged;
@@ -64,6 +64,16 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			{
 				Control.SelectedSegmentTintColor = Element.Color.ToUIColor();
 				Control.TintColor = Element.Color.ToUIColor();
+			}
+
+			if (Element.IsNormalTextColorSet)
+			{
+				Control.SetTitleTextAttributes(new UITextAttributes() { TextColor = Element.NormalTextColor.ToUIColor() }, UIControlState.Normal);
+			}
+
+			if (Element.IsSelectedTextColorSet)
+			{
+				Control.SetTitleTextAttributes(new UITextAttributes() { TextColor = Element.SelectedTextColor.ToUIColor() }, UIControlState.Selected);
 			}
 		}
 
@@ -141,6 +151,12 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 
 			if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
 				Control.SelectedSegmentTintColor = Element.Color.ToUIColor();
+
+			if (e.PropertyName == SegmentedView.NormalTextColorProperty.PropertyName)
+				Control.SetTitleTextAttributes(new UITextAttributes() { TextColor = Element.NormalTextColor.ToUIColor() }, UIControlState.Normal);
+
+			if (e.PropertyName == SegmentedView.SelectedTextColorProperty.PropertyName)
+				Control.SetTitleTextAttributes(new UITextAttributes() { TextColor = Element.SelectedTextColor.ToUIColor() }, UIControlState.Selected);
 		}
 
 		void OnSelectedIndexChanged(object sender, EventArgs e)

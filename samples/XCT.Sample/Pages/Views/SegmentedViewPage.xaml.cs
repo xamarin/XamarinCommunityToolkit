@@ -1,5 +1,6 @@
 ﻿using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
+using System.Collections;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
@@ -120,12 +121,52 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			{
 				case 1:
 					TextSegments.DisplayMode = SegmentMode.Image;
-					TextSegments.ItemsSource = (BindingContext as ViewModels.Views.SegmentedViewModel).IconOptions;
+					TextSegments.ItemsSource = (IList)(BindingContext as ViewModels.Views.SegmentedViewModel).IconOptions;
 					break;
 				case 0:
 				default:
 					TextSegments.DisplayMode = SegmentMode.Text;
-					TextSegments.ItemsSource = (BindingContext as ViewModels.Views.SegmentedViewModel).Options;
+					TextSegments.ItemsSource = (IList)(BindingContext as ViewModels.Views.SegmentedViewModel).Options;
+					break;
+			}
+		}
+
+		void Text_Picker_SelectedIndexChanged(System.Object sender, System.EventArgs e)
+		{
+			if (!(sender is Picker picker))
+				return;
+
+			switch (picker.SelectedIndex)
+			{
+				case 1:
+					TextSegments.NormalTextColor = Color.FromHex("#97DC91");
+					break;
+				case 2:
+					TextSegments.NormalTextColor = Color.FromHex("#688ff4");
+					break;
+				default:
+				case 0:
+					TextSegments.NormalTextColor = Color.FromHex("#FFA7A3");
+					break;
+			}
+		}
+
+		void Selected_Text_Picker_SelectedIndexChanged(System.Object sender, System.EventArgs e)
+		{
+			if (!(sender is Picker picker))
+				return;
+
+			switch (picker.SelectedIndex)
+			{
+				case 1:
+					TextSegments.SelectedTextColor = Color.FromHex("#97DC91");
+					break;
+				case 2:
+					TextSegments.SelectedTextColor = Color.FromHex("#688ff4");
+					break;
+				default:
+				case 0:
+					TextSegments.SelectedTextColor = Color.FromHex("#FFA7A3");
 					break;
 			}
 		}

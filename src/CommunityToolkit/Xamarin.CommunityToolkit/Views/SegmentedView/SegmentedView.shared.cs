@@ -12,6 +12,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public event EventHandler<SelectedItemChangedEventArgs> SelectedIndexChanged;
 
 		public static BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(SegmentedView));
+		public static BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(SegmentedView));
+		public static BindableProperty NormalTextColorProperty = BindableProperty.Create(nameof(NormalTextColor), typeof(Color), typeof(SegmentedView));
 		public static BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(SegmentedView), 0, propertyChanged: OnSegmentSelected);
 		public static BindableProperty DisplayModeProperty = BindableProperty.Create(nameof(DisplayMode), typeof(SegmentMode), typeof(SegmentedView));
 
@@ -191,6 +193,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set { SetValue(ColorProperty, value); }
 		}
 
+		public Color NormalTextColor
+		{
+			get => (Color)GetValue(NormalTextColorProperty);
+			set { SetValue(NormalTextColorProperty, value); }
+		}
+
+		public Color SelectedTextColor
+		{
+			get => (Color)GetValue(SelectedTextColorProperty);
+			set { SetValue(SelectedTextColorProperty, value); }
+		}
+
 		public bool IsColorSet => IsSet(ColorProperty);
+
+		public bool IsSelectedTextColorSet => IsSet(SelectedTextColorProperty);
+
+		public bool IsNormalTextColorSet => IsSet(NormalTextColorProperty);
 	}
 }

@@ -166,7 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj">
-      <Project>{b0dcdf81-953d-47da-a7d4-0565339bf07c}</Project>
+      <Project>{46A09626-3EA5-4443-9CEE-055159A1080F}</Project>
       <Name>Xamarin.CommunityToolkit</Name>
     </ProjectReference>
     <ProjectReference Include="..\XCT.Sample\Xamarin.CommunityToolkit.Sample.csproj">

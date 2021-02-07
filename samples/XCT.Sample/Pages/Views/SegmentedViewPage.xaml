@@ -15,7 +15,7 @@
             Margin="20"
             RowSpacing="20">
             <Frame CornerRadius="10" Grid.Row="0">
-                <StackLayout>
+                <StackLayout Spacing="10">
                     <StackLayout Orientation="Horizontal">
                         <Label  Text="Display Mode"
                                 HorizontalOptions="FillAndExpand"/>
@@ -47,6 +47,32 @@
                                 HorizontalOptions="FillAndExpand"/>
                         <Picker Title="Select"
                                 SelectedIndexChanged="BG_Picker_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Red</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Blue</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                    Spacing="20">
+                        <Label Text="Normal Text"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="Text_Picker_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Red</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Blue</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                    Spacing="20">
+                        <Label Text="Selected Text"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="Selected_Text_Picker_SelectedIndexChanged">
                             <Picker.Items>
                                 <x:String>Red</x:String>
                                 <x:String>Green</x:String>
