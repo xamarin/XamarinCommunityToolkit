@@ -345,8 +345,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				await Task.Delay(1);
 
 				var source = Source;
-				SetInheritedBindingContext(source, BindingContext);
-				sourceBindingContext = source.BindingContext;
+				if (source != null)
+					SetInheritedBindingContext(source, BindingContext);
+
+				sourceBindingContext = source?.BindingContext;
 
 				imageLoadingTokenSource = new CancellationTokenSource();
 
