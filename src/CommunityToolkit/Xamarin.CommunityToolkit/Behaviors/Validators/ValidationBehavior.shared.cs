@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -8,6 +10,9 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 	{
 		public static readonly BindableProperty IsValidProperty =
 			BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(ValidationBehavior), true, BindingMode.OneWayToSource);
+
+		public static readonly BindableProperty IsRunningProperty =
+			BindableProperty.Create(nameof(IsRunning), typeof(bool), typeof(ValidationBehavior), false, BindingMode.OneWayToSource);
 
 		public static readonly BindableProperty ValidStyleProperty =
 			BindableProperty.Create(nameof(ValidStyle), typeof(Style), typeof(ValidationBehavior), propertyChanged: OnValidationPropertyChanged);
@@ -33,10 +38,18 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		BindingBase defaultValueBinding;
 
+		CancellationTokenSource validationTokenSource;
+
 		public bool IsValid
 		{
 			get => (bool)GetValue(IsValidProperty);
 			set => SetValue(IsValidProperty, value);
+		}
+
+		public bool IsRunning
+		{
+			get => (bool)GetValue(IsRunningProperty);
+			set => SetValue(IsRunningProperty, value);
 		}
 
 		public Style ValidStyle
@@ -79,11 +92,13 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		protected virtual ICommand DefaultForceValidateCommand => new Command(ForceValidate);
 
-		public void ForceValidate() => UpdateState(true);
+		public void ForceValidate() => _ = UpdateStateAsync(true);
 
-		protected virtual object DecorateValue() => Value;
+		internal Task ValidateNestedAsync(CancellationToken token) => UpdateStateAsync(true, token);
 
-		protected abstract bool Validate(object value);
+		protected virtual object Decorate(object value) => value;
+
+		protected abstract Task<bool> ValidateAsync(object value, CancellationToken token);
 
 		protected override void OnAttachedTo(VisualElement bindable)
 		{
@@ -93,7 +108,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			currentStatus = ValidationFlags.ValidateOnAttaching;
 
 			OnValuePropertyNamePropertyChanged();
-			UpdateState(false);
+			_ = UpdateStateAsync(false);
 			isAttaching = false;
 		}
 
@@ -117,12 +132,12 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 				currentStatus = View.IsFocused
 					? ValidationFlags.ValidateOnFocusing
 					: ValidationFlags.ValidateOnUnfocusing;
-				UpdateState(false);
+				_ = UpdateStateAsync(false);
 			}
 		}
 
 		protected static void OnValidationPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-			=> ((ValidationBehavior)bindable).UpdateState(false);
+			=> _ = ((ValidationBehavior)bindable).UpdateStateAsync(false);
 
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 		{
@@ -163,14 +178,39 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			SetBinding(ValueProperty, defaultValueBinding);
 		}
 
-		void UpdateState(bool isForced)
+		async Task UpdateStateAsync(bool isForced, CancellationToken? parentToken = null)
 		{
+			IsRunning = true;
+
 			if ((View?.IsFocused ?? false) && Flags.HasFlag(ValidationFlags.ForceMakeValidWhenFocused))
+			{
+				ResetValidationTokenSource(null);
 				IsValid = true;
+			}
 			else if (isForced || (currentStatus != ValidationFlags.None && Flags.HasFlag(currentStatus)))
-				IsValid = Validate(DecorateValue());
+			{
+				using var tokenSource = new CancellationTokenSource();
+				var token = parentToken ?? tokenSource.Token;
+				ResetValidationTokenSource(tokenSource);
+
+				try
+				{
+					var isValid = await ValidateAsync(Decorate(Value), token);
+
+					if (token.IsCancellationRequested)
+						return;
+
+					validationTokenSource = null;
+					IsValid = isValid;
+				}
+				catch (TaskCanceledException)
+				{
+					return;
+				}
+			}
 
 			UpdateStyle();
+			IsRunning = false;
 		}
 
 		void UpdateStyle()
@@ -181,6 +221,12 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			View.Style = IsValid
 				? ValidStyle
 				: InvalidStyle;
+		}
+
+		void ResetValidationTokenSource(CancellationTokenSource newTokenSource)
+		{
+			validationTokenSource?.Cancel();
+			validationTokenSource = newTokenSource;
 		}
 	}
 }

@@ -18,14 +18,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected override RegexOptions DefaultRegexOptions => RegexOptions.IgnoreCase;
 
-		protected override object DecorateValue()
+		protected override object Decorate(object value)
 		{
-			var value = base.DecorateValue()?.ToString();
+			var stringValue = base.Decorate(value)?.ToString();
 #if NETSTANDARD1_0
-			return value;
+			return stringValue;
 #else
-			if (string.IsNullOrWhiteSpace(value))
-				return value;
+			if (string.IsNullOrWhiteSpace(stringValue))
+				return stringValue;
 
 			try
 			{
@@ -40,11 +40,11 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				}
 
 				// Normalize the domain
-				return normalizerRegex.Replace(value, DomainMapper);
+				return normalizerRegex.Replace(stringValue, DomainMapper);
 			}
 			catch (ArgumentException)
 			{
-				return value;
+				return stringValue;
 			}
 #endif
 		}

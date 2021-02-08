@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
@@ -14,8 +16,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(UriKindProperty, value);
 		}
 
-		protected override bool Validate(object value)
-			=> base.Validate(value)
+		protected override async Task<bool> ValidateAsync(object value, CancellationToken token)
+			=> await base.ValidateAsync(value, token)
 				&& Uri.IsWellFormedUriString(value?.ToString(), UriKind);
 	}
 }

@@ -1,4 +1,6 @@
-﻿using Xamarin.CommunityToolkit.Behaviors.Internals;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
@@ -14,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(RequiredStringProperty, value);
 		}
 
-		protected override bool Validate(object value)
-			=> value?.ToString() == RequiredString;
+		protected override Task<bool> ValidateAsync(object value, CancellationToken token)
+			=> Task.FromResult(value?.ToString() == RequiredString);
 	}
 }
