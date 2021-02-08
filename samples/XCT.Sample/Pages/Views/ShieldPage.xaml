@@ -6,72 +6,89 @@
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ShieldPage"
                 Title="Shield">
 
-    <StackLayout
-        Spacing="10">
+    <pages:BasePage.Resources>
+        <Style TargetType="xct:Shield">
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+    </pages:BasePage.Resources>
 
-        <StackLayout
-            Orientation="Horizontal">
+    <Grid RowDefinitions="auto,auto,auto,auto,auto" ColumnDefinitions="auto,auto"
+        RowSpacing="70" ColumnSpacing="50" Margin="20" HorizontalOptions="Center">
 
-            <xct:Shield
-                Subject="C#"
-                Status=">=4.5"
-                Color="DodgerBlue"
-                TextColor="White"
-                Margin="2,0"
-                Tapped="OnShieldTapped" />
+        <xct:Shield Grid.Row="0" Grid.Column="0"
+                    Subject="C#"
+                    Status=">=4.5"
+                    StatusColor="DodgerBlue"
+                    StatusTextColor="White"
+                    Tapped="OnShieldTapped" />
 
-            <xct:Shield
-                Subject="IDE"
-                Status="2019"
-                Color="DodgerBlue"
-                TextColor="White"
-                Margin="2,0" />
-
-            <xct:Shield
-                Subject="chat"
-                Status="on discord"
-                Color="SeaGreen"
-                TextColor="White"
-                Margin="2,0" />
-        </StackLayout>
-
-        <StackLayout
-            Orientation="Horizontal">
-
-            <xct:Shield
-                Subject="IDE"
-                Status="2019"
-                Color="DodgerBlue"
-                TextColor="White"
-                FontSize="20"
-                Margin="2,0" />
-
-            <xct:Shield
-                Subject="IDE"
-                Status="2019"
-                Color="DodgerBlue"
-                TextColor="White"
-                FontSize="Title"
-                Margin="2,0" />
-
-            <xct:Shield
-                Subject="IDE"
-                Status="2019"
-                Color="DodgerBlue"
-                TextColor="White"
-                FontAttributes="Bold"
-                Margin="2,0" />
-
-            <xct:Shield
-                Subject="IDE"
-                Status="2019"
-                Color="DodgerBlue"
-                TextColor="White"
-                FontAttributes="Italic"
-                Margin="2,0" />
-            
-        </StackLayout>
+        <xct:Shield Grid.Row="0" Grid.Column="1"
+                    Subject="IDE"
+                    Status="2019"
+                    StatusColor="DodgerBlue"
+                    StatusTextColor="White" />
         
-    </StackLayout>
+        <xct:Shield Grid.Row="1" Grid.Column="0"
+                    Subject="chat"
+                    Status="on discord"
+                    StatusColor="SeaGreen"
+                    StatusTextColor="White" />
+
+        <xct:Shield Grid.Row="1" Grid.Column="1"
+                    Subject="IDE"
+                    Status="2019"
+                    StatusColor="DodgerBlue"
+                    StatusTextColor="White"
+                    FontSize="20" />
+
+        <xct:Shield Grid.Row="2" Grid.Column="0"
+                    Subject="IDE"
+                    Status="2019"
+                    StatusColor="DodgerBlue"
+                    StatusTextColor="White"
+                    FontSize="Medium" />
+
+        <xct:Shield Grid.Row="2" Grid.Column="1"
+                    Subject="IDE"
+                    Status="2019"
+                    StatusColor="DodgerBlue"
+                    StatusTextColor="White"
+                    FontSize="Medium"
+                    FontAttributes="Bold" />
+
+        <xct:Shield Grid.Row="3" Grid.Column="0"
+                    Subject="Radio"
+                    StatusColor="Red"
+                    SubjectColor="Cyan"
+                    SubjectTextColor="Black"
+                    Status="LIVE"
+                    StatusTextColor="White"
+                    FontSize="Large" />
+
+        <xct:Shield Grid.Row="3" Grid.Column="1"
+                    FontSize="Large"
+                    Subject="Server"
+                    Status="Up"
+                    SubjectColor="Black"
+                    StatusColor="LimeGreen"
+                    StatusTextColor="Black" />
+
+        <xct:Shield Grid.Row="4" Grid.Column="0"
+                    FontSize="Large"
+                    Subject="Server"
+                    Status="Down"
+                    SubjectColor="Black"
+                    StatusColor="Red"
+                    StatusTextColor="White"/>
+
+        <xct:Shield Grid.Row="4" Grid.Column="1"
+                    FontSize="Large"
+                    Subject="Server"
+                    Status="Pending"
+                    SubjectColor="Black"
+                    StatusColor="Yellow"
+                    StatusTextColor="Black" />
+    </Grid>
     
 </pages:BasePage>

@@ -30,6 +30,42 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		/// <summary>
+		/// Backing BindableProperty for the <see cref="SubjectColor"/> property.
+		/// </summary>
+		public static readonly BindableProperty SubjectColorProperty =
+			BindableProperty.Create(nameof(SubjectColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnSubjectColorChanged);
+
+		static void OnSubjectColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubjectColor();
+
+		/// <summary>
+		/// Background <see cref="Forms.Color" /> of the right side of the <see cref="Shield" />. This is a bindable property.
+		/// </summary>
+		public Color SubjectColor
+		{
+			get => (Color)GetValue(SubjectColorProperty);
+			set => SetValue(SubjectColorProperty, value);
+		}
+
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="SubjectTextColor"/> property.
+		/// </summary>
+		public static readonly BindableProperty SubjectTextColorProperty =
+			BindableProperty.Create(nameof(SubjectTextColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnSubjectTextColorChanged);
+
+		static void OnSubjectTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubjectTextColor();
+
+		/// <summary>
+		/// Text <see cref="Forms.Color" /> of the text on the right side of the Shield
+		/// </summary>
+		public Color SubjectTextColor
+		{
+			get => (Color)GetValue(SubjectTextColorProperty);
+			set => SetValue(SubjectTextColorProperty, value);
+		}
+
+		/// <summary>
 		/// Backing BindableProperty for the <see cref="Status"/> property.
 		/// </summary>
 		public static readonly BindableProperty StatusProperty =
@@ -48,36 +84,39 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		/// <summary>
-		/// Backing BindableProperty for the <see cref="Color"/> property.
+		/// Backing BindableProperty for the <see cref="StatusColor"/> property.
 		/// </summary>
-		public static readonly BindableProperty ColorProperty =
-			BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), Color.Default,
-				propertyChanged: OnColorChanged);
+		public static readonly BindableProperty StatusColorProperty =
+			BindableProperty.Create(nameof(StatusColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnStatusColorChanged);
 
-		static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateColor();
+		static void OnStatusColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatusColor();
 
 		/// <summary>
 		/// Background <see cref="Forms.Color" /> of the right side of the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
-		public Color Color
+		public Color StatusColor
 		{
-			get => (Color)GetValue(ColorProperty);
-			set => SetValue(ColorProperty, value);
+			get => (Color)GetValue(StatusColorProperty);
+			set => SetValue(StatusColorProperty, value);
 		}
 
-		public static readonly BindableProperty TextColorProperty =
-			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
-				propertyChanged: OnTextColorChanged);
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="StatusTextColor"/> property.
+		/// </summary>
+		public static readonly BindableProperty StatusTextColorProperty =
+			BindableProperty.Create(nameof(StatusTextColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnStatusTextColorChanged);
 
-		static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateTextColor();
+		static void OnStatusTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatusTextColor();
 
 		/// <summary>
 		/// Text <see cref="Forms.Color" /> of the text on the right side of the Shield
 		/// </summary>
-		public Color TextColor
+		public Color StatusTextColor
 		{
-			get => (Color)GetValue(TextColorProperty);
-			set => SetValue(TextColorProperty, value);
+			get => (Color)GetValue(StatusTextColorProperty);
+			set => SetValue(StatusTextColorProperty, value);
 		}
 
 		/// <summary>
@@ -174,6 +213,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		Label ShieldStatus { get; } = CreateStatusElement();
 
+		static Grid CreateSubjectContainerElement()
+			=> new Grid()
+			{
+				BackgroundColor = Color.FromHex("#555555")
+			};
+
+		static Label CreateSubjectElement()
+		  => new Label
+		  {
+			  TextColor = Color.White,
+			  VerticalOptions = LayoutOptions.Center,
+			  Margin = new Thickness(4, 0)
+		  };
+
+		static Grid CreateStatusContainerElement()
+		 => new Grid();
+
+		static Label CreateStatusElement()
+		   => new Label
+		   {
+			   VerticalOptions = LayoutOptions.Center,
+			   Margin = new Thickness(4, 0)
+		   };
+
 		protected override void OnControlInitialized(Frame control)
 		{
 			control.CornerRadius = 4;
@@ -204,30 +267,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateIsEnabled();
 		}
 
-		static Grid CreateSubjectContainerElement()
-			=> new Grid
-			{
-				BackgroundColor = Color.FromHex("#555555")
-			};
-
-		static Label CreateSubjectElement()
-		  => new Label
-		  {
-			  TextColor = Color.White,
-			  VerticalOptions = LayoutOptions.Center,
-			  Margin = new Thickness(4, 0)
-		  };
-
-		static Grid CreateStatusContainerElement()
-		 => new Grid();
-
-		static Label CreateStatusElement()
-		   => new Label
-		   {
-			   VerticalOptions = LayoutOptions.Center,
-			   Margin = new Thickness(4, 0)
-		   };
-
 		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			base.OnPropertyChanged(propertyName);
@@ -240,9 +279,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateStatus() => ShieldStatus.Text = Status;
 
-		void UpdateColor() => ShieldStatusContainer.BackgroundColor = Color;
+		void UpdateSubjectColor() => ShieldSubjectContainer.BackgroundColor = SubjectColor;
 
-		void UpdateTextColor() => ShieldStatus.TextColor = TextColor;
+		void UpdateStatusColor() => ShieldStatusContainer.BackgroundColor = StatusColor;
+
+		void UpdateSubjectTextColor() => ShieldSubject.TextColor = SubjectTextColor;
+
+		void UpdateStatusTextColor() => ShieldStatus.TextColor = StatusTextColor;
 
 		void UpdateFont()
 		{
