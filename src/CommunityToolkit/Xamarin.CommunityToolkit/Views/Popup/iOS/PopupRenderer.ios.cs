@@ -168,7 +168,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var view = Platform.GetRenderer(Element.Anchor).NativeView;
 				PopoverPresentationController.SourceView = view;
 				PopoverPresentationController.SourceRect = view.Bounds;
-				PopoverPresentationController.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+				var arrowDirection = Views.iOSSpecific.Popup.GetArrowDirection(Element);
+				PopoverPresentationController.PermittedArrowDirections = arrowDirection switch
+				{
+					Views.iOSSpecific.PopoverArrowDirection.None => 0,
+					Views.iOSSpecific.PopoverArrowDirection.Up => UIPopoverArrowDirection.Up,
+					Views.iOSSpecific.PopoverArrowDirection.Down => UIPopoverArrowDirection.Down,
+					Views.iOSSpecific.PopoverArrowDirection.Left => UIPopoverArrowDirection.Left,
+					Views.iOSSpecific.PopoverArrowDirection.Right => UIPopoverArrowDirection.Right,
+					Views.iOSSpecific.PopoverArrowDirection.Any => UIPopoverArrowDirection.Any,
+					Views.iOSSpecific.PopoverArrowDirection.Unknown => UIPopoverArrowDirection.Unknown,
+					_ => 0
+				};
 			}
 		}
 
