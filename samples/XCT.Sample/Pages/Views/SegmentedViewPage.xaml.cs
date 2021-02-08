@@ -1,4 +1,5 @@
 ﻿using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.CommunityToolkit.Sample.ViewModels.Views;
 using Xamarin.Forms;
 using System.Collections;
 
@@ -12,9 +13,9 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		double bl = 0.0;
 		double br = 0.0;
 
-		Color MyRed = Color.FromHex("#97DC91");
-		Color MyGreen = Color.FromHex("#688ff4");
-		Color MyBlue = Color.FromHex("#FFA7A3");
+		readonly Color MyRed = Color.FromHex("#97DC91");
+		readonly Color MyGreen = Color.FromHex("#688ff4");
+		readonly Color MyBlue = Color.FromHex("#FFA7A3");
 
 		public SegmentedViewPage()
 		{
@@ -110,11 +111,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				case 1:
 					TextSegments.DisplayMode = SegmentMode.Image;
 					TextSegments.ItemsSource = (IList)(BindingContext as ViewModels.Views.SegmentedViewModel).IconOptions;
+					(BindingContext as SegmentedViewModel).SegmentMode = SegmentMode.Image;
 					break;
 				case 0:
 				default:
 					TextSegments.DisplayMode = SegmentMode.Text;
 					TextSegments.ItemsSource = (IList)(BindingContext as ViewModels.Views.SegmentedViewModel).Options;
+					(BindingContext as SegmentedViewModel).SegmentMode = SegmentMode.Text;
 					break;
 			}
 		}
@@ -143,6 +146,16 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				2 => MyGreen,
 				_ => MyBlue,
 			};
+		}
+
+		void Add_Clicked(object sender, System.EventArgs e)
+		{
+			(BindingContext as SegmentedViewModel).AddCommand.Execute(int.Parse((sender as Button).CommandParameter.ToString()));
+		}
+
+		void Delete_Clicked(object sender, System.EventArgs e)
+		{
+			(BindingContext as SegmentedViewModel).RemoveCommand.Execute(int.Parse((sender as Button).CommandParameter.ToString()));
 		}
 	}
 }

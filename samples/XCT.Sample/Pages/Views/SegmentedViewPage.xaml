@@ -160,21 +160,24 @@
                     SelectedItem="{Binding SelectedItem}"
                     SelectedIndex="0"/>
 
-                <!--<StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
 
                 <StackLayout
                     HorizontalOptions="FillAndExpand"
                     Spacing="8"
                     Padding="20">
-                    <Button Text="Add First"
+                    <Button Text="Add"
+                            Clicked="Add_Clicked"
                             Command="{Binding AddTextCommand}"
                             CommandParameter="0"/>
-                    <Button Text="Add Mid"
+                    <!--<Button Text="Add Mid"
+                            Clicked="Add_Clicked"
                             Command="{Binding AddTextCommand}"
                             CommandParameter="1"/>
                     <Button Text="Add Last"
+                            Clicked="Add_Clicked"
                             Command="{Binding AddTextCommand}"
-                            CommandParameter="9"/>
+                            CommandParameter="9"/>-->
                 </StackLayout>
 
                     
@@ -182,17 +185,20 @@
                     HorizontalOptions="FillAndExpand"
                     Spacing="8"
                     Padding="20">
-                    <Button Text="Del First"
+                    <Button Text="Remove"
+                            Clicked="Delete_Clicked"
                             Command="{Binding RemoveTextCommand}"
                             CommandParameter="0"/>
-                    <Button Text="Del Mid" 
+                    <!--<Button Text="Del Mid" 
+                            Clicked="Delete_Clicked"
                             Command="{Binding RemoveTextCommand}"
                             CommandParameter="1"/>
                     <Button Text="Del Last"
+                            Clicked="Delete_Clicked"
                             Command="{Binding RemoveTextCommand}"
-                            CommandParameter="9"/>
+                            CommandParameter="9"/>-->
                 </StackLayout>
-                </StackLayout>-->
+                </StackLayout>
             </StackLayout>
             
             <!--<toolkit:SegmentedView
