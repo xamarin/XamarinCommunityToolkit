@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
@@ -17,6 +18,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static readonly IImageSourceValidator imageSourceValidator = new ImageSourceValidator();
 
 		readonly SemaphoreSlim imageSourceSemaphore = new SemaphoreSlim(1);
+
+		CancellationTokenSource imageLoadingTokenSource;
+
+		object sourceBindingContext;
+
+		// Indicates if any thread already waits for the semaphore is released (0 == False | 1 == True).
+		int isWaitingForSourceUpdateValue;
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="Aspect"/> property.
@@ -213,8 +221,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.HasShadow = false;
 			control.Padding = 0;
 			control.Content = MainLayout;
+		}
 
-			Image.BindingContextChanged += (s, e) => OnValuePropertyChanged(true);
+		protected override void OnBindingContextChanged()
+		{
+			base.OnBindingContextChanged();
+			OnSourcePropertyChanged(true);
 		}
 
 		protected override void OnSizeAllocated(double width, double height)
@@ -230,10 +242,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-			=> ((AvatarView)bindable).OnValuePropertyChanged(false);
+			=> ((AvatarView)bindable).OnValuePropertyChanged();
 
 		static void OnSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
-			=> ((AvatarView)bindable).OnValuePropertyChanged(true);
+			=> ((AvatarView)bindable).OnSourcePropertyChanged(false);
 
 		void OnSizePropertyChanged()
 		{
@@ -256,46 +268,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
-		async void OnValuePropertyChanged(bool shouldUpdateSource)
+		void OnValuePropertyChanged()
 		{
 			if (Control == null)
 				return;
 
 			Image.BatchBegin();
-			if (shouldUpdateSource)
-			{
-				await imageSourceSemaphore.WaitAsync();
-				try
-				{
-					Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(Source);
-				}
-				catch (OperationCanceledException)
-				{
-					// Loading was canceled due to a new loading is started.
-				}
-
-				if (Image.Source == Source)
-				{
-					Image.Source = null;
-
-					// We put a short delay to ensure that Image will refresh its Source
-					// in case Source's BindingContex updated.
-					await Task.Delay(5);
-				}
-
-				// Image has problems with loading images with disabled caching
-				// that's why we force to enable caching
-				Image.Source = Source is UriImageSource uriImageSource && !uriImageSource.CachingEnabled
-					? new UriImageSource
-					{
-						Uri = uriImageSource.Uri,
-						CachingEnabled = true,
-						CacheValidity = TimeSpan.FromSeconds(1)
-					}
-					: Source;
-
-				imageSourceSemaphore.Release();
-			}
 
 			Image.Aspect = Aspect;
 			if (Aspect == Aspect.AspectFit)
@@ -340,6 +318,68 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Control.BorderColor = BorderColor;
 		}
 
+		async void OnSourcePropertyChanged(bool isBindingContextChanged)
+		{
+			if (Control == null)
+				return;
+
+			// If any thread is already waiting for its turn for updating the source
+			// then the current thread needn't have to stay in the queue in this case.
+			if (Interlocked.CompareExchange(ref isWaitingForSourceUpdateValue, 1, 0) == 1)
+				return;
+
+			try
+			{
+				if (!isBindingContextChanged)
+					imageLoadingTokenSource?.Cancel();
+
+				// Only one thread can update the source at the same time.
+				await imageSourceSemaphore.WaitAsync();
+
+				Interlocked.Exchange(ref isWaitingForSourceUpdateValue, 0);
+
+				if (isBindingContextChanged && (sourceBindingContext?.Equals(BindingContext) ?? false))
+					return;
+
+				// Wait for possible BindingContext change to prevent double image loading.
+				await Task.Delay(1);
+
+				var source = Source;
+				SetInheritedBindingContext(source, BindingContext);
+				sourceBindingContext = source.BindingContext;
+
+				imageLoadingTokenSource = new CancellationTokenSource();
+
+				var streamTask = GetStreamImageLoadingTask(source, imageLoadingTokenSource.Token);
+				if (streamTask != null)
+				{
+					var stream = await streamTask;
+					Image.IsVisible = stream != null;
+					source = ImageSource.FromStream(() => stream);
+				}
+				else
+				{
+					try
+					{
+						Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(source);
+					}
+					catch (OperationCanceledException)
+					{
+						// Loading was canceled due to a new loading is started.
+					}
+				}
+
+				Image.Source = source;
+				OnValuePropertyChanged();
+			}
+			finally
+			{
+				imageLoadingTokenSource?.Dispose();
+				imageLoadingTokenSource = null;
+				imageSourceSemaphore.Release();
+			}
+		}
+
 		double CalculateFontSize()
 		{
 			var size = Size;
@@ -351,5 +391,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			return size * .4;
 		}
+
+		Task<Stream> GetStreamImageLoadingTask(ImageSource source, CancellationToken token)
+			=> source switch
+			{
+				IStreamImageSource streamImageSource => streamImageSource.GetStreamAsync(token),
+				UriImageSource uriImageSource => uriImageSource.Uri != null
+					? new UriImageSource
+					{
+						Uri = uriImageSource.Uri,
+						CachingEnabled = uriImageSource.CachingEnabled,
+						CacheValidity = uriImageSource.CacheValidity
+					}.GetStreamAsync(token)
+					: Task.FromResult<Stream>(null),
+				_ => null
+			};
 	}
 }
