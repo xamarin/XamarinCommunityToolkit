@@ -170,14 +170,6 @@
                             Clicked="Add_Clicked"
                             Command="{Binding AddTextCommand}"
                             CommandParameter="0"/>
-                    <!--<Button Text="Add Mid"
-                            Clicked="Add_Clicked"
-                            Command="{Binding AddTextCommand}"
-                            CommandParameter="1"/>
-                    <Button Text="Add Last"
-                            Clicked="Add_Clicked"
-                            Command="{Binding AddTextCommand}"
-                            CommandParameter="9"/>-->
                 </StackLayout>
 
                     
@@ -189,25 +181,9 @@
                             Clicked="Delete_Clicked"
                             Command="{Binding RemoveTextCommand}"
                             CommandParameter="0"/>
-                    <!--<Button Text="Del Mid" 
-                            Clicked="Delete_Clicked"
-                            Command="{Binding RemoveTextCommand}"
-                            CommandParameter="1"/>
-                    <Button Text="Del Last"
-                            Clicked="Delete_Clicked"
-                            Command="{Binding RemoveTextCommand}"
-                            CommandParameter="9"/>-->
                 </StackLayout>
                 </StackLayout>
             </StackLayout>
-            
-            <!--<toolkit:SegmentedView
-                x:Name="ImageSegments"
-                Grid.Row="3"
-                DisplayMode="Image"
-                ItemsSource="{Binding Options}"
-                SelectedItem="{Binding SelectedItem}"
-                CornerRadius="20,0,0,20"/>-->
 
             <Label Text="{Binding SelectedItem, StringFormat='Selected: {0}'}"
                     Grid.Row="4"
