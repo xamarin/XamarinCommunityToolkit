@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.TabItemsSourcePage">
+    
+    <pages:BasePage.BindingContext>
+        <vm:TabItemsSourceViewModel />
+    </pages:BasePage.BindingContext>
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="TabViewItemTemplate">
+                <Grid>
+                    <Label
+                        Text="{Binding Name}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" 
+                        TextColor="White"
+                        Margin="12, 0"/>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="TabContentTemplate">
+                <Grid
+                    Padding="10"
+                    RowSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="250"
+                        WidthRequest="250"
+                        HorizontalOptions="Center"
+                        Source="{Binding Image}"/>
+                    <StackLayout
+                        Grid.Row="1">
+                        <Label
+                            Text="{Binding Name}"
+                            FontSize="Title"
+                            HorizontalOptions="Center"/>
+                        <Label
+                            Text="{Binding Location}"
+                            FontSize="Subtitle"
+                            HorizontalOptions="Center"/>
+                        <Label
+                            Text="{Binding Details}"
+                            FontSize="Small"
+                            HorizontalOptions="Center"
+                            Margin="0, 24, 0, 12"/>
+                    </StackLayout>
+                </Grid>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <pages:BasePage.Content>
+        <Grid>
+            
+            <xct:TabView
+            TabItemsSource="{Binding Monkeys}"
+            TabStripPlacement="Bottom"
+            TabStripBackgroundColor="Blue"
+            TabIndicatorColor="Yellow"
+            TabViewItemDataTemplate="{StaticResource TabViewItemTemplate}"
+            TabContentDataTemplate="{StaticResource TabContentTemplate}" />
+
+            <Button Text="Update data" Command="{Binding UpdateDataCommand}"
+                    HorizontalOptions="Center" VerticalOptions="Start"
+                    />
+
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>

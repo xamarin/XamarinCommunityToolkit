@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.NoContentPage">
+    
+    <pages:BasePage.Content>
+        <StackLayout>
+            <xct:TabView
+                TabStripPlacement="Bottom"
+                TabStripBackgroundColor="Blue"
+                TabStripHeight="60"
+                TabIndicatorColor="Yellow"
+                Margin="12">
+                <xct:TabViewItem
+                    Icon="triangle.png"
+                    Text="Tab 1"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="Tab 2"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                </xct:TabViewItem>
+            </xct:TabView>
+            <xct:TabView
+                x:Name="TabView"
+                TabStripPlacement="Bottom"
+                TabStripHeight="60"
+                TabIndicatorPlacement="Center"
+                TabIndicatorHeight="50"
+                TabIndicatorWidth="100"
+                Margin="12">
+                <xct:TabView.TabStripBackgroundView>
+                    <BoxView
+                        CornerRadius="24"
+                        BackgroundColor="Blue"/>
+                </xct:TabView.TabStripBackgroundView>
+                <xct:TabViewItem
+                    x:Name="Tab1"
+                    Icon="triangle.png"
+                    Text="Tab 1"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    BadgeText="3"
+                    BadgeBackgroundColor="Red"
+                    BadgeTextColor="White"
+                    FontSize="12">
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    x:Name="Tab2"
+                    Icon="circle.png"
+                    Text="Tab 2"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    x:Name="Tab3"
+                    Icon="square.png"
+                    Text="Tab 3"
+                    TextColor="White"
+                    TextColorSelected="Yellow"
+                    FontSize="12">
+                </xct:TabViewItem>
+            </xct:TabView>
+        </StackLayout>
+    </pages:BasePage.Content>
+</pages:BasePage>

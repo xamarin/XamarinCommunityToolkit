@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Effects"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.EffectsGalleryPage"
+                ControlTemplate="{StaticResource GalleryPageTemplate}">
+    <pages:BasePage.BindingContext>
+        <vm:EffectsGalleryViewModel />
+    </pages:BasePage.BindingContext>
+
+</pages:BasePage>

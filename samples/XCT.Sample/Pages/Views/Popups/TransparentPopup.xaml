@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+           xmlns:uwpxct="clr-namespace:Xamarin.CommunityToolkit.UI.Views.WindowsSpecific;assembly=Xamarin.CommunityToolkit"
+           Size="{OnPlatform Android='200, 200', UWP='100, 100', iOS='100, 100'}"
+           Color="Transparent"
+           uwpxct:Popup.BorderColor="Transparent"
+           x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.TransparentPopup">
+
+    <Frame 
+        CornerRadius="{OnPlatform Android='50', UWP='50', iOS='25'}" 
+        HeightRequest="{OnPlatform Android='100', UWP='50'}" WidthRequest="{OnPlatform Android='100', UWP='50'}" 
+        BackgroundColor="Red" />
+    
+</xct:Popup>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.UniformGridPage"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+
+            <Style TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="100" />
+                <Setter Property="WidthRequest" Value="100" />
+            </Style>           
+
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <xct:UniformGrid>
+        <BoxView Color="Red" />
+        <BoxView Color="Yellow" />
+        <BoxView Color="Orange" />
+        <BoxView Color="Purple" />
+        <BoxView Color="Blue" />
+        <BoxView Color="Green" />
+        <BoxView Color="LightGreen" />
+        <BoxView Color="Gray" />
+        <BoxView Color="Pink" />
+    </xct:UniformGrid>
+</pages:BasePage>
