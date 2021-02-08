@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.AttachedProperties
 {
 	public class AttachedPropertiesGalleryViewModel : BaseGalleryViewModel
 	{
-		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(
 				typeof(ProgressBarAttachedPropertiesPage),
