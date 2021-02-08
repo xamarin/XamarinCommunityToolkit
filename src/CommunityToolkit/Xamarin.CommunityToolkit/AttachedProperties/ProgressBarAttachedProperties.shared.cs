@@ -5,7 +5,7 @@ namespace Xamarin.CommunityToolkit.AttachedProperties
 {
 	public static class ProgressBarAttachedProperties
 	{
-		const string animatedProgress = "AnimatedProgres";
+		const string animatedProgress = "AnimatedProgress";
 
 		public static BindableProperty AnimatedProgressProperty = BindableProperty.CreateAttached(animatedProgress, typeof(double), typeof(ProgressBar), 0.0d, propertyChanged: ProgressBarProgressChanged);
 
