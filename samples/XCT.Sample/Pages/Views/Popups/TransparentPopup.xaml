@@ -6,7 +6,7 @@
            xmlns:uwpxct="clr-namespace:Xamarin.CommunityToolkit.UI.Views.WindowsSpecific;assembly=Xamarin.CommunityToolkit"
            Size="{OnPlatform Android='200, 200', UWP='100, 100', iOS='100, 100'}"
            Color="Transparent"
-           iosxct:Popup.ArrowDirection="Down"
+           iosxct:Popup.ArrowDirection="Up"
            uwpxct:Popup.BorderColor="Transparent"
            x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.TransparentPopup">
 
