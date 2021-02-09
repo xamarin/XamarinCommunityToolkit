@@ -118,11 +118,17 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 				if (e.PropertyName == SegmentedView.SelectedIndexProperty.PropertyName)
 					Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
 
-				//if (e.PropertyName == SegmentedView.BackgroundColorProperty.PropertyName)
-				//{
-				//	Control.BackgroundColor = Element.BackgroundColor.ToAndroid();
-				//	await Control.Initialize();
-				//}
+				if (e.PropertyName == SegmentedView.BackgroundColorProperty.PropertyName)
+				{
+					if (Element.BackgroundColor == Color.Default)
+						return;
+
+					Control.BackgroundColor = Element.BackgroundColor.ToAndroid();
+					await Control.Initialize();
+
+					// Set parent view back to transparent so the colors don't bleed
+					Element.BackgroundColor = Color.Default;
+				}
 
 				if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
 				{

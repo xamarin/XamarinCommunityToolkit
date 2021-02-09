@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -208,5 +209,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public bool IsSelectedTextColorSet => IsSet(SelectedTextColorProperty);
 
 		public bool IsNormalTextColorSet => IsSet(NormalTextColorProperty);
+
+		//protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		//{
+		//	if (propertyName == View.BackgroundColorProperty.PropertyName)
+		//	{
+		//		BackgroundColor = Color.Default;
+		//	}
+
+		//	base.OnPropertyChanged(propertyName);
+		//}
 	}
 }

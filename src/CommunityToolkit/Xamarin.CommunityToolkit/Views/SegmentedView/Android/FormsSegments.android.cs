@@ -57,8 +57,6 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		{
 			this.context = context;
 
-			Background = null;
-
 			//if (Children != null)
 			//	Children.CollectionChanged += CollectionChanged;
 
@@ -84,6 +82,8 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		{
 			NormalTextColor = TintColor;
 			SelectedTextColor = AColor.White;
+
+			Background = null;
 
 			strokeWidth = (int)context.ToPixels(defaultStrokeWidth);
 			Orientation = Orientation.Horizontal;
@@ -131,8 +131,6 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			{
 				SelectedTextColor,
 				NormalTextColor
-				//AColor.White,
-				//TintColor
 			});
 
 		AContentRes.ColorStateList SegmentColorSelector => new AContentRes.ColorStateList(
