@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
+using System.Linq;
 using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
@@ -15,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				ItemsSource = new string[] { "A", "B", "C" }
 			};
 
-			Assert.Equal(3, sv.Items.Count);
+			Assert.Equal(3, sv.Items.Count());
 			Assert.Equal(SegmentMode.Text, sv.DisplayMode);
 		}
 
@@ -28,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				ItemsSource = new string[] { "img.png", "img.png", "img.png" }
 			};
 
-			Assert.Equal(3, sv.Items.Count);
+			Assert.Equal(3, sv.Items.Count());
 			Assert.Equal(SegmentMode.Image, sv.DisplayMode);
 		}
 
@@ -74,10 +75,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			{
 				ItemsSource = og
 			};
-			Assert.Equal(3, sv.Items.Count);
+			Assert.Equal(3, sv.Items.Count());
 
 			sv.ItemsSource = updated;
-			Assert.Equal(2, sv.Items.Count);
+			Assert.Equal(2, sv.Items.Count());
 		}
 
 		[Fact]
