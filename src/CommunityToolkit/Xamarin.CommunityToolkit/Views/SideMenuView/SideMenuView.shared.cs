@@ -428,7 +428,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Control.Children.IndexOf(inactiveMenu) < Control.Children.IndexOf(activeMenu))
 				return;
 
-			LowerChild(inactiveMenu);
+			Control.LowerChild(inactiveMenu);
 		}
 
 		bool CheckMenuGestureEnabled(SideMenuState state)
