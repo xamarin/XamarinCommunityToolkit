@@ -82,18 +82,14 @@
                     StatusBackgroundColor="Red"
                     StatusTextColor="White"/>
 
-        <!--<xct:Shield Grid.Row="4" Grid.Column="1"
+        <xct:Shield Grid.Row="4" Grid.Column="1"
                     FontSize="Large"
                     Subject="Server"
                     Status="Pending"
                     SubjectBackgroundColor="Black"
                     StatusBackgroundColor="Yellow"
-                    TextColor="Red" />-->
+                    StatusTextColor="Black" />
 
-        <xct:Shield Grid.Row="4" Grid.Column="1"
-                    Subject="Server"
-                    Status="Pending" StatusTextColor="Green"
-                     />
     </Grid>
 
 </pages:BasePage>
