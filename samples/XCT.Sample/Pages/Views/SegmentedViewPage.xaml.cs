@@ -2,6 +2,7 @@
 using Xamarin.CommunityToolkit.Sample.ViewModels.Views;
 using Xamarin.Forms;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
@@ -108,13 +109,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			{
 				case 1:
 					TextSegments.DisplayMode = SegmentMode.Image;
-					TextSegments.ItemsSource = (IList)(BindingContext as ViewModels.Views.SegmentedViewModel).IconOptions;
+					TextSegments.ItemsSource = (BindingContext as ViewModels.Views.SegmentedViewModel).IconOptions;
 					(BindingContext as SegmentedViewModel).SegmentMode = SegmentMode.Image;
 					break;
 				case 0:
 				default:
 					TextSegments.DisplayMode = SegmentMode.Text;
-					TextSegments.ItemsSource = (IList)(BindingContext as ViewModels.Views.SegmentedViewModel).Options;
+					TextSegments.ItemsSource = (BindingContext as ViewModels.Views.SegmentedViewModel).Options;
 					(BindingContext as SegmentedViewModel).SegmentMode = SegmentMode.Text;
 					break;
 			}

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -18,19 +19,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(SegmentedView), 0, propertyChanged: OnSegmentSelected);
 		public static BindableProperty DisplayModeProperty = BindableProperty.Create(nameof(DisplayMode), typeof(SegmentMode), typeof(SegmentedView));
 
-		public IList<string> Items { get; } = new LockableObservableListWrapper();
+		public IEnumerable<string> Items { get; } = new LockableObservableListWrapper();
 
 		public static readonly BindableProperty ItemsSourceProperty =
-			BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(SegmentedView), default(IList),
+			BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable), typeof(SegmentedView), default(IEnumerable),
 									propertyChanged: OnItemsSourceChanged);
 
 		public static readonly BindableProperty SelectedItemProperty =
 			BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(SegmentedView), null, BindingMode.TwoWay,
 									propertyChanged: OnSelectedItemChanged);
 
-		public IList ItemsSource
+		public IEnumerable<object> ItemsSource
 		{
-			get => (IList)GetValue(ItemsSourceProperty);
+			get => (IEnumerable<object>)GetValue(ItemsSourceProperty);
 			set => SetValue(ItemsSourceProperty, value);
 		}
 
@@ -119,14 +120,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void AddItems(NotifyCollectionChangedEventArgs e)
 		{
-			var index = e.NewStartingIndex < 0 ? Items.Count : e.NewStartingIndex;
+			var index = e.NewStartingIndex < 0 ? Items.Count() : e.NewStartingIndex;
 			foreach (var newItem in e.NewItems)
 				((LockableObservableListWrapper)Items).InternalInsert(index++, GetDisplayMember(newItem));
 		}
 
 		void RemoveItems(NotifyCollectionChangedEventArgs e)
 		{
-			var index = e.OldStartingIndex < Items.Count ? e.OldStartingIndex : Items.Count;
+			var index = e.OldStartingIndex < Items.Count() ? e.OldStartingIndex : Items.Count();
 			foreach (var _ in e.OldItems)
 				((LockableObservableListWrapper)Items).InternalRemoveAt(index--);
 		}
@@ -160,11 +161,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (ItemsSource != null)
 			{
-				SelectedItem = ItemsSource[index];
+				SelectedItem = ItemsSource.ElementAt(index);
 				return;
 			}
 
-			SelectedItem = Items[index];
+			SelectedItem = Items.ElementAt(index);
 		}
 
 		public int SelectedIndex
@@ -181,8 +182,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!int.TryParse(newValue?.ToString(), out var index))
 				index = 0;
 
-			segment.SelectedIndexChanged?.Invoke(segment, new SelectedItemChangedEventArgs(segment?.Items[index], index));
-			segment.SelectedItem = segment?.Items[index];
+			segment.SelectedIndexChanged?.Invoke(segment, new SelectedItemChangedEventArgs(segment?.Items.ElementAt(index), index));
+			segment.SelectedItem = segment?.Items.ElementAt(index);
 		}
 
 		// IColorElement
