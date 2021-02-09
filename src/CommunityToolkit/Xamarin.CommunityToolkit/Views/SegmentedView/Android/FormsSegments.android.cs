@@ -56,10 +56,6 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			: base(context)
 		{
 			this.context = context;
-
-			//if (Children != null)
-			//	Children.CollectionChanged += CollectionChanged;
-
 			Build();
 		}
 

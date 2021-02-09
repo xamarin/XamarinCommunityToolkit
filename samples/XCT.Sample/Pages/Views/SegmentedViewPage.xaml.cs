@@ -81,7 +81,6 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				_ => Color.Red,
 			};
 			TextSegments.Color = color;
-			//ImageSegments.Color = color;
 		}
 
 		void BG_Picker_SelectedIndexChanged(System.Object sender, System.EventArgs e)
@@ -98,7 +97,6 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				_ => MyBlue,
 			};
 			TextSegments.BackgroundColor = color;
-			//ImageSegments.BackgroundColor = color;
 		}
 
 		void DisplayMode_SelectedIndexChanged(System.Object sender, System.EventArgs e)

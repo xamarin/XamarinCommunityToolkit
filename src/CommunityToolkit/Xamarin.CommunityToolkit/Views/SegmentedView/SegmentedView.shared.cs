@@ -209,15 +209,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public bool IsSelectedTextColorSet => IsSet(SelectedTextColorProperty);
 
 		public bool IsNormalTextColorSet => IsSet(NormalTextColorProperty);
-
-		//protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		//{
-		//	if (propertyName == View.BackgroundColorProperty.PropertyName)
-		//	{
-		//		BackgroundColor = Color.Default;
-		//	}
-
-		//	base.OnPropertyChanged(propertyName);
-		//}
 	}
 }
