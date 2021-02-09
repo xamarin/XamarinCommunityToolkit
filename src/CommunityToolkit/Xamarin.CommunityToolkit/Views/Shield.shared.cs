@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(SubjectBackgroundColorProperty, value);
 		}
 
-		[Obsolete("Use StatusTextColor instead")]
+		[Obsolete("TextColor is obsolete. Please use StatusTextColor instead")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static readonly BindableProperty TextColorProperty =
 			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
@@ -98,7 +98,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(StatusProperty, value);
 		}
 
-		[Obsolete("Use StatusBackgroundColor instead")]
+		[Obsolete("Color is obsolete. Please use StatusBackgroundColor instead")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static readonly BindableProperty ColorProperty =
 			BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), Color.Default,
