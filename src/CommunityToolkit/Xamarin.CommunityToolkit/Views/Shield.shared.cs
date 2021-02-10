@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void OnSubjectBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubjectColor();
 
 		/// <summary>
-		/// Background <see cref="Forms.Color" /> of the right side of the <see cref="Shield" />. This is a bindable property.
+		/// Background <see cref="Forms.Color" /> of the left side of the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
 		public Color SubjectBackgroundColor
 		{
