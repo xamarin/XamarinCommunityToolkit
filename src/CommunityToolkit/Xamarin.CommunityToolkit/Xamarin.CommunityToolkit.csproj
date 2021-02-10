@@ -77,6 +77,9 @@
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <Compile Include="Behaviors\ProgressBarAnimationBehavior.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <Compile Include="**/*.netstandard.cs" />

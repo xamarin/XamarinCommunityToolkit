@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.AttachedProperties
+namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
-	public class ProgressBarAttachedPropertiesViewModel : BaseViewModel
+	public class ProgressBarAnimationBehaviorViewModel : BaseViewModel
 	{
 		double progress;
 		ICommand setTo0Command;

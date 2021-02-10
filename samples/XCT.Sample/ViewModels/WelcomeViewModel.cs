@@ -5,7 +5,6 @@ using Xamarin.CommunityToolkit.Sample.Pages.Converters;
 using Xamarin.CommunityToolkit.Sample.Pages.Effects;
 using Xamarin.CommunityToolkit.Sample.Pages.Extensions;
 using Xamarin.CommunityToolkit.Sample.Pages.TestCases;
-using Xamarin.CommunityToolkit.Sample.Pages.AttachedProperties;
 using Xamarin.CommunityToolkit.Sample.Pages.Views;
 using Xamarin.Forms;
 
@@ -33,9 +32,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			new SectionModel(typeof(ViewsGalleryPage), "Views", Color.FromHex("#EF6950"),
 				"A custom view or control allows for adding custom functionality as if it came out of the Xamarin.Forms box"),
 
-			new SectionModel(typeof(AttachedPropertiesGalleryPage), "Attached Properties", Color.FromHex("#50A2EF"),
-				"Attached properties enable an object to assign a value for a property that its own class doesn't define"),
-				
 			new SectionModel(typeof(SearchPage), "C# Markup", Color.FromHex("#50D6EF"),
 				"C# Markup Extensions make it easier on the eyes to write your layouts in C# code instead of XAML")
 		};
