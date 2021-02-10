@@ -21,6 +21,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 	public class SegmentedViewRenderer : ViewRenderer<SegmentedView, UISegmentedControl>
 	{
 		const string TAG = "SegmentedView";
+		bool isDisposed;
 
 		protected override async void OnElementChanged(ElementChangedEventArgs<SegmentedView> e)
 		{
@@ -50,7 +51,8 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 
 		async Task InitializeControl()
 		{
-			await PopulateSegments(Element.Items);
+			var items = Element.Items;
+			await PopulateSegments(items);
 			Control.ClipsToBounds = true;
 			Control.SelectedSegment = Element.SelectedIndex;
 			Control.Layer.MasksToBounds = true;
@@ -80,6 +82,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 		async Task PopulateSegments(IEnumerable<string> segments)
 		{
             var segmentsCount = segments.Count();
+
 			for (var i = 0; i < segmentsCount; i++)
 			{
 				await InsertSegment(segments.ElementAt(i), i);
@@ -147,17 +150,24 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			if (Control == null || Element == null)
 				return;
 
-			if (e.PropertyName == SegmentedView.SelectedItemProperty.PropertyName || e.PropertyName == SegmentedView.SelectedIndexProperty.PropertyName)
-				UpdateSelectedSegment(Element.SelectedIndex);
-
-			if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
-				Control.SelectedSegmentTintColor = Element.Color.ToUIColor();
-
-			if (e.PropertyName == SegmentedView.NormalTextColorProperty.PropertyName)
-				Control.SetTitleTextAttributes(new UITextAttributes() { TextColor = Element.NormalTextColor.ToUIColor() }, UIControlState.Normal);
-
-			if (e.PropertyName == SegmentedView.SelectedTextColorProperty.PropertyName)
-				Control.SetTitleTextAttributes(new UITextAttributes() { TextColor = Element.SelectedTextColor.ToUIColor() }, UIControlState.Selected);
+			switch (e.PropertyName)
+			{
+				case "SelectedItem":
+				case "SelectedIndex":
+					UpdateSelectedSegment(Element.SelectedIndex);
+					break;
+				case "Color":
+					Control.SelectedSegmentTintColor = Element.Color.ToUIColor();
+					break;
+				case "NormalTextColor":
+					Control.SetTitleTextAttributes(new UITextAttributes() { TextColor = Element.NormalTextColor.ToUIColor() }, UIControlState.Normal);
+					break;
+				case "SelectedTextColor":
+					Control.SetTitleTextAttributes(new UITextAttributes() { TextColor = Element.SelectedTextColor.ToUIColor() }, UIControlState.Selected);
+					break;
+				default:
+					break;
+			}
 		}
 
 		void OnSelectedIndexChanged(object sender, EventArgs e)
@@ -172,12 +182,20 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 
 		protected override void Dispose(bool disposing)
 		{
+			if (disposing)
+				return;
+
+			if (isDisposed)
+				return;
+
 			Control.ValueChanged -= OnSelectedIndexChanged;
 			Control.Dispose();
+
+			isDisposed = true;
 			base.Dispose(disposing);
 		}
 
-		public async Task<UIImage> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default(CancellationToken), float scale = 1f)
+		async Task<UIImage> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default(CancellationToken), float scale = 1f)
 		{
 			UIImage image = null;
 			var streamsource = imagesource as StreamImageSource;

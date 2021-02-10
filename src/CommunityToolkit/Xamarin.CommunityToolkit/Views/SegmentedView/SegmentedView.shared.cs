@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -11,7 +12,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class SegmentedView : View
 	{
-		public event EventHandler<SelectedItemChangedEventArgs> SelectedIndexChanged;
+		readonly WeakEventManager<SelectedItemChangedEventArgs> eventManager = new WeakEventManager<SelectedItemChangedEventArgs>();
+
+		/// <summary>
+		/// Invoked with the <see cref="SelectedIndex"/> changes
+		/// </summary>
+		public event EventHandler<SelectedItemChangedEventArgs> SelectedIndexChanged
+		{
+			add => eventManager.AddEventHandler(value);
+			remove => eventManager.RemoveEventHandler(value);
+		}
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="Color"/> property.
@@ -110,10 +120,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			((SegmentedView)bindable)?.OnItemsSourceChanged((IList)oldValue, (IList)newValue);
+			((SegmentedView)bindable)?.OnItemsSourceChanged((IEnumerable)oldValue, (IEnumerable)newValue);
 		}
 
-		void OnItemsSourceChanged(IList oldValue, IList newValue)
+		void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
 		{
 			if (oldValue is INotifyCollectionChanged oldObservable)
 				oldObservable.CollectionChanged -= CollectionChanged;
@@ -150,8 +160,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveItems(NotifyCollectionChangedEventArgs e)
 		{
-                       var itemsCount = Items.Count();
-			var index = e.OldStartingIndex < itemsCount  ? e.OldStartingIndex : itemsCount;
+            var itemsCount = Items.Count();
+
+			var index = e.OldStartingIndex < itemsCount ? e.OldStartingIndex : itemsCount;
+
 			foreach (var _ in e.OldItems)
 				((LockableObservableListWrapper)Items).InternalRemoveAt(index--);
 		}
@@ -206,8 +218,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!int.TryParse(newValue?.ToString(), out var index))
 				index = 0;
 
-			segment.SelectedIndexChanged?.Invoke(segment, new SelectedItemChangedEventArgs(segment?.Items.ElementAt(index), index));
+			segment.OnSelectedIndexChanged(segment, index);
+			//segment.SelectedIndexChanged?.Invoke(segment, new SelectedItemChangedEventArgs(segment?.Items.ElementAt(index), index));
 			segment.SelectedItem = segment?.Items.ElementAt(index);
+		}
+
+		protected void OnSelectedIndexChanged(object segment, int index)
+		{
+			eventManager.RaiseEvent(this, new SelectedItemChangedEventArgs(segment, index), nameof(SelectedIndexChanged));
 		}
 
 		// IColorElement
