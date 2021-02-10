@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
@@ -87,29 +87,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (action.Font != Font.Default)
 					actionButton.Font = action.Font.ToNSFont();
-				{
-					actionButton.BackgroundColor = action.BackgroundColor.ToUIColor();
-				}
-
-				if (action.Font != Font.Default)
-				{
-					actionButton.Font = action.Font.ToUIFont();
-				}
-
-				if (action.ForegroundColor != Color.Default)
-				{
-					actionButton.SetTitleColor(action.ForegroundColor.ToUIColor(), UIControlState.Normal);
-				}
-#elif __MACOS__
-				if (action.BackgroundColor != Color.Default)
-				{
-					actionButton.Layer.BackgroundColor = action.BackgroundColor.ToCGColor();
-				}
-
-				if (action.Font != Font.Default)
-				{
-					actionButton.Font = action.Font.ToNSFont();
-				}
 #endif
 				actionButton.SetAction(async () =>
 				{
