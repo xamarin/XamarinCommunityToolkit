@@ -18,21 +18,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var view = Platform.GetRenderer(sender).View;
 			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
+			var snackBarView = snackBar.View;
+			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
+
 			var anchorView = arguments.AnchorView?.GetRenderer()?.View;
 			if (anchorView != null)
 				snackBar.SetAnchorView(anchorView);
-			var snackBarView = snackBar.View;
-			if (arguments.BackgroundColor != Forms.Color.Default)
-			{
-				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
-			}
 
-			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
+			if (arguments.BackgroundColor != Forms.Color.Default)
+				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
+
 			snackTextView.SetMaxLines(10);
+
 			if (arguments.MessageOptions.Foreground != Forms.Color.Default)
-			{
 				snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
-			}
 
 			if (arguments.MessageOptions.Font != Font.Default)
 			{
@@ -48,15 +47,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				snackBar.SetAction(action.Text, async v => await action.Action());
 				if (action.ForegroundColor != Forms.Color.Default)
-				{
 					snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
-				}
 
 				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action);
 				if (arguments.BackgroundColor != Forms.Color.Default)
-				{
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
-				}
 
 				if (action.Font != Font.Default)
 				{
