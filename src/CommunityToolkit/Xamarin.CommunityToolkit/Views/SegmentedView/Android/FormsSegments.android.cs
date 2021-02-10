@@ -97,7 +97,12 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 				RemoveAllViews();
 			}
 
-			for (var i = 0; i < Children.Count; i++)
+			if (Children == null)
+				return;
+
+			var count = Children.Count;
+
+			for (var i = 0; i < count; i++)
 			{
 				var rb = await InsertSegment(Children[i].ToString(), i);
 				if (i == 0)
@@ -231,10 +236,10 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		protected override void Dispose(bool disposing)
 		{
-			if (disposed)
+			if (isDisposed)
 				return;
 
-			disposed = true;
+			isDisposed = true;
 			if (disposing)
 			{
 				if (Children != null)

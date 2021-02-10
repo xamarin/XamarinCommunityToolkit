@@ -79,7 +79,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 
 		async Task PopulateSegments(IEnumerable<string> segments)
 		{
-                       var segmentsCount = segments.Count();
+            var segmentsCount = segments.Count();
 			for (var i = 0; i < segmentsCount; i++)
 			{
 				await InsertSegment(segments.ElementAt(i), i);

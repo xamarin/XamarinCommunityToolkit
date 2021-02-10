@@ -9,10 +9,10 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 	public partial class SegmentedViewPage
 	{
 		double all = 0.0;
-		double tl = 0.0;
-		double tr = 0.0;
-		double bl = 0.0;
-		double br = 0.0;
+		double topLeft = 0.0;
+		double topRight = 0.0;
+		double bottomLeft = 0.0;
+		double bottomRight = 0.0;
 
 		readonly Color MyRed = Color.FromHex("#97DC91");
 		readonly Color MyGreen = Color.FromHex("#688ff4");
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		{
 			if (!double.TryParse(e.NewValue.ToString(), out var r))
 				return;
-			tl = r;
+			topLeft = r;
 			UpdateCorners();
 		}
 
@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		{
 			if (!double.TryParse(e.NewValue.ToString(), out var r))
 				return;
-			tr = r;
+			topRight = r;
 			UpdateCorners();
 		}
 
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		{
 			if (!double.TryParse(e.NewValue.ToString(), out var r))
 				return;
-			bl = r;
+			bottomLeft = r;
 			UpdateCorners();
 		}
 
@@ -59,13 +59,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		{
 			if (!double.TryParse(e.NewValue.ToString(), out var r))
 				return;
-			br = r;
+			bottomRight = r;
 			UpdateCorners();
 		}
 
 		void UpdateCorners()
 		{
-			TextSegments.CornerRadius = new CornerRadius(tl, tr, bl, br);
+			TextSegments.CornerRadius = new CornerRadius(topLeft, topRight, bottomLeft, bottomRight);
 		}
 
 		void Picker_SelectedIndexChanged(System.Object sender, System.EventArgs e)

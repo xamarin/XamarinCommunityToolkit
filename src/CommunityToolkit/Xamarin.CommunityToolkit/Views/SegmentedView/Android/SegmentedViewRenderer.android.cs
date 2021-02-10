@@ -18,6 +18,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 	public class SegmentedViewRenderer : ViewRenderer<SegmentedView, FormsSegments>
 	{
 		const string TAG = "SegmentedView";
+		bool isDisposed;
 
 		public SegmentedViewRenderer(Context context)
 			: base(context)
@@ -116,49 +117,44 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 			try
 			{
-				if (e.PropertyName == SegmentedView.SelectedIndexProperty.PropertyName)
-					Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
-
-				if (e.PropertyName == SegmentedView.BackgroundColorProperty.PropertyName)
+				switch (e.PropertyName)
 				{
-					if (Element.BackgroundColor == Color.Default)
-						return;
+					case "SelectedIndex":
+						Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
+						break;
 
-					Control.BackgroundColor = Element.BackgroundColor.ToAndroid();
-					await Control.Initialize();
+					case "BackgroundColor":
+						if (Element.BackgroundColor == Color.Default)
+							return;
 
-					// Set parent view back to transparent so the colors don't bleed
-					Element.BackgroundColor = Color.Default;
-				}
+						Control.BackgroundColor = Element.BackgroundColor.ToAndroid();
+						await Control.Initialize();
 
-				if (e.PropertyName == SegmentedView.ColorProperty.PropertyName)
-				{
-					Control.TintColor = Element.Color.ToAndroid();
-					await Control.Initialize();
-				}
-
-				if (e.PropertyName == SegmentedView.NormalTextColorProperty.PropertyName)
-				{
-					Control.NormalTextColor = Element.NormalTextColor.ToAndroid();
-					await Control.Initialize();
-				}
-
-				if (e.PropertyName == SegmentedView.SelectedTextColorProperty.PropertyName)
-				{
-					Control.SelectedTextColor = Element.SelectedTextColor.ToAndroid();
-					await Control.Initialize();
-				}
-
-				if (e.PropertyName == SegmentedView.DisplayModeProperty.PropertyName)
-				{
-					Control.DisplayMode = Element.DisplayMode;
-					await Control.Initialize();
-				}
-
-				if (e.PropertyName == SegmentedView.CornerRadiusProperty.PropertyName)
-				{
-					Control.CornerRadius = Element.CornerRadius;
-					await Control.Initialize();
+						// Set parent view back to transparent so the colors don't bleed
+						Element.BackgroundColor = Color.Default;
+						break;
+					case "Color":
+						Control.TintColor = Element.Color.ToAndroid();
+						await Control.Initialize();
+						break;
+					case "NormalTextColor":
+						Control.NormalTextColor = Element.NormalTextColor.ToAndroid();
+						await Control.Initialize();
+						break;
+					case "SelectedTextColor":
+						Control.SelectedTextColor = Element.SelectedTextColor.ToAndroid();
+						await Control.Initialize();
+						break;
+					case "DisplayMode":
+						Control.DisplayMode = Element.DisplayMode;
+						await Control.Initialize();
+						break;
+					case "CornerRadius":
+						Control.CornerRadius = Element.CornerRadius;
+						await Control.Initialize();
+						break;
+					default:
+						break;
 				}
 			}
 			catch (Exception ex)
@@ -171,6 +167,11 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		{
 			if (!disposing)
 				return;
+
+			if (isDisposed)
+				return;
+
+			isDisposed = true;
 
 			InvalidateControl();
 		}
