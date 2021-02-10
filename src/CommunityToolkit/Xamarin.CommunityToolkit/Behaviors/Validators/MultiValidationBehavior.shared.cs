@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				c.Value = value;
 				c.ForceValidate();
-				return !c.IsValid;
+				return c.IsNotValid;
 			}).Select(c => GetError(c));
 
 			if (!errors.Any())
