@@ -40,28 +40,29 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 			await this.DisplaySnackBarAsync(options);
 		}
+
 		async void DisplayToastClicked(object sender, EventArgs args)
 		{
 			await this.DisplayToastAsync(GenerateLongText(5));
 			StatusText.Text = "Toast is closed by timeout";
 		}
 
-		async void DisplaySnackBarAnchoredClicked(object sender, EventArgs args)
+		async void DisplayToastAnchoredClicked(object sender, EventArgs args)
 		{
 			var messageOptions = new MessageOptions
 			{
-				Message = "Displayed above the floating button"
+				Message = "Displayed above the round button",
+				Foreground = Color.Black
 			};
 
 			var options = new SnackBarOptions
 			{
-				AnchorView = Fab,
 				MessageOptions = messageOptions,
 				Duration = TimeSpan.FromMilliseconds(5000),
-				BackgroundColor = Color.Coral,
+				BackgroundColor = Color.LightBlue,
 			};
 
-			var result = await this.DisplaySnackBarAsync(options);
+			var result = await roundButton.DisplaySnackBarAsync(options);
 			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
 		}
 

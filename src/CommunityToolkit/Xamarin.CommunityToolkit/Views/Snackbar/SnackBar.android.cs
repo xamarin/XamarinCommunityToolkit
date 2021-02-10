@@ -14,16 +14,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal void Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var view = Platform.GetRenderer(sender).View;
 			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
 
-			var anchorView = arguments.AnchorView?.GetRenderer()?.View;
-			if (anchorView != null)
+			if (sender is View anchor)
+			{
+				var anchorView = anchor?.GetRenderer()?.View;
 				snackBar.SetAnchorView(anchorView);
+			}
 
 			if (arguments.BackgroundColor != Forms.Color.Default)
 				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());

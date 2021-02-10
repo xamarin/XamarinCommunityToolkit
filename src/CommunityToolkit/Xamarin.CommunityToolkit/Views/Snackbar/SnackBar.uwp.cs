@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		internal void Show(Forms.Page page, SnackBarOptions arguments)
+		internal void Show(Forms.VisualElement page, SnackBarOptions arguments)
 		{
 			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;

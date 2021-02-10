@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal void Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBar = NativeSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 							.SetDuration(arguments.Duration.TotalMilliseconds)
