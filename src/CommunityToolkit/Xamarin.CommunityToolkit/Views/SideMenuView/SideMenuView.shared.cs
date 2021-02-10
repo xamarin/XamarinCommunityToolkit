@@ -223,6 +223,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.LayoutChanged += OnLayoutChanged;
 		}
 
+		protected override void OnSizeAllocated(double width, double height)
+		{
+			base.OnSizeAllocated(width, height);
+			PerformUpdate(false);
+		}
+
 		static View SetupMainViewLayout(View view)
 		{
 			SetLayoutFlags(view, AbsoluteLayoutFlags.All);
@@ -245,7 +251,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			=> ((SideMenuView)bindable).OnStatePropertyChanged();
 
 		void OnStatePropertyChanged()
-			=> PerformAnimation();
+			=> PerformUpdate();
 
 		void OnTouchStarted()
 		{
@@ -300,12 +306,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateState(state, isSwipe);
 		}
 
-		void PerformAnimation()
+		void PerformUpdate(bool isAnimated = true)
 		{
 			var state = State;
 			var start = Shift;
 			var menuWidth = (state == SideMenuState.LeftMenuShown ? leftMenu : rightMenu)?.Width ?? 0;
 			var end = -Sign((int)state) * menuWidth;
+
+			if (!isAnimated)
+			{
+				TryUpdateShift(end, true, false);
+				SetOverlayViewInputTransparent(state);
+				return;
+			}
 
 			var animationLength = (uint)(SideMenuView.animationLength * Abs(start - end) / Width);
 			if (isSwipe)
@@ -403,7 +416,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			this.isSwipe = isSwipe;
 			if (State == state)
 			{
-				PerformAnimation();
+				PerformUpdate();
 				return;
 			}
 			State = state;
