@@ -9,8 +9,8 @@
     xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Name="Page"
     Title="Welcome"
-    xct:BarStyle.StatusBarColor="White"
-    xct:BarStyle.StatusBarStyle="DarkContent"
+    xct:Window.StatusBarColor="White"
+    xct:Window.StatusBarStyle="DarkContent"
     NavigationPage.BackButtonTitle="">
 
     <pages:BasePage.BindingContext>

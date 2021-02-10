@@ -3,26 +3,26 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
-	public class BarStyle : RoutingEffect
+	public class Window : RoutingEffect
 	{
 		public static readonly BindableProperty StatusBarColorProperty = BindableProperty.CreateAttached(
-			nameof(StatusBarColor), typeof(Color), typeof(BarStyle), Color.Default, propertyChanged: TryGenerateEffect);
+			nameof(StatusBarColor), typeof(Color), typeof(Window), Color.Default, propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.CreateAttached(
-			nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(BarStyle), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
+			nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(Window), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
 
-		public BarStyle()
-			: base(EffectIds.BarStyle)
+		public Window()
+			: base(EffectIds.Window)
 		{
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.Android.Effects.PlatformBarStyle();
+				_ = new Xamarin.CommunityToolkit.Android.Effects.PlatformWindow();
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.iOS.Effects.PlatformBarStyle();
+				_ = new Xamarin.CommunityToolkit.iOS.Effects.PlatformWindow();
 #elif UWP
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.UWP.Effects.PlatformBarStyle();
+				_ = new Xamarin.CommunityToolkit.UWP.Effects.PlatformWindow();
 #endif
 		}
 
@@ -37,11 +37,11 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (!(bindable is Page page))
 				return;
 
-			var oldEffect = page.Effects.FirstOrDefault(e => e is BarStyle);
+			var oldEffect = page.Effects.FirstOrDefault(e => e is Window);
 			if (oldEffect != null)
 				page.Effects.Remove(oldEffect);
 
-			page.Effects.Add(new BarStyle());
+			page.Effects.Add(new Window());
 		}
 
 		public Color StatusBarColor => GetStatusBarColor(Element);
