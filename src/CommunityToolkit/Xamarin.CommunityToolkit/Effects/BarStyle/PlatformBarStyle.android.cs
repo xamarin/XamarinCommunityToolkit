@@ -24,14 +24,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			{
 				SetStatusBarStyle(BarStyle.GetStatusBarStyle(Element));
 			}
-			if (BarStyle.GetNavigationBarColor(Element) != (Forms.Color)BarStyle.NavigationBarColorProperty.DefaultValue)
-			{
-				SetNavigationBarColor(BarStyle.GetNavigationBarColor(Element).ToAndroid());
-			}
-			if (BarStyle.GetNavigationBarStyle(Element) != (NavigationBarStyle)BarStyle.NavigationBarStyleProperty.DefaultValue)
-			{
-				SetNavigationBarStyle(BarStyle.GetNavigationBarStyle(Element));
-			}
 		}
 
 		protected override void OnDetached()
@@ -49,14 +41,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			{
 				SetStatusBarStyle(BarStyle.GetStatusBarStyle(Element));
 			}
-			else if (args.PropertyName == BarStyle.NavigationBarColorProperty.PropertyName)
-			{
-				SetNavigationBarColor(BarStyle.GetNavigationBarColor(Element).ToAndroid());
-			}
-			else if (args.PropertyName == BarStyle.NavigationBarStyleProperty.PropertyName)
-			{
-				SetNavigationBarStyle(BarStyle.GetNavigationBarStyle(Element));
-			}
 		}
 
 		public void SetStatusBarColor(Color color)
@@ -64,7 +48,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
 				return;
 
-			Activity?.SetStatusBarColor(color);
+			Activity.SetStatusBarColor(color);
 		}
 
 		public void SetStatusBarStyle(StatusBarStyle style)
@@ -87,37 +71,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 						break;
 				}
 				return (barAppearanceLegacy, barAppearance);
-			});
-		}
-
-		public void SetNavigationBarColor(Color color)
-		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-				return;
-
-			GetCurrentWindow().SetNavigationBarColor(color);
-		}
-
-		public void SetNavigationBarStyle(NavigationBarStyle style)
-		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
-				return;
-
-			SetBarAppearance((appearanceLegacy, appearance) =>
-			{
-				switch (style)
-				{
-					case NavigationBarStyle.Default:
-					case NavigationBarStyle.LightContent:
-						appearanceLegacy &= ~(StatusBarVisibility)SystemUiFlags.LightNavigationBar;
-						appearance &= ~WindowInsetsControllerAppearance.LightNavigationBars;
-						break;
-					case NavigationBarStyle.DarkContent:
-						appearanceLegacy |= (StatusBarVisibility)SystemUiFlags.LightNavigationBar;
-						appearance |= WindowInsetsControllerAppearance.LightNavigationBars;
-						break;
-				}
-				return (appearanceLegacy, appearance);
 			});
 		}
 

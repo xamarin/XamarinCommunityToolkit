@@ -11,12 +11,6 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.CreateAttached(
 			nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(BarStyle), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
 
-		public static readonly BindableProperty NavigationBarColorProperty = BindableProperty.CreateAttached(
-			nameof(NavigationBarColor), typeof(Color), typeof(BarStyle), Color.Default, propertyChanged: TryGenerateEffect);
-
-		public static readonly BindableProperty NavigationBarStyleProperty = BindableProperty.CreateAttached(
-			nameof(NavigationBarStyle), typeof(NavigationBarStyle), typeof(BarStyle), NavigationBarStyle.Default, propertyChanged: TryGenerateEffect);
-
 		public BarStyle()
 			: base(EffectIds.BarStyle)
 		{
@@ -38,12 +32,6 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static StatusBarStyle GetStatusBarStyle(BindableObject bindable) =>
 			(StatusBarStyle)bindable.GetValue(StatusBarStyleProperty);
 
-		public static Color GetNavigationBarColor(BindableObject bindable) =>
-			(Color)bindable.GetValue(NavigationBarColorProperty);
-
-		public static NavigationBarStyle GetNavigationBarStyle(BindableObject bindable) =>
-			(NavigationBarStyle)bindable.GetValue(NavigationBarStyleProperty);
-
 		static void TryGenerateEffect(BindableObject bindable, object oldValue, object newValue)
 		{
 			if (!(bindable is Page page))
@@ -59,9 +47,5 @@ namespace Xamarin.CommunityToolkit.Effects
 		public Color StatusBarColor => GetStatusBarColor(Element);
 
 		public StatusBarStyle StatusBarStyle => GetStatusBarStyle(Element);
-
-		public Color NavigationBarColor => GetNavigationBarColor(Element);
-
-		public NavigationBarStyle NavigationBarStyle => GetNavigationBarStyle(Element);
 	}
 }
