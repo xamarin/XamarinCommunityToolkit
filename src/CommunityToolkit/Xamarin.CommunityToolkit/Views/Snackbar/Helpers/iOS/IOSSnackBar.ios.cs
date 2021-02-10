@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 	{
 		NSTimer timer;
 
-		public List<NativeActionButton> Actions { get; protected set; } = new List<NativeActionButton>();
+		public List<NativeSnackButton> Actions { get; protected set; } = new List<NativeSnackButton>();
 
 		public Func<Task> TimeoutAction { get; protected set; }
 

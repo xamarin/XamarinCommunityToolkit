@@ -37,6 +37,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (arguments.MessageOptions.Foreground != Color.Default)
 				snackBar.Appearance.Foreground = arguments.MessageOptions.Foreground.ToUIColor();
 
+			if (arguments.MessageOptions.Padding != MessageOptions.DefaultPadding)
+			{
+				snackBar.Layout.PaddingTop = (nfloat)arguments.MessageOptions.Padding.Top;
+				snackBar.Layout.PaddingLeft = (nfloat)arguments.MessageOptions.Padding.Left;
+				snackBar.Layout.PaddingBottom = (nfloat)arguments.MessageOptions.Padding.Bottom;
+				snackBar.Layout.PaddingRight = (nfloat)arguments.MessageOptions.Padding.Right;
+			}
+
 			snackBar.Appearance.TextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
 
 			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
@@ -59,26 +67,49 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			foreach (var action in arguments.Actions)
 			{
-				var actionButton = new NativeActionButton();
+				var actionButton = new NativeSnackButton(action.Padding.Left,
+					action.Padding.Top,
+					action.Padding.Right,
+					action.Padding.Bottom);
 				actionButton.SetActionButtonText(action.Text);
 #if __IOS__
 				if (action.BackgroundColor != Color.Default)
-					actionButton.Appearance.Background = action.BackgroundColor.ToUIColor();
+					actionButton.BackgroundColor = action.BackgroundColor.ToUIColor();
 
 				if (action.Font != Font.Default)
-					actionButton.Appearance.Font = action.Font.ToUIFont();
+					actionButton.Font = action.Font.ToUIFont();
 
 				if (action.ForegroundColor != Color.Default)
-					actionButton.Appearance.Foreground = action.ForegroundColor.ToUIColor();
+					actionButton.SetTitleColor(action.ForegroundColor.ToUIColor(), UIControlState.Normal);
 #elif __MACOS__
 				if (action.BackgroundColor != Color.Default)
-					actionButton.Appearance.Background = action.BackgroundColor.ToNSColor();
+					actionButton.Layer.BackgroundColor = action.BackgroundColor.ToCGColor();
 
 				if (action.Font != Font.Default)
-					actionButton.Appearance.Font = action.Font.ToNSFont();
+					actionButton.Font = action.Font.ToNSFont();
+				{
+					actionButton.BackgroundColor = action.BackgroundColor.ToUIColor();
+				}
+
+				if (action.Font != Font.Default)
+				{
+					actionButton.Font = action.Font.ToUIFont();
+				}
 
 				if (action.ForegroundColor != Color.Default)
-					actionButton.Appearance.Foreground = action.ForegroundColor.ToNSColor();
+				{
+					actionButton.SetTitleColor(action.ForegroundColor.ToUIColor(), UIControlState.Normal);
+				}
+#elif __MACOS__
+				if (action.BackgroundColor != Color.Default)
+				{
+					actionButton.Layer.BackgroundColor = action.BackgroundColor.ToCGColor();
+				}
+
+				if (action.Font != Font.Default)
+				{
+					actionButton.Font = action.Font.ToNSFont();
+				}
 #endif
 				actionButton.SetAction(async () =>
 				{

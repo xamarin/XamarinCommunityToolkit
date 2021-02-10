@@ -7,8 +7,10 @@
     <StackLayout Spacing="10" Margin="20">
         <Button Clicked="DisplaySnackBarClicked" Text="Show SnackBar"></Button>
         <Button Clicked="DisplayToastClicked" Text="Show toast"></Button>
-        <Button Clicked="DisplaySnackBarAdvancedClicked" Text="Show SnackBar"></Button>
+        <Button Clicked="DisplaySnackBarAdvancedClicked" Text="Show Advanced SnackBar"></Button>
         <Button Clicked="DisplaySnackBarAnchoredClicked" Text="Show SnackBar Above the Floating Button"></Button>
+        <Button Clicked="DisplaySnackBarWithPadding" Text="Show SnackBar with Padding"></Button>
+
         <Label x:Name="StatusText"></Label>
         <Button x:Name="Fab" Text="+" VerticalOptions="EndAndExpand" HorizontalOptions="End" CornerRadius="20" WidthRequest="40" HeightRequest="40"/>
     </StackLayout>

@@ -24,6 +24,22 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
 		}
 
+		async void DisplaySnackBarWithPadding(object sender, EventArgs args)
+		{
+			var options = new SnackBarOptions()
+			{
+				BackgroundColor = Color.FromHex("#CC0000"),
+				MessageOptions = new MessageOptions
+				{
+					Message = "msg",
+					Foreground = Color.White,
+					Font = Font.SystemFontOfSize(16),
+					Padding = new Thickness(10, 20, 30, 40)
+				}
+			};
+
+			await this.DisplaySnackBarAsync(options);
+		}
 		async void DisplayToastClicked(object sender, EventArgs args)
 		{
 			await this.DisplayToastAsync(GenerateLongText(5));
@@ -52,47 +68,47 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		async void DisplaySnackBarAdvancedClicked(object sender, EventArgs args)
 		{
 			const string SmileIcon = "\uf118";
-			var messageOptions = new MessageOptions
-			{
-				Foreground = Color.DeepSkyBlue,
-				Font = Font.OfSize("FARegular", 40),
-				Message = SmileIcon
-			};
-
-			var actionOptions = new List<SnackBarActionOptions>
-			{
-				new SnackBarActionOptions
-				{
-					ForegroundColor = Color.Red,
-					BackgroundColor = Color.Green,
-					Font = Font.OfSize("Times New Roman", 15),
-					Text = "Action1",
-					Action = () =>
-					{
-						Debug.WriteLine("1");
-						return Task.CompletedTask;
-					}
-				},
-				new SnackBarActionOptions
-				{
-					ForegroundColor = Color.Green,
-					BackgroundColor = Color.Red,
-					Font = Font.OfSize("Times New Roman", 20),
-					Text = "Action2",
-					Action = () =>
-					{
-						Debug.WriteLine("2");
-						return Task.CompletedTask;
-					}
-				}
-			};
 			var options = new SnackBarOptions
 			{
-				MessageOptions = messageOptions,
+				MessageOptions = new MessageOptions
+				{
+					Foreground = Color.DeepSkyBlue,
+					Font = Font.OfSize("FARegular", 40),
+					Padding = new Thickness(10, 20, 30, 40),
+					Message = SmileIcon
+				},
 				Duration = TimeSpan.FromMilliseconds(5000),
 				BackgroundColor = Color.Coral,
 				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
-				Actions = actionOptions
+				Actions = new List<SnackBarActionOptions>
+				{
+					new SnackBarActionOptions
+					{
+						ForegroundColor = Color.Red,
+						BackgroundColor = Color.Green,
+						Font = Font.OfSize("Times New Roman", 15),
+						Padding = new Thickness(10, 20, 30, 40),
+						Text = "Action1",
+						Action = () =>
+						{
+							Debug.WriteLine("1");
+							return Task.CompletedTask;
+						}
+					},
+					new SnackBarActionOptions
+					{
+						ForegroundColor = Color.Green,
+						BackgroundColor = Color.Red,
+						Font = Font.OfSize("Times New Roman", 20),
+						Padding = new Thickness(40, 30, 20, 10),
+						Text = "Action2",
+						Action = () =>
+						{
+							Debug.WriteLine("2");
+							return Task.CompletedTask;
+						}
+					}
+				}
 			};
 			var result = await this.DisplaySnackBarAsync(options);
 			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
