@@ -20,9 +20,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var anchorView = arguments.AnchorView?.GetRenderer()?.View;
 			if (anchorView != null)
-			{
 				snackBar.SetAnchorView(anchorView);
-			}
 			var snackBarView = snackBar.View;
 			if (arguments.BackgroundColor != Forms.Color.Default)
 			{
