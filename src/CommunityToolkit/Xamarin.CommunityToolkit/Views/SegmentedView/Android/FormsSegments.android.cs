@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		readonly int defaultButtonPadding = 16;
 
 		int strokeWidth;
-		bool disposed;
+		bool isDisposed;
 
 		public SegmentMode DisplayMode { get; set; }
 
@@ -66,7 +66,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 			try
 			{
-				await Initialize();
+				await Initialize().ConfigureAwait(false);
 			}
 			catch (Exception ex)
 			{

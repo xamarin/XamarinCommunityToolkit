@@ -13,18 +13,39 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		public event EventHandler<SelectedItemChangedEventArgs> SelectedIndexChanged;
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Color"/> property.
+		/// </summary>
 		public static BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(SegmentedView));
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="SelectedTextColor"/> property.
+		/// </summary>
 		public static BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(SegmentedView));
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="NormalTextColor"/> property.
+		/// </summary>
 		public static BindableProperty NormalTextColorProperty = BindableProperty.Create(nameof(NormalTextColor), typeof(Color), typeof(SegmentedView));
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="SelectedIndex"/> property.
+		/// </summary>
 		public static BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(SegmentedView), 0, propertyChanged: OnSegmentSelected);
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="DisplayMode"/> property.
+		/// </summary>
 		public static BindableProperty DisplayModeProperty = BindableProperty.Create(nameof(DisplayMode), typeof(SegmentMode), typeof(SegmentedView));
 
 		public IEnumerable<string> Items { get; } = new LockableObservableListWrapper();
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="ItemsSource"/> property.
+		/// </summary>
 		public static readonly BindableProperty ItemsSourceProperty =
 			BindableProperty.Create(nameof(ItemsSource), typeof(IEnumerable), typeof(SegmentedView), default(IEnumerable),
 									propertyChanged: OnItemsSourceChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="SelectedItem"/> property.
+		/// </summary>
 		public static readonly BindableProperty SelectedItemProperty =
 			BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(SegmentedView), null, BindingMode.TwoWay,
 									propertyChanged: OnSelectedItemChanged);
@@ -47,6 +68,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(DisplayModeProperty, value);
 		}
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="CornerRadius"/> property.
+		/// </summary>
 		public static readonly BindableProperty CornerRadiusProperty =
 			BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(SegmentedView), new CornerRadius(6.0));
 
@@ -61,7 +85,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public BindingBase ItemDisplayBinding
 		{
 			get => itemDisplayBinding;
-
 			set
 			{
 				if (itemDisplayBinding == value)
@@ -127,7 +150,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveItems(NotifyCollectionChangedEventArgs e)
 		{
-			var index = e.OldStartingIndex < Items.Count() ? e.OldStartingIndex : Items.Count();
+                       var itemsCount = Items.Count();
+			var index = e.OldStartingIndex < itemsCount  ? e.OldStartingIndex : itemsCount;
 			foreach (var _ in e.OldItems)
 				((LockableObservableListWrapper)Items).InternalRemoveAt(index--);
 		}

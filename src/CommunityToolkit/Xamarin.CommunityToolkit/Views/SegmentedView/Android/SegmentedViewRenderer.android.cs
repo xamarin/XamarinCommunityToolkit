@@ -67,7 +67,8 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		void PopulateSegments()
 		{
-			for (var i = 0; i < Element.Items.Count(); i++)
+                        var items = Element.Items.Count();
+			for (var i = 0; i < items; i++)
 			{
 				Control.Children.Add(Element.Items.ElementAt(i));
 			}
