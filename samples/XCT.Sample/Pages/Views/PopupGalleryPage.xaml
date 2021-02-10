@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:viewModels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.PopupGalleryPage"
+                Title="Popup Control"
+                x:Name="root">
+
+    <ContentPage.BindingContext>
+        <viewModels:PopupGalleryViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="Header" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="Margin" Value="15, 10" />
+            </Style>
+            <Style TargetType="ScrollView">
+                <Setter Property="VerticalOptions" Value="FillAndExpand" />
+            </Style>
+            <Style x:Key="ItemsLayout" TargetType="StackLayout">
+                <Setter Property="Spacing" Value="16" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <Label Style="{StaticResource Header}"
+                           Text="The popup control renders native popups from the shared code. This page demonstrates a variety of different techniques for displaying native popups." />
+                    <StackLayout Style="{StaticResource ItemsLayout}"
+                                 BindableLayout.ItemsSource="{Binding Examples}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <custom:PancakeView Style="{StaticResource card}" 
+                                                    Margin="{StaticResource ContentPadding}">
+                                    <custom:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.DisplayPopup, Source={x:Reference root}}"
+                                                              CommandParameter="{Binding Type}" />
+                                    </custom:PancakeView.GestureRecognizers>
+                                    <Grid ColumnSpacing="20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <BoxView BackgroundColor="{Binding Color}" />
+                                        <StackLayout Grid.Column="1" Spacing="8" Padding="0,24,24,24">
+                                            <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
+                                            <Label Text="{Binding Description}" />
+                                        </StackLayout>
+                                    </Grid>
+                                </custom:PancakeView>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
