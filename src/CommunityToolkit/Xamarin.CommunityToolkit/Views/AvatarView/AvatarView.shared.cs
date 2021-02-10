@@ -352,27 +352,36 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				imageLoadingTokenSource = new CancellationTokenSource();
 
-				var streamTask = GetStreamImageLoadingTask(source, imageLoadingTokenSource.Token);
-				if (streamTask != null)
+				try
 				{
-					var stream = await streamTask;
-					Image.IsVisible = stream != null;
-					source = ImageSource.FromStream(() => stream);
-				}
-				else
-				{
-					try
+					var imageStreamLoadingTask = GetImageStreamLoadingTask(source, imageLoadingTokenSource.Token);
+					if (imageStreamLoadingTask != null)
 					{
+						using var stream = await imageStreamLoadingTask;
+						if (stream != null)
+						{
+							var newStream = new MemoryStream();
+							stream.CopyTo(newStream);
+							newStream.Position = 0;
+							Image.IsVisible = true;
+							source = ImageSource.FromStream(() => newStream);
+						}
+						else
+						{
+							Image.IsVisible = false;
+							source = null;
+						}
+					}
+					else
 						Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(source);
-					}
-					catch (OperationCanceledException)
-					{
-						// Loading was canceled due to a new loading is started.
-					}
-				}
 
-				Image.Source = source;
-				OnValuePropertyChanged();
+					Image.Source = source;
+					OnValuePropertyChanged();
+				}
+				catch (OperationCanceledException)
+				{
+					// Loading was canceled due to a new loading is started.
+				}
 			}
 			finally
 			{
@@ -394,7 +403,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return size * .4;
 		}
 
-		Task<Stream> GetStreamImageLoadingTask(ImageSource source, CancellationToken token)
+		Task<Stream> GetImageStreamLoadingTask(ImageSource source, CancellationToken token)
 			=> source switch
 			{
 				IStreamImageSource streamImageSource => streamImageSource.GetStreamAsync(token),
