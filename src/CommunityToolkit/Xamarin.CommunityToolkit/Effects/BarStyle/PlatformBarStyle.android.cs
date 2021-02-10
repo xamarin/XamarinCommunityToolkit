@@ -16,30 +16,26 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	{
 		protected override void OnAttached()
 		{
-			SetStatusBarColor(BarStyle.GetStatusBarColor(Element).ToAndroid());
-			SetStatusBarStyle(BarStyle.GetStatusBarStyle(Element));
-			SetNavigationBarColor(BarStyle.GetNavigationBarColor(Element).ToAndroid());
-			SetNavigationBarStyle(BarStyle.GetNavigationBarStyle(Element));
+			if (BarStyle.GetStatusBarColor(Element) != (Forms.Color)BarStyle.StatusBarColorProperty.DefaultValue)
+			{
+				SetStatusBarColor(BarStyle.GetStatusBarColor(Element).ToAndroid());
+			}
+			if (BarStyle.GetStatusBarStyle(Element) != (StatusBarStyle)BarStyle.StatusBarStyleProperty.DefaultValue)
+			{
+				SetStatusBarStyle(BarStyle.GetStatusBarStyle(Element));
+			}
+			if (BarStyle.GetNavigationBarColor(Element) != (Forms.Color)BarStyle.NavigationBarColorProperty.DefaultValue)
+			{
+				SetNavigationBarColor(BarStyle.GetNavigationBarColor(Element).ToAndroid());
+			}
+			if (BarStyle.GetNavigationBarStyle(Element) != (NavigationBarStyle)BarStyle.NavigationBarStyleProperty.DefaultValue)
+			{
+				SetNavigationBarStyle(BarStyle.GetNavigationBarStyle(Element));
+			}
 		}
 
 		protected override void OnDetached()
 		{
-			if (BarStyle.GetStatusBarColor(Element) != (Forms.Color)BarStyle.StatusBarColorProperty.DefaultValue)
-			{
-				SetStatusBarColor(Color.Black);
-			}
-			if (BarStyle.GetStatusBarStyle(Element) != (StatusBarStyle)BarStyle.StatusBarStyleProperty.DefaultValue)
-			{
-				SetStatusBarStyle(StatusBarStyle.Default);
-			}
-			if (BarStyle.GetNavigationBarColor(Element) != (Forms.Color)BarStyle.NavigationBarColorProperty.DefaultValue)
-			{
-				SetNavigationBarColor(Color.Black);
-			}
-			if (BarStyle.GetNavigationBarStyle(Element) != (NavigationBarStyle)BarStyle.NavigationBarStyleProperty.DefaultValue)
-			{
-				SetNavigationBarStyle(NavigationBarStyle.Default);
-			}
 		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
@@ -65,7 +61,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		public void SetStatusBarColor(Color color)
 		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
 				return;
 
 			Activity?.SetStatusBarColor(color);
@@ -82,12 +78,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				{
 					case StatusBarStyle.Default:
 					case StatusBarStyle.LightContent:
-						barAppearanceLegacy |= (StatusBarVisibility)SystemUiFlags.LightStatusBar;
-						barAppearance |= WindowInsetsControllerAppearance.LightStatusBars;
-						break;
-					case StatusBarStyle.DarkContent:
 						barAppearanceLegacy &= ~(StatusBarVisibility)SystemUiFlags.LightStatusBar;
 						barAppearance &= ~WindowInsetsControllerAppearance.LightStatusBars;
+						break;
+					case StatusBarStyle.DarkContent:
+						barAppearanceLegacy |= (StatusBarVisibility)SystemUiFlags.LightStatusBar;
+						barAppearance |= WindowInsetsControllerAppearance.LightStatusBars;
 						break;
 				}
 				return (barAppearanceLegacy, barAppearance);
@@ -99,7 +95,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			Activity?.Window.SetNavigationBarColor(color);
+			GetCurrentWindow().SetNavigationBarColor(color);
 		}
 
 		public void SetNavigationBarStyle(NavigationBarStyle style)
@@ -113,12 +109,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				{
 					case NavigationBarStyle.Default:
 					case NavigationBarStyle.LightContent:
-						appearanceLegacy |= (StatusBarVisibility)SystemUiFlags.LightNavigationBar;
-						appearance |= WindowInsetsControllerAppearance.LightNavigationBars;
-						break;
-					case NavigationBarStyle.DarkContent:
 						appearanceLegacy &= ~(StatusBarVisibility)SystemUiFlags.LightNavigationBar;
 						appearance &= ~WindowInsetsControllerAppearance.LightNavigationBars;
+						break;
+					case NavigationBarStyle.DarkContent:
+						appearanceLegacy |= (StatusBarVisibility)SystemUiFlags.LightNavigationBar;
+						appearance |= WindowInsetsControllerAppearance.LightNavigationBars;
 						break;
 				}
 				return (appearanceLegacy, appearance);
@@ -127,9 +123,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void SetBarAppearance(Func<StatusBarVisibility, WindowInsetsControllerAppearance, (StatusBarVisibility, WindowInsetsControllerAppearance)> updateAppearance)
 		{
-			var currentWindow = Activity?.Window;
-			if (currentWindow == null)
-				return;
+			var currentWindow = GetCurrentWindow();
 
 			StatusBarVisibility appearanceLegacy = 0;
 			WindowInsetsControllerAppearance appearance = 0;
@@ -167,6 +161,14 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				else
 					return (FormsAppCompatActivity)Container.Context;
 			}
+		}
+
+		Window GetCurrentWindow()
+		{
+			var window = Activity.Window;
+			window.ClearFlags(WindowManagerFlags.TranslucentStatus);
+			window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
+			return window;
 		}
 	}
 }
