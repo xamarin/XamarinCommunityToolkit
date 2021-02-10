@@ -6,8 +6,11 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
+		public static readonly BindableProperty IsNotValidProperty =
+			BindableProperty.Create(nameof(IsNotValid), typeof(bool), typeof(ValidationBehavior), false, BindingMode.OneWayToSource);
+
 		public static readonly BindableProperty IsValidProperty =
-			BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(ValidationBehavior), true, BindingMode.OneWayToSource);
+			BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(ValidationBehavior), true, BindingMode.OneWayToSource, propertyChanged: OnIsValidPropertyChanged);
 
 		public static readonly BindableProperty ValidStyleProperty =
 			BindableProperty.Create(nameof(ValidStyle), typeof(Style), typeof(ValidationBehavior), propertyChanged: OnValidationPropertyChanged);
@@ -37,6 +40,12 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 		{
 			get => (bool)GetValue(IsValidProperty);
 			set => SetValue(IsValidProperty, value);
+		}
+
+		public bool IsNotValid
+		{
+			get => (bool)GetValue(IsNotValidProperty);
+			set => SetValue(IsNotValidProperty, value);
 		}
 
 		public Style ValidStyle
@@ -124,6 +133,9 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 		protected static void OnValidationPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((ValidationBehavior)bindable).UpdateState(false);
 
+		static void OnIsValidPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> ((ValidationBehavior)bindable).OnIsValidPropertyChanged();
+
 		static void OnValuePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			((ValidationBehavior)bindable).OnValuePropertyChanged();
@@ -138,6 +150,9 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		static object GetDefaultValuePropertyName(BindableObject bindable)
 			=> ((ValidationBehavior)bindable).DefaultValuePropertyName;
+
+		void OnIsValidPropertyChanged()
+			=> IsNotValid = !IsValid;
 
 		void OnValuePropertyChanged()
 		{
