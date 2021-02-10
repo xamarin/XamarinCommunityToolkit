@@ -45,7 +45,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		public void SetStatusBarColor(Color color)
 		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
 			Activity.SetStatusBarColor(color);
