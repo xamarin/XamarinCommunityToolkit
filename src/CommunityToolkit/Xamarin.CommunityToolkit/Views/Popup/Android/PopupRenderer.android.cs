@@ -134,9 +134,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var decorView = (ViewGroup)Window.DecorView;
 				var child = (FrameLayout)decorView.GetChildAt(0);
 
+				var realWidth = (int)Context.ToPixels(Element.Size.Width);
+				var realHeight = (int)Context.ToPixels(Element.Size.Height);
+
+				var realContentWidth = (int)Context.ToPixels(Element.Content.WidthRequest);
+				var realContentHeight = (int)Context.ToPixels(Element.Content.HeightRequest);
+
 				var childLayoutParams = (FrameLayout.LayoutParams)child.LayoutParameters;
-				childLayoutParams.Width = (int)Element.Size.Width;
-				childLayoutParams.Height = (int)Element.Size.Height;
+				childLayoutParams.Width = realWidth;
+				childLayoutParams.Height = realHeight;
 				child.LayoutParameters = childLayoutParams;
 
 				var horizontalParams = -1;
@@ -165,30 +171,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						break;
 				}
 
-				if (Element.Content.WidthRequest > -1)
+				if (realContentWidth > -1)
 				{
-					var inputMeasuredWidth = Element.Content.WidthRequest > Element.Size.Width ?
-						(int)Element.Size.Width : (int)Element.Content.WidthRequest;
+					var inputMeasuredWidth = realContentWidth > realWidth ?
+						realWidth : realContentWidth;
 					container.Measure(inputMeasuredWidth, (int)MeasureSpecMode.Unspecified);
 					horizontalParams = container.MeasuredWidth;
 				}
 				else
 				{
-					container.Measure((int)Element.Size.Width, (int)MeasureSpecMode.Unspecified);
-					horizontalParams = container.MeasuredWidth > Element.Size.Width ?
-						(int)Element.Size.Width : container.MeasuredWidth;
+					container.Measure(realWidth, (int)MeasureSpecMode.Unspecified);
+					horizontalParams = container.MeasuredWidth > realWidth ?
+						realWidth : container.MeasuredWidth;
 				}
 
-				if (Element.Content.HeightRequest > -1)
+				if (realContentHeight > -1)
 				{
-					verticalParams = (int)Element.Content.HeightRequest;
+					verticalParams = realContentHeight;
 				}
 				else
 				{
-					var inputMeasuredWidth = Element.Content.WidthRequest > -1 ? horizontalParams : (int)Element.Size.Width;
+					var inputMeasuredWidth = realContentWidth > -1 ? horizontalParams : realWidth;
 					container.Measure(inputMeasuredWidth, (int)MeasureSpecMode.Unspecified);
-					verticalParams = container.MeasuredHeight > Element.Size.Height ?
-						(int)Element.Size.Height : container.MeasuredHeight;
+					verticalParams = container.MeasuredHeight > realHeight ?
+						realHeight : container.MeasuredHeight;
 				}
 
 				var containerLayoutParams = new FrameLayout.LayoutParams(horizontalParams, verticalParams);
@@ -201,7 +207,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					case LayoutAlignment.Center:
 					case LayoutAlignment.Fill:
 						containerLayoutParams.Gravity = GravityFlags.FillVertical;
-						containerLayoutParams.Height = (int)Element.Size.Height;
+						containerLayoutParams.Height = realHeight;
 						container.MatchHeight = true;
 						break;
 					case LayoutAlignment.End:
@@ -217,7 +223,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					case LayoutAlignment.Center:
 					case LayoutAlignment.Fill:
 						containerLayoutParams.Gravity |= GravityFlags.FillHorizontal;
-						containerLayoutParams.Width = (int)Element.Size.Width;
+						containerLayoutParams.Width = realWidth;
 						container.MatchWidth = true;
 						break;
 					case LayoutAlignment.End:
