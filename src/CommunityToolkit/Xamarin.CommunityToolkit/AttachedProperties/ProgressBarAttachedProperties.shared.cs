@@ -10,12 +10,12 @@ namespace Xamarin.CommunityToolkit.AttachedProperties
 	{
 		const string animatedProgress = "AnimatedProgress";
 
-		/// <summary>
-		/// Backing BindableProperty that is used to attach to a <see cref="ProgressBar"/> and animate the showing of progress.
+			/// <summary>
+		/// Backing BindableProperty for the <see cref="AnimatedProgress"/> property.
 		/// </summary>
-		public static BindableProperty AnimatedProgressProperty = BindableProperty.CreateAttached(animatedProgress, typeof(double), typeof(ProgressBar), 0.0d, propertyChanged: ProgressBarProgressChanged);
+		public static BindableProperty AnimatedProgressProperty = BindableProperty.CreateAttached(animatedProgress, typeof(double), typeof(ProgressBar), 0.0d, propertyChanged: OnAnimatedProgressChanged);
 
-		static void ProgressBarProgressChanged(BindableObject bindable, object oldValue, object newValue)
+		static void OnAnimatedProgressChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var progressBar = (ProgressBar)bindable;
 			progressBar.ProgressTo((double)newValue, 500, Easing.Linear);
