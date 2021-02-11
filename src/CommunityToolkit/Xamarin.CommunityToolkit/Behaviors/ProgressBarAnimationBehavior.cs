@@ -19,8 +19,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			=> ((ProgressBarAnimationBehavior)bindable).Animate();
 
 		void Animate()
-		{
-			View.ProgressTo(AnimateProgress, 500, Easing.Linear);
-		}
+			=> View.ProgressTo(AnimateProgress, 500, Easing.Linear);
 	}
 }
