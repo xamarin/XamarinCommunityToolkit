@@ -83,7 +83,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 		{
             var segmentsCount = segments.Count();
 
-			for (var i = 0; i < segmentsCount; i++)
+            for (var i = 0; i < segmentsCount; i++)
 			{
 				await InsertSegment(segments.ElementAt(i), i);
 			}
@@ -195,7 +195,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			base.Dispose(disposing);
 		}
 
-		async Task<UIImage> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default(CancellationToken), float scale = 1f)
+		async ValueTask<UIImage> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default(CancellationToken), float scale = 1f)
 		{
 			UIImage image = null;
 			var streamsource = imagesource as StreamImageSource;

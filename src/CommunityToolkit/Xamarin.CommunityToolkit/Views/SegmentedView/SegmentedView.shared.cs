@@ -27,23 +27,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="Color"/> property.
 		/// </summary>
 		public static BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(SegmentedView));
+
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="SelectedTextColor"/> property.
 		/// </summary>
 		public static BindableProperty SelectedTextColorProperty = BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(SegmentedView));
+
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="NormalTextColor"/> property.
 		/// </summary>
 		public static BindableProperty NormalTextColorProperty = BindableProperty.Create(nameof(NormalTextColor), typeof(Color), typeof(SegmentedView));
+
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="SelectedIndex"/> property.
 		/// </summary>
 		public static BindableProperty SelectedIndexProperty = BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(SegmentedView), 0, propertyChanged: OnSegmentSelected);
+
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="DisplayMode"/> property.
 		/// </summary>
 		public static BindableProperty DisplayModeProperty = BindableProperty.Create(nameof(DisplayMode), typeof(SegmentMode), typeof(SegmentedView));
 
+		/// <summary>
+		/// Segment items.
+		/// </summary>
 		public IEnumerable<string> Items { get; } = new LockableObservableListWrapper();
 
 		/// <summary>
@@ -219,7 +226,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				index = 0;
 
 			segment.OnSelectedIndexChanged(segment, index);
-			//segment.SelectedIndexChanged?.Invoke(segment, new SelectedItemChangedEventArgs(segment?.Items.ElementAt(index), index));
 			segment.SelectedItem = segment?.Items.ElementAt(index);
 		}
 
