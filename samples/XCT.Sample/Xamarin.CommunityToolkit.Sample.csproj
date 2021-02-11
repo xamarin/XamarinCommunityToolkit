@@ -11,7 +11,6 @@
     <None Remove="resources\**" />
     <EmbeddedResource Include="Images\**" />
     <EmbeddedResource Include="Fonts\**" />
-    <Compile Remove="Pages\Behaviors\ProgressBarAttachedPropertiesPage.xaml.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,4 +44,3 @@
     <ProjectReference Include="..\..\src\Markup\Xamarin.CommunityToolkit.Markup\Xamarin.CommunityToolkit.Markup.csproj" />
   </ItemGroup>
 </Project>
-
