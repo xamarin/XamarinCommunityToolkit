@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"The AvatarView represents a user's name by using the initials and a generated background color"),
 
 			new SectionModel(typeof(BadgeViewPage), "BadgeView",
-				"View used to used to notify users notifications, or status of something"),
+				"View used to notify users notifications, or status of something"),
 
 			new SectionModel(typeof(CameraViewPage), "CameraView",
 				"The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!"),
