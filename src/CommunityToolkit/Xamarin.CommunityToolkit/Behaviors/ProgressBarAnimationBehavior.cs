@@ -6,6 +6,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 {
 	public class ProgressBarAnimationBehavior : BaseBehavior<ProgressBar>
 	{
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="AnimateProgress"/> property.
+		/// </summary>
 		public static readonly BindableProperty AnimateProgressProperty =
 			BindableProperty.CreateAttached(nameof(AnimateProgress), typeof(double), typeof(ProgressBar), 0.0d, propertyChanged: OnAnimateProgressPropertyChanged);
 
