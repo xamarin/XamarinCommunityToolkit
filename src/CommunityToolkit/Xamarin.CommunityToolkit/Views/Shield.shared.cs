@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(TextColorProperty, value);
 		}
 
-		static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateTextColor();
+		static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).StatusTextColor = (Color)newValue;
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="SubjectTextColor"/> property.
@@ -315,8 +315,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void UpdateStatusBackgroundColor() => ShieldStatusContainer.BackgroundColor = StatusBackgroundColor;
 
 		void UpdateSubjectTextColor() => ShieldSubject.TextColor = SubjectTextColor;
-
-		void UpdateTextColor() => ShieldStatus.TextColor = TextColor;
 
 		void UpdateStatusTextColor() => ShieldStatus.TextColor = StatusTextColor;
 
