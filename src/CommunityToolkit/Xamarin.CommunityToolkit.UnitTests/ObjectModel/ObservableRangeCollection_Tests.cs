@@ -18,12 +18,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			{
 				Assert.Equal(NotifyCollectionChangedAction.Add, e.Action);
 				Assert.Null(e.OldItems);
-				Assert.Equal(toAdd.Length, e.NewItems.Count);
-
-				for (var i = 0; i < toAdd.Length; i++)
-				{
-					Assert.Equal(toAdd[i], (int)e.NewItems[i]);
-				}
+				Assert.Equal(toAdd, e.NewItems);
 			};
 			collection.AddRange(toAdd);
 		}
@@ -130,7 +125,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 				}
 			};
 			collection.RemoveRange(toRemove, NotifyCollectionChangedAction.Remove);
-
 		}
 
 		[Fact]
@@ -196,11 +190,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 				Collection = { toAdd }
 			};
 
-			Assert.Equal(toAdd.Length, wrapper.Collection.Count);
-			for (var i = 0; i < toAdd.Length; i++)
-			{
-				Assert.Equal(toAdd[i], wrapper.Collection[i]);
-			}
+			Assert.Equal(toAdd, wrapper.Collection);
 		}
 	}
 }
