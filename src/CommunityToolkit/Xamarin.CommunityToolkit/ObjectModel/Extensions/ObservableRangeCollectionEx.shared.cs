@@ -10,8 +10,6 @@ namespace Xamarin.CommunityToolkit.ObjectModel
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static void Add<T>(this ObservableRangeCollection<T> source, IEnumerable<T> collection)
-        {
-            source.AddRange(collection);
-        }
+            => source.AddRange(collection);
     }
 }
