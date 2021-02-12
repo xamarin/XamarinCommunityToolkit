@@ -180,5 +180,27 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			// the collection should not be modified if the source items are not found
 			Assert.Equal(6, collection.Count);
 		}
+
+		class CollectionWrapper<T>
+		{
+			public readonly ObservableRangeCollection<T> Collection = new ObservableRangeCollection<T>();
+		}
+
+		[Fact]
+		public void AddCollection()
+		{
+			var toAdd = new[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3 };
+
+			var wrapper = new CollectionWrapper<int>()
+			{
+				Collection = { toAdd }
+			};
+
+			Assert.Equal(toAdd.Length, wrapper.Collection.Count);
+			for (var i = 0; i < toAdd.Length; i++)
+			{
+				Assert.Equal(toAdd[i], wrapper.Collection[i]);
+			}
+		}
 	}
 }
