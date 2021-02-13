@@ -90,6 +90,55 @@
                     </xct:AnimationBehavior>
                 </CheckBox.Behaviors>
             </CheckBox>
+
+            <BoxView BackgroundColor="Orange"
+                     HeightRequest="40"
+                     HorizontalOptions="Fill">
+                <BoxView.Behaviors>
+                    <xct:AnimationBehavior Command="{Binding MyCommand}">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:ColorAnimation ToColor="Violet"/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </BoxView.Behaviors>
+            </BoxView>
+
+             <Button Text="Testing Heart Animation"
+                     TextColor="Orange">
+                 <Button.Behaviors>
+                      <xct:AnimationBehavior EventName="Clicked">
+                            <xct:AnimationBehavior.AnimationType>
+                                <xct:HeartAnimation />
+                            </xct:AnimationBehavior.AnimationType>
+                        </xct:AnimationBehavior>
+                </Button.Behaviors>
+            </Button>
+
+            <Switch>
+                <Switch.Behaviors>
+                    <xct:AnimationBehavior EventName="Toggled"
+                                           Command="{Binding MyCommand}">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:TranslateAnimation
+                                Duration="2000"
+                                TranslateX="100"/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </Switch.Behaviors>
+            </Switch>
+
+            <BoxView BackgroundColor="Red"
+                     HeightRequest="40"
+                     HorizontalOptions="Fill">
+                <BoxView.Behaviors>
+                    <xct:AnimationBehavior Command="{Binding MyCommand}">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:TurnstileInAnimation/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </BoxView.Behaviors>
+            </BoxView>
+
         </StackLayout>
   </ScrollView>
 </pages:BasePage>
