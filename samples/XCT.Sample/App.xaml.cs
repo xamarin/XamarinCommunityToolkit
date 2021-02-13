@@ -12,6 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample
 		{
 			On<Windows>().SetImageDirectory("Assets");
 
+
 			LocalizationResourceManager.Current.PropertyChanged += (sender, e) => AppResources.Culture = LocalizationResourceManager.Current.CurrentCulture;
 			LocalizationResourceManager.Current.Init(AppResources.ResourceManager);
 
