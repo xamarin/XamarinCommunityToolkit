@@ -171,7 +171,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var arrowDirection = Views.iOSSpecific.Popup.GetArrowDirection(Element);
 				PopoverPresentationController.PermittedArrowDirections = arrowDirection switch
 				{
-					Views.iOSSpecific.PopoverArrowDirection.None => 0,
 					Views.iOSSpecific.PopoverArrowDirection.Up => UIPopoverArrowDirection.Up,
 					Views.iOSSpecific.PopoverArrowDirection.Down => UIPopoverArrowDirection.Down,
 					Views.iOSSpecific.PopoverArrowDirection.Left => UIPopoverArrowDirection.Left,
