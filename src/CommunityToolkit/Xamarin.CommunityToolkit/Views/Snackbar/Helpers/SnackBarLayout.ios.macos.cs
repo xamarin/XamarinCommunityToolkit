@@ -6,21 +6,19 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 	{
 		public nfloat MarginBottom { get; set; } = 10.0f;
 
-		public nfloat MarginCenter { get; set; } = 0.0f;
-
-		public nfloat MarginLeading { get; set; } = 10.0f;
+		public nfloat MarginLeft { get; set; } = 10.0f;
 
 		public nfloat MarginTop { get; set; } = 10.0f;
 
-		public nfloat MarginTrailing { get; set; } = 10.0f;
+		public nfloat MarginRight { get; set; } = 10.0f;
 
 		public nfloat PaddingBottom { get; set; } = 10.0f;
 
-		public nfloat PaddingLeading { get; set; } = 10.0f;
+		public nfloat PaddingLeft { get; set; } = 10.0f;
 
 		public nfloat PaddingTop { get; set; } = 10.0f;
 
-		public nfloat PaddingTrailing { get; set; } = 10.0f;
+		public nfloat PaddingRight { get; set; } = 10.0f;
 
 		public nfloat Spacing { get; set; } = 10.0f;
 	}
