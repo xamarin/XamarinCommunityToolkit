@@ -28,7 +28,6 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
-    <DebugType>portable</DebugType>
     <Configurations>Debug;Release</Configurations>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
@@ -38,15 +37,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage TargetFrameworks for distribution (Release Mode) -->
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)'=='Release' AND '$(OS)' == 'Windows_NT' ">
-    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) AND '$(OS)' == 'Windows_NT' ">
     <UseWPF>true</UseWPF>
@@ -58,16 +48,13 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DocumentationFile>bin\Debug\netstandard1.0\Xamarin.CommunityToolkit.xml</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(Configuration)'=='Release' ">
-    <!-- Manage Xamarin.Forms version for distribution -->
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
