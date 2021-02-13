@@ -149,14 +149,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var originY = Element.VerticalOptions.Alignment switch
 				{
 					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height,
-					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Height * 0.5,
+					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Height / 2,
 					_ => 0f
 				};
 
 				var originX = Element.HorizontalOptions.Alignment switch
 				{
 					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Width,
-					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Width * 0.5,
+					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Width / 2,
 					_ => 0f
 				};
 
