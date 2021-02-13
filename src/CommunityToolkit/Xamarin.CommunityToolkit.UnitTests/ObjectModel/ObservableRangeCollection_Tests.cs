@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -178,6 +179,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 		class CollectionWrapper<T>
 		{
 			public readonly ObservableRangeCollection<T> Collection = new ObservableRangeCollection<T>();
+			public ObservableRangeCollection<T> NullCollection;
 		}
 
 		[Fact]
@@ -191,6 +193,20 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			};
 
 			Assert.Equal(toAdd, wrapper.Collection);
+		}
+
+		[Fact]
+		public void AddToNullCollection()
+		{
+			var toAdd = new[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3 };
+
+			Assert.Throws<ArgumentNullException>(() =>
+			{
+				var wrapper = new CollectionWrapper<int>()
+				{
+					NullCollection = { toAdd }
+				};
+			});
 		}
 	}
 }
