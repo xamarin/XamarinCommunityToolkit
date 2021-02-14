@@ -4,7 +4,7 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
-#if MONOANDROID11_0
+#if MONOANDROID10_0
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
 using AndroidSnackBar = Android.Support.Design.Widget.Snackbar;
