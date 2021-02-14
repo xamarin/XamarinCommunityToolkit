@@ -48,41 +48,6 @@ xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
 The documentation is still under construction, but we've published the most important things over at [Microsoft Docs](https://docs.microsoft.com/en-us/xamarin/community-toolkit/). If you want to contribute some of the missing bits you can do this over at the [official Docs repo](https://github.com/MicrosoftDocs/xamarin-communitytoolkit) as contributions are very much welcomed!
 
-## DrawingView
-
-### Using DrawingView on Xamarin.Forms
-
-```xml
-<!-- xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit" -->
-
-<views:DrawingView
-            x:Name="DrawingViewControl"
-            Points="{Binding MyPoints}"
-            ClearOnFinish="true"
-            GestureCompletedCommand="{Binding GestureCompletedCommand}"
-            LineColor="Blue"
-            LineWidth="5"
-            BackgroundColor="DarkGray"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand" />
-```
-
-### Get Image from points
-
-```
-var stream = DrawingView.GetImageStream(
-                points,
-                new Size(GestureImage.Width, GestureImage.Height),
-                10, Color.White, Color.Black);
-GestureImage.Source = ImageSource.FromStream(() => stream);
-```
-
-or 
-
-```
-var stream = DrawingViewControl.GetImageStream(GestureImage.Width, GestureImage.Height);
-GestureImage.Source = ImageSource.FromStream(() => stream);
-```
 
 ## Contributions welcome!
 
