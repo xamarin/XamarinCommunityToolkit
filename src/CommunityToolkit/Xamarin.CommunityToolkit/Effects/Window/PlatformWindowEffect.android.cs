@@ -56,53 +56,29 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			SetBarAppearance((barAppearanceLegacy, barAppearance) =>
+			SetBarAppearance(barAppearance =>
 			{
 				switch (style)
 				{
 					case StatusBarStyle.Default:
 					case StatusBarStyle.LightContent:
-						barAppearanceLegacy &= ~(StatusBarVisibility)SystemUiFlags.LightStatusBar;
-						barAppearance &= ~WindowInsetsControllerAppearance.LightStatusBars;
+						barAppearance &= ~(StatusBarVisibility)SystemUiFlags.LightStatusBar;
 						break;
 					case StatusBarStyle.DarkContent:
-						barAppearanceLegacy |= (StatusBarVisibility)SystemUiFlags.LightStatusBar;
-						barAppearance |= WindowInsetsControllerAppearance.LightStatusBars;
+						barAppearance |= (StatusBarVisibility)SystemUiFlags.LightStatusBar;
 						break;
 				}
-				return (barAppearanceLegacy, barAppearance);
+				return barAppearance;
 			});
 		}
 
-		void SetBarAppearance(Func<StatusBarVisibility, WindowInsetsControllerAppearance, (StatusBarVisibility, WindowInsetsControllerAppearance)> updateAppearance)
+		void SetBarAppearance(Func<StatusBarVisibility, StatusBarVisibility> updateAppearance)
 		{
 			var currentWindow = GetCurrentWindow();
 
-			StatusBarVisibility appearanceLegacy = 0;
-			WindowInsetsControllerAppearance appearance = 0;
-			if ((int)Build.VERSION.SdkInt < 30)
-			{
-#pragma warning disable CS0618 // Type or member is obsolete. Using new API for Sdk 30+
-				appearanceLegacy = currentWindow.DecorView.SystemUiVisibility;
-#pragma warning restore CS0618 // Type or member is obsolete
-			}
-			else
-			{
-				appearance = (WindowInsetsControllerAppearance)currentWindow.InsetsController.SystemBarsAppearance;
-			}
-
-			(appearanceLegacy, appearance) = updateAppearance(appearanceLegacy, appearance);
-
-			if ((int)Build.VERSION.SdkInt < 30)
-			{
-#pragma warning disable CS0618 // Type or member is obsolete. Using new API for Sdk 30+
-				currentWindow.DecorView.SystemUiVisibility = appearanceLegacy;
-#pragma warning restore CS0618 // Type or member is obsolete
-			}
-			else
-			{
-				currentWindow.InsetsController.SetSystemBarsAppearance((int)appearance, (int)appearance);
-			}
+			var appearance = currentWindow.DecorView.SystemUiVisibility;
+			appearance = updateAppearance(appearance);
+			currentWindow.DecorView.SystemUiVisibility = appearance;
 		}
 
 		FormsAppCompatActivity Activity
