@@ -48,7 +48,6 @@ xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
 The documentation is still under construction, but we've published the most important things over at [Microsoft Docs](https://docs.microsoft.com/en-us/xamarin/community-toolkit/). If you want to contribute some of the missing bits you can do this over at the [official Docs repo](https://github.com/MicrosoftDocs/xamarin-communitytoolkit) as contributions are very much welcomed!
 
-
 ## Contributions welcome!
 
 If you have one or more of these common pieces of code that you are always replicating across apps, don't hesitate to contribute! We aim to be the first NuGet package you install when creating a new Xamarin.Forms app!
