@@ -18,17 +18,17 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 	{
 		protected override void OnAttached()
 		{
-			SetStatusBarColor(Window.GetStatusBarColor(Element).ToWindowsColor());
-			SetStatusBarStyle(Window.GetStatusBarStyle(Element));
+			SetStatusBarColor(WindowEffect.GetStatusBarColor(Element).ToWindowsColor());
+			SetStatusBarStyle(WindowEffect.GetStatusBarStyle(Element));
 		}
 
 		protected override void OnDetached()
 		{
-			if (Window.GetStatusBarColor(Element) != (Forms.Color)Window.StatusBarColorProperty.DefaultValue)
+			if (WindowEffect.GetStatusBarColor(Element) != (Forms.Color)WindowEffect.StatusBarColorProperty.DefaultValue)
 			{
 				SetStatusBarColor(Color.FromArgb(0, 0, 0, 0));
 			}
-			if (Window.GetStatusBarStyle(Element) != (StatusBarStyle)Window.StatusBarStyleProperty.DefaultValue)
+			if (WindowEffect.GetStatusBarStyle(Element) != (StatusBarStyle)WindowEffect.StatusBarStyleProperty.DefaultValue)
 			{
 				SetStatusBarStyle(StatusBarStyle.Default);
 			}
@@ -37,13 +37,13 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
 			base.OnElementPropertyChanged(args);
-			if (args.PropertyName == Window.StatusBarColorProperty.PropertyName)
+			if (args.PropertyName == WindowEffect.StatusBarColorProperty.PropertyName)
 			{
-				SetStatusBarColor(Window.GetStatusBarColor(Element).ToWindowsColor());
+				SetStatusBarColor(WindowEffect.GetStatusBarColor(Element).ToWindowsColor());
 			}
-			else if (args.PropertyName == Window.StatusBarStyleProperty.PropertyName)
+			else if (args.PropertyName == WindowEffect.StatusBarStyleProperty.PropertyName)
 			{
-				SetStatusBarStyle(Window.GetStatusBarStyle(Element));
+				SetStatusBarStyle(WindowEffect.GetStatusBarStyle(Element));
 			}
 		}
 
