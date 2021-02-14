@@ -9,11 +9,11 @@ using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportEffect(typeof(PlatformWindow), nameof(Window))]
+[assembly: ExportEffect(typeof(PlatformWindowEffect), nameof(WindowEffect))]
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class PlatformWindow : PlatformEffect
+	public class PlatformWindowEffect : PlatformEffect
 	{
 		protected override void OnAttached()
 		{

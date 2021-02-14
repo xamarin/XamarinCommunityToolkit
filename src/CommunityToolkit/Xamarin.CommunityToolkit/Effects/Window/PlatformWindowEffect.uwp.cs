@@ -10,11 +10,11 @@ using Xamarin.CommunityToolkit.Effects;
 using System.ComponentModel;
 using Color = Windows.UI.Color;
 
-[assembly: ExportEffect(typeof(PlatformWindow), nameof(Window))]
+[assembly: ExportEffect(typeof(PlatformWindowEffect), nameof(WindowEffect))]
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class PlatformWindow : PlatformEffect
+	public class PlatformWindowEffect : PlatformEffect
 	{
 		protected override void OnAttached()
 		{
