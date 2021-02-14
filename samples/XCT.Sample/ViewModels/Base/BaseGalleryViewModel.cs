@@ -11,17 +11,20 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 	{
 		public BaseGalleryViewModel()
 		{
+			Items = CreateItems().OrderBy(x => x.Title).ToList();
 			Filter();
 			FilterCommand = CommandFactory.Create(Filter);
 		}
 
-		public abstract IEnumerable<SectionModel> Items { get; }
-
-		public IEnumerable<SectionModel> FilteredItems { get; private set; }
+		public IReadOnlyList<SectionModel> Items { get; }
 
 		public ICommand FilterCommand { get; }
 
 		public string FilterValue { private get; set; }
+
+		public IEnumerable<SectionModel> FilteredItems { get; private set; }
+
+		protected abstract IEnumerable<SectionModel> CreateItems();
 
 		void Filter()
 		{

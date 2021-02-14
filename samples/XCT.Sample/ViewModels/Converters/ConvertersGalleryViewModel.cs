@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
 	public class ConvertersGalleryViewModel : BaseGalleryViewModel
 	{
-		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(
 				typeof(ItemTappedEventArgsPage),

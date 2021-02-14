@@ -3,7 +3,10 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
-	public static class VisualElementExtension
+	/// <summary>
+	/// Extension methods for <see cref="VisualElement"/>.
+	/// </summary>
+	public static partial class VisualElementExtension
 	{
 		public static Task<bool> ColorTo(this VisualElement element, Color color, uint length = 250u, Easing easing = null)
 		{

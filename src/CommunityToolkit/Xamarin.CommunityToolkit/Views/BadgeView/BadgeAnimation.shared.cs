@@ -3,6 +3,9 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// This is the default animation that is used when the <see cref="BadgeView.IsAnimated"/> is set to true.
+	/// </summary>
 	public class BadgeAnimation : IBadgeAnimation
 	{
 		protected uint AnimationLength { get; } = 150;
@@ -11,6 +14,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		double? translationY;
 
+		/// <summary>
+		/// With the <see cref="OnAppearing(View)"/> method you can influence the animation that is used when the <see cref="BadgeView"/> appears.
+		/// </summary>
+		/// <param name="badgeView">The <see cref="BadgeView"/> instance on which the animation will be applied</param>
+		/// <returns>An awaitable <see cref="Task"/></returns>
 		public Task OnAppearing(View badgeView)
 		{
 			if (translationY == null)
@@ -34,6 +42,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return tcs.Task;
 		}
 
+		/// <summary>
+		/// With the <see cref="OnDisappering(View)"/> method you can influence the animation that is used when the <see cref="BadgeView"/> disappears.
+		/// </summary>
+		/// <param name="badgeView">The <see cref="BadgeView"/> instance on which the animation will be applied</param>
+		/// <returns>An awaitable <see cref="Task"/></returns>
 		public Task OnDisappering(View badgeView)
 		{
 			if (translationY == null)

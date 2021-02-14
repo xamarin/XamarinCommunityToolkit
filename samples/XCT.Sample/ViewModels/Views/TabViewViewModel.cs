@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class TabViewViewModel : BaseGalleryViewModel
 	{
-		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(typeof(GettingStartedPage), "Getting Started",
 				"TabView basic use case"),
@@ -39,7 +39,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"Customize the tabs width"),
 
 			new SectionModel(typeof(NoContentPage), "Tab without Content",
-				"Only the TabStrip is visible")
+				"Only the TabStrip is visible"),
+
+			new SectionModel(typeof(LazyTabPage), "LazyLoadingTab",
+				"See how you can implement LazyViews that are loaded just when you navigate to them"),
 		};
 	}
 }
