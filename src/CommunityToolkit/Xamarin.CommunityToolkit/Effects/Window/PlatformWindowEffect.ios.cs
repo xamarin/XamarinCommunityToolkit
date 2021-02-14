@@ -23,14 +23,6 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected override void OnDetached()
 		{
-			if (WindowEffect.GetStatusBarColor(Element) != (Color)WindowEffect.StatusBarColorProperty.DefaultValue)
-			{
-				SetStatusBarColor(UIColor.Black);
-			}
-			if (WindowEffect.GetStatusBarStyle(Element) != (StatusBarStyle)WindowEffect.StatusBarStyleProperty.DefaultValue)
-			{
-				SetStatusBarStyle(StatusBarStyle.Default);
-			}
 		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
