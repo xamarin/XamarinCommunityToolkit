@@ -56,20 +56,16 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			SetBarAppearance(Activity, barAppearance =>
+			switch (style)
 			{
-				switch (style)
-				{
-					case StatusBarStyle.Default:
-					case StatusBarStyle.LightContent:
-						barAppearance &= ~(StatusBarVisibility)SystemUiFlags.LightStatusBar;
-						break;
-					case StatusBarStyle.DarkContent:
-						barAppearance |= (StatusBarVisibility)SystemUiFlags.LightStatusBar;
-						break;
-				}
-				return barAppearance;
-			});
+				case StatusBarStyle.Default:
+				case StatusBarStyle.LightContent:
+					RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					break;
+				case StatusBarStyle.DarkContent:
+					AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					break;
+			}
 		}
 
 		FormsAppCompatActivity Activity
@@ -82,6 +78,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					return (FormsAppCompatActivity)Container.Context;
 			}
 		}
+
+		internal static void AddBarAppearanceFlag(FormsAppCompatActivity activity, StatusBarVisibility flag) =>
+			SetBarAppearance(activity, barAppearance => barAppearance |= flag);
+
+		internal static void RemoveBarAppearanceFlag(FormsAppCompatActivity activity, StatusBarVisibility flag) =>
+			SetBarAppearance(activity, barAppearance => barAppearance &= ~flag);
 
 		internal static void SetBarAppearance(FormsAppCompatActivity activity, Func<StatusBarVisibility, StatusBarVisibility> updateAppearance)
 		{

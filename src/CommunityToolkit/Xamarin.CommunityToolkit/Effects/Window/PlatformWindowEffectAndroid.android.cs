@@ -5,6 +5,7 @@ using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using static Xamarin.CommunityToolkit.Android.Effects.PlatformWindowEffect;
 using Color = Android.Graphics.Color;
 
 [assembly: ExportEffect(typeof(PlatformWindowEffectAndroid), nameof(WindowEffectAndroid))]
@@ -55,20 +56,16 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			PlatformWindowEffect.SetBarAppearance(Activity, barAppearance =>
+			switch (style)
 			{
-				switch (style)
-				{
-					case NavigationBarStyle.Default:
-					case NavigationBarStyle.LightContent:
-						barAppearance &= ~(StatusBarVisibility)SystemUiFlags.LightNavigationBar;
-						break;
-					case NavigationBarStyle.DarkContent:
-						barAppearance |= (StatusBarVisibility)SystemUiFlags.LightNavigationBar;
-						break;
-				}
-				return barAppearance;
-			});
+				case NavigationBarStyle.Default:
+				case NavigationBarStyle.LightContent:
+					RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					break;
+				case NavigationBarStyle.DarkContent:
+					AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					break;
+			}
 		}
 
 		FormsAppCompatActivity Activity
