@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.AttachedProperties.SetFocusOnEntryCompletedPage">
+
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 Spacing="50"
+                 VerticalOptions="CenterAndExpand">
+        <Label Text="Completing one entry will bring focus to the next entry." />
+        <StackLayout Spacing="3">
+            <Entry x:Name="Entry1"
+                   Placeholder="Entry 1"
+                   ReturnType="Next"
+                   xct:SetFocusOnEntryCompleted.NextElement="{x:Reference Entry2}"
+                   />
+            <Entry x:Name="Entry2"
+                   Placeholder="Entry 2"
+                   ReturnType="Next"
+                   xct:SetFocusOnEntryCompleted.NextElement="{x:Reference Entry3}"
+                   />
+            <Entry x:Name="Entry3"
+                   Placeholder="Entry 3"
+                   ReturnType="Next"
+                   xct:SetFocusOnEntryCompleted.NextElement="{x:Reference Entry4}"
+                   />
+            <Entry x:Name="Entry4"
+                   Placeholder="Entry 4 (no next entry this time)"
+                   />
+        </StackLayout>
+    </StackLayout>
+
+</pages:BasePage>

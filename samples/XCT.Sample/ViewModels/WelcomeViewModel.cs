@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Sample.Models;
+using Xamarin.CommunityToolkit.Sample.Pages.AttachedProperties;
 using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
 using Xamarin.CommunityToolkit.Sample.Pages.Converters;
 using Xamarin.CommunityToolkit.Sample.Pages.Effects;
@@ -14,6 +15,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 	{
 		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
+			new SectionModel(typeof(AttachedPropertiesGalleryPage), "Attached Properties", Color.FromHex("#A4D640"),
+				"Attached properties enable an object to assign a value for a property that its own class doesn't define, like Grid.Row in children of a Grid."),
+
 			new SectionModel(typeof(BehaviorsGalleryPage), "Behaviors", Color.FromHex("#8E8CD8"),
 				"Behaviors lets you add functionality to user interface controls without having to subclass them. Behaviors are written in code and added to controls in XAML or code"),
 
