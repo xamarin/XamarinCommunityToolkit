@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Foundation;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
@@ -12,30 +11,30 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
-		const NSKeyValueObservingOptions observingOptions = NSKeyValueObservingOptions.Initial | NSKeyValueObservingOptions.OldNew | NSKeyValueObservingOptions.Prior;
 		LifecycleEffect lifeCycleEffect;
-		IDisposable isLoadedObserverDisposable;
 
 		protected override void OnAttached()
 		{
 			lifeCycleEffect = Element.Effects.OfType<LifecycleEffect>().FirstOrDefault() ??
 				throw new ArgumentNullException($"The effect {nameof(LifecycleEffect)} can't be null.");
 
-			var nativeView = Control ?? Container;
-			var key = nativeView.Superview == null ? "subviews" : "superview";
-			isLoadedObserverDisposable = nativeView.AddObserver(key, observingOptions, OnViewLoadedObserver);
+			Element.PropertyChanged += OnPropertyChanged;
 		}
 
-		void OnViewLoadedObserver(NSObservedChange nSObservedChange)
+		void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			if (!nSObservedChange?.NewValue?.Equals(NSNull.Null) ?? false)
-				lifeCycleEffect.RaiseLoadedEvent(Element);
-			else if (!nSObservedChange?.OldValue?.Equals(NSNull.Null) ?? false)
+			if (e.PropertyName == "Renderer")
 			{
-				lifeCycleEffect.RaiseUnloadedEvent(Element);
-				isLoadedObserverDisposable.Dispose();
-				isLoadedObserverDisposable = null;
-				lifeCycleEffect = null;
+				var result = Platform.GetRenderer(Element as VisualElement);
+
+				if (result != null)
+					lifeCycleEffect.RaiseLoadedEvent(Element);
+				else
+				{
+					lifeCycleEffect.RaiseUnloadedEvent(Element);
+					lifeCycleEffect = null;
+					Element.PropertyChanged -= OnPropertyChanged;
+				}
 			}
 		}
 
