@@ -16,13 +16,13 @@ namespace Xamarin.CommunityToolkit.Effects
 		{
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.Android.Effects.PlatformWindowEffect();
+				_ = new Android.Effects.PlatformWindowEffect();
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.iOS.Effects.PlatformWindowEffect();
+				_ = new iOS.Effects.PlatformWindowEffect();
 #elif UWP
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.UWP.Effects.PlatformWindowEffect();
+				_ = new UWP.Effects.PlatformWindowEffect();
 #endif
 		}
 

@@ -47,14 +47,7 @@
         </OnPlatform>
 
         <!--  Implicit styles  -->
-        <Style ApplyToDerivedTypes="True" TargetType="Page">
-            <Setter Property="xct:WindowEffect.StatusBarColor" Value="{StaticResource PrimaryColor}" />
-            <Setter Property="xct:WindowEffect.StatusBarStyle" Value="DarkContent" />
-        </Style>
-        
         <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
-            <Setter Property="xct:WindowEffect.StatusBarColor" Value="{StaticResource PrimaryColor}" />
-            <Setter Property="xct:WindowEffect.StatusBarStyle" Value="DarkContent" />
             <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
             <Setter Property="BarTextColor" Value="{StaticResource NavigationBarTextColor}" />
             <!--<Setter Property="ios:NavigationPage.HideNavigationBarSeparator" Value="True" />-->
@@ -64,6 +57,10 @@
             <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
             <Setter Property="ios:Page.UseSafeArea" Value="False" />
             <Setter Property="NavigationPage.BackButtonTitle" Value="" />
+            <Setter Property="xct:WindowEffect.StatusBarColor" Value="{DynamicResource PrimaryColor}" />
+            <Setter Property="xct:WindowEffect.StatusBarStyle" Value="DarkContent" />
+            <Setter Property="xct:WindowEffectAndroid.NavigationBarColor" Value="{DynamicResource PrimaryColor}"/>
+            <Setter Property="xct:WindowEffectAndroid.NavigationBarStyle" Value="LightContent" />
         </Style>
 
         <Style TargetType="Button">

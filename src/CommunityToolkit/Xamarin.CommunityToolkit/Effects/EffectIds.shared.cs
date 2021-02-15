@@ -49,5 +49,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// Effect Id for <see cref="WindowEffect"/>
 		/// </summary>
 		public static string WindowEffect => $"{effectResolutionGroupName}.{nameof(WindowEffect)}";
+
+		/// <summary>
+		/// Effect Id for <see cref="WindowEffectAndroid"/>
+		/// </summary>
+		public static string WindowEffectAndroid => $"{effectResolutionGroupName}.{nameof(WindowEffectAndroid)}";
 	}
 }

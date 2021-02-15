@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			SetBarAppearance(barAppearance =>
+			SetBarAppearance(Activity, barAppearance =>
 			{
 				switch (style)
 				{
@@ -72,15 +72,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			});
 		}
 
-		void SetBarAppearance(Func<StatusBarVisibility, StatusBarVisibility> updateAppearance)
-		{
-			var currentWindow = GetCurrentWindow();
-
-			var appearance = currentWindow.DecorView.SystemUiVisibility;
-			appearance = updateAppearance(appearance);
-			currentWindow.DecorView.SystemUiVisibility = appearance;
-		}
-
 		FormsAppCompatActivity Activity
 		{
 			get
@@ -92,9 +83,18 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		Window GetCurrentWindow()
+		internal static void SetBarAppearance(FormsAppCompatActivity activity, Func<StatusBarVisibility, StatusBarVisibility> updateAppearance)
 		{
-			var window = Activity.Window;
+			var currentWindow = GetCurrentWindow(activity);
+
+			var appearance = currentWindow.DecorView.SystemUiVisibility;
+			appearance = updateAppearance(appearance);
+			currentWindow.DecorView.SystemUiVisibility = appearance;
+		}
+
+		internal static Window GetCurrentWindow(FormsAppCompatActivity activity)
+		{
+			var window = activity.Window;
 			window.ClearFlags(WindowManagerFlags.TranslucentStatus);
 			window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 			return window;
