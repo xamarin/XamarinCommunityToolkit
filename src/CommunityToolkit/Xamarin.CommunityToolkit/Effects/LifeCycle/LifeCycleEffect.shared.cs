@@ -47,8 +47,8 @@ namespace Xamarin.CommunityToolkit.Effects
 #endif
 		}
 
-		internal void RaiseLoadedEvent(Element element) => eventManager.RaiseEvent(element, EventArgs.Empty, "Loaded");
+		internal void RaiseLoadedEvent(Element element) => eventManager.RaiseEvent(element, EventArgs.Empty, nameof(Loaded));
 
-		internal void RaiseUnloadedEvent(Element element) => eventManager.RaiseEvent(element, EventArgs.Empty, "Unloaded");
+		internal void RaiseUnloadedEvent(Element element) => eventManager.RaiseEvent(element, EventArgs.Empty, nameof(Unloaded));
 	}
 }
