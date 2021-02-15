@@ -2,25 +2,24 @@
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	/// Converts the incoming value from byte array and returns the object of a type ImageSource.
+	/// Converts the incoming value from <see cref="byte[]"/> and returns the object of a type <see cref="ImageSource"/> or vice versa.
 	/// </summary>
 	public class ByteArrayToImageSourceConverter : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
-		/// Converts the incoming value from byte array and returns the object of a type ImageSource.
+		/// Converts the incoming value from <see cref="byte[]"/> and returns the object of a type <see cref="ImageSource"/>.
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
-		/// <param name="targetType">The type of the binding target property.</param>
-		/// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
-		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>An object of type ImageSource.</returns>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
+		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
+		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
+		/// <returns>An object of type <see cref="ImageSource"/>.</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value is null)
@@ -32,6 +31,14 @@ namespace Xamarin.CommunityToolkit.Converters
 			throw new ArgumentException("Expected value to be of type byte[].", nameof(value));
 		}
 
+		/// <summary>
+		/// Converts the incoming value from <see cref="StreamImageSource"/> and returns a <see cref="byte[]"/>.
+		/// </summary>
+		/// <param name="value">The value to convert.</param>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
+		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
+		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
+		/// <returns>An object of type <see cref="ImageSource"/>.</returns>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value is null)
