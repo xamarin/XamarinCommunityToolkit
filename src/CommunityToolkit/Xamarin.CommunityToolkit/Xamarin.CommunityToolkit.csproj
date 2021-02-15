@@ -2,7 +2,7 @@
 <Project Sdk="MSBuild.Sdk.Extras/2.1.2">
   <PropertyGroup>
     <TargetFrameworks>netstandard1.0;netstandard2.0;netstandard2.1;Xamarin.iOS10;MonoAndroid10.0;Xamarin.TVOS10;Xamarin.WatchOS10;Xamarin.Mac20;tizen40</TargetFrameworks>
-    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.17763;netcoreapp3.1;net472;net471</TargetFrameworks>
+    <TargetFrameworks Condition=" '$(OS)' == 'Windows_NT' ">$(TargetFrameworks);uap10.0.19041;netcoreapp3.1;net472;net471</TargetFrameworks>
     <AssemblyName>Xamarin.CommunityToolkit</AssemblyName>
     <RootNamespace>Xamarin.CommunityToolkit</RootNamespace>
     <PackageId>Xamarin.CommunityToolkit</PackageId>
@@ -21,22 +21,13 @@
     <NeutralLanguage>en</NeutralLanguage>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
-    <PackageReleaseNotes>
-      
-      
-      
-      <!-- See if we can host these on MS docs? -->
-    
-    
-    
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>See: http://aka.ms/xct-release-notes</PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
-    <DebugType>portable</DebugType>
     <Configurations>Debug;Release</Configurations>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
@@ -47,15 +38,6 @@
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage TargetFrameworks for distribution (Release Mode) -->
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)'=='Release' AND '$(OS)' == 'Windows_NT' ">
-    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <!-- Build symbol package (.snupkg) to distribute the PDB containing Source Link -->
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-  </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) AND '$(OS)' == 'Windows_NT' ">
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
@@ -63,16 +45,33 @@
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
     <DefineConstants>UWP</DefineConstants>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(Configuration)'=='Release' ">
-    <!-- Manage Xamarin.Forms version for distribution -->
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0.14393'">
+    <DefineConstants>$(DefineConstants);UWP_14393</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.16299' ">
+    <DefineConstants>$(DefineConstants);UWP_16299;UWP_14393</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.18362' ">
+    <DefineConstants>$(DefineConstants);UWP_18362;UWP_16299;UWP_14393</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0.19041' ">
+    <DefineConstants>$(DefineConstants);UWP_19041;UWP_18362;UWP_16299;UWP_14393</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="**/*.shared.cs" />
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+    <Compile Include="**/*.netstandard.cs" />
+    <Compile Include="**/*.netstandard*.cs" />
+    <!-- Remove obj to prevent stale code from other implementations from being included -->
+    <Compile Remove="obj\**" />
+    <EmbeddedResource Remove="obj\**" />
+    <None Remove="obj\**" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />

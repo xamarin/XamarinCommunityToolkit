@@ -1,12 +1,12 @@
-﻿using Windows.UI.Xaml.Input;
+﻿using System;
+using System.Collections.Generic;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.UWP.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml.Media.Animation;
-using System;
-using System.Collections.Generic;
-using Xamarin.CommunityToolkit.UWP.Effects;
-using Xamarin.CommunityToolkit.Effects;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 

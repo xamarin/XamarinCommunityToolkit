@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class ViewsGalleryViewModel : BaseGalleryViewModel
 	{
-		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(typeof(AvatarViewPage), "AvatarView",
 				"The AvatarView represents a user's name by using the initials and a generated background color"),
@@ -48,7 +48,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"A control to display a set of tabs and their respective content."),
 
 			new SectionModel(typeof(UniformGridPage), "UniformGrid",
-				"The UniformGrid is just like the Grid, with all rows and columns will have the same size.")
+				"The UniformGrid is just like the Grid, with all rows and columns will have the same size."),
+
+			new SectionModel(typeof(PopupGalleryPage), "Popup",
+				"The popup control renders native popups from the shared code. This page demonstrates a variety of different techniques for displaying native popups.")
 		};
 	}
 }
