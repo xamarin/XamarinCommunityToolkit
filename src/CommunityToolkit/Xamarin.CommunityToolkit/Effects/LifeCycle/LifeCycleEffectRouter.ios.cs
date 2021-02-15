@@ -9,6 +9,9 @@ using Xamarin.Forms.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
+	/// <summary>
+	/// iOS implementation of the <see cref="LifecycleEffect" />
+	/// </summary>
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
 		LifecycleEffect lifeCycleEffect;

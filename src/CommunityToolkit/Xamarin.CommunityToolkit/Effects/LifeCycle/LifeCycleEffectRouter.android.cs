@@ -10,6 +10,9 @@ using View = Android.Views.View;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
+	/// <summary>
+	/// Android implementation of the <see cref="LifecycleEffect" />
+	/// </summary>
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
 		View nativeView;

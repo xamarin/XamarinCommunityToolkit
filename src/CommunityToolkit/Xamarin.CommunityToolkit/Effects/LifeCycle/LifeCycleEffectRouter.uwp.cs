@@ -10,6 +10,9 @@ using Xamarin.Forms.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
+	/// <summary>
+	/// UWP implementation of the <see cref="LifecycleEffect" />
+	/// </summary>
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
 		FrameworkElement nativeView;

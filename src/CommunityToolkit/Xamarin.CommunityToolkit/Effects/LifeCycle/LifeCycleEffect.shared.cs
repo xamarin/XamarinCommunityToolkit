@@ -4,22 +4,34 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
+	/// <summary>
+	/// An effect to subscribe to the View's lifecycle events.
+	/// </summary>
 	public class LifecycleEffect : RoutingEffect
 	{
 		readonly WeakEventManager eventManager = new WeakEventManager();
 
+		/// <summary>
+		/// Event that is triggered when the <see cref="View" /> is loaded and is ready for use.
+		/// </summary>
 		public event EventHandler Loaded
 		{
 			add => eventManager.AddEventHandler(value);
 			remove => eventManager.RemoveEventHandler(value);
 		}
 
+		/// <summary>
+		/// Event that is triggered when the <see cref="View" /> is unloaded and isn't ready for use.
+		/// </summary>
 		public event EventHandler Unloaded
 		{
 			add => eventManager.AddEventHandler(value);
 			remove => eventManager.RemoveEventHandler(value);
 		}
 
+		/// <summary>
+		/// Constructor for the <see cref="LifecycleEffect" />
+		/// </summary>
 		public LifecycleEffect()
 			: base(EffectIds.LifeCycleEffect)
 		{
