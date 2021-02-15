@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.AttachedProperties
 {
@@ -36,12 +37,17 @@ namespace Xamarin.CommunityToolkit.AttachedProperties
 
 		static void OnNextElementChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-            var entry = bindable as Entry;
+			var entry = (Entry)bindable;
+			var weakEntry = new WeakReference<Entry>((Entry)bindable);
+			entry.Completed += completedHandler;
 
-            if (entry == null)
-                return;
-
-            entry.Completed += (s, e) => GetNextElement(entry)?.Focus();
+			void completedHandler(object sender, EventArgs e)
+			{
+				if (weakEntry.TryGetTarget(out var origEntry))
+				{
+					GetNextElement(origEntry)?.Focus();
+				}
+			}
 		}
 	}
 }
