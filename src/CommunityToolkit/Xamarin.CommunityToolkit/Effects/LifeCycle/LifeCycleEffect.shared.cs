@@ -1,13 +1,24 @@
 ﻿using System;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
 	public class LifecycleEffect : RoutingEffect
 	{
-		public event EventHandler Loaded;
+		readonly WeakEventManager eventManager = new WeakEventManager();
 
-		public event EventHandler Unloaded;
+		public event EventHandler Loaded
+		{
+			add => eventManager.AddEventHandler(value);
+			remove => eventManager.RemoveEventHandler(value);
+		}
+
+		public event EventHandler Unloaded
+		{
+			add => eventManager.AddEventHandler(value);
+			remove => eventManager.RemoveEventHandler(value);
+		}
 
 		public LifecycleEffect()
 			: base(EffectIds.LifeCycleEffect)
@@ -24,8 +35,8 @@ namespace Xamarin.CommunityToolkit.Effects
 #endif
 		}
 
-		internal void RaiseLoadedEvent(Element element) => Loaded?.Invoke(element, EventArgs.Empty);
+		internal void RaiseLoadedEvent(Element element) => eventManager.RaiseEvent(element, EventArgs.Empty, "Loaded");
 
-		internal void RaiseUnloadedEvent(Element element) => Unloaded?.Invoke(element, EventArgs.Empty);
+		internal void RaiseUnloadedEvent(Element element) => eventManager.RaiseEvent(element, EventArgs.Empty, "Unloaded");
 	}
 }
