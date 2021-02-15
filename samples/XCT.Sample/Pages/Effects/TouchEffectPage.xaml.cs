@@ -1,10 +1,10 @@
 ﻿using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms.Xaml;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TouchEffectPage
 	{
 		public TouchEffectPage()
