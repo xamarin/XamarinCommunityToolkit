@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		{
 			// Arrange
 			var culture2 = new CultureInfo("en");
-			localizationManager.CurrentCulture = culture2;
+			localizationManager.SetCulture(culture2);
 			CultureInfo changedCulture = null;
 			localizationManager.PropertyChanged += (s, e) => changedCulture = localizationManager.CurrentCulture;
 
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			localizationManager.Init(resourceManager, initialCulture);
 			Assert.Equal(initialCulture, changedCulture);
 
-			localizationManager.CurrentCulture = culture2;
+			localizationManager.SetCulture(culture2);
 			Assert.Equal(culture2, changedCulture);
 		}
 	}
