@@ -10,9 +10,9 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
-	public class WelcomeViewModel : BaseViewModel
+	public class WelcomeViewModel : BaseGalleryViewModel
 	{
-		public IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(typeof(BehaviorsGalleryPage), "Behaviors", Color.FromHex("#8E8CD8"),
 				"Behaviors lets you add functionality to user interface controls without having to subclass them. Behaviors are written in code and added to controls in XAML or code"),

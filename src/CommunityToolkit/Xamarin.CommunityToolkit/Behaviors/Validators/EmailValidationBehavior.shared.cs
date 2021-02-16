@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
+	/// <summary>
+	/// The <see cref="EmailValidationBehavior"/> is a behavior that allows users to determine whether or not text input is a valid e-mail address. For example, an <see cref="Forms.Entry"/> control can be styled differently depending on whether a valid or an invalid e-mail address is provided. The validation is achieved through a regular expression that is used to verify whether or not the text input is a valid e-mail address. It can be overridden to customize the validation through the properties it inherits from <see cref="Internals.ValidationBehavior"/>.
+	/// </summary>
 	public class EmailValidationBehavior : TextValidationBehavior
 	{
 #if !NETSTANDARD1_0

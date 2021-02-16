@@ -1,8 +1,8 @@
-﻿using System.Windows.Input;
-using Xamarin.Forms;
-using System;
+﻿using System;
 using System.Linq;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {

@@ -185,9 +185,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		}
 
 		[Fact]
-		public void AsyncValueCommand_RaiseCanExecuteChanged_Test()
+		public async Task AsyncValueCommand_RaiseCanExecuteChanged_Test()
 		{
 			// Arrange
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object>();
+
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
 
@@ -207,18 +209,25 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Act
 			command.RaiseCanExecuteChanged();
+			await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+			void handleCanExecuteChanged(object sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				handleCanExecuteChangedTCS.SetResult(null);
+			}
 		}
 
 		[Fact]
-		public void AsyncValueCommand_ChangeCanExecute_Test()
+		public async Task AsyncValueCommand_ChangeCanExecute_Test()
 		{
 			// Arrange
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object>();
+
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
 
@@ -239,13 +248,18 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 #pragma warning disable CS0618 // Type or member is obsolete
 			command.ChangeCanExecute();
+			await handleCanExecuteChangedTCS.Task;
 #pragma warning restore CS0618 // Type or member is obsolete
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+			void handleCanExecuteChanged(object sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				handleCanExecuteChangedTCS.SetResult(null);
+			}
 		}
 
 		[Fact]
