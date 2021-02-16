@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,7 +10,8 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	/// <summary>
 	/// Abstract Base Class used by AsyncValueCommand
 	/// </summary>
-	public class BaseAsyncValueCommand<TExecute, TCanExecute> : BaseCommand<TCanExecute>, ICommand
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public abstract class BaseAsyncValueCommand<TExecute, TCanExecute> : BaseCommand<TCanExecute>, ICommand
 	{
 		readonly Func<TExecute, ValueTask> execute;
 		readonly Action<Exception> onException;

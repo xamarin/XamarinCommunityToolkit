@@ -44,4 +44,3 @@
     <ProjectReference Include="..\..\src\Markup\Xamarin.CommunityToolkit.Markup\Xamarin.CommunityToolkit.Markup.csproj" />
   </ItemGroup>
 </Project>
-

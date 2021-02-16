@@ -148,8 +148,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var originY = Element.VerticalOptions.Alignment switch
 				{
-					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height - PreferredContentSize.Height,
-					LayoutAlignment.Center => (UIScreen.MainScreen.Bounds.Height / 2) - (PreferredContentSize.Height / 2),
+					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height,
+					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Height / 2,
 					_ => 0f
 				};
 
@@ -161,12 +161,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				};
 
 				PopoverPresentationController.SourceRect = new CGRect(originX, originY, 0, 0);
+				PopoverPresentationController.PermittedArrowDirections = 0;
 			}
 			else
 			{
 				var view = Platform.GetRenderer(Element.Anchor).NativeView;
 				PopoverPresentationController.SourceView = view;
 				PopoverPresentationController.SourceRect = view.Bounds;
+				var arrowDirection = Views.iOSSpecific.Popup.GetArrowDirection(Element);
+				PopoverPresentationController.PermittedArrowDirections = arrowDirection switch
+				{
+					Views.iOSSpecific.PopoverArrowDirection.Up => UIPopoverArrowDirection.Up,
+					Views.iOSSpecific.PopoverArrowDirection.Down => UIPopoverArrowDirection.Down,
+					Views.iOSSpecific.PopoverArrowDirection.Left => UIPopoverArrowDirection.Left,
+					Views.iOSSpecific.PopoverArrowDirection.Right => UIPopoverArrowDirection.Right,
+					Views.iOSSpecific.PopoverArrowDirection.Any => UIPopoverArrowDirection.Any,
+					Views.iOSSpecific.PopoverArrowDirection.Unknown => UIPopoverArrowDirection.Unknown,
+					_ => 0
+				};
 			}
 		}
 
@@ -187,8 +199,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			((UIPopoverPresentationController)PresentationController).SourceView = ViewController.View;
 
-			// Setting PermittedArrowDirector to 0 breaks the Popover layout. It would be nice if there is no anchor to remove the arrow.
-			((UIPopoverPresentationController)PresentationController).PermittedArrowDirections = UIPopoverArrowDirection.Up;
 			((UIPopoverPresentationController)PresentationController).Delegate = popOverDelegate;
 		}
 
