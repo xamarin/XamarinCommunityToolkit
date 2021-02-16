@@ -57,16 +57,12 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		public void SetStatusBarStyle(StatusBarStyle style)
 		{
-			var foregroundColor = Color.Default;
-			switch (style)
+			var foregroundColor = style switch
 			{
-				case StatusBarStyle.LightContent:
-					foregroundColor = Color.White;
-					break;
-				case StatusBarStyle.DarkContent:
-					foregroundColor = Color.Black;
-					break;
-			}
+				StatusBarStyle.LightContent => Color.White,
+				StatusBarStyle.DarkContent => Color.Black,
+				_ => Color.Default,
+			};
 
 			if (ApiInformation.IsTypePresent(typeof(StatusBar).FullName ?? string.Empty))
 			{
