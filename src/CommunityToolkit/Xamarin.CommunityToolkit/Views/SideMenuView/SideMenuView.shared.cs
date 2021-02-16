@@ -67,13 +67,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.Create(nameof(CurrentGestureShift), typeof(double), typeof(SideMenuView), 0.0, BindingMode.OneWayToSource);
 
 		public static readonly BindableProperty GestureThresholdProperty
-			= BindableProperty.Create(nameof(GestureThreshold), typeof(double), typeof(SideMenuView), 7.0);
+			= BindableProperty.Create(nameof(GestureThreshold), typeof(double), typeof(SideMenuView), -1.0);
 
 		public static readonly BindableProperty CancelVerticalGestureThresholdProperty
 			= BindableProperty.Create(nameof(CancelVerticalGestureThreshold), typeof(double), typeof(SideMenuView), 1.0);
-
-		public static readonly BindableProperty AllowInterceptGestureProperty
-			= BindableProperty.Create(nameof(AllowInterceptGesture), typeof(bool), typeof(SideMenuView), false);
 
 		public static readonly BindableProperty StateProperty
 			= BindableProperty.Create(nameof(State), typeof(SideMenuState), typeof(SideMenuView), SideMenuState.MainViewShown, BindingMode.TwoWay, propertyChanged: OnStatePropertyChanged);
@@ -89,6 +86,74 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty MenuGestureEnabledProperty
 			= BindableProperty.CreateAttached(nameof(GetMenuGestureEnabled), typeof(bool), typeof(SideMenuView), true);
+
+		public SideMenuView()
+		{
+#if __ANDROID__
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(null);
+#elif __IOS__
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
+#endif
+		}
+
+		public new ISideMenuList<View> Children
+			=> children;
+
+		public double Shift
+		{
+			get => (double)GetValue(ShiftProperty);
+			set => SetValue(ShiftProperty, value);
+		}
+
+		public double CurrentGestureShift
+		{
+			get => (double)GetValue(CurrentGestureShiftProperty);
+			set => SetValue(CurrentGestureShiftProperty, value);
+		}
+
+		public double GestureThreshold
+		{
+			get => (double)GetValue(GestureThresholdProperty);
+			set => SetValue(GestureThresholdProperty, value);
+		}
+
+		public double CancelVerticalGestureThreshold
+		{
+			get => (double)GetValue(CancelVerticalGestureThresholdProperty);
+			set => SetValue(CancelVerticalGestureThresholdProperty, value);
+		}
+
+		public SideMenuState State
+		{
+			get => (SideMenuState)GetValue(StateProperty);
+			set => SetValue(StateProperty, value);
+		}
+
+		public SideMenuState CurrentGestureState
+		{
+			get => (SideMenuState)GetValue(CurrentGestureStateProperty);
+			set => SetValue(CurrentGestureStateProperty, value);
+		}
+
+		public static SideMenuPosition GetPosition(BindableObject bindable)
+			=> (SideMenuPosition)bindable.GetValue(PositionProperty);
+
+		public static void SetPosition(BindableObject bindable, SideMenuPosition value)
+			=> bindable.SetValue(PositionProperty, value);
+
+		public static double GetMenuWidthPercentage(BindableObject bindable)
+			=> (double)bindable.GetValue(MenuWidthPercentageProperty);
+
+		public static void SetMenuWidthPercentage(BindableObject bindable, double value)
+			=> bindable.SetValue(MenuWidthPercentageProperty, value);
+
+		public static bool GetMenuGestureEnabled(BindableObject bindable)
+			=> (bool)bindable.GetValue(MenuGestureEnabledProperty);
+
+		public static void SetMenuGestureEnabled(BindableObject bindable, bool value)
+			=> bindable.SetValue(MenuGestureEnabledProperty, value);
 
 		internal void OnPanUpdated(object sender, PanUpdatedEventArgs e)
 		{
@@ -122,68 +187,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateState(state, true);
 		}
 
-		public new ISideMenuList<View> Children
-			=> children;
-
-		public double Shift
-		{
-			get => (double)GetValue(ShiftProperty);
-			set => SetValue(ShiftProperty, value);
-		}
-
-		public double CurrentGestureShift
-		{
-			get => (double)GetValue(CurrentGestureShiftProperty);
-			set => SetValue(CurrentGestureShiftProperty, value);
-		}
-
-		public double GestureThreshold
-		{
-			get => (double)GetValue(GestureThresholdProperty);
-			set => SetValue(GestureThresholdProperty, value);
-		}
-
-		public double CancelVerticalGestureThreshold
-		{
-			get => (double)GetValue(CancelVerticalGestureThresholdProperty);
-			set => SetValue(CancelVerticalGestureThresholdProperty, value);
-		}
-
-		public bool AllowInterceptGesture
-		{
-			get => (bool)GetValue(AllowInterceptGestureProperty);
-			set => SetValue(AllowInterceptGestureProperty, value);
-		}
-
-		public SideMenuState State
-		{
-			get => (SideMenuState)GetValue(StateProperty);
-			set => SetValue(StateProperty, value);
-		}
-
-		public SideMenuState CurrentGestureState
-		{
-			get => (SideMenuState)GetValue(CurrentGestureStateProperty);
-			set => SetValue(CurrentGestureStateProperty, value);
-		}
-
-		public static SideMenuPosition GetPosition(BindableObject bindable)
-			=> (SideMenuPosition)bindable.GetValue(PositionProperty);
-
-		public static void SetPosition(BindableObject bindable, SideMenuPosition value)
-			=> bindable.SetValue(PositionProperty, value);
-
-		public static double GetMenuWidthPercentage(BindableObject bindable)
-			=> (double)bindable.GetValue(MenuWidthPercentageProperty);
-
-		public static void SetMenuWidthPercentage(BindableObject bindable, double value)
-			=> bindable.SetValue(MenuWidthPercentageProperty, value);
-
-		public static bool GetMenuGestureEnabled(BindableObject bindable)
-			=> (bool)bindable.GetValue(MenuGestureEnabledProperty);
-
-		public static void SetMenuGestureEnabled(BindableObject bindable, bool value)
-			=> bindable.SetValue(MenuGestureEnabledProperty, value);
+		internal bool CheckGestureEnabled(SideMenuPosition menuPosition)
+			=> menuPosition switch
+			{
+				SideMenuPosition.LeftMenu => CheckMenuGestureEnabled(leftMenu),
+				SideMenuPosition.RightMenu => CheckMenuGestureEnabled(rightMenu),
+				_ => true
+			};
 
 		protected override void OnControlInitialized(AbsoluteLayout control)
 		{
@@ -213,6 +223,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.LayoutChanged += OnLayoutChanged;
 		}
 
+		protected override void OnSizeAllocated(double width, double height)
+		{
+			base.OnSizeAllocated(width, height);
+			PerformUpdate(false);
+		}
+
 		static View SetupMainViewLayout(View view)
 		{
 			SetLayoutFlags(view, AbsoluteLayoutFlags.All);
@@ -235,7 +251,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			=> ((SideMenuView)bindable).OnStatePropertyChanged();
 
 		void OnStatePropertyChanged()
-			=> PerformAnimation();
+			=> PerformUpdate();
 
 		void OnTouchStarted()
 		{
@@ -290,12 +306,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateState(state, isSwipe);
 		}
 
-		void PerformAnimation()
+		void PerformUpdate(bool isAnimated = true)
 		{
 			var state = State;
 			var start = Shift;
 			var menuWidth = (state == SideMenuState.LeftMenuShown ? leftMenu : rightMenu)?.Width ?? 0;
 			var end = -Sign((int)state) * menuWidth;
+
+			if (!isAnimated)
+			{
+				TryUpdateShift(end, true, false);
+				SetOverlayViewInputTransparent(state);
+				return;
+			}
 
 			var animationLength = (uint)(SideMenuView.animationLength * Abs(start - end) / Width);
 			if (isSwipe)
@@ -393,7 +416,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			this.isSwipe = isSwipe;
 			if (State == state)
 			{
-				PerformAnimation();
+				PerformUpdate();
 				return;
 			}
 			State = state;
@@ -418,7 +441,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Control.Children.IndexOf(inactiveMenu) < Control.Children.IndexOf(activeMenu))
 				return;
 
-			LowerChild(inactiveMenu);
+			Control.LowerChild(inactiveMenu);
 		}
 
 		bool CheckMenuGestureEnabled(SideMenuState state)
@@ -548,5 +571,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Control.RaiseChild(mainView);
 			Control.RaiseChild(overlayView);
 		}
+
+		bool CheckMenuGestureEnabled(View menuView)
+			=> menuView != null && GetMenuGestureEnabled(menuView);
 	}
 }

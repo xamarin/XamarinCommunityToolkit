@@ -210,7 +210,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty SelectedIndexProperty =
-			BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(TabView), -1,
+			BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(TabView), -1, BindingMode.TwoWay,
 				propertyChanged: OnSelectedIndexChanged);
 
 		public int SelectedIndex
