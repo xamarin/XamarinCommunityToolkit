@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public void Init(ResourceManager resource, CultureInfo initialCulture)
 		{
 			resourceManager = resource;
-			currentCulture = initialCulture;
+			SetCulture(initialCulture);
 		}
 
 		public string GetValue(string text) =>
