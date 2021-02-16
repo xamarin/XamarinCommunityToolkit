@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.AttachedProperties
 		static void OnNextElementChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var entry = (Entry)bindable;
-			var weakEntry = new WeakReference<Entry>((Entry)bindable);
+			var weakEntry = new WeakReference<Entry>(entry);
 			entry.Completed += completedHandler;
 
 			void completedHandler(object sender, EventArgs e)
