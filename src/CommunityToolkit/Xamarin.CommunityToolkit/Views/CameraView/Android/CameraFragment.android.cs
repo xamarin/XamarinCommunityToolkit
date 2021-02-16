@@ -343,7 +343,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					repeatingIsRunning = false;
 					sessionBuilder.AddTarget(photoReader.Surface);
 					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
-					sessionBuilder.Set(CaptureRequest.JpegOrientation, GetJpegOrientation());
+					/*sessionBuilder.Set(CaptureRequest.JpegOrientation, GetJpegOrientation());*/
 					session.Capture(sessionBuilder.Build(), null, null);
 					sessionBuilder.RemoveTarget(photoReader.Surface);
 					UpdateRepeatingRequest();
@@ -355,9 +355,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPhoto(object sender, Tuple<string, byte[]> tuple) =>
+		void OnPhoto(object sender, Tuple<string, byte[], int> tuple) =>
 			Device.BeginInvokeOnMainThread(() =>
-				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2)));
+				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2, tuple.Item3)));
 
 		void OnVideo(object sender, string path) =>
 			Device.BeginInvokeOnMainThread(() =>
@@ -374,7 +374,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				string filePath = null;
 
+				// Calculate image rotation based on sensor and device orientation
+				var rotation = GetRotationCompensation();
+
 				// See TODO on CameraView.SavePhotoToFile
+				// Insert Exif information to jpeg file
 				/*if (Element.SavePhotoToFile)
 				{
 					filePath = ConstructMediaFilename(null, extension: "jpg");
@@ -384,10 +388,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				OnPhoto(this, new Tuple<string, byte[]>(filePath, Element.SavePhotoToFile ? null : bytes));*/
 
 				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, new Tuple<string, byte[]>(filePath, bytes));
+				OnPhoto(this, new Tuple<string, byte[], int>(filePath, bytes, rotation));
 			};
 
 			photoReader.SetOnImageAvailableListener(readerListener, backgroundHandler);
+		}
+
+		private int GetRotationCompensation()
+		{
+			var rotationCompensation = GetDisplayRotationDegrees();
+			var c = Manager.GetCameraCharacteristics(cameraId);
+			// Get the device's sensor orientation.
+			var sensorOrientation = (int)c.Get(CameraCharacteristics.SensorOrientation);
+
+			var facingFront = ((Integer)c.Get(CameraCharacteristics.LensFacing)).IntValue() == (int)LensFacing.Front;
+			if (facingFront)
+			{
+				rotationCompensation = (sensorOrientation + rotationCompensation) % 360;
+			}
+			else
+			{
+				rotationCompensation = (sensorOrientation - rotationCompensation + 360) % 360;
+			}
+
+			return rotationCompensation;
 		}
 
 		void SetupMediaRecorder(Surface previewSurface)
