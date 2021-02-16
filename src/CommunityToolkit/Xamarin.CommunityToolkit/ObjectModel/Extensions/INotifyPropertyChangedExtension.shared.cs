@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Xamarin.CommunityToolkit.ObjectModel.Extensions
 {
-	public static class INotifyPropertyChangedEx
+	public static class INotifyPropertyChangedExtension
 	{
 		public static void WeakSubscribe<T>(this INotifyPropertyChanged target, T subscriber, Action<T, object, EventArgs> action)
 		{
