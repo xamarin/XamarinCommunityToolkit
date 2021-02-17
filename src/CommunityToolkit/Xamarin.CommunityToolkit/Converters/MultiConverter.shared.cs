@@ -24,6 +24,14 @@ namespace Xamarin.CommunityToolkit.Converters
 					 parameters.FirstOrDefault(x => x.ConverterType == converter.GetType())?.Value, culture))
 			: this.Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));
 
+		/// <summary>
+		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
+		/// </summary>
+		/// <param name="value">N/A</param>
+		/// <param name="targetType">N/A</param>
+		/// <param name="parameter">N/A</param>
+		/// <param name="culture">N/A</param>
+		/// <returns>N/A</returns>
 		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 			=> throw new NotImplementedException();
 	}

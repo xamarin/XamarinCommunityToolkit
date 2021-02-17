@@ -7,34 +7,58 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
+	/// <summary>
+	/// The <see cref="CharactersValidationBehavior"/> is a behavior that allows the user to validate text input depending on specified parameters.For example, an <see cref="Entry"/> control can be styled differently depending on whether a valid or an invalid text value is provided. This behavior includes built-in checks such as checking for a certain number of digits or alphanumeric characters. Additional properties handling validation are inherited from <see cref="Internals.ValidationBehavior"/>.
+	/// </summary>
 	public class CharactersValidationBehavior : TextValidationBehavior
 	{
 		List<Predicate<char>> characterPredicates;
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="CharacterType"/> property.
+		/// </summary>
 		public static readonly BindableProperty CharacterTypeProperty =
 			BindableProperty.Create(nameof(CharacterType), typeof(CharacterType), typeof(CharactersValidationBehavior), CharacterType.Any, propertyChanged: OnCharacterTypePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="MinimumCharacterCount"/> property.
+		/// </summary>
 		public static readonly BindableProperty MinimumCharacterCountProperty =
 			BindableProperty.Create(nameof(MinimumCharacterCount), typeof(int), typeof(CharactersValidationBehavior), 0, propertyChanged: OnValidationPropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="MaximumCharacterCount"/> property.
+		/// </summary>
 		public static readonly BindableProperty MaximumCharacterCountProperty =
 			BindableProperty.Create(nameof(MaximumCharacterCount), typeof(int), typeof(CharactersValidationBehavior), int.MaxValue, propertyChanged: OnValidationPropertyChanged);
 
+		/// <summary>
+		/// Constructor for this behavior
+		/// </summary>
 		public CharactersValidationBehavior()
 			=> OnCharacterTypePropertyChanged();
 
+		/// <summary>
+		/// Provides an enumerated value to use to set how to handle comparisons. This is a bindable property.
+		/// </summary>
 		public CharacterType CharacterType
 		{
 			get => (CharacterType)GetValue(CharacterTypeProperty);
 			set => SetValue(CharacterTypeProperty, value);
 		}
 
+		/// <summary>
+		/// The minimum length of the text input that's allowed. This is a bindable property.
+		/// </summary>
 		public int MinimumCharacterCount
 		{
 			get => (int)GetValue(MinimumCharacterCountProperty);
 			set => SetValue(MinimumCharacterCountProperty, value);
 		}
 
+		/// <summary>
+		/// The maximum length of the text input that's allowed. This is a bindable property.
+		/// </summary>
 		public int MaximumCharacterCount
 		{
 			get => (int)GetValue(MaximumCharacterCountProperty);
