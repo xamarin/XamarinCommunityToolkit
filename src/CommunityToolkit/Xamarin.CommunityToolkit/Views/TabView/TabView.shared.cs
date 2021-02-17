@@ -753,12 +753,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (position < 0)
 				return;
+			var oldposition = SelectedIndex;
+
 			var newPosition = position;
-			SelectedIndex = newPosition;
 
 			Device.BeginInvokeOnMainThread(async () =>
 			{
-				if (contentTabItems == null)
+				if (contentTabItems == null || contentTabItems.Count != TabItems.Count)
 					contentTabItems = new ObservableCollection<TabViewItem>(TabItems.Where(t => t.Content != null));
 
 				var contentIndex = position;
@@ -771,7 +772,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (hasCurrentItem)
 						currentItem = (TabViewItem)contentContainer.CurrentItem;
 
-					var tabViewItem = TabItems[SelectedIndex];
+					var tabViewItem = TabItems[position];
 
 					contentIndex = contentTabItems.IndexOf(currentItem ?? tabViewItem);
 					tabStripIndex = TabItems.IndexOf(currentItem ?? tabViewItem);
@@ -798,18 +799,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (tabStripContent.Children.Count > 0)
 					await tabStripContainerScroll.ScrollToAsync(tabStripContent.Children[tabStripIndex], ScrollToPosition.MakeVisible, false);
-			});
 
-			if (newPosition != SelectedIndex)
-			{
-				var selectionChangedArgs = new TabSelectionChangedEventArgs()
+				SelectedIndex = position;
+				if (oldposition != SelectedIndex)
 				{
-					NewPosition = newPosition,
-					OldPosition = SelectedIndex
-				};
+					var selectionChangedArgs = new TabSelectionChangedEventArgs()
+					{
+						NewPosition = newPosition,
+						OldPosition = SelectedIndex
+					};
 
-				OnTabSelectionChanged(selectionChangedArgs);
-			}
+					OnTabSelectionChanged(selectionChangedArgs);
+				}
+			});
 		}
 
 		void OnCurrentTabItemSizeChanged(object sender, EventArgs e)
