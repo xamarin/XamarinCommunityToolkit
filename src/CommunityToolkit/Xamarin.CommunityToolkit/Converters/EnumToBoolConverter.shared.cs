@@ -11,16 +11,10 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// </summary>
 	public class EnumToBoolConverter : ValueConverterExtension, IValueConverter
 	{
-		IList<Enum> trueValues = new List<Enum>();
-
 		/// <summary>
 		///     Enum values, that converts to <c>true</c> (optional)
 		/// </summary>
-		public IList<Enum> TrueValues
-		{
-			get => trueValues;
-			set => trueValues = value ?? new List<Enum>();
-		}
+		public IList<Enum> TrueValues { get; } = new List<Enum>();
 
 		/// <summary>
 		///     Convert an <see cref="Enum" /> to corresponding <see cref="bool" />
@@ -41,12 +35,6 @@ namespace Xamarin.CommunityToolkit.Converters
 		{
 			if (!(value is Enum enumValue))
 				throw new ArgumentException("The value should be of type Enum", nameof(value));
-
-			if (TrueValues.Count == 0 && !(parameter is Enum enumParam))
-            {
-                throw new ArgumentException("The parameter should be of type Enum, if TrueList not set",
-					nameof(parameter));
-            }
 
 			return TrueValues.Count == 0
 				? ConvertWithParameter(enumValue, parameter as Enum)

@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Xamarin.CommunityToolkit.Converters;
 using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
-	internal enum TestEnumForEnumToBoolConverter
+	public enum TestEnumForEnumToBoolConverter
 	{
 		None = 0,
 		One = 1,
@@ -47,29 +48,28 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[InlineData(42)]
 		[InlineData(null)]
 		[InlineData(false)]
-		public void EnumToBoolConvert_ParameterNotEnum_ThrowsArgumentException(object parameter)
+		public void EnumToBoolConvert_ParameterNotEnum_ReturnsFalse(object parameter)
 		{
 			var enumToBoolConverter = new EnumToBoolConverter();
 
-			Assert.Throws<ArgumentException>("parameter", () => enumToBoolConverter.Convert(TestEnumForEnumToBoolConverter.Five, typeof(bool),
-				parameter, CultureInfo.InvariantCulture));
+			var result = enumToBoolConverter.Convert(TestEnumForEnumToBoolConverter.Five, typeof(bool), parameter, CultureInfo.InvariantCulture);
+
+			Assert.False(result as bool?);
 		}
 
 		[Theory]
-		[MemberData(nameof(ConvertTestDate))]
-		public void EnumToBoolConvert_TrueValidation(Enum[] trueValues, object value, object parameter,
+		[MemberData(nameof(ConvertTestData))]
+		public void EnumToBoolConvert_TrueValidation(IList<TestEnumForEnumToBoolConverter> trueValues, object value, object parameter,
 			bool expectedResult)
 		{
-			var enumToBoolConverter = new EnumToBoolConverter
-			{
-				TrueValues = trueValues ?? new Enum[0]
-			};
+			var enumToBoolConverter = new EnumToBoolConverter();
+			trueValues?.ToList().ForEach(fe => enumToBoolConverter.TrueValues.Add(fe));
 
 			var result = enumToBoolConverter.Convert(value, typeof(bool), parameter, CultureInfo.InvariantCulture);
 			Assert.Equal(expectedResult, result);
 		}
 
-		public static IEnumerable<object[]> ConvertTestDate()
+		public static IEnumerable<object[]> ConvertTestData()
 		{
 			yield return new object[]
 			{
