@@ -19,6 +19,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			= BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(UserStoppedTypingBehavior));
 
 		/// <summary>
+		/// Backing BindableProperty for the <see cref="CommandParameter"/> property.
+		/// </summary>
+		public static readonly BindableProperty CommandParameterProperty
+			= BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(UserStoppedTypingBehavior));
+
+		/// <summary>
 		/// Backing BindableProperty for the <see cref="StoppedTypingTimeThreshold"/> property.
 		/// </summary>
 		public static readonly BindableProperty StoppedTypingTimeThresholdProperty
@@ -45,6 +51,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			get => (ICommand)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
+		}
+
+		public object CommandParameter
+		{
+			get => GetValue(CommandParameterProperty);
+			set => SetValue(CommandParameterProperty, value);
 		}
 
 		/// <summary>
@@ -100,8 +112,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 					if (ShouldDismissKeyboardAutomatically)
 						Device.BeginInvokeOnMainThread(View.Unfocus);
 
-					if (Command?.CanExecute(View.Text) ?? false)
-						Command.Execute(View.Text);
+					if (Command?.CanExecute(CommandParameter ?? View.Text) ?? false)
+						Command.Execute(CommandParameter ?? View.Text);
 				});
 		}
 	}
