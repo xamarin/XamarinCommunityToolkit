@@ -4,7 +4,7 @@ using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xunit;
 
-namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
+namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizationResourceManagerTests
 {
 	public class LocalizationResourceManagerTests
 	{
