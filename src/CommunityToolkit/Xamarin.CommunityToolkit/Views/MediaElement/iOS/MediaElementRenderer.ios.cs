@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected IDisposable rateObserver;
 		protected IDisposable volumeObserver;
 		bool idleTimerDisabled = false;
-		AVPlayerItem item;
+		AVPlayerItem playerItem;
 
 		public MediaElementRenderer() => AddPlayedToEndObserver();
 
@@ -81,14 +81,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						asset = AVAsset.FromUrl(NSUrl.FromFilename(fileSource.File));
 				}
 
-				item = new AVPlayerItem(asset);
+				playerItem = new AVPlayerItem(asset);
 				AddStatusObserver();
 
 				if (avPlayerViewController.Player != null)
-					avPlayerViewController.Player.ReplaceCurrentItemWithPlayerItem(item);
+					avPlayerViewController.Player.ReplaceCurrentItemWithPlayerItem(playerItem);
 				else
 				{
-					avPlayerViewController.Player = new AVPlayer(item);
+					avPlayerViewController.Player = new AVPlayer(playerItem);
 					AddRateObserver();
 					AddVolumeObserver();
 				}
@@ -437,7 +437,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void AddStatusObserver()
 		{
 			DestroyStatusObserver();
-			statusObserver = item.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
+			statusObserver = playerItem.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
 		}
 
 		void AddPlayedToEndObserver()
