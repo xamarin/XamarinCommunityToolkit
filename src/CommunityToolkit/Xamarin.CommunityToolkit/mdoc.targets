@@ -105,7 +105,7 @@
     <Copy SourceFiles="$(BinConfigDir)xamarin.watchos10\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-watchos" />
     <Copy SourceFiles="$(BinConfigDir)tizen40\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-tizen" />
     <Copy SourceFiles="$(BinConfigDir)uap10.0.17763\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-uwp" />
-    <Exec Command="$(_ManagedExeLauncher) &quot;$(MDocToolPath)&quot; update --debug --lang=DocId --delete --frameworks=&quot;$(TmpDir)frameworks.xml&quot; --out=&quot;$(MDocDocumentationDirectory)&quot; $(MDocReferenceAssemblies)" />
+    <Exec Command="$(_ManagedExeLauncher) &quot;$(MDocToolPath)&quot; update --debug --lang=DocId --delete --frameworks=&quot;$(TmpDir)frameworks.xml&quot; --out=&quot;$(MDocDocumentationDirectory)&quot; $(MDocReferenceAssemblies) -L &quot;$(NuGetPackageRoot)&quot;" />
     <_FormatDocs DocsRoot="$(MDocDocumentationDirectory)" />
     <_VerifyAllDocsAreComplete DocsRoot="$(MDocDocumentationDirectory)" />
   </Target>
