@@ -42,7 +42,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(ShadowEffectPage),
 				nameof(ShadowEffect),
-				"The ShadowEffect allows all views to display shadow.")
+				"The ShadowEffect allows all views to display shadow."),
+
+			new SectionModel(
+				typeof(FullScreenEffectPage),
+				nameof(FullScreenEffect),
+				"The FullScreenEffect allows pages to control full screen modes.")
 		};
 	}
 }
