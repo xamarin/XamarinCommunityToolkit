@@ -188,7 +188,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public async Task TakePhoto()
 		{
-			if (isBusy || device == null || videoOutput != null)
+			if (isBusy || device == null || photoOutput != null)
 				return;
 
 			IsBusy = true;
