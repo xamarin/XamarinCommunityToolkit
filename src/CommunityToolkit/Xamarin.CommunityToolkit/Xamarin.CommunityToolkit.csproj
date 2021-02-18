@@ -33,6 +33,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <NoWarn>SA1123</NoWarn>
     <MDocDocumentationDirectory>$(MSBuildThisFileDirectory)..\docs\en</MDocDocumentationDirectory>
+    <MDocDocumentationDirectory>$(MSBuildThisFileDirectory)..\..\..\docs\en</MDocDocumentationDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage TargetFrameworks for development (Debug Mode) -->
