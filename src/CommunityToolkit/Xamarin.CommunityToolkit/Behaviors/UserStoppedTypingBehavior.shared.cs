@@ -53,6 +53,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(CommandProperty, value);
 		}
 
+		/// <summary>
+		/// An optional parameter to forward to the <see cref="Command"/>. This is a bindable property.
+		/// </summary>
 		public object CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
