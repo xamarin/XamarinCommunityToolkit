@@ -14,11 +14,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression> 
     <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl> 
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
-    <PackageReleaseNotes>
-      
-      <!-- See if we can host these on MS docs? -->
-    
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>See: http://aka.ms/xct-release-notes</PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
     <Title>Xamarin.CommunityToolkit.Markup</Title>
@@ -33,6 +29,7 @@
     <PackageTags>xamarin,xamarin.forms,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,markup,csharpformarkup,csharp,csharpmarkup</PackageTags>
     <DebugType>portable</DebugType>
     <Configurations>Debug;Release</Configurations>
+    <MDocDocumentationDirectory>$(MSBuildThisFileDirectory)..\..\..\docs\en</MDocDocumentationDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Release' AND '$(OS)' == 'Windows_NT' ">
     <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
@@ -52,9 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <PackageReference Include="mdoc" Version="5.8.0" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
   </ItemGroup>
+  <Import Project="$(MSBuildThisFileDirectory)mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
 </Project>

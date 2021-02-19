@@ -207,5 +207,5 @@
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
   </ItemGroup>
-  <Import Project="$(MSBuildThisFileDirectory)mdoc.targets" />
+  <Import Project="$(MSBuildThisFileDirectory)mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
 </Project>
