@@ -70,7 +70,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				c.Value = value;
 				return c.ValidateNestedAsync(token).AsTask();
-			}));
+			})).ConfigureAwait(false);
 
 			if (token.IsCancellationRequested)
 				return IsValid;

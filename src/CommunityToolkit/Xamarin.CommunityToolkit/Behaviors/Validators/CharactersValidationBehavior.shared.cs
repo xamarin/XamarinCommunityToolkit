@@ -66,7 +66,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		protected override async ValueTask<bool> ValidateAsync(object value, CancellationToken token)
-			=> await base.ValidateAsync(value, token) && Validate(value?.ToString());
+			=> await base.ValidateAsync(value, token).ConfigureAwait(false)
+				&& Validate(value?.ToString());
 
 		static void OnCharacterTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)
 		{

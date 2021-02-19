@@ -270,7 +270,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 				try
 				{
-					var isValid = await ValidateAsync(Decorate(Value), token);
+					var isValid = await ValidateAsync(Decorate(Value), token).ConfigureAwait(false);
 
 					if (token.IsCancellationRequested)
 						return;

@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		protected override async ValueTask<bool> ValidateAsync(object value, CancellationToken token)
-			=> await base.ValidateAsync(value, token)
+			=> await base.ValidateAsync(value, token).ConfigureAwait(false)
 				&& Uri.IsWellFormedUriString(value?.ToString(), UriKind);
 	}
 }
