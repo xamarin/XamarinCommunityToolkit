@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(MaximumCharacterCountProperty, value);
 		}
 
-		protected override async Task<bool> ValidateAsync(object value, CancellationToken token)
+		protected override async ValueTask<bool> ValidateAsync(object value, CancellationToken token)
 			=> await base.ValidateAsync(value, token) && Validate(value?.ToString());
 
 		static void OnCharacterTypePropertyChanged(BindableObject bindable, object oldValue, object newValue)

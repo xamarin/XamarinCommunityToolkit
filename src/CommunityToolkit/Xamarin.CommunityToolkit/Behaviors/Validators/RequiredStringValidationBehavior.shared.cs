@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(RequiredStringProperty, value);
 		}
 
-		protected override Task<bool> ValidateAsync(object value, CancellationToken token)
-			=> Task.FromResult(value?.ToString() == RequiredString);
+		protected override ValueTask<bool> ValidateAsync(object value, CancellationToken token)
+			=> new ValueTask<bool>(value?.ToString() == RequiredString);
 	}
 }

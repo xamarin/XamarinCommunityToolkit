@@ -64,12 +64,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static void SetError(BindableObject bindable, object value)
 			=> bindable.SetValue(ErrorProperty, value);
 
-		protected override async Task<bool> ValidateAsync(object value, CancellationToken token)
+		protected override async ValueTask<bool> ValidateAsync(object value, CancellationToken token)
 		{
 			await Task.WhenAll(children.Select(c =>
 			{
 				c.Value = value;
-				return c.ValidateNestedAsync(token);
+				return c.ValidateNestedAsync(token).AsTask();
 			}));
 
 			if (token.IsCancellationRequested)

@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsRunning"/> property.
-		/// </summary>			
+		/// </summary>
 		public static readonly BindableProperty IsRunningProperty =
 			BindableProperty.Create(nameof(IsRunning), typeof(bool), typeof(ValidationBehavior), false, BindingMode.OneWayToSource);
 
@@ -163,11 +163,11 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 		/// </summary>
 		public void ForceValidate() => _ = UpdateStateAsync(true);
 
-		internal Task ValidateNestedAsync(CancellationToken token) => UpdateStateAsync(true, token);
+		internal ValueTask ValidateNestedAsync(CancellationToken token) => UpdateStateAsync(true, token);
 
 		protected virtual object Decorate(object value) => value;
 
-		protected abstract Task<bool> ValidateAsync(object value, CancellationToken token);
+		protected abstract ValueTask<bool> ValidateAsync(object value, CancellationToken token);
 
 		protected override void OnAttachedTo(VisualElement bindable)
 		{
@@ -253,7 +253,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			SetBinding(ValueProperty, defaultValueBinding);
 		}
 
-		async Task UpdateStateAsync(bool isForced, CancellationToken? parentToken = null)
+		async ValueTask UpdateStateAsync(bool isForced, CancellationToken? parentToken = null)
 		{
 			IsRunning = true;
 

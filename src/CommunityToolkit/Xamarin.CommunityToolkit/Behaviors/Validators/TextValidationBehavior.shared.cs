@@ -121,10 +121,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			return stringValue;
 		}
 
-		protected override Task<bool> ValidateAsync(object value, CancellationToken token)
+		protected override ValueTask<bool> ValidateAsync(object value, CancellationToken token)
 		{
 			var text = value?.ToString();
-			return Task.FromResult(
+			return new ValueTask<bool>(
 				text != null &&
 				text.Length >= MinimumLength &&
 				text.Length <= MaximumLength &&

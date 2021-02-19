@@ -74,26 +74,26 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		protected override object Decorate(object value)
 			=> base.Decorate(value)?.ToString()?.Trim();
 
-		protected override Task<bool> ValidateAsync(object value, CancellationToken token)
+		protected override ValueTask<bool> ValidateAsync(object value, CancellationToken token)
 		{
 			var valueString = value as string;
 			if (!(double.TryParse(valueString, out var numeric)
 				&& numeric >= MinimumValue
 				&& numeric <= MaximumValue))
-				return Task.FromResult(false);
+				return new ValueTask<bool>(false);
 
 			var decimalDelimeterIndex = valueString.IndexOf(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 			var hasDecimalDelimeter = decimalDelimeterIndex >= 0;
 
 			// If MaximumDecimalPlaces equals zero, ".5" or "14." should be considered as invalid inputs.
 			if (hasDecimalDelimeter && MaximumDecimalPlaces == 0)
-				return Task.FromResult(false);
+				return new ValueTask<bool>(false);
 
 			var decimalPlaces = hasDecimalDelimeter
 				? valueString.Substring(decimalDelimeterIndex + 1, valueString.Length - decimalDelimeterIndex - 1).Length
 				: 0;
 
-			return Task.FromResult(
+			return new ValueTask<bool>(
 				decimalPlaces >= MinimumDecimalPlaces &&
 				decimalPlaces <= MaximumDecimalPlaces);
 		}
