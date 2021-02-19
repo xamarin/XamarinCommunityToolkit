@@ -18,6 +18,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		Six = 6
 	}
 
+	[Flags]
+	public enum TestFlaggedEnumForEnumToBoolConverter
+	{
+		None = 0b0000,
+		One = 0b0001,
+		Two = 0b0010,
+		Three = 0b0100,
+		Four = 0b1000
+	}
+
 	public class EnumToBoolConverter_Tests
 	{
 		[Fact]
@@ -48,7 +58,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[InlineData(42)]
 		[InlineData(null)]
 		[InlineData(false)]
-		public void EnumToBoolConvert_ParameterNotEnum_ReturnsFalse(object parameter)
+		[InlineData(TestFlaggedEnumForEnumToBoolConverter.Four)]
+		public void EnumToBoolConvert_ParameterNotSameEnum_ReturnsFalse(object parameter)
 		{
 			var enumToBoolConverter = new EnumToBoolConverter();
 
@@ -59,11 +70,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		[Theory]
 		[MemberData(nameof(ConvertTestData))]
-		public void EnumToBoolConvert_TrueValidation(IList<TestEnumForEnumToBoolConverter> trueValues, object value, object parameter,
+		public void EnumToBoolConvert_Validation(object[] trueValues, object value, object parameter,
 			bool expectedResult)
 		{
 			var enumToBoolConverter = new EnumToBoolConverter();
-			trueValues?.ToList().ForEach(fe => enumToBoolConverter.TrueValues.Add(fe));
+			trueValues?.OfType<Enum>().ToList().ForEach(fe => enumToBoolConverter.TrueValues.Add(fe));
 
 			var result = enumToBoolConverter.Convert(value, typeof(bool), parameter, CultureInfo.InvariantCulture);
 			Assert.Equal(expectedResult, result);
@@ -71,6 +82,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		public static IEnumerable<object[]> ConvertTestData()
 		{
+			// Simple enum
 			yield return new object[]
 			{
 				null, TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Five, true
@@ -81,19 +93,57 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			};
 			yield return new object[]
 			{
-				new[] { TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six }, TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six, true
+				new object[] { TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six }, TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six, true
 			};
 			yield return new object[]
 			{
-				new[] { TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six }, TestEnumForEnumToBoolConverter.Six, null, true
+				new object[] { TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six }, TestEnumForEnumToBoolConverter.Six, null, true
 			};
 			yield return new object[]
 			{
-				new[] { TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six }, TestEnumForEnumToBoolConverter.One, TestEnumForEnumToBoolConverter.One, false
+				new object[] { TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six }, TestEnumForEnumToBoolConverter.One, TestEnumForEnumToBoolConverter.Five, false
 			};
 			yield return new object[]
 			{
-				new[] { TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six }, TestEnumForEnumToBoolConverter.Two, null, false
+				new object[] { TestEnumForEnumToBoolConverter.Five, TestEnumForEnumToBoolConverter.Six }, TestEnumForEnumToBoolConverter.Two, null, false
+			};
+
+			// Flagged enum
+			yield return new object[]
+			{
+				new object[] { (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), TestFlaggedEnumForEnumToBoolConverter.Two }, TestFlaggedEnumForEnumToBoolConverter.One, null, true
+			};
+			yield return new object[]
+			{
+				new object[] { (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), TestFlaggedEnumForEnumToBoolConverter.Two }, TestFlaggedEnumForEnumToBoolConverter.Two, null, true
+			};
+			yield return new object[]
+			{
+				new object[] { (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), TestFlaggedEnumForEnumToBoolConverter.Two }, TestFlaggedEnumForEnumToBoolConverter.Three, null, true
+			};
+			yield return new object[]
+			{
+				new object[] { (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), TestFlaggedEnumForEnumToBoolConverter.Two }, TestFlaggedEnumForEnumToBoolConverter.Four, null, false
+			};
+			yield return new object[]
+			{
+				null, TestFlaggedEnumForEnumToBoolConverter.One, (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), true
+			};
+			yield return new object[]
+			{
+				null, TestFlaggedEnumForEnumToBoolConverter.Three, (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), true
+			};
+			yield return new object[]
+			{
+				null, TestFlaggedEnumForEnumToBoolConverter.Two, (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), false
+			};
+			yield return new object[]
+			{
+				null, (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), true
+			};
+			yield return new object[]
+			{
+				null, (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Two | TestFlaggedEnumForEnumToBoolConverter.Three), (TestFlaggedEnumForEnumToBoolConverter.One | TestFlaggedEnumForEnumToBoolConverter.Three), false
 			};
 		}
 	}

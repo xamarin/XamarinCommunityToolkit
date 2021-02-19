@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Xamarin.CommunityToolkit.Extensions.Internals;
+using System.Reflection;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
@@ -37,7 +39,7 @@ namespace Xamarin.CommunityToolkit.Converters
 				throw new ArgumentException("The value should be of type Enum", nameof(value));
 
 			return TrueValues.Count == 0
-				? ConvertWithParameter(enumValue, parameter as Enum)
+				? CompareTwoEnums(enumValue, parameter as Enum)
 				: ConvertWithProperty(enumValue);
 		}
 
@@ -45,8 +47,20 @@ namespace Xamarin.CommunityToolkit.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
 			throw new NotImplementedException();
 
-		bool ConvertWithParameter(Enum value, Enum parameter) => Equals(value, parameter);
+		bool CompareTwoEnums(Enum valueToCheck, Enum referenceValue)
+		{
+			if (referenceValue == null)
+				return false;
 
-		bool ConvertWithProperty(Enum value) => TrueValues.Contains(value);
+			if (valueToCheck.GetType() != referenceValue.GetType())
+				return false;
+
+			if (valueToCheck.GetType().GetTypeInfo().GetCustomAttribute<FlagsAttribute>() != null)
+				return referenceValue.HasFlag(valueToCheck);
+
+			return Equals(valueToCheck, referenceValue);
+		}
+
+		bool ConvertWithProperty(Enum value) => TrueValues.Any(some => CompareTwoEnums(value, some));
 	}
 }
