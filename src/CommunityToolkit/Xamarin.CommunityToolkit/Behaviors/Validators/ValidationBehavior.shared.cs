@@ -255,15 +255,16 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		async ValueTask UpdateStateAsync(bool isForced, CancellationToken? parentToken = null)
 		{
-			IsRunning = true;
-
 			if ((View?.IsFocused ?? false) && Flags.HasFlag(ValidationFlags.ForceMakeValidWhenFocused))
 			{
+				IsRunning = true;
 				ResetValidationTokenSource(null);
 				IsValid = true;
+				IsRunning = false;
 			}
 			else if (isForced || (currentStatus != ValidationFlags.None && Flags.HasFlag(currentStatus)))
 			{
+				IsRunning = true;
 				using var tokenSource = new CancellationTokenSource();
 				var token = parentToken ?? tokenSource.Token;
 				ResetValidationTokenSource(tokenSource);
@@ -277,6 +278,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 					validationTokenSource = null;
 					IsValid = isValid;
+					IsRunning = false;
 				}
 				catch (TaskCanceledException)
 				{
@@ -285,7 +287,6 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			}
 
 			UpdateStyle();
-			IsRunning = false;
 		}
 
 		void UpdateStyle()
