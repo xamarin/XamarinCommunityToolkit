@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			return TrueValues.Count == 0
 				? CompareTwoEnums(enumValue, parameter as Enum)
-				: ConvertWithProperty(enumValue);
+				: TrueValues.Any(item => CompareTwoEnums(enumValue, item));
 		}
 
 		/// <inheritdoc/>
@@ -60,7 +60,5 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			return Equals(valueToCheck, referenceValue);
 		}
-
-		bool ConvertWithProperty(Enum value) => TrueValues.Any(some => CompareTwoEnums(value, some));
 	}
 }
