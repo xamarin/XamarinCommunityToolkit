@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		Timer snackBarTimer;
 
-		public void Show(Page page, SnackBarOptions arguments)
+		public void Show(VisualElement page, SnackBarOptions arguments)
 		{
 			var mainWindow = (Platform.GetRenderer(page).Container.Child as Forms.Platform.GTK.Controls.Page)?.Children[0] as VBox;
 			var snackBarLayout = GetSnackBarLayout(mainWindow, arguments);

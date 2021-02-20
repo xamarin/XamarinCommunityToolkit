@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal void Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBar = NativeSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 							.SetDuration(arguments.Duration.TotalMilliseconds)
@@ -29,19 +29,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 #if __IOS__
 			if (arguments.BackgroundColor != Color.Default)
-			{
 				snackBar.Appearance.Background = arguments.BackgroundColor.ToUIColor();
-			}
 
 			if (arguments.MessageOptions.Font != Font.Default)
-			{
 				snackBar.Appearance.Font = arguments.MessageOptions.Font.ToUIFont();
-			}
 
 			if (arguments.MessageOptions.Foreground != Color.Default)
-			{
 				snackBar.Appearance.Foreground = arguments.MessageOptions.Foreground.ToUIColor();
-			}
 
 			if (arguments.MessageOptions.Padding != MessageOptions.DefaultPadding)
 			{
@@ -60,19 +54,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 #elif __MACOS__
 			if (arguments.BackgroundColor != Color.Default)
-			{
 				snackBar.Appearance.Background = arguments.BackgroundColor.ToNSColor();
-			}
 
 			if (arguments.MessageOptions.Font != Font.Default)
-			{
 				snackBar.Appearance.Font = arguments.MessageOptions.Font.ToNSFont();
-			}
 
 			if (arguments.MessageOptions.Foreground != Color.Default)
-			{
 				snackBar.Appearance.Foreground = arguments.MessageOptions.Foreground.ToNSColor();
-			}
 
 			snackBar.Appearance.TextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left;
 #endif
@@ -86,29 +74,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				actionButton.SetActionButtonText(action.Text);
 #if __IOS__
 				if (action.BackgroundColor != Color.Default)
-				{
 					actionButton.BackgroundColor = action.BackgroundColor.ToUIColor();
-				}
 
 				if (action.Font != Font.Default)
-				{
 					actionButton.Font = action.Font.ToUIFont();
-				}
 
 				if (action.ForegroundColor != Color.Default)
-				{
 					actionButton.SetTitleColor(action.ForegroundColor.ToUIColor(), UIControlState.Normal);
-				}
 #elif __MACOS__
 				if (action.BackgroundColor != Color.Default)
-				{
 					actionButton.Layer.BackgroundColor = action.BackgroundColor.ToCGColor();
-				}
 
 				if (action.Font != Font.Default)
-				{
 					actionButton.Font = action.Font.ToNSFont();
-				}
 #endif
 				actionButton.SetAction(async () =>
 				{
