@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (e.NewElement != null && !isDisposed)
 			{
 				ModalInPopover = true;
-				ModalPresentationStyle = UIKit.UIModalPresentationStyle.Popover;
+				ModalPresentationStyle = UIModalPresentationStyle.Popover;
 
 				SetViewController();
 				SetPresentationController();
@@ -277,8 +277,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				remove => popoverDismissedEventManager.RemoveEventHandler(value);
 			}
 
-			public override UIKit.UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController forPresentationController) =>
-				UIKit.UIModalPresentationStyle.None;
+			public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController forPresentationController) =>
+				UIModalPresentationStyle.None;
 
 			public override void DidDismiss(UIPresentationController presentationController) =>
 				popoverDismissedEventManager.RaiseEvent(this, presentationController, nameof(PopoverDismissed));
