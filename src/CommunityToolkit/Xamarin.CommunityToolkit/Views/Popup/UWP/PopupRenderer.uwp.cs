@@ -9,6 +9,7 @@ using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
 using UWPThickness = Windows.UI.Xaml.Thickness;
 using XamlStyle = Windows.UI.Xaml.Style;
+using Specific = Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific.PopUp;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]
 
@@ -149,7 +150,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.PaddingProperty, 0));
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderThicknessProperty, new UWPThickness(defaultBorderThickness)));
 
-			var borderColor = WindowsSpecific.Popup.GetBorderColor(Element);
+			var borderColor = Specific.GetBorderColor(Element);
 			if (borderColor == default(Color))
 				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, Color.FromHex("#2e6da0").ToWindowsColor()));
 			else
