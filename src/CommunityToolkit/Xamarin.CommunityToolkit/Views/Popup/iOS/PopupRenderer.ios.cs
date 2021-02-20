@@ -7,6 +7,8 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
+using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
+using Specifics = Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific.PopUp;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]
 
@@ -82,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (e.NewElement != null && !isDisposed)
 			{
 				ModalInPopover = true;
-				ModalPresentationStyle = UIModalPresentationStyle.Popover;
+				ModalPresentationStyle = UIKit.UIModalPresentationStyle.Popover;
 
 				SetViewController();
 				SetPresentationController();
@@ -179,15 +181,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var view = Platform.GetRenderer(Element.Anchor).NativeView;
 				PopoverPresentationController.SourceView = view;
 				PopoverPresentationController.SourceRect = view.Bounds;
-				var arrowDirection = Views.iOSSpecific.Popup.GetArrowDirection(Element);
+				var arrowDirection = Specifics.GetArrowDirection(Element);
 				PopoverPresentationController.PermittedArrowDirections = arrowDirection switch
 				{
-					Views.iOSSpecific.PopoverArrowDirection.Up => UIPopoverArrowDirection.Up,
-					Views.iOSSpecific.PopoverArrowDirection.Down => UIPopoverArrowDirection.Down,
-					Views.iOSSpecific.PopoverArrowDirection.Left => UIPopoverArrowDirection.Left,
-					Views.iOSSpecific.PopoverArrowDirection.Right => UIPopoverArrowDirection.Right,
-					Views.iOSSpecific.PopoverArrowDirection.Any => UIPopoverArrowDirection.Any,
-					Views.iOSSpecific.PopoverArrowDirection.Unknown => UIPopoverArrowDirection.Unknown,
+					PopoverArrowDirection.Up => UIPopoverArrowDirection.Up,
+					PopoverArrowDirection.Down => UIPopoverArrowDirection.Down,
+					PopoverArrowDirection.Left => UIPopoverArrowDirection.Left,
+					PopoverArrowDirection.Right => UIPopoverArrowDirection.Right,
+					PopoverArrowDirection.Any => UIPopoverArrowDirection.Any,
+					PopoverArrowDirection.Unknown => UIPopoverArrowDirection.Unknown,
 					_ => 0
 				};
 			}
@@ -275,8 +277,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				remove => popoverDismissedEventManager.RemoveEventHandler(value);
 			}
 
-			public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController forPresentationController) =>
-				UIModalPresentationStyle.None;
+			public override UIKit.UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController forPresentationController) =>
+				UIKit.UIModalPresentationStyle.None;
 
 			public override void DidDismiss(UIPresentationController presentationController) =>
 				popoverDismissedEventManager.RaiseEvent(this, presentationController, nameof(PopoverDismissed));
