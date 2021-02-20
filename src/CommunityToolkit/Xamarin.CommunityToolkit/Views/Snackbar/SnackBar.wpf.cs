@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		Timer? snackBarTimer;
 
-		internal void Show(Page page, SnackBarOptions arguments)
+		internal void Show(VisualElement visualElement, SnackBarOptions arguments)
 		{
 			var formsAppBar = System.Windows.Application.Current.MainWindow.FindChild<FormsAppBar>("PART_BottomAppBar");
 			var currentContent = formsAppBar.Content;

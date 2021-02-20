@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal void Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBar = NativeSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 							.SetDuration(arguments.Duration.TotalMilliseconds)
@@ -52,12 +52,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			snackBar.Appearance.TextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
-
-			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
-			{
-				var renderer = Platform.GetRenderer(sender);
-				snackBar.SetParentController(renderer.ViewController);
-			}
 #elif __MACOS__
 			if (arguments.BackgroundColor != Color.Default)
 			{
@@ -76,6 +70,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			snackBar.Appearance.TextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left;
 #endif
+			var renderer = Platform.GetRenderer(sender);
+			snackBar.SetAnchor(renderer.NativeView);
 
 			foreach (var action in arguments.Actions)
 			{

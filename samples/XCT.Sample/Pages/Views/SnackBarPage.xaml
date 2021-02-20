@@ -1,14 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SnackBarPage">
     <StackLayout Spacing="10" Margin="20">
-        <Button Clicked="DisplaySnackBarClicked" Text="Show SnackBar"></Button>
-        <Button Clicked="DisplayToastClicked" Text="Show toast"></Button>
-        <Button Clicked="DisplaySnackBarAdvancedClicked" Text="Show Advanced SnackBar"></Button>
+        <Button Clicked="DisplaySnackBarClicked" Text="Show SnackBar"/>
+        <Button Clicked="DisplayToastClicked" Text="Show toast"/>
+        <Button Clicked="DisplaySnackBarAdvancedClicked" Text="Show Advanced SnackBar"/>
         <Button Clicked="DisplaySnackBarWithPadding" Text="Show SnackBar with Padding"></Button>
-        <Label x:Name="StatusText"></Label>
+        
+        <Label x:Name="StatusText"/>
+        <Button x:Name="Anchor1"
+                Clicked="DisplayToastAnchoredClicked"
+                Text="Show toast with anchor"
+                VerticalOptions="Center" HorizontalOptions="End"/>
+        <Button x:Name="Anchor2"
+                Clicked="DisplaySnackbarAnchoredClicked"
+                Text="Show snackbar with anchor"
+                VerticalOptions="End" HorizontalOptions="Start"
+                />
     </StackLayout>
 </pages:BasePage>

@@ -6,29 +6,25 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 	{
 		protected BaseSnackBarView(NativeSnackBar snackBar) => SnackBar = snackBar;
 
-		public virtual NSView ParentView => NSApplication.SharedApplication.KeyWindow.ContentView;
+		public NSView AnchorView { get; set; }
+
+		public NSView ParentView => NSApplication.SharedApplication.KeyWindow.ContentView;
 
 		protected NativeSnackBar SnackBar { get; }
 
-		public NSStackView? StackView { get; set; }
+		protected NSStackView StackView { get; set; }
 
-		public virtual void Dismiss() => RemoveFromSuperview();
+		public void Dismiss() => RemoveFromSuperview();
 
-		public virtual void Setup()
+		public void Setup()
 		{
 			Initialize();
-			ConstrainInParent();
-			ConstrainChildren();
+			ConstraintInParent();
 		}
 
-		protected virtual void ConstrainChildren()
+		void ConstraintInParent()
 		{
-		}
-
-		protected virtual void ConstrainInParent()
-		{
-			BottomAnchor.ConstraintEqualToAnchor(ParentView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
-			TopAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TopAnchor, SnackBar.Layout.MarginTop).Active = true;
+			BottomAnchor.ConstraintEqualToAnchor(AnchorView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
 			LeadingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.LeadingAnchor, SnackBar.Layout.MarginLeft).Active = true;
 			TrailingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TrailingAnchor, -SnackBar.Layout.MarginRight).Active = true;
 			CenterXAnchor.ConstraintEqualToAnchor(ParentView.CenterXAnchor).Active = true;

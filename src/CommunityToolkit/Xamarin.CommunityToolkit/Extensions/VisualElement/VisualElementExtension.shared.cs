@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Extensions
@@ -64,5 +68,74 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		internal static bool TryFindParentOfType<T>(this VisualElement? element, out T? parent) where T : VisualElement
 			=> TryFindParentElementWithParentOfType(element, out _, out parent);
+
+		public static async Task DisplayToastAsync(this VisualElement? visualElement, string message, int durationMilliseconds = 3000)
+		{
+			var messageOptions = new MessageOptions { Message = message };
+			var args = new SnackBarOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = TimeSpan.FromMilliseconds(durationMilliseconds),
+#if NETSTANDARD1_0
+				IsRtl = false,
+#else
+				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+#endif
+			};
+			var snackBar = new SnackBar();
+			snackBar.Show(visualElement, args);
+			await args.Result.Task;
+		}
+
+		public static async Task DisplayToastAsync(this VisualElement? visualElement, ToastOptions toastOptions)
+		{
+			var snackBar = new SnackBar();
+			var arguments = toastOptions ?? new ToastOptions();
+			var options = new SnackBarOptions
+			{
+				MessageOptions = arguments.MessageOptions,
+				Duration = arguments.Duration,
+				BackgroundColor = arguments.BackgroundColor,
+				IsRtl = arguments.IsRtl
+			};
+			snackBar.Show(visualElement, options);
+			await options.Result.Task;
+		}
+
+		public static async Task<bool> DisplaySnackBarAsync(this VisualElement? visualElement, string message, string actionButtonText, Func<Task> action, int durationMilliseconds = 3000)
+		{
+			var messageOptions = new MessageOptions { Message = message };
+			var actionOptions = new List<SnackBarActionOptions>
+			{
+				new SnackBarActionOptions
+				{
+					Text = actionButtonText, Action = action
+				}
+			};
+			var options = new SnackBarOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = TimeSpan.FromMilliseconds(durationMilliseconds),
+				Actions = actionOptions,
+#if NETSTANDARD1_0
+				IsRtl = false,
+#else
+				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+#endif
+			};
+			var snackBar = new SnackBar();
+			snackBar.Show(visualElement, options);
+			var result = await options.Result.Task;
+			return result;
+		}
+
+		public static async Task<bool> DisplaySnackBarAsync(this VisualElement? visualElement, SnackBarOptions snackBarOptions)
+		{
+			var snackBar = new SnackBar();
+			var arguments = snackBarOptions ?? new SnackBarOptions();
+			snackBar.Show(visualElement, arguments);
+			var result = await arguments.Result.Task;
+			return result;
+		}
 	}
 }

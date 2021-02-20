@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using UIKit;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
@@ -26,7 +27,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public string Message { get; protected set; } = string.Empty;
 
-		public UIViewController? ParentController { get; protected set; }
+		public UIView? Anchor { get; protected set; }
 
 		protected BaseSnackBarView? SnackBarView { get; set; }
 
@@ -60,15 +61,16 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			return this;
 		}
 
-		public NativeSnackBar SetParentController(UIViewController controller)
+		public NativeSnackBar SetAnchor(UIView anchor)
 		{
-			ParentController = controller;
+			Anchor = anchor;
 			return this;
 		}
 
 		public NativeSnackBar Show()
 		{
 			SnackBarView = GetSnackBarView();
+			SnackBarView.AnchorView = Anchor;
 
 			SnackBarView.ParentView?.AddSubview(SnackBarView);
 			SnackBarView.ParentView?.BringSubviewToFront(SnackBarView);

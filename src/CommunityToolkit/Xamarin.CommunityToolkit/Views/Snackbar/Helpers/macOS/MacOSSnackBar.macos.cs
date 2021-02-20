@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppKit;
 using Foundation;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
@@ -25,6 +26,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 		public string Message { get; protected set; } = string.Empty;
 
 		protected BaseSnackBarView? SnackBarView { get; set; }
+
+		protected NSView Anchor { get; set; }
 
 		public void Dismiss()
 		{
@@ -56,9 +59,16 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 			return this;
 		}
 
+		public NativeSnackBar SetAnchor(NSView anchor)
+		{
+			Anchor = anchor;
+			return this;
+		}
+
 		public NativeSnackBar Show()
 		{
 			SnackBarView = GetSnackBarView();
+			SnackBarView.AnchorView = Anchor;
 
 			SnackBarView.ParentView.AddSubview(SnackBarView);
 
