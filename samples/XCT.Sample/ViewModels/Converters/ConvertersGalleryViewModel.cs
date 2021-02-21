@@ -14,6 +14,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(BoolToObjectConverterPage),
 				nameof(BoolToObjectConverter),
 				"The BoolToObjectConverter is a converter that allows users to convert a bool value binding to a specific object."),
+						new SectionModel(
+				typeof(InvertedBoolConverterPage),
+				nameof(InvertedBoolConverter),
+				"The InvertedBoolConverter is a converter that allows users to convert a bool value binding to its inverted value.."),
 			new SectionModel(
 				typeof(EqualConverterPage),
 				nameof(EqualConverter),
