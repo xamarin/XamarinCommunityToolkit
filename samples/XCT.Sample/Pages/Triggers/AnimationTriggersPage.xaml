@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:triggers="clr-namespace:Xamarin.CommunityToolkit.Triggers;assembly=Xamarin.CommunityToolkit"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Triggers.AnimationTriggersPage">
+    <StackLayout>
+        <Label 
+            Text="Animation Triggers"/>
+        <Entry 
+            FontSize="16" 
+            BackgroundColor="LightGray">
+            <Entry.Triggers>
+                <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                    <Trigger.EnterActions>
+                        <triggers:AnimateDouble TargetProperty="Entry.FontSize" To="24"/>
+                        <triggers:AnimateColor TargetProperty="Entry.TextColor" To="Red"/>
+                        <triggers:AnimateColor TargetProperty="VisualElement.BackgroundColor" To="Yellow" Delay="1000"/>
+                        <triggers:AnimateDouble TargetProperty="VisualElement.Rotation" To="12" Duration="100"/>
+                    </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <triggers:AnimateDouble TargetProperty="{x:Static Entry.FontSizeProperty}" To="16"/>
+                        <triggers:AnimateColor TargetProperty="{x:Static Entry.TextColorProperty}" To="Black"/>
+                        <triggers:AnimateColor TargetProperty="{x:Static VisualElement.BackgroundColorProperty}" To="LightGray"/>
+                        <triggers:AnimateDouble TargetProperty="{x:Static VisualElement.RotationProperty}" To="0"/>
+                    </Trigger.ExitActions>
+                </Trigger>
+            </Entry.Triggers>
+        </Entry>
+    </StackLayout>
+</pages:BasePage>
