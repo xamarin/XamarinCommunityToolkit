@@ -38,6 +38,20 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (!(value is Enum enumValue))
 				throw new ArgumentException("The value should be of type Enum", nameof(value));
 
+			static bool CompareTwoEnums(Enum valueToCheck, object referenceValue)
+			{
+				if (!(referenceValue is Enum referenceEnumValue))
+					return false;
+
+				if (valueToCheck.GetType() != referenceEnumValue.GetType())
+					return false;
+
+				if (valueToCheck.GetType().GetTypeInfo().GetCustomAttribute<FlagsAttribute>() != null)
+					return referenceEnumValue.HasFlag(valueToCheck);
+
+				return Equals(valueToCheck, referenceEnumValue);
+			}
+
 			return TrueValues.Count == 0
 				? CompareTwoEnums(enumValue, parameter as Enum)
 				: TrueValues.Any(item => CompareTwoEnums(enumValue, item));
@@ -46,19 +60,5 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <inheritdoc/>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
 			throw new NotImplementedException();
-
-		bool CompareTwoEnums(Enum valueToCheck, Enum referenceValue)
-		{
-			if (referenceValue == null)
-				return false;
-
-			if (valueToCheck.GetType() != referenceValue.GetType())
-				return false;
-
-			if (valueToCheck.GetType().GetTypeInfo().GetCustomAttribute<FlagsAttribute>() != null)
-				return referenceValue.HasFlag(valueToCheck);
-
-			return Equals(valueToCheck, referenceValue);
-		}
 	}
 }
