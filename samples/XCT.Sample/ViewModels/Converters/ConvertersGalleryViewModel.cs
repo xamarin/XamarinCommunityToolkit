@@ -55,9 +55,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				"A converter that allows you to extract the value from ItemTappedEventArgs that can be used in combination with EventToCommandBehavior"),
 
 			new SectionModel(
-				typeof(ItemSelectedEventArgsPage),
-				nameof(ItemSelectedEventArgsConverter),
-				"A converter that allows you to extract the value from ItemSelectedEventArgs that can be used in combination with EventToCommandBehavior"),
+				typeof(TextCaseConverterPage),
+				nameof(TextCaseConverter),
+				"The TextCaseConverter is a converter that allows users to convert the casing of an incoming string type binding. The Type property is used to define what kind of casing will be applied to the string."),
 
 			new SectionModel(
 				typeof(ByteArrayToImageSourcePage),
