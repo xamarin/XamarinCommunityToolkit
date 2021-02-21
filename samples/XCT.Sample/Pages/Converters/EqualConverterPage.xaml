@@ -4,7 +4,6 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
     xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
     BackgroundColor="{StaticResource AppBackgroundColor}">
     <ContentPage.Resources>
@@ -18,7 +17,7 @@
             HorizontalOptions="Fill"
             Spacing="10"
             VerticalOptions="Fill">
-            <Label Text="The DoubleToIntConverter is a converter that allows users to convert an incoming double value to an int. Optionally the user can provide a multiplier to the conversion through the Ratio property." TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label Text="The EqualConverter is a converter that allows users to convert any value binding to a boolean depending on whether or not it is equal to a different value. The initial binding contains the object that will be compared and the ConverterParameter contains the object to compare it to." TextColor="{StaticResource NormalLabelTextColor}" />
             <Label Text="Please enter 100 for true anyting else for false" TextColor="{StaticResource NormalLabelTextColor}" />
             <Entry
                 x:Name="ExampleText"

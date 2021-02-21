@@ -30,6 +30,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(EqualConverterPage),
 				nameof(EqualConverter),
 				"The EqualConverter is a converter that allows users to convert any value binding to a bool depending on whether or not it is equal to a different value. "),
+			new SectionModel(
+				typeof(NotEqualConverterPage),
+				nameof(NotEqualConverter),
+				"The EqualConverter is a converter that allows users to convert any value binding to a bool depending on whether or not it is not equal to a different value. "),
 
 			new SectionModel(
 				typeof(DoubleToIntConverterPage),
