@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.MultiConverterPage">
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <xct:MultiConverter
+                x:Key="myMultiConverter">
+                <xct:TextCaseConverter />
+                <xct:NotEqualConverter />
+            </xct:MultiConverter>
+            <x:Array
+                x:Key="multiParams"
+                Type="{x:Type xct:MultiConverterParameter}">
+                <xct:MultiConverterParameter
+                    ConverterType="{x:Type xct:TextCaseConverter}"
+                    Value="{x:Static xct:TextCaseType.Upper}" />
+                <xct:MultiConverterParameter
+                    ConverterType="{x:Type xct:NotEqualConverter}"
+                    Value="ANDREI" />
+            </x:Array>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <pages:BasePage.BindingContext>
+        <vm:MultiConverterViewModel />
+    </pages:BasePage.BindingContext>
+    <pages:BasePage.Content>
+        <StackLayout Padding="20" Spacing="20">
+            <Label>
+                <Label.Text>
+This sample demonstrates how to use the MultiBinding Converter with the NotEqualConverter and the TextCaseConverter. 
+
+It converts the entered text to Upper Case and checks that it is Not Equal to the string 'ANDREI'.
+
+                </Label.Text>
+            </Label>
+            <Entry
+                Text="{Binding EnteredName}"></Entry>
+            <Label
+                Text="{Binding EnteredName, Converter={StaticResource myMultiConverter}, ConverterParameter={StaticResource multiParams}}"
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </pages:BasePage.Content>
+</pages:BasePage>

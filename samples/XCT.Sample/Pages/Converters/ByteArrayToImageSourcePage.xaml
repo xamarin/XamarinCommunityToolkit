@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ByteArrayToImageSourcePage">
+
+    <pages:BasePage.BindingContext>
+        <vm:ByteArrayToImageSourceViewModel />
+    </pages:BasePage.BindingContext>
+
+    <ContentPage.Resources>
+         <ResourceDictionary>
+             <xct:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+         </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <pages:BasePage.Content>
+
+        <StackLayout Orientation="Vertical" VerticalOptions="Center">
+
+            <Label Margin="16"
+                   HorizontalTextAlignment="Center"
+                   HorizontalOptions="Center"
+                   Text="Image below uses byte array from ViewModel which is converted to ImageSource using ByteArrayToImageSource converter." />
+
+            <xct:AvatarView Size="300"
+                            Source="{Binding Avatar, Converter={StaticResource ByteArrayToImageSourceConverter}}"
+                            HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <Label Text="Please wait..."
+                   Margin="16"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                   IsVisible="{Binding IsBusy}" />
+
+        </StackLayout>
+
+    </pages:BasePage.Content>
+
+</pages:BasePage>

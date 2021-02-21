@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ExpanderPage"
+                x:Name="page">
+
+    <pages:BasePage.BindingContext>
+        <viewmodels:ExpanderViewModel />
+    </pages:BasePage.BindingContext>
+
+    <ScrollView Padding="30, 20">
+        <StackLayout BindableLayout.ItemsSource="{Binding Items}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <xct:Expander ExpandAnimationEasing="{x:Static Easing.CubicIn}"
+                                CollapseAnimationEasing="{x:Static Easing.CubicOut}"
+                                IsExpanded="{Binding IsExpanded}"
+                                Command="{Binding BindingContext.Command, Source={x:Reference page}}"
+                                CommandParameter="{Binding .}">
+                        <xct:Expander.Header>
+                            <StackLayout Orientation="Horizontal" Spacing="0">
+                                <Label Text="{Binding Name}" HorizontalOptions="FillAndExpand" FontSize="32" FontAttributes="Bold"/>
+                                <Label Text="Enable nested:" FontSize="13" VerticalOptions="CenterAndExpand" />
+                                <Switch IsToggled="{Binding IsEnabled}" />
+                            </StackLayout>
+                        </xct:Expander.Header>
+                        <xct:Expander IsEnabled="{Binding IsEnabled}">
+                            <xct:Expander.Header>
+                                <Label Text="Nested expander" FontSize="30" FontAttributes="Bold"/>
+                            </xct:Expander.Header>
+                            <xct:Expander.ContentTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="0" Margin="10" Padding="1" BackgroundColor="Black">
+                                        <BoxView HeightRequest="50" Color="White" />
+                                        <BoxView HeightRequest="50" Color="Red" />
+                                        <BoxView HeightRequest="50" Color="White" />
+                                    </StackLayout>
+                                </DataTemplate>
+                            </xct:Expander.ContentTemplate>
+                        </xct:Expander>
+                    </xct:Expander>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </ScrollView>
+</pages:BasePage>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.MediaElementPage">
+    <pages:BasePage.Resources>
+        <xct:TimeSpanToDoubleConverter x:Key="TimeSpanConverter"/>
+    </pages:BasePage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <xct:MediaElement
+            x:Name="mediaElement"
+            Source="https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4"
+            ShowsPlaybackControls="True"
+            MediaOpened="OnMediaOpened"
+            MediaFailed="OnMediaFailed"
+            MediaEnded="OnMediaEnded"
+            HorizontalOptions="Fill"
+            SeekCompleted="OnSeekCompleted" />
+        <Slider Grid.Row="1" BindingContext="{x:Reference mediaElement}" Value="{Binding Position, Converter={StaticResource TimeSpanConverter}}" Maximum="{Binding Duration, Converter={StaticResource TimeSpanConverter}}"/>
+        <Button Grid.Row="2" Text="Reset Source (Set Null)" Clicked="OnResetClicked" />
+    </Grid>
+</pages:BasePage>

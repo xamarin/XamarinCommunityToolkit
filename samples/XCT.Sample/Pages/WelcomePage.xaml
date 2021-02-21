@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.WelcomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+    xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    x:Name="Page"
+    Title="Welcome"
+    NavigationPage.BackButtonTitle="">
+
+    <pages:BasePage.BindingContext>
+        <vm:WelcomeViewModel />
+    </pages:BasePage.BindingContext>
+
+    <pages:BasePage.ToolbarItems>
+        <ToolbarItem Clicked="OnSettingsClicked" Text="Settings" />
+        <ToolbarItem Clicked="OnAboutClicked" Text="About" />
+    </pages:BasePage.ToolbarItems>
+
+    <StackLayout>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="16">
+                <Label
+                    Margin="20,32,20,0"
+                    Style="{StaticResource label_welcome_header}"
+                    Text="Introducing the Xamarin Community Toolkit" />
+                <Label Margin="20,0,20,28" Text="The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms." />
+                <StackLayout BindableLayout.ItemsSource="{Binding Items}" Spacing="16">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <custom:PancakeView Margin="{StaticResource ContentPadding}" Style="{StaticResource card}">
+                                <custom:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:Reference Page}}" CommandParameter="{Binding .}" />
+                                </custom:PancakeView.GestureRecognizers>
+                                <Grid ColumnSpacing="20">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="12" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <BoxView BackgroundColor="{Binding Color}" />
+                                    <StackLayout
+                                        Grid.Column="1"
+                                        Padding="0,24,24,24"
+                                        Spacing="8">
+                                        <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
+                                        <Label Text="{Binding Description}" />
+                                    </StackLayout>
+                                </Grid>
+                            </custom:PancakeView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Label
+                    Margin="0,32"
+                    FontSize="Small"
+                    HorizontalOptions="Center"
+                    Text="Microsoft Corporation © 2020"
+                    VerticalOptions="End" />
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+
+</pages:BasePage>

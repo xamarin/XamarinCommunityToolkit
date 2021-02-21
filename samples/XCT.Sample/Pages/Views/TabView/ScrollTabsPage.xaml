@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.ScrollTabsPage">
+    
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CustomTabViewItemStyle" TargetType="xct:TabViewItem">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="TextColorSelected" Value="Yellow" />
+                <Setter Property="TabWidth" Value="100" />
+            </Style>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+
+    <pages:BasePage.Content>
+        <Grid>
+            <xct:TabView 
+                TabStripPlacement="Bottom"
+                TabIndicatorColor="White"
+                TabStripBackgroundColor="Red"
+                TabStripHeight="60">
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="Tab 1"  
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid 
+                        BackgroundColor="LawnGreen">
+                        <Label
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent1" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="square.png"
+                    Text="Tab 2"
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid
+                        BackgroundColor="LightCoral">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent2" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="triangle.png"
+                    Text="Tab 3"
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid
+                        BackgroundColor="LightPink">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent3" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="Tab 4"   
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid
+                        BackgroundColor="LightSeaGreen">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent4" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="square.png"
+                    Text="Tab 5"   
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid
+                        BackgroundColor="LightYellow">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent5" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="triangle.png"
+                    Text="Tab 6"
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid
+                        BackgroundColor="LimeGreen">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent6" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="circle.png"
+                    Text="Tab 7"   
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid
+                        BackgroundColor="LightSeaGreen">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent7" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="square.png"
+                    Text="Tab 8"   
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid
+                        BackgroundColor="LightYellow">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent8" />
+                    </Grid>
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    Icon="triangle.png"
+                    Text="Tab 9"
+                    Style="{StaticResource CustomTabViewItemStyle}">
+                    <Grid
+                        BackgroundColor="LimeGreen">
+                        <Label    
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Text="TabContent9" />
+                    </Grid>
+                </xct:TabViewItem>
+            </xct:TabView>
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>

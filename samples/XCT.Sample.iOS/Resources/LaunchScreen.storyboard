@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="X5k-f2-b5h">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="gAE-YM-kbH">
+            <objects>
+                <viewController id="X5k-f2-b5h" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y8P-hJ-Z43"/>
+                        <viewControllerLayoutGuide type="bottom" id="9ZL-r4-8FZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yd7-JS-zBw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LauncherIcon" translatesAutoresizingMaskIntoConstraints="NO" id="5Cg-Rh-qqk">
+                                <rect key="frame" x="107" y="348" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Yxy-Eb-0d7"/>
+                                    <constraint firstAttribute="width" secondItem="5Cg-Rh-qqk" secondAttribute="height" multiplier="1:1" id="lnl-Sx-bX8"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5Cg-Rh-qqk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yd7-JS-zBw" secondAttribute="leading" constant="100" id="2Cy-TM-yrG"/>
+                            <constraint firstItem="5Cg-Rh-qqk" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Y8P-hJ-Z43" secondAttribute="bottom" constant="40" id="QJX-Bj-YQo"/>
+                            <constraint firstItem="5Cg-Rh-qqk" firstAttribute="centerY" secondItem="yd7-JS-zBw" secondAttribute="centerY" id="mwn-u9-IKO"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5Cg-Rh-qqk" secondAttribute="trailing" constant="100" id="p87-Rb-e6U"/>
+                            <constraint firstItem="9ZL-r4-8FZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="5Cg-Rh-qqk" secondAttribute="bottom" constant="40" id="z02-Jm-Dmz"/>
+                            <constraint firstItem="5Cg-Rh-qqk" firstAttribute="centerX" secondItem="yd7-JS-zBw" secondAttribute="centerX" id="zXc-YA-IRH"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XAI-xm-WK6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="347.82608695652175" y="338.83928571428572"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="LauncherIcon" width="512" height="512"/>
+    </resources>
+</document>

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.SettingPage"
+                x:DataType="vm:SettingViewModel">
+
+    <pages:BasePage.ToolbarItems>
+        <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
+    </pages:BasePage.ToolbarItems>
+
+     <pages:BasePage.BindingContext>
+        <vm:SettingViewModel />
+    </pages:BasePage.BindingContext>
+
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 VerticalOptions="Center"
+                 Spacing="10">
+        <Label Text="{xct:Translate ChangeLanguage}"/>
+
+        <Picker ItemsSource="{Binding SupportedLanguages}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedLanguage}"/>
+
+        <Button Text="{xct:Translate Save}"
+                Command="{Binding ChangeLanguageCommand, Mode=OneTime}"/>
+    </StackLayout>
+</pages:BasePage>

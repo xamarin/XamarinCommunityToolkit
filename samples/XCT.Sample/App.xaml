@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+    x:Class="Xamarin.CommunityToolkit.Sample.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Application.Resources>
+        <!--  Values  -->
+        <Thickness x:Key="ContentPadding">20, 0</Thickness>
+
+        <!--  Colors  -->
+        <Color x:Key="AppBackgroundColor">#FAFAFA</Color>
+        <Color x:Key="PrimaryColor">#FAFAFA</Color>
+        <Color x:Key="NavigationBarTextColor">#5D5D5D</Color>
+        <Color x:Key="NormalButtonBackgroundColor">#1976D2</Color>
+        <Color x:Key="NormalButtonTextColor">#FFFFFF</Color>
+        <Color x:Key="HeadingLabelTextColor">#5D5D5D</Color>
+        <Color x:Key="NormalLabelTextColor">#888888</Color>
+        <Color x:Key="DarkLabelTextColor">#000000</Color>
+        <Color x:Key="DarkLabelPlaceholderColor">#333d47</Color>
+        <Color x:Key="SoftFrameBackgroundColor">#ecf0f9</Color>
+
+        <!--  Fonts  -->
+        <OnPlatform x:Key="font_bold" x:TypeArguments="x:String">
+            <On Platform="iOS" Value=".SFUIText-Bold" />
+            <On Platform="Android" Value="sans-serif-medium" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="font_semibold" x:TypeArguments="x:String">
+            <On Platform="iOS" Value=".SFUIText-Semibold" />
+            <On Platform="Android" Value="sans-serif-medium" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="font_medium" x:TypeArguments="x:String">
+            <On Platform="iOS" Value=".SFUIText-Medium" />
+            <On Platform="Android" Value="sans-serif-medium" />
+        </OnPlatform>
+
+        <OnPlatform x:Key="font_regular" x:TypeArguments="x:String">
+            <On Platform="iOS" Value=".SFUIText" />
+            <On Platform="Android" Value="sans-serif" />
+        </OnPlatform>
+
+        <!--  Implicit styles  -->
+        <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="BarTextColor" Value="{StaticResource NavigationBarTextColor}" />
+            <!--<Setter Property="ios:NavigationPage.HideNavigationBarSeparator" Value="True" />-->
+        </Style>
+
+        <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+            <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
+            <Setter Property="ios:Page.UseSafeArea" Value="False" />
+            <Setter Property="NavigationPage.BackButtonTitle" Value="" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="{StaticResource NormalButtonBackgroundColor}" />
+            <Setter Property="TextColor" Value="{StaticResource NormalButtonTextColor}" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Body" />
+            <Setter Property="TextColor" Value="{StaticResource NormalLabelTextColor}" />
+            <Setter Property="VerticalTextAlignment" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Start" />
+        </Style>
+
+        <Style TargetType="StackLayout">
+            <Setter Property="Spacing" Value="0" />
+        </Style>
+
+        <Style x:Key="card" TargetType="custom:PancakeView">
+            <Setter Property="BackgroundColor" Value="#ffffff" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Shadow" Value="{custom:ShadowMarkup BlurRadius=8, Opacity=0.2, Offset='4,4'}" />
+        </Style>
+
+        <Style x:Key="label_welcome_header" TargetType="Label">
+            <Setter Property="FontSize" Value="Title" />
+            <Setter Property="FontFamily" Value="{StaticResource font_bold}" />
+            <Setter Property="TextColor" Value="{StaticResource HeadingLabelTextColor}" />
+        </Style>
+
+        <Style x:Key="label_section_header" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource font_bold}" />
+            <Setter Property="TextColor" Value="{StaticResource HeadingLabelTextColor}" />
+        </Style>
+
+        <!--  Content templates  -->
+        <ControlTemplate x:Key="GalleryPageTemplate">
+            <StackLayout Spacing="0">
+                <CollectionView ItemsSource="{TemplateBinding BindingContext.FilteredItems}">
+                    <CollectionView.Header>
+                        <ContentView Padding="20,12">
+                            <Entry
+                                HeightRequest="40"
+                                IsTextPredictionEnabled="False"
+                                Placeholder="Filter"
+                                ReturnCommand="{TemplateBinding BindingContext.FilterCommand}"
+                                ReturnType="Search"
+                                Text="{TemplateBinding BindingContext.FilterValue,
+                                                       Mode=OneWayToSource}" />
+                        </ContentView>
+                    </CollectionView.Header>
+                    <CollectionView.Footer>
+                        <BoxView HeightRequest="32" />
+                    </CollectionView.Footer>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="20,12">
+                                <custom:PancakeView Style="{StaticResource card}">
+                                    <custom:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding .}" />
+                                    </custom:PancakeView.GestureRecognizers>
+                                    <Grid ColumnSpacing="20">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <BoxView BackgroundColor="{Binding DetailColor, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" />
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Padding="0,24,24,24"
+                                            Spacing="8">
+                                            <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
+                                            <Label Text="{Binding Description}" />
+                                        </StackLayout>
+                                    </Grid>
+                                </custom:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ControlTemplate>
+
+    </Application.Resources>
+</Application>

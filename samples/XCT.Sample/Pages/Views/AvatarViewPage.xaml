@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+                ios:Page.UseSafeArea="true"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.AvatarViewPage">
+
+    <pages:BasePage.BindingContext>
+        <viewmodels:AvatarViewViewModel />
+    </pages:BasePage.BindingContext>
+
+    <StackLayout Spacing="20">
+        <CollectionView ItemsSource="{Binding Items}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <AbsoluteLayout>
+                        <StackLayout Padding="15, 10"
+                                     AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                     AbsoluteLayout.LayoutFlags="All"
+                                     Orientation="Horizontal"
+                                     Spacing="10">
+
+                            <xct:AvatarView ColorTheme="{x:Static xct:ColorTheme.Jungle}"
+                                              FontSize="Medium"
+                                              Size="{Binding Value,
+                                              Source={x:Reference Slider}}"
+                                              Text="{Binding Initials}">
+
+                                <xct:AvatarView.Source>
+                                    <UriImageSource Uri="{Binding Source}" />
+                                </xct:AvatarView.Source>
+                            </xct:AvatarView>
+
+                            <Label FontSize="20"
+                                   Text="{Binding Name}"
+                                   VerticalOptions="CenterAndExpand" />
+                        </StackLayout>
+                        <BoxView AbsoluteLayout.LayoutBounds="0,1,1,1"
+                                 AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+                                 Color="Black" />
+                    </AbsoluteLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <StackLayout Padding="{StaticResource ContentPadding}">
+            <Label Text="{xct:Translate AvatarViewSizeText}" />
+            <Slider x:Name="Slider"
+                    Maximum="80"
+                    Minimum="40"
+                    ThumbColor="{StaticResource PrimaryColor}" />
+        </StackLayout>
+    </StackLayout>
+</pages:BasePage>
