@@ -80,6 +80,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(ListIsNullOrEmptyPage),
 				nameof(ListIsNullOrEmptyConverter),
 				"A converter that allows you to check if collection is null or empty"),
+			new SectionModel(
+				typeof(ListIsNotNullOrEmptyConverterPage),
+				nameof(ListIsNotNullOrEmptyConverter),
+				"A converter that allows you to check if collection is not null or empty"),
 		};
 	}
 }

@@ -5,11 +5,11 @@
             <xct1:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
-        <ContentPage.BindingContext>
+    <ContentPage.BindingContext>
         <vm:IsNullOrEmptyConverterViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-         <StackLayout
+        <StackLayout
             Padding="10,10"
             HorizontalOptions="Fill"
             Spacing="10"
