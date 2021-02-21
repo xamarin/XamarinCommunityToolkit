@@ -11,6 +11,29 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(
+				typeof(BoolToObjectConverterPage),
+				nameof(BoolToObjectConverter),
+				"The BoolToObjectConverter is a converter that allows users to convert a bool value binding to a specific object."),
+			new SectionModel(
+				typeof(EqualConverterPage),
+				nameof(EqualConverter),
+				"The EqualConverter is a converter that allows users to convert any value binding to a bool depending on whether or not it is equal to a different value. "),
+
+			new SectionModel(
+				typeof(DoubleToIntConverterPage),
+				nameof(DoubleToIntConverter),
+				"The DoubleToIntConverter is a converter that allows users to convert an incoming double value to an int."),
+
+			new SectionModel(
+				typeof(IndexToArrayItemConverterPage),
+				nameof(IndexToArrayItemConverter),
+				"The IndexToArrayItemConverter is a converter that allows users to convert a int value binding to an item in an array."),
+			new SectionModel(
+				typeof(IntToBoolConverterPage),
+				nameof(IntToBoolConverter),
+				"The IntToBoolConverter is a converter that allows users to convert an incoming int value to a bool."),
+
+			new SectionModel(
 				typeof(ItemTappedEventArgsPage),
 				nameof(ItemTappedEventArgsConverter),
 				"A converter that allows you to extract the value from ItemTappedEventArgs that can be used in combination with EventToCommandBehavior"),
