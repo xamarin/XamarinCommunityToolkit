@@ -18,6 +18,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(IsNullOrEmptyConverterPage),
 				nameof(IsNullOrEmptyConverter),
 				"The IsNullOrEmptyConverter is a converter that allows users to convert an incoming binding to a bool value. This value represents if the incoming binding value is null or empty."),
+				new SectionModel(
+				typeof(IsNotNullOrEmptyConverterPage),
+				nameof(IsNotNullOrEmptyConverter),
+				"The IsNotNullOrEmptyConverter is a converter that allows users to convert an incoming binding to a bool value. This value represents if the incoming binding value is Not null or empty."),
 						new SectionModel(
 				typeof(InvertedBoolConverterPage),
 				nameof(InvertedBoolConverter),
