@@ -84,6 +84,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(ListIsNotNullOrEmptyConverterPage),
 				nameof(ListIsNotNullOrEmptyConverter),
 				"A converter that allows you to check if collection is not null or empty"),
+
+				new SectionModel(
+				typeof(ListToStringConverterPage),
+				nameof(ListToStringConverter),
+				"The ListToStringConverter is a converter that allows users to convert an incoming binding that implements IEnumerable to a single string value. The Separator property is used to join the items in the IEnumerable."),
 		};
 	}
 }
