@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
@@ -62,14 +64,18 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static void SetError(BindableObject bindable, object value)
 			=> bindable.SetValue(ErrorProperty, value);
 
-		protected override bool Validate(object value)
+		protected override async ValueTask<bool> ValidateAsync(object value, CancellationToken token)
 		{
-			var errors = children.Where(c =>
+			await Task.WhenAll(children.Select(c =>
 			{
 				c.Value = value;
-				c.ForceValidate();
-				return c.IsNotValid;
-			}).Select(c => GetError(c));
+				return c.ValidateNestedAsync(token).AsTask();
+			})).ConfigureAwait(false);
+
+			if (token.IsCancellationRequested)
+				return IsValid;
+
+			var errors = children.Where(c => c.IsNotValid).Select(c => GetError(c));
 
 			if (!errors.Any())
 			{
