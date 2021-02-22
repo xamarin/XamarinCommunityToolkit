@@ -27,9 +27,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 
 		ICommand clearSelectionCommand;
 
-		public ICommand ClearSelectionCommand => clearSelectionCommand ??= new Command(() =>
-		{
-			SelectedItem = null;
-		});
+		public ICommand ClearSelectionCommand => clearSelectionCommand ??= new Command(() => SelectedItem = null);
 	}
 }
