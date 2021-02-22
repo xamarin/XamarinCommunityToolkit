@@ -55,6 +55,9 @@
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
     <DefineConstants>UWP</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DocumentationFile>bin\Debug\netstandard1.0\Xamarin.CommunityToolkit.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)'=='Release' ">
     <!-- Manage Xamarin.Forms version for distribution -->
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
