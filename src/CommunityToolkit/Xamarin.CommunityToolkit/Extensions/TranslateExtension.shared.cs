@@ -17,9 +17,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public BindingBase ProvideValue(IServiceProvider serviceProvider)
 		{
 #if !NETSTANDARD1_0
-
+			#region Required work-around to prevent linker from removing the implementation
 			if (DateTime.Now.Ticks < 0)
 				_ = LocalizationResourceManager.Current[Text];
+			#endregion
 
 			var binding = new Binding
 			{
