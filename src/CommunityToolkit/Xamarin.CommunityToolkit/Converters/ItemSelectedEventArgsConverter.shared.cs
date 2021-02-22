@@ -19,9 +19,14 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>A <see cref="SelectedItemChangedEventArgs.SelectedItem"/> object from object of type <see cref="SelectedItemChangedEventArgs"/>.</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		   => value is SelectedItemChangedEventArgs selectedItemChangedEventArgs
+		{
+			if (value == null)
+				return null;
+
+			return value is SelectedItemChangedEventArgs selectedItemChangedEventArgs
 			   ? selectedItemChangedEventArgs.SelectedItem
 			   : throw new ArgumentException("Expected value to be of type SelectedItemChangedEventArgs", nameof(value));
+		}
 
 		/// <summary>
 		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.

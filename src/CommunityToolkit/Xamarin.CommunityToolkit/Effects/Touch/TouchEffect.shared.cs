@@ -467,6 +467,7 @@ namespace Xamarin.CommunityToolkit.Effects
 		public TouchEffect()
 			: base(EffectIds.TouchEffect)
 		{
+			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.Android.Effects.PlatformTouchEffect();
@@ -483,6 +484,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.UWP.Effects.PlatformTouchEffect();
 #endif
+			#endregion
 		}
 
 		public static bool GetIsAvailable(BindableObject bindable)

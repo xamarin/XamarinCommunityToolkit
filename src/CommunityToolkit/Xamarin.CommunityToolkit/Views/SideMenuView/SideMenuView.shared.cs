@@ -89,6 +89,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public SideMenuView()
 		{
+			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(null);
@@ -96,6 +97,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
 #endif
+			#endregion
 		}
 
 		public new ISideMenuList<View> Children
