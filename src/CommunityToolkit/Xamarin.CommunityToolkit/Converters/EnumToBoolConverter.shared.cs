@@ -38,23 +38,24 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (!(value is Enum enumValue))
 				throw new ArgumentException("The value should be of type Enum", nameof(value));
 
+			return TrueValues.Count == 0
+				? CompareTwoEnums(enumValue, parameter as Enum)
+				: TrueValues.Any(item => CompareTwoEnums(enumValue, item));
+
 			static bool CompareTwoEnums(Enum valueToCheck, object referenceValue)
 			{
 				if (!(referenceValue is Enum referenceEnumValue))
 					return false;
 
-				if (valueToCheck.GetType() != referenceEnumValue.GetType())
+				var valueToCheckType = valueToCheck.GetType();
+				if (valueToCheckType != referenceEnumValue.GetType())
 					return false;
 
-				if (valueToCheck.GetType().GetTypeInfo().GetCustomAttribute<FlagsAttribute>() != null)
+				if (valueToCheckType.GetTypeInfo().GetCustomAttribute<FlagsAttribute>() != null)
 					return referenceEnumValue.HasFlag(valueToCheck);
 
 				return Equals(valueToCheck, referenceEnumValue);
 			}
-
-			return TrueValues.Count == 0
-				? CompareTwoEnums(enumValue, parameter as Enum)
-				: TrueValues.Any(item => CompareTwoEnums(enumValue, item));
 		}
 
 		/// <inheritdoc/>
