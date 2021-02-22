@@ -1,17 +1,13 @@
-﻿using System;
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+﻿namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
 	public class IntToBoolConverterViewModel : BaseViewModel
 	{
 		int index;
+
 		public int Number
 		{
 			get => index;
-			set
-			{
-				index = value;
-				OnPropertyChanged();
-			}
+			set => SetProperty(ref index, value);
 		}
 	}
 }

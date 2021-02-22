@@ -1,17 +1,13 @@
-﻿using System;
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+﻿namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
 	public class DoubleToIntConverterViewModel : BaseViewModel
 	{
 		double index;
+
 		public double Input
 		{
 			get => index;
-			set
-			{
-				index = value;
-				OnPropertyChanged();
-			}
+			set => SetProperty(ref index, value);
 		}
 	}
 }

@@ -18,17 +18,16 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		};
 
 		string selectedItem;
+
 		public string SelectedItem
 		{
 			get => selectedItem;
-			set
-			{
-				selectedItem = value;
-				OnPropertyChanged();
-			}
+			set => SetProperty(ref selectedItem, value);
 		}
 
-		public ICommand ClearSelectionCommand => new Command(() =>
+		ICommand clearSelectionCommand;
+
+		public ICommand ClearSelectionCommand => clearSelectionCommand ??= new Command(() =>
 		{
 			SelectedItem = null;
 		});
