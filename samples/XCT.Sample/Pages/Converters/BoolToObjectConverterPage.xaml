@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.BoolToObjectConverterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    BackgroundColor="{StaticResource AppBackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolToObjectConverter
+                x:Key="BoolToObjectConverter"
+                FalseObject="#0000FF"
+                TrueObject="#FF0000" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10,10"
+            HorizontalOptions="Fill"
+            Spacing="10"
+            VerticalOptions="Fill">
+            <Label Text="The BoolToObjectConverter is a converter that allows users to convert a bool value binding to a specific object. By providing both a TrueObject and a FalseObject in the converter the appropriate object will be used depending on the value of the binding." TextColor="{StaticResource NormalLabelTextColor}" />
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Label Text="Blue" TextColor="{StaticResource NormalLabelTextColor}" />
+                <Switch x:Name="ColorToggle" IsToggled="False" />
+                <Label Text="Red" TextColor="{StaticResource NormalLabelTextColor}" />
+            </StackLayout>
+            <BoxView
+                BindingContext="{x:Reference Name=ColorToggle}"
+                HeightRequest="200"
+                WidthRequest="200"
+                Color="{Binding Path=IsToggled, Converter={StaticResource BoolToObjectConverter}}" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
