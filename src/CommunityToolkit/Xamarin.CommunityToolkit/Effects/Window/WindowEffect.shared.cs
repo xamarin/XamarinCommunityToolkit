@@ -14,6 +14,7 @@ namespace Xamarin.CommunityToolkit.Effects
 		public WindowEffect()
 			: base(EffectIds.WindowEffect)
 		{
+			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Android.Effects.PlatformWindowEffect();
@@ -24,6 +25,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new UWP.Effects.PlatformWindowEffect();
 #endif
+			#endregion
 		}
 
 		public static Color GetStatusBarColor(BindableObject bindable) =>
