@@ -10,6 +10,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	[ContentProperty(nameof(Content))]
 	public class TabViewItem : TemplatedView
 	{
+		public const string SelectedVisualState = "Selected";
+		public const string UnselectedVisualState = "Unselected";
+
 		bool isOnScreen;
 
 		public static readonly BindableProperty TextProperty =
@@ -140,8 +143,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static async void OnIsSelectedChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			(bindable as TabViewItem)?.UpdateCurrent();
-			await (bindable as TabViewItem)?.UpdateTabAnimationAsync();
+			if (bindable is TabViewItem tabViewItem)
+			{
+				tabViewItem.UpdateCurrent();
+				await tabViewItem.UpdateTabAnimationAsync();
+			}
 		}
 
 		public static readonly BindableProperty BadgeTextProperty =
@@ -355,6 +361,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			CurrentBadgeBorderColor = !IsSelected || BadgeBorderColorSelected == Color.Default ? BadgeBorderColor : BadgeBorderColorSelected;
 
 			UpdateCurrentContent();
+			ApplyIsSelectedState();
 		}
 
 		async Task UpdateTabAnimationAsync()
@@ -371,6 +378,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				await TabAnimation.OnSelected(view);
 			else
 				await TabAnimation.OnDeSelected(view);
+		}
+
+		void ApplyIsSelectedState()
+		{
+			if (IsSelected)
+				VisualStateManager.GoToState(this, SelectedVisualState);
+			else
+				VisualStateManager.GoToState(this, UnselectedVisualState);
 		}
 	}
 }
