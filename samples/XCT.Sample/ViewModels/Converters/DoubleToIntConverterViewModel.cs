@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			set
 			{
 				index = value;
-				OnPropertyChanged(nameof(Input));
+				OnPropertyChanged();
 			}
 		}
 	}

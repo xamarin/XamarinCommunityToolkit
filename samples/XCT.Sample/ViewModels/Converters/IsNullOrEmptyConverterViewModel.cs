@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			set
 			{
 				selectedItem = value;
-				OnPropertyChanged(nameof(SelectedItem));
+				OnPropertyChanged();
 			}
 		}
 
