@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
 	public class BehaviorsGalleryViewModel : BaseGalleryViewModel
 	{
-		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(
 				typeof(EmailValidationBehaviorPage),

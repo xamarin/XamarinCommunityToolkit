@@ -5,6 +5,10 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
+	/// <summary>
+	/// Abstract class for our behaviors to inherit.
+	/// </summary>
+	/// <typeparam name="TView">The <see cref="VisualElement"/> that the behavior can be applied to</typeparam>
 	public abstract class BaseBehavior<TView> : Behavior<TView> where TView : VisualElement
 	{
 		static readonly MethodInfo getContextMethod
