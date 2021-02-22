@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		public Func<Task> TimeoutAction { get; protected set; }
 
-		public List<NativeActionButton> Actions { get; protected set; } = new List<NativeActionButton>();
+		public List<NativeSnackButton> Actions { get; protected set; } = new List<NativeSnackButton>();
 
 		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
 

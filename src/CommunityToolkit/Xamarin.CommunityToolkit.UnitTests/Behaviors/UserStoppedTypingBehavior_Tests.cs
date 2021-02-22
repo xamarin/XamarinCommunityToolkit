@@ -12,11 +12,27 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		const int defaultLengthThreshold = 0;
 
 		[Fact]
-		public async Task ExecuteCommandWhenTimeThresholdHasExpired()
+		public async Task ShouldExecuteCommandWhenTimeThresholdHasExpired()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
 			var entry = CreateEntryWithBehavior(command: new Command<string>((s) => commandHasBeenExecuted = true));
+
+			// act
+			entry.Text = "1";
+			await Task.Delay(defaultTimeThreshold + 100);
+
+			// assert
+			Assert.True(commandHasBeenExecuted);
+		}
+
+		[Fact]
+		public async Task ShouldExecuteCommandWithSpecificParameterWhenSpecified()
+		{
+			// arrange
+			var commandHasBeenExecuted = false;
+			var entry = CreateEntryWithBehavior(command: new Command<bool>((s) => commandHasBeenExecuted = true),
+												commandParameter: true);
 
 			// act
 			entry.Text = "1";
@@ -144,7 +160,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		public Entry CreateEntryWithBehavior(int timeThreshold = defaultTimeThreshold,
 											 int lengthThreshold = defaultLengthThreshold,
 											 bool shouldDismissKeyboardAutomatically = false,
-											 ICommand command = null)
+											 ICommand command = null,
+											 object commandParameter = null)
 		{
 			var entry = new Entry
 			{
@@ -155,7 +172,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 						StoppedTypingTimeThreshold = timeThreshold,
 						MinimumLengthThreshold = lengthThreshold,
 						ShouldDismissKeyboardAutomatically = shouldDismissKeyboardAutomatically,
-						Command = command
+						Command = command,
+						CommandParameter = commandParameter
 					}
 				}
 			};

@@ -210,7 +210,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty SelectedIndexProperty =
-			BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(TabView), -1,
+			BindableProperty.Create(nameof(SelectedIndex), typeof(int), typeof(TabView), -1, BindingMode.TwoWay,
 				propertyChanged: OnSelectedIndexChanged);
 
 		public int SelectedIndex
@@ -229,8 +229,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					return;
 				}
-
-				tabView.UpdateSelectedIndex(selectedIndex);
+				if ((int)oldValue != selectedIndex)
+					tabView.UpdateSelectedIndex(selectedIndex);
 			}
 		}
 
@@ -480,8 +480,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else if (e.PropertyName == nameof(CarouselView.Position))
 			{
 				var selectedIndex = contentContainer.Position;
-
-				UpdateSelectedIndex(selectedIndex, true);
+				if (SelectedIndex != selectedIndex)
+					UpdateSelectedIndex(selectedIndex, true);
 			}
 		}
 
@@ -542,7 +542,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateTabContentSize();
 			UpdateTabStripSize();
 
-			UpdateSelectedIndex(0);
+			if (SelectedIndex != 0)
+				UpdateSelectedIndex(0);
 		}
 
 		void UpdateTabStripSize()
@@ -594,7 +595,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				if (CanUpdateSelectedIndex(capturedIndex))
-					UpdateSelectedIndex(capturedIndex);
+				{
+					if (SelectedIndex != capturedIndex)
+						UpdateSelectedIndex(capturedIndex);
+				}
 			};
 
 			view.GestureRecognizers.Add(tapRecognizer);
@@ -710,8 +714,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			UpdateTabContentSize();
 			UpdateTabStripSize();
-
-			UpdateSelectedIndex(0);
+			if (SelectedIndex != 0)
+				UpdateSelectedIndex(0);
 		}
 
 		void OnTabItemsSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => UpdateTabItemsSource();
@@ -752,18 +756,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (position < 0)
 				return;
+			var oldposition = SelectedIndex;
 
-			var oldPosition = SelectedIndex;
 			var newPosition = position;
-
-			if (oldPosition == newPosition)
-				return;
-
-			SelectedIndex = newPosition;
 
 			Device.BeginInvokeOnMainThread(async () =>
 			{
-				if (contentTabItems == null)
+				if (contentTabItems == null || contentTabItems.Count != TabItems.Count)
 					contentTabItems = new ObservableCollection<TabViewItem>(TabItems.Where(t => t.Content != null));
 
 				var contentIndex = position;
@@ -776,7 +775,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (hasCurrentItem)
 						currentItem = (TabViewItem)contentContainer.CurrentItem;
 
-					var tabViewItem = TabItems[SelectedIndex];
+					var tabViewItem = TabItems[position];
 
 					var lazyView = (currentItem?.Content as BaseLazyView) ?? (tabViewItem?.Content as BaseLazyView);
 
@@ -808,18 +807,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (tabStripContent.Children.Count > 0)
 					await tabStripContainerScroll.ScrollToAsync(tabStripContent.Children[tabStripIndex], ScrollToPosition.MakeVisible, false);
-			});
 
-			if (newPosition != oldPosition)
-			{
-				var selectionChangedArgs = new TabSelectionChangedEventArgs()
+				SelectedIndex = position;
+				if (oldposition != SelectedIndex)
 				{
-					NewPosition = newPosition,
-					OldPosition = oldPosition
-				};
+					var selectionChangedArgs = new TabSelectionChangedEventArgs()
+					{
+						NewPosition = newPosition,
+						OldPosition = SelectedIndex
+					};
 
-				OnTabSelectionChanged(selectionChangedArgs);
-			}
+					OnTabSelectionChanged(selectionChangedArgs);
+				}
+			});
 		}
 
 		void OnCurrentTabItemSizeChanged(object sender, EventArgs e)

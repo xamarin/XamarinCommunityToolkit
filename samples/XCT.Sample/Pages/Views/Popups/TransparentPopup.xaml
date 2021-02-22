@@ -3,9 +3,11 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
            xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
            xmlns:local="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Views.Popups"
+           xmlns:iosxct="clr-namespace:Xamarin.CommunityToolkit.UI.Views.iOSSpecific;assembly=Xamarin.CommunityToolkit"
            xmlns:uwpxct="clr-namespace:Xamarin.CommunityToolkit.UI.Views.WindowsSpecific;assembly=Xamarin.CommunityToolkit"
            Size="{x:Static local:PopupSize.Tiny}"
            Color="Transparent"
+           iosxct:Popup.ArrowDirection="Up"
            uwpxct:Popup.BorderColor="Transparent"
            x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.TransparentPopup">
 

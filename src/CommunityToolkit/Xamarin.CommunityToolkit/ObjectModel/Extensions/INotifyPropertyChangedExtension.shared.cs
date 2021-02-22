@@ -3,9 +3,9 @@ using System.ComponentModel;
 
 namespace Xamarin.CommunityToolkit.ObjectModel.Extensions
 {
-	public static class INotifyPropertyChangedEx
+	public static class INotifyPropertyChangedExtension
 	{
-		public static void WeakSubscribe<T>(this INotifyPropertyChanged target, T subscriber, Action<T, object, EventArgs> action)
+		public static void WeakSubscribe<T>(this INotifyPropertyChanged target, T subscriber, Action<T, object, PropertyChangedEventArgs> action)
 		{
 			_ = target ?? throw new ArgumentNullException(nameof(target));
 			if (subscriber == null || action == null)

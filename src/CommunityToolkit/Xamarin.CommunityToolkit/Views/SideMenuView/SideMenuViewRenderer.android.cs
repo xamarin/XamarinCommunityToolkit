@@ -12,9 +12,11 @@ using static System.Math;
 
 namespace Xamarin.CommunityToolkit.Android.UI.Views
 {
-	[Preserve(AllMembers = true)]
+	[Preserve(Conditional = true)]
 	public class SideMenuViewRenderer : VisualElementRenderer<SideMenuView>
 	{
+		const double defaultGestureThreshold = 30.0;
+
 		static Guid? lastTouchHandlerId;
 
 		readonly float density;
@@ -31,14 +33,12 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			: base(context)
 			=> density = context.Resources.DisplayMetrics.Density;
 
+		double GestureThreshold => Element.GestureThreshold >= 0
+			? Element.GestureThreshold
+			: defaultGestureThreshold;
+
 		public override bool OnInterceptTouchEvent(MotionEvent ev)
 		{
-			if (Element.AllowInterceptGesture)
-			{
-				base.OnInterceptTouchEvent(ev);
-				return false;
-			}
-
 			if (ev.ActionMasked == MotionEventActions.Move)
 			{
 				if (lastTouchHandlerId.HasValue && lastTouchHandlerId != elementId)
@@ -81,7 +81,10 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		{
 			var xDeltaAbs = Abs(xDelta);
 			var yDeltaAbs = Abs(yDelta);
-			var isHandled = xDeltaAbs > yDeltaAbs && xDeltaAbs > Element.GestureThreshold;
+			var isHandled = xDeltaAbs > yDeltaAbs
+				&& xDeltaAbs > GestureThreshold
+				&& ((xDelta > 0 && Element.CheckGestureEnabled(SideMenuPosition.LeftMenu))
+				|| (xDelta < 0 && Element.CheckGestureEnabled(SideMenuPosition.RightMenu)));
 
 			Parent?.RequestDisallowInterceptTouchEvent(isHandled);
 			return isHandled;

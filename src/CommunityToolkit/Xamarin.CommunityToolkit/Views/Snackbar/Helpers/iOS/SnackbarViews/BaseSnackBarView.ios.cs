@@ -32,12 +32,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 		{
 			this.SafeBottomAnchor().ConstraintEqualTo(GetBottomAnchor(), -SnackBar.Layout.MarginBottom).Active = true;
 			this.SafeTopAnchor().ConstraintGreaterThanOrEqualTo(GetTopAnchor(), SnackBar.Layout.MarginTop).Active = true;
-			this.SafeLeadingAnchor().ConstraintGreaterThanOrEqualTo(ParentView.SafeLeadingAnchor(), SnackBar.Layout.MarginLeading).Active = true;
-			this.SafeTrailingAnchor().ConstraintLessThanOrEqualTo(ParentView.SafeTrailingAnchor(), -SnackBar.Layout.MarginTrailing).Active = true;
+			this.SafeLeadingAnchor().ConstraintGreaterThanOrEqualTo(ParentView.SafeLeadingAnchor(), SnackBar.Layout.MarginLeft).Active = true;
+			this.SafeTrailingAnchor().ConstraintLessThanOrEqualTo(ParentView.SafeTrailingAnchor(), -SnackBar.Layout.MarginRight).Active = true;
 			this.SafeCenterXAnchor().ConstraintEqualTo(ParentView.SafeCenterXAnchor()).Active = true;
 
-			StackView.SafeLeadingAnchor().ConstraintEqualTo(this.SafeLeadingAnchor(), SnackBar.Layout.PaddingLeading).Active = true;
-			StackView.SafeTrailingAnchor().ConstraintEqualTo(this.SafeTrailingAnchor(), -SnackBar.Layout.PaddingTrailing).Active = true;
+			StackView.SafeLeadingAnchor().ConstraintEqualTo(this.SafeLeadingAnchor(), SnackBar.Layout.PaddingLeft).Active = true;
+			StackView.SafeTrailingAnchor().ConstraintEqualTo(this.SafeTrailingAnchor(), -SnackBar.Layout.PaddingRight).Active = true;
 			StackView.SafeBottomAnchor().ConstraintEqualTo(this.SafeBottomAnchor(), -SnackBar.Layout.PaddingBottom).Active = true;
 			StackView.SafeTopAnchor().ConstraintEqualTo(this.SafeTopAnchor(), SnackBar.Layout.PaddingTop).Active = true;
 		}
@@ -78,6 +78,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 			AddSubview(StackView);
 			StackView.Axis = UILayoutConstraintAxis.Horizontal;
 			StackView.TranslatesAutoresizingMaskIntoConstraints = false;
+			StackView.Spacing = SnackBar.Layout.Spacing;
 			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor)
 			{
 				StackView.BackgroundColor = SnackBar.Appearance.Background;

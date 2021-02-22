@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Extensions
@@ -10,6 +11,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 	{
 		public static Task<bool> ColorTo(this VisualElement element, Color color, uint length = 250u, Easing easing = null)
 		{
+			_ = element ?? throw new ArgumentNullException(nameof(element));
+
 			var animationCompletionSource = new TaskCompletionSource<bool>();
 			new Animation
 			{
@@ -23,6 +26,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static void AbortAnimations(this VisualElement element, params string[] otherAnimationNames)
 		{
+			_ = element ?? throw new ArgumentNullException(nameof(element));
+
 			ViewExtensions.CancelAnimations(element);
 			element.AbortAnimation(nameof(ColorTo));
 
@@ -32,5 +37,28 @@ namespace Xamarin.CommunityToolkit.Extensions
 			foreach (var name in otherAnimationNames)
 				element.AbortAnimation(name);
 		}
+
+		internal static bool TryFindParentElementWithParentOfType<T>(this VisualElement element, out VisualElement result, out T parent) where T : VisualElement
+		{
+			_ = element ?? throw new ArgumentNullException(nameof(element));
+
+			result = null;
+			parent = null;
+			while (element.Parent != null)
+			{
+				if (!(element.Parent is T parentElement))
+				{
+					element = element.Parent as VisualElement;
+					continue;
+				}
+				result = element;
+				parent = parentElement;
+				return true;
+			}
+			return false;
+		}
+
+		internal static bool TryFindParentOfType<T>(this VisualElement element, out T parent) where T : VisualElement
+			=> TryFindParentElementWithParentOfType<T>(element, out _, out parent);
 	}
 }

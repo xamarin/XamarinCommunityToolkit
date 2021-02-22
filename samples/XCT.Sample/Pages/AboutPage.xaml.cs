@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.CommunityToolkit.Sample.ViewModels;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages
 {
