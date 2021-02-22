@@ -12,6 +12,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 	{
 		public static Task DisplayToastAsync(this Page page, string message, int durationMilliseconds = 3000)
 		{
+			_ = page ?? throw new ArgumentNullException(nameof(page));
+
 			var messageOptions = new MessageOptions { Message = message };
 			var args = new SnackBarOptions
 			{
@@ -30,6 +32,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static Task DisplayToastAsync(this Page page, ToastOptions toastOptions)
 		{
+			_ = page ?? throw new ArgumentNullException(nameof(page));
+
 			var snackBar = new SnackBar();
 			var arguments = toastOptions ?? new ToastOptions();
 			var options = new SnackBarOptions
@@ -45,6 +49,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static Task<bool> DisplaySnackBarAsync(this Page page, string message, string actionButtonText, Func<Task> action, int durationMilliseconds = 3000)
 		{
+			_ = page ?? throw new ArgumentNullException(nameof(page));
+
 			var messageOptions = new MessageOptions { Message = message };
 			var actionOptions = new List<SnackBarActionOptions>
 			{
@@ -71,6 +77,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static Task<bool> DisplaySnackBarAsync(this Page page, SnackBarOptions snackBarOptions)
 		{
+			_ = page ?? throw new ArgumentNullException(nameof(page));
+
 			var snackBar = new SnackBar();
 			var arguments = snackBarOptions ?? new SnackBarOptions();
 			snackBar.Show(page, arguments);
