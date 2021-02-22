@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
@@ -11,6 +12,9 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 	/// </summary>
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
+		public const string ValidVisualState = "Valid";
+		public const string InvalidVisualState = "Invalid";
+
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsNotValid"/> property.
 		/// </summary>
@@ -291,12 +295,28 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		void UpdateStyle()
 		{
-			if (View == null || (ValidStyle ?? InvalidStyle) == null)
+			if (View == null)
+			{
 				return;
+			}
 
-			View.Style = IsValid
-				? ValidStyle
-				: InvalidStyle;
+			if ((ValidStyle ?? InvalidStyle) != null)
+			{
+				View.Style = IsValid
+					? ValidStyle
+					: InvalidStyle;
+				return;     // either use VSM or styles?
+			}
+
+			var vsmGroupsList = VisualStateManager.GetVisualStateGroups(View);
+			if (vsmGroupsList.Count > 0)
+			{
+				var vsmGroupsstates = vsmGroupsList[0].States;
+				if (vsmGroupsstates.All(x => x.Name.Equals(ValidVisualState) || x.Name.Equals(UnValidVisualState)))
+				{
+					VisualStateManager.GoToState(View, IsValid ? ValidVisualState : InvalidVisualState);
+				}
+			}
 		}
 
 		void ResetValidationTokenSource(CancellationTokenSource newTokenSource)
