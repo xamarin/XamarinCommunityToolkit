@@ -12,8 +12,8 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 	/// </summary>
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
-		public const string ValidVisualState = "Valid";
-		public const string InvalidVisualState = "Invalid";
+		const string validVisualState = "Valid";
+		const string invalidVisualState = "Invalid";
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsNotValid"/> property.
@@ -312,9 +312,9 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			if (vsmGroupsList.Count > 0)
 			{
 				var vsmGroupsstates = vsmGroupsList[0].States;
-				if (vsmGroupsstates.All(x => x.Name.Equals(ValidVisualState) || x.Name.Equals(UnValidVisualState)))
+				if (vsmGroupsstates.All(x => x.Name.Equals(validVisualState) || x.Name.Equals(invalidVisualState)))
 				{
-					VisualStateManager.GoToState(View, IsValid ? ValidVisualState : InvalidVisualState);
+					VisualStateManager.GoToState(View, IsValid ? validVisualState : invalidVisualState);
 				}
 			}
 		}
