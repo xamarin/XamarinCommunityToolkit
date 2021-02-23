@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		static void BeginInvokeOnMainThread(Action action)
 		{
 			if (synchronizationContext != null && SynchronizationContext.Current != synchronizationContext)
-				synchronizationContext.Post((o) => action(), null);
+				synchronizationContext.Post(_ => action(), null);
 			else
 				action();
 		}
