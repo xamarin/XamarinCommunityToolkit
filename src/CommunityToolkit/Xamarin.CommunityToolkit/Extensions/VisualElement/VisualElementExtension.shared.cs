@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 			result = null;
 			parent = null;
-			while (element.Parent != null)
+			while (element?.Parent != null)
 			{
 				if (!(element.Parent is T parentElement))
 				{
