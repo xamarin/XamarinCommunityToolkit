@@ -18,14 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		internal async Task Show(Page sender, SnackBarOptions arguments)
 		{
-			var view = Platform.GetRenderer(sender)?.View;
-			var retriesLeft = 5;
-			while (view == null && retriesLeft > 0)
-			{
-				retriesLeft--;
-				await Task.Delay(50);
-				view = Platform.GetRenderer(sender)?.View;
-			}
+			var view = (await GetRendererWithRetries(sender))?.View;
 			if (view == null)
 			{
 				throw new ArgumentException("Provided page cannot be parent to SnackBar", nameof(sender));
@@ -82,6 +75,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			snackBar.AddCallback(new SnackBarCallback(arguments));
 			snackBar.Show();
+		}
+
+		static async Task<IVisualElementRenderer> GetRendererWithRetries(Page sender, int maxRetries = 5)
+		{
+			var retriesLeft = maxRetries;
+
+			var renderer = Platform.GetRenderer(sender);
+			while (renderer == null && retriesLeft > 0)
+			{
+				retriesLeft--;
+				await Task.Delay(50);
+				renderer = Platform.GetRenderer(sender);
+			}
+
+			return renderer;
 		}
 
 		class SnackBarCallback : AndroidSnackBar.BaseCallback
