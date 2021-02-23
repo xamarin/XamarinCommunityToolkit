@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using Android.Graphics;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
@@ -14,12 +16,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal async Task Show(Page sender, SnackBarOptions arguments)
 		{
 			var view = Platform.GetRenderer(sender)?.View;
+			var retryesLeft = 5;
+			while (view == null && retryesLeft > 0)
+			{
+				retryesLeft--;
+				await Task.Delay(50);
+				view = Platform.GetRenderer(sender)?.View;
+			}
 			if (view == null)
 			{
-				return;
+				throw new ArgumentException("Provided page cannot be parent to SnackBar", nameof(sender));
 			}
 
 			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);

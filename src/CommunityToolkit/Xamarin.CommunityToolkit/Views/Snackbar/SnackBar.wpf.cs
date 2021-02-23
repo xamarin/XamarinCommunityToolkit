@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Threading.Tasks;
+using System.Windows.Forms;
 using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
@@ -11,7 +12,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		Timer snackBarTimer;
 
-		internal void Show(Page page, SnackBarOptions arguments)
+		internal Task Show(Page page, SnackBarOptions arguments)
 		{
 			var formsAppBar = System.Windows.Application.Current.MainWindow.FindChild<FormsAppBar>("PART_BottomAppBar");
 			var currentContent = formsAppBar.Content;
@@ -31,6 +32,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 			snackBarTimer.Start();
 			formsAppBar.Content = snackBar;
+			return Task.CompletedTask;
 		}
 	}
 }

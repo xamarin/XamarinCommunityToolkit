@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System.Threading.Tasks;
+using System.Timers;
 using Gtk;
 using Pango;
 using Xamarin.CommunityToolkit.UI.Views.Options;
@@ -12,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		Timer snackBarTimer;
 
-		public void Show(Page page, SnackBarOptions arguments)
+		public Task Show(Page page, SnackBarOptions arguments)
 		{
 			var mainWindow = (Platform.GetRenderer(page).Container.Child as Forms.Platform.GTK.Controls.Page)?.Children[0] as VBox;
 			var snackBarLayout = GetSnackBarLayout(mainWindow, arguments);
@@ -25,6 +26,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				arguments.SetResult(false);
 			};
 			snackBarTimer.Start();
+			return Task.CompletedTask;
 		}
 
 		HBox GetSnackBarLayout(Container container, SnackBarOptions arguments)
