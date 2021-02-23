@@ -19,10 +19,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		internal async Task Show(Page sender, SnackBarOptions arguments)
 		{
 			var view = Platform.GetRenderer(sender)?.View;
-			var retryesLeft = 5;
-			while (view == null && retryesLeft > 0)
+			var retriesLeft = 5;
+			while (view == null && retriesLeft > 0)
 			{
-				retryesLeft--;
+				retriesLeft--;
 				await Task.Delay(50);
 				view = Platform.GetRenderer(sender)?.View;
 			}
