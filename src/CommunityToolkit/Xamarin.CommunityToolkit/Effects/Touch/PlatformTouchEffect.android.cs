@@ -76,7 +76,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			if (Group == null)
 			{
-				View.Foreground = ripple;
+				if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+					View.Foreground = ripple;
+
 				return;
 			}
 
@@ -115,7 +117,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					View.Touch -= OnTouch;
 					View.Click -= OnClick;
 
-					if (View.Foreground == ripple)
+					if (Build.VERSION.SdkInt >= BuildVersionCodes.M && View.Foreground == ripple)
 						View.Foreground = null;
 				}
 
@@ -316,7 +318,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void CreateRipple()
 		{
-			var drawable = Group != null ? View?.Background : View?.Foreground;
+			var drawable = Build.VERSION.SdkInt >= BuildVersionCodes.M && Group == null
+				? View?.Foreground
+				: View?.Background;
+
 			var isEmptyDrawable = Element is Layout || drawable == null;
 
 			if (drawable is RippleDrawable)
