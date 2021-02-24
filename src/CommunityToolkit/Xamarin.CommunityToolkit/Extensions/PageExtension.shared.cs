@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 {
 	public static class PageExtension
 	{
-		public static Task DisplayToastAsync(this Page page, string message, int durationMilliseconds = 3000)
+		public static async Task DisplayToastAsync(this Page page, string message, int durationMilliseconds = 3000)
 		{
 			_ = page ?? throw new ArgumentNullException(nameof(page));
 
@@ -27,10 +27,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 			};
 			var snackBar = new SnackBar();
 			snackBar.Show(page, args);
-			return args.Result.Task;
+			await args.Result.Task;
 		}
 
-		public static Task DisplayToastAsync(this Page page, ToastOptions toastOptions)
+		public static async Task DisplayToastAsync(this Page page, ToastOptions toastOptions)
 		{
 			_ = page ?? throw new ArgumentNullException(nameof(page));
 
@@ -44,10 +44,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 				IsRtl = arguments.IsRtl
 			};
 			snackBar.Show(page, options);
-			return options.Result.Task;
+			await options.Result.Task;
 		}
 
-		public static Task<bool> DisplaySnackBarAsync(this Page page, string message, string actionButtonText, Func<Task> action, int durationMilliseconds = 3000)
+		public static async Task<bool> DisplaySnackBarAsync(this Page page, string message, string actionButtonText, Func<Task> action, int durationMilliseconds = 3000)
 		{
 			_ = page ?? throw new ArgumentNullException(nameof(page));
 
@@ -72,17 +72,17 @@ namespace Xamarin.CommunityToolkit.Extensions
 			};
 			var snackBar = new SnackBar();
 			snackBar.Show(page, options);
-			return options.Result.Task;
+			return await options.Result.Task;
 		}
 
-		public static Task<bool> DisplaySnackBarAsync(this Page page, SnackBarOptions snackBarOptions)
+		public static async Task<bool> DisplaySnackBarAsync(this Page page, SnackBarOptions snackBarOptions)
 		{
 			_ = page ?? throw new ArgumentNullException(nameof(page));
 
 			var snackBar = new SnackBar();
 			var arguments = snackBarOptions ?? new SnackBarOptions();
 			snackBar.Show(page, arguments);
-			return arguments.Result.Task;
+			return await arguments.Result.Task;
 		}
 	}
 }
