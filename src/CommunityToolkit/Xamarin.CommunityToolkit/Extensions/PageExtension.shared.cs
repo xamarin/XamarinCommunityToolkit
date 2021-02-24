@@ -13,92 +13,76 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public static Task DisplayToastAsync(this Page page, string message, int durationMilliseconds = 3000)
 		{
 			_ = page ?? throw new ArgumentNullException(nameof(page));
-			return Implementation();
 
-			async Task Implementation()
+			var messageOptions = new MessageOptions { Message = message };
+			var args = new SnackBarOptions
 			{
-				var messageOptions = new MessageOptions { Message = message };
-				var args = new SnackBarOptions
-				{
-					MessageOptions = messageOptions,
-					Duration = TimeSpan.FromMilliseconds(durationMilliseconds),
+				MessageOptions = messageOptions,
+				Duration = TimeSpan.FromMilliseconds(durationMilliseconds),
 #if NETSTANDARD1_0
-					IsRtl = false,
+				IsRtl = false,
 #else
-					IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
 #endif
-				};
-				var snackBar = new SnackBar();
-				snackBar.Show(page, args);
-				await args.Result.Task;
-			}
+			};
+			var snackBar = new SnackBar();
+			snackBar.Show(page, args);
+			return args.Result.Task;
 		}
 
 		public static Task DisplayToastAsync(this Page page, ToastOptions toastOptions)
 		{
 			_ = page ?? throw new ArgumentNullException(nameof(page));
-			return Implementation();
 
-			async Task Implementation()
+			var snackBar = new SnackBar();
+			var arguments = toastOptions ?? new ToastOptions();
+			var options = new SnackBarOptions
 			{
-				var snackBar = new SnackBar();
-				var arguments = toastOptions ?? new ToastOptions();
-				var options = new SnackBarOptions
-				{
-					MessageOptions = arguments.MessageOptions,
-					Duration = arguments.Duration,
-					BackgroundColor = arguments.BackgroundColor,
-					IsRtl = arguments.IsRtl
-				};
-				snackBar.Show(page, options);
-				await options.Result.Task;
-			}
+				MessageOptions = arguments.MessageOptions,
+				Duration = arguments.Duration,
+				BackgroundColor = arguments.BackgroundColor,
+				IsRtl = arguments.IsRtl
+			};
+			snackBar.Show(page, options);
+			return options.Result.Task;
 		}
 
 		public static Task<bool> DisplaySnackBarAsync(this Page page, string message, string actionButtonText, Func<Task> action, int durationMilliseconds = 3000)
 		{
 			_ = page ?? throw new ArgumentNullException(nameof(page));
-			return Implementation();
 
-			async Task<bool> Implementation()
+			var messageOptions = new MessageOptions { Message = message };
+			var actionOptions = new List<SnackBarActionOptions>
 			{
-				var messageOptions = new MessageOptions { Message = message };
-				var actionOptions = new List<SnackBarActionOptions>
+				new SnackBarActionOptions
 				{
-					new SnackBarActionOptions
-					{
-						Text = actionButtonText, Action = action
-					}
-				};
-				var options = new SnackBarOptions
-				{
-					MessageOptions = messageOptions,
-					Duration = TimeSpan.FromMilliseconds(durationMilliseconds),
-					Actions = actionOptions,
+					Text = actionButtonText, Action = action
+				}
+			};
+			var options = new SnackBarOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = TimeSpan.FromMilliseconds(durationMilliseconds),
+				Actions = actionOptions,
 #if NETSTANDARD1_0
 				IsRtl = false,
 #else
-					IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
+				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
 #endif
-				};
-				var snackBar = new SnackBar();
-				snackBar.Show(page, options);
-				return await options.Result.Task;
-			}
+			};
+			var snackBar = new SnackBar();
+			snackBar.Show(page, options);
+			return options.Result.Task;
 		}
 
 		public static Task<bool> DisplaySnackBarAsync(this Page page, SnackBarOptions snackBarOptions)
 		{
 			_ = page ?? throw new ArgumentNullException(nameof(page));
-			return Implementation();
 
-			async Task<bool> Implementation()
-			{
-				var snackBar = new SnackBar();
-				var arguments = snackBarOptions ?? new SnackBarOptions();
-				snackBar.Show(page, arguments);
-				return await arguments.Result.Task;
-			}
+			var snackBar = new SnackBar();
+			var arguments = snackBarOptions ?? new SnackBarOptions();
+			snackBar.Show(page, arguments);
+			return arguments.Result.Task;
 		}
 	}
 }
