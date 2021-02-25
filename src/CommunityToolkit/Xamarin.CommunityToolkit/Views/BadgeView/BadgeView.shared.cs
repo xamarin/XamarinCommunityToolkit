@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
+using Xamarin.Forms.Shapes;
 using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -103,14 +104,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="BackgroundColor"/> property.
 		/// </summary>
 		public static new BindableProperty BackgroundColorProperty =
-			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(BadgeView), defaultValue: Color.Default);
+			BindableProperty.Create(nameof(BackgroundColor), typeof(Brush), typeof(BadgeView), defaultValue: Brush.Default);
 
 		/// <summary>
 		/// Gets or sets the background <see cref="Color"/> of the badge. This is a bindable property.
 		/// </summary>
-		public new Color BackgroundColor
+		public new Brush BackgroundColor
 		{
-			get => (Color)GetValue(BackgroundColorProperty);
+			get => (Brush)GetValue(BackgroundColorProperty);
 			set => SetValue(BackgroundColorProperty, value);
 		}
 
@@ -118,15 +119,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="BorderColor"/> property.
 		/// </summary>
 		public static readonly BindableProperty BorderColorProperty =
-			BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(BadgeView), Color.Default,
+			BindableProperty.Create(nameof(BorderColor), typeof(Brush), typeof(BadgeView), Brush.Default,
 				propertyChanged: OnLayoutPropertyChanged);
 
 		/// <summary>
 		/// Gets or sets the border <see cref="Color"/> of the badge. This is a bindable property.
 		/// </summary>
-		public Color BorderColor
+		public Brush BorderColor
 		{
-			get => (Color)GetValue(BorderColorProperty);
+			get => (Brush)GetValue(BorderColorProperty);
 			set => SetValue(BorderColorProperty, value);
 		}
 
@@ -242,21 +243,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		Grid BadgeIndicatorContainer { get; } = CreateIndicatorContainerElement();
 
-		Frame BadgeIndicatorBackground { get; } = CreateIndicatorBackgroundElement();
-
 		Label BadgeText { get; } = CreateTextElement();
+
+		Ellipse BadgeIndicatorBackground { get; } = CreateIndicatorBackgroundElement();
+
 
 		protected override void OnControlInitialized(Grid control)
 		{
-			BadgeIndicatorBackground.Content = BadgeText;
-
 			BadgeIndicatorContainer.Children.Add(BadgeIndicatorBackground);
+			BadgeIndicatorContainer.Children.Add(BadgeText);
 			BadgeIndicatorContainer.PropertyChanged += OnBadgeIndicatorContainerPropertyChanged;
 			BadgeText.SizeChanged += OnBadgeTextSizeChanged;
 
 			control.Children.Add(BadgeContent);
 			control.Children.Add(BadgeIndicatorContainer);
 		}
+
+		static Ellipse CreateIndicatorBackgroundElement()
+			=> new Ellipse();
 
 		static ContentPresenter CreateContentElement()
 			=> new ContentPresenter
@@ -273,12 +277,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			   IsVisible = false
 		   };
 
-		static Frame CreateIndicatorBackgroundElement()
-		   => new Frame
-		   {
-			   CornerRadius = Device.RuntimePlatform == Device.Android ? 12 : 8,
-			   Padding = 2
-		   };
 
 		static Label CreateTextElement()
 		   => new Label
@@ -312,9 +310,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			BadgeContent.Content = Content;
 
-			BadgeIndicatorBackground.BackgroundColor = BackgroundColor;
-			BadgeIndicatorBackground.BorderColor = BorderColor;
-			BadgeIndicatorBackground.HasShadow = HasShadow;
+			BadgeIndicatorBackground.Fill = BackgroundColor;
+			BadgeIndicatorBackground.Stroke = BorderColor;
+			//BadgeIndicatorBackground.HasShadow = HasShadow; ?
 
 			BadgeText.Text = Text;
 			BadgeText.TextColor = TextColor;
@@ -354,7 +352,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				const double Padding = 6;
 				var size = Math.Max(BadgeText.Height, BadgeText.Width) + Padding;
-				BadgeIndicatorBackground.HeightRequest = size;
+				BadgeIndicatorBackground.HeightRequest = BadgeIndicatorBackground.WidthRequest = size;
 				var margins = GetMargins(size);
 				containerMargin = margins.Item1;
 				contentMargin = margins.Item2;
