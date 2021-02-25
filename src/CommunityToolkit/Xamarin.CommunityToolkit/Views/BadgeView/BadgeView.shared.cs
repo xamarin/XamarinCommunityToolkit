@@ -101,19 +101,39 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		/// <summary>
-		/// Backing BindableProperty for the <see cref="BackgroundColor"/> property.
+		/// Backing BindableProperty for the <see cref="BadgeBackgroundColor"/> property.
 		/// </summary>
-		public static new BindableProperty BackgroundColorProperty =
-			BindableProperty.Create(nameof(BackgroundColor), typeof(Brush), typeof(BadgeView), defaultValue: Brush.Default);
+		public static new BindableProperty BadgeBackgroundColorProperty =
+			BindableProperty.Create(nameof(BadgeBackgroundColor), typeof(Brush), typeof(BadgeView), defaultValue: Brush.Default);
 
 		/// <summary>
 		/// Gets or sets the background <see cref="Color"/> of the badge. This is a bindable property.
 		/// </summary>
-		public new Brush BackgroundColor
+		public new Brush BadgeBackgroundColor
 		{
-			get => (Brush)GetValue(BackgroundColorProperty);
+			get => (Brush)GetValue(BadgeBackgroundColorProperty);
+			set => SetValue(BadgeBackgroundColorProperty, value);
+		}
+
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="BadgeBackgroundColor"/> property.
+		/// </summary>
+		public static new BindableProperty BackgroundColorProperty =
+			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(BadgeView), defaultValue: Color.Default, propertyChanged: OnBackgroundColorChanged);
+
+		/// <summary>
+		/// Gets or sets the background <see cref="Color"/> of the badge. This is a bindable property.
+		/// </summary>
+		[Obsolete("BackgroundColor is obsolete. Please use BadgeBackgroundColor instead")]
+		[System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+		public new Color BackgroundColor
+		{
+			get => (Color)GetValue(BackgroundColorProperty);
 			set => SetValue(BackgroundColorProperty, value);
 		}
+
+		static void OnBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue)
+			=> (bindable as BadgeView).BadgeBackgroundColor = new SolidColorBrush((Color)newValue);
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="BorderColor"/> property.
@@ -310,7 +330,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			BadgeContent.Content = Content;
 
-			BadgeIndicatorBackground.Fill = BackgroundColor;
+			BadgeIndicatorBackground.Fill = BadgeBackgroundColor;
 			BadgeIndicatorBackground.Stroke = BorderColor;
 			//BadgeIndicatorBackground.HasShadow = HasShadow; ?
 
