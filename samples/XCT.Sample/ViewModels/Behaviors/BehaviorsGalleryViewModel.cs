@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Behaviors;
+using Xamarin.CommunityToolkit.Behaviors.AttachedBehaviors;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
 
@@ -60,7 +61,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			new SectionModel(
 				typeof(ProgressBarAnimationBehaviorPage),
 				nameof(ProgressBarAnimationBehavior),
-				"Animate the progress for the ProgressBar")
+				"Animate the progress for the ProgressBar"),
+			new SectionModel(
+				typeof(SetFocusOnEntryCompletedBehaviorPage),
+				nameof(SetFocusOnEntryCompletedBehavior),
+				"Set focus to another element when an entry is completed"),
 		};
 	}
 }

@@ -1,12 +1,13 @@
 ﻿using System;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.AttachedProperties
+namespace Xamarin.CommunityToolkit.Behaviors.AttachedBehaviors
 {
 	/// <summary>
-	/// The <see cref="SetFocusOnEntryCompleted"/> is an attached property for entries that allows the user to specify what <see cref="VisualElement"/> should gain focus after the user completes that entry.
+	/// The <see cref="SetFocusOnEntryCompletedBehavior"/> is an attached property for entries that allows the user to specify what <see cref="VisualElement"/> should gain focus after the user completes that entry.
 	/// </summary>
-	public class SetFocusOnEntryCompleted
+	public class SetFocusOnEntryCompletedBehavior : BaseBehavior<VisualElement>
 	{
 		/// <summary>
 		/// The <see cref="NextElementProperty"/> attached property.
@@ -15,7 +16,7 @@ namespace Xamarin.CommunityToolkit.AttachedProperties
 			BindableProperty.CreateAttached(
 				"NextElement",
 				typeof(VisualElement),
-				typeof(SetFocusOnEntryCompleted),
+				typeof(SetFocusOnEntryCompletedBehavior),
 				default(VisualElement),
 				propertyChanged: OnNextElementChanged);
 
@@ -49,5 +50,6 @@ namespace Xamarin.CommunityToolkit.AttachedProperties
 				}
 			}
 		}
+
 	}
 }
