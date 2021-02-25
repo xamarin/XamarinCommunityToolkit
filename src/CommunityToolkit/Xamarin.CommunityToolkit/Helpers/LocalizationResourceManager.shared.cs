@@ -8,7 +8,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 namespace Xamarin.CommunityToolkit.Helpers
 {
 #if !NETSTANDARD1_0
-	public class LocalizationResourceManager : ObservableObject
+	public class LocalizationResourceManager : PersistentObservableObject
 	{
 #pragma warning disable CS0618 // Type or member is obsolete
 		public static LocalizationResourceManager Current { get; } = new LocalizationResourceManager();
@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public void Init(ResourceManager resource, CultureInfo initialCulture)
 		{
 			resourceManager = resource;
-			SetCulture(initialCulture);
+			CurrentCulture = initialCulture;
 		}
 
 		public string GetValue(string text) =>

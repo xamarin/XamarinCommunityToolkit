@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Resources;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xunit;
@@ -59,6 +60,23 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 
 			// Assert
 			Assert.NotNull(localizedString);
+		}
+
+		[Fact]
+		public void LocalizedStringTests_WeekSubscribe_ValidImplementation()
+		{
+			// Arrange
+			var isTrigered = false;
+			var culture2 = new CultureInfo("en");
+			localizedString = new LocalizedString(localizationManager, () => string.Empty);
+			localizedString.PropertyChanged += (_, __) => isTrigered = true;
+
+			// Act
+			GC.Collect();
+			localizationManager.CurrentCulture = culture2;
+
+			// Assert
+			Assert.True(isTrigered);
 		}
 
 		[Fact]
