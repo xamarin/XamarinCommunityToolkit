@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Resources;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xunit;
