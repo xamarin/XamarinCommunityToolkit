@@ -303,6 +303,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		   {
 			   HorizontalOptions = LayoutOptions.Center,
 			   VerticalOptions = LayoutOptions.Center,
+			   LineBreakMode = LineBreakMode.NoWrap,
 			   Margin = new Thickness(4, 0)
 		   };
 
