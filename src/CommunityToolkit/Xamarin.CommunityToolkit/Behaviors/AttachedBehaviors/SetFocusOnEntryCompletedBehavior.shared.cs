@@ -2,7 +2,7 @@
 using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Behaviors.AttachedBehaviors
+namespace Xamarin.CommunityToolkit.Behaviors
 {
 	/// <summary>
 	/// The <see cref="SetFocusOnEntryCompletedBehavior"/> is an attached property for entries that allows the user to specify what <see cref="VisualElement"/> should gain focus after the user completes that entry.

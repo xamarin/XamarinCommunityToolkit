@@ -5,7 +5,6 @@ using Xamarin.Forms;
 
 #if !NETSTANDARD1_0
 [assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.Behaviors")]
-[assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.Behaviors.AttachedBehaviors")]
 [assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.Converters")]
 [assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.Effects")]
 [assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.Extensions")]
