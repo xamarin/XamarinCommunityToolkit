@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// <summary>
 	/// Observable object with INotifyPropertyChanged implemented
 	/// </summary>
-	public class PersistentObservableObject : INotifyPropertyChanged
+	public abstract class PersistentObservableObject : INotifyPropertyChanged
 	{
 		/// <summary>
 		/// Occurs when property changed.
