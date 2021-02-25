@@ -13,8 +13,8 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 	/// </summary>
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
-		const string validVisualState = "Valid";
-		const string invalidVisualState = "Invalid";
+		public const string validVisualState = "Valid";
+		public const string invalidVisualState = "Invalid";
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsNotValid"/> property.
