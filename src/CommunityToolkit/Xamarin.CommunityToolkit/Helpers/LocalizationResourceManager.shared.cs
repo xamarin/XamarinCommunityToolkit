@@ -8,7 +8,7 @@ using Xamarin.CommunityToolkit.ObjectModel;
 namespace Xamarin.CommunityToolkit.Helpers
 {
 #if !NETSTANDARD1_0
-	public class LocalizationResourceManager : PersistentObservableObject
+	public class LocalizationResourceManager : ObservableObject
 	{
 #pragma warning disable CS0618 // Type or member is obsolete
 		public static LocalizationResourceManager Current { get; } = new LocalizationResourceManager();

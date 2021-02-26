@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <summary>
 		/// Occurs when property changed.
 		/// </summary>
-		public virtual event PropertyChangedEventHandler? PropertyChanged
+		public event PropertyChangedEventHandler? PropertyChanged
 		{
 			add => weakEventManager.AddEventHandler(value);
 			remove => weakEventManager.RemoveEventHandler(value);
