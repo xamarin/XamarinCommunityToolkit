@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.CommunityToolkit.AttachedProperties;
+﻿using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
 using Xunit;
 
-namespace Xamarin.CommunityToolkit.UnitTests.AttachedProperties
+namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class SetFocusOnEntryCompleted_Tests
 	{
@@ -48,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.AttachedProperties
 			entry.FocusChangeRequested += (s, e) => entry.SetValue(VisualElement.IsFocusedPropertyKey, e.Focus);
 
 			if (nextElement != null)
-				SetFocusOnEntryCompleted.SetNextElement(entry, nextElement);
+				SetFocusOnEntryCompletedBehavior.SetNextElement(entry, nextElement);
 
 			return entry;
 		}
