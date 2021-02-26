@@ -360,6 +360,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.BackgroundColor = color;
 				return Task.FromResult(true);
 			}
@@ -388,6 +389,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.Opacity = opacity;
 				return Task.FromResult(true);
 			}
@@ -416,12 +418,13 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations(nameof(SetScale));
 				element.Scale = scale;
 				return Task.FromResult(true);
 			}
 
 			var animationCompletionSource = new TaskCompletionSource<bool>();
-			element.Animate($"{nameof(SetScale)}{element.Id}", v =>
+			element.Animate(nameof(SetScale), v =>
 			{
 				if (double.IsNaN(v))
 					return;
@@ -469,6 +472,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.TranslationX = translationX;
 				element.TranslationY = translationY;
 				return Task.FromResult(true);
@@ -498,6 +502,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.Rotation = rotation;
 				return Task.FromResult(true);
 			}
@@ -526,6 +531,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.RotationX = rotationX;
 				return Task.FromResult(true);
 			}
@@ -554,6 +560,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.RotationY = rotationY;
 				return Task.FromResult(true);
 			}
