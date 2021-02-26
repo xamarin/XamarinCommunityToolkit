@@ -3,27 +3,27 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
-	public class WindowEffect : RoutingEffect
+	public class StatusBarEffect : RoutingEffect
 	{
 		public static readonly BindableProperty StatusBarColorProperty = BindableProperty.CreateAttached(
-			nameof(StatusBarColor), typeof(Color), typeof(WindowEffect), Color.Default, propertyChanged: TryGenerateEffect);
+			nameof(StatusBarColor), typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.CreateAttached(
-			nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(WindowEffect), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
+			nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
 
-		public WindowEffect()
-			: base(EffectIds.WindowEffect)
+		public StatusBarEffect()
+			: base(EffectIds.StatusBarEffect)
 		{
 			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Android.Effects.PlatformWindowEffect();
+				_ = new Android.Effects.PlatformStatusBarEffect();
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new iOS.Effects.PlatformWindowEffect();
+				_ = new iOS.Effects.PlatformStatusBarEffect();
 #elif UWP
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new UWP.Effects.PlatformWindowEffect();
+				_ = new UWP.Effects.PlatformStatusBarEffect();
 #endif
 			#endregion
 		}
@@ -39,11 +39,11 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (!(bindable is Page page))
 				return;
 
-			var oldEffect = page.Effects.FirstOrDefault(e => e is WindowEffect);
+			var oldEffect = page.Effects.FirstOrDefault(e => e is StatusBarEffect);
 			if (oldEffect != null)
 				page.Effects.Remove(oldEffect);
 
-			page.Effects.Add(new WindowEffect());
+			page.Effects.Add(new StatusBarEffect());
 		}
 
 		public Color StatusBarColor => GetStatusBarColor(Element);

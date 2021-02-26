@@ -5,7 +5,7 @@ using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using static Xamarin.CommunityToolkit.Android.Effects.PlatformWindowEffect;
+using static Xamarin.CommunityToolkit.Android.Effects.PlatformStatusBarEffect;
 using Color = Android.Graphics.Color;
 
 [assembly: ExportEffect(typeof(PlatformWindowEffectAndroid), nameof(WindowEffectAndroid))]
@@ -79,6 +79,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		Window GetCurrentWindow() => PlatformWindowEffect.GetCurrentWindow(Activity);
+		Window GetCurrentWindow() => PlatformStatusBarEffect.GetCurrentWindow(Activity);
 	}
 }

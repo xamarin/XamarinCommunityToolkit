@@ -8,21 +8,21 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Color = Android.Graphics.Color;
 
-[assembly: ExportEffect(typeof(PlatformWindowEffect), nameof(WindowEffect))]
+[assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class PlatformWindowEffect : PlatformEffect
+	public class PlatformStatusBarEffect : PlatformEffect
 	{
 		protected override void OnAttached()
 		{
-			if (WindowEffect.GetStatusBarColor(Element) != (Forms.Color)WindowEffect.StatusBarColorProperty.DefaultValue)
+			if (StatusBarEffect.GetStatusBarColor(Element) != (Forms.Color)StatusBarEffect.StatusBarColorProperty.DefaultValue)
 			{
-				SetStatusBarColor(WindowEffect.GetStatusBarColor(Element).ToAndroid());
+				SetStatusBarColor(StatusBarEffect.GetStatusBarColor(Element).ToAndroid());
 			}
-			if (WindowEffect.GetStatusBarStyle(Element) != (StatusBarStyle)WindowEffect.StatusBarStyleProperty.DefaultValue)
+			if (StatusBarEffect.GetStatusBarStyle(Element) != (StatusBarStyle)StatusBarEffect.StatusBarStyleProperty.DefaultValue)
 			{
-				SetStatusBarStyle(WindowEffect.GetStatusBarStyle(Element));
+				SetStatusBarStyle(StatusBarEffect.GetStatusBarStyle(Element));
 			}
 		}
 
@@ -33,13 +33,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
 			base.OnElementPropertyChanged(args);
-			if (args.PropertyName == WindowEffect.StatusBarColorProperty.PropertyName)
+			if (args.PropertyName == StatusBarEffect.StatusBarColorProperty.PropertyName)
 			{
-				SetStatusBarColor(WindowEffect.GetStatusBarColor(Element).ToAndroid());
+				SetStatusBarColor(StatusBarEffect.GetStatusBarColor(Element).ToAndroid());
 			}
-			else if (args.PropertyName == WindowEffect.StatusBarStyleProperty.PropertyName)
+			else if (args.PropertyName == StatusBarEffect.StatusBarStyleProperty.PropertyName)
 			{
-				SetStatusBarStyle(WindowEffect.GetStatusBarStyle(Element));
+				SetStatusBarStyle(StatusBarEffect.GetStatusBarStyle(Element));
 			}
 		}
 

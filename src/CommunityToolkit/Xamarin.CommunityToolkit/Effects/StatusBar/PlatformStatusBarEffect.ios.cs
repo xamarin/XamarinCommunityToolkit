@@ -6,16 +6,16 @@ using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-[assembly: ExportEffect(typeof(PlatformWindowEffect), nameof(WindowEffect))]
+[assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class PlatformWindowEffect : PlatformEffect
+	public class PlatformStatusBarEffect : PlatformEffect
 	{
 		protected override void OnAttached()
 		{
-			SetStatusBarColor(WindowEffect.GetStatusBarColor(Element).ToUIColor());
-			SetStatusBarStyle(WindowEffect.GetStatusBarStyle(Element));
+			SetStatusBarColor(StatusBarEffect.GetStatusBarColor(Element).ToUIColor());
+			SetStatusBarStyle(StatusBarEffect.GetStatusBarStyle(Element));
 		}
 
 		protected override void OnDetached()
@@ -25,13 +25,13 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
 			base.OnElementPropertyChanged(args);
-			if (args.PropertyName == WindowEffect.StatusBarColorProperty.PropertyName)
+			if (args.PropertyName == StatusBarEffect.StatusBarColorProperty.PropertyName)
 			{
-				SetStatusBarColor(WindowEffect.GetStatusBarColor(Element).ToUIColor());
+				SetStatusBarColor(StatusBarEffect.GetStatusBarColor(Element).ToUIColor());
 			}
-			else if (args.PropertyName == WindowEffect.StatusBarStyleProperty.PropertyName)
+			else if (args.PropertyName == StatusBarEffect.StatusBarStyleProperty.PropertyName)
 			{
-				SetStatusBarStyle(WindowEffect.GetStatusBarStyle(Element));
+				SetStatusBarStyle(StatusBarEffect.GetStatusBarStyle(Element));
 			}
 		}
 
