@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		{
 			this.generator = generator;
 
-			// This instance will be unsibscribed and GCed if none references it
+			// This instance will be unsubscribed and GCed if no one references it
 			// since LocalizationResourceManager uses WeekEventManger
 			localizationManager.PropertyChanged += (sender, e) => OnPropertyChanged(null);
 		}
