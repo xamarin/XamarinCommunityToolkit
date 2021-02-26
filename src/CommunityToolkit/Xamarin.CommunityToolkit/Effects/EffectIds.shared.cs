@@ -57,8 +57,8 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static string StatusBarEffect => $"{effectResolutionGroupName}.{nameof(StatusBarEffect)}";
 
 		/// <summary>
-		/// Effect Id for <see cref="WindowEffectAndroid"/>
+		/// Effect Id for <see cref="NavigationBarEffect"/>
 		/// </summary>
-		public static string WindowEffectAndroid => $"{effectResolutionGroupName}.{nameof(WindowEffectAndroid)}";
+		public static string NavigationBarEffect => $"{effectResolutionGroupName}.{nameof(NavigationBarEffect)}";
 	}
 }

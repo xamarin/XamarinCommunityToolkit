@@ -14,8 +14,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	{
 		protected override void OnAttached()
 		{
-			SetStatusBarColor(StatusBarEffect.GetStatusBarColor(Element).ToUIColor());
-			SetStatusBarStyle(StatusBarEffect.GetStatusBarStyle(Element));
+			SetColor(StatusBarEffect.GetColor(Element).ToUIColor());
+			SetStyle(StatusBarEffect.GetStyle(Element));
 		}
 
 		protected override void OnDetached()
@@ -25,17 +25,17 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
 			base.OnElementPropertyChanged(args);
-			if (args.PropertyName == StatusBarEffect.StatusBarColorProperty.PropertyName)
+			if (args.PropertyName == StatusBarEffect.ColorProperty.PropertyName)
 			{
-				SetStatusBarColor(StatusBarEffect.GetStatusBarColor(Element).ToUIColor());
+				SetColor(StatusBarEffect.GetColor(Element).ToUIColor());
 			}
-			else if (args.PropertyName == StatusBarEffect.StatusBarStyleProperty.PropertyName)
+			else if (args.PropertyName == StatusBarEffect.StyleProperty.PropertyName)
 			{
-				SetStatusBarStyle(StatusBarEffect.GetStatusBarStyle(Element));
+				SetStyle(StatusBarEffect.GetStyle(Element));
 			}
 		}
 
-		public void SetStatusBarColor(UIColor color)
+		public void SetColor(UIColor color)
 		{
 			if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
 			{
@@ -61,7 +61,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
 		}
 
-		public void SetStatusBarStyle(StatusBarStyle style)
+		public void SetStyle(StatusBarStyle style)
 		{
 			switch (style)
 			{

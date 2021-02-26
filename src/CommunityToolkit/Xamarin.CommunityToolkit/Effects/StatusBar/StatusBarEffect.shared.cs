@@ -5,11 +5,11 @@ namespace Xamarin.CommunityToolkit.Effects
 {
 	public class StatusBarEffect : RoutingEffect
 	{
-		public static readonly BindableProperty StatusBarColorProperty = BindableProperty.CreateAttached(
-			nameof(StatusBarColor), typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
+		public static readonly BindableProperty ColorProperty = BindableProperty.CreateAttached(
+			nameof(Color), typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
 
-		public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.CreateAttached(
-			nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
+		public static readonly BindableProperty StyleProperty = BindableProperty.CreateAttached(
+			nameof(Style), typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
 
 		public StatusBarEffect()
 			: base(EffectIds.StatusBarEffect)
@@ -28,11 +28,11 @@ namespace Xamarin.CommunityToolkit.Effects
 			#endregion
 		}
 
-		public static Color GetStatusBarColor(BindableObject bindable) =>
-			(Color)bindable.GetValue(StatusBarColorProperty);
+		public static Color GetColor(BindableObject bindable) =>
+			(Color)bindable.GetValue(ColorProperty);
 
-		public static StatusBarStyle GetStatusBarStyle(BindableObject bindable) =>
-			(StatusBarStyle)bindable.GetValue(StatusBarStyleProperty);
+		public static StatusBarStyle GetStyle(BindableObject bindable) =>
+			(StatusBarStyle)bindable.GetValue(StyleProperty);
 
 		static void TryGenerateEffect(BindableObject bindable, object oldValue, object newValue)
 		{
@@ -46,8 +46,8 @@ namespace Xamarin.CommunityToolkit.Effects
 			page.Effects.Add(new StatusBarEffect());
 		}
 
-		public Color StatusBarColor => GetStatusBarColor(Element);
+		public Color Color => GetColor(Element);
 
-		public StatusBarStyle StatusBarStyle => GetStatusBarStyle(Element);
+		public StatusBarStyle Style => GetStyle(Element);
 	}
 }

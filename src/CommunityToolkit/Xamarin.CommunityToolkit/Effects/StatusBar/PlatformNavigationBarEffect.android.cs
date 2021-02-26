@@ -8,21 +8,21 @@ using Xamarin.Forms.Platform.Android;
 using static Xamarin.CommunityToolkit.Android.Effects.PlatformStatusBarEffect;
 using Color = Android.Graphics.Color;
 
-[assembly: ExportEffect(typeof(PlatformWindowEffectAndroid), nameof(WindowEffectAndroid))]
+[assembly: ExportEffect(typeof(PlatformNavigationBarEffect), nameof(NavigationBarEffect))]
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class PlatformWindowEffectAndroid : PlatformEffect
+	public class PlatformNavigationBarEffect : PlatformEffect
 	{
 		protected override void OnAttached()
 		{
-			if (WindowEffectAndroid.GetNavigationBarColor(Element) != (Forms.Color)WindowEffectAndroid.NavigationBarColorProperty.DefaultValue)
+			if (NavigationBarEffect.GetColor(Element) != (Forms.Color)NavigationBarEffect.ColorProperty.DefaultValue)
 			{
-				SetNavigationBarColor(WindowEffectAndroid.GetNavigationBarColor(Element).ToAndroid());
+				SetColor(NavigationBarEffect.GetColor(Element).ToAndroid());
 			}
-			if (WindowEffectAndroid.GetNavigationBarStyle(Element) != (NavigationBarStyle)WindowEffectAndroid.NavigationBarStyleProperty.DefaultValue)
+			if (NavigationBarEffect.GetStyle(Element) != (NavigationBarStyle)NavigationBarEffect.StyleProperty.DefaultValue)
 			{
-				SetNavigationBarStyle(WindowEffectAndroid.GetNavigationBarStyle(Element));
+				SetStyle(NavigationBarEffect.GetStyle(Element));
 			}
 		}
 
@@ -33,17 +33,17 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
 			base.OnElementPropertyChanged(args);
-			if (args.PropertyName == WindowEffectAndroid.NavigationBarColorProperty.PropertyName)
+			if (args.PropertyName == NavigationBarEffect.ColorProperty.PropertyName)
 			{
-				SetNavigationBarColor(WindowEffectAndroid.GetNavigationBarColor(Element).ToAndroid());
+				SetColor(NavigationBarEffect.GetColor(Element).ToAndroid());
 			}
-			else if (args.PropertyName == WindowEffectAndroid.NavigationBarStyleProperty.PropertyName)
+			else if (args.PropertyName == NavigationBarEffect.StyleProperty.PropertyName)
 			{
-				SetNavigationBarStyle(WindowEffectAndroid.GetNavigationBarStyle(Element));
+				SetStyle(NavigationBarEffect.GetStyle(Element));
 			}
 		}
 
-		public void SetNavigationBarColor(Color color)
+		public void SetColor(Color color)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			GetCurrentWindow().SetNavigationBarColor(color);
 		}
 
-		public void SetNavigationBarStyle(NavigationBarStyle style)
+		public void SetStyle(NavigationBarStyle style)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;

@@ -16,13 +16,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	{
 		protected override void OnAttached()
 		{
-			if (StatusBarEffect.GetStatusBarColor(Element) != (Forms.Color)StatusBarEffect.StatusBarColorProperty.DefaultValue)
+			if (StatusBarEffect.GetColor(Element) != (Forms.Color)StatusBarEffect.ColorProperty.DefaultValue)
 			{
-				SetStatusBarColor(StatusBarEffect.GetStatusBarColor(Element).ToAndroid());
+				SetColor(StatusBarEffect.GetColor(Element).ToAndroid());
 			}
-			if (StatusBarEffect.GetStatusBarStyle(Element) != (StatusBarStyle)StatusBarEffect.StatusBarStyleProperty.DefaultValue)
+			if (StatusBarEffect.GetStyle(Element) != (StatusBarStyle)StatusBarEffect.StyleProperty.DefaultValue)
 			{
-				SetStatusBarStyle(StatusBarEffect.GetStatusBarStyle(Element));
+				SetStyle(StatusBarEffect.GetStyle(Element));
 			}
 		}
 
@@ -33,17 +33,17 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
 			base.OnElementPropertyChanged(args);
-			if (args.PropertyName == StatusBarEffect.StatusBarColorProperty.PropertyName)
+			if (args.PropertyName == StatusBarEffect.ColorProperty.PropertyName)
 			{
-				SetStatusBarColor(StatusBarEffect.GetStatusBarColor(Element).ToAndroid());
+				SetColor(StatusBarEffect.GetColor(Element).ToAndroid());
 			}
-			else if (args.PropertyName == StatusBarEffect.StatusBarStyleProperty.PropertyName)
+			else if (args.PropertyName == StatusBarEffect.StyleProperty.PropertyName)
 			{
-				SetStatusBarStyle(StatusBarEffect.GetStatusBarStyle(Element));
+				SetStyle(StatusBarEffect.GetStyle(Element));
 			}
 		}
 
-		public void SetStatusBarColor(Color color)
+		public void SetColor(Color color)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			Activity.SetStatusBarColor(color);
 		}
 
-		public void SetStatusBarStyle(StatusBarStyle style)
+		public void SetStyle(StatusBarStyle style)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
