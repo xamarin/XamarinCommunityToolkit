@@ -1,6 +1,5 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.ObjectModel.Extensions;
 using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Helpers
@@ -18,7 +17,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator = null)
 		{
 			this.generator = generator;
-			localizationManager.WeakSubscribe(this, (t, sender, e) => t.OnPropertyChanged(null));
+
+			// This instance will be unsubscribed and GCed if no one references it
+			// since LocalizationResourceManager uses WeekEventManger
+			localizationManager.PropertyChanged += (sender, e) => OnPropertyChanged(null);
 		}
 
 		public string Localized => generator?.Invoke();
