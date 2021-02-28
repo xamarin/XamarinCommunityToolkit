@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using Android.Graphics;
 using Android.Widget;
-using AndroidX.AppCompat.Widget;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms.Platform.Android;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
@@ -53,27 +51,22 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void ClearTintColor()
 		{
-			//var isDisposed = (bool) ((ImageButtonRenderer)Control).GetType().GetInterface("IDisposedState")?.GetProperty("IsDisposed")?.GetValue((ImageButtonRenderer)Control);
-
 			try
 			{
 				switch (Control)
 				{
 					case ImageView image:
 						image.ClearColorFilter();
-						//if (!isDisposed)
-						//{
-						//	image.ClearColorFilter();
-						//}
 						break;
 					case Button button:
-						var drawables = button.GetCompoundDrawables().Where(d => d != null);
-						foreach (var img in drawables)
-							img.ClearColorFilter();
+						foreach (var drawable in button.GetCompoundDrawables())
+							drawable?.ClearColorFilter();
 						break;
 				}
 			}
-			catch (ObjectDisposedException ex) { }
+			catch (ObjectDisposedException) {
+				// We ignore ObjectDisposedException as a workaround of XF issue https://github.com/xamarin/Xamarin.Forms/issues/13889
+			}
 		}
 
 		void SetImageViewTintColor(ImageView image, Forms.Color color)
