@@ -19,7 +19,9 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>A <see cref="bool"/> indicating if the incoming value is null or empty.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ConvertInternal(value);
+
+		internal static bool ConvertInternal(object value)
 		{
 			if (value == null)
 				return true;
