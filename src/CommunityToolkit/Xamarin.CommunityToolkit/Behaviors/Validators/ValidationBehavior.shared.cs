@@ -12,6 +12,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
 		public const string ValidVisualState = "Valid";
+
 		public const string InvalidVisualState = "Invalid";
 
 		/// <summary>
