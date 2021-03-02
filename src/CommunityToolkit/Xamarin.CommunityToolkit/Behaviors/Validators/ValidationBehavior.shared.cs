@@ -295,9 +295,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 		void UpdateStyle()
 		{
 			if (View == null)
-			{
 				return;
-			}
 
 			VisualStateManager.GoToState(View, IsValid ? validVisualState : invalidVisualState);
 
