@@ -299,23 +299,12 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 				return;
 			}
 
-			if ((ValidStyle ?? InvalidStyle) != null)
-			{
-				View.Style = IsValid
-					? ValidStyle
-					: InvalidStyle;
-				return;
-			}
+			VisualStateManager.GoToState(View, IsValid ? validVisualState : invalidVisualState);
 
-			var vsmGroupsList = VisualStateManager.GetVisualStateGroups(View);
-			if (vsmGroupsList.Count > 0)
-			{
-				var vsmGroupsstates = vsmGroupsList[0].States;
-				if (vsmGroupsstates.All(x => x.Name.Equals(ValidVisualState) || x.Name.Equals(InvalidVisualState)))
-				{
-					VisualStateManager.GoToState(View, IsValid ? ValidVisualState : InvalidVisualState);
-				}
-			}
+			if ((ValidStyle ?? InvalidStyle) == null)
+				return;
+
+			View.Style = IsValid ? ValidStyle : InvalidStyle;
 		}
 
 		void ResetValidationTokenSource(CancellationTokenSource newTokenSource)
