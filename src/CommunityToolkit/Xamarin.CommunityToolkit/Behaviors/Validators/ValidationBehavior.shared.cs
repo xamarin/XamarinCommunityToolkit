@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using System.Linq;
 
 namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
