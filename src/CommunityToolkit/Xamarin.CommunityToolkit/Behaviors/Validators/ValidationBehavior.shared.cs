@@ -5,7 +5,6 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using System.Linq;
 
-
 namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
 	/// <summary>
@@ -13,8 +12,8 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 	/// </summary>
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
-		public const string validVisualState = "Valid";
-		public const string invalidVisualState = "Invalid";
+		public const string ValidVisualState = "Valid";
+		public const string InvalidVisualState = "Invalid";
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsNotValid"/> property.
@@ -306,16 +305,16 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 				View.Style = IsValid
 					? ValidStyle
 					: InvalidStyle;
-				return;     // either use VSM or styles?
+				return;
 			}
 
 			var vsmGroupsList = VisualStateManager.GetVisualStateGroups(View);
 			if (vsmGroupsList.Count > 0)
 			{
 				var vsmGroupsstates = vsmGroupsList[0].States;
-				if (vsmGroupsstates.All(x => x.Name.Equals(validVisualState) || x.Name.Equals(invalidVisualState)))
+				if (vsmGroupsstates.All(x => x.Name.Equals(ValidVisualState) || x.Name.Equals(InvalidVisualState)))
 				{
-					VisualStateManager.GoToState(View, IsValid ? validVisualState : invalidVisualState);
+					VisualStateManager.GoToState(View, IsValid ? ValidVisualState : InvalidVisualState);
 				}
 			}
 		}
