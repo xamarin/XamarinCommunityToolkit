@@ -12,15 +12,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		public LocalizedStringTests()
 		{
 			resourceManager = new MockResourceManager();
-#pragma warning disable CS0618 // Type or member is obsolete
-			localizationManager = new LocalizationResourceManager();
-#pragma warning restore CS0618 // Type or member is obsolete
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
-		readonly LocalizationResourceManager localizationManager;
+		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
 		readonly ResourceManager resourceManager;
+
 		LocalizedString localizedString;
 
 		[Fact]
