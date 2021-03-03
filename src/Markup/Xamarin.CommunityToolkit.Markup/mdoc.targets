@@ -92,8 +92,8 @@
         <MySourceFiles Include="$(NuGetPackageRoot)xamarin.forms\5.0.0.*\**\*.dll"/>
     </ItemGroup>
     <Copy SourceFiles="@(MySourceFiles)" DestinationFolder="$(TmpDir)references\" />
-    <Copy SourceFiles="$(MDocDocumentationDirectory)\..\frameworks-markup.xml" DestinationFiles="$(TmpDir)frameworks.xml" />
-    <Copy SourceFiles="$(BinConfigDir)netstandard2.0\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-markup" />
+    <Copy SourceFiles="$(MDocDocumentationDirectory)\..\frameworks.xml" DestinationFolder="$(TmpDir)" />
+    <Copy SourceFiles="$(BinConfigDir)netstandard2.0\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit" />
     <Exec Command="$(_ManagedExeLauncher) &quot;$(MDocToolPath)&quot; update --debug --lang=DocId --frameworks=&quot;$(TmpDir)frameworks.xml&quot; --out=&quot;$(MDocDocumentationDirectory)&quot; $(MDocReferenceAssemblies) -i &quot;$(BinConfigDir)netstandard2.0\$(AssemblyName).xml&quot;" />
     <_FormatDocs DocsRoot="$(MDocDocumentationDirectory)" />
     <_VerifyAllDocsAreComplete DocsRoot="$(MDocDocumentationDirectory)" />
