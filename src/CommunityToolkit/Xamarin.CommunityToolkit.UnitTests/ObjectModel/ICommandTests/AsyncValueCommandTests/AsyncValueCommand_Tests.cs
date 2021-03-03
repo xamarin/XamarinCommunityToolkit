@@ -175,7 +175,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void AsyncValueCommandNoParameter_NoCanExecute_Test()
 		{
 			// Arrange
-			Func<bool> canExecute = null;
+			Func<bool>? canExecute = null;
 			var command = new AsyncValueCommand(NoParameterTask, canExecute);
 
 			// Act
@@ -188,7 +188,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task AsyncValueCommand_RaiseCanExecuteChanged_Test()
 		{
 			// Arrange
-			var handleCanExecuteChangedTCS = new TaskCompletionSource<object>();
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
@@ -215,7 +215,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object sender, EventArgs e)
+			void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
 				didCanExecuteChangeFire = true;
 				handleCanExecuteChangedTCS.SetResult(null);
@@ -226,7 +226,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task AsyncValueCommand_ChangeCanExecute_Test()
 		{
 			// Arrange
-			var handleCanExecuteChangedTCS = new TaskCompletionSource<object>();
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
@@ -255,7 +255,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object sender, EventArgs e)
+			void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
 				didCanExecuteChangeFire = true;
 				handleCanExecuteChangedTCS.SetResult(null);
@@ -271,7 +271,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var command = new AsyncValueCommand<int>(IntParameterTask);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			Assert.True(command.AllowsMultipleExecutions);
 
@@ -299,7 +299,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var command = new AsyncValueCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			Assert.False(command.AllowsMultipleExecutions);
 
@@ -327,7 +327,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var command = new AsyncValueCommand(() => IntParameterTask(Delay));
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			Assert.True(command.AllowsMultipleExecutions);
 
@@ -355,7 +355,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var command = new AsyncValueCommand(() => IntParameterTask(Delay), allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			Assert.False(command.AllowsMultipleExecutions);
 

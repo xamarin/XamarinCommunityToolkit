@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task ICommand_Execute_InvalidValueTypeParameter_Test()
 		{
 			// Arrange
-			InvalidCommandParameterException actualInvalidCommandParameterException = null;
+			InvalidCommandParameterException? actualInvalidCommandParameterException = null;
 			var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(string), typeof(int));
 
 			ICommand command = new AsyncValueCommand<string>(StringParameterTask);
@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task ICommand_Execute_InvalidReferenceTypeParameter_Test()
 		{
 			// Arrange
-			InvalidCommandParameterException actualInvalidCommandParameterException = null;
+			InvalidCommandParameterException? actualInvalidCommandParameterException = null;
 			var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(int), typeof(string));
 
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask);
@@ -95,7 +95,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task ICommand_Execute_ValueTypeParameter_Test()
 		{
 			// Arrange
-			InvalidCommandParameterException actualInvalidCommandParameterException = null;
+			InvalidCommandParameterException? actualInvalidCommandParameterException = null;
 			var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(int));
 
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask);
@@ -224,7 +224,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			// Act
 			command.Execute(Delay);
@@ -249,7 +249,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			// Act
 			command.Execute(Delay);
@@ -275,7 +275,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			ICommand command = new AsyncValueCommand(() => IntParameterTask(Delay));
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			// Act
 			command.Execute(null);
@@ -301,7 +301,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			ICommand command = new AsyncValueCommand(() => IntParameterTask(Delay), allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			// Act
 			command.Execute(null);

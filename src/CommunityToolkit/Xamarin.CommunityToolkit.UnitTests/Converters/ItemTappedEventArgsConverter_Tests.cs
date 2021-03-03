@@ -15,8 +15,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			{
             // We know it's deprecated, still good to test it
 #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
                 new object[] { new ItemTappedEventArgs(null, expectedValue), expectedValue },
                 new object[] { new ItemTappedEventArgs(null, null), null },
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 #pragma warning restore CS0618 // Type or member is obsolete
 			};
 

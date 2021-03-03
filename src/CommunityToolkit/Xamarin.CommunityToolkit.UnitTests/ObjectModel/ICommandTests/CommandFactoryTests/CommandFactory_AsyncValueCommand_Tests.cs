@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommand_NullExecuteParameter()
 		{
 			// Arrange
-			Func<Task> execute = null;
+			Func<Task>? execute = null;
 
 			// Act
 
@@ -62,7 +62,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommand_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
-			Func<ValueTask> execute = null;
+			Func<ValueTask>? execute = null;
 
 			// Act
 
@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public async Task AsyncValueCommand_FuncBool_NullCanExecuteParameter()
 		{
 			// Arrange
-			Func<bool> canExecute = null;
+			Func<bool>? canExecute = null;
 			var command = CommandFactory.Create(NoParameterTask, canExecute);
 
 			// Act
@@ -113,7 +113,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommandT_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, ValueTask> execute = null;
+			Func<int, ValueTask>? execute = null;
 
 			// Act
 
@@ -163,7 +163,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommandT_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, ValueTask> execute = null;
+			Func<int, ValueTask>? execute = null;
 
 			// Act
 
@@ -175,7 +175,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public async Task AsyncValueCommandT_FuncBool_NullCanExecuteParameter()
 		{
 			// Arrange
-			Func<bool> canExecute = null;
+			Func<bool>? canExecute = null;
 			var command = CommandFactory.Create<int>(IntParameterTask, canExecute);
 
 			// Act
@@ -214,7 +214,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommandTExecuteTCanExecute_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, ValueTask> execute = null;
+			Func<int, ValueTask>? execute = null;
 
 			// Act
 
