@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Internals
 		protected TControl Control { get; private set; }
 
 		/// <summary>
-		/// Constructor of <see cref="BaseTemplatedView" />
+		/// Constructor of <see cref="BaseTemplatedView{TControl}" />
 		/// </summary>
 		public BaseTemplatedView()
 			=> ControlTemplate = new ControlTemplate(typeof(TControl));

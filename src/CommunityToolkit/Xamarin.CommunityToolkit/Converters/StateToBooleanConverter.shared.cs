@@ -6,7 +6,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	/// This converter can be used with <see cref="StateLayout"/> to determine if a certain state is visible. This can be useful, for instance, in scenarios where you want to show/hide certain elements based on the current <see cref="StateLayout.LayoutState"/>. Additionally a <see cref="StateLayout"/> can be supplied in the parameter of the Convert method to compare against that.
+	/// This converter can be used with <see cref="StateLayout"/> to determine if a certain state is visible. This can be useful, for instance, in scenarios where you want to show/hide certain elements based on the current <see cref="StateLayout"/>.CurrentState. Additionally a <see cref="StateLayout"/> can be supplied in the parameter of the Convert method to compare against that.
 	/// </summary>
 	public class StateToBooleanConverter : IValueConverter
 	{
