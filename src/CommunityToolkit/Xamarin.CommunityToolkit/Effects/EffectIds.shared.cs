@@ -40,5 +40,14 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// Effect Id for <see cref="TouchEffect"/>
 		/// </summary>
 		public static string TouchEffect => $"{effectResolutionGroupName}.{nameof(TouchEffect)}";
+
+
+		public static string LifeCycleEffect => $"{effectResolutionGroupName}.{nameof(LifecycleEffect)}";
+
+		/// <summary>
+		/// Effect Id for <see cref="ShadowEffect"/>
+		/// </summary>
+		public static string ShadowEffect => $"{effectResolutionGroupName}.{nameof(ShadowEffect)}";
+
 	}
 }

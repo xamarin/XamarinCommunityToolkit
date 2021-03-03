@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
@@ -69,30 +71,31 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(MaximumDecimalPlacesProperty, value);
 		}
 
-		protected override object DecorateValue()
-			=> base.DecorateValue()?.ToString()?.Trim();
+		protected override object Decorate(object value)
+			=> base.Decorate(value)?.ToString()?.Trim();
 
-		protected override bool Validate(object value)
+		protected override ValueTask<bool> ValidateAsync(object value, CancellationToken token)
 		{
 			var valueString = value as string;
 			if (!(double.TryParse(valueString, out var numeric)
 				&& numeric >= MinimumValue
 				&& numeric <= MaximumValue))
-				return false;
+				return new ValueTask<bool>(false);
 
 			var decimalDelimeterIndex = valueString.IndexOf(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 			var hasDecimalDelimeter = decimalDelimeterIndex >= 0;
 
 			// If MaximumDecimalPlaces equals zero, ".5" or "14." should be considered as invalid inputs.
 			if (hasDecimalDelimeter && MaximumDecimalPlaces == 0)
-				return false;
+				return new ValueTask<bool>(false);
 
 			var decimalPlaces = hasDecimalDelimeter
 				? valueString.Substring(decimalDelimeterIndex + 1, valueString.Length - decimalDelimeterIndex - 1).Length
 				: 0;
 
-			return decimalPlaces >= MinimumDecimalPlaces
-				&& decimalPlaces <= MaximumDecimalPlaces;
+			return new ValueTask<bool>(
+				decimalPlaces >= MinimumDecimalPlaces &&
+				decimalPlaces <= MaximumDecimalPlaces);
 		}
 	}
 }

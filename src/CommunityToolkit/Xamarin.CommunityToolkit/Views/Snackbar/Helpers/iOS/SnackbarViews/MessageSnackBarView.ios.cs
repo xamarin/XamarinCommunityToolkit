@@ -1,5 +1,4 @@
-﻿using UIKit;
-using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
+﻿using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
 {
@@ -14,7 +13,10 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
 		{
 			base.Initialize();
 
-			var messageLabel = new UILabel
+			var messageLabel = new PaddedLabel(SnackBar.Layout.PaddingLeft,
+				SnackBar.Layout.PaddingTop,
+				SnackBar.Layout.PaddingRight,
+				SnackBar.Layout.PaddingBottom)
 			{
 				Text = SnackBar.Message,
 				Lines = 0,

@@ -40,5 +40,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		public Color ForegroundColor { get; set; } = DefaultForegroundColor;
 
 		public static Color DefaultForegroundColor { get; set; } = Color.Default;
+
+		/// <summary>
+		/// Gets or sets the padding for the SnackBar message.
+		/// </summary>
+		public Thickness Padding { get; set; }
+
+		public static Thickness DefaultPadding { get; set; } = new Thickness(0, 0, 0, 0);
 	}
 }

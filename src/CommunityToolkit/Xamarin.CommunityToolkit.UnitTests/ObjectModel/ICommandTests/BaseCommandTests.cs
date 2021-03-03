@@ -21,6 +21,18 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 
 		protected Task ParameterImmediateNullReferenceExceptionTask(int delay) => throw new NullReferenceException();
 
+		protected void NoParameterAction()
+		{
+		}
+
+		protected void ObjectParameterAction(object parameter)
+		{
+		}
+
+		protected void IntParameterAction(int parameter)
+		{
+		}
+
 		protected async Task NoParameterDelayedNullReferenceExceptionTask()
 		{
 			await Task.Delay(Delay);
@@ -36,6 +48,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 		protected bool CanExecuteTrue() => true;
 
 		protected bool CanExecuteFalse() => false;
+
+		protected bool CanExecuteTrue(int parameter) => true;
 
 		protected bool CanExecuteTrue(bool parameter) => true;
 

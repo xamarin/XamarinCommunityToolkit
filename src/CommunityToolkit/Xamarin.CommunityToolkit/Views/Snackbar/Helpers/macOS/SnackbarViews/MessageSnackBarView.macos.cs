@@ -1,4 +1,6 @@
-﻿using AppKit;
+﻿using System;
+using AppKit;
+using CoreGraphics;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
@@ -12,7 +14,10 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 		protected override void Initialize()
 		{
 			base.Initialize();
-			var messageLabel = new NSTextField
+			var messageLabel = new PaddedLabel(SnackBar.Layout.PaddingLeft,
+				SnackBar.Layout.PaddingTop,
+				SnackBar.Layout.PaddingRight,
+				SnackBar.Layout.PaddingBottom)
 			{
 				StringValue = SnackBar.Message,
 				Selectable = false,

@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>An object of type <see cref="ImageSource"/>.</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is null)
+			if (value == null)
 				return null;
 
 			if (value is byte[] imageBytes)
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>An object of type <see cref="ImageSource"/>.</returns>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			if (value is null)
+			if (value == null)
 				return null;
 
 			if (value is StreamImageSource streamImageSource)

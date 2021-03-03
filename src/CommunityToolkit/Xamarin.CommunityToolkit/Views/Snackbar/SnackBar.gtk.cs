@@ -35,6 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var message = new Gtk.Label(arguments.MessageOptions.Message);
 			message.ModifyFont(new FontDescription { AbsoluteSize = arguments.MessageOptions.Font.FontSize, Family = arguments.MessageOptions.Font.FontFamily });
 			message.ModifyFg(StateType.Normal, arguments.MessageOptions.Foreground.ToGtkColor());
+			message.SetPadding((int)arguments.MessageOptions.Padding.Left, (int)arguments.MessageOptions.Padding.Top);
 			snackBarLayout.Add(message);
 			snackBarLayout.SetChildPacking(message, false, false, 0, PackType.Start);
 

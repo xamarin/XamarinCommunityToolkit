@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -18,12 +19,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			{
 				Assert.Equal(NotifyCollectionChangedAction.Add, e.Action);
 				Assert.Null(e.OldItems);
-				Assert.Equal(toAdd.Length, e.NewItems.Count);
-
-				for (var i = 0; i < toAdd.Length; i++)
-				{
-					Assert.Equal(toAdd[i], (int)e.NewItems[i]);
-				}
+				Assert.Equal(toAdd, e.NewItems);
 			};
 			collection.AddRange(toAdd);
 		}
@@ -130,7 +126,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 				}
 			};
 			collection.RemoveRange(toRemove, NotifyCollectionChangedAction.Remove);
-
 		}
 
 		[Fact]
@@ -179,6 +174,39 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			// the collection should not be modified if the source items are not found
 			Assert.Equal(6, collection.Count);
+		}
+
+		class CollectionWrapper<T>
+		{
+			public readonly ObservableRangeCollection<T> Collection = new ObservableRangeCollection<T>();
+			public ObservableRangeCollection<T> NullCollection;
+		}
+
+		[Fact]
+		public void AddCollection()
+		{
+			var toAdd = new[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3 };
+
+			var wrapper = new CollectionWrapper<int>()
+			{
+				Collection = { toAdd }
+			};
+
+			Assert.Equal(toAdd, wrapper.Collection);
+		}
+
+		[Fact]
+		public void AddToNullCollection()
+		{
+			var toAdd = new[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3 };
+
+			Assert.Throws<ArgumentNullException>(() =>
+			{
+				var wrapper = new CollectionWrapper<int>()
+				{
+					NullCollection = { toAdd }
+				};
+			});
 		}
 	}
 }

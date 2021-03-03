@@ -5,6 +5,7 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
+
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)Xamarin.CommunityToolkit.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>

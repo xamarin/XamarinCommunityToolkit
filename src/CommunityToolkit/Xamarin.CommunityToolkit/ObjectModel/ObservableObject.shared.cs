@@ -9,7 +9,7 @@ using Xamarin.CommunityToolkit.Helpers;
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	/// <summary>
-	/// Observable object with INotifyPropertyChanged implemented
+	/// Observable object with INotifyPropertyChanged implemented using WeakEventManager
 	/// </summary>
 	public abstract class ObservableObject : INotifyPropertyChanged
 	{
