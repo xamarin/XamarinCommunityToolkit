@@ -75,7 +75,6 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				case CameraCaptureMode.Default:
 				case CameraCaptureMode.Photo:
 					previewPicture.IsVisible = true;
-					previewPicture.Rotation = e.Rotation;
 					previewPicture.Source = e.Image;
 					doCameraThings.Text = "Snap Picture";
 					break;

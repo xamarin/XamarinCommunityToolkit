@@ -13,8 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal MediaCapturedEventArgs(
 			string path = null,
-			byte[] imageData = null,
-			double rotation = 0)
+			byte[] imageData = null)
 		{
 			// Path = path;
 			this.path = path;
@@ -36,11 +35,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Raw image data, only filled when taking a picture and SavePhotoToFile is false
 		/// </summary>
 		public byte[] ImageData { get; }
-
-		/// <summary>
-		/// Applied image rotation for correct orientation on Android devices
-		/// </summary>
-		public double Rotation { get; }
 
 		public ImageSource Image => imageSource.Value;
 
