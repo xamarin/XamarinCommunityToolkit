@@ -105,7 +105,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(MySourceFiles)" DestinationFolder="$(TmpDir)references\" />
     <Copy SourceFiles="$(MDocDocumentationDirectory)\..\frameworks.xml" DestinationFolder="$(TmpDir)" />
-    <Copy SourceFiles="$(BinConfigDir)netstandard2.1\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit" />
+    <Copy SourceFiles="$(BinConfigDir)netstandard2.1\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-sdk" />
     <!-- <Copy SourceFiles="$(BinConfigDir)monoandroid10.0\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-android" />
     <Copy SourceFiles="$(BinConfigDir)xamarin.ios10\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-ios" />
     <Copy SourceFiles="$(BinConfigDir)xamarin.mac20\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-macos" />

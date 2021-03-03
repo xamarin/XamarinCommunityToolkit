@@ -93,7 +93,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(MySourceFiles)" DestinationFolder="$(TmpDir)references\" />
     <Copy SourceFiles="$(MDocDocumentationDirectory)\..\frameworks.xml" DestinationFolder="$(TmpDir)" />
-    <Copy SourceFiles="$(BinConfigDir)netstandard2.0\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit" />
+    <Copy SourceFiles="$(BinConfigDir)netstandard2.0\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-sdk" />
     <Exec Command="$(_ManagedExeLauncher) &quot;$(MDocToolPath)&quot; update --debug --lang=DocId --frameworks=&quot;$(TmpDir)frameworks.xml&quot; --out=&quot;$(MDocDocumentationDirectory)&quot; $(MDocReferenceAssemblies) -i &quot;$(BinConfigDir)netstandard2.0\$(AssemblyName).xml&quot;" />
     <_FormatDocs DocsRoot="$(MDocDocumentationDirectory)" />
     <_VerifyAllDocsAreComplete DocsRoot="$(MDocDocumentationDirectory)" />

@@ -1,5 +1,5 @@
 <Frameworks>
-  <Framework Name="xamarin-community-toolkit" Source="xamarin-community-toolkit" />
+  <Framework Name="xamarin-community-toolkit" Source="xamarin-community-toolkit-sdk" />
   <!-- <Framework Name="xamarin-community-toolkit-android" Source="xamarin-community-toolkit-android" />
   <Framework Name="xamarin-community-toolkit-ios" Source="xamarin-community-toolkit-ios" />
   <Framework Name="xamarin-community-toolkit-tvos" Source="xamarin-community-toolkit-tvos" />
