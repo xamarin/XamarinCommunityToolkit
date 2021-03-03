@@ -11,6 +11,10 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 	/// </summary>
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
+		public const string ValidVisualState = "Valid";
+
+		public const string InvalidVisualState = "Invalid";
+
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsNotValid"/> property.
 		/// </summary>
@@ -291,12 +295,15 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		void UpdateStyle()
 		{
-			if (View == null || (ValidStyle ?? InvalidStyle) == null)
+			if (View == null)
 				return;
 
-			View.Style = IsValid
-				? ValidStyle
-				: InvalidStyle;
+			VisualStateManager.GoToState(View, IsValid ? ValidVisualState : InvalidVisualState);
+
+			if ((ValidStyle ?? InvalidStyle) == null)
+				return;
+
+			View.Style = IsValid ? ValidStyle : InvalidStyle;
 		}
 
 		void ResetValidationTokenSource(CancellationTokenSource newTokenSource)
