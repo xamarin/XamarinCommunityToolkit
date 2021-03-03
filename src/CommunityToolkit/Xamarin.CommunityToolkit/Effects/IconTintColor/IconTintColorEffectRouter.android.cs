@@ -64,7 +64,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 						break;
 				}
 			}
-			catch (ObjectDisposedException) {
+			catch (ObjectDisposedException)
+			{
 				// We ignore ObjectDisposedException as a workaround of XF issue https://github.com/xamarin/Xamarin.Forms/issues/13889
 			}
 		}
