@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
 
@@ -12,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void Action_NullExecuteParameter()
 		{
 			// Arrange
-			Action execute = null;
+			Action? execute = null;
 
 			// Act
 
@@ -71,7 +70,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void ActionObject_NullExecuteParameter()
 		{
 			// Arrange
-			Action<object> execute = null;
+			Action<object>? execute = null;
 
 			// Act
 
@@ -132,7 +131,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void ActionInt_NullExecuteParameter()
 		{
 			// Arrange
-			Action<int> execute = null;
+			Action<int>? execute = null;
 
 			// Act
 

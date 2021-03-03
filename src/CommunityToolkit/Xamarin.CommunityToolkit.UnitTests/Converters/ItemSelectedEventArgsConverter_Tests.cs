@@ -9,14 +9,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class ItemSelectedEventArgsConverter_Tests
 	{
-		static object expectedValue = 100;
+		static readonly object expectedValue = 100;
 
 		public static IEnumerable<object[]> GetData() => new List<object[]>
 		{
             // We know it's deprecated, still good to test it
 #pragma warning disable CS0618 // Type or member is obsolete
+#pragma warning disable CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
             new object[] { new SelectedItemChangedEventArgs(expectedValue), expectedValue },
-			new object[] { null, null },
+            new object?[] { null, null },
+#pragma warning restore CS8620 // Argument cannot be used for parameter due to differences in the nullability of reference types.
 #pragma warning restore CS0618 // Type or member is obsolete
 		};
 

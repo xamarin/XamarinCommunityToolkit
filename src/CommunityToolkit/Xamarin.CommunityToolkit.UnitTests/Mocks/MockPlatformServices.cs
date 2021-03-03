@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 
 		public OSAppTheme RequestedTheme => OSAppTheme.Unspecified;
 
-		public string RuntimePlatform { get; set; }
+		public string RuntimePlatform { get; set; } = string.Empty;
 
 		public void BeginInvokeOnMainThread(Action action)
 			=> action();
@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 		public Assembly[] GetAssemblies()
 			=> new Assembly[0];
 
-		public IIsolatedStorageFile GetUserStoreForApplication()
+		public IIsolatedStorageFile? GetUserStoreForApplication()
 			=> null;
 
 		Assembly[] IPlatformServices.GetAssemblies()

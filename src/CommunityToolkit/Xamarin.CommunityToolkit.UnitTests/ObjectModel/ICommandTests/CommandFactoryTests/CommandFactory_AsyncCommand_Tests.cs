@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncCommand_NullExecuteParameter()
 		{
 			// Arrange
-			Func<Task> execute = null;
+			Func<Task>? execute = null;
 
 			// Act
 
@@ -61,7 +61,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncCommand_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
-			Func<Task> execute = null;
+			Func<Task>? execute = null;
 
 			// Act
 
@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public async Task AsyncCommand_FuncBool_NullCanExecuteParameter()
 		{
 			// Arrange
-			Func<bool> canExecute = null;
+			Func<bool>? canExecute = null;
 			var command = CommandFactory.Create(NoParameterTask, canExecute);
 
 			// Act
@@ -112,7 +112,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncCommandT_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, Task> execute = null;
+			Func<int, Task>? execute = null;
 
 			// Act
 
@@ -162,7 +162,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncCommandT_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, Task> execute = null;
+			Func<int, Task>? execute = null;
 
 			// Act
 
@@ -174,7 +174,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public async Task AsyncCommandT_FuncBool_NullCanExecuteParameter()
 		{
 			// Arrange
-			Func<bool> canExecute = null;
+			Func<bool>? canExecute = null;
 			var command = CommandFactory.Create<int>(IntParameterTask, canExecute);
 
 			// Act
@@ -213,7 +213,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncCommandTExecuteTCanExecute_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, Task> execute = null;
+			Func<int, Task>? execute = null;
 
 			// Act
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
 using Xunit.Sdk;
@@ -121,7 +122,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 					throw new XunitException("Expected and actual OldItems don't match.");
 				for (var i = 0; i < expected.Length; i++)
 				{
-					if (expected[i] != (int)e.OldItems[i])
+					if (expected[i] != (int?)e.OldItems[i])
 						throw new XunitException("Expected and actual OldItems don't match.");
 				}
 			};
@@ -176,12 +177,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			Assert.Equal(6, collection.Count);
 		}
 
-		class CollectionWrapper<T>
-		{
-			public readonly ObservableRangeCollection<T> Collection = new ObservableRangeCollection<T>();
-			public ObservableRangeCollection<T> NullCollection;
-		}
-
 		[Fact]
 		public void AddCollection()
 		{
@@ -200,6 +195,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 		{
 			var toAdd = new[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3 };
 
+#pragma warning disable CS8670 // Object or collection initializer implicitly dereferences possibly null member.
 			Assert.Throws<ArgumentNullException>(() =>
 			{
 				var wrapper = new CollectionWrapper<int>()
@@ -207,6 +203,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 					NullCollection = { toAdd }
 				};
 			});
+#pragma warning restore CS8670 // Object or collection initializer implicitly dereferences possibly null member.
+		}
+
+		class CollectionWrapper<T>
+		{
+			public ObservableRangeCollection<T> Collection { get; } = new ObservableRangeCollection<T>();
+
+			public ObservableRangeCollection<T>? NullCollection { get; init; }
 		}
 	}
 }

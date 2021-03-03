@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		public void TestImplicitFileConversion()
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = "File.mp4" };
-			Assert.True(mediaElement.Source != null);
+			Assert.NotNull(mediaElement.Source);
 			Assert.IsType<Core.FileMediaSource>(mediaElement.Source);
 			Assert.Equal("File.mp4", ((Core.FileMediaSource)mediaElement.Source).File);
 		}
@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		[Fact]
 		public void TestImplicitStringConversionWhenNull()
 		{
-			string s = null;
+			string? s = null;
 			var sut = (Core.MediaSource)s;
 			Assert.IsType<Core.FileMediaSource>(sut);
 			Assert.Null(((Core.FileMediaSource)sut).File);
@@ -50,7 +50,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		public void TestImplicitUriConversion()
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = new Uri("http://xamarin.com/media.mp4") };
-			Assert.True(mediaElement.Source != null);
+			Assert.NotNull(mediaElement.Source);
 			Assert.IsType<Core.UriMediaSource>(mediaElement.Source);
 			Assert.Equal("http://xamarin.com/media.mp4", ((Core.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
 		}
@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		public void TestImplicitStringUriConversion()
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = "http://xamarin.com/media.mp4" };
-			Assert.True(mediaElement.Source != null);
+			Assert.NotNull(mediaElement.Source);
 			Assert.IsType<Core.UriMediaSource>(mediaElement.Source);
 			Assert.Equal("http://xamarin.com/media.mp4", ((Core.UriMediaSource)mediaElement.Source).Uri.AbsoluteUri);
 		}
@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		[Fact]
 		public void TestImplicitUriConversionWhenNull()
 		{
-			Uri u = null;
+			Uri? u = null;
 			var sut = (Core.MediaSource)u;
 			Assert.Null(sut);
 		}
