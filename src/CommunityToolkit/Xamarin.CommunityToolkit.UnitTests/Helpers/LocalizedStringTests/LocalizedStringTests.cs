@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 {
+	[Collection(nameof(LocalizationResourceManager))]
 	public class LocalizedStringTests
 	{
 		public LocalizedStringTests()

@@ -6,6 +6,7 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizationResourceManagerTests
 {
+	[Collection(nameof(LocalizationResourceManager))]
 	public class LocalizationResourceManagerTests
 	{
 		public LocalizationResourceManagerTests()
