@@ -13,12 +13,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindableProperty targetProperty,
 			string path = bindingContextPath,
 			BindingMode mode = BindingMode.Default,
-			IValueConverter converter = null,
-			object converterParameter = null,
-			string stringFormat = null,
-			object source = null,
-			object targetNullValue = null,
-			object fallbackValue = null) where TBindable : BindableObject
+			IValueConverter? converter = null,
+			object? converterParameter = null,
+			string? stringFormat = null,
+			object? source = null,
+			object? targetNullValue = null,
+			object? fallbackValue = null) where TBindable : BindableObject
 		{
 			bindable.SetBinding(
 				targetProperty,
@@ -36,12 +36,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindableProperty targetProperty,
 			string path = bindingContextPath,
 			BindingMode mode = BindingMode.Default,
-			Func<TSource, TDest> convert = null,
-			Func<TDest, TSource> convertBack = null,
-			string stringFormat = null,
-			object source = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			Func<TSource?, TDest>? convert = null,
+			Func<TDest?, TSource>? convertBack = null,
+			string? stringFormat = null,
+			object? source = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		{
 			var converter = new FuncConverter<TSource, TDest, object>(convert, convertBack);
 			bindable.SetBinding(
@@ -60,13 +60,13 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindableProperty targetProperty,
 			string path = bindingContextPath,
 			BindingMode mode = BindingMode.Default,
-			Func<TSource, TParam, TDest> convert = null,
-			Func<TDest, TParam, TSource> convertBack = null,
-			TParam converterParameter = default,
-			string stringFormat = null,
-			object source = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			Func<TSource?, TParam?, TDest>? convert = null,
+			Func<TDest?, TParam?, TSource>? convertBack = null,
+			TParam? converterParameter = default,
+			string? stringFormat = null,
+			object? source = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		{
 			var converter = new FuncConverter<TSource, TDest, TParam>(convert, convertBack);
 			bindable.SetBinding(
@@ -84,12 +84,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			this TBindable bindable,
 			string path = bindingContextPath,
 			BindingMode mode = BindingMode.Default,
-			IValueConverter converter = null,
-			object converterParameter = null,
-			string stringFormat = null,
-			object source = null,
-			object targetNullValue = null,
-			object fallbackValue = null) where TBindable : BindableObject
+			IValueConverter? converter = null,
+			object? converterParameter = null,
+			string? stringFormat = null,
+			object? source = null,
+			object? targetNullValue = null,
+			object? fallbackValue = null) where TBindable : BindableObject
 		{
 			bindable.Bind(
 				DefaultBindableProperties.GetFor(bindable),
@@ -102,12 +102,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			this TBindable bindable,
 			string path = bindingContextPath,
 			BindingMode mode = BindingMode.Default,
-			Func<TSource, TDest> convert = null,
-			Func<TDest, TSource> convertBack = null,
-			string stringFormat = null,
-			object source = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			Func<TSource?, TDest>? convert = null,
+			Func<TDest?, TSource>? convertBack = null,
+			string? stringFormat = null,
+			object? source = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		{
 			var converter = new FuncConverter<TSource, TDest, object>(convert, convertBack);
 			bindable.Bind(
@@ -121,13 +121,13 @@ namespace Xamarin.CommunityToolkit.Markup
 			this TBindable bindable,
 			string path = bindingContextPath,
 			BindingMode mode = BindingMode.Default,
-			Func<TSource, TParam, TDest> convert = null,
-			Func<TDest, TParam, TSource> convertBack = null,
-			TParam converterParameter = default,
-			string stringFormat = null,
-			object source = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			Func<TSource?, TParam?, TDest>? convert = null,
+			Func<TDest?, TParam?, TSource>? convertBack = null,
+			TParam? converterParameter = default,
+			string? stringFormat = null,
+			object? source = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		{
 			var converter = new FuncConverter<TSource, TDest, TParam>(convert, convertBack);
 			bindable.Bind(
@@ -141,9 +141,9 @@ namespace Xamarin.CommunityToolkit.Markup
 		public static TBindable BindCommand<TBindable>(
 			this TBindable bindable,
 			string path = bindingContextPath,
-			object source = null,
-			string parameterPath = bindingContextPath,
-			object parameterSource = null) where TBindable : BindableObject
+			object? source = null,
+			string? parameterPath = bindingContextPath,
+			object? parameterSource = null) where TBindable : BindableObject
 		{
 			(var commandProperty, var parameterProperty) = DefaultBindableProperties.GetForCommand(bindable);
 
