@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class MotionEventHelper
 	{
-		VisualElement element;
+		VisualElement? element;
 		bool isInViewCell;
 
 		public bool HandleMotionEvent(IViewParent parent, MotionEvent? motionEvent)
@@ -14,12 +14,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (isInViewCell || element == null || motionEvent == null || motionEvent.Action == MotionEventActions.Cancel)
 				return false;
 
-			var renderer = parent as VisualElementRenderer<Xamarin.Forms.View>;
-			if (renderer == null || ShouldPassThroughElement())
+			if (parent is not VisualElementRenderer<Forms.View> renderer || ShouldPassThroughElement())
 				return false;
 
 			// Let the container know that we're "fake" handling this event
-			// renderer.NotifyFakeHandling();
+			//renderer.NotifyFakeHandling();
 
 			return true;
 		}
@@ -55,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			// This is not a layout and it's transparent; the event can just pass through
-			if (element.InputTransparent)
+			if (element?.InputTransparent ?? false)
 				return true;
 
 			return false;

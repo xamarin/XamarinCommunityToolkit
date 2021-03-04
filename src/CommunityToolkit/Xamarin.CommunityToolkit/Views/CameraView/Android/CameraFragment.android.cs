@@ -45,9 +45,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	class CameraFragment : Fragment, TextureView.ISurfaceTextureListener
 	{
 		// Max preview width that is guaranteed by Camera2 API
-		const int MAX_PREVIEW_HEIGHT = 1080;
+		const int maxPreviewHeight = 1080;
+
 		// Max preview height that is guaranteed by Camera2 API
-		const int MAX_PREVIEW_WIDTH = 1920;
+		const int maxPrevieWidth = 1920;
 
 		CameraDevice device;
 		CaptureRequest.Builder sessionBuilder;
@@ -72,7 +73,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		Java.Util.Concurrent.Semaphore captureSessionOpenCloseLock = new Java.Util.Concurrent.Semaphore(1);
 		CameraTemplate cameraTemplate;
 		HandlerThread backgroundThread;
-		Handler backgroundHandler = null;
+		Handler? backgroundHandler = null;
 
 		float zoom = 1;
 
@@ -246,14 +247,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						maxPreviewHeight = displaySize.X;
 					}
 
-					if (maxPreviewHeight > MAX_PREVIEW_HEIGHT)
+					if (maxPreviewHeight > CameraFragment.maxPreviewHeight)
 					{
-						maxPreviewHeight = MAX_PREVIEW_HEIGHT;
+						maxPreviewHeight = CameraFragment.maxPreviewHeight;
 					}
 
-					if (maxPreviewWidth > MAX_PREVIEW_WIDTH)
+					if (maxPreviewWidth > maxPrevieWidth)
 					{
-						maxPreviewWidth = MAX_PREVIEW_WIDTH;
+						maxPreviewWidth = maxPrevieWidth;
 					}
 
 					photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
@@ -718,24 +719,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				sessionBuilder?.Set(CaptureRequest.ScalerCropRegion, GetZoomRect());
 		}
 
-		string GetCameraId()
+		string? GetCameraId()
 		{
 			var cameraIdList = Manager.GetCameraIdList();
 			if (cameraIdList.Length == 0)
 				return null;
 
-			string FilterCameraByLens(LensFacing lensFacing)
+			string? FilterCameraByLens(LensFacing lensFacing)
 			{
 				foreach (var id in cameraIdList)
 				{
 					var characteristics = Manager.GetCameraCharacteristics(id);
-					if (lensFacing == (LensFacing)(int)characteristics.Get(CameraCharacteristics.LensFacing))
+					if (lensFacing == (LensFacing)(int)(characteristics?.Get(CameraCharacteristics.LensFacing) ?? throw new NullReferenceException()))
 						return id;
 				}
 				return null;
 			}
 
-			return Element.CameraOptions switch
+			return Element?.CameraOptions switch
 			{
 				CameraOptions.Front => FilterCameraByLens(LensFacing.Front),
 				CameraOptions.Back => FilterCameraByLens(LensFacing.Back),
@@ -745,23 +746,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		#region TextureView.ISurfaceTextureListener
-		async void TextureView.ISurfaceTextureListener.OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
+		async void TextureView.ISurfaceTextureListener.OnSurfaceTextureAvailable(SurfaceTexture? surface, int width, int height)
 		{
 			UpdateBackgroundColor();
 			UpdateCaptureOptions();
 			await RetrieveCameraDevice();
 		}
 
-		void TextureView.ISurfaceTextureListener.OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) =>
+		void TextureView.ISurfaceTextureListener.OnSurfaceTextureSizeChanged(SurfaceTexture? surface, int width, int height) =>
 			ConfigureTransform(width, height);
 
-		bool TextureView.ISurfaceTextureListener.OnSurfaceTextureDestroyed(SurfaceTexture surface)
+		bool TextureView.ISurfaceTextureListener.OnSurfaceTextureDestroyed(SurfaceTexture? surface)
 		{
 			CloseDevice();
 			return true;
 		}
 
-		void TextureView.ISurfaceTextureListener.OnSurfaceTextureUpdated(SurfaceTexture surface)
+		void TextureView.ISurfaceTextureListener.OnSurfaceTextureUpdated(SurfaceTexture? surface)
 		{
 		}
 		#endregion
@@ -820,7 +821,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		#endregion
 
 		#region Helpers
-		void LogError(string desc, Java.Lang.Exception ex = null)
+		void LogError(string desc, Java.Lang.Exception? ex = null)
 		{
 			var newLine = System.Environment.NewLine;
 			var sb = new StringBuilder(desc);

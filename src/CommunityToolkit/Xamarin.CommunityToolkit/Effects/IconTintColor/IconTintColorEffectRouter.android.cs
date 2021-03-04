@@ -68,7 +68,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (color == Forms.Color.Default)
 				image.ClearColorFilter();
 
+#pragma warning disable CS8604 // Possible null reference argument.
 			image.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		void SetButtonTintColor(Button button, Forms.Color color)
