@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -67,7 +68,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 
 		public ICommand OpenHelpCommand { get; }
 
-		void Back() { }
+		void Back()
+        {
+        }
 
 		void Like(Tweet tweet) => tweet.IsLikedByMe = !tweet.IsLikedByMe;
 
@@ -77,18 +80,18 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 
 		public class Tweet : BaseViewModel
 		{
-			public string AuthorImage { get; set; }
+			public string AuthorImage { get; set; } = string.Empty;
 
-			public string Header { get; set; }
+			public string Header { get; set; } = string.Empty;
 
-			public List<TextFragment> Body { get; set; }
+			public List<TextFragment> Body { get; set; } = Enumerable.Empty<TextFragment>().ToList();
 
 			public bool IsLikedByMe { get; set; }
 		}
 
 		public class TextFragment
 		{
-			public string Text { get; set; }
+			public string Text { get; set; } = string.Empty;
 
 			public bool IsMatch { get; set; }
 		}

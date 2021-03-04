@@ -40,6 +40,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 			await this.DisplaySnackBarAsync(options);
 		}
+
 		async void DisplayToastClicked(object sender, EventArgs args)
 		{
 			await this.DisplayToastAsync(GenerateLongText(5));

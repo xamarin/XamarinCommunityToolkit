@@ -13,7 +13,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 	{
 		INavigation Navigation => App.Current.MainPage.Navigation;
 
-		public IEnumerable<SectionModel> Examples { get; } = new List<SectionModel> {
+		public IEnumerable<SectionModel> Examples { get; } = new[]
+		{
 			new SectionModel(typeof(SimplePopup), "Simple Popup", Color.Red, "Displays a basic popup centered on the screen"),
 			new SectionModel(typeof(PopupPositionPage), "Custom Positioning Popup", Color.Red, "Displays a basic popup anywhere on the screen using VerticalOptions and HorizontalOptions"),
 			new SectionModel(typeof(ButtonPopup), "Popup With 1 Button", Color.Red, "Displays a basic popup with a confirm button"),
@@ -37,7 +38,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			if (view is Popup<string> popup)
 			{
 				var result = await Navigation.ShowPopupAsync(popup);
-				await App.Current.MainPage.DisplayAlert("Popup Result", result, "OKAY");
+				await Application.Current.MainPage.DisplayAlert("Popup Result", result, "OKAY");
 			}
 			else if (view is BasePopup basePopup)
 			{

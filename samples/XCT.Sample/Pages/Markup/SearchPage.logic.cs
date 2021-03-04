@@ -9,21 +9,21 @@ namespace Xamarin.CommunityToolkit.Sample
 	public partial class SearchPage : BasePage
 	{
 		readonly SearchViewModel vm;
-		View header;
+		View? header;
 
 		public SearchPage()
 		{
 			On<iOS>().SetUseSafeArea(true);
 			BackgroundColor = Color.Black;
 
-			BindingContext = new SearchViewModel();
+			BindingContext = vm = new SearchViewModel();
 			Build();
 		}
 
 		void Search_FocusChanged(object sender, FocusEventArgs e)
 		{
 			ViewExtensions.CancelAnimations(header);
-			header.TranslateTo(e.IsFocused ? -56 : 0, 0, 250, Easing.CubicOut);
+			header?.TranslateTo(e.IsFocused ? -56 : 0, 0, 250, Easing.CubicOut);
 		}
 	}
 }
