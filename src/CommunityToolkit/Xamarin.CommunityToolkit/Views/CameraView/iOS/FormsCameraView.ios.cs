@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			AddConstraints(NSLayoutConstraint.FromVisualFormat("V:|[mainView]|", NSLayoutFormatOptions.DirectionLeftToRight, null, new NSDictionary("mainView", mainView)));
 			AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[mainView]|", NSLayoutFormatOptions.AlignAllTop, null, new NSDictionary("mainView", mainView)));
 		}
-
+		
 		void SetStartOrientation()
 		{
 			var previewLayerFrame = previewLayer.Frame;
@@ -371,6 +371,32 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Draw(mainView.Frame);
 		}
 
+		public void SetCameraOrientation()
+		{
+			previewLayer.Connection.VideoOrientation = SetViewOrientation();
+			captureConnection = previewLayer.Connection;
+		}
+
+		public AVCaptureVideoOrientation SetViewOrientation()
+		{
+			if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
+			{
+				return AVCaptureVideoOrientation.LandscapeLeft;
+			}
+			else if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeLeft)
+			{
+				return AVCaptureVideoOrientation.LandscapeRight;
+			}
+			else if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.PortraitUpsideDown)
+			{
+				return AVCaptureVideoOrientation.PortraitUpsideDown;
+			}
+			else
+			{
+				return AVCaptureVideoOrientation.Portrait;
+			}
+		}
+
 		public void ChangeFocusPoint(Point point)
 		{
 			if (!isAvailable && device == null)
@@ -425,7 +451,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case CameraOptions.External:
 					position = AVCaptureDevicePosition.Unspecified; break;
 			}
-
 			// Cache the last position requested, so we only initialize the camera if it's changed
 			if (position == lastPosition)
 				return;
@@ -451,7 +476,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			InitializeCamera();
 			UpdateFlash();
 		}
-
 		void InitializeCamera()
 		{
 			if (device == null)
@@ -497,6 +521,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				captureSession.CommitConfiguration();
+
+				previewLayer.Connection.VideoOrientation = SetViewOrientation();
 
 				InvokeOnMainThread(() =>
 				{
