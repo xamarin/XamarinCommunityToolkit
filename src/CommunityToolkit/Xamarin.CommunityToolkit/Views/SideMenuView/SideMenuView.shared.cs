@@ -396,7 +396,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			using (mainView.Batch())
 			{
-				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * shift / activeMenuWidth);
+				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * animationEasing.Ease(shift / activeMenuWidth));
 				mainView.Scale = scale;
 				mainView.TranslationX = shift - (Sign(shift) * mainViewWidth * 0.5 * (1 - scale));
 			}
