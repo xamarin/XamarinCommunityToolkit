@@ -42,9 +42,9 @@ namespace Xamarin.CommunityToolkit.Converters
 				? CompareTwoEnums(enumValue, parameter as Enum)
 				: TrueValues.Any(item => CompareTwoEnums(enumValue, item));
 
-			static bool CompareTwoEnums(Enum valueToCheck, object referenceValue)
+			static bool CompareTwoEnums(Enum valueToCheck, object? referenceValue)
 			{
-				if (!(referenceValue is Enum referenceEnumValue))
+				if (referenceValue is not Enum referenceEnumValue)
 					return false;
 
 				var valueToCheckType = valueToCheck.GetType();

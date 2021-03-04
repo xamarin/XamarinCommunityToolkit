@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">The desired text case that the text should be converted to. Must match <see cref="TextCaseType"/> enum value.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The converted text representation with the desired casing.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
 			=> value == null || value is string || value is char
 				? Convert(value?.ToString(), parameter)
 				: throw new ArgumentException("Value is neither a string nor a char", nameof(value));
@@ -40,30 +40,26 @@ namespace Xamarin.CommunityToolkit.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			=> throw new NotImplementedException();
 
-		object Convert(string value, object parameter)
-			=> GetParameter(parameter) switch
-			{
-				TextCaseType.Lower => value?.ToLowerInvariant(),
-				TextCaseType.Upper => value?.ToUpperInvariant(),
-				TextCaseType.FirstUpperRestLower => !string.IsNullOrWhiteSpace(value)
-					? value.Substring(0, 1).ToUpperInvariant() + value.Substring(1).ToLowerInvariant()
-					: value,
-				_ => value
-			};
+		object? Convert(string? value, object parameter) => GetParameter(parameter) switch
+		{
+			TextCaseType.Lower => value?.ToLowerInvariant(),
+			TextCaseType.Upper => value?.ToUpperInvariant(),
+			TextCaseType.FirstUpperRestLower => value != null && !string.IsNullOrWhiteSpace(value)
+				? value.Substring(0, 1).ToUpperInvariant() + value.Substring(1).ToLowerInvariant()
+				: value,
+			_ => value
+		};
 
-		TextCaseType GetParameter(object parameter)
-			=> parameter == null
-			? Type
-			: parameter switch
-			{
-				TextCaseType type => type,
-				string typeString => Enum.TryParse(typeString, out TextCaseType result)
-					? result
-					: throw new ArgumentException("Cannot parse text case from the string", nameof(parameter)),
-				int typeInt => Enum.IsDefined(typeof(TextCaseType), typeInt)
-					? (TextCaseType)typeInt
-					: throw new ArgumentException("Cannot convert integer to text case enum value", nameof(parameter)),
-				_ => TextCaseType.None,
-			};
+		TextCaseType GetParameter(object parameter) => parameter == null ? Type : parameter switch
+		{
+			TextCaseType type => type,
+			string typeString => Enum.TryParse(typeString, out TextCaseType result)
+				? result
+				: throw new ArgumentException("Cannot parse text case from the string", nameof(parameter)),
+			int typeInt => Enum.IsDefined(typeof(TextCaseType), typeInt)
+				? (TextCaseType)typeInt
+				: throw new ArgumentException("Cannot convert integer to text case enum value", nameof(parameter)),
+			_ => TextCaseType.None,
+		};
 	}
 }

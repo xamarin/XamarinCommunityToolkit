@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		public static LocalizationResourceManager Current => currentHolder.Value;
 
-		ResourceManager resourceManager;
+		ResourceManager? resourceManager;
 		CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
 
 		LocalizationResourceManager()
@@ -30,10 +30,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 			CurrentCulture = initialCulture;
 		}
 
-		public string GetValue(string text) =>
-			resourceManager.GetString(text, CurrentCulture);
+		public string? GetValue(string text) =>
+			resourceManager?.GetString(text, CurrentCulture);
 
-		public string this[string text] =>
+		public string? this[string text] =>
 			GetValue(text);
 
 		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]

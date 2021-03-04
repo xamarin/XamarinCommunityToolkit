@@ -15,11 +15,11 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		Color defaultBackgroundColor;
 
-		CancellationTokenSource longPressTokenSource;
+		CancellationTokenSource? longPressTokenSource;
 
-		CancellationTokenSource animationTokenSource;
+		CancellationTokenSource? animationTokenSource;
 
-		Func<TouchEffect, TouchState, HoverState, int, Easing, CancellationToken, Task> animationTaskFactory;
+		Func<TouchEffect, TouchState, HoverState, int, Easing, CancellationToken, Task>? animationTaskFactory;
 
 		double? durationMultiplier;
 
@@ -135,7 +135,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				}
 				var durationMultiplier = this.durationMultiplier;
 				this.durationMultiplier = null;
-				await GetAnimationTask(sender, state, hoverState, durationMultiplier.GetValueOrDefault()).ConfigureAwait(false);
+				await GetAnimationTask(sender, state, hoverState, animationTokenSource.Token, durationMultiplier.GetValueOrDefault()).ConfigureAwait(false);
 				return;
 			}
 
@@ -143,7 +143,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (pulseCount == 0 || (state == TouchState.Normal && !isToggled.HasValue))
 			{
-				await GetAnimationTask(sender, state, hoverState).ConfigureAwait(false);
+				await GetAnimationTask(sender, state, hoverState, animationTokenSource.Token).ConfigureAwait(false);
 				return;
 			}
 			do
@@ -152,7 +152,7 @@ namespace Xamarin.CommunityToolkit.Effects
 					? TouchState.Normal
 					: TouchState.Pressed;
 
-				await GetAnimationTask(sender, rippleState, hoverState);
+				await GetAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
 				if (token.IsCancellationRequested)
 					return;
 
@@ -160,7 +160,7 @@ namespace Xamarin.CommunityToolkit.Effects
 					? TouchState.Pressed
 					: TouchState.Normal;
 
-				await GetAnimationTask(sender, rippleState, hoverState);
+				await GetAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
 				if (token.IsCancellationRequested)
 					return;
 			}
@@ -199,7 +199,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			});
 		}
 
-		internal void SetCustomAnimationTask(Func<TouchEffect, TouchState, HoverState, int, Easing, CancellationToken, Task> animationTaskFactory)
+		internal void SetCustomAnimationTask(Func<TouchEffect, TouchState, HoverState, int, Easing, CancellationToken, Task>? animationTaskFactory)
 			=> this.animationTaskFactory = animationTaskFactory;
 
 		internal void Reset()
@@ -225,10 +225,11 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void HandleCollectionViewSelection(TouchEffect sender)
 		{
-			if (!sender.Element.TryFindParentElementWithParentOfType(out var element, out CollectionView collectionView))
+			if (!sender.Element.TryFindParentElementWithParentOfType(out var result, out CollectionView? parent))
 				return;
 
-			var item = element.BindingContext ?? element;
+			var collectionView = parent ?? throw new NullReferenceException();
+			var item = result?.BindingContext ?? result ?? throw new NullReferenceException();
 
 			switch (collectionView.SelectionMode)
 			{
@@ -566,12 +567,11 @@ namespace Xamarin.CommunityToolkit.Effects
 				? color
 				: defaultBackgroundColor;
 
-		Task GetAnimationTask(TouchEffect sender, TouchState touchState, HoverState hoverState, double? durationMultiplier = null)
+		Task GetAnimationTask(TouchEffect sender, TouchState touchState, HoverState hoverState, CancellationToken token, double? durationMultiplier = null)
 		{
 			if (sender.Element == null)
 				return Task.FromResult(false);
 
-			var token = animationTokenSource.Token;
 			var duration = sender.AnimationDuration;
 			var easing = sender.AnimationEasing;
 

@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		public string FilterValue { private get; set; } = string.Empty;
 
-		public IEnumerable<SectionModel> FilteredItems { get; private set; } = Array.Empty<SectionModel>();
+		public IEnumerable<SectionModel> FilteredItems { get; private set; } = Enumerable.Empty<SectionModel>();
 
 		protected abstract IEnumerable<SectionModel> CreateItems();
 

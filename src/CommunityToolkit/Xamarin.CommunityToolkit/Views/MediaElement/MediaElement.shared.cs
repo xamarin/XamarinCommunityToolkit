@@ -118,19 +118,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(VolumeProperty, value);
 		}
 
-		internal event EventHandler<SeekRequested> SeekRequested;
+		internal event EventHandler<SeekRequested>? SeekRequested;
 
-		internal event EventHandler<StateRequested> StateRequested;
+		internal event EventHandler<StateRequested>? StateRequested;
 
-		internal event EventHandler PositionRequested;
+		internal event EventHandler? PositionRequested;
 
-		public event EventHandler MediaEnded;
+		public event EventHandler? MediaEnded;
 
-		public event EventHandler MediaFailed;
+		public event EventHandler? MediaFailed;
 
-		public event EventHandler MediaOpened;
+		public event EventHandler? MediaOpened;
 
-		public event EventHandler SeekCompleted;
+		public event EventHandler? SeekCompleted;
 
 		public void Play() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Playing));
 
@@ -245,7 +245,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void CurrentStateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var element = bindable as MediaElement;
+			var element = (MediaElement)bindable;
 
 			switch ((MediaElementState)newValue)
 			{
@@ -269,7 +269,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void PositionChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var element = bindable as MediaElement;
+			var element = (MediaElement)bindable;
 
 			var oldval = (TimeSpan)oldValue;
 			var newval = (TimeSpan)newValue;

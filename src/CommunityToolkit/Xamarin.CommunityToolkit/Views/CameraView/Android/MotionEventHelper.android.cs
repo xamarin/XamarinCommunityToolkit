@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		VisualElement element;
 		bool isInViewCell;
 
-		public bool HandleMotionEvent(IViewParent parent, MotionEvent motionEvent)
+		public bool HandleMotionEvent(IViewParent parent, MotionEvent? motionEvent)
 		{
 			if (isInViewCell || element == null || motionEvent == null || motionEvent.Action == MotionEventActions.Cancel)
 				return false;

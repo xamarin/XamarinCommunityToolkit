@@ -38,9 +38,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnTriggerHandled));
 
-		Delegate eventHandler;
+		Delegate? eventHandler;
 
-		EventInfo eventInfo;
+		EventInfo? eventInfo;
 
 		/// <summary>
 		/// The name of the event that should be associated with <see cref="Command"/>. This is bindable property.
@@ -122,7 +122,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		[Preserve(Conditional = true)]
-		protected virtual void OnTriggerHandled(object sender = null, object eventArgs = null)
+		protected virtual void OnTriggerHandled(object? sender = null, object? eventArgs = null)
 		{
 			var parameter = CommandParameter
 				?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, null)

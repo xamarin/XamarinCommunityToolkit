@@ -29,8 +29,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly CarouselView contentContainer;
 
 		readonly List<double> contentWidthCollection;
-		IList tabItemsSource;
-		ObservableCollection<TabViewItem> contentTabItems;
+		IList? tabItemsSource;
+		ObservableCollection<TabViewItem>? contentTabItems;
 
 		public TabView()
 		{
@@ -173,7 +173,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (TabItems != null)
 				TabItems.CollectionChanged -= OnTabItemsCollectionChanged;
 
-			var lazyView = (((TabViewItem)contentContainer.CurrentItem).Content as BaseLazyView) ?? (TabItems[SelectedIndex].Content as BaseLazyView);
+			var lazyView = ((contentContainer?.CurrentItem as TabViewItem)?.Content as BaseLazyView) ?? (TabItems?[SelectedIndex].Content as BaseLazyView);
 			lazyView?.Dispose();
 		}
 
@@ -416,13 +416,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public delegate void TabSelectionChangedEventHandler(object sender, TabSelectionChangedEventArgs e);
 
-		public event TabSelectionChangedEventHandler SelectionChanged;
+		public event TabSelectionChangedEventHandler? SelectionChanged;
 
 		public delegate void TabViewScrolledEventHandler(object sender, ItemsViewScrolledEventArgs e);
 
-		public event TabViewScrolledEventHandler Scrolled;
+		public event TabViewScrolledEventHandler? Scrolled;
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 
@@ -671,7 +671,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			contentContainer.IsEnabled = IsEnabled;
 		}
 
-		void UpdateTabViewItemTabWidth(TabViewItem tabViewItem)
+		void UpdateTabViewItemTabWidth(TabViewItem? tabViewItem)
 		{
 			if (tabViewItem == null)
 				return;
@@ -679,7 +679,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var index = tabStripContent.Children.IndexOf(tabViewItem);
 			var colummns = tabStripContent.ColumnDefinitions;
 
-			ColumnDefinition column = null;
+			ColumnDefinition? column = null;
 
 			if (index < colummns.Count)
 				column = colummns[index];
@@ -770,14 +770,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (TabItems.Count > 0)
 				{
-					TabViewItem currentItem = null;
+					TabViewItem? currentItem = null;
 
 					if (hasCurrentItem)
 						currentItem = (TabViewItem)contentContainer.CurrentItem;
 
 					var tabViewItem = TabItems[position];
 
-					var lazyView = (currentItem?.Content as BaseLazyView) ?? (tabViewItem?.Content as BaseLazyView);
+					var lazyView = (currentItem?.Content as BaseLazyView) ?? (tabViewItem.Content as BaseLazyView);
 
 					contentIndex = contentTabItems.IndexOf(currentItem ?? tabViewItem);
 					tabStripIndex = TabItems.IndexOf(currentItem ?? tabViewItem);
@@ -792,7 +792,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							TabItems[index].IsSelected = false;
 					}
 
-					if (!lazyView?.IsLoaded ?? false)
+					if (lazyView != null && !lazyView.IsLoaded)
 						await lazyView.LoadViewAsync();
 
 					var currentTabItem = TabItems[position];

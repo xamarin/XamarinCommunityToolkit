@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 {
 	static class EventManagerService
 	{
-		internal static void AddEventHandler(in string eventName, in object handlerTarget, in MethodInfo methodInfo, in Dictionary<string, List<Subscription>> eventHandlers)
+		internal static void AddEventHandler(in string eventName, in object? handlerTarget, in MethodInfo methodInfo, in Dictionary<string, List<Subscription>> eventHandlers)
 		{
 			var doesContainSubscriptions = eventHandlers.TryGetValue(eventName, out var targets);
 			if (!doesContainSubscriptions || targets == null)
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 				targets.Add(new Subscription(new WeakReference(handlerTarget), methodInfo));
 		}
 
-		internal static void RemoveEventHandler(in string eventName, in object handlerTarget, in MemberInfo methodInfo, in Dictionary<string, List<Subscription>> eventHandlers)
+		internal static void RemoveEventHandler(in string eventName, in object? handlerTarget, in MemberInfo methodInfo, in Dictionary<string, List<Subscription>> eventHandlers)
 		{
 			var doesContainSubscriptions = eventHandlers.TryGetValue(eventName, out var subscriptions);
 			if (!doesContainSubscriptions || subscriptions == null)
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			}
 		}
 
-		internal static void HandleEvent(in string eventName, in object sender, in object eventArgs, in Dictionary<string, List<Subscription>> eventHandlers)
+		internal static void HandleEvent(in string eventName, in object? sender, in object? eventArgs, in Dictionary<string, List<Subscription>> eventHandlers)
 		{
 			AddRemoveEvents(eventName, eventHandlers, out var toRaise);
 
@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			}
 		}
 
-		internal static void HandleEvent(in string eventName, in object actionEventArgs, in Dictionary<string, List<Subscription>> eventHandlers)
+		internal static void HandleEvent(in string eventName, in object? actionEventArgs, in Dictionary<string, List<Subscription>> eventHandlers)
 		{
 			AddRemoveEvents(eventName, eventHandlers, out var toRaise);
 
@@ -124,10 +124,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 			}
 		}
 
-		static void AddRemoveEvents(in string eventName, in Dictionary<string, List<Subscription>> eventHandlers, out List<(object Instance, MethodInfo EventHandler)> toRaise)
+		static void AddRemoveEvents(in string eventName, in Dictionary<string, List<Subscription>> eventHandlers, out List<(object? Instance, MethodInfo EventHandler)> toRaise)
 		{
 			var toRemove = new List<Subscription>();
-			toRaise = new List<(object, MethodInfo)>();
+			toRaise = new List<(object?, MethodInfo)>();
 
 			var doesContainEventName = eventHandlers.TryGetValue(eventName, out var target);
 			if (doesContainEventName && target != null)
@@ -159,7 +159,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			}
 		}
 
-		static DynamicMethod TryGetDynamicMethod(in MethodInfo rtDynamicMethod)
+		static DynamicMethod? TryGetDynamicMethod(in MethodInfo rtDynamicMethod)
 		{
 			var typeInfoRTDynamicMethod = typeof(DynamicMethod).GetTypeInfo().GetDeclaredNestedType("RTDynamicMethod");
 			var typeRTDynamicMethod = typeInfoRTDynamicMethod?.AsType();

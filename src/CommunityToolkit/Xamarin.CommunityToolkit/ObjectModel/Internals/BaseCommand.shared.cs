@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract partial class BaseCommand<TCanExecute>
 	{
-		readonly Func<TCanExecute, bool> canExecute;
+		readonly Func<TCanExecute?, bool> canExecute;
 		readonly WeakEventManager weakEventManager = new WeakEventManager();
 
 		int executionCount;
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <param name="canExecute"></param>
 		/// <param name="allowsMultipleExecutions"></param>
-		public BaseCommand(Func<TCanExecute, bool> canExecute, bool allowsMultipleExecutions)
+		protected BaseCommand(Func<TCanExecute?, bool>? canExecute, bool allowsMultipleExecutions)
 		{
 			this.canExecute = canExecute ?? (_ => true);
 			AllowsMultipleExecutions = allowsMultipleExecutions;
@@ -71,7 +71,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <returns><c>true</c>, if this command can be executed; otherwise, <c>false</c>.</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		public bool CanExecute(TCanExecute parameter) => (AllowsMultipleExecutions, IsExecuting) switch
+		public bool CanExecute(TCanExecute? parameter) => (AllowsMultipleExecutions, IsExecuting) switch
 		{
 			(true, _) => canExecute(parameter),
 			(false, true) => false,

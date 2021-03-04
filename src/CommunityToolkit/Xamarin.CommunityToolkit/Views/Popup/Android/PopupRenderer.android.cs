@@ -20,25 +20,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class PopupRenderer : Dialog, IVisualElementRenderer, IDialogInterfaceOnCancelListener
 	{
 		int? defaultLabelFor;
-		VisualElementTracker tracker;
-		ContainerView container;
+		VisualElementTracker? tracker;
+		ContainerView? container;
 		bool isDisposed;
 
-		public BasePopup Element { get; private set; }
+		public BasePopup? Element { get; private set; }
 
 		void IVisualElementRenderer.UpdateLayout() => tracker?.UpdateLayout();
 
-		VisualElement IVisualElementRenderer.Element => Element;
+		VisualElement? IVisualElementRenderer.Element => Element;
 
-		AView IVisualElementRenderer.View => container;
+		AView? IVisualElementRenderer.View => container;
 
-		ViewGroup IVisualElementRenderer.ViewGroup => null;
+		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
-		VisualElementTracker IVisualElementRenderer.Tracker => tracker;
+		VisualElementTracker? IVisualElementRenderer.Tracker => tracker;
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
 
-		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
+		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
 		public PopupRenderer(Context context)
 			: base(context)
@@ -50,12 +50,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (element == null)
 				throw new ArgumentNullException(nameof(element));
 
-			if (!(element is BasePopup popup))
+			if (element is not BasePopup popup)
 				throw new ArgumentNullException("Element is not of type " + typeof(BasePopup), nameof(element));
 
 			var oldElement = Element;
 			Element = popup;
-			CreateControl();
+			CreateControl(Element);
 
 			if (oldElement != null)
 				oldElement.PropertyChanged -= OnElementPropertyChanged;
@@ -65,18 +65,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tracker == null)
 				tracker = new VisualElementTracker(this);
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup>(oldElement, Element));
+			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
 		{
-			if (e.NewElement != null && !isDisposed)
+			if (e.NewElement != null && !isDisposed && Element is BasePopup basePopup)
 			{
-				SetEvents();
-				SetColor();
-				SetSize();
-				SetAnchor();
-				SetLightDismiss();
+				SetEvents(basePopup);
+				SetColor(basePopup);
+				SetSize(basePopup);
+				SetAnchor(basePopup);
+				SetLightDismiss(basePopup);
 
 				Show();
 			}
@@ -92,61 +92,64 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
 		{
-			if (args.PropertyName == BasePopup.VerticalOptionsProperty.PropertyName ||
-				args.PropertyName == BasePopup.HorizontalOptionsProperty.PropertyName ||
-				args.PropertyName == BasePopup.SizeProperty.PropertyName)
+			if (Element is BasePopup basePopup)
 			{
-				SetSize();
-				SetAnchor();
-			}
-			else if (args.PropertyName == BasePopup.ColorProperty.PropertyName)
-			{
-				SetColor();
+				if (args.PropertyName == BasePopup.VerticalOptionsProperty.PropertyName
+					|| args.PropertyName == BasePopup.HorizontalOptionsProperty.PropertyName
+					|| args.PropertyName == BasePopup.SizeProperty.PropertyName)
+				{
+					SetSize(basePopup);
+					SetAnchor(basePopup);
+				}
+				else if (args.PropertyName == BasePopup.ColorProperty.PropertyName)
+				{
+					SetColor(basePopup);
+				}
 			}
 
 			ElementPropertyChanged?.Invoke(this, args);
 		}
 
-		void CreateControl()
+		void CreateControl(in BasePopup basePopup)
 		{
 			if (container == null)
 			{
-				container = new ContainerView(Context, Element.Content);
+				container = new ContainerView(Context, basePopup.Content);
 				SetContentView(container);
 			}
 		}
 
-		void SetEvents()
+		void SetEvents(in BasePopup basePopup)
 		{
 			SetOnCancelListener(this);
-			Element.Dismissed += OnDismissed;
+			basePopup.Dismissed += OnDismissed;
 		}
 
-		void SetColor()
+		void SetColor(in BasePopup basePopup)
 		{
-			Window.SetBackgroundDrawable(new ColorDrawable(Element.Color.ToAndroid()));
+			Window.SetBackgroundDrawable(new ColorDrawable(basePopup.Color.ToAndroid()));
 		}
 
-		void SetSize()
+		void SetSize(in BasePopup basePopup)
 		{
-			if (Element.Size != default)
+			if (basePopup.Size != default)
 			{
-				var decorView = (ViewGroup)Window.DecorView;
-				var child = (FrameLayout)decorView.GetChildAt(0);
+				var decorView = (ViewGroup)(Window?.DecorView ?? throw new NullReferenceException());
+				var child = (FrameLayout)(decorView?.GetChildAt(0) ?? throw new NullReferenceException());
 
-				var realWidth = (int)Context.ToPixels(Element.Size.Width);
-				var realHeight = (int)Context.ToPixels(Element.Size.Height);
+				var realWidth = (int)Context.ToPixels(basePopup.Size.Width);
+				var realHeight = (int)Context.ToPixels(basePopup.Size.Height);
 
-				var realContentWidth = (int)Context.ToPixels(Element.Content.WidthRequest);
-				var realContentHeight = (int)Context.ToPixels(Element.Content.HeightRequest);
+				var realContentWidth = (int)Context.ToPixels(basePopup.Content.WidthRequest);
+				var realContentHeight = (int)Context.ToPixels(basePopup.Content.HeightRequest);
 
-				var childLayoutParams = (FrameLayout.LayoutParams)child.LayoutParameters;
+				var childLayoutParams = (FrameLayout.LayoutParams)(child?.LayoutParameters ?? throw new NullReferenceException());
 				childLayoutParams.Width = realWidth;
 				childLayoutParams.Height = realHeight;
 				child.LayoutParameters = childLayoutParams;
 
 				var horizontalParams = -1;
-				switch (Element.Content.HorizontalOptions.Alignment)
+				switch (basePopup.Content.HorizontalOptions.Alignment)
 				{
 					case LayoutAlignment.Center:
 					case LayoutAlignment.End:
@@ -159,7 +162,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				var verticalParams = -1;
-				switch (Element.Content.VerticalOptions.Alignment)
+				switch (basePopup.Content.VerticalOptions.Alignment)
 				{
 					case LayoutAlignment.Center:
 					case LayoutAlignment.End:
@@ -171,6 +174,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						break;
 				}
 
+				_ = container ?? throw new NullReferenceException();
 				if (realContentWidth > -1)
 				{
 					var inputMeasuredWidth = realContentWidth > realWidth ?
@@ -199,7 +203,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				var containerLayoutParams = new FrameLayout.LayoutParams(horizontalParams, verticalParams);
 
-				switch (Element.Content.VerticalOptions.Alignment)
+				switch (basePopup.Content.VerticalOptions.Alignment)
 				{
 					case LayoutAlignment.Start:
 						containerLayoutParams.Gravity = GravityFlags.Top;
@@ -215,7 +219,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						break;
 				}
 
-				switch (Element.Content.HorizontalOptions.Alignment)
+				switch (basePopup.Content.HorizontalOptions.Alignment)
 				{
 					case LayoutAlignment.Start:
 						containerLayoutParams.Gravity |= GravityFlags.Left;
@@ -235,16 +239,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void SetAnchor()
+		void SetAnchor(in BasePopup basePopup)
 		{
-			if (Element.Anchor != null)
+			if (basePopup.Anchor != null)
 			{
-				var anchorView = FormsPlatform.GetRenderer(Element.Anchor).View;
+				var anchorView = FormsPlatform.GetRenderer(Element?.Anchor).View;
 				var locationOnScreen = new int[2];
 				anchorView.GetLocationOnScreen(locationOnScreen);
 
-				Window.SetGravity(GravityFlags.Top | GravityFlags.Left);
-				Window.DecorView.Measure((int)MeasureSpecMode.Unspecified, (int)MeasureSpecMode.Unspecified);
+				Window?.SetGravity(GravityFlags.Top | GravityFlags.Left);
+				Window?.DecorView.Measure((int)MeasureSpecMode.Unspecified, (int)MeasureSpecMode.Unspecified);
 
 				// This logic is tricky, please read these notes if you need to modify
 				// Android window coordinate starts (0,0) at the top left and (max,max) at the bottom right. All of the positions
@@ -254,64 +258,48 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				// 2. Calculate the Actual Center of the Anchor by adding the width /2 and height / 2
 				// 3. Calculate the top-left point of where the dialog should be positioned by subtracting the Width / 2 and height / 2
 				//    of the dialog that is about to be drawn.
+				_ = Window?.Attributes ?? throw new NullReferenceException();
+
 				Window.Attributes.X = locationOnScreen[0] + (anchorView.Width / 2) - (Window.DecorView.MeasuredWidth / 2);
 				Window.Attributes.Y = locationOnScreen[1] + (anchorView.Height / 2) - (Window.DecorView.MeasuredHeight / 2);
 			}
 			else
 			{
-				SetDialogPosition();
+				SetDialogPosition(basePopup);
 			}
 		}
 
-		void SetLightDismiss()
+		void SetLightDismiss(in BasePopup basePopup)
 		{
-			if (Element.IsLightDismissEnabled)
+			if (basePopup.IsLightDismissEnabled)
 				return;
 
 			SetCancelable(false);
 			SetCanceledOnTouchOutside(false);
 		}
 
-		void SetDialogPosition()
+		void SetDialogPosition(in BasePopup basePopup)
 		{
-			var gravityFlags = GravityFlags.Center;
-			switch (Element.VerticalOptions.Alignment)
+			var gravityFlags = basePopup.VerticalOptions.Alignment switch
 			{
-				case LayoutAlignment.Start:
-					gravityFlags = GravityFlags.Top;
-					break;
-				case LayoutAlignment.End:
-					gravityFlags = GravityFlags.Bottom;
-					break;
-				default:
-					gravityFlags = GravityFlags.CenterVertical;
-					break;
-			}
-
-			switch (Element.HorizontalOptions.Alignment)
+				LayoutAlignment.Start => GravityFlags.Top,
+				LayoutAlignment.End => GravityFlags.Bottom,
+				_ => GravityFlags.CenterVertical,
+			};
+			gravityFlags |= basePopup.HorizontalOptions.Alignment switch
 			{
-				case LayoutAlignment.Start:
-					gravityFlags |= GravityFlags.Left;
-					break;
-				case LayoutAlignment.End:
-					gravityFlags |= GravityFlags.Right;
-					break;
-				default:
-					gravityFlags |= GravityFlags.CenterHorizontal;
-					break;
-			}
-
-			Window.SetGravity(gravityFlags);
+				LayoutAlignment.Start => GravityFlags.Left,
+				LayoutAlignment.End => GravityFlags.Right,
+				_ => GravityFlags.CenterHorizontal,
+			};
+			Window?.SetGravity(gravityFlags);
 		}
 
-		void OnDismissed(object sender, PopupDismissedEventArgs e)
-		{
-			Dismiss();
-		}
+		void OnDismissed(object sender, PopupDismissedEventArgs e) => Dismiss();
 
-		public void OnCancel(IDialogInterface dialog)
+		public void OnCancel(IDialogInterface? dialog)
 		{
-			if (Element.IsLightDismissEnabled)
+			if (Element?.IsLightDismissEnabled is true)
 				Element.LightDismiss();
 		}
 
@@ -347,6 +335,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IVisualElementRenderer.SetLabelFor(int? id)
 		{
+			_ = container ?? throw new NullReferenceException();
+
 			if (defaultLabelFor == null)
 				defaultLabelFor = container.LabelFor;
 

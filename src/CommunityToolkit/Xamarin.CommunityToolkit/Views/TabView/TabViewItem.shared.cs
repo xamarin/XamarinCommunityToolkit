@@ -311,17 +311,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty CurrentContentProperty = CurrentContentPropertyKey.BindableProperty;
 
-		public View CurrentContent
+		public View? CurrentContent
 		{
-			get => (View)GetValue(CurrentContentProperty);
+			get => (View?)GetValue(CurrentContentProperty);
 			private set => SetValue(CurrentContentPropertyKey, value);
 		}
 
 		public delegate void TabTappedEventHandler(object sender, TabTappedEventArgs e);
 
-		public event TabTappedEventHandler TabTapped;
+		public event TabTappedEventHandler? TabTapped;
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 

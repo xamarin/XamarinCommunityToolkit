@@ -113,7 +113,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				actionButton.SetAction(async () =>
 				{
 					snackBar.Dismiss();
-					await action.Action();
+
+					await (action.Action?.Invoke() ?? Task.CompletedTask);
+
 					arguments.SetResult(true);
 				});
 

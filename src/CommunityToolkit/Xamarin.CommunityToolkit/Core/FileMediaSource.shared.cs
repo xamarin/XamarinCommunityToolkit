@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Core
 
 		public static implicit operator FileMediaSource(string file) => (FileMediaSource)FromFile(file);
 
-		public static implicit operator string(FileMediaSource file) => file?.File;
+		public static implicit operator string?(FileMediaSource? file) => file?.File;
 
 		static void OnFileMediaSourceChanged(BindableObject bindable, object oldValue, object newValue) =>
 			((FileMediaSource)bindable).OnSourceChanged();

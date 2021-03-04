@@ -13,8 +13,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		internal const string ElementBorder = "PART_Border";
 		internal const string ElementText = "PART_Text";
 
-		Frame badgeBorder;
-		Label badgeText;
+		Frame? badgeBorder;
+		Label? badgeText;
 		bool isVisible;
 
 		public TabBadgeView() => ControlTemplate = new ControlTemplate(typeof(TabBadgeTemplate));
@@ -38,7 +38,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(AutoHideProperty, value);
 		}
 
-		static async void OnAutoHideChanged(BindableObject bindable, object oldValue, object newValue) => await (bindable as TabBadgeView)?.UpdateVisibilityAsync();
+		static async void OnAutoHideChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			if (bindable is TabBadgeView tabBadgeView)
+				await tabBadgeView.UpdateVisibilityAsync();
+		}
 
 		public static BindableProperty IsAnimatedProperty =
 		   BindableProperty.Create(nameof(IsAnimated), typeof(bool), typeof(TabBadgeView), defaultValue: true);
@@ -110,23 +114,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnApplyTemplate();
 
-			badgeBorder = GetTemplateChild(ElementBorder) as Frame;
-			badgeText = GetTemplateChild(ElementText) as Label;
+			badgeBorder = (Frame)GetTemplateChild(ElementBorder);
+			badgeText = (Label)GetTemplateChild(ElementText);
 
 			UpdateSize();
-			UpdatePosition();
-			UpdateIsEnabled();
+			UpdatePosition(badgeBorder);
+			UpdateIsEnabled(badgeText);
 		}
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 
-			if (propertyName == IsEnabledProperty.PropertyName)
-				UpdateIsEnabled();
+			if (propertyName == IsEnabledProperty.PropertyName && badgeText is Label label)
+				UpdateIsEnabled(label);
 		}
 
-		void UpdateIsEnabled()
+		void UpdateIsEnabled(in Label badgeText)
 		{
 			if (IsEnabled)
 				badgeText.PropertyChanged += OnBadgeTextPropertyChanged;
@@ -136,19 +140,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnBadgeTextPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			switch (e.PropertyName)
+			if (e.PropertyName is nameof(Height) or nameof(Width) && badgeBorder is Frame frame)
 			{
-				case nameof(Height):
-				case nameof(Width):
-					UpdateSize();
-					UpdatePosition();
-					break;
+				UpdateSize();
+				UpdatePosition(frame);
 			}
 		}
 
 		void UpdateSize()
 		{
-			if (badgeText == null || badgeText.Width <= 0 || badgeText.Height <= 0)
+			if (badgeBorder == null || badgeText == null || badgeText.Width <= 0 || badgeText.Height <= 0)
 				return;
 
 			var badgeTextHeight = badgeText.Height + (badgeBorder.Padding.VerticalThickness / 2);
@@ -160,7 +161,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			badgeBorder.CornerRadius = (int)Math.Round(badgeTextHeight / 2);
 		}
 
-		void UpdatePosition()
+		void UpdatePosition(Frame badgeBorder)
 		{
 			if (PlacementTarget == null)
 				return;
@@ -173,23 +174,38 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			badgeBorder.Margin = new Thickness(x, 0, 0, 0);
 		}
 
-		void UpdateBackgroundColor(Color backgroundColor) => badgeBorder.BackgroundColor = backgroundColor;
+		void UpdateBackgroundColor(Color backgroundColor)
+		{
+			if (badgeBorder != null)
+				badgeBorder.BackgroundColor = backgroundColor;
+		}
 
-		void UpdateBorderColor(Color borderColor) => badgeBorder.BorderColor = borderColor;
+		void UpdateBorderColor(Color borderColor)
+		{
+			if (badgeBorder != null)
+				badgeBorder.BorderColor = borderColor;
+		}
 
-		void UpdateTextColor(Color textColor) => badgeText.TextColor = textColor;
+		void UpdateTextColor(Color textColor)
+		{
+			if (badgeText != null)
+				badgeText.TextColor = textColor;
+		}
 
 		async void UpdateText(string text)
 		{
-			badgeText.Text = text;
-			await UpdateVisibilityAsync();
+			if (badgeText != null)
+			{
+				badgeText.Text = text;
+				await UpdateVisibilityAsync();
+			}
 		}
 
 		async Task UpdateVisibilityAsync()
 		{
-			var badgeText = this.badgeText.Text;
+			var badgeText = this.badgeText?.Text;
 
-			if (string.IsNullOrEmpty(badgeText))
+			if (badgeText == null || string.IsNullOrEmpty(badgeText))
 			{
 				IsVisible = false;
 				return;

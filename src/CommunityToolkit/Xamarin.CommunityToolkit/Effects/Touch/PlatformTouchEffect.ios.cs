@@ -14,11 +14,11 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		UIGestureRecognizer touchGesture;
+		UIGestureRecognizer? touchGesture;
 
-		UIGestureRecognizer hoverGesture;
+		UIGestureRecognizer? hoverGesture;
 
-		TouchEffect effect;
+		TouchEffect? effect;
 
 		UIView View => Container ?? Control;
 
@@ -83,7 +83,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			switch (hoverGesture.State)
+			switch (hoverGesture?.State)
 			{
 				case UIGestureRecognizerState.Began:
 				case UIGestureRecognizerState.Changed:
@@ -101,7 +101,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 	sealed class TouchUITapGestureRecognizer : UIGestureRecognizer
 	{
-		TouchEffect effect;
+		TouchEffect? effect;
 		float? defaultRadius;
 		float? defaultShadowRadius;
 		float? defaultShadowOpacity;
@@ -118,7 +118,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		public bool IsButton { get; set; }
 
-		UIView Renderer => effect?.Element.GetRenderer() as UIView;
+		UIView? Renderer => (UIView?)effect?.Element.GetRenderer();
 
 		public override void TouchesBegan(NSSet touches, UIEvent evt)
 		{
@@ -172,7 +172,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				}
 			}
 
-			var status = point != null && Renderer.Bounds.Contains(point.Value)
+			var status = point != null && Renderer?.Bounds.Contains(point.Value) is true
 				? TouchStatus.Started
 				: TouchStatus.Canceled;
 
@@ -187,8 +187,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (disposing)
 			{
 				effect = null;
-				Delegate = null;
+				Delegate.Dispose();
 			}
+
 			base.Dispose(disposing);
 		}
 
@@ -209,7 +210,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				interactionStatus = null;
 			}
 
-			effect.HandleTouch(status);
+			effect?.HandleTouch(status);
 			if (interactionStatus.HasValue)
 				effect?.HandleUserInteraction(interactionStatus.Value);
 

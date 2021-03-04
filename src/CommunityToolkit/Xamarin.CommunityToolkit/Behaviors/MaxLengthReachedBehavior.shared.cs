@@ -62,7 +62,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		void OnTextPropertyChanged()
 		{
-			if (!(View.Text?.Length >= View.MaxLength))
+			if (View == null || !(View.Text.Length >= View.MaxLength))
 				return;
 
 			if (ShouldDismissKeyboardAutomatically)

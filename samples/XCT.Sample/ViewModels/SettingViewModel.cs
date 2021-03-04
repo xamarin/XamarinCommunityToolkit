@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
 	public class SettingViewModel : BaseViewModel
 	{
-		IList<Language> supportedLanguages = Array.Empty<Language>();
+		IList<Language> supportedLanguages = Enumerable.Empty<Language>().ToList();
 
 		Language selectedLanguage;
 

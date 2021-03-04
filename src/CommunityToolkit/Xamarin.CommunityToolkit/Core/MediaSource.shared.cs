@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Core
 				: FromFile(source);
 
 		[Preserve(Conditional = true)]
-		public static implicit operator MediaSource(Uri uri) => uri == null ? null : FromUri(uri);
+		public static implicit operator MediaSource?(Uri uri) => uri == null ? null : FromUri(uri);
 
 		protected void OnSourceChanged() =>
 			weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(SourceChanged));
