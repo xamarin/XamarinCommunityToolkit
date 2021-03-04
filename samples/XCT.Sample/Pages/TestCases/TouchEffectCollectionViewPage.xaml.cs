@@ -1,19 +1,16 @@
-﻿
-using System.Windows.Input;
-using Xamarin.Forms;
+﻿using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.TestCases
 {
 	public partial class TouchEffectCollectionViewPage
 	{
-		ICommand longPressCommand;
-
 		public TouchEffectCollectionViewPage()
-			=> InitializeComponent();
-
-		public ICommand LongPressCommand => longPressCommand ??= new Command(() =>
 		{
-			this.DisplayAlert("Long Press", null, "OK");
-		});
+			InitializeComponent();
+			LongPressCommand = new AsyncCommand(() => DisplayAlert("Long Press", null, "OK"));
+		}
+
+		public ICommand LongPressCommand { get; }
 	}
 }

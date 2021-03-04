@@ -7,25 +7,21 @@ namespace Xamarin.CommunityToolkit.Sample
 {
 	public class RelayCommand : ICommand
 	{
-		readonly Action execute;
-		readonly Func<Task> asyncExecute;
+		readonly Action? execute;
+		readonly Func<Task>? asyncExecute;
+		readonly Func<bool>? canExecute;
 
-		Func<bool> canExecute;
 		int executingCount;
 
-		public RelayCommand(Action execute, Func<bool> canExecute = null)
+		public RelayCommand(Action execute, Func<bool>? canExecute = null)
 		{
-			if (execute == null)
-				throw new ArgumentNullException(nameof(execute));
-			this.execute = execute;
+			this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
 			this.canExecute = canExecute;
 		}
 
-		protected RelayCommand(Func<Task> execute, Func<bool> canExecute = null) // This ctor is protected here and public in a derived class, to allow simple initialization like new RelayCommand(MyMethod) without errors due to ambiguity
+		protected RelayCommand(Func<Task> execute, Func<bool>? canExecute = null) // This ctor is protected here and public in a derived class, to allow simple initialization like new RelayCommand(MyMethod) without errors due to ambiguity
 		{
-			if (execute == null)
-				throw new ArgumentNullException(nameof(execute));
-			asyncExecute = execute;
+			asyncExecute = execute ?? throw new ArgumentNullException(nameof(execute));
 			this.canExecute = canExecute;
 		}
 
@@ -34,7 +30,7 @@ namespace Xamarin.CommunityToolkit.Sample
 		/// </summary>
 		/// <param name="parameter">Ignored; this is the paremeterless command class</param>
 		/// <returns></returns>
-		public bool CanExecute(object parameter = null)
+		public bool CanExecute(object? parameter = null)
 		{
 			try
 			{
@@ -47,15 +43,12 @@ namespace Xamarin.CommunityToolkit.Sample
 			}
 		}
 
-		public event EventHandler CanExecuteChanged;
+		public event EventHandler? CanExecuteChanged;
 
-		public void RaiseCanExecuteChanged()
-		{
-			CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-		}
+		public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 
 		// Asynchronous command handling based on http://stackoverflow.com/a/31595509/6043538
-		public async void Execute(object parameter = null)
+		public async void Execute(object? parameter = null)
 		{
 			var couldExecuteBeforeExecute = CanExecute();
 			if (!couldExecuteBeforeExecute)
@@ -70,8 +63,10 @@ namespace Xamarin.CommunityToolkit.Sample
 			{
 				if (execute != null)
 					execute();
-				else
+				else if (asyncExecute != null)
 					await asyncExecute();
+				else
+					throw new Exception("Execute is null");
 			}
 			catch (Exception ex)
 			{
@@ -89,31 +84,30 @@ namespace Xamarin.CommunityToolkit.Sample
 
 	public class RelayCommandAsync : RelayCommand
 	{
-		public RelayCommandAsync(Func<Task> execute, Func<bool> canExecute = null)
-			: base(execute, canExecute) { } // This ctor is public here and protected in the base class, to allow simple initialization like new RelayCommandAsync(MyMethod) without errors due to ambiguity
+		public RelayCommandAsync(Func<Task> execute, Func<bool>? canExecute = null)
+			: base(execute, canExecute)
+		{
+			// This ctor is public here and protected in the base class, to allow simple initialization like new RelayCommandAsync(MyMethod) without errors due to ambiguity
+		}
 	}
 
 	public class RelayCommand<TParameter> : ICommand
 	{
-		readonly Action<TParameter> execute;
-		readonly Func<TParameter, Task> asyncExecute;
+		readonly Action<TParameter>? execute;
+		readonly Func<TParameter, Task>? asyncExecute;
+		readonly Func<TParameter?, bool>? canExecute;
 
-		Func<TParameter, bool> canExecute;
 		int executingCount;
 
-		public RelayCommand(Action<TParameter> execute, Func<TParameter, bool> canExecute = null)
+		public RelayCommand(Action<TParameter> execute, Func<TParameter?, bool>? canExecute = null)
 		{
-			if (execute == null)
-				throw new ArgumentNullException(nameof(execute));
-			this.execute = execute;
+			this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
 			this.canExecute = canExecute;
 		}
 
-		protected RelayCommand(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute = null) // This ctor is protected here and public in a derived class, to allow simple initialization like new RelayCommand(MyMethod) without errors due to ambiguity
+		protected RelayCommand(Func<TParameter, Task> execute, Func<TParameter?, bool>? canExecute = null) // This ctor is protected here and public in a derived class, to allow simple initialization like new RelayCommand(MyMethod) without errors due to ambiguity
 		{
-			if (execute == null)
-				throw new ArgumentNullException(nameof(execute));
-			asyncExecute = execute;
+			asyncExecute = execute ?? throw new ArgumentNullException(nameof(execute));
 			this.canExecute = canExecute;
 		}
 
@@ -122,11 +116,11 @@ namespace Xamarin.CommunityToolkit.Sample
 		/// </summary>
 		/// <param name="parameter"></param>
 		/// <returns></returns>
-		public bool CanExecute(object parameter = null)
+		public bool CanExecute(object? parameter = null)
 		{
 			try
 			{
-				return canExecute != null ? canExecute((TParameter)parameter) : executingCount == 0;
+				return canExecute != null ? canExecute((TParameter?)parameter) : executingCount == 0;
 			}
 			catch (Exception ex)
 			{
@@ -135,12 +129,9 @@ namespace Xamarin.CommunityToolkit.Sample
 			}
 		}
 
-		public event EventHandler CanExecuteChanged;
+		public event EventHandler? CanExecuteChanged;
 
-		public void RaiseCanExecuteChanged()
-		{
-			CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-		}
+		public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 
 		// Asynchronous command handling based on http://stackoverflow.com/a/31595509/6043538
 		public async void Execute(object parameterAsObject)
@@ -159,13 +150,11 @@ namespace Xamarin.CommunityToolkit.Sample
 				var parameter = (TParameter)parameterAsObject;
 
 				if (execute != null)
-				{
 					execute(parameter);
-				}
+				else if (asyncExecute != null)
+					await asyncExecute.Invoke(parameter);
 				else
-				{
-					await asyncExecute(parameter);
-				}
+					throw new Exception("Execute is null");
 			}
 			catch (Exception ex)
 			{
@@ -183,7 +172,10 @@ namespace Xamarin.CommunityToolkit.Sample
 
 	public class RelayCommandAsync<TParameter> : RelayCommand<TParameter>
 	{
-		public RelayCommandAsync(Func<TParameter, Task> execute, Func<TParameter, bool> canExecute = null)
-			: base(execute, canExecute) { } // This ctor is public here and protected in the base class, to allow simple initialization like new RelayCommandAsync(MyMethod) without errors due to ambiguity
+		public RelayCommandAsync(Func<TParameter, Task> execute, Func<TParameter?, bool>? canExecute = null)
+			: base(execute, canExecute)
+		{
+			// This ctor is public here and protected in the base class, to allow simple initialization like new RelayCommandAsync(MyMethod) without errors due to ambiguity
+		}
 	}
 }

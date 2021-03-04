@@ -11,9 +11,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 	{
 		readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
-		byte[] avatar;
+		byte[]? avatar;
 
-		public byte[] Avatar
+		public byte[]? Avatar
 		{
 			get => avatar;
 			set => SetProperty(ref avatar, value);

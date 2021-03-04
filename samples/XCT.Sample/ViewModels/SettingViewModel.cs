@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
@@ -12,25 +13,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
 	public class SettingViewModel : BaseViewModel
 	{
-		IList<Language> supportedLanguages;
-
-		public IList<Language> SupportedLanguages
-		{
-			get => supportedLanguages;
-			private set => SetProperty(ref supportedLanguages, value);
-		}
+		IList<Language> supportedLanguages = Array.Empty<Language>();
 
 		Language selectedLanguage;
-
-		public Language SelectedLanguage
-		{
-			get => selectedLanguage;
-			set => SetProperty(ref selectedLanguage, value);
-		}
-
-		public LocalizedString AppVersion { get; } = new LocalizedString(() => string.Format(AppResources.Version, AppInfo.VersionString));
-
-		public ICommand ChangeLanguageCommand { get; }
 
 		public SettingViewModel()
 		{
@@ -41,6 +26,22 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 				LocalizationResourceManager.Current.CurrentCulture = CultureInfo.GetCultureInfo(SelectedLanguage.CI);
 				LoadLanguages();
 			});
+		}
+
+		public LocalizedString AppVersion { get; } = new LocalizedString(() => string.Format(AppResources.Version, AppInfo.VersionString));
+
+		public ICommand ChangeLanguageCommand { get; }
+
+		public Language SelectedLanguage
+		{
+			get => selectedLanguage;
+			set => SetProperty(ref selectedLanguage, value);
+		}
+
+		public IList<Language> SupportedLanguages
+		{
+			get => supportedLanguages;
+			private set => SetProperty(ref supportedLanguages, value);
 		}
 
 		void LoadLanguages()
