@@ -373,11 +373,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void SetCameraOrientation()
 		{
-			previewLayer.Connection.VideoOrientation = SetViewOrientation();
+			previewLayer.Connection.VideoOrientation = GetViewOrientation();
 			captureConnection = previewLayer.Connection;
 		}
 
-		public AVCaptureVideoOrientation SetViewOrientation()
+		public AVCaptureVideoOrientation GetViewOrientation()
 		{
 			if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
 			{
@@ -522,7 +522,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				captureSession.CommitConfiguration();
 
-				previewLayer.Connection.VideoOrientation = SetViewOrientation();
+				previewLayer.Connection.VideoOrientation = GetViewOrientation();
 
 				InvokeOnMainThread(() =>
 				{
