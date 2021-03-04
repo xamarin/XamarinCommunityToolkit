@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (parameter?.GetType() != typeof(TType))
 			{
 				// nulling it to avoid a cast exception
-				parameter = null;
+				parameter = default(TType);
 				parameter = Convert.ChangeType(parameter, typeof(TType));
 			}
 

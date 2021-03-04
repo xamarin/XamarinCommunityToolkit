@@ -69,6 +69,22 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		}
 
 		[Fact]
+		public void ParameterOfTypeInt()
+		{
+			var vm = new ViewModelCoffe();
+			var behavior = new EventToCommandBehavior<int>
+			{
+				EventName = nameof(ListView.ItemTapped),
+				Command = vm.SelectedCommand,
+				CommandParameter = 2
+			};
+
+			var nullArgs = new object[] { null, null };
+
+			TriggerEventToCommandBehavior(behavior, nullArgs);
+		}
+
+		[Fact]
 		public void NoExceptionWhenTheSelectedItemIsNull()
 		{
 			var vm = new ViewModelCoffe();
@@ -88,7 +104,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.Null(vm.CoffeeName);
 		}
 
-		void TriggerEventToCommandBehavior(EventToCommandBehavior<Coffee> eventToCommand, object[] args)
+		void TriggerEventToCommandBehavior<T>(EventToCommandBehavior<T> eventToCommand, object[] args)
 		{
 			var method = eventToCommand.GetType().GetMethod("OnTriggerHandled", BindingFlags.Instance | BindingFlags.NonPublic);
 			method.Invoke(eventToCommand, args);
