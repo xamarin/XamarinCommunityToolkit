@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty ShouldDismissKeyboardAutomaticallyProperty
 			= BindableProperty.Create(nameof(ShouldDismissKeyboardAutomatically), typeof(bool), typeof(UserStoppedTypingBehavior), false);
 
-		CancellationTokenSource tokenSource;
+		CancellationTokenSource? tokenSource;
 
 		/// <summary>
 		/// Command that is triggered when the <see cref="StoppedTypingTimeThreshold" /> is reached. When <see cref="MinimumLengthThreshold"/> is set, it's only triggered when both conditions are met. This is a bindable property.
@@ -105,17 +105,17 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			}
 			tokenSource = new CancellationTokenSource();
 
-			_ = Task.Delay(StoppedTypingTimeThreshold, tokenSource.Token)
+			Task.Delay(StoppedTypingTimeThreshold, tokenSource.Token)
 				.ContinueWith(task =>
 				{
 					if (task.Status == TaskStatus.Canceled ||
-						View.Text.Length < MinimumLengthThreshold)
+						View?.Text.Length < MinimumLengthThreshold)
 						return;
 
-					if (ShouldDismissKeyboardAutomatically)
+					if (View != null && ShouldDismissKeyboardAutomatically)
 						Device.BeginInvokeOnMainThread(View.Unfocus);
 
-					if (Command?.CanExecute(CommandParameter ?? View.Text) ?? false)
+					if (View != null && Command?.CanExecute(CommandParameter ?? View.Text) is true)
 						Command.Execute(CommandParameter ?? View.Text);
 				});
 		}

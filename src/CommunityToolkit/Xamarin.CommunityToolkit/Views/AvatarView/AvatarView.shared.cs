@@ -19,9 +19,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		readonly SemaphoreSlim imageSourceSemaphore = new SemaphoreSlim(1);
 
-		CancellationTokenSource imageLoadingTokenSource;
+		CancellationTokenSource? imageLoadingTokenSource;
 
-		object sourceBindingContext;
+		object? sourceBindingContext;
 
 		// Indicates if any thread already waits for the semaphore is released (0 == False | 1 == True).
 		int isWaitingForSourceUpdateValue;
@@ -403,19 +403,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return size * .4;
 		}
 
-		Task<Stream> GetImageStreamLoadingTask(ImageSource source, CancellationToken token)
-			=> source switch
-			{
-				IStreamImageSource streamImageSource => streamImageSource.GetStreamAsync(token),
-				UriImageSource uriImageSource => uriImageSource.Uri != null
-					? new UriImageSource
-					{
-						Uri = uriImageSource.Uri,
-						CachingEnabled = uriImageSource.CachingEnabled,
-						CacheValidity = uriImageSource.CacheValidity
-					}.GetStreamAsync(token)
-					: Task.FromResult<Stream>(null),
-				_ => null
-			};
+		Task<Stream?> GetImageStreamLoadingTask(ImageSource? source, CancellationToken token) => source switch
+		{
+			IStreamImageSource streamImageSource => streamImageSource.GetStreamAsync(token),
+			UriImageSource uriImageSource => uriImageSource.Uri != null
+				? new UriImageSource
+				{
+					Uri = uriImageSource.Uri,
+					CachingEnabled = uriImageSource.CachingEnabled,
+					CacheValidity = uriImageSource.CacheValidity
+				}.GetStreamAsync(token)
+				: Task.FromResult<Stream?>(null),
+			_ => Task.FromResult<Stream?>(null)
+		};
 	}
 }

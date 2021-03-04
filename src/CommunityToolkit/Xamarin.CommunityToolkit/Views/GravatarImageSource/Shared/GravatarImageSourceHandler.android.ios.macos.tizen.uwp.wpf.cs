@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static readonly Lazy<HttpClient> lazyHttp = new Lazy<HttpClient>(() => new HttpClient());
 		static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
-		public static async Task<FileInfo> LoadInternal(ImageSource imageSource, float scale, string cacheDirectory)
+		public static async Task<FileInfo?> LoadInternal(ImageSource imageSource, float scale, string cacheDirectory)
 		{
 			if (imageSource is GravatarImageSource gis)
 			{

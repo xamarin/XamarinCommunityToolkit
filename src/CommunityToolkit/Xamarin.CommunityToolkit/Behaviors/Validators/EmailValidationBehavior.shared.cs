@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected override RegexOptions DefaultRegexOptions => RegexOptions.IgnoreCase;
 
-		protected override object Decorate(object value)
+		protected override object? Decorate(object? value)
 		{
 			var stringValue = base.Decorate(value)?.ToString();
 #if NETSTANDARD1_0

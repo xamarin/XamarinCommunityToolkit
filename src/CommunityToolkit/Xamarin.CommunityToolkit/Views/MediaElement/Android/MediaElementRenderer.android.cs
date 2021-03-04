@@ -17,9 +17,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaElementRenderer : FrameLayout, IVisualElementRenderer, IViewRenderer, MediaPlayer.IOnCompletionListener, MediaPlayer.IOnInfoListener, MediaPlayer.IOnPreparedListener, MediaPlayer.IOnErrorListener
 	{
-		VisualElementTracker tracker;
-		protected MediaController controller;
-		protected MediaPlayer mediaPlayer;
+		VisualElementTracker? tracker;
+		protected MediaController? controller;
+		protected MediaPlayer? mediaPlayer;
 		protected FormsVideoView view;
 		bool isDisposed;
 		int? defaultLabelFor;
@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public MediaElementRenderer(Context context)
 			: base(context)
 		{
-			view = new FormsVideoView(Context);
+			view = new FormsVideoView(context);
 			view.SetZOrderMediaOverlay(true);
 			view.SetOnCompletionListener(this);
 			view.SetOnInfoListener(this);
@@ -47,30 +47,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override float Alpha
 		{
 			get => view.Alpha;
-			set =>
-
+			set
+			{
 				// VideoView opens a separate Window above the current one.
 				// This is because it is based on the SurfaceView.
 				// And we cannot set alpha or perform animations with it because it is not synchronized with your other UI elements.
 				// We may set 0 or 1 alpha only.
 				view.Alpha = Math.Sign(Math.Abs(value));
+			}
 		}
 
-		protected ToolKitMediaElement MediaElement { get; set; }
+		protected ToolKitMediaElement? MediaElement { get; set; }
 
-		IMediaElementController Controller => MediaElement;
+		IMediaElementController? Controller => MediaElement;
 
-		public VisualElement Element => MediaElement;
+		public VisualElement? Element => MediaElement;
 
-		VisualElementTracker IVisualElementRenderer.Tracker => tracker;
+		VisualElementTracker? IVisualElementRenderer.Tracker => tracker;
 
-		ViewGroup IVisualElementRenderer.ViewGroup => null;
+		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
 		AView IVisualElementRenderer.View => this;
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
 
-		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
+		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
 		SizeRequest IVisualElementRenderer.GetDesiredSize(int widthConstraint, int heightConstraint)
 		{
@@ -125,7 +126,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tracker == null)
 				SetTracker(new VisualElementTracker(this));
 
-			OnElementChanged(new ElementChangedEventArgs<MediaElement>(oldElement, MediaElement));
+			OnElementChanged(new ElementChangedEventArgs<ToolKitMediaElement>(oldElement, MediaElement));
 		}
 
 		void StateRequested(object sender, StateRequested e)
@@ -133,6 +134,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (view == null)
 				return;
 
+			_ = Controller ?? throw new NullReferenceException();
 			switch (e.State)
 			{
 				case MediaElementState.Playing:
@@ -161,7 +163,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnPositionRequested(object sender, EventArgs e)
 		{
-			if (view == null)
+			if (view == null && Controller == null)
 				return;
 
 			Controller.Position = view.Position;
@@ -208,13 +210,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				tracker?.Dispose();
 
 				if (Element != null)
-					UnsubscribeFromEvents(Element as MediaElement);
+					UnsubscribeFromEvents((ToolKitMediaElement)Element);
 			}
 
 			base.Dispose(disposing);
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<ToolKitMediaElement> e)
 		{
 			if (e.NewElement != null)
 			{
@@ -375,7 +377,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				throw new ArgumentException("uri");
 		}
 
-		void MediaPlayer.IOnCompletionListener.OnCompletion(MediaPlayer mp)
+		void MediaPlayer.IOnCompletionListener.OnCompletion(MediaPlayer? mp)
 		{
 			if (Controller == null)
 				return;
@@ -384,9 +386,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.OnMediaEnded();
 		}
 
-		void MediaPlayer.IOnPreparedListener.OnPrepared(MediaPlayer mp)
+		void MediaPlayer.IOnPreparedListener.OnPrepared(MediaPlayer? mp)
 		{
-			if (Controller == null)
+			if (Controller == null || mp == null)
 				return;
 
 			Controller.OnMediaOpened();

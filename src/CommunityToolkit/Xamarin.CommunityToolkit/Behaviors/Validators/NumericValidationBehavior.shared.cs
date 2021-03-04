@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors.Internals;
@@ -71,12 +72,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(MaximumDecimalPlacesProperty, value);
 		}
 
-		protected override object Decorate(object value)
+		protected override object? Decorate(object? value)
 			=> base.Decorate(value)?.ToString()?.Trim();
 
-		protected override ValueTask<bool> ValidateAsync(object value, CancellationToken token)
+		protected override ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
 		{
-			var valueString = value as string;
+			if (value is not string valueString)
+				throw new ArgumentException($"Expected type string for parameter {nameof(value)}");
+
 			if (!(double.TryParse(valueString, out var numeric)
 				&& numeric >= MinimumValue
 				&& numeric <= MaximumValue))

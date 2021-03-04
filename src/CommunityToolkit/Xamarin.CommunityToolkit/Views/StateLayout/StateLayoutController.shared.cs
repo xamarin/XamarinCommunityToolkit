@@ -11,11 +11,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		readonly WeakReference<Layout<View>> layoutWeakReference;
 		bool layoutIsGrid;
-		LayoutState previousState;
-		IList<View> originalContent;
-		CancellationTokenSource animationTokenSource;
+		LayoutState? previousState;
+		IList<View> originalContent = Enumerable.Empty<View>().ToList();
+		CancellationTokenSource? animationTokenSource;
 
-		public IList<StateView> StateViews { get; set; }
+		public IList<StateView> StateViews { get; set; } = Enumerable.Empty<StateView>().ToList();
 
 		public StateLayoutController(Layout<View> layout)
 			=> layoutWeakReference = new WeakReference<Layout<View>>(layout);
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public void SwitchToTemplate(string customState, bool animate)
 			=> SwitchToTemplate(LayoutState.Custom, customState, animate);
 
-		public async void SwitchToTemplate(LayoutState state, string customState, bool animate)
+		public async void SwitchToTemplate(LayoutState state, string? customState, bool animate)
 		{
 			if (!layoutWeakReference.TryGetTarget(out var layout))
 				return;
@@ -161,7 +161,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		StateView GetViewForState(LayoutState state, string customState)
+		StateView GetViewForState(LayoutState state, string? customState)
 		{
 			var view = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
 							(state == LayoutState.Custom && x.CustomStateKey == customState));
@@ -169,7 +169,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return view;
 		}
 
-		int GetRepeatCount(LayoutState state, string customState)
+		int GetRepeatCount(LayoutState state, string? customState)
 		{
 			var template = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
 						   (state == LayoutState.Custom && x.CustomStateKey == customState));
@@ -180,7 +180,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return 1;
 		}
 
-		DataTemplate GetTemplate(LayoutState state, string customState)
+		DataTemplate? GetTemplate(LayoutState state, string? customState)
 		{
 			var view = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
 						   (state == LayoutState.Custom && x.CustomStateKey == customState));
@@ -191,7 +191,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		View CreateItemView(LayoutState state, string customState)
+		View CreateItemView(LayoutState state, string? customState)
 		{
 			var view = StateViews.FirstOrDefault(x => (x.StateKey == state && state != LayoutState.Custom) ||
 							(state == LayoutState.Custom && x.CustomStateKey == customState));
@@ -201,7 +201,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (view != null)
 				return view;
 
-			return new Label() { Text = $"View for {state}{customState} not defined." };
+			return new Label{ Text = $"View for {state}{customState} not defined." };
 		}
 
 		async Task ChildrenFadeTo(Layout<View> layout, bool animate, bool isHide)

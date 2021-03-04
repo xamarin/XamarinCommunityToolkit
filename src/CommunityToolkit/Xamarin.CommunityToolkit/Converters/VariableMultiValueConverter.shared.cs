@@ -62,9 +62,9 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>All bindings that evaluate to true if <paramref name="value"/> is true. Or null if <paramref name="value"/> is not a <see cref="bool"/> value or <paramref name="value"/> is false.</returns>
-		public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+		public object[]? ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
 		{
-			if (!(value is bool boolValue) || targetTypes.Any(t => !t.IsAssignableFrom(typeof(bool))))
+			if (value is not bool boolValue || targetTypes.Any(t => !t.IsAssignableFrom(typeof(bool))))
 				return null;
 
 			return boolValue ? targetTypes.Select(t => ConditionType == MultiBindingCondition.All).OfType<object>().ToArray() : null;

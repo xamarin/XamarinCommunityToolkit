@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty UnMaskedCharacterProperty =
 			BindableProperty.Create(nameof(UnMaskedCharacter), typeof(char), typeof(MaskedBehavior), 'X', propertyChanged: OnUnMaskedCharacterPropertyChanged);
 
-		IDictionary<int, char> positions;
+		IDictionary<int, char>? positions;
 
 		bool applyingMask;
 
@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				return;
 
 			applyingMask = true;
-			ApplyMask(View.Text);
+			ApplyMask(View?.Text);
 			applyingMask = false;
 		}
 
@@ -95,16 +95,21 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				return;
 			}
 
-			var originalText = RemoveMask(View?.Text);
+			var originalText = RemoveMask_NullableString(View?.Text);
 			SetPositions();
 			ApplyMask(originalText);
 		}
 
-		string RemoveMask(string text)
+		string? RemoveMask_NullableString(string? text)
 		{
-			if (string.IsNullOrEmpty(text))
+			if (text == null || string.IsNullOrEmpty(text))
 				return text;
 
+			return RemoveMask(text);
+		}
+
+		string RemoveMask(string text)
+		{
 			var maskChars = positions
 				.Select(c => c.Value)
 				.Distinct()
@@ -113,9 +118,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			return string.Join(string.Empty, text.Split(maskChars));
 		}
 
-		void ApplyMask(string text)
+		void ApplyMask(string? text)
 		{
-			if (!string.IsNullOrWhiteSpace(text) && positions != null)
+			if (text != null && !string.IsNullOrWhiteSpace(text) && positions != null)
 			{
 				if (text.Length > Mask.Length)
 					text = text.Remove(text.Length - 1);

@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <summary>
 		/// The separator that should be between each item in the collection
 		/// </summary>
-		public string Separator { get; set; }
+		public string Separator { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Concatenates the items of a collection, using the specified <see cref="Separator"/> between each item. On each item ToString() will be called.
@@ -30,10 +30,10 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (value == null)
 				return string.Empty;
 
-			if (!(value is IEnumerable enumerable))
+			if (value is not IEnumerable enumerable)
 				throw new ArgumentException("Value cannot be casted to IEnumerable", nameof(value));
 
-			if (!((parameter ?? Separator ?? string.Empty) is string separator))
+			if ((parameter ?? Separator ?? string.Empty) is not string separator)
 				throw new ArgumentException("Parameter cannot be casted to string", nameof(parameter));
 
 			var collection = enumerable

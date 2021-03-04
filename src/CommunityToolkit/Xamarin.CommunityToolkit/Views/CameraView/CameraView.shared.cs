@@ -7,13 +7,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraView : View
 	{
-		public event EventHandler<MediaCapturedEventArgs> MediaCaptured;
+		public event EventHandler<MediaCapturedEventArgs>? MediaCaptured;
 
-		public event EventHandler<string> MediaCaptureFailed;
+		public event EventHandler<string>? MediaCaptureFailed;
 
-		public event EventHandler<bool> OnAvailable;
+		public event EventHandler<bool>? OnAvailable;
 
-		internal event EventHandler ShutterClicked;
+		internal event EventHandler? ShutterClicked;
 
 		internal static readonly BindablePropertyKey ShutterCommandPropertyKey =
 			BindableProperty.CreateReadOnly(nameof(ShutterCommand),

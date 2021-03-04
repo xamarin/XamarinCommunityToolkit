@@ -1,4 +1,5 @@
-﻿using UIKit;
+﻿using System;
+using UIKit;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Extensions;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
@@ -7,13 +8,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 	{
 		public BaseSnackBarView(NativeSnackBar snackBar) => SnackBar = snackBar;
 
-		public virtual UIView ParentView => SnackBar.ParentController != null
+		public virtual UIView? ParentView => SnackBar.ParentController != null
 			? SnackBar.ParentController.View
 			: UIApplication.SharedApplication.KeyWindow;
 
 		protected NativeSnackBar SnackBar { get; }
 
-		protected UIStackView StackView { get; set; }
+		protected UIStackView? StackView { get; set; }
 
 		public virtual void Dismiss() => RemoveFromSuperview();
 
@@ -30,6 +31,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		protected virtual void ConstrainInParent()
 		{
+			_ = StackView ?? throw new System.Exception("BaseSnackBarView.Initialize() not called");
+			_ = ParentView ?? throw new System.NullReferenceException();
+
 			this.SafeBottomAnchor().ConstraintEqualTo(GetBottomAnchor(), -SnackBar.Layout.MarginBottom).Active = true;
 			this.SafeTopAnchor().ConstraintGreaterThanOrEqualTo(GetTopAnchor(), SnackBar.Layout.MarginTop).Active = true;
 			this.SafeLeadingAnchor().ConstraintGreaterThanOrEqualTo(ParentView.SafeLeadingAnchor(), SnackBar.Layout.MarginLeft).Active = true;
@@ -46,6 +50,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 		{
 			if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0) || SnackBar.ParentController == null)
 			{
+				_ = ParentView ?? throw new System.NullReferenceException();
 				return ParentView.SafeBottomAnchor();
 			}
 
@@ -56,16 +61,18 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 		{
 			if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0) || SnackBar.ParentController == null)
 			{
+				_ = ParentView ?? throw new NullReferenceException();
 				return ParentView.SafeCenterYAnchor();
 			}
 
-			return SnackBar.ParentController.View?.CenterYAnchor;
+			return SnackBar.ParentController.View?.CenterYAnchor ?? throw new NullReferenceException();
 		}
 
 		protected virtual NSLayoutYAxisAnchor GetTopAnchor()
 		{
 			if (UIDevice.CurrentDevice.CheckSystemVersion(11, 0) || SnackBar.ParentController == null)
 			{
+				_ = ParentView ?? throw new NullReferenceException();
 				return ParentView.SafeTopAnchor();
 			}
 

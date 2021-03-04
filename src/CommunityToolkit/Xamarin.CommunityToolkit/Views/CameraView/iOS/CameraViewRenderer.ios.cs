@@ -23,15 +23,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Control == null && !disposed)
 			{
 				SetNativeControl(new FormsCameraView());
-				Control.Busy += OnBusy;
-				Control.Available += OnAvailability;
-				Control.FinishCapture += FinishCapture;
+				Control!.Busy += OnBusy;
+				Control!.Available += OnAvailability;
+				Control!.FinishCapture += FinishCapture;
 
-				Control.SwitchFlash(Element.FlashMode);
-				Control.SetBounds(Element.WidthRequest, Element.HeightRequest);
-				Control.VideoStabilization = Element.VideoStabilization;
-				Control.Zoom = (float)Element.Zoom;
-				Control.RetrieveCameraDevice(Element.CameraOptions);
+				Control!.SwitchFlash(Element.FlashMode);
+				Control!.SetBounds(Element.WidthRequest, Element.HeightRequest);
+				Control!.VideoStabilization = Element.VideoStabilization;
+				Control!.Zoom = (float)Element.Zoom;
+				Control!.RetrieveCameraDevice(Element.CameraOptions);
 			}
 
 			if (e.OldElement != null)
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Element.IsAvailable = available;
 		}
 
-		void FinishCapture(object sender, Tuple<NSObject, NSError> e)
+		void FinishCapture(object sender, Tuple<NSObject?, NSError?> e)
 		{
 			if (Element == null || Control == null)
 				return;
@@ -70,7 +70,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			// if (!Element.SavePhotoToFile && photoData != null)
 			if (photoData != null)
 			{
-				var data = UIImage.LoadFromData(photoData).AsJPEG().ToArray();
+				var data = UIImage.LoadFromData(photoData)?.AsJPEG().ToArray();
 				Device.BeginInvokeOnMainThread(() =>
 				{
 					Element.RaiseMediaCaptured(new MediaCapturedEventArgs(imageData: data));
@@ -78,7 +78,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			}
 
-			PHObjectPlaceholder placeholder = null;
+			PHObjectPlaceholder? placeholder = null;
 			PHPhotoLibrary.RequestAuthorization(status =>
 			{
 				if (status != PHAuthorizationStatus.Authorized)
@@ -118,7 +118,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						return;
 					}
 
-					if (!(PHAsset.FetchAssetsUsingLocalIdentifiers(new[] { placeholder.LocalIdentifier }, null).firstObject is PHAsset asset))
+					_ = placeholder ?? throw new NullReferenceException();
+					if (PHAsset.FetchAssetsUsingLocalIdentifiers(new[] { placeholder.LocalIdentifier }, null).firstObject is not PHAsset asset)
 					{
 						Element.RaiseMediaCaptureFailed($"Could not save media to photo library");
 						return;
@@ -132,7 +133,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						{
 							Device.BeginInvokeOnMainThread(() =>
 							{
-								Element.RaiseMediaCaptured(new MediaCapturedEventArgs(input.FullSizeImageUrl.Path));
+								Element.RaiseMediaCaptured(new MediaCapturedEventArgs(input.FullSizeImageUrl?.Path));
 							});
 						});
 					}
@@ -143,7 +144,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							Version = PHVideoRequestOptionsVersion.Original
 						}, (avAsset, mix, info) =>
 						{
-							if (!(avAsset is AVUrlAsset urlAsset))
+							if (avAsset is not AVUrlAsset urlAsset)
 							{
 								Element.RaiseMediaCaptureFailed($"Could not save media to photo library");
 								return;

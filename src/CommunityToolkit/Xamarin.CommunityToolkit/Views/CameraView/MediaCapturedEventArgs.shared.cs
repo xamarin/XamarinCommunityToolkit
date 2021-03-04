@@ -7,13 +7,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaCapturedEventArgs : EventArgs
 	{
-		readonly string path;
+		readonly string? path;
 		readonly Lazy<ImageSource> imageSource;
-		readonly Lazy<XCT.FileMediaSource> mediaSource;
+		readonly Lazy<XCT.FileMediaSource?> mediaSource;
 
 		internal MediaCapturedEventArgs(
-			string path = null,
-			byte[] imageData = null,
+			string? path = null,
+			byte[]? imageData = null,
 			double rotation = 0)
 		{
 			// Path = path;
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Rotation = rotation;
 			ImageData = imageData;
 			imageSource = new Lazy<ImageSource>(GetImageSource);
-			mediaSource = new Lazy<XCT.FileMediaSource>(GetMediaSource);
+			mediaSource = new Lazy<XCT.FileMediaSource?>(GetMediaSource);
 		}
 
 		// TODO See note on CameraView.SavePhotoToFile.
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Raw image data, only filled when taking a picture and SavePhotoToFile is false
 		/// </summary>
-		public byte[] ImageData { get; }
+		public byte[]? ImageData { get; }
 
 		/// <summary>
 		/// Applied image rotation for correct orientation on Android devices
@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public ImageSource Image => imageSource.Value;
 
-		public XCT.FileMediaSource Video => mediaSource.Value;
+		public XCT.FileMediaSource? Video => mediaSource.Value;
 
 		ImageSource GetImageSource()
 		{
@@ -54,6 +54,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return !string.IsNullOrEmpty(path) ? path : null;
 		}
 
-		XCT.FileMediaSource GetMediaSource() => !string.IsNullOrEmpty(path) ? path : null;
+		XCT.FileMediaSource? GetMediaSource()
+		{
+			if (path != null && !string.IsNullOrEmpty(path))
+				return path;
+			else
+				return null;
+		}
 	}
 }

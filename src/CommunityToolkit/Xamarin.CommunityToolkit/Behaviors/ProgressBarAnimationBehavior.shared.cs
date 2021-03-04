@@ -21,7 +21,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		static void OnAnimateProgressPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((ProgressBarAnimationBehavior)bindable).Animate();
 
-		void Animate()
-			=> View.ProgressTo(AnimateProgress, 500, Easing.Linear);
+		async void Animate()
+		{
+			if (View != null)
+				await View.ProgressTo(AnimateProgress, 500, Easing.Linear);
+		}
 	}
 }

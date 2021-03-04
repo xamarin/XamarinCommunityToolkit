@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -9,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 	/// </summary>
 	public static partial class VisualElementExtension
 	{
-		public static Task<bool> ColorTo(this VisualElement element, Color color, uint length = 250u, Easing easing = null)
+		public static Task<bool> ColorTo(this VisualElement element, Color color, uint length = 250u, Easing? easing = null)
 		{
 			_ = element ?? throw new ArgumentNullException(nameof(element));
 
@@ -38,7 +39,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 				element.AbortAnimation(name);
 		}
 
-		internal static bool TryFindParentElementWithParentOfType<T>(this VisualElement element, out VisualElement result, out T parent) where T : VisualElement
+		internal static bool TryFindParentElementWithParentOfType<T>(this VisualElement element, out VisualElement? result, out T? parent) where T : VisualElement
 		{
 			_ = element ?? throw new ArgumentNullException(nameof(element));
 
@@ -46,9 +47,9 @@ namespace Xamarin.CommunityToolkit.Extensions
 			parent = null;
 			while (element?.Parent != null)
 			{
-				if (!(element.Parent is T parentElement))
+				if (element.Parent is not T parentElement)
 				{
-					element = element.Parent as VisualElement;
+					element = (VisualElement)element.Parent;
 					continue;
 				}
 				result = element;
@@ -58,7 +59,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			return false;
 		}
 
-		internal static bool TryFindParentOfType<T>(this VisualElement element, out T parent) where T : VisualElement
-			=> TryFindParentElementWithParentOfType<T>(element, out _, out parent);
+		internal static bool TryFindParentOfType<T>(this VisualElement element, out T? parent) where T : VisualElement
+			=> TryFindParentElementWithParentOfType(element, out _, out parent);
 	}
 }

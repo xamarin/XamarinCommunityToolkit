@@ -232,7 +232,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Event that is triggered when the <see cref="Shield" /> is tapped. This is a bindable property.
 		/// </summary>
-		public event EventHandler Tapped;
+		public event EventHandler? Tapped;
 
 		Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
 
@@ -296,7 +296,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateIsEnabled();
 		}
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 

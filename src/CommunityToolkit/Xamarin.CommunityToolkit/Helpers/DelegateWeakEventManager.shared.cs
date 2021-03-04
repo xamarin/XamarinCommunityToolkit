@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		/// </summary>
 		/// <param name="handler">Handler</param>
 		/// <param name="eventName">Event name</param>
-		public void AddEventHandler(Delegate handler, [CallerMemberName] string eventName = "")
+		public void AddEventHandler(Delegate? handler, [CallerMemberName] string eventName = "")
 		{
 			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		/// </summary>
 		/// <param name="handler">Handler</param>
 		/// <param name="eventName">Event name</param>
-		public void RemoveEventHandler(Delegate handler, [CallerMemberName] string eventName = "")
+		public void RemoveEventHandler(Delegate? handler, [CallerMemberName] string eventName = "")
 		{
 			if (IsNullOrWhiteSpace(eventName))
 				throw new ArgumentNullException(nameof(eventName));

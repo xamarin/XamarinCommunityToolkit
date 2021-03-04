@@ -38,17 +38,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		readonly SideMenuElementCollection children = new SideMenuElementCollection();
 
-		View overlayView;
-
-		View mainView;
-
-		View leftMenu;
-
-		View rightMenu;
-
-		View activeMenu;
-
-		View inactiveMenu;
+		View? overlayView, mainView, leftMenu, rightMenu, activeMenu, inactiveMenu;
 
 		double zeroShift;
 
@@ -344,7 +334,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		void SetOverlayViewInputTransparent(SideMenuState state)
-			=> overlayView.InputTransparent = state == SideMenuState.MainViewShown;
+		{
+			_ = overlayView ?? throw new NullReferenceException();
+			overlayView.InputTransparent = state == SideMenuState.MainViewShown;
+		}
 
 		SideMenuState ResolveSwipeState(bool isRightSwipe)
 		{
@@ -381,6 +374,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SetCurrentGestureState(sift);
 			if (shouldUpdatePreviousShift)
 				previousShift = sift;
+
+			_ = mainView ?? throw new NullReferenceException();
+			_ = overlayView ?? throw new NullReferenceException();
 
 			mainView.TranslationX = sift;
 			overlayView.TranslationX = sift;
@@ -439,7 +435,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (inactiveMenu == null ||
 				activeMenu == null ||
-				leftMenu.X + leftMenu.Width <= rightMenu.X ||
+				leftMenu?.X + leftMenu?.Width <= rightMenu?.X ||
 				Control.Children.IndexOf(inactiveMenu) < Control.Children.IndexOf(activeMenu))
 				return;
 
@@ -574,7 +570,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Control.RaiseChild(overlayView);
 		}
 
-		bool CheckMenuGestureEnabled(View menuView)
+		bool CheckMenuGestureEnabled(View? menuView)
 			=> menuView != null && GetMenuGestureEnabled(menuView);
 	}
 }

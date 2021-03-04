@@ -24,8 +24,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty ErrorProperty =
 			BindableProperty.CreateAttached(nameof(GetError), typeof(object), typeof(MultiValidationBehavior), null);
 
-		readonly ObservableCollection<ValidationBehavior> children
-			= new ObservableCollection<ValidationBehavior>();
+		readonly ObservableCollection<ValidationBehavior> children = new ObservableCollection<ValidationBehavior>();
 
 		/// <summary>
 		/// Constructor for this behavior.
@@ -36,7 +35,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// Holds the errors from all of the nested invalid validators in <see cref="Children"/>. This is a bindable property.
 		/// </summary>
-		public List<object> Errors
+		public List<object>? Errors
 		{
 			get => (List<object>)GetValue(ErrorsProperty);
 			set => SetValue(ErrorsProperty, value);
@@ -45,16 +44,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// All child behaviors that are part of this <see cref="MultiValidationBehavior"/>. This is a bindable property.
 		/// </summary>
-		public IList<ValidationBehavior> Children
-			=> children;
+		public IList<ValidationBehavior> Children => children;
 
 		/// <summary>
 		/// Method to extract the error from the attached property for a child behavior in <see cref="Children"/>.
 		/// </summary>
 		/// <param name="bindable">The <see cref="ValidationBehavior"/> that we extract the attached Error property</param>
 		/// <returns>Object containing error information</returns>
-		public static object GetError(BindableObject bindable)
-			=> bindable.GetValue(ErrorProperty);
+		public static object GetError(BindableObject bindable) => bindable.GetValue(ErrorProperty);
 
 		/// <summary>
 		/// Method to set the error on the attached property for a child behavior in <see cref="Children"/>.
@@ -64,7 +61,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static void SetError(BindableObject bindable, object value)
 			=> bindable.SetValue(ErrorProperty, value);
 
-		protected override async ValueTask<bool> ValidateAsync(object value, CancellationToken token)
+		protected override async ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
 		{
 			await Task.WhenAll(children.Select(c =>
 			{

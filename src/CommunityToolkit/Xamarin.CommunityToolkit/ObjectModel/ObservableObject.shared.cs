@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		protected virtual bool SetProperty<T>(
 			ref T backingStore,
 			T value,
-			[CallerMemberName] string propertyName = "",
+			[CallerMemberName] string? propertyName = "",
 			Action? onChanging = null,
 			Action? onChanged = null,
 			Func<T, T, bool>? validateValue = null)
@@ -61,7 +61,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// Raises the property changed event.
 		/// </summary>
 		/// <param name="propertyName">Property name.</param>
-		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
+		protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = "") =>
 			weakEventManager.RaiseEvent(this, new PropertyChangedEventArgs(propertyName), nameof(PropertyChanged));
 	}
 }
