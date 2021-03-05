@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>An inverted <see cref="bool"/> from the one coming in.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
 			=> InverseBool(value);
 
 		/// <summary>
@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>An inverted <see cref="bool"/> from the one coming in.</returns>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
 			=> InverseBool(value);
 
 		/// <summary>
@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// </summary>
 		/// <param name="value">The value to inverse.</param>
 		/// <returns>The inverted value of the incoming <see cref="bool"/>.</returns>
-		bool InverseBool(object value)
+		bool InverseBool(object? value)
 		{
 			if (value is bool result)
 				return !result;

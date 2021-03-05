@@ -23,9 +23,9 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Optionally, a <see cref="StateLayout"/> can be supplied here to compare against.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>True if the provided <see cref="StateLayout"/>s match, otherwise False if they don't match.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
 		{
-			if (!(value is LayoutState state))
+			if (value is not LayoutState state)
 				throw new ArgumentException("Value is not a valid State", nameof(value));
 
 			if (parameter is LayoutState stateToCompare)
@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">N/A</param>
 		/// <param name="culture">N/A</param>
 		/// <returns>N/A</returns>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
 			=> throw new NotImplementedException();
 	}
 }

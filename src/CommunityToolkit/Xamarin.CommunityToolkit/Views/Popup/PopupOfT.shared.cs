@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <param name="result">
 		/// The result to return.
 		/// </param>
-		public void Dismiss(T result)
+		public void Dismiss(T? result)
 		{
 			taskCompletionSource.TrySetResult(result);
 			OnDismissed(result);

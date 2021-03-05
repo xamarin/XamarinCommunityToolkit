@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 		{
 			var view = (VisualElement)Activator.CreateInstance(popupType);
 
-			if (view is Popup<string> popup)
+			if (view is Popup<string?> popup)
 			{
 				var result = await Navigation.ShowPopupAsync(popup);
 				await Application.Current.MainPage.DisplayAlert("Popup Result", result, "OKAY");
