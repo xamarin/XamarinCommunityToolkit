@@ -152,7 +152,7 @@ namespace Xamarin.CommunityToolkit.Sample
 				if (execute != null)
 					execute(parameter);
 				else if (asyncExecute != null)
-					await asyncExecute.Invoke(parameter);
+					await asyncExecute(parameter);
 				else
 					throw new Exception("Execute is null");
 			}

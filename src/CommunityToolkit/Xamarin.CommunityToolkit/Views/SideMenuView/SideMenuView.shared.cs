@@ -375,6 +375,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (shouldCheckMenuGestureEnabled && !GetMenuGestureEnabled(activeMenu))
 				return false;
 
+			_ = mainView ?? throw new NullReferenceException();
+
 			var activeMenuWidth = activeMenu.Width;
 			var mainViewWidth = mainView.Width;
 
@@ -387,7 +389,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (shouldUpdatePreviousShift)
 				previousShift = shift;
 
-			_ = mainView ?? throw new NullReferenceException();
 			_ = overlayView ?? throw new NullReferenceException();
 
 			using (mainView.Batch())
