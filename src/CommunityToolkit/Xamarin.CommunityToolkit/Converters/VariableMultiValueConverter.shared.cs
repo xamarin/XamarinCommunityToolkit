@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (boolValues.Length != values.Length)
 				return false;
 
-			var count = boolValues.Count();
+			var count = boolValues.Count(v => v);
 
 			return ConditionType switch
 			{

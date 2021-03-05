@@ -78,12 +78,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		protected override ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
 		{
 			if (value is not string valueString)
-				throw new ArgumentException($"Expected type string for parameter {nameof(value)}");
+				return new ValueTask<bool>(false);
 
 			if (!(double.TryParse(valueString, out var numeric)
-				&& numeric >= MinimumValue
-				&& numeric <= MaximumValue))
+					&& numeric >= MinimumValue
+					&& numeric <= MaximumValue))
+			{
 				return new ValueTask<bool>(false);
+			}
 
 			var decimalDelimeterIndex = valueString.IndexOf(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 			var hasDecimalDelimeter = decimalDelimeterIndex >= 0;
