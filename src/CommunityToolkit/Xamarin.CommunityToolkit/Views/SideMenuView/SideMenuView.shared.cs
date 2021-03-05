@@ -77,6 +77,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty MenuGestureEnabledProperty
 			= BindableProperty.CreateAttached(nameof(GetMenuGestureEnabled), typeof(bool), typeof(SideMenuView), true);
 
+		public static readonly BindableProperty MainViewScaleFactorProperty
+			= BindableProperty.CreateAttached(nameof(GetMainViewScaleFactor), typeof(double), typeof(SideMenuView), 1.0);
+
 		public SideMenuView()
 		{
 			#region Required work-around to prevent linker from removing the platform-specific implementation
@@ -146,6 +149,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static void SetMenuGestureEnabled(BindableObject bindable, bool value)
 			=> bindable.SetValue(MenuGestureEnabledProperty, value);
+
+		public static double GetMainViewScaleFactor(BindableObject bindable)
+			=> (double)bindable.GetValue(MainViewScaleFactorProperty);
+
+		public static void SetMainViewScaleFactor(BindableObject bindable, double value)
+			=> bindable.SetValue(MainViewScaleFactorProperty, value);
 
 		internal void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
@@ -357,29 +366,37 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return isRightSwipe ? left : right;
 		}
 
-		bool TryUpdateShift(double sift, bool shouldUpdatePreviousShift, bool shouldCheckMenuGestureEnabled)
+		bool TryUpdateShift(double shift, bool shouldUpdatePreviousShift, bool shouldCheckMenuGestureEnabled)
 		{
-			SetActiveView(sift >= 0);
+			SetActiveView(shift >= 0);
 			if (activeMenu == null)
 				return false;
 
 			if (shouldCheckMenuGestureEnabled && !GetMenuGestureEnabled(activeMenu))
 				return false;
 
-			sift = Sign(sift) * Min(Abs(sift), activeMenu.Width);
-			if (Abs(Shift - sift) <= double.Epsilon)
+			var activeMenuWidth = activeMenu.Width;
+			var mainViewWidth = mainView.Width;
+
+			shift = Sign(shift) * Min(Abs(shift), activeMenuWidth);
+			if (Abs(Shift - shift) <= double.Epsilon)
 				return false;
 
-			Shift = sift;
-			SetCurrentGestureState(sift);
+			Shift = shift;
+			SetCurrentGestureState(shift);
 			if (shouldUpdatePreviousShift)
-				previousShift = sift;
+				previousShift = shift;
 
 			_ = mainView ?? throw new NullReferenceException();
 			_ = overlayView ?? throw new NullReferenceException();
 
-			mainView.TranslationX = sift;
-			overlayView.TranslationX = sift;
+			using (mainView.Batch())
+			{
+				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * animationEasing.Ease(shift / activeMenuWidth));
+				mainView.Scale = scale;
+				mainView.TranslationX = shift - (Sign(shift) * mainViewWidth * 0.5 * (1 - scale));
+			}
+			overlayView.TranslationX = shift;
 			return true;
 		}
 
