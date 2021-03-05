@@ -153,7 +153,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		{
 			// Arrange
 			Func<bool>? canExecute = null;
+#pragma warning disable CS8604 // Possible null reference argument.
 			var command = new AsyncCommand(NoParameterTask, canExecute);
+#pragma warning restore CS8604 // Possible null reference argument.
 
 			// Act
 
@@ -171,7 +173,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			bool commandCanExecute(object parameter) => canCommandExecute;
+			bool commandCanExecute(object? parameter) => canCommandExecute;
 
 			Assert.False(command.CanExecute(null));
 
@@ -204,7 +206,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			bool commandCanExecute(object parameter) => canCommandExecute;
+			bool commandCanExecute(object? parameter) => canCommandExecute;
 
 			Assert.False(command.CanExecute(null));
 
@@ -236,7 +238,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			bool commandCanExecute(object parameter) => canCommandExecute;
+			bool commandCanExecute(object? parameter) => canCommandExecute;
 
 			Assert.False(command.CanExecute(null));
 
@@ -276,7 +278,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 				command = new AsyncCommand(NoParameterTask, commandCanExecute);
 				command.CanExecuteChanged += handleCanExecuteChanged;
 
-				bool commandCanExecute(object parameter) => canCommandExecute;
+				bool commandCanExecute(object? parameter) => canCommandExecute;
 
 				Assert.False(command.CanExecute(null));
 
@@ -313,7 +315,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			bool commandCanExecute(object parameter) => canCommandExecute;
+			bool commandCanExecute(object? parameter) => canCommandExecute;
 
 			Assert.False(command.CanExecute(null));
 

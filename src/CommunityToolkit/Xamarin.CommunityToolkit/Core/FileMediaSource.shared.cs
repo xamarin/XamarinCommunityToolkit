@@ -9,9 +9,9 @@ namespace Xamarin.CommunityToolkit.Core
 		public static readonly BindableProperty FileProperty
 			= BindableProperty.Create(nameof(File), typeof(string), typeof(FileMediaSource), propertyChanged: OnFileMediaSourceChanged);
 
-		public string File
+		public string? File
 		{
-			get => (string)GetValue(FileProperty);
+			get => (string?)GetValue(FileProperty);
 			set => SetValue(FileProperty, value);
 		}
 

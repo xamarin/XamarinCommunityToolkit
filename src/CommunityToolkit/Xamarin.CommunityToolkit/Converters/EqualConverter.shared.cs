@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">The second object to compare.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>True if <paramref name="value"/> and <paramref name="parameter"/> are equal, False if they are not equal.</returns>
-		public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> (value != null && value.Equals(parameter)) || (value == null && parameter == null);
 
 		/// <summary>
@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">N/A</param>
 		/// <param name="culture">N/A</param>
 		/// <returns>N/A</returns>
-		public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> throw new NotImplementedException();
 	}
 }

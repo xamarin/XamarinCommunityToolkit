@@ -10,22 +10,27 @@ namespace Xamarin.CommunityToolkit.Core
 	{
 		readonly WeakEventManager weakEventManager = new WeakEventManager();
 
-		public static MediaSource FromFile(string file) =>
+		public static MediaSource FromFile(string? file) =>
 			new FileMediaSource { File = file };
 
-		public static MediaSource FromUri(Uri uri) =>
-			!uri.IsAbsoluteUri ? throw new ArgumentException("Uri must be be absolute", nameof(uri)) : new UriMediaSource { Uri = uri };
+		public static MediaSource FromUri(Uri? uri)
+		{
+			if (uri == null)
+				throw new ArgumentNullException(nameof(uri));
+
+			return !uri.IsAbsoluteUri ? throw new ArgumentException("Uri must be be absolute", nameof(uri)) : new UriMediaSource { Uri = uri };
+		}
 
 		public static MediaSource FromUri(string uri) => FromUri(new Uri(uri));
 
 		[Preserve(Conditional = true)]
-		public static implicit operator MediaSource(string source) =>
+		public static implicit operator MediaSource(string? source) =>
 			Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file"
 				? FromUri(uri)
 				: FromFile(source);
 
 		[Preserve(Conditional = true)]
-		public static implicit operator MediaSource?(Uri uri) => uri == null ? null : FromUri(uri);
+		public static implicit operator MediaSource?(Uri? uri) => FromUri(uri);
 
 		protected void OnSourceChanged() =>
 			weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(SourceChanged));

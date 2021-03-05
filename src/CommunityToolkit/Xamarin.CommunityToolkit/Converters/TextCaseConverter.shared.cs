@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">The desired text case that the text should be converted to. Must match <see cref="TextCaseType"/> enum value.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The converted text representation with the desired casing.</returns>
-		public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> value == null || value is string || value is char
 				? Convert(value?.ToString(), parameter)
 				: throw new ArgumentException("Value is neither a string nor a char", nameof(value));
@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">N/A</param>
 		/// <param name="culture">N/A</param>
 		/// <returns>N/A</returns>
-		public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+		public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> throw new NotImplementedException();
 
 		object? Convert(string? value, object? parameter) => GetParameter(parameter) switch
