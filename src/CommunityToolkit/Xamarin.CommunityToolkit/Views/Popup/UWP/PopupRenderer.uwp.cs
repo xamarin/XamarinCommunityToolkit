@@ -19,20 +19,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		const double defaultBorderThickness = 2;
 		const double defaultSize = 600;
 		bool isDisposed = false;
-		XamlStyle flyoutStyle;
-		XamlStyle panelStyle;
+		XamlStyle? flyoutStyle;
+		XamlStyle? panelStyle;
 
-		public BasePopup Element { get; private set; }
+		public BasePopup? Element { get; private set; }
 
-		internal ViewToRendererConverter.WrapperControl Control { get; private set; }
+		internal ViewToRendererConverter.WrapperControl? Control { get; private set; }
 
-		FrameworkElement IVisualElementRenderer.ContainerElement => null;
+		FrameworkElement? IVisualElementRenderer.ContainerElement => null;
 
-		VisualElement IVisualElementRenderer.Element => Element;
+		VisualElement? IVisualElementRenderer.Element => Element;
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
 
-		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
+		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
 		public PopupRenderer()
 		{
@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (element == null)
 				throw new ArgumentNullException(nameof(element));
 
-			if (!(element is BasePopup popup))
+			if (element is not BasePopup popup)
 				throw new ArgumentNullException("Element is not of type " + typeof(BasePopup), nameof(element));
 
 			var oldElement = Element;
@@ -55,14 +55,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			element.PropertyChanged += OnElementPropertyChanged;
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup>(oldElement, Element));
+			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
 		void CreateControl()
 		{
-			if (Control == null)
+			if (Control == null && Element != null)
 			{
-				Control = new Xamarin.CommunityToolkit.UI.Views.ViewToRendererConverter.WrapperControl(Element.Content);
+				Control = new ViewToRendererConverter.WrapperControl(Element.Content);
 				Content = Control;
 			}
 		}
@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			panelStyle = new XamlStyle { TargetType = typeof(Panel) };
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
 		{
 			if (e.NewElement != null && !isDisposed)
 			{
@@ -110,14 +110,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetEvents()
 		{
-			if (Element.IsLightDismissEnabled)
+			if (Element?.IsLightDismissEnabled is true)
 				Closing += OnClosing;
 
-			Element.Dismissed += OnDismissed;
+			if (Element != null)
+				Element.Dismissed += OnDismissed;
 		}
 
 		void SetSize()
 		{
+			_ = Element ?? throw new NullReferenceException();
+			_ = Control ?? throw new NullReferenceException();
+			_ = flyoutStyle ?? throw new NullReferenceException();
 			var standardSize = new Size { Width = defaultSize, Height = defaultSize / 2 };
 
 			var currentSize = Element.Size != default(Size) ? Element.Size : standardSize;
@@ -133,15 +137,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void SetLayout()
 		{
 			LightDismissOverlayMode = LightDismissOverlayMode.On;
-			SetDialogPosition(Element.VerticalOptions, Element.HorizontalOptions);
+
+			if (Element != null)
+				SetDialogPosition(Element.VerticalOptions, Element.HorizontalOptions);
 		}
 
 		void SetBorderColor()
 		{
+			_ = flyoutStyle ?? throw new NullReferenceException();
+
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.PaddingProperty, 0));
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderThicknessProperty, new UWPThickness(defaultBorderThickness)));
 
-			var borderColor = Views.WindowsSpecific.Popup.GetBorderColor(Element);
+			var borderColor = WindowsSpecific.Popup.GetBorderColor(Element);
 			if (borderColor == default(Color))
 				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, Color.FromHex("#2e6da0").ToWindowsColor()));
 			else
@@ -150,6 +158,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetColor()
 		{
+			_ = Element ?? throw new NullReferenceException();
+			_ = panelStyle ?? throw new NullReferenceException();
+			_ = flyoutStyle ?? throw new NullReferenceException();
+
 			if (Element.Content.BackgroundColor == default(Color))
 				panelStyle.Setters.Add(new Windows.UI.Xaml.Setter(Panel.BackgroundProperty, Element.Color.ToWindowsColor()));
 
@@ -163,13 +175,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void ApplyStyles()
 		{
+			_ = Control ?? throw new NullReferenceException();
 			Control.Style = panelStyle;
 			FlyoutPresenterStyle = flyoutStyle;
 		}
 
 		void Show()
 		{
-			if (Element.Anchor != null)
+			if (Element?.Anchor != null)
 			{
 				var anchor = Platform.GetRenderer(Element.Anchor).ContainerElement;
 				FlyoutBase.SetAttachedFlyout(anchor, this);
@@ -177,12 +190,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			else
 			{
-				var frameworkElement = Platform.GetRenderer(Element.Parent as VisualElement).ContainerElement;
+				var frameworkElement = Platform.GetRenderer(Element?.Parent as VisualElement)?.ContainerElement;
 				FlyoutBase.SetAttachedFlyout(frameworkElement, this);
 				FlyoutBase.ShowAttachedFlyout(frameworkElement);
 			}
 
-			Element.OnOpened();
+			Element?.OnOpened();
 		}
 
 		void SetDialogPosition(LayoutOptions verticalOptions, LayoutOptions horizontalOptions)
@@ -203,7 +216,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft;
 			else if (IsLeft())
 				Placement = FlyoutPlacementMode.Left;
-			else if (Element.Anchor == null)
+			else if (Element?.Anchor == null)
 				Placement = FlyoutPlacementMode.Full;
 			else
 				Placement = FlyoutPlacementMode.Top;
@@ -230,7 +243,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return new SizeRequest(size);
 		}
 
-		UIElement IVisualElementRenderer.GetNativeElement() => Control;
+		UIElement? IVisualElementRenderer.GetNativeElement() => Control;
 
 		void OnDismissed(object sender, PopupDismissedEventArgs e)
 		{
@@ -239,7 +252,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnClosing(object sender, object e)
 		{
-			if (IsOpen && Element.IsLightDismissEnabled)
+			if (IsOpen && Element?.IsLightDismissEnabled is true)
 				Element.LightDismiss();
 		}
 
@@ -253,10 +266,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (!isDisposed && disposing)
 			{
-				Element.Dismissed -= OnDismissed;
-				Element = null;
+				if (Element != null)
+					Element.Dismissed -= OnDismissed;
 
-				Control.CleanUp();
+				if (Control != null)
+					Control.CleanUp();
+
+				Element = null;
 				Control = null;
 
 				Closed -= OnClosing;

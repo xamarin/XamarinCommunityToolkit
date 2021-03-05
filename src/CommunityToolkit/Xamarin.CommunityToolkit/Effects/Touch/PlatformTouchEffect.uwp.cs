@@ -14,19 +14,19 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		const string PointerDownAnimationKey = "PointerDownAnimation";
+		const string pointerDownAnimationKey = "PointerDownAnimation";
 
-		const string PointerUpAnimationKey = "PointerUpAnimation";
+		const string pointerUpAnimationKey = "PointerUpAnimation";
 
-		TouchEffect effect;
+		TouchEffect? effect;
 
 		bool isPressed;
 
 		bool isIntentionalCaptureLoss;
 
-		Storyboard pointerDownStoryboard;
+		Storyboard? pointerDownStoryboard;
 
-		Storyboard pointerUpStoryboard;
+		Storyboard? pointerUpStoryboard;
 
 		protected override void OnAttached()
 		{
@@ -41,26 +41,26 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 				if (string.IsNullOrEmpty(nativeControl.Name))
 					nativeControl.Name = Guid.NewGuid().ToString();
 
-				if (nativeControl.Resources.ContainsKey(PointerDownAnimationKey))
-					pointerDownStoryboard = (Storyboard)nativeControl.Resources[PointerDownAnimationKey];
+				if (nativeControl.Resources.ContainsKey(pointerDownAnimationKey))
+					pointerDownStoryboard = (Storyboard)nativeControl.Resources[pointerDownAnimationKey];
 				else
 				{
 					pointerDownStoryboard = new Storyboard();
 					var downThemeAnimation = new PointerDownThemeAnimation();
 					Storyboard.SetTargetName(downThemeAnimation, nativeControl.Name);
 					pointerDownStoryboard.Children.Add(downThemeAnimation);
-					nativeControl.Resources.Add(new KeyValuePair<object, object>(PointerDownAnimationKey, pointerDownStoryboard));
+					nativeControl.Resources.Add(new KeyValuePair<object, object>(pointerDownAnimationKey, pointerDownStoryboard));
 				}
 
-				if (nativeControl.Resources.ContainsKey(PointerUpAnimationKey))
-					pointerUpStoryboard = (Storyboard)nativeControl.Resources[PointerUpAnimationKey];
+				if (nativeControl.Resources.ContainsKey(pointerUpAnimationKey))
+					pointerUpStoryboard = (Storyboard)nativeControl.Resources[pointerUpAnimationKey];
 				else
 				{
 					pointerUpStoryboard = new Storyboard();
 					var upThemeAnimation = new PointerUpThemeAnimation();
 					Storyboard.SetTargetName(upThemeAnimation, nativeControl.Name);
 					pointerUpStoryboard.Children.Add(upThemeAnimation);
-					nativeControl.Resources.Add(new KeyValuePair<object, object>(PointerUpAnimationKey, pointerUpStoryboard));
+					nativeControl.Resources.Add(new KeyValuePair<object, object>(pointerUpAnimationKey, pointerUpStoryboard));
 				}
 			}
 
@@ -150,7 +150,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
 
-			if (effect.HoverStatus != HoverStatus.Exited)
+			if (effect?.HoverStatus != HoverStatus.Exited)
 				effect?.HandleHover(HoverStatus.Exited);
 
 			AnimateTilt(pointerUpStoryboard);
@@ -190,7 +190,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			isIntentionalCaptureLoss = false;
 		}
 
-		void AnimateTilt(Storyboard storyboard)
+		void AnimateTilt(Storyboard? storyboard)
 		{
 			if ((effect?.NativeAnimation ?? false) && storyboard != null)
 			{

@@ -15,8 +15,8 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 	/// </summary>
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
-		FrameworkElement nativeView;
-		LifecycleEffect lifeCycleEffect;
+		FrameworkElement? nativeView;
+		LifecycleEffect? lifeCycleEffect;
 
 		protected override void OnAttached()
 		{
@@ -29,13 +29,21 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			nativeView.Unloaded += OnNativeViewUnloaded;
 		}
 
-		void OnNativeViewLoaded(object sender, RoutedEventArgs e) => lifeCycleEffect.RaiseLoadedEvent(Element);
+		void OnNativeViewLoaded(object sender, RoutedEventArgs e) => lifeCycleEffect?.RaiseLoadedEvent(Element);
 
 		void OnNativeViewUnloaded(object sender, RoutedEventArgs e)
 		{
-			lifeCycleEffect.RaiseUnloadedEvent(Element);
-			nativeView.Unloaded -= OnNativeViewUnloaded;
-			nativeView.Loaded -= OnNativeViewLoaded;
+			if (lifeCycleEffect != null)
+			{
+				lifeCycleEffect.RaiseUnloadedEvent(Element);
+			}
+
+			if (nativeView != null)
+			{
+				nativeView.Unloaded -= OnNativeViewUnloaded;
+				nativeView.Loaded -= OnNativeViewLoaded;
+			}
+
 			lifeCycleEffect = null;
 			nativeView = null;
 		}

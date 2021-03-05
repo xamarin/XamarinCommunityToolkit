@@ -342,7 +342,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				GestureRecognizers.Clear();
 			}
 
-			void OnCloseButtonTapped(object sender, EventArgs e)
+			void OnCloseButtonTapped(object? sender, EventArgs e)
 			{
 				Tapped?.Invoke(this, EventArgs.Empty);
 				Command?.Execute(CommandParameter);

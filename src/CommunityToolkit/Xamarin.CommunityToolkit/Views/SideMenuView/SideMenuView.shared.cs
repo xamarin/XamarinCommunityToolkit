@@ -147,7 +147,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static void SetMenuGestureEnabled(BindableObject bindable, bool value)
 			=> bindable.SetValue(MenuGestureEnabledProperty, value);
 
-		internal void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+		internal void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
 			var shift = e.TotalX;
 			var verticalShift = e.TotalY;
@@ -507,7 +507,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void OnChildrenCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
 		{
 			HandleChildren(e.OldItems, RemoveChild);
 			HandleChildren(e.NewItems, AddChild);
@@ -561,7 +561,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				inactiveMenu = null;
 		}
 
-		void OnLayoutChanged(object sender, EventArgs e)
+		void OnLayoutChanged(object? sender, EventArgs e)
 		{
 			if (mainView == null)
 				return;

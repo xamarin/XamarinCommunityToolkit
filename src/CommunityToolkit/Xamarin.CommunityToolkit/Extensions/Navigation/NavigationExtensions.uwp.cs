@@ -18,7 +18,9 @@ namespace Xamarin.CommunityToolkit.Extensions
 			{
 				if (currentPage.NavigationProxy.ModalStack.LastOrDefault() is Page modal)
 					return modal;
+#pragma warning disable CS0618 // Type or member is obsolete
 				else if (currentPage is MasterDetailPage mdp)
+#pragma warning restore CS0618 // Type or member is obsolete
 					return GetCurrentPage(mdp.Detail);
 				else if (currentPage is FlyoutPage fp)
 					return GetCurrentPage(fp.Detail);
@@ -31,7 +33,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			}
 		}
 
-		static Task<T> PlatformShowPopupAsync<T>(Popup<T> popup)
+		static Task<T?> PlatformShowPopupAsync<T>(Popup<T> popup)
 		{
 			PlatformShowPopup(popup);
 			return popup.Result;
