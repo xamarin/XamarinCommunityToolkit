@@ -13,18 +13,18 @@ namespace Xamarin.CommunityToolkit.Core
 		public static MediaSource FromFile(string? file) =>
 			new FileMediaSource { File = file };
 
-		public static MediaSource FromUri(Uri? uri)
+		public static MediaSource? FromUri(Uri? uri)
 		{
 			if (uri == null)
-				throw new ArgumentNullException(nameof(uri));
+				return null;
 
 			return !uri.IsAbsoluteUri ? throw new ArgumentException("Uri must be be absolute", nameof(uri)) : new UriMediaSource { Uri = uri };
 		}
 
-		public static MediaSource FromUri(string uri) => FromUri(new Uri(uri));
+		public static MediaSource? FromUri(string uri) => FromUri(new Uri(uri));
 
 		[Preserve(Conditional = true)]
-		public static implicit operator MediaSource(string? source) =>
+		public static implicit operator MediaSource?(string? source) =>
 			Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file"
 				? FromUri(uri)
 				: FromFile(source);
