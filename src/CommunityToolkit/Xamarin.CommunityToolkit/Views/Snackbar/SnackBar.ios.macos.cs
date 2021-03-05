@@ -100,7 +100,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					actionButton.SetTitleColor(action.ForegroundColor.ToUIColor(), UIControlState.Normal);
 				}
 #elif __MACOS__
-				if (action.BackgroundColor != Color.Default)
+				if (action.BackgroundColor != Color.Default && actionButton.Layer != null)
 				{
 					actionButton.Layer.BackgroundColor = action.BackgroundColor.ToCGColor();
 				}
@@ -114,7 +114,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					snackBar.Dismiss();
 
-					await (action.Action?.Invoke() ?? Task.CompletedTask);
+					if (action.Action != null)
+						await action.Action();
 
 					arguments.SetResult(true);
 				});

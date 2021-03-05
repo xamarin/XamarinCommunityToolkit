@@ -102,9 +102,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		[Forms.TypeConverter(typeof(MediaSourceConverter))]
-		public MediaSource Source
+		public MediaSource? Source
 		{
-			get => (MediaSource)GetValue(SourceProperty);
+			get => (MediaSource?)GetValue(SourceProperty);
 			set => SetValue(SourceProperty, value);
 		}
 

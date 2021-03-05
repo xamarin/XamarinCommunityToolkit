@@ -24,17 +24,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraViewRenderer : FrameLayout, IVisualElementRenderer, IViewRenderer
 	{
+		readonly MotionEventHelper motionEventHelper;
+
 		int? defaultLabelFor;
 		bool disposed;
-		CameraView element;
-		VisualElementTracker visualElementTracker;
-		VisualElementRenderer visualElementRenderer;
-		readonly MotionEventHelper motionEventHelper;
-		FragmentManager fragmentManager;
+		CameraView? element;
+		VisualElementTracker? visualElementTracker;
+		VisualElementRenderer? visualElementRenderer;
+
+		FragmentManager? fragmentManager;
 
 		FragmentManager FragmentManager => fragmentManager ??= Context.GetFragmentManager();
 
-		CameraFragment camerafragment;
+		CameraFragment? camerafragment;
 
 		public CameraViewRenderer(Context context)
 			: base(context)
@@ -43,12 +45,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			visualElementRenderer = new VisualElementRenderer(this);
 		}
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
 
-		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
+		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
 		async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			_ = camerafragment ?? throw new NullReferenceException();
+
 			ElementPropertyChanged?.Invoke(this, e);
 
 			switch (e.PropertyName)
@@ -62,7 +66,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 				case nameof(CameraView.FlashMode):
 					camerafragment.SetFlash();
-					if (Element.CaptureMode == CameraCaptureMode.Video)
+					if (Element?.CaptureMode == CameraCaptureMode.Video)
 						camerafragment.UpdateRepeatingRequest();
 					break;
 				case nameof(CameraView.Zoom):
@@ -71,7 +75,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 				case nameof(CameraView.VideoStabilization):
 					camerafragment.SetVideoStabilization();
-					if (Element.CaptureMode == CameraCaptureMode.Video)
+					if (Element?.CaptureMode == CameraCaptureMode.Video)
 						camerafragment.UpdateRepeatingRequest();
 					break;
 
@@ -86,15 +90,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnElementChanged(ElementChangedEventArgs<CameraView> e)
+		void OnElementChanged(ElementChangedEventArgs<CameraView?> e)
 		{
-			CameraFragment newfragment = null;
+			CameraFragment? newfragment = null;
 
 			if (e.OldElement != null)
 			{
 				e.OldElement.PropertyChanged -= OnElementPropertyChanged;
 				e.OldElement.ShutterClicked -= OnShutterClicked;
-				camerafragment.Dispose();
+				camerafragment?.Dispose();
+				camerafragment = null;
 			}
 
 			if (e.NewElement != null)
@@ -115,7 +120,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
-		CameraView Element
+		CameraView? Element
 		{
 			get => element;
 			set
@@ -126,7 +131,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var oldElement = element;
 				element = value;
 
-				OnElementChanged(new ElementChangedEventArgs<CameraView>(oldElement, element));
+				OnElementChanged(new ElementChangedEventArgs<CameraView?>(oldElement, element));
 
 				// this is just used to set ID's to the NativeViews along time ago for UITest with Test Cloud
 				// https://discordapp.com/channels/732297728826277939/738043671575920700/747629874709266449
@@ -136,7 +141,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if (visualElementRenderer.OnTouchEvent(e) || base.OnTouchEvent(e))
+			if (visualElementRenderer?.OnTouchEvent(e) is true || base.OnTouchEvent(e))
 				return true;
 
 			return motionEventHelper.HandleMotionEvent(Parent, e);
@@ -147,7 +152,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (disposed)
 				return;
 
-			camerafragment.Dispose();
+			camerafragment?.Dispose();
+			camerafragment = null;
 
 			disposed = true;
 
@@ -182,25 +188,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnShutterClicked(object sender, EventArgs e)
 		{
-			switch (Element.CaptureMode)
+			switch (Element?.CaptureMode)
 			{
 				default:
 				case CameraCaptureMode.Default:
 				case CameraCaptureMode.Photo:
-					camerafragment.TakePhoto();
+					camerafragment?.TakePhoto();
 					break;
 				case CameraCaptureMode.Video:
-					if (!camerafragment.IsRecordingVideo)
-						camerafragment.StartRecord();
+					if (camerafragment?.IsRecordingVideo is false)
+						camerafragment?.StartRecord();
 					else
-						camerafragment.StopRecord();
+						camerafragment?.StopRecord();
 					break;
 			}
 		}
 
 		void IViewRenderer.MeasureExactly() => MeasureExactly(this, Element, Context);
 
-		static void MeasureExactly(AView control, VisualElement element, Context context)
+		static void MeasureExactly(AView control, VisualElement? element, Context? context)
 		{
 			if (control == null || element == null)
 				return;
@@ -221,11 +227,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		#region IVisualElementRenderer
-		VisualElement IVisualElementRenderer.Element => Element;
+		VisualElement? IVisualElementRenderer.Element => Element;
 
-		ViewGroup IVisualElementRenderer.ViewGroup => null;
+		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
-		VisualElementTracker IVisualElementRenderer.Tracker => visualElementTracker;
+		VisualElementTracker? IVisualElementRenderer.Tracker => visualElementTracker;
 
 		AView IVisualElementRenderer.View => this;
 
@@ -238,7 +244,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IVisualElementRenderer.SetElement(VisualElement element)
 		{
-			if (!(element is CameraView camera))
+			if (element is not CameraView camera)
 				throw new ArgumentException($"{nameof(element)} must be of type {nameof(CameraView)}");
 
 			// Performance.Start(out var reference);

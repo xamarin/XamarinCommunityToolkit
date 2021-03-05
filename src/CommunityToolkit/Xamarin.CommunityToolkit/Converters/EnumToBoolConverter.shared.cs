@@ -33,9 +33,9 @@ namespace Xamarin.CommunityToolkit.Converters
 		///     value not equal to parameter.
 		/// </returns>
 		/// <exception cref="ArgumentException">If value is not an <see cref="Enum" /></exception>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object ?value, Type targetType, object? parameter, CultureInfo culture)
 		{
-			if (!(value is Enum enumValue))
+			if (value is not Enum enumValue)
 				throw new ArgumentException("The value should be of type Enum", nameof(value));
 
 			return TrueValues.Count == 0
@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		}
 
 		/// <inheritdoc/>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) =>
 			throw new NotImplementedException();
 	}
 }

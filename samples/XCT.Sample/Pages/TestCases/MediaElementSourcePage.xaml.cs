@@ -12,6 +12,6 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.TestCases
 	{
 		public string VideoAsString { get; set; } = "https://tipcalculator.appwithkiss.com/video/Hint_1_2_EN_12.mov";
 
-		public MediaSource VideoAsMediaSource => MediaSource.FromUri(VideoAsString);
+		public MediaSource? VideoAsMediaSource => MediaSource.FromUri(VideoAsString);
 	}
 }

@@ -140,7 +140,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => actionEventManager.AddEventHandler(nullAction, nameof(ActionEvent)));
+#pragma warning restore CS8604 // Possible null reference argument.
 
 		}
 
@@ -152,7 +154,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => actionEventManager.AddEventHandler(s => { var temp = s; }, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]
@@ -164,7 +168,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => actionEventManager.AddEventHandler(nullAction, string.Empty));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -187,7 +193,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => actionEventManager.RemoveEventHandler(nullAction));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -198,7 +206,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => actionEventManager.RemoveEventHandler(s => { var temp = s; }, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]

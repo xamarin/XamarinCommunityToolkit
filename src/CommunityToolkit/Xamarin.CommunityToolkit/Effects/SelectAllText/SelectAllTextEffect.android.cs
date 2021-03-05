@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class SelectAllTextEffect : PlatformEffect
 	{
-		EditText EditText => Control as EditText;
+		EditText? EditText => Control as EditText;
 
 		protected override void OnAttached()
 			=> EditText?.SetSelectAllOnFocus(true);

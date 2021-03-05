@@ -18,12 +18,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">The items array.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The item from the array that corresponds to passed index.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			if (!(value is int index))
+			if (value is not int index)
 				throw new ArgumentException("Value is not a valid integer", nameof(value));
 
-			if (!(parameter is Array array))
+			if (parameter is not Array array)
 				throw new ArgumentException("Parameter is not a valid array", nameof(parameter));
 
 			if (index < 0 || index >= array.Length)
@@ -40,9 +40,9 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">The items array.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The index of the item from the array.</returns>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			if (!(parameter is Array array))
+			if (parameter is not Array array)
 				throw new ArgumentException("Parameter is not a valid array", nameof(parameter));
 
 			for (var i = 0; i < array.Length; i++)

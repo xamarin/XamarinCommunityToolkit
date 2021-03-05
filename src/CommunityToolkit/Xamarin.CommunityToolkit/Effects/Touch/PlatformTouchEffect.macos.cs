@@ -1,4 +1,5 @@
-﻿using AppKit;
+﻿using System;
+using AppKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.macOS.Effects;
 using Xamarin.Forms;
@@ -10,11 +11,11 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		NSGestureRecognizer gesture;
+		NSGestureRecognizer? gesture;
 
-		TouchEffect effect;
+		TouchEffect? effect;
 
-		MouseTrackingView mouseTrackingView;
+		MouseTrackingView? mouseTrackingView;
 
 		protected override void OnAttached()
 		{
@@ -52,8 +53,8 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 
 	sealed class MouseTrackingView : NSView
 	{
-		NSTrackingArea trackingArea;
-		TouchEffect effect;
+		NSTrackingArea? trackingArea;
+		TouchEffect? effect;
 
 		public MouseTrackingView(TouchEffect effect)
 		{
@@ -105,8 +106,8 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 
 	sealed class TouchNSClickGestureRecognizer : NSGestureRecognizer
 	{
-		TouchEffect effect;
-		NSView container;
+		TouchEffect? effect;
+		NSView? container;
 
 		public TouchNSClickGestureRecognizer(TouchEffect effect, NSView container)
 		{
@@ -118,8 +119,8 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 		{
 			get
 			{
-				var frame = container.Frame;
-				var parent = container.Superview;
+				var frame = container?.Frame ?? throw new NullReferenceException();
+				var parent = container?.Superview;
 				while (parent != null)
 				{
 					frame = new CoreGraphics.CGRect(frame.X + parent.Frame.X, frame.Y + parent.Frame.Y, frame.Width, frame.Height);
@@ -169,7 +170,7 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 				(status == TouchStatus.Started && effect.HoverStatus == HoverStatus.Exited))
 				effect?.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
 
-			if (effect.Status != status)
+			if (effect?.Status != status)
 				effect?.HandleTouch(status);
 
 			base.MouseDragged(mouseEvent);

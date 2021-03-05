@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		internal void HandleHover(TouchEffect sender, HoverStatus status)
 		{
-			if (!sender.Element.IsEnabled)
+			if (!sender.Element?.IsEnabled ?? true)
 				return;
 
 			var hoverState = status == HoverStatus.Entered
@@ -123,7 +123,8 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			var isToggled = sender.IsToggled;
 
-			UpdateVisualState(sender.Element, state, hoverState);
+			if (sender.Element != null)
+				UpdateVisualState(sender.Element, state, hoverState);
 
 			if (!animated)
 			{
@@ -225,7 +226,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void HandleCollectionViewSelection(TouchEffect sender)
 		{
-			if (!sender.Element.TryFindParentElementWithParentOfType(out var result, out CollectionView? parent))
+			if (sender.Element == null || !sender.Element.TryFindParentElementWithParentOfType(out var result, out CollectionView? parent))
 				return;
 
 			var collectionView = parent ?? throw new NullReferenceException();
@@ -298,22 +299,22 @@ namespace Xamarin.CommunityToolkit.Effects
 			var source = normalBackgroundImageSource;
 			if (touchState == TouchState.Pressed)
 			{
-				if (sender.Element.IsSet(TouchEffect.PressedBackgroundImageAspectProperty))
+				if (sender.Element?.IsSet(TouchEffect.PressedBackgroundImageAspectProperty) ?? false)
 					aspect = sender.PressedBackgroundImageAspect;
 
 				source = pressedBackgroundImageSource;
 			}
 			else if (hoverState == HoverState.Hovered)
 			{
-				if (sender.Element.IsSet(TouchEffect.HoveredBackgroundImageAspectProperty))
+				if (sender.Element?.IsSet(TouchEffect.HoveredBackgroundImageAspectProperty) ?? false)
 					aspect = sender.HoveredBackgroundImageAspect;
 
-				if (sender.Element.IsSet(TouchEffect.HoveredBackgroundImageSourceProperty))
+				if (sender.Element?.IsSet(TouchEffect.HoveredBackgroundImageSourceProperty) ?? false)
 					source = hoveredBackgroundImageSource;
 			}
 			else
 			{
-				if (sender.Element.IsSet(TouchEffect.NormalBackgroundImageAspectProperty))
+				if (sender.Element?.IsSet(TouchEffect.NormalBackgroundImageAspectProperty) ?? false)
 					aspect = sender.NormalBackgroundImageAspect;
 			}
 
@@ -343,10 +344,13 @@ namespace Xamarin.CommunityToolkit.Effects
 			var pressedBackgroundColor = sender.PressedBackgroundColor;
 			var hoveredBackgroundColor = sender.HoveredBackgroundColor;
 
-			if (normalBackgroundColor == Color.Default &&
-				pressedBackgroundColor == Color.Default &&
-				hoveredBackgroundColor == Color.Default)
+			if (sender.Element == null
+				|| (normalBackgroundColor == Color.Default
+					&& pressedBackgroundColor == Color.Default
+					&& hoveredBackgroundColor == Color.Default))
+			{
 				return Task.FromResult(false);
+			}
 
 			var element = sender.Element;
 			if (defaultBackgroundColor == default)
@@ -383,11 +387,11 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (touchState == TouchState.Pressed)
 				opacity = pressedOpacity;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredOpacityProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredOpacityProperty) ?? false))
 				opacity = hoveredOpacity;
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.Opacity = opacity;
 				return Task.FromResult(true);
@@ -411,10 +415,13 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (touchState == TouchState.Pressed)
 				scale = pressedScale;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredScaleProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredScaleProperty) ?? false))
 				scale = hoveredScale;
 
 			var element = sender.Element;
+			if (element == null)
+				return Task.FromResult(false);
+
 			if (duration <= 0)
 			{
 				element.Scale = scale;
@@ -442,13 +449,15 @@ namespace Xamarin.CommunityToolkit.Effects
 			var pressedTranslationY = sender.PressedTranslationY;
 			var hoveredTranslationY = sender.HoveredTranslationY;
 
-			if (Abs(normalTranslationX) <= double.Epsilon &&
-				Abs(pressedTranslationX) <= double.Epsilon &&
-				Abs(hoveredTranslationX) <= double.Epsilon &&
-				Abs(normalTranslationY) <= double.Epsilon &&
-				Abs(pressedTranslationY) <= double.Epsilon &&
-				Abs(hoveredTranslationY) <= double.Epsilon)
+			if (Abs(normalTranslationX) <= double.Epsilon
+				&& Abs(pressedTranslationX) <= double.Epsilon
+				&& Abs(hoveredTranslationX) <= double.Epsilon
+				&& Abs(normalTranslationY) <= double.Epsilon
+				&& Abs(pressedTranslationY) <= double.Epsilon
+				&& Abs(hoveredTranslationY) <= double.Epsilon)
+			{
 				return Task.FromResult(false);
+			}
 
 			var translationX = normalTranslationX;
 			var translationY = normalTranslationY;
@@ -460,22 +469,22 @@ namespace Xamarin.CommunityToolkit.Effects
 			}
 			else if (hoverState == HoverState.Hovered)
 			{
-				if (sender.Element.IsSet(TouchEffect.HoveredTranslationXProperty))
+				if (sender.Element?.IsSet(TouchEffect.HoveredTranslationXProperty) ?? false)
 					translationX = hoveredTranslationX;
 
-				if (sender.Element.IsSet(TouchEffect.HoveredTranslationYProperty))
+				if (sender.Element?.IsSet(TouchEffect.HoveredTranslationYProperty) ?? false)
 					translationY = hoveredTranslationY;
 			}
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.TranslationX = translationX;
 				element.TranslationY = translationY;
 				return Task.FromResult(true);
 			}
 
-			return element.TranslateTo(translationX, translationY, (uint)Abs(duration), easing);
+			return element?.TranslateTo(translationX, translationY, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
 		Task SetRotation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
@@ -484,26 +493,28 @@ namespace Xamarin.CommunityToolkit.Effects
 			var pressedRotation = sender.PressedRotation;
 			var hoveredRotation = sender.HoveredRotation;
 
-			if (Abs(normalRotation) <= double.Epsilon &&
-				Abs(pressedRotation) <= double.Epsilon &&
-				Abs(hoveredRotation) <= double.Epsilon)
+			if (Abs(normalRotation) <= double.Epsilon
+				&& Abs(pressedRotation) <= double.Epsilon
+				&& Abs(hoveredRotation) <= double.Epsilon)
+			{
 				return Task.FromResult(false);
+			}
 
 			var rotation = normalRotation;
 
 			if (touchState == TouchState.Pressed)
 				rotation = pressedRotation;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredRotationProperty) ?? false))
 				rotation = hoveredRotation;
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.Rotation = rotation;
 				return Task.FromResult(true);
 			}
 
-			return element.RotateTo(rotation, (uint)Abs(duration), easing);
+			return element?.RotateTo(rotation, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
 		Task SetRotationX(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
@@ -521,17 +532,17 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (touchState == TouchState.Pressed)
 				rotationX = pressedRotationX;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationXProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredRotationXProperty) ?? false))
 				rotationX = hoveredRotationX;
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.RotationX = rotationX;
 				return Task.FromResult(true);
 			}
 
-			return element.RotateXTo(rotationX, (uint)Abs(duration), easing);
+			return element?.RotateXTo(rotationX, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
 		Task SetRotationY(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
@@ -549,17 +560,17 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (touchState == TouchState.Pressed)
 				rotationY = pressedRotationY;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationYProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredRotationYProperty) ?? false))
 				rotationY = hoveredRotationY;
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.RotationY = rotationY;
 				return Task.FromResult(true);
 			}
 
-			return element.RotateYTo(rotationY, (uint)Abs(duration), easing);
+			return element?.RotateYTo(rotationY, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
 		Color GetBackgroundColor(Color color)

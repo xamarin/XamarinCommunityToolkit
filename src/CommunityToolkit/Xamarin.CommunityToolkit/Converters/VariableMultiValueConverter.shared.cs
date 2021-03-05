@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>A single <see cref="bool"/> value dependant on the configuration for this converter.</returns>
-		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object[]? values, Type targetType, object? parameter, CultureInfo culture)
 		{
 			if (values == null || values.Length == 0)
 				return false;
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (boolValues.Length != values.Length)
 				return false;
 
-			var count = boolValues.Count(v => v);
+			var count = boolValues.Count();
 
 			return ConditionType switch
 			{
@@ -62,7 +62,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>All bindings that evaluate to true if <paramref name="value"/> is true. Or null if <paramref name="value"/> is not a <see cref="bool"/> value or <paramref name="value"/> is false.</returns>
-		public object[]? ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+		public object[]? ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture)
 		{
 			if (value is not bool boolValue || targetTypes.Any(t => !t.IsAssignableFrom(typeof(bool))))
 				return null;

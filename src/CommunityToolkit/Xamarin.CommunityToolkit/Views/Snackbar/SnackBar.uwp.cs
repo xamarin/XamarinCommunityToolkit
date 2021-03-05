@@ -10,9 +10,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		DispatcherTimer snackBarTimer;
+		DispatcherTimer? snackBarTimer;
 
-		T FindVisualChildByName<T>(DependencyObject parent, string name) where T : DependencyObject
+		T? FindVisualChildByName<T>(DependencyObject parent, string name) where T : DependencyObject
 		{
 			var childrenCount = VisualTreeHelper.GetChildrenCount(parent);
 
@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;
-			var grid = FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea").Parent as Grid;
+			var grid = (Grid)(FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea")?.Parent ?? throw new NullReferenceException());
 			var snackBarRow = new RowDefinition() { Height = GridLength.Auto };
 			snackBarTimer = new DispatcherTimer { Interval = arguments.Duration };
 			snackBarTimer.Tick += (sender, e) =>

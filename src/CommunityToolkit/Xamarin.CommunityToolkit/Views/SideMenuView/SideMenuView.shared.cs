@@ -82,7 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(null);
+				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(ToolkitPlatform.Context ?? throw new NullReferenceException());
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
@@ -147,7 +147,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static void SetMenuGestureEnabled(BindableObject bindable, bool value)
 			=> bindable.SetValue(MenuGestureEnabledProperty, value);
 
-		internal void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+		internal void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
 			var shift = e.TotalX;
 			var verticalShift = e.TotalY;
@@ -507,7 +507,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void OnChildrenCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
 		{
 			HandleChildren(e.OldItems, RemoveChild);
 			HandleChildren(e.NewItems, AddChild);
@@ -561,7 +561,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				inactiveMenu = null;
 		}
 
-		void OnLayoutChanged(object sender, EventArgs e)
+		void OnLayoutChanged(object? sender, EventArgs e)
 		{
 			if (mainView == null)
 				return;

@@ -16,7 +16,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -45,7 +47,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(NoParameterAction, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]
@@ -75,7 +79,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -104,7 +110,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(ObjectParameterAction, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]
@@ -136,7 +144,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(execute, CanExecuteTrue));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -147,7 +157,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(IntParameterAction, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]

@@ -61,7 +61,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			}
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			TestStringWeakEventManager.RaiseEvent(null, stringEventArg, nameof(TestStringEvent));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
 			Assert.True(didEventFire);
@@ -125,7 +127,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 
 			// Assert
 #pragma warning disable CS8602 //Dereference of a possible null reference
-			Assert.Throws<NullReferenceException>(() => unassignedEventManager.RaiseEvent(null, string.Empty, nameof(TestEvent)));
+			Assert.Throws<NullReferenceException>(() => unassignedEventManager.RaiseEvent(this, string.Empty, nameof(TestEvent)));
 #pragma warning restore CS8602
 		}
 
@@ -174,9 +176,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler((EventHandler<string>)null));
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler((EventHandler<string>?)null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]
@@ -187,7 +189,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]
@@ -220,9 +224,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.RemoveEventHandler((EventHandler<string>)null));
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.RemoveEventHandler((EventHandler<string>?)null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]
@@ -233,7 +237,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => TestStringWeakEventManager.AddEventHandler(s => { var temp = s; }, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]

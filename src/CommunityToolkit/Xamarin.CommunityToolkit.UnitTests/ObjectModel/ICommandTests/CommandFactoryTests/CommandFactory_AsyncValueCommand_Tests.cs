@@ -19,7 +19,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -67,7 +69,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute, () => true));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -75,7 +79,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		{
 			// Arrange
 			Func<bool>? canExecute = null;
+#pragma warning disable CS8604 // Possible null reference argument.
 			var command = CommandFactory.Create(NoParameterTask, canExecute);
+#pragma warning restore CS8604 // Possible null reference argument.
 
 			// Act
 			await command.ExecuteAsync();
@@ -118,7 +124,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -168,7 +176,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(execute, () => true));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -176,7 +186,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		{
 			// Arrange
 			Func<bool>? canExecute = null;
+#pragma warning disable CS8604 // Possible null reference argument.
 			var command = CommandFactory.Create<int>(IntParameterTask, canExecute);
+#pragma warning restore CS8604 // Possible null reference argument.
 
 			// Act
 			await command.ExecuteAsync(0);
@@ -219,7 +231,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]

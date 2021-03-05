@@ -11,9 +11,9 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		GestureLayer gestureLayer;
+		GestureLayer? gestureLayer;
 
-		TouchEffect effect;
+		TouchEffect? effect;
 
 		protected override void OnAttached()
 		{
@@ -43,20 +43,20 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 
 	sealed class TouchTapGestureRecognizer : GestureLayer
 	{
-		readonly TouchEffect effect;
+		readonly TouchEffect? effect;
 		bool tapCompleted;
 		bool longTapStarted;
 
 		public TouchTapGestureRecognizer(EvasObject parent)
 			: base(parent)
 		{
-			SetTapCallback(GestureType.Tap, GestureLayer.GestureState.Start, OnTapStarted);
-			SetTapCallback(GestureType.Tap, GestureLayer.GestureState.End, OnGestureEnded);
-			SetTapCallback(GestureType.Tap, GestureLayer.GestureState.Abort, OnGestureAborted);
+			SetTapCallback(GestureType.Tap, GestureState.Start, OnTapStarted);
+			SetTapCallback(GestureType.Tap, GestureState.End, OnGestureEnded);
+			SetTapCallback(GestureType.Tap, GestureState.Abort, OnGestureAborted);
 
-			SetTapCallback(GestureType.LongTap, GestureLayer.GestureState.Start, OnLongTapStarted);
-			SetTapCallback(GestureType.LongTap, GestureLayer.GestureState.End, OnGestureEnded);
-			SetTapCallback(GestureType.LongTap, GestureLayer.GestureState.Abort, OnGestureAborted);
+			SetTapCallback(GestureType.LongTap, GestureState.Start, OnLongTapStarted);
+			SetTapCallback(GestureType.LongTap, GestureState.End, OnGestureEnded);
+			SetTapCallback(GestureType.LongTap, GestureState.Abort, OnGestureAborted);
 		}
 
 		public TouchTapGestureRecognizer(EvasObject parent, TouchEffect effect)
@@ -90,10 +90,10 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 
 		void OnGestureEnded(TapData data)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
-			HandleTouch(effect?.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled, TouchInteractionStatus.Completed);
+			HandleTouch(effect.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled, TouchInteractionStatus.Completed);
 			IsCanceled = true;
 			tapCompleted = true;
 		}
@@ -119,12 +119,12 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 			if (IsCanceled || effect == null)
 				return;
 
-			if (effect?.IsDisabled ?? true)
+			if (effect.IsDisabled)
 				return;
 
 			if (touchInteractionStatus == TouchInteractionStatus.Started)
 			{
-				effect?.HandleUserInteraction(TouchInteractionStatus.Started);
+				effect.HandleUserInteraction(TouchInteractionStatus.Started);
 				touchInteractionStatus = null;
 			}
 

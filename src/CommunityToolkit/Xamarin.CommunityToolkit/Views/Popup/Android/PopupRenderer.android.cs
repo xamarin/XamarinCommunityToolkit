@@ -125,10 +125,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			basePopup.Dismissed += OnDismissed;
 		}
 
-		void SetColor(in BasePopup basePopup)
-		{
-			Window.SetBackgroundDrawable(new ColorDrawable(basePopup.Color.ToAndroid()));
-		}
+		void SetColor(in BasePopup basePopup) => Window?.SetBackgroundDrawable(new ColorDrawable(basePopup.Color.ToAndroid()));
 
 		void SetSize(in BasePopup basePopup)
 		{
