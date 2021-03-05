@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 
 			public string Header { get; set; } = string.Empty;
 
-			public List<TextFragment> Body { get; set; } = Enumerable.Empty<TextFragment>().ToList();
+			public List<TextFragment> Body { get; set; } = new List<TextFragment>();
 
 			public bool IsLikedByMe { get; set; }
 		}
