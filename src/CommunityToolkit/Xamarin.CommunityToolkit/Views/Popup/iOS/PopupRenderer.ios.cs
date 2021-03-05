@@ -116,11 +116,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void CreateControl()
 		{
 			var view = Element.Content;
-			var contentPage = new ContentPage { Content = view, Padding = new Thickness(25), BindingContext = Element.BindingContext };
+			var contentPage = new ContentPage { Content = view, Padding = new Thickness(25) };
 
 			Control = Platform.CreateRenderer(contentPage);
 			Platform.SetRenderer(contentPage, Control);
 			contentPage.Parent = Application.Current.MainPage;
+			contentPage.SetBinding(VisualElement.BindingContextProperty, new Binding { Source = Element, Path = VisualElement.BindingContextProperty.PropertyName });
 		}
 
 		void SetViewController()
