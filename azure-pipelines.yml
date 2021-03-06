@@ -123,16 +123,12 @@ jobs:
 #          command: 'custom'
 #          custom: 'nuget'
 #          arguments: 'push --source https://nuget.pkg.github.com/xamarin/index.json --api-key $(GitHub.NuGet.Token) "$(Build.ArtifactStagingDirectory)\nuget\*.nupkg"'
-#      - task: DotNetCoreCLI@2
-#        displayName: Run Tests
-#        inputs:
-#          command: test
-#          projects: '**/*.UnitTests.csproj'
-#          arguments: '--configuration Release --collect "Code coverage"'
-      - task: CmdLine@2
-        displayName: 'Run Unit Tests'
-        inputs:
-          script: dotnet test $(PathToUnitTestCsproj) -c 'Release' --collect "Code coverage"'
+     - task: DotNetCoreCLI@2
+       displayName: Run Tests
+       inputs:
+         command: test
+         projects: '**/*.UnitTests.csproj'
+         arguments: '--configuration Release'
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
