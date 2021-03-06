@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		protected virtual void ConstrainInParent()
 		{
-			_ = StackView ?? throw new System.Exception("BaseSnackBarView.Initialize() not called");
+			_ = StackView ?? throw new InvalidOperationException("BaseSnackBarView.Initialize() not called");
 			_ = ParentView ?? throw new System.NullReferenceException();
 
 			this.SafeBottomAnchor().ConstraintEqualTo(GetBottomAnchor(), -SnackBar.Layout.MarginBottom).Active = true;
