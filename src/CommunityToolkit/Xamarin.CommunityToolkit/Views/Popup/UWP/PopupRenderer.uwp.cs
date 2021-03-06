@@ -119,9 +119,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetSize()
 		{
-			_ = Element ?? throw new NullReferenceException();
-			_ = Control ?? throw new NullReferenceException();
-			_ = flyoutStyle ?? throw new NullReferenceException();
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null")
+			_ = Control ?? throw new InvalidOperationException($"{nameof(Control)} cannot be null")
+			_ = flyoutStyle ?? throw new InvalidOperationException($"{nameof(flyoutStyle)} cannot be null")
 			var standardSize = new Size { Width = defaultSize, Height = defaultSize / 2 };
 
 			var currentSize = Element.Size != default(Size) ? Element.Size : standardSize;
