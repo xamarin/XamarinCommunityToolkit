@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				snackBar.SetAction(action.Text, async v =>
 				{
-					if (action?.Action != null)
+					if (action.Action != null)
 						await action.Action();
 				});
 				if (action.ForegroundColor != Forms.Color.Default)
