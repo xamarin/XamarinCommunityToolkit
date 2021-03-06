@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void CreateControl()
 		{
-			if (Control == null && Element != null)
+			if (Control == null && Element?.Content != null)
 			{
 				Control = new ViewToRendererConverter.WrapperControl(Element.Content);
 				Content = Control;
@@ -158,7 +158,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetColor()
 		{
-			_ = Element ?? throw new NullReferenceException();
+			_ = Element?.Content ?? throw new NullReferenceException();
 			_ = panelStyle ?? throw new NullReferenceException();
 			_ = flyoutStyle ?? throw new NullReferenceException();
 
