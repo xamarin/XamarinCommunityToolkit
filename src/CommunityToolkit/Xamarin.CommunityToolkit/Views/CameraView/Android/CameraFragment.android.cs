@@ -160,7 +160,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			backgroundThread = new HandlerThread("CameraBackground");
 			backgroundThread.Start();
-			backgroundHandler = new Handler(backgroundThread?.Looper ?? throw new NullReferenceException());
+			backgroundHandler = new Handler(backgroundThread.Looper ?? throw new NullReferenceException());
 		}
 
 		void StopBackgroundThread()
