@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					snackBarDialog.Dismiss();
 
-					if (action?.Action != null)
+					if (action.Action != null)
 						await action.Action();
 
 					arguments.SetResult(true);
