@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public double Rotation { get; }
 
-		public ImageSource Image => imageSource.Value;
+		public ImageSource? Image => imageSource.Value;
 
 		public XCT.FileMediaSource? Video => mediaSource.Value;
 
