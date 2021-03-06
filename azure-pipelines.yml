@@ -174,12 +174,10 @@ jobs:
         displayName: 'Build Solution'
         inputs:
           script: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $(PathToCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
-      - task: MSBuild@1
-        displayName: Pack NuGets
+      - task: CmdLine@2
+        displayName: 'Pack NuGets'
         inputs:
-          solution: $(PathToCsproj)
-          configuration: Release
-          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $(PathToCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
