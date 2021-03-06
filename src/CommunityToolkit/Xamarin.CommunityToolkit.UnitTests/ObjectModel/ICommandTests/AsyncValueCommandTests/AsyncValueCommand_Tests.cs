@@ -351,11 +351,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		{
 			// Arrange
 			var canExecuteChangedCount = 0;
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			var command = new AsyncValueCommand(() => IntParameterTask(Delay), allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				if (++canExecuteChangedCount is 2)
+					handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+			}
 
 			Assert.False(command.AllowsMultipleExecutions);
 
@@ -368,10 +373,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Act
 			await asyncCommandTask;
+			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 	}
 }

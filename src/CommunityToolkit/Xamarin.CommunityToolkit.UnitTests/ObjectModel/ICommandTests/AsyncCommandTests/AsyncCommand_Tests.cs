@@ -164,11 +164,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		}
 
 		[Fact]
-		public void AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_MainThreadExecution_Test()
+		public async Task AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_MainThreadExecution_Test()
 		{
 			// Arrange
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
+
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
@@ -186,19 +188,28 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.RaiseCanExecuteChanged();
+			await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object? sender, EventArgs e) => didCanExecuteChangeFire = true;
+			void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				handleCanExecuteChangedTCS.SetResult(null);
+			}
 		}
 
 		[Fact]
 		public Task AsyncCommand_RaiseCanExecuteChanged_BackgroundThreadCreation_BackgroundThreadExecution_Test() => Task.Run(async () =>
 		{
 			// Arrange
+
+			// Use ConfigureAwait(false) to move to a background thread
 			await Task.Delay(100).ConfigureAwait(false);
+
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
@@ -219,18 +230,24 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.RaiseCanExecuteChanged();
+			await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object? sender, EventArgs e) => didCanExecuteChangeFire = true;
+			void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				handleCanExecuteChangedTCS.SetResult(null);
+			}
 		});
 
 		[Fact]
 		public async Task AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_BackgroundThreadExecution_Test()
 		{
 			// Arrange
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
@@ -252,15 +269,22 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Act
 			await Task.Run(async () =>
 			{
+				// use ConfigureAwait(false) to return to a background thread
 				await Task.Delay(100).ConfigureAwait(false);
+
 				command.RaiseCanExecuteChanged();
+				await handleCanExecuteChangedTCS.Task;
 
 				// Assert
 				Assert.True(didCanExecuteChangeFire);
 				Assert.True(command.CanExecute(null));
 			});
 
-			void handleCanExecuteChanged(object? sender, EventArgs e) => didCanExecuteChangeFire = true;
+			void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				handleCanExecuteChangedTCS.SetResult(null);
+			}
 		}
 
 		[Fact]
@@ -270,6 +294,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			AsyncCommand? command = null;
 			var didCanExecuteChangeFire = false;
 			var canCommandExecute = false;
+
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			await Task.Run(async () =>
 			{
@@ -295,12 +321,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 				throw new NullReferenceException();
 
 			command.RaiseCanExecuteChanged();
+			await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object? sender, EventArgs e) => didCanExecuteChangeFire = true;
+			void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				handleCanExecuteChangedTCS.SetResult(null);
+			}
 		}
 
 		[Fact]

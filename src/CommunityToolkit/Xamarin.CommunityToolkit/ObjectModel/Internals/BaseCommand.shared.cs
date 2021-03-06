@@ -51,12 +51,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			get => executionCount;
 			set
 			{
-				var shouldRaiseCanExecuteChanged = AllowsMultipleExecutions switch
+				var shouldRaiseCanExecuteChanged = (AllowsMultipleExecutions, executionCount, value) switch
 				{
-					true => false,
-					false when executionCount is 0 && value > 0 => true,
-					false when executionCount > 0 && value is 0 => true,
-					false => false
+					(true, _, _) => false,
+					(false, 0, >0) => true,
+					(false, >0, 0) => true,
+					(false, _, _) => false
 				};
 
 				executionCount = value;

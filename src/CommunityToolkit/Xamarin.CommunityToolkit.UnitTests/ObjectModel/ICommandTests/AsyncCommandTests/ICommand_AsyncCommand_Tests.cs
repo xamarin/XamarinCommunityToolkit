@@ -196,6 +196,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var canExecuteChangedCount = 0;
 
 			ICommand command = new AsyncCommand<int>(IntParameterTask);
+			command.CanExecuteChanged += handleCanExecuteChanged;
 
 			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
@@ -213,7 +214,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(0, canExecuteChangedCount);
 
-			command.CanExecuteChanged += handleCanExecuteChanged;
+			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
 		[Fact]
@@ -221,6 +222,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		{
 			// Arrange
 			var canExecuteChangedCount = 0;
+
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			ICommand command = new AsyncCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
@@ -232,14 +235,18 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			var handleCanExecuteChangedTCSResult = await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedTCSResult);
 
-			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				if (++canExecuteChangedCount is 2)
+					handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+			}
 		}
 
 		[Fact]
