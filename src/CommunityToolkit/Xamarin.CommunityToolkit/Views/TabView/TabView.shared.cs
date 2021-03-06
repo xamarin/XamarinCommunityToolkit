@@ -454,17 +454,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (e.OldItems != null)
 			{
-				foreach (TabViewItem oldItem in e.OldItems)
+				foreach (var oldItem in e.OldItems)
 				{
-					ClearTabViewItem(oldItem);
+					if (oldItem is TabViewItem tabViewItem)
+						ClearTabViewItem(tabViewItem);
 				}
 			}
 
 			if (e.NewItems != null)
 			{
-				foreach (TabViewItem newTabViewItem in e.NewItems)
+				foreach (var newTabViewItem in e.NewItems)
 				{
-					AddTabViewItem(newTabViewItem, TabItems.IndexOf(newTabViewItem));
+					if (newTabViewItem is TabViewItem tabViewItem)
+						AddTabViewItem(tabViewItem, TabItems.IndexOf(newTabViewItem));
 				}
 			}
 		}
