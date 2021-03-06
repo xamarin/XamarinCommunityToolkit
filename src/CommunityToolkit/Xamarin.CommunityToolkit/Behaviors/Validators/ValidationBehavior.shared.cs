@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors.Internals
@@ -15,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		public const string InvalidVisualState = "Invalid";
 
-		public ValidationBehavior() => DefaultForceValidateCommand = new Command(ForceValidate);
+		public ValidationBehavior() => DefaultForceValidateCommand = new AsyncValueCommand(ForceValidate);
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsNotValid"/> property.
@@ -167,7 +168,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 		/// <summary>
 		/// Forces the behavior to make a validation pass.
 		/// </summary>
-		public void ForceValidate() => _ = UpdateStateAsync(true);
+		public ValueTask ForceValidate() => UpdateStateAsync(true);
 
 		internal ValueTask ValidateNestedAsync(CancellationToken token) => UpdateStateAsync(true, token);
 
