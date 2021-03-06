@@ -129,7 +129,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnElementChanged(new ElementChangedEventArgs<ToolKitMediaElement?>(oldElement, MediaElement));
 		}
 
-		void StateRequested(object sender, StateRequested e)
+		void StateRequested(object? sender, StateRequested e)
 		{
 			if (view == null)
 				return;
@@ -161,7 +161,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.Position = view.Position;
 		}
 
-		void OnPositionRequested(object sender, EventArgs e)
+		void OnPositionRequested(object? sender, EventArgs e)
 		{
 			if (view == null || Controller == null)
 				return;
@@ -169,7 +169,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.Position = view.Position;
 		}
 
-		void SeekRequested(object sender, SeekRequested e)
+		void SeekRequested(object? sender, SeekRequested e)
 		{
 			if (view == null || Controller == null)
 				return;
@@ -238,7 +238,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
-		void MetadataRetrieved(object sender, EventArgs e)
+		void MetadataRetrieved(object? sender, EventArgs e)
 		{
 			if (view == null || Controller == null)
 				return;
@@ -250,7 +250,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Device.BeginInvokeOnMainThread(UpdateLayoutParameters);
 		}
 
-		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
@@ -308,7 +308,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (MediaElement.Source is XCT.UriMediaSource uriSource)
 				{
-					if (uriSource.Uri.Scheme is "ms-appx")
+					if (uriSource.Uri?.Scheme is "ms-appx")
 					{
 						if (uriSource.Uri.LocalPath.Length <= 1)
 							return;
@@ -318,7 +318,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							uriSource.Uri.LocalPath[1..uriSource.Uri.LocalPath.LastIndexOf('.')].ToLower();
 						view.SetVideoURI(global::Android.Net.Uri.Parse(uri));
 					}
-					else if (uriSource.Uri.Scheme is "ms-appdata")
+					else if (uriSource.Uri?.Scheme is "ms-appdata")
 					{
 						var filePath = ResolveMsAppDataUri(uriSource.Uri);
 
@@ -327,16 +327,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 						view.SetVideoPath(filePath);
 					}
-					else
+					else if (uriSource.Uri != null)
 					{
-						if (uriSource.Uri.IsFile)
+						if (uriSource.Uri.IsFile is true)
 							view.SetVideoPath(uriSource.Uri.AbsolutePath);
 						else
 							view.SetVideoURI(global::Android.Net.Uri.Parse(uriSource.Uri.ToString()));
 					}
+					else
+					{
+						throw new InvalidOperationException($"{nameof(uriSource.Uri)} not initialized");
+					}
 				}
 				else if (MediaElement.Source is XCT.FileMediaSource fileSource)
+				{
 					view.SetVideoPath(fileSource.File);
+				}
 
 				if (MediaElement.AutoPlay)
 				{
@@ -534,7 +540,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return true;
 		}
 
-		void OnMpBufferingUpdate(object sender, MediaPlayer.BufferingUpdateEventArgs e)
+		void OnMpBufferingUpdate(object? sender, MediaPlayer.BufferingUpdateEventArgs e)
 		{
 			if (Controller != null)
 				Controller.BufferingProgress = e.Percent / 100f;

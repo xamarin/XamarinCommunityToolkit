@@ -90,7 +90,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Element?.OnOpened();
 		}
 
-		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
+		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
 		{
 			if (Element is BasePopup basePopup)
 			{
@@ -129,7 +129,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetSize(in BasePopup basePopup)
 		{
-			if (basePopup.Size != default)
+			if (basePopup.Content != null && basePopup.Size != default)
 			{
 				var decorView = (ViewGroup)(Window?.DecorView ?? throw new NullReferenceException());
 				var child = (FrameLayout)(decorView?.GetChildAt(0) ?? throw new NullReferenceException());
@@ -292,7 +292,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Window?.SetGravity(gravityFlags);
 		}
 
-		void OnDismissed(object sender, PopupDismissedEventArgs e) => Dismiss();
+		void OnDismissed(object? sender, PopupDismissedEventArgs e) => Dismiss();
 
 		public void OnCancel(IDialogInterface? dialog)
 		{

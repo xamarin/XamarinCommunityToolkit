@@ -23,10 +23,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e)
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
 				Assert.NotNull(sender);
-				Assert.Equal(GetType(), sender.GetType());
+				Assert.Equal(GetType(), sender?.GetType());
 
 				Assert.NotNull(e);
 
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e)
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
 				Assert.Null(sender);
 				Assert.NotNull(e);
@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 
@@ -90,10 +90,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e)
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
 				Assert.NotNull(sender);
-				Assert.Equal(GetType(), sender.GetType());
+				Assert.Equal(GetType(), sender?.GetType());
 
 				Assert.Null(e);
 
@@ -117,7 +117,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 			propertyChangedWeakEventManager.RaiseEvent(this, new PropertyChangedEventArgs("Test"), nameof(TestStringEvent));
@@ -153,7 +153,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 
 			PropertyChanged += HandleDelegateTest;
 			PropertyChanged -= HandleDelegateTest;
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 #pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
@@ -172,7 +172,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			var didEventFire = false;
 
 			PropertyChanged += HandleDelegateTest;
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
@@ -191,7 +191,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 

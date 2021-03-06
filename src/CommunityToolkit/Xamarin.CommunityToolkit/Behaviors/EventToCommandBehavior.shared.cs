@@ -45,25 +45,25 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// The name of the event that should be associated with <see cref="Command"/>. This is bindable property.
 		/// </summary>
-		public string EventName
+		public string? EventName
 		{
-			get => (string)GetValue(EventNameProperty);
+			get => (string?)GetValue(EventNameProperty);
 			set => SetValue(EventNameProperty, value);
 		}
 
 		/// <summary>
 		/// The Command that should be executed when the event configured with <see cref="EventName"/> is triggered. This is a bindable property.
 		/// </summary>
-		public ICommand Command
+		public ICommand? Command
 		{
-			get => (ICommand)GetValue(CommandProperty);
+			get => (ICommand?)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
 		/// <summary>
 		/// An optional parameter to forward to the <see cref="Command"/>. This is a bindable property.
 		/// </summary>
-		public object CommandParameter
+		public object? CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);

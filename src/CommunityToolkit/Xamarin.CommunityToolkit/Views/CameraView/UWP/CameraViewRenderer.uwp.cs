@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		async void HandleShutter(object sender, EventArgs e)
+		async void HandleShutter(object? sender, EventArgs e)
 		{
 			if (IsBusy)
 				return;
@@ -240,7 +240,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void MediaCaptureFailed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
 			=> Element?.RaiseMediaCaptureFailed(errorEventArgs.Message);
 
-		protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override async void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{

@@ -116,9 +116,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			? contentHolder?.Measure(Width, double.PositiveInfinity).Request.Height ?? throw new NullReferenceException()
 			: contentHolder?.Measure(double.PositiveInfinity, Height).Request.Width ?? throw new NullReferenceException();
 
-		public View Header
+		public View? Header
 		{
-			get => (View)GetValue(HeaderProperty);
+			get => (View?)GetValue(HeaderProperty);
 			set => SetValue(HeaderProperty, value);
 		}
 
@@ -128,9 +128,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ContentProperty, value);
 		}
 
-		public DataTemplate ContentTemplate
+		public DataTemplate? ContentTemplate
 		{
-			get => (DataTemplate)GetValue(ContentTemplateProperty);
+			get => (DataTemplate?)GetValue(ContentTemplateProperty);
 			set => SetValue(ContentTemplateProperty, value);
 		}
 
@@ -176,15 +176,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(StateProperty, value);
 		}
 
-		public object CommandParameter
+		public object? CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);
 		}
 
-		public ICommand Command
+		public ICommand? Command
 		{
-			get => (ICommand)GetValue(CommandProperty);
+			get => (ICommand?)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
@@ -397,6 +397,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetDirection(ExpandDirection oldDirection)
 		{
+			_ = Header ?? throw new InvalidOperationException($"{nameof(Header)} not initialized");
+
 			if (oldDirection.IsVertical() == Direction.IsVertical())
 			{
 				SetHeader(Header);

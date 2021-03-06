@@ -499,25 +499,25 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static void SetShouldMakeChildrenInputTransparent(BindableObject? bindable, bool value)
 			=> bindable?.SetValue(ShouldMakeChildrenInputTransparentProperty, value);
 
-		public static ICommand GetCommand(BindableObject? bindable)
-			=> (ICommand)(bindable?.GetValue(CommandProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static ICommand? GetCommand(BindableObject? bindable)
+			=> (ICommand?)(bindable?.GetValue(CommandProperty) ?? throw new ArgumentNullException(nameof(bindable)));
 
 		public static void SetCommand(BindableObject? bindable, ICommand value)
 			=> bindable?.SetValue(CommandProperty, value);
 
-		public static ICommand GetLongPressCommand(BindableObject? bindable)
-			=> (ICommand)(bindable?.GetValue(LongPressCommandProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static ICommand? GetLongPressCommand(BindableObject? bindable)
+			=> (ICommand?)(bindable?.GetValue(LongPressCommandProperty) ?? throw new ArgumentNullException(nameof(bindable)));
 
 		public static void SetLongPressCommand(BindableObject? bindable, ICommand value)
 			=> bindable?.SetValue(LongPressCommandProperty, value);
 
-		public static object GetCommandParameter(BindableObject? bindable)
+		public static object? GetCommandParameter(BindableObject? bindable)
 			=> bindable?.GetValue(CommandParameterProperty) ?? throw new ArgumentNullException(nameof(bindable));
 
 		public static void SetCommandParameter(BindableObject? bindable, object value)
 			=> bindable?.SetValue(CommandParameterProperty, value);
 
-		public static object GetLongPressCommandParameter(BindableObject? bindable)
+		public static object? GetLongPressCommandParameter(BindableObject? bindable)
 			=> bindable?.GetValue(LongPressCommandParameterProperty) ?? throw new ArgumentNullException(nameof(bindable));
 
 		public static void SetLongPressCommandParameter(BindableObject? bindable, object value)
@@ -793,20 +793,20 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static void SetNativeAnimationShadowRadius(BindableObject? bindable, int value)
 			=> bindable?.SetValue(NativeAnimationShadowRadiusProperty, value);
 
-		public static ImageSource GetNormalBackgroundImageSource(BindableObject? bindable)
-			=> (ImageSource)(bindable?.GetValue(NormalBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static ImageSource? GetNormalBackgroundImageSource(BindableObject? bindable)
+			=> (ImageSource?)(bindable?.GetValue(NormalBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
 
 		public static void SetNormalBackgroundImageSource(BindableObject? bindable, ImageSource value)
 			=> bindable?.SetValue(NormalBackgroundImageSourceProperty, value);
 
-		public static ImageSource GetHoveredBackgroundImageSource(BindableObject? bindable)
-			=> (ImageSource)(bindable?.GetValue(HoveredBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static ImageSource? GetHoveredBackgroundImageSource(BindableObject? bindable)
+			=> (ImageSource?)(bindable?.GetValue(HoveredBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
 
 		public static void SetHoveredBackgroundImageSource(BindableObject? bindable, ImageSource value)
 			=> bindable?.SetValue(HoveredBackgroundImageSourceProperty, value);
 
-		public static ImageSource GetPressedBackgroundImageSource(BindableObject? bindable)
-			=> (ImageSource)(bindable?.GetValue(PressedBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static ImageSource? GetPressedBackgroundImageSource(BindableObject? bindable)
+			=> (ImageSource?)(bindable?.GetValue(PressedBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
 
 		public static void SetPressedBackgroundImageSource(BindableObject? bindable, ImageSource value)
 			=> bindable?.SetValue(PressedBackgroundImageSourceProperty, value);
@@ -877,13 +877,13 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		public bool ShouldMakeChildrenInputTransparent => GetShouldMakeChildrenInputTransparent(Element);
 
-		public ICommand Command => GetCommand(Element);
+		public ICommand? Command => GetCommand(Element);
 
-		public ICommand LongPressCommand => GetLongPressCommand(Element);
+		public ICommand? LongPressCommand => GetLongPressCommand(Element);
 
-		public object CommandParameter => GetCommandParameter(Element);
+		public object? CommandParameter => GetCommandParameter(Element);
 
-		public object LongPressCommandParameter => GetLongPressCommandParameter(Element);
+		public object? LongPressCommandParameter => GetLongPressCommandParameter(Element);
 
 		public int LongPressDuration => GetLongPressDuration(Element);
 
@@ -999,11 +999,11 @@ namespace Xamarin.CommunityToolkit.Effects
 			internal set => SetIsToggled(Element, value);
 		}
 
-		public ImageSource NormalBackgroundImageSource => GetNormalBackgroundImageSource(Element);
+		public ImageSource? NormalBackgroundImageSource => GetNormalBackgroundImageSource(Element);
 
-		public ImageSource HoveredBackgroundImageSource => GetHoveredBackgroundImageSource(Element);
+		public ImageSource? HoveredBackgroundImageSource => GetHoveredBackgroundImageSource(Element);
 
-		public ImageSource PressedBackgroundImageSource => GetPressedBackgroundImageSource(Element);
+		public ImageSource? PressedBackgroundImageSource => GetPressedBackgroundImageSource(Element);
 
 		public Aspect BackgroundImageAspect => GetBackgroundImageAspect(Element);
 
@@ -1127,7 +1127,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			layout.ChildAdded += OnLayoutChildAdded;
 		}
 
-		void OnLayoutChildAdded(object sender, ElementEventArgs e)
+		void OnLayoutChildAdded(object? sender, ElementEventArgs e)
 		{
 			if (e.Element is not View view)
 				return;

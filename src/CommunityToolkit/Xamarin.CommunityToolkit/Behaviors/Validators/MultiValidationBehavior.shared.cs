@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// Backing BindableProperty for the <see cref="Errors"/> property.
 		/// </summary>
 		public static readonly BindableProperty ErrorsProperty =
-			BindableProperty.Create(nameof(Errors), typeof(List<object>), typeof(MultiValidationBehavior), null, BindingMode.OneWayToSource);
+			BindableProperty.Create(nameof(Errors), typeof(List<object?>), typeof(MultiValidationBehavior), null, BindingMode.OneWayToSource);
 
 		public static readonly BindableProperty ErrorProperty =
 			BindableProperty.CreateAttached(nameof(GetError), typeof(object), typeof(MultiValidationBehavior), null);
@@ -35,9 +35,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// Holds the errors from all of the nested invalid validators in <see cref="Children"/>. This is a bindable property.
 		/// </summary>
-		public List<object>? Errors
+		public List<object?>? Errors
 		{
-			get => (List<object>)GetValue(ErrorsProperty);
+			get => (List<object?>?)GetValue(ErrorsProperty);
 			set => SetValue(ErrorsProperty, value);
 		}
 
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// </summary>
 		/// <param name="bindable">The <see cref="ValidationBehavior"/> that we extract the attached Error property</param>
 		/// <returns>Object containing error information</returns>
-		public static object GetError(BindableObject bindable) => bindable.GetValue(ErrorProperty);
+		public static object? GetError(BindableObject bindable) => bindable.GetValue(ErrorProperty);
 
 		/// <summary>
 		/// Method to set the error on the attached property for a child behavior in <see cref="Children"/>.
@@ -81,12 +81,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			}
 
 			if (!Errors?.SequenceEqual(errors) ?? true)
-				Errors = errors.ToList();
+				Errors = errors?.ToList() ?? Enumerable.Empty<object?>().ToList();
 
 			return false;
 		}
 
-		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void OnChildrenCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (e.NewItems != null)
 			{

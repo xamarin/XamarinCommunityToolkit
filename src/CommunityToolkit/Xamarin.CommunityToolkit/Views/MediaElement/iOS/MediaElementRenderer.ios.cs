@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (Element.Source is XCT.UriMediaSource uriSource)
 				{
-					if (uriSource.Uri.Scheme is "ms-appx")
+					if (uriSource.Uri?.Scheme is "ms-appx")
 					{
 						if (uriSource.Uri.LocalPath.Length <= 1)
 							return;
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						// used for a file embedded in the application package
 						asset = AVAsset.FromUrl(NSUrl.FromFilename(uriSource.Uri.LocalPath.Substring(1)));
 					}
-					else if (uriSource.Uri.Scheme == "ms-appdata")
+					else if (uriSource.Uri?.Scheme == "ms-appdata")
 					{
 						var filePath = ResolveMsAppDataUri(uriSource.Uri);
 
@@ -72,8 +72,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 						asset = AVAsset.FromUrl(NSUrl.FromFilename(filePath));
 					}
-					else
+					else if (uriSource.Uri != null)
+					{
 						asset = AVUrlAsset.Create(NSUrl.FromString(uriSource.Uri.AbsoluteUri));
+					}
+					else
+					{
+						throw new InvalidOperationException($"{nameof(uriSource.Uri)} is not initialized");
+					}
 				}
 				else
 				{
@@ -223,7 +229,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
@@ -255,7 +261,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void MediaElementSeekRequested(object sender, SeekRequested e)
+		void MediaElementSeekRequested(object? sender, SeekRequested e)
 		{
 			if (avPlayerViewController.Player?.CurrentItem == null || avPlayerViewController.Player.Status != AVPlayerStatus.ReadyToPlay)
 				return;
@@ -304,7 +310,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				avPlayerViewController.Player.Volume = (float)Element.Volume;
 		}
 
-		void MediaElementStateRequested(object sender, StateRequested e)
+		void MediaElementStateRequested(object? sender, StateRequested e)
 		{
 			switch (e.State)
 			{
@@ -357,7 +363,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Controller.OnSeekCompleted();
 		}
 
-		void MediaElementPositionRequested(object sender, EventArgs e) => Controller.Position = Position;
+		void MediaElementPositionRequested(object? sender, EventArgs e) => Controller.Position = Position;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
 		{

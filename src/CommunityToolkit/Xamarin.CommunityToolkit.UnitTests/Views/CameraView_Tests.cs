@@ -71,7 +71,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				trigged = true;
 			};
 
-			camera.ShutterCommand.Execute(null);
+			camera.ShutterCommand?.Execute(null);
 
 			Assert.True(trigged);
 		}

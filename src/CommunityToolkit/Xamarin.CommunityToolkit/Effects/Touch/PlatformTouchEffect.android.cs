@@ -161,7 +161,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		void OnTouch(object sender, AView.TouchEventArgs e)
+		void OnTouch(object? sender, AView.TouchEventArgs e)
 		{
 			e.Handled = false;
 
@@ -214,7 +214,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		void OnTouchCancel()
 			=> HandleEnd(TouchStatus.Canceled);
 
-		void OnTouchMove(object sender, AView.TouchEventArgs e)
+		void OnTouchMove(object? sender, AView.TouchEventArgs e)
 		{
 			if (IsCanceled || e.Event == null)
 				return;
@@ -263,7 +263,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			effect?.HandleHover(HoverStatus.Exited);
 		}
 
-		void OnClick(object sender, EventArgs args)
+		void OnClick(object? sender, EventArgs args)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -357,10 +357,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				new[] { (int)nativeAnimationColor.ToAndroid() });
 		}
 
-		void OnLayoutChange(object sender, AView.LayoutChangeEventArgs e)
+		void OnLayoutChange(object? sender, AView.LayoutChangeEventArgs e)
 		{
-			var group = (ViewGroup)sender;
-			if (group == null || (Group as IVisualElementRenderer)?.Element == null || rippleView == null)
+			if (sender is not ViewGroup group || (Group as IVisualElementRenderer)?.Element == null || rippleView == null)
 				return;
 
 			rippleView.Right = group.Width;

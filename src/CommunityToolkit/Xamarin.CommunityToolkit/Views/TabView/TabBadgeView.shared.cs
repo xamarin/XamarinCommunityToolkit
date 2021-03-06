@@ -22,9 +22,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static BindableProperty PlacementTargetProperty =
 			BindableProperty.Create(nameof(PlacementTarget), typeof(View), typeof(TabBadgeView), null);
 
-		public View PlacementTarget
+		public View? PlacementTarget
 		{
-			get => (View)GetValue(PlacementTargetProperty);
+			get => (View?)GetValue(PlacementTargetProperty);
 			set => SetValue(PlacementTargetProperty, value);
 		}
 
@@ -138,7 +138,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				badgeText.PropertyChanged -= OnBadgeTextPropertyChanged;
 		}
 
-		void OnBadgeTextPropertyChanged(object sender, PropertyChangedEventArgs e)
+		void OnBadgeTextPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName is nameof(Height) or nameof(Width) && badgeBorder is Frame frame)
 			{

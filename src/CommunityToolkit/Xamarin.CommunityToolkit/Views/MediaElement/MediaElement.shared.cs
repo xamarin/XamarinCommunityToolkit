@@ -212,7 +212,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnBindingContextChanged();
 		}
 
-		void OnSourceChanged(object sender, EventArgs eventArgs)
+		void OnSourceChanged(object? sender, EventArgs eventArgs)
 		{
 			OnPropertyChanged(SourceProperty.PropertyName);
 			InvalidateMeasure();

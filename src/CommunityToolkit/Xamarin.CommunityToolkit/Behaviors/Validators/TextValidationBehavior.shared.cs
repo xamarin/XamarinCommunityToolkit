@@ -74,9 +74,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// The regular expression pattern which the value will have to match before it will be allowed. This is a bindable property.
 		/// </summary>
-		public string RegexPattern
+		public string? RegexPattern
 		{
-			get => (string)GetValue(RegexPatternProperty);
+			get => (string?)GetValue(RegexPatternProperty);
 			set => SetValue(RegexPatternProperty, value);
 		}
 

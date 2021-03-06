@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
-		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
+		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName == BasePopup.VerticalOptionsProperty.PropertyName ||
 				args.PropertyName == BasePopup.HorizontalOptionsProperty.PropertyName ||
@@ -245,12 +245,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		UIElement? IVisualElementRenderer.GetNativeElement() => Control;
 
-		void OnDismissed(object sender, PopupDismissedEventArgs e)
+		void OnDismissed(object? sender, PopupDismissedEventArgs e)
 		{
 			Hide();
 		}
 
-		void OnClosing(object sender, object e)
+		void OnClosing(object? sender, object e)
 		{
 			if (IsOpen && Element?.IsLightDismissEnabled is true)
 				Element.LightDismiss();

@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		protected TView? View { get; private set; }
 
-		protected virtual void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected virtual void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 		}
 

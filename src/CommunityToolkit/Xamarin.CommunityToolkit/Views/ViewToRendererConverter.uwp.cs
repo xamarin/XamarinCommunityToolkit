@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				view.MeasureInvalidated -= OnMeasureInvalidated;
 			}
 
-			void OnMeasureInvalidated(object sender, EventArgs e)
+			void OnMeasureInvalidated(object? sender, EventArgs e)
 			{
 				InvalidateMeasure();
 			}

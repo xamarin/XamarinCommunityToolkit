@@ -7,9 +7,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty AnimationTypeProperty =
 			BindableProperty.Create(nameof(AnimationType), typeof(AnimationBase), typeof(AnimationBehavior));
 
-		public AnimationBase AnimationType
+		public AnimationBase? AnimationType
 		{
-			get => (AnimationBase)GetValue(AnimationTypeProperty);
+			get => (AnimationBase?)GetValue(AnimationTypeProperty);
 			set => SetValue(AnimationTypeProperty, value);
 		}
 

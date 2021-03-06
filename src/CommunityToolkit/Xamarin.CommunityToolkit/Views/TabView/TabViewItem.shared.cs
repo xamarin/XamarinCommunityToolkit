@@ -18,9 +18,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty TextProperty =
 			BindableProperty.Create(nameof(Text), typeof(string), typeof(TabViewItem), string.Empty);
 
-		public string Text
+		public string? Text
 		{
-			get => (string)GetValue(TextProperty);
+			get => (string?)GetValue(TextProperty);
 			set => SetValue(TextProperty, value);
 		}
 
@@ -105,9 +105,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty ContentProperty =
 			BindableProperty.Create(nameof(Content), typeof(View), typeof(TabViewItem));
 
-		public View Content
+		public View? Content
 		{
-			get => (View)GetValue(ContentProperty);
+			get => (View?)GetValue(ContentProperty);
 			set => SetValue(ContentProperty, value);
 		}
 
@@ -115,9 +115,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(Icon), typeof(ImageSource), typeof(TabViewItem), null,
 			  propertyChanged: OnTabViewItemPropertyChanged);
 
-		public ImageSource Icon
+		public ImageSource? Icon
 		{
-			get => (ImageSource)GetValue(IconProperty);
+			get => (ImageSource?)GetValue(IconProperty);
 			set => SetValue(IconProperty, value);
 		}
 
@@ -125,9 +125,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(IconSelected), typeof(ImageSource), typeof(TabViewItem), null,
 			  propertyChanged: OnTabViewItemPropertyChanged);
 
-		public ImageSource IconSelected
+		public ImageSource? IconSelected
 		{
-			get => (ImageSource)GetValue(IconSelectedProperty);
+			get => (ImageSource?)GetValue(IconSelectedProperty);
 			set => SetValue(IconSelectedProperty, value);
 		}
 
@@ -165,9 +165,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static BindableProperty TabAnimationProperty =
 			BindableProperty.Create(nameof(TabAnimation), typeof(ITabViewItemAnimation), typeof(TabViewItem), null);
 
-		public ITabViewItemAnimation TabAnimation
+		public ITabViewItemAnimation? TabAnimation
 		{
-			get => (ITabViewItemAnimation)GetValue(TabAnimationProperty);
+			get => (ITabViewItemAnimation?)GetValue(TabAnimationProperty);
 			set => SetValue(TabAnimationProperty, value);
 		}
 
@@ -261,9 +261,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty CurrentIconProperty = CurrentIconPropertyKey.BindableProperty;
 
-		public ImageSource CurrentIcon
+		public ImageSource? CurrentIcon
 		{
-			get => (ImageSource)GetValue(CurrentIconProperty);
+			get => (ImageSource?)GetValue(CurrentIconProperty);
 			private set => SetValue(CurrentIconPropertyKey, value);
 		}
 
@@ -317,7 +317,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			private set => SetValue(CurrentContentPropertyKey, value);
 		}
 
-		public delegate void TabTappedEventHandler(object sender, TabTappedEventArgs e);
+		public delegate void TabTappedEventHandler(object? sender, TabTappedEventArgs e);
 
 		public event TabTappedEventHandler? TabTapped;
 

@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
-		async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		async void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			_ = camerafragment ?? throw new NullReferenceException();
 
@@ -186,7 +186,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
-		void OnShutterClicked(object sender, EventArgs e)
+		void OnShutterClicked(object? sender, EventArgs e)
 		{
 			switch (Element?.CaptureMode)
 			{

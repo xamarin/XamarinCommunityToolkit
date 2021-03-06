@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
 			originalSize = Size;
 		}
 
-		void Button_Clicked(object sender, System.EventArgs e)
+		void Button_Clicked(object? sender, System.EventArgs e)
 		{
 			if (originalSize == Size)
 			{

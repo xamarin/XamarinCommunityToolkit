@@ -95,8 +95,11 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			}
 		}
 
-		void PreventButtonHighlight(object sender, EventArgs args)
-			=> ((UIButton)sender).Highlighted = false;
+		void PreventButtonHighlight(object? sender, EventArgs args)
+		{
+			if (sender is UIButton button)
+				button.Highlighted = false;
+		}
 	}
 
 	sealed class TouchUITapGestureRecognizer : UIGestureRecognizer

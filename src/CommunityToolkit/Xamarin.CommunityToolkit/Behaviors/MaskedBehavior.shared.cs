@@ -30,9 +30,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// The mask that the input value needs to match. This is a bindable property.
 		/// </summary>
-		public string Mask
+		public string? Mask
 		{
-			get => (string)GetValue(MaskProperty);
+			get => (string?)GetValue(MaskProperty);
 			set => SetValue(MaskProperty, value);
 		}
 
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((MaskedBehavior)bindable).OnMaskChanged();
 
-		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnViewPropertyChanged(sender, e);
 
@@ -78,10 +78,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			}
 
 			var list = new Dictionary<int, char>();
-			for (var i = 0; i < Mask.Length; i++)
+			if (Mask != null)
 			{
-				if (Mask[i] != UnMaskedCharacter)
-					list.Add(i, Mask[i]);
+				for (var i = 0; i < Mask.Length; i++)
+				{
+					if (Mask[i] != UnMaskedCharacter)
+						list.Add(i, Mask[i]);
+				}
 			}
 
 			positions = list;
@@ -122,7 +125,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			if (text != null && !string.IsNullOrWhiteSpace(text) && positions != null)
 			{
-				if (text.Length > Mask.Length)
+				if (text.Length > (Mask?.Length ?? 0))
 					text = text.Remove(text.Length - 1);
 
 				text = RemoveMask(text);

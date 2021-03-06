@@ -29,9 +29,9 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			nativeView.Unloaded += OnNativeViewUnloaded;
 		}
 
-		void OnNativeViewLoaded(object sender, RoutedEventArgs e) => lifeCycleEffect?.RaiseLoadedEvent(Element);
+		void OnNativeViewLoaded(object? sender, RoutedEventArgs e) => lifeCycleEffect?.RaiseLoadedEvent(Element);
 
-		void OnNativeViewUnloaded(object sender, RoutedEventArgs e)
+		void OnNativeViewUnloaded(object? sender, RoutedEventArgs e)
 		{
 			if (lifeCycleEffect != null)
 			{

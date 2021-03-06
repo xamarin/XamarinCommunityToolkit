@@ -131,9 +131,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			rippleOverlay.Touch += OnOverlayTouch;
 		}
 
-		void OnViewTouch(object sender, AView.TouchEventArgs e) => e.Handled = false;
+		void OnViewTouch(object? sender, AView.TouchEventArgs e) => e.Handled = false;
 
-		void OnOverlayTouch(object sender, AView.TouchEventArgs e)
+		void OnOverlayTouch(object? sender, AView.TouchEventArgs e)
 		{
 			view?.DispatchTouchEvent(e.Event);
 

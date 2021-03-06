@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 	{
 		readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
-		RepositoryContributor[] contributors = Enumerable.Empty<RepositoryContributor>().ToArray();
+		RepositoryContributor[] contributors = Array.Empty<RepositoryContributor>();
 
 		RepositoryContributor? selectedContributor;
 

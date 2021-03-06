@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			remove => maxLengthReachedEventManager.RemoveEventHandler(value);
 		}
 
-		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnViewPropertyChanged(sender, e);
 			if (e.PropertyName == InputView.TextProperty.PropertyName)

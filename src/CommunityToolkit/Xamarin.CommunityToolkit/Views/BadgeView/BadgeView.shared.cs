@@ -27,9 +27,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets the <see cref="View"/> on top of which the <see cref="BadgeView"/> will be shown. This is a bindable property.
 		/// </summary>
-		public View Content
+		public View? Content
 		{
-			get => (View)GetValue(ContentProperty);
+			get => (View?)GetValue(ContentProperty);
 			set => SetValue(ContentProperty, value);
 		}
 
@@ -220,9 +220,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font of the text on the <see cref="BadgeView" />. This is a bindable property.
 		/// </summary>
-		public string FontFamily
+		public string? FontFamily
 		{
-			get => (string)GetValue(FontFamilyProperty);
+			get => (string?)GetValue(FontFamilyProperty);
 			set => SetValue(FontFamilyProperty, value);
 		}
 
@@ -443,10 +443,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				BadgeIndicatorContainer.IsVisible = badgeIsVisible;
 		}
 
-		void OnBadgeTextSizeChanged(object sender, EventArgs e)
+		void OnBadgeTextSizeChanged(object? sender, EventArgs e)
 			=> UpdateBadgeViewPlacement(true);
 
-		void OnBadgeIndicatorContainerPropertyChanged(object sender, PropertyChangedEventArgs e)
+		void OnBadgeIndicatorContainerPropertyChanged(object? sender, PropertyChangedEventArgs e)
 			=> UpdateBadgeViewPlacement(true);
 	}
 }

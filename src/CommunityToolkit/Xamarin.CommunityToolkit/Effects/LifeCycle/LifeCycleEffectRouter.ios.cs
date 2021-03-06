@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			Element.PropertyChanged += OnPropertyChanged;
 		}
 
-		void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		void OnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer" && lifeCycleEffect != null)
 			{

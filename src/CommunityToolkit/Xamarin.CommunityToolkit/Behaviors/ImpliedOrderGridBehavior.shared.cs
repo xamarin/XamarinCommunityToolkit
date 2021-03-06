@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			bindable.ChildAdded -= OnInternalGridChildAdded;
 		}
 
-		void OnInternalGridChildAdded(object sender, ElementEventArgs e) =>
+		void OnInternalGridChildAdded(object? sender, ElementEventArgs e) =>
 			ProcessElement(e.Element);
 
 		void LogWarning(string warning)

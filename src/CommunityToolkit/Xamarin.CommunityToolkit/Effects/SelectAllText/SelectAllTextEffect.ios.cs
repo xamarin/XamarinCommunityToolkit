@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			return true;
 		}
 
-		void OnEditingDidBegin(object sender, EventArgs e)
+		void OnEditingDidBegin(object? sender, EventArgs e)
 		{
 			var textfield = sender as UITextField;
 
@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			return true;
 		}
 
-		void OnTextViewFocussed(object sender, FocusEventArgs e)
+		void OnTextViewFocussed(object? sender, FocusEventArgs e)
 		{
 			var formsControl = Element as Editor;
 			if (formsControl == null)

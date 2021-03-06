@@ -34,9 +34,9 @@ namespace Xamarin.CommunityToolkit.Core
 
 		bool IsLoading => cancellationTokenSource != null;
 
-		public virtual Func<CancellationToken, Task<Stream>> Stream
+		public virtual Func<CancellationToken, Task<Stream>>? Stream
 		{
-			get => (Func<CancellationToken, Task<Stream>>)GetValue(StreamProperty);
+			get => (Func<CancellationToken, Task<Stream>>?)GetValue(StreamProperty);
 			set => SetValue(StreamProperty, value);
 		}
 
@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.Core
 			OnLoadingStarted();
 
 			if (CancellationTokenSource == null)
-				throw new Exception($"{nameof(OnLoadingStarted)} not called");
+				throw new InvalidOperationException($"{nameof(OnLoadingStarted)} not called");
 
 			userToken.Register(CancellationTokenSource.Cancel);
 			try

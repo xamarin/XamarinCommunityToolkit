@@ -45,15 +45,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnBusy(object sender, bool busy) => Element.IsBusy = busy;
+		void OnBusy(object? sender, bool busy) => Element.IsBusy = busy;
 
-		void OnAvailability(object sender, bool available)
+		void OnAvailability(object? sender, bool available)
 		{
 			Element.MaxZoom = Control.MaxZoom;
 			Element.IsAvailable = available;
 		}
 
-		void FinishCapture(object sender, Tuple<NSObject?, NSError?> e)
+		void FinishCapture(object? sender, Tuple<NSObject?, NSError?> e)
 		{
 			if (Element == null || Control == null)
 				return;
@@ -169,7 +169,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
-		protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
 
@@ -197,7 +197,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		async void HandleShutter(object sender, EventArgs e)
+		async void HandleShutter(object? sender, EventArgs e)
 		{
 			switch (Element.CaptureMode)
 			{

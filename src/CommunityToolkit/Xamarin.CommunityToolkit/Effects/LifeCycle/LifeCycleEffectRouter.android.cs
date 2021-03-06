@@ -29,9 +29,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			nativeView.ViewDetachedFromWindow += OnNativeViewViewDetachedFromWindow;
 		}
 
-		void OnNativeViewViewAttachedToWindow(object sender, View.ViewAttachedToWindowEventArgs e) => lifeCycleEffect?.RaiseLoadedEvent(Element);
+		void OnNativeViewViewAttachedToWindow(object? sender, View.ViewAttachedToWindowEventArgs e) => lifeCycleEffect?.RaiseLoadedEvent(Element);
 
-		void OnNativeViewViewDetachedFromWindow(object sender, View.ViewDetachedFromWindowEventArgs e)
+		void OnNativeViewViewDetachedFromWindow(object? sender, View.ViewDetachedFromWindowEventArgs e)
 		{
 			if (lifeCycleEffect != null)
 				lifeCycleEffect.RaiseUnloadedEvent(Element);

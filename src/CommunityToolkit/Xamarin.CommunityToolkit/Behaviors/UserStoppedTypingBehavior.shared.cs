@@ -89,7 +89,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(ShouldDismissKeyboardAutomaticallyProperty, value);
 		}
 
-		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnViewPropertyChanged(sender, e);
 			if (e.PropertyName == InputView.TextProperty.PropertyName)

@@ -134,18 +134,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets the <see cref="ImageSource"/> that is used to try and show an avatar image. If the image could not be loaded, the <see cref="Text"/> will be shown. This is a bindable property.
 		/// </summary>
-		public ImageSource Source
+		public ImageSource? Source
 		{
-			get => (ImageSource)GetValue(SourceProperty);
+			get => (ImageSource?)GetValue(SourceProperty);
 			set => SetValue(SourceProperty, value);
 		}
 
 		/// <summary>
 		/// Gets or sets the text for the <see cref="AvatarView"/>. Which is shown instead of the image when the <see cref="Source"/> is either not set or doesn't result in showing an image. This is a bindable property.
 		/// </summary>
-		public string Text
+		public string? Text
 		{
-			get => (string)GetValue(TextProperty);
+			get => (string?)GetValue(TextProperty);
 			set => SetValue(TextProperty, value);
 		}
 
@@ -161,9 +161,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font of the <see cref="Text"/> on the <see cref="AvatarView" />. This is a bindable property.
 		/// </summary>
-		public string FontFamily
+		public string? FontFamily
 		{
-			get => (string)GetValue(FontFamilyProperty);
+			get => (string?)GetValue(FontFamilyProperty);
 			set => SetValue(FontFamilyProperty, value);
 		}
 

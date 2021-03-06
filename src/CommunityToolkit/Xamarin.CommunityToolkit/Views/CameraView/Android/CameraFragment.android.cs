@@ -356,11 +356,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPhoto(object sender, Tuple<string?, byte[], int> tuple) =>
+		void OnPhoto(object? sender, Tuple<string?, byte[], int> tuple) =>
 			Device.BeginInvokeOnMainThread(() =>
 				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2, tuple.Item3)));
 
-		void OnVideo(object sender, string path) =>
+		void OnVideo(object? sender, string path) =>
 			Device.BeginInvokeOnMainThread(() =>
 				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(path)));
 

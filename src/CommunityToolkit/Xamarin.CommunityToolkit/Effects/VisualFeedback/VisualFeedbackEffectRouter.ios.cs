@@ -102,7 +102,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				layer.BackgroundColor = color.ToUIColor();
 		}
 
-		async void OnTouchBegin(object sender, EventArgs e)
+		async void OnTouchBegin(object? sender, EventArgs e)
 		{
 			if (Element is not VisualElement visualElement || !visualElement.IsEnabled)
 				return;
@@ -116,7 +116,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			});
 		}
 
-		async void OnTouchEnd(object sender, EventArgs e)
+		async void OnTouchEnd(object? sender, EventArgs e)
 		{
 			if (Element is not VisualElement visualElement || !visualElement.IsEnabled)
 				return;

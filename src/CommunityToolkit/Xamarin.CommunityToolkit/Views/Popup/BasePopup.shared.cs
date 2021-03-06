@@ -38,9 +38,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <remarks>
 		/// The View can be or type: <see cref="View"/>, <see cref="ContentPage"/> or <see cref="NavigationPage"/>
 		/// </remarks>
-		public virtual View Content
+		public virtual View? Content
 		{
-			get => (View)GetValue(ContentProperty);
+			get => (View?)GetValue(ContentProperty);
 			set => SetValue(ContentProperty, value);
 		}
 

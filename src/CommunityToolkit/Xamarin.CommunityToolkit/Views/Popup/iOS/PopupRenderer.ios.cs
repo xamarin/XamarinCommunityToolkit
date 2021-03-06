@@ -97,7 +97,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
-		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
+		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName == BasePopup.VerticalOptionsProperty.PropertyName ||
 				args.PropertyName == BasePopup.HorizontalOptionsProperty.PropertyName)
@@ -220,7 +220,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			((UIPopoverPresentationController)PresentationController).Delegate = popOverDelegate;
 		}
 
-		void HandlePopoverDelegateDismissed(object sender, UIPresentationController e)
+		void HandlePopoverDelegateDismissed(object? sender, UIPresentationController e)
 		{
 			_ = Element ?? throw new NullReferenceException();
 
@@ -236,7 +236,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ViewController.PresentViewController(this, true, () => Element.OnOpened());
 		}
 
-		async void OnDismissed(object sender, PopupDismissedEventArgs e)
+		async void OnDismissed(object? sender, PopupDismissedEventArgs e)
 		{
 			if (ViewController != null)
 				await ViewController.DismissViewControllerAsync(true);

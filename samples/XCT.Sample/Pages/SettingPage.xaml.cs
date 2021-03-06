@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 			InitializeComponent();
 		}
 
-		async void OnCloseClicked(object sender, EventArgs e)
+		async void OnCloseClicked(object? sender, EventArgs e)
 			=> await Navigation.PopModalAsync();
 	}
 }

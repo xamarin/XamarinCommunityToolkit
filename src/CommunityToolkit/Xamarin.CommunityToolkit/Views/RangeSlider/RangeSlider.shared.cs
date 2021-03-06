@@ -278,15 +278,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ValueLabelStringFormatProperty, value);
 		}
 
-		public View LowerThumbView
+		public View? LowerThumbView
 		{
-			get => (View)GetValue(LowerThumbViewProperty);
+			get => (View?)GetValue(LowerThumbViewProperty);
 			set => SetValue(LowerThumbViewProperty, value);
 		}
 
-		public View UpperThumbView
+		public View? UpperThumbView
 		{
-			get => (View)GetValue(UpperThumbViewProperty);
+			get => (View?)GetValue(UpperThumbViewProperty);
 			set => SetValue(UpperThumbViewProperty, value);
 		}
 
@@ -537,7 +537,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
-		void OnViewSizeChanged(object sender, System.EventArgs e)
+		void OnViewSizeChanged(object? sender, System.EventArgs e)
 		{
 			var maxHeight = Max(LowerValueLabel.Height, UpperValueLabel.Height);
 			if ((sender == LowerValueLabel || sender == UpperValueLabel) && labelMaxHeight == maxHeight)
@@ -550,9 +550,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnLayoutPropertyChanged();
 		}
 
-		void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+		void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
-			var view = (View)sender;
+			if (sender is not View view)
+				return;
+
 			switch (e.StatusType)
 			{
 				case GestureStatus.Started:
