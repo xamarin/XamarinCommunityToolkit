@@ -98,12 +98,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				return;
 			}
 
-			var originalText = RemoveMask_NullableString(View?.Text);
+			var originalText = RemoveMaskNullableString(View?.Text);
 			SetPositions();
 			ApplyMask(originalText);
 		}
 
-		string? RemoveMask_NullableString(string? text)
+		string? RemoveMaskNullableString(string? text)
 		{
 			if (text == null || string.IsNullOrEmpty(text))
 				return text;
