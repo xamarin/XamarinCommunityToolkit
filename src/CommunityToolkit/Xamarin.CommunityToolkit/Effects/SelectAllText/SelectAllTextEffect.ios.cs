@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			UITextField textField => ApplyToUITextField(textField, apply),
 			UITextView _ => ApplyToUITextView(apply),
-			_ => throw new NotSupportedException($"Control of type: {controlType?.GetType().Name} is not supported by this effect.")
+			_ => throw new NotSupportedException($"Control of type: {controlType?.GetType()?.Name} is not supported by this effect.")
 		};
 
 		#region - UITextField
