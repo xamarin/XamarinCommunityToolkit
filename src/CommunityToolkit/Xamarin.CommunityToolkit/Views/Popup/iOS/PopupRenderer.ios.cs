@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.ViewDidLayoutSubviews();
 
-			_ = View ?? throw new NullReferenceException();
+			_ = View ?? throw new InvalidOperationException($"{nameof(View)} cannot be null");
 			SetElementSize(new Size(View.Bounds.Width, View.Bounds.Height));
 		}
 
@@ -50,7 +50,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.ViewDidAppear(animated);
 
-			_ = Element ?? throw new NullReferenceException();
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 			ModalInPopover = !Element.IsLightDismissEnabled;
 		}
 
@@ -118,7 +118,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void CreateControl()
 		{
-			_ = Element ?? throw new NullReferenceException();
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 
 			var view = Element.Content;
 			var contentPage = new ContentPage { Content = view, Padding = new Thickness(25) };
@@ -136,13 +136,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetEvents()
 		{
-			_ = Element ?? throw new NullReferenceException();
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 			Element.Dismissed += OnDismissed;
 		}
 
 		void SetSize()
 		{
-			_ = Element ?? throw new NullReferenceException();
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 			if (!Element.Size.IsZero)
 			{
 				PreferredContentSize = new CGSize(Element.Size.Width, Element.Size.Height);
@@ -153,7 +153,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			((UIPopoverPresentationController)PresentationController).SourceRect = new CGRect(0, 0, PreferredContentSize.Width, PreferredContentSize.Height);
 
-			_ = Element ?? throw new NullReferenceException();
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 			if (Element.Anchor == null)
 			{
 				var originY = Element.VerticalOptions.Alignment switch
@@ -194,16 +194,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetBackgroundColor()
 		{
-			_ = Element ?? throw new NullReferenceException();
-			_ = Control ?? throw new NullReferenceException();
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
+			_ = Control ?? throw new InvalidOperationException($"{nameof(Control)} cannot be null");
 
 			Control.NativeView.BackgroundColor = Element.Color.ToUIColor();
 		}
 
 		void SetView()
 		{
-			_ = View ?? throw new NullReferenceException();
-			_ = Control ?? throw new NullReferenceException();
+			_ = View ?? throw new InvalidOperationException($"{nameof(View)} cannot be null");
+			_ = Control ?? throw new InvalidOperationException($"{nameof(Control)} cannot be null");
 
 			View.AddSubview(Control.ViewController.View ?? throw new NullReferenceException());
 			View.Bounds = new CGRect(0, 0, PreferredContentSize.Width, PreferredContentSize.Height);
@@ -230,8 +230,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void AddToCurrentPageViewController()
 		{
-			_ = ViewController ?? throw new NullReferenceException();
-			_ = Element ?? throw new NullReferenceException();
+			_ = ViewController ?? throw new InvalidOperationException($"{nameof(ViewController)} cannot be null");
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 
 			ViewController.PresentViewController(this, true, () => Element.OnOpened());
 		}
