@@ -160,9 +160,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			backgroundThread = new HandlerThread("CameraBackground");
 			backgroundThread.Start();
-#pragma warning disable CS8604 // Possible null reference argument.
-			backgroundHandler = new Handler(backgroundThread.Looper);
-#pragma warning restore CS8604 // Possible null reference argument.
+			backgroundHandler = new Handler(backgroundThread?.Looper ?? throw new NullReferenceException());
 		}
 
 		void StopBackgroundThread()
