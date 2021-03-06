@@ -6,8 +6,8 @@ variables:
   NugetPackageVersion: '$(CurrentSemanticVersion)'
   #MONO_VERSION: 6_4_0
   #XCODE_VERSION: 11.4
-  NETCORE_VERSION: '3.1.x'
-  NETCORE_TEST_VERSION: '3.1.x'
+  NETCORE_VERSION: '5.0.x'
+  NETCORE_TEST_VERSION: '5.0.x'
   RunPoliCheck: 'false'
   PathToCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
