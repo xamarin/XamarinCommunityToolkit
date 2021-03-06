@@ -108,8 +108,11 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			Task.Delay(StoppedTypingTimeThreshold, tokenSource.Token)
 				.ContinueWith(task =>
 				{
+					if (task.IsFaulted)
+						throw task.Exception;
+
 					if (task.Status == TaskStatus.Canceled ||
-						View?.Text.Length < MinimumLengthThreshold)
+						View?.Text?.Length < MinimumLengthThreshold)
 						return;
 
 					if (View != null && ShouldDismissKeyboardAutomatically)
