@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class MediaCapturedEventArgs : EventArgs
 	{
 		readonly string? path;
-		readonly Lazy<ImageSource> imageSource;
+		readonly Lazy<ImageSource?> imageSource;
 		readonly Lazy<XCT.FileMediaSource?> mediaSource;
 
 		internal MediaCapturedEventArgs(
@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			this.path = path;
 			Rotation = rotation;
 			ImageData = imageData;
-			imageSource = new Lazy<ImageSource>(GetImageSource);
+			imageSource = new Lazy<ImageSource?>(GetImageSource);
 			mediaSource = new Lazy<XCT.FileMediaSource?>(GetMediaSource);
 		}
 
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public XCT.FileMediaSource? Video => mediaSource.Value;
 
-		ImageSource GetImageSource()
+		ImageSource? GetImageSource()
 		{
 			if (ImageData != null)
 				return ImageSource.FromStream(() => new MemoryStream(ImageData));

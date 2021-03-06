@@ -201,7 +201,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (view != null)
 				return view;
 
-			return new Label{ Text = $"View for {state}{customState} not defined." };
+			return new Label { Text = $"View for {state}{customState} not defined." };
 		}
 
 		async Task ChildrenFadeTo(Layout<View> layout, bool animate, bool isHide)

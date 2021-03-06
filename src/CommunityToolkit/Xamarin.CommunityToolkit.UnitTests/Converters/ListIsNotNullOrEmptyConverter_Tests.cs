@@ -11,10 +11,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	{
 		public static IEnumerable<object?[]> GetData() => new List<object?[]>
 		{
-			new object[] { new List<string>(), false},
-			new object[] { new List<string>() { "TestValue"}, true},
-			new object?[] { null, false},
-			new object[] { Enumerable.Range(1, 3), true},
+			new object[] { new List<string>(), false },
+			new object[] { new List<string>() { "TestValue" }, true },
+			new object?[] { null, false },
+			new object[] { Enumerable.Range(1, 3), true },
 		};
 
 		[Theory]

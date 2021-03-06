@@ -10,12 +10,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	public class ListIsNullOrEmptyConverter_Tests
 	{
 		public static IEnumerable<object?[]> GetData() => new List<object?[]>
-			{
-				new object[] { new List<string>(), true},
-				new object[] { new List<string>() { "TestValue" }, false},
-				new object?[] { null, true },
-				new object[] { Enumerable.Range(1, 3), false },
-			};
+		{
+			new object[] { new List<string>(), true },
+			new object[] { new List<string>() { "TestValue" }, false },
+			new object?[] { null, true },
+			new object[] { Enumerable.Range(1, 3), false },
+		};
 
 		[Theory]
 		[MemberData(nameof(GetData))]

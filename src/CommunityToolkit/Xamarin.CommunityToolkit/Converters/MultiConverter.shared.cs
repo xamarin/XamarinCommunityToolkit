@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>The converted value.</returns>
 		public object? Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
-			=> parameter is IList<MultiConverterParameter> parameters 
+			=> parameter is IList<MultiConverterParameter> parameters
 			? this.Aggregate(value, (current, converter) => converter.Convert(current, targetType,
 					 parameters.FirstOrDefault(x => x.ConverterType == converter.GetType())?.Value, culture))
 			: this.Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));

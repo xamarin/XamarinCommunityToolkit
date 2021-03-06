@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return false;
 
 			// Let the container know that we're "fake" handling this event
-			//renderer.NotifyFakeHandling();
+			// renderer.NotifyFakeHandling();
 
 			return true;
 		}
