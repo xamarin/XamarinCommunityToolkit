@@ -451,6 +451,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void AddPlayedToEndObserver()
 		{
+			DestroyPlayedToEndObserver();
+			playedToEndObserver =
+				NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
 		}
 
 		void DestroyVolumeObserver() => DisposeObservers(ref volumeObserver);
