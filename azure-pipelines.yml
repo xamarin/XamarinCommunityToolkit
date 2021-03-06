@@ -195,10 +195,6 @@ jobs:
         inputs:
           script: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $(PathToCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CmdLine@2
-        displayName: 'Run Unit Tests'
-        inputs:
-          script: dotnet test $(PathToUnitTestCsproj) -c 'Release' --collect "Code coverage"      
-      - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
           script: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $(PathToCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
