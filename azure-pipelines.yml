@@ -79,6 +79,16 @@ jobs:
         inputs:
           version: $(NETCORE_TEST_VERSION)
           includePreviewVersions: false
+      - task: UseDotNet@2
+        displayName: 'Use .Net 2.1 SDK'
+        inputs:
+          version: '2.1.x'
+          includePreviewVersions: false
+      - task: UseDotNet@2
+        displayName: 'Use .Net 2.1 SDK'
+        inputs:
+          version: '3.1.x'
+          includePreviewVersions: false
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
