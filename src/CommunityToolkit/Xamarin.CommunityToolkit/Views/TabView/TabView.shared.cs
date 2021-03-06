@@ -466,7 +466,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				foreach (var newTabViewItem in e.NewItems)
 				{
 					if (newTabViewItem is TabViewItem tabViewItem)
-						AddTabViewItem(tabViewItem, TabItems.IndexOf(newTabViewItem));
+						AddTabViewItem(tabViewItem, TabItems.IndexOf(tabViewItem));
 				}
 			}
 		}

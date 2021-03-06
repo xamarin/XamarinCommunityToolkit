@@ -165,7 +165,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			var typeRTDynamicMethod = typeInfoRTDynamicMethod?.AsType();
 
 			if (typeInfoRTDynamicMethod != null && typeInfoRTDynamicMethod.IsAssignableFrom(rtDynamicMethod.GetType().GetTypeInfo()))
-				return (DynamicMethod?)typeRTDynamicMethod.GetRuntimeFields()?.FirstOrDefault(f => f.Name is "m_owner")?.GetValue(rtDynamicMethod);
+				return (DynamicMethod?)typeRTDynamicMethod?.GetRuntimeFields()?.FirstOrDefault(f => f?.Name is "m_owner")?.GetValue(rtDynamicMethod);
 			else
 				return null;
 		}

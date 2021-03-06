@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Extensions
 
 			void handler(object? sender, PropertyChangedEventArgs e)
 			{
-				var s = (T)weakSubscriber.Target;
+				var s = (T?)weakSubscriber.Target;
 				if (s == null)
 				{
 					target.PropertyChanged -= handler;

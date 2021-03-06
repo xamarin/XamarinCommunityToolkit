@@ -29,7 +29,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (handler == null)
 				throw new ArgumentNullException(nameof(handler));
 
-			EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
+			var methodInfo = handler.GetMethodInfo() ?? throw new NullReferenceException("Could not locate MethodInfo");
+
+			EventManagerService.AddEventHandler(eventName, handler.Target, methodInfo, eventHandlers);
 		}
 
 		/// <summary>
@@ -45,7 +47,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (action == null)
 				throw new ArgumentNullException(nameof(action));
 
-			EventManagerService.AddEventHandler(eventName, action.Target, action.GetMethodInfo(), eventHandlers);
+			var methodInfo = action.GetMethodInfo() ?? throw new NullReferenceException("Could not locate MethodInfo");
+
+			EventManagerService.AddEventHandler(eventName, action.Target, methodInfo, eventHandlers);
 		}
 
 		/// <summary>
@@ -61,7 +65,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (handler == null)
 				throw new ArgumentNullException(nameof(handler));
 
-			EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
+			var methodInfo = handler.GetMethodInfo() ?? throw new NullReferenceException("Could not locate MethodInfo");
+
+			EventManagerService.RemoveEventHandler(eventName, handler.Target, methodInfo, eventHandlers);
 		}
 
 		/// <summary>
@@ -77,7 +83,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (action == null)
 				throw new ArgumentNullException(nameof(action));
 
-			EventManagerService.RemoveEventHandler(eventName, action.Target, action.GetMethodInfo(), eventHandlers);
+			var methodInfo = action.GetMethodInfo() ?? throw new NullReferenceException("Could not locate MethodInfo");
+
+			EventManagerService.RemoveEventHandler(eventName, action.Target, methodInfo, eventHandlers);
 		}
 
 		/// <summary>
@@ -113,11 +121,15 @@ namespace Xamarin.CommunityToolkit.Helpers
 			EventManagerService.HandleEvent(eventName, eventArgs, eventHandlers);
 	}
 
+	/// <summary>
+	/// Extensions for Xamarin.Forms.WeakEventManager
+	/// </summary>
 	public static class WeakEventManagerExtensions
 	{
 		/// <summary>
 		/// Invokes the event EventHandler
 		/// </summary>
+		/// <param name="weakEventManager">WeakEventManager</param>
 		/// <param name="sender">Sender</param>
 		/// <param name="eventArgs">Event arguments</param>
 		/// <param name="eventName">Event name</param>

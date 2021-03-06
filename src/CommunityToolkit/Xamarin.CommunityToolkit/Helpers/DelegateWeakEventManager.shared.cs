@@ -26,7 +26,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (handler == null)
 				throw new ArgumentNullException(nameof(handler));
 
-			EventManagerService.AddEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
+			var methodInfo = handler.GetMethodInfo() ?? throw new NullReferenceException("Could not locate MethodInfo");
+
+			EventManagerService.AddEventHandler(eventName, handler.Target, methodInfo, eventHandlers);
 		}
 
 		/// <summary>
@@ -42,7 +44,9 @@ namespace Xamarin.CommunityToolkit.Helpers
 			if (handler == null)
 				throw new ArgumentNullException(nameof(handler));
 
-			EventManagerService.RemoveEventHandler(eventName, handler.Target, handler.GetMethodInfo(), eventHandlers);
+			var methodInfo = handler.GetMethodInfo() ?? throw new NullReferenceException("Could not locate MethodInfo");
+
+			EventManagerService.RemoveEventHandler(eventName, handler.Target, methodInfo, eventHandlers);
 		}
 
 		/// <summary>
