@@ -43,9 +43,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		void OnEditingDidBegin(object? sender, EventArgs e)
 		{
-			var textfield = sender as UITextField;
-
-			if (textfield == null)
+			if (sender is not UITextField textfield)
 				return;
 
 			textfield.PerformSelector(new Selector("selectAll"), null, 0.0f);
@@ -57,8 +55,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		bool ApplyToUITextView(bool apply)
 		{
-			var formsControl = Element as Editor;
-			if (formsControl == null)
+			if (Element is not Editor formsControl)
 				return false;
 
 			if (apply)
@@ -71,12 +68,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		void OnTextViewFocussed(object? sender, FocusEventArgs e)
 		{
-			var formsControl = Element as Editor;
-			if (formsControl == null)
+			if (Element is not Editor formsControl)
 				return;
 
-			var textView = Control as UITextView;
-			if (textView == null)
+			if (Control is not UITextView textView)
 				return;
 
 			if (formsControl.IsFocused)
