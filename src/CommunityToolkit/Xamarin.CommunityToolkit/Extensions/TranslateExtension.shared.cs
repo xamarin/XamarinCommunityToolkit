@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Resources;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,27 +14,41 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public string StringFormat { get; set; }
 
+		public ResourceManager ResourceManager { get; set; } = LocalizationResourceManager.Current.DefaultResourceManager;
+
 		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) => ProvideValue(serviceProvider);
 
 		public BindingBase ProvideValue(IServiceProvider serviceProvider)
 		{
 #if !NETSTANDARD1_0
-			#region Required work-around to prevent linker from removing the implementation
-			if (DateTime.Now.Ticks < 0)
-				_ = LocalizationResourceManager.Current[Text];
-			#endregion
-
 			var binding = new Binding
 			{
 				Mode = BindingMode.OneWay,
 				Path = $"[{Text}]",
-				Source = LocalizationResourceManager.Current,
+				Source = new ResourceManagerWithIndexer(ResourceManager),
 				StringFormat = StringFormat
 			};
 			return binding;
 #else
 			throw new NotSupportedException("Translate XAML MarkupExtension is not supported on .NET Standard 1.0");
 #endif
+		}
+
+		public class ResourceManagerWithIndexer : ObservableObject
+		{
+			readonly ResourceManager resourceManager;
+
+			public ResourceManagerWithIndexer(ResourceManager resourceManager)
+			{
+				this.resourceManager = resourceManager;
+
+				// This instance will be unsubscribed and GCed if no one references it
+				// since LocalizationResourceManager uses WeekEventManger
+				LocalizationResourceManager.Current.PropertyChanged += (sender, e) => OnPropertyChanged(null);
+			}
+
+			public string this[string name] =>
+				resourceManager.GetString(name);
 		}
 	}
 }
