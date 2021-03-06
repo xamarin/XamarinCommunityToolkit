@@ -170,9 +170,10 @@ jobs:
         inputs:
           version: $(NETCORE_TEST_VERSION)
           includePreviewVersions: false
-      - name: Build Solution Using the Latest Version of MSBuild
-        run: |                    
-          mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $(PathToCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false
+      - task: CmdLine@2
+        displayName: 'Build Solution'
+        inputs:
+          script: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $(PathToCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: MSBuild@1
         displayName: Pack NuGets
         inputs:
