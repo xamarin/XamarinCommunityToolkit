@@ -552,8 +552,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
-			if (sender is not View view)
-				return;
+			var view = (View)(sender ?? throw new NullReferenceException($"{nameof(sender)} cannot be null"));
 
 			switch (e.StatusType)
 			{
