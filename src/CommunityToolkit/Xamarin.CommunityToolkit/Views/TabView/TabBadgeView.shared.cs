@@ -40,8 +40,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static async void OnAutoHideChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			if (bindable is TabBadgeView tabBadgeView)
-				await tabBadgeView.UpdateVisibilityAsync();
+			var tabBadgeView = (TabBadgeView)bindable;
+			await tabBadgeView.UpdateVisibilityAsync();
 		}
 
 		public static BindableProperty IsAnimatedProperty =
