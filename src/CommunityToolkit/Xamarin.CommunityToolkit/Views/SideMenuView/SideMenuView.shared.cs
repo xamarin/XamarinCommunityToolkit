@@ -536,7 +536,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (items != null)
 			{
 				foreach (var item in items)
-					action?.Invoke((View)item);
+				{
+					if (item != null && action != null)
+						action((View)item);
+				}
 			}
 		}
 

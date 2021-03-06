@@ -571,7 +571,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateTabContentHeight(count != 0 ? TabContentHeight : 0);
 		}
 
-		void AddTabViewItemFromTemplate(object item, int index = -1) => AddTabViewItemFromTemplateToTabStrip(item, index);
+		void AddTabViewItemFromTemplate(object? item, int index = -1) => AddTabViewItemFromTemplateToTabStrip(item, index);
 
 		void UpdateTabViewItemBindingContext(TabViewItem tabViewItem)
 		{
@@ -640,7 +640,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateTabViewItemTabWidth(item as TabViewItem);
 		}
 
-		void AddTabViewItemFromTemplateToTabStrip(object item, int index = -1)
+		void AddTabViewItemFromTemplateToTabStrip(object? item, int index = -1)
 		{
 			var view = TabViewItemDataTemplate is not DataTemplateSelector tabItemDataTemplate
 						? (View)(TabViewItemDataTemplate?.CreateContent() ?? throw new NullReferenceException())
@@ -714,7 +714,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			contentContainer.ItemsSource = TabItemsSource;
 
 			foreach (var item in TabItemsSource)
+			{
 				AddTabViewItemFromTemplate(item);
+			}
 
 			UpdateTabContentSize();
 			UpdateTabStripSize();
