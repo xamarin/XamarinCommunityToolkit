@@ -11,6 +11,7 @@ variables:
   RunPoliCheck: 'false'
   PathToCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
+  PathToUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
   PathToSln: 'samples/XCT.Sample.sln'
 
 resources:
@@ -131,10 +132,7 @@ jobs:
       - task: CmdLine@2
         displayName: 'Run Unit Tests'
         inputs:
-          script: |
-            UnitTestProject=`find . -name Xamarin.CommunityToolkit.UnitTests.csproj`
-            echo $UnitTestProject
-            dotnet test $UnitTestProject -c 'Release' --collect "Code coverage"'
+          script: dotnet test $(PathToUnitTestCsproj) -c 'Release' --collect "Code coverage"'
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
