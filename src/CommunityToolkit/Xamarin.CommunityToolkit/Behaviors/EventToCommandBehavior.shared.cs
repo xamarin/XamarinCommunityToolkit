@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty EventArgsConverterProperty =
 			BindableProperty.Create(nameof(EventArgsConverter), typeof(IValueConverter), typeof(EventToCommandBehavior));
 
-		readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnTriggerHandled));
+		readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo()?.GetDeclaredMethod(nameof(OnTriggerHandled)) ?? throw new NullReferenceException($"Cannot find method {nameof(OnTriggerHandled)}");
 
 		Delegate? eventHandler;
 
@@ -101,9 +101,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (View == null || string.IsNullOrWhiteSpace(eventName))
 				return;
 
-			eventInfo = View.GetType().GetRuntimeEvent(eventName) ??
+			eventInfo = View.GetType()?.GetRuntimeEvent(eventName) ??
 				throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't resolve the event.", nameof(EventName));
 
+			_ = eventInfo.EventHandlerType ?? throw new NullReferenceException();
 			_ = eventHandlerMethodInfo ?? throw new NullReferenceException($"{nameof(eventHandlerMethodInfo)} is null, maybe it's a linker issue, please open a bug here: https://github.com/xamarin/XamarinCommunityToolkit/issues/");
 
 			eventHandler = eventHandlerMethodInfo.CreateDelegate(eventInfo.EventHandlerType, this) ??

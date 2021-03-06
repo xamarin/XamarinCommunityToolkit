@@ -164,9 +164,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 			var typeInfoRTDynamicMethod = typeof(DynamicMethod).GetTypeInfo().GetDeclaredNestedType("RTDynamicMethod");
 			var typeRTDynamicMethod = typeInfoRTDynamicMethod?.AsType();
 
-			return (typeInfoRTDynamicMethod != null && typeInfoRTDynamicMethod.IsAssignableFrom(rtDynamicMethod.GetType().GetTypeInfo()))
-					? (DynamicMethod)typeRTDynamicMethod.GetRuntimeFields().First(f => f.Name is "m_owner").GetValue(rtDynamicMethod)
-					: null;
+			if (typeInfoRTDynamicMethod != null && typeInfoRTDynamicMethod.IsAssignableFrom(rtDynamicMethod.GetType().GetTypeInfo()))
+				return (DynamicMethod?)typeRTDynamicMethod.GetRuntimeFields()?.FirstOrDefault(f => f.Name is "m_owner")?.GetValue(rtDynamicMethod);
+			else
+				return null;
 		}
 
 		static bool IsLightweightMethod(this MethodBase method)
