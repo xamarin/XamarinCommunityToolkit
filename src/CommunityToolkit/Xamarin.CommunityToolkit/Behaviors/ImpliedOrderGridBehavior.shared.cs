@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		bool[][] InitMatrix()
 		{
-			if (View == null)
+			_ = View ?? new NullReferenceException($"{nameof(View)} cannot be null.");
 				throw new NullReferenceException($"{nameof(View)} cannot be null");
 
 			rowCount = View.RowDefinitions.Count;
