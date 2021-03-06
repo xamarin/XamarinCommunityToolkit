@@ -3,12 +3,16 @@ using System.ComponentModel;
 using Android.App;
 using Android.Content;
 using Android.Graphics.Drawables;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Core.Content;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using static Android.App.ActionBar;
+using AColor = Android.Graphics.Color;
+using AColorRes = Android.Resource.Color;
 using AView = Android.Views.View;
 using FormsPlatform = Xamarin.Forms.Platform.Android.Platform;
 using GravityFlags = Android.Views.GravityFlags;
@@ -124,7 +128,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetColor()
 		{
-			Window.SetBackgroundDrawable(new ColorDrawable(Element.Color.ToAndroid()));
+			if (Element.Color == Color.Default)
+			{
+				var color = Build.VERSION.SdkInt >= BuildVersionCodes.M ?
+					Context.Resources.GetColor(AColorRes.BackgroundLight, Context.Theme) :
+					new AColor(ContextCompat.GetColor(Context, AColorRes.BackgroundLight));
+
+				Window.SetBackgroundDrawable(new ColorDrawable(color));
+			}
+			else
+			{
+				Window.SetBackgroundDrawable(new ColorDrawable(Element.Color.ToAndroid()));
+			}
 		}
 
 		void SetSize()
