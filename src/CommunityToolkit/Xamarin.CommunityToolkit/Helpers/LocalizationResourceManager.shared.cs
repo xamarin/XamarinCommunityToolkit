@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
-using System.Threading;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Helpers
@@ -14,27 +13,21 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		public static LocalizationResourceManager Current => currentHolder.Value;
 
-		ResourceManager resourceManager;
-		CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
-
 		LocalizationResourceManager()
 		{
 		}
 
-		public void Init(ResourceManager resource) =>
-			resourceManager = resource;
+		public void Init(ResourceManager defaultResourceManager) =>
+			DefaultResourceManager = defaultResourceManager;
 
-		public void Init(ResourceManager resource, CultureInfo initialCulture)
+		public void Init(CultureInfo initialCulture) =>
+			CurrentCulture = initialCulture;
+
+		public void Init(ResourceManager defaultResourceManager, CultureInfo initialCulture)
 		{
-			resourceManager = resource;
+			DefaultResourceManager = defaultResourceManager;
 			CurrentCulture = initialCulture;
 		}
-
-		public string GetValue(string text) =>
-			resourceManager.GetString(text, CurrentCulture);
-
-		public string this[string text] =>
-			GetValue(text);
 
 		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -42,13 +35,23 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		public CultureInfo CurrentCulture
 		{
-			get => currentCulture;
-			set => SetProperty(ref currentCulture, value, null);
+			get => CultureInfo.DefaultThreadCurrentUICulture ?? CultureInfo.DefaultThreadCurrentCulture;
+			set
+			{
+				if (CurrentCulture == value)
+				{
+					return;
+				}
+
+				CultureInfo.DefaultThreadCurrentUICulture = value;
+				CultureInfo.DefaultThreadCurrentCulture = value;
+				OnPropertyChanged(nameof(CurrentCulture));
+			}
 		}
 
-		[Obsolete("This method is no longer needed with new implementation of " + nameof(LocalizationResourceManager) + ". Please, remove all references to it.")]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public void Invalidate() => OnPropertyChanged(null);
+		public ResourceManager DefaultResourceManager { get; private set; }
+
+		public void Invalidate() => OnPropertyChanged(nameof(CurrentCulture));
 	}
 #endif
 }
