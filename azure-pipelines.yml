@@ -68,6 +68,16 @@ jobs:
     pool:
       vmImage: windows-2019
     steps:
+      - task: UseDotNet@2
+        displayName: 'Use .NET SDK'
+        inputs:
+          version: $(NETCORE_VERSION)
+          includePreviewVersions: false
+      - task: UseDotNet@2
+        displayName: 'Use .Net SDK'
+        inputs:
+          version: $(NETCORE_TEST_VERSION)
+          includePreviewVersions: false
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
@@ -161,12 +171,12 @@ jobs:
       #  displayName: Switch to the latest Xcode
       # restore, build and pack the packages
       - task: UseDotNet@2
-        displayName: 'Use .Net Core sdk'
+        displayName: 'Use .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
           includePreviewVersions: false
       - task: UseDotNet@2
-        displayName: 'Use .Net Core sdk'
+        displayName: 'Use .Net SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION)
           includePreviewVersions: false
