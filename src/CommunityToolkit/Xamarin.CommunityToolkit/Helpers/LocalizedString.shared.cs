@@ -9,18 +9,13 @@ namespace Xamarin.CommunityToolkit.Helpers
 	{
 		readonly Func<string> generator;
 
-		public LocalizedString(Func<string> generator = null)
-			: this(LocalizationResourceManager.Current, generator)
-		{
-		}
-
-		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator = null)
+		public LocalizedString(Func<string> generator)
 		{
 			this.generator = generator;
 
 			// This instance will be unsubscribed and GCed if no one references it
 			// since LocalizationResourceManager uses WeekEventManger
-			localizationManager.PropertyChanged += (sender, e) => OnPropertyChanged(null);
+			LocalizationResourceManager.Current.PropertyChanged += (sender, e) => OnPropertyChanged(null);
 		}
 
 		public string Localized => generator?.Invoke();
