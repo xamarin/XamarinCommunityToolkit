@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		{
 #if NETSTANDARD1_0
 throw new NotSupportedException("Translate XAML MarkupExtension is not supported on .NET Standard 1.0");
-#endif
+#else
 			#region Required work-around to prevent linker from removing the implementation
 			if (DateTime.Now.Ticks < 0)
 				_ = LocalizationResourceManager.Current[Text];
@@ -32,6 +32,7 @@ throw new NotSupportedException("Translate XAML MarkupExtension is not supported
 				StringFormat = StringFormat
 			};
 			return binding;
+#endif
 		}
 	}
 }
