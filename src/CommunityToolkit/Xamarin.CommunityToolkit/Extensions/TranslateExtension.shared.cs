@@ -22,6 +22,11 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public BindingBase ProvideValue(IServiceProvider serviceProvider)
 		{
 #if !NETSTANDARD1_0
+			if (ResourceManager == null)
+			{
+				throw new ArgumentNullException($"{ResourceManager} cannot be null. Try calling LocalizationResourceManager.Current.Init(defaultResourceManager) first.");
+			}
+
 			var binding = new Binding
 			{
 				Mode = BindingMode.OneWay,
