@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 	{
 		public string Text { get; set; } = string.Empty;
 
-		public string StringFormat { get; set; } = string.Empty;
+		public string? StringFormat { get; set; }
 
 		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) => ProvideValue(serviceProvider);
 

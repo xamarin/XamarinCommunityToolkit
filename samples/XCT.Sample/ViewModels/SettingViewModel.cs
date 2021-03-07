@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 	{
 		IList<Language> supportedLanguages = Enumerable.Empty<Language>().ToList();
 
-		Language selectedLanguage;
+		Language selectedLanguage = new Language(AppResources.English, "en");
 
 		public SettingViewModel()
 		{
