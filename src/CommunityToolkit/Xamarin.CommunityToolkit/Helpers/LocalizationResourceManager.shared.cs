@@ -38,14 +38,14 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public CultureInfo CurrentCulture
 		{
 			get => currentCulture;
-			set => SetProperty(ref currentCulture, value, null);
+			set => SetProperty(ref currentCulture, value);
 		}
 
 		public ResourceManager DefaultResourceManager { get; private set; }
 
 		[Obsolete("This method is no longer needed with new implementation of " + nameof(LocalizationResourceManager) + ". Please, remove all references to it.")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
-		public void Invalidate() => OnPropertyChanged(null);
+		public void Invalidate() => OnPropertyChanged(nameof(CurrentCulture));
 	}
 #endif
 }
