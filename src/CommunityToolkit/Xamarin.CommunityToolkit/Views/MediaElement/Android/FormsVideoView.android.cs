@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SetBackgroundColor(global::Android.Graphics.Color.Transparent);
 		}
 
-		public override void SetVideoPath(string? path)
+		public override async void SetVideoPath(string? path)
 		{
 			base.SetVideoPath(path);
 
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var retriever = new MediaMetadataRetriever();
 
-				Task.Run(() =>
+				await Task.Run(() =>
 				{
 					retriever.SetDataSource(path);
 					ExtractMetadata(retriever);
@@ -50,15 +50,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				DurationTimeSpan = null;
 		}
 
-		public override void SetVideoURI(global::Android.Net.Uri? uri, IDictionary<string, string>? headers)
+		public override async void SetVideoURI(global::Android.Net.Uri? uri, IDictionary<string, string>? headers)
 		{
 			if (uri != null)
-				GetMetadata(uri, headers);
+				await GetMetadata(uri, headers);
 
 			base.SetVideoURI(uri, headers);
 		}
 
-		protected async void GetMetadata(global::Android.Net.Uri uri, IDictionary<string, string>? headers)
+		protected async Task GetMetadata(global::Android.Net.Uri uri, IDictionary<string, string>? headers)
 		{
 			var retriever = new MediaMetadataRetriever();
 

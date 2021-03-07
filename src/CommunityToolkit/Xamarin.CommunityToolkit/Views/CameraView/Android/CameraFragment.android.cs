@@ -137,8 +137,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnResume();
 			StartBackgroundThread();
+
 			if (texture == null)
 				return;
+
 			if (texture.IsAvailable)
 			{
 				UpdateBackgroundColor();
@@ -424,14 +426,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mediaRecorder = new MediaRecorder();
 			mediaRecorder.SetPreviewDisplay(previewSurface);
+
 			if (audioPermissionsGranted)
 				mediaRecorder.SetAudioSource(AudioSource.Camcorder);
+
 			mediaRecorder.SetVideoSource(AVideoSource.Surface);
 
 			var profile = GetCamcoderProfile();
 
 			if (profile != null)
+			{
 				mediaRecorder.SetProfile(profile);
+			}
 			else
 			{
 				_ = videoSize ?? throw new NullReferenceException();
@@ -473,7 +479,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public void StartRecord()
 		{
 			if (IsBusy)
+			{
 				return;
+			}
 			else if (IsRecordingVideo)
 			{
 				Element?.RaiseMediaCaptureFailed("Video already recording.");
@@ -505,7 +513,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		public async void StopRecord()
+		public async Task StopRecord()
 		{
 			if (IsBusy || !IsRecordingVideo || session == null || mediaRecorder == null)
 				return;

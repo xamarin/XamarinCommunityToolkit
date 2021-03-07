@@ -17,6 +17,7 @@ using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.UI.Views;
 using System.Reflection;
+using System.Threading.Tasks;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
 
@@ -186,7 +187,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
-		void OnShutterClicked(object? sender, EventArgs e)
+		async void OnShutterClicked(object? sender, EventArgs e)
 		{
 			switch (Element?.CaptureMode)
 			{
@@ -199,7 +200,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (camerafragment?.IsRecordingVideo is false)
 						camerafragment?.StartRecord();
 					else
-						camerafragment?.StopRecord();
+						await (camerafragment?.StopRecord() ?? Task.CompletedTask);
 					break;
 			}
 		}
