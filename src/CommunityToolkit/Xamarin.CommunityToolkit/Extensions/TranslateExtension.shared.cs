@@ -42,6 +42,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 #endif
 		}
 
+#if !NETSTANDARD1_0
 		public class ObservableResourceManager : ObservableObject
 		{
 			readonly ResourceManager resourceManager;
@@ -60,5 +61,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 			public string this[string name] =>
 				resourceManager.GetString(name, LocalizationResourceManager.Current.CurrentCulture);
 		}
+#endif
 	}
 }
