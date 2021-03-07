@@ -354,7 +354,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPhoto(object? sender, Tuple<string?, byte[], int> tuple) =>
+		void OnPhoto(object? sender, (string?, byte[], int) tuple) =>
 			Device.BeginInvokeOnMainThread(() =>
 				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2, tuple.Item3)));
 
@@ -385,10 +385,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					File.WriteAllBytes(filePath, bytes);
 				}
 				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, new Tuple<string, byte[]>(filePath, Element.SavePhotoToFile ? null : bytes));*/
+				OnPhoto(this, (filePath, Element.SavePhotoToFile ? null : bytes);*/
 
 				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, new Tuple<string?, byte[], int>(filePath, bytes, rotation));
+				OnPhoto(this, (filePath, bytes, rotation));
 			};
 
 			photoReader.SetOnImageAvailableListener(readerListener, backgroundHandler);
@@ -535,7 +535,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				CloseSession();
 
-				if (mediaRecorder == null || device == null || cameraTemplate is not CameraTemplate cameraTemplate_nonNull)
+				if (device == null || cameraTemplate is not CameraTemplate cameraTemplate_nonNull)
 					throw new NullReferenceException();
 
 				sessionBuilder = device.CreateCaptureRequest(cameraTemplate_nonNull);
@@ -559,6 +559,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (cameraTemplate is CameraTemplate.Record)
 					{
 						SetupMediaRecorder(previewSurface);
+
+						_ = mediaRecorder ?? throw new NullReferenceException($"{nameof(mediaRecorder)} not initialized");
 						var mediaSurface = mediaRecorder.Surface;
 
 						if (mediaSurface != null)

@@ -365,7 +365,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			placementDone = true;
 		}
 
-		Tuple<Thickness, Thickness> GetMargins(double size)
+		(Thickness ContainerMargin, Thickness ContentMargin) GetMargins(double size)
 		{
 			double verticalMargin;
 			double horizontalMargin;
@@ -398,7 +398,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					contentMargin = new Thickness(0, 0, verticalMargin, 0);
 					break;
 			}
-			return new Tuple<Thickness, Thickness>(containerMargin, contentMargin);
+			return (containerMargin, contentMargin);
 		}
 
 		async Task UpdateVisibilityAsync()

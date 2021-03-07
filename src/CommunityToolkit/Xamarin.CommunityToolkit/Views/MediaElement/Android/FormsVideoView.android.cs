@@ -52,27 +52,29 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override void SetVideoURI(global::Android.Net.Uri? uri, IDictionary<string, string>? headers)
 		{
-			GetMetaData(uri, headers);
+			if (uri != null)
+				GetMetadata(uri, headers);
+
 			base.SetVideoURI(uri, headers);
 		}
 
-		protected async void GetMetaData(global::Android.Net.Uri? uri, IDictionary<string, string>? headers) => await Task.Run(() =>
+		protected async void GetMetadata(global::Android.Net.Uri uri, IDictionary<string, string>? headers)
 		{
 			var retriever = new MediaMetadataRetriever();
 
-			if (uri?.Scheme != null && uri.Scheme.StartsWith("http"))
+			if (uri.Scheme != null && uri.Scheme.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase))
 			{
-				retriever.SetDataSource(uri.ToString(), headers ?? new Dictionary<string, string>());
+				await retriever.SetDataSourceAsync(uri.ToString(), headers ?? new Dictionary<string, string>());
 			}
 			else
 			{
-				retriever.SetDataSource(Context, uri);
+				await retriever.SetDataSourceAsync(Context, uri);
 			}
 
 			ExtractMetadata(retriever);
 
 			MetadataRetrieved?.Invoke(this, EventArgs.Empty);
-		});
+		}
 
 		public int VideoHeight { get; private set; }
 
