@@ -23,9 +23,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		{
 			if (handler == null || handler.Looper != Looper.MainLooper)
 			{
-#pragma warning disable CS8604 // Possible null reference argument.
-				handler = new Handler(Looper.MainLooper);
-#pragma warning restore CS8604 // Possible null reference argument.
+				handler = new Handler(Looper.MainLooper ?? throw new NullReferenceException($"{nameof(Looper.MainLooper)} cannot be null"));
 			}
 
 			handler.Post(action);
