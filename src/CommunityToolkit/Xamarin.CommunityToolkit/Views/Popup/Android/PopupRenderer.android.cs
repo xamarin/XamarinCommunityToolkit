@@ -128,18 +128,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetColor()
 		{
-			if (Element.Color == Color.Default)
-			{
-				var color = Build.VERSION.SdkInt >= BuildVersionCodes.M ?
-					Context.Resources.GetColor(AColorRes.BackgroundLight, Context.Theme) :
-					new AColor(ContextCompat.GetColor(Context, AColorRes.BackgroundLight));
+			Window.SetBackgroundDrawable(new ColorDrawable(GetWindowColor()));
+		}
 
-				Window.SetBackgroundDrawable(new ColorDrawable(color));
-			}
-			else
-			{
-				Window.SetBackgroundDrawable(new ColorDrawable(Element.Color.ToAndroid()));
-			}
+		AColor GetWindowColor()
+		{
+			if (Element.Color != Color.Default)
+				return Element.Color.ToAndroid();
+
+			return Build.VERSION.SdkInt >= BuildVersionCodes.M
+				? Context.Resources.GetColor(AColorRes.BackgroundLight, Context.Theme)
+				: new AColor(ContextCompat.GetColor(Context, AColorRes.BackgroundLight));
 		}
 
 		void SetSize()
