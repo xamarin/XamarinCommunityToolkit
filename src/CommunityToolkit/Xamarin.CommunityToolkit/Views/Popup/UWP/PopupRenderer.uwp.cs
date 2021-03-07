@@ -216,7 +216,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Placement = FlyoutPlacementMode.BottomEdgeAlignedLeft;
 			else if (IsLeft())
 				Placement = FlyoutPlacementMode.Left;
-			else if (Element?.Anchor == null)
+			else if (Element != null && Element.Anchor == null)
 				Placement = FlyoutPlacementMode.Full;
 			else
 				Placement = FlyoutPlacementMode.Top;
