@@ -4,6 +4,7 @@
                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+                xmlns:resx="clr-namespace:Xamarin.CommunityToolkit.Sample.Resx"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.SettingPage"
                 x:DataType="vm:SettingViewModel">
 
@@ -18,13 +19,16 @@
     <StackLayout Padding="{StaticResource ContentPadding}"
                  VerticalOptions="Center"
                  Spacing="10">
+        
+        <!--Example of using default ResourceManager-->
         <Label Text="{xct:Translate ChangeLanguage}"/>
 
         <Picker ItemsSource="{Binding SupportedLanguages}"
                 ItemDisplayBinding="{Binding Name}"
                 SelectedItem="{Binding SelectedLanguage}"/>
 
-        <Button Text="{xct:Translate Save}"
+        <!--Example of explicitly passing ResourceManager-->
+        <Button Text="{xct:Translate Save, ResourceManager={x:Static resx:AppResources.ResourceManager}}"
                 Command="{Binding ChangeLanguageCommand, Mode=OneTime}"/>
 
         <Label HorizontalTextAlignment="Center" Text="{Binding AppVersion.Localized}"/>

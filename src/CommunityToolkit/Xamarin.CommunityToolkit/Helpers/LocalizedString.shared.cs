@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 			// This instance will be unsubscribed and GCed if no one references it
 			// since LocalizationResourceManager uses WeekEventManger
-			LocalizationResourceManager.Current.PropertyChanged += (sender, e) => OnPropertyChanged(null);
+			LocalizationResourceManager.Current.PropertyChanged += (sender, e) => OnPropertyChanged(nameof(Localized));
 		}
 
 		public string Localized => generator?.Invoke();
