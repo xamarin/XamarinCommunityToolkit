@@ -404,7 +404,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public async Task AsyncCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
-			var canExecuteChangedGreaterThan1TCS = new TaskCompletionSource<object?>();
+			var canExecuteChangedGreaterThan1TCS = new TaskCompletionSource<int>();
 
 			var canExecuteChangedCount = 0;
 
@@ -422,16 +422,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			await asyncCommandTask;
-			await canExecuteChangedGreaterThan1TCS.Task;
+			var canExecuteChangedGreaterThan1Result = await canExecuteChangedGreaterThan1TCS.Task;
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, canExecuteChangedGreaterThan1Result);
 
 			void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
-				if (++canExecuteChangedCount > 1)
-					canExecuteChangedGreaterThan1TCS.SetResult(null);
+				if (++canExecuteChangedCount is 2)
+					canExecuteChangedGreaterThan1TCS.SetResult(canExecuteChangedCount);
 			}
 		}
 	}

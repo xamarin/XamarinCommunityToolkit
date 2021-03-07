@@ -245,11 +245,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		{
 			// Arrange
 			var canExecuteChangedCount = 0;
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				if (++canExecuteChangedCount is 2)
+					handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+			}
 
 			// Act
 			command.Execute(Delay);
@@ -258,8 +263,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(command.CanExecute(null));
@@ -297,11 +301,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		{
 			// Arrange
 			var canExecuteChangedCount = 0;
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			ICommand command = new AsyncValueCommand(() => IntParameterTask(Delay), allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				if (++canExecuteChangedCount is 2)
+					handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+			}
 
 			// Act
 			command.Execute(null);
@@ -310,12 +319,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 	}
 }
