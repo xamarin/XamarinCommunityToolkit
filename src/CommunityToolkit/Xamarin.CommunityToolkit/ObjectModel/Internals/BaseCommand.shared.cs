@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <param name="canExecute"></param>
 		/// <param name="allowsMultipleExecutions"></param>
-		protected BaseCommand(Func<TCanExecute?, bool>? canExecute, bool allowsMultipleExecutions)
+		protected private BaseCommand(Func<TCanExecute?, bool>? canExecute, bool allowsMultipleExecutions)
 		{
 			this.canExecute = canExecute ?? (_ => true);
 			AllowsMultipleExecutions = allowsMultipleExecutions;
