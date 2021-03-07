@@ -125,13 +125,15 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerCanceled(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
 			isPressed = false;
-			effect?.HandleTouch(TouchStatus.Canceled);
-			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
-			effect?.HandleHover(HoverStatus.Exited);
+
+			effect.HandleTouch(TouchStatus.Canceled);
+			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect.HandleHover(HoverStatus.Exited);
+
 			AnimateTilt(pointerUpStoryboard);
 		}
 
@@ -158,41 +160,46 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerReleased(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
 			if (isPressed && (effect.HoverStatus == HoverStatus.Entered))
 			{
-				effect?.HandleTouch(TouchStatus.Completed);
+				effect.HandleTouch(TouchStatus.Completed);
 				AnimateTilt(pointerUpStoryboard);
 			}
 			else if (effect.HoverStatus != HoverStatus.Exited)
 			{
-				effect?.HandleTouch(TouchStatus.Canceled);
+				effect.HandleTouch(TouchStatus.Canceled);
 				AnimateTilt(pointerUpStoryboard);
 			}
 
-			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
+
 			isPressed = false;
 			isIntentionalCaptureLoss = true;
 		}
 
 		void OnPointerPressed(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
 			isPressed = true;
+
 			Container.CapturePointer(e.Pointer);
-			effect?.HandleUserInteraction(TouchInteractionStatus.Started);
-			effect?.HandleTouch(TouchStatus.Started);
+
+			effect.HandleUserInteraction(TouchInteractionStatus.Started);
+			effect.HandleTouch(TouchStatus.Started);
+
 			AnimateTilt(pointerDownStoryboard);
+
 			isIntentionalCaptureLoss = false;
 		}
 
 		void AnimateTilt(Storyboard? storyboard)
 		{
-			if ((effect?.NativeAnimation ?? false) && storyboard != null)
+			if (storyboard != null && effect != null && effect.NativeAnimation)
 			{
 				try
 				{
