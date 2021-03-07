@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
 using Xunit.Sdk;
