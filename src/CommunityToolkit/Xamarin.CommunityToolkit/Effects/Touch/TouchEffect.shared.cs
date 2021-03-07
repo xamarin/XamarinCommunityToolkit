@@ -500,13 +500,23 @@ namespace Xamarin.CommunityToolkit.Effects
 			=> bindable?.SetValue(ShouldMakeChildrenInputTransparentProperty, value);
 
 		public static ICommand? GetCommand(BindableObject? bindable)
-			=> (ICommand?)(bindable?.GetValue(CommandProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
+
+			return (ICommand?)bindable.GetValue(CommandProperty);
+		}
 
 		public static void SetCommand(BindableObject? bindable, ICommand value)
 			=> bindable?.SetValue(CommandProperty, value);
 
 		public static ICommand? GetLongPressCommand(BindableObject? bindable)
-			=> (ICommand?)(bindable?.GetValue(LongPressCommandProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
+
+			return (ICommand?)bindable.GetValue(LongPressCommandProperty);
+		}
 
 		public static void SetLongPressCommand(BindableObject? bindable, ICommand value)
 			=> bindable?.SetValue(LongPressCommandProperty, value);
@@ -758,7 +768,12 @@ namespace Xamarin.CommunityToolkit.Effects
 			=> bindable?.SetValue(PulseCountProperty, value);
 
 		public static bool? GetIsToggled(BindableObject? bindable)
-			=> (bool?)(bindable?.GetValue(IsToggledProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
+
+			return (bool?)bindable.GetValue(IsToggledProperty);
+		}
 
 		public static void SetIsToggled(BindableObject? bindable, bool? value)
 			=> bindable?.SetValue(IsToggledProperty, value);
@@ -794,19 +809,34 @@ namespace Xamarin.CommunityToolkit.Effects
 			=> bindable?.SetValue(NativeAnimationShadowRadiusProperty, value);
 
 		public static ImageSource? GetNormalBackgroundImageSource(BindableObject? bindable)
-			=> (ImageSource?)(bindable?.GetValue(NormalBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
+
+			return (ImageSource?)bindable.GetValue(NormalBackgroundImageSourceProperty);
+		}
 
 		public static void SetNormalBackgroundImageSource(BindableObject? bindable, ImageSource value)
 			=> bindable?.SetValue(NormalBackgroundImageSourceProperty, value);
 
 		public static ImageSource? GetHoveredBackgroundImageSource(BindableObject? bindable)
-			=> (ImageSource?)(bindable?.GetValue(HoveredBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
+
+			return (ImageSource?)bindable.GetValue(HoveredBackgroundImageSourceProperty);
+		}
 
 		public static void SetHoveredBackgroundImageSource(BindableObject? bindable, ImageSource value)
 			=> bindable?.SetValue(HoveredBackgroundImageSourceProperty, value);
 
 		public static ImageSource? GetPressedBackgroundImageSource(BindableObject? bindable)
-			=> (ImageSource?)(bindable?.GetValue(PressedBackgroundImageSourceProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
+
+			return (ImageSource?)bindable.GetValue(PressedBackgroundImageSourceProperty);
+		}
 
 		public static void SetPressedBackgroundImageSource(BindableObject? bindable, ImageSource value)
 			=> bindable?.SetValue(PressedBackgroundImageSourceProperty, value);

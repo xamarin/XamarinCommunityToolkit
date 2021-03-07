@@ -93,6 +93,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			effect.Element = null;
 			effect = null;
+
 			if (Container != null)
 			{
 				Container.PointerPressed -= OnPointerPressed;
