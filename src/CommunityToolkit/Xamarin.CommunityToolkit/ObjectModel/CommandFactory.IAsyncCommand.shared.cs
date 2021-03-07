@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// <summary>
 	/// Factory for IAsyncCommand
 	/// </summary>
-	public partial class CommandFactory
+	public static partial class CommandFactory
 	{
 		/// <summary>
 		/// Initializes a new instance of IAsyncCommand

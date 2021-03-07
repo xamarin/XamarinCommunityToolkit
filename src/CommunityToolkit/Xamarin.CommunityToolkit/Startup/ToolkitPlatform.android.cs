@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using System;
+using Android.Content;
 using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit
@@ -11,13 +12,13 @@ namespace Xamarin.CommunityToolkit
 		/// <summary>
 		/// Gets the <see cref="Context"/>.
 		/// </summary>
-		internal static Context? Context
+		internal static Context Context
 		{
 			get
 			{
 				var page = Forms.Application.Current.MainPage;
 				var renderer = page.GetRenderer();
-				return renderer.View.Context;
+				return renderer.View.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
 			}
 		}
 	}
