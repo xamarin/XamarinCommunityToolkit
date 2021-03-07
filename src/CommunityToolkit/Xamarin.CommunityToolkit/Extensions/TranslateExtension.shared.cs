@@ -43,13 +43,9 @@ namespace Xamarin.CommunityToolkit.Extensions
 		}
 
 #if !NETSTANDARD1_0
-		public class ObservableResourceManager : ObservableObject
+		class ObservableResourceManager : ObservableObject
 		{
 			readonly ResourceManager resourceManager;
-
-			ObservableResourceManager()
-			{
-			}
 
 			public ObservableResourceManager(ResourceManager resourceManager)
 			{
