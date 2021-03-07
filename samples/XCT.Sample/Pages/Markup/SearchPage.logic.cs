@@ -1,4 +1,5 @@
-﻿using Xamarin.CommunityToolkit.Sample.Pages;
+﻿using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Sample.Pages;
 using Xamarin.CommunityToolkit.Sample.ViewModels.Markup;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
@@ -20,10 +21,10 @@ namespace Xamarin.CommunityToolkit.Sample
 			Build();
 		}
 
-		void Search_FocusChanged(object? sender, FocusEventArgs e)
+		async void Search_FocusChanged(object? sender, FocusEventArgs e)
 		{
 			ViewExtensions.CancelAnimations(header);
-			header?.TranslateTo(e.IsFocused ? -56 : 0, 0, 250, Easing.CubicOut);
+			await (header?.TranslateTo(e.IsFocused ? -56 : 0, 0, 250, Easing.CubicOut) ?? Task.CompletedTask);
 		}
 	}
 }
