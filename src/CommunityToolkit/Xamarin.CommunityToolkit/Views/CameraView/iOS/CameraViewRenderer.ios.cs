@@ -23,15 +23,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Control == null && !disposed)
 			{
 				SetNativeControl(new FormsCameraView());
-				Control!.Busy += OnBusy;
-				Control!.Available += OnAvailability;
-				Control!.FinishCapture += FinishCapture;
 
-				Control!.SwitchFlash(Element.FlashMode);
-				Control!.SetBounds(Element.WidthRequest, Element.HeightRequest);
-				Control!.VideoStabilization = Element.VideoStabilization;
-				Control!.Zoom = (float)Element.Zoom;
-				Control!.RetrieveCameraDevice(Element.CameraOptions);
+				_ = Control ?? throw new NullReferenceException($"{nameof(Control)} cannot be null");
+				Control.Busy += OnBusy;
+				Control.Available += OnAvailability;
+				Control.FinishCapture += FinishCapture;
+
+				Control.SwitchFlash(Element.FlashMode);
+				Control.SetBounds(Element.WidthRequest, Element.HeightRequest);
+				Control.VideoStabilization = Element.VideoStabilization;
+				Control.Zoom = (float)Element.Zoom;
+				Control.RetrieveCameraDevice(Element.CameraOptions);
 			}
 
 			if (e.OldElement != null)

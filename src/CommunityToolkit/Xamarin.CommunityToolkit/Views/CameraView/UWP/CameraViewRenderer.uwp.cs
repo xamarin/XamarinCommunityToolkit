@@ -209,19 +209,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		async Task<string?> StopRecord()
 		{
-			if (mediaRecording == null || mediaCapture == null)
+			if (mediaRecording == null)
 				return null;
 
 			await mediaRecording.StopAsync();
 			await mediaRecording.FinishAsync();
 			mediaRecording = null;
 
-			if (videoStabilizationEffect != null)
+			if (videoStabilizationEffect != null && mediaCapture != null)
 			{
 				await mediaCapture.RemoveEffectAsync(videoStabilizationEffect);
 				videoStabilizationEffect = null;
 
-				if (inputPropertiesBackup != null)
+				if (inputPropertiesBackup != null && mediaCapture != null)
 				{
 					await mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoRecord, inputPropertiesBackup);
 					inputPropertiesBackup = null;
