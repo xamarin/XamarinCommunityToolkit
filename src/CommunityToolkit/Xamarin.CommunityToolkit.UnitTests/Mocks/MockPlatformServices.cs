@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 		public Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken)
 			=> Task.FromResult<Stream>(new MemoryStream());
 
-		public Assembly[] GetAssemblies() => new Assembly[0];
+		public Assembly[] GetAssemblies() => Array.Empty<Assembly>();
 
 		public IIsolatedStorageFile? GetUserStoreForApplication() => null;
 
