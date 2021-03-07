@@ -16,13 +16,12 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected override void OnDetached() => ApplyEffect(false);
 
-		void ApplyEffect(bool apply)
-			=> ApplyToControl(Control, apply);
+		void ApplyEffect(bool apply) => ApplyToControl(Control, apply);
 
 		bool ApplyToControl<T>(T controlType, bool apply) => controlType switch
 		{
 			UITextField textField => ApplyToUITextField(textField, apply),
-			UITextView _ => ApplyToUITextView(apply),
+			UITextView => ApplyToUITextView(apply),
 			_ => throw new NotSupportedException($"Control of type: {controlType?.GetType()?.Name} is not supported by this effect.")
 		};
 
