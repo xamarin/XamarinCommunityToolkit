@@ -10,34 +10,27 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 {
 	class MockPlatformServices : IPlatformServices
 	{
-		public string GetHash(string input)
-			=> string.Empty;
+		public string GetHash(string input) => string.Empty;
 
-		public string GetMD5Hash(string input)
-			=> string.Empty;
+		public string GetMD5Hash(string input) => string.Empty;
 
-		public double GetNamedSize(NamedSize size, Type targetElement, bool useOldSizes)
-			=> 0;
+		public double GetNamedSize(NamedSize size, Type targetElement, bool useOldSizes) => 0;
 
-		public Color GetNamedColor(string name)
-			=> Color.Default;
+		public Color GetNamedColor(string name) => Color.Default;
 
 		public void OpenUriAction(Uri uri)
 		{
 		}
 
-		public bool IsInvokeRequired
-			=> false;
+		public bool IsInvokeRequired { get; } = false;
 
-		public OSAppTheme RequestedTheme => OSAppTheme.Unspecified;
+		public OSAppTheme RequestedTheme { get; } = OSAppTheme.Unspecified;
 
 		public string RuntimePlatform { get; set; } = string.Empty;
 
-		public void BeginInvokeOnMainThread(Action action)
-			=> action();
+		public void BeginInvokeOnMainThread(Action action) => action();
 
-		public Ticker CreateTicker()
-			=> new MockTicker();
+		public Ticker CreateTicker() => new MockTicker();
 
 		public void StartTimer(TimeSpan interval, Func<bool> callback)
 		{
@@ -46,21 +39,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 		public Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken)
 			=> Task.FromResult<Stream>(new MemoryStream());
 
-		public Assembly[] GetAssemblies()
-			=> new Assembly[0];
+		public Assembly[] GetAssemblies() => new Assembly[0];
 
-		public IIsolatedStorageFile? GetUserStoreForApplication()
-			=> null;
+		public IIsolatedStorageFile? GetUserStoreForApplication() => null;
 
-		Assembly[] IPlatformServices.GetAssemblies()
-			=> new Assembly[0];
+		Assembly[] IPlatformServices.GetAssemblies() => Array.Empty<Assembly>();
 
 		public void QuitApplication()
 		{
 		}
 
-		public SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint)
-			=> default;
+		public SizeRequest GetNativeSize(VisualElement view, double widthConstraint, double heightConstraint) => default;
 	}
 
 	class MockTicker : Ticker
