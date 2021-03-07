@@ -81,7 +81,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			}
 
 			if (!Errors?.SequenceEqual(errors) ?? true)
-				Errors = errors?.ToList() ?? Enumerable.Empty<object?>().ToList();
+				Errors = (errors ?? Enumerable.Empty<object?>()).ToList();
 
 			return false;
 		}
