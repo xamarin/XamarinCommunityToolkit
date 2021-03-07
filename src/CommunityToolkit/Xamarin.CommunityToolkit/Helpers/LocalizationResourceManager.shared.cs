@@ -21,20 +21,23 @@ namespace Xamarin.CommunityToolkit.Helpers
 		{
 		}
 
-		public void Init(ResourceManager resource) =>
-			resourceManager = resource;
+		public void Init(ResourceManager resource) => resourceManager = resource;
 
 		public void Init(ResourceManager resource, CultureInfo initialCulture)
 		{
-			resourceManager = resource;
 			CurrentCulture = initialCulture;
+			Init(resource);
 		}
 
-		public string? GetValue(string text) =>
-			resourceManager?.GetString(text, CurrentCulture);
+		public string GetValue(string text)
+		{
+			if (resourceManager == null)
+				throw new InvalidOperationException($"Must call {nameof(LocalizationResourceManager)}.{nameof(Init)} first");
 
-		public string? this[string text] =>
-			GetValue(text);
+			return resourceManager.GetString(text, CurrentCulture) ?? throw new NullReferenceException($"{nameof(text)}: {text} not found");
+		}
+
+		public string this[string text] => GetValue(text);
 
 		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]
 		[EditorBrowsable(EditorBrowsableState.Never)]

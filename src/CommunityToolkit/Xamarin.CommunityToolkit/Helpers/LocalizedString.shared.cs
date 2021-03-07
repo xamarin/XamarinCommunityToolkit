@@ -7,14 +7,14 @@ namespace Xamarin.CommunityToolkit.Helpers
 #if !NETSTANDARD1_0
 	public class LocalizedString : ObservableObject
 	{
-		readonly Func<string?> generator;
+		readonly Func<string> generator;
 
-		public LocalizedString(Func<string?> generator)
+		public LocalizedString(Func<string> generator)
 			: this(LocalizationResourceManager.Current, generator)
 		{
 		}
 
-		public LocalizedString(LocalizationResourceManager localizationManager, Func<string?> generator)
+		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator)
 		{
 			this.generator = generator;
 
@@ -23,10 +23,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 			localizationManager.PropertyChanged += (sender, e) => OnPropertyChanged(null);
 		}
 
-		public string? Localized => generator();
+		public string Localized => generator();
 
 		[Preserve(Conditional = true)]
-		public static implicit operator LocalizedString(Func<string?> func) => new LocalizedString(func);
+		public static implicit operator LocalizedString(Func<string> func) => new LocalizedString(func);
 	}
 #endif
 }
