@@ -137,7 +137,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerCaptureLost(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
 			if (isIntentionalCaptureLoss)
@@ -146,12 +146,12 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			isPressed = false;
 
 			if (effect.Status != TouchStatus.Canceled)
-				effect?.HandleTouch(TouchStatus.Canceled);
+				effect.HandleTouch(TouchStatus.Canceled);
 
 			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
 
-			if (effect?.HoverStatus != HoverStatus.Exited)
-				effect?.HandleHover(HoverStatus.Exited);
+			if (effect.HoverStatus != HoverStatus.Exited)
+				effect.HandleHover(HoverStatus.Exited);
 
 			AnimateTilt(pointerUpStoryboard);
 		}
