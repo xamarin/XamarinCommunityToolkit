@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			{
 				Mode = BindingMode.OneWay,
 				Path = $"[{Text}]",
-				Source = new ResourceManagerWithIndexer(ResourceManager),
+				Source = new ObservableResourceManager(ResourceManager),
 				StringFormat = StringFormat
 			};
 			return binding;
@@ -34,11 +34,15 @@ namespace Xamarin.CommunityToolkit.Extensions
 #endif
 		}
 
-		public class ResourceManagerWithIndexer : ObservableObject
+		public class ObservableResourceManager : ObservableObject
 		{
 			readonly ResourceManager resourceManager;
 
-			public ResourceManagerWithIndexer(ResourceManager resourceManager)
+			ObservableResourceManager()
+			{
+			}
+
+			public ObservableResourceManager(ResourceManager resourceManager)
 			{
 				this.resourceManager = resourceManager;
 
@@ -48,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			}
 
 			public string this[string name] =>
-				resourceManager.GetString(name);
+				resourceManager.GetString(name, LocalizationResourceManager.Current.CurrentCulture);
 		}
 	}
 }

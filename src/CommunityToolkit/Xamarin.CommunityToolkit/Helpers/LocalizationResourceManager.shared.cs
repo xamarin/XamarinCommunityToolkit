@@ -13,6 +13,8 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		public static LocalizationResourceManager Current => currentHolder.Value;
 
+		CultureInfo currentCulture = CultureInfo.DefaultThreadCurrentUICulture ?? CultureInfo.DefaultThreadCurrentCulture;
+
 		LocalizationResourceManager()
 		{
 		}
@@ -35,23 +37,15 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		public CultureInfo CurrentCulture
 		{
-			get => CultureInfo.DefaultThreadCurrentUICulture ?? CultureInfo.DefaultThreadCurrentCulture;
-			set
-			{
-				if (CurrentCulture == value)
-				{
-					return;
-				}
-
-				CultureInfo.DefaultThreadCurrentUICulture = value;
-				CultureInfo.DefaultThreadCurrentCulture = value;
-				OnPropertyChanged(nameof(CurrentCulture));
-			}
+			get => currentCulture;
+			set => SetProperty(ref currentCulture, value, null);
 		}
 
 		public ResourceManager DefaultResourceManager { get; private set; }
 
-		public void Invalidate() => OnPropertyChanged(nameof(CurrentCulture));
+		[Obsolete("This method is no longer needed with new implementation of " + nameof(LocalizationResourceManager) + ". Please, remove all references to it.")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public void Invalidate() => OnPropertyChanged(null);
 	}
 #endif
 }
