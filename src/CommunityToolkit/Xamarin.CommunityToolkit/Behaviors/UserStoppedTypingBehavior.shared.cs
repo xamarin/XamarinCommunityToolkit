@@ -108,7 +108,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			Task.Delay(StoppedTypingTimeThreshold, tokenSource.Token)
 				.ContinueWith(task =>
 				{
-					if (task.IsFaulted)
+					if (task.IsFaulted && task.Exception != null)
 						throw task.Exception;
 
 					if (task.Status == TaskStatus.Canceled ||
