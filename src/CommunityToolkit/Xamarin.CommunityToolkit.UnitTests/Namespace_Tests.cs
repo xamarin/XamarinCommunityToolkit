@@ -16,9 +16,7 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		[Fact]
 		public void MakeSureConvertersAreInTheRightNamespace()
 		{
-			var allTheTypes = Assembly.GetAssembly(typeof(InvertedBoolConverter))?.GetTypes();
-			if (allTheTypes is null)
-				throw new NullReferenceException();
+			var allTheTypes = Assembly.GetAssembly(typeof(InvertedBoolConverter))?.GetTypes() ?? throw new NullReferenceException();
 
 			foreach (var type in allTheTypes.Where(t => t.Name.EndsWith("Converter") && t.GetInterface(nameof(IValueConverter)) != null))
 			{
@@ -30,9 +28,7 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		[Fact]
 		public void MakeSureEffectsAreInTheRightNamespace()
 		{
-			var allTheTypes = Assembly.GetAssembly(typeof(SafeAreaEffect))?.GetTypes();
-			if (allTheTypes is null)
-				throw new NullReferenceException();
+			var allTheTypes = Assembly.GetAssembly(typeof(SafeAreaEffect))?.GetTypes() ?? throw new NullReferenceException();
 
 			foreach (var type in allTheTypes.Where(t => t.Name.EndsWith("Effect") && t.IsClass && t.IsSealed && t.IsAbstract))
 			{
@@ -44,9 +40,7 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		[Fact]
 		public void MakeSureMarkupExtensionsAreInTheRightNamespace()
 		{
-			var allTheTypes = Assembly.GetAssembly(typeof(TranslateExtension))?.GetTypes();
-			if (allTheTypes is null)
-				throw new NullReferenceException();
+			var allTheTypes = Assembly.GetAssembly(typeof(TranslateExtension))?.GetTypes() ?? throw new NullReferenceException();
 
 			foreach (var type in allTheTypes.Where(t => t.Name.EndsWith("Extension") && t.GetInterface("IMarkupExtension") != null))
 			{
@@ -59,9 +53,7 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		[Fact]
 		public void MakeSureBehaviorsAreInTheRightNamespace()
 		{
-			var allTheTypes = Assembly.GetAssembly(typeof(BaseBehavior<>))?.GetTypes();
-			if (allTheTypes is null)
-				throw new NullReferenceException();
+			var allTheTypes = Assembly.GetAssembly(typeof(BaseBehavior<>))?.GetTypes() ?? throw new NullReferenceException();
 
 			foreach (var type in allTheTypes.Where(t => t.Name.EndsWith("Behavior") && t.IsSubclassOf(typeof(BaseBehavior<>))))
 			{
@@ -73,9 +65,7 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		[Fact]
 		public void MakeSureViewsAreInTheRightNamespace()
 		{
-			var allTheTypes = Assembly.GetAssembly(typeof(AvatarView))?.GetTypes();
-			if (allTheTypes is null)
-				throw new NullReferenceException();
+			var allTheTypes = Assembly.GetAssembly(typeof(AvatarView))?.GetTypes() ?? throw new NullReferenceException();
 
 			foreach (var type in allTheTypes.Where(t => t.IsSubclassOf(typeof(View))))
 			{
