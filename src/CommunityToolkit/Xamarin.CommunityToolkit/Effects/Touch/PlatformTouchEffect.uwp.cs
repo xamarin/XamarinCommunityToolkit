@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 		protected override void OnAttached()
 		{
 			effect = TouchEffect.PickFrom(Element);
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
 			effect.Element = (VisualElement)Element;
@@ -42,24 +42,35 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 					nativeControl.Name = Guid.NewGuid().ToString();
 
 				if (nativeControl.Resources.ContainsKey(pointerDownAnimationKey))
+				{
 					pointerDownStoryboard = (Storyboard)nativeControl.Resources[pointerDownAnimationKey];
+				}
 				else
 				{
 					pointerDownStoryboard = new Storyboard();
 					var downThemeAnimation = new PointerDownThemeAnimation();
+
+
 					Storyboard.SetTargetName(downThemeAnimation, nativeControl.Name);
+
 					pointerDownStoryboard.Children.Add(downThemeAnimation);
+
 					nativeControl.Resources.Add(new KeyValuePair<object, object>(pointerDownAnimationKey, pointerDownStoryboard));
 				}
 
 				if (nativeControl.Resources.ContainsKey(pointerUpAnimationKey))
+				{
 					pointerUpStoryboard = (Storyboard)nativeControl.Resources[pointerUpAnimationKey];
+				}
 				else
 				{
 					pointerUpStoryboard = new Storyboard();
 					var upThemeAnimation = new PointerUpThemeAnimation();
+
 					Storyboard.SetTargetName(upThemeAnimation, nativeControl.Name);
+
 					pointerUpStoryboard.Children.Add(upThemeAnimation);
+
 					nativeControl.Resources.Add(new KeyValuePair<object, object>(pointerUpAnimationKey, pointerUpStoryboard));
 				}
 			}
@@ -97,26 +108,26 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerEntered(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
-			effect?.HandleHover(HoverStatus.Entered);
+			effect.HandleHover(HoverStatus.Entered);
 
 			if (isPressed)
 			{
-				effect?.HandleTouch(TouchStatus.Started);
+				effect.HandleTouch(TouchStatus.Started);
 				AnimateTilt(pointerDownStoryboard);
 			}
 		}
 
 		void OnPointerExited(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
 			if (isPressed)
 			{
-				effect?.HandleTouch(TouchStatus.Canceled);
+				effect.HandleTouch(TouchStatus.Canceled);
 				AnimateTilt(pointerUpStoryboard);
 			}
 
