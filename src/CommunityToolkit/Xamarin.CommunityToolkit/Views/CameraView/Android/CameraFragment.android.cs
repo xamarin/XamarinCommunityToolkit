@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		const int maxPreviewHeight = 1080;
 
 		// Max preview height that is guaranteed by Camera2 API
-		const int maxPrevieWidth = 1920;
+		const int maxPreviewWidth = 1920;
 
 		readonly Java.Util.Concurrent.Semaphore captureSessionOpenCloseLock = new Java.Util.Concurrent.Semaphore(1);
 		readonly MediaActionSound mediaSound = new MediaActionSound();
@@ -255,9 +255,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						maxPreviewHeight = CameraFragment.maxPreviewHeight;
 					}
 
-					if (maxPreviewWidth > maxPrevieWidth)
+					if (maxPreviewWidth > CameraFragment.maxPreviewWidth)
 					{
-						maxPreviewWidth = maxPrevieWidth;
+						maxPreviewWidth = CameraFragment.maxPreviewWidth;
 					}
 
 					photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
