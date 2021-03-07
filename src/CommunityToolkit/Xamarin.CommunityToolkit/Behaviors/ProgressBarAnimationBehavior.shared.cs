@@ -1,4 +1,5 @@
-﻿using Xamarin.CommunityToolkit.Behaviors.Internals;
+﻿using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
@@ -17,10 +18,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(AnimateProgressProperty, value);
 		}
 
-		static void OnAnimateProgressPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-			=> ((ProgressBarAnimationBehavior)bindable).Animate();
+		static async void OnAnimateProgressPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> await ((ProgressBarAnimationBehavior)bindable).Animate();
 
-		async void Animate()
+		async Task Animate()
 		{
 			if (View != null)
 				await View.ProgressTo(AnimateProgress, 500, Easing.Linear);
