@@ -15,13 +15,15 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public string StringFormat { get; set; }
 
-		public ResourceManager ResourceManager { get; set; } = LocalizationResourceManager.Current.DefaultResourceManager;
+		public ResourceManager ResourceManager { get; set; }
 
 		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) => ProvideValue(serviceProvider);
 
 		public BindingBase ProvideValue(IServiceProvider serviceProvider)
 		{
 #if !NETSTANDARD1_0
+			ResourceManager ??= LocalizationResourceManager.Current.DefaultResourceManager;
+
 			if (ResourceManager == null)
 			{
 				throw new ArgumentNullException($"{ResourceManager} cannot be null. Try calling LocalizationResourceManager.Current.Init(defaultResourceManager) first.");
