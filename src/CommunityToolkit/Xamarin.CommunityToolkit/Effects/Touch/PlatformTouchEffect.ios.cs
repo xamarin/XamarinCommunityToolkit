@@ -97,8 +97,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		void PreventButtonHighlight(object? sender, EventArgs args)
 		{
-			if (sender is UIButton button)
-				button.Highlighted = false;
+			if (sender is not UIButton button)
+				throw new ArgumentException($"{nameof(sender)} must be Type {nameof(UIButton)}", nameof(sender));
+
+			button.Highlighted = false;
 		}
 	}
 
