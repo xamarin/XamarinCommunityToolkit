@@ -148,7 +148,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			if (effect.Status != TouchStatus.Canceled)
 				effect.HandleTouch(TouchStatus.Canceled);
 
-			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
 
 			if (effect.HoverStatus != HoverStatus.Exited)
 				effect.HandleHover(HoverStatus.Exited);
