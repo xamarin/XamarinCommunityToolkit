@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">N/A</param>
 		/// <param name="culture">N/A</param>
 		/// <returns>N/A</returns>
-		public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
+public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> throw new NotImplementedException();
 
 		object? Convert(string? value, object? parameter) => GetParameter(parameter) switch
