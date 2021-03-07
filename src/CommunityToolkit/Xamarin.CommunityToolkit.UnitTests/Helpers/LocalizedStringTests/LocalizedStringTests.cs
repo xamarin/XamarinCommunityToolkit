@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Arrange
 			var testString = "test";
 			var culture2 = new CultureInfo("en");
-			localizedString = new LocalizedString(localizationManager, () => localizationManager[testString]);
+			localizedString = new LocalizedString(() => resourceManager.GetString(testString, localizationManager.CurrentCulture));
 
 			string responceOnCultureChanged = null;
 			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
@@ -66,7 +66,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Arrange
 			var isTrigered = false;
 			var culture2 = new CultureInfo("en");
-			localizedString = new LocalizedString(localizationManager, () => string.Empty);
+			localizedString = new LocalizedString(() => string.Empty);
 			localizedString.PropertyChanged += (_, __) => isTrigered = true;
 
 			// Act
@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 
 			void SetLocalizedString()
 			{
-				localizedString = new LocalizedString(localizationManager, () => localizationManager[testString]);
+				localizedString = new LocalizedString(() => resourceManager.GetString(testString, localizationManager.CurrentCulture));
 			}
 		}
 	}
