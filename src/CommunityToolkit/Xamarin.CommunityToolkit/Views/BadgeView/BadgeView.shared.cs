@@ -67,11 +67,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(AutoHideProperty, value);
 		}
 
-		static async void OnAutoHideChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			if (bindable is BadgeView badgeView)
-				await badgeView.UpdateVisibilityAsync();
-		}
+		static async void OnAutoHideChanged(BindableObject bindable, object oldValue, object newValue) => await ((BadgeView)bindable).UpdateVisibilityAsync();
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsAnimated"/> property.
