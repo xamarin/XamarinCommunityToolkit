@@ -454,27 +454,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (e.OldItems != null)
 			{
-				foreach (var oldItem in e.OldItems)
+				foreach (var tabViewItem in e.OldItems.OfType<TabViewItem>())
 				{
-					if (oldItem is TabViewItem tabViewItem)
-						ClearTabViewItem(tabViewItem);
+					ClearTabViewItem(tabViewItem);
 				}
 			}
 
 			if (e.NewItems != null)
 			{
-				foreach (var newTabViewItem in e.NewItems)
+				foreach (var tabViewItem in e.NewItems.OfType<TabViewItem>())
 				{
-					if (newTabViewItem is TabViewItem tabViewItem)
-						AddTabViewItem(tabViewItem, TabItems.IndexOf(tabViewItem));
+					AddTabViewItem(tabViewItem, TabItems.IndexOf(tabViewItem));
 				}
 			}
 		}
 
 		void OnContentContainerPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == nameof(CarouselView.ItemsSource) ||
-			   e.PropertyName == nameof(CarouselView.VisibleViews))
+			if (e.PropertyName == nameof(CarouselView.ItemsSource)
+				|| e.PropertyName == nameof(CarouselView.VisibleViews))
 			{
 				var items = contentContainer.ItemsSource;
 
