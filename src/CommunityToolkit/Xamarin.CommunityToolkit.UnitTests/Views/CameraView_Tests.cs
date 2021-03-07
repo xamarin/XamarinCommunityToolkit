@@ -112,7 +112,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				CameraShutterCommand = new Command(DoNothing);
 			}
 
-			void Shutter() => CameraShutterCommand?.Execute(null);
+			void Shutter() => CameraShutterCommand.Execute(null);
 
 			void DoNothing() =>
 				Console.WriteLine("This is just to prove that the user can't override the CameraViewShutterCommand");
