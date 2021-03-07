@@ -127,7 +127,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		void SetColor()
-		{
 			Window.SetBackgroundDrawable(new ColorDrawable(GetWindowColor()));
 		}
 
