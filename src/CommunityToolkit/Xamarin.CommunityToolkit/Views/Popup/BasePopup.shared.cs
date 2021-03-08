@@ -18,6 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		protected BasePopup()
 		{
+			Color = Color.Default;
 			VerticalOptions = LayoutOptions.CenterAndExpand;
 			HorizontalOptions = LayoutOptions.CenterAndExpand;
 			IsLightDismissEnabled = true;
