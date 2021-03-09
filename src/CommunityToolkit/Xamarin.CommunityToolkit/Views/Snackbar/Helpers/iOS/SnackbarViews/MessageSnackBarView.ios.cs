@@ -1,4 +1,4 @@
-﻿using UIKit;
+﻿using System;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
@@ -14,7 +14,10 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
 		{
 			base.Initialize();
 
-			var messageLabel = new UILabel
+			var messageLabel = new PaddedLabel(SnackBar.Layout.PaddingLeft,
+				SnackBar.Layout.PaddingTop,
+				SnackBar.Layout.PaddingRight,
+				SnackBar.Layout.PaddingBottom)
 			{
 				Text = SnackBar.Message,
 				Lines = 0,
@@ -36,6 +39,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
 				messageLabel.Font = SnackBar.Appearance.Font;
 			}
 
+			_ = StackView ?? throw new NullReferenceException();
 			StackView.AddArrangedSubview(messageLabel);
 		}
 	}

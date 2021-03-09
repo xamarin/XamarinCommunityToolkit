@@ -1,40 +1,57 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
 using System.Threading;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
 #if !NETSTANDARD1_0
-	public class LocalizationResourceManager : INotifyPropertyChanged
+	public class LocalizationResourceManager : ObservableObject
 	{
-		public static LocalizationResourceManager Current { get; } = new LocalizationResourceManager();
+		static readonly Lazy<LocalizationResourceManager> currentHolder = new Lazy<LocalizationResourceManager>(() => new LocalizationResourceManager());
 
-		ResourceManager resourceManager;
+		public static LocalizationResourceManager Current => currentHolder.Value;
 
-		public void Init(ResourceManager resource)
+		ResourceManager? resourceManager;
+		CultureInfo currentCulture = Thread.CurrentThread.CurrentUICulture;
+
+		LocalizationResourceManager()
 		{
-			resourceManager = resource;
 		}
 
-		public string this[string text] => resourceManager.GetString(text, CurrentCulture);
+		public void Init(ResourceManager resource) => resourceManager = resource;
 
-		public void SetCulture(CultureInfo language)
+		public void Init(ResourceManager resource, CultureInfo initialCulture)
 		{
-			Thread.CurrentThread.CurrentUICulture = language;
-			Invalidate();
+			CurrentCulture = initialCulture;
+			Init(resource);
 		}
 
-		public string GetValue(string text) => resourceManager.GetString(text, CultureInfo.CurrentCulture);
-
-		public CultureInfo CurrentCulture => Thread.CurrentThread.CurrentUICulture;
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		public void Invalidate()
+		public string GetValue(string text)
 		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+			if (resourceManager == null)
+				throw new InvalidOperationException($"Must call {nameof(LocalizationResourceManager)}.{nameof(Init)} first");
+
+			return resourceManager.GetString(text, CurrentCulture) ?? throw new NullReferenceException($"{nameof(text)}: {text} not found");
 		}
+
+		public string this[string text] => GetValue(text);
+
+		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public void SetCulture(CultureInfo language) => CurrentCulture = language;
+
+		public CultureInfo CurrentCulture
+		{
+			get => currentCulture;
+			set => SetProperty(ref currentCulture, value, null);
+		}
+
+		[Obsolete("This method is no longer needed with new implementation of " + nameof(LocalizationResourceManager) + ". Please, remove all references to it.")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public void Invalidate() => OnPropertyChanged(null);
 	}
 #endif
 }

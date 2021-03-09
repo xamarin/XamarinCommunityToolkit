@@ -3,10 +3,9 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Core
 {
-	[Forms.Xaml.TypeConversion(typeof(MediaSource))]
 	public sealed class MediaSourceConverter : TypeConverter
 	{
-		public override object ConvertFromInvariantString(string value)
+		public override object? ConvertFromInvariantString(string value)
 		{
 			if (value == null)
 				throw new InvalidOperationException($"Cannot convert \"{value}\" into {typeof(MediaSource)}");

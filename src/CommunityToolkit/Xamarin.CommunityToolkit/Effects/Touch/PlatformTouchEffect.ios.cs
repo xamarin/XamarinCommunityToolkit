@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 using CoreGraphics;
 using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -13,9 +15,13 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		UIGestureRecognizer gesture;
+		UIGestureRecognizer? touchGesture;
 
-		TouchEffect effect;
+		UIGestureRecognizer? hoverGesture;
+
+		TouchEffect? effect;
+
+		UIView View => Container ?? Control;
 
 		protected override void OnAttached()
 		{
@@ -25,12 +31,26 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			effect.Element = (VisualElement)Element;
 
-			gesture = new TouchUITapGestureRecognizer(effect);
-			if (Container != null)
+			if (View == null)
+				return;
+
+			touchGesture = new TouchUITapGestureRecognizer(effect);
+
+			if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
 			{
-				Container.AddGestureRecognizer(gesture);
-				Container.UserInteractionEnabled = true;
+				button.AllTouchEvents += PreventButtonHighlight;
+				((TouchUITapGestureRecognizer)touchGesture).IsButton = true;
 			}
+
+			View.AddGestureRecognizer(touchGesture);
+
+			if (XCT.IsiOS13OrNewer)
+			{
+				hoverGesture = new UIHoverGestureRecognizer(async () => await OnHover());
+				View.AddGestureRecognizer(hoverGesture);
+			}
+
+			View.UserInteractionEnabled = true;
 		}
 
 		protected override void OnDetached()
@@ -38,17 +58,56 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.Element == null)
 				return;
 
-			Container?.RemoveGestureRecognizer(gesture);
-			gesture?.Dispose();
-			gesture = null;
+			if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
+				button.AllTouchEvents -= PreventButtonHighlight;
+
+			if (touchGesture != null)
+			{
+				View?.RemoveGestureRecognizer(touchGesture);
+				touchGesture?.Dispose();
+				touchGesture = null;
+			}
+
+			if (hoverGesture != null)
+			{
+				View?.RemoveGestureRecognizer(hoverGesture);
+				hoverGesture?.Dispose();
+				hoverGesture = null;
+			}
+
 			effect.Element = null;
 			effect = null;
+		}
+
+		async ValueTask OnHover()
+		{
+			if (effect == null || effect.IsDisabled)
+				return;
+
+			switch (hoverGesture?.State)
+			{
+				case UIGestureRecognizerState.Began:
+				case UIGestureRecognizerState.Changed:
+					await effect.HandleHover(HoverStatus.Entered);
+					break;
+				case UIGestureRecognizerState.Ended:
+					await effect.HandleHover(HoverStatus.Exited);
+					break;
+			}
+		}
+
+		void PreventButtonHighlight(object? sender, EventArgs args)
+		{
+			if (sender is not UIButton button)
+				throw new ArgumentException($"{nameof(sender)} must be Type {nameof(UIButton)}", nameof(sender));
+
+			button.Highlighted = false;
 		}
 	}
 
 	sealed class TouchUITapGestureRecognizer : UIGestureRecognizer
 	{
-		TouchEffect effect;
+		TouchEffect? effect;
 		float? defaultRadius;
 		float? defaultShadowRadius;
 		float? defaultShadowOpacity;
@@ -63,40 +122,42 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		public bool IsCanceled { get; set; } = true;
 
-		UIView Renderer => effect?.Element.GetRenderer() as UIView;
+		public bool IsButton { get; set; }
 
-		public override void TouchesBegan(NSSet touches, UIEvent evt)
+		UIView? Renderer => (UIView?)effect?.Element.GetRenderer();
+
+		public override async void TouchesBegan(NSSet touches, UIEvent evt)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
 
 			IsCanceled = false;
 			startPoint = GetTouchPoint(touches);
-			HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started);
+			await HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started);
 			base.TouchesBegan(touches, evt);
 		}
 
-		public override void TouchesEnded(NSSet touches, UIEvent evt)
+		public override async void TouchesEnded(NSSet touches, UIEvent evt)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			HandleTouch(effect?.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled, TouchInteractionStatus.Completed);
+			await HandleTouch(effect?.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled, TouchInteractionStatus.Completed);
 			IsCanceled = true;
 			base.TouchesEnded(touches, evt);
 		}
 
-		public override void TouchesCancelled(NSSet touches, UIEvent evt)
+		public override async void TouchesCancelled(NSSet touches, UIEvent evt)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
+			await HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
 			IsCanceled = true;
 			base.TouchesCancelled(touches, evt);
 		}
 
-		public override void TouchesMoved(NSSet touches, UIEvent evt)
+		public override async void TouchesMoved(NSSet touches, UIEvent evt)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -110,19 +171,19 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				var maxDiff = Math.Max(diffX, diffY);
 				if (maxDiff > disallowTouchThreshold)
 				{
-					HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
+					await HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
 					IsCanceled = true;
 					base.TouchesMoved(touches, evt);
 					return;
 				}
 			}
 
-			var status = point != null && Renderer.Bounds.Contains(point.Value)
+			var status = point != null && Renderer?.Bounds.Contains(point.Value) is true
 				? TouchStatus.Started
 				: TouchStatus.Canceled;
 
 			if (effect?.Status != status)
-				HandleTouch(status);
+				await HandleTouch(status);
 
 			base.TouchesMoved(touches, evt);
 		}
@@ -132,15 +193,16 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (disposing)
 			{
 				effect = null;
-				Delegate = null;
+				Delegate.Dispose();
 			}
+
 			base.Dispose(disposing);
 		}
 
 		CGPoint? GetTouchPoint(NSSet touches)
 			=> Renderer != null ? (touches?.AnyObject as UITouch)?.LocationInView(Renderer) : null;
 
-		public void HandleTouch(TouchStatus status, TouchInteractionStatus? interactionStatus = null)
+		public async Task HandleTouch(TouchStatus status, TouchInteractionStatus? interactionStatus = null)
 		{
 			if (IsCanceled || effect == null)
 				return;
@@ -154,15 +216,15 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				interactionStatus = null;
 			}
 
-			effect.HandleTouch(status);
+			await (effect?.HandleTouch(status) ?? Task.CompletedTask);
 			if (interactionStatus.HasValue)
 				effect?.HandleUserInteraction(interactionStatus.Value);
 
-			if (effect == null || !effect.NativeAnimation || !effect.CanExecute)
+			if (effect == null || (!effect.NativeAnimation && !IsButton) || !effect.CanExecute)
 				return;
 
 			var control = effect.Element;
-			if (!(control?.GetRenderer() is UIView renderer))
+			if (control?.GetRenderer() is not UIView renderer)
 				return;
 
 			var color = effect.NativeAnimationColor;
@@ -173,7 +235,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			defaultShadowRadius = (float?)(defaultShadowRadius ?? renderer.Layer.ShadowRadius);
 			defaultShadowOpacity ??= renderer.Layer.ShadowOpacity;
 
-			UIView.AnimateAsync(.2, () =>
+			await UIView.AnimateAsync(.2, () =>
 			{
 				if (color == Color.Default)
 					renderer.Layer.Opacity = isStarted ? 0.5f : (float)control.Opacity;
@@ -198,8 +260,13 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (gestureRecognizer is TouchUITapGestureRecognizer touchGesture && otherGestureRecognizer is UIPanGestureRecognizer &&
 				otherGestureRecognizer.State == UIGestureRecognizerState.Began)
 			{
-				touchGesture.HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
-				touchGesture.IsCanceled = true;
+				touchGesture.HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).ContinueWith(task =>
+				{
+					if (task.IsFaulted && task.Exception != null)
+						throw task.Exception;
+
+					touchGesture.IsCanceled = true;
+				});
 			}
 
 			return true;

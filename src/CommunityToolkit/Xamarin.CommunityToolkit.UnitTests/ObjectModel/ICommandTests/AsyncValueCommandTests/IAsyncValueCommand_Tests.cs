@@ -65,8 +65,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			IAsyncValueCommand<int> command2 = new AsyncValueCommand<int, string>(IntParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
-			await command2.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
+			await command2.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}
@@ -81,8 +81,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			IAsyncValueCommand<string, int> command2 = new AsyncValueCommand<string, int>(StringParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
-			await command2.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
+			await command2.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}
@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void IAsyncValueCommand_Parameter_CanExecuteTrue_Test()
 		{
 			// Arrange
-			IAsyncValueCommand<int> command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteTrue);
+			IAsyncValueCommand<int> command = new AsyncValueCommand<int>(IntParameterTask, parameter => CanExecuteTrue(parameter));
 			IAsyncValueCommand<int, string> command2 = new AsyncValueCommand<int, string>(IntParameterTask, CanExecuteTrue);
 
 			// Act
@@ -105,7 +105,35 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void IAsyncValueCommand_Parameter_CanExecuteFalse_Test()
 		{
 			// Arrange
-			IAsyncValueCommand<int> command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteFalse);
+			IAsyncValueCommand<int> command = new AsyncValueCommand<int>(IntParameterTask, parameter => CanExecuteFalse(parameter));
+			IAsyncValueCommand<int, bool> command2 = new AsyncValueCommand<int, bool>(IntParameterTask, CanExecuteFalse);
+
+			// Act
+
+			// Assert
+			Assert.False(command.CanExecute(null));
+			Assert.False(command2.CanExecute(true));
+		}
+
+		[Fact]
+		public void IAsyncValueCommand_Parameter_CanExecuteTrue_NoParameter_Test()
+		{
+			// Arrange
+			IAsyncValueCommand<int> command = new AsyncValueCommand<int>(IntParameterTask, () => CanExecuteTrue());
+			IAsyncValueCommand<int, string> command2 = new AsyncValueCommand<int, string>(IntParameterTask, CanExecuteTrue);
+
+			// Act
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute("Hello World"));
+		}
+
+		[Fact]
+		public void IAsyncValueCommand_Parameter_CanExecuteFalse_NoParameter_Test()
+		{
+			// Arrange
+			IAsyncValueCommand<int> command = new AsyncValueCommand<int>(IntParameterTask, () => CanExecuteFalse());
 			IAsyncValueCommand<int, bool> command2 = new AsyncValueCommand<int, bool>(IntParameterTask, CanExecuteFalse);
 
 			// Act
@@ -119,7 +147,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void IAsyncValueCommand_NoParameter_CanExecuteTrue_Test()
 		{
 			// Arrange
-			IAsyncValueCommand command = new AsyncValueCommand(NoParameterTask, CanExecuteTrue);
+			IAsyncValueCommand command = new AsyncValueCommand(NoParameterTask, parameter => CanExecuteTrue(parameter));
 
 			// Act
 
@@ -131,7 +159,31 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void IAsyncValueCommand_NoParameter_CanExecuteFalse_Test()
 		{
 			// Arrange
-			IAsyncValueCommand command = new AsyncValueCommand(NoParameterTask, CanExecuteFalse);
+			IAsyncValueCommand command = new AsyncValueCommand(NoParameterTask, parameter => CanExecuteFalse(parameter));
+
+			// Act
+
+			// Assert
+			Assert.False(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void IAsyncValueCommand_NoParameter_CanExecuteTrue_NoParameter_Test()
+		{
+			// Arrange
+			IAsyncValueCommand command = new AsyncValueCommand(NoParameterTask, () => CanExecuteTrue());
+
+			// Act
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void IAsyncValueCommand_NoParameter_CanExecuteFalse_NoParameter_Test()
+		{
+			// Arrange
+			IAsyncValueCommand command = new AsyncValueCommand(NoParameterTask, () => CanExecuteFalse());
 
 			// Act
 

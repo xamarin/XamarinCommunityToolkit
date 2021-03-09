@@ -2,12 +2,19 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
   </PropertyGroup>
+
 
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)Xamarin.CommunityToolkit.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

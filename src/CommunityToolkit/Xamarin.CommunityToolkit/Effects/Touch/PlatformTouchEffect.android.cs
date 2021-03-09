@@ -1,18 +1,20 @@
-﻿using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
-using Android.Views;
-using AView = Android.Views.View;
-using System;
-using Android.Graphics.Drawables;
-using Android.Widget;
-using Color = Android.Graphics.Color;
-using Android.Content.Res;
-using Android.Views.Accessibility;
-using Android.Content;
-using AndroidOS = Android.OS;
+﻿using System;
 using System.ComponentModel;
-using Xamarin.CommunityToolkit.Effects;
+using System.Threading.Tasks;
+using Android.Content;
+using Android.Content.Res;
+using Android.Graphics.Drawables;
+using Android.OS;
+using Android.Views;
+using Android.Views.Accessibility;
+using Android.Widget;
 using Xamarin.CommunityToolkit.Android.Effects;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using AndroidOS = Android.OS;
+using AView = Android.Views.View;
+using Color = Android.Graphics.Color;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 
@@ -22,12 +24,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	{
 		static readonly Forms.Color defaultNativeAnimationColor = Forms.Color.FromRgba(128, 128, 128, 64);
 
-		AccessibilityManager accessibilityManager;
-		AccessibilityListener accessibilityListener;
-		TouchEffect effect;
+		AccessibilityManager? accessibilityManager;
+		AccessibilityListener? accessibilityListener;
+		TouchEffect? effect;
 		bool isHoverSupported;
-		RippleDrawable ripple;
-		AView rippleView;
+		RippleDrawable? ripple;
+		AView? rippleView;
 		float startX;
 		float startY;
 		Forms.Color rippleColor;
@@ -35,14 +37,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		AView View => Control ?? Container;
 
-		ViewGroup Group => Container ?? Control as ViewGroup;
+		ViewGroup? Group => Container ?? Control as ViewGroup;
 
 		internal bool IsCanceled { get; set; }
 
-		bool IsAccessibilityMode =>
-			accessibilityManager != null &&
-			accessibilityManager.IsEnabled &&
-			accessibilityManager.IsTouchExplorationEnabled;
+		bool IsAccessibilityMode => accessibilityManager != null
+									&& accessibilityManager.IsEnabled
+									&& accessibilityManager.IsTouchExplorationEnabled;
 
 		protected override void OnAttached()
 		{
@@ -58,7 +59,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			View.Touch += OnTouch;
 			UpdateClickHandler();
 
-			accessibilityManager = View.Context.GetSystemService(Context.AccessibilityService) as AccessibilityManager;
+			accessibilityManager = View.Context?.GetSystemService(Context.AccessibilityService) as AccessibilityManager;
 			if (accessibilityManager != null)
 			{
 				accessibilityListener = new AccessibilityListener(this);
@@ -66,31 +67,30 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				accessibilityManager.AddTouchExplorationStateChangeListener(accessibilityListener);
 			}
 
-			if (effect.NativeAnimation && AndroidOS.Build.VERSION.SdkInt >= AndroidOS.BuildVersionCodes.Lollipop)
-			{
-				View.Clickable = true;
-				View.LongClickable = true;
-				CreateRipple();
+			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop || !effect.NativeAnimation)
+				return;
 
-				if (Group != null)
-				{
-					rippleView = new FrameLayout(Group.Context)
-					{
-						LayoutParameters = new ViewGroup.LayoutParams(-1, -1),
-						Clickable = false,
-						Focusable = false,
-					};
-					View.LayoutChange += OnLayoutChange;
-					rippleView.Background = ripple;
-					Group.AddView(rippleView);
-					rippleView.BringToFront();
-				}
-				else
-				{
-					rippleView = View;
-					rippleView.Foreground = ripple;
-				}
+			View.Clickable = true;
+			View.LongClickable = true;
+			CreateRipple();
+
+			if (Group == null)
+			{
+				View.Foreground = ripple;
+				return;
 			}
+
+			rippleView = new FrameLayout(Group.Context ?? throw new NullReferenceException())
+			{
+				LayoutParameters = new ViewGroup.LayoutParams(-1, -1),
+				Clickable = false,
+				Focusable = false,
+				Enabled = false,
+			};
+			View.LayoutChange += OnLayoutChange;
+			rippleView.Background = ripple;
+			Group.AddView(rippleView);
+			rippleView.BringToFront();
 		}
 
 		protected override void OnDetached()
@@ -100,7 +100,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			try
 			{
-				if (accessibilityManager != null)
+				if (accessibilityManager != null && accessibilityListener != null)
 				{
 					accessibilityManager.RemoveAccessibilityStateChangeListener(accessibilityListener);
 					accessibilityManager.RemoveTouchExplorationStateChangeListener(accessibilityListener);
@@ -114,6 +114,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					View.LayoutChange -= OnLayoutChange;
 					View.Touch -= OnTouch;
 					View.Click -= OnClick;
+
+					if (View.Foreground == ripple)
+						View.Foreground = null;
 				}
 
 				effect.Element = null;
@@ -122,16 +125,14 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				if (rippleView != null)
 				{
 					rippleView.Pressed = false;
-					rippleView.Foreground = null;
 					rippleView.Background = null;
-					if (rippleView != View)
-					{
-						Group?.RemoveView(rippleView);
-						rippleView.Dispose();
-					}
+					Group?.RemoveView(rippleView);
+					rippleView.Dispose();
 					rippleView = null;
-					ripple?.Dispose();
 				}
+
+				ripple?.Dispose();
+				ripple = null;
 			}
 			catch (ObjectDisposedException)
 			{
@@ -153,14 +154,14 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		void UpdateClickHandler()
 		{
 			View.Click -= OnClick;
-			if (IsAccessibilityMode || (effect.IsAvailable && effect.Element.IsEnabled))
+			if (IsAccessibilityMode || ((effect?.IsAvailable ?? false) && (effect?.Element?.IsEnabled ?? false)))
 			{
 				View.Click += OnClick;
 				return;
 			}
 		}
 
-		void OnTouch(object sender, AView.TouchEventArgs e)
+		async void OnTouch(object? sender, AView.TouchEventArgs e)
 		{
 			e.Handled = false;
 
@@ -170,77 +171,80 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (IsAccessibilityMode)
 				return;
 
-			switch (e.Event.ActionMasked)
+			switch (e.Event?.ActionMasked)
 			{
 				case MotionEventActions.Down:
-					OnTouchDown(e);
+					await OnTouchDown(e);
 					break;
 				case MotionEventActions.Up:
-					OnTouchUp();
+					await OnTouchUp();
 					break;
 				case MotionEventActions.Cancel:
-					OnTouchCancel();
+					await OnTouchCancel();
 					break;
 				case MotionEventActions.Move:
-					OnTouchMove(sender, e);
+					await OnTouchMove(sender, e);
 					break;
 				case MotionEventActions.HoverEnter:
-					OnHoverEnter();
+					await OnHoverEnter();
 					break;
 				case MotionEventActions.HoverExit:
-					OnHoverExit();
+					await OnHoverExit();
 					break;
 			}
 		}
 
-		void OnTouchDown(AView.TouchEventArgs e)
+		async Task OnTouchDown(AView.TouchEventArgs e)
 		{
+			_ = e.Event ?? throw new NullReferenceException();
+
 			IsCanceled = false;
 			startX = e.Event.GetX();
 			startY = e.Event.GetY();
 			effect?.HandleUserInteraction(TouchInteractionStatus.Started);
-			effect?.HandleTouch(TouchStatus.Started);
+			await (effect?.HandleTouch(TouchStatus.Started) ?? Task.CompletedTask);
 			StartRipple(e.Event.GetX(), e.Event.GetY());
-			if (effect.DisallowTouchThreshold > 0)
+			if (effect?.DisallowTouchThreshold > 0)
 				Group?.Parent?.RequestDisallowInterceptTouchEvent(true);
 		}
 
-		void OnTouchUp()
-			=> HandleEnd(effect.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled);
+		Task OnTouchUp()
+			=> HandleEnd(effect?.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled);
 
-		void OnTouchCancel()
+		Task OnTouchCancel()
 			=> HandleEnd(TouchStatus.Canceled);
 
-		void OnTouchMove(object sender, AView.TouchEventArgs e)
+		async Task OnTouchMove(object? sender, AView.TouchEventArgs e)
 		{
-			if (IsCanceled)
+			if (IsCanceled || e.Event == null)
 				return;
 
-			var diffX = Math.Abs(e.Event.GetX() - startX) / View.Context.Resources.DisplayMetrics.Density;
-			var diffY = Math.Abs(e.Event.GetY() - startY) / View.Context.Resources.DisplayMetrics.Density;
+			var diffX = Math.Abs(e.Event.GetX() - startX) / View.Context?.Resources?.DisplayMetrics?.Density ?? throw new NullReferenceException();
+			var diffY = Math.Abs(e.Event.GetY() - startY) / View.Context?.Resources?.DisplayMetrics?.Density ?? throw new NullReferenceException();
 			var maxDiff = Math.Max(diffX, diffY);
-			var disallowTouchThreshold = effect.DisallowTouchThreshold;
+
+			var disallowTouchThreshold = effect?.DisallowTouchThreshold;
 			if (disallowTouchThreshold > 0 && maxDiff > disallowTouchThreshold)
 			{
-				HandleEnd(TouchStatus.Canceled);
+				await HandleEnd(TouchStatus.Canceled);
 				return;
 			}
 
-			var view = sender as AView;
-			if (view == null)
+			if (sender is not AView view)
 				return;
 
 			var screenPointerCoords = new Point(view.Left + e.Event.GetX(), view.Top + e.Event.GetY());
 			var viewRect = new Rectangle(view.Left, view.Top, view.Right - view.Left, view.Bottom - view.Top);
 			var status = viewRect.Contains(screenPointerCoords) ? TouchStatus.Started : TouchStatus.Canceled;
 
-			if (isHoverSupported && ((status == TouchStatus.Canceled && effect.HoverStatus == HoverStatus.Entered)
-				|| (status == TouchStatus.Started && effect.HoverStatus == HoverStatus.Exited)))
-				effect?.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
+			if (isHoverSupported && ((status == TouchStatus.Canceled && effect?.HoverStatus == HoverStatus.Entered)
+				|| (status == TouchStatus.Started && effect?.HoverStatus == HoverStatus.Exited)))
+				await effect.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
 
-			if (effect.Status != status)
+			if (effect?.Status != status)
 			{
-				effect?.HandleTouch(status);
+				await (effect?.HandleTouch(status) ?? Task.CompletedTask);
+
 				if (status == TouchStatus.Started)
 					StartRipple(e.Event.GetX(), e.Event.GetY());
 				if (status == TouchStatus.Canceled)
@@ -248,19 +252,23 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		void OnHoverEnter()
+		async ValueTask OnHoverEnter()
 		{
 			isHoverSupported = true;
-			effect?.HandleHover(HoverStatus.Entered);
+
+			if (effect != null)
+				await effect.HandleHover(HoverStatus.Entered);
 		}
 
-		void OnHoverExit()
+		async ValueTask OnHoverExit()
 		{
 			isHoverSupported = true;
-			effect?.HandleHover(HoverStatus.Exited);
+
+			if (effect != null)
+				await effect.HandleHover(HoverStatus.Exited);
 		}
 
-		void OnClick(object sender, EventArgs args)
+		async void OnClick(object? sender, EventArgs args)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -269,20 +277,22 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return;
 
 			IsCanceled = false;
-			HandleEnd(TouchStatus.Completed);
+			await HandleEnd(TouchStatus.Completed);
 		}
 
-		void HandleEnd(TouchStatus status)
+		async Task HandleEnd(TouchStatus status)
 		{
 			if (IsCanceled)
 				return;
 
 			IsCanceled = true;
-			if (effect.DisallowTouchThreshold > 0)
+			if (effect?.DisallowTouchThreshold > 0)
 				Group?.Parent?.RequestDisallowInterceptTouchEvent(false);
 
-			effect?.HandleTouch(status);
+			await (effect?.HandleTouch(status) ?? Task.CompletedTask);
+
 			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
+
 			EndRipple();
 		}
 
@@ -294,11 +304,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (effect.CanExecute && effect.NativeAnimation && rippleView != null)
 			{
 				UpdateRipple();
-
-				if (rippleView != View)
-					rippleView.BringToFront();
-
-				ripple.SetHotspot(x, y);
+				rippleView.Enabled = true;
+				rippleView.BringToFront();
+				ripple?.SetHotspot(x, y);
 				rippleView.Pressed = true;
 			}
 		}
@@ -309,21 +317,22 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return;
 
 			if (rippleView?.Pressed ?? false)
+			{
 				rippleView.Pressed = false;
+				rippleView.Enabled = false;
+			}
 		}
 
 		void CreateRipple()
 		{
-			var background = View?.Background;
+			var drawable = Group != null ? View?.Background : View?.Foreground;
+			var isEmptyDrawable = Element is Layout || drawable == null;
 
-			if (background is RippleDrawable)
-			{
-				ripple = (RippleDrawable)background.GetConstantState().NewDrawable();
-				return;
-			}
+			if (drawable is RippleDrawable rippleDrawable && rippleDrawable.GetConstantState() is Drawable.ConstantState constantState)
+				ripple = (RippleDrawable)constantState.NewDrawable();
+			else
+				ripple = new RippleDrawable(GetColorStateList(), isEmptyDrawable ? null : drawable, isEmptyDrawable ? new ColorDrawable(Color.White) : null);
 
-			var noBackground = Element is Layout || background == null;
-			ripple = new RippleDrawable(GetColorStateList(), noBackground ? null : background, noBackground ? new ColorDrawable(Color.White) : null);
 			UpdateRipple();
 		}
 
@@ -337,13 +346,15 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			rippleColor = effect.NativeAnimationColor;
 			rippleRadius = effect.NativeAnimationRadius;
-			ripple.SetColor(GetColorStateList());
-			if (AndroidOS.Build.VERSION.SdkInt >= AndroidOS.BuildVersionCodes.M)
-				ripple.Radius = (int)(View.Context.Resources.DisplayMetrics.Density * effect.NativeAnimationRadius);
+			ripple?.SetColor(GetColorStateList());
+			if (Build.VERSION.SdkInt >= BuildVersionCodes.M && ripple != null)
+				ripple.Radius = (int)(View.Context?.Resources?.DisplayMetrics?.Density * effect?.NativeAnimationRadius ?? throw new NullReferenceException());
 		}
 
 		ColorStateList GetColorStateList()
 		{
+			_ = effect?.NativeAnimationColor ?? throw new NullReferenceException();
+
 			var nativeAnimationColor = effect.NativeAnimationColor;
 			if (nativeAnimationColor == Forms.Color.Default)
 				nativeAnimationColor = defaultNativeAnimationColor;
@@ -353,10 +364,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				new[] { (int)nativeAnimationColor.ToAndroid() });
 		}
 
-		void OnLayoutChange(object sender, AView.LayoutChangeEventArgs e)
+		void OnLayoutChange(object? sender, AView.LayoutChangeEventArgs e)
 		{
-			var group = (ViewGroup)sender;
-			if (group == null || (Group as IVisualElementRenderer)?.Element == null)
+			if (sender is not ViewGroup group || (Group as IVisualElementRenderer)?.Element == null || rippleView == null)
 				return;
 
 			rippleView.Right = group.Width;
@@ -367,7 +377,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 											 AccessibilityManager.IAccessibilityStateChangeListener,
 											 AccessibilityManager.ITouchExplorationStateChangeListener
 		{
-			PlatformTouchEffect platformTouchEffect;
+			PlatformTouchEffect? platformTouchEffect;
 
 			internal AccessibilityListener(PlatformTouchEffect platformTouchEffect)
 				=> this.platformTouchEffect = platformTouchEffect;

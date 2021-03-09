@@ -1,25 +1,37 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Internals
 {
+	/// <summary>
+	/// Abstract class that templated views should inherit
+	/// </summary>
+	/// <typeparam name="TControl">The type of the control that this template will be used for</typeparam>
 	public abstract class BaseTemplatedView<TControl> : TemplatedView where TControl : View, new()
 	{
-		protected TControl Control { get; private set; }
+		TControl? control;
 
+		protected TControl Control => control ?? throw new NullReferenceException();
+
+		/// <summary>
+		/// Constructor of <see cref="BaseTemplatedView" />
+		/// </summary>
 		public BaseTemplatedView()
 			=> ControlTemplate = new ControlTemplate(typeof(TControl));
 
 		protected override void OnBindingContextChanged()
 		{
 			base.OnBindingContextChanged();
-			Control.BindingContext = BindingContext;
+
+			if (control != null)
+				Control.BindingContext = BindingContext;
 		}
 
 		protected override void OnChildAdded(Element child)
 		{
-			if (Control == null && child is TControl content)
+			if (control == null && child is TControl content)
 			{
-				Control = content;
+				control = content;
 				OnControlInitialized(Control);
 			}
 

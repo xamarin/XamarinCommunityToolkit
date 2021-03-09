@@ -10,12 +10,14 @@ using static System.Math;
 
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
-	[Preserve(AllMembers = true)]
+	[Preserve(Conditional = true)]
 	public class SideMenuViewRenderer : VisualElementRenderer<SideMenuView>
 	{
-		UISwipeGestureRecognizer leftSwipeGestureRecognizer;
+		const double defaultGestureThreshold = 7.0;
 
-		UISwipeGestureRecognizer rightSwipeGestureRecognizer;
+		UISwipeGestureRecognizer? leftSwipeGestureRecognizer;
+
+		UISwipeGestureRecognizer? rightSwipeGestureRecognizer;
 
 		public SideMenuViewRenderer()
 		{
@@ -32,7 +34,11 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 		}
 
 		bool IsPanGestureHandled
-			=> Abs(Element?.CurrentGestureShift ?? 0) >= Element?.GestureThreshold;
+			=> Element != null && Abs(Element.CurrentGestureShift) >= GestureThreshold;
+
+		double GestureThreshold => Element.GestureThreshold >= 0
+			? Element.GestureThreshold
+			: defaultGestureThreshold;
 
 		public override void AddGestureRecognizer(UIGestureRecognizer gestureRecognizer)
 		{
@@ -55,7 +61,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			base.Dispose(disposing);
 		}
 
-		void Dispose(ref UISwipeGestureRecognizer gestureRecognizer)
+		void Dispose(ref UISwipeGestureRecognizer? gestureRecognizer)
 		{
 			if (gestureRecognizer != null)
 			{
@@ -79,7 +85,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 
 		bool ShouldRecognizeSimultaneously(UIGestureRecognizer gestureRecognizer, UIGestureRecognizer otherGestureRecognizer)
 		{
-			if (!(gestureRecognizer is UIPanGestureRecognizer panGesture))
+			if (gestureRecognizer is not UIPanGestureRecognizer panGesture)
 				return true;
 
 			var parent = Element?.Parent;

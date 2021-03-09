@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using Xamarin.CommunityToolkit.Core;
 using Xamarin.Forms;
-using XCT = Xamarin.CommunityToolkit.Core;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(ShowsPlaybackControls), typeof(bool), typeof(MediaElement), true);
 
 		public static readonly BindableProperty SourceProperty =
-		  BindableProperty.Create(nameof(Source), typeof(XCT.MediaSource), typeof(MediaElement),
+		  BindableProperty.Create(nameof(Source), typeof(MediaSource), typeof(MediaElement),
 			  propertyChanging: OnSourcePropertyChanging, propertyChanged: OnSourcePropertyChanged);
 
 		public static readonly BindableProperty VideoHeightProperty =
@@ -101,10 +101,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		[Forms.TypeConverter(typeof(XCT.MediaSourceConverter))]
-		public XCT.MediaSource Source
+		[Forms.TypeConverter(typeof(MediaSourceConverter))]
+		public MediaSource? Source
 		{
-			get => (XCT.MediaSource)GetValue(SourceProperty);
+			get => (MediaSource?)GetValue(SourceProperty);
 			set => SetValue(SourceProperty, value);
 		}
 
@@ -118,19 +118,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(VolumeProperty, value);
 		}
 
-		internal event EventHandler<SeekRequested> SeekRequested;
+		internal event EventHandler<SeekRequested>? SeekRequested;
 
-		internal event EventHandler<StateRequested> StateRequested;
+		internal event EventHandler<StateRequested>? StateRequested;
 
-		internal event EventHandler PositionRequested;
+		internal event EventHandler? PositionRequested;
 
-		public event EventHandler MediaEnded;
+		public event EventHandler? MediaEnded;
 
-		public event EventHandler MediaFailed;
+		public event EventHandler? MediaFailed;
 
-		public event EventHandler MediaOpened;
+		public event EventHandler? MediaOpened;
 
-		public event EventHandler SeekCompleted;
+		public event EventHandler? SeekCompleted;
 
 		public void Play() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Playing));
 
@@ -212,16 +212,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnBindingContextChanged();
 		}
 
-		void OnSourceChanged(object sender, EventArgs eventArgs)
+		void OnSourceChanged(object? sender, EventArgs eventArgs)
 		{
 			OnPropertyChanged(SourceProperty.PropertyName);
 			InvalidateMeasure();
 		}
 
 		static void OnSourcePropertyChanged(BindableObject bindable, object oldvalue, object newvalue) =>
-			((MediaElement)bindable).OnSourcePropertyChanged((XCT.MediaSource)newvalue);
+			((MediaElement)bindable).OnSourcePropertyChanged((MediaSource)newvalue);
 
-		void OnSourcePropertyChanged(XCT.MediaSource newvalue)
+		void OnSourcePropertyChanged(MediaSource newvalue)
 		{
 			if (newvalue != null)
 			{
@@ -233,9 +233,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static void OnSourcePropertyChanging(BindableObject bindable, object oldvalue, object newvalue) =>
-			((MediaElement)bindable).OnSourcePropertyChanging((XCT.MediaSource)oldvalue);
+			((MediaElement)bindable).OnSourcePropertyChanging((MediaSource)oldvalue);
 
-		void OnSourcePropertyChanging(XCT.MediaSource oldvalue)
+		void OnSourcePropertyChanging(MediaSource oldvalue)
 		{
 			if (oldvalue == null)
 				return;
@@ -245,7 +245,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void CurrentStateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var element = bindable as MediaElement;
+			var element = (MediaElement)bindable;
 
 			switch ((MediaElementState)newValue)
 			{
@@ -269,14 +269,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void PositionChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var element = bindable as MediaElement;
+			var element = (MediaElement)bindable;
 
 			var oldval = (TimeSpan)oldValue;
 			var newval = (TimeSpan)newValue;
 			if (Math.Abs(newval.Subtract(oldval).TotalMilliseconds) > 300 && !element.isSeeking)
-			{
 				element.RequestSeek(newval);
-			}
 		}
 
 		static bool ValidateVolume(BindableObject o, object newValue)

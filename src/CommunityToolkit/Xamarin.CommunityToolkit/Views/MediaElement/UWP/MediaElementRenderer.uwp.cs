@@ -86,7 +86,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void PositionRequested(object sender, EventArgs e)
+		void PositionRequested(object? sender, EventArgs e)
 		{
 			if (Control != null)
 				Controller.Position = Control.Position;
@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		IMediaElementController Controller => Element as IMediaElementController;
 
-		void StateRequested(object sender, StateRequested e)
+		void StateRequested(object? sender, StateRequested e)
 		{
 			if (Control != null)
 			{
@@ -118,7 +118,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void SeekRequested(object sender, SeekRequested e)
+		void SeekRequested(object? sender, SeekRequested e)
 		{
 			if (Control != null && Control.CanSeek)
 			{
@@ -127,9 +127,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void ControlMediaFailed(object sender, ExceptionRoutedEventArgs e) => Controller?.OnMediaFailed();
+		void ControlMediaFailed(object? sender, ExceptionRoutedEventArgs e) => Controller?.OnMediaFailed();
 
-		void ControlMediaEnded(object sender, RoutedEventArgs e)
+		void ControlMediaEnded(object? sender, RoutedEventArgs e)
 		{
 			if (Control != null)
 				Controller.Position = Control.Position;
@@ -138,7 +138,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.OnMediaEnded();
 		}
 
-		void ControlMediaOpened(object sender, RoutedEventArgs e)
+		void ControlMediaOpened(object? sender, RoutedEventArgs e)
 		{
 			Controller.Duration = Control.NaturalDuration.HasTimeSpan ? Control.NaturalDuration.TimeSpan : (TimeSpan?)null;
 			Controller.VideoHeight = Control.NaturalVideoHeight;
@@ -149,9 +149,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.OnMediaOpened();
 		}
 
-		void ControlCurrentStateChanged(object sender, RoutedEventArgs e)
+		void ControlCurrentStateChanged(object? sender, RoutedEventArgs e)
 		{
-			if (Element is null || Control is null)
+			if (Element == null || Control == null)
 				return;
 
 			switch (Control.CurrentState)
@@ -195,7 +195,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Controller.Position = Control.Position;
 		}
 
-		void ControlSeekCompleted(object sender, RoutedEventArgs e)
+		void ControlSeekCompleted(object? sender, RoutedEventArgs e)
 		{
 			if (Control != null)
 			{
@@ -204,7 +204,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
@@ -257,7 +257,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected virtual void UpdateSource()
 		{
 			if (Element.Source == null)
+			{
+				Control.Stop();
+				Control.Source = null;
 				return;
+			}
 
 			if (Element.Source is UriMediaSource uriSource)
 				Control.Source = uriSource.Uri;
