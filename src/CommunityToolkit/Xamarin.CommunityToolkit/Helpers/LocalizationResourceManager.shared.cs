@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 #if !NETSTANDARD1_0
 	public class LocalizationResourceManager : ObservableObject
 	{
-		static readonly Lazy<LocalizationResourceManager> currentHolder = new Lazy<LocalizationResourceManager>(() => new LocalizationResourceManager());
+		static readonly Lazy<LocalizationResourceManager> currentHolder = new (() => new LocalizationResourceManager());
 
 		public static LocalizationResourceManager Current => currentHolder.Value;
 
@@ -21,17 +21,13 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		public void Init(ResourceManager defaultResourceManager) => DefaultResourceManager = defaultResourceManager;
 
-		public void Init(CultureInfo initialCulture) =>
-			CurrentCulture = initialCulture;
+		public void Init(CultureInfo initialCulture) => CurrentCulture = initialCulture;
 
 		public void Init(ResourceManager defaultResourceManager, CultureInfo initialCulture)
 		{
-			DefaultResourceManager = defaultResourceManager;
-			CurrentCulture = initialCulture;
-			Init(resource);
+			Init(defaultResourceManager);
+			Init(initialCulture);
 		}
-
-		public string this[string text] => GetValue(text);
 
 		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
@@ -43,7 +39,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			set => SetProperty(ref currentCulture, value);
 		}
 
-		internal ResourceManager DefaultResourceManager { get; private set; }
+		internal ResourceManager? DefaultResourceManager { get; private set; }
 
 		[Obsolete("This method is no longer needed with new implementation of " + nameof(LocalizationResourceManager) + ". Please, remove all references to it.")]
 		[EditorBrowsable(EditorBrowsableState.Never)]

@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		public string Localized => generator();
 
 		[Preserve(Conditional = true)]
-		public static implicit operator LocalizedString(Func<string> func) => new LocalizedString(func);
+		public static implicit operator LocalizedString(Func<string> func) => new (func);
 	}
 #endif
 }

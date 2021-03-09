@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public string? StringFormat { get; set; }
 
-		public ResourceManager ResourceManager { get; set; }
+		public ResourceManager? ResourceManager { get; set; }
 
 		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider) => ProvideValue(serviceProvider);
 
