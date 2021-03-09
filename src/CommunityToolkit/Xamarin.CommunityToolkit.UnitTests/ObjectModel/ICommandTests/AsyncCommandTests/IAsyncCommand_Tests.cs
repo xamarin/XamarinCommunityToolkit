@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -210,6 +211,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public async Task IAsyncCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var canExecuteChangedCount = 0;
 			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
@@ -234,12 +236,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.Equal(2, canExecuteChangedCount);
 			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedREsult);
 
-			void handleCanExecuteChanged(object? sender, EventArgs e)
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
-				if (++canExecuteChangedCount is 2)
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
 				{
-					command.CanExecuteChanged -= handleCanExecuteChanged;
-					handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					if (++canExecuteChangedCount is 2)
+					{
+						command.CanExecuteChanged -= handleCanExecuteChanged;
+						handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					}
+				}
+				finally
+				{
+					semaphoreSlim.Release();
 				}
 			}
 		}

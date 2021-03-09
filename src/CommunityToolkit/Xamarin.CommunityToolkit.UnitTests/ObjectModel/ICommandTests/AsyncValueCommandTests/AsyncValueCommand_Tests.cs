@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
@@ -190,6 +191,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task AsyncValueCommand_RaiseCanExecuteChanged_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			var canCommandExecute = false;
@@ -217,11 +219,20 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object? sender, EventArgs e)
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
-				command.CanExecuteChanged -= handleCanExecuteChanged;
-				didCanExecuteChangeFire = true;
-				handleCanExecuteChangedTCS.SetResult(null);
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
+					didCanExecuteChangeFire = true;
+					handleCanExecuteChangedTCS.SetResult(null);
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
 			}
 		}
 
@@ -229,6 +240,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task AsyncValueCommand_ChangeCanExecute_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			var canCommandExecute = false;
@@ -256,11 +268,20 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object? sender, EventArgs e)
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
-				command.CanExecuteChanged -= handleCanExecuteChanged;
-				didCanExecuteChangeFire = true;
-				handleCanExecuteChangedTCS.SetResult(null);
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
+					didCanExecuteChangeFire = true;
+					handleCanExecuteChangedTCS.SetResult(null);
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
 			}
 		}
 
@@ -298,18 +319,28 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task AsyncValueCommand_Parameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var canExecuteChangedCount = 0;
 			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			var command = new AsyncValueCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object? sender, EventArgs e)
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
-				if (++canExecuteChangedCount is 2)
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
 				{
-					command.CanExecuteChanged -= handleCanExecuteChanged;
-					handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					if (++canExecuteChangedCount is 2)
+					{
+						command.CanExecuteChanged -= handleCanExecuteChanged;
+						handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					}
+				}
+				finally
+				{
+					semaphoreSlim.Release();
 				}
 			}
 
@@ -366,18 +397,28 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task AsyncValueCommand_NoParameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var canExecuteChangedCount = 0;
 			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			var command = new AsyncValueCommand(() => IntParameterTask(Delay), allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object? sender, EventArgs e)
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
-				if (++canExecuteChangedCount is 2)
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
 				{
-					command.CanExecuteChanged -= handleCanExecuteChanged;
-					handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					if (++canExecuteChangedCount is 2)
+					{
+						command.CanExecuteChanged -= handleCanExecuteChanged;
+						handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					}
+				}
+				finally
+				{
+					semaphoreSlim.Release();
 				}
 			}
 
