@@ -1,11 +1,11 @@
 # See available software and versions on hosted agents here: https://docs.microsoft.com/azure/devops/pipelines/agents/hosted
 variables:
-  CurrentSemanticVersionBase: '1.0.0'
+  CurrentSemanticVersionBase: '1.1.0'
   PreviewNumber: $[counter(variables['CurrentSemanticVersionBase'], 1001)]
   CurrentSemanticVersion: '$(CurrentSemanticVersionBase)-preview$(PreviewNumber)'
   NugetPackageVersion: '$(CurrentSemanticVersion)'
-  MONO_VERSION: 6_4_0
-  XCODE_VERSION: 11.4
+  #MONO_VERSION: 6_4_0
+  #XCODE_VERSION: 11.4
   NETCORE_VERSION: '3.1.x'
   NETCORE_TEST_VERSION: '3.1.x'
   RunPoliCheck: 'false'
@@ -48,7 +48,7 @@ schedules:
   displayName: Daily midnight build
   branches:
     include:
-    - main
+    - develop
 
 jobs:
   - job: build_windows_samples
@@ -153,11 +153,12 @@ jobs:
           Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
         displayName: Set NuGet Version to Tag Number
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+      # 16feb21 jfversluis: let's not pin this anymore and use latest
       # make sure to select the correct Xamarin and mono
-      - bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
-        displayName: Switch to the latest Xamarin SDK
-      - bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
-        displayName: Switch to the latest Xcode
+      #- bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
+      #  displayName: Switch to the latest Xamarin SDK
+      #- bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
+      #  displayName: Switch to the latest Xcode
       # restore, build and pack the packages
       - task: UseDotNet@2
         displayName: 'Use .Net Core sdk'
@@ -186,3 +187,4 @@ jobs:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
       parameters:
         dependsOn: [ build_windows ]
+        condition: and(succeeded(), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'],'refs/tags/'))))

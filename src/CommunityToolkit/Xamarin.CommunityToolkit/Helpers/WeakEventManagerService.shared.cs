@@ -171,6 +171,8 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		static bool IsLightweightMethod(this MethodBase method)
 		{
+			_ = method ?? throw new ArgumentNullException(nameof(method));
+
 			var typeInfoRTDynamicMethod = typeof(DynamicMethod).GetTypeInfo().GetDeclaredNestedType("RTDynamicMethod");
 			return method is DynamicMethod || (typeInfoRTDynamicMethod?.IsAssignableFrom(method.GetType().GetTypeInfo()) ?? false);
 		}

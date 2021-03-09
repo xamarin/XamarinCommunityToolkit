@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.Forms;
 
@@ -14,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	}
 
 	/// <summary>
-	/// Converts boolean to object and vice versa.
+	/// Converts <see cref="bool"/> to object and vice versa.
 	/// </summary>
 	public class BoolToObjectConverter<TObject> : ValueConverterExtension, IValueConverter
 	{
@@ -29,13 +28,13 @@ namespace Xamarin.CommunityToolkit.Converters
 		public TObject FalseObject { get; set; }
 
 		/// <summary>
-		/// Converts boolean to object.
+		/// Converts <see cref="bool"/> to object.
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
-		/// <param name="targetType">The type of the binding target property.</param>
-		/// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
-		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>TrueObject if value equals True, otherwise FalseObject.</returns>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
+		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
+		/// <param name="culture">The culture to use in the converter.  This is not implemented.</param>
+		/// <returns>The object assigned to <see cref="TrueObject"/> if value equals True, otherwise the value assigned to <see cref="FalseObject"/>.</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value is bool result)
@@ -45,13 +44,13 @@ namespace Xamarin.CommunityToolkit.Converters
 		}
 
 		/// <summary>
-		/// Converts back object to boolean.
+		/// Converts back object to <see cref="bool"/>.
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
-		/// <param name="targetType">The type of the binding target property.</param>
-		/// <param name="parameter">Additional parameter for the converter to handle. Not implemented.</param>
-		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>True if value equals TrueObject, otherwise False.</returns>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
+		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
+		/// <param name="culture">The culture to use in the converter.  This is not implemented.</param>
+		/// <returns>True if value equals <see cref="TrueObject"/>, otherwise False.</returns>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value is TObject result)
