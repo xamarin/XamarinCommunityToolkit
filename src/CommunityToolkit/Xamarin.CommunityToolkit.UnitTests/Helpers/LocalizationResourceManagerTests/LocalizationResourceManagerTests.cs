@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizationResourceManager
 			// Arrange
 			var culture2 = new CultureInfo("en");
 			localizationManager.CurrentCulture = culture2;
-			CultureInfo changedCulture = null;
+			CultureInfo? changedCulture = null;
 			localizationManager.PropertyChanged += (s, e) => changedCulture = localizationManager.CurrentCulture;
 
 			// Act, Assert

@@ -144,8 +144,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 		Entry CreateEntry(int? maxLength = 2,
 						  bool shouldDismissKeyboardAutomatically = false,
-						  ICommand command = null,
-						  EventHandler<MaxLengthReachedEventArgs> eventHandler = null)
+						  ICommand? command = null,
+						  EventHandler<MaxLengthReachedEventArgs>? eventHandler = null)
 		{
 			var behavior = new MaxLengthReachedBehavior
 			{

@@ -7,21 +7,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {
 	public sealed class ObservableObject_Tests
 	{
-		Person person;
-
-		public ObservableObject_Tests()
+		readonly Person person = new Person
 		{
-			person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-		}
+			FirstName = "James",
+			LastName = "Montemagno"
+		};
 
 		[Fact]
 		public void OnPropertyChanged()
 		{
-			PropertyChangedEventArgs updated = null;
+			PropertyChangedEventArgs? updated = null;
 			person.PropertyChanged += (sender, args) =>
 			{
 				updated = args;
@@ -30,13 +25,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			person.FirstName = "Motz";
 
 			Assert.NotNull(updated);
-			Assert.Equal(nameof(person.FirstName), updated.PropertyName);
+			Assert.Equal(nameof(person.FirstName), updated?.PropertyName);
 		}
 
 		[Fact]
 		public void OnDidntChange()
 		{
-			PropertyChangedEventArgs updated = null;
+			PropertyChangedEventArgs? updated = null;
 			person.PropertyChanged += (sender, args) =>
 			{
 				updated = args;

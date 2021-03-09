@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views.Tabs
 	{
 		public static NormalTestViewModel Current { get; } = new NormalTestViewModel();
 
-		string loadedViews;
+		string loadedViews = string.Empty;
 
 		public string LoadedViews
 		{

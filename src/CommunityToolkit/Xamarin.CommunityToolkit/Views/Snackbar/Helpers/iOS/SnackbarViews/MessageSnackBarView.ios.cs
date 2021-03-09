@@ -1,4 +1,5 @@
-﻿using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
+﻿using System;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
 {
@@ -38,6 +39,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
 				messageLabel.Font = SnackBar.Appearance.Font;
 			}
 
+			_ = StackView ?? throw new NullReferenceException();
 			StackView.AddArrangedSubview(messageLabel);
 		}
 	}

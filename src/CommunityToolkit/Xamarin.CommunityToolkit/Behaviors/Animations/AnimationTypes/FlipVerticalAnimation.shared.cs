@@ -7,10 +7,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	{
 		protected override double DefaultRotation { get; set; } = 90;
 
-		public override async Task Animate(View view)
+		public override async Task Animate(View? view)
 		{
-			await view.RotateXTo(Rotation, Duration, Easing);
-			await view.RotateXTo(0, Duration, Easing);
+			if (view != null)
+			{
+				await view.RotateXTo(Rotation, Duration, Easing);
+				await view.RotateXTo(0, Duration, Easing);
+			}
 		}
 	}
 }

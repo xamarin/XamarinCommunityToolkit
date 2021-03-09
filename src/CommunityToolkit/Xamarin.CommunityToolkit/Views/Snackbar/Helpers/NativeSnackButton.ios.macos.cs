@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using CoreGraphics;
 #if __IOS__
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS;
 using UIKit;
 #elif __MACOS__
+using CoreGraphics;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS;
 using AppKit;
 #endif
@@ -31,14 +31,16 @@ namespace Xamarin.CommunityToolkit.Views.Snackbar.Helpers
 			ContentEdgeInsets = new UIEdgeInsets((nfloat)top, (nfloat)left, (nfloat)bottom, (nfloat)right);
 			TouchUpInside += async (s, e) =>
 			{
-				await SnackButtonAction();
+				if (SnackButtonAction != null)
+					await SnackButtonAction();
 			};
 		}
 #else
 			WantsLayer = true;
 			Activated += async (s, e) =>
 			{
-				await SnackButtonAction();
+				if (SnackButtonAction != null)
+					await SnackButtonAction();
 			};
 		}
 
@@ -55,7 +57,7 @@ namespace Xamarin.CommunityToolkit.Views.Snackbar.Helpers
 
 		public double Bottom { get; }
 
-		public Func<Task> SnackButtonAction { get; protected set; }
+		public Func<Task>? SnackButtonAction { get; protected set; }
 
 		public NativeSnackButton SetAction(Func<Task> action)
 		{

@@ -1,7 +1,6 @@
 ﻿using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
-using Android.Runtime;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -13,16 +12,20 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class RemoveBorderEffect : PlatformEffect
 	{
-		Drawable originalBackground;
+		Drawable? originalBackground;
 
 		protected override void OnAttached()
 		{
 			originalBackground = Control.Background;
 
 			var shape = new ShapeDrawable(new RectShape());
-			shape.Paint.Color = global::Android.Graphics.Color.Transparent;
-			shape.Paint.StrokeWidth = 0;
-			shape.Paint.SetStyle(Paint.Style.Stroke);
+			if (shape.Paint != null)
+			{
+				shape.Paint.Color = global::Android.Graphics.Color.Transparent;
+				shape.Paint.StrokeWidth = 0;
+				shape.Paint.SetStyle(Paint.Style.Stroke);
+			}
+
 			Control.Background = shape;
 		}
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
@@ -19,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Act
 			command.Execute(parameter);
-			await NoParameterTask();
+			await NoParameterTask().ConfigureAwait(false);
 
 			// Assert
 		}
@@ -34,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Act
 			command.Execute(parameter);
-			await NoParameterTask();
+			await NoParameterTask().ConfigureAwait(false);
 
 			// Assert
 		}
@@ -43,7 +44,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task ICommand_Execute_InvalidValueTypeParameter_Test()
 		{
 			// Arrange
-			InvalidCommandParameterException actualInvalidCommandParameterException = null;
+			InvalidCommandParameterException? actualInvalidCommandParameterException = null;
 			var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(string), typeof(int));
 
 			ICommand command = new AsyncValueCommand<string>(StringParameterTask);
@@ -52,8 +53,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			try
 			{
 				command.Execute(Delay);
-				await NoParameterTask();
-				await NoParameterTask();
+				await NoParameterTask().ConfigureAwait(false);
+				await NoParameterTask().ConfigureAwait(false);
 			}
 			catch (InvalidCommandParameterException e)
 			{
@@ -69,7 +70,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task ICommand_Execute_InvalidReferenceTypeParameter_Test()
 		{
 			// Arrange
-			InvalidCommandParameterException actualInvalidCommandParameterException = null;
+			InvalidCommandParameterException? actualInvalidCommandParameterException = null;
 			var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(int), typeof(string));
 
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask);
@@ -78,8 +79,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			try
 			{
 				command.Execute("Hello World");
-				await NoParameterTask();
-				await NoParameterTask();
+				await NoParameterTask().ConfigureAwait(false);
+				await NoParameterTask().ConfigureAwait(false);
 			}
 			catch (InvalidCommandParameterException e)
 			{
@@ -95,7 +96,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public async Task ICommand_Execute_ValueTypeParameter_Test()
 		{
 			// Arrange
-			InvalidCommandParameterException actualInvalidCommandParameterException = null;
+			InvalidCommandParameterException? actualInvalidCommandParameterException = null;
 			var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(int));
 
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask);
@@ -104,8 +105,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			try
 			{
 				command.Execute(null);
-				await NoParameterTask();
-				await NoParameterTask();
+				await NoParameterTask().ConfigureAwait(false);
+				await NoParameterTask().ConfigureAwait(false);
 			}
 			catch (InvalidCommandParameterException e)
 			{
@@ -224,7 +225,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			// Act
 			command.Execute(Delay);
@@ -233,23 +234,43 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
+			await IntParameterTask(Delay).ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(0, canExecuteChangedCount);
+
+			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
 		[Fact]
 		public async Task ICommand_Parameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var canExecuteChangedCount = 0;
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			ICommand command = new AsyncValueCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					if (++canExecuteChangedCount is 2)
+					{
+						command.CanExecuteChanged -= handleCanExecuteChanged;
+						handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					}
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
 
 			// Act
 			command.Execute(Delay);
@@ -258,12 +279,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 
 		[Fact]
@@ -275,7 +296,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			ICommand command = new AsyncValueCommand(() => IntParameterTask(Delay));
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
 			// Act
 			command.Execute(null);
@@ -284,24 +305,44 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			await IntParameterTask(Delay).ConfigureAwait(false);
+			await IntParameterTask(Delay).ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(0, canExecuteChangedCount);
+
+			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
 		[Fact]
 		public async Task ICommand_NoParameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var canExecuteChangedCount = 0;
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			ICommand command = new AsyncValueCommand(() => IntParameterTask(Delay), allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					if (++canExecuteChangedCount is 2)
+					{
+						command.CanExecuteChanged -= handleCanExecuteChanged;
+						handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					}
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
 
 			// Act
 			command.Execute(null);
@@ -310,12 +351,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 	}
 }
