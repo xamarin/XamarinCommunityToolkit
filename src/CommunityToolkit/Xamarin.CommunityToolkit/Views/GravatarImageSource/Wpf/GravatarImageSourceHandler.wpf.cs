@@ -12,12 +12,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public partial class GravatarImageSourceHandler : IImageSourceHandler
 	{
-		public async Task<SystemImageSource> LoadImageAsync(FormsImageSource imagesource, CancellationToken cancellationToken = default)
+		public async Task<SystemImageSource?> LoadImageAsync(FormsImageSource imagesource, CancellationToken cancellationToken = default)
 		{
 			var appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			var fileInfo = await LoadInternal(imagesource, 1, appdata);
 
-			BitmapImage bitmap = null;
+			BitmapImage? bitmap = null;
 			try
 			{
 				await semaphore.WaitAsync();

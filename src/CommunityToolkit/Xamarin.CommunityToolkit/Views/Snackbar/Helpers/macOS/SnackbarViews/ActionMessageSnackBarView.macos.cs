@@ -1,7 +1,4 @@
-﻿using System;
-using AppKit;
-
-namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
+﻿namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
 	class ActionMessageSnackBarView : MessageSnackBarView
 	{
@@ -15,7 +12,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 			base.Initialize();
 			foreach (var actionButton in SnackBar.Actions)
 			{
-				StackView.AddArrangedSubview(actionButton);
+				StackView?.AddArrangedSubview(actionButton);
 			}
 		}
 	}

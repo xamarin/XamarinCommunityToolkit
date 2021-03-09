@@ -1,6 +1,5 @@
-﻿using UIKit;
+﻿using System;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
-using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
@@ -14,6 +13,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 		protected override void Initialize()
 		{
 			base.Initialize();
+
+			_ = StackView ?? throw new NullReferenceException();
 
 			foreach (var actionButton in SnackBar.Actions)
 			{

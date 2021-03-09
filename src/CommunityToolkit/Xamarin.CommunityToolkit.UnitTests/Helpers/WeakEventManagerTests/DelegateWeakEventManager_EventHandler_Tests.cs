@@ -52,7 +52,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			}
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			TestWeakEventManager.RaiseEvent(null, new EventArgs(), nameof(TestEvent));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
 			Assert.True(didEventFire);
@@ -145,7 +147,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleTestEvent(object? sender, EventArgs e) => didEventFire = true;
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			TestWeakEventManager.RaiseEvent(null, null, nameof(TestEvent));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
 			Assert.False(didEventFire);
@@ -162,7 +166,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleTestEvent(object? sender, EventArgs e) => didEventFire = true;
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			unassignedEventManager.RaiseEvent(null, null, nameof(TestEvent));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
 			Assert.False(didEventFire);

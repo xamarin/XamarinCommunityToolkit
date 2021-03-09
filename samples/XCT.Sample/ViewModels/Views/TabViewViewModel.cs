@@ -38,6 +38,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(TabWidthPage), "TabWidth",
 				"Customize the tabs width"),
 
+			new SectionModel(typeof(TabViewItemVisualStatePage), "TabViewItem VisualState",
+				"Using TabViewItem VisualStates"),
+
 			new SectionModel(typeof(NoContentPage), "Tab without Content",
 				"Only the TabStrip is visible"),
 

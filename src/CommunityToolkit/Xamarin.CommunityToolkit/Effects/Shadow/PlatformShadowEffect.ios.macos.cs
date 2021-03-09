@@ -28,17 +28,17 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 
 		const float defaultOpacity = .5f;
 
-		NativeView View => Control ?? Container;
+		NativeView? View => Control ?? Container;
 
 		protected override void OnAttached()
 		{
 			if (View == null)
 				return;
 
-			UpdateColor();
-			UpdateOpacity();
-			UpdateRadius();
-			UpdateOffset();
+			UpdateColor(View);
+			UpdateOpacity(View);
+			UpdateRadius(View);
+			UpdateOffset(View);
 		}
 
 		protected override void OnDetached()
@@ -59,41 +59,49 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 			switch (args.PropertyName)
 			{
 				case nameof(ShadowEffect.ColorPropertyName):
-					UpdateColor();
+					UpdateColor(View);
 					break;
 				case nameof(ShadowEffect.OpacityPropertyName):
-					UpdateOpacity();
+					UpdateOpacity(View);
 					break;
 				case nameof(ShadowEffect.RadiusPropertyName):
-					UpdateRadius();
+					UpdateRadius(View);
 					break;
 				case nameof(ShadowEffect.OffsetXPropertyName):
 				case nameof(ShadowEffect.OffsetYPropertyName):
-					UpdateOffset();
+					UpdateOffset(View);
 					break;
 			}
 		}
 
-		void UpdateColor()
-			=> View.Layer.ShadowColor = ShadowEffect.GetColor(Element).ToCGColor();
-
-		void UpdateOpacity()
+		void UpdateColor(in NativeView view)
 		{
-			var opacity = (float)ShadowEffect.GetOpacity(Element);
-			View.Layer.ShadowOpacity = opacity < 0
-				? defaultOpacity
-				: opacity;
+			if (view.Layer != null)
+				view.Layer.ShadowColor = ShadowEffect.GetColor(Element).ToCGColor();
 		}
 
-		void UpdateRadius()
+		void UpdateOpacity(in NativeView view)
 		{
-			var radius = (nfloat)ShadowEffect.GetRadius(Element);
-			View.Layer.ShadowRadius = radius < 0
-				? defaultRadius
-				: radius;
+			if (view.Layer != null)
+			{
+				var opacity = (float)ShadowEffect.GetOpacity(Element);
+				view.Layer.ShadowOpacity = opacity < 0 ? defaultOpacity : opacity;
+			}
 		}
 
-		void UpdateOffset()
-			=> View.Layer.ShadowOffset = new CGSize((double)ShadowEffect.GetOffsetX(Element), (double)ShadowEffect.GetOffsetY(Element));
+		void UpdateRadius(in NativeView view)
+		{
+			if (view.Layer != null)
+			{
+				var radius = (nfloat)ShadowEffect.GetRadius(Element);
+				view.Layer.ShadowRadius = radius < 0 ? defaultRadius : radius;
+			}
+		}
+
+		void UpdateOffset(in NativeView view)
+		{
+			if (view.Layer != null)
+				view.Layer.ShadowOffset = new CGSize((double)ShadowEffect.GetOffsetX(Element), (double)ShadowEffect.GetOffsetY(Element));
+		}
 	}
 }

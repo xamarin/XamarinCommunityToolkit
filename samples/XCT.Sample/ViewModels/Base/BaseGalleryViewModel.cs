@@ -20,9 +20,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		public ICommand FilterCommand { get; }
 
-		public string FilterValue { private get; set; }
+		public string FilterValue { private get; set; } = string.Empty;
 
-		public IEnumerable<SectionModel> FilteredItems { get; private set; }
+		public IEnumerable<SectionModel> FilteredItems { get; private set; } = Enumerable.Empty<SectionModel>();
 
 		protected abstract IEnumerable<SectionModel> CreateItems();
 

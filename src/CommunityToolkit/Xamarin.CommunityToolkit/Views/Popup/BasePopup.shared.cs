@@ -38,9 +38,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <remarks>
 		/// The View can be or type: <see cref="View"/>, <see cref="ContentPage"/> or <see cref="NavigationPage"/>
 		/// </remarks>
-		public virtual View Content
+		public virtual View? Content
 		{
-			get => (View)GetValue(ContentProperty);
+			get => (View?)GetValue(ContentProperty);
 			set => SetValue(ContentProperty, value);
 		}
 
@@ -82,7 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// The Anchor is where the Popup will render closest to. When an Anchor is configured
 		/// the popup will appear centered over that control or as close as possible.
 		/// </remarks>
-		public View Anchor { get; set; }
+		public View? Anchor { get; set; }
 
 		/// <summary>
 		/// Gets or sets the <see cref="Size"/> of the Popup Display.
@@ -132,7 +132,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <param name="result">
 		/// The results to add to the <see cref="PopupDismissedEventArgs"/>.
 		/// </param>
-		protected void OnDismissed(object result) =>
+		protected void OnDismissed(object? result) =>
 			dismissWeakEventManager.RaiseEvent(this, new PopupDismissedEventArgs(result), nameof(Dismissed));
 
 		/// <summary>

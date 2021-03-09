@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The <see cref="DateTime"/> value.</returns>
-		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		public object Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
 			=> value is DateTimeOffset dateTimeOffset
 				? dateTimeOffset.DateTime
 				: throw new ArgumentException("Value is not a valid DateTimeOffset", nameof(value));
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented..</param>
 		/// <returns>The <see cref="DateTimeOffset"/> value.</returns>
-		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		public object ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
 			=> value is DateTime dateTime
 				? dateTime.Kind switch
 				{

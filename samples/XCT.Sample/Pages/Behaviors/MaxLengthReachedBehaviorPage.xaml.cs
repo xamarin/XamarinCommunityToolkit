@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
 		public MaxLengthReachedBehaviorPage()
 			=> InitializeComponent();
 
-		void MaxLengthReachedBehavior_MaxLengthReached(object sender, MaxLengthReachedEventArgs e)
+		void MaxLengthReachedBehavior_MaxLengthReached(object? sender, MaxLengthReachedEventArgs e)
 			=> nextEntry.Focus();
 	}
 }

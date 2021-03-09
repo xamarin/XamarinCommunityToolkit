@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 		protected new ValueTask IntParameterTask(int delay) => ValueTaskDelay(delay);
 
-		protected new ValueTask StringParameterTask(string text) => ValueTaskDelay(Delay);
+		protected new ValueTask StringParameterTask(string? text) => ValueTaskDelay(Delay);
 
 		protected new ValueTask NoParameterImmediateNullReferenceExceptionTask() => throw new NullReferenceException();
 

@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
 	public class MaxLengthReachedBehaviorViewModel : BaseViewModel
 	{
-		string commandExecutions;
+		string commandExecutions = string.Empty;
 
 		public string CommandExecutions
 		{

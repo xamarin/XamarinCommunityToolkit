@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System.Linq;
+using System.Timers;
 using Gtk;
 using Pango;
 using Xamarin.CommunityToolkit.UI.Views.Options;
@@ -10,24 +11,27 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		Timer snackBarTimer;
+		Timer? snackBarTimer;
 
 		public void Show(Page page, SnackBarOptions arguments)
 		{
 			var mainWindow = (Platform.GetRenderer(page).Container.Child as Forms.Platform.GTK.Controls.Page)?.Children[0] as VBox;
 			var snackBarLayout = GetSnackBarLayout(mainWindow, arguments);
+
 			AddSnackBarContainer(mainWindow, snackBarLayout);
+
 			snackBarTimer = new Timer(arguments.Duration.TotalMilliseconds);
 			snackBarTimer.Elapsed += (sender, e) =>
 			{
-				mainWindow.Remove(snackBarLayout);
+				mainWindow?.Remove(snackBarLayout);
 				snackBarTimer.Stop();
 				arguments.SetResult(false);
 			};
+
 			snackBarTimer.Start();
 		}
 
-		HBox GetSnackBarLayout(Container container, SnackBarOptions arguments)
+		HBox GetSnackBarLayout(Container? container, SnackBarOptions arguments)
 		{
 			var snackBarLayout = new HBox();
 			snackBarLayout.ModifyBg(StateType.Normal, arguments.BackgroundColor.ToGtkColor());
@@ -51,10 +55,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				button.Clicked += async (sender, e) =>
 				{
-					snackBarTimer.Stop();
-					await action.Action();
+					snackBarTimer?.Stop();
+
+					if (action.Action != null)
+						await action.Action();
+
 					arguments.SetResult(true);
-					container.Remove(snackBarLayout);
+					container?.Remove(snackBarLayout);
 				};
 
 				snackBarLayout.Add(button);
@@ -64,20 +71,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return snackBarLayout;
 		}
 
-		void AddSnackBarContainer(Container mainWindow, Widget snackBarLayout)
+		void AddSnackBarContainer(Container? mainWindow, Widget snackBarLayout)
 		{
-			var children = mainWindow.Children;
-			foreach (var child in mainWindow.Children)
+			var children = mainWindow?.Children ?? Enumerable.Empty<Widget>();
+			foreach (var child in children)
 			{
-				mainWindow.Remove(child);
+				mainWindow?.Remove(child);
 			}
 
 			foreach (var child in children)
 			{
-				mainWindow.Add(child);
+				mainWindow?.Add(child);
 			}
 
-			mainWindow.Add(snackBarLayout);
+			mainWindow?.Add(snackBarLayout);
 			snackBarLayout.ShowAll();
 		}
 	}

@@ -6,9 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
 	public class UserStoppedTypingBehaviorViewModel : BaseViewModel
 	{
-		#region Properties
-
-		string performedSearches;
+		string performedSearches = string.Empty;
 
 		public string PerformedSearches
 		{
@@ -17,8 +15,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 		}
 
 		public ICommand SearchCommand { get; }
-
-		#endregion Properties
 
 		public UserStoppedTypingBehaviorViewModel()
 			=> SearchCommand = CommandFactory.Create<string>(PerformSearch);

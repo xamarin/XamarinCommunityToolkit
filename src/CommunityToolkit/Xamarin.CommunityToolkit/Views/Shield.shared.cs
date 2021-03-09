@@ -24,9 +24,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Text that is shown on the left side of the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
-		public string Subject
+		public string? Subject
 		{
-			get => (string)GetValue(SubjectProperty);
+			get => (string?)GetValue(SubjectProperty);
 			set => SetValue(SubjectProperty, value);
 		}
 
@@ -92,9 +92,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Text that is shown on the right side of the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
-		public string Status
+		public string? Status
 		{
-			get => (string)GetValue(StatusProperty);
+			get => (string?)GetValue(StatusProperty);
 			set => SetValue(StatusProperty, value);
 		}
 
@@ -208,9 +208,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Command that is triggered when the <see cref="Shield" /> is tapped. This is a bindable property.
 		/// </summary>
-		public ICommand Command
+		public ICommand? Command
 		{
-			get => (ICommand)GetValue(CommandProperty);
+			get => (ICommand?)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
@@ -223,7 +223,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Parameter that is provided to the <see cref="Command"/> when the <see cref="Shield" /> is tapped. This is a bindable property.
 		/// </summary>
-		public object CommandParameter
+		public object? CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);
@@ -232,7 +232,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Event that is triggered when the <see cref="Shield" /> is tapped. This is a bindable property.
 		/// </summary>
-		public event EventHandler Tapped;
+		public event EventHandler? Tapped;
 
 		Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
 
@@ -296,7 +296,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateIsEnabled();
 		}
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 
@@ -342,7 +342,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				GestureRecognizers.Clear();
 			}
 
-			void OnCloseButtonTapped(object sender, EventArgs e)
+			void OnCloseButtonTapped(object? sender, EventArgs e)
 			{
 				Tapped?.Invoke(this, EventArgs.Empty);
 				Command?.Execute(CommandParameter);

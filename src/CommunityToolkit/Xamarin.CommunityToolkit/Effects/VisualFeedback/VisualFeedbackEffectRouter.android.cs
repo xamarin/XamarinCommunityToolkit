@@ -1,4 +1,5 @@
-﻿using Android.Content.Res;
+﻿using System;
+using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Android.Runtime;
 using Android.Views;
@@ -17,19 +18,19 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	[Preserve(AllMembers = true)]
 	public class VisualFeedbackEffectRouter : PlatformEffect
 	{
-		AView view;
-		RippleDrawable ripple;
-		Drawable orgDrawable;
-		FrameLayout rippleOverlay;
-		FastRendererOnLayoutChangeListener fastListener;
+		AView? view;
+		RippleDrawable? ripple;
+		Drawable? orgDrawable;
+		FrameLayout? rippleOverlay;
+		FastRendererOnLayoutChangeListener? fastListener;
 
-		bool IsClickable => !(Element is Layout || Element is BoxView);
+		bool IsClickable => Element is not Layout or BoxView;
 
 		protected override void OnAttached()
 		{
 			view = Control ?? Container;
 
-			SetUpRipple();
+			SetUpRipple(view);
 
 			if (IsClickable)
 				view.Touch += OnViewTouch;
@@ -41,18 +42,32 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			if (!IsClickable)
 			{
-				view.Touch -= OnOverlayTouch;
-				view.RemoveOnLayoutChangeListener(fastListener);
+				if (view != null)
+				{
+					view.Touch -= OnOverlayTouch;
+					view.RemoveOnLayoutChangeListener(fastListener);
+				}
 
-				fastListener.Dispose();
-				fastListener = null;
-				rippleOverlay.Dispose();
-				rippleOverlay = null;
+				if (fastListener != null)
+				{
+					fastListener.Dispose();
+					fastListener = null;
+				}
+
+				if (rippleOverlay != null)
+				{
+					rippleOverlay.Dispose();
+					rippleOverlay = null;
+				}
 			}
 			else
 			{
-				view.Touch -= OnViewTouch;
-				view.Background = orgDrawable;
+				if (view != null)
+				{
+					view.Touch -= OnViewTouch;
+					view.Background = orgDrawable;
+				}
+
 				orgDrawable = null;
 			}
 
@@ -82,13 +97,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			ripple?.SetColor(GetPressedColorSelector(nativeColor));
 		}
 
-		void SetUpRipple()
+		void SetUpRipple(in AView view)
 		{
 			ripple = CreateRipple(AColor.Transparent);
 
 			if (!IsClickable)
 			{
-				rippleOverlay = new FrameLayout(view.Context)
+				rippleOverlay = new FrameLayout(view.Context ?? throw new NullReferenceException())
 				{
 					Clickable = true,
 					LongClickable = true,
@@ -107,17 +122,18 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void SetUpOverlay()
 		{
-			var parent = view.Parent as ViewGroup;
+			var parent = view?.Parent as ViewGroup;
 
-			parent.AddView(rippleOverlay);
+			parent?.AddView(rippleOverlay);
 
+			_ = rippleOverlay ?? throw new NullReferenceException();
 			rippleOverlay.BringToFront();
 			rippleOverlay.Touch += OnOverlayTouch;
 		}
 
-		void OnViewTouch(object sender, AView.TouchEventArgs e) => e.Handled = false;
+		void OnViewTouch(object? sender, AView.TouchEventArgs e) => e.Handled = false;
 
-		void OnOverlayTouch(object sender, AView.TouchEventArgs e)
+		void OnOverlayTouch(object? sender, AView.TouchEventArgs e)
 		{
 			view?.DispatchTouchEvent(e.Event);
 
@@ -132,7 +148,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return new RippleDrawable(GetPressedColorSelector(color), null, mask);
 			}
 
-			var back = view.Background;
+			var back = view?.Background;
 
 			if (back == null)
 			{
@@ -156,16 +172,14 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		internal class FastRendererOnLayoutChangeListener : Java.Lang.Object, AView.IOnLayoutChangeListener
 		{
 			bool hasParent = false;
-			VisualFeedbackEffectRouter effect;
+			VisualFeedbackEffectRouter? effect;
 
-			public FastRendererOnLayoutChangeListener(VisualFeedbackEffectRouter effect)
-			{
-				this.effect = effect;
-			}
+			public FastRendererOnLayoutChangeListener(VisualFeedbackEffectRouter effect) => this.effect = effect;
 
-			public void OnLayoutChange(AView v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
+			public void OnLayoutChange(AView? v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom)
 			{
-				effect.rippleOverlay.Layout(v.Left, v.Top, v.Right, v.Bottom);
+				if (v != null)
+					effect?.rippleOverlay?.Layout(v.Left, v.Top, v.Right, v.Bottom);
 
 				if (hasParent)
 				{
@@ -173,7 +187,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				}
 
 				hasParent = true;
-				effect.SetUpOverlay();
+				effect?.SetUpOverlay();
 			}
 
 			protected override void Dispose(bool disposing)

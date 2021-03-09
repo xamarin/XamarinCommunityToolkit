@@ -21,9 +21,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// Command that is triggered when the value configured in <see cref="InputView.MaxLength" /> is reached. Both the <see cref="MaxLengthReached"/> event and this command are triggered. This is a bindable property.
 		/// </summary>
-		public ICommand Command
+		public ICommand? Command
 		{
-			get => (ICommand)GetValue(CommandProperty);
+			get => (ICommand?)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			remove => maxLengthReachedEventManager.RemoveEventHandler(value);
 		}
 
-		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnViewPropertyChanged(sender, e);
 			if (e.PropertyName == InputView.TextProperty.PropertyName)
@@ -62,7 +62,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		void OnTextPropertyChanged()
 		{
-			if (!(View.Text?.Length >= View.MaxLength))
+			if (View?.Text == null || View.Text.Length < View.MaxLength)
 				return;
 
 			if (ShouldDismissKeyboardAutomatically)
