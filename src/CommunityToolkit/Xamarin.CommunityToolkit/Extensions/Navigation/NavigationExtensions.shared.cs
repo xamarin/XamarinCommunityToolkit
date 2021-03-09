@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		/// <returns>
 		/// A task that will complete once the <see cref="Popup{T}"/> is dismissed.
 		/// </returns>
-		public static Task<T> ShowPopupAsync<T>(this INavigation navigation, Popup<T> popup) =>
+		public static Task<T?> ShowPopupAsync<T>(this INavigation navigation, Popup<T?> popup) =>
 			PlatformShowPopupAsync(popup);
 	}
 }

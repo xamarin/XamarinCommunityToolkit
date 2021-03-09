@@ -26,9 +26,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				gis.OnSourceChanged();
 		}
 
-		public string Email
+		public string? Email
 		{
-			get => (string)GetValue(EmailProperty);
+			get => (string?)GetValue(EmailProperty);
 			set => SetValue(EmailProperty, value);
 		}
 

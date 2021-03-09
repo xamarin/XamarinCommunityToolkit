@@ -7,6 +7,6 @@
 
 		protected override string GetLightDismissResult() => "Light Dismiss";
 
-		void Button_Clicked(object sender, System.EventArgs e) => Dismiss("Close button tapped");
+		void Button_Clicked(object? sender, System.EventArgs e) => Dismiss("Close button tapped");
 	}
 }

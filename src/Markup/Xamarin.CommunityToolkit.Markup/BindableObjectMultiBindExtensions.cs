@@ -12,12 +12,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindableProperty targetProperty,
 			BindingBase binding1,
 			BindingBase binding2,
-			Func<ValueTuple<TSource1, TSource2>, TDest> convert = null,
-			Func<TDest, ValueTuple<TSource1, TSource2>> convertBack = null,
+			Func<ValueTuple<TSource1?, TSource2?>, TDest>? convert = null,
+			Func<TDest?, ValueTuple<TSource1, TSource2>>? convertBack = null,
 			BindingMode mode = BindingMode.Default,
-			string stringFormat = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			string? stringFormat = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2 },
@@ -34,13 +34,13 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindableProperty targetProperty,
 			BindingBase binding1,
 			BindingBase binding2,
-			Func<ValueTuple<TSource1, TSource2>, TParam, TDest> convert = null,
-			Func<TDest, TParam, ValueTuple<TSource1, TSource2>> convertBack = null,
-			TParam converterParameter = default,
+			Func<ValueTuple<TSource1?, TSource2?>, TParam?, TDest>? convert = null,
+			Func<TDest?, TParam?, ValueTuple<TSource1, TSource2>>? convertBack = null,
+			TParam? converterParameter = default,
 			BindingMode mode = BindingMode.Default,
-			string stringFormat = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			string? stringFormat = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2 },
@@ -58,12 +58,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingBase binding1,
 			BindingBase binding2,
 			BindingBase binding3,
-			Func<ValueTuple<TSource1, TSource2, TSource3>, TDest> convert = null,
-			Func<TDest, ValueTuple<TSource1, TSource2, TSource3>> convertBack = null,
+			Func<ValueTuple<TSource1?, TSource2?, TSource3?>, TDest>? convert = null,
+			Func<TDest?, ValueTuple<TSource1, TSource2, TSource3>>? convertBack = null,
 			BindingMode mode = BindingMode.Default,
-			string stringFormat = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			string? stringFormat = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2, binding3 },
@@ -81,13 +81,13 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingBase binding1,
 			BindingBase binding2,
 			BindingBase binding3,
-			Func<ValueTuple<TSource1, TSource2, TSource3>, TParam, TDest> convert = null,
-			Func<TDest, TParam, ValueTuple<TSource1, TSource2, TSource3>> convertBack = null,
-			TParam converterParameter = default,
+			Func<ValueTuple<TSource1?, TSource2?, TSource3?>, TParam?, TDest>? convert = null,
+			Func<TDest?, TParam?, ValueTuple<TSource1, TSource2, TSource3>>? convertBack = null,
+			TParam? converterParameter = default,
 			BindingMode mode = BindingMode.Default,
-			string stringFormat = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			string? stringFormat = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2, binding3 },
@@ -106,12 +106,12 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingBase binding2,
 			BindingBase binding3,
 			BindingBase binding4,
-			Func<ValueTuple<TSource1, TSource2, TSource3, TSource4>, TDest> convert = null,
-			Func<TDest, ValueTuple<TSource1, TSource2, TSource3, TSource4>> convertBack = null,
+			Func<ValueTuple<TSource1?, TSource2?, TSource3?, TSource4?>, TDest>? convert = null,
+			Func<TDest?, ValueTuple<TSource1, TSource2, TSource3, TSource4>>? convertBack = null,
 			BindingMode mode = BindingMode.Default,
-			string stringFormat = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			string? stringFormat = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2, binding3, binding4 },
@@ -130,13 +130,13 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindingBase binding2,
 			BindingBase binding3,
 			BindingBase binding4,
-			Func<ValueTuple<TSource1, TSource2, TSource3, TSource4>, TParam, TDest> convert = null,
-			Func<TDest, TParam, ValueTuple<TSource1, TSource2, TSource3, TSource4>> convertBack = null,
-			TParam converterParameter = default,
+			Func<ValueTuple<TSource1?, TSource2?, TSource3?, TSource4?>, TParam?, TDest>? convert = null,
+			Func<TDest?, TParam?, ValueTuple<TSource1, TSource2, TSource3, TSource4>>? convertBack = null,
+			TParam? converterParameter = default,
 			BindingMode mode = BindingMode.Default,
-			string stringFormat = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default) where TBindable : BindableObject
+			string? stringFormat = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default) where TBindable : BindableObject
 		=> bindable.Bind(
 			targetProperty,
 			new List<BindingBase> { binding1, binding2, binding3, binding4 },
@@ -153,11 +153,11 @@ namespace Xamarin.CommunityToolkit.Markup
 			BindableProperty targetProperty,
 			IList<BindingBase> bindings,
 			IMultiValueConverter converter,
-			object converterParameter = default,
+			object? converterParameter = default,
 			BindingMode mode = BindingMode.Default,
-			string stringFormat = null,
-			object targetNullValue = null,
-			object fallbackValue = null) where TBindable : BindableObject
+			string? stringFormat = null,
+			object? targetNullValue = null,
+			object? fallbackValue = null) where TBindable : BindableObject
 		{
 			bindable.SetBinding(targetProperty, new MultiBinding
             {

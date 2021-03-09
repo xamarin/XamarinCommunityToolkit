@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 {
+	[Collection(nameof(BaseCommandTests))]
 	public abstract class BaseCommandTests
 	{
 		public const int Delay = 500;
@@ -15,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 
 		protected Task IntParameterTask(int delay) => Task.Delay(delay);
 
-		protected Task StringParameterTask(string text) => Task.Delay(Delay);
+		protected Task StringParameterTask(string? text) => Task.Delay(Delay);
 
 		protected Task NoParameterImmediateNullReferenceExceptionTask() => throw new NullReferenceException();
 
@@ -53,17 +55,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 
 		protected bool CanExecuteTrue(bool parameter) => true;
 
-		protected bool CanExecuteTrue(string parameter) => true;
+		protected bool CanExecuteTrue(string? parameter) => true;
 
-		protected bool CanExecuteTrue(object parameter) => true;
+		protected bool CanExecuteTrue(object? parameter) => true;
 
 		protected bool CanExecuteFalse(bool parameter) => false;
 
-		protected bool CanExecuteFalse(string parameter) => false;
+		protected bool CanExecuteFalse(string? parameter) => false;
 
-		protected bool CanExecuteFalse(object parameter) => false;
+		protected bool CanExecuteFalse(object? parameter) => false;
 
-		protected bool CanExecuteDynamic(object booleanParameter)
+		protected bool CanExecuteDynamic(object? booleanParameter)
 		{
 			if (booleanParameter is bool parameter)
 				return parameter;

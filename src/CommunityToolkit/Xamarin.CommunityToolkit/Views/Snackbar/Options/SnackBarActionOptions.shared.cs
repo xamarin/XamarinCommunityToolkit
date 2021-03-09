@@ -9,16 +9,16 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// <summary>
 		/// Gets or sets the action for the SnackBar action button.
 		/// </summary>
-		public Func<Task> Action { get; set; } = DefaultAction;
+		public Func<Task>? Action { get; set; } = DefaultAction;
 
-		public static Func<Task> DefaultAction { get; set; } = null;
+		public static Func<Task>? DefaultAction { get; set; } = null;
 
 		/// <summary>
 		/// Gets or sets the text for the SnackBar action button.
 		/// </summary>
 		public string Text { get; set; } = DefaultText;
 
-		public static string DefaultText { get; set; }
+		public static string DefaultText { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Gets or sets the font for the SnackBar action button.

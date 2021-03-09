@@ -4,6 +4,7 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
+using System;
 #if MONOANDROID10_0
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
@@ -24,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
 			}
 
-			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
+			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text) ?? throw new NullReferenceException();
 			snackTextView.SetMaxLines(10);
 
 			if (arguments.MessageOptions.Padding != MessageOptions.DefaultPadding)
@@ -56,13 +57,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			foreach (var action in arguments.Actions)
 			{
-				snackBar.SetAction(action.Text, async v => await action.Action());
+				snackBar.SetAction(action.Text, async v =>
+				{
+					if (action.Action != null)
+						await action.Action();
+				});
 				if (action.ForegroundColor != Forms.Color.Default)
 				{
 					snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
 				}
 
-				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action);
+				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action) ?? throw new NullReferenceException();
 				if (arguments.BackgroundColor != Forms.Color.Default)
 				{
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());

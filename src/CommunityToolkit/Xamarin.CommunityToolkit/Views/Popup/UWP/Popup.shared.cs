@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.WindowsSpecific
 {
@@ -7,10 +8,10 @@ namespace Xamarin.CommunityToolkit.UI.Views.WindowsSpecific
 		public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(
 			"BorderColor", typeof(Color), typeof(Views.Popup), default(Color));
 
-		public static void SetBorderColor(BindableObject element, Color color) =>
-			element.SetValue(BorderColorProperty, color);
+		public static void SetBorderColor(BindableObject? element, Color color) =>
+			element?.SetValue(BorderColorProperty, color);
 
-		public static Color GetBorderColor(BindableObject element) =>
-			(Color)element.GetValue(BorderColorProperty);
+		public static Color GetBorderColor(BindableObject? element) =>
+			(Color)(element?.GetValue(BorderColorProperty) ?? throw new NullReferenceException());
 	}
 }

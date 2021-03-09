@@ -1,37 +1,31 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
+﻿using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
 	public class ProgressBarAnimationBehaviorViewModel : BaseViewModel
 	{
 		double progress;
-		ICommand setTo0Command;
-		ICommand setTo50Command;
-		ICommand setTo100Command;
+
+		public ProgressBarAnimationBehaviorViewModel()
+		{
+			SetTo0Command = new Command(() => SetProgress(0));
+			SetTo50Command = new Command(() => SetProgress(0.5));
+			SetTo100Command = new Command(() => SetProgress(1));
+		}
+
+		public ICommand SetTo0Command { get; }
+
+		public ICommand SetTo50Command { get; }
+
+		public ICommand SetTo100Command { get; }
 
 		public double Progress
 		{
 			get => progress;
-			set
-			{
-				progress = value;
-				OnPropertyChanged();
-			}
+			set => SetProperty(ref progress, value);
 		}
 
-		public ICommand SetTo0Command => setTo0Command ??= new AsyncCommand(() => SetProgress(0));
-
-		public ICommand SetTo50Command => setTo50Command ??= new AsyncCommand(() => SetProgress(0.5));
-
-		public ICommand SetTo100Command => setTo100Command ??= new AsyncCommand(() => SetProgress(1));
-
-		async Task SetProgress(double
-			progress)
-		{
-			Progress = progress;
-		}
+		void SetProgress(double progress) => Progress = progress;
 	}
 }

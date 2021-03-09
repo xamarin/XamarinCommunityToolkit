@@ -1,8 +1,4 @@
-﻿using System;
-using AppKit;
-using CoreGraphics;
-
-namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
+﻿namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
 	class MessageSnackBarView : BaseSnackBarView
 	{
@@ -39,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 				messageLabel.Font = SnackBar.Appearance.Font;
 			}
 
-			StackView.AddArrangedSubview(messageLabel);
+			StackView?.AddArrangedSubview(messageLabel);
 		}
 	}
 }

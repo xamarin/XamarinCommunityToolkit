@@ -2,7 +2,6 @@
 {
 	public partial class IconTintColorEffectPage : BasePage
 	{
-		public IconTintColorEffectPage()
-			=> InitializeComponent();
+		public IconTintColorEffectPage() => InitializeComponent();
 	}
 }
