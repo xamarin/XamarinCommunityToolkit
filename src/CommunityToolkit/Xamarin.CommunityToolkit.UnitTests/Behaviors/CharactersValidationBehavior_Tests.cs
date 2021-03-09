@@ -1,4 +1,5 @@
-﻿using Xamarin.CommunityToolkit.Behaviors;
+﻿using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
 using Xunit;
@@ -37,20 +38,26 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		[InlineData(CharacterType.UppercaseLatinLetter, 1, int.MaxValue, "КИРИЛЛИЦА", false)]
 		[InlineData(CharacterType.LatinLetter, 1, int.MaxValue, "Это Кириллица!", false)]
 		[InlineData(CharacterType.Whitespace, 0, 0, "WWWWWW WWWWW", false)]
-		public void IsValid(CharacterType characterType, int minimumCharactersNumber, int maximumCharactersNumber, string value, bool expectedValue)
+		public async Task IsValid(CharacterType characterType, int minimumCharactersNumber, int maximumCharactersNumber, string value, bool expectedValue)
 		{
+			// Arrange
 			var behavior = new CharactersValidationBehavior
 			{
 				CharacterType = characterType,
 				MinimumCharacterCount = minimumCharactersNumber,
 				MaximumCharacterCount = maximumCharactersNumber
 			};
+
 			var entry = new Entry
 			{
 				Text = value
 			};
 			entry.Behaviors.Add(behavior);
-			behavior.ForceValidate();
+
+			// Act
+			await behavior.ForceValidate();
+
+			// Assert
 			Assert.Equal(expectedValue, behavior.IsValid);
 		}
 	}

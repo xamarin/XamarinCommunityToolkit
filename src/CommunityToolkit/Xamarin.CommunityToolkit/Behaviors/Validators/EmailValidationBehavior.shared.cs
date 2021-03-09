@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
+	/// <summary>
+	/// The <see cref="EmailValidationBehavior"/> is a behavior that allows users to determine whether or not text input is a valid e-mail address. For example, an <see cref="Forms.Entry"/> control can be styled differently depending on whether a valid or an invalid e-mail address is provided. The validation is achieved through a regular expression that is used to verify whether or not the text input is a valid e-mail address. It can be overridden to customize the validation through the properties it inherits from <see cref="Internals.ValidationBehavior"/>.
+	/// </summary>
 	public class EmailValidationBehavior : TextValidationBehavior
 	{
 #if !NETSTANDARD1_0
@@ -18,14 +21,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected override RegexOptions DefaultRegexOptions => RegexOptions.IgnoreCase;
 
-		protected override object DecorateValue()
+		protected override object? Decorate(object? value)
 		{
-			var value = base.DecorateValue()?.ToString();
+			var stringValue = base.Decorate(value)?.ToString();
 #if NETSTANDARD1_0
-			return value;
+			return stringValue;
 #else
-			if (string.IsNullOrWhiteSpace(value))
-				return value;
+			if (string.IsNullOrWhiteSpace(stringValue))
+				return stringValue;
 
 			try
 			{
@@ -40,11 +43,11 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				}
 
 				// Normalize the domain
-				return normalizerRegex.Replace(value, DomainMapper);
+				return normalizerRegex.Replace(stringValue, DomainMapper);
 			}
 			catch (ArgumentException)
 			{
-				return value;
+				return stringValue;
 			}
 #endif
 		}

@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[InlineData(2.55, 3)]
 		[InlineData(2.555, 3)]
 		[InlineData(2.555, 652, 255)]
-		public void DoubleToIntConverter(double value, int expectedResult, object ratio = null)
+		public void DoubleToIntConverter(double value, int expectedResult, object? ratio = null)
 		{
 			var doubleToIntConverter = new DoubleToIntConverter();
 
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		[Theory]
 		[InlineData(2, 2)]
-		public void DoubleToIntConverterBack(int value, double expectedResult, object ratio = null)
+		public void DoubleToIntConverterBack(int value, double expectedResult, object? ratio = null)
 		{
 			var doubleToIntConverter = new DoubleToIntConverter();
 

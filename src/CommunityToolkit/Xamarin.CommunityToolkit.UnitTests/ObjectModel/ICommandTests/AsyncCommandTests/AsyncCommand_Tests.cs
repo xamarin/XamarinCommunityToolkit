@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
@@ -31,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand<int>(IntParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}
@@ -45,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand<string>(StringParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}
@@ -152,8 +153,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public void AsyncCommand_NoParameter_NoCanExecute_Test()
 		{
 			// Arrange
-			Func<bool> canExecute = null;
+			Func<bool>? canExecute = null;
+#pragma warning disable CS8604 // Possible null reference argument.
 			var command = new AsyncCommand(NoParameterTask, canExecute);
+#pragma warning restore CS8604 // Possible null reference argument.
 
 			// Act
 
@@ -162,16 +165,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		}
 
 		[Fact]
-		public void AsyncCommand_RaiseCanExecuteChanged_Test()
+		public async Task AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_MainThreadExecution_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
+
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
 
 			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			bool commandCanExecute(object parameter) => canCommandExecute;
+			bool commandCanExecute(object? parameter) => canCommandExecute;
 
 			Assert.False(command.CanExecute(null));
 
@@ -184,25 +190,48 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.RaiseCanExecuteChanged();
+			await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
+					didCanExecuteChangeFire = true;
+					handleCanExecuteChangedTCS.SetResult(null);
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
 		}
 
 		[Fact]
-		public void AsyncCommand_ChangeCanExecute_Test()
+		public Task AsyncCommand_RaiseCanExecuteChanged_BackgroundThreadCreation_BackgroundThreadExecution_Test() => Task.Run(async () =>
 		{
 			// Arrange
+
+			// Use ConfigureAwait(false) to move to a background thread
+			await Task.Delay(100).ConfigureAwait(false);
+
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
+
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
+
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
 
 			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
 			command.CanExecuteChanged += handleCanExecuteChanged;
 
-			bool commandCanExecute(object parameter) => canCommandExecute;
+			bool commandCanExecute(object? parameter) => canCommandExecute;
 
 			Assert.False(command.CanExecute(null));
 
@@ -214,15 +243,190 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(didCanExecuteChangeFire);
 
 			// Act
-#pragma warning disable CS0618 // Type or member is obsolete
-			command.ChangeCanExecute();
-#pragma warning restore CS0618 // Type or member is obsolete
+			command.RaiseCanExecuteChanged();
+			await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
+					didCanExecuteChangeFire = true;
+					handleCanExecuteChangedTCS.SetResult(null);
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
+		});
+
+		[Fact]
+		public async Task AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_BackgroundThreadExecution_Test()
+		{
+			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
+
+			var canCommandExecute = false;
+			var didCanExecuteChangeFire = false;
+
+			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			bool commandCanExecute(object? parameter) => canCommandExecute;
+
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			canCommandExecute = true;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.False(didCanExecuteChangeFire);
+
+			// Act
+			await Task.Run(async () =>
+			{
+				// use ConfigureAwait(false) to return to a background thread
+				await Task.Delay(100).ConfigureAwait(false);
+
+				command.RaiseCanExecuteChanged();
+				await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
+
+				// Assert
+				Assert.True(didCanExecuteChangeFire);
+				Assert.True(command.CanExecute(null));
+			}).ConfigureAwait(false);
+
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
+					didCanExecuteChangeFire = true;
+					handleCanExecuteChangedTCS.SetResult(null);
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
+		}
+
+		[Fact]
+		public async Task AsyncCommand_RaiseCanExecuteChanged_BackgroundThreadCreation_MainThreadExecution_Test()
+		{
+			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
+			AsyncCommand? command = null;
+			var didCanExecuteChangeFire = false;
+			var canCommandExecute = false;
+
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object?>();
+
+			await Task.Run(async () =>
+			{
+				await Task.Delay(100).ConfigureAwait(false);
+
+				command = new AsyncCommand(NoParameterTask, commandCanExecute);
+				command.CanExecuteChanged += handleCanExecuteChanged;
+
+				bool commandCanExecute(object? parameter) => canCommandExecute;
+
+				Assert.False(command.CanExecute(null));
+
+				// Act
+				canCommandExecute = true;
+
+				// Assert
+				Assert.True(command.CanExecute(null));
+				Assert.False(didCanExecuteChangeFire);
+			}).ConfigureAwait(true);
+
+			// Act
+			if (command is null)
+				throw new NullReferenceException();
+
+			command.RaiseCanExecuteChanged();
+			await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
+
+			// Assert
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
+
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
+					didCanExecuteChangeFire = true;
+					handleCanExecuteChangedTCS.SetResult(null);
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
+		}
+
+		[Fact]
+		public async Task AsyncCommand_ChangeCanExecute_Test()
+		{
+			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
+			var canExecuteChangedTCS = new TaskCompletionSource<object?>();
+
+			var canCommandExecute = false;
+			var didCanExecuteChangeFire = false;
+
+			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			bool commandCanExecute(object? parameter) => canCommandExecute;
+
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			canCommandExecute = true;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.False(didCanExecuteChangeFire);
+
+			// Act
+			command.ChangeCanExecute();
+			await canExecuteChangedTCS.Task.ConfigureAwait(false);
+
+			// Assert
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
+
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
+					didCanExecuteChangeFire = true;
+					canExecuteChangedTCS.SetResult(null);
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
 		}
 
 		[Fact]
@@ -244,19 +448,24 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await asyncCommandTask;
+			await asyncCommandTask.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(0, canExecuteChangedCount);
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			command.CanExecuteChanged -= handleCanExecuteChanged;
+
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 		}
 
 		[Fact]
 		public async Task AsyncCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
+			var canExecuteChangedGreaterThan1TCS = new TaskCompletionSource<int>();
+
 			var canExecuteChangedCount = 0;
 
 			var command = new AsyncCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
@@ -272,13 +481,31 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			await asyncCommandTask;
+			await asyncCommandTask.ConfigureAwait(false);
+			var canExecuteChangedGreaterThan1Result = await canExecuteChangedGreaterThan1TCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, canExecuteChangedGreaterThan1Result);
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					if (++canExecuteChangedCount is 2)
+					{
+						command.CanExecuteChanged -= handleCanExecuteChanged;
+						canExecuteChangedGreaterThan1TCS.SetResult(canExecuteChangedCount);
+					}
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
 		}
 	}
 }

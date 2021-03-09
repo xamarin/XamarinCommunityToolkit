@@ -13,8 +13,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	{
 		Thickness initialMargin;
 
-		new View Element
-			=> base.Element as View;
+		new View Element => (View)base.Element;
 
 		bool IsEligibleToConsumeEffect
 			=> Element != null
@@ -43,9 +42,6 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				Element.Margin = initialMargin;
 		}
 
-		double CalculateInsets(double insetsComponent, bool shouldUseInsetsComponent)
-			=> shouldUseInsetsComponent
-				? insetsComponent
-				: 0;
+		double CalculateInsets(double insetsComponent, bool shouldUseInsetsComponent) => shouldUseInsetsComponent ? insetsComponent : 0;
 	}
 }

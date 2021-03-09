@@ -57,6 +57,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				typeof(CharactersValidationBehaviorPage),
 				nameof(CharactersValidationBehavior),
 				"Changes an Entry's text color when an invalid string is provided."),
+			new SectionModel(
+				typeof(ProgressBarAnimationBehaviorPage),
+				nameof(ProgressBarAnimationBehavior),
+				"Animate the progress for the ProgressBar")
 		};
 	}
 }

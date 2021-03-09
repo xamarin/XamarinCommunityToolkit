@@ -12,9 +12,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 	{
 		readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
-		RepositoryContributor[] contributors = new RepositoryContributor[0];
+		RepositoryContributor[] contributors = Array.Empty<RepositoryContributor>();
 
-		RepositoryContributor selectedContributor;
+		RepositoryContributor? selectedContributor;
 
 		string emptyViewText = "Loading data...";
 
@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			set => SetProperty(ref contributors, value);
 		}
 
-		public RepositoryContributor SelectedContributor
+		public RepositoryContributor? SelectedContributor
 		{
 			get => selectedContributor;
 			set => SetProperty(ref selectedContributor, value);

@@ -16,19 +16,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		bool isDisposed;
 
-		public IVisualElementRenderer Control { get; private set; }
+		public IVisualElementRenderer? Control { get; private set; }
 
-		public BasePopup Element { get; private set; }
+		public BasePopup? Element { get; private set; }
 
-		VisualElement IVisualElementRenderer.Element => Element;
+		VisualElement? IVisualElementRenderer.Element => Element;
 
-		public UIView NativeView => View;
+		public UIView? NativeView => View;
 
-		public UIViewController ViewController { get; private set; }
+		public UIViewController? ViewController { get; private set; }
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
 
-		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
+		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
 		[Preserve(Conditional = true)]
 		public PopupRenderer()
@@ -41,6 +41,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void ViewDidLayoutSubviews()
 		{
 			base.ViewDidLayoutSubviews();
+
+			_ = View ?? throw new InvalidOperationException($"{nameof(View)} cannot be null");
 			SetElementSize(new Size(View.Bounds.Width, View.Bounds.Height));
 		}
 
@@ -48,6 +50,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.ViewDidAppear(animated);
 
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 			ModalInPopover = !Element.IsLightDismissEnabled;
 		}
 
@@ -59,7 +62,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (element == null)
 				throw new ArgumentNullException(nameof(element));
 
-			if (!(element is BasePopup popup))
+			if (element is not BasePopup popup)
 				throw new ArgumentNullException("Element is not of type " + typeof(BasePopup), nameof(element));
 
 			var oldElement = Element;
@@ -71,10 +74,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			element.PropertyChanged += OnElementPropertyChanged;
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup>(oldElement, Element));
+			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
 		{
 			if (e.NewElement != null && !isDisposed)
 			{
@@ -94,7 +97,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
-		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs args)
+		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
 		{
 			if (args.PropertyName == BasePopup.VerticalOptionsProperty.PropertyName ||
 				args.PropertyName == BasePopup.HorizontalOptionsProperty.PropertyName)
@@ -115,12 +118,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void CreateControl()
 		{
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
+
 			var view = Element.Content;
 			var contentPage = new ContentPage { Content = view, Padding = new Thickness(25) };
 
 			Control = Platform.CreateRenderer(contentPage);
 			Platform.SetRenderer(contentPage, Control);
 			contentPage.Parent = Application.Current.MainPage;
+			contentPage.SetBinding(VisualElement.BindingContextProperty, new Binding { Source = Element, Path = VisualElement.BindingContextProperty.PropertyName });
 		}
 
 		void SetViewController()
@@ -129,11 +135,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ViewController = currentPageRenderer.ViewController;
 		}
 
-		void SetEvents() =>
+		void SetEvents()
+		{
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 			Element.Dismissed += OnDismissed;
+		}
 
 		void SetSize()
 		{
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 			if (!Element.Size.IsZero)
 			{
 				PreferredContentSize = new CGSize(Element.Size.Width, Element.Size.Height);
@@ -144,12 +154,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			((UIPopoverPresentationController)PresentationController).SourceRect = new CGRect(0, 0, PreferredContentSize.Width, PreferredContentSize.Height);
 
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 			if (Element.Anchor == null)
 			{
 				var originY = Element.VerticalOptions.Alignment switch
 				{
-					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height - PreferredContentSize.Height,
-					LayoutAlignment.Center => (UIScreen.MainScreen.Bounds.Height / 2) - (PreferredContentSize.Height / 2),
+					LayoutAlignment.End => UIScreen.MainScreen.Bounds.Height,
+					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Height / 2,
 					_ => 0f
 				};
 
@@ -161,21 +172,41 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				};
 
 				PopoverPresentationController.SourceRect = new CGRect(originX, originY, 0, 0);
+				PopoverPresentationController.PermittedArrowDirections = 0;
 			}
 			else
 			{
 				var view = Platform.GetRenderer(Element.Anchor).NativeView;
 				PopoverPresentationController.SourceView = view;
 				PopoverPresentationController.SourceRect = view.Bounds;
+				var arrowDirection = Views.iOSSpecific.Popup.GetArrowDirection(Element);
+				PopoverPresentationController.PermittedArrowDirections = arrowDirection switch
+				{
+					Views.iOSSpecific.PopoverArrowDirection.Up => UIPopoverArrowDirection.Up,
+					Views.iOSSpecific.PopoverArrowDirection.Down => UIPopoverArrowDirection.Down,
+					Views.iOSSpecific.PopoverArrowDirection.Left => UIPopoverArrowDirection.Left,
+					Views.iOSSpecific.PopoverArrowDirection.Right => UIPopoverArrowDirection.Right,
+					Views.iOSSpecific.PopoverArrowDirection.Any => UIPopoverArrowDirection.Any,
+					Views.iOSSpecific.PopoverArrowDirection.Unknown => UIPopoverArrowDirection.Unknown,
+					_ => 0
+				};
 			}
 		}
 
-		void SetBackgroundColor() =>
+		void SetBackgroundColor()
+		{
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
+			_ = Control ?? throw new InvalidOperationException($"{nameof(Control)} cannot be null");
+
 			Control.NativeView.BackgroundColor = Element.Color.ToUIColor();
+		}
 
 		void SetView()
 		{
-			View.AddSubview(Control.ViewController.View);
+			_ = View ?? throw new InvalidOperationException($"{nameof(View)} cannot be null");
+			_ = Control ?? throw new InvalidOperationException($"{nameof(Control)} cannot be null");
+
+			View.AddSubview(Control.ViewController.View ?? throw new NullReferenceException());
 			View.Bounds = new CGRect(0, 0, PreferredContentSize.Width, PreferredContentSize.Height);
 			AddChildViewController(Control.ViewController);
 		}
@@ -185,24 +216,32 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var popOverDelegate = new PopoverDelegate();
 			popOverDelegate.PopoverDismissed += HandlePopoverDelegateDismissed;
 
-			((UIPopoverPresentationController)PresentationController).SourceView = ViewController.View;
+			((UIPopoverPresentationController)PresentationController).SourceView = ViewController?.View ?? throw new NullReferenceException();
 
-			// Setting PermittedArrowDirector to 0 breaks the Popover layout. It would be nice if there is no anchor to remove the arrow.
-			((UIPopoverPresentationController)PresentationController).PermittedArrowDirections = UIPopoverArrowDirection.Up;
 			((UIPopoverPresentationController)PresentationController).Delegate = popOverDelegate;
 		}
 
-		void HandlePopoverDelegateDismissed(object sender, UIPresentationController e)
+		void HandlePopoverDelegateDismissed(object? sender, UIPresentationController e)
 		{
+			_ = Element ?? throw new NullReferenceException();
+
 			if (IsViewLoaded && Element.IsLightDismissEnabled)
 				Element.LightDismiss();
 		}
 
-		void AddToCurrentPageViewController() =>
-			ViewController.PresentViewController(this, true, () => Element.OnOpened());
+		void AddToCurrentPageViewController()
+		{
+			_ = ViewController ?? throw new InvalidOperationException($"{nameof(ViewController)} cannot be null");
+			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 
-		async void OnDismissed(object sender, PopupDismissedEventArgs e) =>
-			await ViewController.DismissViewControllerAsync(true);
+			ViewController.PresentViewController(this, true, () => Element.OnOpened());
+		}
+
+		async void OnDismissed(object? sender, PopupDismissedEventArgs e)
+		{
+			if (ViewController != null)
+				await ViewController.DismissViewControllerAsync(true);
+		}
 
 		protected override void Dispose(bool disposing)
 		{

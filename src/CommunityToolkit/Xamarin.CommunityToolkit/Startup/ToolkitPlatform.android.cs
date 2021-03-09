@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using System;
+using Android.Content;
 using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit
@@ -6,7 +7,7 @@ namespace Xamarin.CommunityToolkit
 	/// <summary>
 	/// Platform extension methods.
 	/// </summary>
-	internal static class ToolkitPlatform
+	static class ToolkitPlatform
 	{
 		/// <summary>
 		/// Gets the <see cref="Context"/>.
@@ -17,7 +18,7 @@ namespace Xamarin.CommunityToolkit
 			{
 				var page = Forms.Application.Current.MainPage;
 				var renderer = page.GetRenderer();
-				return renderer.View.Context;
+				return renderer.View.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
 			}
 		}
 	}

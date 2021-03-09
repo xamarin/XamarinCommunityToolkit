@@ -18,13 +18,21 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Parameter to pass into subsequent converters.</param>
 		/// <param name="culture">The culture to use in the converter.</param>
 		/// <returns>The converted value.</returns>
-		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		public object? Convert(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
 			=> parameter is IList<MultiConverterParameter> parameters
 			? this.Aggregate(value, (current, converter) => converter.Convert(current, targetType,
 					 parameters.FirstOrDefault(x => x.ConverterType == converter.GetType())?.Value, culture))
 			: this.Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));
 
-		public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+		/// <summary>
+		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
+		/// </summary>
+		/// <param name="value">N/A</param>
+		/// <param name="targetType">N/A</param>
+		/// <param name="parameter">N/A</param>
+		/// <param name="culture">N/A</param>
+		/// <returns>N/A</returns>
+		public object? ConvertBack(object? value, Type targetType, object? parameter, System.Globalization.CultureInfo culture)
 			=> throw new NotImplementedException();
 	}
 }

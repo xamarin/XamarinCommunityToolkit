@@ -5,19 +5,23 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
+	/// <summary>
+	/// Abstract class for our behaviors to inherit.
+	/// </summary>
+	/// <typeparam name="TView">The <see cref="VisualElement"/> that the behavior can be applied to</typeparam>
 	public abstract class BaseBehavior<TView> : Behavior<TView> where TView : VisualElement
 	{
-		static readonly MethodInfo getContextMethod
+		static readonly MethodInfo? getContextMethod
 			= typeof(BindableObject).GetRuntimeMethods()?.FirstOrDefault(m => m.Name == "GetContext");
 
-		static readonly FieldInfo bindingField
+		static readonly FieldInfo? bindingField
 			= getContextMethod?.ReturnType.GetRuntimeField("Binding");
 
-		BindingBase defaultBindingContextBinding;
+		BindingBase? defaultBindingContextBinding;
 
-		protected TView View { get; private set; }
+		protected TView? View { get; private set; }
 
-		protected virtual void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected virtual void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 		}
 
@@ -52,7 +56,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			View = null;
 		}
 
-		protected bool IsBound(BindableProperty property, BindingBase defaultBinding = null)
+		protected bool IsBound(BindableProperty property, BindingBase? defaultBinding = null)
 		{
 			var context = getContextMethod?.Invoke(this, new object[] { property });
 			return context != null

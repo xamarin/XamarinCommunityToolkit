@@ -5,9 +5,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// <summary>
 	/// Popup dismissed event arguments used when a popup is dismissed.
 	/// </summary>
-	public class PopupDismissedEventArgs : PopupDismissedEventArgs<object>
+	public class PopupDismissedEventArgs : PopupDismissedEventArgs<object?>
 	{
-		public PopupDismissedEventArgs(object result)
+		public PopupDismissedEventArgs(object? result)
 			: base(result)
 		{
 		}
