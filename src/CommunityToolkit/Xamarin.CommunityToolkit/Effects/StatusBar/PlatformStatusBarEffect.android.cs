@@ -73,9 +73,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			get
 			{
 				if (Control != null)
-					return (FormsAppCompatActivity)Control.Context;
+					return (FormsAppCompatActivity)(Control.Context ?? throw new NullReferenceException());
 				else
-					return (FormsAppCompatActivity)Container.Context;
+					return (FormsAppCompatActivity)(Container.Context ?? throw new NullReferenceException());
 			}
 		}
 
@@ -96,7 +96,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		internal static Window GetCurrentWindow(FormsAppCompatActivity activity)
 		{
-			var window = activity.Window;
+			var window = activity.Window ?? throw new NullReferenceException();
 			window.ClearFlags(WindowManagerFlags.TranslucentStatus);
 			window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 			return window;

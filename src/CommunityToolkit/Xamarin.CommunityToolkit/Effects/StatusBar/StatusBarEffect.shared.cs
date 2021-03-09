@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		static void TryGenerateEffect(BindableObject bindable, object oldValue, object newValue)
 		{
-			if (!(bindable is Page page))
+			if (bindable is not Page page)
 				return;
 
 			var oldEffect = page.Effects.FirstOrDefault(e => e is StatusBarEffect);

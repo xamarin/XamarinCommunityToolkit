@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
@@ -83,7 +84,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			var window = UIApplication.SharedApplication.KeyWindow;
 
-			var vc = window.RootViewController;
+			var vc = window.RootViewController ?? throw new NullReferenceException();
 			while (vc.PresentedViewController != null)
 			{
 				vc = vc.PresentedViewController;
