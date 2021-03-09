@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// <summary>
 	/// Factory for Xamarin.Forms.Command
 	/// </summary>
-	public partial class CommandFactory
+	public static partial class CommandFactory
 	{
 		/// <summary>
 		/// Initializes Xamarin.Forms.Command

@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 			InitializeComponent();
 		}
 
-		void LifeCycleEffect_Loaded(object sender, EventArgs e)
+		void LifeCycleEffect_Loaded(object? sender, EventArgs e)
 		{
 			if (sender is Button)
 				lbl.Text += "Button loaded \n";
@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 				lbl.Text += "StackLayout loaded \n";
 		}
 
-		void LifeCycleEffect_Unloaded(object sender, EventArgs e)
+		void LifeCycleEffect_Unloaded(object? sender, EventArgs e)
 		{
 			if (sender is Button)
 				lbl.Text += "Button unloaded \n";
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 				lbl.Text += "StackLayout unloaded \n";
 		}
 
-		void Button_Clicked(object sender, EventArgs e)
+		void Button_Clicked(object? sender, EventArgs e)
 		{
 			img.IsVisible = !img.IsVisible;
 			Device.StartTimer(TimeSpan.FromSeconds(3), () =>

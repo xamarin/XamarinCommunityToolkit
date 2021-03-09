@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views.Tabs
 	{
 		public static LazyTestViewModel Current { get; } = new LazyTestViewModel();
 
-		string title;
+		string title = string.Empty;
 
 		public string Title
 		{

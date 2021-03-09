@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors.Internals;
@@ -71,16 +72,20 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(MaximumDecimalPlacesProperty, value);
 		}
 
-		protected override object Decorate(object value)
+		protected override object? Decorate(object? value)
 			=> base.Decorate(value)?.ToString()?.Trim();
 
-		protected override ValueTask<bool> ValidateAsync(object value, CancellationToken token)
+		protected override ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
 		{
-			var valueString = value as string;
-			if (!(double.TryParse(valueString, out var numeric)
-				&& numeric >= MinimumValue
-				&& numeric <= MaximumValue))
+			if (value is not string valueString)
 				return new ValueTask<bool>(false);
+
+			if (!(double.TryParse(valueString, out var numeric)
+					&& numeric >= MinimumValue
+					&& numeric <= MaximumValue))
+			{
+				return new ValueTask<bool>(false);
+			}
 
 			var decimalDelimeterIndex = valueString.IndexOf(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 			var hasDecimalDelimeter = decimalDelimeterIndex >= 0;

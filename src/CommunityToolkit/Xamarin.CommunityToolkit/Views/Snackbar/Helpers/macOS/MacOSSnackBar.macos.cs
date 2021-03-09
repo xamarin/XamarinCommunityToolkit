@@ -10,9 +10,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 {
 	class NativeSnackBar
 	{
-		NSTimer timer;
+		NSTimer? timer;
 
-		public Func<Task> TimeoutAction { get; protected set; }
+		public Func<Task>? TimeoutAction { get; protected set; }
 
 		public List<NativeSnackButton> Actions { get; protected set; } = new List<NativeSnackButton>();
 
@@ -22,9 +22,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		public SnackBarLayout Layout { get; } = new SnackBarLayout();
 
-		public string Message { get; protected set; }
+		public string Message { get; protected set; } = string.Empty;
 
-		protected BaseSnackBarView SnackBarView { get; set; }
+		protected BaseSnackBarView? SnackBarView { get; set; }
 
 		public void Dismiss()
 		{
@@ -66,7 +66,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 			timer = NSTimer.CreateScheduledTimer(TimeSpan.FromMilliseconds(Duration), async t =>
 			{
-				await TimeoutAction();
+				if (TimeoutAction != null)
+					await TimeoutAction();
 				Dismiss();
 			});
 

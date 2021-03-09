@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 	/// <summary>
 	/// Factory for IAsyncCommand
 	/// </summary>
-	public partial class CommandFactory
+	public static partial class CommandFactory
 	{
 		/// <summary>
 		/// Initializes a new instance of IAsyncCommand
@@ -18,8 +18,8 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <returns>IAsyncCommand</returns>
 		public static IAsyncCommand Create(
 			Func<Task> execute,
-			Func<object, bool> canExecute = null,
-			Action<Exception> onException = null,
+			Func<object?, bool>? canExecute = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		public static IAsyncCommand Create(
 			Func<Task> execute,
 			Func<bool> canExecute,
-			Action<Exception> onException = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
@@ -49,9 +49,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		/// <returns>IAsyncCommand<typeparamref name="TExecute"/></returns>
 		public static IAsyncCommand<TExecute> Create<TExecute>(
-			Func<TExecute, Task> execute,
-			Func<object, bool> canExecute = null,
-			Action<Exception> onException = null,
+			Func<TExecute?, Task> execute,
+			Func<object?, bool>? canExecute = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
@@ -65,9 +65,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		/// <returns>IAsyncCommand<typeparamref name="TExecute"/></returns>
 		public static IAsyncCommand<TExecute> Create<TExecute>(
-			Func<TExecute, Task> execute,
+			Func<TExecute?, Task> execute,
 			Func<bool> canExecute,
-			Action<Exception> onException = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand<TExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
@@ -81,9 +81,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		/// <returns>IAsyncCommand</returns>
 		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(
-			Func<TExecute, Task> execute,
-			Func<TCanExecute, bool> canExecute = null,
-			Action<Exception> onException = null,
+			Func<TExecute?, Task> execute,
+			Func<TCanExecute?, bool>? canExecute = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true) =>
 			new AsyncCommand<TExecute, TCanExecute>(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions);
@@ -97,7 +97,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <returns>IAsyncCommand</returns>
 		public static IAsyncCommand Create(Func<Task> execute)
 		{
-			Func<object, bool> canExecute = null;
+			Func<object?, bool>? canExecute = null;
 			return Create(execute, canExecute, null, false, true);
 		}
 
@@ -107,7 +107,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="execute">The Function executed when Execute or ExecuteAsync is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
 		/// <param name="canExecute">The Function that verifies whether or not AsyncCommand should execute.</param>
 		/// <returns>IAsyncCommand</returns>
-		public static IAsyncCommand Create(Func<Task> execute, Func<object, bool> canExecute) =>
+		public static IAsyncCommand Create(Func<Task> execute, Func<object?, bool> canExecute) =>
 			Create(execute, canExecute, null, false, true);
 
 		/// <summary>
@@ -124,9 +124,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// </summary>
 		/// <param name="execute">The Function executed when Execute or ExecuteAsync is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
 		/// <returns>IAsyncCommand</returns>
-		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> execute)
+		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute?, Task> execute)
 		{
-			Func<object, bool> canExecute = null;
+			Func<object?, bool>? canExecute = null;
 			return Create(execute, canExecute, null, false, true);
 		}
 
@@ -136,7 +136,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="execute">The Function executed when Execute or ExecuteAsync is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
 		/// <param name="canExecute">The Function that verifies whether or not AsyncCommand should execute.</param>
 		/// <returns>IAsyncCommand</returns>
-		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> execute, Func<object, bool> canExecute) =>
+		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute?, Task> execute, Func<object?, bool> canExecute) =>
 			Create(execute, canExecute, null, false, true);
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="execute">The Function executed when Execute or ExecuteAsync is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
 		/// <param name="canExecute">The Function that verifies whether or not AsyncCommand should execute.</param>
 		/// <returns>IAsyncCommand</returns>
-		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute, Task> execute, Func<bool> canExecute) =>
+		public static IAsyncCommand<TExecute> Create<TExecute>(Func<TExecute?, Task> execute, Func<bool> canExecute) =>
 			Create(execute, canExecute, null, false, true);
 
 		/// <summary>
@@ -154,7 +154,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="execute">The Function executed when Execute or ExecuteAsync is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
 		/// <param name="canExecute">The Function that verifies whether or not AsyncCommand should execute.</param>
 		/// <returns>IAsyncCommand</returns>
-		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(Func<TExecute, Task> execute, Func<TCanExecute, bool> canExecute) =>
+		public static IAsyncCommand<TExecute, TCanExecute> Create<TExecute, TCanExecute>(Func<TExecute?, Task> execute, Func<TCanExecute?, bool> canExecute) =>
 			Create(execute, canExecute, null, false, true);
 		#endregion
 	}

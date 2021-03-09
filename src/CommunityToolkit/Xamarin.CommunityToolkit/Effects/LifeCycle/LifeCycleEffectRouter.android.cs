@@ -15,8 +15,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	/// </summary>
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
-		View nativeView;
-		LifecycleEffect lifeCycleEffect;
+		View? nativeView;
+		LifecycleEffect? lifeCycleEffect;
 
 		protected override void OnAttached()
 		{
@@ -29,13 +29,19 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			nativeView.ViewDetachedFromWindow += OnNativeViewViewDetachedFromWindow;
 		}
 
-		void OnNativeViewViewAttachedToWindow(object sender, View.ViewAttachedToWindowEventArgs e) => lifeCycleEffect.RaiseLoadedEvent(Element);
+		void OnNativeViewViewAttachedToWindow(object? sender, View.ViewAttachedToWindowEventArgs e) => lifeCycleEffect?.RaiseLoadedEvent(Element);
 
-		void OnNativeViewViewDetachedFromWindow(object sender, View.ViewDetachedFromWindowEventArgs e)
+		void OnNativeViewViewDetachedFromWindow(object? sender, View.ViewDetachedFromWindowEventArgs e)
 		{
-			lifeCycleEffect.RaiseUnloadedEvent(Element);
-			nativeView.ViewDetachedFromWindow -= OnNativeViewViewDetachedFromWindow;
-			nativeView.ViewAttachedToWindow -= OnNativeViewViewAttachedToWindow;
+			if (lifeCycleEffect != null)
+				lifeCycleEffect.RaiseUnloadedEvent(Element);
+
+			if (nativeView != null)
+			{
+				nativeView.ViewDetachedFromWindow -= OnNativeViewViewDetachedFromWindow;
+				nativeView.ViewAttachedToWindow -= OnNativeViewViewAttachedToWindow;
+			}
+
 			nativeView = null;
 			lifeCycleEffect = null;
 		}

@@ -6,14 +6,14 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
 	public abstract partial class BaseCommand<TCanExecute>
 	{
-		static volatile Handler handler;
+		static volatile Handler? handler;
 
 		static bool IsMainThread
 		{
 			get
 			{
 				if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
-					return Looper.MainLooper.IsCurrentThread;
+					return Looper.MainLooper?.IsCurrentThread ?? false;
 
 				return Looper.MyLooper() == Looper.MainLooper;
 			}
@@ -21,8 +21,10 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 
 		static void BeginInvokeOnMainThread(Action action)
 		{
-			if (handler?.Looper != Looper.MainLooper)
-				handler = new Handler(Looper.MainLooper);
+			if (handler == null || handler.Looper != Looper.MainLooper)
+			{
+				handler = new Handler(Looper.MainLooper ?? throw new NullReferenceException($"{nameof(Looper.MainLooper)} cannot be null"));
+			}
 
 			handler.Post(action);
 		}

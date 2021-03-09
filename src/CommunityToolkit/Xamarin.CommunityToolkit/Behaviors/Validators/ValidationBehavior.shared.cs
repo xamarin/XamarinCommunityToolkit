@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors.Internals
@@ -11,6 +12,12 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 	/// </summary>
 	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
+		public const string ValidVisualState = "Valid";
+
+		public const string InvalidVisualState = "Invalid";
+
+		public ValidationBehavior() => DefaultForceValidateCommand = new AsyncValueCommand(ForceValidate);
+
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsNotValid"/> property.
 		/// </summary>
@@ -69,9 +76,9 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		bool isAttaching;
 
-		BindingBase defaultValueBinding;
+		BindingBase? defaultValueBinding;
 
-		CancellationTokenSource validationTokenSource;
+		CancellationTokenSource? validationTokenSource;
 
 		/// <summary>
 		/// Indicates whether or not the current value is considered valid. This is a bindable property.
@@ -130,7 +137,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 		/// <summary>
 		/// The value to validate. This is a bindable property.
 		/// </summary>
-		public object Value
+		public object? Value
 		{
 			get => GetValue(ValueProperty);
 			set => SetValue(ValueProperty, value);
@@ -139,37 +146,37 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 		/// <summary>
 		/// Allows the user to override the property that will be used as the value to validate. This is a bindable property.
 		/// </summary>
-		public string ValuePropertyName
+		public string? ValuePropertyName
 		{
-			get => (string)GetValue(ValuePropertyNameProperty);
+			get => (string?)GetValue(ValuePropertyNameProperty);
 			set => SetValue(ValuePropertyNameProperty, value);
 		}
 
 		/// <summary>
 		/// Allows the user to provide a custom <see cref="ICommand"/> that handles forcing validation. This is a bindable property.
 		/// </summary>
-		public ICommand ForceValidateCommand
+		public ICommand? ForceValidateCommand
 		{
-			get => (ICommand)GetValue(ForceValidateCommandProperty);
+			get => (ICommand?)GetValue(ForceValidateCommandProperty);
 			set => SetValue(ForceValidateCommandProperty, value);
 		}
 
 		protected virtual string DefaultValuePropertyName => Entry.TextProperty.PropertyName;
 
-		protected virtual ICommand DefaultForceValidateCommand => new Command(ForceValidate);
+		protected virtual ICommand DefaultForceValidateCommand { get; }
 
 		/// <summary>
 		/// Forces the behavior to make a validation pass.
 		/// </summary>
-		public void ForceValidate() => _ = UpdateStateAsync(true);
+		public ValueTask ForceValidate() => UpdateStateAsync(true);
 
 		internal ValueTask ValidateNestedAsync(CancellationToken token) => UpdateStateAsync(true, token);
 
-		protected virtual object Decorate(object value) => value;
+		protected virtual object? Decorate(object? value) => value;
 
-		protected abstract ValueTask<bool> ValidateAsync(object value, CancellationToken token);
+		protected abstract ValueTask<bool> ValidateAsync(object? value, CancellationToken token);
 
-		protected override void OnAttachedTo(VisualElement bindable)
+		protected override async void OnAttachedTo(VisualElement bindable)
 		{
 			base.OnAttachedTo(bindable);
 
@@ -177,7 +184,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			currentStatus = ValidationFlags.ValidateOnAttaching;
 
 			OnValuePropertyNamePropertyChanged();
-			_ = UpdateStateAsync(false);
+			await UpdateStateAsync(false);
 			isAttaching = false;
 		}
 
@@ -193,20 +200,20 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			base.OnDetachingFrom(bindable);
 		}
 
-		protected override void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override async void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnViewPropertyChanged(sender, e);
 			if (e.PropertyName == VisualElement.IsFocusedProperty.PropertyName)
 			{
-				currentStatus = View.IsFocused
+				currentStatus = View?.IsFocused is true
 					? ValidationFlags.ValidateOnFocusing
 					: ValidationFlags.ValidateOnUnfocusing;
-				_ = UpdateStateAsync(false);
+				await UpdateStateAsync(false);
 			}
 		}
 
-		protected static void OnValidationPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-			=> _ = ((ValidationBehavior)bindable).UpdateStateAsync(false);
+		protected static async void OnValidationPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> await ((ValidationBehavior)bindable).UpdateStateAsync(false);
 
 		static void OnIsValidPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((ValidationBehavior)bindable).OnIsValidPropertyChanged();
@@ -291,15 +298,18 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		void UpdateStyle()
 		{
-			if (View == null || (ValidStyle ?? InvalidStyle) == null)
+			if (View == null)
 				return;
 
-			View.Style = IsValid
-				? ValidStyle
-				: InvalidStyle;
+			VisualStateManager.GoToState(View, IsValid ? ValidVisualState : InvalidVisualState);
+
+			if ((ValidStyle ?? InvalidStyle) == null)
+				return;
+
+			View.Style = IsValid ? ValidStyle : InvalidStyle;
 		}
 
-		void ResetValidationTokenSource(CancellationTokenSource newTokenSource)
+		void ResetValidationTokenSource(CancellationTokenSource? newTokenSource)
 		{
 			validationTokenSource?.Cancel();
 			validationTokenSource = newTokenSource;

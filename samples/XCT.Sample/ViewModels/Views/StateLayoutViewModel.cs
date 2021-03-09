@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class StateLayoutViewModel : BaseViewModel
 	{
-		string customState;
+		string customState = string.Empty;
 		LayoutState currentState;
 		LayoutState mainState;
 

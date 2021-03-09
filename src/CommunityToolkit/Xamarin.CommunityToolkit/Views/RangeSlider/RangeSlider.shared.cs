@@ -16,23 +16,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		const double disabledOpacity = .6;
 
-		public event EventHandler ValueChanged;
+		public event EventHandler? ValueChanged;
 
-		public event EventHandler LowerValueChanged;
+		public event EventHandler? LowerValueChanged;
 
-		public event EventHandler UpperValueChanged;
+		public event EventHandler? UpperValueChanged;
 
-		public event EventHandler DragStarted;
+		public event EventHandler? DragStarted;
 
-		public event EventHandler LowerDragStarted;
+		public event EventHandler? LowerDragStarted;
 
-		public event EventHandler UpperDragStarted;
+		public event EventHandler? UpperDragStarted;
 
-		public event EventHandler DragCompleted;
+		public event EventHandler? DragCompleted;
 
-		public event EventHandler LowerDragCompleted;
+		public event EventHandler? LowerDragCompleted;
 
-		public event EventHandler UpperDragCompleted;
+		public event EventHandler? UpperDragCompleted;
 
 		public static BindableProperty MinimumValueProperty
 			= BindableProperty.Create(nameof(MinimumValue), typeof(double), typeof(RangeSlider), .0, propertyChanged: OnMinimumMaximumValuePropertyChanged);
@@ -278,15 +278,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ValueLabelStringFormatProperty, value);
 		}
 
-		public View LowerThumbView
+		public View? LowerThumbView
 		{
-			get => (View)GetValue(LowerThumbViewProperty);
+			get => (View?)GetValue(LowerThumbViewProperty);
 			set => SetValue(LowerThumbViewProperty, value);
 		}
 
-		public View UpperThumbView
+		public View? UpperThumbView
 		{
-			get => (View)GetValue(UpperThumbViewProperty);
+			get => (View?)GetValue(UpperThumbViewProperty);
 			set => SetValue(UpperThumbViewProperty, value);
 		}
 
@@ -334,7 +334,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		double TrackWidth => Width - LowerThumb.Width - UpperThumb.Width;
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 			switch (propertyName)
@@ -537,7 +537,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
-		void OnViewSizeChanged(object sender, System.EventArgs e)
+		void OnViewSizeChanged(object? sender, System.EventArgs e)
 		{
 			var maxHeight = Max(LowerValueLabel.Height, UpperValueLabel.Height);
 			if ((sender == LowerValueLabel || sender == UpperValueLabel) && labelMaxHeight == maxHeight)
@@ -550,9 +550,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnLayoutPropertyChanged();
 		}
 
-		void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+		void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
-			var view = (View)sender;
+			var view = (View)(sender ?? throw new NullReferenceException($"{nameof(sender)} cannot be null"));
+
 			switch (e.StatusType)
 			{
 				case GestureStatus.Started:
@@ -633,7 +634,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				? defaultSize
 				: value;
 
-		void RaiseEvent(EventHandler eventHandler)
+		void RaiseEvent(EventHandler? eventHandler)
 			=> eventHandler?.Invoke(this, EventArgs.Empty);
 	}
 }

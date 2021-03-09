@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
 	{
 		public PopupAnchorPage() => InitializeComponent();
 
-		void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+		void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
 			if (sender is Label label)
 			{

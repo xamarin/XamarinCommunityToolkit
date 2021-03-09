@@ -4,20 +4,18 @@ using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xunit;
 
-namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
+namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizationResourceManagerTests
 {
+	[Collection(nameof(LocalizationResourceManager))]
 	public class LocalizationResourceManagerTests
 	{
 		public LocalizationResourceManagerTests()
 		{
 			resourceManager = new MockResourceManager();
-#pragma warning disable CS0618 // Type or member is obsolete
-			localizationManager = new LocalizationResourceManager();
-#pragma warning restore CS0618 // Type or member is obsolete
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
-		readonly LocalizationResourceManager localizationManager;
+		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
 		readonly ResourceManager resourceManager;
 
@@ -49,15 +47,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		{
 			// Arrange
 			var culture2 = new CultureInfo("en");
-			localizationManager.SetCulture(culture2);
-			CultureInfo changedCulture = null;
+			localizationManager.CurrentCulture = culture2;
+			CultureInfo? changedCulture = null;
 			localizationManager.PropertyChanged += (s, e) => changedCulture = localizationManager.CurrentCulture;
 
 			// Act, Assert
 			localizationManager.Init(resourceManager, initialCulture);
 			Assert.Equal(initialCulture, changedCulture);
 
-			localizationManager.SetCulture(culture2);
+			localizationManager.CurrentCulture = culture2;
 			Assert.Equal(culture2, changedCulture);
 		}
 	}

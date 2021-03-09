@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
 
@@ -12,12 +11,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void Action_NullExecuteParameter()
 		{
 			// Arrange
-			Action execute = null;
+			Action? execute = null;
 
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -46,7 +47,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(NoParameterAction, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]
@@ -71,12 +74,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void ActionObject_NullExecuteParameter()
 		{
 			// Arrange
-			Action<object> execute = null;
+			Action<object>? execute = null;
 
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -105,7 +110,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(ObjectParameterAction, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]
@@ -132,12 +139,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void ActionInt_NullExecuteParameter()
 		{
 			// Arrange
-			Action<int> execute = null;
+			Action<int>? execute = null;
 
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(execute, CanExecuteTrue));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -148,7 +157,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(IntParameterAction, null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[Fact]

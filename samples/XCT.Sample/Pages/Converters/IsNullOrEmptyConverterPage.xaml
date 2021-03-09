@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage  xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Converters" xmlns:xct1="http://xamarin.com/schemas/2020/toolkit" xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters" x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.IsNullOrEmptyConverterPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct1:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:IsNullOrEmptyConverterViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10,10"
+            HorizontalOptions="Fill"
+            Spacing="10"
+            VerticalOptions="Fill">
+            <Label Text="The IsNullOrEmptyConverter is a converter that allows users to convert an incoming binding to a bool value. This value represents if the incoming binding value is null or empty." TextColor="{StaticResource NormalLabelTextColor}" />
+            <CollectionView VerticalOptions="StartAndExpand" HorizontalOptions="Center" SelectionMode="Single" ItemsSource="{Binding DummyItemSource}" SelectedItem="{Binding SelectedItem}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding .}" Margin="10" TextColor="Black" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button VerticalOptions="CenterAndExpand" Text="Clear Selection" Command="{Binding ClearSelectionCommand}"/>
+            <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="This label should be true if selected item is null" TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="{Binding Path=SelectedItem, Converter={StaticResource IsNullOrEmptyConverter}}" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

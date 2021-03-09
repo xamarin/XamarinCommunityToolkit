@@ -36,34 +36,34 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty EventArgsConverterProperty =
 			BindableProperty.Create(nameof(EventArgsConverter), typeof(IValueConverter), typeof(EventToCommandBehavior));
 
-		readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo().GetDeclaredMethod(nameof(OnTriggerHandled));
+		readonly MethodInfo eventHandlerMethodInfo = typeof(EventToCommandBehavior).GetTypeInfo()?.GetDeclaredMethod(nameof(OnTriggerHandled)) ?? throw new NullReferenceException($"Cannot find method {nameof(OnTriggerHandled)}");
 
-		Delegate eventHandler;
+		Delegate? eventHandler;
 
-		EventInfo eventInfo;
+		EventInfo? eventInfo;
 
 		/// <summary>
 		/// The name of the event that should be associated with <see cref="Command"/>. This is bindable property.
 		/// </summary>
-		public string EventName
+		public string? EventName
 		{
-			get => (string)GetValue(EventNameProperty);
+			get => (string?)GetValue(EventNameProperty);
 			set => SetValue(EventNameProperty, value);
 		}
 
 		/// <summary>
 		/// The Command that should be executed when the event configured with <see cref="EventName"/> is triggered. This is a bindable property.
 		/// </summary>
-		public ICommand Command
+		public ICommand? Command
 		{
-			get => (ICommand)GetValue(CommandProperty);
+			get => (ICommand?)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
 		/// <summary>
 		/// An optional parameter to forward to the <see cref="Command"/>. This is a bindable property.
 		/// </summary>
-		public object CommandParameter
+		public object? CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);
@@ -101,9 +101,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (View == null || string.IsNullOrWhiteSpace(eventName))
 				return;
 
-			eventInfo = View.GetType().GetRuntimeEvent(eventName) ??
+			eventInfo = View.GetType()?.GetRuntimeEvent(eventName) ??
 				throw new ArgumentException($"{nameof(EventToCommandBehavior)}: Couldn't resolve the event.", nameof(EventName));
 
+			_ = eventInfo.EventHandlerType ?? throw new NullReferenceException();
 			_ = eventHandlerMethodInfo ?? throw new NullReferenceException($"{nameof(eventHandlerMethodInfo)} is null, maybe it's a linker issue, please open a bug here: https://github.com/xamarin/XamarinCommunityToolkit/issues/");
 
 			eventHandler = eventHandlerMethodInfo.CreateDelegate(eventInfo.EventHandlerType, this) ??
@@ -122,7 +123,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		[Preserve(Conditional = true)]
-		protected virtual void OnTriggerHandled(object sender = null, object eventArgs = null)
+		protected virtual void OnTriggerHandled(object? sender = null, object? eventArgs = null)
 		{
 			var parameter = CommandParameter
 				?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, null)

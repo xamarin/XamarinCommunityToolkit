@@ -5,14 +5,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {
 	class Person : ObservableObject
 	{
-		string firstName;
-		string lastName;
+		string firstName = string.Empty;
+		string lastName = string.Empty;
 
-		public Action Changed { get; set; }
+		public Action? Changed { get; set; }
 
-		public Action Changing { get; set; }
+		public Action? Changing { get; set; }
 
-		public Func<string, string, bool> Validate { get; set; }
+		public Func<string, string, bool>? Validate { get; set; }
 
 		public string FirstName
 		{

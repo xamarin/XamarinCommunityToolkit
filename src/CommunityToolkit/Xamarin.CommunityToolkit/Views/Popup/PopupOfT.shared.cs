@@ -5,19 +5,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// <inheritdoc/>
 	public abstract class Popup<T> : BasePopup
 	{
-		TaskCompletionSource<T> taskCompletionSource;
+		TaskCompletionSource<T?> taskCompletionSource;
 
 		/// <summary>
 		/// Initalizes a default implementation of <see cref="Popup{T}"/>.
 		/// </summary>
 		protected Popup() =>
-			taskCompletionSource = new TaskCompletionSource<T>();
+			taskCompletionSource = new TaskCompletionSource<T?>();
 
 		/// <summary>
 		/// Resets the Popup.
 		/// </summary>
 		public void Reset() =>
-			taskCompletionSource = new TaskCompletionSource<T>();
+			taskCompletionSource = new TaskCompletionSource<T?>();
 
 		/// <summary>
 		/// Dismiss the current popup.
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <param name="result">
 		/// The result to return.
 		/// </param>
-		public void Dismiss(T result)
+		public void Dismiss(T? result)
 		{
 			taskCompletionSource.TrySetResult(result);
 			OnDismissed(result);
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets the final result of the dismissed popup.
 		/// </summary>
-		public Task<T> Result => taskCompletionSource.Task;
+		public Task<T?> Result => taskCompletionSource.Task;
 
 		/// <inheritdoc/>
 		protected internal override void LightDismiss() =>
@@ -50,6 +50,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// When a user dismisses the Popup via the light dismiss, this
 		/// method will return a default value.
 		/// </remarks>
-		protected virtual T GetLightDismissResult() => default(T);
+		protected virtual T? GetLightDismissResult() => default(T);
 	}
 }

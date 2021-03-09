@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
@@ -18,12 +19,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		[InlineData(@"microsoftcom", UriKind.Absolute, false)]
 		[InlineData(@"microsoft\\\\\xamarin/news", UriKind.Relative, false)]
 		[InlineData(@"ht\\\.com", UriKind.RelativeOrAbsolute, false)]
-		public void IsValid(string value, UriKind uriKind, bool expectedValue)
+		public async Task IsValid(string value, UriKind uriKind, bool expectedValue)
 		{
+			// Arrange
 			var behavior = new UriValidationBehavior
 			{
 				UriKind = uriKind,
 			};
+
 			var entry = new Entry
 			{
 				Text = value,
@@ -33,7 +36,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 				}
 			};
 			entry.Behaviors.Add(behavior);
-			behavior.ForceValidate();
+
+			// Act
+			await behavior.ForceValidate();
+
+			// Assert
 			Assert.Equal(expectedValue, behavior.IsValid);
 		}
 	}

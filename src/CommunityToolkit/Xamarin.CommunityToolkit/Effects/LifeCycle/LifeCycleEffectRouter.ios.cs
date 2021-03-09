@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	/// </summary>
 	public class LifeCycleEffectRouter : PlatformEffect
 	{
-		LifecycleEffect lifeCycleEffect;
+		LifecycleEffect? lifeCycleEffect;
 
 		protected override void OnAttached()
 		{
@@ -24,11 +24,11 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			Element.PropertyChanged += OnPropertyChanged;
 		}
 
-		void OnPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		void OnPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == "Renderer")
+			if (e.PropertyName == "Renderer" && lifeCycleEffect != null)
 			{
-				var result = Platform.GetRenderer(Element as VisualElement);
+				var result = Platform.GetRenderer((VisualElement)Element);
 
 				if (result != null)
 					lifeCycleEffect.RaiseLoadedEvent(Element);

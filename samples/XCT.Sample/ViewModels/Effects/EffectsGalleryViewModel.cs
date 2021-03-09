@@ -32,20 +32,17 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(TouchEffectPage),
 				nameof(TouchEffect),
-				"The TouchEffect is an effect that allows changing the view's appearance depending on the touch state (normal, pressed, hovered). Also, it allows to handle long presses."
-				),
+				"The TouchEffect is an effect that allows changing the view's appearance depending on the touch state (normal, pressed, hovered). Also, it allows to handle long presses."),
 
 			new SectionModel(
 				typeof(LifeCycleEffectPage),
 				nameof(LifecycleEffect),
-				"The LifeCycle is an effect that allows you to know when a control or layout is loaded or/and unloaded in the screen and perform actions based on that."
-				),
-        
+				"The LifeCycle is an effect that allows you to know when a control or layout is loaded or/and unloaded in the screen and perform actions based on that."),
+
 			new SectionModel(
 				typeof(ShadowEffectPage),
 				nameof(ShadowEffect),
-				"The ShadowEffect allows all views to display shadow."),
-
+				"The ShadowEffect allows all views to display shadow.")
 		};
 	}
 }
