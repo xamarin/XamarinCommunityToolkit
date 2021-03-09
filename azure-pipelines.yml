@@ -132,7 +132,7 @@ jobs:
       - task: CmdLine@2
         displayName: 'Run Unit Tests'
         inputs:
-          script: dotnet test $(PathToUnitTestCsproj) -c Release --collect "Code coverage"
+          script: dotnet test $(PathToUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
