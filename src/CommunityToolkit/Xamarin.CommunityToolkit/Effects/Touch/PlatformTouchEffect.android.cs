@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Content.Res;
 using Android.Graphics.Drawables;
@@ -161,7 +162,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		void OnTouch(object? sender, AView.TouchEventArgs e)
+		async void OnTouch(object? sender, AView.TouchEventArgs e)
 		{
 			e.Handled = false;
 
@@ -174,27 +175,27 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			switch (e.Event?.ActionMasked)
 			{
 				case MotionEventActions.Down:
-					OnTouchDown(e);
+					await OnTouchDown(e);
 					break;
 				case MotionEventActions.Up:
-					OnTouchUp();
+					await OnTouchUp();
 					break;
 				case MotionEventActions.Cancel:
-					OnTouchCancel();
+					await OnTouchCancel();
 					break;
 				case MotionEventActions.Move:
-					OnTouchMove(sender, e);
+					await OnTouchMove(sender, e);
 					break;
 				case MotionEventActions.HoverEnter:
-					OnHoverEnter();
+					await OnHoverEnter();
 					break;
 				case MotionEventActions.HoverExit:
-					OnHoverExit();
+					await OnHoverExit();
 					break;
 			}
 		}
 
-		void OnTouchDown(AView.TouchEventArgs e)
+		async Task OnTouchDown(AView.TouchEventArgs e)
 		{
 			_ = e.Event ?? throw new NullReferenceException();
 
@@ -202,19 +203,19 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			startX = e.Event.GetX();
 			startY = e.Event.GetY();
 			effect?.HandleUserInteraction(TouchInteractionStatus.Started);
-			effect?.HandleTouch(TouchStatus.Started);
+			await (effect?.HandleTouch(TouchStatus.Started) ?? Task.CompletedTask);
 			StartRipple(e.Event.GetX(), e.Event.GetY());
 			if (effect?.DisallowTouchThreshold > 0)
 				Group?.Parent?.RequestDisallowInterceptTouchEvent(true);
 		}
 
-		void OnTouchUp()
+		Task OnTouchUp()
 			=> HandleEnd(effect?.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled);
 
-		void OnTouchCancel()
+		Task OnTouchCancel()
 			=> HandleEnd(TouchStatus.Canceled);
 
-		void OnTouchMove(object? sender, AView.TouchEventArgs e)
+		async Task OnTouchMove(object? sender, AView.TouchEventArgs e)
 		{
 			if (IsCanceled || e.Event == null)
 				return;
@@ -226,7 +227,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			var disallowTouchThreshold = effect?.DisallowTouchThreshold;
 			if (disallowTouchThreshold > 0 && maxDiff > disallowTouchThreshold)
 			{
-				HandleEnd(TouchStatus.Canceled);
+				await HandleEnd(TouchStatus.Canceled);
 				return;
 			}
 
@@ -239,11 +240,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			if (isHoverSupported && ((status == TouchStatus.Canceled && effect?.HoverStatus == HoverStatus.Entered)
 				|| (status == TouchStatus.Started && effect?.HoverStatus == HoverStatus.Exited)))
-				effect?.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
+				await effect.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
 
 			if (effect?.Status != status)
 			{
-				effect?.HandleTouch(status);
+				await (effect?.HandleTouch(status) ?? Task.CompletedTask);
+
 				if (status == TouchStatus.Started)
 					StartRipple(e.Event.GetX(), e.Event.GetY());
 				if (status == TouchStatus.Canceled)
@@ -251,19 +253,23 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		void OnHoverEnter()
+		async ValueTask OnHoverEnter()
 		{
 			isHoverSupported = true;
-			effect?.HandleHover(HoverStatus.Entered);
+
+			if (effect != null)
+				await effect.HandleHover(HoverStatus.Entered);
 		}
 
-		void OnHoverExit()
+		async ValueTask OnHoverExit()
 		{
 			isHoverSupported = true;
-			effect?.HandleHover(HoverStatus.Exited);
+
+			if (effect != null)
+				await effect.HandleHover(HoverStatus.Exited);
 		}
 
-		void OnClick(object? sender, EventArgs args)
+		async void OnClick(object? sender, EventArgs args)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -272,10 +278,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return;
 
 			IsCanceled = false;
-			HandleEnd(TouchStatus.Completed);
+			await HandleEnd(TouchStatus.Completed);
 		}
 
-		void HandleEnd(TouchStatus status)
+		async Task HandleEnd(TouchStatus status)
 		{
 			if (IsCanceled)
 				return;
@@ -284,8 +290,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (effect?.DisallowTouchThreshold > 0)
 				Group?.Parent?.RequestDisallowInterceptTouchEvent(false);
 
-			effect?.HandleTouch(status);
+			await (effect?.HandleTouch(status) ?? Task.CompletedTask);
+
 			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
+
 			EndRipple();
 		}
 
