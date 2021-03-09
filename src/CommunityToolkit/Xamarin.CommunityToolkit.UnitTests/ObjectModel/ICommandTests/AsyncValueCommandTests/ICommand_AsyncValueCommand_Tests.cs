@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Act
 			command.Execute(parameter);
-			await NoParameterTask();
+			await NoParameterTask().ConfigureAwait(false);
 
 			// Assert
 		}
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Act
 			command.Execute(parameter);
-			await NoParameterTask();
+			await NoParameterTask().ConfigureAwait(false);
 
 			// Assert
 		}
@@ -52,8 +52,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			try
 			{
 				command.Execute(Delay);
-				await NoParameterTask();
-				await NoParameterTask();
+				await NoParameterTask().ConfigureAwait(false);
+				await NoParameterTask().ConfigureAwait(false);
 			}
 			catch (InvalidCommandParameterException e)
 			{
@@ -78,8 +78,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			try
 			{
 				command.Execute("Hello World");
-				await NoParameterTask();
-				await NoParameterTask();
+				await NoParameterTask().ConfigureAwait(false);
+				await NoParameterTask().ConfigureAwait(false);
 			}
 			catch (InvalidCommandParameterException e)
 			{
@@ -104,8 +104,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			try
 			{
 				command.Execute(null);
-				await NoParameterTask();
-				await NoParameterTask();
+				await NoParameterTask().ConfigureAwait(false);
+				await NoParameterTask().ConfigureAwait(false);
 			}
 			catch (InvalidCommandParameterException e)
 			{
@@ -233,7 +233,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
+			await IntParameterTask(Delay).ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
@@ -268,7 +268,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task;
+			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
@@ -294,8 +294,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			await IntParameterTask(Delay).ConfigureAwait(false);
+			await IntParameterTask(Delay).ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
@@ -330,7 +330,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task;
+			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));

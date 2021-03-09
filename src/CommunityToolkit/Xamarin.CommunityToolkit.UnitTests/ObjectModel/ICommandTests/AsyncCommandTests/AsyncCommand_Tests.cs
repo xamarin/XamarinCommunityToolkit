@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand<int>(IntParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}
@@ -45,7 +45,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			var command = new AsyncCommand<string>(StringParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}
@@ -188,7 +188,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.RaiseCanExecuteChanged();
-			await handleCanExecuteChangedTCS.Task;
+			await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
@@ -275,12 +275,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 				await Task.Delay(100).ConfigureAwait(false);
 
 				command.RaiseCanExecuteChanged();
-				await handleCanExecuteChangedTCS.Task;
+				await handleCanExecuteChangedTCS.Task.ConfigureAwait(false); ;
 
 				// Assert
 				Assert.True(didCanExecuteChangeFire);
 				Assert.True(command.CanExecute(null));
-			});
+			}).ConfigureAwait(false); ;
 
 			void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
@@ -324,7 +324,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 				throw new NullReferenceException();
 
 			command.RaiseCanExecuteChanged();
-			await handleCanExecuteChangedTCS.Task;
+			await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
@@ -363,7 +363,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.ChangeCanExecute();
-			await canExecuteChangedTCS.Task;
+			await canExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
@@ -396,7 +396,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await asyncCommandTask;
+			await asyncCommandTask.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
@@ -428,8 +428,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			await asyncCommandTask;
-			var canExecuteChangedGreaterThan1Result = await canExecuteChangedGreaterThan1TCS.Task;
+			await asyncCommandTask.ConfigureAwait(false);
+			var canExecuteChangedGreaterThan1Result = await canExecuteChangedGreaterThan1TCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));

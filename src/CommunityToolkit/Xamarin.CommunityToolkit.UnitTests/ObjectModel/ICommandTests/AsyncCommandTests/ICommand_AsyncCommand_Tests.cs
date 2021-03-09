@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.Execute(parameter);
-			await NoParameterTask();
+			await NoParameterTask().ConfigureAwait(false);
 
 			// Assert
 		}
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			command.Execute(parameter);
-			await NoParameterTask();
+			await NoParameterTask().ConfigureAwait(false);
 
 			// Assert
 		}
@@ -207,8 +207,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			await IntParameterTask(Delay).ConfigureAwait(false);
+			await IntParameterTask(Delay).ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
@@ -235,7 +235,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			var handleCanExecuteChangedTCSResult = await handleCanExecuteChangedTCS.Task;
+			var handleCanExecuteChangedTCSResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
@@ -270,8 +270,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await IntParameterTask(Delay);
-			await IntParameterTask(Delay);
+			await IntParameterTask(Delay).ConfigureAwait(false);
+			await IntParameterTask(Delay).ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
@@ -306,7 +306,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			var handleCanExecuteChangedREsult = await handleCanExecuteChangedTCS.Task;
+			var handleCanExecuteChangedREsult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
