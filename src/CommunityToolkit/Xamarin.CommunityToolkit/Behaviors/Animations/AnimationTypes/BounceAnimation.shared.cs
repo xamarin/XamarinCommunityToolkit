@@ -7,8 +7,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	{
 		protected override uint DefaultDuration { get; set; } = 300;
 
-		public override async Task Animate(View view) =>
-			await Task.Run(() =>
+		public override Task Animate(View view) =>
+			Task.Run(() =>
 			{
 				Device.BeginInvokeOnMainThread(() =>
 				{
