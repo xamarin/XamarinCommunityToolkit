@@ -439,7 +439,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
 				if (++canExecuteChangedCount is 2)
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
 					canExecuteChangedGreaterThan1TCS.SetResult(canExecuteChangedCount);
+				}
 			}
 		}
 	}

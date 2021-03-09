@@ -239,7 +239,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 				if (++canExecuteChangedCount is 2)
 				{
 					command.CanExecuteChanged -= handleCanExecuteChanged;
-					handleCanExecuteChangedTCS.SetResult(2);
+					handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
 				}
 			}
 		}
