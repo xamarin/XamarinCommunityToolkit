@@ -216,9 +216,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font of the text on the <see cref="BadgeView" />. This is a bindable property.
 		/// </summary>
-		public string? FontFamily
+		public string FontFamily
 		{
-			get => (string?)GetValue(FontFamilyProperty);
+			get => (string)GetValue(FontFamilyProperty);
 			set => SetValue(FontFamilyProperty, value);
 		}
 
@@ -258,35 +258,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.Children.Add(BadgeIndicatorContainer);
 		}
 
-		static ContentPresenter CreateContentElement()
-			=> new ContentPresenter
-			{
-				HorizontalOptions = LayoutOptions.Start,
-				VerticalOptions = LayoutOptions.Start
-			};
+		static ContentPresenter CreateContentElement() => new ContentPresenter
+		{
+			HorizontalOptions = LayoutOptions.Start,
+			VerticalOptions = LayoutOptions.Start
+		};
 
-		static Grid CreateIndicatorContainerElement()
-		   => new Grid
-		   {
-			   HorizontalOptions = LayoutOptions.Start,
-			   VerticalOptions = LayoutOptions.Start,
-			   IsVisible = false
-		   };
+		static Grid CreateIndicatorContainerElement() => new Grid
+		{
+			HorizontalOptions = LayoutOptions.Start,
+			VerticalOptions = LayoutOptions.Start,
+			IsVisible = false
+		};
 
-		static Frame CreateIndicatorBackgroundElement()
-		   => new Frame
-		   {
-			   CornerRadius = Device.RuntimePlatform == Device.Android ? 12 : 8,
-			   Padding = 2
-		   };
+		static Frame CreateIndicatorBackgroundElement() => new Frame
+		{
+			CornerRadius = Device.RuntimePlatform == Device.Android ? 12 : 8,
+			Padding = 2
+		};
 
-		static Label CreateTextElement()
-		   => new Label
-		   {
-			   HorizontalOptions = LayoutOptions.Center,
-			   VerticalOptions = LayoutOptions.Center,
-			   Margin = new Thickness(4, 0)
-		   };
+		static Label CreateTextElement() => new Label
+		{
+			HorizontalOptions = LayoutOptions.Center,
+			VerticalOptions = LayoutOptions.Center,
+			Margin = new Thickness(4, 0)
+		};
 
 		protected override void OnBindingContextChanged()
 		{
@@ -356,8 +352,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var size = Math.Max(BadgeText.Height, BadgeText.Width) + Padding;
 				BadgeIndicatorBackground.HeightRequest = size;
 				var margins = GetMargins(size);
-				containerMargin = margins.Item1;
-				contentMargin = margins.Item2;
+				containerMargin = margins.ContainerMargin;
+				contentMargin = margins.ContentMargin;
 			}
 
 			BadgeIndicatorContainer.Margin = containerMargin;
@@ -379,17 +375,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					containerMargin = new Thickness(horizontalMargin, 0, 0, 0);
 					contentMargin = new Thickness(0, verticalMargin, verticalMargin, 0);
 					break;
+
 				case BadgePosition.TopLeft:
 					verticalMargin = size / 2;
 					containerMargin = new Thickness(0, 0, 0, 0);
 					contentMargin = new Thickness(verticalMargin, verticalMargin, 0, 0);
 					break;
+
 				case BadgePosition.BottomLeft:
 					verticalMargin = size / 2;
 					var bottomLeftverticalMargin = BadgeContent.Height - verticalMargin;
 					containerMargin = new Thickness(0, bottomLeftverticalMargin, 0, 0);
 					contentMargin = new Thickness(verticalMargin, 0, 0, 0);
 					break;
+
 				case BadgePosition.BottomRight:
 					verticalMargin = size / 2;
 					var bottomRightverticalMargin = BadgeContent.Height - verticalMargin;
@@ -436,7 +435,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				isVisible = badgeIsVisible;
 			}
 			else
+			{
 				BadgeIndicatorContainer.IsVisible = badgeIsVisible;
+			}
 		}
 
 		void OnBadgeTextSizeChanged(object? sender, EventArgs e)

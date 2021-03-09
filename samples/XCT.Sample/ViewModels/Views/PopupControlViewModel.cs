@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Views.Popups;
 using Xamarin.CommunityToolkit.UI.Views;
@@ -11,7 +14,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class PopupGalleryViewModel
 	{
-		INavigation Navigation => App.Current.MainPage.Navigation;
+		public PopupGalleryViewModel()
+		{
+			DisplayPopup = CommandFactory.Create<Type>(OnDisplayPopup);
+		}
+
+		INavigation Navigation => Application.Current.MainPage.Navigation;
 
 		public IEnumerable<SectionModel> Examples { get; } = new[]
 		{
@@ -27,11 +35,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(ReturnResultPopup), "Return Result Popup", Color.Red, "A popup that returns a string message when dismissed"),
 			new SectionModel(typeof(XamlBindingPopup), "Xaml Binding Popup", Color.Red, "A simple popup that uses XAML BindingContext"),
 			new SectionModel(typeof(CsharpBindingPopup), "C# Binding Popup", Color.Red, "A simple popup that uses C# BindingContext")
-		};
+		}.OrderBy(x => x.Title);
 
-		public ICommand DisplayPopup => new Command<Type>(OnDisplayPopup);
+		public ICommand DisplayPopup { get; }
 
-		async void OnDisplayPopup(Type popupType)
+		async Task OnDisplayPopup(Type? popupType)
 		{
 			var view = (VisualElement)Activator.CreateInstance(popupType);
 
