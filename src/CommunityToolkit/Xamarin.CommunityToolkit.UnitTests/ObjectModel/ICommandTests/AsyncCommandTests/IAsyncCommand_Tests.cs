@@ -201,6 +201,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(0, canExecuteChangedCount);
 
+			command.CanExecuteChanged -= handleCanExecuteChanged;
+
 			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 		}
 
@@ -235,7 +237,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
 				if (++canExecuteChangedCount is 2)
+				{
+					command.CanExecuteChanged -= handleCanExecuteChanged;
 					handleCanExecuteChangedTCS.SetResult(2);
+				}
 			}
 		}
 	}
