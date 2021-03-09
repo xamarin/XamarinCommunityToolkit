@@ -93,9 +93,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets the animation that is used when the badge is shown or hidden. The animation only shows when <see cref="IsAnimated"/> is set to true. This is a bindable property.
 		/// </summary>
-		public IBadgeAnimation BadgeAnimation
+		public IBadgeAnimation? BadgeAnimation
 		{
-			get => (IBadgeAnimation)GetValue(BadgeAnimationProperty);
+			get => (IBadgeAnimation?)GetValue(BadgeAnimationProperty);
 			set => SetValue(BadgeAnimationProperty, value);
 		}
 
@@ -424,11 +424,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (badgeIsVisible)
 				{
 					BadgeIndicatorContainer.IsVisible = true;
-					await BadgeAnimation.OnAppearing(BadgeIndicatorContainer);
+
+					if (BadgeAnimation != null)
+						await BadgeAnimation.OnAppearing(BadgeIndicatorContainer);
 				}
 				else
 				{
-					await BadgeAnimation.OnDisappering(BadgeIndicatorContainer);
+					if (BadgeAnimation != null)
+						await BadgeAnimation.OnDisappering(BadgeIndicatorContainer);
 					BadgeIndicatorContainer.IsVisible = false;
 				}
 

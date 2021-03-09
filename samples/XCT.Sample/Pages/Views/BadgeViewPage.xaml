@@ -40,7 +40,7 @@
                 <xct:BadgeView
                     BackgroundColor="Blue"
                     TextColor="White"
-                    Text="100">
+                    Text="99">
                     <Label
                         Text="Long Text"/>
                 </xct:BadgeView>

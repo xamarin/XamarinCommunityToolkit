@@ -56,9 +56,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static BindableProperty BadgeAnimationProperty =
 			BindableProperty.Create(nameof(BadgeAnimation), typeof(IBadgeAnimation), typeof(TabBadgeView), new BadgeAnimation());
 
-		public IBadgeAnimation BadgeAnimation
+		public IBadgeAnimation? BadgeAnimation
 		{
-			get => (IBadgeAnimation)GetValue(BadgeAnimationProperty);
+			get => (IBadgeAnimation?)GetValue(BadgeAnimationProperty);
 			set => SetValue(BadgeAnimationProperty, value);
 		}
 
@@ -221,11 +221,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (badgeIsVisible)
 				{
 					IsVisible = true;
-					await BadgeAnimation.OnAppearing(this);
+
+					if (BadgeAnimation != null)
+						await BadgeAnimation.OnAppearing(this);
 				}
 				else
 				{
-					await BadgeAnimation.OnDisappering(this);
+					if (BadgeAnimation != null)
+						await BadgeAnimation.OnDisappering(this);
+
 					IsVisible = false;
 				}
 
