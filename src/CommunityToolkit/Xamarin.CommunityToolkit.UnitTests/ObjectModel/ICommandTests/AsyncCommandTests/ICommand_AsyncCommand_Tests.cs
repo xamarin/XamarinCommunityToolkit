@@ -217,7 +217,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public async Task ICommand_Parameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
@@ -280,7 +280,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public async Task ICommand_NoParameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange

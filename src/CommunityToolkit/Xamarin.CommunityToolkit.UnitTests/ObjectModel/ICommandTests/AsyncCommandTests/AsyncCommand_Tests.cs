@@ -163,7 +163,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.True(command.CanExecute(null));
 		}
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public async Task AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_MainThreadExecution_Test()
 		{
 			// Arrange
@@ -202,7 +202,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			}
 		}
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public Task AsyncCommand_RaiseCanExecuteChanged_BackgroundThreadCreation_BackgroundThreadExecution_Test() => Task.Run(async () =>
 		{
 			// Arrange
@@ -245,7 +245,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			}
 		});
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public async Task AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_BackgroundThreadExecution_Test()
 		{
 			// Arrange
@@ -290,7 +290,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			}
 		}
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public async Task AsyncCommand_RaiseCanExecuteChanged_BackgroundThreadCreation_MainThreadExecution_Test()
 		{
 			// Arrange
@@ -338,7 +338,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			}
 		}
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public async Task AsyncCommand_ChangeCanExecute_Test()
 		{
 			// Arrange
@@ -407,7 +407,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 		}
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public async Task AsyncCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange

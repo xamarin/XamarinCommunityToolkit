@@ -206,7 +206,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 		}
 
-		[Fact(Timeout = 2000)]
+		[Fact]
 		public async Task IAsyncCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
