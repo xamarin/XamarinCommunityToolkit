@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public string Message { get; set; } = DefaultMessage;
 
-		public static string DefaultMessage { get; set; }
+		public static string DefaultMessage { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Gets or sets the font for the SnackBar message.

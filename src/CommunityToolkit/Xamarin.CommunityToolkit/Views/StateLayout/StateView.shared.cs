@@ -23,9 +23,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(StateKeyProperty, value);
 		}
 
-		public string CustomStateKey
+		public string? CustomStateKey
 		{
-			get => (string)GetValue(CustomStateKeyProperty);
+			get => (string?)GetValue(CustomStateKeyProperty);
 			set => SetValue(CustomStateKeyProperty, value);
 		}
 
@@ -35,9 +35,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(RepeatCountProperty, value);
 		}
 
-		public DataTemplate Template
+		public DataTemplate? Template
 		{
-			get => (DataTemplate)GetValue(TemplateProperty);
+			get => (DataTemplate?)GetValue(TemplateProperty);
 			set => SetValue(TemplateProperty, value);
 		}
 	}

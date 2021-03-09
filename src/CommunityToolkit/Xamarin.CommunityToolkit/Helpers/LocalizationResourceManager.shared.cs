@@ -19,8 +19,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		{
 		}
 
-		public void Init(ResourceManager defaultResourceManager) =>
-			DefaultResourceManager = defaultResourceManager;
+		public void Init(ResourceManager defaultResourceManager) => DefaultResourceManager = defaultResourceManager;
 
 		public void Init(CultureInfo initialCulture) =>
 			CurrentCulture = initialCulture;
@@ -29,7 +28,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 		{
 			DefaultResourceManager = defaultResourceManager;
 			CurrentCulture = initialCulture;
+			Init(resource);
 		}
+
+		public string this[string text] => GetValue(text);
 
 		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]
 		[EditorBrowsable(EditorBrowsableState.Never)]

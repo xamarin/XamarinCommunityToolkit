@@ -6,14 +6,14 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 	{
 		public MediaElementPage() => InitializeComponent();
 
-		void OnMediaOpened(object sender, EventArgs e) => Console.WriteLine("Media opened.");
+		void OnMediaOpened(object? sender, EventArgs e) => Console.WriteLine("Media opened.");
 
-		void OnMediaFailed(object sender, EventArgs e) => Console.WriteLine("Media failed.");
+		void OnMediaFailed(object? sender, EventArgs e) => Console.WriteLine("Media failed.");
 
-		void OnMediaEnded(object sender, EventArgs e) => Console.WriteLine("Media ended.");
+		void OnMediaEnded(object? sender, EventArgs e) => Console.WriteLine("Media ended.");
 
-		void OnSeekCompleted(object sender, EventArgs e) => Console.WriteLine("Seek completed.");
+		void OnSeekCompleted(object? sender, EventArgs e) => Console.WriteLine("Seek completed.");
 
-		void OnResetClicked(object sender, EventArgs e) => mediaElement.Source = null;
+		void OnResetClicked(object? sender, EventArgs e) => mediaElement.Source = null;
 	}
 }

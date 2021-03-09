@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
 		readonly ResourceManager resourceManager;
 
-		LocalizedString localizedString;
+		LocalizedString? localizedString;
 
 		[Fact]
 		public void LocalizedStringTests_Localized_ValidImplementation()
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			var culture2 = new CultureInfo("en");
 			localizedString = new LocalizedString(() => resourceManager.GetString(testString, localizationManager.CurrentCulture));
 
-			string responceOnCultureChanged = null;
+			string? responceOnCultureChanged = null;
 			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
 
 			// Act

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -33,18 +33,18 @@ namespace Xamarin.CommunityToolkit.Converters
 		///     value not equal to parameter.
 		/// </returns>
 		/// <exception cref="ArgumentException">If value is not an <see cref="Enum" /></exception>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			if (!(value is Enum enumValue))
+			if (value is not Enum enumValue)
 				throw new ArgumentException("The value should be of type Enum", nameof(value));
 
 			return TrueValues.Count == 0
 				? CompareTwoEnums(enumValue, parameter as Enum)
 				: TrueValues.Any(item => CompareTwoEnums(enumValue, item));
 
-			static bool CompareTwoEnums(Enum valueToCheck, object referenceValue)
+			static bool CompareTwoEnums(Enum valueToCheck, object? referenceValue)
 			{
-				if (!(referenceValue is Enum referenceEnumValue))
+				if (referenceValue is not Enum referenceEnumValue)
 					return false;
 
 				var valueToCheckType = valueToCheck.GetType();
@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		}
 
 		/// <inheritdoc/>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) =>
 			throw new NotImplementedException();
 	}
 }

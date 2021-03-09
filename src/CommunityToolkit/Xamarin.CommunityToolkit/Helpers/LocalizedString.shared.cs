@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			LocalizationResourceManager.Current.PropertyChanged += (sender, e) => OnPropertyChanged(nameof(Localized));
 		}
 
-		public string Localized => generator?.Invoke();
+		public string Localized => generator();
 
 		[Preserve(Conditional = true)]
 		public static implicit operator LocalizedString(Func<string> func) => new LocalizedString(func);

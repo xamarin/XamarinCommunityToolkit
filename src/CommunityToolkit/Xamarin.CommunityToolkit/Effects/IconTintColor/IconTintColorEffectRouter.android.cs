@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using Android.Graphics;
 using Android.Widget;
@@ -68,7 +69,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (color == Forms.Color.Default)
 				image.ClearColorFilter();
 
-			image.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn));
+			image.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn ?? throw new NullReferenceException()));
 		}
 
 		void SetButtonTintColor(Button button, Forms.Color color)

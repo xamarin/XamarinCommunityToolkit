@@ -5,7 +5,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Extensions
 {
 	public static class INotifyPropertyChangedExtension
 	{
-		public static void WeakSubscribe<T>(this INotifyPropertyChanged target, T subscriber, Action<T, object, PropertyChangedEventArgs> action)
+		public static void WeakSubscribe<T>(this INotifyPropertyChanged target, T subscriber, Action<T, object?, PropertyChangedEventArgs> action)
 		{
 			_ = target ?? throw new ArgumentNullException(nameof(target));
 			if (subscriber == null || action == null)
@@ -16,9 +16,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Extensions
 			var weakSubscriber = new WeakReference(subscriber, false);
 			target.PropertyChanged += handler;
 
-			void handler(object sender, PropertyChangedEventArgs e)
+			void handler(object? sender, PropertyChangedEventArgs e)
 			{
-				var s = (T)weakSubscriber.Target;
+				var s = (T?)weakSubscriber.Target;
 				if (s == null)
 				{
 					target.PropertyChanged -= handler;

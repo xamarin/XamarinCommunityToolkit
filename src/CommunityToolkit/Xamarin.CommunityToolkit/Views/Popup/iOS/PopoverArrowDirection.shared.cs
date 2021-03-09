@@ -1,6 +1,4 @@
-using System;
-
-namespace Xamarin.CommunityToolkit.UI.Views.iOSSpecific
+﻿namespace Xamarin.CommunityToolkit.UI.Views.iOSSpecific
 {
 	public enum PopoverArrowDirection
 	{

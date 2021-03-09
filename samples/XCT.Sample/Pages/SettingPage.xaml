@@ -12,7 +12,7 @@
         <ToolbarItem Text="X" Order="Primary" Clicked="OnCloseClicked" />
     </pages:BasePage.ToolbarItems>
 
-     <pages:BasePage.BindingContext>
+    <pages:BasePage.BindingContext>
         <vm:SettingViewModel />
     </pages:BasePage.BindingContext>
 

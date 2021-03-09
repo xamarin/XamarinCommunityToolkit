@@ -11,9 +11,9 @@ namespace Xamarin.CommunityToolkit.Extensions
 	[ContentProperty(nameof(Text))]
 	public class TranslateExtension : IMarkupExtension<BindingBase>
 	{
-		public string Text { get; set; }
+		public string Text { get; set; } = string.Empty;
 
-		public string StringFormat { get; set; }
+		public string? StringFormat { get; set; }
 
 		public ResourceManager ResourceManager { get; set; }
 
@@ -21,7 +21,9 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public BindingBase ProvideValue(IServiceProvider serviceProvider)
 		{
-#if !NETSTANDARD1_0
+#if NETSTANDARD1_0
+throw new NotSupportedException("Translate XAML MarkupExtension is not supported on .NET Standard 1.0");
+#else
 			ResourceManager ??= LocalizationResourceManager.Current.DefaultResourceManager;
 
 			if (ResourceManager == null)
@@ -37,8 +39,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 				StringFormat = StringFormat
 			};
 			return binding;
-#else
-			throw new NotSupportedException("Translate XAML MarkupExtension is not supported on .NET Standard 1.0");
 #endif
 		}
 

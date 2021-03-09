@@ -1,5 +1,4 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.Sample.ViewModels;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages
 {
@@ -8,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 		public AboutPage()
 			=> InitializeComponent();
 
-		async void OnCloseClicked(object sender, EventArgs e)
+		async void OnCloseClicked(object? sender, EventArgs e)
 			=> await Navigation.PopModalAsync();
 	}
 }

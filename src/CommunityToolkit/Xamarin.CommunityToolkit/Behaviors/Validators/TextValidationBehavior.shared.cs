@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty RegexOptionsProperty =
 			BindableProperty.Create(nameof(RegexOptions), typeof(RegexOptions), typeof(TextValidationBehavior), defaultValueCreator: GetDefaultRegexOptions, propertyChanged: OnRegexPropertyChanged);
 
-		Regex regex;
+		Regex? regex;
 
 		/// <summary>
 		/// The minimum length of the value that will be allowed. This is a bindable property.
@@ -74,9 +74,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// The regular expression pattern which the value will have to match before it will be allowed. This is a bindable property.
 		/// </summary>
-		public string RegexPattern
+		public string? RegexPattern
 		{
-			get => (string)GetValue(RegexPatternProperty);
+			get => (string?)GetValue(RegexPatternProperty);
 			set => SetValue(RegexPatternProperty, value);
 		}
 
@@ -98,7 +98,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected virtual RegexOptions DefaultRegexOptions => RegexOptions.None;
 
-		protected override object Decorate(object value)
+		protected override object? Decorate(object? value)
 		{
 			var stringValue = base.Decorate(value)?.ToString();
 			var flags = DecorationFlags;
@@ -121,7 +121,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			return stringValue;
 		}
 
-		protected override ValueTask<bool> ValidateAsync(object value, CancellationToken token)
+		protected override ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
 		{
 			var text = value?.ToString();
 			return new ValueTask<bool>(

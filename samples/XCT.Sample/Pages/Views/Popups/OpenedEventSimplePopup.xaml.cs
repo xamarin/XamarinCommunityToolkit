@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
 			Opened += OnOpened;
 		}
 
-		void OnOpened(object sender, PopupOpenedEventArgs e)
+		void OnOpened(object? sender, PopupOpenedEventArgs e)
 		{
 			Opened -= OnOpened;
 
