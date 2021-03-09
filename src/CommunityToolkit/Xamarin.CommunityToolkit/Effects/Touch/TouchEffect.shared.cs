@@ -730,10 +730,15 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static void SetAnimationDuration(BindableObject? bindable, int value)
 			=> bindable?.SetValue(AnimationDurationProperty, value);
 
-		public static Easing GetAnimationEasing(BindableObject? bindable)
-			=> (Easing)(bindable?.GetValue(AnimationEasingProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static Easing? GetAnimationEasing(BindableObject? bindable)
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
 
-		public static void SetAnimationEasing(BindableObject? bindable, Easing value)
+			return (Easing?)bindable.GetValue(AnimationEasingProperty);
+		}
+
+		public static void SetAnimationEasing(BindableObject? bindable, Easing? value)
 			=> bindable?.SetValue(AnimationEasingProperty, value);
 
 		public static int GetPressedAnimationDuration(BindableObject? bindable)
@@ -742,10 +747,15 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static void SetPressedAnimationDuration(BindableObject? bindable, int value)
 			=> bindable?.SetValue(PressedAnimationDurationProperty, value);
 
-		public static Easing GetPressedAnimationEasing(BindableObject? bindable)
-			=> (Easing)(bindable?.GetValue(PressedAnimationEasingProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static Easing? GetPressedAnimationEasing(BindableObject? bindable)
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
 
-		public static void SetPressedAnimationEasing(BindableObject? bindable, Easing value)
+			return (Easing?)bindable.GetValue(PressedAnimationEasingProperty);
+		}
+
+		public static void SetPressedAnimationEasing(BindableObject? bindable, Easing? value)
 			=> bindable?.SetValue(PressedAnimationEasingProperty, value);
 
 		public static int GetNormalAnimationDuration(BindableObject? bindable)
@@ -754,10 +764,15 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static void SetNormalAnimationDuration(BindableObject? bindable, int value)
 			=> bindable?.SetValue(NormalAnimationDurationProperty, value);
 
-		public static Easing GetNormalAnimationEasing(BindableObject? bindable)
-			=> (Easing)(bindable?.GetValue(NormalAnimationEasingProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static Easing? GetNormalAnimationEasing(BindableObject? bindable)
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
 
-		public static void SetNormalAnimationEasing(BindableObject? bindable, Easing value)
+			return (Easing?)bindable.GetValue(NormalAnimationEasingProperty);
+		}
+
+		public static void SetNormalAnimationEasing(BindableObject? bindable, Easing? value)
 			=> bindable?.SetValue(NormalAnimationEasingProperty, value);
 
 		public static int GetHoveredAnimationDuration(BindableObject? bindable)
@@ -766,10 +781,15 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static void SetHoveredAnimationDuration(BindableObject? bindable, int value)
 			=> bindable?.SetValue(HoveredAnimationDurationProperty, value);
 
-		public static Easing GetHoveredAnimationEasing(BindableObject? bindable)
-			=> (Easing)(bindable?.GetValue(HoveredAnimationEasingProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+		public static Easing? GetHoveredAnimationEasing(BindableObject? bindable)
+		{
+			if (bindable == null)
+				throw new ArgumentNullException(nameof(bindable));
 
-		public static void SetHoveredAnimationEasing(BindableObject? bindable, Easing value)
+			return (Easing?)bindable.GetValue(HoveredAnimationEasingProperty);
+		}
+
+		public static void SetHoveredAnimationEasing(BindableObject? bindable, Easing? value)
 			=> bindable?.SetValue(HoveredAnimationEasingProperty, value);
 
 		public static int GetPulseCount(BindableObject? bindable)
@@ -1022,19 +1042,19 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		public int AnimationDuration => GetAnimationDuration(Element);
 
-		public Easing AnimationEasing => GetAnimationEasing(Element);
+		public Easing? AnimationEasing => GetAnimationEasing(Element);
 
 		public int PressedAnimationDuration => GetPressedAnimationDuration(Element);
 
-		public Easing PressedAnimationEasing => GetPressedAnimationEasing(Element);
+		public Easing? PressedAnimationEasing => GetPressedAnimationEasing(Element);
 
 		public int NormalAnimationDuration => GetNormalAnimationDuration(Element);
 
-		public Easing NormalAnimationEasing => GetNormalAnimationEasing(Element);
+		public Easing? NormalAnimationEasing => GetNormalAnimationEasing(Element);
 
 		public int HoveredAnimationDuration => GetHoveredAnimationDuration(Element);
 
-		public Easing HoveredAnimationEasing => GetHoveredAnimationEasing(Element);
+		public Easing? HoveredAnimationEasing => GetHoveredAnimationEasing(Element);
 
 		public int PulseCount => GetPulseCount(Element);
 

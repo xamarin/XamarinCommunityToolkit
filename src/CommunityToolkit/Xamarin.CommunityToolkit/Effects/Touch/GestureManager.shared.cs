@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		CancellationTokenSource? animationTokenSource;
 
-		Func<TouchEffect, TouchState, HoverState, int, Easing, CancellationToken, Task>? animationTaskFactory;
+		Func<TouchEffect, TouchState, HoverState, int, Easing?, CancellationToken, Task>? animationTaskFactory;
 
 		double? durationMultiplier;
 
@@ -207,7 +207,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			});
 		}
 
-		internal void SetCustomAnimationTask(Func<TouchEffect, TouchState, HoverState, int, Easing, CancellationToken, Task>? animationTaskFactory)
+		internal void SetCustomAnimationTask(Func<TouchEffect, TouchState, HoverState, int, Easing?, CancellationToken, Task>? animationTaskFactory)
 			=> this.animationTaskFactory = animationTaskFactory;
 
 		internal void Reset()
@@ -346,7 +346,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			}
 		}
 
-		Task SetBackgroundColor(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetBackgroundColor(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalBackgroundColor = sender.NormalBackgroundColor;
 			var pressedBackgroundColor = sender.PressedBackgroundColor;
@@ -380,7 +380,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return element.ColorTo(color, (uint)duration, easing);
 		}
 
-		Task SetOpacity(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetOpacity(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalOpacity = sender.NormalOpacity;
 			var pressedOpacity = sender.PressedOpacity;
@@ -408,7 +408,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return element.FadeTo(opacity, (uint)Abs(duration), easing);
 		}
 
-		Task SetScale(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetScale(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalScale = sender.NormalScale;
 			var pressedScale = sender.PressedScale;
@@ -447,7 +447,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return animationCompletionSource.Task;
 		}
 
-		Task SetTranslation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetTranslation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalTranslationX = sender.NormalTranslationX;
 			var pressedTranslationX = sender.PressedTranslationX;
@@ -495,7 +495,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return element?.TranslateTo(translationX, translationY, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
-		Task SetRotation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetRotation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalRotation = sender.NormalRotation;
 			var pressedRotation = sender.PressedRotation;
@@ -525,7 +525,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return element?.RotateTo(rotation, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
-		Task SetRotationX(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetRotationX(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalRotationX = sender.NormalRotationX;
 			var pressedRotationX = sender.PressedRotationX;
@@ -553,7 +553,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return element?.RotateXTo(rotationX, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
-		Task SetRotationY(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetRotationY(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalRotationY = sender.NormalRotationY;
 			var pressedRotationY = sender.PressedRotationY;
