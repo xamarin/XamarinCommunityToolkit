@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using System;
+using Foundation;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -8,10 +9,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var dirs = NSSearchPath.GetDirectories(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomain.User);
 			if (dirs == null || dirs.Length == 0)
-			{
-				// this should never happen...
-				return null;
-			}
+				throw new NotSupportedException();
+
 			return dirs[0];
 		}
 	}

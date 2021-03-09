@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.TabViewItemVisualStatePage">
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <ContentPage.Content>
+        <xct:TabView
+            TabStripPlacement="Bottom"
+            TabStripBackgroundColor="Blue"
+            TabStripHeight="60"
+            TabIndicatorColor="Yellow"
+            TabContentBackgroundColor="Yellow">
+            <xct:TabViewItem
+                Icon="triangle.png"
+                Text="Tab 1"
+                TextColor="White"
+                TextColorSelected="Yellow"
+                FontSize="12">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Red" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unselected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="IndianRed" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Grid 
+                    BackgroundColor="Gray">
+                    <Label
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Text="TabContent1" />
+                </Grid>
+            </xct:TabViewItem>
+            <xct:TabViewItem
+                Icon="circle.png"
+                Text="Tab 2"
+                TextColor="White"
+                TextColorSelected="Yellow"
+                FontSize="12">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Green" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unselected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightGreen" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Grid>
+                    <Label    
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Text="TabContent2" />
+                </Grid>
+            </xct:TabViewItem>
+            <xct:TabViewItem
+                Icon="rectangle.png"
+                Text="Tab 3"
+                TextColor="White"
+                TextColorSelected="Yellow"
+                FontSize="12">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="Pink" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Unselected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="LightPink" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Grid
+                    BackgroundColor="LightSteelBlue">
+                    <Label    
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Text="TabContent3" />
+                </Grid>
+            </xct:TabViewItem>
+        </xct:TabView>
+    </ContentPage.Content>
+</pages:BasePage>

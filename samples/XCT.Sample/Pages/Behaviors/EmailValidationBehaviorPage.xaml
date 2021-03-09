@@ -15,11 +15,21 @@
                  Spacing="50"
                  VerticalOptions="CenterAndExpand">
         <Label Text="Text color will change accordingly to the style that is configured when a invalid value (email address) is entered." />
-        <Entry Placeholder="Email">
-            <Entry.Behaviors>
-                <xct:EmailValidationBehavior DecorationFlags="Trim" InvalidStyle="{StaticResource InvalidEntryStyle}"/>
-            </Entry.Behaviors>
-        </Entry>
+        <StackLayout Spacing="3">
+            <Entry Placeholder="Email">
+                <Entry.Behaviors>
+                    <xct:EmailValidationBehavior
+                        x:Name="EmailValidator"
+                        DecorationFlags="Trim"
+                        InvalidStyle="{StaticResource InvalidEntryStyle}"/>
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Invalid email"
+                   TextColor="Red"
+                   FontSize="10"
+                   IsVisible="{Binding IsNotValid, Source={x:Reference EmailValidator}}"
+                   />
+        </StackLayout>
     </StackLayout>
 
 </pages:BasePage>

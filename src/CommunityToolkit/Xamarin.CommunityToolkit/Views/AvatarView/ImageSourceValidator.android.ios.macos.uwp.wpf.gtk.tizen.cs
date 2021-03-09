@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class ImageSourceValidator : IImageSourceValidator
 	{
-		public async Task<bool> IsImageSourceValidAsync(ImageSource source)
+		public async Task<bool> IsImageSourceValidAsync(ImageSource? source)
 		{
 			var handler = GetHandler(source);
 			if (handler == null)
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #endif
 		}
 
-		IImageSourceHandler GetHandler(ImageSource source)
+		IImageSourceHandler? GetHandler(ImageSource? source)
 		{
 			if (source is UriImageSource)
 				return new UriImageSourceHandler();

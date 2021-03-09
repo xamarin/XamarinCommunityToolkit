@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,23 +10,24 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	/// <summary>
 	/// Abstract Base Class used by AsyncValueCommand
 	/// </summary>
-	public class BaseAsyncCommand<TExecute, TCanExecute> : BaseCommand<TCanExecute>, ICommand
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public abstract class BaseAsyncValueCommand<TExecute, TCanExecute> : BaseCommand<TCanExecute>, ICommand
 	{
-		readonly Func<TExecute, Task> execute;
-		readonly Action<Exception> onException;
+		readonly Func<TExecute?, ValueTask> execute;
+		readonly Action<Exception>? onException;
 		readonly bool continueOnCapturedContext;
 
 		/// <summary>
-		/// Initializes a new instance of BaseAsyncCommand
+		/// Initializes a new instance of BaseAsyncValueCommand
 		/// </summary>
 		/// <param name="execute">The Function executed when Execute or ExecuteAsync is called. This does not check canExecute before executing and will execute even if canExecute is false</param>
 		/// <param name="canExecute">The Function that verifies whether or not AsyncCommand should execute.</param>
 		/// <param name="onException">If an exception is thrown in the Task, <c>onException</c> will execute. If onException is null, the exception will be re-thrown</param>
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
-		public BaseAsyncCommand(
-			Func<TExecute, Task> execute,
-			Func<TCanExecute, bool> canExecute,
-			Action<Exception> onException,
+		protected private BaseAsyncValueCommand(
+			Func<TExecute?, ValueTask>? execute,
+			Func<TCanExecute?, bool>? canExecute,
+			Action<Exception>? onException,
 			bool continueOnCapturedContext,
 			bool allowsMultipleExecutions)
 			: base(canExecute, allowsMultipleExecutions)
@@ -36,11 +38,11 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		}
 
 		/// <summary>
-		/// Converts `Func<Task>` to `Func<object, Task>`
+		/// Converts `Func<ValueTask>` to `Func<object, ValueTask>`
 		/// </summary>
 		/// <param name="execute"></param>
 		/// <returns>The Execute parameter required for ICommand</returns>
-		private protected static Func<object, Task> ConvertExecute(Func<Task> execute)
+		private protected static Func<object?, ValueTask>? ConvertExecute(Func<ValueTask>? execute)
 		{
 			if (execute == null)
 				return null;
@@ -53,7 +55,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <param name="canExecute"></param>
 		/// <returns>The CanExecute parameter required for ICommand</returns>
-		private protected static Func<object, bool> ConvertCanExecute(Func<bool> canExecute)
+		private protected static Func<object?, bool>? ConvertCanExecute(Func<bool>? canExecute)
 		{
 			if (canExecute == null)
 				return null;
@@ -64,9 +66,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// <summary>
 		/// Executes the Command as a Task
 		/// </summary>
-		/// <returns>The executed Task</returns>
+		/// <returns>The executed Value</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		private protected async Task ExecuteAsync(TExecute parameter)
+		private protected async ValueTask ExecuteAsync(TExecute? parameter)
 		{
 			ExecutionCount++;
 
@@ -88,7 +90,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		bool ICommand.CanExecute(object parameter) => parameter switch
 		{
 			TCanExecute validParameter => CanExecute(validParameter),
-			null when !typeof(TCanExecute).GetTypeInfo().IsValueType => CanExecute((TCanExecute)parameter),
+			null when !typeof(TCanExecute).GetTypeInfo().IsValueType => CanExecute((TCanExecute?)parameter),
 			null => throw new InvalidCommandParameterException(typeof(TCanExecute)),
 			_ => throw new InvalidCommandParameterException(typeof(TCanExecute), parameter.GetType()),
 		};
@@ -102,7 +104,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 					break;
 
 				case null when !typeof(TExecute).GetTypeInfo().IsValueType:
-					Execute((TExecute)parameter);
+					Execute((TExecute?)parameter);
 					break;
 
 				case null:
@@ -113,7 +115,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			}
 
 			// Use local method to defer async void from ICommand.Execute, allowing InvalidCommandParameterException to be thrown on the calling thread context before reaching an async method
-			async void Execute(TExecute parameter) => await ExecuteAsync(parameter).ConfigureAwait(continueOnCapturedContext);
+			async void Execute(TExecute? parameter) => await ExecuteAsync(parameter).ConfigureAwait(continueOnCapturedContext);
 		}
 	}
 }

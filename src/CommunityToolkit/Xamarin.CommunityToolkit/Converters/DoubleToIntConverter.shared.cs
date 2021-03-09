@@ -6,7 +6,7 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	/// Converts double to integer and vice versa.
+	/// Converts <see cref="double"/> to <see cref="int"/> and vice versa.
 	/// </summary>
 	[ContentProperty(nameof(Ratio))]
 	public class DoubleToIntConverter : ValueConverterExtension, IValueConverter
@@ -17,32 +17,32 @@ namespace Xamarin.CommunityToolkit.Converters
 		public double Ratio { get; set; } = 1;
 
 		/// <summary>
-		/// Converts double to integer.
+		/// Converts <see cref="double"/> to <see cref="int"/>.
 		/// </summary>
-		/// <param name="value">Double value.</param>
-		/// <param name="targetType">The type of the binding target property.</param>
+		/// <param name="value"><see cref="double"/> value.</param>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
 		/// <param name="parameter">Multiplier (Equals 1 by default).</param>
-		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>Integer value.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
+		/// <returns><see cref="int"/> value.</returns>
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> value is double result
 				? (int)Math.Round(result * GetParameter(parameter))
 				: throw new ArgumentException("Value is not a valid double", nameof(value));
 
 		/// <summary>
-		/// Converts back integer to double.
+		/// Converts back <see cref="int"/> to <see cref="double"/>.
 		/// </summary>
 		/// <param name="value">Integer value.</param>
-		/// <param name="targetType">The type of the binding target property.</param>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
 		/// <param name="parameter">Denominator (Equals 1 by default).</param>
-		/// <param name="culture">The culture to use in the converter.</param>
-		/// <returns>Double value.</returns>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
+		/// <returns><see cref="double"/> value.</returns>
+		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> value is int result
 				? result / GetParameter(parameter)
 				: throw new ArgumentException("Value is not a valid integer", nameof(value));
 
-		double GetParameter(object parameter)
+		double GetParameter(object? parameter)
 			=> parameter == null
 			? Ratio
 			: parameter switch

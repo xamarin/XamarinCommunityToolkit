@@ -7,6 +7,7 @@ namespace Xamarin.CommunityToolkit.Effects
 		public IconTintColorEffectRouter()
 			: base(EffectIds.IconTintColor)
 		{
+			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.Android.Effects.IconTintColorEffectRouter();
@@ -14,6 +15,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.Effects.IconTintColorEffectRouter();
 #endif
+			#endregion
 		}
 	}
 }

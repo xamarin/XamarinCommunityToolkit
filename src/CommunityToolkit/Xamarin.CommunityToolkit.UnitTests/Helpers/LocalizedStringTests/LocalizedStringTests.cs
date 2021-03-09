@@ -7,21 +7,20 @@ using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 {
+	[Collection(nameof(LocalizationResourceManager))]
 	public class LocalizedStringTests
 	{
 		public LocalizedStringTests()
 		{
 			resourceManager = new MockResourceManager();
-#pragma warning disable CS0618 // Type or member is obsolete
-			localizationManager = new LocalizationResourceManager();
-#pragma warning restore CS0618 // Type or member is obsolete
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
-		readonly LocalizationResourceManager localizationManager;
+		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
 		readonly ResourceManager resourceManager;
-		LocalizedString localizedString;
+
+		LocalizedString? localizedString;
 
 		[Fact]
 		public void LocalizedStringTests_Localized_ValidImplementation()
@@ -31,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			var culture2 = new CultureInfo("en");
 			localizedString = new LocalizedString(localizationManager, () => localizationManager[testString]);
 
-			string responceOnCultureChanged = null;
+			string? responceOnCultureChanged = null;
 			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
 
 			// Act
@@ -59,6 +58,23 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 
 			// Assert
 			Assert.NotNull(localizedString);
+		}
+
+		[Fact]
+		public void LocalizedStringTests_WeekSubscribe_ValidImplementation()
+		{
+			// Arrange
+			var isTrigered = false;
+			var culture2 = new CultureInfo("en");
+			localizedString = new LocalizedString(localizationManager, () => string.Empty);
+			localizedString.PropertyChanged += (_, __) => isTrigered = true;
+
+			// Act
+			GC.Collect();
+			localizationManager.CurrentCulture = culture2;
+
+			// Assert
+			Assert.True(isTrigered);
 		}
 
 		[Fact]

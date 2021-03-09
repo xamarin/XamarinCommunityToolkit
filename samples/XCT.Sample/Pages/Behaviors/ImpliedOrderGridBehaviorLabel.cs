@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
 			SizeChanged += OnTestLabelSizeChanged;
 		}
 
-		void OnTestLabelSizeChanged(object sender, EventArgs e)
+		void OnTestLabelSizeChanged(object? sender, EventArgs e)
 		{
 			if (string.IsNullOrEmpty(Text))
 			{

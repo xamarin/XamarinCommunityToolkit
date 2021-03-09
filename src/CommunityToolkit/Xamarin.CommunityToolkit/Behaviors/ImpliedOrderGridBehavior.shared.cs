@@ -6,12 +6,18 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
+	/// <summary>
+	/// The <see cref="ImpliedOrderGridBehavior"/> enables you to automatically assign a <see cref="Grid"/> row and column to a view based on the order the view is added to the <see cref="Grid"/>. You only need to setup the row and column definitions and then add children to the <see cref="Grid"/>. You may still assign RowSpan and ColumnSpan to views and their values will be taken into account when assigning a row and column to a view. If a view has a user defined row or column value it will be honored.
+	/// </summary>
 	public class ImpliedOrderGridBehavior : BaseBehavior<Grid>
 	{
-		bool[][] usedMatrix;
+		bool[][]? usedMatrix;
 		int rowCount;
 		int columnCount;
 
+		/// <summary>
+		/// When set to true, warnings will throw an exception instead of being logged. Defaults to false.
+		/// </summary>
 		public bool ThrowOnLayoutWarning { get; set; }
 
 		protected override void OnAttachedTo(Grid bindable)
@@ -28,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			bindable.ChildAdded -= OnInternalGridChildAdded;
 		}
 
-		void OnInternalGridChildAdded(object sender, ElementEventArgs e) =>
+		void OnInternalGridChildAdded(object? sender, ElementEventArgs e) =>
 			ProcessElement(e.Element);
 
 		void LogWarning(string warning)
@@ -40,15 +46,20 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		bool[][] InitMatrix()
 		{
+			_ = View ?? throw new NullReferenceException($"{nameof(View)} cannot be null.");
+
 			rowCount = View.RowDefinitions.Count;
 			if (rowCount == 0)
 				rowCount = 1;
+
 			columnCount = View.ColumnDefinitions.Count;
 			if (columnCount == 0)
 				columnCount = 1;
+
 			var newMatrix = new bool[rowCount][];
 			for (var r = 0; r < rowCount; r++)
 				newMatrix[r] = new bool[columnCount];
+
 			return newMatrix;
 		}
 
@@ -94,8 +105,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				for (var c = column; c < columnEnd; c++)
 				{
-					if (usedMatrix[r][c])
+					if (usedMatrix?[r][c] ?? throw new NullReferenceException())
 						LogWarning($"Cell at row {r} column {c} has already been used.");
+
 					usedMatrix[r][c] = true;
 				}
 			}

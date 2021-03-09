@@ -8,19 +8,20 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	/// <summary>
 	/// Abstract Base Class used by AsyncCommand and AsyncValueCommand
 	/// </summary>
-	public abstract class BaseCommand<TCanExecute>
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public abstract partial class BaseCommand<TCanExecute>
 	{
-		readonly Func<TCanExecute, bool> canExecute;
-		readonly WeakEventManager weakEventManager = new WeakEventManager();
+		readonly Func<TCanExecute?, bool> canExecute;
+		readonly DelegateWeakEventManager weakEventManager = new DelegateWeakEventManager();
 
-		int executionCount;
+		volatile int executionCount;
 
 		/// <summary>
 		/// Initializes BaseCommand
 		/// </summary>
 		/// <param name="canExecute"></param>
 		/// <param name="allowsMultipleExecutions"></param>
-		public BaseCommand(Func<TCanExecute, bool> canExecute, bool allowsMultipleExecutions)
+		protected private BaseCommand(Func<TCanExecute?, bool>? canExecute, bool allowsMultipleExecutions)
 		{
 			this.canExecute = canExecute ?? (_ => true);
 			AllowsMultipleExecutions = allowsMultipleExecutions;
@@ -50,12 +51,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			get => executionCount;
 			set
 			{
-				var shouldRaiseCanExecuteChanged = AllowsMultipleExecutions switch
+				var shouldRaiseCanExecuteChanged = (AllowsMultipleExecutions, executionCount, value) switch
 				{
-					true => false,
-					false when executionCount is 0 && value > 0 => true,
-					false when executionCount > 0 && value is 0 => true,
-					false => false
+					(true, _, _) => false,
+					(false, 0, >0) => true,
+					(false, >0, 0) => true,
+					(false, _, _) => false
 				};
 
 				executionCount = value;
@@ -70,7 +71,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <returns><c>true</c>, if this command can be executed; otherwise, <c>false</c>.</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		public bool CanExecute(TCanExecute parameter) => (AllowsMultipleExecutions, IsExecuting) switch
+		public bool CanExecute(TCanExecute? parameter) => (AllowsMultipleExecutions, IsExecuting) switch
 		{
 			(true, _) => canExecute(parameter),
 			(false, true) => false,
@@ -83,7 +84,10 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		public void RaiseCanExecuteChanged()
 		{
 			// Automatically marshall to the Main Thread to adhere to the way that Xamarin.Forms automatically marshalls binding events to Main Thread
-			Device.BeginInvokeOnMainThread(() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)));
+			if (IsMainThread)
+				weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
+			else
+				BeginInvokeOnMainThread(() => weakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(CanExecuteChanged)));
 		}
 
 		/// <summary>

@@ -32,6 +32,11 @@
   <ItemGroup>
     <EmbeddedResource Update="Resx\AppResources.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resx\AppResources.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <DependentUpon>AppResources.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -44,4 +49,3 @@
     <ProjectReference Include="..\..\src\Markup\Xamarin.CommunityToolkit.Markup\Xamarin.CommunityToolkit.Markup.csproj" />
   </ItemGroup>
 </Project>
-

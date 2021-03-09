@@ -65,8 +65,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			IAsyncValueCommand<int> command2 = new AsyncValueCommand<int, string>(IntParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
-			await command2.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
+			await command2.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}
@@ -81,8 +81,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			IAsyncValueCommand<string, int> command2 = new AsyncValueCommand<string, int>(StringParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
-			await command2.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
+			await command2.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}

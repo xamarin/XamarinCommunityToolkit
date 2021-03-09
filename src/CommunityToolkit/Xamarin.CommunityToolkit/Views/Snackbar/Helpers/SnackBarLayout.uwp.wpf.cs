@@ -72,7 +72,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 					Command = new Forms.Command(async () =>
 					{
 						OnSnackBarActionExecuted?.Invoke();
-						await action.Action();
+						if (action.Action != null)
+							await action.Action();
 					}),
 					Padding = new Thickness(action.Padding.Left,
 						action.Padding.Top,
@@ -101,6 +102,6 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			}
 		}
 
-		public Action OnSnackBarActionExecuted;
+		public Action? OnSnackBarActionExecuted;
 	}
 }

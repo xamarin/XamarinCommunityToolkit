@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"The AvatarView represents a user's name by using the initials and a generated background color"),
 
 			new SectionModel(typeof(BadgeViewPage), "BadgeView",
-				"View used to used to notify users notifications, or status of something"),
+				"View used to notify users notifications, or status of something"),
 
 			new SectionModel(typeof(DrawingViewPage), "DrawingView",
 				"Draw & GO DrawingView makes capturing and displaying gestures extremely simple on all platforms that Xamarin.Forms supports. (Android, iOS, macOS, UWP, WPF, GTK and Tizen)"),
