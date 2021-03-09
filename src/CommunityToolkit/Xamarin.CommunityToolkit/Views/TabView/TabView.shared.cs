@@ -29,8 +29,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly CarouselView contentContainer;
 
 		readonly List<double> contentWidthCollection;
-		IList tabItemsSource;
-		ObservableCollection<TabViewItem> contentTabItems;
+		IList? tabItemsSource;
+		ObservableCollection<TabViewItem>? contentTabItems;
 
 		public TabView()
 		{
@@ -173,7 +173,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (TabItems != null)
 				TabItems.CollectionChanged -= OnTabItemsCollectionChanged;
 
-			var lazyView = (((TabViewItem)contentContainer.CurrentItem).Content as BaseLazyView) ?? (TabItems[SelectedIndex].Content as BaseLazyView);
+			var lazyView = ((contentContainer?.CurrentItem as TabViewItem)?.Content as BaseLazyView) ?? (TabItems?[SelectedIndex].Content as BaseLazyView);
 			lazyView?.Dispose();
 		}
 
@@ -183,9 +183,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BindableProperty.Create(nameof(TabItemsSource), typeof(IList), typeof(TabView), null,
 				propertyChanged: OnTabItemsSourceChanged);
 
-		public IList TabItemsSource
+		public IList? TabItemsSource
 		{
-			get => (IList)GetValue(TabItemsSourceProperty);
+			get => (IList?)GetValue(TabItemsSourceProperty);
 			set => SetValue(TabItemsSourceProperty, value);
 		}
 
@@ -194,18 +194,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty TabViewItemDataTemplateProperty =
 			BindableProperty.Create(nameof(TabViewItemDataTemplate), typeof(DataTemplate), typeof(TabView), null);
 
-		public DataTemplate TabViewItemDataTemplate
+		public DataTemplate? TabViewItemDataTemplate
 		{
-			get => (DataTemplate)GetValue(TabViewItemDataTemplateProperty);
+			get => (DataTemplate?)GetValue(TabViewItemDataTemplateProperty);
 			set => SetValue(TabViewItemDataTemplateProperty, value);
 		}
 
 		public static readonly BindableProperty TabContentDataTemplateProperty =
 		   BindableProperty.Create(nameof(TabContentDataTemplate), typeof(DataTemplate), typeof(TabView), null);
 
-		public DataTemplate TabContentDataTemplate
+		public DataTemplate? TabContentDataTemplate
 		{
-			get => (DataTemplate)GetValue(TabContentDataTemplateProperty);
+			get => (DataTemplate?)GetValue(TabContentDataTemplateProperty);
 			set => SetValue(TabContentDataTemplateProperty, value);
 		}
 
@@ -262,9 +262,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		   BindableProperty.Create(nameof(TabStripBackgroundColor), typeof(View), typeof(TabView), null,
 			   propertyChanged: OnTabStripBackgroundViewChanged);
 
-		public View TabStripBackgroundView
+		public View? TabStripBackgroundView
 		{
-			get => (View)GetValue(TabStripBackgroundViewProperty);
+			get => (View?)GetValue(TabStripBackgroundViewProperty);
 			set => SetValue(TabStripBackgroundViewProperty, value);
 		}
 
@@ -370,9 +370,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BindableProperty.Create(nameof(TabIndicatorView), typeof(View), typeof(TabView), null,
 				propertyChanged: OnTabIndicatorViewChanged);
 
-		public View TabIndicatorView
+		public View? TabIndicatorView
 		{
-			get => (View)GetValue(TabIndicatorViewProperty);
+			get => (View?)GetValue(TabIndicatorViewProperty);
 			set => SetValue(TabIndicatorViewProperty, value);
 		}
 
@@ -414,15 +414,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnIsSwipeEnabledChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as TabView)?.UpdateIsSwipeEnabled((bool)newValue);
 
-		public delegate void TabSelectionChangedEventHandler(object sender, TabSelectionChangedEventArgs e);
+		public delegate void TabSelectionChangedEventHandler(object? sender, TabSelectionChangedEventArgs e);
 
-		public event TabSelectionChangedEventHandler SelectionChanged;
+		public event TabSelectionChangedEventHandler? SelectionChanged;
 
-		public delegate void TabViewScrolledEventHandler(object sender, ItemsViewScrolledEventArgs e);
+		public delegate void TabViewScrolledEventHandler(object? sender, ItemsViewScrolledEventArgs e);
 
-		public event TabViewScrolledEventHandler Scrolled;
+		public event TabViewScrolledEventHandler? Scrolled;
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 
@@ -441,37 +441,38 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				UpdateTabViewItemBindingContext(tabViewItem);
 		}
 
-		void OnTabViewItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+		void OnTabViewItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
-			var tabViewItem = (TabViewItem)sender;
-
-			if (e.PropertyName == TabViewItem.TabWidthProperty.PropertyName)
-				UpdateTabViewItemTabWidth(tabViewItem);
+			if (sender is TabViewItem tabViewItem)
+			{
+				if (e.PropertyName == TabViewItem.TabWidthProperty.PropertyName)
+					UpdateTabViewItemTabWidth(tabViewItem);
+			}
 		}
 
-		void OnTabItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void OnTabItemsCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (e.OldItems != null)
 			{
-				foreach (TabViewItem oldItem in e.OldItems)
+				foreach (var tabViewItem in e.OldItems.OfType<TabViewItem>())
 				{
-					ClearTabViewItem(oldItem);
+					ClearTabViewItem(tabViewItem);
 				}
 			}
 
 			if (e.NewItems != null)
 			{
-				foreach (TabViewItem newTabViewItem in e.NewItems)
+				foreach (var tabViewItem in e.NewItems.OfType<TabViewItem>())
 				{
-					AddTabViewItem(newTabViewItem, TabItems.IndexOf(newTabViewItem));
+					AddTabViewItem(tabViewItem, TabItems.IndexOf(tabViewItem));
 				}
 			}
 		}
 
-		void OnContentContainerPropertyChanged(object sender, PropertyChangedEventArgs e)
+		void OnContentContainerPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == nameof(CarouselView.ItemsSource) ||
-			   e.PropertyName == nameof(CarouselView.VisibleViews))
+			if (e.PropertyName == nameof(CarouselView.ItemsSource)
+				|| e.PropertyName == nameof(CarouselView.VisibleViews))
 			{
 				var items = contentContainer.ItemsSource;
 
@@ -485,7 +486,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnContentContainerScrolled(object sender, ItemsViewScrolledEventArgs args)
+		void OnContentContainerScrolled(object? sender, ItemsViewScrolledEventArgs args)
 		{
 			for (var i = 0; i < TabItems.Count; i++)
 				TabItems[i].UpdateCurrentContent();
@@ -505,7 +506,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			tabStripContent.ColumnDefinitions.Clear();
 
-			var hasItems = TabItems.Count > 0 || TabItemsSource.Count > 0;
+			var hasItems = TabItems.Count > 0 || TabItemsSource?.Count > 0;
 			tabStripContainer.IsVisible = hasItems;
 		}
 
@@ -570,7 +571,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateTabContentHeight(count != 0 ? TabContentHeight : 0);
 		}
 
-		void AddTabViewItemFromTemplate(object item, int index = -1) => AddTabViewItemFromTemplateToTabStrip(item, index);
+		void AddTabViewItemFromTemplate(object? item, int index = -1) => AddTabViewItemFromTemplateToTabStrip(item, index);
 
 		void UpdateTabViewItemBindingContext(TabViewItem tabViewItem)
 		{
@@ -584,9 +585,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var tapRecognizer = new TapGestureRecognizer();
 
-			tapRecognizer.Tapped += (object sender, EventArgs args) =>
+			tapRecognizer.Tapped += (object? sender, EventArgs args) =>
 			{
-				var capturedIndex = tabStripContent.Children.IndexOf((View)sender);
+				if (sender is not View view)
+					return;
+
+				var capturedIndex = tabStripContent.Children.IndexOf(view);
 
 				if (view is TabViewItem tabViewItem)
 				{
@@ -636,11 +640,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateTabViewItemTabWidth(item as TabViewItem);
 		}
 
-		void AddTabViewItemFromTemplateToTabStrip(object item, int index = -1)
+		void AddTabViewItemFromTemplateToTabStrip(object? item, int index = -1)
 		{
-			var view = !(TabViewItemDataTemplate is DataTemplateSelector tabItemDataTemplate) ?
-				(View)TabViewItemDataTemplate.CreateContent() :
-				(View)tabItemDataTemplate.SelectTemplate(item, this).CreateContent();
+			var view = TabViewItemDataTemplate is not DataTemplateSelector tabItemDataTemplate
+						? (View)(TabViewItemDataTemplate?.CreateContent() ?? throw new NullReferenceException())
+						: (View)tabItemDataTemplate.SelectTemplate(item, this).CreateContent();
 
 			view.BindingContext = item;
 
@@ -671,7 +675,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			contentContainer.IsEnabled = IsEnabled;
 		}
 
-		void UpdateTabViewItemTabWidth(TabViewItem tabViewItem)
+		void UpdateTabViewItemTabWidth(TabViewItem? tabViewItem)
 		{
 			if (tabViewItem == null)
 				return;
@@ -679,7 +683,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var index = tabStripContent.Children.IndexOf(tabViewItem);
 			var colummns = tabStripContent.ColumnDefinitions;
 
-			ColumnDefinition column = null;
+			ColumnDefinition? column = null;
 
 			if (index < colummns.Count)
 				column = colummns[index];
@@ -710,7 +714,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			contentContainer.ItemsSource = TabItemsSource;
 
 			foreach (var item in TabItemsSource)
+			{
 				AddTabViewItemFromTemplate(item);
+			}
 
 			UpdateTabContentSize();
 			UpdateTabStripSize();
@@ -718,7 +724,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				UpdateSelectedIndex(0);
 		}
 
-		void OnTabItemsSourceCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => UpdateTabItemsSource();
+		void OnTabItemsSourceCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e) => UpdateTabItemsSource();
 
 		void UpdateItemsSource(IEnumerable items)
 		{
@@ -770,14 +776,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (TabItems.Count > 0)
 				{
-					TabViewItem currentItem = null;
+					TabViewItem? currentItem = null;
 
 					if (hasCurrentItem)
 						currentItem = (TabViewItem)contentContainer.CurrentItem;
 
 					var tabViewItem = TabItems[position];
 
-					var lazyView = (currentItem?.Content as BaseLazyView) ?? (tabViewItem?.Content as BaseLazyView);
+					var lazyView = (currentItem?.Content as BaseLazyView) ?? (tabViewItem.Content as BaseLazyView);
 
 					contentIndex = contentTabItems.IndexOf(currentItem ?? tabViewItem);
 					tabStripIndex = TabItems.IndexOf(currentItem ?? tabViewItem);
@@ -792,7 +798,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							TabItems[index].IsSelected = false;
 					}
 
-					if (!lazyView?.IsLoaded ?? false)
+					if (lazyView != null && !lazyView.IsLoaded)
 						await lazyView.LoadViewAsync();
 
 					var currentTabItem = TabItems[position];
@@ -822,9 +828,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			});
 		}
 
-		void OnCurrentTabItemSizeChanged(object sender, EventArgs e)
+		void OnCurrentTabItemSizeChanged(object? sender, EventArgs e)
 		{
-			var currentTabItem = (View)sender;
+			if (sender is not View view)
+				return;
+
+			var currentTabItem = view;
 			UpdateTabIndicatorWidth(TabIndicatorWidth > 0 ? TabIndicatorWidth : currentTabItem.Width);
 			UpdateTabIndicatorPosition(currentTabItem);
 			currentTabItem.SizeChanged -= OnCurrentTabItemSizeChanged;

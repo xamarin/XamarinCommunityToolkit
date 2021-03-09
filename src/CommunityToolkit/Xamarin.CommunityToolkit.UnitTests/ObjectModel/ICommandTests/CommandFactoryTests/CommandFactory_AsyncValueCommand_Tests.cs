@@ -14,12 +14,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommand_NullExecuteParameter()
 		{
 			// Arrange
-			Func<Task> execute = null;
+			Func<Task>? execute = null;
 
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -62,20 +64,24 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommand_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
-			Func<ValueTask> execute = null;
+			Func<ValueTask>? execute = null;
 
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute, () => true));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
 		public async Task AsyncValueCommand_FuncBool_NullCanExecuteParameter()
 		{
 			// Arrange
-			Func<bool> canExecute = null;
+			Func<bool>? canExecute = null;
+#pragma warning disable CS8604 // Possible null reference argument.
 			var command = CommandFactory.Create(NoParameterTask, canExecute);
+#pragma warning restore CS8604 // Possible null reference argument.
 
 			// Act
 			await command.ExecuteAsync();
@@ -113,12 +119,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommandT_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, ValueTask> execute = null;
+			Func<int, ValueTask>? execute = null;
 
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
@@ -163,20 +171,24 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommandT_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, ValueTask> execute = null;
+			Func<int, ValueTask>? execute = null;
 
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create<int>(execute, () => true));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]
 		public async Task AsyncValueCommandT_FuncBool_NullCanExecuteParameter()
 		{
 			// Arrange
-			Func<bool> canExecute = null;
+			Func<bool>? canExecute = null;
+#pragma warning disable CS8604 // Possible null reference argument.
 			var command = CommandFactory.Create<int>(IntParameterTask, canExecute);
+#pragma warning restore CS8604 // Possible null reference argument.
 
 			// Act
 			await command.ExecuteAsync(0);
@@ -214,12 +226,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 		public void AsyncValueCommandTExecuteTCanExecute_NullExecuteParameter()
 		{
 			// Arrange
-			Func<int, ValueTask> execute = null;
+			Func<int, ValueTask>? execute = null;
 
 			// Act
 
 			// Assert
+#pragma warning disable CS8604 // Possible null reference argument.
 			Assert.Throws<ArgumentNullException>(() => CommandFactory.Create(execute));
+#pragma warning restore CS8604 // Possible null reference argument.
 		}
 
 		[Fact]

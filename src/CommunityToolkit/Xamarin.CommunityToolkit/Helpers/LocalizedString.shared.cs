@@ -9,12 +9,12 @@ namespace Xamarin.CommunityToolkit.Helpers
 	{
 		readonly Func<string> generator;
 
-		public LocalizedString(Func<string> generator = null)
+		public LocalizedString(Func<string> generator)
 			: this(LocalizationResourceManager.Current, generator)
 		{
 		}
 
-		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator = null)
+		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator)
 		{
 			this.generator = generator;
 
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			localizationManager.PropertyChanged += (sender, e) => OnPropertyChanged(null);
 		}
 
-		public string Localized => generator?.Invoke();
+		public string Localized => generator();
 
 		[Preserve(Conditional = true)]
 		public static implicit operator LocalizedString(Func<string> func) => new LocalizedString(func);

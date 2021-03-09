@@ -1,10 +1,7 @@
 ﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
 {
-	public partial class TextCaseConverterPage 
+	public partial class TextCaseConverterPage
 	{
-		public TextCaseConverterPage()
-		{
-			InitializeComponent();
-		}
+		public TextCaseConverterPage() => InitializeComponent();
 	}
 }

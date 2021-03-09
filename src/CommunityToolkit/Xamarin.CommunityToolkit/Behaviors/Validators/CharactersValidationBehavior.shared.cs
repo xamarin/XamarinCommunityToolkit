@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	/// </summary>
 	public class CharactersValidationBehavior : TextValidationBehavior
 	{
-		List<Predicate<char>> characterPredicates;
+		List<Predicate<char>> characterPredicates = Enumerable.Empty<Predicate<char>>().ToList();
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="CharacterType"/> property.
@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(MaximumCharacterCountProperty, value);
 		}
 
-		protected override async ValueTask<bool> ValidateAsync(object value, CancellationToken token)
+		protected override async ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
 			=> await base.ValidateAsync(value, token).ConfigureAwait(false)
 				&& Validate(value?.ToString());
 
@@ -102,7 +102,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		void OnCharacterTypePropertyChanged()
 			=> characterPredicates = GetCharacterPredicates(CharacterType).ToList();
 
-		bool Validate(string value)
+		bool Validate(string? value)
 		{
 			var count = value?.ToCharArray().Count(character => characterPredicates.Any(predicate => predicate.Invoke(character))) ?? 0;
 			return count >= MinimumCharacterCount

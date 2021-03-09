@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>False if the value is 0, otherwise if the value is anything but 0 it returns True.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> value is int result
 				? result != 0
 				: throw new ArgumentException("Value is not a valid integer", nameof(value));
@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>0 if the value is False, otherwise 1 if the value is True.</returns>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			if (value is bool result)
 				return result ? 1 : 0;

@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
+﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
 {
-	public partial class NotEqualConverterPage 
+	public partial class NotEqualConverterPage
 	{
-		public NotEqualConverterPage()
-		{
-			InitializeComponent();
-		}
+		public NotEqualConverterPage() => InitializeComponent();
 	}
 }

@@ -11,12 +11,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	{
 		static object expectedValue = 100;
 
-		public static IEnumerable<object[]> GetData() => new List<object[]>
+		public static IEnumerable<object?[]> GetData() => new List<object?[]>
 			{
             // We know it's deprecated, still good to test it
 #pragma warning disable CS0618 // Type or member is obsolete
-                new object[] { new ItemTappedEventArgs(null, expectedValue), expectedValue },
-                new object[] { new ItemTappedEventArgs(null, null), null },
+                new object?[] { new ItemTappedEventArgs(null, expectedValue), expectedValue },
+                new object?[] { new ItemTappedEventArgs(null, null), null },
 #pragma warning restore CS0618 // Type or member is obsolete
 			};
 

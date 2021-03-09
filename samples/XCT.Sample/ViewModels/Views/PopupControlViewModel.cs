@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Views.Popups;
 using Xamarin.CommunityToolkit.UI.Views;
@@ -11,9 +14,15 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class PopupGalleryViewModel
 	{
-		INavigation Navigation => App.Current.MainPage.Navigation;
+		public PopupGalleryViewModel()
+		{
+			DisplayPopup = CommandFactory.Create<Type>(OnDisplayPopup);
+		}
 
-		public IEnumerable<SectionModel> Examples { get; } = new List<SectionModel> {
+		INavigation Navigation => Application.Current.MainPage.Navigation;
+
+		public IEnumerable<SectionModel> Examples { get; } = new[]
+		{
 			new SectionModel(typeof(SimplePopup), "Simple Popup", Color.Red, "Displays a basic popup centered on the screen"),
 			new SectionModel(typeof(PopupPositionPage), "Custom Positioning Popup", Color.Red, "Displays a basic popup anywhere on the screen using VerticalOptions and HorizontalOptions"),
 			new SectionModel(typeof(ButtonPopup), "Popup With 1 Button", Color.Red, "Displays a basic popup with a confirm button"),
@@ -26,18 +35,18 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(ReturnResultPopup), "Return Result Popup", Color.Red, "A popup that returns a string message when dismissed"),
 			new SectionModel(typeof(XamlBindingPopup), "Xaml Binding Popup", Color.Red, "A simple popup that uses XAML BindingContext"),
 			new SectionModel(typeof(CsharpBindingPopup), "C# Binding Popup", Color.Red, "A simple popup that uses C# BindingContext")
-		};
+		}.OrderBy(x => x.Title);
 
-		public ICommand DisplayPopup => new Command<Type>(OnDisplayPopup);
+		public ICommand DisplayPopup { get; }
 
-		async void OnDisplayPopup(Type popupType)
+		async Task OnDisplayPopup(Type? popupType)
 		{
 			var view = (VisualElement)Activator.CreateInstance(popupType);
 
-			if (view is Popup<string> popup)
+			if (view is Popup<string?> popup)
 			{
 				var result = await Navigation.ShowPopupAsync(popup);
-				await App.Current.MainPage.DisplayAlert("Popup Result", result, "OKAY");
+				await Application.Current.MainPage.DisplayAlert("Popup Result", result, "OKAY");
 			}
 			else if (view is BasePopup basePopup)
 			{

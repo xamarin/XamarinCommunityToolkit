@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 		public sealed class Item : BaseViewModel
 		{
-			string name;
+			string name = string.Empty;
 			bool isExpanded;
 			bool isEnabled = true;
 

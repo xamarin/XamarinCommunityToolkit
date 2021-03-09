@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 			var result = byteArrayToImageSourceConverter.Convert(byteArray, typeof(ByteArrayToImageSourceConverter), null, CultureInfo.CurrentCulture);
 
-			Assert.True(StreamEquals(GetStreamFromImageSource((ImageSource)result), memoryStream));
+			Assert.True(StreamEquals(GetStreamFromImageSource((ImageSource?)result), memoryStream));
 		}
 
 		[Theory]
@@ -34,28 +34,32 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			Assert.Throws<ArgumentException>(() => byteArrayToImageSourceConverter.Convert(value, typeof(ByteArrayToImageSourceConverter), null, CultureInfo.CurrentCulture));
 		}
 
-		Stream GetStreamFromImageSource(ImageSource imageSource)
+		Stream? GetStreamFromImageSource(ImageSource? imageSource)
 		{
-			var streamImageSource = (StreamImageSource)imageSource;
+			var streamImageSource = (StreamImageSource?)imageSource;
 
 			var cancellationToken = System.Threading.CancellationToken.None;
-			var task = streamImageSource.Stream(cancellationToken);
-			return task.Result;
+			var task = streamImageSource?.Stream(cancellationToken);
+			return task?.Result;
 		}
 
-		bool StreamEquals(Stream a, Stream b)
+		bool StreamEquals(Stream? a, Stream? b)
 		{
 			if (a == b)
 				return true;
 
-			if (a == null ||
-				b == null ||
-				a.Length != b.Length)
+			if (a == null
+				|| b == null
+				|| a.Length != b.Length)
+			{
 				return false;
+			}
 
 			for (var i = 0; i < a.Length; i++)
+			{
 				if (a.ReadByte() != b.ReadByte())
 					return false;
+			}
 
 			return true;
 		}

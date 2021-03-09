@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 	{
 		public SnackBarPage() => InitializeComponent();
 
-		async void DisplaySnackBarClicked(object sender, EventArgs args)
+		async void DisplaySnackBarClicked(object? sender, EventArgs args)
 		{
 			var result = await this.DisplaySnackBarAsync(GenerateLongText(5), "Run action", () =>
 			{
@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
 		}
 
-		async void DisplaySnackBarWithPadding(object sender, EventArgs args)
+		async void DisplaySnackBarWithPadding(object? sender, EventArgs args)
 		{
 			var options = new SnackBarOptions()
 			{
@@ -40,13 +40,14 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 			await this.DisplaySnackBarAsync(options);
 		}
-		async void DisplayToastClicked(object sender, EventArgs args)
+
+		async void DisplayToastClicked(object? sender, EventArgs args)
 		{
 			await this.DisplayToastAsync(GenerateLongText(5));
 			StatusText.Text = "Toast is closed by timeout";
 		}
 
-		async void DisplaySnackBarAdvancedClicked(object sender, EventArgs args)
+		async void DisplaySnackBarAdvancedClicked(object? sender, EventArgs args)
 		{
 			const string SmileIcon = "\uf118";
 			var options = new SnackBarOptions

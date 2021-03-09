@@ -160,8 +160,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		public Entry CreateEntryWithBehavior(int timeThreshold = defaultTimeThreshold,
 											 int lengthThreshold = defaultLengthThreshold,
 											 bool shouldDismissKeyboardAutomatically = false,
-											 ICommand command = null,
-											 object commandParameter = null)
+											 ICommand? command = null,
+											 object? commandParameter = null)
 		{
 			var entry = new Entry
 			{

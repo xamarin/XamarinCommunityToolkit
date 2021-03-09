@@ -45,20 +45,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	class CameraFragment : Fragment, TextureView.ISurfaceTextureListener
 	{
 		// Max preview width that is guaranteed by Camera2 API
-		const int MAX_PREVIEW_HEIGHT = 1080;
+		const int maxPreviewHeight = 1080;
+
 		// Max preview height that is guaranteed by Camera2 API
-		const int MAX_PREVIEW_WIDTH = 1920;
+		const int maxPreviewWidth = 1920;
 
-		CameraDevice device;
-		CaptureRequest.Builder sessionBuilder;
-		CameraCaptureSession session;
+		readonly Java.Util.Concurrent.Semaphore captureSessionOpenCloseLock = new Java.Util.Concurrent.Semaphore(1);
+		readonly MediaActionSound mediaSound = new MediaActionSound();
 
-		AutoFitTextureView texture;
-		ImageReader photoReader;
-		MediaRecorder mediaRecorder;
+		CameraDevice? device;
+		CaptureRequest.Builder? sessionBuilder;
+		CameraCaptureSession? session;
+
+		AutoFitTextureView? texture;
+		ImageReader? photoReader;
+		MediaRecorder? mediaRecorder;
 		bool audioPermissionsGranted;
 		bool cameraPermissionsGranted;
-		ASize previewSize, videoSize, photoSize;
+		ASize? previewSize, videoSize, photoSize;
 		int sensorOrientation;
 		LensFacing cameraType;
 
@@ -67,34 +71,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool stabilizationSupported;
 		bool repeatingIsRunning;
 		FlashMode flashMode;
-		string cameraId;
-		string videoFile;
-		Java.Util.Concurrent.Semaphore captureSessionOpenCloseLock = new Java.Util.Concurrent.Semaphore(1);
-		CameraTemplate cameraTemplate;
-		HandlerThread backgroundThread;
-		Handler backgroundHandler = null;
+		string? cameraId;
+		string videoFile = string.Empty;
+		CameraTemplate? cameraTemplate;
+		HandlerThread? backgroundThread;
+		Handler? backgroundHandler = null;
 
 		float zoom = 1;
 
-		bool ZoomSupported => maxDigitalZoom != 0;
-
 		float maxDigitalZoom;
-		Rect activeRect;
+		Rect? activeRect;
 
-		public bool IsRecordingVideo { get; set; }
+		CameraManager? manager;
 
-		bool UseSystemSound { get; set; }
-
-		CameraManager manager;
-
-		CameraManager Manager => manager ??= (CameraManager)Context.GetSystemService(Context.CameraService);
-
-		MediaActionSound mediaSound;
-
-		MediaActionSound MediaSound => mediaSound ??= new MediaActionSound();
-
-		TaskCompletionSource<CameraDevice> initTaskSource;
-		TaskCompletionSource<bool> permissionsRequested;
+		TaskCompletionSource<CameraDevice?>? initTaskSource;
+		TaskCompletionSource<bool>? permissionsRequested;
 
 		public CameraFragment()
 		{
@@ -121,14 +112,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			get => Element?.IsAvailable ?? false;
 			set
 			{
-				if (Element?.IsAvailable != value)
+				if (Element != null && Element.IsAvailable != value)
 					Element.IsAvailable = value;
 			}
 		}
 
-		public CameraView Element { get; set; }
+		public bool IsRecordingVideo { get; set; }
 
-		public override AView OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
+		bool UseSystemSound { get; set; }
+
+		public CameraView? Element { get; set; }
+
+		CameraManager Manager => manager ??= (CameraManager)(Context.GetSystemService(Context.CameraService) ?? throw new NullReferenceException());
+
+		bool ZoomSupported => maxDigitalZoom != 0;
+
+		public override AView? OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
 			inflater.Inflate(Resource.Layout.CameraFragment, null);
 
 		public override void OnViewCreated(AView view, Bundle savedInstanceState) =>
@@ -138,8 +137,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnResume();
 			StartBackgroundThread();
+
 			if (texture == null)
 				return;
+
 			if (texture.IsAvailable)
 			{
 				UpdateBackgroundColor();
@@ -161,7 +162,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			backgroundThread = new HandlerThread("CameraBackground");
 			backgroundThread.Start();
-			backgroundHandler = new Handler(backgroundThread.Looper);
+			backgroundHandler = new Handler(backgroundThread.Looper ?? throw new NullReferenceException());
 		}
 
 		void StopBackgroundThread()
@@ -200,39 +201,44 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			IsBusy = true;
 			cameraId = GetCameraId();
 
-			if (string.IsNullOrEmpty(cameraId))
+			if (cameraId == null || string.IsNullOrEmpty(cameraId))
 			{
 				IsBusy = false;
 				captureSessionOpenCloseLock.Release();
 
 				// _texture.ClearCanvas(Element.BackgroundColor.ToAndroid()); // HANG after select valid camera...
-				Element.RaiseMediaCaptureFailed($"No {Element.CameraOptions} camera found");
+				Element?.RaiseMediaCaptureFailed($"No {Element.CameraOptions} camera found");
 			}
 			else
 			{
 				try
 				{
 					var characteristics = Manager.GetCameraCharacteristics(cameraId);
-					var map = (StreamConfigurationMap)characteristics.Get(CameraCharacteristics.ScalerStreamConfigurationMap);
+					var map = (StreamConfigurationMap)(characteristics?.Get(CameraCharacteristics.ScalerStreamConfigurationMap) ?? throw new NullReferenceException());
 
 					flashSupported = characteristics.Get(CameraCharacteristics.FlashInfoAvailable) == Java.Lang.Boolean.True;
 					stabilizationSupported = false;
 					var stabilizationModes = characteristics.Get(CameraCharacteristics.ControlAvailableVideoStabilizationModes);
-					if (stabilizationModes != null)
+
+					if (stabilizationModes is IEnumerable<int> modes)
 					{
-						var modes = (int[])stabilizationModes;
 						foreach (var mode in modes)
 						{
 							if (mode == (int)ControlVideoStabilizationMode.On)
 								stabilizationSupported = true;
 						}
 					}
-					Element.MaxZoom = maxDigitalZoom = (float)characteristics.Get(CameraCharacteristics.ScalerAvailableMaxDigitalZoom);
-					activeRect = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
-					sensorOrientation = (int)characteristics.Get(CameraCharacteristics.SensorOrientation);
+
+					if (Element != null)
+						Element.MaxZoom = maxDigitalZoom = (float)(characteristics.Get(CameraCharacteristics.ScalerAvailableMaxDigitalZoom) ?? throw new NullReferenceException());
+
+					activeRect = (Rect)(characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize) ?? throw new NullReferenceException());
+					sensorOrientation = (int)(characteristics.Get(CameraCharacteristics.SensorOrientation) ?? throw new NullReferenceException());
 
 					var displaySize = new APoint();
-					Activity.WindowManager.DefaultDisplay.GetSize(displaySize);
+					Activity.WindowManager?.DefaultDisplay?.GetSize(displaySize);
+
+					_ = texture ?? throw new NullReferenceException();
 					var rotatedViewWidth = texture.Width;
 					var rotatedViewHeight = texture.Height;
 					var maxPreviewWidth = displaySize.X;
@@ -246,33 +252,33 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						maxPreviewHeight = displaySize.X;
 					}
 
-					if (maxPreviewHeight > MAX_PREVIEW_HEIGHT)
+					if (maxPreviewHeight > CameraFragment.maxPreviewHeight)
 					{
-						maxPreviewHeight = MAX_PREVIEW_HEIGHT;
+						maxPreviewHeight = CameraFragment.maxPreviewHeight;
 					}
 
-					if (maxPreviewWidth > MAX_PREVIEW_WIDTH)
+					if (maxPreviewWidth > CameraFragment.maxPreviewWidth)
 					{
-						maxPreviewWidth = MAX_PREVIEW_WIDTH;
+						maxPreviewWidth = CameraFragment.maxPreviewWidth;
 					}
 
 					photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
 					videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
 					previewSize = ChooseOptimalSize(
-						map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))),
+						map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))) ?? throw new NullReferenceException(),
 						rotatedViewWidth,
 						rotatedViewHeight,
 						maxPreviewWidth,
 						maxPreviewHeight,
 						cameraTemplate == CameraTemplate.Record ? videoSize : photoSize);
-					cameraType = (LensFacing)(int)characteristics.Get(CameraCharacteristics.LensFacing);
+					cameraType = (LensFacing)(int)(characteristics.Get(CameraCharacteristics.LensFacing) ?? throw new NullReferenceException());
 
-					if (Resources.Configuration.Orientation == AOrientation.Landscape)
+					if (Resources.Configuration?.Orientation == AOrientation.Landscape)
 						texture.SetAspectRatio(previewSize.Width, previewSize.Height);
 					else
 						texture.SetAspectRatio(previewSize.Height, previewSize.Width);
 
-					initTaskSource = new TaskCompletionSource<CameraDevice>();
+					initTaskSource = new TaskCompletionSource<CameraDevice?>();
 
 					Manager.OpenCamera(
 						cameraId,
@@ -318,16 +324,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void UpdateCaptureOptions()
 		{
-			switch (Element.CaptureMode)
+			cameraTemplate = Element?.CaptureMode switch
 			{
-				default:
-				case CameraCaptureMode.Photo:
-					cameraTemplate = CameraTemplate.Preview;
-					break;
-				case CameraCaptureMode.Video:
-					cameraTemplate = CameraTemplate.Record;
-					break;
-			}
+				CameraCaptureMode.Video => CameraTemplate.Record,
+				_ => CameraTemplate.Preview,
+			};
 		}
 
 		public void TakePhoto()
@@ -337,12 +338,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			try
 			{
-				if (device != null)
+				if (device != null && session != null && sessionBuilder != null && photoReader?.Surface != null)
 				{
 					session.StopRepeating();
 					repeatingIsRunning = false;
 					sessionBuilder.AddTarget(photoReader.Surface);
-					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
+					sessionBuilder.Set(CaptureRequest.FlashMode ?? throw new NullReferenceException(), (int)flashMode);
 					/*sessionBuilder.Set(CaptureRequest.JpegOrientation, GetJpegOrientation());*/
 					session.Capture(sessionBuilder.Build(), null, null);
 					sessionBuilder.RemoveTarget(photoReader.Surface);
@@ -355,11 +356,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPhoto(object sender, Tuple<string, byte[], int> tuple) =>
+		void OnPhoto(object? sender, (string?, byte[], int) tuple) =>
 			Device.BeginInvokeOnMainThread(() =>
 				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2, tuple.Item3)));
 
-		void OnVideo(object sender, string path) =>
+		void OnVideo(object? sender, string path) =>
 			Device.BeginInvokeOnMainThread(() =>
 				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(path)));
 
@@ -367,12 +368,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			DisposeImageReader();
 
+			_ = photoSize ?? throw new NullReferenceException();
 			photoReader = ImageReader.NewInstance(photoSize.Width, photoSize.Height, ImageFormatType.Jpeg, maxImages: 1);
 
 			var readerListener = new ImageAvailableListener();
 			readerListener.Photo += (_, bytes) =>
 			{
-				string filePath = null;
+				string? filePath = null;
 
 				// Calculate image rotation based on sensor and device orientation
 				var rotation = GetRotationCompensation();
@@ -385,24 +387,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					File.WriteAllBytes(filePath, bytes);
 				}
 				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, new Tuple<string, byte[]>(filePath, Element.SavePhotoToFile ? null : bytes));*/
+				OnPhoto(this, (filePath, Element.SavePhotoToFile ? null : bytes);*/
 
 				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, new Tuple<string, byte[], int>(filePath, bytes, rotation));
+				OnPhoto(this, (filePath, bytes, rotation));
 			};
 
 			photoReader.SetOnImageAvailableListener(readerListener, backgroundHandler);
 		}
 
-		private int GetRotationCompensation()
+		int GetRotationCompensation()
 		{
-			var rotationCompensation = GetDisplayRotationDegrees();
-			var c = Manager.GetCameraCharacteristics(cameraId);
-			// Get the device's sensor orientation.
-			var sensorOrientation = (int)c.Get(CameraCharacteristics.SensorOrientation);
+			_ = cameraId ?? throw new NullReferenceException();
 
-			var facingFront = ((Integer)c.Get(CameraCharacteristics.LensFacing)).IntValue() == (int)LensFacing.Front;
-			if (facingFront)
+			var rotationCompensation = GetDisplayRotationDegrees();
+			var cameraCharacteristics = Manager.GetCameraCharacteristics(cameraId);
+
+			// Get the device's sensor orientation.
+			var sensorOrientation = (int)(cameraCharacteristics.Get(CameraCharacteristics.SensorOrientation) ?? throw new NullReferenceException());
+			var lensFacing = (Integer)(cameraCharacteristics.Get(CameraCharacteristics.LensFacing) ?? throw new NullReferenceException());
+
+			var isfacingFront = lensFacing.IntValue() == (int)LensFacing.Front;
+			if (isfacingFront)
 			{
 				rotationCompensation = (sensorOrientation + rotationCompensation) % 360;
 			}
@@ -420,16 +426,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mediaRecorder = new MediaRecorder();
 			mediaRecorder.SetPreviewDisplay(previewSurface);
+
 			if (audioPermissionsGranted)
 				mediaRecorder.SetAudioSource(AudioSource.Camcorder);
+
 			mediaRecorder.SetVideoSource(AVideoSource.Surface);
 
 			var profile = GetCamcoderProfile();
 
 			if (profile != null)
+			{
 				mediaRecorder.SetProfile(profile);
+			}
 			else
 			{
+				_ = videoSize ?? throw new NullReferenceException();
+
 				mediaRecorder.SetOutputFormat(OutputFormat.Mpeg4);
 				mediaRecorder.SetVideoEncodingBitRate(10000000);
 				mediaRecorder.SetVideoFrameRate(30);
@@ -447,7 +459,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			mediaRecorder.Prepare();
 		}
 
-		CamcorderProfile GetCamcoderProfile()
+		CamcorderProfile? GetCamcoderProfile()
 		{
 			var cameraId = Convert.ToInt32(this.cameraId);
 			if (CamcorderProfile.HasProfile(cameraId, CamcorderQuality.HighSpeed1080p))
@@ -467,7 +479,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public void StartRecord()
 		{
 			if (IsBusy)
+			{
 				return;
+			}
 			else if (IsRecordingVideo)
 			{
 				Element?.RaiseMediaCaptureFailed("Video already recording.");
@@ -499,7 +513,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		public async void StopRecord()
+		public async Task StopRecord()
 		{
 			if (IsBusy || !IsRecordingVideo || session == null || mediaRecorder == null)
 				return;
@@ -529,7 +543,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				CloseSession();
 
-				sessionBuilder = device.CreateCaptureRequest(cameraTemplate);
+				if (device == null || cameraTemplate is not CameraTemplate cameraTemplate_nonNull)
+					throw new NullReferenceException();
+
+				sessionBuilder = device.CreateCaptureRequest(cameraTemplate_nonNull);
 
 				SetFlash();
 				SetVideoStabilization();
@@ -538,32 +555,40 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var surfaces = new List<Surface>();
 
 				// preview texture
-				if (texture.IsAvailable && previewSize != null)
+				if (previewSize != null && texture?.IsAvailable is true)
 				{
-					var texture = this.texture.SurfaceTexture;
+					var texture = this.texture.SurfaceTexture ?? throw new NullReferenceException();
 					texture.SetDefaultBufferSize(previewSize.Width, previewSize.Height);
 					var previewSurface = new Surface(texture);
 					surfaces.Add(previewSurface);
 					sessionBuilder.AddTarget(previewSurface);
 
 					// video mode
-					if (cameraTemplate == CameraTemplate.Record)
+					if (cameraTemplate is CameraTemplate.Record)
 					{
 						SetupMediaRecorder(previewSurface);
+
+						_ = mediaRecorder ?? throw new NullReferenceException($"{nameof(mediaRecorder)} not initialized");
 						var mediaSurface = mediaRecorder.Surface;
-						surfaces.Add(mediaSurface);
-						sessionBuilder.AddTarget(mediaSurface);
+
+						if (mediaSurface != null)
+						{
+							surfaces.Add(mediaSurface);
+							sessionBuilder.AddTarget(mediaSurface);
+						}
 					}
 
 					// photo mode
 					else
 					{
 						SetupImageReader();
-						surfaces.Add(photoReader.Surface);
+
+						if (photoReader?.Surface != null)
+							surfaces.Add(photoReader.Surface);
 					}
 				}
 
-				var tcs = new TaskCompletionSource<CameraCaptureSession>();
+				var tcs = new TaskCompletionSource<CameraCaptureSession?>();
 
 				device.CreateCaptureSession(
 					surfaces,
@@ -572,7 +597,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						OnConfigureFailedAction = captureSession =>
 						{
 							tcs.SetResult(null);
-							Element.RaiseMediaCaptureFailed("Failed to create captire sesstion");
+							Element?.RaiseMediaCaptureFailed("Failed to create captire sesstion");
 						},
 						OnConfiguredAction = captureSession => tcs.SetResult(captureSession)
 					},
@@ -630,10 +655,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (repeatingIsRunning)
 					session.StopRepeating();
 
-				sessionBuilder.Set(CaptureRequest.ControlMode, (int)ControlMode.Auto);
-				sessionBuilder.Set(CaptureRequest.ControlAeMode, (int)ControlAEMode.On);
+				sessionBuilder.Set(CaptureRequest.ControlMode ?? throw new NullReferenceException(), (int)ControlMode.Auto);
+				sessionBuilder.Set(CaptureRequest.ControlAeMode ?? throw new NullReferenceException(), (int)ControlAEMode.On);
 				if (cameraTemplate == CameraTemplate.Record)
-					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
+					sessionBuilder.Set(CaptureRequest.FlashMode ?? throw new NullReferenceException(), (int)flashMode);
 
 				session.SetRepeatingRequest(sessionBuilder.Build(), listener: null, backgroundHandler);
 				repeatingIsRunning = true;
@@ -687,17 +712,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void UpdateBackgroundColor() =>
-			View?.SetBackgroundColor(Element.BackgroundColor.ToAndroid());
+		void UpdateBackgroundColor()
+		{
+			if (Element != null)
+				View?.SetBackgroundColor(Element.BackgroundColor.ToAndroid());
+		}
 
 		public void SetFlash()
 		{
 			if (!flashSupported)
 				return;
 
-			flashMode = Element.FlashMode switch
+			flashMode = Element?.FlashMode switch
 			{
-				CameraFlashMode.Off => FlashMode.Off,
+				CameraFlashMode.Off or null => FlashMode.Off,
 				CameraFlashMode.Torch => FlashMode.Torch,
 				_ => FlashMode.Single,
 			};
@@ -707,35 +735,37 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (sessionBuilder == null || !stabilizationSupported)
 				return;
-			sessionBuilder.Set(CaptureRequest.ControlVideoStabilizationMode,
-				(int)(Element.VideoStabilization ? ControlVideoStabilizationMode.On : ControlVideoStabilizationMode.Off));
+			sessionBuilder.Set(CaptureRequest.ControlVideoStabilizationMode ?? throw new NullReferenceException(),
+				(int)((Element?.VideoStabilization ?? false) ? ControlVideoStabilizationMode.On : ControlVideoStabilizationMode.Off));
 		}
 
 		public void ApplyZoom()
 		{
+			_ = Element ?? throw new NullReferenceException();
+
 			zoom = (float)System.Math.Max(1f, System.Math.Min(Element.Zoom, maxDigitalZoom));
 			if (ZoomSupported)
-				sessionBuilder?.Set(CaptureRequest.ScalerCropRegion, GetZoomRect());
+				sessionBuilder?.Set(CaptureRequest.ScalerCropRegion ?? throw new NullReferenceException(), GetZoomRect());
 		}
 
-		string GetCameraId()
+		string? GetCameraId()
 		{
 			var cameraIdList = Manager.GetCameraIdList();
 			if (cameraIdList.Length == 0)
 				return null;
 
-			string FilterCameraByLens(LensFacing lensFacing)
+			string? FilterCameraByLens(LensFacing lensFacing)
 			{
 				foreach (var id in cameraIdList)
 				{
 					var characteristics = Manager.GetCameraCharacteristics(id);
-					if (lensFacing == (LensFacing)(int)characteristics.Get(CameraCharacteristics.LensFacing))
+					if (lensFacing == (LensFacing)(int)(characteristics?.Get(CameraCharacteristics.LensFacing) ?? throw new NullReferenceException()))
 						return id;
 				}
 				return null;
 			}
 
-			return Element.CameraOptions switch
+			return Element?.CameraOptions switch
 			{
 				CameraOptions.Front => FilterCameraByLens(LensFacing.Front),
 				CameraOptions.Back => FilterCameraByLens(LensFacing.Back),
@@ -745,23 +775,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		#region TextureView.ISurfaceTextureListener
-		async void TextureView.ISurfaceTextureListener.OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
+		async void TextureView.ISurfaceTextureListener.OnSurfaceTextureAvailable(SurfaceTexture? surface, int width, int height)
 		{
 			UpdateBackgroundColor();
 			UpdateCaptureOptions();
 			await RetrieveCameraDevice();
 		}
 
-		void TextureView.ISurfaceTextureListener.OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) =>
+		void TextureView.ISurfaceTextureListener.OnSurfaceTextureSizeChanged(SurfaceTexture? surface, int width, int height) =>
 			ConfigureTransform(width, height);
 
-		bool TextureView.ISurfaceTextureListener.OnSurfaceTextureDestroyed(SurfaceTexture surface)
+		bool TextureView.ISurfaceTextureListener.OnSurfaceTextureDestroyed(SurfaceTexture? surface)
 		{
 			CloseDevice();
 			return true;
 		}
 
-		void TextureView.ISurfaceTextureListener.OnSurfaceTextureUpdated(SurfaceTexture surface)
+		void TextureView.ISurfaceTextureListener.OnSurfaceTextureUpdated(SurfaceTexture? surface)
 		{
 		}
 		#endregion
@@ -776,7 +806,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			cameraPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.Camera) == Permission.Granted;
 			if (!cameraPermissionsGranted)
 				permissionsToRequest.Add(Manifest.Permission.Camera);
-			if (Element.CaptureMode == CameraCaptureMode.Video)
+			if (Element?.CaptureMode == CameraCaptureMode.Video)
 			{
 				audioPermissionsGranted = ContextCompat.CheckSelfPermission(Context, Manifest.Permission.RecordAudio) == Permission.Granted;
 				if (!audioPermissionsGranted)
@@ -804,14 +834,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					cameraPermissionsGranted = grantResults[i] == Permission.Granted;
 					if (!cameraPermissionsGranted)
-						Element.RaiseMediaCaptureFailed($"No permission to use the camera.");
+						Element?.RaiseMediaCaptureFailed($"No permission to use the camera.");
 				}
 				else if (permissions[i] == Manifest.Permission.RecordAudio)
 				{
 					audioPermissionsGranted = grantResults[i] == Permission.Granted;
 					if (!audioPermissionsGranted)
 					{
-						Element.RaiseMediaCaptureFailed($"No permission to record audio.");
+						Element?.RaiseMediaCaptureFailed($"No permission to record audio.");
 					}
 				}
 			}
@@ -820,7 +850,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		#endregion
 
 		#region Helpers
-		void LogError(string desc, Java.Lang.Exception ex = null)
+		void LogError(string desc, Java.Lang.Exception? ex = null)
 		{
 			var newLine = System.Environment.NewLine;
 			var sb = new StringBuilder(desc);
@@ -868,60 +898,66 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			// "To improve user privacy, direct access to shared/external storage devices is deprecated"
 			// Env.GetExternalStoragePublicDirectory(Env.DirectoryDcim).AbsolutePath
-			var path = Context.GetExternalFilesDir(Env.DirectoryDcim).AbsolutePath;
+			var path = Context.GetExternalFilesDir(Env.DirectoryDcim)?.AbsolutePath ?? throw new NullReferenceException();
+
 			if (!Directory.Exists(path))
 				Directory.CreateDirectory(path);
+
 			var fileName = DateTime.Now.ToString("yyyyddMM_HHmmss");
+
 			if (!string.IsNullOrEmpty(prefix))
 				fileName = $"{prefix}_{fileName}";
+
 			return System.IO.Path.Combine(path, $"{fileName}.{extension}");
 		}
 
-		Rect GetZoomRect()
+		Rect? GetZoomRect()
 		{
 			if (activeRect == null)
 				return null;
+
 			var width = activeRect.Width();
 			var heigth = activeRect.Height();
 			var newWidth = (int)(width / zoom);
 			var newHeight = (int)(heigth / zoom);
 			var x = (width - newWidth) / 2;
 			var y = (heigth - newHeight) / 2;
+
 			return new Rect(x, y, x + newWidth, y + newHeight);
 		}
 
-		SurfaceOrientation GetDisplayRotation()
-			=> App.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>().DefaultDisplay.Rotation;
+		SurfaceOrientation? GetDisplayRotation()
+			=> App.Context.GetSystemService(Context.WindowService).JavaCast<IWindowManager>()?.DefaultDisplay?.Rotation;
 
-		int GetDisplayRotationDegrees() =>
-			GetDisplayRotation() switch
-			{
-				SurfaceOrientation.Rotation90 => 90,
-				SurfaceOrientation.Rotation180 => 180,
-				SurfaceOrientation.Rotation270 => 270,
-				_ => 0,
-			};
+		int GetDisplayRotationDegrees() => GetDisplayRotation() switch
+		{
+			SurfaceOrientation.Rotation90 => 90,
+			SurfaceOrientation.Rotation180 => 180,
+			SurfaceOrientation.Rotation270 => 270,
+			_ => 0,
+		};
 
-		int GetJpegRotationDegrees() =>
-			GetDisplayRotation() switch
-			{
-				SurfaceOrientation.Rotation90 => 0,
-				SurfaceOrientation.Rotation180 => 270,
-				SurfaceOrientation.Rotation270 => 180,
-				_ => 90,
-			};
+		int GetJpegRotationDegrees() => GetDisplayRotation() switch
+		{
+			SurfaceOrientation.Rotation90 => 0,
+			SurfaceOrientation.Rotation180 => 270,
+			SurfaceOrientation.Rotation270 => 180,
+			_ => 90,
+		};
 
-		int GetPreviewOrientation() =>
-			GetDisplayRotation() switch
-			{
-				SurfaceOrientation.Rotation90 => 270,
-				SurfaceOrientation.Rotation180 => 180,
-				SurfaceOrientation.Rotation270 => 90,
-				_ => 0,
-			};
+		int GetPreviewOrientation() => GetDisplayRotation() switch
+		{
+			SurfaceOrientation.Rotation90 => 270,
+			SurfaceOrientation.Rotation180 => 180,
+			SurfaceOrientation.Rotation270 => 90,
+			_ => 0,
+		};
 
-		public void ConfigureTransform() =>
+		public void ConfigureTransform()
+		{
+			_ = texture ?? throw new NullReferenceException();
 			ConfigureTransform(texture.Width, texture.Height);
+		}
 
 		void ConfigureTransform(int viewWidth, int viewHeight)
 		{
@@ -930,7 +966,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (texture == null || previewSize == null || activity == null)
 				return;
 
-			var rotation = (int)activity.WindowManager.DefaultDisplay.Rotation;
+			var rotation = (int?)activity.WindowManager?.DefaultDisplay?.Rotation;
 			var matrix = new Matrix();
 			var viewRect = new RectF(0, 0, viewWidth, viewHeight);
 			var bufferRect = new RectF(0, 0, previewSize.Height, previewSize.Width);
@@ -943,7 +979,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				matrix.SetRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.Fill);
 				var scale = System.Math.Max((float)viewHeight / previewSize.Height, (float)viewWidth / previewSize.Width);
 				matrix.PostScale(scale, scale, centerX, centerY);
-				matrix.PostRotate(90 * (rotation - 2), centerX, centerY);
+				matrix.PostRotate(90 * (rotation.Value - 2), centerX, centerY);
 			}
 			else if (rotation == (int)SurfaceOrientation.Rotation180)
 				matrix.PostRotate(180, centerX, centerY);
@@ -965,11 +1001,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mediaSound.Play(soundType);
 		}
 
-		ASize GetMaxSize(ASize[] imageSizes)
+		ASize GetMaxSize(ASize[]? imageSizes)
 		{
-			ASize maxSize = null;
+			ASize? maxSize = null;
 			long maxPixels = 0;
-			for (var i = 0; i < imageSizes.Length; i++)
+
+			for (var i = 0; i < imageSizes?.Length; i++)
 			{
 				long currentPixels = imageSizes[i].Width * imageSizes[i].Height;
 				if (currentPixels > maxPixels)
@@ -978,7 +1015,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					maxPixels = currentPixels;
 				}
 			}
-			return maxSize;
+
+			return maxSize ?? throw new NullReferenceException();
 		}
 
 		// chooses the smallest one whose width and height are at least as large as the respective requested values
@@ -986,8 +1024,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var bigEnough = new List<ASize>();
 			var notBigEnough = new List<ASize>();
+
 			var w = aspectRatio.Width;
 			var h = aspectRatio.Height;
+
 			foreach (var option in choices)
 			{
 				if (option.Width <= maxWidth && option.Height <= maxHeight &&
