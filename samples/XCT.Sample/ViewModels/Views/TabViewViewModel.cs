@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class TabViewViewModel : BaseGalleryViewModel
 	{
-		public override IEnumerable<SectionModel> Items { get; } = new List<SectionModel>
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(typeof(GettingStartedPage), "Getting Started",
 				"TabView basic use case"),
@@ -37,6 +37,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 			new SectionModel(typeof(TabWidthPage), "TabWidth",
 				"Customize the tabs width"),
+
+			new SectionModel(typeof(TabViewItemVisualStatePage), "TabViewItem VisualState",
+				"Using TabViewItem VisualStates"),
 
 			new SectionModel(typeof(NoContentPage), "Tab without Content",
 				"Only the TabStrip is visible")

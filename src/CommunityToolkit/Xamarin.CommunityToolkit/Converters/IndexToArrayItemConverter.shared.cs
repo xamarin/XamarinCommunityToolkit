@@ -6,17 +6,17 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	/// Converts an integer index to corresponding array item and vice versa.
+	/// Converts an <see cref="int"/> index to corresponding array item and vice versa.
 	/// </summary>
 	public class IndexToArrayItemConverter : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
-		/// Converts an integer index to corresponding array item.
+		/// Converts an <see cref="int"/> index to corresponding array item.
 		/// </summary>
 		/// <param name="value">The index of items array.</param>
-		/// <param name="targetType">The type of the binding target property.</param>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
 		/// <param name="parameter">The items array.</param>
-		/// <param name="culture">The culture to use in the converter.</param>
+		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The item from the array that corresponds to passed index.</returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
@@ -36,9 +36,9 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// Converts back an array item to corresponding index of the item in the array.
 		/// </summary>
 		/// <param name="value">The item from the array.</param>
-		/// <param name="targetType">The type of the binding target property.</param>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
 		/// <param name="parameter">The items array.</param>
-		/// <param name="culture">The culture to use in the converter.</param>
+		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The index of the item from the array.</returns>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{

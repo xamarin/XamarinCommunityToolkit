@@ -162,7 +162,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		}
 
 		[Fact]
-		public void AsyncCommand_RaiseCanExecuteChanged_Test()
+		public void AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_MainThreadExecution_Test()
 		{
 			// Arrange
 			var canCommandExecute = false;
@@ -193,9 +193,117 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		}
 
 		[Fact]
-		public void AsyncCommand_ChangeCanExecute_Test()
+		public Task AsyncCommand_RaiseCanExecuteChanged_BackgroundThreadCreation_BackgroundThreadExecution_Test() => Task.Run(async () =>
 		{
 			// Arrange
+			await Task.Delay(100).ConfigureAwait(false);
+
+			var canCommandExecute = false;
+			var didCanExecuteChangeFire = false;
+
+			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			bool commandCanExecute(object parameter) => canCommandExecute;
+
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			canCommandExecute = true;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.False(didCanExecuteChangeFire);
+
+			// Act
+			command.RaiseCanExecuteChanged();
+
+			// Assert
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+		});
+
+		[Fact]
+		public async Task AsyncCommand_RaiseCanExecuteChanged_MainThreadCreation_BackgroundThreadExecution_Test()
+		{
+			// Arrange
+
+			var canCommandExecute = false;
+			var didCanExecuteChangeFire = false;
+
+			var command = new AsyncCommand(NoParameterTask, commandCanExecute);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			bool commandCanExecute(object parameter) => canCommandExecute;
+
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			canCommandExecute = true;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.False(didCanExecuteChangeFire);
+
+			// Act
+			await Task.Run(async () =>
+			{
+				await Task.Delay(100).ConfigureAwait(false);
+				command.RaiseCanExecuteChanged();
+
+				// Assert
+				Assert.True(didCanExecuteChangeFire);
+				Assert.True(command.CanExecute(null));
+			});
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+		}
+
+		[Fact]
+		public async Task AsyncCommand_RaiseCanExecuteChanged_BackgroundThreadCreation_MainThreadExecution_Test()
+		{
+			// Arrange
+			AsyncCommand command = null;
+			var didCanExecuteChangeFire = false;
+			var canCommandExecute = false;
+
+			await Task.Run(async () =>
+			{
+				await Task.Delay(100).ConfigureAwait(false);
+
+				command = new AsyncCommand(NoParameterTask, commandCanExecute);
+				command.CanExecuteChanged += handleCanExecuteChanged;
+
+				bool commandCanExecute(object parameter) => canCommandExecute;
+
+				Assert.False(command.CanExecute(null));
+
+				// Act
+				canCommandExecute = true;
+
+				// Assert
+				Assert.True(command.CanExecute(null));
+				Assert.False(didCanExecuteChangeFire);
+			}).ConfigureAwait(true);
+
+			// Act
+			command.RaiseCanExecuteChanged();
+
+			// Assert
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
+
+			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+		}
+
+		[Fact]
+		public async Task AsyncCommand_ChangeCanExecute_Test()
+		{
+			// Arrange
+			var canExecuteChangedTCS = new TaskCompletionSource<object>();
+
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
 
@@ -216,13 +324,18 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Act
 #pragma warning disable CS0618 // Type or member is obsolete
 			command.ChangeCanExecute();
+			await canExecuteChangedTCS.Task;
 #pragma warning restore CS0618 // Type or member is obsolete
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+			void handleCanExecuteChanged(object sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				canExecuteChangedTCS.SetResult(null);
+			}
 		}
 
 		[Fact]
@@ -257,6 +370,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 		public async Task AsyncCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
+			var canExecuteChangedGreaterThan1TCS = new TaskCompletionSource<object>();
+
 			var canExecuteChangedCount = 0;
 
 			var command = new AsyncCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
@@ -273,12 +388,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 
 			// Act
 			await asyncCommandTask;
+			await canExecuteChangedGreaterThan1TCS.Task;
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			void handleCanExecuteChanged(object sender, EventArgs e)
+			{
+				if (++canExecuteChangedCount > 1)
+					canExecuteChangedGreaterThan1TCS.SetResult(null);
+			}
 		}
 	}
 }
