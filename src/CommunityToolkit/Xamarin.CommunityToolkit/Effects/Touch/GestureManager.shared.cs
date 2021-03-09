@@ -233,7 +233,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void HandleCollectionViewSelection(TouchEffect sender)
 		{
-			if (sender.Element == null || !sender.Element.TryFindParentElementWithParentOfType(out var result, out CollectionView? parent))
+			if (!sender.Element.TryFindParentElementWithParentOfType(out var result, out CollectionView? parent))
 				return;
 
 			var collectionView = parent ?? throw new NullReferenceException();

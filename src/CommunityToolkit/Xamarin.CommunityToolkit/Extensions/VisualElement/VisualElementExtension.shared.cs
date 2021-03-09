@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -15,6 +14,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			_ = element ?? throw new ArgumentNullException(nameof(element));
 
 			var animationCompletionSource = new TaskCompletionSource<bool>();
+
 			new Animation
 			{
 				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(v, element.BackgroundColor.G, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.R, color.R) },
@@ -22,6 +22,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, v, element.BackgroundColor.A), element.BackgroundColor.B, color.B) },
 				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, element.BackgroundColor.B, v), element.BackgroundColor.A, color.A) },
 			}.Commit(element, nameof(ColorTo), 16, length, easing, (d, b) => animationCompletionSource.SetResult(true));
+
 			return animationCompletionSource.Task;
 		}
 
@@ -39,27 +40,29 @@ namespace Xamarin.CommunityToolkit.Extensions
 				element.AbortAnimation(name);
 		}
 
-		internal static bool TryFindParentElementWithParentOfType<T>(this VisualElement element, out VisualElement? result, out T? parent) where T : VisualElement
+		internal static bool TryFindParentElementWithParentOfType<T>(this VisualElement? element, out VisualElement? result, out T? parent) where T : VisualElement
 		{
-			_ = element ?? throw new ArgumentNullException(nameof(element));
-
 			result = null;
 			parent = null;
+
 			while (element?.Parent != null)
 			{
 				if (element.Parent is not T parentElement)
 				{
-					element = (VisualElement)element.Parent;
+					element = element.Parent as VisualElement;
 					continue;
 				}
+
 				result = element;
 				parent = parentElement;
+
 				return true;
 			}
+
 			return false;
 		}
 
-		internal static bool TryFindParentOfType<T>(this VisualElement element, out T? parent) where T : VisualElement
+		internal static bool TryFindParentOfType<T>(this VisualElement? element, out T? parent) where T : VisualElement
 			=> TryFindParentElementWithParentOfType(element, out _, out parent);
 	}
 }

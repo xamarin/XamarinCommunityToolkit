@@ -37,14 +37,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		AView View => Control ?? Container;
 
-		ViewGroup Group => Container ?? (ViewGroup)Control;
+		ViewGroup? Group => Container ?? Control as ViewGroup;
 
 		internal bool IsCanceled { get; set; }
 
-		bool IsAccessibilityMode =>
-			accessibilityManager != null &&
-			accessibilityManager.IsEnabled &&
-			accessibilityManager.IsTouchExplorationEnabled;
+		bool IsAccessibilityMode => accessibilityManager != null
+									&& accessibilityManager.IsEnabled
+									&& accessibilityManager.IsTouchExplorationEnabled;
 
 		protected override void OnAttached()
 		{
