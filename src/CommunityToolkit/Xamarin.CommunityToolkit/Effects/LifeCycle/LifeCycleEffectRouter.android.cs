@@ -40,7 +40,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			{
 				nativeView.ViewDetachedFromWindow -= OnNativeViewViewDetachedFromWindow;
 				nativeView.ViewAttachedToWindow -= OnNativeViewViewAttachedToWindow;
-				nativeView.Dispose();
 			}
 
 			nativeView = null;
