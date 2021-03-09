@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups"
+             Title="Popup Anchors"
+             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.PopupAnchorPage">
+
+    <ContentPage.BindingContext>
+        <viewModels:PopupAnchorViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseLabel" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            </Style>
+            
+            <Style x:Key="Header" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="Margin" Value="15, 10" />
+            </Style>
+
+            <Style x:Key="Indicator" TargetType="Label" BasedOn="{StaticResource BaseLabel}">
+                <Setter Property="FontSize" Value="24" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Style="{StaticResource Header}"
+                   Text="Popup's can be anchored to other Views on the page. Tap and drag the X to change where the popup will be centered." />
+            <Label x:Name="Indicator" 
+                   Style="{StaticResource Indicator}" 
+                   Text="❌">
+                <Label.GestureRecognizers>
+                    <PanGestureRecognizer PanUpdated="OnPanUpdated" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Button Text="Show Popup"
+                    Command="{Binding ShowPopup}"
+                    CommandParameter="{x:Reference Indicator}"/>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

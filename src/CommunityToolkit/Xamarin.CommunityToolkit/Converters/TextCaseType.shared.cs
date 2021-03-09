@@ -13,5 +13,6 @@
 
 		/// <summary>Convert to lowercase</summary>
 		Lower,
+		FirstUpperRestLower,
 	}
 }

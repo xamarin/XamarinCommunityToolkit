@@ -5,8 +5,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class CameraCaptureStateListener : CameraCaptureSession.StateCallback
 	{
-		public Action<CameraCaptureSession> OnConfigureFailedAction;
-		public Action<CameraCaptureSession> OnConfiguredAction;
+		public Action<CameraCaptureSession>? OnConfigureFailedAction;
+		public Action<CameraCaptureSession>? OnConfiguredAction;
 
 		public override void OnConfigureFailed(CameraCaptureSession session) => OnConfigureFailedAction?.Invoke(session);
 

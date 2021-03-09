@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
@@ -44,26 +45,32 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		[InlineData("de-DE", null, 0.0, 16.0, 0, 16, false)]
 		[InlineData("de-DE", "15.2", 1.0, 16.0, 0, 16, false)]
 		[InlineData("de-DE", "1,115.2", 1.0, 2000.0, 0, 16, false)]
-		public void IsValid(string culture, string value, double minValue, double maxValue, int minDecimalPlaces, int maxDecimalPlaces, bool expectedValue)
+		public async Task IsValid(string culture, string value, double minValue, double maxValue, int minDecimalPlaces, int maxDecimalPlaces, bool expectedValue)
 		{
+			// Arrange
 			var origCulture = CultureInfo.CurrentCulture;
 			CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(culture);
 
+			var behavior = new NumericValidationBehavior
+			{
+				MinimumValue = minValue,
+				MaximumValue = maxValue,
+				MinimumDecimalPlaces = minDecimalPlaces,
+				MaximumDecimalPlaces = maxDecimalPlaces
+			};
+
+			var entry = new Entry
+			{
+				Text = value
+			};
+			entry.Behaviors.Add(behavior);
+
 			try
 			{
-				var behavior = new NumericValidationBehavior
-				{
-					MinimumValue = minValue,
-					MaximumValue = maxValue,
-					MinimumDecimalPlaces = minDecimalPlaces,
-					MaximumDecimalPlaces = maxDecimalPlaces
-				};
-				var entry = new Entry
-				{
-					Text = value
-				};
-				entry.Behaviors.Add(behavior);
-				behavior.ForceValidate();
+				// Act
+				await behavior.ForceValidate();
+
+				// Assert
 				Assert.Equal(expectedValue, behavior.IsValid);
 			}
 			finally

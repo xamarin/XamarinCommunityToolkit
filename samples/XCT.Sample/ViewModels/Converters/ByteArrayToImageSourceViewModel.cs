@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Octokit;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
@@ -9,9 +11,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 	{
 		readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
-		byte[] avatar;
+		byte[]? avatar;
 
-		public byte[] Avatar
+		public byte[]? Avatar
 		{
 			get => avatar;
 			set => SetProperty(ref avatar, value);
@@ -24,6 +26,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			get => isBusy;
 			set => SetProperty(ref isBusy, value);
 		}
+
+		public ICommand PageAppearingCommand { get; }
+
+		public ByteArrayToImageSourceViewModel() =>
+			PageAppearingCommand = CommandFactory.Create(OnAppearing);
 
 		public async Task OnAppearing()
 		{

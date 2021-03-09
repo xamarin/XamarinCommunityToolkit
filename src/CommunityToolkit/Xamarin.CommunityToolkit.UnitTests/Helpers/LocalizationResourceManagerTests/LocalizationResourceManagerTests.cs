@@ -4,20 +4,20 @@ using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xunit;
 
-namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
+namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizationResourceManagerTests
 {
+	[Collection(nameof(LocalizationResourceManager))]
 	public class LocalizationResourceManagerTests
 	{
 		public LocalizationResourceManagerTests()
 		{
 			resourceManager = new MockResourceManager();
-			localizationManager = LocalizationResourceManager.Current;
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
-		readonly LocalizationResourceManager localizationManager;
-		readonly ResourceManager resourceManager;
+		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
+		readonly ResourceManager resourceManager;
 
 		[Fact]
 		public void LocalizationResourceManager_GetCulture_Equal_Indexer()
@@ -30,11 +30,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			var responceIndexerCulture1 = localizationManager[testString];
 			var responceGetValueCulture1 = localizationManager.GetValue(testString);
 			var responceResourceManagerCulture1 = resourceManager.GetString(testString, initialCulture);
-			localizationManager.SetCulture(culture2);
+			localizationManager.CurrentCulture = culture2;
 			var responceIndexerCulture2 = localizationManager[testString];
 			var responceGetValueCulture2 = localizationManager.GetValue(testString);
 			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
-			resourceManager.GetString(testString, culture2);
 
 			// Assert
 			Assert.Equal(responceResourceManagerCulture1, responceIndexerCulture1);
@@ -48,15 +47,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 		{
 			// Arrange
 			var culture2 = new CultureInfo("en");
-			localizationManager.SetCulture(culture2);
-			CultureInfo changedCulture = null;
+			localizationManager.CurrentCulture = culture2;
+			CultureInfo? changedCulture = null;
 			localizationManager.PropertyChanged += (s, e) => changedCulture = localizationManager.CurrentCulture;
 
 			// Act, Assert
 			localizationManager.Init(resourceManager, initialCulture);
 			Assert.Equal(initialCulture, changedCulture);
 
-			localizationManager.SetCulture(culture2);
+			localizationManager.CurrentCulture = culture2;
 			Assert.Equal(culture2, changedCulture);
 		}
 	}

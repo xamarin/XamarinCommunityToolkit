@@ -42,7 +42,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"Using TabViewItem VisualStates"),
 
 			new SectionModel(typeof(NoContentPage), "Tab without Content",
-				"Only the TabStrip is visible")
+				"Only the TabStrip is visible"),
+
+			new SectionModel(typeof(LazyTabPage), "LazyLoadingTab",
+				"See how you can implement LazyViews that are loaded just when you navigate to them"),
 		};
 	}
 }

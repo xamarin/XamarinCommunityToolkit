@@ -18,8 +18,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>A <see cref="bool"/> indicating if the incoming value is not null and not empty.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) =>
-			!IsNullOrEmptyConverter.ConvertInternal(value);
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
+			=> value is string str ? !string.IsNullOrWhiteSpace(str) : value != null;
 
 		/// <summary>
 		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">N/A</param>
 		/// <param name="culture">N/A</param>
 		/// <returns>N/A</returns>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> throw new NotImplementedException();
 	}
 }
