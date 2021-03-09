@@ -4,12 +4,17 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages
 {
 	public class BasePage : ContentPage
 	{
-		public BasePage() =>
+		public BasePage()
+		{
+			On<iOS>().SetPrefersHomeIndicatorAutoHidden(true);
+
 			NavigateCommand = CommandFactory.Create<SectionModel>(sectionModel =>
 			{
 				if (sectionModel != null)
@@ -17,12 +22,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 
 				return Task.CompletedTask;
 			});
+		}
 
 		public Color DetailColor { get; set; }
 
 		public ICommand NavigateCommand { get; }
 
-		Page PreparePage(SectionModel model)
+		Forms.Page PreparePage(SectionModel model)
 		{
 			var page = (BasePage)Activator.CreateInstance(model.Type);
 			page.Title = model.Title;

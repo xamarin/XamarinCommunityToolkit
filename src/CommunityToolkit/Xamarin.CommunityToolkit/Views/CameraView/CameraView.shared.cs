@@ -117,10 +117,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void Shutter() => ShutterClicked?.Invoke(this, EventArgs.Empty);
 
-		static object ShutterCommandValueCreator(BindableObject b)
+		static object? ShutterCommandValueCreator(BindableObject? b)
 		{
-			var camera = (CameraView)b;
-			return new Command(camera.Shutter);
+			if (b is CameraView camera)
+				return new Command(camera.Shutter);
+
+			return null;
 		}
 	}
 }

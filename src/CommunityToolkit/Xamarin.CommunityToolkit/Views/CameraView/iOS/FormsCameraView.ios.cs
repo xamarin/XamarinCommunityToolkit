@@ -233,7 +233,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("faled create image"), 0)));
 			}
-			IsBusy = false;
+			finally
+			{
+				IsBusy = false;
+			}
 		}
 
 		string ConstructVideoFilename()
@@ -286,7 +289,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				LogError("Error with camera output capture", error);
 			}
-			IsBusy = false;
+			finally
+			{
+				IsBusy = false;
+			}
 		}
 
 		public void StopRecord()
