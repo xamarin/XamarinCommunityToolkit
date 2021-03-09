@@ -54,7 +54,7 @@ throw new NotSupportedException("Translate XAML MarkupExtension is not supported
 			}
 
 			[Preserve(Conditional = true)]
-			public string this[string name] =>
+			public string? this[string name] =>
 				resourceManager.GetString(name, LocalizationResourceManager.Current.CurrentCulture);
 		}
 #endif
