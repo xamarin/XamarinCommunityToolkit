@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	/// <typeparam name="TType">The type that you want to receive in your <see cref="Xamarin.Forms.Command"/> </typeparam>
 	public sealed class EventToCommandBehavior<TType> : EventToCommandBehavior
 	{
-		protected override void OnTriggerHandled(object sender = null, object eventArgs = null)
+		protected override void OnTriggerHandled(object? sender = null, object? eventArgs = null)
 		{
 			var parameter = CommandParameter
 				?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, null)
