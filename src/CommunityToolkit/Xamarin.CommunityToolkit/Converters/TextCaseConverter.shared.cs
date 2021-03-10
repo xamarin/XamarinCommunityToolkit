@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			var str = value?.ToString();
-			if (string.IsNullOrWhiteSpace(str))
+			if (str == null || string.IsNullOrWhiteSpace(str))
 				return str;
 
 			return GetParameter(parameter) switch
