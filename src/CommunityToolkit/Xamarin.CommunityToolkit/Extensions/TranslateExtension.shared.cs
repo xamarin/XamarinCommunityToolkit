@@ -28,7 +28,7 @@ throw new NotSupportedException("Translate XAML MarkupExtension is not supported
 
 			if (ResourceManager == null)
 			{
-				throw new ArgumentNullException($"{ResourceManager} cannot be null. Try calling LocalizationResourceManager.Current.Init(defaultResourceManager) first.");
+				throw new ArgumentNullException(nameof(ResourceManager), $"Call LocalizationResourceManager.Current.Init(defaultResourceManager) first or provide {nameof(ResourceManager)} argument. Text: {Text}");
 			}
 
 			var binding = new Binding
