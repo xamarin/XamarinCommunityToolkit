@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.True(entry2.IsFocused);
 		}
 
-		public Entry CreateEntry(VisualElement nextElement = null)
+		public Entry CreateEntry(VisualElement? nextElement = null)
 		{
 			var entry = new Entry();
 

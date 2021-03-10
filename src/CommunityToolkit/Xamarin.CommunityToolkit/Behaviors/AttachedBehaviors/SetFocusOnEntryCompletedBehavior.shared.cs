@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			var weakEntry = new WeakReference<Entry>(entry);
 			entry.Completed += completedHandler;
 
-			void completedHandler(object sender, EventArgs e)
+			void completedHandler(object? sender, EventArgs e)
 			{
 				if (weakEntry.TryGetTarget(out var origEntry))
 				{
@@ -50,6 +50,5 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				}
 			}
 		}
-
 	}
 }
