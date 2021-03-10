@@ -23,18 +23,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// Required <see cref="GetNextElement"/> accessor for <see cref="NextElementProperty"/> attached property.
 		/// </summary>
-		public static VisualElement GetNextElement(BindableObject view)
-		{
-			return (VisualElement)view.GetValue(NextElementProperty);
-		}
+		public static VisualElement GetNextElement(BindableObject view) =>
+			(VisualElement)view.GetValue(NextElementProperty);
 
 		/// <summary>
 		/// Required <see cref="SetNextElement"/> accessor for <see cref="NextElementProperty"/> attached property.
 		/// </summary>
-		public static void SetNextElement(BindableObject view, VisualElement value)
-		{
+		public static void SetNextElement(BindableObject view, VisualElement value) =>
 			view.SetValue(NextElementProperty, value);
-		}
 
 		static void OnNextElementChanged(BindableObject bindable, object oldValue, object newValue)
 		{
