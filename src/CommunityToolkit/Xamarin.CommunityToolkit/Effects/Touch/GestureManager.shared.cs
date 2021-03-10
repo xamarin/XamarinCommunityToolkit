@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using static System.Math;
 
@@ -27,7 +28,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		TouchState animationState;
 
-		internal async Task HandleTouch(TouchEffect sender, TouchStatus status)
+		internal void HandleTouch(TouchEffect sender, TouchStatus status)
 		{
 			if (sender.IsDisabled)
 				return;
@@ -58,11 +59,11 @@ namespace Xamarin.CommunityToolkit.Effects
 							? 1 - animationProgress
 							: animationProgress;
 
-						await UpdateStatusAndState(sender, status, state);
+						UpdateStatusAndState(sender, status, state);
 
 						if (status == TouchStatus.Canceled)
 						{
-							await sender.ForceUpdateState(false);
+							sender.ForceUpdateState(false);
 							return;
 						}
 
@@ -76,7 +77,7 @@ namespace Xamarin.CommunityToolkit.Effects
 						: TouchState.Pressed;
 				}
 
-				await UpdateStatusAndState(sender, status, state);
+				UpdateStatusAndState(sender, status, state);
 			}
 
 			if (status == TouchStatus.Completed)
@@ -92,7 +93,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			}
 		}
 
-		internal async ValueTask HandleHover(TouchEffect sender, HoverStatus status)
+		internal void HandleHover(TouchEffect sender, HoverStatus status)
 		{
 			if (!sender.Element?.IsEnabled ?? true)
 				return;
@@ -104,7 +105,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (sender.HoverState != hoverState)
 			{
 				sender.HoverState = hoverState;
-				await sender.RaiseHoverStateChanged();
+				sender.RaiseHoverStateChanged();
 			}
 
 			if (sender.HoverStatus != status)
@@ -140,7 +141,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				var durationMultiplier = this.durationMultiplier;
 				this.durationMultiplier = null;
 
-				await GetAnimationTask(sender, state, hoverState, animationTokenSource.Token, durationMultiplier.GetValueOrDefault()).ConfigureAwait(false);
+				await RunAnimationTask(sender, state, hoverState, animationTokenSource.Token, durationMultiplier.GetValueOrDefault()).ConfigureAwait(false);
 				return;
 			}
 
@@ -148,7 +149,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (pulseCount == 0 || (state == TouchState.Normal && !isToggled.HasValue))
 			{
-				await GetAnimationTask(sender, state, hoverState, animationTokenSource.Token).ConfigureAwait(false);
+				await RunAnimationTask(sender, state, hoverState, animationTokenSource.Token).ConfigureAwait(false);
 				return;
 			}
 			do
@@ -157,7 +158,7 @@ namespace Xamarin.CommunityToolkit.Effects
 					? TouchState.Normal
 					: TouchState.Pressed;
 
-				await GetAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
+				await RunAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
 				if (token.IsCancellationRequested)
 					return;
 
@@ -165,7 +166,7 @@ namespace Xamarin.CommunityToolkit.Effects
 					? TouchState.Pressed
 					: TouchState.Normal;
 
-				await GetAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
+				await RunAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
 				if (token.IsCancellationRequested)
 					return;
 			}
@@ -269,12 +270,12 @@ namespace Xamarin.CommunityToolkit.Effects
 			element.AbortAnimations();
 		}
 
-		async ValueTask UpdateStatusAndState(TouchEffect sender, TouchStatus status, TouchState state)
+		void UpdateStatusAndState(TouchEffect sender, TouchStatus status, TouchState state)
 		{
 			if (sender.State != state || status != TouchStatus.Canceled)
 			{
 				sender.State = state;
-				await sender.RaiseStateChanged();
+				sender.RaiseStateChanged();
 			}
 
 			sender.Status = status;
@@ -586,7 +587,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				? color
 				: defaultBackgroundColor;
 
-		Task GetAnimationTask(TouchEffect sender, TouchState touchState, HoverState hoverState, CancellationToken token, double? durationMultiplier = null)
+		Task RunAnimationTask(TouchEffect sender, TouchState touchState, HoverState hoverState, CancellationToken token, double? durationMultiplier = null)
 		{
 			if (sender.Element == null)
 				return Task.FromResult(false);
