@@ -3,7 +3,7 @@
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	/// <summary>
-	/// This <see cref="EventToCommandBehavior"/> cast the sender object to a specific type defined by the user. 
+	/// This <see cref="EventToCommandBehavior"/> cast the sender object to a specific type defined by the user.
 	/// </summary>
 	/// <typeparam name="TType">The type that you want to receive in your <see cref="Xamarin.Forms.Command"/> </typeparam>
 	public sealed class EventToCommandBehavior<TType> : EventToCommandBehavior
@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			if (parameter?.GetType() != typeof(TType))
 			{
-				// nulling it to avoid a cast exception
+				// changing it to the default value to avoid a cast exception
 				parameter = default(TType);
 				parameter = Convert.ChangeType(parameter, typeof(TType));
 			}
