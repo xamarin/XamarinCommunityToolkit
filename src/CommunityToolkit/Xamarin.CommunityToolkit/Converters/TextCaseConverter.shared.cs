@@ -25,9 +25,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The converted text representation with the desired casing.</returns>
 		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
-			=> value == null || value is string || value is char
-				? Convert(value?.ToString(), parameter)
-				: throw new ArgumentException("Value is neither a string nor a char", nameof(value));
+			=> Convert(value?.ToString(), parameter);
 
 		/// <summary>
 		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
@@ -37,7 +35,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">N/A</param>
 		/// <param name="culture">N/A</param>
 		/// <returns>N/A</returns>
-public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
+		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> throw new NotImplementedException();
 
 		object? Convert(string? value, object? parameter) => GetParameter(parameter) switch
@@ -45,11 +43,12 @@ public object ConvertBack(object? value, Type? targetType, object? parameter, Cu
 			TextCaseType.Lower => value?.ToLowerInvariant(),
 			TextCaseType.Upper => value?.ToUpperInvariant(),
 			TextCaseType.FirstUpperRestLower when value != null && !string.IsNullOrWhiteSpace(value) => value.Substring(0, 1).ToUpperInvariant() + value.Substring(1).ToLowerInvariant(),
-			_ => value
+			_ => value?.ToString()
 		};
 
-		TextCaseType GetParameter(object? parameter) => parameter == null ? Type : parameter switch
+		TextCaseType GetParameter(object? parameter) => parameter switch
 		{
+			null => Type,
 			TextCaseType type => type,
 			string typeString => Enum.TryParse(typeString, out TextCaseType result)
 				? result
