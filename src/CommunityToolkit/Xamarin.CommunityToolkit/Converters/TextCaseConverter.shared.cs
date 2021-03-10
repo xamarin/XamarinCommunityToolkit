@@ -25,7 +25,19 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>The converted text representation with the desired casing.</returns>
 		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
-			=> Convert(value?.ToString(), parameter);
+		{
+			var str = value?.ToString();
+			if (string.IsNullOrWhiteSpace(str))
+				return str;
+
+			return GetParameter(parameter) switch
+			{
+				TextCaseType.Lower => str.ToLowerInvariant(),
+				TextCaseType.Upper => str.ToUpperInvariant(),
+				TextCaseType.FirstUpperRestLower => str.Substring(0, 1).ToUpperInvariant() + str.ToString().Substring(1).ToLowerInvariant(),
+				_ => str
+			};
+		}
 
 		/// <summary>
 		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
@@ -38,14 +50,6 @@ namespace Xamarin.CommunityToolkit.Converters
 		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 			=> throw new NotImplementedException();
 
-		object? Convert(string? value, object? parameter) => GetParameter(parameter) switch
-		{
-			TextCaseType.Lower => value?.ToLowerInvariant(),
-			TextCaseType.Upper => value?.ToUpperInvariant(),
-			TextCaseType.FirstUpperRestLower when value != null && !string.IsNullOrWhiteSpace(value) => value.Substring(0, 1).ToUpperInvariant() + value.Substring(1).ToLowerInvariant(),
-			_ => value?.ToString()
-		};
-
 		TextCaseType GetParameter(object? parameter) => parameter switch
 		{
 			null => Type,
@@ -56,7 +60,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			int typeInt => Enum.IsDefined(typeof(TextCaseType), typeInt)
 				? (TextCaseType)typeInt
 				: throw new ArgumentException("Cannot convert integer to text case enum value", nameof(parameter)),
-			_ => TextCaseType.None,
+			_ => Type,
 		};
 	}
 }
