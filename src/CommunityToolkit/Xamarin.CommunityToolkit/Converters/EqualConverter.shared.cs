@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>True if <paramref name="value"/> and <paramref name="parameter"/> are equal, False if they are not equal.</returns>
 		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture) => ConvertInternal(value, parameter);
 
-		internal static bool ConvertInternal(object value, object parameter) =>
+		internal static bool ConvertInternal(object? value, object? parameter) =>
 			(value != null && value.Equals(parameter)) || (value == null && parameter == null);
 
 		/// <summary>
