@@ -52,7 +52,6 @@ namespace Xamarin.CommunityToolkit.Converters
 
 		TextCaseType GetParameter(object? parameter) => parameter switch
 		{
-			null => Type,
 			TextCaseType type => type,
 			string typeString => Enum.TryParse(typeString, out TextCaseType result)
 				? result
