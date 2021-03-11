@@ -19,8 +19,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		{
 			SupportedLanguages = new List<Language>()
 			{
-				{ new Language(AppResources.English, "en") },
-				{ new Language(AppResources.Spanish, "es") }
+				new Language(AppResources.English, "en"),
+				new Language(AppResources.Spanish, "es")
 			};
 
 			LoadLanguages();
@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			});
 		}
 
-		public LocalizedString AppVersion { get; } = new LocalizedString(() => string.Format(AppResources.Version, AppInfo.VersionString));
+		public LocalizedString AppVersion { get; } = new (() => string.Format(AppResources.Version, AppInfo.VersionString));
 
 		public ICommand ChangeLanguageCommand { get; }
 
