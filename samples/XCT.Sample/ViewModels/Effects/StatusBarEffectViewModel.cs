@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 		int redSliderValue;
 		int greanSliderValue;
 		int blueSliderValue;
-		bool isAutoChecked = true;
+		bool isDefaultChecked = true;
 		bool isLightContentChecked;
 		bool isDarkContentChecked;
 
@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 		{
 			get
 			{
-				if (isAutoChecked)
+				if (IsDefaultChecked)
 				{
 					return StatusBarStyle.Default;
 				}
@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				{
 					return StatusBarStyle.LightContent;
 				}
-				if (isDarkContentChecked)
+				if (IsDarkContentChecked)
 				{
 					return StatusBarStyle.DarkContent;
 				}
@@ -53,10 +53,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			set => SetProperty(ref blueSliderValue, value, onChanged: () => OnPropertyChanged(nameof(StatusBarColor)));
 		}
 
-		public bool IsAutoChecked
+		public bool IsDefaultChecked
 		{
-			get => isAutoChecked;
-			set => SetProperty(ref isAutoChecked, value, onChanged: () => OnPropertyChanged(nameof(StatusBarStyle)));
+			get => isDefaultChecked;
+			set => SetProperty(ref isDefaultChecked, value, onChanged: () => OnPropertyChanged(nameof(StatusBarStyle)));
 		}
 
 		public bool IsLightContentChecked

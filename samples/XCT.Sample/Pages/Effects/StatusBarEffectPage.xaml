@@ -25,9 +25,9 @@
 
             <StackLayout Spacing="15">
                 <Label Text="Select StatusBarStyle"/>
-                <RadioButton Content="Auto" IsChecked="{Binding IsAutoChecked}" />
-                <RadioButton Content="Dark content" IsChecked="{Binding IsDarkContentChecked}" />
+                <RadioButton Content="Default" IsChecked="{Binding IsDefaultChecked}" />
                 <RadioButton Content="Light content" IsChecked="{Binding IsLightContentChecked}" />
+                <RadioButton Content="Dark content" IsChecked="{Binding IsDarkContentChecked}" />
             </StackLayout>
 
         </StackLayout>
