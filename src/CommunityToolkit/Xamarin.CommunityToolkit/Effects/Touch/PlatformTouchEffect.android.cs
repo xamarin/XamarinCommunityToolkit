@@ -376,8 +376,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (sender is not ViewGroup group || (Group as IVisualElementRenderer)?.Element == null || rippleView == null)
 				return;
 
-			rippleView.Right = view.Width;
-			rippleView.Bottom = view.Height;
+			rippleView.Right = group.Width;
+			rippleView.Bottom = group.Height;
 		}
 
 		sealed class AccessibilityListener : Java.Lang.Object,
