@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.StatusBarEffectPage"
+                xct:StatusBarEffect.Color="{Binding StatusBarColor}"
+                xct:StatusBarEffect.Style="{Binding StatusBarStyle}"
+                x:Name="Page">
+
+    <ScrollView Padding="{StaticResource ContentPadding}">
+        <StackLayout Spacing="30"
+                     Padding="15, 0">
+
+            <Label Text="Slide to change StatusBarColor color"/>
+
+            <Slider Minimum="0" Maximum="255" Value="{Binding RedSliderValue}" MaximumTrackColor="Red" ThumbColor="Red"
+                MinimumTrackColor="Red"  Margin="20,10"/>
+
+            <Slider Minimum="0" Maximum="255" Value="{Binding GreenSliderValue}" MaximumTrackColor="Green" ThumbColor="Green"
+                MinimumTrackColor="Green"  Margin="20,10"/>
+
+            <Slider Minimum="0" Maximum="255" Value="{Binding BlueSliderValue}" MaximumTrackColor="Blue" ThumbColor="Blue"
+                MinimumTrackColor="Blue"  Margin="20,10"/>
+
+            <StackLayout Spacing="15">
+                <Label Text="Select StatusBarStyle"/>
+                <RadioButton Content="Auto" IsChecked="{Binding IsAutoChecked}" />
+                <RadioButton Content="Dark content" IsChecked="{Binding IsDarkContentChecked}" />
+                <RadioButton Content="Light content" IsChecked="{Binding IsLightContentChecked}" />
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
+</pages:BasePage>

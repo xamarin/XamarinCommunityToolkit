@@ -42,7 +42,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(ShadowEffectPage),
 				nameof(ShadowEffect),
-				"The ShadowEffect allows all views to display shadow.")
+				"The ShadowEffect allows all views to display shadow."),
+
+			new SectionModel(
+				typeof(StatusBarEffectPage),
+				nameof(StatusBarEffect),
+				"The StatusBarEffect allows to change status bar color.")
 		};
 	}
 }
