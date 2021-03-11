@@ -31,7 +31,7 @@ throw new NotSupportedException("Translate XAML MarkupExtension is not supported
 				throw new ArgumentNullException(nameof(ResourceManager), $"Call LocalizationResourceManager.Current.Init(defaultResourceManager) first or provide {nameof(ResourceManager)} argument. Text: {Text}");
 			}
 
-			var binding = new Binding
+			Binding binding = new ()
 			{
 				Mode = BindingMode.OneWay,
 				Path = $"[{Text}]",

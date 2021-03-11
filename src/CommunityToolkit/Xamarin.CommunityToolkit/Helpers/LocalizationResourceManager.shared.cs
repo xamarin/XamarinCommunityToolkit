@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
+using System.Threading;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Helpers
@@ -13,7 +14,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 
 		public static LocalizationResourceManager Current => currentHolder.Value;
 
-		CultureInfo? currentCulture = CultureInfo.DefaultThreadCurrentUICulture ?? CultureInfo.DefaultThreadCurrentCulture;
+		CultureInfo currentCulture =
+			CultureInfo.DefaultThreadCurrentUICulture ??
+			CultureInfo.DefaultThreadCurrentCulture ??
+			Thread.CurrentThread.CurrentUICulture;
 
 		LocalizationResourceManager()
 		{
@@ -33,7 +37,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public void SetCulture(CultureInfo language) => CurrentCulture = language;
 
-		public CultureInfo? CurrentCulture
+		public CultureInfo CurrentCulture
 		{
 			get => currentCulture;
 			set => SetProperty(ref currentCulture, value);
