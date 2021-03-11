@@ -17,14 +17,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	{
 		protected override void OnAttached()
 		{
-			if (NavigationBarEffect.GetColor(Element) != (Forms.Color)NavigationBarEffect.ColorProperty.DefaultValue)
-			{
-				SetColor(NavigationBarEffect.GetColor(Element).ToAndroid());
-			}
-			if (NavigationBarEffect.GetStyle(Element) != (NavigationBarStyle)NavigationBarEffect.StyleProperty.DefaultValue)
-			{
-				SetStyle(NavigationBarEffect.GetStyle(Element));
-			}
+			SetColor(NavigationBarEffect.GetColor(Element).ToAndroid());
+			SetStyle(NavigationBarEffect.GetStyle(Element));
 		}
 
 		protected override void OnDetached()

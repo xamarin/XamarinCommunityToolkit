@@ -16,14 +16,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	{
 		protected override void OnAttached()
 		{
-			if (StatusBarEffect.GetColor(Element) != (Forms.Color)StatusBarEffect.ColorProperty.DefaultValue)
-			{
-				SetColor(StatusBarEffect.GetColor(Element).ToAndroid());
-			}
-			if (StatusBarEffect.GetStyle(Element) != (StatusBarStyle)StatusBarEffect.StyleProperty.DefaultValue)
-			{
-				SetStyle(StatusBarEffect.GetStyle(Element));
-			}
+			SetColor(StatusBarEffect.GetColor(Element).ToAndroid());
+			SetStyle(StatusBarEffect.GetStyle(Element));
 		}
 
 		protected override void OnDetached()
