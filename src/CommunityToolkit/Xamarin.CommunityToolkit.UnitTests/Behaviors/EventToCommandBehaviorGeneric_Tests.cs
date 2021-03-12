@@ -107,7 +107,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		void TriggerEventToCommandBehavior<T>(EventToCommandBehavior<T> eventToCommand, object?[] args)
 		{
 			var method = eventToCommand.GetType().GetMethod("OnTriggerHandled", BindingFlags.Instance | BindingFlags.NonPublic);
-			method.Invoke(eventToCommand, args);
+			method?.Invoke(eventToCommand, args);
 		}
 
 		class Coffee
