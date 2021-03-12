@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		protected BaseSnackBarView? SnackBarView { get; set; }
 
-		protected NSView Anchor { get; set; }
+		protected NSView? Anchor { get; set; }
 
 		public void Dismiss()
 		{
@@ -86,12 +86,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		BaseSnackBarView GetSnackBarView()
 		{
-			if (Actions.Count() > 0)
-			{
-				return new ActionMessageSnackBarView(this);
-			}
-
-			return new MessageSnackBarView(this);
+			return Actions.Any() ? new ActionMessageSnackBarView(this) : new MessageSnackBarView(this);
 		}
 	}
 }

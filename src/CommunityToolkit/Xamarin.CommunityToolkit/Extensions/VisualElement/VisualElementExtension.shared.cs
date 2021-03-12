@@ -37,9 +37,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 			ViewExtensions.CancelAnimations(element);
 			element.AbortAnimation(nameof(ColorTo));
 
-			if (otherAnimationNames == null)
-				return;
-
 			foreach (var name in otherAnimationNames)
 				element.AbortAnimation(name);
 		}
@@ -83,22 +80,22 @@ namespace Xamarin.CommunityToolkit.Extensions
 #endif
 			};
 			var snackBar = new SnackBar();
-			snackBar.Show(visualElement, args);
+			snackBar.Show(visualElement!, args);
 			await args.Result.Task;
 		}
 
-		public static async Task DisplayToastAsync(this VisualElement? visualElement, ToastOptions toastOptions)
+		public static async Task DisplayToastAsync(this VisualElement? visualElement, ToastOptions? toastOptions)
 		{
+			_ = toastOptions ?? throw new NullReferenceException();
 			var snackBar = new SnackBar();
-			var arguments = toastOptions ?? new ToastOptions();
 			var options = new SnackBarOptions
 			{
-				MessageOptions = arguments.MessageOptions,
-				Duration = arguments.Duration,
-				BackgroundColor = arguments.BackgroundColor,
-				IsRtl = arguments.IsRtl
+				MessageOptions = toastOptions.MessageOptions,
+				Duration = toastOptions.Duration,
+				BackgroundColor = toastOptions.BackgroundColor,
+				IsRtl = toastOptions.IsRtl
 			};
-			snackBar.Show(visualElement, options);
+			snackBar.Show(visualElement!, options);
 			await options.Result.Task;
 		}
 
@@ -107,7 +104,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			var messageOptions = new MessageOptions { Message = message };
 			var actionOptions = new List<SnackBarActionOptions>
 			{
-				new SnackBarActionOptions
+				new ()
 				{
 					Text = actionButtonText, Action = action
 				}
@@ -124,17 +121,17 @@ namespace Xamarin.CommunityToolkit.Extensions
 #endif
 			};
 			var snackBar = new SnackBar();
-			snackBar.Show(visualElement, options);
+			snackBar.Show(visualElement!, options);
 			var result = await options.Result.Task;
 			return result;
 		}
 
-		public static async Task<bool> DisplaySnackBarAsync(this VisualElement? visualElement, SnackBarOptions snackBarOptions)
+		public static async Task<bool> DisplaySnackBarAsync(this VisualElement? visualElement, SnackBarOptions? snackBarOptions)
 		{
+			_ = snackBarOptions ?? throw new NullReferenceException();
 			var snackBar = new SnackBar();
-			var arguments = snackBarOptions ?? new SnackBarOptions();
-			snackBar.Show(visualElement, arguments);
-			var result = await arguments.Result.Task;
+			snackBar.Show(visualElement!, snackBarOptions);
+			var result = await snackBarOptions.Result.Task;
 			return result;
 		}
 	}

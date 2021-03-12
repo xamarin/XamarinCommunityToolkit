@@ -1,4 +1,5 @@
-﻿using AppKit;
+﻿using System;
+using AppKit;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
@@ -6,13 +7,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 	{
 		protected BaseSnackBarView(NativeSnackBar snackBar) => SnackBar = snackBar;
 
-		public NSView AnchorView { get; set; }
+		public NSView? AnchorView { get; set; }
 
 		public NSView ParentView => NSApplication.SharedApplication.KeyWindow.ContentView;
 
 		protected NativeSnackBar SnackBar { get; }
 
-		protected NSStackView StackView { get; set; }
+		protected NSStackView? StackView { get; set; }
 
 		public void Dismiss() => RemoveFromSuperview();
 
@@ -24,18 +25,19 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 
 		void ConstraintInParent()
 		{
+			_ = ParentView ?? throw new NullReferenceException();
+			_ = AnchorView ?? throw new NullReferenceException();
+			_ = StackView ?? throw new InvalidOperationException("BaseSnackBarView.Initialize() not called");
+
 			BottomAnchor.ConstraintEqualToAnchor(AnchorView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
 			LeadingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.LeadingAnchor, SnackBar.Layout.MarginLeft).Active = true;
 			TrailingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TrailingAnchor, -SnackBar.Layout.MarginRight).Active = true;
 			CenterXAnchor.ConstraintEqualToAnchor(ParentView.CenterXAnchor).Active = true;
 
-			if (StackView != null)
-			{
-				StackView.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeft).Active = true;
-				StackView.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingRight).Active = true;
-				StackView.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom).Active = true;
-				StackView.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
-			}
+			StackView.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeft).Active = true;
+			StackView.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingRight).Active = true;
+			StackView.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom).Active = true;
+			StackView.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
 		}
 
 		protected virtual void Initialize()
