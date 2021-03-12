@@ -11,9 +11,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		readonly string imagesPath = "Images";
 		string defaultNamespace;
 
-		string imageName;
+		string? imageName;
 
-		public string ImageName
+		public string? ImageName
 		{
 			get => imageName;
 			set
@@ -23,11 +23,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			}
 		}
 
-		ICommand changeImageCommand;
+		ICommand? changeImageCommand;
 
 		public ICommand ChangeImageCommand => changeImageCommand ??= new Command(() =>
 			{
-				ImageName = ImageName.Equals(BuildEmbededImagePath(img1)) ?
+				ImageName = ImageName!.Equals(BuildEmbededImagePath(img1)) ?
 							BuildEmbededImagePath(img2) :
 							BuildEmbededImagePath(img1);
 			});
