@@ -129,18 +129,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			basePopup.Dismissed += OnDismissed;
 		}
 
-
-		AColor GetWindowColor()
-		{
-			if (Element.Color != Color.Default)
-				return Element.Color.ToAndroid();
-
-			return Build.VERSION.SdkInt >= BuildVersionCodes.M
-				? Context.Resources.GetColor(AColorRes.BackgroundLight, Context.Theme)
-				: new AColor(ContextCompat.GetColor(Context, AColorRes.BackgroundLight));
-		}
-    
-		void SetColor(in BasePopup basePopup) => Window?.SetBackgroundDrawable(new ColorDrawable(basePopup.Color.ToAndroid()));
+		void SetColor(in BasePopup basePopup) => Window?.SetBackgroundDrawable(new ColorDrawable(basePopup.Color.ToAndroid(AColorRes.BackgroundLight, Context)));
 
 		void SetSize(in BasePopup basePopup)
 		{
