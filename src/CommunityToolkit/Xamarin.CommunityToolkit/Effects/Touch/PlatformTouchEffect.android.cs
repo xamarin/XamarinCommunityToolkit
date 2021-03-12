@@ -373,11 +373,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void OnLayoutChange(object? sender, AView.LayoutChangeEventArgs e)
 		{
-			if (sender is not ViewGroup group || (Group as IVisualElementRenderer)?.Element == null || rippleView == null)
+			if (sender is not AView view || (Group as IVisualElementRenderer)?.Element == null || rippleView == null)
 				return;
 
-			rippleView.Right = group.Width;
-			rippleView.Bottom = group.Height;
+			rippleView.Right = view.Width;
+			rippleView.Bottom = view.Height;
 		}
 
 		sealed class AccessibilityListener : Java.Lang.Object,
