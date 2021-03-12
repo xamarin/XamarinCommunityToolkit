@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		public async void VisualElementExtension_DisplayToastAsyncWithOptions_PlatformNotSupportedException()
 		{
 			var page = new ContentPage();
-			await Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync(Arg.Any<ToastOptions>()));
+			await Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync(new ToastOptions()));
 		}
 	}
 }

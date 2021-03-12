@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using UIKit;
-using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
@@ -15,15 +14,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 	{
 		NSTimer? timer;
 
-		public List<NativeSnackButton> Actions { get; protected set; } = new List<NativeSnackButton>();
+		public List<NativeSnackButton> Actions { get; protected set; } = new ();
 
 		public Func<Task>? TimeoutAction { get; protected set; }
 
-		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
+		public NativeSnackBarAppearance Appearance { get; protected set; } = new ();
 
 		public double Duration { get; protected set; }
 
-		public SnackBarLayout Layout { get; } = new SnackBarLayout();
+		public SnackBarLayout Layout { get; } = new ();
 
 		public string Message { get; protected set; } = string.Empty;
 
@@ -72,8 +71,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			SnackBarView = GetSnackBarView();
 			SnackBarView.AnchorView = Anchor;
 
-			SnackBarView.ParentView?.AddSubview(SnackBarView);
-			SnackBarView.ParentView?.BringSubviewToFront(SnackBarView);
+			SnackBarView.ParentView.AddSubview(SnackBarView);
+			SnackBarView.ParentView.BringSubviewToFront(SnackBarView);
 
 			SnackBarView.Setup();
 
@@ -89,12 +88,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		BaseSnackBarView GetSnackBarView()
 		{
-			if (Actions.Count() > 0)
-			{
-				return new ActionMessageSnackBarView(this);
-			}
-
-			return new MessageSnackBarView(this);
+			return Actions.Any() ? new ActionMessageSnackBarView(this) : new MessageSnackBarView(this);
 		}
 	}
 }

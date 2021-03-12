@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 	{
 		protected BaseSnackBarView(NativeSnackBar snackBar) => SnackBar = snackBar;
 
-		public UIView AnchorView { get; set; }
+		public UIView? AnchorView { get; set; }
 
 		public UIView ParentView => UIApplication.SharedApplication.Windows.First(x => x.IsKeyWindow);
 
@@ -27,9 +27,10 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		void ConstraintInParent()
 		{
-			_ = ParentView ?? throw new System.NullReferenceException();
+			_ = ParentView ?? throw new NullReferenceException();
+			_ = AnchorView ?? throw new NullReferenceException();
 			_ = StackView ?? throw new InvalidOperationException("BaseSnackBarView.Initialize() not called");
-			
+
 			this.SafeBottomAnchor().ConstraintEqualTo(AnchorView.SafeBottomAnchor(), -SnackBar.Layout.MarginBottom).Active = true;
 			this.SafeLeadingAnchor().ConstraintGreaterThanOrEqualTo(ParentView.SafeLeadingAnchor(), SnackBar.Layout.MarginLeft).Active = true;
 			this.SafeTrailingAnchor().ConstraintLessThanOrEqualTo(ParentView.SafeTrailingAnchor(), -SnackBar.Layout.MarginRight).Active = true;
