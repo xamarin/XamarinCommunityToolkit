@@ -45,6 +45,12 @@ namespace Xamarin.CommunityToolkit.Effects
 			remove => weakEventManager.RemoveEventHandler(value);
 		}
 
+		public event EventHandler<LongPressCompletedEventArgs> LongPressCompleted
+		{
+			add => weakEventManager.AddEventHandler(value);
+			remove => weakEventManager.RemoveEventHandler(value);
+		}
+
 		public static readonly BindableProperty IsAvailableProperty = BindableProperty.CreateAttached(
 			nameof(IsAvailable),
 			typeof(bool),
@@ -1155,6 +1161,9 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		internal void RaiseCompleted()
 			=> weakEventManager.RaiseEvent(Element, new TouchCompletedEventArgs(CommandParameter), nameof(Completed));
+
+		internal void RaiseLongPressCompleted()
+			=> weakEventManager.RaiseEvent(Element, new LongPressCompletedEventArgs(LongPressCommandParameter ?? CommandParameter), nameof(LongPressCompleted));
 
 		internal void ForceUpdateState(bool animated = true)
 		{

@@ -199,6 +199,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				{
 					sender.HandleUserInteraction(TouchInteractionStatus.Completed);
 					sender.LongPressCommand?.Execute(sender.LongPressCommandParameter ?? sender.CommandParameter);
+					sender.RaiseLongPressCompleted();
 				});
 
 				if (Device.IsInvokeRequired)
