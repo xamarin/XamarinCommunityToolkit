@@ -51,16 +51,21 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void ClearTintColor()
 		{
-			switch (Control)
+			try
 			{
-				case ImageView image:
-					image.ClearColorFilter();
-					break;
-				case Button button:
-					var drawables = button.GetCompoundDrawables().Where(d => d != null);
-					foreach (var img in drawables)
-						img.ClearColorFilter();
-					break;
+				switch (Control)
+				{
+					case ImageView image:
+						image.ClearColorFilter();
+						break;
+					case Button button:
+						foreach (var drawable in button.GetCompoundDrawables())
+							drawable?.ClearColorFilter();
+						break;
+				}
+			}
+			catch (ObjectDisposedException) {
+				// We ignore ObjectDisposedException as a workaround of XF issue https://github.com/xamarin/Xamarin.Forms/issues/13889
 			}
 		}
 
