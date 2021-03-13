@@ -8,7 +8,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 	{
 		const string img1 = "button.png";
 		const string img2 = "logo.png";
-		readonly string imagesPath = "Images";
+		const string imagesPath = "Images";
+		
 		string defaultNamespace;
 
 		string? imageName;
