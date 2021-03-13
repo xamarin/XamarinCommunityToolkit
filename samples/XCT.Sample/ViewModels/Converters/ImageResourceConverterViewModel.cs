@@ -16,11 +16,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 		public string? ImageName
 		{
 			get => imageName;
-			set
-			{
-				imageName = value;
-				OnPropertyChanged();
-			}
+			set => SetProperty(ref imageName, value);
 		}
 
 		ICommand? changeImageCommand;
