@@ -30,7 +30,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
 			}
-			
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text) ?? throw new NullReferenceException();
 			snackTextView.SetMaxLines(10);
 
