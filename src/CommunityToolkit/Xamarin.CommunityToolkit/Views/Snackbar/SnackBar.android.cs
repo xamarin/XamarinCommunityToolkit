@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
 
-			if (!(sender is Page))
+			if (sender is not Page)
 			{
 				snackBar.SetAnchorView(view);
 			}
