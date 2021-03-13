@@ -18,6 +18,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 			LocalizationResourceManager.Current.PropertyChanged += (sender, e) => OnPropertyChanged(nameof(Localized));
 		}
 
+		[Preserve(Conditional = true)]
 		public string? Localized => generator();
 
 		[Preserve(Conditional = true)]
