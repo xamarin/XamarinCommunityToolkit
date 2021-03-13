@@ -6,8 +6,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
 	public class ImageResourceConverterViewModel : BaseViewModel
 	{
-		readonly string img1 = "button.png";
-		readonly string img2 = "logo.png";
+		const string img1 = "button.png";
+		const string img2 = "logo.png";
 		readonly string imagesPath = "Images";
 		string defaultNamespace;
 
