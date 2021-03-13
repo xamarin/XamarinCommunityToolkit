@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(ImageResourceExtensionPage),
 				nameof(ImageResourceExtension),
-				"The ImageResourceExtension is a xaml extension that will help to display an image from an embedded resource."),
+				"The ImageResourceExtension is a XAML extension that will help to display an image from an embedded resource"),
 		};
 	}
 }
