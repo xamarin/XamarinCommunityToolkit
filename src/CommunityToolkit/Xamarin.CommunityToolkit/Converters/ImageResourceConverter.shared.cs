@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.Converters
 #if NETSTANDARD1_0 || UAP10_0
 				.GetTypeInfo()
 #endif
-				.Assembly)
+				.Assembly);
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
