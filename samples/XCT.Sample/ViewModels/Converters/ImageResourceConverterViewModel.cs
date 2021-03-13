@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 
 		public ICommand ChangeImageCommand => changeImageCommand ??= new Command(() =>
 			{
-				ImageName = ImageName!.Equals(BuildEmbededImagePath(img1)) ?
+				ImageName = (ImageName?.Equals(BuildEmbededImagePath(img1)) ?? false) ?
 							BuildEmbededImagePath(img2) :
 							BuildEmbededImagePath(img1);
 			});
