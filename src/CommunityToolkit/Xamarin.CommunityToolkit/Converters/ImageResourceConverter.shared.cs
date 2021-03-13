@@ -22,14 +22,17 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>The ImageSource related to the provided resource ID of the embedded image. If it's null it will returns null.</returns>
 		public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var imageId = (string)value;
-			return imageId == null
-					? null
-					: ImageSource.FromResource(imageId, Application.Current.GetType()
+			if (value == null)
+				return null;
+
+			if (value is not string imageId)
+				throw new ArgumentException("Value is not a string", nameof(value));
+
+			return ImageSource.FromResource(imageId, Application.Current.GetType()
 #if NETSTANDARD1_0 || UAP10_0
-					.GetTypeInfo()
+				.GetTypeInfo()
 #endif
-					.Assembly);
+				.Assembly)
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
