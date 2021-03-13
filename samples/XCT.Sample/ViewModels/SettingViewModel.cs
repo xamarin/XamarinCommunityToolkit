@@ -13,16 +13,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
 	public class SettingViewModel : BaseViewModel
 	{
+		IList<Language> supportedLanguages = Enumerable.Empty<Language>().ToList();
+
 		Language selectedLanguage = new Language(AppResources.English, "en");
 
 		public SettingViewModel()
 		{
-			SupportedLanguages = new List<Language>()
-			{
-				new Language(AppResources.English, "en"),
-				new Language(AppResources.Spanish, "es")
-			};
-
 			LoadLanguages();
 
 			ChangeLanguageCommand = CommandFactory.Create(() =>
@@ -36,16 +32,26 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 
 		public ICommand ChangeLanguageCommand { get; }
 
-		public IList<Language> SupportedLanguages { get; }
-
 		public Language SelectedLanguage
 		{
 			get => selectedLanguage;
 			set => SetProperty(ref selectedLanguage, value);
 		}
 
+		public IList<Language> SupportedLanguages
+		{
+			get => supportedLanguages;
+			private set => SetProperty(ref supportedLanguages, value);
+		}
+
 		void LoadLanguages()
 		{
+			SupportedLanguages = new List<Language>()
+			{
+				new Language(AppResources.English, "en"),
+				new Language(AppResources.Spanish, "es")
+			};
+
 			var currentCulture = LocalizationResourceManager.Current.CurrentCulture;
 			if (currentCulture == null)
 			{
