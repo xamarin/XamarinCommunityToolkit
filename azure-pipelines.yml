@@ -97,7 +97,7 @@ jobs:
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
       # restore, build and pack the packages
       - task: MSBuild@1
-        displayName: Build Solution
+        displayName: Build Xamarin.CommunityToolkit.csproj
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
