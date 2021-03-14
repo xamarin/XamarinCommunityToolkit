@@ -15,7 +15,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 		protected new ValueTask ParameterImmediateNullReferenceExceptionTask(int delay) => throw new NullReferenceException();
 
-
 		protected new async ValueTask NoParameterDelayedNullReferenceExceptionTask()
 		{
 			await Task.Delay(Delay);
@@ -28,6 +27,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			throw new NullReferenceException();
 		}
 
-		ValueTask ValueTaskDelay(int delay) => new ValueTask(Task.Delay(delay));
+		async ValueTask ValueTaskDelay(int delay) => await Task.Delay(delay).ConfigureAwait(false);
 	}
 }
