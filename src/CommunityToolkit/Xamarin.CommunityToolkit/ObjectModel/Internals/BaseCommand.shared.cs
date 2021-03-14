@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading;
-using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
@@ -14,10 +12,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	public abstract partial class BaseCommand<TCanExecute>
 	{
 		readonly Func<TCanExecute?, bool> canExecute;
-		readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 		readonly DelegateWeakEventManager weakEventManager = new DelegateWeakEventManager();
 
-		int executionCount;
+		volatile int executionCount;
 
 		/// <summary>
 		/// Initializes BaseCommand
@@ -54,11 +51,18 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			get => executionCount;
 			set
 			{
-				var previousExecutionCount = executionCount;
+				var shouldRaiseCanExecuteChanged = (AllowsMultipleExecutions, executionCount, value) switch
+				{
+					(true, _, _) => false,
+					(false, 0, >0) => true,
+					(false, >0, 0) => true,
+					(false, _, _) => false
+				};
 
 				executionCount = value;
 
-				HandleExecutionCountChanged(previousExecutionCount, value).SafeFireAndForget();
+				if (shouldRaiseCanExecuteChanged)
+					RaiseCanExecuteChanged();
 			}
 		}
 
@@ -91,28 +95,5 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public void ChangeCanExecute() => RaiseCanExecuteChanged();
-
-		async Task HandleExecutionCountChanged(int updatedExecutionCount, int previousExecutionCount)
-		{
-			await semaphoreSlim.WaitAsync().ConfigureAwait(true);
-
-			try
-			{
-				var shouldRaiseCanExecuteChanged = (AllowsMultipleExecutions, updatedExecutionCount, previousExecutionCount) switch
-				{
-					(true, _, _) => false,
-					(false, 0, > 0) => true,
-					(false, > 0, 0) => true,
-					(false, _, _) => false
-				};
-
-				if (shouldRaiseCanExecuteChanged)
-					RaiseCanExecuteChanged();
-			}
-			finally
-			{
-				semaphoreSlim.Release();
-			}
-		}
 	}
 }
