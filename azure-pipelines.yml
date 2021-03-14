@@ -195,11 +195,13 @@ jobs:
       - task: CmdLine@2
         displayName: 'Build Solution'
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToSamplesSln) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CmdLine@2
         displayName: 'Run Unit Tests'
         inputs:
-          script: 'dotnet test -c Release $(PathToUnitTestCsproj)'
+          script: |
+          nuget restore $(PathToUnitTestCsproj)
+          dotnet test -c Release $(PathToUnitTestCsproj)
       - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
