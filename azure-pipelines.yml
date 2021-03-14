@@ -206,7 +206,7 @@ jobs:
             $(PathToMsBuildOnMacOS) $(PathToUnitTestCsproj) /p:Configuration=UnitTest /p:Platform="Any CPU" /restore /t:Build
 
             UnitTestDLLNet461=`find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`
-            XUnitConsoleRunnerNet461=`find / | grep 461 | grep xunit.console.exe | grep -v config | head 1`
+            XUnitConsoleRunnerNet461=`find / | grep xunit.console.exe | grep -v config`
 
             echo UnitTestDLLNet461: $(UnitTestDLLNet461)
             echo XUnitConsoleRunnerNet461: $(XUnitConsoleRunnerNet461)
