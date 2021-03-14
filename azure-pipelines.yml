@@ -160,7 +160,7 @@ jobs:
   - job: build_macos
     displayName: Build macOS Library
     pool:
-      vmImage: macos-latest
+      vmImage: macos-10.15
     steps:
       # if this is a tagged build, then update the version number
       - powershell: |
@@ -199,7 +199,18 @@ jobs:
       - task: CmdLine@2
         displayName: 'Run Unit Tests'
         inputs:
-          script: 'dotnet test -c Release $(PathToUnitTestCsproj)'
+          script: |
+            echo Running Unit Tests on .NET Framework (xUnit does not support `dotnet test` for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline)
+            '$(PathToMsBuildOnMacOS) $(PathToUnitTestCsproj) /p:Configuration=UnitTest /p:Platform="Any CPU" /restore /t:Build
+
+            UnitTestDLLNet461=`find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`
+            XUnitConsoleRunnerNet461=`find ~/.nuget/packages/xunit.runner.console/ | grep 461 | grep xunit.console.exe | grep -v config`
+
+            mono "$(XUnitConsoleRunnerNet461)" "($XUnitConsoleRunnerNet461)"
+
+            echo Running Unit Tests on .NET Core
+            dotnet restore $(PathToUnitTestCsproj) /p:Configuration=Release /p:Platform="NetCore"
+            dotnet test $(PathToUnitTestCsproj) /p:Configuration=Release /p:Platform="NetCore"
       - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
