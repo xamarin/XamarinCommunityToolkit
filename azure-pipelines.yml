@@ -201,7 +201,7 @@ jobs:
         inputs:
           script: |
             dotnet restore $(PathToUnitTestCsproj) /p:Configuration=Release
-            $(PathToMsBuildOnMacOS) $(PathToUnitTestCsproj) /p:Configuration=UnitTest /p:Platform="" /restore /t:Build
+            $(PathToMsBuildOnMacOS) $(PathToUnitTestCsproj) /p:Configuration=Release /restore /t:Build
 
             echo "********** Running Unit Tests on .NET Framework (xUnit does not support dotnet test for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline) **********"
 
