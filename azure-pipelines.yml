@@ -10,8 +10,9 @@ variables:
   NETCORE_TEST_VERSION_3_1: '3.1.x'
   NETCORE_TEST_VERSION_2_1: '2.1.x'
   RunPoliCheck: 'false'
-  PathToCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
+  PathToCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  PathToSamplesSln: 'samples/XCT.Sample.sln'
   PathToUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
   PathToMsBuildOnMacOS: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll'
   PathToSln: 'samples/XCT.Sample.sln'
@@ -98,7 +99,7 @@ jobs:
       - task: MSBuild@1
         displayName: Build Solution
         inputs:
-          solution: $(PathToCsproj)
+          solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CopyFiles@2
@@ -108,7 +109,7 @@ jobs:
       - task: MSBuild@1
         displayName: Pack NuGets
         inputs:
-          solution: $(PathToCsproj)
+          solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
       - task: MSBuild@1
@@ -194,7 +195,7 @@ jobs:
       - task: CmdLine@2
         displayName: 'Build Solution'
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: '$(PathToMsBuildOnMacOS) $(PathToSamplesSln) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CmdLine@2
         displayName: 'Run Unit Tests'
         inputs:
@@ -202,7 +203,7 @@ jobs:
       - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
