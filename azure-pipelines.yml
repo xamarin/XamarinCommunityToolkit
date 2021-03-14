@@ -200,7 +200,7 @@ jobs:
         displayName: 'Run Unit Tests'
         inputs:
           script: |
-            echo Running Unit Tests on .NET Framework (xUnit does not support `dotnet test` for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline)
+            echo Running Unit Tests on .NET Framework (xUnit does not support dotnet test for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline)
             '$(PathToMsBuildOnMacOS) $(PathToUnitTestCsproj) /p:Configuration=UnitTest /p:Platform="Any CPU" /restore /t:Build
 
             UnitTestDLLNet461=`find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`
