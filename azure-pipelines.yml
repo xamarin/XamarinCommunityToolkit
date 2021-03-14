@@ -13,6 +13,7 @@ variables:
   PathToCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
   PathToUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
+  PathToMsBuildOnMacOS: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll'
   PathToSln: 'samples/XCT.Sample.sln'
 
 resources:
@@ -193,11 +194,15 @@ jobs:
       - task: CmdLine@2
         displayName: 'Build Solution'
         inputs:
-          script: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $(PathToCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: '$(PathToMsBuildOnMacOS) $(PathToCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CmdLine@2
+        displayName: 'Run Unit Tests'
+        inputs:
+          script: 'dotnet test -c Release $(PathToUnitTestCsproj)'
       - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
-          script: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll $(PathToCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: '$(PathToMsBuildOnMacOS) $(PathToCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
