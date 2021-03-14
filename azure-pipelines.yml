@@ -203,15 +203,15 @@ jobs:
             dotnet restore $(PathToUnitTestCsproj) /p:Configuration=Release
             $(PathToMsBuildOnMacOS) $(PathToUnitTestCsproj) /p:Configuration=UnitTest /p:Platform="" /restore /t:Build
 
-            echo "Running Unit Tests on .NET Framework (xUnit does not support dotnet test for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline)"
+            echo "********** Running Unit Tests on .NET Framework (xUnit does not support dotnet test for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline) **********"
 
             # UnitTestDLL for .NET Framework 4.6.1 Result: `find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`
             # XUnit Console Runner for .NET Framework 4.6.1 Result: `find ~/.nuget/packages | grep net461 | grep xunit.console.exe | grep -v config`
 
             mono "`find ~/.nuget/packages | grep net461 | grep xunit.console.exe | grep -v config`" "`find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`"
 
-            echo "Running Unit Tests on .NET Core"
-            dotnet test $(PathToUnitTestCsproj) /p:Configuration=Release /p:Platform="NetCore"
+            echo "***** Running Unit Tests on .NET Core *****"
+            dotnet test $(PathToUnitTestCsproj) /p:Configuration=Release /p:Platform="macOS"
       - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
