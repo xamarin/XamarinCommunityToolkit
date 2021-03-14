@@ -212,6 +212,7 @@ jobs:
 
             echo "***** Running Unit Tests on .NET Core *****"
             dotnet test $(PathToUnitTestCsproj) /p:Configuration=Release /p:Platform="macOS"
+            echo temp
       - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
