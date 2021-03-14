@@ -200,8 +200,8 @@ jobs:
         displayName: 'Run Unit Tests'
         inputs:
           script: |
-          nuget restore $(PathToUnitTestCsproj)
-          dotnet test -c Release $(PathToUnitTestCsproj)
+            nuget restore $(PathToUnitTestCsproj)
+            dotnet test -c Release $(PathToUnitTestCsproj)
       - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
