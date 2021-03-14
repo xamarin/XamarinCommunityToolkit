@@ -205,6 +205,9 @@ jobs:
             echo "Running Unit Tests on .NET Framework (xUnit does not support dotnet test for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline)"
             $(PathToMsBuildOnMacOS) $(PathToUnitTestCsproj) /p:Configuration=UnitTest /p:Platform="Any CPU" /restore /t:Build
 
+            echo UnitTestDLLNet461 Result: `find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`
+            echo XUnitConsoleRunnerNet461 Result: `find ~/.nuget/packages/ | grep net461 | grep xunit.console.exe | grep -v config`
+
             UnitTestDLLNet461=`find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`
             XUnitConsoleRunnerNet461=`find ~/.nuget/packages/ | grep net461 | grep xunit.console.exe | grep -v config`
 
