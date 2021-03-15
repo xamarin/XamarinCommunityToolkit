@@ -4,6 +4,7 @@ using System.Linq;
 using Android.Graphics;
 using Android.Widget;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms.Platform.Android;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
@@ -33,8 +34,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void ApplyTintColor()
 		{
-			if (Control == null || Element == null)
+			if (!Control.IsAlive() || Element == null)
+			{
 				return;
+			}
 
 			var color = IconTintColorEffect.GetTintColor(Element);
 
@@ -51,15 +54,20 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void ClearTintColor()
 		{
+			// Because of a XF bug: https://github.com/xamarin/Xamarin.Forms/issues/13889
+			if (!Control.IsAlive())
+			{
+				return;
+			}
+
 			switch (Control)
 			{
 				case ImageView image:
 					image.ClearColorFilter();
 					break;
 				case Button button:
-					var drawables = button.GetCompoundDrawables().Where(d => d != null);
-					foreach (var img in drawables)
-						img.ClearColorFilter();
+					foreach (var drawable in button.GetCompoundDrawables())
+						drawable?.ClearColorFilter();
 					break;
 			}
 		}
