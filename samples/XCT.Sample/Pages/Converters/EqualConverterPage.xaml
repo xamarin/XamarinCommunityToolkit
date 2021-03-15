@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.EqualConverterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
+    BackgroundColor="{StaticResource AppBackgroundColor}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:EqualConverter x:Key="EqualConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10,10"
+            HorizontalOptions="Fill"
+            Spacing="10"
+            VerticalOptions="Fill">
+            <Label Text="The EqualConverter is a converter that allows users to convert any value binding to a boolean depending on whether or not it is equal to a different value. The initial binding contains the object that will be compared and the ConverterParameter contains the object to compare it to." TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label Text="Please enter 100 for true anyting else for false" TextColor="{StaticResource NormalLabelTextColor}" />
+            <Entry
+                x:Name="ExampleText"
+                Placeholder="100 for True other for False"
+                Text="{Binding Input}"
+                TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label
+                Padding="7,0,0,0"
+                BindingContext="{x:Reference Name=ExampleText}"
+                Text="{Binding Path=Text, Converter={StaticResource EqualConverter}, ConverterParameter=100}"
+                TextColor="{StaticResource NormalLabelTextColor}" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

@@ -48,7 +48,7 @@
             </ImageButton>
             
  
-             <Label Text="{xct:Translate Shake}">
+             <Label Text="Shake">
                 <Label.Behaviors>
                     <xct:AnimationBehavior Command="{Binding MyCommand}">
                         <xct:AnimationBehavior.AnimationType>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -66,8 +67,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			IAsyncCommand<string, int> command2 = new AsyncCommand<string, int>(StringParameterTask);
 
 			// Act
-			await command.ExecuteAsync(parameter);
-			await command2.ExecuteAsync(parameter);
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
+			await command2.ExecuteAsync(parameter).ConfigureAwait(false);
 
 			// Assert
 		}
@@ -176,7 +177,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(command.CanExecute(null));
 		}
 
-		[Fact]
+		[Fact(Timeout = ICommandTestTimeout)]
 		public async Task IAsyncCommand_CanExecuteChanged_AllowsMultipleExecutions_Test()
 		{
 			// Arrange
@@ -195,20 +196,24 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.True(command.CanExecute(null));
 
 			// Act
-			await asyncCommandTask;
+			await asyncCommandTask.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(0, canExecuteChangedCount);
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			command.CanExecuteChanged -= handleCanExecuteChanged;
+
+			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 		}
 
-		[Fact]
+		[Fact(Timeout = ICommandTestTimeout)]
 		public async Task IAsyncCommand_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
+			var semaphoreSlim = new SemaphoreSlim(1, 1);
 			var canExecuteChangedCount = 0;
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<int>();
 
 			IAsyncCommand<int> command = new AsyncCommand<int>(IntParameterTask, allowsMultipleExecutions: false);
 			command.CanExecuteChanged += handleCanExecuteChanged;
@@ -223,13 +228,31 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			Assert.False(command.CanExecute(null));
 
 			// Act
-			await asyncCommandTask;
+			await asyncCommandTask.ConfigureAwait(false);
+			var handleCanExecuteChangedREsult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
 			Assert.True(command.CanExecute(null));
 			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedREsult);
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => canExecuteChangedCount++;
+			async void handleCanExecuteChanged(object? sender, EventArgs e)
+			{
+				await semaphoreSlim.WaitAsync().ConfigureAwait(false);
+
+				try
+				{
+					if (++canExecuteChangedCount is 2)
+					{
+						command.CanExecuteChanged -= handleCanExecuteChanged;
+						handleCanExecuteChangedTCS.SetResult(canExecuteChangedCount);
+					}
+				}
+				finally
+				{
+					semaphoreSlim.Release();
+				}
+			}
 		}
 	}
 }

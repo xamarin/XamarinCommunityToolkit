@@ -6,16 +6,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class ImageAvailableListener : Java.Lang.Object, ImageReader.IOnImageAvailableListener
 	{
-		public event EventHandler<byte[]> Photo;
+		public event EventHandler<byte[]>? Photo;
 
-		public void OnImageAvailable(ImageReader reader)
+		public void OnImageAvailable(ImageReader? reader)
 		{
-			AImage image = null;
+			AImage? image = null;
 
 			try
 			{
-				image = reader.AcquireNextImage();
-				var buffer = image.GetPlanes()[0].Buffer;
+				image = reader?.AcquireNextImage();
+				if (image == null)
+					return;
+
+				var buffer = image.GetPlanes()?[0].Buffer;
+				if (buffer == null)
+					return;
+
 				var imageData = new byte[buffer.Capacity()];
 				buffer.Get(imageData);
 

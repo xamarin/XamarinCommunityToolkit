@@ -1,28 +1,22 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.ObjectModel;
 using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {
 	public sealed class ObservableObject_Tests
 	{
-		Person person;
-
-		public ObservableObject_Tests()
+		readonly Person person = new Person
 		{
-			person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-		}
+			FirstName = "James",
+			LastName = "Montemagno"
+		};
 
 		[Fact]
 		public void OnPropertyChanged()
 		{
-			PropertyChangedEventArgs updated = null;
+			PropertyChangedEventArgs? updated = null;
 			person.PropertyChanged += (sender, args) =>
 			{
 				updated = args;
@@ -31,13 +25,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			person.FirstName = "Motz";
 
 			Assert.NotNull(updated);
-			Assert.Equal(nameof(person.FirstName), updated.PropertyName);
+			Assert.Equal(nameof(person.FirstName), updated?.PropertyName);
 		}
 
 		[Fact]
 		public void OnDidntChange()
 		{
-			PropertyChangedEventArgs updated = null;
+			PropertyChangedEventArgs? updated = null;
 			person.PropertyChanged += (sender, args) =>
 			{
 				updated = args;
@@ -125,30 +119,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			});
 
 			Assert.NotNull(result);
-		}
-
-		public class Person : ObservableObject
-		{
-			string firstName;
-			string lastName;
-
-			public Action Changed { get; set; }
-
-			public Action Changing { get; set; }
-
-			public Func<string, string, bool> Validate { get; set; }
-
-			public string FirstName
-			{
-				get => firstName;
-				set => SetProperty(ref firstName, value, onChanged: Changed, onChanging: Changing, validateValue: Validate);
-			}
-
-			public string LastName
-			{
-				get => lastName;
-				set => SetProperty(ref lastName, value, onChanged: Changed, onChanging: Changing, validateValue: Validate);
-			}
 		}
 	}
 }

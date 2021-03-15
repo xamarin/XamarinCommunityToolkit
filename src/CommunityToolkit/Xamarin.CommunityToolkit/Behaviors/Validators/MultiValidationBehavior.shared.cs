@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
@@ -17,13 +19,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// Backing BindableProperty for the <see cref="Errors"/> property.
 		/// </summary>
 		public static readonly BindableProperty ErrorsProperty =
-			BindableProperty.Create(nameof(Errors), typeof(List<object>), typeof(MultiValidationBehavior), null, BindingMode.OneWayToSource);
+			BindableProperty.Create(nameof(Errors), typeof(List<object?>), typeof(MultiValidationBehavior), null, BindingMode.OneWayToSource);
 
 		public static readonly BindableProperty ErrorProperty =
 			BindableProperty.CreateAttached(nameof(GetError), typeof(object), typeof(MultiValidationBehavior), null);
 
-		readonly ObservableCollection<ValidationBehavior> children
-			= new ObservableCollection<ValidationBehavior>();
+		readonly ObservableCollection<ValidationBehavior> children = new ObservableCollection<ValidationBehavior>();
 
 		/// <summary>
 		/// Constructor for this behavior.
@@ -34,25 +35,23 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// Holds the errors from all of the nested invalid validators in <see cref="Children"/>. This is a bindable property.
 		/// </summary>
-		public List<object> Errors
+		public List<object?>? Errors
 		{
-			get => (List<object>)GetValue(ErrorsProperty);
+			get => (List<object?>?)GetValue(ErrorsProperty);
 			set => SetValue(ErrorsProperty, value);
 		}
 
 		/// <summary>
 		/// All child behaviors that are part of this <see cref="MultiValidationBehavior"/>. This is a bindable property.
 		/// </summary>
-		public IList<ValidationBehavior> Children
-			=> children;
+		public IList<ValidationBehavior> Children => children;
 
 		/// <summary>
 		/// Method to extract the error from the attached property for a child behavior in <see cref="Children"/>.
 		/// </summary>
 		/// <param name="bindable">The <see cref="ValidationBehavior"/> that we extract the attached Error property</param>
 		/// <returns>Object containing error information</returns>
-		public static object GetError(BindableObject bindable)
-			=> bindable.GetValue(ErrorProperty);
+		public static object? GetError(BindableObject bindable) => bindable.GetValue(ErrorProperty);
 
 		/// <summary>
 		/// Method to set the error on the attached property for a child behavior in <see cref="Children"/>.
@@ -62,14 +61,18 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static void SetError(BindableObject bindable, object value)
 			=> bindable.SetValue(ErrorProperty, value);
 
-		protected override bool Validate(object value)
+		protected override async ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
 		{
-			var errors = children.Where(c =>
+			await Task.WhenAll(children.Select(c =>
 			{
 				c.Value = value;
-				c.ForceValidate();
-				return c.IsNotValid;
-			}).Select(c => GetError(c));
+				return c.ValidateNestedAsync(token).AsTask();
+			})).ConfigureAwait(false);
+
+			if (token.IsCancellationRequested)
+				return IsValid;
+
+			var errors = children.Where(c => c.IsNotValid).Select(c => GetError(c));
 
 			if (!errors.Any())
 			{
@@ -78,12 +81,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			}
 
 			if (!Errors?.SequenceEqual(errors) ?? true)
-				Errors = errors.ToList();
+				Errors = (errors ?? Enumerable.Empty<object?>()).ToList();
 
 			return false;
 		}
 
-		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void OnChildrenCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
 		{
 			if (e.NewItems != null)
 			{

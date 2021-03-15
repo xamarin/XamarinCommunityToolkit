@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
@@ -13,8 +14,8 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public class BaseAsyncCommand<TExecute, TCanExecute> : BaseCommand<TCanExecute>, ICommand
 	{
-		readonly Func<TExecute, Task> execute;
-		readonly Action<Exception> onException;
+		readonly Func<TExecute?, Task> execute;
+		readonly Action<Exception>? onException;
 		readonly bool continueOnCapturedContext;
 
 		/// <summary>
@@ -24,10 +25,10 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// <param name="canExecute">The Function that verifies whether or not AsyncCommand should execute.</param>
 		/// <param name="onException">If an exception is thrown in the Task, <c>onException</c> will execute. If onException is null, the exception will be re-thrown</param>
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
-		public BaseAsyncCommand(
-			Func<TExecute, Task> execute,
-			Func<TCanExecute, bool> canExecute,
-			Action<Exception> onException,
+		protected private BaseAsyncCommand(
+			Func<TExecute?, Task>? execute,
+			Func<TCanExecute?, bool>? canExecute,
+			Action<Exception>? onException,
 			bool continueOnCapturedContext,
 			bool allowsMultipleExecutions)
 			: base(canExecute, allowsMultipleExecutions)
@@ -42,7 +43,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <param name="execute"></param>
 		/// <returns>The Execute parameter required for ICommand</returns>
-		private protected static Func<object, Task> ConvertExecute(Func<Task> execute)
+		private protected static Func<object?, Task>? ConvertExecute(Func<Task>? execute)
 		{
 			if (execute == null)
 				return null;
@@ -55,7 +56,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <param name="canExecute"></param>
 		/// <returns>The CanExecute parameter required for ICommand</returns>
-		private protected static Func<object, bool> ConvertCanExecute(Func<bool> canExecute)
+		private protected static Func<object?, bool>? ConvertCanExecute(Func<bool>? canExecute)
 		{
 			if (canExecute == null)
 				return null;
@@ -68,7 +69,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <returns>The executed Task</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		private protected async Task ExecuteAsync(TExecute parameter)
+		private protected async Task ExecuteAsync(TExecute? parameter)
 		{
 			ExecutionCount++;
 
@@ -90,7 +91,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		bool ICommand.CanExecute(object parameter) => parameter switch
 		{
 			TCanExecute validParameter => CanExecute(validParameter),
-			null when !typeof(TCanExecute).GetTypeInfo().IsValueType => CanExecute((TCanExecute)parameter),
+			null when !typeof(TCanExecute).GetTypeInfo().IsValueType => CanExecute((TCanExecute?)parameter),
 			null => throw new InvalidCommandParameterException(typeof(TCanExecute)),
 			_ => throw new InvalidCommandParameterException(typeof(TCanExecute), parameter.GetType()),
 		};
@@ -100,11 +101,11 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			switch (parameter)
 			{
 				case TExecute validParameter:
-					Execute(validParameter);
+					ExecuteAsync(validParameter).SafeFireAndForget(onException, continueOnCapturedContext);
 					break;
 
 				case null when !typeof(TExecute).GetTypeInfo().IsValueType:
-					Execute((TExecute)parameter);
+					ExecuteAsync((TExecute?)parameter).SafeFireAndForget(onException, continueOnCapturedContext);
 					break;
 
 				case null:
@@ -113,9 +114,6 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 				default:
 					throw new InvalidCommandParameterException(typeof(TExecute), parameter.GetType());
 			}
-
-			// Use local method to defer async void from ICommand.Execute, allowing InvalidCommandParameterException to be thrown on the calling thread context before reaching an async method
-			async void Execute(TExecute parameter) => await ExecuteAsync(parameter).ConfigureAwait(continueOnCapturedContext);
 		}
 	}
 }

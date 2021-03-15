@@ -1,4 +1,5 @@
-﻿using AppKit;
+﻿using System;
+using AppKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.macOS.Effects;
 using Xamarin.Forms;
@@ -10,11 +11,11 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		NSGestureRecognizer gesture;
+		NSGestureRecognizer? gesture;
 
-		TouchEffect effect;
+		TouchEffect? effect;
 
-		MouseTrackingView mouseTrackingView;
+		MouseTrackingView? mouseTrackingView;
 
 		protected override void OnAttached()
 		{
@@ -39,21 +40,25 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 
 			mouseTrackingView?.RemoveFromSuperview();
 			mouseTrackingView?.Dispose();
+
 			mouseTrackingView = null;
 			effect.Element = null;
 			effect = null;
-			if (gesture != null)
-				Container?.RemoveGestureRecognizer(gesture);
 
-			gesture?.Dispose();
+			if (gesture != null)
+			{
+				Container?.RemoveGestureRecognizer(gesture);
+				gesture.Dispose();
+			}
+
 			gesture = null;
 		}
 	}
 
 	sealed class MouseTrackingView : NSView
 	{
-		NSTrackingArea trackingArea;
-		TouchEffect effect;
+		NSTrackingArea? trackingArea;
+		TouchEffect? effect;
 
 		public MouseTrackingView(TouchEffect effect)
 		{
@@ -74,18 +79,18 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 
 		public override void MouseEntered(NSEvent theEvent)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
-			effect?.HandleHover(HoverStatus.Entered);
+			effect.HandleHover(HoverStatus.Entered);
 		}
 
 		public override void MouseExited(NSEvent theEvent)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
-			effect?.HandleHover(HoverStatus.Exited);
+			effect.HandleHover(HoverStatus.Exited);
 		}
 
 		protected override void Dispose(bool disposing)
@@ -99,14 +104,15 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 				}
 				effect = null;
 			}
+
 			base.Dispose(disposing);
 		}
 	}
 
 	sealed class TouchNSClickGestureRecognizer : NSGestureRecognizer
 	{
-		TouchEffect effect;
-		NSView container;
+		TouchEffect? effect;
+		NSView? container;
 
 		public TouchNSClickGestureRecognizer(TouchEffect effect, NSView container)
 		{
@@ -118,30 +124,33 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 		{
 			get
 			{
-				var frame = container.Frame;
-				var parent = container.Superview;
+				var frame = container?.Frame ?? throw new NullReferenceException();
+				var parent = container?.Superview;
+
 				while (parent != null)
 				{
 					frame = new CoreGraphics.CGRect(frame.X + parent.Frame.X, frame.Y + parent.Frame.Y, frame.Width, frame.Height);
 					parent = parent.Superview;
 				}
+
 				return frame.ToRectangle();
 			}
 		}
 
 		public override void MouseDown(NSEvent mouseEvent)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
-			effect?.HandleUserInteraction(TouchInteractionStatus.Started);
-			effect?.HandleTouch(TouchStatus.Started);
+			effect.HandleUserInteraction(TouchInteractionStatus.Started);
+			effect.HandleTouch(TouchStatus.Started);
+
 			base.MouseDown(mouseEvent);
 		}
 
 		public override void MouseUp(NSEvent mouseEvent)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
 			if (effect.HoverStatus == HoverStatus.Entered)
@@ -151,26 +160,26 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 					? TouchStatus.Completed
 					: TouchStatus.Canceled;
 
-				effect?.HandleTouch(status);
+				effect.HandleTouch(status);
 			}
-			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
 
 			base.MouseUp(mouseEvent);
 		}
 
 		public override void MouseDragged(NSEvent mouseEvent)
 		{
-			if (effect?.IsDisabled ?? true)
+			if (effect == null || effect.IsDisabled)
 				return;
 
 			var status = ViewRect.Contains(mouseEvent.LocationInWindow.ToPoint()) ? TouchStatus.Started : TouchStatus.Canceled;
 
 			if ((status == TouchStatus.Canceled && effect.HoverStatus == HoverStatus.Entered) ||
 				(status == TouchStatus.Started && effect.HoverStatus == HoverStatus.Exited))
-				effect?.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
+				effect.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
 
 			if (effect.Status != status)
-				effect?.HandleTouch(status);
+				effect.HandleTouch(status);
 
 			base.MouseDragged(mouseEvent);
 		}
@@ -182,6 +191,7 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 				effect = null;
 				container = null;
 			}
+
 			base.Dispose(disposing);
 		}
 	}
