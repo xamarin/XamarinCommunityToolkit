@@ -9,6 +9,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 	[Collection(nameof(BaseCommandTests))]
 	public abstract class BaseCommandTests
 	{
+		public const int ICommandTestTimeout = Delay * 6;
 		public const int Delay = 500;
 
 		public BaseCommandTests() => Device.PlatformServices = new MockPlatformServices();
