@@ -216,7 +216,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(false));
 		}
 
-		[Fact]
+		[Fact(Timeout = ICommandTestTimeout)]
 		public async Task ICommand_Parameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
 		{
 			// Arrange
@@ -243,7 +243,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
-		[Fact]
+		[Fact(Timeout = ICommandTestTimeout)]
 		public async Task ICommand_Parameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
@@ -287,7 +287,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 
-		[Fact]
+		[Fact(Timeout = ICommandTestTimeout)]
 		public async Task ICommand_NoParameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
 		{
 			// Arrange
@@ -315,7 +315,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
-		[Fact]
+		[Fact(Timeout = ICommandTestTimeout)]
 		public async Task ICommand_NoParameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
