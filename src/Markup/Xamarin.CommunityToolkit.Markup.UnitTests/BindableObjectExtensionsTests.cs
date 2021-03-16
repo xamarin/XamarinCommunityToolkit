@@ -88,7 +88,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				Label.TextColorProperty,
 				nameof(viewModel.IsRed),
 				assertConverterInstanceIsAnyNotNull: true,
-				assertConvert: c => c.AssertConvert(true, Color.Red).AssertConvert(false, Color.Transparent)
+				assertConvert: c => c.AssertConvert<bool?, Color>(true, Color.Red).AssertConvert<bool?,Color>(false, Color.Transparent)
 			);
 		}
 
@@ -109,8 +109,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				nameof(viewModel.IsRed),
 				assertConverterInstanceIsAnyNotNull: true,
 				converterParameter: 0.5,
-				assertConvert: c => c.AssertConvert(true, 0.5, Color.Red.MultiplyAlpha(0.5))
-									 .AssertConvert(false, 0.2, Color.Green.MultiplyAlpha(0.2))
+				assertConvert: c => c.AssertConvert<bool?, Color>(true, 0.5, Color.Red.MultiplyAlpha(0.5))
+									 .AssertConvert<bool?, Color>(false, 0.2, Color.Green.MultiplyAlpha(0.2))
 			);
 		}
 

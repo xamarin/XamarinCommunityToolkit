@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind<Label, string?, Guid, string>(
 					Label.TextProperty,
 					testBindings[0], testBindings[1],
-					((string? text, Guid id) v) => Format(0, v.text ?? throw new NullReferenceException(), v.id),
+					((string? text, Guid id) v) => Format(0, v.text, v.id),
 					(string? formatted) =>
 					{
 						_ = formatted ?? throw new NullReferenceException();
@@ -77,7 +77,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1],
-					((string? text, Guid id) v) => Format(0, v.text ?? throw new NullReferenceException(), v.id)
+					((string? text, Guid id) v) => Format(0, v.text, v.id)
 				);
 			}
 			else if (!testConvert && testConvertBack)

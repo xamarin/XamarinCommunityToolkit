@@ -10,8 +10,6 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		CultureInfo? defaultCulture;
 		CultureInfo? defaultUICulture;
 
-
-
 		[SetUp]
 		public virtual void Setup()
 		{
