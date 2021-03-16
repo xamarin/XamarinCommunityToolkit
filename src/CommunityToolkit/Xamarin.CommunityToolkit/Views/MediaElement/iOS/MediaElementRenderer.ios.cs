@@ -360,7 +360,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void SeekComplete(bool finished)
 		{
 			if (finished)
-				Controller.OnSeekCompleted();
+				Controller?.OnSeekCompleted();
 		}
 
 		void MediaElementPositionRequested(object? sender, EventArgs e) => Controller.Position = Position;
