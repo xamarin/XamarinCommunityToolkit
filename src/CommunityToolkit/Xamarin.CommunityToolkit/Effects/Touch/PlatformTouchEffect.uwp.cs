@@ -109,7 +109,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerEntered(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			effect.HandleHover(HoverStatus.Entered);
@@ -123,7 +123,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerExited(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			if (isPressed)
@@ -137,7 +137,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerCanceled(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			isPressed = false;
@@ -151,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerCaptureLost(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			if (isIntentionalCaptureLoss)
@@ -172,7 +172,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerReleased(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			if (isPressed && (effect.HoverStatus == HoverStatus.Entered))
@@ -194,7 +194,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerPressed(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			isPressed = true;
@@ -211,7 +211,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void AnimateTilt(Storyboard? storyboard)
 		{
-			if (storyboard != null && effect != null && effect.NativeAnimation)
+			if (storyboard != null && effect?.Element != null && effect.NativeAnimation)
 			{
 				try
 				{
