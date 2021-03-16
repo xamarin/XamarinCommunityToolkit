@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			TDest? fallbackValue = default,
 			Action<IValueConverter>? assertConvert = null)
 		{
-			var binding = BindingHelpers.GetBinding(bindable, targetProperty) ?? throw new NullReferenceException();
+			var binding = GetBinding(bindable, targetProperty) ?? throw new NullReferenceException();
 			Assert.That(binding, Is.Not.Null);
 			Assert.That(binding.Path, Is.EqualTo(path));
 			Assert.That(binding.Mode, Is.EqualTo(mode));
