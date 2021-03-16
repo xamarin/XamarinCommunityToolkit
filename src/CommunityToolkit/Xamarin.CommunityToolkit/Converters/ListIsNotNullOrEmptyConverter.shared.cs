@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.Forms;
