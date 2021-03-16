@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {
@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			};
 		}
 
-		[Fact]
+		[Test]
 		public void Grouping()
 		{
 			var sorted = from person in people
@@ -29,15 +29,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			var grouped = new ObservableRangeCollection<Grouping<string, Person>>();
 			grouped.AddRange(sorted);
 
-			Assert.Equal(2, grouped.Count);
-			Assert.Equal("J", grouped[0].Key);
-			Assert.Equal(2, grouped[0].Count);
+			Assert.AreEqual(2, grouped.Count);
+			Assert.AreEqual("J", grouped[0].Key);
+			Assert.AreEqual(2, grouped[0].Count);
 			Assert.Single(grouped[1]);
-			Assert.Equal(2, grouped[0].Items.Count);
+			Assert.AreEqual(2, grouped[0].Items.Count);
 			Assert.Single(grouped[1].Items);
 		}
 
-		[Fact]
+		[Test]
 		public void GroupingSubKey()
 		{
 			var sorted = from person in people
@@ -48,12 +48,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			var grouped = new ObservableRangeCollection<Grouping<string, string, Person>>();
 			grouped.AddRange(sorted);
 
-			Assert.Equal(2, grouped.Count);
-			Assert.Equal("J", grouped[0].SubKey);
-			Assert.Equal("J", grouped[0].Key);
-			Assert.Equal(2, grouped[0].Count);
+			Assert.AreEqual(2, grouped.Count);
+			Assert.AreEqual("J", grouped[0].SubKey);
+			Assert.AreEqual("J", grouped[0].Key);
+			Assert.AreEqual(2, grouped[0].Count);
 			Assert.Single(grouped[1]);
-			Assert.Equal(2, grouped[0].Items.Count);
+			Assert.AreEqual(2, grouped[0].Items.Count);
 			Assert.Single(grouped[1].Items);
 		}
 	}

@@ -3,28 +3,36 @@ using System.Globalization;
 using System.Resources;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 {
-	[Collection(nameof(LocalizationResourceManager))]
+	[NonParallelizable]
 	public class LocalizedStringTests
 	{
-		public LocalizedStringTests()
-		{
-			resourceManager = new MockResourceManager();
-			localizationManager.Init(resourceManager, initialCulture);
-		}
-
-		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
-		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
-		readonly ResourceManager resourceManager;
+		CultureInfo? initialCulture;
+		ResourceManager? resourceManager;
+		LocalizationResourceManager? localizationManager;
 
 		LocalizedString? localizedString;
 
-		[Fact]
+		[SetUp]
+		public void Setup()
+		{
+			resourceManager = new MockResourceManager();
+			initialCulture = CultureInfo.InvariantCulture;
+			localizationManager = LocalizationResourceManager.Current;
+
+			localizationManager.Init(resourceManager, initialCulture);
+		}
+
+		[Test]
 		public void LocalizedStringTests_Localized_ValidImplementation()
 		{
+			_ = initialCulture ?? throw new NullReferenceException();
+			_ = resourceManager ?? throw new NullReferenceException();
+			_ = localizationManager ?? throw new NullReferenceException();
+
 			// Arrange
 			var testString = "test";
 			var culture2 = new CultureInfo("en");
@@ -41,12 +49,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			var responceResourceManagerCulture2 = resourceManager.GetString(testString, culture2);
 
 			// Assert
-			Assert.Equal(responceResourceManagerCulture1, responceCulture1);
-			Assert.Equal(responceResourceManagerCulture2, responceOnCultureChanged);
-			Assert.Equal(responceResourceManagerCulture2, responceResourceManagerCulture2);
+			Assert.AreEqual(responceResourceManagerCulture1, responceCulture1);
+			Assert.AreEqual(responceResourceManagerCulture2, responceOnCultureChanged);
+			Assert.AreEqual(responceResourceManagerCulture2, responceResourceManagerCulture2);
 		}
 
-		[Fact]
+		[Test]
 		public void LocalizedStringTests_ImplicitConversion_ValidImplementation()
 		{
 			// Arrange
@@ -60,9 +68,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			Assert.NotNull(localizedString);
 		}
 
-		[Fact]
+		[Test]
 		public void LocalizedStringTests_WeekSubscribe_ValidImplementation()
 		{
+			_ = localizationManager ?? throw new NullReferenceException();
+
 			// Arrange
 			var isTrigered = false;
 			var culture2 = new CultureInfo("en");
@@ -74,15 +84,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			localizationManager.CurrentCulture = culture2;
 
 			// Assert
-			Assert.True(isTrigered);
+			Assert.IsTrue(isTrigered);
 		}
 
 #if NET461
 #warning Test fails on mono x64 Running on macOS
 #else
-		[Fact]
+		[Test]
 		public void LocalizedStringTests_Disposed_IfNoReferences()
 		{
+			_ = initialCulture ?? throw new NullReferenceException();
+			_ = resourceManager ?? throw new NullReferenceException();
+			_ = localizationManager ?? throw new NullReferenceException();
+
 			// Arrange
 			var testString = "test";
 			SetLocalizedString();

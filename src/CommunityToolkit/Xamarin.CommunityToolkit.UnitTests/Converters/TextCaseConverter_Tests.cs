@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Converters;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -10,30 +10,28 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		const string test = nameof(test);
 		const string t = nameof(t);
 
-		[Theory]
-		[InlineData(test, TextCaseType.Lower, test)]
-		[InlineData(test, TextCaseType.Upper, "TEST")]
-		[InlineData(test, TextCaseType.None, test)]
-		[InlineData(test, TextCaseType.FirstUpperRestLower, "Test")]
-		[InlineData(t, TextCaseType.Upper, "T")]
-		[InlineData(t, TextCaseType.Lower, t)]
-		[InlineData(t, TextCaseType.None, t)]
-		[InlineData(t, TextCaseType.FirstUpperRestLower, "T")]
-		[InlineData("", TextCaseType.FirstUpperRestLower, "")]
-		[InlineData(null, null, null)]
+		[TestCase(test, TextCaseType.Lower, test)]
+		[TestCase(test, TextCaseType.Upper, "TEST")]
+		[TestCase(test, TextCaseType.None, test)]
+		[TestCase(test, TextCaseType.FirstUpperRestLower, "Test")]
+		[TestCase(t, TextCaseType.Upper, "T")]
+		[TestCase(t, TextCaseType.Lower, t)]
+		[TestCase(t, TextCaseType.None, t)]
+		[TestCase(t, TextCaseType.FirstUpperRestLower, "T")]
+		[TestCase("", TextCaseType.FirstUpperRestLower, "")]
+		[TestCase(null, null, null)]
 		public void TextCaseConverter(object value, object comparedValue, object expectedResult)
 		{
 			var textCaseConverter = new TextCaseConverter();
 
 			var result = textCaseConverter.Convert(value, typeof(TextCaseConverter_Tests), comparedValue, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData(0)]
-		[InlineData(int.MinValue)]
-		[InlineData(double.MaxValue)]
+		[TestCase(0)]
+		[TestCase(int.MinValue)]
+		[TestCase(double.MaxValue)]
 		public void InValidConverterValuesThrowArgumenException(object value)
 		{
 			var textCaseConverter = new TextCaseConverter();

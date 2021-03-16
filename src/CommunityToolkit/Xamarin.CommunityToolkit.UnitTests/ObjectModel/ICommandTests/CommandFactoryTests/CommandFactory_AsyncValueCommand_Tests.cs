@@ -4,13 +4,13 @@ using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFactoryTests
 {
 	public class CommandFactoryAsyncValueCommandTests : BaseAsyncValueCommandTests
 	{
-		[Fact]
+		[Test]
 		public void AsyncValueCommand_NullExecuteParameter()
 		{
 			// Arrange
@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8604 // Possible null reference argument.
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommand_NullCanExecuteParameter()
 		{
 			// Arrange
@@ -34,15 +34,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync();
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<AsyncValueCommand>(command);
+			Assert.IsInstanceOf<AsyncValueCommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand>(command);
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommand_ObjectCanExecuteParameter()
 		{
 			// Arrange
@@ -52,15 +52,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync();
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<AsyncValueCommand>(command);
+			Assert.IsInstanceOf<AsyncValueCommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand>(command);
 		}
 
-		[Fact]
+		[Test]
 		public void AsyncValueCommand_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8604 // Possible null reference argument.
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommand_FuncBool_NullCanExecuteParameter()
 		{
 			// Arrange
@@ -87,16 +87,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync();
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<AsyncValueCommand>(command);
+			Assert.IsInstanceOf<AsyncValueCommand>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand>(command);
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommand_FuncBool_ValidExecuteParameter_ValidCanExecuteParameter()
 		{
 			// Arrange
@@ -106,16 +106,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync();
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<AsyncValueCommand>(command);
+			Assert.IsInstanceOf<AsyncValueCommand>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand>(command);
 		}
 
-		[Fact]
+		[Test]
 		public void AsyncValueCommandT_NullExecuteParameter()
 		{
 			// Arrange
@@ -129,7 +129,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8604 // Possible null reference argument.
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommandT_NullCanExecuteParameter()
 		{
 			// Arrange
@@ -139,16 +139,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync(0);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<AsyncValueCommand<int>>(command);
+			Assert.IsInstanceOf<AsyncValueCommand<int>>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand<int>>(command);
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommandT_ObjectCanExecuteParameter()
 		{
 			// Arrange
@@ -158,16 +158,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync(0);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<AsyncValueCommand<int>>(command);
+			Assert.IsInstanceOf<AsyncValueCommand<int>>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand<int>>(command);
 		}
 
-		[Fact]
+		[Test]
 		public void AsyncValueCommandT_FuncBool_NullExecuteParameter()
 		{
 			// Arrange
@@ -181,7 +181,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8604 // Possible null reference argument.
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommandT_FuncBool_NullCanExecuteParameter()
 		{
 			// Arrange
@@ -194,16 +194,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync(0);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<AsyncValueCommand<int>>(command);
+			Assert.IsInstanceOf<AsyncValueCommand<int>>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand<int>>(command);
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommandT_FuncBool_ValidExecuteParameter_ValidCanExecuteParameter()
 		{
 			// Arrange
@@ -213,16 +213,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync(0);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<AsyncValueCommand<int>>(command);
+			Assert.IsInstanceOf<AsyncValueCommand<int>>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand<int>>(command);
 		}
 
-		[Fact]
+		[Test]
 		public void AsyncValueCommandTExecuteTCanExecute_NullExecuteParameter()
 		{
 			// Arrange
@@ -236,7 +236,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8604 // Possible null reference argument.
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommandTExecuteTCanExecute_NullCanExecuteParameter()
 		{
 			// Arrange
@@ -246,17 +246,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync(0);
 
 			// Assert
-			Assert.True(command.CanExecute(true));
+			Assert.IsTrue(command.CanExecute(true));
 
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
 
-			Assert.IsType<AsyncValueCommand<int, bool>>(command);
+			Assert.IsInstanceOf<AsyncValueCommand<int, bool>>(command);
 			Assert.IsAssignableFrom<ICommand>(command);
 			Assert.IsAssignableFrom<IAsyncValueCommand<int, bool>>(command);
 		}
 
-		[Fact]
+		[Test]
 		public async Task AsyncValueCommandTExecuteTCanExecute_ObjectCanExecuteParameter()
 		{
 			// Arrange
@@ -266,7 +266,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			await command.ExecuteAsync(0);
 
 			// Assert
-			Assert.True(command.CanExecute(true));
+			Assert.IsTrue(command.CanExecute(true));
 
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
