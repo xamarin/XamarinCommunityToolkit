@@ -198,7 +198,6 @@ namespace Xamarin.CommunityToolkit.Effects
 				var longPressAction = new Action(() =>
 				{
 					sender.HandleUserInteraction(TouchInteractionStatus.Completed);
-					sender.LongPressCommand?.Execute(sender.LongPressCommandParameter ?? sender.CommandParameter);
 					sender.RaiseLongPressCompleted();
 				});
 
@@ -229,7 +228,6 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (sender.Element is IButtonController button)
 				button.SendClicked();
 
-			sender.Command?.Execute(sender.CommandParameter);
 			sender.RaiseCompleted();
 		}
 
