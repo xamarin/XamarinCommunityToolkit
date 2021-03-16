@@ -6,7 +6,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
 	public abstract partial class BaseCommand<TCanExecute>
 	{
-		readonly SynchronizationContext? synchronizationContext = SynchronizationContext.Current;
+		readonly SynchronizationContext? synchronizationContext = SynchronizationContext.Current?.GetType().FullName?.Contains("Xunit") is true // Ensures Xunit's Synchronization Context is not captured during Unit Testing (results in deadlock when captured) https://github.com/xunit/xunit/issues/883#issuecomment-226657173
+																	? null
+																	: SynchronizationContext.Current;
 
 		bool IsMainThread => SynchronizationContext.Current == synchronizationContext;
 
