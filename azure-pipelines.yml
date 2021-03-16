@@ -13,7 +13,8 @@ variables:
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
   PathToCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
   PathToSamplesSln: 'samples/XCT.Sample.sln'
-  PathToUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
+  PathToCommunityToolkitUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
+  PathToMarkupUnitTestCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
   PathToMsBuildOnMacOS: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll'
   PathToSln: 'samples/XCT.Sample.sln'
 
@@ -132,9 +133,13 @@ jobs:
 #          custom: 'nuget'
 #          arguments: 'push --source https://nuget.pkg.github.com/xamarin/index.json --api-key $(GitHub.NuGet.Token) "$(Build.ArtifactStagingDirectory)\nuget\*.nupkg"'
       - task: CmdLine@2
-        displayName: 'Run Unit Tests'
+        displayName: 'Run Community Toolkit Unit Tests'
         inputs:
-          script: dotnet test $(PathToUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
+          script: dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
+      - task: CmdLine@2
+        displayName: 'Run Markup Unit Tests'
+        inputs:
+          script: dotnet test $(PathToMarkupUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
@@ -197,21 +202,27 @@ jobs:
         inputs:
           script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CmdLine@2
-        displayName: 'Run Unit Tests'
+        displayName: 'Run CommunityToolkit Unit Tests on .NET Framework'
         inputs:
           script: |
-            dotnet restore $(PathToUnitTestCsproj) /p:Configuration=Release
-            $(PathToMsBuildOnMacOS) $(PathToUnitTestCsproj) /p:Configuration=Release /restore /t:Build
+            set -e
 
-            echo "********** Running Unit Tests on .NET Framework (xUnit does not support dotnet test for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline) **********"
-
+            # xUnit does not support dotnet test for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline)
             # UnitTestDLL for .NET Framework 4.6.1 Result: `find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`
             # XUnit Console Runner for .NET Framework 4.6.1 Result: `find ~/.nuget/packages | grep net461 | grep xunit.console.exe | grep -v config`
 
-            mono "`find ~/.nuget/packages | grep net461 | grep xunit.console.exe | grep -v config`" "`find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`"
+            dotnet restore $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release
+            $(PathToMsBuildOnMacOS) $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release /restore /t:Build
 
-            echo "***** Running Unit Tests on .NET Core *****"
-            dotnet test $(PathToUnitTestCsproj) /p:Configuration=Release /p:Platform="macOS"
+            mono "`find ~/.nuget/packages | grep net461 | grep xunit.console.exe | grep -v config`" "`find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`"
+      - task: CmdLine@2
+        displayName: 'Run CommunityToolkit Unit Tests for .NET Core'
+        inputs:
+          script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release /p:Platform="macOS"'
+      - task: CmdLine@2
+        displayName: 'Run Markup Unit Tests'
+        inputs:
+          script: 'dotnet test $(PathToMarkupUnitTestCsproj) /p:Configuration=Release'
       - task: CmdLine@2
         displayName: 'Pack NuGets'
         inputs:
