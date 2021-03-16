@@ -8,10 +8,10 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
-	internal static class BindingHelpers
+	static class BindingHelpers
 	{
-		static MethodInfo getContextMethodInfo;
-		static FieldInfo bindingFieldInfo;
+		static MethodInfo? getContextMethodInfo;
+		static FieldInfo? bindingFieldInfo;
 
 		internal static void AssertBindingExists(
 			BindableObject bindable,
@@ -19,13 +19,13 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			string path = ".",
 			BindingMode mode = BindingMode.Default,
 			bool assertConverterInstanceIsAnyNotNull = false,
-			IValueConverter converter = null,
-			object converterParameter = null,
-			string stringFormat = null,
-			object source = null,
-			object targetNullValue = default,
-			object fallbackValue = default,
-			Action<IValueConverter> assertConvert = null)
+			IValueConverter? converter = null,
+			object? converterParameter = null,
+			string? stringFormat = null,
+			object? source = null,
+			object? targetNullValue = default,
+			object? fallbackValue = default,
+			Action<IValueConverter>? assertConvert = null)
 			=> AssertBindingExists<object, object>(
 				bindable, targetProperty, path, mode, assertConverterInstanceIsAnyNotNull, converter, converterParameter,
 				stringFormat, source, targetNullValue, fallbackValue, assertConvert);
@@ -36,12 +36,12 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			string path = ".",
 			BindingMode mode = BindingMode.Default,
 			bool assertConverterInstanceIsAnyNotNull = false,
-			IValueConverter converter = null,
-			string stringFormat = null,
-			object source = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default,
-			Action<IValueConverter> assertConvert = null)
+			IValueConverter? converter = null,
+			string? stringFormat = null,
+			object? source = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default,
+			Action<IValueConverter>? assertConvert = null)
 			=> AssertBindingExists<TDest, object>(
 				bindable, targetProperty, path, mode, assertConverterInstanceIsAnyNotNull, converter, null,
 				stringFormat, source, targetNullValue, fallbackValue, assertConvert);
@@ -52,15 +52,15 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			string path = ".",
 			BindingMode mode = BindingMode.Default,
 			bool assertConverterInstanceIsAnyNotNull = false,
-			IValueConverter converter = null,
-			TParam converterParameter = default,
-			string stringFormat = null,
-			object source = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default,
-			Action<IValueConverter> assertConvert = null)
+			IValueConverter? converter = null,
+			TParam? converterParameter = default,
+			string? stringFormat = null,
+			object? source = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default,
+			Action<IValueConverter>? assertConvert = null)
 		{
-			var binding = BindingHelpers.GetBinding(bindable, targetProperty);
+			var binding = BindingHelpers.GetBinding(bindable, targetProperty) ?? throw new NullReferenceException();
 			Assert.That(binding, Is.Not.Null);
 			Assert.That(binding.Path, Is.EqualTo(path));
 			Assert.That(binding.Mode, Is.EqualTo(mode));
@@ -81,13 +81,13 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			BindableObject bindable,
 			BindableProperty targetProperty,
 			IList<BindingBase> bindings,
-			IMultiValueConverter converter = null,
+			IMultiValueConverter? converter = null,
 			BindingMode mode = BindingMode.Default,
 			bool assertConverterInstanceIsAnyNotNull = false,
-			string stringFormat = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default,
-			Action<IMultiValueConverter> assertConvert = null)
+			string? stringFormat = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default,
+			Action<IMultiValueConverter>? assertConvert = null)
 			=> AssertBindingExists<TDest, object>(
 			bindable, targetProperty, bindings, converter, null, mode, assertConverterInstanceIsAnyNotNull,
 			stringFormat, targetNullValue, fallbackValue, assertConvert);
@@ -96,16 +96,16 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			BindableObject bindable,
 			BindableProperty targetProperty,
 			IList<BindingBase> bindings,
-			IMultiValueConverter converter = null,
-			TParam converterParameter = default,
+			IMultiValueConverter? converter = null,
+			TParam? converterParameter = default,
 			BindingMode mode = BindingMode.Default,
 			bool assertConverterInstanceIsAnyNotNull = false,
-			string stringFormat = null,
-			TDest targetNullValue = default,
-			TDest fallbackValue = default,
-			Action<IMultiValueConverter> assertConvert = null)
+			string? stringFormat = null,
+			TDest? targetNullValue = default,
+			TDest? fallbackValue = default,
+			Action<IMultiValueConverter>? assertConvert = null)
 		{
-			var binding = BindingHelpers.GetMultiBinding(bindable, targetProperty);
+			var binding = GetMultiBinding(bindable, targetProperty) ?? throw new NullReferenceException();
 			Assert.That(binding, Is.Not.Null);
 			Assert.That(binding.Bindings.SequenceEqual(bindings), Is.True);
 			Assert.That(binding.Mode, Is.EqualTo(mode));
@@ -121,16 +121,16 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			assertConvert?.Invoke(binding.Converter);
 		}
 
-		internal static Binding GetBinding(BindableObject bindable, BindableProperty property) => GetBindingBase(bindable, property) as Binding;
+		internal static Binding? GetBinding(BindableObject bindable, BindableProperty property) => GetBindingBase(bindable, property) as Binding;
 
-		internal static MultiBinding GetMultiBinding(BindableObject bindable, BindableProperty property) => GetBindingBase(bindable, property) as MultiBinding;
+		internal static MultiBinding? GetMultiBinding(BindableObject bindable, BindableProperty property) => GetBindingBase(bindable, property) as MultiBinding;
 
 		/// <remarks>
 		/// Note that we are only testing whether the Markup helpers create the correct bindings,
 		/// we are not testing the binding mechanism itself; this is why it is justified to access
 		/// private binding API's here for testing.
 		/// </remarks>
-		internal static BindingBase GetBindingBase(BindableObject bindable, BindableProperty property)
+		internal static BindingBase? GetBindingBase(BindableObject bindable, BindableProperty property)
 		{
 			if (getContextMethodInfo == null)
 				getContextMethodInfo = typeof(BindableObject).GetMethod("GetContext", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -145,24 +145,24 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			return bindingFieldInfo?.GetValue(context) as BindingBase;
 		}
 
-		internal static IValueConverter AssertConvert<TValue, TConvertedValue>(this IValueConverter converter, TValue value, object parameter, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo culture = null)
+		internal static IValueConverter AssertConvert<TValue, TConvertedValue>(this IValueConverter converter, TValue value, object? parameter, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo? culture = null)
 		{
-			Assert.That(converter?.Convert(value, typeof(object), parameter, culture), Is.EqualTo(backOnly ? default(TConvertedValue) : expectedConvertedValue));
-			Assert.That(converter?.ConvertBack(expectedConvertedValue, typeof(object), parameter, culture), Is.EqualTo(twoWay || backOnly ? value : default(TValue)));
+			Assert.That(converter.Convert(value, typeof(object), parameter, culture), Is.EqualTo(backOnly ? default(TConvertedValue) : expectedConvertedValue));
+			Assert.That(converter.ConvertBack(expectedConvertedValue, typeof(object), parameter, culture), Is.EqualTo(twoWay || backOnly ? value : default(TValue)));
 			return converter;
 		}
 
-		internal static IValueConverter AssertConvert<TValue, TConvertedValue>(this IValueConverter converter, TValue value, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo culture = null)
+		internal static IValueConverter AssertConvert<TValue, TConvertedValue>(this IValueConverter converter, TValue value, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo? culture = null)
 			=> AssertConvert(converter, value, null, expectedConvertedValue, twoWay: twoWay, backOnly: backOnly, culture: culture);
 
-		internal static IMultiValueConverter AssertConvert<TConvertedValue>(this IMultiValueConverter converter, object[] values, object parameter, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo culture = null)
+		internal static IMultiValueConverter AssertConvert<TConvertedValue>(this IMultiValueConverter converter, object[] values, object? parameter, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo? culture = null)
 		{
-			Assert.That(converter?.Convert(values, typeof(TConvertedValue), parameter, culture), Is.EqualTo(backOnly ? BindableProperty.UnsetValue : expectedConvertedValue));
-			var convertedBackValues = converter?.ConvertBack(expectedConvertedValue, null, parameter, culture);
+			Assert.That(converter.Convert(values, typeof(TConvertedValue), parameter, culture), Is.EqualTo(backOnly ? BindableProperty.UnsetValue : expectedConvertedValue));
+			var convertedBackValues = converter.ConvertBack(expectedConvertedValue, null, parameter, culture);
 			if (twoWay || backOnly)
 			{
 				Assert.That(convertedBackValues.Length, Is.EqualTo(values.Length));
-				for (int i = 0; i < values.Length; i++)
+				for (var i = 0; i < values.Length; i++)
 					Assert.That(convertedBackValues[i], Is.EqualTo(values[i]));
 			}
 			else
@@ -170,7 +170,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			return converter;
 		}
 
-		internal static IMultiValueConverter AssertConvert<TConvertedValue>(this IMultiValueConverter converter, object[] values, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo culture = null)
+		internal static IMultiValueConverter AssertConvert<TConvertedValue>(this IMultiValueConverter converter, object[] values, TConvertedValue expectedConvertedValue, bool twoWay = false, bool backOnly = false, CultureInfo? culture = null)
 		=> AssertConvert<TConvertedValue>(converter, values, null, expectedConvertedValue, twoWay, backOnly, culture);
 	}
 }
