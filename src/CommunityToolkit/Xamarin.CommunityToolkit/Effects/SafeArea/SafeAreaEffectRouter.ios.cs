@@ -13,8 +13,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	public class SafeAreaEffectRouter : PlatformEffect
 	{
 		Thickness initialMargin;
-		NSObject didChangeStatusBarOrientationNotificationObserver;
-		NSObject didChangeStatusBarFrameNotificationObserver;
+		NSObject? didChangeStatusBarOrientationNotificationObserver;
+		NSObject? didChangeStatusBarFrameNotificationObserver;
 
 		new View Element => (View)base.Element;
 
