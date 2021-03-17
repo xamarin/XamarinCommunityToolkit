@@ -22,10 +22,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 				if (sender == null || e == null)
 					throw new ArgumentNullException(nameof(sender));
 
-				Assert.NotNull(sender);
+				Assert.IsNotNull(sender);
 				Assert.AreEqual(GetType(), sender.GetType());
 
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 				Assert.AreEqual(stringEventArg, e);
 
 				didEventFire = true;
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			{
 				Assert.Null(sender);
 
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 				Assert.AreEqual(stringEventArg, e);
 
 				didEventFire = true;
@@ -81,7 +81,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 				if (sender == null)
 					throw new ArgumentNullException(nameof(sender));
 
-				Assert.NotNull(sender);
+				Assert.IsNotNull(sender);
 				Assert.AreEqual(GetType(), sender.GetType());
 
 				Assert.Null(e);

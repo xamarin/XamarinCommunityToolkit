@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(0));
 
 			Assert.IsInstanceOf<Forms.Command>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 
 		[Test]
@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(0));
 
 			Assert.IsInstanceOf<Forms.Command>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 
 		[Test]
@@ -99,7 +99,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(0));
 
 			Assert.IsInstanceOf<Forms.Command>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 
 		[Test]
@@ -132,7 +132,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(0));
 
 			Assert.IsInstanceOf<Forms.Command>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 
 		[Test]
@@ -176,7 +176,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.False(command.CanExecute(string.Empty));
 
 			Assert.IsInstanceOf<Forms.Command<int>>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 	}
 }

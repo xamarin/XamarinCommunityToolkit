@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = "File.mp4" };
 
-			Assert.NotNull(mediaElement.Source);
+			Assert.IsNotNull(mediaElement.Source);
 			Assert.IsInstanceOf<Core.FileMediaSource>(mediaElement.Source);
 			Assert.AreEqual("File.mp4", ((Core.FileMediaSource?)mediaElement.Source)?.File);
 		}
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = new Uri("http://xamarin.com/media.mp4") };
 
-			Assert.NotNull(mediaElement.Source);
+			Assert.IsNotNull(mediaElement.Source);
 			Assert.IsInstanceOf<Core.UriMediaSource>(mediaElement.Source);
 			Assert.AreEqual("http://xamarin.com/media.mp4", ((Core.UriMediaSource?)mediaElement.Source)?.Uri?.AbsoluteUri);
 		}
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		{
 			var mediaElement = new UI.Views.MediaElement { Source = "http://xamarin.com/media.mp4" };
 
-			Assert.NotNull(mediaElement.Source);
+			Assert.IsNotNull(mediaElement.Source);
 			Assert.IsInstanceOf<Core.UriMediaSource>(mediaElement.Source);
 			Assert.AreEqual("http://xamarin.com/media.mp4", ((Core.UriMediaSource?)mediaElement.Source)?.Uri?.AbsoluteUri);
 		}
@@ -83,7 +83,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			var mediaElement = new UI.Views.MediaElement();
 			mediaElement.SetValue(UI.Views.MediaElement.SourceProperty, "media.mp4");
 
-			Assert.NotNull(mediaElement.Source);
+			Assert.IsNotNull(mediaElement.Source);
 			Assert.IsInstanceOf<Core.FileMediaSource>(mediaElement.Source);
 			Assert.AreEqual("media.mp4", ((Core.FileMediaSource?)mediaElement.Source)?.File);
 		}
@@ -98,7 +98,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 
 			mediaElement.BindingContext = "media.mp4";
 
-			Assert.NotNull(mediaElement.Source);
+			Assert.IsNotNull(mediaElement.Source);
 			Assert.IsInstanceOf<Core.FileMediaSource>(mediaElement.Source);
 			Assert.AreEqual("media.mp4", ((Core.FileMediaSource?)mediaElement.Source)?.File);
 		}
@@ -113,7 +113,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 
 			mediaElement.BindingContext = "http://xamarin.com/media.mp4";
 
-			Assert.NotNull(mediaElement.Source);
+			Assert.IsNotNull(mediaElement.Source);
 			Assert.IsInstanceOf<Core.UriMediaSource>(mediaElement.Source);
 			Assert.AreEqual("http://xamarin.com/media.mp4", ((Core.UriMediaSource?)mediaElement.Source)?.Uri?.AbsoluteUri);
 		}
@@ -128,7 +128,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 
 			mediaElement.BindingContext = new Uri("http://xamarin.com/media.mp4");
 
-			Assert.NotNull(mediaElement.Source);
+			Assert.IsNotNull(mediaElement.Source);
 			Assert.IsInstanceOf<Core.UriMediaSource>(mediaElement.Source);
 			Assert.AreEqual("http://xamarin.com/media.mp4", ((Core.UriMediaSource?)mediaElement.Source)?.Uri?.AbsoluteUri);
 		}

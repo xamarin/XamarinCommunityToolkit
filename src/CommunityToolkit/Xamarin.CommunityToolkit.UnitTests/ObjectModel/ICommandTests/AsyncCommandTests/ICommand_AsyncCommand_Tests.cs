@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			actualInvalidCommandParameterException = Assert.Throws<InvalidCommandParameterException>(() => command.Execute(Delay));
 
 			// Assert
-			Assert.NotNull(actualInvalidCommandParameterException);
+			Assert.IsNotNull(actualInvalidCommandParameterException);
 			Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
 		}
 
@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			actualInvalidCommandParameterException = Assert.Throws<InvalidCommandParameterException>(() => command.Execute("Hello World"));
 
 			// Assert
-			Assert.NotNull(actualInvalidCommandParameterException);
+			Assert.IsNotNull(actualInvalidCommandParameterException);
 			Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
 		}
 
@@ -86,7 +86,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			actualInvalidCommandParameterException = Assert.Throws<InvalidCommandParameterException>(() => command.Execute(null));
 
 			// Assert
-			Assert.NotNull(actualInvalidCommandParameterException);
+			Assert.IsNotNull(actualInvalidCommandParameterException);
 			Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
 		}
 

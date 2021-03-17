@@ -24,8 +24,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 
 			void HandleDelegateTest(string message)
 			{
-				Assert.NotNull(message);
-				Assert.NotEmpty(message);
+				Assert.IsNotNull(message);
+				Assert.IsNotEmpty(message);
 
 				didEventFire = true;
 				ActionEvent -= HandleDelegateTest;
@@ -47,8 +47,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 
 			void HandleDelegateTest(string message)
 			{
-				Assert.NotNull(message);
-				Assert.NotEmpty(message);
+				Assert.IsNotNull(message);
+				Assert.IsNotEmpty(message);
 
 				didEventFire = true;
 			}
@@ -71,8 +71,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			ActionEvent -= HandleDelegateTest;
 			void HandleDelegateTest(string message)
 			{
-				Assert.NotNull(message);
-				Assert.NotEmpty(message);
+				Assert.IsNotNull(message);
+				Assert.IsNotEmpty(message);
 
 				didEventFire = true;
 			}
@@ -94,8 +94,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			ActionEvent += HandleDelegateTest;
 			void HandleDelegateTest(string message)
 			{
-				Assert.NotNull(message);
-				Assert.NotEmpty(message);
+				Assert.IsNotNull(message);
+				Assert.IsNotEmpty(message);
 
 				didEventFire = true;
 			}
@@ -117,8 +117,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 
 			void HandleDelegateTest(string message)
 			{
-				Assert.NotNull(message);
-				Assert.NotEmpty(message);
+				Assert.IsNotNull(message);
+				Assert.IsNotEmpty(message);
 
 				didEventFire = true;
 			}

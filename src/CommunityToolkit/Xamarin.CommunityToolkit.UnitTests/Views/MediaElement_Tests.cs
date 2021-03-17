@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 
 			media.Source = uri;
 
-			Assert.NotNull(media.Source);
+			Assert.IsNotNull(media.Source);
 			Assert.IsInstanceOf<UriMediaSource>(media.Source);
 			Assert.AreEqual(uri, ((UriMediaSource?)media.Source)?.Uri);
 		}

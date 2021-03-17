@@ -7,15 +7,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {
 	public sealed class ObservableObject_Tests
 	{
-		readonly Person person = new Person
-		{
-			FirstName = "James",
-			LastName = "Montemagno"
-		};
-
 		[Test]
 		public void OnPropertyChanged()
 		{
+			var person = new Person
+			{
+				FirstName = "James",
+				LastName = "Montemagno"
+			};
+
 			PropertyChangedEventArgs? updated = null;
 			person.PropertyChanged += (sender, args) =>
 			{
@@ -24,13 +24,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			person.FirstName = "Motz";
 
-			Assert.NotNull(updated);
+			Assert.IsNotNull(updated);
 			Assert.AreEqual(nameof(person.FirstName), updated?.PropertyName);
 		}
 
 		[Test]
 		public void OnDidntChange()
 		{
+			var person = new Person
+			{
+				FirstName = "James",
+				LastName = "Montemagno"
+			};
+
 			PropertyChangedEventArgs? updated = null;
 			person.PropertyChanged += (sender, args) =>
 			{
@@ -45,6 +51,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 		[Test]
 		public void OnChangedEvent()
 		{
+			var person = new Person
+			{
+				FirstName = "James",
+				LastName = "Montemagno"
+			};
+
 			var triggered = false;
 			person.Changed = () =>
 			{
@@ -59,6 +71,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 		[Test]
 		public void OnChangingEvent()
 		{
+			var person = new Person
+			{
+				FirstName = "James",
+				LastName = "Montemagno"
+			};
+
 			var triggered = false;
 			person.Changing = () =>
 			{
@@ -73,6 +91,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 		[Test]
 		public void ValidateEvent()
 		{
+			var person = new Person
+			{
+				FirstName = "James",
+				LastName = "Montemagno"
+			};
+
 			var contol = "Motz";
 			var triggered = false;
 			person.Validate = (oldValue, newValue) =>
@@ -90,6 +114,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 		[Test]
 		public void NotValidateEvent()
 		{
+			var person = new Person
+			{
+				FirstName = "James",
+				LastName = "Montemagno"
+			};
+
 			var contol = person.FirstName;
 			var triggered = false;
 			person.Validate = (oldValue, newValue) =>
@@ -107,6 +137,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 		[Test]
 		public void ValidateEventException()
 		{
+			var person = new Person
+			{
+				FirstName = "James",
+				LastName = "Montemagno"
+			};
+
 			person.Validate = (oldValue, newValue) =>
 			{
 				throw new ArgumentOutOfRangeException();
@@ -118,7 +154,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 				return Task.CompletedTask;
 			});
 
-			Assert.NotNull(result);
+			Assert.IsNotNull(result);
 		}
 	}
 }

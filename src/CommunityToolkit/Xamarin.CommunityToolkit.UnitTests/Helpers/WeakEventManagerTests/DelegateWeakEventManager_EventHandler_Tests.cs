@@ -19,10 +19,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 				if (sender == null)
 					throw new ArgumentNullException(nameof(sender));
 
-				Assert.NotNull(sender);
+				Assert.IsNotNull(sender);
 				Assert.AreEqual(GetType(), sender.GetType());
 
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 
 				didEventFire = true;
 				TestEvent -= HandleTestEvent;
@@ -45,7 +45,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleTestEvent(object? sender, EventArgs e)
 			{
 				Assert.Null(sender);
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 
 				didEventFire = true;
 				TestEvent -= HandleTestEvent;
@@ -72,10 +72,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 				if (sender == null)
 					throw new ArgumentNullException(nameof(sender));
 
-				Assert.NotNull(sender);
+				Assert.IsNotNull(sender);
 				Assert.AreEqual(GetType(), sender.GetType());
 
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 				Assert.AreEqual(EventArgs.Empty, e);
 
 				didEventFire = true;
@@ -101,7 +101,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 				if (sender == null)
 					throw new ArgumentNullException(nameof(sender));
 
-				Assert.NotNull(sender);
+				Assert.IsNotNull(sender);
 				Assert.AreEqual(GetType(), sender.GetType());
 
 				Assert.Null(e);

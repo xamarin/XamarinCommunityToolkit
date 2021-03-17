@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		public void PageExtension_DisplaySnackBarAsyncWithOptions_PlatformNotSupportedException()
 		{
 			var page = new ContentPage();
-			Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplaySnackBarAsync(Arg.Any<SnackBarOptions>()));
+			Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplaySnackBarAsync(new SnackBarOptions()));
 		}
 
 		[Test]
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		public void PageExtension_DisplayToastAsyncWithOptions_PlatformNotSupportedException()
 		{
 			var page = new ContentPage();
-			Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync(Arg.Any<ToastOptions>()));
+			Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync(new ToastOptions()));
 		}
 #endif
 	}

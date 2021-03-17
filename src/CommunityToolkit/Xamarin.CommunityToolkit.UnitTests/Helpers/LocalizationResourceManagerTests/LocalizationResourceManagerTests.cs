@@ -28,6 +28,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizationResourceManager
 		public void LocalizationResourceManager_GetCulture_Equal_Indexer()
 		{
 			_ = localizationManager ?? throw new NullReferenceException();
+			_ = resourceManager ?? throw new NullReferenceException();
 
 			// Arrange
 			var testString = "test";

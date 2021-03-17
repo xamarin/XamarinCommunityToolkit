@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			localizedString = generator;
 
 			// Assert
-			Assert.NotNull(localizedString);
+			Assert.IsNotNull(localizedString);
 		}
 
 		[Test]

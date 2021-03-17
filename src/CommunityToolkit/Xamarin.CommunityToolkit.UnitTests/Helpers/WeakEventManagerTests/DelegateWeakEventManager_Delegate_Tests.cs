@@ -25,10 +25,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 
 			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
-				Assert.NotNull(sender);
+				Assert.IsNotNull(sender);
 				Assert.AreEqual(GetType(), sender?.GetType());
 
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 
 				didEventFire = true;
 				PropertyChanged -= HandleDelegateTest;
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
 				Assert.Null(sender);
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 
 				didEventFire = true;
 				PropertyChanged -= HandleDelegateTest;
@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 
 			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
-				Assert.NotNull(sender);
+				Assert.IsNotNull(sender);
 				Assert.AreEqual(GetType(), sender?.GetType());
 
 				Assert.Null(e);

@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(0));
 
 			Assert.IsInstanceOf<AsyncCommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand>(command);
+			Assert.IsInstanceOf<IAsyncCommand>(command);
 		}
 
 		[Test]
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(0));
 
 			Assert.IsInstanceOf<AsyncCommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand>(command);
+			Assert.IsInstanceOf<IAsyncCommand>(command);
 		}
 
 		[Test]
@@ -90,9 +90,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(string.Empty));
 			Assert.IsTrue(command.CanExecute(0));
 
+			Assert.IsInstanceOf<ICommand>(command);
 			Assert.IsInstanceOf<AsyncCommand>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand>(command);
+			Assert.IsInstanceOf<IAsyncCommand>(command);
 		}
 
 		[Test]
@@ -109,9 +109,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(string.Empty));
 			Assert.IsTrue(command.CanExecute(0));
 
+			Assert.IsInstanceOf<ICommand>(command);
 			Assert.IsInstanceOf<AsyncCommand>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand>(command);
+			Assert.IsInstanceOf<IAsyncCommand>(command);
 		}
 
 		[Test]
@@ -142,9 +142,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(string.Empty));
 			Assert.IsTrue(command.CanExecute(0));
 
+			Assert.IsInstanceOf<ICommand>(command);
 			Assert.IsInstanceOf<AsyncCommand<int>>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand<int>>(command);
+			Assert.IsInstanceOf<IAsyncCommand<int>>(command);
 		}
 
 		[Test]
@@ -161,9 +161,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(string.Empty));
 			Assert.IsTrue(command.CanExecute(0));
 
+			Assert.IsInstanceOf<ICommand>(command);
 			Assert.IsInstanceOf<AsyncCommand<int>>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand<int>>(command);
+			Assert.IsInstanceOf<IAsyncCommand<int>>(command);
 		}
 
 		[Test]
@@ -197,9 +197,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(string.Empty));
 			Assert.IsTrue(command.CanExecute(0));
 
+			Assert.IsInstanceOf<ICommand>(command);
 			Assert.IsInstanceOf<AsyncCommand<int>>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand<int>>(command);
+			Assert.IsInstanceOf<IAsyncCommand<int>>(command);
 		}
 
 		[Test]
@@ -216,9 +216,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.IsTrue(command.CanExecute(string.Empty));
 			Assert.IsTrue(command.CanExecute(0));
 
+			Assert.IsInstanceOf<ICommand>(command);
 			Assert.IsInstanceOf<AsyncCommand<int>>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand<int>>(command);
+			Assert.IsInstanceOf<IAsyncCommand<int>>(command);
 		}
 
 		[Test]
@@ -252,9 +252,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
 
+			Assert.IsInstanceOf<ICommand>(command);
 			Assert.IsInstanceOf<AsyncCommand<int, bool>>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand<int, bool>>(command);
+			Assert.IsInstanceOf<IAsyncCommand<int, bool>>(command);
 		}
 
 		[Test]
@@ -272,9 +272,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(0));
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(string.Empty));
 
+			Assert.IsInstanceOf<ICommand>(command);
 			Assert.IsInstanceOf<AsyncCommand<int, bool>>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
-			Assert.IsAssignableFrom<IAsyncCommand<int, bool>>(command);
+			Assert.IsInstanceOf<IAsyncCommand<int, bool>>(command);
 		}
 	}
 }
