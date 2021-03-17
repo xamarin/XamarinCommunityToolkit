@@ -88,10 +88,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			{
 				case UIGestureRecognizerState.Began:
 				case UIGestureRecognizerState.Changed:
-					effect.HandleHover(HoverStatus.Entered);
+					effect?.HandleHover(HoverStatus.Entered);
 					break;
 				case UIGestureRecognizerState.Ended:
-					effect.HandleHover(HoverStatus.Exited);
+					effect?.HandleHover(HoverStatus.Exited);
 					break;
 			}
 		}

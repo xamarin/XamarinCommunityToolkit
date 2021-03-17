@@ -124,15 +124,15 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 
 			if (touchInteractionStatus == TouchInteractionStatus.Started)
 			{
-				effect.HandleUserInteraction(TouchInteractionStatus.Started);
+				effect?.HandleUserInteraction(TouchInteractionStatus.Started);
 				touchInteractionStatus = null;
 			}
 
-			effect.HandleTouch(status);
+			effect?.HandleTouch(status);
 			if (touchInteractionStatus.HasValue)
-				effect.HandleUserInteraction(touchInteractionStatus.Value);
+				effect?.HandleUserInteraction(touchInteractionStatus.Value);
 
-			if (!effect.NativeAnimation)
+			if (effect == null || !effect.NativeAnimation)
 				return;
 
 			if (longTapStarted && !tapCompleted)

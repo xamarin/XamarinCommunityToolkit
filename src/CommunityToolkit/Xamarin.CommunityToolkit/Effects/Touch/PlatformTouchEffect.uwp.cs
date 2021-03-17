@@ -112,11 +112,11 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
-			effect.HandleHover(HoverStatus.Entered);
+			effect?.HandleHover(HoverStatus.Entered);
 
 			if (isPressed)
 			{
-				effect.HandleTouch(TouchStatus.Started);
+				effect?.HandleTouch(TouchStatus.Started);
 				AnimateTilt(pointerDownStoryboard);
 			}
 		}
@@ -128,7 +128,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			if (isPressed)
 			{
-				effect.HandleTouch(TouchStatus.Canceled);
+				effect?.HandleTouch(TouchStatus.Canceled);
 				AnimateTilt(pointerUpStoryboard);
 			}
 
@@ -142,9 +142,9 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			isPressed = false;
 
-			effect.HandleTouch(TouchStatus.Canceled);
-			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
-			effect.HandleHover(HoverStatus.Exited);
+			effect?.HandleTouch(TouchStatus.Canceled);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect?.HandleHover(HoverStatus.Exited);
 
 			AnimateTilt(pointerUpStoryboard);
 		}
@@ -160,12 +160,12 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			isPressed = false;
 
 			if (effect.Status != TouchStatus.Canceled)
-				effect.HandleTouch(TouchStatus.Canceled);
+				effect?.HandleTouch(TouchStatus.Canceled);
 
-			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
 
 			if (effect.HoverStatus != HoverStatus.Exited)
-				effect.HandleHover(HoverStatus.Exited);
+				effect?.HandleHover(HoverStatus.Exited);
 
 			AnimateTilt(pointerUpStoryboard);
 		}
@@ -177,16 +177,16 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			if (isPressed && (effect.HoverStatus == HoverStatus.Entered))
 			{
-				effect.HandleTouch(TouchStatus.Completed);
+				effect?.HandleTouch(TouchStatus.Completed);
 				AnimateTilt(pointerUpStoryboard);
 			}
 			else if (effect.HoverStatus != HoverStatus.Exited)
 			{
-				effect.HandleTouch(TouchStatus.Canceled);
+				effect?.HandleTouch(TouchStatus.Canceled);
 				AnimateTilt(pointerUpStoryboard);
 			}
 
-			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
 
 			isPressed = false;
 			isIntentionalCaptureLoss = true;
@@ -201,8 +201,8 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			Container.CapturePointer(e.Pointer);
 
-			effect.HandleUserInteraction(TouchInteractionStatus.Started);
-			effect.HandleTouch(TouchStatus.Started);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Started);
+			effect?.HandleTouch(TouchStatus.Started);
 
 			AnimateTilt(pointerDownStoryboard);
 
