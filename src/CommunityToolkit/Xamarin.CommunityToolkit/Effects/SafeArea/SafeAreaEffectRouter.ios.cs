@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
@@ -12,6 +13,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	public class SafeAreaEffectRouter : PlatformEffect
 	{
 		Thickness initialMargin;
+		NSObject didChangeStatusBarOrientationNotificationObserver;
+		NSObject didChangeStatusBarFrameNotificationObserver;
 
 		new View Element => (View)base.Element;
 
@@ -25,21 +28,39 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (!IsEligibleToConsumeEffect)
 				return;
 
+			didChangeStatusBarOrientationNotificationObserver = NSNotificationCenter.DefaultCenter.AddObserver(
+				UIApplication.DidChangeStatusBarOrientationNotification, (NSNotification n) => { UpdateInsets(); });
+
+			didChangeStatusBarFrameNotificationObserver = NSNotificationCenter.DefaultCenter.AddObserver(
+				UIApplication.DidChangeStatusBarFrameNotification, (NSNotification n) => { UpdateInsets(); });
+
+			initialMargin = Element.Margin;
+			UpdateInsets();
+		}
+
+		protected override void OnDetached()
+		{
+			if (!IsEligibleToConsumeEffect)
+				return;
+
+			if (didChangeStatusBarOrientationNotificationObserver != null)
+				NSNotificationCenter.DefaultCenter.RemoveObserver(didChangeStatusBarOrientationNotificationObserver);
+			if (didChangeStatusBarFrameNotificationObserver != null)
+				NSNotificationCenter.DefaultCenter.RemoveObserver(didChangeStatusBarFrameNotificationObserver);
+
+			Element.Margin = initialMargin;
+		}
+
+		void UpdateInsets()
+		{
 			var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
 			var safeArea = SafeAreaEffect.GetSafeArea(Element);
 
-			initialMargin = Element.Margin;
 			Element.Margin = new Thickness(
 				initialMargin.Left + CalculateInsets(insets.Left, safeArea.Left),
 				initialMargin.Top + CalculateInsets(insets.Top, safeArea.Top),
 				initialMargin.Right + CalculateInsets(insets.Right, safeArea.Right),
 				initialMargin.Bottom + CalculateInsets(insets.Bottom, safeArea.Bottom));
-		}
-
-		protected override void OnDetached()
-		{
-			if (IsEligibleToConsumeEffect)
-				Element.Margin = initialMargin;
 		}
 
 		double CalculateInsets(double insetsComponent, bool shouldUseInsetsComponent) => shouldUseInsetsComponent ? insetsComponent : 0;
