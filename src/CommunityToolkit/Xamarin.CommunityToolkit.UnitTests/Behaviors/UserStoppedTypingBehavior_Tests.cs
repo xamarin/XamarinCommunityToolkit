@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 			// act
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeThreshold * 2);
 
 			// assert
 			Assert.IsTrue(commandHasBeenExecuted);
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 			// act
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeThreshold * 2);
 
 			// assert
 			Assert.IsTrue(commandHasBeenExecuted);
@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			entry.Text = "12";
 			entry.Text = "123";
 			entry.Text = "1234";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeThreshold * 2);
 
 			// assert
 			Assert.AreEqual(1, timesExecuted);
@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			entry.Text = "1";
 			entry.Text = "12";
 			entry.Text = "123";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeThreshold * 2);
 
 			// assert
 			Assert.IsTrue(commandHasBeenExecuted);
@@ -119,7 +119,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 			// act
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeThreshold * 2);
 
 			// assert
 			Assert.False(commandHasBeenExecuted);
@@ -136,7 +136,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			entry.Focus();
 
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeThreshold * 2);
 
 			// assert
 			Assert.IsTrue(entry.IsFocused);
@@ -151,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 			// act
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeThreshold * 2);
 
 			// assert
 			Assert.IsTrue(commandHasBeenExecuted);
