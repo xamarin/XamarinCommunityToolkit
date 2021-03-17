@@ -85,7 +85,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			entry.Focus();
 			entry.Text = "1";
 
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeThreshold * 2);
 
 			// assert
 			Assert.False(entry.IsFocused);
