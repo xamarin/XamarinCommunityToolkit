@@ -329,6 +329,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				UpdateCurrent();
 		}
 
+		protected override void OnBindingContextChanged()
+		{
+			base.OnBindingContextChanged();
+
+			if (Content != null)
+				SetInheritedBindingContext(Content, BindingContext);
+		}
+
 		internal virtual void OnTabTapped(TabTappedEventArgs e)
 		{
 			if (IsEnabled)

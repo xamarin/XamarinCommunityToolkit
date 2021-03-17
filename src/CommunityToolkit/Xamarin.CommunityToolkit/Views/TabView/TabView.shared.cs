@@ -430,17 +430,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				UpdateIsEnabled();
 		}
 
-		protected override void OnBindingContextChanged()
-		{
-			base.OnBindingContextChanged();
-
-			if (TabItems == null || TabItems.Count == 0)
-				return;
-
-			foreach (var tabViewItem in TabItems)
-				UpdateTabViewItemBindingContext(tabViewItem);
-		}
-
 		void OnTabViewItemPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (sender is TabViewItem tabViewItem)
@@ -572,14 +561,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		void AddTabViewItemFromTemplate(object? item, int index = -1) => AddTabViewItemFromTemplateToTabStrip(item, index);
-
-		void UpdateTabViewItemBindingContext(TabViewItem tabViewItem)
-		{
-			if (tabViewItem == null || tabViewItem.Content == null)
-				return;
-
-			tabViewItem.Content.BindingContext = BindingContext;
-		}
 
 		void AddSelectionTapRecognizer(View view)
 		{
