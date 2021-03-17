@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		public static IEnumerable<object[]> GetData() =>
 			new List<object[]>
 			{
-				new object[] { testDateTimeNow, testDateTimeNow },
+				new object[] { testDateTimeOffsetNow, testDateTimeNow },
 				new object[] { DateTimeOffset.MinValue, DateTime.MinValue },
 				new object[] { DateTimeOffset.MaxValue, DateTime.MaxValue },
 				new object[] { testDateTimeOffsetLocal, testDateTimeLocal },
@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		public static IEnumerable<object[]> GetDataReverse() =>
 			new List<object[]>
 			{
-				new object[] { testDateTimeNow, testDateTimeNow },
+				new object[] { testDateTimeNow, testDateTimeOffsetNow },
 				new object[] { DateTime.MinValue, DateTimeOffset.MinValue },
 				new object[] { DateTime.MaxValue, DateTimeOffset.MaxValue },
 				new object[] { testDateTimeLocal, testDateTimeOffsetLocal },
