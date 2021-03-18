@@ -2,13 +2,13 @@
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using System.Linq;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
 	public class SegmentedView_Tests
 	{
-		[Fact]
+		[Test]
 		public void Text_Segments_Show()
 		{
 			var sv = new SegmentedView
@@ -16,11 +16,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				ItemsSource = new string[] { "A", "B", "C" }
 			};
 
-			Assert.Equal(3, sv.Items.Count());
-			Assert.Equal(SegmentMode.Text, sv.DisplayMode);
+			Assert.AreEqual(3, sv.Items.Count());
+			Assert.AreEqual(SegmentMode.Text, sv.DisplayMode);
 		}
 
-		[Fact]
+		[Test]
 		public void Image_Segments_Show()
 		{
 			var sv = new SegmentedView
@@ -29,11 +29,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				ItemsSource = new string[] { "img.png", "img.png", "img.png" }
 			};
 
-			Assert.Equal(3, sv.Items.Count());
-			Assert.Equal(SegmentMode.Image, sv.DisplayMode);
+			Assert.AreEqual(3, sv.Items.Count());
+			Assert.AreEqual(SegmentMode.Image, sv.DisplayMode);
 		}
 
-		[Fact]
+		[Test]
 		public void CornerRadius_Uniformed_Is_Set()
 		{
 			var r = 10;
@@ -44,10 +44,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				ItemsSource = new string[] { "img.png", "img.png", "img.png" },
 				CornerRadius = new CornerRadius(r)
 			};
-			Assert.Equal(expected, sv.CornerRadius);
+			Assert.AreEqual(expected, sv.CornerRadius);
 		}
 
-		[Fact]
+		[Test]
 		public void CornerRadius_Individual_Is_Set()
 		{
 			var tl = 5;
@@ -62,10 +62,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				ItemsSource = new string[] { "img.png", "img.png", "img.png" },
 				CornerRadius = new CornerRadius(tl, tr, bl, br)
 			};
-			Assert.Equal(expected, sv.CornerRadius);
+			Assert.AreEqual(expected, sv.CornerRadius);
 		}
 
-		[Fact]
+		[Test]
 		public void Collection_Changes_Are_Reflected()
 		{
 			var og = new string[] { "A", "B", "C" };
@@ -75,13 +75,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			{
 				ItemsSource = og
 			};
-			Assert.Equal(3, sv.Items.Count());
+			Assert.AreEqual(3, sv.Items.Count());
 
 			sv.ItemsSource = updated;
-			Assert.Equal(2, sv.Items.Count());
+			Assert.AreEqual(2, sv.Items.Count());
 		}
 
-		[Fact]
+		[Test]
 		public void Color_Changes_Are_Reflected()
 		{
 			var og = Color.Red;
@@ -92,10 +92,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 				Color = og
 			};
 
-			Assert.Equal(og, sv.Color);
+			Assert.AreEqual(og, sv.Color);
 
 			sv.Color = updated;
-			Assert.Equal(updated, sv.Color);
+			Assert.AreEqual(updated, sv.Color);
 		}
 	}
 }
