@@ -1,29 +1,29 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
 	public class CameraView_Tests
 	{
-		[Fact]
+		[Test]
 		public void TestConstructor()
 		{
 			var camera = new CameraView();
 
 			Assert.False(camera.IsBusy);
 			Assert.False(camera.IsAvailable);
-			Assert.Equal(CameraOptions.Default, camera.CameraOptions);
+			Assert.AreEqual(CameraOptions.Default, camera.CameraOptions);
 
 			// See TODO on CameraView.SavePhotoToFile
 			// Assert.False(camera.SavePhotoToFile);
 
-			Assert.Equal(CameraCaptureMode.Default, camera.CaptureMode);
-			Assert.Equal(CameraFlashMode.Off, camera.FlashMode);
+			Assert.AreEqual(CameraCaptureMode.Default, camera.CaptureMode);
+			Assert.AreEqual(CameraFlashMode.Off, camera.FlashMode);
 		}
 
-		[Fact]
+		[Test]
 		public void TestOnMediaCaptured()
 		{
 			var camera = new CameraView();
@@ -33,10 +33,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			camera.MediaCaptured += (_, e) => fired = e == args;
 			camera.RaiseMediaCaptured(args);
 
-			Assert.True(fired);
+			Assert.IsTrue(fired);
 		}
 
-		[Fact]
+		[Test]
 		public void TestOnMediaCapturedFailed()
 		{
 			var camera = new CameraView();
@@ -45,10 +45,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			camera.MediaCaptureFailed += (_, e) => fired = e == "123";
 			camera.RaiseMediaCaptureFailed("123");
 
-			Assert.True(fired);
+			Assert.IsTrue(fired);
 		}
 
-		[Fact]
+		[Test]
 		public void TestOnShutterClicked()
 		{
 			var camera = new CameraView();
@@ -57,10 +57,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			camera.ShutterClicked += (sender, e) => fired = true;
 			camera.Shutter();
 
-			Assert.True(fired);
+			Assert.IsTrue(fired);
 		}
 
-		[Fact]
+		[Test]
 		public void TestShutterCommand()
 		{
 			var camera = new CameraView();
@@ -73,10 +73,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 
 			camera.ShutterCommand?.Execute(null);
 
-			Assert.True(trigged);
+			Assert.IsTrue(trigged);
 		}
 
-		[Fact]
+		[Test]
 		public void TestShutterCommandFromVM()
 		{
 			var vm = new CameraViewModel();
@@ -96,7 +96,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 
 			vm.ShutterCommand.Execute(null);
 
-			Assert.True(trigged);
+			Assert.IsTrue(trigged);
 		}
 
 		class CameraViewModel
