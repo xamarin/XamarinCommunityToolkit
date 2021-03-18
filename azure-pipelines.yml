@@ -108,7 +108,7 @@ jobs:
           Contents: 'SignList.xml'
           TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
       - task: MSBuild@1
-        displayName: Pack NuGets
+        displayName: Pack Community Toolkit NuGets
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
@@ -198,35 +198,29 @@ jobs:
           version: $(NETCORE_TEST_VERSION_2_1)
           includePreviewVersions: false
       - task: CmdLine@2
-        displayName: 'Build Xamarin.CommunityToolkit.csproj'
+        displayName: 'Build Markup'
+        inputs:
+          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CmdLine@2
+        displayName: 'Build Community Toolkit'
         inputs:
           script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
-          script: 'dotnet test $(PathToMarkupUnitTestCsproj) /p:Configuration=Release'
+          script: 'dotnet test $(PathToMarkupUnitTestCsproj) /p:Configuration=Release -p:BuildInParallel=false'
       - task: CmdLine@2
-        displayName: 'Run CommunityToolkit Unit Tests for .NET Core'
+        displayName: 'Run Community Toolkit Unit Tests'
         inputs:
-          script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release /p:Platform="macOS"'
+          script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release -p:BuildInParallel=false'
       - task: CmdLine@2
-        displayName: 'Pack NuGets'
+        displayName: 'Pack Markup NuGets'
+        inputs:
+          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupUnitTestCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+      - task: CmdLine@2
+        displayName: 'Pack CommunityToolkit NuGets'
         inputs:
           script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
-      - task: CmdLine@2
-        displayName: 'Run CommunityToolkit Unit Tests on .NET Framework'
-        inputs:
-          script: |
-            set -e
-
-            # xUnit does not support dotnet test for .NET Framework: https://xunit.net/docs/getting-started/netfx/cmdline)
-            # UnitTestDLL for .NET Framework 4.6.1 Result: `find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`
-            # XUnit Console Runner for .NET Framework 4.6.1 Result: `find ~/.nuget/packages | grep net461 | grep xunit.console.exe | grep -v config`
-
-            dotnet restore $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release
-            $(PathToMsBuildOnMacOS) $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release /restore /t:Build
-
-            mono "`find ~/.nuget/packages | grep net461 | grep xunit.console.exe | grep -v config`" "`find . -name Xamarin.CommunityToolkit.UnitTests.dll | grep bin | grep 461`"
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
