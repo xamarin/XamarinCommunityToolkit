@@ -9,6 +9,12 @@ namespace Xamarin.CommunityToolkit.Effects
 {
 	public class TouchEffect : RoutingEffect
 	{
+		public const string UnpressedVisualState = "Unpressed";
+
+		public const string PressedVisualState = "Pressed";
+
+		public const string HoveredVisualState = "Hovered";
+
 		public event EventHandler<TouchStatusChangedEventArgs> StatusChanged
 		{
 			add => weakEventManager.AddEventHandler(value);
@@ -1160,10 +1166,20 @@ namespace Xamarin.CommunityToolkit.Effects
 			=> weakEventManager.RaiseEvent(Element, new HoverStatusChangedEventArgs(HoverStatus), nameof(HoverStatusChanged));
 
 		internal void RaiseCompleted()
-			=> weakEventManager.RaiseEvent(Element, new TouchCompletedEventArgs(CommandParameter), nameof(Completed));
+		{
+			var element = Element;
+			var parameter = CommandParameter;
+			Command?.Execute(parameter);
+			weakEventManager.RaiseEvent(element, new TouchCompletedEventArgs(parameter), nameof(Completed));
+		}
 
 		internal void RaiseLongPressCompleted()
-			=> weakEventManager.RaiseEvent(Element, new LongPressCompletedEventArgs(LongPressCommandParameter ?? CommandParameter), nameof(LongPressCompleted));
+		{
+			var element = Element;
+			var parameter = LongPressCommandParameter ?? CommandParameter;
+			LongPressCommand?.Execute(parameter);
+			weakEventManager.RaiseEvent(element, new LongPressCompletedEventArgs(parameter), nameof(LongPressCompleted));
+		}
 
 		internal void ForceUpdateState(bool animated = true)
 		{

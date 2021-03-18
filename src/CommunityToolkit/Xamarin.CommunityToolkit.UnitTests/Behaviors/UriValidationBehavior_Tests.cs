@@ -3,22 +3,21 @@ using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class UriValidationBehavior_Tests
 	{
-		public UriValidationBehavior_Tests()
-			=> Device.PlatformServices = new MockPlatformServices();
+		[SetUp]
+		public void Setup() => Device.PlatformServices = new MockPlatformServices();
 
-		[Theory]
-		[InlineData(@"http://microsoft.com", UriKind.Absolute, true)]
-		[InlineData(@"microsoft/xamarin/news", UriKind.Relative, true)]
-		[InlineData(@"http://microsoft.com", UriKind.RelativeOrAbsolute, true)]
-		[InlineData(@"microsoftcom", UriKind.Absolute, false)]
-		[InlineData(@"microsoft\\\\\xamarin/news", UriKind.Relative, false)]
-		[InlineData(@"ht\\\.com", UriKind.RelativeOrAbsolute, false)]
+		[TestCase(@"http://microsoft.com", UriKind.Absolute, true)]
+		[TestCase(@"microsoft/xamarin/news", UriKind.Relative, true)]
+		[TestCase(@"http://microsoft.com", UriKind.RelativeOrAbsolute, true)]
+		[TestCase(@"microsoftcom", UriKind.Absolute, false)]
+		[TestCase(@"microsoft\\\\\xamarin/news", UriKind.Relative, false)]
+		[TestCase(@"ht\\\.com", UriKind.RelativeOrAbsolute, false)]
 		public async Task IsValid(string value, UriKind uriKind, bool expectedValue)
 		{
 			// Arrange
@@ -41,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			await behavior.ForceValidate();
 
 			// Assert
-			Assert.Equal(expectedValue, behavior.IsValid);
+			Assert.AreEqual(expectedValue, behavior.IsValid);
 		}
 	}
 }

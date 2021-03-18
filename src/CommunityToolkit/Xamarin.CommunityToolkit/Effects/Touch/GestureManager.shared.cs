@@ -198,7 +198,6 @@ namespace Xamarin.CommunityToolkit.Effects
 				var longPressAction = new Action(() =>
 				{
 					sender.HandleUserInteraction(TouchInteractionStatus.Completed);
-					sender.LongPressCommand?.Execute(sender.LongPressCommandParameter ?? sender.CommandParameter);
 					sender.RaiseLongPressCompleted();
 				});
 
@@ -229,7 +228,6 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (sender.Element is IButtonController button)
 				button.SendClicked();
 
-			sender.Command?.Execute(sender.CommandParameter);
 			sender.RaiseCompleted();
 		}
 
@@ -286,10 +284,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		void UpdateVisualState(VisualElement visualElement, TouchState touchState, HoverState hoverState)
 		{
 			var state = touchState == TouchState.Pressed
-				? nameof(TouchState.Pressed)
+				? TouchEffect.PressedVisualState
 				: hoverState == HoverState.Hovered
-					? nameof(HoverState.Hovered)
-					: nameof(TouchState.Normal);
+					? TouchEffect.HoveredVisualState
+					: TouchEffect.UnpressedVisualState;
 
 			VisualStateManager.GoToState(visualElement, state);
 		}
