@@ -159,7 +159,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			isPressed = false;
 
-			if (effect.Status != TouchStatus.Canceled)
+			if (effect?.Status != TouchStatus.Canceled)
 				effect?.HandleTouch(TouchStatus.Canceled);
 
 			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
