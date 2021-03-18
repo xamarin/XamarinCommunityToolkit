@@ -4,16 +4,16 @@ using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class EventToCommandBehaviorGeneric_Tests
 	{
-		public EventToCommandBehaviorGeneric_Tests()
-			=> Device.PlatformServices = new MockPlatformServices();
+		[SetUp]
+		public void Setup() => Device.PlatformServices = new MockPlatformServices();
 
-		[Fact]
+		[Test]
 		public void ArgumentExceptionIfSpecifiedEventDoesNotExist()
 		{
 			var listView = new ListView();
@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.Throws<ArgumentException>(() => listView.Behaviors.Add(behavior));
 		}
 
-		[Fact]
+		[Test]
 		public void NoExceptionIfSpecifiedEventExists()
 		{
 			var listView = new ListView();
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			listView.Behaviors.Add(behavior);
 		}
 
-		[Fact]
+		[Test]
 		public void NoExceptionIfAttachedToPage()
 		{
 			var page = new ContentPage();
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			page.Behaviors.Add(behavior);
 		}
 
-		[Fact]
+		[Test]
 		public void NoExceptionWhenTheEventArgsAreNotNull()
 		{
 			var vm = new ViewModelCoffe();
@@ -65,10 +65,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 			TriggerEventToCommandBehavior(behavior, notNullArgs);
 
-			Assert.Equal(coffe.Name, vm.CoffeeName);
+			Assert.AreEqual(coffe.Name, vm.CoffeeName);
 		}
 
-		[Fact]
+		[Test]
 		public void ParameterOfTypeInt()
 		{
 			var vm = new ViewModelCoffe();
@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			TriggerEventToCommandBehavior(behavior, nullArgs);
 		}
 
-		[Fact]
+		[Test]
 		public void NoExceptionWhenTheSelectedItemIsNull()
 		{
 			var vm = new ViewModelCoffe();
