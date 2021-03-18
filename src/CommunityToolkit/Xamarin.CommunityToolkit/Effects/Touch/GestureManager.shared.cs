@@ -284,10 +284,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		void UpdateVisualState(VisualElement visualElement, TouchState touchState, HoverState hoverState)
 		{
 			var state = touchState == TouchState.Pressed
-				? nameof(TouchState.Pressed)
+				? TouchEffect.PressedVisualState
 				: hoverState == HoverState.Hovered
-					? nameof(HoverState.Hovered)
-					: nameof(TouchState.Normal);
+					? TouchEffect.HoveredVisualState
+					: TouchEffect.UnpressedVisualState;
 
 			VisualStateManager.GoToState(visualElement, state);
 		}
