@@ -1,12 +1,12 @@
 ﻿using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class SetFocusOnEntryCompleted_Tests
 	{
-		[Fact]
+		[Test]
 		public void DoesNotSetFocusBeforeCompletion()
 		{
 			// arrange
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.False(entry2.IsFocused);
 		}
 
-		[Fact]
+		[Test]
 		public void SetsFocusWhenCompleted()
 		{
 			// arrange
@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			entry1.SendCompleted();
 
 			// assert
-			Assert.True(entry2.IsFocused);
+			Assert.IsTrue(entry2.IsFocused);
 		}
 
 		public Entry CreateEntry(VisualElement? nextElement = null)
