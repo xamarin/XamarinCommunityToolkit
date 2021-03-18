@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
@@ -6,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	[TestFixture]
 	public class VisualElementExtensionsTests : MarkupBaseTestFixture<BoxView>
 	{
-		BoxView BoxView => Bindable;
+		BoxView BoxView => Bindable ?? throw new NullReferenceException();
 
 		[Test]
 		public void Height()
