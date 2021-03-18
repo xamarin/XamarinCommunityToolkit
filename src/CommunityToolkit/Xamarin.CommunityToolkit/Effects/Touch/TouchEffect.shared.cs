@@ -9,6 +9,12 @@ namespace Xamarin.CommunityToolkit.Effects
 {
 	public class TouchEffect : RoutingEffect
 	{
+		public const string UnpressedVisualState = "Unpressed";
+
+		public const string PressedVisualState = "Pressed";
+
+		public const string HoveredVisualState = "Hovered";
+
 		public event EventHandler<TouchStatusChangedEventArgs> StatusChanged
 		{
 			add => weakEventManager.AddEventHandler(value);
