@@ -164,7 +164,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
 
-			if (effect.HoverStatus != HoverStatus.Exited)
+			if (effect?.HoverStatus != HoverStatus.Exited)
 				effect?.HandleHover(HoverStatus.Exited);
 
 			AnimateTilt(pointerUpStoryboard);
