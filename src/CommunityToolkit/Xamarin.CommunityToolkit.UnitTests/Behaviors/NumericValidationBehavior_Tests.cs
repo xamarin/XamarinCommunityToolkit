@@ -3,48 +3,47 @@ using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class NumericValidationBehavior_Tests
 	{
-		public NumericValidationBehavior_Tests()
-			=> Device.PlatformServices = new MockPlatformServices();
+		[SetUp]
+		public void Setup() => Device.PlatformServices = new MockPlatformServices();
 
-		[Theory]
-		[InlineData("en-US", "15.2", 1.0, 16.0, 0, 16, true)]
-		[InlineData("en-US", "15.", 1.0, 16.0, 0, 1, true)]
-		[InlineData("en-US", "15.88", 1.0, 16.0, 2, 2, true)]
-		[InlineData("en-US", "0.99", 0.9, 2.0, 0, 16, true)]
-		[InlineData("en-US", ".99", 0.9, 2.0, 0, 16, true)]
-		[InlineData("en-US", "1,115.2", 1.0, 2000.0, 0, 16, true)]
-		[InlineData("de-DE", "15,2", 1.0, 16.0, 0, 16, true)]
-		[InlineData("de-DE", "15,", 1.0, 16.0, 0, 1, true)]
-		[InlineData("de-DE", "15,88", 1.0, 16.0, 2, 2, true)]
-		[InlineData("de-DE", "0,99", 0.9, 2.0, 0, 16, true)]
-		[InlineData("de-DE", ",99", 0.9, 2.0, 0, 16, true)]
-		[InlineData("de-DE", "1.115,2", 1.0, 2000.0, 0, 16, true)]
-		[InlineData("en-US", "15.3", 16.0, 20.0, 0, 16, false)]
-		[InlineData("en-US", "15.3", 0.0, 15.0, 0, 16, false)]
-		[InlineData("en-US", "15.", 1.0, 16.0, 0, 0, false)]
-		[InlineData("en-US", ".7", 0.0, 16.0, 0, 0, false)]
-		[InlineData("en-US", "15", 1.0, 16.0, 1, 16, false)]
-		[InlineData("en-US", "", 0.0, 16.0, 0, 16, false)]
-		[InlineData("en-US", " ", 0.0, 16.0, 0, 16, false)]
-		[InlineData("en-US", null, 0.0, 16.0, 0, 16, false)]
-		[InlineData("en-US", "15,2", 1.0, 16.0, 0, 16, false)]
-		[InlineData("en-US", "1.115,2", 1.0, 2000.0, 0, 16, false)]
-		[InlineData("de-DE", "15,3", 16.0, 20.0, 0, 16, false)]
-		[InlineData("de-DE", "15,3", 0.0, 15.0, 0, 16, false)]
-		[InlineData("de-DE", "15,", 1.0, 16.0, 0, 0, false)]
-		[InlineData("de-DE", ",7", 0.0, 16.0, 0, 0, false)]
-		[InlineData("de-DE", "15", 1.0, 16.0, 1, 16, false)]
-		[InlineData("de-DE", "", 0.0, 16.0, 0, 16, false)]
-		[InlineData("de-DE", " ", 0.0, 16.0, 0, 16, false)]
-		[InlineData("de-DE", null, 0.0, 16.0, 0, 16, false)]
-		[InlineData("de-DE", "15.2", 1.0, 16.0, 0, 16, false)]
-		[InlineData("de-DE", "1,115.2", 1.0, 2000.0, 0, 16, false)]
+		[TestCase("en-US", "15.2", 1.0, 16.0, 0, 16, true)]
+		[TestCase("en-US", "15.", 1.0, 16.0, 0, 1, true)]
+		[TestCase("en-US", "15.88", 1.0, 16.0, 2, 2, true)]
+		[TestCase("en-US", "0.99", 0.9, 2.0, 0, 16, true)]
+		[TestCase("en-US", ".99", 0.9, 2.0, 0, 16, true)]
+		[TestCase("en-US", "1,115.2", 1.0, 2000.0, 0, 16, true)]
+		[TestCase("de-DE", "15,2", 1.0, 16.0, 0, 16, true)]
+		[TestCase("de-DE", "15,", 1.0, 16.0, 0, 1, true)]
+		[TestCase("de-DE", "15,88", 1.0, 16.0, 2, 2, true)]
+		[TestCase("de-DE", "0,99", 0.9, 2.0, 0, 16, true)]
+		[TestCase("de-DE", ",99", 0.9, 2.0, 0, 16, true)]
+		[TestCase("de-DE", "1.115,2", 1.0, 2000.0, 0, 16, true)]
+		[TestCase("en-US", "15.3", 16.0, 20.0, 0, 16, false)]
+		[TestCase("en-US", "15.3", 0.0, 15.0, 0, 16, false)]
+		[TestCase("en-US", "15.", 1.0, 16.0, 0, 0, false)]
+		[TestCase("en-US", ".7", 0.0, 16.0, 0, 0, false)]
+		[TestCase("en-US", "15", 1.0, 16.0, 1, 16, false)]
+		[TestCase("en-US", "", 0.0, 16.0, 0, 16, false)]
+		[TestCase("en-US", " ", 0.0, 16.0, 0, 16, false)]
+		[TestCase("en-US", null, 0.0, 16.0, 0, 16, false)]
+		[TestCase("en-US", "15,2", 1.0, 16.0, 0, 16, false)]
+		[TestCase("en-US", "1.115,2", 1.0, 2000.0, 0, 16, false)]
+		[TestCase("de-DE", "15,3", 16.0, 20.0, 0, 16, false)]
+		[TestCase("de-DE", "15,3", 0.0, 15.0, 0, 16, false)]
+		[TestCase("de-DE", "15,", 1.0, 16.0, 0, 0, false)]
+		[TestCase("de-DE", ",7", 0.0, 16.0, 0, 0, false)]
+		[TestCase("de-DE", "15", 1.0, 16.0, 1, 16, false)]
+		[TestCase("de-DE", "", 0.0, 16.0, 0, 16, false)]
+		[TestCase("de-DE", " ", 0.0, 16.0, 0, 16, false)]
+		[TestCase("de-DE", null, 0.0, 16.0, 0, 16, false)]
+		[TestCase("de-DE", "15.2", 1.0, 16.0, 0, 16, false)]
+		[TestCase("de-DE", "1,115.2", 1.0, 2000.0, 0, 16, false)]
 		public async Task IsValid(string culture, string value, double minValue, double maxValue, int minDecimalPlaces, int maxDecimalPlaces, bool expectedValue)
 		{
 			// Arrange
@@ -71,7 +70,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 				await behavior.ForceValidate();
 
 				// Assert
-				Assert.Equal(expectedValue, behavior.IsValid);
+				Assert.AreEqual(expectedValue, behavior.IsValid);
 			}
 			finally
 			{
