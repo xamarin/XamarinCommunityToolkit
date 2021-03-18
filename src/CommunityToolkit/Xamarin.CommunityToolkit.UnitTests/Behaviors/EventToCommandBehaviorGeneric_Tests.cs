@@ -116,7 +116,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 			public string Roaster { get; set; } = string.Empty;
 
-			public string Name { get; set; } = string.Empty;
+			public string? Name { get; set; }
 
 			public string Image { get; set; } = string.Empty;
 		}
@@ -125,7 +125,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		{
 			public Command<Coffee> SelectedCommand { get; set; }
 
-			public string CoffeeName { get; set; } = string.Empty;
+			public string? CoffeeName { get; set; }
 
 			public ViewModelCoffe()
 			{
@@ -137,7 +137,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 				if (coffee == null)
 					return;
 
-				CoffeeName = coffee.Name;
+				CoffeeName = coffee?.Name;
 			}
 		}
 	}
