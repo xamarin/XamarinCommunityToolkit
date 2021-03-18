@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 {
-	[Collection(nameof(BaseCommandTests))]
+	[NonParallelizable]
 	public abstract class BaseCommandTests
 	{
 		public const int ICommandTestTimeout = Delay * 6;

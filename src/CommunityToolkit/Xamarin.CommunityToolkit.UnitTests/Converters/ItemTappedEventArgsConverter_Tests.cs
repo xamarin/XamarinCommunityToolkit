@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -20,19 +20,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 #pragma warning restore CS0618 // Type or member is obsolete
 			};
 
-		[Theory]
-		[MemberData(nameof(GetData))]
+		[TestCaseSource(nameof(GetData))]
 		public void ItemTappedEventArgsConverter(ItemTappedEventArgs value, object expectedResult)
 		{
 			var itemTappedEventArgsConverter = new ItemTappedEventArgsConverter();
 
 			var result = itemTappedEventArgsConverter.Convert(value, typeof(ItemTappedEventArgsConverter), null, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData("Random String")]
+		[TestCase("Random String")]
 		public void InValidConverterValuesThrowArgumenException(object value)
 		{
 			var itemTappedEventArgsConverter = new ItemTappedEventArgsConverter();
