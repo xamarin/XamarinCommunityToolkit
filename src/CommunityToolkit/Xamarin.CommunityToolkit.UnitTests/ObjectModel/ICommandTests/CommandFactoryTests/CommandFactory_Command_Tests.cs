@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFactoryTests
 {
 	public class CommandFactoryCommandTests : BaseCommandTests
 	{
-		[Fact]
+		[Test]
 		public void Action_NullExecuteParameter()
 		{
 			// Arrange
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8604 // Possible null reference argument.
 		}
 
-		[Fact]
+		[Test]
 		public void Action_ValidExecuteParameter()
 		{
 			// Arrange
@@ -31,15 +31,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			command.Execute(null);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<Forms.Command>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<Forms.Command>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 
-		[Fact]
+		[Test]
 		public void Action_NullCanExecuteParameter()
 		{
 			// Arrange
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
-		[Fact]
+		[Test]
 		public void Action_ValidCanExecuteParameter()
 		{
 			// Arrange
@@ -62,15 +62,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			command.Execute(null);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<Forms.Command>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<Forms.Command>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 
-		[Fact]
+		[Test]
 		public void ActionObject_NullExecuteParameter()
 		{
 			// Arrange
@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8604 // Possible null reference argument.
 		}
 
-		[Fact]
+		[Test]
 		public void ActionObject_ValidExecuteParameter()
 		{
 			// Arrange
@@ -94,15 +94,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			command.Execute(null);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<Forms.Command>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<Forms.Command>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 
-		[Fact]
+		[Test]
 		public void ActionObject_NullCanExecuteParameter()
 		{
 			// Arrange
@@ -115,7 +115,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
-		[Fact]
+		[Test]
 		public void ActionObject_ValidCanExecuteParameter()
 		{
 			// Arrange
@@ -127,15 +127,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			command.Execute(string.Empty);
 
 			// Assert
-			Assert.True(command.CanExecute(null));
-			Assert.True(command.CanExecute(string.Empty));
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(null));
+			Assert.IsTrue(command.CanExecute(string.Empty));
+			Assert.IsTrue(command.CanExecute(0));
 
-			Assert.IsType<Forms.Command>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<Forms.Command>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 
-		[Fact]
+		[Test]
 		public void ActionInt_NullExecuteParameter()
 		{
 			// Arrange
@@ -149,7 +149,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8604 // Possible null reference argument.
 		}
 
-		[Fact]
+		[Test]
 		public void ActionInt_NullCanExecuteParameter()
 		{
 			// Arrange
@@ -162,7 +162,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
-		[Fact]
+		[Test]
 		public void ActionInt_ValidCanExecuteParameter()
 		{
 			// Arrange
@@ -171,12 +171,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFa
 			// Act
 
 			// Assert
-			Assert.True(command.CanExecute(0));
+			Assert.IsTrue(command.CanExecute(0));
 			Assert.False(command.CanExecute(null));
 			Assert.False(command.CanExecute(string.Empty));
 
-			Assert.IsType<Forms.Command<int>>(command);
-			Assert.IsAssignableFrom<ICommand>(command);
+			Assert.IsInstanceOf<Forms.Command<int>>(command);
+			Assert.IsInstanceOf<ICommand>(command);
 		}
 	}
 }

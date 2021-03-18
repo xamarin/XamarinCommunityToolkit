@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Converters;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -12,15 +12,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			new object[] { new List<MultiConverterParameter>() { { new MultiConverterParameter() { Value = "Param 1", } }, { new MultiConverterParameter() { Value = "Param 2", } } } },
 		};
 
-		[Theory]
-		[MemberData(nameof(GetData))]
+		[TestCaseSource(nameof(GetData))]
 		public void MultiConverter(object value)
 		{
 			var multiConverter = new MultiConverter();
 
 			var result = multiConverter.Convert(value, typeof(MultiConverter), null, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, value);
+			Assert.AreEqual(result, value);
 		}
 	}
 }
