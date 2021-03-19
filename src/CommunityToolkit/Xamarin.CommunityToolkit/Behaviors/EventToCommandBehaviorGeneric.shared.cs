@@ -18,7 +18,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				// changing it to the default value to avoid a cast exception
 				parameter = default(TType);
-				parameter = Convert.ChangeType(parameter, typeof(TType));
 			}
 
 			var command = Command;
