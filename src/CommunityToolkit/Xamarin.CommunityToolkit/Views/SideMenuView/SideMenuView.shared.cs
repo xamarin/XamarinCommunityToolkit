@@ -85,7 +85,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(ToolkitPlatform.Context ?? throw new NullReferenceException());
+				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(ToolkitPlatform.Context);
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
