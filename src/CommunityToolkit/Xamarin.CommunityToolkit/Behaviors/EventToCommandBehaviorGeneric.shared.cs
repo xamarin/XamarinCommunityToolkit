@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				?? EventArgsConverter?.Convert(eventArgs, typeof(object), null, null)
 				?? eventArgs;
 
-			if (parameter?.GetType() != typeof(TType))
+			if (parameter is not TType)
 			{
 				// changing it to the default value to avoid a cast exception
 				parameter = default(TType);
