@@ -17,8 +17,16 @@ namespace Xamarin.CommunityToolkit
 			get
 			{
 				var page = Forms.Application.Current.MainPage;
-				var renderer = page.GetRenderer();
-				return renderer.View.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
+				if (page != null)
+				{
+					var renderer = page.GetRenderer();
+					return renderer.View.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
+				}
+
+				// If MainPage isn't set yet, this is the only way to get Context
+#pragma warning disable CS0618 // Type or member is obsolete
+				return Forms.Forms.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
+#pragma warning restore CS0618 // Type or member is obsolete
 			}
 		}
 	}

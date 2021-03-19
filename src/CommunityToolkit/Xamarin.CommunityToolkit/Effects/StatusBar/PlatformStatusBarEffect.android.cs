@@ -62,17 +62,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		FormsAppCompatActivity Activity
-		{
-			get
-			{
-				if (Control != null)
-					return (FormsAppCompatActivity)(Control.Context ?? throw new NullReferenceException());
-				else
-					return (FormsAppCompatActivity)(Container.Context ?? throw new NullReferenceException());
-			}
-		}
-
 		internal static void AddBarAppearanceFlag(FormsAppCompatActivity activity, StatusBarVisibility flag) =>
 			SetBarAppearance(activity, barAppearance => barAppearance |= flag);
 
@@ -95,5 +84,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
 			return window;
 		}
+
+		internal static FormsAppCompatActivity Activity => (FormsAppCompatActivity)ToolkitPlatform.Context.GetActivity();
 	}
 }

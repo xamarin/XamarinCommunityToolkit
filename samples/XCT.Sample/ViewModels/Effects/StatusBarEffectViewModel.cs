@@ -1,5 +1,6 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
@@ -35,6 +36,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			}
 		}
 
+		public NavigationBarStyle NavigationBarStyle => (NavigationBarStyle)(int)StatusBarStyle;
+
 		public int RedSliderValue
 		{
 			get => redSliderValue;
@@ -56,19 +59,25 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 		public bool IsDefaultChecked
 		{
 			get => isDefaultChecked;
-			set => SetProperty(ref isDefaultChecked, value, onChanged: () => OnPropertyChanged(nameof(StatusBarStyle)));
+			set => SetProperty(ref isDefaultChecked, value, onChanged: NotifyStyleChanged);
 		}
 
 		public bool IsLightContentChecked
 		{
 			get => isLightContentChecked;
-			set => SetProperty(ref isLightContentChecked, value, onChanged: () => OnPropertyChanged(nameof(StatusBarStyle)));
+			set => SetProperty(ref isLightContentChecked, value, onChanged: NotifyStyleChanged);
 		}
 
 		public bool IsDarkContentChecked
 		{
 			get => isDarkContentChecked;
-			set => SetProperty(ref isDarkContentChecked, value, onChanged: () => OnPropertyChanged(nameof(StatusBarStyle)));
+			set => SetProperty(ref isDarkContentChecked, value, onChanged: NotifyStyleChanged);
+		}
+
+		void NotifyStyleChanged()
+		{
+			OnPropertyChanged(nameof(StatusBarStyle));
+			OnPropertyChanged(nameof(NavigationBarStyle));
 		}
 	}
 }
