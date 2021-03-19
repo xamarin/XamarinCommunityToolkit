@@ -1,9 +1,8 @@
 ﻿using Android.OS;
 using Android.Views;
-using Xamarin.CommunityToolkit.Android.Effects;
+using Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using static Xamarin.CommunityToolkit.Android.Effects.PlatformStatusBarEffect;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {
@@ -26,16 +25,16 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 			{
 				case NavigationBarStyle.Default:
 				case NavigationBarStyle.LightContent:
-					RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					BarStyle.RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
 				case NavigationBarStyle.DarkContent:
-					AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					BarStyle.AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
 			}
 		}
 
-		static FormsAppCompatActivity Activity => PlatformStatusBarEffect.Activity;
+		static Window GetCurrentWindow() => BarStyle.GetCurrentWindow(Activity);
 
-		static Window GetCurrentWindow() => PlatformStatusBarEffect.GetCurrentWindow(Activity);
+		static FormsAppCompatActivity Activity => (FormsAppCompatActivity)ToolkitPlatform.Context.GetActivity();
 	}
 }

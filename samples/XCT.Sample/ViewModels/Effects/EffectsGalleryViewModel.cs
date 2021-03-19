@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Effects;
 
@@ -12,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(SafeAreaEffectPage),
 				nameof(SafeAreaEffect),
-				"The SafeAreaEffect is an effectwill help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
+				"The SafeAreaEffect is an effect will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
 
 			new SectionModel(
 				typeof(RemoveBorderEffectPage),
@@ -22,7 +23,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(SelectAllTextEffectPage),
 				nameof(SelectAllTextEffect),
-				"The SelectAllTextEffect is an effect that will select all text in an Entry / Editor when it becomes focussed"),
+				"The SelectAllTextEffect is an effect that will select all text in an Entry / Editor when it becomes focused"),
 
 			new SectionModel(
 				typeof(IconTintColorEffectPage),
@@ -46,8 +47,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 
 			new SectionModel(
 				typeof(StatusBarEffectPage),
-				nameof(StatusBarEffect),
-				"The StatusBarEffect allows to change status bar color.")
+				nameof(StatusBar),
+				"The StatusBar allows to change status bar color.")
 		};
 	}
 }

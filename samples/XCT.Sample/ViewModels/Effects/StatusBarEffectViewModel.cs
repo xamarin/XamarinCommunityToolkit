@@ -1,6 +1,6 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
+using Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects

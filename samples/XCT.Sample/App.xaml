@@ -58,8 +58,8 @@
             <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
             <Setter Property="ios:Page.UseSafeArea" Value="False" />
             <Setter Property="NavigationPage.BackButtonTitle" Value="" />
-            <Setter Property="xct:StatusBarEffect.Color" Value="{StaticResource PrimaryColor}" />
-            <Setter Property="xct:StatusBarEffect.Style" Value="DarkContent" />
+            <Setter Property="xct:StatusBar.Color" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="xct:StatusBar.Style" Value="DarkContent" />
             <Setter Property="android:NavigationBar.Color" Value="{StaticResource PrimaryColor}"/>
             <Setter Property="android:NavigationBar.Style" Value="DarkContent" />
         </Style>

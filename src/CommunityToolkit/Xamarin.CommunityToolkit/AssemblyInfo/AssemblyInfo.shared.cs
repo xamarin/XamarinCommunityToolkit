@@ -9,4 +9,5 @@ using Xamarin.Forms;
 [assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.Effects")]
 [assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.Extensions")]
 [assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.UI.Views")]
+[assembly: XmlnsDefinition("http://xamarin.com/schemas/2020/toolkit", "Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform")]
 #endif

@@ -5,8 +5,8 @@
                 xmlns:android="clr-namespace:Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.CommunityToolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.StatusBarEffectPage"
-                xct:StatusBarEffect.Color="{Binding StatusBarColor}"
-                xct:StatusBarEffect.Style="{Binding StatusBarStyle}"
+                xct:StatusBar.Color="{Binding StatusBarColor}"
+                xct:StatusBar.Style="{Binding StatusBarStyle}"
                 android:NavigationBar.Color="{Binding StatusBarColor}"
                 android:NavigationBar.Style="{Binding NavigationBarStyle}"
                 x:Name="Page">
