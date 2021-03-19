@@ -8,14 +8,14 @@
                 xct:StatusBar.Color="{Binding StatusBarColor}"
                 xct:StatusBar.Style="{Binding StatusBarStyle}"
                 android:NavigationBar.Color="{Binding StatusBarColor}"
-                android:NavigationBar.Style="{Binding NavigationBarStyle}"
-                x:Name="Page">
+                android:NavigationBar.Style="{Binding NavigationBarStyle}">
 
     <ScrollView Padding="{StaticResource ContentPadding}">
         <StackLayout Spacing="30"
                      Padding="15, 0">
 
-            <Label Text="Slide to change StatusBarColor color"/>
+            <Label Text="NavigationBar supported only on Android"/>
+            <Label Text="Slide to change StatusBar and NavigationBar color"/>
 
             <Slider Minimum="0" Maximum="255" Value="{Binding RedSliderValue}" MaximumTrackColor="Red" ThumbColor="Red"
                 MinimumTrackColor="Red"  Margin="20,10"/>
@@ -27,7 +27,7 @@
                 MinimumTrackColor="Blue"  Margin="20,10"/>
 
             <StackLayout Spacing="15">
-                <Label Text="Select StatusBarStyle"/>
+                <Label Text="Select StatusBar and NavigationBar style"/>
                 <RadioButton Content="Default" IsChecked="{Binding IsDefaultChecked}" />
                 <RadioButton Content="Light content" IsChecked="{Binding IsLightContentChecked}" />
                 <RadioButton Content="Dark content" IsChecked="{Binding IsDarkContentChecked}" />
