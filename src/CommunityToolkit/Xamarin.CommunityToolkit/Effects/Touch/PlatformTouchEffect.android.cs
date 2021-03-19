@@ -243,7 +243,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			if (isHoverSupported && ((status == TouchStatus.Canceled && effect?.HoverStatus == HoverStatus.Entered)
 				|| (status == TouchStatus.Started && effect?.HoverStatus == HoverStatus.Exited)))
-				effect.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
+				effect?.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
 
 			if (effect?.Status != status)
 			{
@@ -259,17 +259,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		void OnHoverEnter()
 		{
 			isHoverSupported = true;
-
-			if (effect != null)
-				effect.HandleHover(HoverStatus.Entered);
+			effect?.HandleHover(HoverStatus.Entered);
 		}
 
 		void OnHoverExit()
 		{
 			isHoverSupported = true;
-
-			if (effect != null)
-				effect.HandleHover(HoverStatus.Exited);
+			effect?.HandleHover(HoverStatus.Exited);
 		}
 
 		void OnClick(object? sender, EventArgs args)
