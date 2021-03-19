@@ -69,6 +69,28 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		}
 
 		[Test]
+		public void NoExceptionWhenTheEventArgsAreNotNull_InheritedType()
+		{
+			var vm = new ViewModelCoffe();
+			var behavior = new EventToCommandBehavior<Coffee>
+			{
+				EventName = nameof(ListView.ItemTapped),
+				EventArgsConverter = new ItemSelectedEventArgsConverter(),
+				Command = vm.SelectedCommand
+			};
+
+			Assert.Null(vm.CoffeeName);
+			var coffe = new Starbucks { Id = 1, Name = "Latte" };
+			var eventArgs = new SelectedItemChangedEventArgs(coffe, 1);
+
+			var notNullArgs = new object?[] { null, eventArgs };
+
+			TriggerEventToCommandBehavior(behavior, notNullArgs);
+
+			Assert.AreEqual(coffe.Name, vm.CoffeeName);
+		}
+
+		[Test]
 		public void ParameterOfTypeInt()
 		{
 			var vm = new ViewModelCoffe();
@@ -104,10 +126,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.Null(vm.CoffeeName);
 		}
 
-		void TriggerEventToCommandBehavior<T>(EventToCommandBehavior<T> eventToCommand, object?[] args)
+		static void TriggerEventToCommandBehavior<T>(EventToCommandBehavior<T> eventToCommand, object?[] args)
 		{
 			var method = eventToCommand.GetType().GetMethod("OnTriggerHandled", BindingFlags.Instance | BindingFlags.NonPublic);
 			method?.Invoke(eventToCommand, args);
+		}
+
+		class Starbucks : Coffee
+		{
 		}
 
 		class Coffee
