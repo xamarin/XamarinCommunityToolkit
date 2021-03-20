@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			GetCurrentWindow().SetNavigationBarColor(color.ToAndroid());
+			BarStyle.GetCurrentWindow().SetNavigationBarColor(color.ToAndroid());
 		}
 
 		static partial void SetStyle(NavigationBarStyle style)
@@ -25,16 +25,12 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 			{
 				case NavigationBarStyle.Default:
 				case NavigationBarStyle.LightContent:
-					BarStyle.RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
 				case NavigationBarStyle.DarkContent:
-					BarStyle.AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					BarStyle.AddBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
 			}
 		}
-
-		static Window GetCurrentWindow() => BarStyle.GetCurrentWindow(Activity);
-
-		static FormsAppCompatActivity Activity => (FormsAppCompatActivity)ToolkitPlatform.Context.GetActivity();
 	}
 }

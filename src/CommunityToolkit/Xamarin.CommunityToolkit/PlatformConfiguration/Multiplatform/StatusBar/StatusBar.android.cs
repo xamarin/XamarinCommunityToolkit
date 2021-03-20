@@ -12,7 +12,8 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
 
-			Activity.SetStatusBarColor(color.ToAndroid());
+			var activity = (FormsAppCompatActivity)ToolkitPlatform.Context.GetActivity();
+			activity.SetStatusBarColor(color.ToAndroid());
 		}
 
 		static partial void SetStyle(StatusBarStyle style)
@@ -24,14 +25,12 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 			{
 				case StatusBarStyle.Default:
 				case StatusBarStyle.LightContent:
-					BarStyle.RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
 					break;
 				case StatusBarStyle.DarkContent:
-					BarStyle.AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					BarStyle.AddBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
 					break;
 			}
 		}
-
-		static FormsAppCompatActivity Activity => (FormsAppCompatActivity)ToolkitPlatform.Context.GetActivity();
 	}
 }
