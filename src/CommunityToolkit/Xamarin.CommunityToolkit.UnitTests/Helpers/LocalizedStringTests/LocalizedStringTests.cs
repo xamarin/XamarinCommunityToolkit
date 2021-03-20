@@ -10,29 +10,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 	[NonParallelizable]
 	public class LocalizedStringTests
 	{
-		CultureInfo? initialCulture;
-		ResourceManager? resourceManager;
-		LocalizationResourceManager? localizationManager;
+		readonly ResourceManager resourceManager = new MockResourceManager();
+		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
+		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 
 		LocalizedString? localizedString;
 
 		[SetUp]
 		public void Setup()
 		{
-			resourceManager = new MockResourceManager();
-			initialCulture = CultureInfo.InvariantCulture;
-			localizationManager = LocalizationResourceManager.Current;
-
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
 		[Test]
 		public void LocalizedStringTests_Localized_ValidImplementation()
 		{
-			_ = initialCulture ?? throw new NullReferenceException();
-			_ = resourceManager ?? throw new NullReferenceException();
-			_ = localizationManager ?? throw new NullReferenceException();
-
 			// Arrange
 			var testString = "test";
 			var culture2 = new CultureInfo("en");
@@ -71,8 +63,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		[Test]
 		public void LocalizedStringTests_WeekSubscribe_ValidImplementation()
 		{
-			_ = localizationManager ?? throw new NullReferenceException();
-
 			// Arrange
 			var isTrigered = false;
 			var culture2 = new CultureInfo("en");
@@ -93,10 +83,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		[Test]
 		public void LocalizedStringTests_Disposed_IfNoReferences()
 		{
-			_ = initialCulture ?? throw new NullReferenceException();
-			_ = resourceManager ?? throw new NullReferenceException();
-			_ = localizationManager ?? throw new NullReferenceException();
-
 			// Arrange
 			var testString = "test";
 			SetLocalizedString();
