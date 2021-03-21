@@ -3,18 +3,18 @@
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	/// <summary>
-	/// Event Arguments for the <see cref="SideMenuView"/> State
-	/// that is triggered right after the state has changed.
+	/// Event Arguments for the <see cref="SideMenuView"/> State that
+	/// is triggered right before the state is changed.
 	/// </summary>
-	public class SideMenuStateChangedEventArgs : EventArgs
+	public class SideMenuStateChangingEventArgs : EventArgs
 	{
 		/// <summary>
-		/// Instantiates the default instance of <see cref="SideMenuStateChangedEventArgs"/>.
+		/// Instantiates the default instance of <see cref="SideMenuStateChangingEventArgs"/>.
 		/// </summary>
 		/// <param name="state">
 		/// The new <see cref="SideMenuState"/> for the current <see cref="SideMenuView"/>.
 		/// </param>
-		public SideMenuStateChangedEventArgs(SideMenuState state) =>
+		public SideMenuStateChangingEventArgs(SideMenuState state) =>
 			State = state;
 
 		/// <summary>

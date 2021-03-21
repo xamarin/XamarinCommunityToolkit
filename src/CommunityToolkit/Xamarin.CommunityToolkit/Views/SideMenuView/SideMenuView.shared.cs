@@ -103,11 +103,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			#endregion
 		}
 
+		readonly WeakEventManager<SideMenuStateChangingEventArgs> stateChangingEventManager = new WeakEventManager<SideMenuStateChangingEventArgs>();
 		readonly WeakEventManager<SideMenuStateChangedEventArgs> stateChangedEventManager = new WeakEventManager<SideMenuStateChangedEventArgs>();
 
 		/// <summary>
-		/// Event that is triggered when the <see cref="SideMenuView"/> 
-		/// <see cref="SideMenuState"/> is updated.
+		/// Event that is triggered when the <see cref="SideMenuView"/> state
+		/// is about to change.
+		/// </summary>
+		public event EventHandler<SideMenuStateChangingEventArgs> StateChanging
+		{
+			add => stateChangingEventManager.AddEventHandler(value);
+			remove => stateChangingEventManager.RemoveEventHandler(value);
+		}
+
+		/// <summary>
+		/// Event that is triggered when the <see cref="SideMenuView"/>
+		/// has already changed..
 		/// </summary>
 		public event EventHandler<SideMenuStateChangedEventArgs> StateChanged
 		{
@@ -372,8 +383,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SetOverlayViewInputTransparent(state);
 				return;
 			}
-			
-			stateChangedEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
+
+			stateChangingEventManager.RaiseEvent(this, new SideMenuStateChangingEventArgs(State), nameof(StateChanging));
 
 			var animation = new Animation(v => TryUpdateShift(v, false), Shift, end);
 			mainView.Animate(animationName, animation, animationRate, animationLength, animationEasing, (v, isCanceled) =>
@@ -382,6 +393,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					return;
 
 				SetOverlayViewInputTransparent(state);
+				stateChangedEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
 			});
 		}
 
