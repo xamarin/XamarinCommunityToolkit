@@ -40,10 +40,9 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 		{
 			var uiStyle = style switch
 			{
-				StatusBarStyle.Default => UIStatusBarStyle.Default,
 				StatusBarStyle.LightContent => UIStatusBarStyle.LightContent,
 				StatusBarStyle.DarkContent => UIStatusBarStyle.DarkContent,
-				_ => throw new InvalidOperationException("Unsupported style")
+				_ => UIStatusBarStyle.Default
 			};
 			UIApplication.SharedApplication.SetStatusBarStyle(uiStyle, false);
 

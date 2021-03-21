@@ -23,12 +23,12 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 
 			switch (style)
 			{
-				case StatusBarStyle.Default:
-				case StatusBarStyle.LightContent:
-					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
-					break;
 				case StatusBarStyle.DarkContent:
 					BarStyle.AddBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					break;
+				case StatusBarStyle.LightContent:
+				default:
+					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
 					break;
 			}
 		}

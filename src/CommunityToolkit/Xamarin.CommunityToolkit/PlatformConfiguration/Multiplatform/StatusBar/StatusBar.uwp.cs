@@ -1,4 +1,5 @@
-﻿using Windows.Foundation.Metadata;
+﻿using System;
+using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
@@ -11,40 +12,33 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 		static partial void SetColor(Color color)
 		{
 			var windowsColor = color.ToWindowsColor();
-
-			if (ApiInformation.IsTypePresent(typeof(StatusBar).FullName ?? string.Empty))
-			{
-				var statusBar = ViewManagement::StatusBar.GetForCurrentView();
-				if (statusBar != null)
-				{
-					statusBar.BackgroundColor = windowsColor;
-				}
-			}
-			else
-			{
-				var titleBar = ApplicationView.GetForCurrentView()?.TitleBar;
-				if (titleBar != null)
-				{
-					titleBar.BackgroundColor = windowsColor;
-				}
-			}
+			UpdateStatusBar(
+				sb => sb.BackgroundColor = windowsColor,
+				tb => tb.BackgroundColor = windowsColor);
 		}
 
 		static partial void SetStyle(StatusBarStyle style)
 		{
 			var foregroundColor = style switch
 			{
-				StatusBarStyle.LightContent => Color.White,
-				StatusBarStyle.DarkContent => Color.Black,
-				_ => Color.Default,
+				StatusBarStyle.LightContent => Color.White.ToWindowsColor(),
+				StatusBarStyle.DarkContent => Color.Black.ToWindowsColor(),
+				_ => Color.Default.ToWindowsColor(),
 			};
 
+			UpdateStatusBar(
+				sb => sb.ForegroundColor = foregroundColor,
+				tb => tb.ForegroundColor = foregroundColor);
+		}
+
+		static void UpdateStatusBar(Action<ViewManagement::StatusBar> updateStatusBar, Action<ApplicationViewTitleBar> updateTitleBar)
+		{
 			if (ApiInformation.IsTypePresent(typeof(StatusBar).FullName ?? string.Empty))
 			{
 				var statusBar = ViewManagement::StatusBar.GetForCurrentView();
 				if (statusBar != null)
 				{
-					statusBar.ForegroundColor = foregroundColor.ToWindowsColor();
+					updateStatusBar(statusBar);
 				}
 			}
 			else
@@ -52,7 +46,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 				var titleBar = ApplicationView.GetForCurrentView()?.TitleBar;
 				if (titleBar != null)
 				{
-					titleBar.ForegroundColor = foregroundColor.ToWindowsColor();
+					updateTitleBar(titleBar);
 				}
 			}
 		}
