@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using static System.Math;
@@ -100,6 +101,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
 #endif
 			#endregion
+		}
+
+		readonly WeakEventManager<SideMenuStateChangedEventArgs> stateChangedEventManager = new WeakEventManager<SideMenuStateChangedEventArgs>();
+
+		/// <summary>
+		/// Event that is triggered when the <see cref="SideMenuView"/> 
+		/// <see cref="SideMenuState"/> is updated.
+		/// </summary>
+		public event EventHandler<SideMenuStateChangedEventArgs> StateChanged
+		{
+			add => stateChangedEventManager.AddEventHandler(value);
+			remove => stateChangedEventManager.RemoveEventHandler(value);
 		}
 
 		public new ISideMenuList<View> Children
@@ -359,6 +372,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SetOverlayViewInputTransparent(state);
 				return;
 			}
+			
+			stateChangedEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
+
 			var animation = new Animation(v => TryUpdateShift(v, false), Shift, end);
 			mainView.Animate(animationName, animation, animationRate, animationLength, animationEasing, (v, isCanceled) =>
 			{
