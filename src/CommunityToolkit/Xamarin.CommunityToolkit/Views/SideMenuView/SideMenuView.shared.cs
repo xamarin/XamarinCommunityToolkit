@@ -103,8 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			#endregion
 		}
 
-		readonly WeakEventManager<SideMenuStateChangingEventArgs> stateChangingEventManager = new WeakEventManager<SideMenuStateChangingEventArgs>();
-		readonly WeakEventManager<SideMenuStateChangedEventArgs> stateChangedEventManager = new WeakEventManager<SideMenuStateChangedEventArgs>();
+		readonly WeakEventManager weakEventManager = new WeakEventManager();
 
 		/// <summary>
 		/// Event that is triggered when the <see cref="SideMenuView"/> state
@@ -112,8 +111,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public event EventHandler<SideMenuStateChangingEventArgs> StateChanging
 		{
-			add => stateChangingEventManager.AddEventHandler(value);
-			remove => stateChangingEventManager.RemoveEventHandler(value);
+			add => weakEventManager.AddEventHandler(value, nameof(StateChanging));
+			remove => weakEventManager.RemoveEventHandler(value, nameof(StateChanging));
 		}
 
 		/// <summary>
@@ -122,8 +121,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public event EventHandler<SideMenuStateChangedEventArgs> StateChanged
 		{
-			add => stateChangedEventManager.AddEventHandler(value);
-			remove => stateChangedEventManager.RemoveEventHandler(value);
+			add => weakEventManager.AddEventHandler(value, nameof(StateChanged));
+			remove => weakEventManager.RemoveEventHandler(value, nameof(StateChanged));
 		}
 
 		public new ISideMenuList<View> Children
@@ -384,7 +383,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			}
 
-			stateChangingEventManager.RaiseEvent(this, new SideMenuStateChangingEventArgs(State), nameof(StateChanging));
+			weakEventManager.RaiseEvent(this, new SideMenuStateChangingEventArgs(State), nameof(StateChanging));
 
 			var animation = new Animation(v => TryUpdateShift(v, false), Shift, end);
 			mainView.Animate(animationName, animation, animationRate, animationLength, animationEasing, (v, isCanceled) =>
@@ -393,7 +392,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					return;
 
 				SetOverlayViewInputTransparent(state);
-				stateChangedEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
+				weakEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
 			});
 		}
 
