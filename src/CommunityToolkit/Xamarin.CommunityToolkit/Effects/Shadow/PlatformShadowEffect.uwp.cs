@@ -111,7 +111,6 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			spriteVisual = compositor.CreateSpriteVisual();
 			spriteVisual.Shadow = shadow;
 			spriteVisual.Size = View.ActualSize;
-			spriteVisual.Size = new Vector2(1170, 40);
 
 			View.SizeChanged += ViewSizeChanged;
 
