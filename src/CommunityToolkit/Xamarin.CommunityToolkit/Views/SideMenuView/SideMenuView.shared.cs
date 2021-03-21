@@ -368,6 +368,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				TryUpdateShift(end, false);
 				SetOverlayViewInputTransparent(state);
+				weakEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
 				return;
 			}
 
@@ -380,6 +381,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (animationLength == 0)
 			{
 				SetOverlayViewInputTransparent(state);
+				weakEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
 				return;
 			}
 
