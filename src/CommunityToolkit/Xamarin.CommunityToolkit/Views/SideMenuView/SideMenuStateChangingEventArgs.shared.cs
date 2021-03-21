@@ -20,6 +20,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets the <see cref="SideMenuState"/>.
 		/// </summary>
-		public SideMenuState State { get; set; }
+		public SideMenuState State { get; }
 	}
 }
