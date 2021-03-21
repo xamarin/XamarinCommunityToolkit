@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		protected override void OnAttached()
 		{
-			if (!(Element is View elementView))
+			if (Element is not View elementView)
 				return;
 
 			switch (state)
