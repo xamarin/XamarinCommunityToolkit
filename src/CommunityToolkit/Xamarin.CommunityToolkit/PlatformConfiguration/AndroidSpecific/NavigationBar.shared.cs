@@ -18,13 +18,13 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 		public static NavigationBarStyle GetStyle(BindableObject element) =>
 			(NavigationBarStyle)element.GetValue(StyleProperty);
 
-		public static IPlatformElementConfiguration<XFPC.Android, TargetElement> SetColor(this IPlatformElementConfiguration<XFPC.Android, TargetElement> config, Color color)
+		public static IPlatformElementConfiguration<XFPC.Android, TargetElement> SetNavigationBarColor(this IPlatformElementConfiguration<XFPC.Android, TargetElement> config, Color color)
 		{
 			SetColor(color);
 			return config;
 		}
 
-		public static IPlatformElementConfiguration<XFPC.Android, TargetElement> SetStyle(this IPlatformElementConfiguration<XFPC.Android, TargetElement> config, NavigationBarStyle style)
+		public static IPlatformElementConfiguration<XFPC.Android, TargetElement> SetNavigationBarStyle(this IPlatformElementConfiguration<XFPC.Android, TargetElement> config, NavigationBarStyle style)
 		{
 			SetStyle(style);
 			return config;

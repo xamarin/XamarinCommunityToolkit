@@ -4,7 +4,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
-	public static partial class BarStyle
+	public static class BarStyle
 	{
 		internal static void AddBarAppearanceFlag(StatusBarVisibility flag) =>
 			SetBarAppearance(barAppearance => barAppearance |= flag);

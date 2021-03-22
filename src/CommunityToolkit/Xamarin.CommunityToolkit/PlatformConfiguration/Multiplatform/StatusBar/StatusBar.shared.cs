@@ -16,9 +16,13 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 		public static StatusBarStyle GetStyle(BindableObject bindable) =>
 			(StatusBarStyle)bindable.GetValue(StyleProperty);
 
-		static partial void SetColor(Color color);
+		public static void SetColor(Color color) => PlatformSetColor(color);
 
-		static partial void SetStyle(StatusBarStyle style);
+		public static void SetStyle(StatusBarStyle style) => PlatformSetStyle(style);
+
+		static partial void PlatformSetColor(Color color);
+
+		static partial void PlatformSetStyle(StatusBarStyle style);
 	}
 
 	public enum StatusBarStyle

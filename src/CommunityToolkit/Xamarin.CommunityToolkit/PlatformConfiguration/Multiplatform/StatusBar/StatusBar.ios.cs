@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
 	public static partial class StatusBar
 	{
-		static partial void SetColor(Color color)
+		static partial void PlatformSetColor(Color color)
 		{
 			var uiColor = color.ToUIColor();
 
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 			GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
 		}
 
-		static partial void SetStyle(StatusBarStyle style)
+		static partial void PlatformSetStyle(StatusBarStyle style)
 		{
 			var uiStyle = style switch
 			{

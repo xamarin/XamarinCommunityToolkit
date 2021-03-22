@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
 	public static partial class StatusBar
 	{
-		static partial void SetColor(Color color)
+		static partial void PlatformSetColor(Color color)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 			activity.SetStatusBarColor(color.ToAndroid());
 		}
 
-		static partial void SetStyle(StatusBarStyle style)
+		static partial void PlatformSetStyle(StatusBarStyle style)
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 				return;
