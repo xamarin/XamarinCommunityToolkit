@@ -109,26 +109,26 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerEntered(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
-			effect.HandleHover(HoverStatus.Entered);
+			effect?.HandleHover(HoverStatus.Entered);
 
 			if (isPressed)
 			{
-				effect.HandleTouch(TouchStatus.Started);
+				effect?.HandleTouch(TouchStatus.Started);
 				AnimateTilt(pointerDownStoryboard);
 			}
 		}
 
 		void OnPointerExited(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			if (isPressed)
 			{
-				effect.HandleTouch(TouchStatus.Canceled);
+				effect?.HandleTouch(TouchStatus.Canceled);
 				AnimateTilt(pointerUpStoryboard);
 			}
 
@@ -137,21 +137,21 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerCanceled(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			isPressed = false;
 
-			effect.HandleTouch(TouchStatus.Canceled);
-			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
-			effect.HandleHover(HoverStatus.Exited);
+			effect?.HandleTouch(TouchStatus.Canceled);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect?.HandleHover(HoverStatus.Exited);
 
 			AnimateTilt(pointerUpStoryboard);
 		}
 
 		void OnPointerCaptureLost(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			if (isIntentionalCaptureLoss)
@@ -159,34 +159,34 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			isPressed = false;
 
-			if (effect.Status != TouchStatus.Canceled)
-				effect.HandleTouch(TouchStatus.Canceled);
+			if (effect?.Status != TouchStatus.Canceled)
+				effect?.HandleTouch(TouchStatus.Canceled);
 
-			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
 
-			if (effect.HoverStatus != HoverStatus.Exited)
-				effect.HandleHover(HoverStatus.Exited);
+			if (effect?.HoverStatus != HoverStatus.Exited)
+				effect?.HandleHover(HoverStatus.Exited);
 
 			AnimateTilt(pointerUpStoryboard);
 		}
 
 		void OnPointerReleased(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			if (isPressed && (effect.HoverStatus == HoverStatus.Entered))
 			{
-				effect.HandleTouch(TouchStatus.Completed);
+				effect?.HandleTouch(TouchStatus.Completed);
 				AnimateTilt(pointerUpStoryboard);
 			}
 			else if (effect.HoverStatus != HoverStatus.Exited)
 			{
-				effect.HandleTouch(TouchStatus.Canceled);
+				effect?.HandleTouch(TouchStatus.Canceled);
 				AnimateTilt(pointerUpStoryboard);
 			}
 
-			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
 
 			isPressed = false;
 			isIntentionalCaptureLoss = true;
@@ -194,15 +194,15 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void OnPointerPressed(object? sender, PointerRoutedEventArgs e)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			isPressed = true;
 
 			Container.CapturePointer(e.Pointer);
 
-			effect.HandleUserInteraction(TouchInteractionStatus.Started);
-			effect.HandleTouch(TouchStatus.Started);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Started);
+			effect?.HandleTouch(TouchStatus.Started);
 
 			AnimateTilt(pointerDownStoryboard);
 
@@ -211,7 +211,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void AnimateTilt(Storyboard? storyboard)
 		{
-			if (storyboard != null && effect != null && effect.NativeAnimation)
+			if (storyboard != null && effect?.Element != null && effect.NativeAnimation)
 			{
 				try
 				{
