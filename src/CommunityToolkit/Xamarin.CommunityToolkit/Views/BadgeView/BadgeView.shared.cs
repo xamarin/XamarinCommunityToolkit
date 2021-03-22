@@ -27,9 +27,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets the <see cref="View"/> on top of which the <see cref="BadgeView"/> will be shown. This is a bindable property.
 		/// </summary>
-		public View Content
+		public View? Content
 		{
-			get => (View)GetValue(ContentProperty);
+			get => (View?)GetValue(ContentProperty);
 			set => SetValue(ContentProperty, value);
 		}
 
@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(AutoHideProperty, value);
 		}
 
-		static async void OnAutoHideChanged(BindableObject bindable, object oldValue, object newValue) => await (bindable as BadgeView)?.UpdateVisibilityAsync();
+		static async void OnAutoHideChanged(BindableObject bindable, object oldValue, object newValue) => await ((BadgeView)bindable).UpdateVisibilityAsync();
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="IsAnimated"/> property.
@@ -93,9 +93,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets the animation that is used when the badge is shown or hidden. The animation only shows when <see cref="IsAnimated"/> is set to true. This is a bindable property.
 		/// </summary>
-		public IBadgeAnimation BadgeAnimation
+		public IBadgeAnimation? BadgeAnimation
 		{
-			get => (IBadgeAnimation)GetValue(BadgeAnimationProperty);
+			get => (IBadgeAnimation?)GetValue(BadgeAnimationProperty);
 			set => SetValue(BadgeAnimationProperty, value);
 		}
 
@@ -103,8 +103,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="BackgroundColor"/> property.
 		/// </summary>
 		public static new BindableProperty BackgroundColorProperty =
-			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(BadgeView), defaultValue: Color.Default);
-
+			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(BadgeView), defaultValue: Color.Default,
+				propertyChanged: OnLayoutPropertyChanged);
+				
 		/// <summary>
 		/// Gets or sets the background <see cref="Color"/> of the badge. This is a bindable property.
 		/// </summary>
@@ -258,35 +259,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.Children.Add(BadgeIndicatorContainer);
 		}
 
-		static ContentPresenter CreateContentElement()
-			=> new ContentPresenter
-			{
-				HorizontalOptions = LayoutOptions.Start,
-				VerticalOptions = LayoutOptions.Start
-			};
+		static ContentPresenter CreateContentElement() => new ContentPresenter
+		{
+			HorizontalOptions = LayoutOptions.Start,
+			VerticalOptions = LayoutOptions.Start
+		};
 
-		static Grid CreateIndicatorContainerElement()
-		   => new Grid
-		   {
-			   HorizontalOptions = LayoutOptions.Start,
-			   VerticalOptions = LayoutOptions.Start,
-			   IsVisible = false
-		   };
+		static Grid CreateIndicatorContainerElement() => new Grid
+		{
+			HorizontalOptions = LayoutOptions.Start,
+			VerticalOptions = LayoutOptions.Start,
+			IsVisible = false
+		};
 
-		static Frame CreateIndicatorBackgroundElement()
-		   => new Frame
-		   {
-			   CornerRadius = Device.RuntimePlatform == Device.Android ? 12 : 8,
-			   Padding = 2
-		   };
+		static Frame CreateIndicatorBackgroundElement() => new Frame
+		{
+			CornerRadius = Device.RuntimePlatform == Device.Android ? 12 : 8,
+			Padding = 2
+		};
 
-		static Label CreateTextElement()
-		   => new Label
-		   {
-			   HorizontalOptions = LayoutOptions.Center,
-			   VerticalOptions = LayoutOptions.Center,
-			   Margin = new Thickness(4, 0)
-		   };
+		static Label CreateTextElement() => new Label
+		{
+			HorizontalOptions = LayoutOptions.Center,
+			VerticalOptions = LayoutOptions.Center,
+			Margin = new Thickness(4, 0)
+		};
 
 		protected override void OnBindingContextChanged()
 		{
@@ -356,8 +353,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var size = Math.Max(BadgeText.Height, BadgeText.Width) + Padding;
 				BadgeIndicatorBackground.HeightRequest = size;
 				var margins = GetMargins(size);
-				containerMargin = margins.Item1;
-				contentMargin = margins.Item2;
+				containerMargin = margins.ContainerMargin;
+				contentMargin = margins.ContentMargin;
 			}
 
 			BadgeIndicatorContainer.Margin = containerMargin;
@@ -365,7 +362,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			placementDone = true;
 		}
 
-		Tuple<Thickness, Thickness> GetMargins(double size)
+		(Thickness ContainerMargin, Thickness ContentMargin) GetMargins(double size)
 		{
 			double verticalMargin;
 			double horizontalMargin;
@@ -379,17 +376,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					containerMargin = new Thickness(horizontalMargin, 0, 0, 0);
 					contentMargin = new Thickness(0, verticalMargin, verticalMargin, 0);
 					break;
+
 				case BadgePosition.TopLeft:
 					verticalMargin = size / 2;
 					containerMargin = new Thickness(0, 0, 0, 0);
 					contentMargin = new Thickness(verticalMargin, verticalMargin, 0, 0);
 					break;
+
 				case BadgePosition.BottomLeft:
 					verticalMargin = size / 2;
 					var bottomLeftverticalMargin = BadgeContent.Height - verticalMargin;
 					containerMargin = new Thickness(0, bottomLeftverticalMargin, 0, 0);
 					contentMargin = new Thickness(verticalMargin, 0, 0, 0);
 					break;
+
 				case BadgePosition.BottomRight:
 					verticalMargin = size / 2;
 					var bottomRightverticalMargin = BadgeContent.Height - verticalMargin;
@@ -398,7 +398,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					contentMargin = new Thickness(0, 0, verticalMargin, 0);
 					break;
 			}
-			return new Tuple<Thickness, Thickness>(containerMargin, contentMargin);
+			return (containerMargin, contentMargin);
 		}
 
 		async Task UpdateVisibilityAsync()
@@ -425,24 +425,29 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (badgeIsVisible)
 				{
 					BadgeIndicatorContainer.IsVisible = true;
-					await BadgeAnimation.OnAppearing(BadgeIndicatorContainer);
+
+					if (BadgeAnimation != null)
+						await BadgeAnimation.OnAppearing(BadgeIndicatorContainer);
 				}
 				else
 				{
-					await BadgeAnimation.OnDisappering(BadgeIndicatorContainer);
+					if (BadgeAnimation != null)
+						await BadgeAnimation.OnDisappering(BadgeIndicatorContainer);
 					BadgeIndicatorContainer.IsVisible = false;
 				}
 
 				isVisible = badgeIsVisible;
 			}
 			else
+			{
 				BadgeIndicatorContainer.IsVisible = badgeIsVisible;
+			}
 		}
 
-		void OnBadgeTextSizeChanged(object sender, EventArgs e)
+		void OnBadgeTextSizeChanged(object? sender, EventArgs e)
 			=> UpdateBadgeViewPlacement(true);
 
-		void OnBadgeIndicatorContainerPropertyChanged(object sender, PropertyChangedEventArgs e)
+		void OnBadgeIndicatorContainerPropertyChanged(object? sender, PropertyChangedEventArgs e)
 			=> UpdateBadgeViewPlacement(true);
 	}
 }

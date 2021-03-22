@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Converters;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class ListToStringConverter_Tests
 	{
-		public static IEnumerable<object[]> GetData()
-			=> new List<object[]>
-			{
-				new object[] { new string[] { "A", "B", "C" }, "+_+", "A+_+B+_+C" },
-				new object[] { new string[] { "A", string.Empty, "C" }, ",", "A,C" },
-				new object[] { new string[] { "A", null, "C" }, ",", "A,C" },
-				new object[] { new string[] { "A" }, ":-:", "A" },
-				new object[] { new string[] { }, ",", string.Empty },
-				new object[] { null, ",", string.Empty },
-				new object[] { new string[] { "A", "B", "C" }, null, "ABC" },
-			};
+		public static IEnumerable<object?[]> GetData() => new List<object?[]>
+		{
+			new object[] { new string[] { "A", "B", "C" }, "+_+", "A+_+B+_+C" },
+			new object[] { new string[] { "A", string.Empty, "C" }, ",", "A,C" },
+			new object?[] { new string?[] { "A", null, "C" }, ",", "A,C" },
+			new object[] { new string[] { "A" }, ":-:", "A" },
+			new object[] { new string[] { }, ",", string.Empty },
+			new object?[] { null, ",", string.Empty },
+			new object?[] { new string[] { "A", "B", "C" }, null, "ABC" },
+		};
 
-		[Theory]
-		[MemberData(nameof(GetData))]
+		[TestCaseSource(nameof(GetData))]
 		public void ListToStringConverter(object value, object parameter, object expectedResult)
 		{
 			var listToStringConverter = new ListToStringConverter();
 
 			var result = listToStringConverter.Convert(value, null, parameter, null);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData(0)]
+		[TestCase(0)]
 		public void InValidConverterValuesThrowArgumenException(object value)
 		{
 			var listToStringConverter = new ListToStringConverter();
@@ -39,8 +36,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			Assert.Throws<ArgumentException>(() => listToStringConverter.Convert(value, null, null, null));
 		}
 
-		[Theory]
-		[InlineData(0)]
+		[TestCase(0)]
 		public void InValidConverterParametersThrowArgumenException(object parameter)
 		{
 			var listToStringConverter = new ListToStringConverter();

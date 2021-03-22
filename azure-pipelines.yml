@@ -6,11 +6,16 @@ variables:
   NugetPackageVersion: '$(CurrentSemanticVersion)'
   #MONO_VERSION: 6_4_0
   #XCODE_VERSION: 11.4
-  NETCORE_VERSION: '3.1.x'
-  NETCORE_TEST_VERSION: '3.1.x'
+  NETCORE_VERSION: '5.0.x'
+  NETCORE_TEST_VERSION_3_1: '3.1.x'
+  NETCORE_TEST_VERSION_2_1: '2.1.x'
   RunPoliCheck: 'false'
-  PathToCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
+  PathToCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  PathToSamplesSln: 'samples/XCT.Sample.sln'
+  PathToCommunityToolkitUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
+  PathToMarkupUnitTestCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
+  PathToMsBuildOnMacOS: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll'
   PathToSln: 'samples/XCT.Sample.sln'
 
 resources:
@@ -68,6 +73,21 @@ jobs:
     pool:
       vmImage: windows-2019
     steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
+        inputs:
+          version: $(NETCORE_VERSION)
+          includePreviewVersions: false
+      - task: UseDotNet@2
+        displayName: 'Install .NET 3.1 Test SDK'
+        inputs:
+          version: $(NETCORE_TEST_VERSION_3_1)
+          includePreviewVersions: false
+      - task: UseDotNet@2
+        displayName: 'Install .NET 2.1 Test SDK'
+        inputs:
+          version: $(NETCORE_TEST_VERSION_2_1)
+          includePreviewVersions: false
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
@@ -78,9 +98,9 @@ jobs:
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
       # restore, build and pack the packages
       - task: MSBuild@1
-        displayName: Build Solution
+        displayName: Build Xamarin.CommunityToolkit.csproj
         inputs:
-          solution: $(PathToCsproj)
+          solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CopyFiles@2
@@ -88,9 +108,9 @@ jobs:
           Contents: 'SignList.xml'
           TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
       - task: MSBuild@1
-        displayName: Pack NuGets
+        displayName: Pack Community Toolkit NuGets
         inputs:
-          solution: $(PathToCsproj)
+          solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
       - task: MSBuild@1
@@ -112,12 +132,14 @@ jobs:
 #          command: 'custom'
 #          custom: 'nuget'
 #          arguments: 'push --source https://nuget.pkg.github.com/xamarin/index.json --api-key $(GitHub.NuGet.Token) "$(Build.ArtifactStagingDirectory)\nuget\*.nupkg"'
-      - task: DotNetCoreCLI@2
-        displayName: Run Tests
+      - task: CmdLine@2
+        displayName: 'Run Markup Unit Tests'
         inputs:
-          command: test
-          projects: '**/*.UnitTests.csproj'
-          arguments: '--configuration Release --collect "Code coverage"'
+          script: dotnet test $(PathToMarkupUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
+      - task: CmdLine@2
+        displayName: 'Run Community Toolkit Unit Tests'
+        inputs:
+          script: dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
       # publish the packages
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
@@ -161,27 +183,44 @@ jobs:
       #  displayName: Switch to the latest Xcode
       # restore, build and pack the packages
       - task: UseDotNet@2
-        displayName: 'Use .Net Core sdk'
+        displayName: 'Install .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
           includePreviewVersions: false
       - task: UseDotNet@2
-        displayName: 'Use .Net Core sdk'
+        displayName: 'Install .NET 3.1 Test SDK'
         inputs:
-          version: $(NETCORE_TEST_VERSION)
+          version: $(NETCORE_TEST_VERSION_3_1)
           includePreviewVersions: false
-      - task: MSBuild@1
-        displayName: Build Solution
+      - task: UseDotNet@2
+        displayName: 'Install .NET 2.1 Test SDK'
         inputs:
-          solution: $(PathToCsproj)
-          configuration: Release
-          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
-      - task: MSBuild@1
-        displayName: Pack NuGets
+          version: $(NETCORE_TEST_VERSION_2_1)
+          includePreviewVersions: false
+      - task: CmdLine@2
+        displayName: 'Build Markup'
         inputs:
-          solution: $(PathToCsproj)
-          configuration: Release
-          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CmdLine@2
+        displayName: 'Build Community Toolkit'
+        inputs:
+          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CmdLine@2
+        displayName: 'Run Markup Unit Tests'
+        inputs:
+          script: 'dotnet test $(PathToMarkupUnitTestCsproj) /p:Configuration=Release -p:BuildInParallel=false'
+      - task: CmdLine@2
+        displayName: 'Run Community Toolkit Unit Tests'
+        inputs:
+          script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release -p:BuildInParallel=false'
+      - task: CmdLine@2
+        displayName: 'Pack Markup NuGets'
+        inputs:
+          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupUnitTestCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+      - task: CmdLine@2
+        displayName: 'Pack CommunityToolkit NuGets'
+        inputs:
+          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates

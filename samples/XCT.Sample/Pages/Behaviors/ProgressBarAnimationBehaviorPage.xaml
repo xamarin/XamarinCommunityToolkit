@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"                
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.ProgressBarAnimationBehaviorPage">
+
+    <pages:BasePage.BindingContext>
+        <vm:ProgressBarAnimationBehaviorViewModel />
+    </pages:BasePage.BindingContext>
+
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 Spacing="50"
+                 VerticalOptions="CenterAndExpand">
+        <ProgressBar>
+            <ProgressBar.Behaviors>
+                <xct:ProgressBarAnimationBehavior AnimateProgress="{Binding Progress}" />
+            </ProgressBar.Behaviors>
+        </ProgressBar>
+
+        <Button Text="Set to 0" Command="{Binding SetTo0Command}"  />
+        <Button Text="Set to 50" Command="{Binding SetTo50Command}" />
+        <Button Text="Set to 100" Command="{Binding SetTo100Command}" />
+	</StackLayout>
+</pages:BasePage>

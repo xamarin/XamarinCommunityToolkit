@@ -26,9 +26,9 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
 			}
 		}
 
-		void OnIncreaseClicked(object sender, EventArgs e) => Counter++;
+		void OnIncreaseClicked(object? sender, EventArgs e) => Counter++;
 
-		void OnDecreaseClicked(object sender, EventArgs e)
+		void OnDecreaseClicked(object? sender, EventArgs e)
 		{
 			if (Counter == 0)
 				return;

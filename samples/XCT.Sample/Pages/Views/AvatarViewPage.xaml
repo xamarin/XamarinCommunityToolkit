@@ -46,7 +46,7 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <StackLayout Padding="{StaticResource ContentPadding}">
-            <Label Text="{xct:Translate AvatarViewSizeText}" />
+            <Label Text="AvatarViewSizeText" />
             <Slider x:Name="Slider"
                     Maximum="80"
                     Minimum="40"

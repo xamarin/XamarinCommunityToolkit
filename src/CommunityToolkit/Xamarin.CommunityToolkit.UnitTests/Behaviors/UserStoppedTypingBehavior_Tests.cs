@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
@@ -10,44 +10,45 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 	{
 		const int defaultTimeThreshold = 1000;
 		const int defaultLengthThreshold = 0;
+		const int defaultTimeoutThreshold = defaultTimeThreshold * 2;
 
-		[Fact]
+		[Test]
 		public async Task ShouldExecuteCommandWhenTimeThresholdHasExpired()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
-			var entry = CreateEntryWithBehavior(command: new Command<string>((s) => commandHasBeenExecuted = true));
+			var entry = CreateEntryWithBehavior(command: new Command<string>(_ => commandHasBeenExecuted = true));
 
 			// act
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeoutThreshold);
 
 			// assert
-			Assert.True(commandHasBeenExecuted);
+			Assert.IsTrue(commandHasBeenExecuted);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldExecuteCommandWithSpecificParameterWhenSpecified()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
-			var entry = CreateEntryWithBehavior(command: new Command<bool>((s) => commandHasBeenExecuted = true),
+			var entry = CreateEntryWithBehavior(command: new Command<bool>(_ => commandHasBeenExecuted = true),
 												commandParameter: true);
 
 			// act
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeoutThreshold);
 
 			// assert
-			Assert.True(commandHasBeenExecuted);
+			Assert.IsTrue(commandHasBeenExecuted);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldNotExecuteCommandBeforeTimeThresholdHasExpired()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
-			var entry = CreateEntryWithBehavior(command: new Command<string>((s) => commandHasBeenExecuted = true));
+			var entry = CreateEntryWithBehavior(command: new Command<string>(_ => commandHasBeenExecuted = true));
 
 			// act
 			entry.Text = "1";
@@ -57,25 +58,25 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.False(commandHasBeenExecuted);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldOnlyExectueCommandOnceWhenTextChangedHasOccurredMultipleTimes()
 		{
 			// arrange
 			var timesExecuted = 0;
-			var entry = CreateEntryWithBehavior(command: new Command<string>((s) => timesExecuted++));
+			var entry = CreateEntryWithBehavior(command: new Command<string>(_ => timesExecuted++));
 
 			// act
 			entry.Text = "1";
 			entry.Text = "12";
 			entry.Text = "123";
 			entry.Text = "1234";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeoutThreshold);
 
 			// assert
-			Assert.Equal(1, timesExecuted);
+			Assert.AreEqual(1, timesExecuted);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldDismissKeyboardWhenTimeThresholdHasExpired()
 		{
 			// arrange
@@ -85,47 +86,47 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			entry.Focus();
 			entry.Text = "1";
 
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeoutThreshold);
 
 			// assert
 			Assert.False(entry.IsFocused);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldExecuteCommandWhenMinimumLengthThreholdHasBeenReached()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
-			var entry = CreateEntryWithBehavior(command: new Command<string>((s) => commandHasBeenExecuted = true),
+			var entry = CreateEntryWithBehavior(command: new Command<string>(_ => commandHasBeenExecuted = true),
 												lengthThreshold: 3);
 
 			// act
 			entry.Text = "1";
 			entry.Text = "12";
 			entry.Text = "123";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeoutThreshold);
 
 			// assert
-			Assert.True(commandHasBeenExecuted);
+			Assert.IsTrue(commandHasBeenExecuted);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldNotExecuteCommandWhenMinimumLengthThreholdHasNotBeenReached()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
-			var entry = CreateEntryWithBehavior(command: new Command<string>((s) => commandHasBeenExecuted = true),
+			var entry = CreateEntryWithBehavior(command: new Command<string>(_ => commandHasBeenExecuted = true),
 												lengthThreshold: 2);
 
 			// act
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeoutThreshold);
 
 			// assert
 			Assert.False(commandHasBeenExecuted);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldNotDismissKeyboardWhenMinimumLengthThreholdHasNotBeenReached()
 		{
 			// arrange
@@ -136,32 +137,32 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			entry.Focus();
 
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeoutThreshold);
 
 			// assert
-			Assert.True(entry.IsFocused);
+			Assert.IsTrue(entry.IsFocused);
 		}
 
-		[Fact]
+		[Test]
 		public async Task ShouldExecuteCommandImmediatelyWhenMinimumLengthThreholdHasNotBeenSet()
 		{
 			// arrange
 			var commandHasBeenExecuted = false;
-			var entry = CreateEntryWithBehavior(command: new Command<string>((s) => commandHasBeenExecuted = true));
+			var entry = CreateEntryWithBehavior(command: new Command<string>(_ => commandHasBeenExecuted = true));
 
 			// act
 			entry.Text = "1";
-			await Task.Delay(defaultTimeThreshold + 100);
+			await Task.Delay(defaultTimeoutThreshold);
 
 			// assert
-			Assert.True(commandHasBeenExecuted);
+			Assert.IsTrue(commandHasBeenExecuted);
 		}
 
 		public Entry CreateEntryWithBehavior(int timeThreshold = defaultTimeThreshold,
 											 int lengthThreshold = defaultLengthThreshold,
 											 bool shouldDismissKeyboardAutomatically = false,
-											 ICommand command = null,
-											 object commandParameter = null)
+											 ICommand? command = null,
+											 object? commandParameter = null)
 		{
 			var entry = new Entry
 			{

@@ -13,9 +13,9 @@ namespace Xamarin.CommunityToolkit.Markup
 		public static TGestureElement BindClickGesture<TGestureElement>(
 			this TGestureElement gestureElement,
 			string commandPath = bindingContextPath,
-			object commandSource = null,
-			string parameterPath = null,
-			object parameterSource = null) where TGestureElement : Element, IGestureRecognizers
+			object? commandSource = null,
+			string? parameterPath = null,
+			object? parameterSource = null) where TGestureElement : Element, IGestureRecognizers
 			=> ClickGesture(gestureElement, g => g.BindCommand(commandPath, commandSource, parameterPath, parameterSource));
 
 		/// <summary>Add a <see cref="SwipeGestureRecognizer"/>,
@@ -24,9 +24,9 @@ namespace Xamarin.CommunityToolkit.Markup
 		public static TGestureElement BindSwipeGesture<TGestureElement>(
 			this TGestureElement gestureElement,
 			string commandPath = bindingContextPath,
-			object commandSource = null,
-			string parameterPath = null,
-			object parameterSource = null) where TGestureElement : Element, IGestureRecognizers
+			object? commandSource = null,
+			string? parameterPath = null,
+			object? parameterSource = null) where TGestureElement : Element, IGestureRecognizers
 			=> SwipeGesture(gestureElement, g => g.BindCommand(commandPath, commandSource, parameterPath, parameterSource));
 
 		/// <summary>Add a <see cref="TapGestureRecognizer"/>,
@@ -35,9 +35,9 @@ namespace Xamarin.CommunityToolkit.Markup
 		public static TGestureElement BindTapGesture<TGestureElement>(
 			this TGestureElement gestureElement,
 			string commandPath = bindingContextPath,
-			object commandSource = null,
-			string parameterPath = null,
-			object parameterSource = null) where TGestureElement : Element, IGestureRecognizers
+			object? commandSource = null,
+			string? parameterPath = null,
+			object? parameterSource = null) where TGestureElement : Element, IGestureRecognizers
 			=> TapGesture(gestureElement, g => g.BindCommand(commandPath, commandSource, parameterPath, parameterSource));
 
 		/// <summary>Add a <see cref="ClickGestureRecognizer"/>,

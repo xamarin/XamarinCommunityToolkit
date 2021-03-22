@@ -9,9 +9,9 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	[TestFixture]
 	public class BindableObjectMultiBindExtensionsTests : MarkupBaseTestFixture
 	{
-		ViewModel viewModel;
-		List<BindingBase> testBindings;
-		List<object> testConvertValues;
+		ViewModel? viewModel;
+		List<BindingBase>? testBindings;
+		List<object>? testConvertValues;
 
 		[SetUp]
 		public override void Setup()
@@ -20,13 +20,13 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			viewModel = new ViewModel();
 
 			testBindings = new List<BindingBase>
-            {
+			{
 				new Binding(nameof(viewModel.Text)),
 				new Binding(nameof(viewModel.Id)),
 				new Binding(nameof(viewModel.IsDone)),
 				new Binding(nameof(viewModel.Fraction)),
 				new Binding(nameof(viewModel.Count))
-            };
+			};
 
 			testConvertValues = new List<object>
 			{
@@ -53,16 +53,23 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[TestCase(true, true)]
 		public void BindSpecifiedPropertyWith2BindingsAndInlineConvert(bool testConvert, bool testConvertBack)
 		{
+			_ = testBindings ?? throw new NullReferenceException();
+
 			var label = new Label();
 
 			// Repeat inline converter code to test that the Bind overloads allow inferring the generic parameter types
 			if (testConvert && testConvertBack)
 			{
-				label.Bind(
+				label.Bind<Label, string?, Guid, string>(
 					Label.TextProperty,
 					testBindings[0], testBindings[1],
-					((string text, Guid id) v) => Format(0, v.text, v.id),
-					(string formatted) => { var u = Unformat(0, formatted); return (u.Text, u.Id); }
+					((string? text, Guid id) v) => Format(0, v.text, v.id),
+					(string? formatted) =>
+					{
+						_ = formatted ?? throw new NullReferenceException();
+						var u = Unformat(0, formatted);
+						return (u.Text, u.Id);
+					}
 				);
 			}
 			else if (testConvert && !testConvertBack)
@@ -70,7 +77,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1],
-					((string text, Guid id) v) => Format(0, v.text, v.id)
+					((string? text, Guid id) v) => Format(0, v.text, v.id)
 				);
 			}
 			else if (!testConvert && testConvertBack)
@@ -78,7 +85,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1],
-					convertBack: (string formatted) => { var u = Unformat(0, formatted); return (u.Text, u.Id); }
+					convertBack: (string? formatted) => { var u = Unformat(0, formatted ?? throw new NullReferenceException()); return (u.Text, u.Id); }
 				);
 			}
 
@@ -91,34 +98,36 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[TestCase(true, true)]
 		public void BindSpecifiedPropertyWith2BindingsAndInlineConvertAndParameter(bool testConvert, bool testConvertBack)
 		{
+			_ = testBindings ?? throw new NullReferenceException();
+
 			var label = new Label();
 
 			// Repeat inline converter code to test that the Bind overloads allow inferring the generic parameter types
 			if (testConvert && testConvertBack)
 			{
-				label.Bind(
+				label.Bind<Label, string?, Guid, int?, string>(
 					Label.TextProperty,
 					testBindings[0], testBindings[1],
-					((string text, Guid id) v, int parameter) => Format(parameter, v.text, v.id),
-					(string formatted, int parameter) => { var u = Unformat(parameter, formatted); return (u.Text, u.Id); },
+					((string? text, Guid id) v, int? parameter) => Format(parameter ?? throw new NullReferenceException(), v.text, v.id),
+					(string? formatted, int? parameter) => { var u = Unformat(parameter ?? throw new NullReferenceException(), formatted ?? throw new NullReferenceException()); return (u.Text, u.Id); },
 					converterParameter: 2
 				);
 			}
 			else if (testConvert && !testConvertBack)
 			{
-				label.Bind(
+				label.Bind<Label, string?, Guid, int?, string>(
 					Label.TextProperty,
 					testBindings[0], testBindings[1],
-					((string text, Guid id) v, int parameter) => Format(parameter, v.text, v.id),
+					((string? text, Guid id) v, int? parameter) => Format(parameter ?? throw new NullReferenceException(), v.text, v.id),
 					converterParameter: 2
 				);
 			}
 			else if (!testConvert && testConvertBack)
 			{
-				label.Bind(
+				label.Bind<Label, string?, Guid, int?, string>(
 					Label.TextProperty,
 					testBindings[0], testBindings[1],
-					convertBack: (string formatted, int parameter) => { var u = Unformat(parameter, formatted); return (u.Text, u.Id); },
+					convertBack: (string? formatted, int? parameter) => { var u = Unformat(parameter ?? throw new NullReferenceException(), formatted ?? throw new NullReferenceException()); return (u.Text, u.Id); },
 					converterParameter: 2
 				);
 			}
@@ -132,32 +141,34 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[TestCase(true, true)]
 		public void BindSpecifiedPropertyWith3BindingsAndInlineConvert(bool testConvert, bool testConvertBack)
 		{
+			_ = testBindings ?? throw new NullReferenceException();
+
 			var label = new Label();
 
 			// Repeat inline converter code to test that the Bind overloads allow inferring the generic parameter types
 			if (testConvert && testConvertBack)
 			{
-				label.Bind(
+				label.Bind<Label, string?, Guid, bool, string>(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2],
-					((string text, Guid id, bool isDone) v) => Format(0, v.text, v.id, v.isDone),
-					(string formatted) => { var u = Unformat(0, formatted); return (u.Text, u.Id, u.IsDone); }
+					((string? text, Guid id, bool isDone) v) => Format(0, v.text, v.id, v.isDone),
+					(string? formatted) => { var u = Unformat(0, formatted ?? throw new NullReferenceException()); return (u.Text, u.Id, u.IsDone); }
 				);
 			}
 			else if (testConvert && !testConvertBack)
 			{
-				label.Bind(
+				label.Bind<Label, string?, Guid, bool, string>(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2],
-					((string text, Guid id, bool isDone) v) => Format(0, v.text, v.id, v.isDone)
+					((string? text, Guid id, bool isDone) v) => Format(0, v.text, v.id, v.isDone)
 				);
 			}
 			else if (!testConvert && testConvertBack)
 			{
-				label.Bind(
+				label.Bind<Label, string?, Guid, bool, string>(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2],
-					convertBack: (string formatted) => { var u = Unformat(0, formatted); return (u.Text, u.Id, u.IsDone); }
+					convertBack: (string? formatted) => { var u = Unformat(0, formatted ?? throw new NullReferenceException()); return (u.Text, u.Id, u.IsDone); }
 				);
 			}
 
@@ -170,25 +181,27 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[TestCase(true, true)]
 		public void BindSpecifiedPropertyWith3BindingsAndInlineConvertAndParameter(bool testConvert, bool testConvertBack)
 		{
+			_ = testBindings ?? throw new NullReferenceException();
+
 			var label = new Label();
 
 			// Repeat inline converter code to test that the Bind overloads allow inferring the generic parameter types
 			if (testConvert && testConvertBack)
 			{
 				label.Bind(
-					Label.TextProperty,
-					testBindings[0], testBindings[1], testBindings[2],
-					((string text, Guid id, bool isDone) v, int parameter) => Format(parameter, v.text, v.id, v.isDone),
-					(string formatted, int parameter) => { var u = Unformat(parameter, formatted); return (u.Text, u.Id, u.IsDone); },
-					converterParameter: 2
-				);
+						Label.TextProperty,
+						testBindings[0], testBindings[1], testBindings[2],
+						((string? text, Guid id, bool isDone) v, int? parameter) => Format(parameter ?? throw new NullReferenceException(), v.text, v.id, v.isDone),
+						(string? formatted, int? parameter) => { var u = Unformat(parameter ?? throw new NullReferenceException(), formatted ?? throw new NullReferenceException()); return (u.Text ?? throw new NullReferenceException(), u.Id, u.IsDone); },
+						converterParameter: 2
+					);
 			}
 			else if (testConvert && !testConvertBack)
 			{
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2],
-					((string text, Guid id, bool isDone) v, int parameter) => Format(parameter, v.text, v.id, v.isDone),
+					((string? text, Guid id, bool isDone) v, int? parameter) => Format(parameter ?? throw new NullReferenceException(), v.text, v.id, v.isDone),
 					converterParameter: 2
 				);
 			}
@@ -197,7 +210,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2],
-					convertBack: (string formatted, int parameter) => { var u = Unformat(parameter, formatted); return (u.Text, u.Id, u.IsDone); },
+					convertBack: (string? formatted, int? parameter) => { var u = Unformat(parameter ?? throw new NullReferenceException(), formatted ?? throw new NullReferenceException()); return (u.Text, u.Id, u.IsDone); },
 					converterParameter: 2
 				);
 			}
@@ -211,6 +224,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[TestCase(true, true)]
 		public void BindSpecifiedPropertyWith4BindingsAndInlineConvert(bool testConvert, bool testConvertBack)
 		{
+			_ = testBindings ?? throw new NullReferenceException();
+
 			var label = new Label();
 
 			// Repeat inline converter code to test that the Bind overloads allow inferring the generic parameter types
@@ -219,8 +234,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2], testBindings[3],
-					((string text, Guid id, bool isDone, double fraction) v) => Format(0, v.text, v.id, v.isDone, v.fraction),
-					(string formatted) => { var u = Unformat(0, formatted); return (u.Text, u.Id, u.IsDone, u.Fraction); }
+					((string? text, Guid id, bool isDone, double fraction) v) => Format(0, v.text, v.id, v.isDone, v.fraction),
+					(string? formatted) => { var u = Unformat(0, formatted ?? throw new NullReferenceException()); return (u.Text ?? string.Empty, u.Id, u.IsDone, u.Fraction); }
 				);
 			}
 			else if (testConvert && !testConvertBack)
@@ -228,7 +243,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2], testBindings[3],
-					((string text, Guid id, bool isDone, double fraction) v) => Format(0, v.text, v.id, v.isDone, v.fraction)
+					((string? text, Guid id, bool isDone, double fraction) v) => Format(0, v.text, v.id, v.isDone, v.fraction)
 				);
 			}
 			else if (!testConvert && testConvertBack)
@@ -236,7 +251,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2], testBindings[3],
-					convertBack: (string formatted) => { var u = Unformat(0, formatted); return (u.Text, u.Id, u.IsDone, u.Fraction); }
+					convertBack: (string? formatted) => { var u = Unformat(0, formatted ?? throw new NullReferenceException()); return (u.Text, u.Id, u.IsDone, u.Fraction); }
 				);
 			}
 
@@ -249,6 +264,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[TestCase(true, true)]
 		public void BindSpecifiedPropertyWith4BindingsAndInlineConvertAndParameter(bool testConvert, bool testConvertBack)
 		{
+			_ = testBindings ?? throw new NullReferenceException();
+
 			var label = new Label();
 
 			// Repeat inline converter code to test that the Bind overloads allow inferring the generic parameter types
@@ -257,8 +274,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2], testBindings[3],
-					((string text, Guid id, bool isDone, double fraction) v, int parameter) => Format(parameter, v.text, v.id, v.isDone, v.fraction),
-					(string formatted, int parameter) => { var u = Unformat(parameter, formatted); return (u.Text, u.Id, u.IsDone, u.Fraction); },
+					((string? text, Guid id, bool isDone, double fraction) v, int? parameter) => Format(parameter ?? throw new NullReferenceException(), v.text, v.id, v.isDone, v.fraction),
+					(string? formatted, int? parameter) => { var u = Unformat(parameter ?? throw new NullReferenceException(), formatted ?? throw new NullReferenceException()); return (u.Text ?? string.Empty, u.Id, u.IsDone, u.Fraction); },
 					converterParameter: 2
 				);
 			}
@@ -267,7 +284,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2], testBindings[3],
-					((string text, Guid id, bool isDone, double fraction) v, int parameter) => Format(parameter, v.text, v.id, v.isDone, v.fraction),
+					((string? text, Guid id, bool isDone, double fraction) v, int? parameter) => Format(parameter ?? throw new NullReferenceException(), v.text, v.id, v.isDone, v.fraction),
 					converterParameter: 2
 				);
 			}
@@ -276,7 +293,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				label.Bind(
 					Label.TextProperty,
 					testBindings[0], testBindings[1], testBindings[2], testBindings[3],
-					convertBack: (string formatted, int parameter) => { var u = Unformat(parameter, formatted); return (u.Text, u.Id, u.IsDone, u.Fraction); },
+					convertBack: (string? formatted, int? parameter) => { var u = Unformat(parameter ?? throw new NullReferenceException(), formatted ?? throw new NullReferenceException()); return (u.Text, u.Id, u.IsDone, u.Fraction); },
 					converterParameter: 2
 				);
 			}
@@ -290,22 +307,24 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[TestCase(true, true)]
 		public void BindSpecifiedPropertyWithMultipleBindings(bool testConvert, bool testConvertBack)
 		{
-			Func<object[], string> convert = null;
-			if (testConvert)
-                convert = (object[] v) => Format(0, v[0], v[1], v[2], v[3], v[4]);
+			_ = testBindings ?? throw new NullReferenceException();
 
-			Func<string, object[]> convertBack = null;
+			Func<object[], string>? convert = null;
+			if (testConvert)
+				convert = (object[] v) => Format(0, v[0], v[1], v[2], v[3], v[4]);
+
+			Func<string?, object[]>? convertBack = null;
 			if (testConvertBack)
 			{
-				convertBack = (string formatted) =>
-                {
-                    var u = Unformat(0, formatted);
-                    return new object[] { u.Text, u.Id, u.IsDone, u.Fraction, u.Count };
+				convertBack = (string? formatted) =>
+				{
+					var result = Unformat(0, formatted ?? throw new NullReferenceException());
+					return new object[] { result.Text ?? string.Empty, result.Id, result.IsDone, result.Fraction, result.Count };
 				};
 			}
 
 			var converter = new FuncMultiConverter<string, object>(convert, convertBack);
-			var label = new Label { } .Bind (Label.TextProperty, GetTestBindings(5), converter);
+			var label = new Label { }.Bind(Label.TextProperty, GetTestBindings(5), converter);
 			AssertLabelTextMultiBound(label, 5, testConvert, testConvertBack, converter: converter);
 		}
 
@@ -315,25 +334,25 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[TestCase(true, true)]
 		public void BindSpecifiedPropertyWithMultipleBindingsAndParameter(bool testConvert, bool testConvertBack)
 		{
-			Func<object[], int, string> convert = null;
+			Func<object[], int, string?>? convert = null;
 			if (testConvert)
 			{
 				convert = (object[] v, int parameter) => Format(parameter,
 				v[0], v[1], v[2], v[3], v[4]);
 			}
 
-			Func<string, int, object[]> convertBack = null;
+			Func<string?, int, object?[]>? convertBack = null;
 			if (testConvertBack)
 			{
-				convertBack = (string text, int parameter) =>
+				convertBack = (string? text, int parameter) =>
 				{
-					var u = Unformat(parameter, text);
-					return new object[] { u.Text, u.Id, u.IsDone, u.Fraction, u.Count };
+					var u = Unformat(parameter, text ?? throw new NullReferenceException());
+					return new object[] { u.Text ?? string.Empty, u.Id, u.IsDone, u.Fraction, u.Count };
 				};
 			}
 
-			var converter = new FuncMultiConverter<string, int>(convert, convertBack);
-			var label = new Label { } .Bind (Label.TextProperty, GetTestBindings(5), converter, 2);
+			var converter = new FuncMultiConverter<string?, int>(convert, convertBack);
+			var label = new Label { }.Bind(Label.TextProperty, GetTestBindings(5), converter, 2);
 			AssertLabelTextMultiBound(label, 5, testConvert, testConvertBack, 2, converter);
 		}
 
@@ -341,22 +360,22 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 		object[] GetTestConvertValues(int count) => testConvertValues.Take(count).ToArray();
 
-		string PrefixDots(object value, int count) => $"{new string('.', count)}{value}";
+		string PrefixDots(object? value, int count) => $"{new string('.', count)}{value}";
 
 		string RemoveDots(string text, int count) => text.Substring(count);
 
-		string Format(int parameter, params object[] values)
+		string Format(int parameter, params object?[] values)
 		{
-			string formatted = $"'{PrefixDots(values[0], parameter)}'";
-			for (int i = 1; i < values.Length; i++)
+			var formatted = $"'{PrefixDots(values[0], parameter)}'";
+			for (var i = 1; i < values.Length; i++)
 				formatted += $", '{values[i]}'";
 			return formatted;
 		}
 
-		(string Text, Guid Id, bool IsDone, double Fraction, int Count) Unformat(int parameter, string formatted)
+		(string? Text, Guid Id, bool IsDone, double Fraction, int Count) Unformat(int parameter, string formatted)
 		{
 			var split = formatted.Split('\'');
-			int n = split.Length;
+			var n = split.Length;
 
 			return (
 				n > 1 ? RemoveDots(split[1], parameter) : null,
@@ -366,10 +385,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				n > 9 ? int.Parse(split[9]) : 0);
 		}
 
-		void AssertLabelTextMultiBound(Label label, int nBindings, bool testConvert, bool testConvertBack, int parameter, IMultiValueConverter converter = null)
+		void AssertLabelTextMultiBound(Label label, int nBindings, bool testConvert, bool testConvertBack, int parameter, IMultiValueConverter? converter = null)
 		{
 			var values = GetTestConvertValues(nBindings);
-			string expected = Format(parameter, values);
+			var expected = Format(parameter, values);
 
 			BindingHelpers.AssertBindingExists<string, int>(
 				label,
@@ -381,10 +400,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				assertConvert: c => c.AssertConvert(values, parameter, expected, twoWay: testConvert && testConvertBack, backOnly: !testConvert && testConvertBack));
 		}
 
-		void AssertLabelTextMultiBound(Label label, int nBindings, bool testConvert, bool testConvertBack, IMultiValueConverter converter = null)
+		void AssertLabelTextMultiBound(Label label, int nBindings, bool testConvert, bool testConvertBack, IMultiValueConverter? converter = null)
 		{
 			var values = GetTestConvertValues(nBindings);
-			string expected = Format(0, values);
+			var expected = Format(0, values);
 
 			BindingHelpers.AssertBindingExists<string>(
 				label,
@@ -399,7 +418,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			public Guid Id { get; set; }
 
-			public string Text { get; set; }
+			public string Text { get; set; } = string.Empty;
 
 			public bool IsDone { get; set; }
 
