@@ -36,12 +36,19 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Camera = Android.Hardware.Camera;
+using Math = System.Math;
 using Rect = Android.Graphics.Rect;
+using APoint = Android.Graphics.Point;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class CameraFragment : Fragment, TextureView.ISurfaceTextureListener
 	{
+		// Max preview width that is guaranteed by Camera2 API
+		const int MAX_PREVIEW_HEIGHT = 1080;
+		// Max preview height that is guaranteed by Camera2 API
+		const int MAX_PREVIEW_WIDTH = 1920;
+
 		CameraDevice device;
 		CaptureRequest.Builder sessionBuilder;
 		CameraCaptureSession session;
@@ -222,14 +229,42 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 					Element.MaxZoom = maxDigitalZoom = (float)characteristics.Get(CameraCharacteristics.ScalerAvailableMaxDigitalZoom);
 					activeRect = (Rect)characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize);
+					sensorOrientation = (int)characteristics.Get(CameraCharacteristics.SensorOrientation);
+
+					var displaySize = new APoint();
+					Activity.WindowManager.DefaultDisplay.GetSize(displaySize);
+					var rotatedViewWidth = texture.Width;
+					var rotatedViewHeight = texture.Height;
+					var maxPreviewWidth = displaySize.X;
+					var maxPreviewHeight = displaySize.Y;
+
+					if (sensorOrientation == 90 || sensorOrientation == 270)
+					{
+						rotatedViewWidth = texture.Height;
+						rotatedViewHeight = texture.Width;
+						maxPreviewWidth = displaySize.Y;
+						maxPreviewHeight = displaySize.X;
+					}
+
+					if (maxPreviewHeight > MAX_PREVIEW_HEIGHT)
+					{
+						maxPreviewHeight = MAX_PREVIEW_HEIGHT;
+					}
+
+					if (maxPreviewWidth > MAX_PREVIEW_WIDTH)
+					{
+						maxPreviewWidth = MAX_PREVIEW_WIDTH;
+					}
+
 					photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
 					videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
 					previewSize = ChooseOptimalSize(
 						map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))),
-						texture.Width,
-						texture.Height,
+						rotatedViewWidth,
+						rotatedViewHeight,
+						maxPreviewWidth,
+						maxPreviewHeight,
 						cameraTemplate == CameraTemplate.Record ? videoSize : photoSize);
-					sensorOrientation = (int)characteristics.Get(CameraCharacteristics.SensorOrientation);
 					cameraType = (LensFacing)(int)characteristics.Get(CameraCharacteristics.LensFacing);
 
 					if (Resources.Configuration.Orientation == AOrientation.Landscape)
@@ -308,7 +343,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					repeatingIsRunning = false;
 					sessionBuilder.AddTarget(photoReader.Surface);
 					sessionBuilder.Set(CaptureRequest.FlashMode, (int)flashMode);
-					sessionBuilder.Set(CaptureRequest.JpegOrientation, GetJpegOrientation());
+					/*sessionBuilder.Set(CaptureRequest.JpegOrientation, GetJpegOrientation());*/
 					session.Capture(sessionBuilder.Build(), null, null);
 					sessionBuilder.RemoveTarget(photoReader.Surface);
 					UpdateRepeatingRequest();
@@ -320,9 +355,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPhoto(object sender, Tuple<string, byte[]> tuple) =>
+		void OnPhoto(object sender, Tuple<string, byte[], int> tuple) =>
 			Device.BeginInvokeOnMainThread(() =>
-				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2)));
+				Element?.RaiseMediaCaptured(new MediaCapturedEventArgs(tuple.Item1, tuple.Item2, tuple.Item3)));
 
 		void OnVideo(object sender, string path) =>
 			Device.BeginInvokeOnMainThread(() =>
@@ -339,7 +374,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				string filePath = null;
 
+				// Calculate image rotation based on sensor and device orientation
+				var rotation = GetRotationCompensation();
+
 				// See TODO on CameraView.SavePhotoToFile
+				// Insert Exif information to jpeg file
 				/*if (Element.SavePhotoToFile)
 				{
 					filePath = ConstructMediaFilename(null, extension: "jpg");
@@ -349,10 +388,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				OnPhoto(this, new Tuple<string, byte[]>(filePath, Element.SavePhotoToFile ? null : bytes));*/
 
 				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, new Tuple<string, byte[]>(filePath, bytes));
+				OnPhoto(this, new Tuple<string, byte[], int>(filePath, bytes, rotation));
 			};
 
 			photoReader.SetOnImageAvailableListener(readerListener, backgroundHandler);
+		}
+
+		private int GetRotationCompensation()
+		{
+			var rotationCompensation = GetDisplayRotationDegrees();
+			var c = Manager.GetCameraCharacteristics(cameraId);
+			// Get the device's sensor orientation.
+			var sensorOrientation = (int)c.Get(CameraCharacteristics.SensorOrientation);
+
+			var facingFront = ((Integer)c.Get(CameraCharacteristics.LensFacing)).IntValue() == (int)LensFacing.Front;
+			if (facingFront)
+			{
+				rotationCompensation = (sensorOrientation + rotationCompensation) % 360;
+			}
+			else
+			{
+				rotationCompensation = (sensorOrientation - rotationCompensation + 360) % 360;
+			}
+
+			return rotationCompensation;
 		}
 
 		void SetupMediaRecorder(Surface previewSurface)
@@ -923,17 +982,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		// chooses the smallest one whose width and height are at least as large as the respective requested values
-		ASize ChooseOptimalSize(ASize[] choices, int width, int height, ASize aspectRatio)
+		ASize ChooseOptimalSize(ASize[] choices, int width, int height, int maxWidth, int maxHeight, ASize aspectRatio)
 		{
 			var bigEnough = new List<ASize>();
+			var notBigEnough = new List<ASize>();
 			var w = aspectRatio.Width;
 			var h = aspectRatio.Height;
 			foreach (var option in choices)
 			{
-				if (option.Height == option.Width * h / w &&
-						option.Width >= width && option.Height >= height)
+				if (option.Width <= maxWidth && option.Height <= maxHeight &&
+					option.Height == option.Width * h / w)
 				{
-					bigEnough.Add(option);
+					if (option.Width >= width && option.Height >= height)
+					{
+						bigEnough.Add(option);
+					}
+					else
+					{
+						notBigEnough.Add(option);
+					}
 				}
 			}
 
@@ -943,11 +1010,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var minArea = bigEnough.Min(s => s.Width * s.Height);
 				return bigEnough.First(s => s.Width * s.Height == minArea);
 			}
-			else
+
+			if (notBigEnough.Count > 0)
 			{
-				LogError("Couldn't find any suitable preview size");
-				return choices[0];
+				var maxArea = notBigEnough.Max(s => s.Height * s.Width);
+				return notBigEnough.First(s => s.Height * s.Width == maxArea);
 			}
+
+			LogError("Couldn't find any suitable preview size");
+			return choices[0];
 		}
 		#endregion
 	}

@@ -1,15 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
+	/// <summary>
+	/// The MaskedBehavior is a behavior that allows the user to define an input mask for data entry. Adding this behavior to an <see cref="InputView"/> (i.e. <see cref="Entry"/>) control will force the user to only input values matching a given mask. Examples of its usage include input of a credit card number or a phone number.
+	/// </summary>
 	public class MaskedBehavior : BaseBehavior<InputView>
 	{
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Mask"/> property.
+		/// </summary>
 		public static readonly BindableProperty MaskProperty =
 			BindableProperty.Create(nameof(Mask), typeof(string), typeof(MaskedBehavior), propertyChanged: OnMaskPropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="UnMaskedCharacter"/> property.
+		/// </summary>
 		public static readonly BindableProperty UnMaskedCharacterProperty =
 			BindableProperty.Create(nameof(UnMaskedCharacter), typeof(char), typeof(MaskedBehavior), 'X', propertyChanged: OnUnMaskedCharacterPropertyChanged);
 
@@ -17,12 +27,18 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		bool applyingMask;
 
+		/// <summary>
+		/// The mask that the input value needs to match. This is a bindable property.
+		/// </summary>
 		public string Mask
 		{
 			get => (string)GetValue(MaskProperty);
 			set => SetValue(MaskProperty, value);
 		}
 
+		/// <summary>
+		/// The placeholder character for when no input has been given yet. This is a bindable property.
+		/// </summary>
 		public char UnMaskedCharacter
 		{
 			get => (char)GetValue(UnMaskedCharacterProperty);

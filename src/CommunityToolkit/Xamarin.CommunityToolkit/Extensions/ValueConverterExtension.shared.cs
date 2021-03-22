@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Xamarin.CommunityToolkit.Extensions
+namespace Xamarin.CommunityToolkit.Extensions.Internals
 {
-	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract class ValueConverterExtension : IMarkupExtension<IValueConverter>
 	{
 		public IValueConverter ProvideValue(IServiceProvider serviceProvider)

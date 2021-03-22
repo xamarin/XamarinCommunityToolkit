@@ -1,42 +1,64 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// The <see cref="Shield" /> is a type of badge that has two colored sections that contain text
+	/// </summary>
 	public class Shield : BaseTemplatedView<Frame>
 	{
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Subject"/> property.
+		/// </summary>
 		public static readonly BindableProperty SubjectProperty =
 			  BindableProperty.Create(nameof(Subject), typeof(string), typeof(Shield), null,
 				  propertyChanged: OnSubjectChanged);
 
 		static void OnSubjectChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubject();
 
+		/// <summary>
+		/// Text that is shown on the left side of the <see cref="Shield" />. This is a bindable property.
+		/// </summary>
 		public string Subject
 		{
 			get => (string)GetValue(SubjectProperty);
 			set => SetValue(SubjectProperty, value);
 		}
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Status"/> property.
+		/// </summary>
 		public static readonly BindableProperty StatusProperty =
 			BindableProperty.Create(nameof(Status), typeof(string), typeof(Shield), null,
 				propertyChanged: OnStatusChanged);
 
 		static void OnStatusChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatus();
 
+		/// <summary>
+		/// Text that is shown on the right side of the <see cref="Shield" />. This is a bindable property.
+		/// </summary>
 		public string Status
 		{
 			get => (string)GetValue(StatusProperty);
 			set => SetValue(StatusProperty, value);
 		}
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Color"/> property.
+		/// </summary>
 		public static readonly BindableProperty ColorProperty =
 			BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), Color.Default,
 				propertyChanged: OnColorChanged);
 
 		static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateColor();
 
+		/// <summary>
+		/// Background <see cref="Forms.Color" /> of the right side of the <see cref="Shield" />. This is a bindable property.
+		/// </summary>
 		public Color Color
 		{
 			get => (Color)GetValue(ColorProperty);
@@ -49,18 +71,27 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateTextColor();
 
+		/// <summary>
+		/// Text <see cref="Forms.Color" /> of the text on the right side of the Shield
+		/// </summary>
 		public Color TextColor
 		{
 			get => (Color)GetValue(TextColorProperty);
 			set => SetValue(TextColorProperty, value);
 		}
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="FontSize"/> property.
+		/// </summary>
 		public static BindableProperty FontSizeProperty =
 			BindableProperty.Create(nameof(FontSize), typeof(double), typeof(Shield), Label.FontSizeProperty.DefaultValue,
 				propertyChanged: OnFontChanged);
 
 		static void OnFontChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateFont();
 
+		/// <summary>
+		/// Font size of all the text on the <see cref="Shield" />. <see cref="NamedSize" /> values can be used. This is a bindable preoprty.
+		/// </summary>
 		[TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
@@ -68,44 +99,71 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FontSizeProperty, value);
 		}
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="FontFamily"/> property.
+		/// </summary>
 		public static BindableProperty FontFamilyProperty =
 			BindableProperty.Create(nameof(FontFamily), typeof(string), typeof(Shield), Label.FontFamilyProperty.DefaultValue,
 				propertyChanged: OnFontChanged);
 
+		/// <summary>
+		/// Font of all the text on the <see cref="Shield" />. This is a bindable property.
+		/// </summary>
 		public string FontFamily
 		{
 			get => (string)GetValue(FontFamilyProperty);
 			set => SetValue(FontFamilyProperty, value);
 		}
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="FontAttributes"/> property.
+		/// </summary>
 		public static BindableProperty FontAttributesProperty =
 			BindableProperty.Create(nameof(FontAttributes), typeof(FontAttributes), typeof(Shield), Label.FontAttributesProperty.DefaultValue,
 				propertyChanged: OnFontChanged);
 
+		/// <summary>
+		/// Font attributes of all the text on the <see cref="Shield" />. This is a bindable property.
+		/// </summary>
 		public FontAttributes FontAttributes
 		{
 			get => (FontAttributes)GetValue(FontAttributesProperty);
 			set => SetValue(FontAttributesProperty, value);
 		}
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Command"/> property.
+		/// </summary>
 		public static readonly BindableProperty CommandProperty =
 			BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(Shield), null);
 
+		/// <summary>
+		/// Command that is triggered when the <see cref="Shield" /> is tapped. This is a bindable property.
+		/// </summary>
 		public ICommand Command
 		{
 			get => (ICommand)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="CommandParameter"/> property.
+		/// </summary>
 		public static readonly BindableProperty CommandParameterProperty =
 			BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(Shield), null);
 
+		/// <summary>
+		/// Parameter that is provided to the <see cref="Command"/> when the <see cref="Shield" /> is tapped. This is a bindable property.
+		/// </summary>
 		public object CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);
 		}
 
+		/// <summary>
+		/// Event that is triggered when the <see cref="Shield" /> is tapped. This is a bindable property.
+		/// </summary>
 		public event EventHandler Tapped;
 
 		Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();

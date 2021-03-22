@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void AsyncValueCommandParameter_CanExecuteTrue_Test()
 		{
 			// Arrange
-			var command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteTrue);
+			var command = new AsyncValueCommand<int>(IntParameterTask, parameter => CanExecuteTrue(parameter));
 			var command2 = new AsyncValueCommand<int, bool>(IntParameterTask, CanExecuteTrue);
 
 			// Act
@@ -84,7 +84,36 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void AsyncValueCommandParameter_CanExecuteFalse_Test()
 		{
 			// Arrange
-			var command = new AsyncValueCommand<int>(IntParameterTask, CanExecuteFalse);
+			var command = new AsyncValueCommand<int>(IntParameterTask, parameter => CanExecuteFalse(parameter));
+			var command2 = new AsyncValueCommand<int, string>(IntParameterTask, CanExecuteFalse);
+
+			// Act
+
+			// Assert
+			Assert.False(command.CanExecute(null));
+			Assert.False(command2.CanExecute("Hello World"));
+		}
+
+		[Fact]
+		public void AsyncValueCommandParameter_CanExecuteTrue_NoParameterTest()
+		{
+			// Arrange
+			var command = new AsyncValueCommand<int>(IntParameterTask, () => CanExecuteTrue());
+			var command2 = new AsyncValueCommand<int, bool>(IntParameterTask, CanExecuteTrue);
+
+			// Act
+
+			// Assert
+
+			Assert.True(command.CanExecute(null));
+			Assert.True(command2.CanExecute(true));
+		}
+
+		[Fact]
+		public void AsyncValueCommandParameter_CanExecuteFalse_NoParameter_Test()
+		{
+			// Arrange
+			var command = new AsyncValueCommand<int>(IntParameterTask, () => CanExecuteFalse());
 			var command2 = new AsyncValueCommand<int, string>(IntParameterTask, CanExecuteFalse);
 
 			// Act
@@ -98,7 +127,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void AsyncValueCommandNoParameter_CanExecuteTrue_Test()
 		{
 			// Arrange
-			var command = new AsyncValueCommand(NoParameterTask, CanExecuteTrue);
+			var command = new AsyncValueCommand(NoParameterTask, parameter => CanExecuteTrue(parameter));
 
 			// Act
 
@@ -110,7 +139,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		public void AsyncValueCommandNoParameter_CanExecuteFalse_Test()
 		{
 			// Arrange
-			var command = new AsyncValueCommand(NoParameterTask, CanExecuteFalse);
+			var command = new AsyncValueCommand(NoParameterTask, parameter => CanExecuteFalse(parameter));
 
 			// Act
 
@@ -119,9 +148,48 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 		}
 
 		[Fact]
-		public void AsyncValueCommandCanExecuteChanged_Test()
+		public void AsyncValueCommandNoParameter_CanExecuteTrueNoParameter_Test()
 		{
 			// Arrange
+			var command = new AsyncValueCommand(NoParameterTask, () => CanExecuteTrue());
+
+			// Act
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void AsyncValueCommandNoParameter_CanExecuteFalseNoParameter_Test()
+		{
+			// Arrange
+			var command = new AsyncValueCommand(NoParameterTask, () => CanExecuteFalse());
+
+			// Act
+
+			// Assert
+			Assert.False(command.CanExecute(null));
+		}
+
+		[Fact]
+		public void AsyncValueCommandNoParameter_NoCanExecute_Test()
+		{
+			// Arrange
+			Func<bool> canExecute = null;
+			var command = new AsyncValueCommand(NoParameterTask, canExecute);
+
+			// Act
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+		}
+
+		[Fact]
+		public async Task AsyncValueCommand_RaiseCanExecuteChanged_Test()
+		{
+			// Arrange
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object>();
+
 			var canCommandExecute = false;
 			var didCanExecuteChangeFire = false;
 
@@ -141,12 +209,57 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Act
 			command.RaiseCanExecuteChanged();
+			await handleCanExecuteChangedTCS.Task;
 
 			// Assert
 			Assert.True(didCanExecuteChangeFire);
 			Assert.True(command.CanExecute(null));
 
-			void handleCanExecuteChanged(object sender, EventArgs e) => didCanExecuteChangeFire = true;
+			void handleCanExecuteChanged(object sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				handleCanExecuteChangedTCS.SetResult(null);
+			}
+		}
+
+		[Fact]
+		public async Task AsyncValueCommand_ChangeCanExecute_Test()
+		{
+			// Arrange
+			var handleCanExecuteChangedTCS = new TaskCompletionSource<object>();
+
+			var canCommandExecute = false;
+			var didCanExecuteChangeFire = false;
+
+			var command = new AsyncValueCommand(NoParameterTask, commandCanExecute);
+			command.CanExecuteChanged += handleCanExecuteChanged;
+
+			bool commandCanExecute(object parameter) => canCommandExecute;
+
+			Assert.False(command.CanExecute(null));
+
+			// Act
+			canCommandExecute = true;
+
+			// Assert
+			Assert.True(command.CanExecute(null));
+			Assert.False(didCanExecuteChangeFire);
+
+			// Act
+#pragma warning disable CS0618 // Type or member is obsolete
+			command.ChangeCanExecute();
+			await handleCanExecuteChangedTCS.Task;
+#pragma warning restore CS0618 // Type or member is obsolete
+
+			// Assert
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
+
+			void handleCanExecuteChanged(object sender, EventArgs e)
+			{
+				didCanExecuteChangeFire = true;
+				handleCanExecuteChangedTCS.SetResult(null);
+			}
 		}
 
 		[Fact]

@@ -257,7 +257,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected virtual void UpdateSource()
 		{
 			if (Element.Source == null)
+			{
+				Control.Stop();
+				Control.Source = null;
 				return;
+			}
 
 			if (Element.Source is UriMediaSource uriSource)
 				Control.Source = uriSource.Uri;

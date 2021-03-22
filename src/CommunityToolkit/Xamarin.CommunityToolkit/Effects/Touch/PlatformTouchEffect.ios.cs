@@ -3,6 +3,7 @@ using CoreGraphics;
 using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -13,9 +14,13 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		UIGestureRecognizer gesture;
+		UIGestureRecognizer touchGesture;
+
+		UIGestureRecognizer hoverGesture;
 
 		TouchEffect effect;
+
+		UIView View => Container ?? Control;
 
 		protected override void OnAttached()
 		{
@@ -25,12 +30,26 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			effect.Element = (VisualElement)Element;
 
-			gesture = new TouchUITapGestureRecognizer(effect);
-			if (Container != null)
+			if (View == null)
+				return;
+
+			touchGesture = new TouchUITapGestureRecognizer(effect);
+
+			if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
 			{
-				Container.AddGestureRecognizer(gesture);
-				Container.UserInteractionEnabled = true;
+				button.AllTouchEvents += PreventButtonHighlight;
+				((TouchUITapGestureRecognizer)touchGesture).IsButton = true;
 			}
+
+			View.AddGestureRecognizer(touchGesture);
+
+			if (XCT.IsiOS13OrNewer)
+			{
+				hoverGesture = new UIHoverGestureRecognizer(OnHover);
+				View.AddGestureRecognizer(hoverGesture);
+			}
+
+			View.UserInteractionEnabled = true;
 		}
 
 		protected override void OnDetached()
@@ -38,12 +57,46 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.Element == null)
 				return;
 
-			Container?.RemoveGestureRecognizer(gesture);
-			gesture?.Dispose();
-			gesture = null;
+			if (((View as IVisualNativeElementRenderer)?.Control ?? View) is UIButton button)
+				button.AllTouchEvents -= PreventButtonHighlight;
+
+			if (touchGesture != null)
+			{
+				View?.RemoveGestureRecognizer(touchGesture);
+				touchGesture?.Dispose();
+				touchGesture = null;
+			}
+
+			if (hoverGesture != null)
+			{
+				View?.RemoveGestureRecognizer(hoverGesture);
+				hoverGesture?.Dispose();
+				hoverGesture = null;
+			}
+
 			effect.Element = null;
 			effect = null;
 		}
+
+		void OnHover()
+		{
+			if (effect?.IsDisabled ?? true)
+				return;
+
+			switch (hoverGesture.State)
+			{
+				case UIGestureRecognizerState.Began:
+				case UIGestureRecognizerState.Changed:
+					effect?.HandleHover(HoverStatus.Entered);
+					break;
+				case UIGestureRecognizerState.Ended:
+					effect?.HandleHover(HoverStatus.Exited);
+					break;
+			}
+		}
+
+		void PreventButtonHighlight(object sender, EventArgs args)
+			=> ((UIButton)sender).Highlighted = false;
 	}
 
 	sealed class TouchUITapGestureRecognizer : UIGestureRecognizer
@@ -62,6 +115,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		}
 
 		public bool IsCanceled { get; set; } = true;
+
+		public bool IsButton { get; set; }
 
 		UIView Renderer => effect?.Element.GetRenderer() as UIView;
 
@@ -158,7 +213,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (interactionStatus.HasValue)
 				effect?.HandleUserInteraction(interactionStatus.Value);
 
-			if (effect == null || !effect.NativeAnimation || !effect.CanExecute)
+			if (effect == null || (!effect.NativeAnimation && !IsButton) || !effect.CanExecute)
 				return;
 
 			var control = effect.Element;

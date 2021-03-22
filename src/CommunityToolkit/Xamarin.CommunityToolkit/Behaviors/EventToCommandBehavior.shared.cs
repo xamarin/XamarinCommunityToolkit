@@ -1,22 +1,38 @@
 ﻿using System;
 using System.Reflection;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
+	/// <summary>
+	/// The <see cref="EventToCommandBehavior"/> is a behavior that allows the user to invoke a <see cref="ICommand"/> through an event. It is designed to associate Commands to events exposed by controls that were not designed to support Commands. It allows you to map any arbitrary event on a control to a Command.
+	/// </summary>
 	public class EventToCommandBehavior : BaseBehavior<VisualElement>
 	{
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="EventName"/> property.
+		/// </summary>
 		public static readonly BindableProperty EventNameProperty =
 			BindableProperty.Create(nameof(EventName), typeof(string), typeof(EventToCommandBehavior), propertyChanged: OnEventNamePropertyChanged);
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Command"/> property.
+		/// </summary>
 		public static readonly BindableProperty CommandProperty =
 			BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(EventToCommandBehavior));
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="CommandParameter"/> property.
+		/// </summary>
 		public static readonly BindableProperty CommandParameterProperty =
 			BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(EventToCommandBehavior));
 
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="EventArgs"/> property.
+		/// </summary>
 		public static readonly BindableProperty EventArgsConverterProperty =
 			BindableProperty.Create(nameof(EventArgsConverter), typeof(IValueConverter), typeof(EventToCommandBehavior));
 
@@ -26,24 +42,36 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		EventInfo eventInfo;
 
+		/// <summary>
+		/// The name of the event that should be associated with <see cref="Command"/>. This is bindable property.
+		/// </summary>
 		public string EventName
 		{
 			get => (string)GetValue(EventNameProperty);
 			set => SetValue(EventNameProperty, value);
 		}
 
+		/// <summary>
+		/// The Command that should be executed when the event configured with <see cref="EventName"/> is triggered. This is a bindable property.
+		/// </summary>
 		public ICommand Command
 		{
 			get => (ICommand)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
+		/// <summary>
+		/// An optional parameter to forward to the <see cref="Command"/>. This is a bindable property.
+		/// </summary>
 		public object CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);
 		}
 
+		/// <summary>
+		/// An optional <see cref="IValueConverter"/> that can be used to convert <see cref="EventArgs"/> values, associated with the event configured with <see cref="EventName"/>, to values passed into the <see cref="Command"/>. This is a bindable property.
+		/// </summary>
 		public IValueConverter EventArgsConverter
 		{
 			get => (IValueConverter)GetValue(EventArgsConverterProperty);

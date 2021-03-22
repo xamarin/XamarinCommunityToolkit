@@ -1,8 +1,8 @@
-﻿using System.Windows.Input;
-using Xamarin.Forms;
-using System;
+﻿using System;
 using System.Linq;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
@@ -467,6 +467,7 @@ namespace Xamarin.CommunityToolkit.Effects
 		public TouchEffect()
 			: base(EffectIds.TouchEffect)
 		{
+			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.Android.Effects.PlatformTouchEffect();
@@ -483,6 +484,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.UWP.Effects.PlatformTouchEffect();
 #endif
+			#endregion
 		}
 
 		public static bool GetIsAvailable(BindableObject bindable)
@@ -1064,13 +1066,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			=> gestureManager.HandleTouch(this, status);
 
 		internal void HandleUserInteraction(TouchInteractionStatus interactionStatus)
-		{
-			if (InteractionStatus != interactionStatus)
-			{
-				InteractionStatus = interactionStatus;
-				RaiseInteractionStatusChanged();
-			}
-		}
+			=> gestureManager.HandleUserInteraction(this, interactionStatus);
 
 		internal void HandleHover(HoverStatus status)
 			=> gestureManager.HandleHover(this, status);

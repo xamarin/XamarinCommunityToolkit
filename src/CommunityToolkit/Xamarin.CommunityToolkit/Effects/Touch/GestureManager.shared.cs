@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
@@ -79,6 +81,15 @@ namespace Xamarin.CommunityToolkit.Effects
 				OnTapped(sender);
 		}
 
+		internal void HandleUserInteraction(TouchEffect sender, TouchInteractionStatus interactionStatus)
+		{
+			if (sender.InteractionStatus != interactionStatus)
+			{
+				sender.InteractionStatus = interactionStatus;
+				sender.RaiseInteractionStatusChanged();
+			}
+		}
+
 		internal void HandleHover(TouchEffect sender, HoverStatus status)
 		{
 			if (!sender.Element.IsEnabled)
@@ -94,8 +105,11 @@ namespace Xamarin.CommunityToolkit.Effects
 				sender.RaiseHoverStateChanged();
 			}
 
-			sender.HoverStatus = status;
-			sender.RaiseHoverStatusChanged();
+			if (sender.HoverStatus != status)
+			{
+				sender.HoverStatus = status;
+				sender.RaiseHoverStatusChanged();
+			}
 		}
 
 		internal async Task ChangeStateAsync(TouchEffect sender, bool animated)
@@ -199,8 +213,39 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (!sender.CanExecute || (sender.LongPressCommand != null && sender.InteractionStatus == TouchInteractionStatus.Completed))
 				return;
 
+			if (Device.RuntimePlatform == Device.Android)
+				HandleCollectionViewSelection(sender);
+
+			if (sender.Element is IButtonController button)
+				button.SendClicked();
+
 			sender.Command?.Execute(sender.CommandParameter);
 			sender.RaiseCompleted();
+		}
+
+		void HandleCollectionViewSelection(TouchEffect sender)
+		{
+			if (!sender.Element.TryFindParentElementWithParentOfType(out var element, out CollectionView collectionView))
+				return;
+
+			var item = element.BindingContext ?? element;
+
+			switch (collectionView.SelectionMode)
+			{
+				case SelectionMode.Single:
+					collectionView.SelectedItem = !item.Equals(collectionView.SelectedItem) ? item : null;
+					break;
+				case SelectionMode.Multiple:
+					var selectedItems = collectionView.SelectedItems?.ToList() ?? new List<object>();
+
+					if (selectedItems.Contains(item))
+						selectedItems.Remove(item);
+					else
+						selectedItems.Add(item);
+
+					collectionView.UpdateSelectedItems(selectedItems);
+					break;
+			}
 		}
 
 		internal void AbortAnimations(TouchEffect sender)
@@ -315,6 +360,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.BackgroundColor = color;
 				return Task.FromResult(true);
 			}
@@ -343,6 +389,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.Opacity = opacity;
 				return Task.FromResult(true);
 			}
@@ -371,12 +418,13 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations(nameof(SetScale));
 				element.Scale = scale;
 				return Task.FromResult(true);
 			}
 
 			var animationCompletionSource = new TaskCompletionSource<bool>();
-			element.Animate($"{nameof(SetScale)}{element.Id}", v =>
+			element.Animate(nameof(SetScale), v =>
 			{
 				if (double.IsNaN(v))
 					return;
@@ -424,6 +472,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.TranslationX = translationX;
 				element.TranslationY = translationY;
 				return Task.FromResult(true);
@@ -453,6 +502,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.Rotation = rotation;
 				return Task.FromResult(true);
 			}
@@ -481,6 +531,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.RotationX = rotationX;
 				return Task.FromResult(true);
 			}
@@ -509,6 +560,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			var element = sender.Element;
 			if (duration <= 0)
 			{
+				element.AbortAnimations();
 				element.RotationY = rotationY;
 				return Task.FromResult(true);
 			}

@@ -14,8 +14,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty RepeatCountProperty
 			= BindableProperty.Create(nameof(RepeatCount), typeof(int), typeof(StateView), 1);
 
-		public static readonly BindableProperty RepeatTemplateProperty
-			= BindableProperty.Create(nameof(RepeatTemplate), typeof(DataTemplate), typeof(StateView));
+		public static readonly BindableProperty TemplateProperty
+			= BindableProperty.Create(nameof(Template), typeof(DataTemplate), typeof(StateView));
 
 		public LayoutState StateKey
 		{
@@ -35,10 +35,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(RepeatCountProperty, value);
 		}
 
-		public DataTemplate RepeatTemplate
+		public DataTemplate Template
 		{
-			get => (DataTemplate)GetValue(RepeatTemplateProperty);
-			set => SetValue(RepeatTemplateProperty, value);
+			get => (DataTemplate)GetValue(TemplateProperty);
+			set => SetValue(TemplateProperty, value);
 		}
 	}
 }
