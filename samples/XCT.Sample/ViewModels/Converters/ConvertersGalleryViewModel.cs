@@ -85,6 +85,14 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(ListToStringConverterPage),
 				nameof(ListToStringConverter),
 				"A converter that allows users to convert an incoming binding that implements IEnumerable to a single string value. The Separator property is used to join the items in the IEnumerable."),
+			new SectionModel(
+				typeof(EnumToBoolConverterPage),
+				nameof(EnumToBoolConverter),
+				"A converter that allows you to convert an Enum to boolean value"),
+			new SectionModel(
+				typeof(ImageResourceConverterPage),
+				nameof(ImageResourceConverter),
+				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
 		};
 	}
 }

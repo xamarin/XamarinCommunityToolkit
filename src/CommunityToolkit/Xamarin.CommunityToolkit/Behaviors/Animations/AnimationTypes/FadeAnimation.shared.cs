@@ -16,10 +16,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected override uint DefaultDuration { get; set; } = 300;
 
-		public override async Task Animate(View view)
+		public override async Task Animate(View? view)
 		{
-			await view.FadeTo(Fade, Duration, Easing);
-			await view.FadeTo(1, Duration, Easing);
+			if (view != null)
+			{
+				await view.FadeTo(Fade, Duration, Easing);
+				await view.FadeTo(1, Duration, Easing);
+			}
 		}
 	}
 }

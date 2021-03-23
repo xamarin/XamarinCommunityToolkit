@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static readonly Lazy<HttpClient> lazyHttp = new Lazy<HttpClient>(() => new HttpClient());
 		static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
-		public static async Task<FileInfo> LoadInternal(ImageSource imageSource, float scale, string cacheDirectory)
+		public static async Task<FileInfo?> LoadInternal(ImageSource imageSource, float scale, string cacheDirectory)
 		{
 			if (imageSource is GravatarImageSource gis)
 			{
@@ -24,6 +24,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (!await UseCacheFile(gis.CachingEnabled, gis.CacheValidity, cacheFileInfo))
 				{
+					_ = gis.Email ?? throw new InvalidOperationException($"{nameof(gis.Email)} is not initialized");
 					var imageBytes = await GetGravatarAsync(gis.Email, gis.Size, scale, gis.Default);
 					await SaveImage(cacheFileInfo, imageBytes ?? Array.Empty<byte>());
 				}
@@ -78,7 +79,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static string CacheFileName(GravatarImageSource gis, float scale)
-			=> $"{GetMd5Hash(gis.Email)}-{gis.Size}@{scale}x.png";
+		{
+			_ = gis.Email ?? throw new InvalidOperationException($"{nameof(gis.Email)} cannot be null");
+			return $"{GetMd5Hash(gis.Email)}-{gis.Size}@{scale}x.png";
+		}
 
 		static async Task<byte[]> GetGravatarAsync(string email, int size, float scale, DefaultGravatar defaultGravatar)
 		{

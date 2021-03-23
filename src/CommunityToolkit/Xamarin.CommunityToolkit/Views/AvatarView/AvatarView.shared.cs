@@ -19,9 +19,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		readonly SemaphoreSlim imageSourceSemaphore = new SemaphoreSlim(1);
 
-		CancellationTokenSource imageLoadingTokenSource;
+		CancellationTokenSource? imageLoadingTokenSource;
 
-		object sourceBindingContext;
+		object? sourceBindingContext;
 
 		// Indicates if any thread already waits for the semaphore is released (0 == False | 1 == True).
 		int isWaitingForSourceUpdateValue;
@@ -134,18 +134,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets the <see cref="ImageSource"/> that is used to try and show an avatar image. If the image could not be loaded, the <see cref="Text"/> will be shown. This is a bindable property.
 		/// </summary>
-		public ImageSource Source
+		public ImageSource? Source
 		{
-			get => (ImageSource)GetValue(SourceProperty);
+			get => (ImageSource?)GetValue(SourceProperty);
 			set => SetValue(SourceProperty, value);
 		}
 
 		/// <summary>
 		/// Gets or sets the text for the <see cref="AvatarView"/>. Which is shown instead of the image when the <see cref="Source"/> is either not set or doesn't result in showing an image. This is a bindable property.
 		/// </summary>
-		public string Text
+		public string? Text
 		{
-			get => (string)GetValue(TextProperty);
+			get => (string?)GetValue(TextProperty);
 			set => SetValue(TextProperty, value);
 		}
 
@@ -161,9 +161,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font of the <see cref="Text"/> on the <see cref="AvatarView" />. This is a bindable property.
 		/// </summary>
-		public string FontFamily
+		public string? FontFamily
 		{
-			get => (string)GetValue(FontFamilyProperty);
+			get => (string?)GetValue(FontFamilyProperty);
 			set => SetValue(FontFamilyProperty, value);
 		}
 
@@ -354,23 +354,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				try
 				{
-					var imageStreamLoadingTask = GetImageStreamLoadingTask(source, imageLoadingTokenSource.Token);
-					if (imageStreamLoadingTask != null)
+					if (source is UriImageSource uriImageSource)
 					{
-						using var stream = await imageStreamLoadingTask;
-						if (stream != null)
-						{
-							var newStream = new MemoryStream();
-							stream.CopyTo(newStream);
-							newStream.Position = 0;
-							Image.IsVisible = true;
-							source = ImageSource.FromStream(() => newStream);
-						}
-						else
-						{
-							Image.IsVisible = false;
-							source = null;
-						}
+						static async Task<Stream?> getStreamAsync(UriImageSource uriSource, CancellationToken token) => uriSource.Uri != null ? await uriSource.GetStreamAsync(token) : null;
+
+						var stream = await getStreamAsync(uriImageSource, imageLoadingTokenSource.Token);
+
+						source = stream != null
+							? ImageSource.FromStream(async (token) => stream?.CanRead ?? true ? stream : (stream = await getStreamAsync(uriImageSource, token)))
+							: null;
+
+						Image.IsVisible = source != null;
 					}
 					else
 						Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(source);
@@ -402,20 +396,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			return size * .4;
 		}
-
-		Task<Stream> GetImageStreamLoadingTask(ImageSource source, CancellationToken token)
-			=> source switch
-			{
-				IStreamImageSource streamImageSource => streamImageSource.GetStreamAsync(token),
-				UriImageSource uriImageSource => uriImageSource.Uri != null
-					? new UriImageSource
-					{
-						Uri = uriImageSource.Uri,
-						CachingEnabled = uriImageSource.CachingEnabled,
-						CacheValidity = uriImageSource.CacheValidity
-					}.GetStreamAsync(token)
-					: Task.FromResult<Stream>(null),
-				_ => null
-			};
 	}
 }

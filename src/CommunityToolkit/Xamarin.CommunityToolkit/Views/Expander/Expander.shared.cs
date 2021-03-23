@@ -22,11 +22,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			remove => tappedEventManager.RemoveEventHandler(value);
 		}
 
-		ContentView contentHolder;
+		ContentView? contentHolder;
 
-		GestureRecognizer headerTapGestureRecognizer;
+		GestureRecognizer? headerTapGestureRecognizer;
 
-		DataTemplate previousTemplate;
+		DataTemplate? previousTemplate;
 
 		double lastVisibleSize = -1;
 
@@ -80,8 +80,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			: Width;
 
 		double ContentSize => Direction.IsVertical()
-			? contentHolder.Height
-			: contentHolder.Width;
+			? contentHolder?.Height ?? throw new NullReferenceException()
+			: contentHolder?.Width ?? throw new NullReferenceException();
 
 		double ContentSizeRequest
 		{
@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					? Content.HeightRequest
 					: Content.WidthRequest;
 
-				if (sizeRequest < 0 || !(Content is Layout layout))
+				if (sizeRequest < 0 || Content is not Layout layout)
 					return sizeRequest;
 
 				return sizeRequest + (Direction.IsVertical()
@@ -101,6 +101,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			set
 			{
+				_ = contentHolder ?? throw new NullReferenceException();
+
 				if (Direction.IsVertical())
 				{
 					contentHolder.HeightRequest = value;
@@ -111,12 +113,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		double MeasuredContentSize => Direction.IsVertical()
-			? contentHolder.Measure(Width, double.PositiveInfinity).Request.Height
-			: contentHolder.Measure(double.PositiveInfinity, Height).Request.Width;
+			? contentHolder?.Measure(Width, double.PositiveInfinity).Request.Height ?? throw new NullReferenceException()
+			: contentHolder?.Measure(double.PositiveInfinity, Height).Request.Width ?? throw new NullReferenceException();
 
-		public View Header
+		public View? Header
 		{
-			get => (View)GetValue(HeaderProperty);
+			get => (View?)GetValue(HeaderProperty);
 			set => SetValue(HeaderProperty, value);
 		}
 
@@ -126,9 +128,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ContentProperty, value);
 		}
 
-		public DataTemplate ContentTemplate
+		public DataTemplate? ContentTemplate
 		{
-			get => (DataTemplate)GetValue(ContentTemplateProperty);
+			get => (DataTemplate?)GetValue(ContentTemplateProperty);
 			set => SetValue(ContentTemplateProperty, value);
 		}
 
@@ -174,15 +176,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(StateProperty, value);
 		}
 
-		public object CommandParameter
+		public object? CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);
 		}
 
-		public ICommand Command
+		public ICommand? Command
 		{
-			get => (ICommand)GetValue(CommandProperty);
+			get => (ICommand?)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
@@ -206,7 +208,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				CommandParameter = this,
 				Command = new Command(parameter =>
 				{
-					var parent = (parameter as View).Parent;
+					var parent = ((View)parameter).Parent;
 					while (parent != null && !(parent is Page))
 					{
 						if (parent is Expander ancestorExpander)
@@ -380,7 +382,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SetContent(true);
 		}
 
-		View CreateContent()
+		View? CreateContent()
 		{
 			var template = ContentTemplate;
 			while (template is DataTemplateSelector selector)
@@ -390,11 +392,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return null;
 
 			previousTemplate = template;
-			return (View)template?.CreateContent();
+			return (View?)template?.CreateContent();
 		}
 
 		void SetDirection(ExpandDirection oldDirection)
 		{
+			_ = Header ?? throw new InvalidOperationException($"{nameof(Header)} not initialized");
+
 			if (oldDirection.IsVertical() == Direction.IsVertical())
 			{
 				SetHeader(Header);
@@ -422,6 +426,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					? ExpandState.Expanded
 					: ExpandState.Collapsed;
 				ContentSizeRequest = endSize;
+
+				_ = contentHolder ?? throw new NullReferenceException();
 				contentHolder.IsVisible = IsExpanded;
 				return;
 			}
@@ -447,6 +453,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					if (!IsExpanded)
 					{
+						_ = contentHolder ?? throw new NullReferenceException();
 						contentHolder.IsVisible = false;
 						State = ExpandState.Collapsed;
 						return;

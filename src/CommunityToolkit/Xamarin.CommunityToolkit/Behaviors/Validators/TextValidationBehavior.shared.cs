@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
@@ -40,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty RegexOptionsProperty =
 			BindableProperty.Create(nameof(RegexOptions), typeof(RegexOptions), typeof(TextValidationBehavior), defaultValueCreator: GetDefaultRegexOptions, propertyChanged: OnRegexPropertyChanged);
 
-		Regex regex;
+		Regex? regex;
 
 		/// <summary>
 		/// The minimum length of the value that will be allowed. This is a bindable property.
@@ -72,9 +74,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// The regular expression pattern which the value will have to match before it will be allowed. This is a bindable property.
 		/// </summary>
-		public string RegexPattern
+		public string? RegexPattern
 		{
-			get => (string)GetValue(RegexPatternProperty);
+			get => (string?)GetValue(RegexPatternProperty);
 			set => SetValue(RegexPatternProperty, value);
 		}
 
@@ -96,39 +98,37 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected virtual RegexOptions DefaultRegexOptions => RegexOptions.None;
 
-		protected override object DecorateValue()
+		protected override object? Decorate(object? value)
 		{
-			var value = base.DecorateValue()?.ToString();
+			var stringValue = base.Decorate(value)?.ToString();
 			var flags = DecorationFlags;
 
 			if (flags.HasFlag(TextDecorationFlags.NullToEmpty))
-				value ??= string.Empty;
+				stringValue ??= string.Empty;
 
-			if (value == null)
+			if (stringValue == null)
 				return null;
 
 			if (flags.HasFlag(TextDecorationFlags.TrimStart))
-				value = value.TrimStart();
+				stringValue = stringValue.TrimStart();
 
 			if (flags.HasFlag(TextDecorationFlags.TrimEnd))
-				value = value.TrimEnd();
+				stringValue = stringValue.TrimEnd();
 
 			if (flags.HasFlag(TextDecorationFlags.NormalizeWhiteSpace))
-				value = NormalizeWhiteSpace(value);
+				stringValue = NormalizeWhiteSpace(stringValue);
 
-			return value;
+			return stringValue;
 		}
 
-		protected override bool Validate(object value)
+		protected override ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
 		{
 			var text = value?.ToString();
-			if (text == null)
-				return false;
-
-			var length = text.Length;
-			return length >= MinimumLength &&
-				length <= MaximumLength &&
-				(regex?.IsMatch(text) ?? false);
+			return new ValueTask<bool>(
+				text != null &&
+				text.Length >= MinimumLength &&
+				text.Length <= MaximumLength &&
+				(regex?.IsMatch(text) ?? false));
 		}
 
 		static void OnRegexPropertyChanged(BindableObject bindable, object oldValue, object newValue)

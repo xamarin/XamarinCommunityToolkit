@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -8,8 +9,6 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 {
 	public class SearchViewModel : BaseViewModel
 	{
-		ICommand backCommand, likeCommand, openTwitterSearchCommand, openHelpCommand;
-
 		public string SearchText { get; set; }
 
 		public List<Tweet> SearchResults { get; set; }
@@ -54,17 +53,24 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 					},
 				}
 			};
+
+			BackCommand = new RelayCommand(Back);
+			LikeCommand = new RelayCommand<Tweet>(Like);
+			OpenTwitterSearchCommand = new RelayCommandAsync(OpenTwitterSearch);
+			OpenHelpCommand = new RelayCommandAsync(OpenHelp);
 		}
 
-		public ICommand BackCommand => backCommand ??= new RelayCommand(Back);
+		public ICommand BackCommand { get; }
 
-		public ICommand LikeCommand => likeCommand ??= new RelayCommand<Tweet>(Like);
+		public ICommand LikeCommand { get; }
 
-		public ICommand OpenTwitterSearchCommand => openTwitterSearchCommand ??= new RelayCommandAsync(OpenTwitterSearch);
+		public ICommand OpenTwitterSearchCommand { get; }
 
-		public ICommand OpenHelpCommand => openHelpCommand ??= new RelayCommandAsync(OpenHelp);
+		public ICommand OpenHelpCommand { get; }
 
-		void Back() { }
+		void Back()
+        {
+        }
 
 		void Like(Tweet tweet) => tweet.IsLikedByMe = !tweet.IsLikedByMe;
 
@@ -74,18 +80,18 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 
 		public class Tweet : BaseViewModel
 		{
-			public string AuthorImage { get; set; }
+			public string AuthorImage { get; set; } = string.Empty;
 
-			public string Header { get; set; }
+			public string Header { get; set; } = string.Empty;
 
-			public List<TextFragment> Body { get; set; }
+			public List<TextFragment> Body { get; set; } = new List<TextFragment>();
 
 			public bool IsLikedByMe { get; set; }
 		}
 
 		public class TextFragment
 		{
-			public string Text { get; set; }
+			public string Text { get; set; } = string.Empty;
 
 			public bool IsMatch { get; set; }
 		}
