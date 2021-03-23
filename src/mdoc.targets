@@ -96,8 +96,6 @@
     <PropertyGroup>
       <MDocReferenceAssemblies>@(MDocReferenceAssembly -> '--lib=&quot;%(Identity)&quot;', ' ')</MDocReferenceAssemblies>
     </PropertyGroup>
-    <!-- <RemoveDir Directories="$(TmpDir)" /> -->
-    <!-- <RemoveDir Directories="$(TmpDir)references" /> -->
     <MakeDir Directories="$(TmpDir)" />
     <MakeDir Directories="$(TmpDir)references" />
     <ItemGroup>
@@ -106,13 +104,6 @@
     <Copy SourceFiles="@(MySourceFiles)" DestinationFolder="$(TmpDir)references\" />
     <Copy SourceFiles="$(MDocDocumentationDirectory)\..\frameworks.xml" DestinationFolder="$(TmpDir)" />
     <Copy SourceFiles="$(BinConfigDir)netstandard2.0\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-sdk" />
-    <!-- <Copy SourceFiles="$(BinConfigDir)monoandroid10.0\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-android" />
-    <Copy SourceFiles="$(BinConfigDir)xamarin.ios10\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-ios" />
-    <Copy SourceFiles="$(BinConfigDir)xamarin.mac20\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-macos" />
-    <Copy SourceFiles="$(BinConfigDir)xamarin.tvos10\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-tvos" />
-    <Copy SourceFiles="$(BinConfigDir)xamarin.watchos10\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-watchos" />
-    <Copy SourceFiles="$(BinConfigDir)tizen40\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-tizen" />
-    <Copy SourceFiles="$(BinConfigDir)uap10.0.17763\$(AssemblyName).dll" DestinationFolder="$(TmpDir)xamarin-community-toolkit-uwp" /> -->
     <Exec Command="$(_ManagedExeLauncher) &quot;$(MDocToolPath)&quot; update --debug --lang=DocId --frameworks=&quot;$(TmpDir)frameworks.xml&quot; --out=&quot;$(MDocDocumentationDirectory)&quot; $(MDocReferenceAssemblies) -i &quot;$(BinConfigDir)netstandard2.0\$(AssemblyName).xml&quot;" />
     <_FormatDocs DocsRoot="$(MDocDocumentationDirectory)" />
     <_VerifyAllDocsAreComplete DocsRoot="$(MDocDocumentationDirectory)" />
