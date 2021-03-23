@@ -13,19 +13,19 @@ namespace Xamarin.CommunityToolkit.Extensions
 	/// </summary>
 	public static partial class VisualElementExtension
 	{
-		public static Task<bool> ColorTo(this VisualElement element, Color color, uint length = 250u, Easing? easing = null)
+		public static Task<bool> ColorTo(this VisualElement visualElement, Color color, uint length = 250u, Easing? easing = null)
 		{
-			_ = element ?? throw new ArgumentNullException(nameof(element));
+			_ = visualElement ?? throw new ArgumentNullException(nameof(visualElement));
 
 			var animationCompletionSource = new TaskCompletionSource<bool>();
 
 			new Animation
 			{
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(v, element.BackgroundColor.G, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.R, color.R) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, v, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.G, color.G) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, v, element.BackgroundColor.A), element.BackgroundColor.B, color.B) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, element.BackgroundColor.B, v), element.BackgroundColor.A, color.A) },
-			}.Commit(element, nameof(ColorTo), 16, length, easing, (d, b) => animationCompletionSource.SetResult(true));
+				{ 0, 1, new Animation(v => visualElement.BackgroundColor = new Color(v, visualElement.BackgroundColor.G, visualElement.BackgroundColor.B, visualElement.BackgroundColor.A), visualElement.BackgroundColor.R, color.R) },
+				{ 0, 1, new Animation(v => visualElement.BackgroundColor = new Color(visualElement.BackgroundColor.R, v, visualElement.BackgroundColor.B, visualElement.BackgroundColor.A), visualElement.BackgroundColor.G, color.G) },
+				{ 0, 1, new Animation(v => visualElement.BackgroundColor = new Color(visualElement.BackgroundColor.R, visualElement.BackgroundColor.G, v, visualElement.BackgroundColor.A), visualElement.BackgroundColor.B, color.B) },
+				{ 0, 1, new Animation(v => visualElement.BackgroundColor = new Color(visualElement.BackgroundColor.R, visualElement.BackgroundColor.G, visualElement.BackgroundColor.B, v), visualElement.BackgroundColor.A, color.A) },
+			}.Commit(visualElement, nameof(ColorTo), 16, length, easing, (d, b) => animationCompletionSource.SetResult(true));
 
 			return animationCompletionSource.Task;
 		}
@@ -43,6 +43,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static async Task DisplayToastAsync(this VisualElement visualElement, string message, int durationMilliseconds = 3000)
 		{
+			_ = visualElement ?? throw new ArgumentNullException(nameof(visualElement));
+
 			var messageOptions = new MessageOptions { Message = message };
 			var args = new SnackBarOptions
 			{
@@ -61,6 +63,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static Task DisplayToastAsync(this VisualElement visualElement, ToastOptions toastOptions)
 		{
+			_ = visualElement ?? throw new ArgumentNullException(nameof(visualElement));
+
 			var snackBar = new SnackBar();
 			var options = new SnackBarOptions
 			{
@@ -77,6 +81,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static async Task<bool> DisplaySnackBarAsync(this VisualElement visualElement, string message, string actionButtonText, Func<Task> action, TimeSpan? duration = null)
 		{
+			_ = visualElement ?? throw new ArgumentNullException(nameof(visualElement));
+
 			var messageOptions = new MessageOptions { Message = message };
 			var actionOptions = new List<SnackBarActionOptions>
 			{
@@ -104,6 +110,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static async Task<bool> DisplaySnackBarAsync(this VisualElement visualElement, SnackBarOptions snackBarOptions)
 		{
+			_ = visualElement ?? throw new ArgumentNullException(nameof(visualElement));
+
 			var snackBar = new SnackBar();
 			snackBar.Show(visualElement, snackBarOptions);
 
