@@ -55,17 +55,17 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 
 			switch (args.PropertyName)
 			{
-				case nameof(ShadowEffect.ColorPropertyName):
+				case ShadowEffect.ColorPropertyName:
 					UpdateColor(View);
 					break;
-				case nameof(ShadowEffect.OpacityPropertyName):
+				case ShadowEffect.OpacityPropertyName:
 					UpdateOpacity(View);
 					break;
-				case nameof(ShadowEffect.RadiusPropertyName):
+				case ShadowEffect.RadiusPropertyName:
 					UpdateRadius(View);
 					break;
-				case nameof(ShadowEffect.OffsetXPropertyName):
-				case nameof(ShadowEffect.OffsetYPropertyName):
+				case ShadowEffect.OffsetXPropertyName:
+				case ShadowEffect.OffsetYPropertyName:
 					UpdateOffset(View);
 					break;
 				case nameof(VisualElement.Width):
