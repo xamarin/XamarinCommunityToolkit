@@ -4,14 +4,15 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
-using NUnit.Framework;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests
 {
 	public class ICommand_AsyncValueCommandTests : BaseAsyncValueCommandTests
 	{
-		[TestCase(500)]
-		[TestCase(0)]
+		[Theory]
+		[InlineData(500)]
+		[InlineData(0)]
 		public async Task ICommand_Execute_IntParameter_Test(int parameter)
 		{
 			// Arrange
@@ -24,8 +25,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Assert
 		}
 
-		[TestCase("Hello")]
-		[TestCase(default)]
+		[Theory]
+		[InlineData("Hello")]
+		[InlineData(default)]
 		public async Task ICommand_Execute_StringParameter_Test(string parameter)
 		{
 			// Arrange
@@ -38,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Assert
 		}
 
-		[Test]
+		[Fact]
 		public async Task ICommand_Execute_InvalidValueTypeParameter_Test()
 		{
 			// Arrange
@@ -60,11 +62,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			}
 
 			// Assert
-			Assert.IsNotNull(actualInvalidCommandParameterException);
-			Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
+			Assert.NotNull(actualInvalidCommandParameterException);
+			Assert.Equal(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
 		}
 
-		[Test]
+		[Fact]
 		public async Task ICommand_Execute_InvalidReferenceTypeParameter_Test()
 		{
 			// Arrange
@@ -86,11 +88,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			}
 
 			// Assert
-			Assert.IsNotNull(actualInvalidCommandParameterException);
-			Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
+			Assert.NotNull(actualInvalidCommandParameterException);
+			Assert.Equal(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
 		}
 
-		[Test]
+		[Fact]
 		public async Task ICommand_Execute_ValueTypeParameter_Test()
 		{
 			// Arrange
@@ -112,11 +114,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			}
 
 			// Assert
-			Assert.IsNotNull(actualInvalidCommandParameterException);
-			Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
+			Assert.NotNull(actualInvalidCommandParameterException);
+			Assert.Equal(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
 		}
 
-		[Test]
+		[Fact]
 		public void ICommand_Parameter_CanExecuteTrue_Test()
 		{
 			// Arrange
@@ -125,10 +127,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void ICommand_Parameter_CanExecuteFalse_Test()
 		{
 			// Arrange
@@ -140,7 +142,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void ICommand_NoParameter_CanExecuteFalse_Test()
 		{
 			// Arrange
@@ -152,7 +154,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void ICommand_Parameter_CanExecuteTrue_NoParameter_Test()
 		{
 			// Arrange
@@ -161,10 +163,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void ICommand_Parameter_CanExecuteFalse_NoParameter_Test()
 		{
 			// Arrange
@@ -176,7 +178,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void ICommand_NoParameter_CanExecuteFalse_NoParameter_Test()
 		{
 			// Arrange
@@ -188,7 +190,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void ICommand_Parameter_CanExecuteDynamic_Test()
 		{
 			// Arrange
@@ -197,11 +199,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(true));
+			Assert.True(command.CanExecute(true));
 			Assert.False(command.CanExecute(false));
 		}
 
-		[Test]
+		[Fact]
 		public void ICommand_Parameter_CanExecuteChanged_Test()
 		{
 			// Arrange
@@ -210,12 +212,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(true));
+			Assert.True(command.CanExecute(true));
 			Assert.False(command.CanExecute(false));
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task ICommand_Parameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
 		{
 			// Arrange
@@ -230,20 +231,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			command.Execute(Delay);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 
 			// Act
 			await IntParameterTask(Delay).ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.AreEqual(0, canExecuteChangedCount);
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(0, canExecuteChangedCount);
 
 			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task ICommand_Parameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
@@ -282,13 +282,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.AreEqual(2, canExecuteChangedCount);
-			Assert.AreEqual(canExecuteChangedCount, handleCanExecuteChangedResult);
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task ICommand_NoParameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
 		{
 			// Arrange
@@ -303,21 +302,20 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			command.Execute(null);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 
 			// Act
 			await IntParameterTask(Delay).ConfigureAwait(false);
 			await IntParameterTask(Delay).ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.AreEqual(0, canExecuteChangedCount);
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(0, canExecuteChangedCount);
 
 			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task ICommand_NoParameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
@@ -356,9 +354,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.AreEqual(2, canExecuteChangedCount);
-			Assert.AreEqual(canExecuteChangedCount, handleCanExecuteChangedResult);
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 	}
 }

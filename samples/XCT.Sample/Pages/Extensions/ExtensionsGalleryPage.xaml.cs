@@ -2,6 +2,7 @@
 {
 	public partial class ExtensionsGalleryPage : BasePage
 	{
-		public ExtensionsGalleryPage() => InitializeComponent();
+		public ExtensionsGalleryPage()
+			=> InitializeComponent();
 	}
 }

@@ -1,21 +1,21 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using NUnit.Framework;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {
 	public sealed class ObservableObject_Tests
 	{
-		[Test]
+		readonly Person person = new Person
+		{
+			FirstName = "James",
+			LastName = "Montemagno"
+		};
+
+		[Fact]
 		public void OnPropertyChanged()
 		{
-			var person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-
 			PropertyChangedEventArgs? updated = null;
 			person.PropertyChanged += (sender, args) =>
 			{
@@ -24,19 +24,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			person.FirstName = "Motz";
 
-			Assert.IsNotNull(updated);
-			Assert.AreEqual(nameof(person.FirstName), updated?.PropertyName);
+			Assert.NotNull(updated);
+			Assert.Equal(nameof(person.FirstName), updated?.PropertyName);
 		}
 
-		[Test]
+		[Fact]
 		public void OnDidntChange()
 		{
-			var person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-
 			PropertyChangedEventArgs? updated = null;
 			person.PropertyChanged += (sender, args) =>
 			{
@@ -48,15 +42,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			Assert.Null(updated);
 		}
 
-		[Test]
+		[Fact]
 		public void OnChangedEvent()
 		{
-			var person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-
 			var triggered = false;
 			person.Changed = () =>
 			{
@@ -65,18 +53,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			person.FirstName = "Motz";
 
-			Assert.IsTrue(triggered, "OnChanged didn't raise");
+			Assert.True(triggered, "OnChanged didn't raise");
 		}
 
-		[Test]
+		[Fact]
 		public void OnChangingEvent()
 		{
-			var person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-
 			var triggered = false;
 			person.Changing = () =>
 			{
@@ -85,18 +67,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			person.FirstName = "Motz";
 
-			Assert.IsTrue(triggered, "OnChanging didn't raise");
+			Assert.True(triggered, "OnChanging didn't raise");
 		}
 
-		[Test]
+		[Fact]
 		public void ValidateEvent()
 		{
-			var person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-
 			var contol = "Motz";
 			var triggered = false;
 			person.Validate = (oldValue, newValue) =>
@@ -107,19 +83,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			person.FirstName = contol;
 
-			Assert.IsTrue(triggered, "ValidateValue didn't raise");
-			Assert.AreEqual(person.FirstName, contol);
+			Assert.True(triggered, "ValidateValue didn't raise");
+			Assert.Equal(person.FirstName, contol);
 		}
 
-		[Test]
+		[Fact]
 		public void NotValidateEvent()
 		{
-			var person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-
 			var contol = person.FirstName;
 			var triggered = false;
 			person.Validate = (oldValue, newValue) =>
@@ -130,31 +100,25 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			person.FirstName = "Motz";
 
-			Assert.IsTrue(triggered, "ValidateValue didn't raise");
-			Assert.AreEqual(person.FirstName, contol);
+			Assert.True(triggered, "ValidateValue didn't raise");
+			Assert.Equal(person.FirstName, contol);
 		}
 
-		[Test]
-		public void ValidateEventException()
+		[Fact]
+		public async Task ValidateEventException()
 		{
-			var person = new Person
-			{
-				FirstName = "James",
-				LastName = "Montemagno"
-			};
-
 			person.Validate = (oldValue, newValue) =>
 			{
 				throw new ArgumentOutOfRangeException();
 			};
 
-			var result = Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
+			var result = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
 			{
 				person.FirstName = "Motz";
 				return Task.CompletedTask;
 			});
 
-			Assert.IsNotNull(result);
+			Assert.NotNull(result);
 		}
 	}
 }

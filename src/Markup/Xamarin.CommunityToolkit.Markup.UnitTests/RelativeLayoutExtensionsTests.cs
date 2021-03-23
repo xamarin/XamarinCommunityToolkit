@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -22,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			ExpressionSearch.Default = new UnitExpressionSearch();
 		}
 
-		RelativeLayout Layout => Bindable ?? throw new NullReferenceException();
+		RelativeLayout Layout => Bindable;
 
 		[Test]
 		public void NoChildren()

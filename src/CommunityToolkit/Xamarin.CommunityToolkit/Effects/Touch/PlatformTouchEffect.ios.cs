@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			if (XCT.IsiOS13OrNewer)
 			{
-				hoverGesture = new UIHoverGestureRecognizer(OnHover);
+				hoverGesture = new UIHoverGestureRecognizer(async () => await OnHover());
 				View.AddGestureRecognizer(hoverGesture);
 			}
 
@@ -79,7 +79,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			effect = null;
 		}
 
-		void OnHover()
+		async ValueTask OnHover()
 		{
 			if (effect == null || effect.IsDisabled)
 				return;
@@ -88,10 +88,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			{
 				case UIGestureRecognizerState.Began:
 				case UIGestureRecognizerState.Changed:
-					effect?.HandleHover(HoverStatus.Entered);
+					await effect.HandleHover(HoverStatus.Entered);
 					break;
 				case UIGestureRecognizerState.Ended:
-					effect?.HandleHover(HoverStatus.Exited);
+					await effect.HandleHover(HoverStatus.Exited);
 					break;
 			}
 		}
@@ -126,44 +126,38 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		UIView? Renderer => (UIView?)effect?.Element.GetRenderer();
 
-		public override void TouchesBegan(NSSet touches, UIEvent evt)
+		public override async void TouchesBegan(NSSet touches, UIEvent evt)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
 
 			IsCanceled = false;
 			startPoint = GetTouchPoint(touches);
-
-			HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started).SafeFireAndForget();
-
+			await HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started);
 			base.TouchesBegan(touches, evt);
 		}
 
-		public override void TouchesEnded(NSSet touches, UIEvent evt)
+		public override async void TouchesEnded(NSSet touches, UIEvent evt)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			HandleTouch(effect?.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled, TouchInteractionStatus.Completed).SafeFireAndForget();
-
+			await HandleTouch(effect?.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled, TouchInteractionStatus.Completed);
 			IsCanceled = true;
-
 			base.TouchesEnded(touches, evt);
 		}
 
-		public override void TouchesCancelled(NSSet touches, UIEvent evt)
+		public override async void TouchesCancelled(NSSet touches, UIEvent evt)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).SafeFireAndForget();
-
+			await HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
 			IsCanceled = true;
-
 			base.TouchesCancelled(touches, evt);
 		}
 
-		public override void TouchesMoved(NSSet touches, UIEvent evt)
+		public override async void TouchesMoved(NSSet touches, UIEvent evt)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -177,7 +171,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				var maxDiff = Math.Max(diffX, diffY);
 				if (maxDiff > disallowTouchThreshold)
 				{
-					HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).SafeFireAndForget();
+					await HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
 					IsCanceled = true;
 					base.TouchesMoved(touches, evt);
 					return;
@@ -189,7 +183,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				: TouchStatus.Canceled;
 
 			if (effect?.Status != status)
-				HandleTouch(status).SafeFireAndForget();
+				await HandleTouch(status);
 
 			base.TouchesMoved(touches, evt);
 		}
@@ -222,7 +216,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				interactionStatus = null;
 			}
 
-			effect?.HandleTouch(status);
+			await (effect?.HandleTouch(status) ?? Task.CompletedTask);
 			if (interactionStatus.HasValue)
 				effect?.HandleUserInteraction(interactionStatus.Value);
 

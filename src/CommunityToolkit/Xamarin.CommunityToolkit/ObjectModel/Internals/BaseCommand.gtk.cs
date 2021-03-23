@@ -5,9 +5,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
 	public abstract partial class BaseCommand<TCanExecute>
 	{
-		readonly SynchronizationContext? synchronizationContext = SynchronizationContext.Current;
+		static readonly Thread mainThread = Thread.CurrentThread;
 
-		bool IsMainThread => SynchronizationContext.Current == synchronizationContext;
+		static bool IsMainThread => Thread.CurrentThread == mainThread;
 
 		static void BeginInvokeOnMainThread(Action action)
 		{

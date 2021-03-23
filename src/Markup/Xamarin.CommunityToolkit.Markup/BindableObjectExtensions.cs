@@ -162,7 +162,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			return bindable;
 		}
 
-		public static TBindable Invoke<TBindable>(this TBindable bindable, Action<TBindable>? action) where TBindable : BindableObject
+		public static TBindable Invoke<TBindable>(this TBindable bindable, Action<TBindable> action) where TBindable : BindableObject
 		{
 			action?.Invoke(bindable);
 			return bindable;

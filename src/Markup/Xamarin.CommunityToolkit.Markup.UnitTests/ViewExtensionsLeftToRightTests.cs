@@ -9,19 +9,19 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	{
 		[Test]
 		public void Left()
-			=> TestPropertiesSet(v => v?.Left(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.Start));
+			=> TestPropertiesSet(v => v.Left(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.Start));
 
 		[Test]
 		public void Right()
-			=> TestPropertiesSet(v => v?.Right(), (View.HorizontalOptionsProperty, LayoutOptions.Start, LayoutOptions.End));
+			=> TestPropertiesSet(v => v.Right(), (View.HorizontalOptionsProperty, LayoutOptions.Start, LayoutOptions.End));
 
 		[Test]
 		public void LeftExpand()
-			=> TestPropertiesSet(v => v?.LeftExpand(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.StartAndExpand));
+			=> TestPropertiesSet(v => v.LeftExpand(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.StartAndExpand));
 
 		[Test]
 		public void RightExpand()
-			=> TestPropertiesSet(v => v?.RightExpand(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.EndAndExpand));
+			=> TestPropertiesSet(v => v.RightExpand(), (View.HorizontalOptionsProperty, LayoutOptions.End, LayoutOptions.EndAndExpand));
 
 		[Test]
 		public void SupportDerivedFromView()

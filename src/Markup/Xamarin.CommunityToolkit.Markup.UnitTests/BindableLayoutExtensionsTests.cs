@@ -11,21 +11,21 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void EmptyView()
 		{
 			var view = new BoxView();
-			TestPropertiesSet(l => l?.EmptyView(view), (BindableLayout.EmptyViewProperty, view));
+			TestPropertiesSet(l => l.EmptyView(view), (BindableLayout.EmptyViewProperty, view));
 		}
 
 		[Test]
 		public void EmptyViewTemplate()
 		{
 			var template = new DataTemplate(() => new BoxView());
-			TestPropertiesSet(l => l?.EmptyViewTemplate(template), (BindableLayout.EmptyViewTemplateProperty, template));
+			TestPropertiesSet(l => l.EmptyViewTemplate(template), (BindableLayout.EmptyViewTemplateProperty, template));
 		}
 
 		[Test]
 		public void EmptyViewTemplateFunction()
 		{
 			Func<object> loadTemplate = () => new BoxView();
-			Bindable?.EmptyViewTemplate(loadTemplate);
+			Bindable.EmptyViewTemplate(loadTemplate);
 			Assert.That(BindableLayout.GetEmptyViewTemplate(Bindable), Is.Not.Null);
 		}
 
@@ -33,21 +33,21 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void ItemsSource()
 		{
 			var source = new string[] { };
-			TestPropertiesSet(l => l?.ItemsSource(source), (BindableLayout.ItemsSourceProperty, source));
+			TestPropertiesSet(l => l.ItemsSource(source), (BindableLayout.ItemsSourceProperty, source));
 		}
 
 		[Test]
 		public void ItemTemplate()
 		{
 			var template = new DataTemplate(() => new BoxView());
-			TestPropertiesSet(l => l?.ItemTemplate(template), (BindableLayout.ItemTemplateProperty, template));
+			TestPropertiesSet(l => l.ItemTemplate(template), (BindableLayout.ItemTemplateProperty, template));
 		}
 
 		[Test]
 		public void ItemTemplateFunction()
 		{
 			Func<object> loadTemplate = () => new BoxView();
-			Bindable?.ItemTemplate(loadTemplate);
+			Bindable.ItemTemplate(loadTemplate);
 			Assert.That(BindableLayout.GetItemTemplate(Bindable), Is.Not.Null);
 		}
 
@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void ItemTemplateSelector()
 		{
 			var selector = new Selector();
-			TestPropertiesSet(l => l?.ItemTemplateSelector(selector), (BindableLayout.ItemTemplateSelectorProperty, selector));
+			TestPropertiesSet(l => l.ItemTemplateSelector(selector), (BindableLayout.ItemTemplateSelectorProperty, selector));
 		}
 
 		class Selector : DataTemplateSelector

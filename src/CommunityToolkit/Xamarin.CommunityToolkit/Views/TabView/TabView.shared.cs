@@ -958,27 +958,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateTabContentHeight(double tabContentHeight) => contentContainer.HeightRequest = tabContentHeight;
 
-		void UpdateTabIndicatorColor(Color tabIndicatorColor)
-		{
-			if (tabStripIndicator != null)
-				tabStripIndicator.BackgroundColor = tabIndicatorColor;
-		}
+		void UpdateTabIndicatorColor(Color tabIndicatorColor) => tabStripIndicator.BackgroundColor = tabIndicatorColor;
 
-		void UpdateTabIndicatorHeight(double tabIndicatorHeight)
-		{
-			if (tabStripIndicator != null)
-			{
-				tabStripIndicator.HeightRequest = tabIndicatorHeight;
-			}
-		}
+		void UpdateTabIndicatorHeight(double tabIndicatorHeight) => tabStripIndicator.HeightRequest = tabIndicatorHeight;
 
-		void UpdateTabIndicatorWidth(double tabIndicatorWidth)
-		{
-			if (tabStripIndicator != null)
-			{
-				tabStripIndicator.WidthRequest = tabIndicatorWidth;
-			}
-		}
+		void UpdateTabIndicatorWidth(double tabIndicatorWidth) => tabStripIndicator.WidthRequest = tabIndicatorWidth;
 
 		void UpdateTabIndicatorView(View tabIndicatorView)
 		{
@@ -1007,21 +991,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateTabIndicatorMargin();
 		}
 
-		void UpdateIsSwipeEnabled(bool isSwipeEnabled)
-		{
-			if (contentContainer != null)
-			{
-				contentContainer.IsSwipeEnabled = isSwipeEnabled;
-			}
-		}
+		void UpdateIsSwipeEnabled(bool isSwipeEnabled) => contentContainer.IsSwipeEnabled = isSwipeEnabled;
 
-		void UpdateIsTabTransitionEnabled(bool isTabTransitionEnabled)
-		{
-			if (contentContainer != null)
-			{
-				contentContainer.IsScrollAnimated = isTabTransitionEnabled;
-			}
-		}
+		void UpdateIsTabTransitionEnabled(bool isTabTransitionEnabled) => contentContainer.IsScrollAnimated = isTabTransitionEnabled;
 
 		void UpdateTabIndicatorPosition(int tabViewItemIndex)
 		{

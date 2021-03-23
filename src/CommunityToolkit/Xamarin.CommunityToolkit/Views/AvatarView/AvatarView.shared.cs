@@ -354,17 +354,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				try
 				{
-					if (source is UriImageSource uriImageSource)
+					var imageStreamLoadingTask = GetImageStreamLoadingTask(source, imageLoadingTokenSource.Token);
+					if (imageStreamLoadingTask != null)
 					{
-						static async Task<Stream?> getStreamAsync(UriImageSource uriSource, CancellationToken token) => uriSource.Uri != null ? await uriSource.GetStreamAsync(token) : null;
-
-						var stream = await getStreamAsync(uriImageSource, imageLoadingTokenSource.Token);
-
-						source = stream != null
-							? ImageSource.FromStream(async (token) => stream?.CanRead ?? true ? stream : (stream = await getStreamAsync(uriImageSource, token)))
-							: null;
-
-						Image.IsVisible = source != null;
+						using var stream = await imageStreamLoadingTask;
+						if (stream != null)
+						{
+							var newStream = new MemoryStream();
+							stream.CopyTo(newStream);
+							newStream.Position = 0;
+							Image.IsVisible = true;
+							source = ImageSource.FromStream(() => newStream);
+						}
+						else
+						{
+							Image.IsVisible = false;
+							source = null;
+						}
 					}
 					else
 						Image.IsVisible = await imageSourceValidator.IsImageSourceValidAsync(source);
@@ -396,5 +402,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			return size * .4;
 		}
+
+		Task<Stream?> GetImageStreamLoadingTask(ImageSource? source, CancellationToken token) => source switch
+		{
+			IStreamImageSource streamImageSource => streamImageSource.GetStreamAsync(token),
+			UriImageSource uriImageSource => uriImageSource.Uri != null
+				? new UriImageSource
+				{
+					Uri = uriImageSource.Uri,
+					CachingEnabled = uriImageSource.CachingEnabled,
+					CacheValidity = uriImageSource.CacheValidity
+				}.GetStreamAsync(token)
+				: Task.FromResult<Stream?>(null),
+			_ => Task.FromResult<Stream?>(null)
+		};
 	}
 }

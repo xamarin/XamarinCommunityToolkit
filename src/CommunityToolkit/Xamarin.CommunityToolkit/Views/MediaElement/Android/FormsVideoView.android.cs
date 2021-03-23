@@ -53,12 +53,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override async void SetVideoURI(global::Android.Net.Uri? uri, IDictionary<string, string>? headers)
 		{
 			if (uri != null)
-				await SetMetadata(uri, headers);
+				await GetMetadata(uri, headers);
 
 			base.SetVideoURI(uri, headers);
 		}
 
-		protected async Task SetMetadata(global::Android.Net.Uri uri, IDictionary<string, string>? headers)
+		protected async Task GetMetadata(global::Android.Net.Uri uri, IDictionary<string, string>? headers)
 		{
 			var retriever = new MediaMetadataRetriever();
 

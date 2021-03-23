@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
-using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
-using Xamarin.CommunityToolkit.UnitTests.Mocks;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -11,46 +10,35 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		const string test = nameof(test);
 		const string t = nameof(t);
 
-		static IEnumerable<object?[]> GetTestData()
-		{
-			yield return new object?[] { test, TextCaseType.Lower, test };
-			yield return new object?[] { test, TextCaseType.Upper, "TEST" };
-			yield return new object?[] { test, TextCaseType.None, test };
-			yield return new object?[] { test, TextCaseType.FirstUpperRestLower, "Test" };
-			yield return new object?[] { t, TextCaseType.Upper, "T" };
-			yield return new object?[] { t, TextCaseType.Lower, t };
-			yield return new object?[] { t, TextCaseType.None, t };
-			yield return new object?[] { t, TextCaseType.FirstUpperRestLower, "T" };
-			yield return new object?[] { string.Empty, TextCaseType.FirstUpperRestLower, string.Empty };
-			yield return new object?[] { null, TextCaseType.None, null };
-			yield return new object?[] { MockEnum.Foo, TextCaseType.Lower, "foo" };
-			yield return new object?[] { MockEnum.Bar, TextCaseType.None, "Bar" };
-			yield return new object?[] { MockEnum.Baz, TextCaseType.Upper, "BAZ" };
-			yield return new object?[] { new MockItem { Title = "Test Item", Completed = true }, TextCaseType.Upper, "TEST ITEM IS COMPLETED" };
-		}
-
-		[TestCaseSource(nameof(GetTestData))]
-		[TestCase(null, null, null)]
-		public void TextCaseConverterWithParameter(object? value, object? comparedValue, object? expectedResult)
+		[Theory]
+		[InlineData(test, TextCaseType.Lower, test)]
+		[InlineData(test, TextCaseType.Upper, "TEST")]
+		[InlineData(test, TextCaseType.None, test)]
+		[InlineData(test, TextCaseType.FirstUpperRestLower, "Test")]
+		[InlineData(t, TextCaseType.Upper, "T")]
+		[InlineData(t, TextCaseType.Lower, t)]
+		[InlineData(t, TextCaseType.None, t)]
+		[InlineData(t, TextCaseType.FirstUpperRestLower, "T")]
+		[InlineData("", TextCaseType.FirstUpperRestLower, "")]
+		[InlineData(null, null, null)]
+		public void TextCaseConverter(object value, object comparedValue, object expectedResult)
 		{
 			var textCaseConverter = new TextCaseConverter();
 
-			var result = textCaseConverter.Convert(value, typeof(string), comparedValue, CultureInfo.CurrentCulture);
+			var result = textCaseConverter.Convert(value, typeof(TextCaseConverter_Tests), comparedValue, CultureInfo.CurrentCulture);
 
-			Assert.AreEqual(result, expectedResult);
+			Assert.Equal(result, expectedResult);
 		}
 
-		[TestCaseSource(nameof(GetTestData))]
-		public void TextCaseConverterWithExplicitType(object? value, TextCaseType textCaseType, object? expectedResult)
+		[Theory]
+		[InlineData(0)]
+		[InlineData(int.MinValue)]
+		[InlineData(double.MaxValue)]
+		public void InValidConverterValuesThrowArgumenException(object value)
 		{
-			var textCaseConverter = new TextCaseConverter
-			{
-				Type = textCaseType
-			};
+			var textCaseConverter = new TextCaseConverter();
 
-			var result = textCaseConverter.Convert(value, typeof(string), null, CultureInfo.CurrentCulture);
-
-			Assert.AreEqual(result, expectedResult);
+			Assert.Throws<ArgumentException>(() => textCaseConverter.Convert(value, typeof(TextCaseConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using ElmSharp;
+﻿using System.Threading.Tasks;
+using ElmSharp;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Tizen.Effects;
 using Xamarin.Forms;
@@ -50,13 +51,13 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 		public TouchTapGestureRecognizer(EvasObject parent)
 			: base(parent)
 		{
-			SetTapCallback(GestureType.Tap, GestureState.Start, OnTapStarted);
-			SetTapCallback(GestureType.Tap, GestureState.End, OnGestureEnded);
-			SetTapCallback(GestureType.Tap, GestureState.Abort, OnGestureAborted);
+			SetTapCallback(GestureType.Tap, GestureState.Start, async data => await OnTapStarted(data));
+			SetTapCallback(GestureType.Tap, GestureState.End, async data => await OnGestureEnded(data));
+			SetTapCallback(GestureType.Tap, GestureState.Abort, async data => await OnGestureAborted(data));
 
-			SetTapCallback(GestureType.LongTap, GestureState.Start, OnLongTapStarted);
-			SetTapCallback(GestureType.LongTap, GestureState.End, OnGestureEnded);
-			SetTapCallback(GestureType.LongTap, GestureState.Abort, OnGestureAborted);
+			SetTapCallback(GestureType.LongTap, GestureState.Start, async data => await OnLongTapStarted(data));
+			SetTapCallback(GestureType.LongTap, GestureState.End, async data => await OnGestureEnded(data));
+			SetTapCallback(GestureType.LongTap, GestureState.Abort, async data => await OnGestureAborted(data));
 		}
 
 		public TouchTapGestureRecognizer(EvasObject parent, TouchEffect effect)
@@ -68,16 +69,16 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 
 		public bool IsCanceled { get; set; } = true;
 
-		void OnTapStarted(TapData data)
+		async Task OnTapStarted(TapData data)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
 
 			IsCanceled = false;
-			HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started);
+			await HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started);
 		}
 
-		void OnLongTapStarted(TapData data)
+		async Task OnLongTapStarted(TapData data)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -85,20 +86,20 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 			IsCanceled = false;
 
 			longTapStarted = true;
-			HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started);
+			await HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started);
 		}
 
-		void OnGestureEnded(TapData data)
+		async Task OnGestureEnded(TapData data)
 		{
 			if (effect == null || effect.IsDisabled)
 				return;
 
-			HandleTouch(effect.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled, TouchInteractionStatus.Completed);
+			await HandleTouch(effect.Status == TouchStatus.Started ? TouchStatus.Completed : TouchStatus.Canceled, TouchInteractionStatus.Completed);
 			IsCanceled = true;
 			tapCompleted = true;
 		}
 
-		void OnGestureAborted(TapData data)
+		async Task OnGestureAborted(TapData data)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
@@ -110,11 +111,11 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 				return;
 			}
 
-			HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
+			await HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed);
 			IsCanceled = true;
 		}
 
-		public void HandleTouch(TouchStatus status, TouchInteractionStatus? touchInteractionStatus = null)
+		public async Task HandleTouch(TouchStatus status, TouchInteractionStatus? touchInteractionStatus = null)
 		{
 			if (IsCanceled || effect == null)
 				return;
@@ -124,22 +125,22 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 
 			if (touchInteractionStatus == TouchInteractionStatus.Started)
 			{
-				effect?.HandleUserInteraction(TouchInteractionStatus.Started);
+				effect.HandleUserInteraction(TouchInteractionStatus.Started);
 				touchInteractionStatus = null;
 			}
 
-			effect?.HandleTouch(status);
+			await effect.HandleTouch(status);
 			if (touchInteractionStatus.HasValue)
-				effect?.HandleUserInteraction(touchInteractionStatus.Value);
+				effect.HandleUserInteraction(touchInteractionStatus.Value);
 
-			if (effect == null || !effect.NativeAnimation)
+			if (!effect.NativeAnimation)
 				return;
 
 			if (longTapStarted && !tapCompleted)
 				return;
 
 			var control = effect.Element;
-			if (Platform.GetOrCreateRenderer(control)?.NativeView is not Widget nativeView)
+			if (!(Platform.GetOrCreateRenderer(control)?.NativeView is Widget nativeView))
 				return;
 
 			if (status == TouchStatus.Started)

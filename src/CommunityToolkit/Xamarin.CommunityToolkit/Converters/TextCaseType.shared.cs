@@ -13,8 +13,6 @@
 
 		/// <summary>Convert to lowercase</summary>
 		Lower,
-
-		/// <summary>Converts the first letter to upper only</summary>
 		FirstUpperRestLower,
 	}
 }

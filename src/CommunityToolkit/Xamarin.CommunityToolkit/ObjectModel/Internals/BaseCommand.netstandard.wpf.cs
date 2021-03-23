@@ -6,11 +6,11 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
 	public abstract partial class BaseCommand<TCanExecute>
 	{
-		readonly SynchronizationContext? synchronizationContext = SynchronizationContext.Current;
+		static readonly SynchronizationContext? synchronizationContext = SynchronizationContext.Current;
 
-		bool IsMainThread => SynchronizationContext.Current == synchronizationContext;
+		static bool IsMainThread => SynchronizationContext.Current == synchronizationContext;
 
-		void BeginInvokeOnMainThread(Action action)
+		static void BeginInvokeOnMainThread(Action action)
 		{
 			if (synchronizationContext != null && SynchronizationContext.Current != synchronizationContext)
 				synchronizationContext.Post(_ => action(), null);

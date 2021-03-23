@@ -4,7 +4,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 {
@@ -101,11 +100,11 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			switch (parameter)
 			{
 				case TExecute validParameter:
-					ExecuteAsync(validParameter).SafeFireAndForget(onException, continueOnCapturedContext);
+					Execute(validParameter);
 					break;
 
 				case null when !typeof(TExecute).GetTypeInfo().IsValueType:
-					ExecuteAsync((TExecute?)parameter).SafeFireAndForget(onException, continueOnCapturedContext);
+					Execute((TExecute?)parameter);
 					break;
 
 				case null:
@@ -114,6 +113,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 				default:
 					throw new InvalidCommandParameterException(typeof(TExecute), parameter.GetType());
 			}
+
+			// Use local method to defer async void from ICommand.Execute, allowing InvalidCommandParameterException to be thrown on the calling thread context before reaching an async method
+			async void Execute(TExecute? parameter) => await ExecuteAsync(parameter).ConfigureAwait(continueOnCapturedContext);
 		}
 	}
 }

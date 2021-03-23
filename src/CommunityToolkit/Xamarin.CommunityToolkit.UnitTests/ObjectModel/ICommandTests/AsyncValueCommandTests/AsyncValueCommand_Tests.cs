@@ -2,13 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
-using NUnit.Framework;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests
 {
 	public class AsyncValueCommandTests : BaseAsyncValueCommandTests
 	{
-		[Test]
+		[Fact]
 		public void AsyncValueCommandNullExecuteParameter()
 		{
 			// Arrange
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 #pragma warning restore CS8625
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandT_NullExecuteParameter()
 		{
 			// Arrange
@@ -34,8 +34,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 #pragma warning restore CS8625
 		}
 
-		[TestCase(500)]
-		[TestCase(0)]
+		[Theory]
+		[InlineData(500)]
+		[InlineData(0)]
 		public async Task AsyncValueCommandExecuteAsync_IntParameter_Test(int parameter)
 		{
 			// Arrange
@@ -49,8 +50,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Assert
 		}
 
-		[TestCase("Hello")]
-		[TestCase(default)]
+		[Theory]
+		[InlineData("Hello")]
+		[InlineData(default)]
 		public async Task AsyncValueCommandExecuteAsync_StringParameter_Test(string parameter)
 		{
 			// Arrange
@@ -64,7 +66,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Assert
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandParameter_CanExecuteTrue_Test()
 		{
 			// Arrange
@@ -75,11 +77,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Assert
 
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.IsTrue(command2.CanExecute(true));
+			Assert.True(command.CanExecute(null));
+			Assert.True(command2.CanExecute(true));
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandParameter_CanExecuteFalse_Test()
 		{
 			// Arrange
@@ -93,7 +95,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command2.CanExecute("Hello World"));
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandParameter_CanExecuteTrue_NoParameterTest()
 		{
 			// Arrange
@@ -104,11 +106,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			// Assert
 
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.IsTrue(command2.CanExecute(true));
+			Assert.True(command.CanExecute(null));
+			Assert.True(command2.CanExecute(true));
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandParameter_CanExecuteFalse_NoParameter_Test()
 		{
 			// Arrange
@@ -122,7 +124,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command2.CanExecute("Hello World"));
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandNoParameter_CanExecuteTrue_Test()
 		{
 			// Arrange
@@ -131,10 +133,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandNoParameter_CanExecuteFalse_Test()
 		{
 			// Arrange
@@ -146,7 +148,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandNoParameter_CanExecuteTrueNoParameter_Test()
 		{
 			// Arrange
@@ -155,10 +157,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandNoParameter_CanExecuteFalseNoParameter_Test()
 		{
 			// Arrange
@@ -170,7 +172,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void AsyncValueCommandNoParameter_NoCanExecute_Test()
 		{
 			// Arrange
@@ -182,11 +184,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task AsyncValueCommand_RaiseCanExecuteChanged_Test()
 		{
 			// Arrange
@@ -207,7 +208,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			canCommandExecute = true;
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 			Assert.False(didCanExecuteChangeFire);
 
 			// Act
@@ -215,8 +216,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(didCanExecuteChangeFire);
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
 
 			async void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
@@ -235,8 +236,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			}
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task AsyncValueCommand_ChangeCanExecute_Test()
 		{
 			// Arrange
@@ -257,7 +257,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			canCommandExecute = true;
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 			Assert.False(didCanExecuteChangeFire);
 
 			// Act
@@ -265,8 +265,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(didCanExecuteChangeFire);
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(didCanExecuteChangeFire);
+			Assert.True(command.CanExecute(null));
 
 			async void handleCanExecuteChanged(object? sender, EventArgs e)
 			{
@@ -285,8 +285,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			}
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task AsyncValueCommand_Parameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
 		{
 			// Arrange
@@ -297,27 +296,26 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
-			Assert.IsTrue(command.AllowsMultipleExecutions);
+			Assert.True(command.AllowsMultipleExecutions);
 
 			// Act
 			var asyncCommandTask = command.ExecuteAsync(Delay);
 
 			// Assert
-			Assert.IsTrue(command.IsExecuting);
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.IsExecuting);
+			Assert.True(command.CanExecute(null));
 
 			// Act
 			await asyncCommandTask.ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.AreEqual(0, canExecuteChangedCount);
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(0, canExecuteChangedCount);
 
 			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task AsyncValueCommand_Parameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
@@ -352,7 +350,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var asyncCommandTask = command.ExecuteAsync(Delay);
 
 			// Assert
-			Assert.IsTrue(command.IsExecuting);
+			Assert.True(command.IsExecuting);
 			Assert.False(command.CanExecute(null));
 
 			// Act
@@ -360,13 +358,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.AreEqual(2, canExecuteChangedCount);
-			Assert.AreEqual(canExecuteChangedCount, handleCanExecuteChangedResult);
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task AsyncValueCommand_NoParameter_CanExecuteChanged_AllowsMultipleExecutions_Test()
 		{
 			// Arrange
@@ -377,27 +374,26 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 			void handleCanExecuteChanged(object? sender, EventArgs e) => canExecuteChangedCount++;
 
-			Assert.IsTrue(command.AllowsMultipleExecutions);
+			Assert.True(command.AllowsMultipleExecutions);
 
 			// Act
 			var asyncCommandTask = command.ExecuteAsync();
 
 			// Assert
-			Assert.IsTrue(command.IsExecuting);
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.IsExecuting);
+			Assert.True(command.CanExecute(null));
 
 			// Act
 			await asyncCommandTask.ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.AreEqual(0, canExecuteChangedCount);
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(0, canExecuteChangedCount);
 
 			command.CanExecuteChanged -= handleCanExecuteChanged;
 		}
 
-		[Test]
-		[Timeout(ICommandTestTimeout)]
+		[Fact]
 		public async Task AsyncValueCommand_NoParameter_CanExecuteChanged_DoesNotAllowMultipleExecutions_Test()
 		{
 			// Arrange
@@ -432,7 +428,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var asyncCommandTask = command.ExecuteAsync();
 
 			// Assert
-			Assert.IsTrue(command.IsExecuting);
+			Assert.True(command.IsExecuting);
 			Assert.False(command.CanExecute(null));
 
 			// Act
@@ -440,9 +436,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			var handleCanExecuteChangedResult = await handleCanExecuteChangedTCS.Task.ConfigureAwait(false);
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.AreEqual(2, canExecuteChangedCount);
-			Assert.AreEqual(canExecuteChangedCount, handleCanExecuteChangedResult);
+			Assert.True(command.CanExecute(null));
+			Assert.Equal(2, canExecuteChangedCount);
+			Assert.Equal(canExecuteChangedCount, handleCanExecuteChangedResult);
 		}
 	}
 }

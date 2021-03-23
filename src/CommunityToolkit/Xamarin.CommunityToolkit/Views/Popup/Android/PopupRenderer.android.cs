@@ -9,7 +9,6 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using static Android.App.ActionBar;
-using AColorRes = Android.Resource.Color;
 using AView = Android.Views.View;
 using FormsPlatform = Xamarin.Forms.Platform.Android.Platform;
 using GravityFlags = Android.Views.GravityFlags;
@@ -126,7 +125,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			basePopup.Dismissed += OnDismissed;
 		}
 
-		void SetColor(in BasePopup basePopup) => Window?.SetBackgroundDrawable(new ColorDrawable(basePopup.Color.ToAndroid(AColorRes.BackgroundLight, Context)));
+		void SetColor(in BasePopup basePopup) => Window?.SetBackgroundDrawable(new ColorDrawable(basePopup.Color.ToAndroid()));
 
 		void SetSize(in BasePopup basePopup)
 		{

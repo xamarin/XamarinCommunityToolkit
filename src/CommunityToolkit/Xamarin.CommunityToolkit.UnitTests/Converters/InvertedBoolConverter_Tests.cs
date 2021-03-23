@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Converters;
-using NUnit.Framework;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class InvertedBoolConverter_Tests
 	{
-		[TestCase(true, false)]
-		[TestCase(false, true)]
+		[Theory]
+		[InlineData(true, false)]
+		[InlineData(false, true)]
 		public void InverterBoolConverter(bool value, bool expectedResult)
 		{
 			var inverterBoolConverter = new InvertedBoolConverter();
 
 			var result = inverterBoolConverter.Convert(value, typeof(InvertedBoolConverter_Tests), null, CultureInfo.CurrentCulture);
 
-			Assert.AreEqual(result, expectedResult);
+			Assert.Equal(result, expectedResult);
 		}
 
-		[TestCase(2)]
-		[TestCase("")]
-		[TestCase(null)]
+		[Theory]
+		[InlineData(2)]
+		[InlineData("")]
+		[InlineData(null)]
 		public void InValidConverterValuesThrowArgumenException(object value)
 		{
 			var inverterBoolConverter = new InvertedBoolConverter();

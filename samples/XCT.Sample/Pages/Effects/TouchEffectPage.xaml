@@ -93,8 +93,7 @@
             <StackLayout Style="{StaticResource GridRowContentStyle}">
                 <Label Text="Image | Native" />
                 <Image Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.button.png}"
-                    xct:TouchEffect.NativeAnimation="True"
-                    xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}"/>
+                  xct:TouchEffect.NativeAnimation="True" />
             </StackLayout>
         </StackLayout>
     </ScrollView>

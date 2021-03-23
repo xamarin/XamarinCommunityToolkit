@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Converters;
-using NUnit.Framework;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -18,17 +18,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			new object?[] { new string[] { "A", "B", "C" }, null, "ABC" },
 		};
 
-		[TestCaseSource(nameof(GetData))]
+		[Theory]
+		[MemberData(nameof(GetData))]
 		public void ListToStringConverter(object value, object parameter, object expectedResult)
 		{
 			var listToStringConverter = new ListToStringConverter();
 
 			var result = listToStringConverter.Convert(value, null, parameter, null);
 
-			Assert.AreEqual(result, expectedResult);
+			Assert.Equal(result, expectedResult);
 		}
 
-		[TestCase(0)]
+		[Theory]
+		[InlineData(0)]
 		public void InValidConverterValuesThrowArgumenException(object value)
 		{
 			var listToStringConverter = new ListToStringConverter();
@@ -36,7 +38,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			Assert.Throws<ArgumentException>(() => listToStringConverter.Convert(value, null, null, null));
 		}
 
-		[TestCase(0)]
+		[Theory]
+		[InlineData(0)]
 		public void InValidConverterParametersThrowArgumenException(object parameter)
 		{
 			var listToStringConverter = new ListToStringConverter();

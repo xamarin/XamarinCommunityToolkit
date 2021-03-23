@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Markup
 	public static class RelativeLayoutExtensions
 	{
 		// TODO: Mark obsolete after we implement factory method in MAUI: public static RelativeLayout RelativeLayout(params ConstrainedView?[] constrainedViews) { ... }
-		public static TRelativeLayout Children<TRelativeLayout>(this TRelativeLayout layout, params ConstrainedView?[] constrainedViews) where TRelativeLayout : RelativeLayout
+		public static TRelativeLayout Children<TRelativeLayout>(this TRelativeLayout layout, params ConstrainedView[] constrainedViews) where TRelativeLayout : RelativeLayout
 		{
 			foreach (var constrainedView in constrainedViews)
 				constrainedView?.AddTo(layout);

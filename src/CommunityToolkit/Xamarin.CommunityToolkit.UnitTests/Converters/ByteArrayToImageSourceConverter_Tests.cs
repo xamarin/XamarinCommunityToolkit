@@ -3,13 +3,13 @@ using System.Globalization;
 using System.IO;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
-using NUnit.Framework;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class ByteArrayToImageSourceConverter_Tests
 	{
-		[Test]
+		[Fact]
 		public void ByteArrayToImageSourceConverter()
 		{
 			var byteArray = new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 };
@@ -22,11 +22,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 			var result = byteArrayToImageSourceConverter.Convert(byteArray, typeof(ByteArrayToImageSourceConverter), null, CultureInfo.CurrentCulture);
 
-			Assert.IsTrue(StreamEquals(GetStreamFromImageSource((ImageSource?)result), memoryStream));
+			Assert.True(StreamEquals(GetStreamFromImageSource((ImageSource?)result), memoryStream));
 		}
 
-		
-		[TestCase("Random String Value")]
+		[Theory]
+		[InlineData("Random String Value")]
 		public void InvalidConverterValuesReturnsNull(object value)
 		{
 			var byteArrayToImageSourceConverter = new ByteArrayToImageSourceConverter();

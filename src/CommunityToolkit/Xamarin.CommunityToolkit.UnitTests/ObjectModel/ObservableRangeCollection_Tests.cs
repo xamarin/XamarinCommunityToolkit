@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Xamarin.CommunityToolkit.ObjectModel;
-using NUnit.Framework;
-using NUnit.Framework.Internal;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {
 	public class ObservableRangeCollection_Tests
 	{
-		[Test]
+		[Fact]
 		public void AddRange()
 		{
 			var collection = new ObservableRangeCollection<int>();
@@ -17,14 +17,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			collection.CollectionChanged += (s, e) =>
 			{
-				Assert.AreEqual(NotifyCollectionChangedAction.Add, e.Action);
+				Assert.Equal(NotifyCollectionChangedAction.Add, e.Action);
 				Assert.Null(e.OldItems);
-				Assert.AreEqual(toAdd, e.NewItems);
+				Assert.Equal(toAdd, e.NewItems);
 			};
 			collection.AddRange(toAdd);
 		}
 
-		[Test]
+		[Fact]
 		public void AddRangeEmpty()
 		{
 			var collection = new ObservableRangeCollection<int>();
@@ -32,12 +32,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			collection.CollectionChanged += (s, e) =>
 			{
-				throw new NUnitException("The event is raised.");
+				throw new XunitException("The event is raised.");
 			};
 			collection.AddRange(toAdd);
 		}
 
-		[Test]
+		[Fact]
 		public void ReplaceRange()
 		{
 			var collection = new ObservableRangeCollection<int>();
@@ -46,23 +46,23 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			collection.AddRange(toRemove);
 			collection.CollectionChanged += (s, e) =>
 			{
-				Assert.AreEqual(NotifyCollectionChangedAction.Reset, e.Action);
+				Assert.Equal(NotifyCollectionChangedAction.Reset, e.Action);
 
 				Assert.Null(e.OldItems);
 				Assert.Null(e.NewItems);
 
-				Assert.AreEqual(collection.Count, toAdd.Length);
+				Assert.Equal(collection.Count, toAdd.Length);
 
 				for (var i = 0; i < toAdd.Length; i++)
 				{
 					if (collection[i] != (int)toAdd[i])
-						throw new NUnitException("Expected and actual items don't match.");
+						throw new XunitException("Expected and actual items don't match.");
 				}
 			};
 			collection.ReplaceRange(toAdd);
 		}
 
-		[Test]
+		[Fact]
 		public void ReplaceRange_on_non_empty_collection_should_always_raise_collection_changes()
 		{
 			var collection = new ObservableRangeCollection<int>(new[] { 1 });
@@ -75,10 +75,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			};
 
 			collection.ReplaceRange(toAdd);
-			Assert.IsTrue(eventRaised, "Collection Reset should be raised.");
+			Assert.True(eventRaised, "Collection Reset should be raised.");
 		}
 
-		[Test]
+		[Fact]
 		public void ReplaceRange_on_empty_collection_should_NOT_raise_collection_changes_when_empty()
 		{
 			var collection = new ObservableRangeCollection<int>();
@@ -86,13 +86,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			collection.CollectionChanged += (s, e) =>
 			{
-				throw new NUnitException("Collection changes should NOT be raised.");
+				throw new XunitException("Collection changes should NOT be raised.");
 			};
 
 			collection.ReplaceRange(toAdd);
 		}
 
-		[Test]
+		[Fact]
 		public void ReplaceRange_should_NOT_mutate_source()
 		{
 			var sourceData = new List<int>(new[] { 1, 2, 3 });
@@ -100,10 +100,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			collection.ReplaceRange(sourceData);
 
-			Assert.AreEqual(3, sourceData.Count);
+			Assert.Equal(3, sourceData.Count);
 		}
 
-		[Test]
+		[Fact]
 		public void RemoveRangeRemoveFact()
 		{
 			var collection = new ObservableRangeCollection<int>();
@@ -113,25 +113,22 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			collection.CollectionChanged += (s, e) =>
 			{
 				if (e.Action != NotifyCollectionChangedAction.Remove)
-					throw new NUnitException("RemoveRange didn't use Remove like requested.");
-
+					throw new XunitException("RemoveRange didn't use Remove like requested.");
 				if (e.OldItems == null)
-					throw new NUnitException("OldItems should not be null.");
-
+					throw new XunitException("OldItems should not be null.");
 				var expected = new int[] { 1, 1, 2, 2, 3, 3, 4, 5, 5, 6, 7, 8, 9, 9 };
 				if (expected.Length != e.OldItems.Count)
-					throw new NUnitException("Expected and actual OldItems don't match.");
-
+					throw new XunitException("Expected and actual OldItems don't match.");
 				for (var i = 0; i < expected.Length; i++)
 				{
 					if (expected[i] != (int?)e.OldItems[i])
-						throw new NUnitException("Expected and actual OldItems don't match.");
+						throw new XunitException("Expected and actual OldItems don't match.");
 				}
 			};
 			collection.RemoveRange(toRemove, NotifyCollectionChangedAction.Remove);
 		}
 
-		[Test]
+		[Fact]
 		public void RemoveRangeEmpty()
 		{
 			var collection = new ObservableRangeCollection<int>();
@@ -140,12 +137,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			collection.AddRange(toAdd);
 			collection.CollectionChanged += (s, e) =>
 			{
-				throw new NUnitException("The event is raised.");
+				throw new XunitException("The event is raised.");
 			};
 			collection.RemoveRange(toRemove, NotifyCollectionChangedAction.Remove);
 		}
 
-		[Test]
+		[Fact]
 		public void RemoveRange_should_NOT_mutate_source_when_source_data_is_not_present()
 		{
 			var sourceData = new List<int>(new[] { 1, 2, 3 });
@@ -153,10 +150,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			collection.RemoveRange(sourceData, NotifyCollectionChangedAction.Remove);
 
-			Assert.AreEqual(3, sourceData.Count);
+			Assert.Equal(3, sourceData.Count);
 		}
 
-		[Test]
+		[Fact]
 		public void RemoveRange_should_NOT_mutate_source_when_source_data_is_present()
 		{
 			var sourceData = new List<int>(new[] { 1, 2, 3 });
@@ -164,10 +161,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 
 			collection.RemoveRange(sourceData, NotifyCollectionChangedAction.Remove);
 
-			Assert.AreEqual(3, sourceData.Count);
+			Assert.Equal(3, sourceData.Count);
 		}
 
-		[Test]
+		[Fact]
 		public void RemoveRange_should_NOT_mutate_collection_when_source_data_is_not_present()
 		{
 			var sourceData = new List<int>(new[] { 1, 2, 3 });
@@ -176,10 +173,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 			collection.RemoveRange(sourceData, NotifyCollectionChangedAction.Remove);
 
 			// the collection should not be modified if the source items are not found
-			Assert.AreEqual(6, collection.Count);
+			Assert.Equal(6, collection.Count);
 		}
 
-		[Test]
+		[Fact]
 		public void AddCollection()
 		{
 			var toAdd = new[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3 };
@@ -189,10 +186,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 				Collection = { toAdd }
 			};
 
-			Assert.AreEqual(toAdd, wrapper.Collection);
+			Assert.Equal(toAdd, wrapper.Collection);
 		}
 
-		[Test]
+		[Fact]
 		public void AddToNullCollection()
 		{
 			var toAdd = new[] { 3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3 };

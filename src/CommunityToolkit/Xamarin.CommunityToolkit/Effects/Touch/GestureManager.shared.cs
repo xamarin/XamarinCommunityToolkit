@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using static System.Math;
 
@@ -28,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		TouchState animationState;
 
-		internal void HandleTouch(TouchEffect sender, TouchStatus status)
+		internal async Task HandleTouch(TouchEffect sender, TouchStatus status)
 		{
 			if (sender.IsDisabled)
 				return;
@@ -59,11 +58,11 @@ namespace Xamarin.CommunityToolkit.Effects
 							? 1 - animationProgress
 							: animationProgress;
 
-						UpdateStatusAndState(sender, status, state);
+						await UpdateStatusAndState(sender, status, state);
 
 						if (status == TouchStatus.Canceled)
 						{
-							sender.ForceUpdateState(false);
+							await sender.ForceUpdateState(false);
 							return;
 						}
 
@@ -77,7 +76,7 @@ namespace Xamarin.CommunityToolkit.Effects
 						: TouchState.Pressed;
 				}
 
-				UpdateStatusAndState(sender, status, state);
+				await UpdateStatusAndState(sender, status, state);
 			}
 
 			if (status == TouchStatus.Completed)
@@ -93,7 +92,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			}
 		}
 
-		internal void HandleHover(TouchEffect sender, HoverStatus status)
+		internal async ValueTask HandleHover(TouchEffect sender, HoverStatus status)
 		{
 			if (!sender.Element?.IsEnabled ?? true)
 				return;
@@ -105,7 +104,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (sender.HoverState != hoverState)
 			{
 				sender.HoverState = hoverState;
-				sender.RaiseHoverStateChanged();
+				await sender.RaiseHoverStateChanged();
 			}
 
 			if (sender.HoverStatus != status)
@@ -141,7 +140,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				var durationMultiplier = this.durationMultiplier;
 				this.durationMultiplier = null;
 
-				await RunAnimationTask(sender, state, hoverState, animationTokenSource.Token, durationMultiplier.GetValueOrDefault()).ConfigureAwait(false);
+				await GetAnimationTask(sender, state, hoverState, animationTokenSource.Token, durationMultiplier.GetValueOrDefault()).ConfigureAwait(false);
 				return;
 			}
 
@@ -149,7 +148,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (pulseCount == 0 || (state == TouchState.Normal && !isToggled.HasValue))
 			{
-				await RunAnimationTask(sender, state, hoverState, animationTokenSource.Token).ConfigureAwait(false);
+				await GetAnimationTask(sender, state, hoverState, animationTokenSource.Token).ConfigureAwait(false);
 				return;
 			}
 			do
@@ -158,7 +157,7 @@ namespace Xamarin.CommunityToolkit.Effects
 					? TouchState.Normal
 					: TouchState.Pressed;
 
-				await RunAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
+				await GetAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
 				if (token.IsCancellationRequested)
 					return;
 
@@ -166,7 +165,7 @@ namespace Xamarin.CommunityToolkit.Effects
 					? TouchState.Pressed
 					: TouchState.Normal;
 
-				await RunAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
+				await GetAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
 				if (token.IsCancellationRequested)
 					return;
 			}
@@ -198,7 +197,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				var longPressAction = new Action(() =>
 				{
 					sender.HandleUserInteraction(TouchInteractionStatus.Completed);
-					sender.RaiseLongPressCompleted();
+					sender.LongPressCommand?.Execute(sender.LongPressCommandParameter ?? sender.CommandParameter);
 				});
 
 				if (Device.IsInvokeRequired)
@@ -228,6 +227,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (sender.Element is IButtonController button)
 				button.SendClicked();
 
+			sender.Command?.Execute(sender.CommandParameter);
 			sender.RaiseCompleted();
 		}
 
@@ -269,12 +269,12 @@ namespace Xamarin.CommunityToolkit.Effects
 			element.AbortAnimations();
 		}
 
-		void UpdateStatusAndState(TouchEffect sender, TouchStatus status, TouchState state)
+		async ValueTask UpdateStatusAndState(TouchEffect sender, TouchStatus status, TouchState state)
 		{
 			if (sender.State != state || status != TouchStatus.Canceled)
 			{
 				sender.State = state;
-				sender.RaiseStateChanged();
+				await sender.RaiseStateChanged();
 			}
 
 			sender.Status = status;
@@ -284,10 +284,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		void UpdateVisualState(VisualElement visualElement, TouchState touchState, HoverState hoverState)
 		{
 			var state = touchState == TouchState.Pressed
-				? TouchEffect.PressedVisualState
+				? nameof(TouchState.Pressed)
 				: hoverState == HoverState.Hovered
-					? TouchEffect.HoveredVisualState
-					: TouchEffect.UnpressedVisualState;
+					? nameof(HoverState.Hovered)
+					: nameof(TouchState.Normal);
 
 			VisualStateManager.GoToState(visualElement, state);
 		}
@@ -593,7 +593,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				? color
 				: defaultBackgroundColor;
 
-		Task RunAnimationTask(TouchEffect sender, TouchState touchState, HoverState hoverState, CancellationToken token, double? durationMultiplier = null)
+		Task GetAnimationTask(TouchEffect sender, TouchState touchState, HoverState hoverState, CancellationToken token, double? durationMultiplier = null)
 		{
 			if (sender.Element == null)
 				return Task.FromResult(false);

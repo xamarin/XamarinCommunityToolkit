@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Xamarin.CommunityToolkit.Converters;
-using NUnit.Framework;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -17,17 +17,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			new object[] { Enumerable.Range(1, 3), true },
 		};
 
-		[TestCaseSource(nameof(GetData))]
+		[Theory]
+		[MemberData(nameof(GetData))]
 		public void ListIsNotNullOrEmptyConverter(object value, bool expectedResult)
 		{
 			var listIsNotNullOrEmptyConverter = new ListIsNotNullOrEmptyConverter();
 
 			var result = listIsNotNullOrEmptyConverter.Convert(value, typeof(ListIsNotNullOrEmptyConverter), null, CultureInfo.CurrentCulture);
 
-			Assert.AreEqual(result, expectedResult);
+			Assert.Equal(result, expectedResult);
 		}
 
-		[TestCase(0)]
+		[Theory]
+		[InlineData(0)]
 		public void InValidConverterValuesThrowArgumenException(object value)
 		{
 			var listIsNotNullOrEmptyConverter = new ListIsNotNullOrEmptyConverter();

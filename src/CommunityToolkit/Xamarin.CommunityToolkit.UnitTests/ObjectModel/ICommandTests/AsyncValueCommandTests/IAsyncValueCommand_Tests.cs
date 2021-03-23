@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
-using NUnit.Framework;
+using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests
 {
 	public class IAsyncValueCommandTests : BaseAsyncValueCommandTests
 	{
-		[Test]
+		[Fact]
 		public void IAsyncCommand_CanExecute_InvalidReferenceParameter()
 		{
 			// Arrange
@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute("Hello World"));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncCommand_Execute_InvalidValueTypeParameter()
 		{
 			// Arrange
@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.Throws<InvalidCommandParameterException>(() => command.Execute(true));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncCommand_Execute_InvalidReferenceParameter()
 		{
 			// Arrange
@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.Throws<InvalidCommandParameterException>(() => command.Execute("Hello World"));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncCommand_CanExecute_InvalidValueTypeParameter()
 		{
 			// Arrange
@@ -55,8 +55,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.Throws<InvalidCommandParameterException>(() => command.CanExecute(true));
 		}
 
-		[TestCase(500)]
-		[TestCase(0)]
+		[Theory]
+		[InlineData(500)]
+		[InlineData(0)]
 		public async Task AsyncValueCommand_ExecuteAsync_IntParameter_Test(int parameter)
 		{
 			// Arrange
@@ -70,8 +71,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Assert
 		}
 
-		[TestCase("Hello")]
-		[TestCase(default)]
+		[Theory]
+		[InlineData("Hello")]
+		[InlineData(default)]
 		public async Task AsyncValueCommand_ExecuteAsync_StringParameter_Test(string parameter)
 		{
 			// Arrange
@@ -85,7 +87,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Assert
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncValueCommand_Parameter_CanExecuteTrue_Test()
 		{
 			// Arrange
@@ -95,11 +97,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.IsTrue(command.CanExecute("Hello World"));
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute("Hello World"));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncValueCommand_Parameter_CanExecuteFalse_Test()
 		{
 			// Arrange
@@ -113,7 +115,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command2.CanExecute(true));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncValueCommand_Parameter_CanExecuteTrue_NoParameter_Test()
 		{
 			// Arrange
@@ -123,11 +125,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
-			Assert.IsTrue(command.CanExecute("Hello World"));
+			Assert.True(command.CanExecute(null));
+			Assert.True(command.CanExecute("Hello World"));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncValueCommand_Parameter_CanExecuteFalse_NoParameter_Test()
 		{
 			// Arrange
@@ -141,7 +143,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command2.CanExecute(true));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncValueCommand_NoParameter_CanExecuteTrue_Test()
 		{
 			// Arrange
@@ -150,10 +152,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncValueCommand_NoParameter_CanExecuteFalse_Test()
 		{
 			// Arrange
@@ -165,7 +167,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			Assert.False(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncValueCommand_NoParameter_CanExecuteTrue_NoParameter_Test()
 		{
 			// Arrange
@@ -174,10 +176,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			// Act
 
 			// Assert
-			Assert.IsTrue(command.CanExecute(null));
+			Assert.True(command.CanExecute(null));
 		}
 
-		[Test]
+		[Fact]
 		public void IAsyncValueCommand_NoParameter_CanExecuteFalse_NoParameter_Test()
 		{
 			// Arrange

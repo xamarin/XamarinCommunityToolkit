@@ -9,10 +9,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	class UnitExpressionSearch : ExpressionVisitor, IExpressionSearch
 	{
-		List<object>? results;
-		Type? targeType;
+		List<object> results;
+		Type targeType;
 
-		public List<T?> FindObjects<T>(Expression expression) where T : class
+		public List<T> FindObjects<T>(Expression expression) where T : class
 		{
 			results = new List<object>();
 			targeType = typeof(T);
@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				var container = ((ConstantExpression)node.Expression).Value;
 				var value = ((FieldInfo)node.Member).GetValue(container);
 
-				if (targeType?.IsInstanceOfType(value) is true && results is not null && value is not null)
+				if (targeType.IsInstanceOfType(value))
 				{
 					results.Add(value);
 				}

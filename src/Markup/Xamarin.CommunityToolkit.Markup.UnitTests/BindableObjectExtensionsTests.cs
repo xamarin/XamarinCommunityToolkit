@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 	[TestFixture]
 	public class BindableObjectExtensionsTests : MarkupBaseTestFixture
 	{
-		ViewModel? viewModel;
+		ViewModel viewModel;
 
 		[SetUp]
 		public override void Setup()
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			var button = new Button();
 			object converterParameter = 1;
-			var stringFormat = nameof(BindSpecifiedPropertyWithPositionalParameters) + " {0}";
+			string stringFormat = nameof(BindSpecifiedPropertyWithPositionalParameters) + " {0}";
 			IValueConverter converter = new ToStringConverter();
 			object source = new ViewModel();
 			object targetNullValue = nameof(BindSpecifiedPropertyWithPositionalParameters) + " null";
@@ -80,7 +80,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			label.Bind(
 				Label.TextColorProperty,
 				nameof(viewModel.IsRed),
-				convert: (bool? isRed) => isRed.HasValue && isRed.Value ? Color.Red : Color.Transparent
+				convert: (bool isRed) => isRed ? Color.Red : Color.Transparent
 			);
 
 			BindingHelpers.AssertBindingExists<Color>(
@@ -88,7 +88,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				Label.TextColorProperty,
 				nameof(viewModel.IsRed),
 				assertConverterInstanceIsAnyNotNull: true,
-				assertConvert: c => c.AssertConvert<bool?, Color>(true, Color.Red).AssertConvert<bool?,Color>(false, Color.Transparent)
+				assertConvert: c => c.AssertConvert(true, Color.Red).AssertConvert(false, Color.Transparent)
 			);
 		}
 
@@ -99,7 +99,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			label.Bind(
 				Label.TextColorProperty,
 				nameof(viewModel.IsRed),
-				convert: (bool? isRed, double? alpha) => (isRed.HasValue && isRed.Value ? Color.Red : Color.Green).MultiplyAlpha(alpha ?? throw new NullReferenceException()),
+				convert: (bool isRed, double alpha) => (isRed ? Color.Red : Color.Green).MultiplyAlpha(alpha),
 				converterParameter: 0.5
 			);
 
@@ -109,8 +109,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				nameof(viewModel.IsRed),
 				assertConverterInstanceIsAnyNotNull: true,
 				converterParameter: 0.5,
-				assertConvert: c => c.AssertConvert<bool?, Color>(true, 0.5, Color.Red.MultiplyAlpha(0.5))
-									 .AssertConvert<bool?, Color>(false, 0.2, Color.Green.MultiplyAlpha(0.2))
+				assertConvert: c => c.AssertConvert(true, 0.5, Color.Red.MultiplyAlpha(0.5))
+									 .AssertConvert(false, 0.2, Color.Green.MultiplyAlpha(0.2))
 			);
 		}
 
@@ -122,7 +122,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				Label.TextColorProperty,
 				nameof(viewModel.IsRed),
 				BindingMode.TwoWay,
-				(bool? isRed) => isRed.HasValue && isRed.Value ? Color.Red : Color.Transparent,
+				(bool isRed) => isRed ? Color.Red : Color.Transparent,
 				color => color == Color.Red
 			);
 
@@ -145,8 +145,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				Label.TextColorProperty,
 				nameof(viewModel.IsRed),
 				BindingMode.TwoWay,
-				(bool? isRed, double? alpha) => (isRed.HasValue && isRed.Value ? Color.Red : Color.Green).MultiplyAlpha(alpha ?? throw new NullReferenceException()),
-				(color, alpha) => color == Color.Red.MultiplyAlpha(alpha ?? throw new NullReferenceException()),
+				(bool isRed, double alpha) => (isRed ? Color.Red : Color.Green).MultiplyAlpha(alpha),
+				(color, alpha) => color == Color.Red.MultiplyAlpha(alpha),
 				0.5
 			);
 
@@ -166,16 +166,16 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindSpecifiedPropertyWithInlineOneWayConvertAndPositionalParameters()
 		{
 			var button = new Button();
-			var stringFormat = nameof(BindSpecifiedPropertyWithInlineOneWayConvertAndPositionalParameters) + " {0}";
+			string stringFormat = nameof(BindSpecifiedPropertyWithInlineOneWayConvertAndPositionalParameters) + " {0}";
 			object source = new ViewModel();
-			var targetNullValue = nameof(BindSpecifiedPropertyWithInlineOneWayConvertAndPositionalParameters) + " null";
-			var fallbackValue = nameof(BindSpecifiedPropertyWithInlineOneWayConvertAndPositionalParameters) + " fallback";
+			string targetNullValue = nameof(BindSpecifiedPropertyWithInlineOneWayConvertAndPositionalParameters) + " null";
+			string fallbackValue = nameof(BindSpecifiedPropertyWithInlineOneWayConvertAndPositionalParameters) + " fallback";
 
 			button.Bind(
 				Button.TextProperty,
 				nameof(viewModel.Text),
 				BindingMode.OneWay,
-				(string? text) => $"'{text?.Trim('\'')}'",
+				(string text) => $"'{text?.Trim('\'')}'",
 				null,
 				stringFormat,
 				source,
@@ -201,17 +201,17 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindSpecifiedPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters()
 		{
 			var button = new Button();
-			var converterParameter = 1;
-			var stringFormat = nameof(BindSpecifiedPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " {0}";
+			int converterParameter = 1;
+			string stringFormat = nameof(BindSpecifiedPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " {0}";
 			object source = new ViewModel();
-			var targetNullValue = nameof(BindSpecifiedPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " null";
-			var fallbackValue = nameof(BindSpecifiedPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " fallback";
+			string targetNullValue = nameof(BindSpecifiedPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " null";
+			string fallbackValue = nameof(BindSpecifiedPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " fallback";
 
 			button.Bind(
 				Button.TextProperty,
 				nameof(viewModel.Text),
 				BindingMode.OneWay,
-				(string? text, int? repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat ?? throw new NullReferenceException())),
+				(string text, int repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat)),
 				null,
 				converterParameter,
 				stringFormat,
@@ -239,17 +239,17 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindSpecifiedPropertyWithInlineTwoWayConvertAndPositionalParameters()
 		{
 			var button = new Button();
-			var stringFormat = nameof(BindSpecifiedPropertyWithInlineTwoWayConvertAndPositionalParameters) + " {0}";
+			string stringFormat = nameof(BindSpecifiedPropertyWithInlineTwoWayConvertAndPositionalParameters) + " {0}";
 			object source = new ViewModel();
-			var targetNullValue = nameof(BindSpecifiedPropertyWithInlineTwoWayConvertAndPositionalParameters) + " null";
-			var fallbackValue = nameof(BindSpecifiedPropertyWithInlineTwoWayConvertAndPositionalParameters) + " fallback";
+			string targetNullValue = nameof(BindSpecifiedPropertyWithInlineTwoWayConvertAndPositionalParameters) + " null";
+			string fallbackValue = nameof(BindSpecifiedPropertyWithInlineTwoWayConvertAndPositionalParameters) + " fallback";
 
 			button.Bind(
 				Button.TextProperty,
 				nameof(viewModel.Text),
 				BindingMode.TwoWay,
-				(string? text) => $"'{text?.Trim('\'')}'",
-				text => text?.Trim('\'') ?? throw new NullReferenceException(),
+				(string text) => $"'{text?.Trim('\'')}'",
+				text => text?.Trim('\''),
 				stringFormat,
 				source,
 				targetNullValue,
@@ -274,18 +274,18 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindSpecifiedPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters()
 		{
 			var button = new Button();
-			var converterParameter = 1;
-			var stringFormat = nameof(BindSpecifiedPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " {0}";
+			int converterParameter = 1;
+			string stringFormat = nameof(BindSpecifiedPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " {0}";
 			object source = new ViewModel();
-			var targetNullValue = nameof(BindSpecifiedPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " null";
-			var fallbackValue = nameof(BindSpecifiedPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " fallback";
+			string targetNullValue = nameof(BindSpecifiedPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " null";
+			string fallbackValue = nameof(BindSpecifiedPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " fallback";
 
 			button.Bind(
 				Button.TextProperty,
 				nameof(viewModel.Text),
 				BindingMode.TwoWay,
-				(string? text, int? repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat ?? throw new NullReferenceException())),
-				(text, repeat) => text?.Substring(0, text.Length / repeat ?? throw new NullReferenceException())?.Trim('\'') ?? throw new NullReferenceException(),
+				(string text, int repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat)),
+				(text, repeat) => text?.Substring(0, text.Length / repeat).Trim('\''),
 				converterParameter,
 				stringFormat,
 				source,
@@ -321,7 +321,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			var label = new Label();
 			object converterParameter = 1;
-			var stringFormat = nameof(BindDefaultPropertyWithPositionalParameters) + " {0}";
+			string stringFormat = nameof(BindDefaultPropertyWithPositionalParameters) + " {0}";
 			IValueConverter converter = new ToStringConverter();
 			object source = new ViewModel();
 			object targetNullValue = nameof(BindDefaultPropertyWithPositionalParameters) + " null";
@@ -358,7 +358,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var label = new Label();
 			label.Bind(
 				nameof(viewModel.Text),
-				convert: (string? text) => $"'{text}'"
+				convert: (string text) => $"'{text}'"
 			);
 
 			BindingHelpers.AssertBindingExists(
@@ -376,7 +376,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var label = new Label();
 			label.Bind(
 				nameof(viewModel.Text),
-				convert: (string? text, int? repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat ?? throw new NullReferenceException())),
+				convert: (string text, int repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat)),
 				converterParameter: 1
 			);
 
@@ -397,8 +397,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			label.Bind(
 				nameof(viewModel.Text),
 				BindingMode.TwoWay,
-				(string? text) => $"'{text?.Trim('\'')}'",
-				text => text?.Trim('\'') ?? throw new NullReferenceException()
+				(string text) => $"'{text?.Trim('\'')}'",
+				text => text?.Trim('\'')
 			);
 
 			BindingHelpers.AssertBindingExists(
@@ -418,8 +418,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			label.Bind(
 				nameof(viewModel.Text),
 				BindingMode.TwoWay,
-				(string? text, int? repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat ?? throw new NullReferenceException())),
-				(text, repeat) => text?.Substring(0, text.Length / repeat ?? throw new NullReferenceException()).Trim('\'') ?? throw new NullReferenceException(),
+				(string text, int repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat)),
+				(text, repeat) => text?.Substring(0, text.Length / repeat).Trim('\''),
 				2
 			);
 
@@ -438,15 +438,15 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindDefaultPropertyWithInlineOneWayConvertAndPositionalParameters()
 		{
 			var label = new Label();
-			var stringFormat = nameof(BindDefaultPropertyWithInlineOneWayConvertAndPositionalParameters) + " {0}";
+			string stringFormat = nameof(BindDefaultPropertyWithInlineOneWayConvertAndPositionalParameters) + " {0}";
 			object source = new ViewModel();
-			var targetNullValue = nameof(BindDefaultPropertyWithInlineOneWayConvertAndPositionalParameters) + " null";
-			var fallbackValue = nameof(BindDefaultPropertyWithInlineOneWayConvertAndPositionalParameters) + " fallback";
+			string targetNullValue = nameof(BindDefaultPropertyWithInlineOneWayConvertAndPositionalParameters) + " null";
+			string fallbackValue = nameof(BindDefaultPropertyWithInlineOneWayConvertAndPositionalParameters) + " fallback";
 
 			label.Bind(
 				nameof(viewModel.Text),
 				BindingMode.OneWay,
-				(string? text) => $"'{text?.Trim('\'')}'",
+				(string text) => $"'{text?.Trim('\'')}'",
 				null,
 				stringFormat,
 				source,
@@ -472,16 +472,16 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindDefaultPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters()
 		{
 			var label = new Label();
-			var converterParameter = 1;
-			var stringFormat = nameof(BindDefaultPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " {0}";
+			int converterParameter = 1;
+			string stringFormat = nameof(BindDefaultPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " {0}";
 			object source = new ViewModel();
-			var targetNullValue = nameof(BindDefaultPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " null";
-			var fallbackValue = nameof(BindDefaultPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " fallback";
+			string targetNullValue = nameof(BindDefaultPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " null";
+			string fallbackValue = nameof(BindDefaultPropertyWithInlineOneWayParameterizedConvertAndPositionalParameters) + " fallback";
 
 			label.Bind(
 				nameof(viewModel.Text),
 				BindingMode.OneWay,
-				(string? text, int? repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat ?? throw new NullReferenceException())),
+				(string text, int repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat)),
 				null,
 				converterParameter,
 				stringFormat,
@@ -509,16 +509,16 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindDefaultPropertyWithInlineTwoWayConvertAndPositionalParameters()
 		{
 			var label = new Label();
-			var stringFormat = nameof(BindDefaultPropertyWithInlineTwoWayConvertAndPositionalParameters) + " {0}";
+			string stringFormat = nameof(BindDefaultPropertyWithInlineTwoWayConvertAndPositionalParameters) + " {0}";
 			object source = new ViewModel();
-			var targetNullValue = nameof(BindDefaultPropertyWithInlineTwoWayConvertAndPositionalParameters) + " null";
-			var fallbackValue = nameof(BindDefaultPropertyWithInlineTwoWayConvertAndPositionalParameters) + " fallback";
+			string targetNullValue = nameof(BindDefaultPropertyWithInlineTwoWayConvertAndPositionalParameters) + " null";
+			string fallbackValue = nameof(BindDefaultPropertyWithInlineTwoWayConvertAndPositionalParameters) + " fallback";
 
 			label.Bind(
 				nameof(viewModel.Text),
 				BindingMode.TwoWay,
-				(string? text) => $"'{text?.Trim('\'')}'",
-				text => text?.Trim('\'') ?? throw new NullReferenceException(),
+				(string text) => $"'{text?.Trim('\'')}'",
+				text => text?.Trim('\''),
 				stringFormat,
 				source,
 				targetNullValue,
@@ -543,17 +543,17 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindDefaultPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters()
 		{
 			var label = new Label();
-			var converterParameter = 1;
-			var stringFormat = nameof(BindDefaultPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " {0}";
+			int converterParameter = 1;
+			string stringFormat = nameof(BindDefaultPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " {0}";
 			object source = new ViewModel();
-			var targetNullValue = nameof(BindDefaultPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " null";
-			var fallbackValue = nameof(BindDefaultPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " fallback";
+			string targetNullValue = nameof(BindDefaultPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " null";
+			string fallbackValue = nameof(BindDefaultPropertyWithInlineTwoWayParameterizedConvertAndPositionalParameters) + " fallback";
 
 			label.Bind(
 				nameof(viewModel.Text),
 				BindingMode.TwoWay,
-				(string? text, int? repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat ?? throw new NullReferenceException())),
-				(text, repeat) => text?.Substring(0, text.Length / repeat ?? throw new NullReferenceException()).Trim('\'') ?? throw new NullReferenceException(),
+				(string text, int repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat)),
+				(text, repeat) => text?.Substring(0, text.Length / repeat).Trim('\''),
 				converterParameter,
 				stringFormat,
 				source,
@@ -580,7 +580,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindCommandWithDefaults()
 		{
 			var textCell = new TextCell();
-			var path = nameof(viewModel.Command);
+			string path = nameof(viewModel.Command);
 
 			textCell.BindCommand(path);
 
@@ -592,7 +592,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void BindCommandWithoutParameter()
 		{
 			var textCell = new TextCell();
-			var path = nameof(viewModel.Command);
+			string path = nameof(viewModel.Command);
 
 			textCell.BindCommand(path, parameterPath: null);
 
@@ -605,8 +605,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			var textCell = new TextCell();
 			object source = new ViewModel();
-			var path = nameof(viewModel.Command);
-			var parameterPath = nameof(viewModel.Id);
+			string path = nameof(viewModel.Command);
+			string parameterPath = nameof(viewModel.Id);
 			object parameterSource = new ViewModel();
 
 			textCell.BindCommand(path, source, parameterPath, parameterSource);
@@ -637,21 +637,21 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				.Bind(nameof(viewModel.Text))
 				.Bind(
 					nameof(viewModel.Text),
-					convert: (string? text) => $"'{text}'")
+					convert: (string text) => $"'{text}'")
 				.Bind(
 					nameof(viewModel.Text),
-					convert: (string? text, int? repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat ?? throw new NullReferenceException())))
+					convert: (string text, int repeat) => string.Concat(Enumerable.Repeat($"'{text?.Trim('\'')}'", repeat)))
 				.Bind(
 					DerivedFromLabel.TextColorProperty,
 					nameof(viewModel.TextColor))
 				.Bind(
 					DerivedFromLabel.BackgroundColorProperty,
 					nameof(viewModel.IsRed),
-					convert: (bool? isRed) => isRed.HasValue && isRed.Value ? Color.Black : Color.Transparent)
+					convert: (bool isRed) => isRed ? Color.Black : Color.Transparent)
 				.Bind(
 					Label.TextColorProperty,
 					nameof(viewModel.IsRed),
-					convert: (bool? isRed, double? alpha) => (isRed.HasValue && isRed.Value ? Color.Red : Color.Green).MultiplyAlpha(alpha ?? throw new NullReferenceException()))
+					convert: (bool isRed, double alpha) => (isRed ? Color.Red : Color.Green).MultiplyAlpha(alpha))
 				.Invoke(l => l.Text = nameof(SupportDerivedElements))
 				.Assign(out DerivedFromLabel assignDerivedFromLabel));
 
@@ -664,9 +664,9 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			public Guid Id { get; set; }
 
-			public ICommand? Command { get; set; }
+			public ICommand Command { get; set; }
 
-			public string? Text { get; set; }
+			public string Text { get; set; }
 
 			public Color TextColor { get; set; }
 

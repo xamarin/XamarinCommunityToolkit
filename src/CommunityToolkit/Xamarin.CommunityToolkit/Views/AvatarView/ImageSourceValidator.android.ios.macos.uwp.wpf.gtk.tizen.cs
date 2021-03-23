@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #if TIZEN
 			return await handler.LoadImageAsync(new NImage(XForms.NativeParent), source).ConfigureAwait(false);
 #elif MONOANDROID
-			var imageSource = await handler.LoadImageAsync(source, ToolkitPlatform.Context).ConfigureAwait(false);
+			var imageSource = await handler.LoadImageAsync(source, null).ConfigureAwait(false);
 			return imageSource != null;
 #else
 			var imageSource = await handler.LoadImageAsync(source).ConfigureAwait(false);
@@ -66,14 +66,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return new FontImageSourceHandler();
 #endif
 
-			if (source is FileImageSource fileSource)
-			{
-#if !MONOANDROID
-				if (!File.Exists(fileSource.File))
-					return null;
-#endif
+			if (source is FileImageSource fileSource && File.Exists(fileSource.File))
 				return new FileImageSourceHandler();
-			}
 
 			return null;
 		}

@@ -127,7 +127,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			foreach (var type in bindableObjectTypes)
 			{
-				if (excludedTypeReasons.TryGetValue(type, out var exclusionReason))
+				if (excludedTypeReasons.TryGetValue(type, out string exclusionReason))
 				{
 					Console.WriteLine($"Info: no default BindableProperty defined for BindableObject type {type.FullName} because {exclusionReason}");
 					continue;
@@ -137,7 +137,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				{
 					failMessage.AppendLine(type.FullName);
 					var propertyNames = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-						.Where(f => f.FieldType == typeof(BindableProperty)).Select(f => f?.DeclaringType?.Name + "." + f?.Name).ToList();
+						.Where(f => f.FieldType == typeof(BindableProperty)).Select(f => f.DeclaringType.Name + "." + f.Name).ToList();
 					if (propertyNames.Count > 0)
 					{
 						failMessage.AppendLine("\tCandidate properties:");

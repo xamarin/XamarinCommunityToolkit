@@ -60,11 +60,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 			new SectionModel(
 				typeof(ProgressBarAnimationBehaviorPage),
 				nameof(ProgressBarAnimationBehavior),
-				"Animate the progress for the ProgressBar"),
-			new SectionModel(
-				typeof(SetFocusOnEntryCompletedBehaviorPage),
-				nameof(SetFocusOnEntryCompletedBehavior),
-				"Set focus to another element when an entry is completed"),
+				"Animate the progress for the ProgressBar")
 		};
 	}
 }

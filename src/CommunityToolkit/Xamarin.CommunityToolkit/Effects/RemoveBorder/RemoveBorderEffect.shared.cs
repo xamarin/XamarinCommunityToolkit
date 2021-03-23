@@ -16,9 +16,6 @@ namespace Xamarin.CommunityToolkit.Effects
 #elif __ANDROID__
 			if (DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.Android.Effects.RemoveBorderEffect();
-#elif UWP
-			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.UWP.Effects.RemoveBorderEffect();
 #endif
 			#endregion
 		}
