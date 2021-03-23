@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		DropShadow? shadow;
 
-		FrameworkElement View => Control ?? Container;
+		FrameworkElement? View => Control ?? Container;
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
@@ -47,11 +47,13 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			switch (args.PropertyName)
 			{
-				case nameof(ShadowEffect.ColorPropertyName):
-				case nameof(ShadowEffect.OpacityPropertyName):
-				case nameof(ShadowEffect.RadiusPropertyName):
-				case nameof(ShadowEffect.OffsetXPropertyName):
-				case nameof(ShadowEffect.OffsetYPropertyName):
+				case ShadowEffect.ColorPropertyName:
+				case ShadowEffect.OpacityPropertyName:
+				case ShadowEffect.RadiusPropertyName:
+				case ShadowEffect.OffsetXPropertyName:
+				case ShadowEffect.OffsetYPropertyName:
+				case nameof(VisualElement.Width):
+				case nameof(VisualElement.Height):
 					UpdateShadow();
 					break;
 			}
@@ -64,26 +66,21 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			switch (state)
 			{
-				case ShadowEffectState.Attached:
-					return;
-
 				case ShadowEffectState.Initialized:
 					shadowPanel = new StackLayout()
 					{
 						Children = { new Grid() }
 					};
+
 					state = ShadowEffectState.PanelCreated;
-
 					MoveElementTo(elementView, shadowPanel);
-					return;
-
+					break;
 				case ShadowEffectState.PanelCreated:
 					AppendShadow();
 					state = ShadowEffectState.Attached;
-					return;
-
+					break;
 				default:
-					throw new ArgumentOutOfRangeException();
+					break;
 			}
 		}
 
@@ -92,7 +89,11 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			if (state != ShadowEffectState.Attached)
 				return;
 
-			View.SizeChanged -= ViewSizeChanged;
+			if (View != null)
+			{
+				View.SizeChanged -= ViewSizeChanged;
+			}
+
 			shadow?.Dispose();
 			shadow = null;
 			spriteVisual?.Dispose();
@@ -103,7 +104,13 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void AppendShadow()
 		{
+			if (View == null)
+				return;
+
 			var view = ElementCompositionPreview.GetElementVisual(View);
+
+			if (view == null)
+				return;
 
 			var compositor = view.Compositor;
 			shadow ??= compositor.CreateDropShadow();
@@ -189,7 +196,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		void ViewSizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			if (spriteVisual == null)
+			if (spriteVisual == null || View == null)
 				return;
 
 			spriteVisual.Size = View.ActualSize;
