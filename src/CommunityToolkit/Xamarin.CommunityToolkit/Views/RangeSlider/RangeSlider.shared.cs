@@ -321,7 +321,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(TrackRadiusProperty, value);
 		}
 
-		static bool IsThumbShadowSupported => Device.RuntimePlatform == Device.iOS;
+		static bool IsThumbShadowSupported
+			=> Device.RuntimePlatform == Device.iOS
+			|| Device.RuntimePlatform == Device.macOS;
 
 		Frame Track { get; } = CreateFrameElement<Frame>();
 

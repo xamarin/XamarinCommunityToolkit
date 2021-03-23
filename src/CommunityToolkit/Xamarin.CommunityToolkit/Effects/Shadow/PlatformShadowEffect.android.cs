@@ -45,6 +45,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				case nameof(ShadowEffect.RadiusPropertyName):
 				case nameof(ShadowEffect.OffsetXPropertyName):
 				case nameof(ShadowEffect.OffsetYPropertyName):
+				case nameof(VisualElement.Width):
+				case nameof(VisualElement.Height):
 					View.Invalidate();
 					Update();
 					break;
