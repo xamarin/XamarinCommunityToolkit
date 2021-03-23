@@ -77,20 +77,20 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 			AddTrackingArea(trackingArea);
 		}
 
-		public override async void MouseEntered(NSEvent theEvent)
+		public override void MouseEntered(NSEvent theEvent)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
-			await effect.HandleHover(HoverStatus.Entered);
+			effect?.HandleHover(HoverStatus.Entered);
 		}
 
-		public override async void MouseExited(NSEvent theEvent)
+		public override void MouseExited(NSEvent theEvent)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
-			await effect.HandleHover(HoverStatus.Exited);
+			effect?.HandleHover(HoverStatus.Exited);
 		}
 
 		protected override void Dispose(bool disposing)
@@ -137,20 +137,20 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 			}
 		}
 
-		public override async void MouseDown(NSEvent mouseEvent)
+		public override void MouseDown(NSEvent mouseEvent)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
-			effect.HandleUserInteraction(TouchInteractionStatus.Started);
-			await effect.HandleTouch(TouchStatus.Started);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Started);
+			effect?.HandleTouch(TouchStatus.Started);
 
 			base.MouseDown(mouseEvent);
 		}
 
-		public override async void MouseUp(NSEvent mouseEvent)
+		public override void MouseUp(NSEvent mouseEvent)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			if (effect.HoverStatus == HoverStatus.Entered)
@@ -160,26 +160,26 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 					? TouchStatus.Completed
 					: TouchStatus.Canceled;
 
-				await effect.HandleTouch(status);
+				effect?.HandleTouch(status);
 			}
-			effect.HandleUserInteraction(TouchInteractionStatus.Completed);
+			effect?.HandleUserInteraction(TouchInteractionStatus.Completed);
 
 			base.MouseUp(mouseEvent);
 		}
 
-		public override async void MouseDragged(NSEvent mouseEvent)
+		public override void MouseDragged(NSEvent mouseEvent)
 		{
-			if (effect == null || effect.IsDisabled)
+			if (effect?.Element == null || effect.IsDisabled)
 				return;
 
 			var status = ViewRect.Contains(mouseEvent.LocationInWindow.ToPoint()) ? TouchStatus.Started : TouchStatus.Canceled;
 
 			if ((status == TouchStatus.Canceled && effect.HoverStatus == HoverStatus.Entered) ||
 				(status == TouchStatus.Started && effect.HoverStatus == HoverStatus.Exited))
-				await effect.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
+				effect?.HandleHover(status == TouchStatus.Started ? HoverStatus.Entered : HoverStatus.Exited);
 
-			if (effect.Status != status)
-				await effect.HandleTouch(status);
+			if (effect?.Status != status)
+				effect?.HandleTouch(status);
 
 			base.MouseDragged(mouseEvent);
 		}

@@ -1,13 +1,13 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
-using Xunit;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class ImpliedOrderGridBehavior_Tests
 	{
-		[Fact]
+		[Test]
 		public void CorrectRowColumnAssignment()
 		{
 			var grid = new Grid();
@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			AssertExpectedCoordinates(grid, new Label(), 4, 0);
 		}
 
-		[Fact]
+		[Test]
 		public void ThrowsOnManualAssignmentToUsedCell()
 		{
 			var grid = CreateExceptionTestGrid();
@@ -89,7 +89,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.Throws<Exception>(() => grid.Children.Add(throwLabel));
 		}
 
-		[Fact]
+		[Test]
 		public void ThrowsOnCellsExceeded()
 		{
 			var grid = CreateExceptionTestGrid();
@@ -110,7 +110,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.Throws<Exception>(() => grid.Children.Add(new Label()));
 		}
 
-		[Fact]
+		[Test]
 		public void ThrowsOnSpanExceedsColumns()
 		{
 			var grid = CreateExceptionTestGrid();
@@ -121,7 +121,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.Throws<Exception>(() => grid.Children.Add(throwLabel));
 		}
 
-		[Fact]
+		[Test]
 		public void ThrowsOnSpanExceedsRows()
 		{
 			var grid = CreateExceptionTestGrid();
@@ -149,8 +149,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		void AssertExpectedCoordinates(Grid grid, View view, int row, int column)
 		{
 			grid.Children.Add(view);
-			Assert.Equal(row, Grid.GetRow(view));
-			Assert.Equal(column, Grid.GetColumn(view));
+			Assert.AreEqual(row, Grid.GetRow(view));
+			Assert.AreEqual(column, Grid.GetColumn(view));
 		}
 	}
 }

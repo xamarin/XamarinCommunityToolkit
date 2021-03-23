@@ -18,16 +18,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>A <see cref="bool"/> indicating if the incoming value is not null and not empty.</returns>
-		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
-		{
-			if (value == null)
-				return false;
-
-			if (value is IEnumerable list)
-				return list.GetEnumerator().MoveNext();
-
-			throw new ArgumentException("Value is not a valid IEnumerable or null", nameof(value));
-		}
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture) =>
+			!ListIsNullOrEmptyConverter.ConvertInternal(value);
 
 		/// <summary>
 		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.

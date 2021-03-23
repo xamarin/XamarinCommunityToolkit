@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// The popup control's base implementation.
 	/// </summary>
 	[ContentProperty(nameof(Content))]
-	public abstract class BasePopup : VisualElement
+	public abstract class BasePopup : VisualElement, IElementConfiguration<BasePopup>
 	{
 		readonly WeakEventManager<PopupDismissedEventArgs> dismissWeakEventManager = new WeakEventManager<PopupDismissedEventArgs>();
 		readonly WeakEventManager<PopupOpenedEventArgs> openedWeakEventManager = new WeakEventManager<PopupOpenedEventArgs>();
@@ -18,11 +18,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		protected BasePopup()
 		{
-			Color = Color.White;
 			VerticalOptions = LayoutOptions.CenterAndExpand;
 			HorizontalOptions = LayoutOptions.CenterAndExpand;
 			IsLightDismissEnabled = true;
+			platformConfigurationRegistry = new Lazy<PlatformConfigurationRegistry<BasePopup>>(() => new PlatformConfigurationRegistry<BasePopup>(this));
 		}
+
+		readonly Lazy<PlatformConfigurationRegistry<BasePopup>> platformConfigurationRegistry;
+
+		public IPlatformElementConfiguration<T, BasePopup> On<T>() where T : IConfigPlatform =>
+			platformConfigurationRegistry.Value.On<T>();
 
 		public static readonly BindableProperty ContentProperty = BindableProperty.Create(nameof(Content), typeof(View), typeof(BasePopup), propertyChanged: OnContentChanged);
 
