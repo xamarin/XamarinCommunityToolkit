@@ -35,13 +35,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				};
 			}
 
-			snackBarDialog.TimedOut += (s, evt) => DismissSnackBar();
+			snackBarDialog.TimedOut += DismissSnackBar;
 
-			snackBarDialog.BackButtonPressed += (s, evt) => DismissSnackBar();
+			snackBarDialog.BackButtonPressed += DismissSnackBar;
 
 			snackBarDialog.Show();
 
-			void DismissSnackBar()
+			void DismissSnackBar(object? sender, EventArgs e)
 			{
 				snackBarDialog.Dismiss();
 				arguments.SetResult(false);
