@@ -14,15 +14,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 	{
 		NSTimer? timer;
 
-		public List<NativeSnackButton> Actions { get; protected set; } = new ();
+		public List<NativeSnackButton> Actions { get; protected set; } = new List<NativeSnackButton>();
 
 		public Func<Task>? TimeoutAction { get; protected set; }
 
-		public NativeSnackBarAppearance Appearance { get; protected set; } = new ();
+		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
 
-		public double Duration { get; protected set; }
+		public TimeSpan Duration { get; protected set; }
 
-		public SnackBarLayout Layout { get; } = new ();
+		public SnackBarLayout Layout { get; } = new SnackBarLayout();
 
 		public string Message { get; protected set; } = string.Empty;
 
@@ -42,11 +42,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			SnackBarView?.Dismiss();
 		}
 
-		public static NativeSnackBar MakeSnackBar(string message)
-		{
-			var snackBar = new NativeSnackBar { Message = message };
-			return snackBar;
-		}
+		public static NativeSnackBar MakeSnackBar(string message) => new NativeSnackBar { Message = message };
 
 		public NativeSnackBar SetTimeoutAction(Func<Task> action)
 		{
@@ -54,7 +50,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			return this;
 		}
 
-		public NativeSnackBar SetDuration(double duration)
+		public NativeSnackBar SetDuration(TimeSpan duration)
 		{
 			Duration = duration;
 			return this;
@@ -76,7 +72,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 			SnackBarView.Setup();
 
-			timer = NSTimer.CreateScheduledTimer(TimeSpan.FromMilliseconds(Duration), async t =>
+			timer = NSTimer.CreateScheduledTimer(Duration, async t =>
 			{
 				if (TimeoutAction != null)
 					await TimeoutAction();
@@ -86,9 +82,6 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			return this;
 		}
 
-		BaseSnackBarView GetSnackBarView()
-		{
-			return Actions.Any() ? new ActionMessageSnackBarView(this) : new MessageSnackBarView(this);
-		}
+		BaseSnackBarView GetSnackBarView() => Actions.Any() ? new ActionMessageSnackBarView(this) : new MessageSnackBarView(this);
 	}
 }

@@ -30,6 +30,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
 			}
+
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text) ?? throw new NullReferenceException();
 			snackTextView.SetMaxLines(10);
 
@@ -114,6 +115,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			public override void OnDismissed(Java.Lang.Object transientBottomBar, int e)
 			{
 				base.OnDismissed(transientBottomBar, e);
+
 				switch (e)
 				{
 					case DismissEventTimeout:

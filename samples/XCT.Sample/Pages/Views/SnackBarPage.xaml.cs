@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			await Anchor1.DisplayToastAsync(options);
 		}
 
-		async void DisplaySnackbarAnchoredClicked(object sender, EventArgs args)
+		async void DisplaySnackbarAnchoredClicked(object? sender, EventArgs args)
 		{
 			var messageOptions = new MessageOptions
 			{

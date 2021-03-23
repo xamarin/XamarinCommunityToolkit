@@ -27,9 +27,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		void ConstraintInParent()
 		{
-			_ = ParentView ?? throw new NullReferenceException();
-			_ = AnchorView ?? throw new NullReferenceException();
-			_ = StackView ?? throw new InvalidOperationException("BaseSnackBarView.Initialize() not called");
+			_ = ParentView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
+			_ = AnchorView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
+			_ = StackView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
 
 			this.SafeBottomAnchor().ConstraintEqualTo(AnchorView.SafeBottomAnchor(), -SnackBar.Layout.MarginBottom).Active = true;
 			this.SafeLeadingAnchor().ConstraintGreaterThanOrEqualTo(ParentView.SafeLeadingAnchor(), SnackBar.Layout.MarginLeft).Active = true;
@@ -45,10 +45,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 		protected virtual void Initialize()
 		{
 			StackView = new UIStackView();
+
 			AddSubview(StackView);
+
 			StackView.Axis = UILayoutConstraintAxis.Horizontal;
 			StackView.TranslatesAutoresizingMaskIntoConstraints = false;
 			StackView.Spacing = SnackBar.Layout.Spacing;
+
 			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor)
 			{
 				StackView.BackgroundColor = SnackBar.Appearance.Background;

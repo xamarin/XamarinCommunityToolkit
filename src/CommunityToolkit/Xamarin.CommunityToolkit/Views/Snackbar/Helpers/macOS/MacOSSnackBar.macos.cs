@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
 
-		public double Duration { get; protected set; }
+		public TimeSpan Duration { get; protected set; }
 
 		public SnackBarLayout Layout { get; } = new SnackBarLayout();
 
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 			return this;
 		}
 
-		public NativeSnackBar SetDuration(double duration)
+		public NativeSnackBar SetDuration(TimeSpan duration)
 		{
 			Duration = duration;
 			return this;
@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 
 			SnackBarView.Setup();
 
-			timer = NSTimer.CreateScheduledTimer(TimeSpan.FromMilliseconds(Duration), async t =>
+			timer = NSTimer.CreateScheduledTimer(Duration, async t =>
 			{
 				if (TimeoutAction != null)
 					await TimeoutAction();
@@ -84,9 +84,6 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 			return this;
 		}
 
-		BaseSnackBarView GetSnackBarView()
-		{
-			return Actions.Any() ? new ActionMessageSnackBarView(this) : new MessageSnackBarView(this);
-		}
+		BaseSnackBarView GetSnackBarView() => Actions.Any() ? new ActionMessageSnackBarView(this) : new MessageSnackBarView(this);
 	}
 }

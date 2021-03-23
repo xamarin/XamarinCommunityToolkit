@@ -7,17 +7,15 @@
         <Button Clicked="DisplaySnackBarClicked" Text="Show SnackBar"/>
         <Button Clicked="DisplayToastClicked" Text="Show toast"/>
         <Button Clicked="DisplaySnackBarAdvancedClicked" Text="Show Advanced SnackBar"/>
-        <Button Clicked="DisplaySnackBarWithPadding" Text="Show SnackBar with Padding"></Button>
-        
-        <Label x:Name="StatusText"/>
+        <Button Clicked="DisplaySnackBarWithPadding" Text="Show SnackBar with Padding"/>
+
         <Button x:Name="Anchor1"
                 Clicked="DisplayToastAnchoredClicked"
-                Text="Show toast with anchor"
-                VerticalOptions="Center" HorizontalOptions="End"/>
+                Text="Show toast with anchor"/>
         <Button x:Name="Anchor2"
                 Clicked="DisplaySnackbarAnchoredClicked"
-                Text="Show snackbar with anchor"
-                VerticalOptions="End" HorizontalOptions="Start"
-                />
+                Text="Show snackbar with anchor"/>
+
+        <Label x:Name="StatusText"/>
     </StackLayout>
 </pages:BasePage>
