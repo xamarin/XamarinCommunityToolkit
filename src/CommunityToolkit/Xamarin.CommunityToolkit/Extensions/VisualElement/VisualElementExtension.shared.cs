@@ -41,32 +41,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 				element.AbortAnimation(name);
 		}
 
-		internal static bool TryFindParentElementWithParentOfType<T>(this VisualElement? element, out VisualElement? result, out T? parent) where T : VisualElement
-		{
-			result = null;
-			parent = null;
-
-			while (element?.Parent != null)
-			{
-				if (element.Parent is not T parentElement)
-				{
-					element = element.Parent as VisualElement;
-					continue;
-				}
-
-				result = element;
-				parent = parentElement;
-
-				return true;
-			}
-
-			return false;
-		}
-
-		internal static bool TryFindParentOfType<T>(this VisualElement? element, out T? parent) where T : VisualElement
-			=> TryFindParentElementWithParentOfType(element, out _, out parent);
-
-		public static async Task DisplayToastAsync(this VisualElement? visualElement, string message, int durationMilliseconds = 3000)
+		public static async Task DisplayToastAsync(this VisualElement visualElement, string message, int durationMilliseconds = 3000)
 		{
 			var messageOptions = new MessageOptions { Message = message };
 			var args = new SnackBarOptions
@@ -80,7 +55,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 #endif
 			};
 			var snackBar = new SnackBar();
-			snackBar.Show(visualElement!, args);
+			snackBar.Show(visualElement, args);
 			await args.Result.Task;
 		}
 
@@ -135,5 +110,30 @@ namespace Xamarin.CommunityToolkit.Extensions
 			var result = await snackBarOptions.Result.Task;
 			return result;
 		}
+
+		internal static bool TryFindParentElementWithParentOfType<T>(this VisualElement? element, out VisualElement? result, out T? parent) where T : VisualElement
+		{
+			result = null;
+			parent = null;
+
+			while (element?.Parent != null)
+			{
+				if (element.Parent is not T parentElement)
+				{
+					element = element.Parent as VisualElement;
+					continue;
+				}
+
+				result = element;
+				parent = parentElement;
+
+				return true;
+			}
+
+			return false;
+		}
+
+		internal static bool TryFindParentOfType<T>(this VisualElement? element, out T? parent) where T : VisualElement
+			=> TryFindParentElementWithParentOfType(element, out _, out parent);
 	}
 }
