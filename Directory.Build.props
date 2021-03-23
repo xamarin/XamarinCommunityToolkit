@@ -11,6 +11,7 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)Xamarin.CommunityToolkit.ruleset</CodeAnalysisRuleSet>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <MDocDocumentationDirectory>$(MSBuildThisFileDirectory)..\..\..\docs\en</MDocDocumentationDirectory>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)'=='Release' ">
