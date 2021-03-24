@@ -208,16 +208,4 @@
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Converters\MathExpressionConverter.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Converters\MathExpressionConverter.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Core\MathExpression.cs" />
-  </ItemGroup>
 </Project>

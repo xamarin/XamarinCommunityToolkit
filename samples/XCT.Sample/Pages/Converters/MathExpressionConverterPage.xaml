@@ -9,8 +9,12 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <xct:MathExpressionConverter x:Key="MathExpressionConverter" />
+            <xct:MultiMathExpressionConverter x:Key="MultiMathExpressionConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:MathExpressionConverterViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout
             Spacing="15"
@@ -22,7 +26,7 @@
                 x:Name="CalculatedFrame"
                 BackgroundColor="Bisque"
                 Padding="10"
-                HeightRequest="100"
+                HeightRequest="120"
                 CornerRadius="{Binding Source={x:Reference CalculatedFrame}, Path=HeightRequest, Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/2'}">
                 <Label
                     Text="Frame with calculated CornerRadius = HeightRequest / 2"
@@ -32,50 +36,100 @@
             </Frame>
             <StackLayout Spacing="10">
                 <Label
-                    Text="In addition you can set the Binding's property 'Source' to {x:Null} and calculate an expression without a variable" />
-
-                <StackLayout
-                    Spacing="0"
-                    Orientation="Horizontal">
-                    <Label
-                        TextColor="Black"
-                        Text="10 + 4 * 2 = " />
-                    <Label
-                        TextColor="Black"
-                        Text="{Binding Source={x:Null}, Converter={StaticResource MathExpressionConverter}, ConverterParameter='10 + 4 * 2'}" />
-                </StackLayout>
-                <StackLayout
-                    Spacing="0"
-                    Orientation="Horizontal">
-                    <Label
-                        TextColor="Black"
-                        Text="cos(45.52) = " />
-                    <Label
-                        TextColor="Black"
-                        Text="{Binding Source={x:Null}, Converter={StaticResource MathExpressionConverter}, ConverterParameter='cos(30)'}" />
-                </StackLayout>
+                    Text="MultiBinding:"
+                    TextColor="Black"
+                    FontSize="20" />
                 <Label
+                    Text="You can use the MultiMathExpressionConverter to calculate expressions with a lot of variables."
+                    TextColor="{StaticResource NormalLabelTextColor}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Label
+                            TextColor="Black"
+                            Text="x0" />
+                        <Entry
+                            Text="{Binding VariableX0Text, Mode=TwoWay}"
+                            Keyboard="Numeric"
+                            HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Label
+                            TextColor="Black"
+                            Text="x1" />
+                        <Entry
+                            Text="{Binding VariableX1Text, Mode=TwoWay}"
+                            Keyboard="Numeric"
+                            HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Label
+                            TextColor="Black"
+                            Text="x2" />
+                        <Entry
+                            Text="{Binding VariableX2Text, Mode=TwoWay}"
+                            Keyboard="Numeric"
+                            HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </Grid>
 
-                    Text="Also you can use constants Math.PI (= pi) or Math.E (= e)" />
-                <StackLayout
-                    Spacing="0"
-                    Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
                     <Label
                         TextColor="Black"
-                        Text="log(20.6, e) = " />
-                    <Label
-                        TextColor="Black"
-                        Text="{Binding Source={x:Null}, Converter={StaticResource MathExpressionConverter}, ConverterParameter='log(20.6, e)'}" />
+                        Text="x0 + x1 + x2 = " />
+                    <Label TextColor="Black">
+                        <Label.Text>
+                            <MultiBinding Converter="{StaticResource MultiMathExpressionConverter}"
+                                          ConverterParameter="x0 + x1 + x2">
+                                <Binding Path="X0" />
+                                <Binding Path="X1" />
+                                <Binding Path="X2" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
                 </StackLayout>
-                <StackLayout
-                    Spacing="0"
-                    Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
                     <Label
                         TextColor="Black"
-                        Text="pi * 20^2 = " />
+                        Text="x0^2 + cos(x1) + sin(x2) = " />
+                    <Label TextColor="Black">
+                        <Label.Text>
+                            <MultiBinding Converter="{StaticResource MultiMathExpressionConverter}"
+                                          ConverterParameter="x0^2 + cos(x1) + sin(x2)">
+                                <Binding Path="X0" />
+                                <Binding Path="X1" />
+                                <Binding Path="X2" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
                     <Label
                         TextColor="Black"
-                        Text="{Binding Source={x:Null}, Converter={StaticResource MathExpressionConverter}, ConverterParameter='pi * 20^2'}" />
+                        Text="sqrt(x0) - (x1 + 2 * x2)^3 = " />
+                    <Label TextColor="Black">
+                        <Label.Text>
+                            <MultiBinding Converter="{StaticResource MultiMathExpressionConverter}"
+                                          ConverterParameter="sqrt(x0) - (x1 + 2 * x2)^3">
+                                <Binding Path="X0" />
+                                <Binding Path="X1" />
+                                <Binding Path="X2" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
                 </StackLayout>
             </StackLayout>
         </StackLayout>

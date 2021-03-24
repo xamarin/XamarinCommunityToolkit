@@ -10,20 +10,20 @@ namespace Xamarin.CommunityToolkit.Core
 {
 	internal class MathExpression
 	{
-		const string regexPattern = @"\d+\.\d+|\d+|\+|\-|\/|\*|\(|\)|\^|\w+";
+		const string regexPattern = @"(?<!\d)\-?(?:\d+\.\d+|\d+)|\+|\-|\/|\*|\(|\)|\^|\%|\w+";
 
-		readonly double xValue;
 		readonly IList<MathOperator> operators;
+		readonly IList<double> arguments;
 
 		public string Expression { get; }
 
-		public MathExpression(string expression, double? xValue = 0d)
+		public MathExpression(string expression, IEnumerable<double> arguments)
 		{
 			if (string.IsNullOrEmpty(expression))
 				throw new ArgumentNullException(nameof(expression), "Expression can't be null or empty");
 
 			Expression = expression.ToLower();
-			this.xValue = xValue ?? 0d;
+			this.arguments = arguments?.ToList() ?? new List<double>();
 
 			operators = new List<MathOperator>
 			{
@@ -59,8 +59,18 @@ namespace Xamarin.CommunityToolkit.Core
 				new ("^", 2, MathOperatorPrecedence.High, x => Math.Pow(x[0], x[1])),
 				new ("pi", 0, MathOperatorPrecedence.Constant, _ => Math.PI),
 				new ("e", 0, MathOperatorPrecedence.Constant, _ => Math.E),
-				new ("x", 0, MathOperatorPrecedence.Constant, _ => this.xValue),
 			};
+
+			if (this.arguments.Count > 0)
+			{
+				operators.Add(new MathOperator("x", 0, MathOperatorPrecedence.Constant, _ => this.arguments[0]));
+			}
+
+			for (var i = 0; i < this.arguments.Count; i++)
+			{
+				var i1 = i;
+				operators.Add(new MathOperator($"x{i}", 0, MathOperatorPrecedence.Constant, _ => this.arguments[i1]));
+			}
 		}
 
 		public double Calculate()
@@ -77,11 +87,10 @@ namespace Xamarin.CommunityToolkit.Core
 					continue;
 				}
 
-				var value1 = value;
-				var @operator = operators.FirstOrDefault(x => x.Name == value1);
+				var @operator = operators.FirstOrDefault(x => x.Name == value);
 
-				if (@operator == null) 
-					throw new ArgumentException("Invalid math expression");
+				if (@operator == null)
+					throw new ArgumentException($"Invalid math expression. Can't find operator or value with name \"{value}\".");
 
 				if (@operator.Precedence == MathOperatorPrecedence.Constant)
 				{
@@ -112,8 +121,7 @@ namespace Xamarin.CommunityToolkit.Core
 		IEnumerable<string> GetReversePolishNotation(string expression)
 		{
 			var regex = new Regex(regexPattern);
-#if !NETCOREAPP3
-			
+
 			var matches = regex.Matches(expression);
 			if (matches == null)
 				throw new ArgumentException("Invalid math expression");
@@ -126,7 +134,7 @@ namespace Xamarin.CommunityToolkit.Core
 				if (match == null || string.IsNullOrEmpty(match.Value))
 					continue;
 
-				var value = match.Value ?? string.Empty;
+				var value = match.Value;
 
 				if (double.TryParse(value, out _))
 				{
@@ -196,9 +204,6 @@ namespace Xamarin.CommunityToolkit.Core
 			}
 
 			return output;
-#else
-return new List<string>();
-#endif
 		}
 	}
 }
