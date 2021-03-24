@@ -11,17 +11,24 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <summary>
 		/// Calculate the incoming expression string.
 		/// </summary>
-		/// <param name="value">The expression to calculate.</param>
+		/// <param name="value">The variable X for an expression</param>
 		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
-		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
+		/// <param name="parameter">The expression to calculate.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>A <see cref="double"/> The result of calculating an expression.</returns>
 		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
 		{
-			if (value is not string expression)
-				throw new ArgumentException("The value should be of type String");
+			double? x = null;
+			if (value is not null && double.TryParse(value.ToString(), out var xValue))
+			{
+				x = xValue;
+			}
 
-			var math = new MathExpression(expression);
+			if (parameter is not string expression)
+				throw new ArgumentException("The parameter should be of type String");
+
+			var math = new MathExpression(expression, x);
+
 			var result = math.Calculate();
 			return result;
 		}

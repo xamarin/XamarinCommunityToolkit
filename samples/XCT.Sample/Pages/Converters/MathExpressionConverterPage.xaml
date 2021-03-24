@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<pages:BasePage
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.MathExpressionConverterPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:MathExpressionConverter x:Key="MathExpressionConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Spacing="15"
+            Padding="30">
+            <Label
+                Text="The MathExpressionConverter is a converter that allows users to calculate an expression at runtime."
+                TextColor="{StaticResource NormalLabelTextColor}" />
+            <Frame
+                x:Name="CalculatedFrame"
+                BackgroundColor="Bisque"
+                Padding="10"
+                HeightRequest="100"
+                CornerRadius="{Binding Source={x:Reference CalculatedFrame}, Path=HeightRequest, Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/2'}">
+                <Label
+                    Text="Frame with calculated CornerRadius = HeightRequest / 2"
+                    TextColor="Black"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center" />
+            </Frame>
+            <StackLayout Spacing="10">
+                <Label
+                    Text="In addition you can set the Binding's property 'Source' to {x:Null} and calculate an expression without a variable" />
+
+                <StackLayout
+                    Spacing="0"
+                    Orientation="Horizontal">
+                    <Label
+                        TextColor="Black"
+                        Text="10 + 4 * 2 = " />
+                    <Label
+                        TextColor="Black"
+                        Text="{Binding Source={x:Null}, Converter={StaticResource MathExpressionConverter}, ConverterParameter='10 + 4 * 2'}" />
+                </StackLayout>
+                <StackLayout
+                    Spacing="0"
+                    Orientation="Horizontal">
+                    <Label
+                        TextColor="Black"
+                        Text="cos(45.52) = " />
+                    <Label
+                        TextColor="Black"
+                        Text="{Binding Source={x:Null}, Converter={StaticResource MathExpressionConverter}, ConverterParameter='cos(30)'}" />
+                </StackLayout>
+                <Label
+
+                    Text="Also you can use constants Math.PI (= pi) or Math.E (= e)" />
+                <StackLayout
+                    Spacing="0"
+                    Orientation="Horizontal">
+                    <Label
+                        TextColor="Black"
+                        Text="log(20.6, e) = " />
+                    <Label
+                        TextColor="Black"
+                        Text="{Binding Source={x:Null}, Converter={StaticResource MathExpressionConverter}, ConverterParameter='log(20.6, e)'}" />
+                </StackLayout>
+                <StackLayout
+                    Spacing="0"
+                    Orientation="Horizontal">
+                    <Label
+                        TextColor="Black"
+                        Text="pi * 20^2 = " />
+                    <Label
+                        TextColor="Black"
+                        Text="{Binding Source={x:Null}, Converter={StaticResource MathExpressionConverter}, ConverterParameter='pi * 20^2'}" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
