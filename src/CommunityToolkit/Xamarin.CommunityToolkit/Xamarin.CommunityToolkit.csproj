@@ -220,8 +220,4 @@
   <ItemGroup>
     <None Remove="Core\MathExpression.cs" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Core\MathExpression.cs" />
-  </ItemGroup>
 </Project>

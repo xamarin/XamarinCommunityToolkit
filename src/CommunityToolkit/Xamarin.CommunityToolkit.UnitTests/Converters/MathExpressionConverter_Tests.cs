@@ -7,16 +7,34 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class MathExpressionConverter_Tests
 	{
-		//[TestCase("3 + 4 * 2 / (1 - 5)^2", 3.5d)]
-		[TestCase("3 + 4 * 2 + cos(100 + 20) / (1 - 5)^2 + pow(20,2)", 414.11034265359)]
-		public void BoolToObjectConvert(string value, object expectedResult)
+		readonly Type type = typeof(MathExpressionConverter_Tests);
+		readonly CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+		const double tolerance = 0.00001d;
+
+		[TestCase("2 + 2 * 2", 6d)]
+		[TestCase("(2 + 2) * 2", 8d)]
+		[TestCase("3 + 4 * 2 / (1 - 5)^2", 3.5d)]
+		[TestCase("3 + 4 * 2 + cos(100 + 20) / (1 - 5)^2 + pow(20,2)", 411.05088631065792d)]
+		public void MathExpressionConverterReturnsCorrectResult(string value, double expectedResult)
 		{
-			var boolObjectConverter = new MathExpressionConverter();
+			var mathExpressionConverter = new MathExpressionConverter();
 
-			var a = 3d + 4d * 2d + Math.Cos(100d + 20d) / Math.Pow((1 - 5), 2d) + Math.Pow(20d, 2d);
-			var result = boolObjectConverter.Convert(value, typeof(MathExpressionConverter_Tests), null, CultureInfo.CurrentCulture);
+			var result = mathExpressionConverter.Convert(value, type, null, cultureInfo);
 
-			Assert.AreEqual(result, expectedResult);
+			Assert.IsTrue(Math.Abs((double)result - expectedResult) < tolerance);
+		}
+
+		[TestCase("1 + 3 + 5 + (3 - 2))")]
+		[TestCase("1 + 2) + (9")]
+		[TestCase("100 + pow(2)")]
+		public void MathExpressionConverterThrowsExceptions(string value)
+		{
+			var mathExpressionConverter = new MathExpressionConverter();
+
+			var result = new TestDelegate(()
+				=> mathExpressionConverter.Convert(value, type, null, cultureInfo));
+
+			Assert.Catch<Exception>(result);
 		}
 	}
 }

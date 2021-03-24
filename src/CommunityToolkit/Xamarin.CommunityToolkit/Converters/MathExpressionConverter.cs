@@ -19,9 +19,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
 		{
 			if (value is not string expression)
-
 				throw new ArgumentException("The value should be of type String");
-
 
 			var math = new MathExpression(expression);
 			var result = math.Calculate();
