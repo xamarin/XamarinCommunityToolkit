@@ -23,7 +23,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 			var result = mathExpressionConverter.Convert(x, type, expression, cultureInfo);
 
-			Assert.IsTrue(Math.Abs((double)result - expectedResult) < tolerance);
+			if (result is null)
+			{
+				Assert.Fail();
+			}
+			else
+			{
+				Assert.IsTrue(Math.Abs((double)result - expectedResult) < tolerance);
+			}
 		}
 
 		[TestCase("x + x1 * x1", new object[] { 2d, 1d }, 3d)]
@@ -37,7 +44,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 			var result = mathExpressionConverter.Convert(variables, type, expression, cultureInfo);
 
-			Assert.IsTrue(Math.Abs((double)result - expectedResult) < tolerance);
+			if (result is null)
+			{
+				Assert.Fail();
+			}
+			else
+			{
+				Assert.IsTrue(Math.Abs((double)result - expectedResult) < tolerance);
+			}
 		}
 
 		[TestCase("1 + 3 + 5 + (3 - 2))")]
