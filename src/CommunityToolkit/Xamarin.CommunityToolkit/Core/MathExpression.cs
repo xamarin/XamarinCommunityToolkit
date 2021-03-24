@@ -1,5 +1,8 @@
-﻿using System;
+﻿#nullable enable
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -90,13 +93,52 @@ namespace Xamarin.CommunityToolkit.Core
 		{
 			var rpn = GetReversePolishNotation(Expression);
 
-			return 2d;
+			var stack = new Stack<double>();
+
+			foreach (var value in rpn)
+			{
+				if (double.TryParse(value, out var numeric))
+				{
+					stack.Push(numeric);
+					continue;
+				}
+
+				var value1 = value;
+				var @operator = operators.FirstOrDefault(x => x.Name == value1);
+
+				if (@operator == null) 
+					throw new ArgumentException("Invalid math expression");
+
+				if (@operator.Priority == MathOperatorPriority.Constant)
+				{
+					stack.Push(@operator.CalculateFunc(new double[0]));
+					continue;
+				}
+
+				if (stack.Count < @operator.NumericCount)
+					throw new ArgumentException("Invalid math expression");
+
+				var args = new List<double>();
+				for (var j = 0; j < @operator.NumericCount; j++)
+				{
+					args.Add(stack.Pop());
+				}
+
+				args.Reverse();
+
+				stack.Push(@operator.CalculateFunc(args.ToArray()));
+			}
+
+			if (stack.Count != 1)
+				throw new ArgumentException("Invalid math expression");
+
+			return stack.Pop();
 		}
 
 		IEnumerable<string> GetReversePolishNotation(string expression)
 		{
 			var regex = new Regex(regexPattern);
-			var matches = regex.Matches(expression);
+			var matches = regex.Matches(expression).Cast<Match>();
 
 			if (matches == null)
 				throw new ArgumentException("Invalid math expression");
@@ -104,7 +146,7 @@ namespace Xamarin.CommunityToolkit.Core
 			var output = new List<string>();
 			var stack = new Stack<(string Name, MathOperatorPriority Priority)>();
 
-			foreach (Match match in matches)
+			foreach (var match in matches)
 			{
 				if (string.IsNullOrEmpty(match.Value))
 					continue;
