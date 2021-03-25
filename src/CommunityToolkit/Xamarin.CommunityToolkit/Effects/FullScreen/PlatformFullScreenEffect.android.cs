@@ -17,7 +17,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		protected override void OnAttached()
 		{
-			(Element as Page).Disappearing += FullScreenEffectRouter_Disappearing;
+			//should we e WeakEventManager intead?
+			(Element as Page)!.Disappearing += FullScreenEffectRouter_Disappearing;
 
 			// TODO: Remove if not required
 			FullScreenEffect.InitialHasNavigationBar = NavigationPage.GetHasNavigationBar(Element as Page);
@@ -28,7 +29,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		protected override void OnDetached()
 		{
-			(Element as Page).Disappearing -= FullScreenEffectRouter_Disappearing;
+			(Element as Page)!.Disappearing -= FullScreenEffectRouter_Disappearing;
 			isDetaching = true;
 			ResetStatusBar();
 		}
@@ -75,8 +76,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		void EnableFullScreen(FullScreenMode mode)
 		{
 			var window = Container.Context.GetActivity()?.Window;
+			if (window is null)
+				return;
 
-			// Supported in Android API > 17 (deprecated in API30, not supported by xct yet)
+			// Supported in Android API > 17 (deprecated in API30 (Android 11) which is not supported by xct yet)
 			if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBeanMr1)
 			{
 				var view = window?.DecorView;
