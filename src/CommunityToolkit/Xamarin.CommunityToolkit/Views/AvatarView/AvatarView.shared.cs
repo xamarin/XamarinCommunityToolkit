@@ -360,7 +360,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 						var stream = await getStreamAsync(uriImageSource, imageLoadingTokenSource.Token);
 
-						source = stream != null
+						source = stream != null && stream != Stream.Null && stream.CanRead && stream.Length > 0
 							? ImageSource.FromStream(async (token) => stream?.CanRead ?? true ? stream : (stream = await getStreamAsync(uriImageSource, token)))
 							: null;
 
