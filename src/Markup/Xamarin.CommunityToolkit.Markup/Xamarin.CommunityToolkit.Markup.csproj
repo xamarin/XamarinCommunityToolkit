@@ -34,8 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
-    <PackageReference Include="mdoc" Version="5.8.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="mdoc" Version="5.8.0" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
