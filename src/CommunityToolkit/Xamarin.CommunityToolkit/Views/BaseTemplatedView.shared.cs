@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Internals
 		protected TControl Control => control ?? throw new NullReferenceException();
 
 		/// <summary>
-		/// Constructor of <see cref="BaseTemplatedView" />
+		/// Constructor of <see cref="BaseTemplatedView{TControl}" />
 		/// </summary>
 		public BaseTemplatedView()
 			=> ControlTemplate = new ControlTemplate(typeof(TControl));
