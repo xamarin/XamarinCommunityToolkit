@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Core
+﻿namespace Xamarin.CommunityToolkit.Converters
 {
 	internal enum MathOperatorPrecedence
 	{

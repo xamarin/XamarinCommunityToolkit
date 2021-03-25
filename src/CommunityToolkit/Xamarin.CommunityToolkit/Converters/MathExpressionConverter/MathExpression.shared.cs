@@ -1,14 +1,12 @@
 ﻿#nullable enable
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Xamarin.CommunityToolkit.Core
+namespace Xamarin.CommunityToolkit.Converters
 {
-	internal class MathExpression
+	internal sealed class MathExpression
 	{
 		const string regexPattern = @"(?<!\d)\-?(?:\d+\.\d+|\d+)|\+|\-|\/|\*|\(|\)|\^|\%|\w+";
 
@@ -68,8 +66,8 @@ namespace Xamarin.CommunityToolkit.Core
 
 			for (var i = 0; i < this.arguments.Count; i++)
 			{
-				var i1 = i;
-				operators.Add(new MathOperator($"x{i}", 0, MathOperatorPrecedence.Constant, _ => this.arguments[i1]));
+				var index = i;
+				operators.Add(new MathOperator($"x{i}", 0, MathOperatorPrecedence.Constant, _ => this.arguments[index]));
 			}
 		}
 

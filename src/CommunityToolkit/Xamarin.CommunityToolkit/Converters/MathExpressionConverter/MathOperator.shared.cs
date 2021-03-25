@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Xamarin.CommunityToolkit.Core
+namespace Xamarin.CommunityToolkit.Converters
 {
-	internal class MathOperator
+	internal sealed class MathOperator
 	{
 		public string Name { get; }
 

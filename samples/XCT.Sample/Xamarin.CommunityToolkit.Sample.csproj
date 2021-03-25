@@ -22,9 +22,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Update="Pages\Converters\MathExpressionConverterPage.xaml.cs">
-      <DependentUpon>MathExpressionConverterPage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
