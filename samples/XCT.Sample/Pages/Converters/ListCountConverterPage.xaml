@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ListCountConverterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+    <pages:BasePage.BindingContext>
+        <vm:ListCountViewModel />
+    </pages:BasePage.BindingContext>
+
+    <AbsoluteLayout>
+        <ListView ItemsSource="{Binding Items}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding Name}" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All"
+            HorizontalOptions="CenterAndExpand"
+            HorizontalTextAlignment="Center"
+            Text="{Binding Items, Converter={xct:ListCountConverter}, StringFormat='The number of items is {0}'}"
+            VerticalOptions="CenterAndExpand" />
+
+        <StackLayout
+            Margin="5"
+            AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            Orientation="Horizontal"
+            Spacing="5">
+            <Button Command="{Binding AddItemCommand}" Text="Add" />
+            <Button
+                Command="{Binding RemoveItemCommand}"
+                IsEnabled="{Binding Items, Converter={xct:ListIsNotNullOrEmptyConverter}}"
+                Text="Remove" />
+        </StackLayout>
+    </AbsoluteLayout>
+</pages:BasePage>
