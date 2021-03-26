@@ -13,8 +13,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	public class SafeAreaEffectRouter : PlatformEffect
 	{
 		Thickness initialMargin;
-		NSObject? didChangeStatusBarOrientationNotificationObserver;
-		NSObject? didChangeStatusBarFrameNotificationObserver;
+		NSObject? orientationDidChangeNotificationObserver;
 
 		new View Element => (View)base.Element;
 
@@ -28,11 +27,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (!IsEligibleToConsumeEffect)
 				return;
 
-			didChangeStatusBarOrientationNotificationObserver = NSNotificationCenter.DefaultCenter.AddObserver(
-				UIApplication.DidChangeStatusBarOrientationNotification, _ => UpdateInsets());
-
-			didChangeStatusBarFrameNotificationObserver = NSNotificationCenter.DefaultCenter.AddObserver(
-				UIApplication.DidChangeStatusBarFrameNotification, _ => UpdateInsets());
+			orientationDidChangeNotificationObserver = NSNotificationCenter.DefaultCenter.AddObserver(
+				UIDevice.OrientationDidChangeNotification, _ => UpdateInsets());
 
 			initialMargin = Element.Margin;
 			UpdateInsets();
@@ -43,15 +39,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (!IsEligibleToConsumeEffect)
 				return;
 
-			if (didChangeStatusBarOrientationNotificationObserver != null) {
-				NSNotificationCenter.DefaultCenter.RemoveObserver(didChangeStatusBarOrientationNotificationObserver);
-				didChangeStatusBarOrientationNotificationObserver?.Dispose();
-				didChangeStatusBarOrientationNotificationObserver = null;
-			}
-			if (didChangeStatusBarFrameNotificationObserver != null) {
-				NSNotificationCenter.DefaultCenter.RemoveObserver(didChangeStatusBarFrameNotificationObserver);
-				didChangeStatusBarFrameNotificationObserver?.Dispose();
-				didChangeStatusBarFrameNotificationObserver = null;
+			if (orientationDidChangeNotificationObserver != null) {
+				NSNotificationCenter.DefaultCenter.RemoveObserver(orientationDidChangeNotificationObserver);
+				orientationDidChangeNotificationObserver?.Dispose();
+				orientationDidChangeNotificationObserver = null;
 			}
 
 			Element.Margin = initialMargin;
