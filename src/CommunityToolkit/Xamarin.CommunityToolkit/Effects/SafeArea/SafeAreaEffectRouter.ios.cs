@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				return;
 
 			didChangeStatusBarOrientationNotificationObserver = NSNotificationCenter.DefaultCenter.AddObserver(
-				UIApplication.DidChangeStatusBarOrientationNotification, (NSNotification n) => { UpdateInsets(); });
+				UIApplication.DidChangeStatusBarOrientationNotification, _ => UpdateInsets());
 
 			didChangeStatusBarFrameNotificationObserver = NSNotificationCenter.DefaultCenter.AddObserver(
 				UIApplication.DidChangeStatusBarFrameNotification, (NSNotification n) => { UpdateInsets(); });
