@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Globalization;
 using System.Linq;
 using Xamarin.CommunityToolkit.Extensions.Internals;
@@ -27,8 +27,8 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (value == null)
 				return 0;
 
-			if (value is IEnumerable<object> list)
-				return list.Count();
+			if (value is IEnumerable list)
+				return list.Cast<object>().Count();
 
 			throw new ArgumentException("Value is not a valid IEnumerable or null", nameof(value));
 		}

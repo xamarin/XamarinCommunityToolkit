@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		};
 
 		[TestCaseSource(nameof(GetData))]
-		public void ListCountConverter(object value, bool expectedResult)
+		public void ListCountConverter(object value, int expectedResult)
 		{
 			var listCountConverter = new ListCountConverter();
 
