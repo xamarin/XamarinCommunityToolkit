@@ -43,10 +43,16 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (!IsEligibleToConsumeEffect)
 				return;
 
-			if (didChangeStatusBarOrientationNotificationObserver != null)
+			if (didChangeStatusBarOrientationNotificationObserver != null) {
 				NSNotificationCenter.DefaultCenter.RemoveObserver(didChangeStatusBarOrientationNotificationObserver);
-			if (didChangeStatusBarFrameNotificationObserver != null)
+				didChangeStatusBarOrientationNotificationObserver?.Dispose();
+				didChangeStatusBarOrientationNotificationObserver = null;
+			}
+			if (didChangeStatusBarFrameNotificationObserver != null) {
 				NSNotificationCenter.DefaultCenter.RemoveObserver(didChangeStatusBarFrameNotificationObserver);
+				didChangeStatusBarFrameNotificationObserver?.Dispose();
+				didChangeStatusBarFrameNotificationObserver = null;
+			}
 
 			Element.Margin = initialMargin;
 		}
