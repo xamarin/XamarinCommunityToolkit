@@ -3,5 +3,8 @@
     <Compile Condition="'$(MSBuildProjectExtension)' == '.csproj'" 
              Include="$(MSBuildThisFileDirectory)PreserveXamarinCommunityToolkit.cs"
              Visible="false" />
+    <Compile Condition="'$(MSBuildProjectExtension)' == '.fsproj'"
+             Include="$(MSBuildThisFileDirectory)PreserveXamarinCommunityToolkit.fs"
+             Visible="false" />
   </ItemGroup>
 </Project>
