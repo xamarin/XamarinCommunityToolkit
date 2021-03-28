@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	public class RotateAnimation : AnimationBase
 	{
 		public static readonly BindableProperty RotationProperty =
-		   BindableProperty.Create(nameof(Rotation), typeof(double), typeof(AnimationBase), 180.0, BindingMode.TwoWay, defaultValueCreator: GetDefaulRotationProperty);
+            BindableProperty.Create(nameof(Rotation), typeof(double), typeof(AnimationBase), 180.0, BindingMode.TwoWay, defaultValueCreator: GetDefaulRotationProperty);
 
 		public double Rotation
 		{
@@ -21,14 +21,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected virtual double DefaultRotation { get; set; } = 180.0;
 
-		public override async Task Animate(View? view)
-		{
-			if (view != null)
-			{
-				await view.RotateTo(Rotation, Duration, Easing);
-				view.Rotation = 0;
-			}
-		}
+		public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() =>
+            {
+                view.RotateTo(Rotation, Duration, Easing);
+                view.Rotation = 0;
+            });
     }
 
 	public class RelRotateAnimation : AnimationBase
@@ -45,9 +43,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         protected override uint DefaultDuration { get; set; } = 200;
 
-        public override async Task Animate(View view) =>
-            await view.RelRotateTo(Rotation, Duration, Easing);
-	}
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.RelRotateTo(Rotation, Duration, Easing));
+    }
 
 	public class RotateXAnimation : AnimationBase
     {
@@ -63,9 +61,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         protected override uint DefaultDuration { get; set; } = 200;
 
-        public override async Task Animate(View view) =>
-            await view.RotateXTo(Rotation, Duration, Easing);
-	}
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.RotateXTo(Rotation, Duration, Easing));
+    }
 
 	public class RotateYAnimation : AnimationBase
     {
@@ -81,7 +79,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         protected override uint DefaultDuration { get; set; } = 200;
 
-        public override async Task Animate(View view) =>
-            await view.RotateYTo(Rotation, Duration, Easing);
-	}
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.RotateYTo(Rotation, Duration, Easing));
+    }
 }

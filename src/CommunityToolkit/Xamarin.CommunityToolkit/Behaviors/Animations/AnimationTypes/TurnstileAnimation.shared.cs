@@ -7,14 +7,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
     {
         protected override uint DefaultDuration { get; set; } = 300;
 
-        public override async Task Animate(View view) =>
-            await Task.Run(() =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    view.Animate("TurnstileIn", TurnstileIn(view), 16, Duration);
-                });
-            });
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.Animate("TurnstileIn", TurnstileIn(view), 16, Duration));
 
         internal Animation TurnstileIn(View view)
         {
@@ -31,14 +25,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
     {
         protected override uint DefaultDuration { get; set; } = 300;
 
-        public override async Task Animate(View view) =>
-            await Task.Run(() =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    view.Animate("TurnstileOut", TurnstileOut(view), 16, Duration);
-                });
-            });
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.Animate("TurnstileOut", TurnstileOut(view), 16, Duration));
 
         internal Animation TurnstileOut(View view)
         {

@@ -16,14 +16,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected override uint DefaultDuration { get; set; } = 170;
 
-		public override async Task Animate(View? view)
-		{
-			if (view != null)
+		public override Task Animate(View view) =>
+			Device.InvokeOnMainThreadAsync(() =>
 			{
-				await view.ScaleTo(Scale, Duration, Easing);
-				await view.ScaleTo(1, Duration, Easing);
-			}
-		}
+				view.ScaleTo(Scale, Duration, Easing);
+				view.ScaleTo(1, Duration, Easing);
+			});
 	}
 
 	public class RelScaleAnimation : AnimationBase
@@ -40,7 +38,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected override uint DefaultDuration { get; set; } = 170;
 
-		public override async Task Animate(View view) =>
-			await view.RelScaleTo(Scale, Duration, Easing);
+		public override Task Animate(View view) =>
+			Device.InvokeOnMainThreadAsync(() => view.RelScaleTo(Scale, Duration, Easing));
 	}
 }

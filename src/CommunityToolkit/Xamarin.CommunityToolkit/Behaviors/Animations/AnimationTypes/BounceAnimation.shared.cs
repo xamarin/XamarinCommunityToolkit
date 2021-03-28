@@ -8,13 +8,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		protected override uint DefaultDuration { get; set; } = 300;
 
 		public override Task Animate(View view) =>
-			Task.Run(() =>
-			{
-				Device.BeginInvokeOnMainThread(() =>
-				{
-					view.Animate("BounceIn", BounceIn(view), 16, Duration);
-				});
-			});
+			Device.InvokeOnMainThreadAsync(() => view.Animate("BounceIn", BounceIn(view), 16, Duration));
 
 		internal Animation BounceIn(View view)
 		{
@@ -39,14 +33,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	{
 		protected override uint DefaultDuration { get; set; } = 300;
 
-		public override async Task Animate(View view) =>
-			await Task.Run(() =>
-			{
-				Device.BeginInvokeOnMainThread(() =>
-				{
-					view.Animate("BounceOut", BounceOut(view), 16, Duration);
-				});
-			});
+		public override Task Animate(View view) =>
+			Device.InvokeOnMainThreadAsync(() => view.Animate("BounceOut", BounceOut(view), 16, Duration));
 
 		internal Animation BounceOut(View view)
 		{

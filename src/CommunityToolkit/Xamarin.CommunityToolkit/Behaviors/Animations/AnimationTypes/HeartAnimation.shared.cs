@@ -7,14 +7,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
     {
         protected override uint DefaultDuration { get; set; } = 500;
 
-        public override async Task Animate(View view) =>
-            await Task.Run(() =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    view.Animate("Hearth", Hearth(view), 16, Duration);
-                });
-            });
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.Animate("Hearth", Hearth(view), 16, Duration));
 
         internal Animation Hearth(View view)
         {

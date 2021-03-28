@@ -18,17 +18,11 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected override uint DefaultDuration { get; set; } = 1000;
 
-		public override async Task Animate(View view)
-		{
-			var fromColor = view.BackgroundColor;
-
-			await Task.Run(() =>
+		public override Task Animate(View view) =>
+			Device.InvokeOnMainThreadAsync(() =>
 			{
-				Device.BeginInvokeOnMainThread(async () =>
-				{
-					await view.ColorTo(fromColor, ToColor, c => view.BackgroundColor = c, Duration);
-				});
+				var fromColor = view.BackgroundColor;
+				view.ColorTo(fromColor, ToColor, c => view.BackgroundColor = c, Duration);
 			});
-		}
-	}
+}
 }

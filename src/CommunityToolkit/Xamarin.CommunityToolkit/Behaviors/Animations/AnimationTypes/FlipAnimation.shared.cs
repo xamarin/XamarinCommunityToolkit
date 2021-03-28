@@ -23,14 +23,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         protected override uint DefaultDuration { get; set; } = 300;
 
-        public override async Task Animate(View view) =>
-            await Task.Run(() =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    view.Animate("Flip", Flip(view), 16, Duration);
-                });
-            });
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.Animate("Flip", Flip(view), 16, Duration));
 
         internal Animation Flip(View view)
         {
@@ -63,14 +57,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         protected override uint DefaultDuration { get; set; } = 300;
 
-        public override async Task Animate(View view) =>
-            await Task.Run(() =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    view.Animate("Flip", Flip(view), 16, Duration);
-                });
-            });
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.Animate("Flip", Flip(view), 16, Duration));
 
         internal Animation Flip(View view)
         {

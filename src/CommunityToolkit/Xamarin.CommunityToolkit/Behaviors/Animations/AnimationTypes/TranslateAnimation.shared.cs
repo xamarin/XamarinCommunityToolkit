@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
         protected override uint DefaultDuration { get; set; } = 50;
 
-        public override async Task Animate(View view) =>
-            await view.TranslateTo(TranslateX, TranslateY, Duration, Easing);
-	}
+        public override Task Animate(View view) =>
+            Device.InvokeOnMainThreadAsync(() => view.TranslateTo(TranslateX, TranslateY, Duration, Easing));
+    }
 }
