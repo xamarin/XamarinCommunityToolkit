@@ -15,6 +15,9 @@ namespace Xamarin.CommunityToolkit.Effects
 #elif __ANDROID__
 			if (DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.Android.Effects.SelectAllTextEffect();
+#elif UWP
+			if (DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.UWP.Effects.SelectAllTextEffect();
 #endif
 			#endregion
 		}
