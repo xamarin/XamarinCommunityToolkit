@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		{
 			base.OnAttachedTo(bindable);
 
-			if (!string.IsNullOrWhiteSpace(EventName) || !(bindable is View view))
+			if (!string.IsNullOrWhiteSpace(EventName) || bindable is not View view)
 				return;
 
 			tapGestureRecognizer = new TapGestureRecognizer();
@@ -44,8 +44,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			isAnimating = true;
 
-			if (AnimationType != null)
-				await AnimationType.Animate((View?)sender);
+			if (AnimationType != null && sender is View view)
+				await AnimationType.Animate(view);
 
 			if (Command?.CanExecute(CommandParameter) ?? false)
 				Command.Execute(CommandParameter);

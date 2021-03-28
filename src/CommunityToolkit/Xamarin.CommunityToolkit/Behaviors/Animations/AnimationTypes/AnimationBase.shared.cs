@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected abstract uint DefaultDuration { get; set; }
 
-		public abstract Task Animate(TView? view);
+		public abstract Task Animate(TView view);
 	}
 
 	public abstract class AnimationBase : AnimationBase<View>

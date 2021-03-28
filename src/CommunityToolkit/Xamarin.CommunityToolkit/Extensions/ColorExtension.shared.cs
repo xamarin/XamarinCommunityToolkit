@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 {
     public static class ColorExtension
     {
-        public static Task<bool> ColorTo(this VisualElement self, Color fromColor, Color toColor, Action<Color> callback, uint length = 250, Easing easing = null)
+        public static Task<bool> ColorTo(this VisualElement self, Color fromColor, Color toColor, Action<Color> callback, uint length = 250, Easing? easing = null)
         {
 			Color transform(double t) =>
 				Color.FromRgba(fromColor.R + (t * (toColor.R - fromColor.R)),
@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 
         public static void CancelAnimation(this VisualElement self) => self.AbortAnimation("ColorTo");
 
-        static Task<bool> ColorAnimation(VisualElement element, string name, Func<double, Color> transform, Action<Color> callback, uint length, Easing easing)
+        static Task<bool> ColorAnimation(VisualElement element, string name, Func<double, Color> transform, Action<Color> callback, uint length, Easing? easing)
         {
             easing ??= Easing.Linear;
             var taskCompletionSource = new TaskCompletionSource<bool>();
