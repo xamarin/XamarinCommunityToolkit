@@ -40,11 +40,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			switch (args.PropertyName)
 			{
-				case nameof(ShadowEffect.ColorPropertyName):
-				case nameof(ShadowEffect.OpacityPropertyName):
-				case nameof(ShadowEffect.RadiusPropertyName):
-				case nameof(ShadowEffect.OffsetXPropertyName):
-				case nameof(ShadowEffect.OffsetYPropertyName):
+				case ShadowEffect.ColorPropertyName:
+				case ShadowEffect.OpacityPropertyName:
+				case ShadowEffect.RadiusPropertyName:
+				case ShadowEffect.OffsetXPropertyName:
+				case ShadowEffect.OffsetYPropertyName:
+				case nameof(VisualElement.Width):
+				case nameof(VisualElement.Height):
 					View.Invalidate();
 					Update();
 					break;
