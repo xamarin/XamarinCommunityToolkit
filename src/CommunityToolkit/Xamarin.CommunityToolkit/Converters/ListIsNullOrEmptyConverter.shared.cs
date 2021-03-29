@@ -9,6 +9,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts the incoming value to a <see cref="bool"/> indicating whether or not the value is null or empty.
 	/// </summary>
+	[Obsolete("ListIsNullOrEmptyConverter is deprecated, please use IsNullOrEmptyConverter with InvertCheck instead.")]
 	public class ListIsNullOrEmptyConverter : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
@@ -19,18 +20,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>A <see cref="bool"/> indicating if the incoming value is null or empty.</returns>
-		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture) => ConvertInternal(value);
-
-		internal static bool ConvertInternal(object? value)
-		{
-			if (value == null)
-				return true;
-
-			if (value is IEnumerable list)
-				return !list.GetEnumerator().MoveNext();
-
-			throw new ArgumentException("Value is not a valid IEnumerable or null", nameof(value));
-		}
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture) =>
+			IsNullOrEmptyConverter.ConvertInternal(value, true);
 
 		/// <summary>
 		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
