@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (parameter is not string expression)
 				throw new ArgumentException("The parameter should be of type String");
 
-			if (value is null || !double.TryParse(value.ToString(), out var xValue))
+			if (value == null || !double.TryParse(value.ToString(), out var xValue))
 				return null;
 
 			var math = new MathExpression(expression, new[] { xValue });

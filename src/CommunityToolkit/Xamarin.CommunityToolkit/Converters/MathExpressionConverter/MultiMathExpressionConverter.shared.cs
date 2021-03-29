@@ -21,13 +21,13 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (parameter is not string expression)
 				throw new ArgumentException("The parameter should be of type String");
 
-			if (values is null)
+			if (values == null)
 				return null;
 
 			var args = new List<double>();
 			foreach (var value in values)
 			{
-				if (value is null)
+				if (value == null)
 					return null;
 
 				if (double.TryParse(value.ToString(), out var xValue))
