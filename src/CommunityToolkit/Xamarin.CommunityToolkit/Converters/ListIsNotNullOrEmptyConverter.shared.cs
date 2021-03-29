@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts the incoming value to a <see cref="bool"/> indicating whether or not the value is not null and not empty.
 	/// </summary>
-	[Obsolete("ListIsNotNullOrEmptyConverter is deprecated, please use IsNullOrEmptyConverter with InvertCheck instead.")]
+	[Obsolete("ListIsNotNullOrEmptyConverter is deprecated, please use IsNullOrEmptyConverter with InvertResult instead.")]
 	public class ListIsNotNullOrEmptyConverter : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>

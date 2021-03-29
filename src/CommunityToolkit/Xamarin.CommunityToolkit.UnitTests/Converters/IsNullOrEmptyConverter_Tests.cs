@@ -13,6 +13,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			new object?[] { null, true },
 			new object[] { string.Empty, true },
 			new object[] { "Test", false },
+			new object[] { " ", true },
 			new object[] { typeof(IsNullOrEmptyConverter), false },
 			new object[] { new List<string>(), true },
 			new object[] { new List<string>() { "TestValue" }, false },
@@ -34,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var isNullOrEmptyConverter = new IsNullOrEmptyConverter
 			{
-				InvertCheck = true
+				InvertResult = true
 			};
 
 			var result = isNullOrEmptyConverter.Convert(value, typeof(IsNotNullOrEmptyConverter_Tests), null, CultureInfo.CurrentCulture);
