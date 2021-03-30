@@ -93,6 +93,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(ImageResourceConverterPage),
 				nameof(ImageResourceConverter),
 				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
+			new SectionModel(
+				typeof(StringToListConverterPage),
+				nameof(StringToListConverter),
+				"A converter that splits a string by the separator and returns the enumerable sequence of strings as the result."),
 		};
 	}
 }
