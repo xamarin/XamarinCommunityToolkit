@@ -99,6 +99,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return (bool)GetValue(AutoPlayProperty);
 			}
+
 			set
 			{
 				SetValue(AutoPlayProperty, value);
@@ -111,6 +112,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return (bool)GetValue(AutoStopProperty);
 			}
+
 			set
 			{
 				SetValue(AutoStopProperty, value);
@@ -123,6 +125,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return (bool)GetValue(IsLoopingProperty);
 			}
+
 			set
 			{
 				SetValue(IsLoopingProperty, value);
@@ -135,6 +138,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return (double)GetValue(BufferingProgressProperty);
 			}
+
 			private set
 			{
 				SetValue(BufferingProgressPropertyKey, value);
@@ -147,6 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return (int)GetValue(DurationProperty);
 			}
+
 			private set
 			{
 				SetValue(DurationPropertyKey, value);
@@ -190,6 +195,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return (bool)GetValue(UsesEmbeddingControlsProperty);
 			}
+
 			set
 			{
 				SetValue(UsesEmbeddingControlsProperty, value);
@@ -203,6 +209,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return impl.Position;
 			}
+
 			private set
 			{
 				SetValue(PositionPropertyKey, value);
@@ -216,6 +223,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return (PlaybackState)GetValue(StateProperty);
 			}
+
 			private set
 			{
 				SetValue(StatePropertyKey, value);
@@ -228,6 +236,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return (bool)GetValue(IsBufferingProperty);
 			}
+
 			private set
 			{
 				SetValue(IsBufferingPropertyKey, value);
@@ -271,13 +280,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}, () => State != PlaybackState.Stopped);
 
 		public event EventHandler? PlaybackCompleted;
+
 		public event EventHandler? PlaybackStarted;
+
 		public event EventHandler? PlaybackPaused;
+
 		public event EventHandler? PlaybackStopped;
+
 		public event EventHandler<BufferingProgressUpdatedEventArgs>? BufferingProgressUpdated;
+
 		public event EventHandler? BufferingStarted;
+
 		public event EventHandler? BufferingCompleted;
+
 		public event EventHandler? ErrorOccurred;
+
 		public event EventHandler? MediaPrepared;
 
 		public void Pause()
@@ -524,7 +541,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			catch (Exception)
 			{
-				//Exception when canceled
+				// Exception when canceled
 			}
 		}
 

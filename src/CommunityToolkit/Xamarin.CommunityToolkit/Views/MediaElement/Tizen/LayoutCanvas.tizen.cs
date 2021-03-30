@@ -14,7 +14,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly ObservableCollection<EvasObject> children = new ObservableCollection<EvasObject>();
 		TBox box;
 
-		public LayoutCanvas(EvasObject parent) : base(parent)
+		public LayoutCanvas(EvasObject parent)
+			: base(parent)
 		{
 			SetTheme("layout", "elm_widget", "default");
 			box = new TBox(parent);

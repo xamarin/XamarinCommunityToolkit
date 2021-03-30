@@ -1,38 +1,92 @@
 ﻿using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using XLabel = Xamarin.Forms.Label;
 using XTextAlignment = Xamarin.Forms.TextAlignment;
-using System.Globalization;
+using ShapesPath = Xamarin.Forms.Shapes.Path;
+using ShapesPathGeometry = Xamarin.Forms.Shapes.PathGeometry;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class EmbeddingControls : ContentView
 	{
-		static readonly string PlayImagePath = "Xamarin.CommunityToolkit.Views.MediaElement.Tizen.Resources.img_button_play.png";
-		static readonly string PauseImagePath = "Xamarin.CommunityToolkit.Views.MediaElement.Tizen.Resources.img_button_pause.png";
+		public Grid PlayIcon { get; private set; }
 
-		public ImageButton PlayImage { get; private set; }
-		public ImageButton PauseImage { get; private set; }
+		public Grid PauseIcon { get; private set; }
 
 		public EmbeddingControls()
 		{
-			PlayImage = new ImageButton
+			var iconTapCommand = new Command(async () =>
 			{
-				Source = ImageSource.FromResource(PlayImagePath, typeof(EmbeddingControls).Assembly),
-				IsVisible = false
-			};
-			PlayImage.Clicked += OnImageButtonClicked;
-			AbsoluteLayout.SetLayoutFlags(PlayImage, AbsoluteLayoutFlags.All);
-			AbsoluteLayout.SetLayoutBounds(PlayImage, new Rectangle(0.5, 0.5, 0.25, 0.25));
+				if (BindingContext is not MediaPlayer player)
+					return;
 
-			PauseImage = new ImageButton
+				if (player.State == PlaybackState.Playing)
+				{
+					player.Pause();
+				}
+				else
+				{
+					await player.Start();
+				}
+			});
+
+			PlayIcon = new Grid
 			{
-				Source = ImageSource.FromResource(PauseImagePath, typeof(EmbeddingControls).Assembly),
-				IsVisible = false
+				Children =
+				{
+					new ShapesPath
+					{
+						Scale = 0.7,
+						Data = (ShapesPathGeometry)new Forms.Shapes.PathGeometryConverter().ConvertFromInvariantString("M93.5 52.4019C95.5 53.5566 95.5 56.4434 93.5 57.5981L5 108.694C3 109.848 0.499996 108.405 0.499996 106.096V3.9045C0.499996 1.5951 3 0.151723 5 1.30642L93.5 52.4019Z"),
+						Fill = Brush.White,
+						Opacity = 0.4,
+						Aspect = Stretch.Uniform,
+						HorizontalOptions = LayoutOptions.Center
+					}
+				}
 			};
-			PauseImage.Clicked += OnImageButtonClicked;
-			AbsoluteLayout.SetLayoutFlags(PauseImage, AbsoluteLayoutFlags.All);
-			AbsoluteLayout.SetLayoutBounds(PauseImage, new Rectangle(0.5, 0.5, 0.25, 0.25));
+
+			PlayIcon.GestureRecognizers.Add(new TapGestureRecognizer()
+			{
+				Command = iconTapCommand
+			});
+			AbsoluteLayout.SetLayoutFlags(PlayIcon, AbsoluteLayoutFlags.All);
+			AbsoluteLayout.SetLayoutBounds(PlayIcon, new Rectangle(0.5, 0.5, 0.25, 0.25));
+
+			PauseIcon = new Grid
+			{
+				HorizontalOptions = LayoutOptions.Center,
+				Children =
+				{
+					new ShapesPath
+					{
+						Scale = 0.7,
+						Data = (ShapesPathGeometry)new Forms.Shapes.PathGeometryConverter().ConvertFromInvariantString("M1 1H36V131H1V1Z"),
+						Fill = Brush.White,
+						Opacity = 0.4,
+						Aspect = Stretch.Uniform,
+						HorizontalOptions = LayoutOptions.Start
+					},
+					new ShapesPath
+					{
+						Scale = 0.7,
+						Data = (ShapesPathGeometry)new Forms.Shapes.PathGeometryConverter().ConvertFromInvariantString("M71 1H106V131H71V1Z"),
+						Fill = Brush.White,
+						Opacity = 0.4,
+						Aspect = Stretch.Uniform,
+						HorizontalOptions = LayoutOptions.Start
+					}
+				}
+			};
+
+			PauseIcon.GestureRecognizers.Add(new TapGestureRecognizer()
+			{
+				Command = iconTapCommand
+			});
+			AbsoluteLayout.SetLayoutFlags(PauseIcon, AbsoluteLayoutFlags.All);
+			AbsoluteLayout.SetLayoutBounds(PauseIcon, new Rectangle(0.5, 0.5, 0.25, 0.25));
 
 			var bufferingLabel = new XLabel
 			{
@@ -111,7 +165,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					new StackLayout { VerticalOptions = LayoutOptions.FillAndExpand },
 					new StackLayout
 					{
-						Margin =  Device.Idiom == TargetIdiom.Watch ? new Thickness(80, 0, 80, 0) : 20,
+						Margin = Device.Idiom == TargetIdiom.Watch ? new Thickness(80, 0, 80, 0) : 20,
 						VerticalOptions = LayoutOptions.End,
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 						BackgroundColor = Color.FromHex("#50000000"),
@@ -126,10 +180,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				VerticalOptions = LayoutOptions.FillAndExpand,
-				Children = {
+				Children =
+				{
 					progressLayout,
-					PlayImage,
-					PauseImage,
+					PlayIcon,
+					PauseIcon,
 					bufferingLabel
 				}
 			};
@@ -148,43 +203,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		async void OnPlaybackStateChanged(object sender, EventArgs e)
 		{
-			if (BindingContext is IMediaPlayer player)
+			if (BindingContext is not IMediaPlayer player)
+				return;
+
+			if (player.State == PlaybackState.Playing)
 			{
-				if (player.State == PlaybackState.Playing)
-				{
-					var unused = PlayImage.FadeTo(0, 100);
-					await PlayImage.ScaleTo(3.0, 300);
-					PlayImage.IsVisible = false;
-					PlayImage.Scale = 1.0;
-
-					PauseImage.IsVisible = true;
-					unused = PauseImage.FadeTo(1, 50);
-				}
-				else
-				{
-					var unused = PauseImage.FadeTo(0, 100);
-					await PauseImage.ScaleTo(3.0, 300);
-					PauseImage.IsVisible = false;
-					PauseImage.Scale = 1.0;
-
-					PlayImage.IsVisible = true;
-					unused = PlayImage.FadeTo(1, 50);
-				}
+				await Task.WhenAll(PlayIcon.FadeTo(0, 100), PlayIcon.ScaleTo(3.0, 300));
+				PlayIcon.IsVisible = false;
+				PlayIcon.Scale = 1.0;
+				PauseIcon.IsVisible = true;
+				await PauseIcon.FadeTo(1, 50);
 			}
-		}
-
-		async void OnImageButtonClicked(object sender, EventArgs e)
-		{
-			if (BindingContext is MediaPlayer player)
+			else
 			{
-				if (player.State == PlaybackState.Playing)
-				{
-					player.Pause();
-				}
-				else
-				{
-					await player.Start();
-				}
+				await Task.WhenAll(PauseIcon.FadeTo(0, 100), PauseIcon.ScaleTo(3.0, 300));
+				PauseIcon.IsVisible = false;
+				PauseIcon.Scale = 1.0;
+				PlayIcon.IsVisible = true;
+				await PlayIcon.FadeTo(1, 50);
 			}
 		}
 	}
@@ -194,7 +230,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var progress = (double)value;
-			if (Double.IsNaN(progress))
+			if (double.IsNaN(progress))
 			{
 				progress = 0d;
 			}
@@ -215,7 +251,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var millisecond = (int)value;
 			var second = (millisecond / 1000) % 60;
 			var min = (millisecond / 1000 / 60) % 60;
-			var hour = (millisecond / 1000 / 60 / 60);
+			var hour = millisecond / 1000 / 60 / 60;
 			if (hour > 0)
 			{
 				return string.Format("{0:d2}:{1:d2}:{2:d2}", hour, min, second);

@@ -73,7 +73,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public DisplayAspectMode AspectMode
 		{
-			get { return aspectMode; }
+			get
+			{
+				return aspectMode;
+			}
+
 			set
 			{
 				aspectMode = value;
@@ -85,7 +89,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		IVideoOutput? VideoOutput
 		{
-			get { return videoOutput; }
+			get
+			{
+				return videoOutput;
+			}
+
 			set
 			{
 				if (TargetView != null)
@@ -109,11 +117,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public event EventHandler? UpdateStreamInfo;
+
 		public event EventHandler? PlaybackCompleted;
+
 		public event EventHandler? PlaybackStarted;
+
 		public event EventHandler<BufferingProgressUpdatedEventArgs>? BufferingProgressUpdated;
+
 		public event EventHandler? PlaybackStopped;
+
 		public event EventHandler? PlaybackPaused;
+
 		public event EventHandler? ErrorOccurred;
 
 		public async Task<bool> Start()

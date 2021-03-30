@@ -27,6 +27,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return controller;
 			}
+
 			set
 			{
 				if (controller != null)
@@ -258,6 +259,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			return TimeSpan.FromMilliseconds((int)value);
 		}
+
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return ((TimeSpan)value).Milliseconds;
