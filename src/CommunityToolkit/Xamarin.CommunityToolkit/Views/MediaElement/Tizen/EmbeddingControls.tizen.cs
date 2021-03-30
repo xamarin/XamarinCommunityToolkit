@@ -205,7 +205,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		async void OnPlaybackStateChanged(object sender, EventArgs e)
 		{
 			if (BindingContext is not IMediaPlayer player)
+			{
 				return;
+			}
 
 			if (player.State == PlaybackState.Playing)
 			{
@@ -214,15 +216,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				PlayIcon.Scale = 1.0;
 				PauseIcon.IsVisible = true;
 				await PauseIcon.FadeTo(1, 50);
+				return;
 			}
-			else
-			{
-				await Task.WhenAll(PauseIcon.FadeTo(0, 100), PauseIcon.ScaleTo(3.0, 300));
-				PauseIcon.IsVisible = false;
-				PauseIcon.Scale = 1.0;
-				PlayIcon.IsVisible = true;
-				await PlayIcon.FadeTo(1, 50);
-			}
+
+			await Task.WhenAll(PauseIcon.FadeTo(0, 100), PauseIcon.ScaleTo(3.0, 300));
+			PauseIcon.IsVisible = false;
+			PauseIcon.Scale = 1.0;
+			PlayIcon.IsVisible = true;
+			await PlayIcon.FadeTo(1, 50);
 		}
 	}
 
