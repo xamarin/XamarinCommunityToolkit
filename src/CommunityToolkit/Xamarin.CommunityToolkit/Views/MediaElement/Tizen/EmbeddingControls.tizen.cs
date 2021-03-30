@@ -20,16 +20,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var iconTapCommand = new Command(async () =>
 			{
 				if (BindingContext is not MediaPlayer player)
+				{
 					return;
+				}
 
 				if (player.State == PlaybackState.Playing)
 				{
 					player.Pause();
+					return;
 				}
-				else
-				{
-					await player.Start();
-				}
+				
+				await player.Start();
 			});
 
 			PlayIcon = new Grid
