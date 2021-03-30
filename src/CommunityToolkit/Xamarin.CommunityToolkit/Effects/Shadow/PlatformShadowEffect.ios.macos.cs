@@ -35,10 +35,7 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 			if (View == null)
 				return;
 
-			UpdateColor(View);
-			UpdateOpacity(View);
-			UpdateRadius(View);
-			UpdateOffset(View);
+			Update(View);
 		}
 
 		protected override void OnDetached()
@@ -58,20 +55,32 @@ namespace Xamarin.CommunityToolkit.macOS.Effects
 
 			switch (args.PropertyName)
 			{
-				case nameof(ShadowEffect.ColorPropertyName):
+				case ShadowEffect.ColorPropertyName:
 					UpdateColor(View);
 					break;
-				case nameof(ShadowEffect.OpacityPropertyName):
+				case ShadowEffect.OpacityPropertyName:
 					UpdateOpacity(View);
 					break;
-				case nameof(ShadowEffect.RadiusPropertyName):
+				case ShadowEffect.RadiusPropertyName:
 					UpdateRadius(View);
 					break;
-				case nameof(ShadowEffect.OffsetXPropertyName):
-				case nameof(ShadowEffect.OffsetYPropertyName):
+				case ShadowEffect.OffsetXPropertyName:
+				case ShadowEffect.OffsetYPropertyName:
 					UpdateOffset(View);
 					break;
+				case nameof(VisualElement.Width):
+				case nameof(VisualElement.Height):
+					Update(View);
+					break;
 			}
+		}
+
+		void Update(in NativeView view)
+		{
+			UpdateColor(view);
+			UpdateOpacity(view);
+			UpdateRadius(view);
+			UpdateOffset(view);
 		}
 
 		void UpdateColor(in NativeView view)
