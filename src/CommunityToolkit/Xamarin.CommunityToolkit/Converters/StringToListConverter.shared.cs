@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (parameter != null)
 				throw new ArgumentException("Parameter cannot be casted to string nor string[]", nameof(parameter));
 
-			if (Separators.Any())
+			if (Separators.Count > 1)
 				return Split(valueToSplit, Separators.ToArray());
 
 			return Split(valueToSplit, Separator);
