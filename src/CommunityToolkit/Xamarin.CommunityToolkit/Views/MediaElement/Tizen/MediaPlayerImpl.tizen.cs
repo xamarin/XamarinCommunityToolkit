@@ -211,7 +211,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		public async Task<Stream?> GetAlbumArts()
+		public async ValueTask<Stream?> GetAlbumArtsAsync()
 		{
 			if (player.State == PlayerState.Idle)
 			{
@@ -350,14 +350,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (e.PropertyName == "Renderer")
 			{
-				if (Platform.GetRenderer(sender as BindableObject) != null && HasSource && AutoPlay)
+				var renderer = Platform.GetRenderer(sender as BindableObject);
+				if (renderer != null && HasSource && AutoPlay)
 				{
 					Device.BeginInvokeOnMainThread(async () =>
 					{
 						await Start();
 					});
 				}
-				else if (Platform.GetRenderer(sender as BindableObject) == null && AutoStop)
+				else if (renderer == null && AutoStop)
 				{
 					Stop();
 				}

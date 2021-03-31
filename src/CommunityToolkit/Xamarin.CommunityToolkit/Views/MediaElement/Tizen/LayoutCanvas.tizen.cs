@@ -6,12 +6,14 @@ using Xamarin.Forms.Platform.Tizen.Native;
 using ElmSharp;
 using ELayout = ElmSharp.Layout;
 using TBox = Xamarin.Forms.Platform.Tizen.Native.Box;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class LayoutCanvas : ELayout, IContainable<EvasObject>
 	{
 		readonly ObservableCollection<EvasObject> children = new ObservableCollection<EvasObject>();
+		readonly WeakEventManager<LayoutEventArgs> weakEventManager = new WeakEventManager<LayoutEventArgs>();
 		TBox box;
 
 		public LayoutCanvas(EvasObject parent)
@@ -20,41 +22,47 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SetTheme("layout", "elm_widget", "default");
 			box = new TBox(parent);
 			SetContent(box);
+			children.CollectionChanged += OnChildrenCollectionChanged;
+			box.LayoutUpdated += OnBoxLayoutUpdated;
+		}
 
-			children.CollectionChanged += (o, e) =>
+		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			if (e.Action == NotifyCollectionChangedAction.Add)
 			{
-				if (e.Action == NotifyCollectionChangedAction.Add)
+				foreach (var v in e.NewItems)
 				{
-					foreach (var v in e.NewItems)
+					if (v is EvasObject view)
 					{
-						var view = v as EvasObject;
-						if (view != null)
-						{
-							OnAdd(view);
-						}
+						OnAdd(view);
 					}
 				}
-				else if (e.Action == NotifyCollectionChangedAction.Remove)
+			}
+			else if (e.Action == NotifyCollectionChangedAction.Remove)
+			{
+				foreach (var v in e.OldItems)
 				{
-					foreach (var v in e.OldItems)
+					if (v is EvasObject view)
 					{
-						if (v is EvasObject view)
-						{
-							OnRemove(view);
-						}
+						OnRemove(view);
 					}
 				}
-				else if (e.Action == NotifyCollectionChangedAction.Reset)
-				{
-					OnRemoveAll();
-				}
-			};
+			}
+			else if (e.Action == NotifyCollectionChangedAction.Reset)
+			{
+				OnRemoveAll();
+			}
+		}
+
+		void OnBoxLayoutUpdated(object sender, LayoutEventArgs e)
+		{
+			weakEventManager.RaiseEvent(this, e, nameof(LayoutUpdated));
 		}
 
 		public event EventHandler<LayoutEventArgs> LayoutUpdated
 		{
-			add { box.LayoutUpdated += value; }
-			remove { box.LayoutUpdated -= value; }
+			add => weakEventManager.AddEventHandler(value);
+			remove => weakEventManager.RemoveEventHandler(value);
 		}
 
 		public new IList<EvasObject> Children
@@ -67,6 +75,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected override void OnUnrealize()
 		{
+			children.CollectionChanged -= OnChildrenCollectionChanged;
+			box.LayoutUpdated -= OnBoxLayoutUpdated;
+
 			foreach (var child in children)
 			{
 				child.Unrealize();

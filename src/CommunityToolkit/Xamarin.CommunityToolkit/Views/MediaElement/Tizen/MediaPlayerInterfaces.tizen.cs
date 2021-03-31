@@ -93,7 +93,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		Task<int> Seek(int ms);
 
-		Task<Stream?> GetAlbumArts();
+		ValueTask<Stream?> GetAlbumArtsAsync();
 
 		Task<IDictionary<string, string>> GetMetadata();
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using ElmSharp;
 using Tizen.Multimedia;
 using Xamarin.CommunityToolkit.UI.Views;
@@ -12,6 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaElementRenderer : ViewRenderer<MediaElement, LayoutCanvas>, IMediaViewProvider, IVideoOutput
 	{
+		bool disposed;
 		MediaPlayer? mediaPlayer;
 		MediaView? mediaView;
 		View? controller;
@@ -71,7 +71,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (Control != null)
 				{
 					mediaView = new MediaView(Forms.Forms.NativeParent);
-					Control.LayoutUpdated += (s, evt) => OnLayout();
+					Control.LayoutUpdated += OnLayoutUpdated;
 					Control.Children.Add(mediaView);
 					Control.AllowFocus(true);
 				}
@@ -88,21 +88,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mediaPlayer.ErrorOccurred += OnErrorOccurred;
 				mediaPlayer.MediaPrepared += OnMediaPrepared;
 				mediaPlayer.BindingContext = Element;
-				mediaPlayer.SetBinding(MediaPlayer.SourceProperty, "Source");
-				mediaPlayer.SetBinding(MediaPlayer.UsesEmbeddingControlsProperty, "ShowsPlaybackControls");
-				mediaPlayer.SetBinding(MediaPlayer.AutoPlayProperty, "AutoPlay");
-				mediaPlayer.SetBinding(MediaPlayer.VolumeProperty, "Volume");
-				mediaPlayer.SetBinding(MediaPlayer.IsLoopingProperty, "IsLooping");
+				mediaPlayer.SetBinding(MediaPlayer.SourceProperty, nameof(Element.Source));
+				mediaPlayer.SetBinding(MediaPlayer.UsesEmbeddingControlsProperty, nameof(Element.ShowsPlaybackControls));
+				mediaPlayer.SetBinding(MediaPlayer.AutoPlayProperty, nameof(Element.AutoPlay));
+				mediaPlayer.SetBinding(MediaPlayer.VolumeProperty, nameof(Element.Volume));
+				mediaPlayer.SetBinding(MediaPlayer.IsLoopingProperty, nameof(Element.IsLooping));
 				mediaPlayer.SetBinding(MediaPlayer.AspectModeProperty, new Binding
 				{
-					Path = "Aspect",
+					Path = nameof(Element.Aspect),
 					Converter = new AspectToDisplayAspectModeConverter()
 				});
 				BindableObject.SetInheritedBindingContext(mediaPlayer, Element.BindingContext);
 
 				Element.SetBinding(MediaElement.PositionProperty, new Binding
 				{
-					Path = "Position",
+					Path = nameof(Element.Position),
 					Source = mediaPlayer,
 					Converter = new IntToTimeSpanConverter()
 				});
@@ -113,8 +113,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnElementChanged(e);
 		}
 
+		void OnLayoutUpdated(object sender, Forms.Platform.Tizen.Native.LayoutEventArgs e) => OnLayout();
+
 		protected override void Dispose(bool disposing)
 		{
+			if (disposed)
+				return;
+
+			disposed = true;
+
 			if (disposing)
 			{
 				Controller.OnMediaEnded();
@@ -138,7 +145,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Platform.SetRenderer(controller, null);
 				}
 				nativeController?.Unrealize();
-				Control?.Unrealize();
+				if (Control != null)
+				{
+					Control.LayoutUpdated -= OnLayoutUpdated;
+					Control?.Unrealize();
+				}
 			}
 			base.Dispose(disposing);
 		}
@@ -152,9 +163,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				nativeController.Geometry = Control.Geometry;
 		}
 
-		void OnSeekRequested(object sender, SeekRequested e)
+		async void OnSeekRequested(object sender, SeekRequested e)
 		{
-			mediaPlayer?.Seek((int)e.Position.TotalMilliseconds).ContinueWith((t) => Controller.OnSeekCompleted());
+			if (mediaPlayer == null)
+			{
+				return;
+			}
+			await mediaPlayer.Seek((int)e.Position.TotalMilliseconds);
+			Controller.OnSeekCompleted();
 		}
 
 		void OnStateRequested(object sender, StateRequested e)
@@ -238,31 +254,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public interface IMediaViewProvider
 	{
 		MediaView? GetMediaView();
-	}
-
-	public class AspectToDisplayAspectModeConverter : IValueConverter
-	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return ((Aspect)value).ToDisplayAspectMode();
-		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-	public class IntToTimeSpanConverter : IValueConverter
-	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return TimeSpan.FromMilliseconds((int)value);
-		}
-
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			return ((TimeSpan)value).Milliseconds;
-		}
 	}
 }

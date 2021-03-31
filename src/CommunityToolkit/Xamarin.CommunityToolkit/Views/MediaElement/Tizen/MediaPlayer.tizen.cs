@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Tizen.Multimedia;
 using Xamarin.CommunityToolkit.Core;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
