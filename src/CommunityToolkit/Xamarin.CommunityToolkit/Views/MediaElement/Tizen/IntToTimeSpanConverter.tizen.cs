@@ -6,12 +6,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class IntToTimeSpanConverter : IValueConverter
 	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
+			if (value == null)
+				throw new ArgumentNullException(nameof(value));
+
 			return TimeSpan.FromMilliseconds((int)value);
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			return ((TimeSpan)value).Milliseconds;
 		}
