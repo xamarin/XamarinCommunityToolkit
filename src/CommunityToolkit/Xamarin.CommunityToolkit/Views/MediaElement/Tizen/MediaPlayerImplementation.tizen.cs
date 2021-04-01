@@ -11,18 +11,19 @@ using MSize = Tizen.Multimedia.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class MediaPlayerImpl : IPlatformMediaPlayer
+	class MediaPlayerImplementation : IPlatformMediaPlayer
 	{
+		readonly Player player;
+
 		bool disposed = false;
 		bool cancelToStart;
 		DisplayAspectMode aspectMode = DisplayAspectMode.AspectFit;
-		Player player;
 		Task? taskPrepare;
 		TaskCompletionSource<bool>? tcsForStreamInfo;
 		IVideoOutput? videoOutput;
 		Core.MediaSource? source;
 
-		public MediaPlayerImpl()
+		public MediaPlayerImplementation()
 		{
 			player = new Player();
 			player.PlaybackCompleted += OnPlaybackCompleted;
@@ -30,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			player.ErrorOccurred += OnErrorOccurred;
 		}
 
-		~MediaPlayerImpl()
+		~MediaPlayerImplementation()
 		{
 			Dispose(false);
 		}
@@ -73,10 +74,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public DisplayAspectMode AspectMode
 		{
-			get
-			{
-				return aspectMode;
-			}
+			get => aspectMode;
 
 			set
 			{
@@ -89,10 +87,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		IVideoOutput? VideoOutput
 		{
-			get
-			{
-				return videoOutput;
-			}
+			get => videoOutput;
 
 			set
 			{

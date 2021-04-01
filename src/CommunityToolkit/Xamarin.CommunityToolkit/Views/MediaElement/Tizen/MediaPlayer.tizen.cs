@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.CommunityToolkit.Core;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -28,57 +29,83 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty IsLoopingProperty = BindableProperty.Create(nameof(IsLooping), typeof(bool), typeof(MediaPlayer), false, propertyChanged: (b, o, n) => ((MediaPlayer)b).UpdateIsLooping());
 
-		static readonly BindablePropertyKey DurationPropertyKey = BindableProperty.CreateReadOnly(nameof(Duration), typeof(int), typeof(MediaPlayer), 0);
+		static readonly BindablePropertyKey durationPropertyKey = BindableProperty.CreateReadOnly(nameof(Duration), typeof(int), typeof(MediaPlayer), 0);
 
-		public static readonly BindableProperty DurationProperty = DurationPropertyKey.BindableProperty;
+		public static readonly BindableProperty DurationProperty = durationPropertyKey.BindableProperty;
 
-		static readonly BindablePropertyKey BufferingProgressPropertyKey = BindableProperty.CreateReadOnly(nameof(BufferingProgress), typeof(double), typeof(MediaPlayer), 0d);
+		static readonly BindablePropertyKey bufferingProgressPropertyKey = BindableProperty.CreateReadOnly(nameof(BufferingProgress), typeof(double), typeof(MediaPlayer), 0d);
 
-		public static readonly BindableProperty BufferingProgressProperty = BufferingProgressPropertyKey.BindableProperty;
+		public static readonly BindableProperty BufferingProgressProperty = bufferingProgressPropertyKey.BindableProperty;
 
-		static readonly BindablePropertyKey PositionPropertyKey = BindableProperty.CreateReadOnly(nameof(Position), typeof(int), typeof(MediaPlayer), 0);
+		static readonly BindablePropertyKey positionPropertyKey = BindableProperty.CreateReadOnly(nameof(Position), typeof(int), typeof(MediaPlayer), 0);
 
-		public static readonly BindableProperty PositionProperty = PositionPropertyKey.BindableProperty;
+		public static readonly BindableProperty PositionProperty = positionPropertyKey.BindableProperty;
 
-		static readonly BindablePropertyKey StatePropertyKey = BindableProperty.CreateReadOnly(nameof(State), typeof(PlaybackState), typeof(MediaPlayer), PlaybackState.Stopped);
+		static readonly BindablePropertyKey statePropertyKey = BindableProperty.CreateReadOnly(nameof(State), typeof(PlaybackState), typeof(MediaPlayer), PlaybackState.Stopped);
 
-		public static readonly BindableProperty StateProperty = StatePropertyKey.BindableProperty;
+		public static readonly BindableProperty StateProperty = statePropertyKey.BindableProperty;
 
 		public static readonly BindableProperty PositionUpdateIntervalProperty = BindableProperty.Create(nameof(PositionUpdateInterval), typeof(int), typeof(MediaPlayer), 200);
 
-		static readonly BindablePropertyKey IsBufferingPropertyKey = BindableProperty.CreateReadOnly(nameof(IsBuffering), typeof(bool), typeof(MediaPlayer), false);
+		static readonly BindablePropertyKey isBufferingPropertyKey = BindableProperty.CreateReadOnly(nameof(IsBuffering), typeof(bool), typeof(MediaPlayer), false);
 
-		public static readonly BindableProperty IsBufferingProperty = IsBufferingPropertyKey.BindableProperty;
+		public static readonly BindableProperty IsBufferingProperty = isBufferingPropertyKey.BindableProperty;
+
+		readonly IPlatformMediaPlayer mediaPlayer;
+		readonly Lazy<View> controls;
 
 		bool disposed = false;
 		bool isDisposing = false;
 		bool isPlaying;
 		bool controlsAlwaysVisible;
-		IPlatformMediaPlayer impl;
 		CancellationTokenSource hideTimerCTS = new CancellationTokenSource();
-		Lazy<View> controls;
 
 		public MediaPlayer()
 		{
-			impl = new MediaPlayerImpl();
-			impl.UpdateStreamInfo += OnUpdateStreamInfo;
-			impl.PlaybackCompleted += SendPlaybackCompleted;
-			impl.PlaybackStarted += SendPlaybackStarted;
-			impl.PlaybackPaused += SendPlaybackPaused;
-			impl.PlaybackStopped += SendPlaybackStopped;
-			impl.BufferingProgressUpdated += OnUpdateBufferingProgress;
-			impl.ErrorOccurred += OnErrorOccurred;
-			impl.UsesEmbeddingControls = true;
-			impl.Volume = 1d;
-			impl.AspectMode = DisplayAspectMode.AspectFit;
-			impl.AutoPlay = false;
-			impl.AutoStop = true;
+			StartCommand = new Command(() =>
+			{
+				if (State == PlaybackState.Playing)
+				{
+					Pause();
+				}
+				else
+				{
+					Start();
+				}
+			});
+
+			FastForwardCommand = new Command(() =>
+			{
+				if (State != PlaybackState.Stopped)
+				{
+					Seek(Math.Min(Position + 5000, Duration));
+				}
+			}, () => State != PlaybackState.Stopped);
+
+			RewindCommand = new Command(() =>
+			{
+				if (State != PlaybackState.Stopped)
+				{
+					Seek(Math.Max(Position - 5000, 0));
+				}
+			}, () => State != PlaybackState.Stopped);
+
+			mediaPlayer = new MediaPlayerImplementation();
+			mediaPlayer.UpdateStreamInfo += OnUpdateStreamInfo;
+			mediaPlayer.PlaybackCompleted += SendPlaybackCompleted;
+			mediaPlayer.PlaybackStarted += SendPlaybackStarted;
+			mediaPlayer.PlaybackPaused += SendPlaybackPaused;
+			mediaPlayer.PlaybackStopped += SendPlaybackStopped;
+			mediaPlayer.BufferingProgressUpdated += OnUpdateBufferingProgress;
+			mediaPlayer.ErrorOccurred += OnErrorOccurred;
+			mediaPlayer.UsesEmbeddingControls = true;
+			mediaPlayer.Volume = 1d;
+			mediaPlayer.AspectMode = DisplayAspectMode.AspectFit;
+			mediaPlayer.AutoPlay = false;
+			mediaPlayer.AutoStop = true;
 
 			controlsAlwaysVisible = false;
-			controls = new Lazy<View>(() =>
-			{
-				return impl.GetEmbeddingControlView(this);
-			});
+			controls = new Lazy<View>(() => mediaPlayer.GetEmbeddingControlView(this));
 		}
 
 		~MediaPlayer()
@@ -88,195 +115,110 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public DisplayAspectMode AspectMode
 		{
-			get { return (DisplayAspectMode)GetValue(AspectModeProperty); }
-			set { SetValue(AspectModeProperty, value); }
+			get => (DisplayAspectMode)GetValue(AspectModeProperty);
+			set => SetValue(AspectModeProperty, value);
 		}
 
 		public bool AutoPlay
 		{
-			get
-			{
-				return (bool)GetValue(AutoPlayProperty);
-			}
-
-			set
-			{
-				SetValue(AutoPlayProperty, value);
-			}
+			get => (bool)GetValue(AutoPlayProperty);
+			set => SetValue(AutoPlayProperty, value);
 		}
 
 		public bool AutoStop
 		{
-			get
-			{
-				return (bool)GetValue(AutoStopProperty);
-			}
-
-			set
-			{
-				SetValue(AutoStopProperty, value);
-			}
+			get => (bool)GetValue(AutoStopProperty);
+			set => SetValue(AutoStopProperty, value);
 		}
 
 		public bool IsLooping
 		{
-			get
-			{
-				return (bool)GetValue(IsLoopingProperty);
-			}
-
-			set
-			{
-				SetValue(IsLoopingProperty, value);
-			}
+			get => (bool)GetValue(IsLoopingProperty);
+			set => SetValue(IsLoopingProperty, value);
 		}
 
 		public double BufferingProgress
 		{
-			get
-			{
-				return (double)GetValue(BufferingProgressProperty);
-			}
-
-			private set
-			{
-				SetValue(BufferingProgressPropertyKey, value);
-			}
+			get => (double)GetValue(BufferingProgressProperty);
+			private set => SetValue(bufferingProgressPropertyKey, value);
 		}
 
 		public int Duration
 		{
-			get
-			{
-				return (int)GetValue(DurationProperty);
-			}
-
-			private set
-			{
-				SetValue(DurationPropertyKey, value);
-			}
+			get => (int)GetValue(DurationProperty);
+			private set => SetValue(durationPropertyKey, value);
 		}
 
 		[Xamarin.Forms.TypeConverter(typeof(MediaSourceConverter))]
-		public MediaSource Source
+		public MediaSource? Source
 		{
-			get { return (MediaSource)GetValue(SourceProperty); }
-			set { SetValue(SourceProperty, value); }
+			get => (MediaSource?)GetValue(SourceProperty);
+			set => SetValue(SourceProperty, value);
 		}
 
-		public IVideoOutput VideoOutput
+		public IVideoOutput? VideoOutput
 		{
-			get { return (IVideoOutput)GetValue(VideoOutputProperty); }
-			set { SetValue(VideoOutputProperty, value); }
+			get => (IVideoOutput?)GetValue(VideoOutputProperty);
+			set => SetValue(VideoOutputProperty, value);
 		}
 
 		public double Volume
 		{
-			get { return (double)GetValue(VolumeProperty); }
-			set { SetValue(VolumeProperty, value); }
+			get => (double)GetValue(VolumeProperty);
+			set => SetValue(VolumeProperty, value);
 		}
 
 		public bool IsMuted
 		{
-			get { return (bool)GetValue(IsMutedProperty); }
-			set { SetValue(IsMutedProperty, value); }
+			get => (bool)GetValue(IsMutedProperty);
+			set => SetValue(IsMutedProperty, value);
 		}
 
 		public int PositionUpdateInterval
 		{
-			get { return (int)GetValue(PositionUpdateIntervalProperty); }
-			set { SetValue(PositionUpdateIntervalProperty, value); }
+			get => (int)GetValue(PositionUpdateIntervalProperty);
+			set => SetValue(PositionUpdateIntervalProperty, value);
 		}
 
 		public bool UsesEmbeddingControls
 		{
-			get
-			{
-				return (bool)GetValue(UsesEmbeddingControlsProperty);
-			}
-
+			get => (bool)GetValue(UsesEmbeddingControlsProperty);
 			set
 			{
 				SetValue(UsesEmbeddingControlsProperty, value);
-				impl.UsesEmbeddingControls = value;
+				mediaPlayer.UsesEmbeddingControls = value;
 			}
 		}
 
 		public int Position
 		{
-			get
-			{
-				return impl.Position;
-			}
-
+			get => mediaPlayer.Position;
 			private set
 			{
-				SetValue(PositionPropertyKey, value);
+				SetValue(positionPropertyKey, value);
 				OnPropertyChanged(nameof(Progress));
 			}
 		}
 
 		public PlaybackState State
 		{
-			get
-			{
-				return (PlaybackState)GetValue(StateProperty);
-			}
-
-			private set
-			{
-				SetValue(StatePropertyKey, value);
-			}
+			get => (PlaybackState)GetValue(StateProperty);
+			private set => SetValue(statePropertyKey, value);
 		}
 
 		public bool IsBuffering
 		{
-			get
-			{
-				return (bool)GetValue(IsBufferingProperty);
-			}
-
-			private set
-			{
-				SetValue(IsBufferingPropertyKey, value);
-			}
+			get => (bool)GetValue(IsBufferingProperty);
+			private set => SetValue(isBufferingPropertyKey, value);
 		}
 
-		public double Progress
-		{
-			get
-			{
-				return Position / (double)Math.Max(Position, Duration);
-			}
-		}
+		public double Progress => Position / (double)Math.Max(Position, Duration);
 
-		public Command StartCommand => new Command(() =>
-		{
-			if (State == PlaybackState.Playing)
-			{
-				Pause();
-			}
-			else
-			{
-				Start();
-			}
-		});
+		public ICommand StartCommand { get; }
 
-		public Command FastForwardCommand => new Command(() =>
-		{
-			if (State != PlaybackState.Stopped)
-			{
-				Seek(Math.Min(Position + 5000, Duration));
-			}
-		}, () => State != PlaybackState.Stopped);
+		public ICommand FastForwardCommand { get; }
 
-		public Command RewindCommand => new Command(() =>
-		{
-			if (State != PlaybackState.Stopped)
-			{
-				Seek(Math.Max(Position - 5000, 0));
-			}
-		}, () => State != PlaybackState.Stopped);
+		public ICommand RewindCommand { get; }
 
 		public event EventHandler? PlaybackCompleted;
 
@@ -296,33 +238,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public event EventHandler? MediaPrepared;
 
-		public void Pause()
-		{
-			impl.Pause();
-		}
+		public void Pause() => mediaPlayer.Pause();
 
 		public Task<int> Seek(int ms)
 		{
 			ShowController();
-			var task = impl.Seek(ms).ContinueWith((t) => Position = impl.Position);
+			var task = mediaPlayer.Seek(ms).ContinueWith((t) => Position = mediaPlayer.Position);
 
 			return task;
 		}
 
-		public Task<bool> Start()
-		{
-			return impl.Start();
-		}
+		public Task<bool> Start() => mediaPlayer.Start();
 
-		public void Stop()
-		{
-			impl.Stop();
-		}
+		public void Stop() => mediaPlayer.Stop();
 
-		public Task<global::Tizen.Multimedia.Size> GetVideoSize()
-		{
-			return impl.GetVideoSize();
-		}
+		public Task<global::Tizen.Multimedia.Size> GetVideoSize() => mediaPlayer.GetVideoSize();
 
 		public void Dispose()
 		{
@@ -340,14 +270,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (disposing)
 			{
 				isPlaying = false;
-				impl.UpdateStreamInfo -= OnUpdateStreamInfo;
-				impl.PlaybackCompleted -= SendPlaybackCompleted;
-				impl.PlaybackStarted -= SendPlaybackStarted;
-				impl.PlaybackPaused -= SendPlaybackPaused;
-				impl.PlaybackStopped -= SendPlaybackStopped;
-				impl.BufferingProgressUpdated -= OnUpdateBufferingProgress;
-				impl.ErrorOccurred -= OnErrorOccurred;
-				impl.Dispose();
+				mediaPlayer.UpdateStreamInfo -= OnUpdateStreamInfo;
+				mediaPlayer.PlaybackCompleted -= SendPlaybackCompleted;
+				mediaPlayer.PlaybackStarted -= SendPlaybackStarted;
+				mediaPlayer.PlaybackPaused -= SendPlaybackPaused;
+				mediaPlayer.PlaybackStopped -= SendPlaybackStopped;
+				mediaPlayer.BufferingProgressUpdated -= OnUpdateBufferingProgress;
+				mediaPlayer.ErrorOccurred -= OnErrorOccurred;
+				mediaPlayer.Dispose();
 			}
 
 			disposed = true;
@@ -355,34 +285,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateAutoPlay()
 		{
-			impl.AutoPlay = AutoPlay;
+			mediaPlayer.AutoPlay = AutoPlay;
 		}
 
 		void UpdateAutoStop()
 		{
-			impl.AutoStop = AutoStop;
+			mediaPlayer.AutoStop = AutoStop;
 		}
 
 		void UpdateIsMuted()
 		{
-			impl.IsMuted = IsMuted;
+			mediaPlayer.IsMuted = IsMuted;
 		}
 
 		void UpdateIsLooping()
 		{
-			impl.IsLooping = IsLooping;
+			mediaPlayer.IsLooping = IsLooping;
 		}
 
 		void OnUpdateStreamInfo(object sender, EventArgs e)
 		{
-			Duration = impl.Duration;
+			Duration = mediaPlayer.Duration;
 			MediaPrepared?.Invoke(this, EventArgs.Empty);
 		}
 
-		void SendPlaybackCompleted(object sender, EventArgs e)
-		{
-			PlaybackCompleted?.Invoke(this, EventArgs.Empty);
-		}
+		void SendPlaybackCompleted(object sender, EventArgs e) => PlaybackCompleted?.Invoke(this, EventArgs.Empty);
 
 		void SendPlaybackStarted(object sender, EventArgs e)
 		{
@@ -421,14 +348,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					return false;
 				}
-				Position = impl.Position;
+				Position = mediaPlayer.Position;
 				return isPlaying;
 			});
 		}
 
 		void OnSourceChanged(object sender, EventArgs e)
 		{
-			impl.SetSource(Source);
+			if (Source != null)
+				mediaPlayer.SetSource(Source);
 		}
 
 		void OnVideoOutputChanged()
@@ -447,7 +375,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					outputView.GestureRecognizers.Add(tapGesture);
 				}
 			}
-			impl.SetDisplay(VideoOutput);
+			mediaPlayer.SetDisplay(VideoOutput);
 		}
 
 		void OnOutputTapped(object sender, EventArgs e)
@@ -491,12 +419,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnVolumeChanged()
 		{
-			impl.Volume = Volume;
+			mediaPlayer.Volume = Volume;
 		}
 
 		void OnAspectModeChanged()
 		{
-			impl.AspectMode = AspectMode;
+			mediaPlayer.AspectMode = AspectMode;
 		}
 
 		void OnUpdateBufferingProgress(object sender, BufferingProgressUpdatedEventArgs e)
@@ -511,14 +439,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				IsBuffering = false;
 				BufferingCompleted?.Invoke(this, EventArgs.Empty);
 			}
+
 			BufferingProgress = e.Progress;
 			BufferingProgressUpdated?.Invoke(this, new BufferingProgressUpdatedEventArgs { Progress = BufferingProgress });
 		}
 
-		void OnErrorOccurred(object sender, EventArgs e)
-		{
-			ErrorOccurred?.Invoke(this, EventArgs.Empty);
-		}
+		void OnErrorOccurred(object sender, EventArgs e) => ErrorOccurred?.Invoke(this, EventArgs.Empty);
 
 		async void HideController(int after)
 		{
@@ -556,7 +482,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnSourceChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			(bindable as MediaPlayer)?.OnSourceChanged(bindable, EventArgs.Empty);
+			var mediaPlayer = (MediaPlayer)bindable;
+			mediaPlayer.OnSourceChanged(bindable, EventArgs.Empty);
 		}
 	}
 }

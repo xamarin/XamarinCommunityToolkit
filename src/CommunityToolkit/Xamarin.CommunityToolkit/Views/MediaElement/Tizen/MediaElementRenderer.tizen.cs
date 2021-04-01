@@ -17,17 +17,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		View? controller;
 		EvasObject? nativeController;
 
-		IMediaElementController Controller => Element as IMediaElementController;
+		IMediaElementController Controller => Element;
 
 		VisualElement IVideoOutput.MediaView => Element;
 
 		View? IVideoOutput.Controller
 		{
-			get
-			{
-				return controller;
-			}
-
+			get => controller;
 			set
 			{
 				if (controller != null)
@@ -53,10 +49,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		VideoOuputType IVideoOutput.OuputType => VideoOuputType.Buffer;
 
-		MediaView? IMediaViewProvider.GetMediaView()
-		{
-			return mediaView;
-		}
+		MediaView? IMediaViewProvider.GetMediaView() => mediaView;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
 		{
@@ -158,7 +151,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (mediaView != null)
 				mediaView.Geometry = Control.Geometry;
+
 			controller?.Layout(Element.Bounds);
+
 			if (nativeController != null)
 				nativeController.Geometry = Control.Geometry;
 		}
@@ -169,6 +164,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return;
 			}
+
 			await mediaPlayer.Seek((int)e.Position.TotalMilliseconds);
 			Controller.OnSeekCompleted();
 		}
