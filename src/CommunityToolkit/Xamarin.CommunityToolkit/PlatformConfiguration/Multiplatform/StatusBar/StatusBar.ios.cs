@@ -14,9 +14,9 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 
 			if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
 			{
+				const int statusBarTag = 38482;
 				foreach (var window in UIApplication.SharedApplication.Windows)
 				{
-					const int statusBarTag = 38482;
 					var statusBar = window.ViewWithTag(statusBarTag) ?? new UIView(UIApplication.SharedApplication.StatusBarFrame);
 					statusBar.Tag = statusBarTag;
 					statusBar.BackgroundColor = uiColor;
