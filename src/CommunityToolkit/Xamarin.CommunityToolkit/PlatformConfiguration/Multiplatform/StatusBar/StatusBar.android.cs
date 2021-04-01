@@ -25,7 +25,6 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 				case StatusBarStyle.DarkContent:
 					BarStyle.AddBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
 					break;
-				case StatusBarStyle.LightContent:
 				default:
 					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
 					break;

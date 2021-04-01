@@ -25,7 +25,6 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 				case NavigationBarStyle.DarkContent:
 					BarStyle.AddBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
-				case NavigationBarStyle.LightContent:
 				default:
 					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
