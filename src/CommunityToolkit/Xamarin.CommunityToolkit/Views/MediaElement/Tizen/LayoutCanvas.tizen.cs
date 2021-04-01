@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		readonly ObservableCollection<EvasObject> children = new ObservableCollection<EvasObject>();
 		readonly WeakEventManager<LayoutEventArgs> weakEventManager = new WeakEventManager<LayoutEventArgs>();
-		TBox box;
+		readonly TBox box;
 
 		public LayoutCanvas(EvasObject parent)
 			: base(parent)
@@ -54,10 +54,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnBoxLayoutUpdated(object sender, LayoutEventArgs e)
-		{
-			weakEventManager.RaiseEvent(this, e, nameof(LayoutUpdated));
-		}
+		void OnBoxLayoutUpdated(object sender, LayoutEventArgs e) => weakEventManager.RaiseEvent(this, e, nameof(LayoutUpdated));
 
 		public event EventHandler<LayoutEventArgs> LayoutUpdated
 		{
@@ -65,13 +62,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			remove => weakEventManager.RemoveEventHandler(value);
 		}
 
-		public new IList<EvasObject> Children
-		{
-			get
-			{
-				return children;
-			}
-		}
+		public new IList<EvasObject> Children => children;
 
 		protected override void OnUnrealize()
 		{
@@ -86,19 +77,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnUnrealize();
 		}
 
-		void OnAdd(EvasObject view)
-		{
-			box.PackEnd(view);
-		}
+		void OnAdd(EvasObject view) => box.PackEnd(view);
 
-		void OnRemove(EvasObject view)
-		{
-			box.UnPack(view);
-		}
+		void OnRemove(EvasObject view) => box.UnPack(view);
 
-		void OnRemoveAll()
-		{
-			box.UnPackAll();
-		}
+		void OnRemoveAll() => box.UnPackAll();
 	}
 }

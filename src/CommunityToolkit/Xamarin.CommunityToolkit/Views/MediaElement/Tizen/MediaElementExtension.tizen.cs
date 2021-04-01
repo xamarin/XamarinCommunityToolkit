@@ -5,27 +5,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public static class MediaElementExtension
 	{
-		public static PlayerDisplayMode ToNative(this DisplayAspectMode mode)
+		public static PlayerDisplayMode ToNative(this DisplayAspectMode mode) => mode switch
 		{
-			return mode switch
-			{
-				DisplayAspectMode.AspectFill => PlayerDisplayMode.CroppedFull,
-				DisplayAspectMode.AspectFit => PlayerDisplayMode.LetterBox,
-				DisplayAspectMode.Fill => PlayerDisplayMode.FullScreen,
-				DisplayAspectMode.OrignalSize => PlayerDisplayMode.OriginalOrFull,
-				_ => PlayerDisplayMode.LetterBox
-			};
-		}
+			DisplayAspectMode.AspectFill => PlayerDisplayMode.CroppedFull,
+			DisplayAspectMode.AspectFit => PlayerDisplayMode.LetterBox,
+			DisplayAspectMode.Fill => PlayerDisplayMode.FullScreen,
+			DisplayAspectMode.OrignalSize => PlayerDisplayMode.OriginalOrFull,
+			_ => PlayerDisplayMode.LetterBox
+		};
 
-		public static DisplayAspectMode ToDisplayAspectMode(this Aspect aspect)
+		public static DisplayAspectMode ToDisplayAspectMode(this Aspect aspect) => aspect switch
 		{
-			return aspect switch
-			{
-				Aspect.AspectFill => DisplayAspectMode.AspectFill,
-				Aspect.AspectFit => DisplayAspectMode.AspectFit,
-				Aspect.Fill => DisplayAspectMode.Fill,
-				_ => DisplayAspectMode.AspectFit
-			};
-		}
+			Aspect.AspectFill => DisplayAspectMode.AspectFill,
+			Aspect.AspectFit => DisplayAspectMode.AspectFit,
+			Aspect.Fill => DisplayAspectMode.Fill,
+			_ => DisplayAspectMode.AspectFit
+		};
 	}
 }
