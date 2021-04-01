@@ -1,5 +1,4 @@
-﻿using Android.OS;
-using Android.Views;
+﻿using Android.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -9,7 +8,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 	{
 		static partial void PlatformSetColor(Color color)
 		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+			if (!BarStyle.IsSupported())
 				return;
 
 			var activity = (FormsAppCompatActivity)ToolkitPlatform.Context.GetActivity();
@@ -18,7 +17,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 
 		static partial void PlatformSetStyle(StatusBarStyle style)
 		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+			if (!BarStyle.IsSupported())
 				return;
 
 			switch (style)

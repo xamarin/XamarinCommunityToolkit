@@ -1,5 +1,4 @@
-﻿using Android.OS;
-using Android.Views;
+﻿using Android.Views;
 using Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -10,7 +9,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 	{
 		static partial void SetColor(Color color)
 		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+			if (!BarStyle.IsSupported())
 				return;
 
 			BarStyle.GetCurrentWindow().SetNavigationBarColor(color.ToAndroid());
@@ -18,7 +17,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 
 		static partial void SetStyle(NavigationBarStyle style)
 		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+			if (!BarStyle.IsSupported())
 				return;
 
 			switch (style)

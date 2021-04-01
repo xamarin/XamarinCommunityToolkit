@@ -1,11 +1,24 @@
 ﻿using System;
+using Android.OS;
 using Android.Views;
 using Xamarin.Forms.Platform.Android;
+using Debug = System.Diagnostics.Debug;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
-	public static class BarStyle
+	static class BarStyle
 	{
+		internal static bool IsSupported()
+		{
+			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+			{
+				Debug.WriteLine($"This functionality is not available. Minimum supported API is {BuildVersionCodes.M}");
+				return false;
+			}
+
+			return true;
+		}
+
 		internal static void AddBarAppearanceFlag(StatusBarVisibility flag) =>
 			SetBarAppearance(barAppearance => barAppearance |= flag);
 
