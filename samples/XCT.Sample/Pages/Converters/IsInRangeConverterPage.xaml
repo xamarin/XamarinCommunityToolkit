@@ -3,4 +3,84 @@
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.IsInRangeConverterPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" />
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:IsInRangeConverter x:Key="IsDateTimeInRangeConverter">
+                <xct:IsInRangeConverter.MinValue>
+                    <sys:DateTime>
+                        Jan 1 2021
+                    </sys:DateTime>
+                </xct:IsInRangeConverter.MinValue>
+                <xct:IsInRangeConverter.MaxValue>
+                    <sys:DateTime>
+                        Jan 15 2021
+                    </sys:DateTime>
+                </xct:IsInRangeConverter.MaxValue>
+            </xct:IsInRangeConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <Grid
+            Padding="10"
+            ColumnDefinitions="*,*"
+            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*">
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="Is Date in range?" />
+            <Label
+                Grid.Row="0"
+                Grid.Column="1"
+                Text="{Binding Path=Date, Source={x:Reference valueDatePicker}, Converter={StaticResource IsDateTimeInRangeConverter}}" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="Date:" />
+            <DatePicker
+                x:Name="valueDatePicker"
+                Grid.Row="1"
+                Grid.Column="1"
+                Format="dd/MM/yyyy">
+                <DatePicker.Date>
+                    <sys:DateTime>
+                        Jan 10 2021
+                    </sys:DateTime>
+                </DatePicker.Date>
+            </DatePicker>
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Text="Start Date:" />
+            <DatePicker
+                x:Name="startDatePicker"
+                Grid.Row="2"
+                Grid.Column="1"
+                Format="dd/MM/yyyy">
+                <DatePicker.Date>
+                    <sys:DateTime>
+                        Jan 1 2021
+                    </sys:DateTime>
+                </DatePicker.Date>
+            </DatePicker>
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Text="End Date:" />
+            <DatePicker
+                x:Name="endDatePicker"
+                Grid.Row="3"
+                Grid.Column="1"
+                Format="dd/MM/yyyy"
+                MinimumDate="{Binding Source={x:Reference startDatePicker}, Path=Date}">
+                <DatePicker.Date>
+                    <sys:DateTime>
+                        Jan 15 2021
+                    </sys:DateTime>
+                </DatePicker.Date>
+            </DatePicker>
+        </Grid>
+    </ScrollView>
+</pages:BasePage>

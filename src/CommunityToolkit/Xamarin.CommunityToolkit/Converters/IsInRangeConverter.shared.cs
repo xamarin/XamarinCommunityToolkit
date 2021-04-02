@@ -5,13 +5,21 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
-	public class IsInRangeConverter : ValueConverterExtension, IValueConverter
+	public class IsInRangeConverter : BindableObject, IValueConverter
 	{
-		public object? MinValue { get; set; }
+		//public object? MinValue { get; set; }
 
 		public object? MaxValue { get; set; }
 
 		public bool RevertResult { get; set; } = false;
+
+		public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(object), typeof(IsInRangeConverter));
+
+		public object? MinValue
+		{
+			get { return GetValue(MinValueProperty); }
+			set { SetValue(MinValueProperty, value); }
+		}
 
 		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
@@ -23,6 +31,8 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			if (MaxValue == null)
 				throw new ArgumentException("Value cannot be null", nameof(MaxValue));
+
+			var a = (DateTime)MinValue;
 
 			if (value.GetType() != MinValue.GetType())
 				throw new ArgumentException("Values cannot be different types", nameof(MinValue));
