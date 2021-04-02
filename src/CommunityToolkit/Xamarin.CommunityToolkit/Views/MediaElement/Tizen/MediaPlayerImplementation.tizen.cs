@@ -168,10 +168,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		public void Stop()
+		public async Task Stop()
 		{
 			cancelToStart = true;
-			_ = ChangeToIdleState();
+			await ChangeToIdleState();
 			PlaybackStopped?.Invoke(this, EventArgs.Empty);
 		}
 
@@ -193,16 +193,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return Position;
 		}
 
-		public void SetSource(Core.MediaSource source)
+		public async void SetSource(Core.MediaSource source)
 		{
 			this.source = source;
 			if (HasSource && AutoPlay)
 			{
-				_ = Start();
+				await Start();
 			}
 			else if (!HasSource)
 			{
-				Stop();
+				await Stop();
 			}
 		}
 
@@ -341,7 +341,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnTargetViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		async void OnTargetViewPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer")
 			{
@@ -355,7 +355,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 				else if (renderer == null && AutoStop)
 				{
-					Stop();
+					await Stop();
 				}
 			}
 		}

@@ -87,7 +87,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		Task<bool> Start();
 
-		void Stop();
+		Task Stop();
 
 		void Pause();
 
