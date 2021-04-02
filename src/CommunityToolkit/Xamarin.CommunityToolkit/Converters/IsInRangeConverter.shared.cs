@@ -5,11 +5,13 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
-	public class IsBetweenConverter : ValueConverterExtension, IValueConverter
+	public class IsInRangeConverter : ValueConverterExtension, IValueConverter
 	{
 		public object? MinValue { get; set; }
 
 		public object? MaxValue { get; set; }
+
+		public bool RevertResult { get; set; } = false;
 
 		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
@@ -30,7 +32,8 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			if (value is IComparable comparable)
 			{
-				return comparable.CompareTo(MinValue) >= 0 && comparable.CompareTo(MaxValue) <= 0;
+				var result = comparable.CompareTo(MinValue) >= 0 && comparable.CompareTo(MaxValue) <= 0;
+				return RevertResult ? !result : result;
 			}
 
 			return false;

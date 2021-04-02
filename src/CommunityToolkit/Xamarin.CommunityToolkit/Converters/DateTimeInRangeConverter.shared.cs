@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
-	public class DateTimeBetweenConverter : ValueConverterExtension, IValueConverter
+	public class DateTimeInRangeConverter : ValueConverterExtension, IValueConverter
 	{
 		public DateTime MinValue { get; } = DateTime.MinValue;
 
