@@ -38,6 +38,35 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (value is not Enum enumValue)
 				throw new ArgumentException("The value should be of type Enum", nameof(value));
 
+ 			if (TrueValues.Count == 0 && parameter != null && parameter is not Enum)
+            {
+                var valueType = value.GetType();
+				// Check if parameter is an Array
+                if (parameter is Array arrayParms)
+                {
+                    foreach (var arrayParm in arrayParms)
+                    {
+                        if (arrayParm.GetType() == valueType)
+                            TrueValues.Add((Enum)arrayParm);
+                    }
+                }
+                else
+                {
+                    var parameterEnumArrayType = parameter.GetType().GetGenericArguments().FirstOrDefault();
+					// Check if parameter is a List of Enum
+                    if (valueType == parameterEnumArrayType)
+                    {
+                        if (parameter is IEnumerable list)
+                        {
+                            foreach (var item in list)
+                            {
+                                TrueValues.Add((Enum)item);
+                            }
+                        }
+                    }
+                }
+            }
+
 			return TrueValues.Count == 0
 				? CompareTwoEnums(enumValue, parameter as Enum)
 				: TrueValues.Any(item => CompareTwoEnums(enumValue, item));
