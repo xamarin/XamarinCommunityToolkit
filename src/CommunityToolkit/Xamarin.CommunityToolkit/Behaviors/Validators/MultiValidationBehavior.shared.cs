@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				foreach (var child in e.NewItems.OfType<ValidationBehavior>())
 				{
-					child.SetBinding(BindingContextProperty, new Binding
+					child.BindContextIfNeeded(new Binding
 					{
 						Path = BindingContextProperty.PropertyName,
 						Source = this
@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (e.OldItems != null)
 			{
 				foreach (var child in e.OldItems.OfType<ValidationBehavior>())
-					child.RemoveBinding(BindingContextProperty);
+					child.ClearContextIfNeeded();
 			}
 		}
 	}
