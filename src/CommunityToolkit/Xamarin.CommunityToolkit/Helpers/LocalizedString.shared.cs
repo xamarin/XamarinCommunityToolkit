@@ -18,11 +18,17 @@ namespace Xamarin.CommunityToolkit.Helpers
 			LocalizationResourceManager.Current.PropertyChanged += (sender, e) => OnPropertyChanged(nameof(Localized));
 		}
 
+		[Obsolete("Use `LocalizedString(Func<string?> generator)` instead")]
+		public LocalizedString(LocalizationResourceManager localizationManager, Func<string> generator)
+			: this(generator)
+		{
+		}
+
 		[Preserve(Conditional = true)]
 		public string? Localized => generator();
 
 		[Preserve(Conditional = true)]
-		public static implicit operator LocalizedString(Func<string?> func) => new (func);
+		public static implicit operator LocalizedString(Func<string?> func) => new LocalizedString(func);
 	}
 #endif
 }

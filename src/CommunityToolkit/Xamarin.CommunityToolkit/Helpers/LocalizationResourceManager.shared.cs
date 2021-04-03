@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 #if !NETSTANDARD1_0
 	public class LocalizationResourceManager : ObservableObject
 	{
-		static readonly Lazy<LocalizationResourceManager> currentHolder = new (() => new LocalizationResourceManager());
+		static readonly Lazy<LocalizationResourceManager> currentHolder = new Lazy<LocalizationResourceManager>(() => new LocalizationResourceManager());
 
 		public static LocalizationResourceManager Current => currentHolder.Value;
 

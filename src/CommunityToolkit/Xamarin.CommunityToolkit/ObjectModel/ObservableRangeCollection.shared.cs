@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-#nullable enable
-
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	/// <summary>

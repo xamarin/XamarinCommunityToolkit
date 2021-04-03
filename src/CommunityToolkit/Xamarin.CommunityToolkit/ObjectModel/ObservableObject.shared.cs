@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.CommunityToolkit.Helpers;
 
-#nullable enable
-
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	/// <summary>

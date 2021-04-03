@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 
-#nullable enable
-
 namespace Xamarin.CommunityToolkit.ObjectModel
 {
 	/// <summary>
