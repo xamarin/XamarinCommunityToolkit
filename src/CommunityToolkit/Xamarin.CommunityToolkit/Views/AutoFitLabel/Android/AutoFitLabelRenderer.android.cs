@@ -1,34 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Android.Content;
 using Android.Content.Res;
 using Android.Graphics;
+using Android.OS;
 using Android.Text;
 using Android.Util;
 using Android.Views;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
-using Xamarin.CommunityToolkit.UI.Views;
-using Android.OS;
-using Xamarin.Forms.Internals;
-using System.Collections.Generic;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.Views;
-using Size = Xamarin.Forms.Size;
-using AView = Android.Views.View;
-using Color = Xamarin.Forms.Color;
-using VisualElement = Xamarin.Forms.VisualElement;
-using FormsTextAlignment = Xamarin.Forms.TextAlignment;
-using AndroidAutoSizeTextType = Android.Widget.AutoSizeTextType;
-using VisualElementFastRenderer = Xamarin.Forms.Platform.Android.FastRenderers.VisualElementRenderer;
-
-#if __ANDROID_29__
 using AndroidX.Core.View;
 using AndroidX.Core.Widget;
-#else
-using Android.Support.V4.Widget;
-using Android.Support.V4.View;
-#endif
+using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.CommunityToolkit.Views;
+using Xamarin.Forms;
+using Xamarin.Forms.Internals;
+using Xamarin.Forms.Platform.Android;
+using AndroidAutoSizeTextType = Android.Widget.AutoSizeTextType;
+using AView = Android.Views.View;
+using Color = Xamarin.Forms.Color;
+using FormsTextAlignment = Xamarin.Forms.TextAlignment;
+using Size = Xamarin.Forms.Size;
+using VisualElement = Xamarin.Forms.VisualElement;
+using VisualElementFastRenderer = Xamarin.Forms.Platform.Android.FastRenderers.VisualElementRenderer;
 
 [assembly: ExportRenderer(typeof(AutoFitLabel), typeof(AutoFitLabelRenderer))]
 
@@ -49,7 +43,7 @@ namespace Xamarin.CommunityToolkit.Views
 		static bool IsLollipopOrNewer =>
 			isLollipopOrNewer ??= SdkInt >= BuildVersionCodes.Lollipop;
 
-		readonly ColorStateList labelTextColorDefault;
+		readonly ColorStateList? labelTextColorDefault;
 		readonly MotionEventHelper motionEventHelper;
 
 		int lastConstraintHeight;
@@ -64,16 +58,16 @@ namespace Xamarin.CommunityToolkit.Views
 		bool wasFormatted;
 		bool disposed;
 
-		VisualElementFastRenderer visualElementRenderer;
-		VisualElementTracker visualElementTracker;
-		SpannableString spannableString;
+		VisualElementFastRenderer? visualElementRenderer;
+		VisualElementTracker? visualElementTracker;
+		SpannableString? spannableString;
 		SizeRequest? lastSizeRequest;
-		Typeface lastTypeface;
-		AutoFitLabel element;
+		Typeface? lastTypeface;
+		AutoFitLabel? element;
 
 		Color lastUpdateColor = Color.Default;
 
-		public AutoFitLabelRenderer(Context context)
+		public AutoFitLabelRenderer(Context? context)
 			: base(context)
 		{
 			motionEventHelper = new MotionEventHelper();
@@ -82,21 +76,21 @@ namespace Xamarin.CommunityToolkit.Views
 			BackgroundManager.Init(this);
 		}
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
 
-		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
+		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
-		VisualElement IVisualElementRenderer.Element => Element;
+		VisualElement? IVisualElementRenderer.Element => Element;
 
-		VisualElementTracker IVisualElementRenderer.Tracker => visualElementTracker;
+		VisualElementTracker? IVisualElementRenderer.Tracker => visualElementTracker;
 
 		AView IVisualElementRenderer.View => this;
 
 		AView ITabStop.TabStop => this;
 
-		ViewGroup IVisualElementRenderer.ViewGroup => null;
+		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
-		protected AutoFitLabel Element
+		protected AutoFitLabel? Element
 		{
 			get => element;
 			set
@@ -107,7 +101,8 @@ namespace Xamarin.CommunityToolkit.Views
 				var oldElement = element;
 				element = value;
 
-				OnElementChanged(new ElementChangedEventArgs<AutoFitLabel>(oldElement, element));
+				if (oldElement != null && element != null)
+					OnElementChanged(new ElementChangedEventArgs<AutoFitLabel>(oldElement, element));
 			}
 		}
 
@@ -172,7 +167,7 @@ namespace Xamarin.CommunityToolkit.Views
 
 		void IVisualElementRenderer.SetElement(VisualElement element)
 		{
-			if (!(element is AutoFitLabel label))
+			if (element is not AutoFitLabel label)
 				throw new ArgumentException("Element must be of type Label");
 
 			Element = label;
@@ -199,6 +194,10 @@ namespace Xamarin.CommunityToolkit.Views
 		protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
 		{
 			base.OnLayout(changed, left, top, right, bottom);
+
+			if (Element is null || spannableString is null)
+				return;
+
 			RecalculateSpanPositions(Element, spannableString, new SizeRequest(new Size(right - left, bottom - top)));
 			hasLayoutOccurred = true;
 		}
@@ -212,20 +211,18 @@ namespace Xamarin.CommunityToolkit.Views
 
 			if (disposing)
 			{
-				if (Element != null)
-				{
+				if (Element is not null)
 					Element.PropertyChanged -= OnElementPropertyChanged;
-				}
 
 				BackgroundManager.Dispose(this);
 
-				if (visualElementTracker != null)
+				if (visualElementTracker is not null)
 				{
 					visualElementTracker.Dispose();
 					visualElementTracker = null;
 				}
 
-				if (visualElementRenderer != null)
+				if (visualElementRenderer is not null)
 				{
 					visualElementRenderer.Dispose();
 					visualElementRenderer = null;
@@ -233,7 +230,7 @@ namespace Xamarin.CommunityToolkit.Views
 
 				spannableString?.Dispose();
 
-				if (Element != null)
+				if (Element is not null)
 				{
 					if (Platform.GetRenderer(Element) == this)
 						Platform.ClearRenderer(null);
@@ -243,32 +240,30 @@ namespace Xamarin.CommunityToolkit.Views
 			base.Dispose(disposing);
 		}
 
-		public override bool OnTouchEvent(MotionEvent e)
+		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if (visualElementRenderer.OnTouchEvent(e) || base.OnTouchEvent(e))
+			if (visualElementRenderer?.OnTouchEvent(e) == true || base.OnTouchEvent(e))
 				return true;
 
 			return motionEventHelper.HandleMotionEvent(Parent, e);
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<AutoFitLabel> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<AutoFitLabel>? e)
 		{
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e?.OldElement, e?.NewElement));
 
-			if (e.OldElement != null)
+			if (e?.OldElement is not null)
 			{
 				e.OldElement.PropertyChanged -= OnElementPropertyChanged;
 				MaybeRequestLayout();
 			}
 
-			if (e.NewElement != null)
+			if (e?.NewElement is not null)
 			{
 				this.EnsureId();
 
-				if (visualElementTracker == null)
-				{
+				if (visualElementTracker is null)
 					visualElementTracker = new VisualElementTracker(this);
-				}
 
 				e.NewElement.PropertyChanged += OnElementPropertyChanged;
 
@@ -298,7 +293,7 @@ namespace Xamarin.CommunityToolkit.Views
 
 			ElementPropertyChanged?.Invoke(this, e);
 
-			if (Control?.LayoutParameters == null && hasLayoutOccurred)
+			if (Control?.LayoutParameters is null && hasLayoutOccurred)
 				return;
 
 			if (e.PropertyName == Label.HorizontalTextAlignmentProperty.PropertyName || e.PropertyName == Label.VerticalTextAlignmentProperty.PropertyName)
@@ -328,31 +323,35 @@ namespace Xamarin.CommunityToolkit.Views
 
 		void UpdateColor()
 		{
-			var c = Element.TextColor;
-			if (c == lastUpdateColor)
+			var color = Element?.TextColor;
+			if (color == lastUpdateColor || color is null)
 				return;
-			lastUpdateColor = c;
 
-			if (c.IsDefault)
+			lastUpdateColor = color.Value;
+
+			if (lastUpdateColor.IsDefault)
 				SetTextColor(labelTextColorDefault);
 			else
-				SetTextColor(c.ToAndroid());
+				SetTextColor(lastUpdateColor.ToAndroid());
 		}
 
 		void UpdateFont()
 		{
+			if (Element is null)
+				return;
+
 #pragma warning disable 618 // We will need to update this when .Font goes away
-			var f = Element.Font;
+			var font = Element.Font;
 #pragma warning restore 618
 
-			var newTypeface = f.ToTypeface();
+			var newTypeface = font.ToTypeface();
 			if (newTypeface != lastTypeface)
 			{
 				Typeface = newTypeface;
 				lastTypeface = newTypeface;
 			}
 
-			var newTextSize = f.ToScaledPixel();
+			var newTextSize = font.ToScaledPixel();
 			if (newTextSize != lastTextSize)
 			{
 				SetTextSize(ComplexUnitType.Sp, newTextSize);
@@ -362,6 +361,9 @@ namespace Xamarin.CommunityToolkit.Views
 
 		void UpdateTextDecorations()
 		{
+			if (Element is null)
+				return;
+
 			if (!Element.IsSet(Label.TextDecorationsProperty))
 				return;
 
@@ -386,24 +388,33 @@ namespace Xamarin.CommunityToolkit.Views
 
 		void UpdateCharacterSpacing()
 		{
-			if (IsLollipopOrNewer)
+			if (IsLollipopOrNewer && Element is not null)
 				LetterSpacing = (float)Element.CharacterSpacing * 0.0624f;
 		}
 
 		void UpdateLineBreakMode()
 		{
+			if (Element is null)
+				return;
+
 			SetLineBreakMode(Element);
 			lastSizeRequest = null;
 		}
 
 		void UpdateMaxLines()
 		{
+			if (Element is null)
+				return;
+
 			SetMaxLines(Element);
 			lastSizeRequest = null;
 		}
 
 		void UpdateText()
 		{
+			if (Element is null)
+				return;
+
 			if (Element.FormattedText != null)
 			{
 				var formattedText = Element.FormattedText ?? Element.Text;
@@ -447,6 +458,9 @@ namespace Xamarin.CommunityToolkit.Views
 
 		void UpdateLineHeight()
 		{
+			if (Element is null)
+				return;
+
 			if (lineSpacingExtraDefault < 0)
 				lineSpacingExtraDefault = LineSpacingExtra;
 			if (lineSpacingMultiplierDefault < 0)
@@ -462,6 +476,9 @@ namespace Xamarin.CommunityToolkit.Views
 
 		void UpdatePadding()
 		{
+			if (Element is null)
+				return;
+
 			SetPadding(
 				(int)Context.ToPixels(Element.Padding.Left),
 				(int)Context.ToPixels(Element.Padding.Top),
@@ -471,8 +488,13 @@ namespace Xamarin.CommunityToolkit.Views
 			lastSizeRequest = null;
 		}
 
-		void UpdateAutoFitMode() =>
+		void UpdateAutoFitMode()
+		{
+			if (Element is null)
+				return;
+
 			SetAutoFitMode(Element);
+		}
 
 		void MaybeRequestLayout()
 		{
@@ -486,7 +508,7 @@ namespace Xamarin.CommunityToolkit.Views
 
 		GravityFlags GetHorizontalGravityFlags()
 		{
-			var alignment = Element.HorizontalTextAlignment;
+			var alignment = Element?.HorizontalTextAlignment ?? FormsTextAlignment.Start;
 			return alignment switch
 			{
 				FormsTextAlignment.Center => GravityFlags.CenterHorizontal,
@@ -497,7 +519,7 @@ namespace Xamarin.CommunityToolkit.Views
 
 		GravityFlags GetVerticalGravityFlags()
 		{
-			var alignment = Element.VerticalTextAlignment;
+			var alignment = Element?.VerticalTextAlignment ?? FormsTextAlignment.Start;
 			return alignment switch
 			{
 				FormsTextAlignment.Start => GravityFlags.Top,
@@ -511,8 +533,8 @@ namespace Xamarin.CommunityToolkit.Views
 			if (Control is null || Element is null)
 				return;
 
-			var width = element.Width;
-			var height = element.Height;
+			var width = Element.Width;
+			var height = Element.Height;
 
 			if (width <= 0 || height <= 0)
 				return;
@@ -562,6 +584,9 @@ namespace Xamarin.CommunityToolkit.Views
 
 				// get all spans in the range - Android can have overlapping spans
 				var spans = spannableString.GetSpans(i, next, type);
+
+				if (spans is null)
+					continue;
 
 				var startSpan = spans[0];
 				var endSpan = spans[^1];
@@ -739,8 +764,12 @@ namespace Xamarin.CommunityToolkit.Views
 			if (e.NewElement != null)
 			{
 				var renderer = sender as IVisualElementRenderer;
+				var control = renderer?.View;
+				var element = renderer?.Element;
 				e.NewElement.PropertyChanged += OnElementPropertyChanged;
-				UpdateBackgroundColor(renderer?.View, renderer?.Element);
+
+				if (control != null && element != null)
+					UpdateBackgroundColor(control, element);
 			}
 
 			Performance.Stop(reference);
@@ -751,7 +780,12 @@ namespace Xamarin.CommunityToolkit.Views
 			if (e.PropertyName == VisualElement.BackgroundColorProperty.PropertyName)
 			{
 				var renderer = sender as IVisualElementRenderer;
-				UpdateBackgroundColor(renderer?.View, renderer?.Element);
+
+				var control = renderer?.View;
+				var element = renderer?.Element;
+
+				if (control != null && element != null)
+					UpdateBackgroundColor(control, element);
 			}
 		}
 	}
