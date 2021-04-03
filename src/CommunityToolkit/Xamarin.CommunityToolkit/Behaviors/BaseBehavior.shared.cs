@@ -21,21 +21,28 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 
 		protected TView? View { get; private set; }
 
-		internal void BindContextIfNeeded(Binding binding)
+		internal bool TrySetBindingContext(Binding binding)
 		{
 			if (!IsBound(BindingContextProperty))
 			{
 				SetBinding(BindingContextProperty, defaultBindingContextBinding = binding);
+				return true;
 			}
+
+			return false;
 		}
 
-		internal void ClearContextIfNeeded()
+		internal bool TryRemoveBindingContext()
 		{
 			if (defaultBindingContextBinding != null)
 			{
 				RemoveBinding(BindingContextProperty);
 				defaultBindingContextBinding = null;
+
+				return true;
 			}
+
+			return false;
 		}
 
 		protected virtual void OnViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -47,7 +54,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			base.OnAttachedTo(bindable);
 			View = bindable;
 			bindable.PropertyChanged += OnViewPropertyChanged;
-			BindContextIfNeeded(new Binding
+			TrySetBindingContext(new Binding
 			{
 				Path = BindingContextProperty.PropertyName,
 				Source = bindable
@@ -57,7 +64,7 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 		protected override void OnDetachingFrom(TView bindable)
 		{
 			base.OnDetachingFrom(bindable);
-			ClearContextIfNeeded();
+			TryRemoveBindingContext();
 			bindable.PropertyChanged -= OnViewPropertyChanged;
 			View = null;
 		}
