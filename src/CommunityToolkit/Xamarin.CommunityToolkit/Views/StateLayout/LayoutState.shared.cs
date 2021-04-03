@@ -8,6 +8,8 @@
 		Success,
 		Error,
 		Empty,
+		NoInternet,
+		Unauthorized,
 		Custom
 	}
 }
