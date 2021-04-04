@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using XLabel = Xamarin.Forms.Label;
-using XTextAlignment = Xamarin.Forms.TextAlignment;
 using ShapesPath = Xamarin.Forms.Shapes.Path;
 using ShapesPathGeometry = Xamarin.Forms.Shapes.PathGeometry;
+using XLabel = Xamarin.Forms.Label;
+using XTextAlignment = Xamarin.Forms.TextAlignment;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -17,20 +18,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public EmbeddingControls()
 		{
-			var iconTapCommand = new Command(async () =>
+			var iconTapCommand = new AsyncValueCommand(async () =>
 			{
 				if (BindingContext is not MediaPlayer player)
-				{
-					return;
-				}
+					throw new InvalidOperationException($"{nameof(BindingContext)} must be {nameof(MediaPlayer)}");
 
 				if (player.State == PlaybackState.Playing)
 				{
 					player.Pause();
-					return;
 				}
-				
-				await player.Start();
+				else
+				{
+					await player.Start();
+				}
 			});
 
 			PlayIcon = new Grid
@@ -194,66 +194,72 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnBindingContextChanged()
 		{
 			base.OnBindingContextChanged();
-			if (BindingContext is IMediaPlayer player)
-			{
-				player.PlaybackPaused += OnPlaybackStateChanged;
-				player.PlaybackStarted += OnPlaybackStateChanged;
-				player.PlaybackStopped += OnPlaybackStateChanged;
-			}
+			if (BindingContext is not IMediaPlayer player)
+				throw new InvalidOperationException($"{nameof(BindingContext)} must be {nameof(IMediaPlayer)}");
+
+			player.PlaybackPaused += OnPlaybackStateChanged;
+			player.PlaybackStarted += OnPlaybackStateChanged;
+			player.PlaybackStopped += OnPlaybackStateChanged;
 		}
 
 		async void OnPlaybackStateChanged(object sender, EventArgs e)
 		{
 			if (BindingContext is not IMediaPlayer player)
-			{
-				return;
-			}
+				throw new InvalidOperationException($"{nameof(BindingContext)} must be {nameof(IMediaPlayer)}");
 
 			if (player.State == PlaybackState.Playing)
 			{
 				await Task.WhenAll(PlayIcon.FadeTo(0, 100), PlayIcon.ScaleTo(3.0, 300));
+
 				PlayIcon.IsVisible = false;
 				PlayIcon.Scale = 1.0;
 				PauseIcon.IsVisible = true;
-				await PauseIcon.FadeTo(1, 50);
-				return;
-			}
 
-			await Task.WhenAll(PauseIcon.FadeTo(0, 100), PauseIcon.ScaleTo(3.0, 300));
-			PauseIcon.IsVisible = false;
-			PauseIcon.Scale = 1.0;
-			PlayIcon.IsVisible = true;
-			await PlayIcon.FadeTo(1, 50);
+				await PauseIcon.FadeTo(1, 50);
+			}
+			else
+			{
+				await Task.WhenAll(PauseIcon.FadeTo(0, 100), PauseIcon.ScaleTo(3.0, 300));
+
+				PauseIcon.IsVisible = false;
+				PauseIcon.Scale = 1.0;
+				PlayIcon.IsVisible = true;
+
+				await PlayIcon.FadeTo(1, 50);
+			}
 		}
 	}
 
-	public class ProgressToBoundTextConverter : IValueConverter
+	class ProgressToBoundTextConverter : IValueConverter
 	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			var progress = (double)value;
+			var progress = (double)(value ?? throw new ArgumentNullException(nameof(value)));
+
 			if (double.IsNaN(progress))
 			{
 				progress = 0d;
 			}
+
 			return new Rectangle(0, 0, progress, 1);
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			var rect = (Rectangle)value;
+			var rect = (Rectangle)(value ?? throw new ArgumentNullException(nameof(value)));
 			return rect.Width;
 		}
 	}
 
-	public class MillisecondToTextConverter : IValueConverter
+	class MillisecondToTextConverter : IValueConverter
 	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			var millisecond = (int)value;
+			var millisecond = (int)(value ?? throw new ArgumentNullException(nameof(value)));
 			var second = (millisecond / 1000) % 60;
 			var min = (millisecond / 1000 / 60) % 60;
 			var hour = millisecond / 1000 / 60 / 60;
+
 			if (hour > 0)
 			{
 				return string.Format("{0:d2}:{1:d2}:{2:d2}", hour, min, second);
@@ -264,9 +270,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+		public object? ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) => throw new NotImplementedException();
 	}
 }

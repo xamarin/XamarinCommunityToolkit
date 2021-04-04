@@ -1,9 +1,10 @@
-﻿using Xamarin.Forms;
+﻿using System;
 using Tizen.Multimedia;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public static class MediaElementExtension
+	public static class MediaElementExtensions
 	{
 		public static PlayerDisplayMode ToNative(this DisplayAspectMode mode) => mode switch
 		{
@@ -11,7 +12,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			DisplayAspectMode.AspectFit => PlayerDisplayMode.LetterBox,
 			DisplayAspectMode.Fill => PlayerDisplayMode.FullScreen,
 			DisplayAspectMode.OrignalSize => PlayerDisplayMode.OriginalOrFull,
-			_ => PlayerDisplayMode.LetterBox
+			_ => throw new NotImplementedException()
 		};
 
 		public static DisplayAspectMode ToDisplayAspectMode(this Aspect aspect) => aspect switch
@@ -19,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Aspect.AspectFill => DisplayAspectMode.AspectFill,
 			Aspect.AspectFit => DisplayAspectMode.AspectFit,
 			Aspect.Fill => DisplayAspectMode.Fill,
-			_ => DisplayAspectMode.AspectFit
+			_ => throw new NotImplementedException()
 		};
 	}
 }

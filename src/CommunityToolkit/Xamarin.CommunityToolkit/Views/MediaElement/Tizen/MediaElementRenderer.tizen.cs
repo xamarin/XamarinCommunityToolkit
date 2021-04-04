@@ -74,6 +74,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					VideoOutput = this
 				};
+
 				mediaPlayer.PlaybackStarted += OnPlaybackStarted;
 				mediaPlayer.PlaybackPaused += OnPlaybackPaused;
 				mediaPlayer.PlaybackStopped += OnPlaybackStopped;
@@ -81,6 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mediaPlayer.BufferingProgressUpdated += OnBufferingProgressUpdated;
 				mediaPlayer.ErrorOccurred += OnErrorOccurred;
 				mediaPlayer.MediaPrepared += OnMediaPrepared;
+
 				mediaPlayer.BindingContext = Element;
 				mediaPlayer.SetBinding(MediaPlayer.SourceProperty, nameof(Element.Source));
 				mediaPlayer.SetBinding(MediaPlayer.UsesEmbeddingControlsProperty, nameof(Element.ShowsPlaybackControls));
