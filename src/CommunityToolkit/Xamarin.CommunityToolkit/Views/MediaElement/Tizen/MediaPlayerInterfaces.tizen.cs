@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		bool AutoStop { get; set; }
 
-		double Volume { get; set; }
+		float Volume { get; set; }
 
 		bool IsMuted { get; set; }
 
@@ -83,7 +83,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetDisplay(IVideoOutput? output);
 
-		void SetSource(Core.MediaSource source);
+		ValueTask SetSource(Core.MediaSource? source);
 
 		Task<bool> Start();
 
@@ -95,7 +95,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		ValueTask<Stream?> GetAlbumArtsAsync();
 
-		Task<IDictionary<string, string>> GetMetadata();
+		Task<IReadOnlyDictionary<string, string>> GetMetadata();
 
 		Task<global::Tizen.Multimedia.Size> GetVideoSize();
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ElmSharp;
 using Tizen.Multimedia;
 using Xamarin.CommunityToolkit.UI.Views;
@@ -169,18 +170,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.OnSeekCompleted();
 		}
 
-		void OnStateRequested(object sender, StateRequested e)
+		async void OnStateRequested(object sender, StateRequested e)
 		{
 			switch (e.State)
 			{
 				case MediaElementState.Playing:
-					mediaPlayer?.Start();
+					await (mediaPlayer?.Start() ?? Task.CompletedTask);
 					break;
 				case MediaElementState.Paused:
 					mediaPlayer?.Pause();
 					break;
 				case MediaElementState.Stopped:
-					mediaPlayer?.Stop();
+					await (mediaPlayer?.Stop() ?? Task.CompletedTask);
 					break;
 			}
 		}

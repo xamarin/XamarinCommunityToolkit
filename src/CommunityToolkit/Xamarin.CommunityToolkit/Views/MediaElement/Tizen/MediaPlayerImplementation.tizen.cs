@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Tizen.Multimedia;
 using Xamarin.CommunityToolkit.Core;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Tizen;
 using MSize = Tizen.Multimedia.Size;
@@ -42,10 +43,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public bool AutoStop { get; set; }
 
-		public double Volume
+		public float Volume
 		{
 			get => player.Volume;
-			set => player.Volume = (float)value;
+			set => player.Volume = value;
 		}
 
 		public bool IsMuted
@@ -79,7 +80,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set
 			{
 				aspectMode = value;
-				ApplyAspectMode();
+				ApplyAspectMode().SafeFireAndForget();
 			}
 		}
 
@@ -141,7 +142,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			try
 			{
-				Device.BeginInvokeOnMainThread(() =>
+				await Device.InvokeOnMainThreadAsync(() =>
 				{
 					player.Start();
 					PlaybackStarted?.Invoke(this, EventArgs.Empty);
@@ -152,6 +153,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Log.Error($"Error On Start : {e.Message}");
 				return false;
 			}
+
 			return true;
 		}
 
@@ -188,14 +190,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			catch (Exception e)
 			{
-				Log.Error($"Fail to seek : {e.Message}");
+				Log.Error($"Failed to seek: \n{e}");
 			}
 			return Position;
 		}
 
-		public async void SetSource(Core.MediaSource source)
+		public async ValueTask SetSource(Core.MediaSource? source)
 		{
 			this.source = source;
+
 			if (HasSource && AutoPlay)
 			{
 				await Start();
@@ -224,7 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return new MemoryStream(imageData);
 		}
 
-		public async Task<IDictionary<string, string>> GetMetadata()
+		public async Task<IReadOnlyDictionary<string, string>> GetMetadata()
 		{
 			if (player.State == PlayerState.Idle)
 			{
@@ -264,13 +267,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return new MSize(videoSize.Width, videoSize.Height);
 		}
 
-		public View GetEmbeddingControlView(IMediaPlayer player)
+		public View GetEmbeddingControlView(IMediaPlayer player) => new EmbeddingControls
 		{
-			return new EmbeddingControls
-			{
-				BindingContext = player
-			};
-		}
+			BindingContext = player
+		};
 
 		public void Dispose()
 		{
@@ -314,9 +314,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						player.Display = display;
 						player.DisplaySettings.Mode = aspectMode.ToNative();
 					}
-					catch
+					catch (Exception e)
 					{
-						Log.Error("Error on MediaView");
+						Log.Error($"Error on MediaView: \n{e}");
 					}
 				}
 			}
@@ -348,10 +348,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var renderer = Platform.GetRenderer(sender as BindableObject);
 				if (renderer != null && HasSource && AutoPlay)
 				{
-					Device.BeginInvokeOnMainThread(async () =>
-					{
-						await Start();
-					});
+					await Device.InvokeOnMainThreadAsync(Start);
 				}
 				else if (renderer == null && AutoStop)
 				{
@@ -381,13 +378,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			catch (Exception e)
 			{
-				Log.Error($"Error on prepare : {e.Message}");
+				Log.Error($"Error on prepare: \n{e}");
 				cancelToStart = true;
 			}
 			tcs.SetResult(true);
 		}
 
-		async void ApplyAspectMode()
+		async ValueTask ApplyAspectMode()
 		{
 			if (player.State == PlayerState.Preparing)
 			{
@@ -408,11 +405,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnErrorOccurred(object sender, PlayerErrorOccurredEventArgs e)
 		{
-			Log.Error($"Playback Error Occurred (code:{e.Error})-{e.ToString()}");
+			Log.Error($"Playback Error Occurred (code:{e.Error})-{e}");
 			ErrorOccurred?.Invoke(this, EventArgs.Empty);
 		}
 
-		async Task ChangeToIdleState()
+		async ValueTask ChangeToIdleState()
 		{
 			switch (player.State)
 			{

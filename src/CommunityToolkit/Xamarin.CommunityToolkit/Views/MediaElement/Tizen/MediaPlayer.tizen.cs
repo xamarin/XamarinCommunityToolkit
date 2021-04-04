@@ -2,7 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Tizen;
 using Xamarin.CommunityToolkit.Core;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using MediaSource = Xamarin.CommunityToolkit.Core.MediaSource;
@@ -15,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty VideoOutputProperty = BindableProperty.Create(nameof(VideoOutput), typeof(IVideoOutput), typeof(MediaPlayer), null, propertyChanging: null, propertyChanged: (b, o, n) => ((MediaPlayer)b).OnVideoOutputChanged());
 
-		public static readonly BindableProperty UsesEmbeddingControlsProperty = BindableProperty.Create(nameof(UsesEmbeddingControls), typeof(bool), typeof(MediaPlayer), true, propertyChanged: (b, o, n) => ((MediaPlayer)b).OnUsesEmbeddingControlsChanged());
+		public static readonly BindableProperty UsesEmbeddingControlsProperty = BindableProperty.Create(nameof(UsesEmbeddingControls), typeof(bool), typeof(MediaPlayer), true, propertyChanged: async (b, o, n) => await ((MediaPlayer)b).OnUsesEmbeddingControlsChanged());
 
 		public static readonly BindableProperty VolumeProperty = BindableProperty.Create(nameof(Volume), typeof(double), typeof(MediaPlayer), 1d, coerceValue: (bindable, value) => ((double)value).Clamp(0, 1), propertyChanged: (b, o, n) => ((MediaPlayer)b).OnVolumeChanged());
 
@@ -62,7 +64,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public MediaPlayer()
 		{
-			StartCommand = new Command(() =>
+			StartCommand = new AsyncValueCommand(async () =>
 			{
 				if (State == PlaybackState.Playing)
 				{
@@ -70,25 +72,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 				else
 				{
-					Start();
+					await Start();
 				}
-			});
+			}, allowsMultipleExecutions: false);
 
-			FastForwardCommand = new Command(() =>
+			FastForwardCommand = new AsyncCommand(async () =>
 			{
 				if (State != PlaybackState.Stopped)
 				{
-					Seek(Math.Min(Position + 5000, Duration));
+					await Seek(Math.Min(Position + 5000, Duration));
 				}
-			}, () => State != PlaybackState.Stopped);
+			}, _ => State != PlaybackState.Stopped, allowsMultipleExecutions: false);
 
-			RewindCommand = new Command(() =>
+			RewindCommand = new AsyncCommand(async () =>
 			{
 				if (State != PlaybackState.Stopped)
 				{
-					Seek(Math.Max(Position - 5000, 0));
+					await Seek(Math.Max(Position - 5000, 0));
 				}
-			}, () => State != PlaybackState.Stopped);
+			}, _ => State != PlaybackState.Stopped, allowsMultipleExecutions: false);
 
 			mediaPlayer = new MediaPlayerImplementation();
 			mediaPlayer.UpdateStreamInfo += OnUpdateStreamInfo;
@@ -99,7 +101,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			mediaPlayer.BufferingProgressUpdated += OnUpdateBufferingProgress;
 			mediaPlayer.ErrorOccurred += OnErrorOccurred;
 			mediaPlayer.UsesEmbeddingControls = true;
-			mediaPlayer.Volume = 1d;
+			mediaPlayer.Volume = 1f;
 			mediaPlayer.AspectMode = DisplayAspectMode.AspectFit;
 			mediaPlayer.AutoPlay = false;
 			mediaPlayer.AutoStop = true;
@@ -149,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			private set => SetValue(durationPropertyKey, value);
 		}
 
-		[Xamarin.Forms.TypeConverter(typeof(MediaSourceConverter))]
+		[TypeConverter(typeof(MediaSourceConverter))]
 		public MediaSource? Source
 		{
 			get => (MediaSource?)GetValue(SourceProperty);
@@ -240,17 +242,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void Pause() => mediaPlayer.Pause();
 
-		public Task<int> Seek(int ms)
+		public async Task<int> Seek(int ms)
 		{
-			ShowController();
-			var task = mediaPlayer.Seek(ms).ContinueWith((t) => Position = mediaPlayer.Position);
+			await ShowController();
 
-			return task;
+			var finalPosition = await mediaPlayer.Seek(ms);
+			Position = mediaPlayer.Position;
+
+			return finalPosition;
 		}
 
 		public Task<bool> Start() => mediaPlayer.Start();
 
-		public void Stop() => mediaPlayer.Stop();
+		public Task Stop() => mediaPlayer.Stop();
 
 		public Task<global::Tizen.Multimedia.Size> GetVideoSize() => mediaPlayer.GetVideoSize();
 
@@ -311,33 +315,33 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SendPlaybackCompleted(object sender, EventArgs e) => PlaybackCompleted?.Invoke(this, EventArgs.Empty);
 
-		void SendPlaybackStarted(object sender, EventArgs e)
+		async void SendPlaybackStarted(object sender, EventArgs e)
 		{
 			isPlaying = true;
 			State = PlaybackState.Playing;
 			StartPostionPollingTimer();
 			PlaybackStarted?.Invoke(this, EventArgs.Empty);
 			controlsAlwaysVisible = false;
-			ShowController();
+			await ShowController();
 		}
 
-		void SendPlaybackPaused(object sender, EventArgs e)
+		async void SendPlaybackPaused(object sender, EventArgs e)
 		{
 			isPlaying = false;
 			State = PlaybackState.Paused;
 			PlaybackPaused?.Invoke(this, EventArgs.Empty);
 			controlsAlwaysVisible = true;
-			ShowController();
+			await ShowController();
 		}
 
-		void SendPlaybackStopped(object sender, EventArgs e)
+		async void SendPlaybackStopped(object sender, EventArgs e)
 		{
 			isPlaying = false;
 			State = PlaybackState.Stopped;
 			Position = 0;
 			PlaybackStopped?.Invoke(this, EventArgs.Empty);
 			controlsAlwaysVisible = true;
-			ShowController();
+			await ShowController();
 		}
 
 		void StartPostionPollingTimer()
@@ -378,48 +382,48 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			mediaPlayer.SetDisplay(VideoOutput);
 		}
 
-		void OnOutputTapped(object sender, EventArgs e)
+		async void OnOutputTapped(object sender, EventArgs e)
 		{
 			if (!UsesEmbeddingControls)
 				return;
 			if (!controls.Value.IsVisible)
 			{
-				ShowController();
+				await ShowController();
 			}
 		}
 
-		async void OnUsesEmbeddingControlsChanged()
+		async Task OnUsesEmbeddingControlsChanged()
 		{
 			if (UsesEmbeddingControls)
 			{
 				if (VideoOutput != null)
 				{
 					VideoOutput.Controller = controls.Value;
-					ShowController();
+					await ShowController();
 				}
 			}
 			else
 			{
 				if (VideoOutput != null)
 				{
-					HideController(0);
+					await HideController(0);
 					await Task.Delay(200);
 					VideoOutput.Controller = null;
 				}
 			}
 		}
 
-		void OnVideoOutputFocused(object sender, FocusEventArgs e)
+		async void OnVideoOutputFocused(object sender, FocusEventArgs e)
 		{
 			if (UsesEmbeddingControls)
 			{
-				ShowController();
+				await ShowController();
 			}
 		}
 
 		void OnVolumeChanged()
 		{
-			mediaPlayer.Volume = Volume;
+			mediaPlayer.Volume = (float)Volume;
 		}
 
 		void OnAspectModeChanged()
@@ -446,7 +450,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnErrorOccurred(object sender, EventArgs e) => ErrorOccurred?.Invoke(this, EventArgs.Empty);
 
-		async void HideController(int after)
+		async Task HideController(int after)
 		{
 			if (!controls.IsValueCreated)
 				return;
@@ -464,19 +468,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					controls.Value.IsVisible = false;
 				}
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
-				// Exception when canceled
+				Forms.Platform.Tizen.Log.Error($"HideController failed: \n{e}");
 			}
 		}
 
-		void ShowController()
+		async ValueTask ShowController()
 		{
 			if (controls.IsValueCreated)
 			{
 				controls.Value.IsVisible = true;
-				controls.Value.FadeTo(1.0, 200);
-				HideController(5000);
+				await controls.Value.FadeTo(1.0, 200);
+				await HideController(5000);
 			}
 		}
 
