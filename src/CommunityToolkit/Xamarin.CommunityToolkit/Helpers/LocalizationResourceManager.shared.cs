@@ -33,10 +33,6 @@ namespace Xamarin.CommunityToolkit.Helpers
 			Init(initialCulture);
 		}
 
-		[Obsolete("Please, use " + nameof(CurrentCulture) + " to set culture")]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public void SetCulture(CultureInfo language) => CurrentCulture = language;
-
 		public CultureInfo CurrentCulture
 		{
 			get => currentCulture;
@@ -44,10 +40,6 @@ namespace Xamarin.CommunityToolkit.Helpers
 		}
 
 		internal ResourceManager? DefaultResourceManager { get; private set; }
-
-		[Obsolete("This method is no longer needed with new implementation of " + nameof(LocalizationResourceManager) + ". Please, remove all references to it.")]
-		[EditorBrowsable(EditorBrowsableState.Never)]
-		public void Invalidate() => OnPropertyChanged(nameof(CurrentCulture));
 	}
 #endif
 }
