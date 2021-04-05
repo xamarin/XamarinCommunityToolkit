@@ -61,11 +61,10 @@ jobs:
     pool:
       vmImage: windows-2019
     steps:
-      - task: UseDotNet@2
-        displayName: 'Install .NET SDK'
+      - task: CmdLine@2
+        displayName: 'Clean, Clear, and Restore NuGets'
         inputs:
-          version: $(NETCORE_VERSION)
-          includePreviewVersions: false
+          script: 'dotnet clean $(PathToSln) -c Release && dotnet nuget locals all --clear'
       - task: MSBuild@1
         displayName: Build Solution
         inputs:
