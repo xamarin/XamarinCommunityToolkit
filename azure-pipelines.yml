@@ -62,7 +62,7 @@ jobs:
       vmImage: windows-2019
     steps:
       - task: CmdLine@2
-        displayName: 'Clear Local NuGet Cache'
+        displayName: 'Clear Local NuGet Cache' #https://github.com/actions/virtual-environments/issues/1090#issuecomment-748452120
         inputs:
           script: 'nuget locals all -clear'
       - task: MSBuild@1
@@ -98,7 +98,7 @@ jobs:
           version: $(NETCORE_TEST_VERSION_2_1)
           includePreviewVersions: false
       - task: CmdLine@2
-        displayName: 'Clear Local NuGet Cache'
+        displayName: 'Clear Local NuGet Cache' #https://github.com/actions/virtual-environments/issues/1090#issuecomment-748452120
         inputs:
           script: 'nuget locals all -clear'
       - task: MSBuild@1
