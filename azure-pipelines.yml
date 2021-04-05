@@ -61,6 +61,11 @@ jobs:
     pool:
       vmImage: windows-2019
     steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
+        inputs:
+          version: $(NETCORE_VERSION)
+          includePreviewVersions: false
       - task: MSBuild@1
         displayName: Build Solution
         inputs:
