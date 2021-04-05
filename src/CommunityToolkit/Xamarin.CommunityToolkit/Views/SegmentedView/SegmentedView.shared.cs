@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Segment items.
 		/// </summary>
-		public IEnumerable<string> Items { get; } = new LockableObservableListWrapper();
+		internal IEnumerable<string> Items { get; } = new LockableObservableListWrapper();
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="ItemsSource"/> property.
@@ -125,10 +125,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return (string)GetValue(displayProperty);
 		}
 
-		static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
-		{
+		static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue) =>
 			((SegmentedView)bindable)?.OnItemsSourceChanged((IEnumerable)oldValue, (IEnumerable)newValue);
-		}
 
 		void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
 		{
@@ -220,8 +218,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnSegmentSelected(BindableObject bindable, object oldValue, object newValue)
 		{
-			if (bindable is not SegmentedView segment)
-				return;
+			var segment = (SegmentedView)bindable;
 
 			if (!int.TryParse(newValue?.ToString(), out var index))
 				index = 0;

@@ -12,7 +12,7 @@ using System;
 
 namespace Xamarin.CommunityToolkit.Extensions.iOS
 {
-	public static class ImageResourceExtention
+	static class ImageResourceExtention
 	{
 		internal static async ValueTask<NativeImage?> GetNativeImageAsync(this ImageSource source, CancellationToken cancellationToken = default(CancellationToken))
 		{

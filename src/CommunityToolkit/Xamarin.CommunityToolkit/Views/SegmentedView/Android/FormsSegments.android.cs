@@ -8,14 +8,14 @@ using Android.Graphics.Drawables;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using AColor = Android.Graphics.Color;
-using ARes = Android.Resource;
-using AContentRes = Android.Content.Res;
-using AViews = Android.Views;
-using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Extensions.Android;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using AColor = Android.Graphics.Color;
+using AContentRes = Android.Content.Res;
+using ARes = Android.Resource;
+using AViews = Android.Views;
 using RadioButton = Android.Widget.RadioButton;
 
 namespace Xamarin.CommunityToolkit.Android.UI.Views
@@ -109,8 +109,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 					rb.Checked = true;
 			}
 
-			if (Children != null)
-				Children.CollectionChanged += CollectionChanged;
+			Children.CollectionChanged += CollectionChanged;
 		}
 
 		async Task<RadioButton> InsertSegment(string title, int index)
@@ -178,11 +177,9 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			}
 
 			return rb;
-		}
 
-		async Task<BitmapDrawable> GetImage(ImageSource filePath)
-		{
-			return new BitmapDrawable(Resources, await context.GetFormsBitmapAsync(filePath));
+			async ValueTask<BitmapDrawable> GetImage(ImageSource filePath) =>
+				new BitmapDrawable(Resources, await context.GetFormsBitmapAsync(filePath));
 		}
 
 		StateListDrawable GetRadioButtonStateListDrawable(Position position, BitmapDrawable? icon = null)
@@ -220,7 +217,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			if (DisplayMode == SegmentMode.Image)
 			{
 				if (icon == null)
-					throw new MissingMemberException("BitmapDrawable for icon is missing");
+					throw new MissingMemberException("BitmapDrawable for icon is missing.");
 
 				icon.Gravity = GravityFlags.Center;
 

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Foundation;
+using UIKit;
+using Xamarin.CommunityToolkit.Extensions.iOS;
 using Xamarin.CommunityToolkit.iOS.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
-using UIKit;
-using Xamarin.Forms.Platform.iOS;
-using System.Threading.Tasks;
-using System.Threading;
-using Foundation;
 using Xamarin.Forms.Internals;
-using Xamarin.CommunityToolkit.Extensions.iOS;
+using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SegmentedView), typeof(SegmentedViewRenderer))]
 
@@ -27,14 +27,14 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 		{
 			base.OnElementChanged(e);
 
+			if (e.OldElement != null && Control != null)
+				InvalidateControl();
+
 			if (e.NewElement == null)
 				return;
 
 			if (Control == null)
 				SetNativeControl(new UISegmentedControl());
-
-			if (e.OldElement != null && Control != null)
-				InvalidateControl();
 
 			if (e.NewElement != null)
 			{
@@ -79,17 +79,17 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			}
 		}
 
-		async Task PopulateSegments(IEnumerable<string> segments)
+		async ValueTask PopulateSegments(IEnumerable<string> segments)
 		{
-            var segmentsCount = segments.Count();
+			var segmentsCount = segments.Count();
 
-            for (var i = 0; i < segmentsCount; i++)
+			for (var i = 0; i < segmentsCount; i++)
 			{
 				await InsertSegment(segments.ElementAt(i), i);
 			}
 		}
 
-		async Task InsertSegment(string segment, int position)
+		async ValueTask InsertSegment(string segment, int position)
 		{
 			switch (Element.DisplayMode)
 			{
@@ -98,7 +98,7 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 					if (img != null)
 						Control.InsertSegment(img, position, false);
 					else
-						Log.Warning(TAG, "ImageSource is null");
+						Log.Warning(TAG, "ImageSource is null.");
 					break;
 				default:
 				case SegmentMode.Text:

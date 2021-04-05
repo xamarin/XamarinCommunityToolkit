@@ -9,7 +9,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit.Extensions.Android
 {
-	public static class ContextExtensions
+	static class ContextExtensions
 	{
 		internal static async ValueTask<Bitmap?> GetFormsBitmapAsync(this Context context, ImageSource imageSource, CancellationToken cancellationToken = default(CancellationToken))
 		{

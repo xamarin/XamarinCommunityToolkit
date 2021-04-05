@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			((INotifyCollectionChanged)Element.Items).CollectionChanged -= SegmentsCollectionChanged;
 		}
 
-		async Task InitializeControl()
+		Task InitializeControl()
 		{
 			((INotifyCollectionChanged)Element.Items).CollectionChanged += SegmentsCollectionChanged;
 
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			PopulateSegments();
 
 			Control.ShouldReactToCollectionChanges = true;
-			await Control.Initialize();
+			return Control.Initialize();
 		}
 
 		void PopulateSegments()
@@ -165,10 +165,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		protected override void Dispose(bool disposing)
 		{
-			if (!disposing)
-				return;
-
-			if (isDisposed)
+			if (!disposing || isDisposed)
 				return;
 
 			isDisposed = true;
