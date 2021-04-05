@@ -61,17 +61,12 @@ jobs:
     pool:
       vmImage: windows-2019
     steps:
-      - task: UseDotNet@2
-        displayName: 'Install .NET SDK'
-        inputs:
-          version: $(NETCORE_VERSION)
-          includePreviewVersions: false
       - task: MSBuild@1
         displayName: Build Solution
         inputs:
           solution: $(PathToSln)
           configuration: Release
-          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          msbuildArguments: '/restore /t:Clean,Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       
   - job: build_windows
     displayName: Build Windows Library
@@ -107,7 +102,7 @@ jobs:
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
-          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          msbuildArguments: '/restore /t:Clean,Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CopyFiles@2
         inputs:
           Contents: 'SignList.xml'
@@ -123,7 +118,7 @@ jobs:
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
-          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          msbuildArguments: '/restore /t:Clean,Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: MSBuild@1
         displayName: Pack Markup NuGet
         inputs:
@@ -205,11 +200,11 @@ jobs:
       - task: CmdLine@2
         displayName: 'Build Markup'
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupCsproj) /p:Configuration=Release /restore /t:Clean,Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CmdLine@2
         displayName: 'Build Community Toolkit'
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Clean,Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
