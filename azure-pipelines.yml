@@ -65,7 +65,6 @@ jobs:
         displayName: 'Clean Solution'
         inputs:
           solution: $(PathToSln)
-          configuration: Release
           msbuildArguments:  '/t:Clean'
       - task: CmdLine@2
         displayName: 'Clear Local NuGet Cache'
@@ -102,7 +101,6 @@ jobs:
         displayName: 'Clean Solution'
         inputs:
           solution: $(PathToSln)
-          configuration: Release
           msbuildArguments:  '/t:Clean'
       - task: CmdLine@2
         displayName: 'Clear Local NuGet Cache'
