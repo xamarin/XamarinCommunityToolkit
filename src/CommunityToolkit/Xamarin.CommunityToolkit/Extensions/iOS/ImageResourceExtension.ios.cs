@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Extensions.iOS
 {
 	public static class ImageResourceExtention
 	{
-		internal static async ValueTask<NativeImage> GetNativeImageAsync(this ImageSource source, CancellationToken cancellationToken = default(CancellationToken))
+		internal static async ValueTask<NativeImage?> GetNativeImageAsync(this ImageSource source, CancellationToken cancellationToken = default(CancellationToken))
 		{
 			if (source == null || source.IsEmpty)
 				return null;

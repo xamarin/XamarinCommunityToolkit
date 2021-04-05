@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ItemsSourceProperty, value);
 		}
 
-		public object SelectedItem
+		public object? SelectedItem
 		{
 			get => GetValue(SelectedItemProperty);
 			set => SetValue(SelectedItemProperty, value);
@@ -97,9 +97,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(CornerRadiusProperty, value);
 		}
 
-		BindingBase itemDisplayBinding;
+		BindingBase? itemDisplayBinding;
 
-		public BindingBase ItemDisplayBinding
+		public BindingBase? ItemDisplayBinding
 		{
 			get => itemDisplayBinding;
 			set
@@ -114,15 +114,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		static readonly BindableProperty DisplayProperty =
+		static readonly BindableProperty displayProperty =
 			BindableProperty.Create("Display", typeof(string), typeof(SegmentedView), default(string));
 
-		string GetDisplayMember(object item)
+		string GetDisplayMember(object? item)
 		{
 			if (ItemDisplayBinding == null)
-				return item.ToString();
+				return item?.ToString() ?? string.Empty;
 
-			return (string)GetValue(DisplayProperty);
+			return (string)GetValue(displayProperty);
 		}
 
 		static void OnItemsSourceChanged(BindableObject bindable, object oldValue, object newValue)
@@ -165,9 +165,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				((LockableObservableListWrapper)Items).InternalInsert(index++, GetDisplayMember(newItem));
 		}
 
+		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1312:Variable names should begin with lower-case letter", Justification = "Discard object")]
 		void RemoveItems(NotifyCollectionChangedEventArgs e)
 		{
-            var itemsCount = Items.Count();
+			var itemsCount = Items.Count();
 
 			var index = e.OldStartingIndex < itemsCount ? e.OldStartingIndex : itemsCount;
 
@@ -219,7 +220,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnSegmentSelected(BindableObject bindable, object oldValue, object newValue)
 		{
-			if (!(bindable is SegmentedView segment))
+			if (bindable is not SegmentedView segment)
 				return;
 
 			if (!int.TryParse(newValue?.ToString(), out var index))
@@ -229,10 +230,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			segment.SelectedItem = segment?.Items.ElementAt(index);
 		}
 
-		protected void OnSelectedIndexChanged(object segment, int index)
-		{
+		protected void OnSelectedIndexChanged(object segment, int index) =>
 			eventManager.RaiseEvent(this, new SelectedItemChangedEventArgs(segment, index), nameof(SelectedIndexChanged));
-		}
 
 		// IColorElement
 		public Color Color

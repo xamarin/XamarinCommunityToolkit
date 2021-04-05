@@ -195,9 +195,9 @@ namespace Xamarin.CommunityToolkit.iOS.UI.Views
 			base.Dispose(disposing);
 		}
 
-		async ValueTask<UIImage> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default(CancellationToken), float scale = 1f)
+		async ValueTask<UIImage?> LoadImageAsync(ImageSource imagesource, CancellationToken cancelationToken = default(CancellationToken), float scale = 1f)
 		{
-			UIImage image = null;
+			UIImage? image = null;
 			var streamsource = imagesource as StreamImageSource;
 			if (streamsource?.Stream != null)
 			{

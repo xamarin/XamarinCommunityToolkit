@@ -42,11 +42,11 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		public AColor SelectedTextColor { get; set; }
 
-		public RadioButton CurrentSegment { get; set; }
+		public RadioButton? CurrentSegment { get; set; }
 
 		public ObservableCollection<string> Children { get; } = new ObservableCollection<string>();
 
-		public event EventHandler<SelectedPositionChangedEventArgs> SegmentSelected;
+		public event EventHandler<SelectedPositionChangedEventArgs>? SegmentSelected;
 
 		public AColor BackgroundColor { get; set; }
 
@@ -185,7 +185,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			return new BitmapDrawable(Resources, await context.GetFormsBitmapAsync(filePath));
 		}
 
-		StateListDrawable GetRadioButtonStateListDrawable(Position position, BitmapDrawable icon = null)
+		StateListDrawable GetRadioButtonStateListDrawable(Position position, BitmapDrawable? icon = null)
 		{
 			var drawable = new StateListDrawable();
 			drawable.AddState(new int[] { ARes.Attribute.StateChecked }, GetSegmentDrawable(position, icon));
@@ -193,9 +193,9 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			return drawable;
 		}
 
-		Drawable GetSegmentDrawable(Position position, BitmapDrawable icon)
+		Drawable GetSegmentDrawable(Position position, BitmapDrawable? icon)
 		{
-			InsetDrawable insetDrawable = null;
+			InsetDrawable? insetDrawable = null;
 			var rect = new GradientDrawable();
 			rect.SetShape(ShapeType.Rectangle);
 			rect.SetStroke(strokeWidth, TintColor);

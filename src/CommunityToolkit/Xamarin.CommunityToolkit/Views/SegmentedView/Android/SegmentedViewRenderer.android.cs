@@ -1,15 +1,15 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Android.Content;
+using Android.Util;
 using Xamarin.CommunityToolkit.Android.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using RadioButton = Android.Widget.RadioButton;
-using System.Linq;
-using System;
-using Android.Util;
-using System.Threading.Tasks;
 
 [assembly: ExportRenderer(typeof(SegmentedView), typeof(SegmentedViewRenderer))]
 
@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 		{
 			((INotifyCollectionChanged)Element.Items).CollectionChanged += SegmentsCollectionChanged;
 
-			SetNativeControl(new FormsSegments(Context));
+			SetNativeControl(new FormsSegments(Context!));
 			Control.DisplayMode = Element.DisplayMode;
 			Control.CornerRadius = Element.CornerRadius;
 			Control.SegmentSelected += SegmentSelected;
@@ -68,7 +68,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		void PopulateSegments()
 		{
-                        var items = Element.Items.Count();
+			var items = Element.Items.Count();
 			for (var i = 0; i < items; i++)
 			{
 				Control.Children.Add(Element.Items.ElementAt(i));
@@ -120,7 +120,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 				switch (e.PropertyName)
 				{
 					case "SelectedIndex":
-						Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex);
+						Control.CurrentSegment = (RadioButton)Control.GetChildAt(Element.SelectedIndex)!;
 						break;
 
 					case "BackgroundColor":
