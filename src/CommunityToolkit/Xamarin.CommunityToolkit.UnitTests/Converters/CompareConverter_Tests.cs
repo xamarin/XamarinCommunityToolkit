@@ -59,7 +59,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCaseSource(nameof(GetTestData))]
-		[TestCase(20d, CompareConverter.Operator.Greater, 20d, TrueTestObject, FalseTestObject, TrueTestObject)]
 		public void CompareConverterConvert(IComparable value, CompareConverter.Operator comparisonOperator, IComparable comparingValue, object trueObject, object falseObject, object expectedResult)
 		{
 			var compareConverter = new CompareConverter
@@ -74,21 +73,26 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Test]
-		public void CompareConverterInValidValuesThrowArgumenException()
+		static IEnumerable<object?[]> GetThrowArgumenExceptionTestData()
+		{
+			yield return new object?[] { new { Name = "Not IComparable" } };
+			yield return new object?[] { null };
+		}
+
+		[TestCaseSource(nameof(GetThrowArgumenExceptionTestData))]
+		public void CompareConverterInValidValuesThrowArgumenException(object value)
 		{
 			var compareConverter = new CompareConverter()
 			{
 				ComparingValue = 20d
 			};
 
-			Assert.Throws<ArgumentException>(() => compareConverter.Convert(new { Name = "xct" }, typeof(BoolToObjectConverter_Tests), null!, CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentException>(() => compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null!, CultureInfo.CurrentCulture));
 		}
 
 		[TestCase(20d, null, TrueTestObject, FalseTestObject)]
 		[TestCase(20d, 20d, TrueTestObject, null)]
 		[TestCase(20d, 20d, null, FalseTestObject)]
-		[TestCase(null, 20d, null, FalseTestObject)]
 		public void CompareConverterInValidValuesThrowArgumentNullException(object value, IComparable comparingValue, object trueObject, object falseObject)
 		{
 			var compareConverter = new CompareConverter()
