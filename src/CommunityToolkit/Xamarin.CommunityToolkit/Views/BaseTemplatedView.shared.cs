@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Internals
 {
@@ -8,10 +9,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Internals
 	/// <typeparam name="TControl">The type of the control that this template will be used for</typeparam>
 	public abstract class BaseTemplatedView<TControl> : TemplatedView where TControl : View, new()
 	{
-		protected TControl Control { get; private set; }
+		TControl? control;
+
+		protected TControl Control => control ?? throw new NullReferenceException();
 
 		/// <summary>
-		/// Constructor of <see cref="BaseTemplatedView" />
+		/// Constructor of <see cref="BaseTemplatedView{TControl}" />
 		/// </summary>
 		public BaseTemplatedView()
 			=> ControlTemplate = new ControlTemplate(typeof(TControl));
@@ -19,14 +22,16 @@ namespace Xamarin.CommunityToolkit.UI.Views.Internals
 		protected override void OnBindingContextChanged()
 		{
 			base.OnBindingContextChanged();
-			Control.BindingContext = BindingContext;
+
+			if (control != null)
+				Control.BindingContext = BindingContext;
 		}
 
 		protected override void OnChildAdded(Element child)
 		{
-			if (Control == null && child is TControl content)
+			if (control == null && child is TControl content)
 			{
-				Control = content;
+				control = content;
 				OnControlInitialized(Control);
 			}
 

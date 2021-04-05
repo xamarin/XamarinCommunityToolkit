@@ -18,9 +18,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="onException">If an exception is thrown in the Task, <c>onException</c> will execute. If onException is null, the exception will be re-thrown</param>
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		public AsyncCommand(
-			Func<TExecute, Task> execute,
-			Func<TCanExecute, bool> canExecute = null,
-			Action<Exception> onException = null,
+			Func<TExecute?, Task> execute,
+			Func<TCanExecute?, bool>? canExecute = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
 			: base(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions)
@@ -47,9 +47,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="onException">If an exception is thrown in the Task, <c>onException</c> will execute. If onException is null, the exception will be re-thrown</param>
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		public AsyncCommand(
-			Func<T, Task> execute,
-			Func<object, bool> canExecute = null,
-			Action<Exception> onException = null,
+			Func<T?, Task> execute,
+			Func<object?, bool>? canExecute = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
 			: base(execute, canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions)
@@ -64,9 +64,9 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="onException">If an exception is thrown in the Task, <c>onException</c> will execute. If onException is null, the exception will be re-thrown</param>
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		public AsyncCommand(
-			Func<T, Task> execute,
+			Func<T?, Task> execute,
 			Func<bool> canExecute,
-			Action<Exception> onException = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
 			: this(execute, ConvertCanExecute(canExecute), onException, continueOnCapturedContext, allowsMultipleExecutions)
@@ -94,8 +94,8 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		/// <param name="continueOnCapturedContext">If set to <c>true</c> continue on captured context; this will ensure that the Synchronization Context returns to the calling thread. If set to <c>false</c> continue on a different context; this will allow the Synchronization Context to continue on a different thread</param>
 		public AsyncCommand(
 			Func<Task> execute,
-			Func<object, bool> canExecute = null,
-			Action<Exception> onException = null,
+			Func<object?, bool>? canExecute = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
 			: base(ConvertExecute(execute), canExecute, onException, continueOnCapturedContext, allowsMultipleExecutions)
@@ -112,7 +112,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel
 		public AsyncCommand(
 			Func<Task> execute,
 			Func<bool> canExecute,
-			Action<Exception> onException = null,
+			Action<Exception>? onException = null,
 			bool continueOnCapturedContext = false,
 			bool allowsMultipleExecutions = true)
 			: this(execute, ConvertCanExecute(canExecute), onException, continueOnCapturedContext, allowsMultipleExecutions)

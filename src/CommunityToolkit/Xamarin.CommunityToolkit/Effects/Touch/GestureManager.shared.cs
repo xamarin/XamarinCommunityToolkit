@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using static System.Math;
 
@@ -15,11 +16,11 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		Color defaultBackgroundColor;
 
-		CancellationTokenSource longPressTokenSource;
+		CancellationTokenSource? longPressTokenSource;
 
-		CancellationTokenSource animationTokenSource;
+		CancellationTokenSource? animationTokenSource;
 
-		Func<TouchEffect, TouchState, HoverState, int, Easing, CancellationToken, Task> animationTaskFactory;
+		Func<TouchEffect, TouchState, HoverState, int, Easing?, CancellationToken, Task>? animationTaskFactory;
 
 		double? durationMultiplier;
 
@@ -59,11 +60,13 @@ namespace Xamarin.CommunityToolkit.Effects
 							: animationProgress;
 
 						UpdateStatusAndState(sender, status, state);
+
 						if (status == TouchStatus.Canceled)
 						{
 							sender.ForceUpdateState(false);
 							return;
 						}
+
 						OnTapped(sender);
 						sender.IsToggled = !isToggled;
 						return;
@@ -92,7 +95,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		internal void HandleHover(TouchEffect sender, HoverStatus status)
 		{
-			if (!sender.Element.IsEnabled)
+			if (!sender.Element?.IsEnabled ?? true)
 				return;
 
 			var hoverState = status == HoverStatus.Entered
@@ -123,7 +126,8 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			var isToggled = sender.IsToggled;
 
-			UpdateVisualState(sender.Element, state, hoverState);
+			if (sender.Element != null)
+				UpdateVisualState(sender.Element, state, hoverState);
 
 			if (!animated)
 			{
@@ -133,9 +137,11 @@ namespace Xamarin.CommunityToolkit.Effects
 						? TouchState.Pressed
 						: TouchState.Normal;
 				}
+
 				var durationMultiplier = this.durationMultiplier;
 				this.durationMultiplier = null;
-				await GetAnimationTask(sender, state, hoverState, durationMultiplier.GetValueOrDefault()).ConfigureAwait(false);
+
+				await RunAnimationTask(sender, state, hoverState, animationTokenSource.Token, durationMultiplier.GetValueOrDefault()).ConfigureAwait(false);
 				return;
 			}
 
@@ -143,7 +149,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (pulseCount == 0 || (state == TouchState.Normal && !isToggled.HasValue))
 			{
-				await GetAnimationTask(sender, state, hoverState).ConfigureAwait(false);
+				await RunAnimationTask(sender, state, hoverState, animationTokenSource.Token).ConfigureAwait(false);
 				return;
 			}
 			do
@@ -152,7 +158,7 @@ namespace Xamarin.CommunityToolkit.Effects
 					? TouchState.Normal
 					: TouchState.Pressed;
 
-				await GetAnimationTask(sender, rippleState, hoverState);
+				await RunAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
 				if (token.IsCancellationRequested)
 					return;
 
@@ -160,7 +166,7 @@ namespace Xamarin.CommunityToolkit.Effects
 					? TouchState.Pressed
 					: TouchState.Normal;
 
-				await GetAnimationTask(sender, rippleState, hoverState);
+				await RunAnimationTask(sender, rippleState, hoverState, animationTokenSource.Token);
 				if (token.IsCancellationRequested)
 					return;
 			}
@@ -183,13 +189,16 @@ namespace Xamarin.CommunityToolkit.Effects
 			longPressTokenSource = new CancellationTokenSource();
 			Task.Delay(sender.LongPressDuration, longPressTokenSource.Token).ContinueWith(t =>
 			{
+				if (t.IsFaulted && t.Exception != null)
+					throw t.Exception;
+
 				if (t.IsCanceled)
 					return;
 
 				var longPressAction = new Action(() =>
 				{
 					sender.HandleUserInteraction(TouchInteractionStatus.Completed);
-					sender.LongPressCommand?.Execute(sender.LongPressCommandParameter ?? sender.CommandParameter);
+					sender.RaiseLongPressCompleted();
 				});
 
 				if (Device.IsInvokeRequired)
@@ -199,7 +208,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			});
 		}
 
-		internal void SetCustomAnimationTask(Func<TouchEffect, TouchState, HoverState, int, Easing, CancellationToken, Task> animationTaskFactory)
+		internal void SetCustomAnimationTask(Func<TouchEffect, TouchState, HoverState, int, Easing?, CancellationToken, Task>? animationTaskFactory)
 			=> this.animationTaskFactory = animationTaskFactory;
 
 		internal void Reset()
@@ -219,16 +228,16 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (sender.Element is IButtonController button)
 				button.SendClicked();
 
-			sender.Command?.Execute(sender.CommandParameter);
 			sender.RaiseCompleted();
 		}
 
 		void HandleCollectionViewSelection(TouchEffect sender)
 		{
-			if (!sender.Element.TryFindParentElementWithParentOfType(out var element, out CollectionView collectionView))
+			if (!sender.Element.TryFindParentElementWithParentOfType(out var result, out CollectionView? parent))
 				return;
 
-			var item = element.BindingContext ?? element;
+			var collectionView = parent ?? throw new NullReferenceException();
+			var item = result?.BindingContext ?? result ?? throw new NullReferenceException();
 
 			switch (collectionView.SelectionMode)
 			{
@@ -267,6 +276,7 @@ namespace Xamarin.CommunityToolkit.Effects
 				sender.State = state;
 				sender.RaiseStateChanged();
 			}
+
 			sender.Status = status;
 			sender.RaiseStatusChanged();
 		}
@@ -274,10 +284,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		void UpdateVisualState(VisualElement visualElement, TouchState touchState, HoverState hoverState)
 		{
 			var state = touchState == TouchState.Pressed
-				? nameof(TouchState.Pressed)
+				? TouchEffect.PressedVisualState
 				: hoverState == HoverState.Hovered
-					? nameof(HoverState.Hovered)
-					: nameof(TouchState.Normal);
+					? TouchEffect.HoveredVisualState
+					: TouchEffect.UnpressedVisualState;
 
 			VisualStateManager.GoToState(visualElement, state);
 		}
@@ -297,22 +307,22 @@ namespace Xamarin.CommunityToolkit.Effects
 			var source = normalBackgroundImageSource;
 			if (touchState == TouchState.Pressed)
 			{
-				if (sender.Element.IsSet(TouchEffect.PressedBackgroundImageAspectProperty))
+				if (sender.Element?.IsSet(TouchEffect.PressedBackgroundImageAspectProperty) ?? false)
 					aspect = sender.PressedBackgroundImageAspect;
 
 				source = pressedBackgroundImageSource;
 			}
 			else if (hoverState == HoverState.Hovered)
 			{
-				if (sender.Element.IsSet(TouchEffect.HoveredBackgroundImageAspectProperty))
+				if (sender.Element?.IsSet(TouchEffect.HoveredBackgroundImageAspectProperty) ?? false)
 					aspect = sender.HoveredBackgroundImageAspect;
 
-				if (sender.Element.IsSet(TouchEffect.HoveredBackgroundImageSourceProperty))
+				if (sender.Element?.IsSet(TouchEffect.HoveredBackgroundImageSourceProperty) ?? false)
 					source = hoveredBackgroundImageSource;
 			}
 			else
 			{
-				if (sender.Element.IsSet(TouchEffect.NormalBackgroundImageAspectProperty))
+				if (sender.Element?.IsSet(TouchEffect.NormalBackgroundImageAspectProperty) ?? false)
 					aspect = sender.NormalBackgroundImageAspect;
 			}
 
@@ -336,16 +346,19 @@ namespace Xamarin.CommunityToolkit.Effects
 			}
 		}
 
-		Task SetBackgroundColor(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetBackgroundColor(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalBackgroundColor = sender.NormalBackgroundColor;
 			var pressedBackgroundColor = sender.PressedBackgroundColor;
 			var hoveredBackgroundColor = sender.HoveredBackgroundColor;
 
-			if (normalBackgroundColor == Color.Default &&
-				pressedBackgroundColor == Color.Default &&
-				hoveredBackgroundColor == Color.Default)
+			if (sender.Element == null
+				|| (normalBackgroundColor == Color.Default
+					&& pressedBackgroundColor == Color.Default
+					&& hoveredBackgroundColor == Color.Default))
+			{
 				return Task.FromResult(false);
+			}
 
 			var element = sender.Element;
 			if (defaultBackgroundColor == default)
@@ -368,7 +381,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return element.ColorTo(color, (uint)duration, easing);
 		}
 
-		Task SetOpacity(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetOpacity(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalOpacity = sender.NormalOpacity;
 			var pressedOpacity = sender.PressedOpacity;
@@ -383,11 +396,11 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (touchState == TouchState.Pressed)
 				opacity = pressedOpacity;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredOpacityProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredOpacityProperty) ?? false))
 				opacity = hoveredOpacity;
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.AbortAnimations();
 				element.Opacity = opacity;
@@ -397,7 +410,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return element.FadeTo(opacity, (uint)Abs(duration), easing);
 		}
 
-		Task SetScale(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetScale(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalScale = sender.NormalScale;
 			var pressedScale = sender.PressedScale;
@@ -412,10 +425,13 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (touchState == TouchState.Pressed)
 				scale = pressedScale;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredScaleProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredScaleProperty) ?? false))
 				scale = hoveredScale;
 
 			var element = sender.Element;
+			if (element == null)
+				return Task.FromResult(false);
+
 			if (duration <= 0)
 			{
 				element.AbortAnimations(nameof(SetScale));
@@ -434,7 +450,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			return animationCompletionSource.Task;
 		}
 
-		Task SetTranslation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetTranslation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalTranslationX = sender.NormalTranslationX;
 			var pressedTranslationX = sender.PressedTranslationX;
@@ -444,13 +460,15 @@ namespace Xamarin.CommunityToolkit.Effects
 			var pressedTranslationY = sender.PressedTranslationY;
 			var hoveredTranslationY = sender.HoveredTranslationY;
 
-			if (Abs(normalTranslationX) <= double.Epsilon &&
-				Abs(pressedTranslationX) <= double.Epsilon &&
-				Abs(hoveredTranslationX) <= double.Epsilon &&
-				Abs(normalTranslationY) <= double.Epsilon &&
-				Abs(pressedTranslationY) <= double.Epsilon &&
-				Abs(hoveredTranslationY) <= double.Epsilon)
+			if (Abs(normalTranslationX) <= double.Epsilon
+				&& Abs(pressedTranslationX) <= double.Epsilon
+				&& Abs(hoveredTranslationX) <= double.Epsilon
+				&& Abs(normalTranslationY) <= double.Epsilon
+				&& Abs(pressedTranslationY) <= double.Epsilon
+				&& Abs(hoveredTranslationY) <= double.Epsilon)
+			{
 				return Task.FromResult(false);
+			}
 
 			var translationX = normalTranslationX;
 			var translationY = normalTranslationY;
@@ -462,15 +480,15 @@ namespace Xamarin.CommunityToolkit.Effects
 			}
 			else if (hoverState == HoverState.Hovered)
 			{
-				if (sender.Element.IsSet(TouchEffect.HoveredTranslationXProperty))
+				if (sender.Element?.IsSet(TouchEffect.HoveredTranslationXProperty) ?? false)
 					translationX = hoveredTranslationX;
 
-				if (sender.Element.IsSet(TouchEffect.HoveredTranslationYProperty))
+				if (sender.Element?.IsSet(TouchEffect.HoveredTranslationYProperty) ?? false)
 					translationY = hoveredTranslationY;
 			}
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.AbortAnimations();
 				element.TranslationX = translationX;
@@ -478,39 +496,41 @@ namespace Xamarin.CommunityToolkit.Effects
 				return Task.FromResult(true);
 			}
 
-			return element.TranslateTo(translationX, translationY, (uint)Abs(duration), easing);
+			return element?.TranslateTo(translationX, translationY, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
-		Task SetRotation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetRotation(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalRotation = sender.NormalRotation;
 			var pressedRotation = sender.PressedRotation;
 			var hoveredRotation = sender.HoveredRotation;
 
-			if (Abs(normalRotation) <= double.Epsilon &&
-				Abs(pressedRotation) <= double.Epsilon &&
-				Abs(hoveredRotation) <= double.Epsilon)
+			if (Abs(normalRotation) <= double.Epsilon
+				&& Abs(pressedRotation) <= double.Epsilon
+				&& Abs(hoveredRotation) <= double.Epsilon)
+			{
 				return Task.FromResult(false);
+			}
 
 			var rotation = normalRotation;
 
 			if (touchState == TouchState.Pressed)
 				rotation = pressedRotation;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredRotationProperty) ?? false))
 				rotation = hoveredRotation;
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.AbortAnimations();
 				element.Rotation = rotation;
 				return Task.FromResult(true);
 			}
 
-			return element.RotateTo(rotation, (uint)Abs(duration), easing);
+			return element?.RotateTo(rotation, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
-		Task SetRotationX(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetRotationX(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalRotationX = sender.NormalRotationX;
 			var pressedRotationX = sender.PressedRotationX;
@@ -525,21 +545,21 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (touchState == TouchState.Pressed)
 				rotationX = pressedRotationX;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationXProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredRotationXProperty) ?? false))
 				rotationX = hoveredRotationX;
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.AbortAnimations();
 				element.RotationX = rotationX;
 				return Task.FromResult(true);
 			}
 
-			return element.RotateXTo(rotationX, (uint)Abs(duration), easing);
+			return element?.RotateXTo(rotationX, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
-		Task SetRotationY(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing easing)
+		Task SetRotationY(TouchEffect sender, TouchState touchState, HoverState hoverState, int duration, Easing? easing)
 		{
 			var normalRotationY = sender.NormalRotationY;
 			var pressedRotationY = sender.PressedRotationY;
@@ -554,18 +574,18 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (touchState == TouchState.Pressed)
 				rotationY = pressedRotationY;
-			else if (hoverState == HoverState.Hovered && sender.Element.IsSet(TouchEffect.HoveredRotationYProperty))
+			else if (hoverState == HoverState.Hovered && (sender.Element?.IsSet(TouchEffect.HoveredRotationYProperty) ?? false))
 				rotationY = hoveredRotationY;
 
 			var element = sender.Element;
-			if (duration <= 0)
+			if (duration <= 0 && element != null)
 			{
 				element.AbortAnimations();
 				element.RotationY = rotationY;
 				return Task.FromResult(true);
 			}
 
-			return element.RotateYTo(rotationY, (uint)Abs(duration), easing);
+			return element?.RotateYTo(rotationY, (uint)Abs(duration), easing) ?? Task.FromResult(false);
 		}
 
 		Color GetBackgroundColor(Color color)
@@ -573,12 +593,11 @@ namespace Xamarin.CommunityToolkit.Effects
 				? color
 				: defaultBackgroundColor;
 
-		Task GetAnimationTask(TouchEffect sender, TouchState touchState, HoverState hoverState, double? durationMultiplier = null)
+		Task RunAnimationTask(TouchEffect sender, TouchState touchState, HoverState hoverState, CancellationToken token, double? durationMultiplier = null)
 		{
 			if (sender.Element == null)
 				return Task.FromResult(false);
 
-			var token = animationTokenSource.Token;
 			var duration = sender.AnimationDuration;
 			var easing = sender.AnimationEasing;
 

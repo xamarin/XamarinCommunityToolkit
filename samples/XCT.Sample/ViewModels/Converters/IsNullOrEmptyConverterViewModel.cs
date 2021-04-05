@@ -7,7 +7,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
 	public class IsNullOrEmptyConverterViewModel : BaseViewModel
 	{
-		public ObservableCollection<string> DummyItemSource { get; set; } = new ObservableCollection<string>
+		string? selectedItem;
+
+		public IsNullOrEmptyConverterViewModel() => ClearSelectionCommand = new Command(() => SelectedItem = null);
+
+		public ObservableCollection<string> DummyItemSource { get; } = new ObservableCollection<string>
 		{
 			"Dummy Item 0",
 			"Dummy Item 1",
@@ -17,16 +21,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			"Dummy Item 5",
 		};
 
-		string selectedItem;
+		public ICommand ClearSelectionCommand { get; }
 
-		public string SelectedItem
+		public string? SelectedItem
 		{
 			get => selectedItem;
 			set => SetProperty(ref selectedItem, value);
 		}
-
-		ICommand clearSelectionCommand;
-
-		public ICommand ClearSelectionCommand => clearSelectionCommand ??= new Command(() => SelectedItem = null);
 	}
 }

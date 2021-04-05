@@ -19,15 +19,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
 	}
 
-	class NativeSnackButtonAppearance
+	static class NativeSnackButtonAppearance
 	{
-		public UIColor Background { get; set; } = DefaultColor;
-
-		public UIColor Foreground { get; set; } = DefaultColor;
-
-		public UIFont Font { get; set; } = DefaultFont;
-
-		public UILineBreakMode LineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
+		public static UILineBreakMode LineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
 
 		public static UIColor DefaultColor { get; } = Forms.Color.Default.ToUIColor();
 

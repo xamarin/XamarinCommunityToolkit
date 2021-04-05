@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample
 	/// </summary>
 	public static class XLog
 	{
-		static string rootFolderPattern = null;
+		static string? rootFolderPattern = null;
 #if WINDOWS_UWP
         static LoggingChannel loggingChannel;
 #endif
@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Sample
 		/// Call this before logging starts.
 		/// </summary>
 		/// <param name="rootFolderPattern">Should match the top folder name(s) within the source control repository, e.g. @"\MobileRealtimePush\MobileRealtimePush\". Any folders before the first match of this pattern are omitted from the logged source file paths</param>
-		public static void Init(string rootFolderPattern = null)
+		public static void Init(string? rootFolderPattern = null)
 		{
 			XLog.rootFolderPattern = rootFolderPattern;
 #if WINDOWS_UWP
@@ -46,10 +46,10 @@ namespace Xamarin.CommunityToolkit.Sample
 		/// <param name="sourceLineNumber">supplied by compiler, no need to specify in code unless you want to pass a deeper call context</param>
 		[Conditional("DEBUG")]
 		public static void Debug(
-			object data = null,
-			string tag = null,
-			[CallerMemberName] string memberName = null,
-			[CallerFilePath] string sourceFilePath = null,
+			object? data = null,
+			string? tag = null,
+			[CallerMemberName] string? memberName = null,
+			[CallerFilePath] string? sourceFilePath = null,
 			[CallerLineNumber] int sourceLineNumber = -1)
 		{
 			var message = FormatLogString(data, tag, memberName, sourceFilePath, sourceLineNumber);
@@ -75,10 +75,10 @@ namespace Xamarin.CommunityToolkit.Sample
 		/// <param name="sourceLineNumber">supplied by compiler, no need to specify in code unless you want to pass a deeper call context</param>
 		[Conditional("TRACE")]
 		public static void Trace(
-			object data = null,
-			string tag = null,
-			[CallerMemberName] string memberName = null,
-			[CallerFilePath] string sourceFilePath = null,
+			object? data = null,
+			string? tag = null,
+			[CallerMemberName] string? memberName = null,
+			[CallerFilePath] string? sourceFilePath = null,
 			[CallerLineNumber] int sourceLineNumber = -1)
 		{
 			var message = FormatLogString(data, tag, memberName, sourceFilePath, sourceLineNumber);
@@ -90,9 +90,9 @@ namespace Xamarin.CommunityToolkit.Sample
 #endif
 		}
 
-		public static string TruncateAt(this string s, int maxLength, string truncatedSuffix = "...") => s?.Length <= maxLength ? s : s.Substring(0, maxLength) + truncatedSuffix;
+		public static string TruncateAt(this string? s, int maxLength, string truncatedSuffix = "...") => s?.Length <= maxLength ? s : s?.Substring(0, maxLength) + truncatedSuffix;
 
-		static string FormatLogString(object data = null, string tag = null, string memberName = null, string sourceFilePath = null, int sourceLineNumber = -1)
+		static string FormatLogString(object? data, string? tag, string? memberName, string? sourceFilePath, int sourceLineNumber)
 		{
 			var line = new StringBuilder();
 
@@ -121,7 +121,7 @@ namespace Xamarin.CommunityToolkit.Sample
 				line.Append(dataString);
 			}
 
-			if (!string.IsNullOrEmpty(sourceFilePath))
+			if (sourceFilePath != null && !string.IsNullOrEmpty(sourceFilePath))
 			{
 				if (!string.IsNullOrEmpty(rootFolderPattern))
 				{

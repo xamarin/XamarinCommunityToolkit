@@ -7,14 +7,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty AnimationTypeProperty =
 			BindableProperty.Create(nameof(AnimationType), typeof(AnimationBase), typeof(AnimationBehavior));
 
-		public AnimationBase AnimationType
+		public AnimationBase? AnimationType
 		{
-			get => (AnimationBase)GetValue(AnimationTypeProperty);
+			get => (AnimationBase?)GetValue(AnimationTypeProperty);
 			set => SetValue(AnimationTypeProperty, value);
 		}
 
 		bool isAnimating;
-		TapGestureRecognizer tapGestureRecognizer;
+		TapGestureRecognizer? tapGestureRecognizer;
 
 		protected override void OnAttachedTo(VisualElement bindable)
 		{
@@ -37,17 +37,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			base.OnDetachingFrom(bindable);
 		}
 
-		protected override async void OnTriggerHandled(object sender = null, object eventArgs = null)
+		protected override async void OnTriggerHandled(object? sender = null, object? eventArgs = null)
 		{
 			if (isAnimating)
 				return;
 
 			isAnimating = true;
 
-			await AnimationType?.Animate((View)sender);
-
-			if (Command?.CanExecute(CommandParameter) ?? false)
-				Command.Execute(CommandParameter);
+			if (AnimationType != null)
+				await AnimationType.Animate((View?)sender);
 
 			isAnimating = false;
 

@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class ImageSourceValidator : IImageSourceValidator
 	{
-		public async Task<bool> IsImageSourceValidAsync(ImageSource source)
+		public async Task<bool> IsImageSourceValidAsync(ImageSource? source)
 		{
 			var handler = GetHandler(source);
 			if (handler == null)
@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #if TIZEN
 			return await handler.LoadImageAsync(new NImage(XForms.NativeParent), source).ConfigureAwait(false);
 #elif MONOANDROID
-			var imageSource = await handler.LoadImageAsync(source, null).ConfigureAwait(false);
+			var imageSource = await handler.LoadImageAsync(source, ToolkitPlatform.Context).ConfigureAwait(false);
 			return imageSource != null;
 #else
 			var imageSource = await handler.LoadImageAsync(source).ConfigureAwait(false);
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #endif
 		}
 
-		IImageSourceHandler GetHandler(ImageSource source)
+		IImageSourceHandler? GetHandler(ImageSource? source)
 		{
 			if (source is UriImageSource)
 				return new UriImageSourceHandler();
@@ -66,8 +66,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return new FontImageSourceHandler();
 #endif
 
-			if (source is FileImageSource fileSource && File.Exists(fileSource.File))
+			if (source is FileImageSource fileSource)
+			{
+#if !MONOANDROID
+				if (!File.Exists(fileSource.File))
+					return null;
+#endif
 				return new FileImageSourceHandler();
+			}
 
 			return null;
 		}
