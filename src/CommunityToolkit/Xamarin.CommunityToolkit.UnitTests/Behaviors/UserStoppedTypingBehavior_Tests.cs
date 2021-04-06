@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {

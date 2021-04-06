@@ -3,11 +3,11 @@ using System.ComponentModel;
 using CoreGraphics;
 using UIKit;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.iOS;
-using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
 using Specifics = Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific.PopUp;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]

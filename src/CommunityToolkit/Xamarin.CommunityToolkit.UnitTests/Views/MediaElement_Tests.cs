@@ -1,7 +1,7 @@
 ﻿using System;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Core;
 using Xamarin.CommunityToolkit.UI.Views;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
 {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Xamarin.CommunityToolkit.Converters;
 using NUnit.Framework;
+using Xamarin.CommunityToolkit.Converters;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
