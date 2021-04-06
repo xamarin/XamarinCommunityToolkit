@@ -62,6 +62,9 @@ namespace Xamarin.CommunityToolkit.Effects
 #elif __MACOS__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.macOS.Effects.PlatformShadowEffect();
+#elif UWP
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.UWP.Effects.PlatformShadowEffect();
 #endif
 		}
 
