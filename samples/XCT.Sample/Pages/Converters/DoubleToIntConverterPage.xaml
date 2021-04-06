@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.DoubleToIntConverterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
+    BackgroundColor="{StaticResource AppBackgroundColor}">
+
+    <ContentPage.BindingContext>
+        <vm:DoubleToIntConverterViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:DoubleToIntConverter x:Key="DoubleToIntConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10,10"
+            HorizontalOptions="Fill"
+            Spacing="10"
+            VerticalOptions="Fill">
+            <Label Text="The DoubleToIntConverter is a converter that allows users to convert an incoming double value to an int. Optionally the user can provide a multiplier to the conversion through the Ratio property." TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label Text="Please enter a decimal Number" TextColor="{StaticResource NormalLabelTextColor}" />
+            <Entry
+                x:Name="ExampleText"
+                Placeholder="Example 2.3"
+                Text="{Binding Input}"
+                TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label
+                Padding="7,0,0,0"
+                Text="{Binding Path=Input, Converter={StaticResource DoubleToIntConverter}, ConverterParameter=1}"
+                TextColor="{StaticResource NormalLabelTextColor}" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

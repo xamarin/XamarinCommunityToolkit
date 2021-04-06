@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.IndexToArrayItemConverterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+    xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:IndexToArrayItemConverter x:Key="IndexToArrayItemConverter" />
+            <x:Array x:Key="ValuesArray" Type="{x:Type x:String}">
+                <x:String>Value1</x:String>
+                <x:String>Value2</x:String>
+                <x:String>Value3</x:String>
+                <x:String>Value4</x:String>
+                <x:String>Value5</x:String>
+            </x:Array>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:IndexToArrayItemConverterViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10,10"
+            HorizontalOptions="Fill"
+            Spacing="10"
+            VerticalOptions="Fill">
+            <Label Text="The IndexToArrayItemConverter is a converter that allows users to convert a int value binding to an item in an array. The int value being data bound represents the indexer used to access the array. The array is passed in through the ConverterParameter." TextColor="{StaticResource NormalLabelTextColor}" />
+            <Entry
+                Placeholder="Enter an index from 1 to 4 otherwise the app will crash"
+                Text="{Binding Index}"
+                TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label
+                Padding="7,0,0,0"
+                Text="{Binding Path=Index, Converter={StaticResource IndexToArrayItemConverter}, ConverterParameter={StaticResource ValuesArray}}"
+                TextColor="{StaticResource NormalLabelTextColor}" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
