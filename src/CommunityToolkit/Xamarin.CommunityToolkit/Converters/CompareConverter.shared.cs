@@ -106,10 +106,28 @@ namespace Xamarin.CommunityToolkit.Converters
 			};
 		}
 
-		object EvaluateCondition(bool v)
-			=> v ? mode == Modes.Object ?
-					TrueObject! : true
-						: mode == Modes.Object ? FalseObject! : false;
+		object EvaluateCondition(bool comparaisonResult)
+		{
+			if (comparaisonResult)
+			{
+				if (mode == Modes.Object)
+				{
+					return TrueObject!;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			else if (mode == Modes.Object)
+			{
+				return FalseObject!;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
 		/// <summary>
 		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
