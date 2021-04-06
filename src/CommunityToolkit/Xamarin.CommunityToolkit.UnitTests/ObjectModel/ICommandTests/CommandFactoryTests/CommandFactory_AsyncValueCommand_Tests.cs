@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValueCommandTests;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFactoryTests
 {
