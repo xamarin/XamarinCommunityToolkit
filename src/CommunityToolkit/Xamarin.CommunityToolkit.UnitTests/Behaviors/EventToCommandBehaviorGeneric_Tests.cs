@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reflection;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {

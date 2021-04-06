@@ -1,9 +1,9 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Resources;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
-using NUnit.Framework;
-using System;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizationResourceManagerTests
 {

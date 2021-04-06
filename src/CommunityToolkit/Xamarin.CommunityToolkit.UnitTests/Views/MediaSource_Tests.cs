@@ -1,6 +1,6 @@
 ﻿using System;
-using Xamarin.Forms;
 using NUnit.Framework;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
