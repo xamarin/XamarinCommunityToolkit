@@ -244,8 +244,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public async Task<int> Seek(int ms)
 		{
-			await ShowController();
-
 			var finalPosition = await mediaPlayer.Seek(ms);
 			Position = mediaPlayer.Position;
 

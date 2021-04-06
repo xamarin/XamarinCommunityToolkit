@@ -186,6 +186,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			try
 			{
+				if (player.State == PlayerState.Preparing || player.State == PlayerState.Idle)
+					return 0;
 				await player.SetPlayPositionAsync(ms, true);
 			}
 			catch (Exception e)
@@ -350,7 +352,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					await Device.InvokeOnMainThreadAsync(Start);
 				}
-				else if (renderer == null && AutoStop)
+				else if (renderer == null && AutoStop && !disposed)
 				{
 					await Stop();
 				}
