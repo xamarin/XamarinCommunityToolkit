@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
-using Xamarin.CommunityToolkit.Converters;
 using NUnit.Framework;
+using Xamarin.CommunityToolkit.Converters;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			Assert.IsTrue(StreamEquals(GetStreamFromImageSource((ImageSource?)result), memoryStream));
 		}
 
-		
+
 		[TestCase("Random String Value")]
 		public void InvalidConverterValuesReturnsNull(object value)
 		{

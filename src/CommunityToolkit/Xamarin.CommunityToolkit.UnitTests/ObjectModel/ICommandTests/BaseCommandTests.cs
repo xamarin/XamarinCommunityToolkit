@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 {
