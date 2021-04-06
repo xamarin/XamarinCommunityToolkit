@@ -20,12 +20,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		[Flags]
 		public enum Operator
 		{
-			Greater,
-			GreaterOrEqual,
-			Equal,
-			NotEqual,
-			SmallerOrEqual,
-			Smaller,
+			Greater = 2,
+			GreaterOrEqual = 1,
+			Equal = 0,
+			SmallerOrEqual = -1,
+			Smaller = -2,
+			NotEqual = -3,
 		}
 
 		enum Modes
