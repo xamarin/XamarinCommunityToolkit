@@ -14,8 +14,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
 		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 
+		LocalizedString? localizedString;
+
 		[SetUp]
-		public void Setup() => localizationManager.Init(resourceManager, initialCulture);
+		public void Setup()
+		{
+			localizationManager.Init(resourceManager, initialCulture);
+		}
 
 		[Test]
 		public void LocalizedStringTests_Localized_ValidImplementation()
@@ -23,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Arrange
 			var testString = "test";
 			var culture2 = new CultureInfo("en");
-			var localizedString = new LocalizedString(() => resourceManager.GetString(testString, localizationManager.CurrentCulture));
+			localizedString = new LocalizedString(() => resourceManager.GetString(testString, localizationManager.CurrentCulture));
 
 			string? responceOnCultureChanged = null;
 			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
@@ -49,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			Func<string> generator = () => testString;
 
 			// Act
-			var localizedString = generator;
+			localizedString = generator;
 
 			// Assert
 			Assert.IsNotNull(localizedString);
@@ -61,8 +66,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Arrange
 			var isTrigered = false;
 			var culture2 = new CultureInfo("en");
-			var localizedString = new LocalizedString(() => string.Empty);
-			localizedString.PropertyChanged += (_, _) => isTrigered = true;
+			localizedString = new LocalizedString(() => string.Empty);
+			localizedString.PropertyChanged += (_, __) => isTrigered = true;
 
 			// Act
 			GC.Collect();
@@ -81,8 +86,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 			// Arrange
 			var testString = "test";
 			SetLocalizedString();
-			LocalizedString? localizedString = null;
 			var weaklocalizedString = new WeakReference(localizedString);
+			localizedString = null;
 
 			// Act
 			GC.Collect();
