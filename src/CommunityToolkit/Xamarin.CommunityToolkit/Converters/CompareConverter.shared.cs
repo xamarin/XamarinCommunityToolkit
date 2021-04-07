@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	public class CompareConverter<TObject> : ValueConverterExtension, IValueConverter
 	{
 		[Flags]
-		public enum Operator
+		public enum OperatorType
 		{
 			Greater = 2,
 			GreaterOrEqual = 1,
@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <summary>
 		/// The comparison operator.
 		/// </summary>
-		public Operator ComparisonOperator { get; set; }
+		public OperatorType ComparisonOperator { get; set; }
 
 		/// <summary>
 		/// The object that corresponds to True value.
@@ -76,9 +76,9 @@ namespace Xamarin.CommunityToolkit.Converters
 				throw new ArgumentException("is expected to implement IComparable interface.", nameof(value));
 			}
 
-			if (!Enum.IsDefined(typeof(Operator), ComparisonOperator))
+			if (!Enum.IsDefined(typeof(OperatorType), ComparisonOperator))
 			{
-				throw new ArgumentOutOfRangeException($"is expected to be of type {nameof(Operator)}", nameof(ComparisonOperator));
+				throw new ArgumentOutOfRangeException($"is expected to be of type {nameof(OperatorType)}", nameof(ComparisonOperator));
 			}
 
 			if (!(TrueObject == null ^ FalseObject != null))
@@ -96,12 +96,12 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			return ComparisonOperator switch
 			{
-				Operator.Smaller => EvaluateCondition(result < 0),
-				Operator.SmallerOrEqual => EvaluateCondition(result <= 0),
-				Operator.Equal => EvaluateCondition(result == 0),
-				Operator.NotEqual => EvaluateCondition(result != 0),
-				Operator.GreaterOrEqual => EvaluateCondition(result >= 0),
-				Operator.Greater => EvaluateCondition(result > 0),
+				OperatorType.Smaller => EvaluateCondition(result < 0),
+				OperatorType.SmallerOrEqual => EvaluateCondition(result <= 0),
+				OperatorType.Equal => EvaluateCondition(result == 0),
+				OperatorType.NotEqual => EvaluateCondition(result != 0),
+				OperatorType.GreaterOrEqual => EvaluateCondition(result >= 0),
+				OperatorType.Greater => EvaluateCondition(result > 0),
 				_ => throw new ArgumentNullException(nameof(ComparisonOperator), $"\"{ComparisonOperator}\" is not supported."),
 			};
 		}
