@@ -6,14 +6,14 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	/// Converts an object that implements IComparable to an object or a boolean based on a comparaison.
+	/// Converts an object that implements IComparable to an object or a boolean based on a comparison.
 	/// </summary>
 	public sealed class CompareConverter : CompareConverter<object>
 	{
 	}
 
 	/// <summary>
-	/// Converts an object that implements IComparable to an object or a boolean based on a comparaison.
+	/// Converts an object that implements IComparable to an object or a boolean based on a comparison.
 	/// </summary>
 	public abstract class CompareConverter<TObject> : ValueConverterExtension, IValueConverter
 	{
