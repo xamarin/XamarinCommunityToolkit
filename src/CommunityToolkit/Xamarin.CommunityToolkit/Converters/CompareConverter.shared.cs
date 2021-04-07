@@ -20,12 +20,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		[Flags]
 		public enum OperatorType
 		{
-			Greater = 2,
-			GreaterOrEqual = 1,
-			Equal = 0,
-			SmallerOrEqual = -1,
-			Smaller = -2,
-			NotEqual = -3,
+			NotEqual = 0,
+			Smaller = 1 << 0,
+			SmallerOrEqual = 1 << 1,
+			Equal = 1 << 2,
+			Greater = 1 << 3,
+			GreaterOrEqual = 1 << 4,
 		}
 
 		enum Modes
@@ -110,14 +110,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		{
 			if (comparaisonResult)
 			{
-				if (mode == Modes.Object)
-				{
-					return TrueObject!;
-				}
-				else
-				{
-					return true;
-				}
+				return mode == Modes.Object ? TrueObject! : true;
 			}
 			else if (mode == Modes.Object)
 			{
