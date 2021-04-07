@@ -8,14 +8,14 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts an object that implements IComparable to an object or a boolean based on a comparaison.
 	/// </summary>
-	public class CompareConverter : CompareConverter<object>
+	public sealed class CompareConverter : CompareConverter<object>
 	{
 	}
 
 	/// <summary>
 	/// Converts an object that implements IComparable to an object or a boolean based on a comparaison.
 	/// </summary>
-	public class CompareConverter<TObject> : ValueConverterExtension, IValueConverter
+	public abstract class CompareConverter<TObject> : ValueConverterExtension, IValueConverter
 	{
 		[Flags]
 		public enum OperatorType
@@ -64,7 +64,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter.  This is not implemented.</param>
 		/// <returns>The object assigned to <see cref="TrueObject"/> if (value <see cref="ComparisonOperator"/> <see cref="ComparingValue"/>) equals True and <see cref="TrueObject"/> is not null, if <see cref="TrueObject"/> is null it returns true, otherwise the value assigned to <see cref="FalseObject"/>, if no value is assigned then it returns false.</returns>
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (ComparingValue == null)
 			{
