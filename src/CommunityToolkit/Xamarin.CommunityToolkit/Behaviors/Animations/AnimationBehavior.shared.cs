@@ -1,4 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
@@ -7,11 +10,24 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty AnimationTypeProperty =
 			BindableProperty.Create(nameof(AnimationType), typeof(AnimationBase), typeof(AnimationBehavior));
 
+		public static readonly BindablePropertyKey AnimateCommandPropertyKey =
+			BindableProperty.CreateReadOnly(
+				nameof(AnimateCommand),
+				typeof(ICommand),
+				typeof(AnimationBehavior),
+				null,
+				BindingMode.OneWayToSource,
+				defaultValueCreator: CreateAnimateCommand);
+
+		public static readonly BindableProperty AnimateCommandProperty = AnimateCommandPropertyKey.BindableProperty;
+
 		public AnimationBase? AnimationType
 		{
 			get => (AnimationBase?)GetValue(AnimationTypeProperty);
 			set => SetValue(AnimationTypeProperty, value);
 		}
+
+		public ICommand AnimateCommand => (ICommand)GetValue(AnimateCommandProperty);
 
 		bool isAnimating;
 		TapGestureRecognizer? tapGestureRecognizer;
@@ -39,17 +55,25 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		protected override async void OnTriggerHandled(object? sender = null, object? eventArgs = null)
 		{
+			await OnAnimate();
+
+			base.OnTriggerHandled(sender, eventArgs);
+		}
+
+		static object CreateAnimateCommand(BindableObject bindable)
+			=> new AsyncCommand(((AnimationBehavior)bindable).OnAnimate);
+
+		async Task OnAnimate()
+		{
 			if (isAnimating)
 				return;
 
 			isAnimating = true;
 
 			if (AnimationType != null)
-				await AnimationType.Animate((View?)sender);
+				await AnimationType.Animate((View?)View);
 
 			isAnimating = false;
-
-			base.OnTriggerHandled(sender, eventArgs);
 		}
 	}
 }
