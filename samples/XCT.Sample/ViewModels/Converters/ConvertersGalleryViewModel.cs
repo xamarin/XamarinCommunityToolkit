@@ -93,6 +93,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(ImageResourceConverterPage),
 				nameof(ImageResourceConverter),
 				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
+			new SectionModel(
+				typeof(CompareConverterPage),
+				nameof(CompareConverter),
+				"The CompareConverter is a converter that converts an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue.")
 		};
 	}
 }
