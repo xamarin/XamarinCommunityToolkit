@@ -1,0 +1,5 @@
+﻿This project was added to ensure Xamarin.CommunityToolkit support for F#
+
+Specifically, in an earilier version of Xamarin.CommunityToolkit, it was reported that F# projects couldn't use the Xamarin.CommunityToolkit NuGet package: https://github.com/xamarin/XamarinCommunityToolkit/commit/e569ee3a2f4cabaffdcfad11edbc2ef495cbe51b
+
+This project ensures that all future releases of Xamarin.CommunityToolkit will continue to be compatible with F#.
