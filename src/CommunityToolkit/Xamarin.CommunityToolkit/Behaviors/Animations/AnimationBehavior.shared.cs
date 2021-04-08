@@ -10,12 +10,12 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty AnimationTypeProperty =
 			BindableProperty.Create(nameof(AnimationType), typeof(AnimationBase), typeof(AnimationBehavior));
 
-		public static readonly BindablePropertyKey AnimateCommandPropertyKey =
+		internal static readonly BindablePropertyKey AnimateCommandPropertyKey =
  			BindableProperty.CreateReadOnly(
  				nameof(AnimateCommand),
  				typeof(ICommand),
  				typeof(AnimationBehavior),
- 				null,
+ 				default,
  				BindingMode.OneWayToSource,
  				defaultValueCreator: CreateAnimateCommand);
 
