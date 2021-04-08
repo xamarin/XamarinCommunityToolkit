@@ -80,8 +80,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty MainViewScaleFactorProperty
 			= BindableProperty.CreateAttached(nameof(GetMainViewScaleFactor), typeof(double), typeof(SideMenuView), 1.0);
 
+		public static readonly BindableProperty MainViewOpacityFactorProperty
+			= BindableProperty.CreateAttached(nameof(GetMainViewOpacityFactor), typeof(double), typeof(SideMenuView), 1.0);
+
 		public static readonly BindableProperty MenuAppearanceTypeProperty
 			= BindableProperty.CreateAttached(nameof(GetMenuAppearanceType), typeof(SideMenuAppearanceType), typeof(SideMenuView), SideMenuAppearanceType.SlideOut);
+
 
 		public SideMenuView()
 		{
@@ -158,6 +162,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static void SetMainViewScaleFactor(BindableObject bindable, double value)
 			=> bindable.SetValue(MainViewScaleFactorProperty, value);
+
+		public static double GetMainViewOpacityFactor(BindableObject bindable)
+			=> (double)bindable.GetValue(MainViewOpacityFactorProperty);
+
+		public static void SetMainViewOpacityFactor(BindableObject bindable, double value)
+			=> bindable.SetValue(MainViewOpacityFactorProperty, value);
 
 		public static SideMenuAppearanceType GetMenuAppearanceType(BindableObject bindable)
 			=> (SideMenuAppearanceType)bindable.GetValue(MenuAppearanceTypeProperty);
@@ -412,8 +422,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (inactiveMenu != null)
 					inactiveMenu.TranslationX = -inactiveMenu.Width * nonZeroSign;
 
-				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * animationEasing.Ease(shift / activeMenuWidth));
+				var progress = animationEasing.Ease(shift / activeMenuWidth);
+				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * progress);
+				var opacity = 1 - ((1 - GetMainViewOpacityFactor(activeMenu)) * progress);
+
 				mainView.Scale = scale;
+				mainView.Opacity = opacity;
 
 				switch (GetMenuAppearanceType(activeMenu))
 				{
