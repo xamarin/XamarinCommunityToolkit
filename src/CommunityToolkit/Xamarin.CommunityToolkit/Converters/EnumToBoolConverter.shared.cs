@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Xamarin.CommunityToolkit.Extensions.Internals;
 using System.Reflection;
+using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
@@ -58,8 +58,16 @@ namespace Xamarin.CommunityToolkit.Converters
 			}
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
+		/// </summary>
+		/// <param name="value">N/A</param>
+		/// <param name="targetType">N/A</param>
+		/// <param name="parameter">N/A</param>
+		/// <param name="culture">N/A</param>
+		/// <returns>N/A</returns>
 		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) =>
 			throw new NotImplementedException();
 	}
+}
 }
