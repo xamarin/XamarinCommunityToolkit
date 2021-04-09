@@ -1,8 +1,8 @@
 ﻿using System;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 {

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using Xamarin.CommunityToolkit.ObjectModel;
 using NUnit.Framework;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {

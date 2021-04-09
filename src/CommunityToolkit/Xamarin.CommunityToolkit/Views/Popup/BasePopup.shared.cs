@@ -162,7 +162,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			// class has an implementation.
 		}
 
-		/// <inheritdoc />
 		protected override void OnBindingContextChanged()
 		{
 			base.OnBindingContextChanged();
