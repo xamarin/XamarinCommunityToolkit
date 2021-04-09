@@ -70,4 +70,3 @@ namespace Xamarin.CommunityToolkit.Converters
 			throw new NotImplementedException();
 	}
 }
-}
