@@ -105,7 +105,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static new BindableProperty BackgroundColorProperty =
 			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(BadgeView), defaultValue: Color.Default,
 				propertyChanged: OnLayoutPropertyChanged);
-				
+
 		/// <summary>
 		/// Gets or sets the background <see cref="Color"/> of the badge. This is a bindable property.
 		/// </summary>
