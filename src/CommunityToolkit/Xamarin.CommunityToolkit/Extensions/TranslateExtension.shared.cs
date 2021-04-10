@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public BindingBase ProvideValue(IServiceProvider serviceProvider)
 		{
 #if NETSTANDARD1_0
-throw new NotSupportedException("Translate XAML MarkupExtension is not supported on .NET Standard 1.0");
+			throw new NotSupportedException("Translate XAML MarkupExtension is not supported on .NET Standard 1.0");
 #else
 			ResourceManager ??= LocalizationResourceManager.Current.DefaultResourceManager;
 

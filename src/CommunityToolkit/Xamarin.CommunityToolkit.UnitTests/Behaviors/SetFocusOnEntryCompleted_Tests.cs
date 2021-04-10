@@ -1,6 +1,6 @@
-﻿using Xamarin.CommunityToolkit.Behaviors;
+﻿using NUnit.Framework;
+using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
