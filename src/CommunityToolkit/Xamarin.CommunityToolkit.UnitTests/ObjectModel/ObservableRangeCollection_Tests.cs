@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using Xamarin.CommunityToolkit.ObjectModel;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel
 {
