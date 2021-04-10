@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		/// Displays a popup and returns a result.
 		/// </summary>
 		/// <typeparam name="T">
-		/// The <see cref="T"/> result that is returned when the popup is dismissed.
+		/// The <typeparamref name="T"/> result that is returned when the popup is dismissed.
 		/// </typeparam>
 		/// <param name="navigation">
 		/// The current <see cref="INavigation"/>.

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Converters;
@@ -97,6 +97,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(MathExpressionConverterPage),
 				nameof(MathExpressionConverter),
 				"A converter that allows users to calculate an expression at runtime."),
+      new SectionModel(
+				typeof(CompareConverterPage),
+				nameof(CompareConverter),
+				"The CompareConverter is a converter that converts an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue.")
 		};
 	}
 }

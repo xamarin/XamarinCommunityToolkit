@@ -14,15 +14,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression> 
     <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl> 
     <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
-    <PackageReleaseNotes>
-      
-      
-      
-      <!-- See if we can host these on MS docs? -->
-    
-    
-    
-    </PackageReleaseNotes>
+    <PackageReleaseNotes>See: http://aka.ms/xct-release-notes</PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
     <Title>Xamarin.CommunityToolkit.Markup</Title>
@@ -42,10 +34,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="mdoc" Version="5.8.0" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
   </ItemGroup>
+  <Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
 </Project>
