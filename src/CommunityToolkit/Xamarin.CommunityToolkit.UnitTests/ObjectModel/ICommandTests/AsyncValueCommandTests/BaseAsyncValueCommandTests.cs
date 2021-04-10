@@ -9,13 +9,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 
 		protected new ValueTask IntParameterTask(int delay) => ValueTaskDelay(delay);
 
-		protected new ValueTask StringParameterTask(string text) => ValueTaskDelay(Delay);
+		protected new ValueTask StringParameterTask(string? text) => ValueTaskDelay(Delay);
 
 		protected new ValueTask NoParameterImmediateNullReferenceExceptionTask() => throw new NullReferenceException();
 
 		protected new ValueTask ParameterImmediateNullReferenceExceptionTask(int delay) => throw new NullReferenceException();
-
-		protected async ValueTask ValueTaskDelay(int delay) => await Task.Delay(delay);
 
 		protected new async ValueTask NoParameterDelayedNullReferenceExceptionTask()
 		{
@@ -28,5 +26,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncValu
 			await Task.Delay(delay);
 			throw new NullReferenceException();
 		}
+
+		ValueTask ValueTaskDelay(int delay) => new ValueTask(Task.Delay(delay));
 	}
 }

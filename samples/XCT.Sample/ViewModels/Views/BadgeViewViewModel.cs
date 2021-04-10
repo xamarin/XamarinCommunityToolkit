@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
@@ -7,12 +7,17 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 	{
 		int counter;
 
-		public BadgeViewViewModel() => Counter = 3;
+		public BadgeViewViewModel()
+		{
+			Counter = 3;
+
+			IncreaseCommand = CommandFactory.Create(Increase);
+			DecreaseCommand = CommandFactory.Create(Decrease);
+		}
 
 		public int Counter
 		{
 			get => counter;
-
 			set
 			{
 				counter = value;
@@ -20,9 +25,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			}
 		}
 
-		public ICommand IncreaseCommand => new Command(Increase);
+		public ICommand IncreaseCommand { get; }
 
-		public ICommand DecreaseCommand => new Command(Decrease);
+		public ICommand DecreaseCommand { get; }
 
 		void Increase() => Counter++;
 

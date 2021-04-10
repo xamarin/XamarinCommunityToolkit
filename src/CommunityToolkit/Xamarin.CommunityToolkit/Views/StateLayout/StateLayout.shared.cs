@@ -19,10 +19,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal static readonly BindableProperty LayoutControllerProperty
 			= BindableProperty.CreateAttached("LayoutController", typeof(StateLayoutController), typeof(Layout<View>), default(StateLayoutController),
-				defaultValueCreator: (b) => new StateLayoutController((Layout<View>)b) { StateViews = GetStateViews(b) });
+				defaultValueCreator: (b) => new StateLayoutController((Layout<View>)b) { StateViews = GetStateViews(b) ?? new List<StateView>() });
 
-		internal static StateLayoutController GetLayoutController(BindableObject b)
-			=> (StateLayoutController)b.GetValue(LayoutControllerProperty);
+		internal static StateLayoutController? GetLayoutController(BindableObject b)
+			=> (StateLayoutController?)b.GetValue(LayoutControllerProperty);
 
 		public static readonly BindableProperty CurrentStateProperty
 			= BindableProperty.CreateAttached("CurrentState", typeof(LayoutState), typeof(Layout<View>), default(LayoutState),
@@ -36,8 +36,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.CreateAttached("AnimateStateChanges", typeof(bool), typeof(Layout<View>), true,
 				propertyChanged: (b, o, n) => ((BindableObject)b).SetValue(AnimateStateChangesProperty, n));
 
-		public static IList<StateView> GetStateViews(BindableObject b)
-			=> (IList<StateView>)b.GetValue(StateViewsProperty);
+		public static IList<StateView>? GetStateViews(BindableObject b)
+			=> (IList<StateView>?)b.GetValue(StateViewsProperty);
 
 		public static void SetCurrentState(BindableObject b, LayoutState value)
 			=> b.SetValue(CurrentStateProperty, value);
@@ -48,8 +48,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static void SetCurrentCustomStateKey(BindableObject b, string value)
 			=> b.SetValue(CurrentCustomStateKeyProperty, value);
 
-		public static string GetCurrentCustomStateKey(BindableObject b)
-			=> (string)b.GetValue(CurrentCustomStateKeyProperty);
+		public static string? GetCurrentCustomStateKey(BindableObject b)
+			=> (string?)b.GetValue(CurrentCustomStateKeyProperty);
 
 		public static void SetAnimateStateChanges(BindableObject b, bool value)
 			=> b.SetValue(AnimateStateChangesProperty, value);
@@ -68,10 +68,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case LayoutState.Custom:
 					break;
 				case LayoutState.None:
-					GetLayoutController(bindable).SwitchToContent(GetAnimateStateChanges(bindable));
+					GetLayoutController(bindable)?.SwitchToContent(GetAnimateStateChanges(bindable));
 					break;
 				default:
-					GetLayoutController(bindable).SwitchToTemplate(newValue, null, GetAnimateStateChanges(bindable));
+					GetLayoutController(bindable)?.SwitchToTemplate(newValue, null, GetAnimateStateChanges(bindable));
 					break;
 			}
 		}
@@ -87,10 +87,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			switch (state)
 			{
 				case LayoutState.None:
-					GetLayoutController(bindable).SwitchToContent(GetAnimateStateChanges(bindable));
+					GetLayoutController(bindable)?.SwitchToContent(GetAnimateStateChanges(bindable));
 					break;
 				case LayoutState.Custom:
-					GetLayoutController(bindable).SwitchToTemplate(newValue, GetAnimateStateChanges(bindable));
+					GetLayoutController(bindable)?.SwitchToTemplate(newValue, GetAnimateStateChanges(bindable));
 					break;
 				default:
 					break;

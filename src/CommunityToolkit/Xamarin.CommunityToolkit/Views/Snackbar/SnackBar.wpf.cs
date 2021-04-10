@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		Timer snackBarTimer;
+		Timer? snackBarTimer;
 
 		internal Task Show(Page page, SnackBarOptions arguments)
 		{

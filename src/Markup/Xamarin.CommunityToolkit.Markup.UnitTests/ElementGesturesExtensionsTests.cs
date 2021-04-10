@@ -64,22 +64,22 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void ClickGesture()
 		{
 			var gestureElement = new TGestureElement();
-			ClickGestureRecognizer gestureRecognizer = null;
+			ClickGestureRecognizer? gestureRecognizer = null;
 
 			gestureElement.ClickGesture(g => gestureRecognizer = g);
 
-			AssertHasGestureRecognizer(gestureElement, gestureRecognizer);
+			AssertHasGestureRecognizer(gestureElement, gestureRecognizer ?? throw new NullReferenceException());
 		}
 
 		[Test]
 		public void TapGesture()
 		{
 			var gestureElement = new TGestureElement();
-			TapGestureRecognizer gestureRecognizer = null;
+			TapGestureRecognizer? gestureRecognizer = null;
 
 			gestureElement.TapGesture(g => gestureRecognizer = g);
 
-			AssertHasGestureRecognizer(gestureElement, gestureRecognizer);
+			AssertHasGestureRecognizer(gestureElement, gestureRecognizer ?? throw new NullReferenceException());
 		}
 	}
 
@@ -115,59 +115,59 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void PanGesture()
 		{
 			var gestureElement = new Label();
-			PanGestureRecognizer gestureRecognizer = null;
+			PanGestureRecognizer? gestureRecognizer = null;
 
 			gestureElement.PanGesture(g => gestureRecognizer = g);
 
-			AssertHasGestureRecognizer(gestureElement, gestureRecognizer);
+			AssertHasGestureRecognizer(gestureElement, gestureRecognizer ?? throw new NullReferenceException());
 		}
 
 		[Test]
 		public void PinchGesture()
 		{
 			var gestureElement = new Label();
-			PinchGestureRecognizer gestureRecognizer = null;
+			PinchGestureRecognizer? gestureRecognizer = null;
 
 			gestureElement.PinchGesture(g => gestureRecognizer = g);
 
-			AssertHasGestureRecognizer(gestureElement, gestureRecognizer);
+			AssertHasGestureRecognizer(gestureElement, gestureRecognizer ?? throw new NullReferenceException());
 		}
 
 		[Test]
 		public void SwipeGesture()
 		{
 			var gestureElement = new Label();
-			SwipeGestureRecognizer gestureRecognizer = null;
+			SwipeGestureRecognizer? gestureRecognizer = null;
 
 			gestureElement.SwipeGesture(g => gestureRecognizer = g);
 
-			AssertHasGestureRecognizer(gestureElement, gestureRecognizer);
+			AssertHasGestureRecognizer(gestureElement, gestureRecognizer ?? throw new NullReferenceException());
 		}
 
 		[Test]
 		public void MultipleGestures()
 		{
 			var gestureElement = new Label();
-			TapGestureRecognizer gestureRecognizer1 = null, gestureRecognizer2 = null;
-			SwipeGestureRecognizer gestureRecognizer3 = null;
+			TapGestureRecognizer? gestureRecognizer1 = null, gestureRecognizer2 = null;
+			SwipeGestureRecognizer? gestureRecognizer3 = null;
 
 			gestureElement.TapGesture(g => gestureRecognizer1 = g);
 			gestureElement.TapGesture(g => gestureRecognizer2 = g);
 			gestureElement.SwipeGesture(g => gestureRecognizer3 = g);
 
-			AssertHasGestureRecognizers(gestureElement, gestureRecognizer1, gestureRecognizer2);
-			AssertHasGestureRecognizer(gestureElement, gestureRecognizer3);
+			AssertHasGestureRecognizers(gestureElement, gestureRecognizer1 ?? throw new NullReferenceException(), gestureRecognizer2 ?? throw new NullReferenceException());
+			AssertHasGestureRecognizer(gestureElement, gestureRecognizer3 ?? throw new NullReferenceException());
 		}
 
 		[Test]
 		public void Gesture()
 		{
 			var gestureElement = new Label();
-			DerivedFromGestureRecognizer gestureRecognizer = null;
+			DerivedFromGestureRecognizer? gestureRecognizer = null;
 
 			gestureElement.Gesture((DerivedFromGestureRecognizer g) => gestureRecognizer = g);
 
-			AssertHasGestureRecognizer(gestureElement, gestureRecognizer);
+			AssertHasGestureRecognizer(gestureElement, gestureRecognizer ?? throw new NullReferenceException());
 		}
 
 		[Test]
@@ -207,7 +207,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			where TGestureRecognizer : GestureRecognizer
 		{
 			if (gestureRecognizers.Length == 0)
-				gestureRecognizers = element?.GestureRecognizers?.Where(g => g is TGestureRecognizer).Cast<TGestureRecognizer>().ToArray();
+				gestureRecognizers = element.GestureRecognizers.Where(g => g is TGestureRecognizer).Cast<TGestureRecognizer>().ToArray();
 
 			Assert.That(gestureRecognizers.Length, Is.EqualTo(count));
 
@@ -227,7 +227,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			public Guid Id { get; set; }
 
-			public ICommand Command { get; set; }
+			public ICommand? Command { get; set; }
 		}
 	}
 }

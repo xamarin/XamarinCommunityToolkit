@@ -12,13 +12,24 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 	{
 		readonly GitHubClient gitHubClient = new GitHubClient(new ProductHeaderValue("XamarinCommunityToolkitSample"));
 
-		RepositoryContributor[] contributors = new RepositoryContributor[0];
+		RepositoryContributor[] contributors = Array.Empty<RepositoryContributor>();
 
-		RepositoryContributor selectedContributor;
+		RepositoryContributor? selectedContributor;
 
 		string emptyViewText = "Loading data...";
 
-		ICommand selectedContributorCommand;
+		public AboutViewModel()
+		{
+			PageAppearingCommand = CommandFactory.Create(OnAppearing);
+			SelectedContributorCommand = CommandFactory.Create(async () =>
+			{
+				if (SelectedContributor == null)
+					return;
+
+				await Launcher.OpenAsync(SelectedContributor.HtmlUrl);
+				SelectedContributor = null;
+			});
+		}
 
 		public RepositoryContributor[] Contributors
 		{
@@ -26,7 +37,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			set => SetProperty(ref contributors, value);
 		}
 
-		public RepositoryContributor SelectedContributor
+		public RepositoryContributor? SelectedContributor
 		{
 			get => selectedContributor;
 			set => SetProperty(ref selectedContributor, value);
@@ -38,14 +49,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			set => SetProperty(ref emptyViewText, value);
 		}
 
-		public ICommand SelectedContributorCommand => selectedContributorCommand ??= new AsyncCommand(async () =>
-		{
-			if (SelectedContributor is null)
-				return;
+		public ICommand PageAppearingCommand { get; }
 
-			await Launcher.OpenAsync(SelectedContributor.HtmlUrl);
-			SelectedContributor = null;
-		});
+		public ICommand SelectedContributorCommand { get; }
 
 		public async Task OnAppearing()
 		{

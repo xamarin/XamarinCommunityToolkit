@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Markup
 	public static class RelativeLayoutExtensions
 	{
 		// TODO: Mark obsolete after we implement factory method in MAUI: public static RelativeLayout RelativeLayout(params ConstrainedView?[] constrainedViews) { ... }
-		public static TRelativeLayout Children<TRelativeLayout>(this TRelativeLayout layout, params ConstrainedView[] constrainedViews) where TRelativeLayout : RelativeLayout
+		public static TRelativeLayout Children<TRelativeLayout>(this TRelativeLayout layout, params ConstrainedView?[] constrainedViews) where TRelativeLayout : RelativeLayout
 		{
 			foreach (var constrainedView in constrainedViews)
 				constrainedView?.AddTo(layout);
@@ -42,14 +42,14 @@ namespace Xamarin.CommunityToolkit.Markup
 		readonly Bounds bounds;
 
 		public BoundsConstrainedView(View view, Bounds bounds)
-            : base(view) { this.bounds = bounds; }
+			: base(view) => this.bounds = bounds;
 
 		public override void AddTo(RelativeLayout layout) => layout.Children.Add(view, bounds);
 	}
 
 	public class ExpressionsConstrainedView : ConstrainedView
 	{
-		Expression x, y, width, height;
+		Expression? x, y, width, height;
 
 		public ExpressionsConstrainedView(View view)
             : base(view) { }
@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.Markup
 
 	public class ConstraintsConstrainedView : ConstrainedView
 	{
-		Constraint x, y, width, height;
+		Constraint? x, y, width, height;
 
 		public ConstraintsConstrainedView(View view)
             : base(view) { }
@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.Markup
 	{
 		protected readonly View view;
 
-		protected ConstrainedView(View view) { this.view = view; }
+		protected ConstrainedView(View view) => this.view = view;
 
 		public abstract void AddTo(RelativeLayout layout);
 	}

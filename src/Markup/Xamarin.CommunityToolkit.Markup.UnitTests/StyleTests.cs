@@ -10,9 +10,9 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void ImplicitCast()
 		{
-			Style<Label> style = null;
+			Style<Label>? style = null;
 
-			Style formsStyle = style;
+			Style? formsStyle = style;
 			Assert.That(formsStyle, Is.Null);
 
 			style = new Style<Label>();
@@ -25,13 +25,13 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			var style = new Style<Label>(
 				(Label.TextColorProperty, Color.Red));
-			Style formsStyle = style;
+			Style? formsStyle = style;
 
-			Assert.That(formsStyle.Setters?.Count, Is.EqualTo(1));
+			Assert.That(formsStyle?.Setters?.Count, Is.EqualTo(1));
 
-			var setter = formsStyle.Setters[0];
-			Assert.That(setter.Property, Is.EqualTo(Label.TextColorProperty));
-			Assert.That(setter.Value, Is.EqualTo(Color.Red));
+			var setter = formsStyle?.Setters?[0];
+			Assert.That(setter?.Property, Is.EqualTo(Label.TextColorProperty));
+			Assert.That(setter?.Value, Is.EqualTo(Color.Red));
 		}
 
 		[Test]
@@ -40,157 +40,164 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var style = new Style<Label>(
 				(Label.TextColorProperty, Color.Red),
 				(Label.TranslationXProperty, 8.0));
-			Style formsStyle = style;
+			Style? formsStyle = style;
 
-			Assert.That(formsStyle.Setters?.Count, Is.EqualTo(2));
+			Assert.That(formsStyle?.Setters?.Count, Is.EqualTo(2));
 
-			var setter1 = formsStyle.Setters[0];
-			Assert.That(setter1.Property, Is.EqualTo(Label.TextColorProperty));
-			Assert.That(setter1.Value, Is.EqualTo(Color.Red));
+			var setter1 = formsStyle?.Setters?[0];
+			Assert.That(setter1?.Property, Is.EqualTo(Label.TextColorProperty));
+			Assert.That(setter1?.Value, Is.EqualTo(Color.Red));
 
-			var setter2 = formsStyle.Setters[1];
-			Assert.That(setter2.Property, Is.EqualTo(Label.TranslationXProperty));
-			Assert.That(setter2.Value, Is.EqualTo(8.0));
+			var setter2 = formsStyle?.Setters?[1];
+			Assert.That(setter2?.Property, Is.EqualTo(Label.TranslationXProperty));
+			Assert.That(setter2?.Value, Is.EqualTo(8.0));
 		}
 
 		[Test]
 		public void ApplyToDerivedTypes()
 		{
 			var style = new Style<Label>();
-			Style formsStyle = style;
+			Style? formsStyle = style;
 
-			Assert.IsFalse(formsStyle.ApplyToDerivedTypes);
+			Assert.IsFalse(formsStyle?.ApplyToDerivedTypes);
 			style.ApplyToDerivedTypes(true);
-			Assert.IsTrue(formsStyle.ApplyToDerivedTypes);
+			Assert.IsTrue(formsStyle?.ApplyToDerivedTypes);
 		}
 
 		[Test]
 		public void BasedOn()
 		{
-			var baseStyle = new Style<Label>();
-			var style = new Style<Label>().BasedOn(baseStyle);
-			Style formsStyle = style, formsBaseStyle = baseStyle;
+			Style? baseStyle = new Style<Label>();
+			if (baseStyle is null)
+				throw new NullReferenceException();
 
-			Assert.That(ReferenceEquals(formsStyle.BasedOn, formsBaseStyle));
+			var style = new Style<Label>().BasedOn(baseStyle);
+			Style? formsStyle = style, formsBaseStyle = baseStyle;
+
+			Assert.That(ReferenceEquals(formsStyle?.BasedOn, formsBaseStyle));
 		}
 
 		[Test]
 		public void AddSingleSetter()
 		{
 			var style = new Style<Label>();
-			Style formsStyle = style;
+			Style? formsStyle = style;
 
-			Assume.That(formsStyle.Setters?.Count ?? 0, Is.EqualTo(0));
+			Assume.That(formsStyle?.Setters?.Count ?? 0, Is.EqualTo(0));
 
 			style.Add((Label.TextColorProperty, Color.Red));
 
-			Assert.That(formsStyle.Setters?.Count, Is.EqualTo(1));
+			Assert.That(formsStyle?.Setters?.Count, Is.EqualTo(1));
 
-			var setter = formsStyle.Setters[0];
-			Assert.That(setter.Property, Is.EqualTo(Label.TextColorProperty));
-			Assert.That(setter.Value, Is.EqualTo(Color.Red));
+			var setter = formsStyle?.Setters?[0];
+			Assert.That(setter?.Property, Is.EqualTo(Label.TextColorProperty));
+			Assert.That(setter?.Value, Is.EqualTo(Color.Red));
 		}
 
 		[Test]
 		public void AddMultipleSetters()
 		{
 			var style = new Style<Label>();
-			Style formsStyle = style;
-			Assume.That(formsStyle.Setters?.Count ?? 0, Is.EqualTo(0));
+			Style? formsStyle = style;
+			Assume.That(formsStyle?.Setters?.Count ?? 0, Is.EqualTo(0));
 
 			style.Add(
 				(Label.TextColorProperty, Color.Red),
 				(Label.TranslationXProperty, 8.0));
 
-			Assert.That(formsStyle.Setters?.Count, Is.EqualTo(2));
+			Assert.That(formsStyle?.Setters?.Count, Is.EqualTo(2));
 
-			var setter1 = formsStyle.Setters[0];
-			Assert.That(setter1.Property, Is.EqualTo(Label.TextColorProperty));
-			Assert.That(setter1.Value, Is.EqualTo(Color.Red));
+			var setter1 = formsStyle?.Setters?[0];
+			Assert.That(setter1?.Property, Is.EqualTo(Label.TextColorProperty));
+			Assert.That(setter1?.Value, Is.EqualTo(Color.Red));
 
-			var setter2 = formsStyle.Setters[1];
-			Assert.That(setter2.Property, Is.EqualTo(Label.TranslationXProperty));
-			Assert.That(setter2.Value, Is.EqualTo(8.0));
+			var setter2 = formsStyle?.Setters?[1];
+			Assert.That(setter2?.Property, Is.EqualTo(Label.TranslationXProperty));
+			Assert.That(setter2?.Value, Is.EqualTo(8.0));
 		}
 
 		[Test]
 		public void AddSingleBehavior()
 		{
 			var style = new Style<Label>();
-			Style formsStyle = style;
-			Assume.That(formsStyle.Behaviors?.Count ?? 0, Is.EqualTo(0));
+			Style? formsStyle = style;
+			Assume.That(formsStyle?.Behaviors?.Count ?? 0, Is.EqualTo(0));
 			var behavior = new LabelBehavior();
 
 			style.Add(behavior);
 
-			Assert.That(formsStyle.Behaviors?.Count, Is.EqualTo(1));
-			Assert.That(ReferenceEquals(formsStyle.Behaviors[0], behavior));
+			Assert.That(formsStyle?.Behaviors?.Count, Is.EqualTo(1));
+			Assert.That(ReferenceEquals(formsStyle?.Behaviors?[0], behavior));
 		}
 
 		[Test]
 		public void AddMultipleBehaviors()
 		{
 			var style = new Style<Label>();
-			Style formsStyle = style;
-			Assume.That(formsStyle.Behaviors?.Count ?? 0, Is.EqualTo(0));
+			Style? formsStyle = style;
+			Assume.That(formsStyle?.Behaviors?.Count ?? 0, Is.EqualTo(0));
 			var behavior1 = new LabelBehavior();
 			var behavior2 = new LabelBehavior();
 
 			style.Add(behavior1, behavior2);
 
-			Assert.That(formsStyle.Behaviors?.Count, Is.EqualTo(2));
-			Assert.That(ReferenceEquals(formsStyle.Behaviors[0], behavior1));
-			Assert.That(ReferenceEquals(formsStyle.Behaviors[1], behavior2));
+			Assert.That(formsStyle?.Behaviors?.Count, Is.EqualTo(2));
+			Assert.That(ReferenceEquals(formsStyle?.Behaviors?[0], behavior1));
+			Assert.That(ReferenceEquals(formsStyle?.Behaviors?[1], behavior2));
 		}
 
 		[Test]
 		public void AddSingleTrigger()
 		{
 			var style = new Style<Label>();
-			Style formsStyle = style;
-			Assume.That(formsStyle.Triggers?.Count ?? 0, Is.EqualTo(0));
+			Style? formsStyle = style;
+			Assume.That(formsStyle?.Triggers?.Count ?? 0, Is.EqualTo(0));
 			var trigger = new Trigger(typeof(Label));
 
 			style.Add(trigger);
 
-			Assert.That(formsStyle.Triggers?.Count, Is.EqualTo(1));
-			Assert.That(ReferenceEquals(formsStyle.Triggers[0], trigger));
+			Assert.That(formsStyle?.Triggers?.Count, Is.EqualTo(1));
+			Assert.That(ReferenceEquals(formsStyle?.Triggers?[0], trigger));
 		}
 
 		[Test]
 		public void AddMultipleTriggers()
 		{
 			var style = new Style<Label>();
-			Style formsStyle = style;
-			Assume.That(formsStyle.Triggers?.Count ?? 0, Is.EqualTo(0));
+			Style? formsStyle = style;
+			Assume.That(formsStyle?.Triggers?.Count ?? 0, Is.EqualTo(0));
 			var trigger1 = new Trigger(typeof(Label));
 			var trigger2 = new Trigger(typeof(Label));
 
 			style.Add(trigger1, trigger2);
 
-			Assert.That(formsStyle.Triggers?.Count, Is.EqualTo(2));
-			Assert.That(ReferenceEquals(formsStyle.Triggers[0], trigger1));
-			Assert.That(ReferenceEquals(formsStyle.Triggers[1], trigger2));
+			Assert.That(formsStyle?.Triggers?.Count, Is.EqualTo(2));
+			Assert.That(ReferenceEquals(formsStyle?.Triggers?[0], trigger1));
+			Assert.That(ReferenceEquals(formsStyle?.Triggers?[1], trigger2));
 		}
 
 		[Test]
 		public void CanCascade()
 		{
 			var style = new Style<Label>();
-			Style formsStyle = style;
+			Style? formsStyle = style;
 
-			Assert.IsFalse(formsStyle.CanCascade);
+			Assert.IsFalse(formsStyle?.CanCascade);
 			style.CanCascade(true);
-			Assert.IsTrue(formsStyle.CanCascade);
+			Assert.IsTrue(formsStyle?.CanCascade);
 		}
 
 		[Test]
 		public void Fluent()
 		{
-			Style<Label> style =
+			Style? basedOnStyle = new Style<Label>();
+			if (basedOnStyle is null)
+				throw new NullReferenceException();
+
+			var style =
 				new Style<Label>()
 				.ApplyToDerivedTypes(true)
-				.BasedOn(new Style<Label>())
+				.BasedOn(basedOnStyle)
 				.Add((Label.TextColorProperty, Color.Red))
 				.Add(new LabelBehavior())
 				.Add(new Trigger(typeof(Label)))
