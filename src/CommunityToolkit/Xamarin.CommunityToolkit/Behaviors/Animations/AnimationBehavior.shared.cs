@@ -47,9 +47,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (AnimationType != null && sender is View view)
 				await AnimationType.Animate(view);
 
-			if (Command?.CanExecute(CommandParameter) ?? false)
-				Command.Execute(CommandParameter);
-
 			isAnimating = false;
 
 			base.OnTriggerHandled(sender, eventArgs);
