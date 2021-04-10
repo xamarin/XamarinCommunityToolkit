@@ -6,7 +6,6 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
-using System;
 #if MONOANDROID10_0
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
@@ -107,7 +106,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBar.Show();
 		}
 
-		static async Task<IVisualElementRenderer> GetRendererWithRetries(Page sender, int maxRetries = 5)
+		static async Task<IVisualElementRenderer?> GetRendererWithRetries(Page sender, int maxRetries = 5)
 		{
 			var retriesLeft = maxRetries;
 
