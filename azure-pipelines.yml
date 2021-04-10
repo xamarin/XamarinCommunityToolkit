@@ -225,11 +225,11 @@ jobs:
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
-          script: 'dotnet test $(PathToMarkupUnitTestCsproj) /p:Configuration=Release -p:BuildInParallel=false'
+          script: 'dotnet test $(PathToMarkupUnitTestCsproj) -c Release -p:BuildInParallel=false'
       - task: CmdLine@2
         displayName: 'Run Community Toolkit Unit Tests'
         inputs:
-          script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release -p:BuildInParallel=false'
+          script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release -p:BuildInParallel=false'
       - task: CmdLine@2
         displayName: 'Pack Markup NuGets'
         inputs:

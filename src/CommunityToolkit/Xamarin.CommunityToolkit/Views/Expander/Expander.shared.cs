@@ -315,7 +315,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			InvokeAnimation(startSize, endSize, shouldIgnoreAnimation);
 		}
 
-		void SetHeader(View oldHeader)
+		void SetHeader(View? oldHeader)
 		{
 			if (oldHeader != null)
 			{
