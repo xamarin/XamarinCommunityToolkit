@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Gets the light dismiss default result.
 		/// </summary>
 		/// <returns>
-		/// The light dismiss value of <see cref="T"/>.
+		/// The light dismiss value of <typeparamref name="T"/>
 		/// </returns>
 		/// <remarks>
 		/// When a user dismisses the Popup via the light dismiss, this
