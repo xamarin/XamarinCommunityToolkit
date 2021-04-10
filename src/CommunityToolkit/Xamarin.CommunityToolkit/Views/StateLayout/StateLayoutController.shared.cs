@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		readonly WeakReference<Layout<View>> layoutWeakReference;
 		bool layoutIsGrid;
-		LayoutState? previousState;
+		LayoutState previousState = LayoutState.None;
 		IList<View> originalContent = Enumerable.Empty<View>().ToList();
 		CancellationTokenSource? animationTokenSource;
 

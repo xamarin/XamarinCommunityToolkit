@@ -5,6 +5,9 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// Abstract base class for <see cref="LazyView{TView}"/>
+	/// </summary>
 	[Preserve(Conditional = true)]
 	public abstract class BaseLazyView : ContentView, IDisposable
 	{
@@ -33,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public abstract ValueTask LoadViewAsync();
 
 		/// <summary>
-		/// This method dispose the <see cref="Content"/> if it's <see cref="IDisposable"/>.
+		/// This method dispose the <see cref="ContentView.Content"/> if it's <see cref="IDisposable"/>.
 		/// </summary>
 		public void Dispose()
 		{

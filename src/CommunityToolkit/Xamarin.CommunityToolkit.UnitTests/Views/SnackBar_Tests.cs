@@ -1,10 +1,10 @@
 #if !NETCOREAPP
 using System;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
