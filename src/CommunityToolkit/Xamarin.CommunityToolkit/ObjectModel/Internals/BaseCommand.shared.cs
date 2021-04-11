@@ -54,8 +54,8 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 				var shouldRaiseCanExecuteChanged = (AllowsMultipleExecutions, executionCount, value) switch
 				{
 					(true, _, _) => false,
-					(false, 0, >0) => true,
-					(false, >0, 0) => true,
+					(false, 0, > 0) => true,
+					(false, > 0, 0) => true,
 					(false, _, _) => false
 				};
 

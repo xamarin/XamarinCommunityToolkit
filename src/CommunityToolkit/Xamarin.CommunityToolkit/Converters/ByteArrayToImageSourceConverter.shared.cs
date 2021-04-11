@@ -8,12 +8,12 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	/// Converts the incoming value from <see cref="byte[]"/> and returns the object of a type <see cref="ImageSource"/> or vice versa.
+	/// Converts the incoming value from <see cref="byte"/>[] and returns the object of a type <see cref="ImageSource"/> or vice versa.
 	/// </summary>
 	public class ByteArrayToImageSourceConverter : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
-		/// Converts the incoming value from <see cref="byte[]"/> and returns the object of a type <see cref="ImageSource"/>.
+		/// Converts the incoming value from <see cref="byte"/>[] and returns the object of a type <see cref="ImageSource"/>.
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
 		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		}
 
 		/// <summary>
-		/// Converts the incoming value from <see cref="StreamImageSource"/> and returns a <see cref="byte[]"/>.
+		/// Converts the incoming value from <see cref="StreamImageSource"/> and returns a <see cref="byte"/>[].
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
 		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>

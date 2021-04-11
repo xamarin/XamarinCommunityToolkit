@@ -73,9 +73,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			if (AnimationType != null)
 				await AnimationType.Animate((View?)View);
 
-			if (Command?.CanExecute(CommandParameter) ?? false)
-				Command.Execute(CommandParameter);
-
 			isAnimating = false;
 		}
 	}

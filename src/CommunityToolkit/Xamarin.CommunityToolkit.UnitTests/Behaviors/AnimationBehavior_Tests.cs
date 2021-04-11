@@ -11,6 +11,27 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 		public void SetUp() => Device.PlatformServices = new MockPlatformServices();
 
 		[Test]
+		public void CommandIsInvokedOnlyOneTimePerEvent()
+		{
+			var commandInvokeCount = 0;
+			var mockView = new MockEventView
+			{
+				Behaviors =
+				{
+					new AnimationBehavior
+					{
+						EventName = nameof(MockEventView.Event),
+						Command = new Command(() => ++commandInvokeCount)
+					}
+				}
+			};
+			mockView.Event += (s, e) => { };
+			mockView.InvokeEvent();
+
+			Assert.AreEqual(commandInvokeCount, 1);
+		}
+
+		[Test]
 		public void AnimateCommandStartsAnimation()
 		{
 			var mockAnimation = new MockAnimationType();
@@ -23,9 +44,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			new Label
 			{
 				Behaviors =
- 				{
+				{
  					behavior
- 				}
+				}
 			};
 
 			behavior.AnimateCommand.Execute(null);
