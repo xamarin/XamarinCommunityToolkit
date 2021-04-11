@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
+using Android.OS;
 using Android.Views;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms.Platform.Android;
-using Effects = Xamarin.CommunityToolkit.Android.Effects;
-
 using Xamarin.Forms;
-using Android.OS;
+using Xamarin.Forms.Platform.Android;
+using static Xamarin.CommunityToolkit.Effects.AndroidSpecific.FullScreenEffect;
+using static Xamarin.CommunityToolkit.Effects.FullScreenEffect;
+using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 [assembly: ExportEffect(typeof(Effects.FullScreenEffectRouter), nameof(FullScreenEffectRouter))]
 
@@ -17,11 +18,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		protected override void OnAttached()
 		{
-			//should we e WeakEventManager intead?
+			// should we use WeakEventManager instead?
 			(Element as Page)!.Disappearing += FullScreenEffectRouter_Disappearing;
 
 			// TODO: Remove if not required
-			FullScreenEffect.InitialHasNavigationBar = NavigationPage.GetHasNavigationBar(Element as Page);
+			InitialHasNavigationBar = NavigationPage.GetHasNavigationBar(Element as Page);
 			UpdateStatusBar();
 		}
 
@@ -38,8 +39,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			base.OnElementPropertyChanged(args);
 
-			if (!args.PropertyName.Equals(FullScreenEffect.ModeProperty.PropertyName) || isDetaching)
+			if (!args.PropertyName.Equals(ModeProperty.PropertyName) || isDetaching)
+			{
 				return;
+			}
 
 			UpdateStatusBar();
 		}
@@ -51,7 +54,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return;
 			}
 
-			var fullScreenMode = FullScreenEffect.GetMode(Element);
+			var fullScreenMode = GetMode(Element);
 			if (fullScreenMode != FullScreenMode.Disabled)
 			{
 				EnableFullScreen(fullScreenMode);
@@ -64,8 +67,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void ResetStatusBar()
 		{
-			var fullScreenMode = FullScreenEffect.GetMode(Element);
-			var isPersistent = FullScreenEffect.GetIsPersistent(Element);
+			var fullScreenMode = GetMode(Element);
+			var isPersistent = GetIsPersistent(Element);
 			if (fullScreenMode != FullScreenMode.Disabled && !isPersistent)
 			{
 				DisableFullScreen();
@@ -77,7 +80,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			var window = Container.Context.GetActivity()?.Window;
 			if (window is null)
+			{
 				return;
+			}
 
 			// Supported in Android API > 17 (deprecated in API30 (Android 11) which is not supported by xct yet)
 			if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBeanMr1)
@@ -117,7 +122,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				if (view != null)
 				{
 					view.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.Visible;
-					NavigationPage.SetHasNavigationBar(Element as Page, FullScreenEffect.InitialHasNavigationBar);
+					NavigationPage.SetHasNavigationBar(Element as Page, InitialHasNavigationBar);
 				}
 			}
 

@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
@@ -10,6 +11,8 @@ namespace Xamarin.CommunityToolkit.Effects
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.Android.Effects.FullScreenEffectRouter();
+#else
+			throw new NotImplementedException();
 #endif
 		}
 	}
