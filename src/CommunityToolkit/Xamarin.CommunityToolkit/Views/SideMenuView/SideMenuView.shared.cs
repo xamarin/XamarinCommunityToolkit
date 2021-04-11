@@ -86,6 +86,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty MenuAppearanceTypeProperty
 			= BindableProperty.CreateAttached(nameof(GetMenuAppearanceType), typeof(SideMenuAppearanceType), typeof(SideMenuView), SideMenuAppearanceType.SlideOut);
 
+		public static readonly BindableProperty ParallaxValueProperty
+			= BindableProperty.CreateAttached(nameof(GetParallaxValue), typeof(double), typeof(SideMenuView), 0.0);
 
 		public SideMenuView()
 		{
@@ -174,6 +176,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static void SetMenuAppearanceType(BindableObject bindable, SideMenuAppearanceType value)
 			=> bindable.SetValue(MenuAppearanceTypeProperty, value);
+
+		public static double GetParallaxValue(BindableObject bindable)
+			=> (double)bindable.GetValue(ParallaxValueProperty);
+
+		public static void SetParallaxValue(BindableObject bindable, double value)
+			=> bindable.SetValue(ParallaxValueProperty, value);
 
 		internal void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
@@ -426,23 +434,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * progress);
 				var opacity = 1 - ((1 - GetMainViewOpacityFactor(activeMenu)) * progress);
 
+				var parallax = GetParallaxValue(activeMenu);
+				parallax = Min(Abs(parallax), activeMenuWidth) * Sign(parallax);
+
 				mainView.Scale = scale;
 				mainView.Opacity = opacity;
 
 				switch (GetMenuAppearanceType(activeMenu))
 				{
 					case SideMenuAppearanceType.SlideOut:
-						activeMenu.TranslationX = 0;
+						activeMenu.TranslationX = parallax * (1 - Abs(progress)) * nonZeroSign;
 						mainView.TranslationX = shift - (sign * mainViewWidth * 0.5 * (1 - scale));
 						overlayView.TranslationX = shift;
 						break;
 					case SideMenuAppearanceType.SlideIn:
 						activeMenu.TranslationX = (activeMenuWidth - Abs(shift)) * nonZeroSign;
-						mainView.TranslationX = 0;
-						overlayView.TranslationX = 0;
+						mainView.TranslationX = parallax * progress;
+						overlayView.TranslationX = parallax * progress;
 						break;
 					case SideMenuAppearanceType.SlideInOut:
-						activeMenu.TranslationX = (activeMenuWidth - Abs(shift)) * nonZeroSign;
+						activeMenu.TranslationX = (activeMenuWidth - Abs(shift) - (parallax * (1 - Abs(progress)))) * nonZeroSign;
 						mainView.TranslationX = shift - (sign * mainViewWidth * 0.5 * (1 - scale));
 						overlayView.TranslationX = shift;
 						break;
@@ -625,7 +636,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RaiseMenuIfNeeded(View? menuView)
 		{
-			if (menuView != null && GetMenuAppearanceType(menuView) != SideMenuAppearanceType.SlideOut)
+			if (menuView != null && GetMenuAppearanceType(menuView) == SideMenuAppearanceType.SlideIn)
 				Control.RaiseChild(menuView);
 		}
 
