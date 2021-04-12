@@ -1,7 +1,7 @@
 ﻿using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
-using XFPC = Xamarin.Forms.PlatformConfiguration;
 using XCTElement = Xamarin.CommunityToolkit.UI.Views.BasePopup;
+using XFPC = Xamarin.Forms.PlatformConfiguration;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific
 {
