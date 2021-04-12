@@ -67,12 +67,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(DateTimeOffsetConverterPage),
 				nameof(DateTimeOffsetConverter),
 				"A converter that allows to convert from a DateTimeOffset type to a DateTime type"),
-
 			new SectionModel(
 				typeof(VariableMultiValueConverterPage),
 				nameof(VariableMultiValueConverter),
 				"A converter that allows you to combine multiple boolean bindings into a single binding."),
-
 			new SectionModel(
 				typeof(ListIsNullOrEmptyPage),
 				nameof(ListIsNullOrEmptyConverter),
@@ -98,9 +96,13 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				nameof(MathExpressionConverter),
 				"A converter that allows users to calculate an expression at runtime."),
       new SectionModel(
+				typeof(StringToListConverterPage),
+				nameof(StringToListConverter),
+				"A converter that splits a string by the separator and returns the enumerable sequence of strings as the result."),
+			new SectionModel(
 				typeof(CompareConverterPage),
 				nameof(CompareConverter),
-				"The CompareConverter is a converter that converts an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue.")
+				"A converter that allows you to convert an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue.")
 		};
 	}
 }
