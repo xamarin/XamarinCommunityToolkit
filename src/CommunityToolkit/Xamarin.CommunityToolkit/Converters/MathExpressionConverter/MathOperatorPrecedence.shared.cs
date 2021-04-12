@@ -1,6 +1,6 @@
 ﻿namespace Xamarin.CommunityToolkit.Converters
 {
-	internal enum MathOperatorPrecedence
+	enum MathOperatorPrecedence
 	{
 		Lowest,
 		Low,
