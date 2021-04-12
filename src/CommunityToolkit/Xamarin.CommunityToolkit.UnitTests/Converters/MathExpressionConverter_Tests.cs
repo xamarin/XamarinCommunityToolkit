@@ -7,9 +7,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class MathExpressionConverter_Tests
 	{
+		const double tolerance = 0.00001d;
 		readonly Type type = typeof(MathExpressionConverter_Tests);
 		readonly CultureInfo cultureInfo = CultureInfo.CurrentCulture;
-		const double tolerance = 0.00001d;
 
 		[TestCase("-10 + x * -2", 2d, -14d)]
 		[TestCase("x + x * x", 2d, 6d)]
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 			var result = mathExpressionConverter.Convert(x, type, expression, cultureInfo);
 
-			if (result is null)
+			if (result == null)
 			{
 				Assert.Fail();
 			}
@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 			var result = mathExpressionConverter.Convert(variables, type, expression, cultureInfo);
 
-			if (result is null)
+			if (result == null)
 			{
 				Assert.Fail();
 			}
