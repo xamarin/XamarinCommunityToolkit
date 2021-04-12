@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
-	internal sealed class MathExpression
+	sealed class MathExpression
 	{
 		const string regexPattern = @"(?<!\d)\-?(?:\d+\.\d+|\d+)|\+|\-|\/|\*|\(|\)|\^|\%|\w+";
 
@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		public MathExpression(string expression, IEnumerable<double> arguments)
 		{
 			if (string.IsNullOrEmpty(expression))
-				throw new ArgumentNullException(nameof(expression), "Expression can't be null or empty");
+				throw new ArgumentNullException(nameof(expression), "Expression can't be null or empty.");
 
 			Expression = expression.ToLower();
 			this.arguments = arguments?.ToList() ?? new List<double>();
@@ -58,12 +58,14 @@ namespace Xamarin.CommunityToolkit.Converters
 				new ("e", 0, MathOperatorPrecedence.Constant, _ => Math.E),
 			};
 
-			if (this.arguments.Count > 0)
+			var argumentsCount = this.arguments.Count;
+
+			if (argumentsCount > 0)
 			{
 				operators.Add(new MathOperator("x", 0, MathOperatorPrecedence.Constant, _ => this.arguments[0]));
 			}
 
-			for (var i = 0; i < this.arguments.Count; i++)
+			for (var i = 0; i < argumentsCount; i++)
 			{
 				var index = i;
 				operators.Add(new MathOperator($"x{i}", 0, MathOperatorPrecedence.Constant, _ => this.arguments[index]));
@@ -95,11 +97,13 @@ namespace Xamarin.CommunityToolkit.Converters
 					continue;
 				}
 
-				if (stack.Count < @operator.NumericCount)
-					throw new ArgumentException("Invalid math expression");
+				var operatorNumericCount = @operator.NumericCount;
+
+				if (stack.Count < operatorNumericCount)
+					throw new ArgumentException("Invalid math expression.");
 
 				var args = new List<double>();
-				for (var j = 0; j < @operator.NumericCount; j++)
+				for (var j = 0; j < operatorNumericCount; j++)
 				{
 					args.Add(stack.Pop());
 				}
@@ -110,7 +114,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			}
 
 			if (stack.Count != 1)
-				throw new ArgumentException("Invalid math expression");
+				throw new ArgumentException("Invalid math expression.");
 
 			return stack.Pop();
 		}
@@ -121,7 +125,7 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			var matches = regex.Matches(expression);
 			if (matches == null)
-				throw new ArgumentException("Invalid math expression");
+				throw new ArgumentException("Invalid math expression.");
 
 			var output = new List<string>();
 			var stack = new Stack<(string Name, MathOperatorPrecedence Precedence)>();
@@ -173,7 +177,7 @@ namespace Xamarin.CommunityToolkit.Converters
 					for (var i = stack.Count - 1; i >= 0; i--)
 					{
 						if (stack.Count == 0)
-							throw new ArgumentException("Invalid math expression");
+							throw new ArgumentException("Invalid math expression.");
 
 						var stackValue = stack.Pop().Name;
 						if (stackValue == "(")
@@ -186,7 +190,7 @@ namespace Xamarin.CommunityToolkit.Converters
 					}
 
 					if (!isFound)
-						throw new ArgumentException("Invalid math expression");
+						throw new ArgumentException("Invalid math expression.");
 				}
 			}
 
@@ -195,7 +199,7 @@ namespace Xamarin.CommunityToolkit.Converters
 				var stackValue = stack.Pop();
 				if (stackValue.Name == "(")
 				{
-					throw new ArgumentException("Invalid math expression");
+					throw new ArgumentException("Invalid math expression.");
 				}
 				output.Add(stackValue.Name);
 			}
