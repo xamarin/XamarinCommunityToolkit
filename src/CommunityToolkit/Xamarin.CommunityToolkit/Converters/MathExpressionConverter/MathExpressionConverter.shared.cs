@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
 		{
 			if (parameter is not string expression)
-				throw new ArgumentException("The parameter should be of type String");
+				throw new ArgumentException("The parameter should be of type String.");
 
 			if (value == null || !double.TryParse(value.ToString(), out var xValue))
 				return null;
