@@ -2,7 +2,7 @@
 
 namespace Xamarin.CommunityToolkit.Converters
 {
-	internal sealed class MathOperator
+	sealed class MathOperator
 	{
 		public string Name { get; }
 
