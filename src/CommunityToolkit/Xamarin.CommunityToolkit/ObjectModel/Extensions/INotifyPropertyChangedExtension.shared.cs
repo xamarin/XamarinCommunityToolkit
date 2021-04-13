@@ -5,6 +5,8 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Extensions
 {
 	public static class INotifyPropertyChangedExtension
 	{
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		[Obsolete("This method shouldn't be used week events (like one in ObservableObject). This method is deprecated due to high probability of misuse.")]
 		public static void WeakSubscribe<T>(this INotifyPropertyChanged target, T subscriber, Action<T, object?, PropertyChangedEventArgs> action)
 		{
 			_ = target ?? throw new ArgumentNullException(nameof(target));
