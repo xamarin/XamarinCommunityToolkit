@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
 using NUnit.Framework;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.CommandFactoryTests
 {

@@ -8,9 +8,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
 using ApiInformation = Windows.Foundation.Metadata.ApiInformation;
+using Specific = Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific.PopUp;
 using UWPThickness = Windows.UI.Xaml.Thickness;
 using XamlStyle = Windows.UI.Xaml.Style;
-using Specific = Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific.PopUp;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]
 

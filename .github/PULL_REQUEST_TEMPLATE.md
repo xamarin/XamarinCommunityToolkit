@@ -49,7 +49,7 @@ public static class NewClass {
 
 ### PR Checklist ###
 <!-- Please check all the things you did here and double-check that you got it all, or state why you didn't do something -->
-
+- [ ] Has a linked Issue, and the Issue has been `approved`
 - [ ] Has tests (if omitted, state reason in description)
 - [ ] Has samples (if omitted, state reason in description)
 - [ ] Rebased on top of main at time of PR

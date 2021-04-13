@@ -1,12 +1,12 @@
-﻿using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
-using Android.Views;
-using AView = Android.Views.View;
+﻿using System.ComponentModel;
 using Android.OS;
-using System.ComponentModel;
-using Xamarin.CommunityToolkit.Effects;
-using Xamarin.CommunityToolkit.Android.Effects;
+using Android.Views;
 using Android.Widget;
+using Xamarin.CommunityToolkit.Android.Effects;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+using AView = Android.Views.View;
 
 [assembly: ExportEffect(typeof(PlatformShadowEffect), nameof(ShadowEffect))]
 
