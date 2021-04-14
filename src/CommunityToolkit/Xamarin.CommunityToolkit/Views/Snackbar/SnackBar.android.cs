@@ -106,19 +106,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBar.Show();
 		}
 
-		static async Task<IVisualElementRenderer?> GetRendererWithRetries(Page sender, int maxRetries = 5)
+		/// <summary>
+		/// Tries to get renderer multiple times since it can be null while switching tabs in Shell.
+		/// See this bug for more info: https://github.com/xamarin/Xamarin.Forms/issues/13950
+		/// </summary>
+		static async Task<IVisualElementRenderer?> GetRendererWithRetries(Page page, int retryCount = 5)
 		{
-			var retriesLeft = maxRetries;
+			var renderer = Platform.GetRenderer(page);
+			if (renderer != null || retryCount <= 0)
+				return renderer;
 
-			var renderer = Platform.GetRenderer(sender);
-			while (renderer == null && retriesLeft > 0)
-			{
-				retriesLeft--;
-				await Task.Delay(50);
-				renderer = Platform.GetRenderer(sender);
-			}
-
-			return renderer;
+			await Task.Delay(50);
+			return await GetRendererWithRetries(page, retryCount - 1);
 		}
 
 		class SnackBarCallback : AndroidSnackBar.BaseCallback
