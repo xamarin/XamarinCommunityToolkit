@@ -9,13 +9,17 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 		/// Sets the color of application's status bar
 		/// </summary>
 		public static readonly BindableProperty ColorProperty = BindableProperty.Create(
-			"Color", typeof(Color), typeof(StatusBar), Color.Default, propertyChanged: (_, _, newValue) => SetColor((Color)newValue));
+			"Color", typeof(Color), typeof(StatusBar), Color.Default, propertyChanged: ColorChanged);
+
+		static void ColorChanged(BindableObject bindable, object oldValue, object newValue) => SetColor((Color)newValue);
 
 		/// <summary>
 		/// Sets style of application's status bar
 		/// </summary>
 		public static readonly BindableProperty StyleProperty = BindableProperty.Create(
-			"Style", typeof(StatusBarStyle), typeof(StatusBar), StatusBarStyle.Default, propertyChanged: (_, _, newValue) => SetStyle((StatusBarStyle)newValue));
+			"Style", typeof(StatusBarStyle), typeof(StatusBar), StatusBarStyle.Default, propertyChanged: StyleChanged);
+
+		static void StyleChanged(BindableObject bindable, object oldValue, object newValue) => SetStyle((StatusBarStyle)newValue);
 
 		/// <summary>
 		/// Needed for BindableProperty to work. Don't call this method.

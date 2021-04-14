@@ -11,13 +11,17 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 		/// Sets the color of application's navigation bar
 		/// </summary>
 		public static readonly BindableProperty ColorProperty = BindableProperty.Create(
-			"Color", typeof(Color), typeof(TargetElement), Color.Default, propertyChanged: (_, _, newValue) => SetColor((Color)newValue));
+			"Color", typeof(Color), typeof(TargetElement), Color.Default, propertyChanged: ColorChanged);
+
+		static void ColorChanged(BindableObject bindable, object oldValue, object newValue) => SetColor((Color)newValue);
 
 		/// <summary>
 		/// Sets the style of application's navigation bar
 		/// </summary>
 		public static readonly BindableProperty StyleProperty = BindableProperty.Create(
-			"Style", typeof(NavigationBarStyle), typeof(TargetElement), NavigationBarStyle.Default, propertyChanged: (_, _, newValue) => SetStyle((NavigationBarStyle)newValue));
+			"Style", typeof(NavigationBarStyle), typeof(TargetElement), NavigationBarStyle.Default, propertyChanged: StyleChanged);
+
+		static void StyleChanged(BindableObject bindable, object oldValue, object newValue) => SetStyle((NavigationBarStyle)newValue);
 
 		/// <summary>
 		/// Needed for BindableProperty to work. Don't call this method.
