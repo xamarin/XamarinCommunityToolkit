@@ -30,5 +30,28 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 
 			Assert.AreEqual(commandInvokeCount, 1);
 		}
+
+		[Test]
+		public void AnimateCommandStartsAnimation()
+		{
+			var mockAnimation = new MockAnimationType();
+
+			var behavior = new AnimationBehavior
+			{
+				AnimationType = mockAnimation
+			};
+
+			new Label
+			{
+				Behaviors =
+				{
+ 					behavior
+				}
+			};
+
+			behavior.AnimateCommand.Execute(null);
+
+			Assert.IsTrue(mockAnimation.HasAnimated);
+		}
 	}
 }
