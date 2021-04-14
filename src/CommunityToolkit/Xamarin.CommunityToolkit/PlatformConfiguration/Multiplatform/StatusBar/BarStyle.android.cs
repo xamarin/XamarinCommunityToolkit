@@ -1,8 +1,8 @@
 ﻿using System;
 using Android.OS;
 using Android.Views;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
-using Trace = System.Diagnostics.Trace;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 		{
 			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
 			{
-				Trace.WriteLine($"This functionality is not available. Minimum supported API is {BuildVersionCodes.M}");
+				Log.Warning(string.Empty, $"This functionality is not available. Minimum supported API is {BuildVersionCodes.M}");
 				return false;
 			}
 
