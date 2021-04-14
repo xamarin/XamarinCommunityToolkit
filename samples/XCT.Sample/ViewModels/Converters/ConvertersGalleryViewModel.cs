@@ -88,6 +88,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				nameof(EnumToBoolConverter),
 				"A converter that allows you to convert an Enum to boolean value"),
 			new SectionModel(
+				typeof(EnumToIntConverterPage),
+				nameof(EnumToIntConverter),
+				"A converter that allows you to convert an Enum to its underlying int value"),
+			new SectionModel(
 				typeof(ImageResourceConverterPage),
 				nameof(ImageResourceConverter),
 				"A converter that allows you to convert embeded ressource image id to an ImageSource"),

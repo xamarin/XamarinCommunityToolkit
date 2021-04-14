@@ -22,6 +22,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Update="Pages\Converters\EnumToIntConverterPage.xaml.cs">
+      <DependentUpon>EnumToIntConverterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
