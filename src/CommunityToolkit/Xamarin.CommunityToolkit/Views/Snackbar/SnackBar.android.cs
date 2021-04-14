@@ -18,13 +18,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		internal async Task Show(Page sender, SnackBarOptions arguments)
 		{
-			var view = (await GetRendererWithRetries(sender))?.View;
-			if (view == null)
-			{
-				throw new ArgumentException("Provided page cannot be parent to SnackBar", nameof(sender));
-			}
-
-			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
+			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided page cannot be parent to SnackBar", nameof(sender));
+			var snackBar = AndroidSnackBar.Make(renderer.View, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
 			if (arguments.BackgroundColor != Forms.Color.Default)
 			{
