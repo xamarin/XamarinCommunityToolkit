@@ -28,7 +28,8 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 		/// <summary>
 		/// Needed for BindableProperty to work. Don't call this method.
 		/// </summary>
-		public static NavigationBarStyle GetStyle(BindableObject element) => throw new NotImplementedException();
+		[EditorBrowsable(EditorBrowsableState.Never)]
+        public static NavigationBarStyle GetStyle(BindableObject element) => throw new NotImplementedException();
 
 		/// <summary>
 		/// Sets the color of application's navigation bar
