@@ -43,11 +43,4 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 
 		static partial void PlatformSetStyle(StatusBarStyle style);
 	}
-
-	public enum StatusBarStyle
-	{
-		Default = 0,
-		LightContent = 1,
-		DarkContent = 2
-	}
 }
