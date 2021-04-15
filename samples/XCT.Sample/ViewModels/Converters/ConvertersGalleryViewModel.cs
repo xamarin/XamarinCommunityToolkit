@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Converters;
@@ -99,7 +99,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(MathExpressionConverterPage),
 				nameof(MathExpressionConverter),
 				"A converter that allows users to calculate an expression at runtime."),
-      new SectionModel(
+			new SectionModel(
 				typeof(StringToListConverterPage),
 				nameof(StringToListConverter),
 				"A converter that splits a string by the separator and returns the enumerable sequence of strings as the result."),
