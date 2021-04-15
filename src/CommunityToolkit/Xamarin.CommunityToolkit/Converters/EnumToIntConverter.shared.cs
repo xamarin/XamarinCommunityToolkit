@@ -17,9 +17,9 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="targetType">The type of the binding target property. This is not used.</param>
 		/// <param name="parameter">Additional parameter for converter. This is not used.</param>
 		/// <param name="culture">The culture to use in the converter. This is not used.</param>
-		/// <returns>The underlying <see cref="int"/> value of the passed value, or 0 if the value is not an enumeration type</returns>
+		/// <returns>The underlying <see cref="int"/> value of the passed value, or -1 if the value is not an enumeration type</returns>
 		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture) =>
-			value is Enum ? System.Convert.ToInt32(value) : 0;
+			value is Enum ? System.Convert.ToInt32(value) : -1;
 
 		/// <summary>
 		/// Returns the <see cref="Enum"/> associated with the specified <see cref="int"/> value defined in the targetType
@@ -29,7 +29,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">Additional parameter for converter. This is not used.</param>
 		/// <param name="culture">The culture to use in the converter. This is not used.</param>
 		/// <returns>The underlying <see cref="Enum"/> of the associated targetType, or 0 if the value is not an enumeration type</returns>
+		/// <exception cref="ArgumentException">If value is not a valid value in the targetType enum</exception>
 		public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo? culture) =>
-			value is int enumIntVal && Enum.IsDefined(targetType, enumIntVal) ? Enum.ToObject(targetType, enumIntVal) : 0;
+			value is int enumIntVal && Enum.IsDefined(targetType, enumIntVal) ? Enum.ToObject(targetType, enumIntVal) : throw new ArgumentException($"{value} is not valid for {targetType.Name}");
 	}
 }
