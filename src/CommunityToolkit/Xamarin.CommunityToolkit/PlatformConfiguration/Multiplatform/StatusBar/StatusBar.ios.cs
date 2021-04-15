@@ -22,6 +22,8 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 					statusBar.BackgroundColor = uiColor;
 					statusBar.TintColor = uiColor;
 					window.AddSubview(statusBar);
+
+					UpdateStatusBarAppearance(window);
 				}
 			}
 			else
@@ -31,9 +33,9 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 				{
 					statusBar.BackgroundColor = uiColor;
 				}
-			}
 
-			GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
+				UpdateStatusBarAppearance();
+			}
 		}
 
 		static partial void PlatformSetStyle(StatusBarStyle style)
@@ -46,19 +48,34 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 			};
 			UIApplication.SharedApplication.SetStatusBarStyle(uiStyle, false);
 
-			GetCurrentViewController().SetNeedsStatusBarAppearanceUpdate();
+			UpdateStatusBarAppearance();
 		}
 
-		static UIViewController GetCurrentViewController()
+		static void UpdateStatusBarAppearance()
 		{
-			var window = UIApplication.SharedApplication.KeyWindow;
+			if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+			{
+				foreach (var window in UIApplication.SharedApplication.Windows)
+				{
+					UpdateStatusBarAppearance(window);
+				}
+			}
+			else
+			{
+				var window = UIApplication.SharedApplication.KeyWindow;
+				UpdateStatusBarAppearance(window);
+			}
+		}
 
-			var vc = window.RootViewController ?? throw new NullReferenceException();
+		static void UpdateStatusBarAppearance(UIWindow window)
+		{
+			var vc = window.RootViewController ?? throw new NullReferenceException(nameof(window.RootViewController));
 			while (vc.PresentedViewController != null)
 			{
 				vc = vc.PresentedViewController;
 			}
-			return vc;
+
+			vc.SetNeedsStatusBarAppearanceUpdate();
 		}
 	}
 }
