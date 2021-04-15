@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal async Task Show(Page sender, SnackBarOptions arguments)
+		internal async ValueTask Show(Page sender, SnackBarOptions arguments)
 		{
 			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided page cannot be parent to SnackBar", nameof(sender));
 			var snackBar = AndroidSnackBar.Make(renderer.View, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);

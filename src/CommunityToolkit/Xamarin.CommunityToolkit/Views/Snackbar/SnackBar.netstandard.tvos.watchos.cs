@@ -7,6 +7,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal Task Show(Page sender, SnackBarOptions arguments) => throw new PlatformNotSupportedException();
+		internal ValueTask Show(Page sender, SnackBarOptions arguments) => throw new PlatformNotSupportedException();
 	}
 }
