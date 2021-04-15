@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		internal Task Show(Forms.Page page, SnackBarOptions arguments)
+		internal ValueTask Show(Forms.Page page, SnackBarOptions arguments)
 		{
 			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;
@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			grid.RowDefinitions.Add(snackBarRow);
 			grid.Children.Add(snackBarLayout);
 			Grid.SetRow(snackBarLayout, grid.RowDefinitions.Count - 1);
-			return Task.CompletedTask;
+			return default;
 		}
 	}
 }

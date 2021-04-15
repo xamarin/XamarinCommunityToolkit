@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal Task Show(Forms.Page sender, SnackBarOptions arguments)
+		internal ValueTask Show(Forms.Page sender, SnackBarOptions arguments)
 		{
 			var snackBarDialog =
 				Forms.Platform.Tizen.Native.Dialog.CreateDialog(Forms.Forms.NativeParent,
@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBarDialog.BackButtonPressed += (s, evt) => DismissSnackBar();
 			snackBarDialog.Show();
 
-			return Task.CompletedTask;
+			return default;
 
 			void DismissSnackBar()
 			{

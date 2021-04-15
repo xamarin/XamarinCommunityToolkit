@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		Timer? snackBarTimer;
 
-		public Task Show(Page page, SnackBarOptions arguments)
+		public ValueTask Show(Page page, SnackBarOptions arguments)
 		{
 			var mainWindow = (Platform.GetRenderer(page).Container.Child as Forms.Platform.GTK.Controls.Page)?.Children[0] as VBox;
 			var snackBarLayout = GetSnackBarLayout(mainWindow, arguments);
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 
 			snackBarTimer.Start();
-			return Task.CompletedTask;
+			return default;
 		}
 
 		HBox GetSnackBarLayout(Container? container, SnackBarOptions arguments)
