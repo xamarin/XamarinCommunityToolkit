@@ -13,8 +13,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 	public class EnumToIntConverter_Tests
 	{
-		[TestCase(null, -1)]
-		[TestCase("a string", -1)]
 		[TestCase(TestEnumForEnumToIntConverter.None, 0)]
 		[TestCase(TestEnumForEnumToIntConverter.One, 1)]
 		[TestCase(TestEnumForEnumToIntConverter.FortyTwo, 42)]
@@ -23,6 +21,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			var enumToIntConverter = new EnumToIntConverter();
 			var result = enumToIntConverter.Convert(value, targetType: null, parameter: null, culture: null);
 			Assert.AreEqual(expectedResult, result);
+		}
+
+		[TestCase(null)]
+		[TestCase("a string")]
+		public void EnumToIntConvert_ValueNotEnum_ThrowsArgumentException(object value)
+		{
+			var enumToIntConverter = new EnumToIntConverter();
+			Assert.Throws<ArgumentException>(() => enumToIntConverter.Convert(value, targetType: null, parameter: null, culture: null));
 		}
 
 		[TestCase(0, TestEnumForEnumToIntConverter.None)]
