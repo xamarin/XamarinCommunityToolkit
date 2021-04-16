@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Globalization;
 using Windows.System.UserProfile;
 
@@ -6,9 +6,15 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
 	public static partial class DeviceCulture
 	{
-		static string PlatformInstalledUICulture => GlobalizationPreferences.Languages[0];
+		private static partial IReadOnlyList<string> GetPreferredCultureStrings() =>
+			GlobalizationPreferences.Languages;
 
-		static CultureInfo PlatformGetCurrentUICulture(Func<string, CultureInfo> mappingOverride) =>
-			CultureInfo.CurrentUICulture;
+		private static partial CultureInfoParser GetCultureParser() => new UwpCultureInfoParser();
+
+		class UwpCultureInfoParser : CultureInfoParser
+		{
+			public override CultureInfo Parse(string platformCulture) =>
+				CultureInfo.GetCultureInfo(platformCulture);
+		}
 	}
 }

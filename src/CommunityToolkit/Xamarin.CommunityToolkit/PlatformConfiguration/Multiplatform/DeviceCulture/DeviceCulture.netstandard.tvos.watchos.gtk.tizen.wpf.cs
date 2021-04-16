@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
 	public static partial class DeviceCulture
 	{
-		static string PlatformInstalledUICulture => throw new PlatformNotSupportedException();
+		private static partial IReadOnlyList<string> GetPreferredCultureStrings() => throw new PlatformNotSupportedException();
+
+		private static partial CultureInfoParser GetCultureParser() => throw new PlatformNotSupportedException();
 	}
 }
