@@ -20,8 +20,6 @@ namespace Xamarin.CommunityToolkit.Sample
 
 			InitializeComponent();
 			MainPage = new BaseNavigationPage(new WelcomePage());
-
-			var tmp = DeviceCulture.GetPreferredCultures();
 		}
 	}
 }
