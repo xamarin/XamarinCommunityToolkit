@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Effects.AndroidSpecific
+namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {
 	public class FullScreenEffect : Effects.FullScreenEffect
 	{

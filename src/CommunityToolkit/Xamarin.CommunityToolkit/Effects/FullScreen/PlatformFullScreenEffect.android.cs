@@ -4,8 +4,8 @@ using Android.Views;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using static Xamarin.CommunityToolkit.Effects.AndroidSpecific.FullScreenEffect;
 using static Xamarin.CommunityToolkit.Effects.FullScreenEffect;
+using static Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific.FullScreenEffect;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 [assembly: ExportEffect(typeof(Effects.FullScreenEffectRouter), nameof(FullScreenEffectRouter))]
