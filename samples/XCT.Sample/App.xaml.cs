@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform;
 using Xamarin.CommunityToolkit.Sample.Pages;
 using Xamarin.CommunityToolkit.Sample.Resx;
 using Xamarin.Forms.PlatformConfiguration;
