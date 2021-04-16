@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
+#if !NETSTANDARD1_0
 	public static partial class DeviceCulture
 	{
 		/// <summary>
@@ -32,4 +33,5 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 
 		internal static readonly string FallbackCulture = "en";
 	}
+#endif
 }

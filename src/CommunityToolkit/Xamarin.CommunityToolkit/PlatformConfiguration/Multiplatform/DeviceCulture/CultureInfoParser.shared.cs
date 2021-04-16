@@ -3,6 +3,7 @@ using System.Globalization;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
+#if !NETSTANDARD1_0
 	public class CultureInfoParser
 	{
 		public virtual CultureInfo Parse(string platformCulture)
@@ -91,4 +92,6 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 			return parts[0];
 		}
 	}
+
+#endif
 }
