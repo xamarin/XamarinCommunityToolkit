@@ -19,9 +19,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 		public IList<string> IconOptions { get; }
 
-		object selectedItem;
+		object? selectedItem;
 
-		public object SelectedItem
+		public object? SelectedItem
 		{
 			get => selectedItem;
 			set => SetProperty(ref selectedItem, value);
