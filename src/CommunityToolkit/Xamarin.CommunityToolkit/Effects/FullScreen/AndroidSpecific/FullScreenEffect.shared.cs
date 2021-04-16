@@ -9,11 +9,11 @@ namespace Xamarin.CommunityToolkit.Effects.AndroidSpecific
 		[Flags]
 		public enum FullScreenMode
 		{
-			Disabled = -1,
-			Enabled = 1,
-			ImmersiveDroid = 2,
-			StickyImmersiveDroid = 3,
-			LeanBackDroid = 4
+			Disabled = 0,
+			Enabled = 1 << 0,
+			ImmersiveDroid = 1 << 1,
+			StickyImmersiveDroid = 1 << 2,
+			LeanBackDroid = 1 << 3
 		}
 
 		/// <summary>
