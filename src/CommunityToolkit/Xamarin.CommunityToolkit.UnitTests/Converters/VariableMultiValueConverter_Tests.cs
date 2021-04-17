@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Helpers;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {

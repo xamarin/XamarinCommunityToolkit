@@ -16,7 +16,6 @@ variables:
   PathToCommunityToolkitUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
   PathToMarkupUnitTestCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
   PathToMsBuildOnMacOS: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll'
-  PathToSln: 'samples/XCT.Sample.sln'
 
 resources:
   repositories:
@@ -68,12 +67,12 @@ jobs:
       - task: MSBuild@1
         displayName: 'Clean Solution'
         inputs:
-          solution: $(PathToSln)
+          solution: $(PathToSamplesSln)
           msbuildArguments:  '/t:Clean'
       - task: MSBuild@1
         displayName: Build Solution
         inputs:
-          solution: $(PathToSln)
+          solution: $(PathToSamplesSln)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       
@@ -104,7 +103,7 @@ jobs:
       - task: MSBuild@1
         displayName: 'Clean Solution'
         inputs:
-          solution: $(PathToSln)
+          solution: $(PathToSamplesSln)
           msbuildArguments:  '/t:Clean'
       # if this is a tagged build, then update the version number
       - powershell: |
@@ -226,11 +225,11 @@ jobs:
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
-          script: 'dotnet test $(PathToMarkupUnitTestCsproj) /p:Configuration=Release -p:BuildInParallel=false'
+          script: 'dotnet test $(PathToMarkupUnitTestCsproj) -c Release -p:BuildInParallel=false'
       - task: CmdLine@2
         displayName: 'Run Community Toolkit Unit Tests'
         inputs:
-          script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) /p:Configuration=Release -p:BuildInParallel=false'
+          script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release -p:BuildInParallel=false'
       - task: CmdLine@2
         displayName: 'Pack Markup NuGets'
         inputs:
