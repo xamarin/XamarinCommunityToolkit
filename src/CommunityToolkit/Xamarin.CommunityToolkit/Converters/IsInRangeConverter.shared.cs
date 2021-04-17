@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			set => SetValue(MaxValueProperty, value);
 		}
 
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object value, Type targetType, object? parameter, CultureInfo culture)
 		{
 			if (value == null)
 				throw new ArgumentException("Value cannot be null", nameof(value));

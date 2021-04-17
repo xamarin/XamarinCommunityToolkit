@@ -26,43 +26,43 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		};
 
 		[TestCaseSource(nameof(GetData))]
-		public void IsBetweenConverter(object value, object minValue, object maxValue, bool expectedResult)
+		public void IsInRangeConverter(object value, object minValue, object maxValue, bool expectedResult)
 		{
-			var isBetweenConverter = new IsInRangeConverter
+			var isInRangeConverter = new IsInRangeConverter
 			{
 				MinValue = minValue,
 				MaxValue = maxValue
 			};
 
-			var result = isBetweenConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture);
+			var result = isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(result, expectedResult);
 		}
 
 		[TestCaseSource(nameof(GetData))]
-		public void IsBetweenConverterRevertResult(object value, object minValue, object maxValue, bool expectedResult)
+		public void IsInRangeConverterRevertResult(object value, object minValue, object maxValue, bool expectedResult)
 		{
-			var isBetweenConverter = new IsInRangeConverter
+			var isInRangeConverter = new IsInRangeConverter
 			{
 				MinValue = minValue,
 				MaxValue = maxValue,
 				RevertResult = true,
 			};
 
-			var result = isBetweenConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture);
+			var result = isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(result, !expectedResult);
 		}
 
 		[TestCaseSource(nameof(GetDataForException))]
-		public void IsBetweenConverterInvalidValuesThrowArgumenException(object value, object minValue, object maxValue)
+		public void IsInRangeConverterInvalidValuesThrowArgumenException(object value, object minValue, object maxValue)
 		{
-			var isBetweenConverter = new IsInRangeConverter
+			var isInRangeConverter = new IsInRangeConverter
 			{
 				MinValue = minValue,
 				MaxValue = maxValue
 			};
-			Assert.Throws<ArgumentException>(() => isBetweenConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentException>(() => isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 	}
 }
