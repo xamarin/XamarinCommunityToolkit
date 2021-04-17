@@ -1,27 +1,30 @@
 ﻿using System;
 using System.Globalization;
-using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
 	public class IsInRangeConverter : BindableObject, IValueConverter
 	{
-		//public object? MinValue { get; set; }
-
-		public object? MaxValue { get; set; }
-
 		public bool RevertResult { get; set; } = false;
 
-		public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(object), typeof(IsInRangeConverter));
+		public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(object), typeof(IsInRangeConverter), null);
 
-		public object? MinValue
+		public object MinValue
 		{
-			get { return GetValue(MinValueProperty); }
-			set { SetValue(MinValueProperty, value); }
+			get => GetValue(MinValueProperty);
+			set => SetValue(MinValueProperty, value);
 		}
 
-		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
+		public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(object), typeof(IsInRangeConverter), null);
+
+		public object MaxValue
+		{
+			get => GetValue(MaxValueProperty);
+			set => SetValue(MaxValueProperty, value);
+		}
+
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (value == null)
 				throw new ArgumentException("Value cannot be null", nameof(value));
@@ -31,8 +34,6 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			if (MaxValue == null)
 				throw new ArgumentException("Value cannot be null", nameof(MaxValue));
-
-			var a = (DateTime)MinValue;
 
 			if (value.GetType() != MinValue.GetType())
 				throw new ArgumentException("Values cannot be different types", nameof(MinValue));
@@ -49,7 +50,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			return false;
 		}
 
-		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) =>
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
 			throw new NotImplementedException();
 	}
 }

@@ -4,83 +4,68 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="this">
+    <ContentPage.BindingContext>
+        <vm:IsInRangeConverterViewModel />
+    </ContentPage.BindingContext>
     <ContentPage.Resources>
         <ResourceDictionary>
-            <xct:IsInRangeConverter x:Key="IsDateTimeInRangeConverter">
-                <xct:IsInRangeConverter.MinValue>
-                    <sys:DateTime>
-                        Jan 1 2021
-                    </sys:DateTime>
-                </xct:IsInRangeConverter.MinValue>
-                <xct:IsInRangeConverter.MaxValue>
-                    <sys:DateTime>
-                        Jan 15 2021
-                    </sys:DateTime>
-                </xct:IsInRangeConverter.MaxValue>
-            </xct:IsInRangeConverter>
+            <xct:IsInRangeConverter
+                x:Key="IsDateTimeInRangeConverter"
+                MaxValue="{Binding Source={x:Reference this}, Path=BindingContext.EndDate}"
+                MinValue="{Binding Source={x:Reference this}, Path=BindingContext.StartDate}"
+                RevertResult="False" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView>
-        <Grid
-            Padding="10"
-            ColumnDefinitions="*,*"
-            RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*">
-            <Label
-                Grid.Row="0"
-                Grid.Column="0"
-                Text="Is Date in range?" />
-            <Label
-                Grid.Row="0"
-                Grid.Column="1"
-                Text="{Binding Path=Date, Source={x:Reference valueDatePicker}, Converter={StaticResource IsDateTimeInRangeConverter}}" />
-            <Label
-                Grid.Row="1"
-                Grid.Column="0"
-                Text="Date:" />
-            <DatePicker
-                x:Name="valueDatePicker"
-                Grid.Row="1"
-                Grid.Column="1"
-                Format="dd/MM/yyyy">
-                <DatePicker.Date>
-                    <sys:DateTime>
-                        Jan 10 2021
-                    </sys:DateTime>
-                </DatePicker.Date>
-            </DatePicker>
-            <Label
-                Grid.Row="2"
-                Grid.Column="0"
-                Text="Start Date:" />
-            <DatePicker
-                x:Name="startDatePicker"
-                Grid.Row="2"
-                Grid.Column="1"
-                Format="dd/MM/yyyy">
-                <DatePicker.Date>
-                    <sys:DateTime>
-                        Jan 1 2021
-                    </sys:DateTime>
-                </DatePicker.Date>
-            </DatePicker>
-            <Label
-                Grid.Row="3"
-                Grid.Column="0"
-                Text="End Date:" />
-            <DatePicker
-                x:Name="endDatePicker"
-                Grid.Row="3"
-                Grid.Column="1"
-                Format="dd/MM/yyyy"
-                MinimumDate="{Binding Source={x:Reference startDatePicker}, Path=Date}">
-                <DatePicker.Date>
-                    <sys:DateTime>
-                        Jan 15 2021
-                    </sys:DateTime>
-                </DatePicker.Date>
-            </DatePicker>
-        </Grid>
-    </ScrollView>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid
+                Padding="10"
+                ColumnDefinitions="*,*"
+                RowDefinitions="Auto,Auto,Auto,Auto,*">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    Text="Is Date in range?" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    Text="{Binding Date, Converter={StaticResource IsDateTimeInRangeConverter}}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Date:" />
+                <DatePicker
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Date="{Binding Date}">
+                    <DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
+                </DatePicker>
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Text="Start Date:" />
+                <DatePicker
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Date="{Binding StartDate}">
+                    <DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
+                </DatePicker>
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Text="End Date:" />
+                <DatePicker
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Date="{Binding EndDate}">
+                    <DatePicker.Format>dd/MM/yyyy</DatePicker.Format>
+                </DatePicker>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
 </pages:BasePage>
