@@ -15,8 +15,7 @@
             <xct:IsInRangeConverter
                 x:Key="IsDateTimeInRangeConverter"
                 MaxValue="{Binding Source={x:Reference this}, Path=BindingContext.EndDate}"
-                MinValue="{Binding Source={x:Reference this}, Path=BindingContext.StartDate}"
-                RevertResult="False" />
+                MinValue="{Binding Source={x:Reference this}, Path=BindingContext.StartDate}" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>

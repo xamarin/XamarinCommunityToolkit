@@ -18,11 +18,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			new object[] { "a", "b", "d", false },
 		};
 
-		public static IEnumerable<object[]> GetDataForException() => new List<object[]>
+		public static IEnumerable<object?[]> GetDataForException() => new List<object?[]>
 		{
-			new object[] { "a", 2, 3 },
-			new object[] { 1, "a", 3 },
-			new object[] { 1, 2, "a" },
+			new object?[] { null, 2, 3 },
+			new object?[] { 1, null, 3 },
+			new object?[] { 1, 2, null },
 		};
 
 		[TestCaseSource(nameof(GetData))]
@@ -37,21 +37,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			var result = isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(result, expectedResult);
-		}
-
-		[TestCaseSource(nameof(GetData))]
-		public void IsInRangeConverterRevertResult(object value, object minValue, object maxValue, bool expectedResult)
-		{
-			var isInRangeConverter = new IsInRangeConverter
-			{
-				MinValue = minValue,
-				MaxValue = maxValue,
-				RevertResult = true,
-			};
-
-			var result = isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture);
-
-			Assert.AreEqual(result, !expectedResult);
 		}
 
 		[TestCaseSource(nameof(GetDataForException))]
