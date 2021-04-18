@@ -95,10 +95,14 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(MathExpressionConverterPage),
 				nameof(MathExpressionConverter),
 				"A converter that allows users to calculate an expression at runtime."),
-      new SectionModel(
+			new SectionModel(
 				typeof(StringToListConverterPage),
 				nameof(StringToListConverter),
 				"A converter that splits a string by the separator and returns the enumerable sequence of strings as the result."),
+			new SectionModel(
+				typeof(EnumToListConverterPage),
+				nameof(EnumToListConverter),
+				"A converter that returns the enumerable sequence of enum as the result."),
 			new SectionModel(
 				typeof(CompareConverterPage),
 				nameof(CompareConverter),

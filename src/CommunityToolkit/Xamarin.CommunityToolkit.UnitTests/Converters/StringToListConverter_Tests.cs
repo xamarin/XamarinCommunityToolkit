@@ -32,17 +32,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCase(0)]
 		public void InValidConverterValuesThrowArgumenException(object value)
 		{
-			var listToStringConverter = new ListToStringConverter();
+			var stringToListConverter = new StringToListConverter();
 
-			Assert.Throws<ArgumentException>(() => listToStringConverter.Convert(value, null, null, null));
+			Assert.Throws<ArgumentException>(() => stringToListConverter.Convert(value, null, null, null));
 		}
 
 		[TestCase(0)]
 		public void InValidConverterParametersThrowArgumenException(object parameter)
 		{
-			var listToStringConverter = new ListToStringConverter();
+			var stringToListConverter = new StringToListConverter();
 
-			Assert.Throws<ArgumentException>(() => listToStringConverter.Convert(new object[0], null, parameter, null));
+			Assert.Throws<ArgumentException>(() => stringToListConverter.Convert(new object[0], null, parameter, null));
 		}
 	}
 }
