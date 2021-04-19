@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -34,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		internal void Show(Forms.Page page, SnackBarOptions arguments)
+		internal ValueTask Show(Forms.Page page, SnackBarOptions arguments)
 		{
 			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;
@@ -59,6 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			grid.RowDefinitions.Add(snackBarRow);
 			grid.Children.Add(snackBarLayout);
 			Grid.SetRow(snackBarLayout, grid.RowDefinitions.Count - 1);
+			return default;
 		}
 	}
 }
