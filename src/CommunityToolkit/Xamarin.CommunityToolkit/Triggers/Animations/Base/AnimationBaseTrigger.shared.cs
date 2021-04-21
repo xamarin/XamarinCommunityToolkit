@@ -3,8 +3,8 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Triggers
 {
-    public abstract class AnimationBaseTrigger<T> : TriggerAction<VisualElement>
-    {
+	public abstract class AnimationBaseTrigger<T> : TriggerAction<VisualElement>
+	{
 		public T? From { get; set; } = default;
 
 		public T? To { get; set; } = default;
@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Triggers
 		public BindableProperty? TargetProperty { get; set; } = default;
 
 		protected override void Invoke(VisualElement sender) =>
-            throw new NotImplementedException("Please Implement Invoke() in derived-class");
+			throw new NotImplementedException($"Please Implement {nameof(Invoke)} in derived-class");
 
 		protected void SetDefaultFrom(T property) =>
 			From = From != null && From.Equals(default(T)) ? property : From;
