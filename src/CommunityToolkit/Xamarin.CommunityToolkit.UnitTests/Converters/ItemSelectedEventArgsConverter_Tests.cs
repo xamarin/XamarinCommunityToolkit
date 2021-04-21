@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
-using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {

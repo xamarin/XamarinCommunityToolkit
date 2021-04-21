@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Exceptions
 	public class InvalidCommandParameterException : Exception
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:TaskExtensions.MVVM.InvalidCommandParameterException"/> class.
+		/// Initializes a new instance of the <see cref="InvalidCommandParameterException"/> class.
 		/// </summary>
 		/// <param name="expectedType">Expected parameter type for AsyncCommand.Execute.</param>
 		/// <param name="actualType">Actual parameter type for AsyncCommand.Execute.</param>
@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Exceptions
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:TaskExtensions.MVVM.InvalidCommandParameterException"/> class.
+		/// Initializes a new instance of the <see cref="InvalidCommandParameterException"/> class.
 		/// </summary>
 		/// <param name="expectedType">Expected parameter type for AsyncCommand.Execute.</param>
 		/// <param name="actualType">Actual parameter type for AsyncCommand.Execute.</param>
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.Exceptions
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:TaskExtensions.MVVM.InvalidCommandParameterException"/> class.
+		/// Initializes a new instance of the <see cref="InvalidCommandParameterException"/> class.
 		/// </summary>
 		/// <param name="expectedType">Expected parameter type for AsyncCommand.Execute.</param>
 		/// <param name="innerException">Inner Exception</param>
@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.Exceptions
 		}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:TaskExtensions.MVVM.InvalidCommandParameterException"/> class.
+		/// Initializes a new instance of the <see cref="InvalidCommandParameterException"/> class.
 		/// </summary>
 		/// <param name="expectedType">Expected parameter type for AsyncCommand.Execute.</param>
 		public InvalidCommandParameterException(Type expectedType)
