@@ -175,9 +175,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BackgroundProperty, Element.Color.ToWindowsColor()));
 
-			if (ApiInformation.IsPropertyPresent(typeof(FlyoutPresenter).FullName, nameof(FlyoutPresenter.IsDefaultShadowEnabledProperty)))
+			if (Element.Color == Color.Transparent)
 			{
-				if (Element.Color == Color.Transparent)
+				if (ApiInformation.IsPropertyPresent(typeof(FlyoutPresenter).FullName, nameof(FlyoutPresenter.IsDefaultShadowEnabledProperty)))
 					flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.IsDefaultShadowEnabledProperty, false));
 			}
 		}
