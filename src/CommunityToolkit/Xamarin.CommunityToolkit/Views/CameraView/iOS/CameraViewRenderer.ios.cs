@@ -196,6 +196,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(CameraView.Zoom):
 					Control.Zoom = (float)Element.Zoom;
 					break;
+				case nameof(CameraView.Height):
+				case nameof(CameraView.Width):
+					Control.SetBounds(Element.Width, Element.Height);
+					Control.SetCameraOrientation();
+					break;
 			}
 		}
 
