@@ -1,4 +1,5 @@
-﻿using System;
+#if !NETCOREAPP
+using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Extensions;
@@ -9,7 +10,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
 	public class SnackBar_Tests
 	{
-#if !NETCOREAPP
 		[Test]
 		public void PageExtension_DisplaySnackBarAsync_PlatformNotSupportedException()
 		{
@@ -37,6 +37,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			var page = new ContentPage();
 			Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync(new ToastOptions()));
 		}
-#endif
 	}
 }
+#endif
