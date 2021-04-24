@@ -451,6 +451,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				inactiveMenu = leftMenu;
 			}
 
+			if (Control == null)
+				return;
+
 			if (inactiveMenu == null ||
 				activeMenu == null ||
 				leftMenu?.X + leftMenu?.Width <= rightMenu?.X ||
@@ -545,7 +548,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void AddChild(View view)
 		{
-			Control.Children.Add(view);
+			Control?.Children.Add(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -562,7 +565,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveChild(View view)
 		{
-			Control.Children.Remove(view);
+			Control?.Children.Remove(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -587,8 +590,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (mainView == null)
 				return;
 
-			Control.RaiseChild(mainView);
-			Control.RaiseChild(overlayView);
+			Control?.RaiseChild(mainView);
+			Control?.RaiseChild(overlayView);
 		}
 
 		bool CheckMenuGestureEnabled(View? menuView)
