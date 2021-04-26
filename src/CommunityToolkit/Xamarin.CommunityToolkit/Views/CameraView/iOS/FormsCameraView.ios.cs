@@ -545,7 +545,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				captureSession.CommitConfiguration();
 
-				previewLayer.Connection.VideoOrientation = GetViewOrientation();
+				if (previewLayer.Connection != null)
+					previewLayer.Connection.VideoOrientation = GetViewOrientation();
 
 				InvokeOnMainThread(() =>
 				{
