@@ -7,8 +7,6 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 	public static partial class DeviceCulture
 	{
 		private static partial IReadOnlyList<string> GetPreferredCultureStrings() => throw new PlatformNotSupportedException();
-
-		private static partial CultureInfoParser GetCultureParser() => throw new PlatformNotSupportedException();
 	}
 #endif
 }

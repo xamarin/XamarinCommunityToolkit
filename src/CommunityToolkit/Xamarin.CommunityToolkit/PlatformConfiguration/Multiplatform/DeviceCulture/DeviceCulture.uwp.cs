@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Globalization;
 using Windows.System.UserProfile;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
@@ -8,13 +7,5 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 	{
 		private static partial IReadOnlyList<string> GetPreferredCultureStrings() =>
 			GlobalizationPreferences.Languages;
-
-		private static partial CultureInfoParser GetCultureParser() => new UwpCultureInfoParser();
-
-		class UwpCultureInfoParser : CultureInfoParser
-		{
-			public override CultureInfo Parse(string platformCulture) =>
-				CultureInfo.GetCultureInfo(platformCulture);
-		}
 	}
 }
