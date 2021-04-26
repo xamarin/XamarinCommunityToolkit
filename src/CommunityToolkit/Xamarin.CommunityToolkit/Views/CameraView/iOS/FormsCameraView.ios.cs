@@ -91,7 +91,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public void SetCameraOrientation()
 		{
-			previewLayer.Connection.VideoOrientation = GetViewOrientation();
+			if (previewLayer.Connection != null)
+				previewLayer.Connection.VideoOrientation = GetViewOrientation();
+				
 			captureConnection = previewLayer.Connection;
 		}
 
