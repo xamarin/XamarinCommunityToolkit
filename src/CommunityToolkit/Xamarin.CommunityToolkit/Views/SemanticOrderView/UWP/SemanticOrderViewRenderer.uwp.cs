@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,39 +12,29 @@ using Xamarin.Forms.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class SemanticOrderViewRenderer : ViewRenderer<ContentView, FrameworkElement>
+	public class SemanticOrderViewRenderer : ViewRenderer<SemanticOrderView, FrameworkElement>
 	{
-		protected override void OnElementChanged(ElementChangedEventArgs<ContentView> e)
+		protected override void OnElementChanged(ElementChangedEventArgs<SemanticOrderView> e)
 		{
 			base.OnElementChanged(e);
-			var results = GetAccessibilityElements();
-
-			if (results == null)
-				return;
-
-			for (var i = 0; i < results.Count; i++)
-			{
-				if (results[i] is Control control)
-				{
-					control.TabNavigation = Windows.UI.Xaml.Input.KeyboardNavigationMode.Once;
-					control.TabIndex = i;
-				}
-			}
+			UpdateViewOrder();
 		}
 
-		SemanticOrderView AccessibilityContentView => (SemanticOrderView)Element;
-
-		List<FrameworkElement>? GetAccessibilityElements()
+		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			var viewOrder = AccessibilityContentView.ViewOrder;
+			base.OnElementPropertyChanged(sender, e);
+			if (e.PropertyName == SemanticOrderView.ViewOrderProperty.PropertyName)
+				UpdateViewOrder();
+		}
 
-			var returnValue = new List<FrameworkElement>();
-			foreach (View view in viewOrder)
+		void UpdateViewOrder()
+		{
+			var i = 1;
+			foreach (var element in Element.ViewOrder)
 			{
-				returnValue.Add(Platform.GetRenderer(view).ContainerElement);
+				if (element is VisualElement ve)
+					ve.TabIndex = i++;
 			}
-
-			return returnValue.Count == 0 ? null : returnValue;
 		}
 	}
 }
