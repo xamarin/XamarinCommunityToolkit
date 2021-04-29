@@ -21,6 +21,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				view.AccessibilityTraits |= UIAccessibilityTrait.Header;
 			else
 				view.AccessibilityTraits &= ~UIAccessibilityTrait.Header;
+
+			view.AccessibilityLabel = SemanticEffect.GetDescription(Element);
+			view.AccessibilityHint = SemanticEffect.GetHint(Element);
 		}
 
 
@@ -28,7 +31,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			base.OnElementPropertyChanged(args);
 
-			if (args.PropertyName == SemanticEffect.HeadingLevelProperty.PropertyName)
+			if (args.PropertyName == SemanticEffect.HeadingLevelProperty.PropertyName ||
+							args.PropertyName == SemanticEffect.DescriptionProperty.PropertyName ||
+							args.PropertyName == SemanticEffect.HintProperty.PropertyName)
 			{
 				Update();
 			}

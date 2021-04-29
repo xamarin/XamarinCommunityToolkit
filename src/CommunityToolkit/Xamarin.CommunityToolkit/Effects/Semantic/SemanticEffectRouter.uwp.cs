@@ -18,6 +18,8 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 		{
 			var headingLevel = (AutomationHeadingLevel)((int)SemanticEffect.GetHeadingLevel(Element));
 			AutomationProperties.SetHeadingLevel(view, headingLevel);
+			AutomationProperties.SetName(view, SemanticEffect.GetDescription(Element));
+			AutomationProperties.SetHelpText(view, SemanticEffect.GetHint(Element));
 		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
@@ -28,7 +30,6 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			{
 				Update();
 			}
-
 		}
 	}
 }
