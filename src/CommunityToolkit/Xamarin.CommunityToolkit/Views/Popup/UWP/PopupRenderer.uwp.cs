@@ -206,13 +206,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (Element?.Anchor != null)
 			{
-				var anchor = Platform.GetRenderer(Element.Anchor).ContainerElement;
+				var anchor = Forms.Platform.UWP.Platform.GetRenderer(Element.Anchor).ContainerElement;
 				FlyoutBase.SetAttachedFlyout(anchor, this);
 				FlyoutBase.ShowAttachedFlyout(anchor);
 			}
 			else
 			{
-				var frameworkElement = Platform.GetRenderer(Element?.Parent as VisualElement)?.ContainerElement;
+				var frameworkElement = Forms.Platform.UWP.Platform.GetRenderer(Element?.Parent as VisualElement)?.ContainerElement;
 				FlyoutBase.SetAttachedFlyout(frameworkElement, this);
 				FlyoutBase.ShowAttachedFlyout(frameworkElement);
 			}
