@@ -15,12 +15,12 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	{
 		protected override void Update(UIView view, SemanticEffectRouter effect)
 		{
-			var isHeading = SemanticEffect.GetIsHeading(Element);
+			var isHeading = SemanticEffect.GetHeadingLevel(Element) != CommunityToolkit.Effects.Semantic.HeadingLevel.None;
 
 			if (isHeading)
 				view.AccessibilityTraits |= UIAccessibilityTrait.Header;
 			else
-				view.AccessibilityTraits |= ~UIAccessibilityTrait.Header;
+				view.AccessibilityTraits &= ~UIAccessibilityTrait.Header;
 		}
 
 
@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			base.OnElementPropertyChanged(args);
 
-			if (args.PropertyName == SemanticEffect.IsHeadingProperty.PropertyName)
+			if (args.PropertyName == SemanticEffect.HeadingLevelProperty.PropertyName)
 			{
 				Update();
 			}

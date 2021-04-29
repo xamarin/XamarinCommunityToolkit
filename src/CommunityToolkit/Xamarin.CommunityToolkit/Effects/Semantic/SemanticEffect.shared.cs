@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Effects.Semantic;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
 	public static class SemanticEffect
 	{
-		public static readonly BindableProperty IsHeadingProperty =
-		  BindableProperty.CreateAttached("IsHeading", typeof(bool), typeof(SemanticEffect), false, propertyChanged: OnIsHeadingChanged);
+		public static readonly BindableProperty HeadingLevelProperty =
+		  BindableProperty.CreateAttached("HeadingLevel", typeof(bool), typeof(SemanticEffect), HeadingLevel.None, propertyChanged: OnHeadingLevelChanged);
 
-		public static bool GetIsHeading(BindableObject view) => (bool)view.GetValue(IsHeadingProperty);
+		public static HeadingLevel GetHeadingLevel(BindableObject view) => (HeadingLevel)view.GetValue(HeadingLevelProperty);
 
-		public static void SetIsHeading(BindableObject view, bool value) => view.SetValue(IsHeadingProperty, value);
+		public static void SetHeadingLevel(BindableObject view, HeadingLevel value) => view.SetValue(HeadingLevelProperty, value);
 
-		static void OnIsHeadingChanged(BindableObject bindable, object oldValue, object newValue)
+		static void OnHeadingLevelChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			if (bindable is not View view)
 				return;
