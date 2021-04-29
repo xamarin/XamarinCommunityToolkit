@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
+using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -174,10 +176,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BackgroundProperty, Element.Color.ToWindowsColor()));
 
-#if UWP_18362
 			if (Element.Color == Color.Transparent)
+			{
+#if UWP_18362
 				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.IsDefaultShadowEnabledProperty, false));
+#else
+				const string isDefaultShadowEnabledProperty = "IsDefaultShadowEnabledProperty";
+
+				if (ApiInformation.IsPropertyPresent(typeof(FlyoutPresenter).FullName, isDefaultShadowEnabledProperty))
+				{
+					var property = typeof(FlyoutPresenter).GetProperty(isDefaultShadowEnabledProperty, BindingFlags.Static | BindingFlags.Public);
+					if (property?.GetValue(null) is DependencyProperty enabledProperty)
+					{
+						flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(enabledProperty,false));
+					}
+				}
 #endif
+			}
 		}
 
 		void ApplyStyles()
