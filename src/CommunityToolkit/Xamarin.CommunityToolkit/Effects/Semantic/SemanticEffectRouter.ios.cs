@@ -22,10 +22,17 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			else
 				view.AccessibilityTraits &= ~UIAccessibilityTrait.Header;
 
-			view.AccessibilityLabel = SemanticEffect.GetDescription(Element);
-			view.AccessibilityHint = SemanticEffect.GetHint(Element);
-		}
+			var desc = SemanticEffect.GetDescription(Element);
+			var hint = SemanticEffect.GetHint(Element);
+			view.AccessibilityLabel = desc;
+			view.AccessibilityHint = hint;
 
+			// UIControl elements automatically have IsAccessibilityElement set to true
+			if (view is not UIControl && !string.IsNullOrWhiteSpace(hint) && !string.IsNullOrWhiteSpace(desc))
+			{
+				view.IsAccessibilityElement = true;
+			}
+		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
