@@ -34,11 +34,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		internal void Show(Forms.Page page, SnackBarOptions arguments)
+		internal void Show(Forms.VisualElement visualElement, SnackBarOptions arguments)
 		{
 			var snackBarLayout = new SnackBarLayout(arguments);
-			var pageControl = Platform.GetRenderer(page).ContainerElement.Parent;
-			var grid = (Grid)(FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea")?.Parent ?? throw new NullReferenceException());
+			var pageControl = Platform.GetRenderer(visualElement).ContainerElement.Parent;
+			var grid = (Grid)(FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea")?.Parent ?? throw new NotSupportedException("Anchor Not Supported on UWP"));
+
 			var snackBarRow = new RowDefinition() { Height = GridLength.Auto };
 			snackBarTimer = new DispatcherTimer { Interval = arguments.Duration };
 			snackBarTimer.Tick += (sender, e) =>
