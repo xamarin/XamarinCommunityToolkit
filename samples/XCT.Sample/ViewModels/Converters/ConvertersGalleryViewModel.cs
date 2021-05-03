@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Converters;
@@ -88,6 +88,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				nameof(EnumToBoolConverter),
 				"A converter that allows you to convert an Enum to boolean value"),
 			new SectionModel(
+				typeof(EnumToIntConverterPage),
+				nameof(EnumToIntConverter),
+				"A converter that allows you to convert an Enum to its underlying int value"),
+			new SectionModel(
 				typeof(ImageResourceConverterPage),
 				nameof(ImageResourceConverter),
 				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
@@ -95,7 +99,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(MathExpressionConverterPage),
 				nameof(MathExpressionConverter),
 				"A converter that allows users to calculate an expression at runtime."),
-      new SectionModel(
+			new SectionModel(
 				typeof(StringToListConverterPage),
 				nameof(StringToListConverter),
 				"A converter that splits a string by the separator and returns the enumerable sequence of strings as the result."),
