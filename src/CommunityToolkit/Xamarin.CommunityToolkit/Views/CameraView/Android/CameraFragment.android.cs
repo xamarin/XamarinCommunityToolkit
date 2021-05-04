@@ -520,8 +520,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			try
 			{
-				DisposeMediaRecorder();
-				await PrepareSession();
+				mediaRecorder.Stop();
+				Sound(MediaActionSoundType.StopVideoRecording);
+				OnVideo(this, videoFile);
 			}
 			catch (Java.Lang.Exception ex)
 			{
@@ -531,9 +532,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				IsRecordingVideo = false;
 			}
+			try
+			{
+				CloseSession();
+				//DisposeMediaRecorder(); //Already called by SetupMediaRecorder
+				await PrepareSession();
+			}
+			catch (Java.Lang.Exception ex)
+			{
+				LogError("Error restarting video recording", ex);
+			}
 
-			Sound(MediaActionSoundType.StopVideoRecording);
-			OnVideo(this, videoFile);
+
 		}
 
 		async Task PrepareSession()
