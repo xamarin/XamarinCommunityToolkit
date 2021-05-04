@@ -13,6 +13,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	public class SemanticEffectRouterBase<T> : PlatformEffect
 		where T : Effect
 	{
+		public SemanticEffectRouterBase()
+		{
+		}
+
 		protected override void OnAttached()
 		{
 			var ve = Element as VisualElement;

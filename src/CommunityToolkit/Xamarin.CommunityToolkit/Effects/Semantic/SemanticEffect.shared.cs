@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Effects
 	public static class SemanticEffect
 	{
 		public static readonly BindableProperty HeadingLevelProperty =
-		  BindableProperty.CreateAttached("HeadingLevel", typeof(bool), typeof(SemanticEffect), HeadingLevel.None, propertyChanged: OnPropertyChanged);
+		  BindableProperty.CreateAttached("HeadingLevel", typeof(HeadingLevel), typeof(SemanticEffect), HeadingLevel.None, propertyChanged: OnPropertyChanged);
 
 		public static HeadingLevel GetHeadingLevel(BindableObject view) => (HeadingLevel)view.GetValue(HeadingLevelProperty);
 

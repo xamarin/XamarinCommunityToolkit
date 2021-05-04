@@ -12,6 +12,10 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 	public class SemanticEffectRouterBase<T> : Xamarin.Forms.Platform.UWP.PlatformEffect
 		where T : Effect
 	{
+		public SemanticEffectRouterBase()
+		{
+		}
+
 		protected override void OnAttached()
 		{
 			if (Control == null)

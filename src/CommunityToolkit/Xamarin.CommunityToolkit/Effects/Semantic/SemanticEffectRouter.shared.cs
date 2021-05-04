@@ -14,6 +14,9 @@ namespace Xamarin.CommunityToolkit.Effects
 #if __IOS__
 			if (DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.Effects.SemanticEffectRouter();
+#elif __ANDROID__
+			if (DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.Android.Effects.SemanticEffectRouter();
 #endif
 			#endregion
 		}

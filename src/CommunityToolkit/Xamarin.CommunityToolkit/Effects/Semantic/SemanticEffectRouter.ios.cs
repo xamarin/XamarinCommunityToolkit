@@ -13,6 +13,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	/// </summary>
 	public class SemanticEffectRouter : SemanticEffectRouterBase<SemanticEffectRouter>
 	{
+		public SemanticEffectRouter()
+		{
+		}
+
 		protected override void Update(UIView view, SemanticEffectRouter effect)
 		{
 			var isHeading = SemanticEffect.GetHeadingLevel(Element) != CommunityToolkit.Effects.Semantic.HeadingLevel.None;

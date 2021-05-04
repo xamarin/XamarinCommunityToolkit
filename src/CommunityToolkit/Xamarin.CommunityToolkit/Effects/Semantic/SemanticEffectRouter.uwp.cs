@@ -14,6 +14,10 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 	/// </summary>
 	public class SemanticEffectRouter : SemanticEffectRouterBase<SemanticEffectRouter>
 	{
+		public SemanticEffectRouter()
+		{
+		}
+
 		protected override void Update(FrameworkElement view, SemanticEffectRouter effect)
 		{
 			var headingLevel = (AutomationHeadingLevel)((int)SemanticEffect.GetHeadingLevel(Element));

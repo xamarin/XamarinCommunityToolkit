@@ -12,6 +12,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	public class SemanticEffectRouterBase<T> : Xamarin.Forms.Platform.iOS.PlatformEffect
 		where T : Effect
 	{
+		public SemanticEffectRouterBase()
+		{
+		}
+
 		protected override void OnAttached()
 		{
 			if (Control == null)
