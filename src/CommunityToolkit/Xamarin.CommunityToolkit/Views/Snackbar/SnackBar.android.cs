@@ -15,11 +15,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal void Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var view = Platform.GetRenderer(sender).View;
 			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
+
+			if (sender is not Page)
+			{
+				snackBar.SetAnchorView(view);
+			}
+
 			if (arguments.BackgroundColor != Forms.Color.Default)
 			{
 				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
@@ -109,6 +115,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			public override void OnDismissed(Java.Lang.Object transientBottomBar, int e)
 			{
 				base.OnDismissed(transientBottomBar, e);
+
 				switch (e)
 				{
 					case DismissEventTimeout:
