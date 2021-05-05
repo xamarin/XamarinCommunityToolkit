@@ -15,17 +15,17 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	/// </summary>
 	public class SemanticEffectRouter : SemanticEffectRouterBase<SemanticEffectRouter>
 	{
-		public SemanticEffectRouter()
-		{
-		}
-
 		SemanticAccessibilityDelegate? semanticAccessibilityDelegate;
 
 		protected override void Update(global::Android.Views.View view, SemanticEffectRouter effect)
 		{
 			var isHeading = SemanticEffect.GetHeadingLevel(Element) != CommunityToolkit.Effects.Semantic.HeadingLevel.None;
 			ViewCompat.SetAccessibilityHeading(view, isHeading);
+			var desc = SemanticEffect.GetDescription(Element);
 			var hint = SemanticEffect.GetHint(Element);
+
+			if (string.IsNullOrWhiteSpace(Element.AutomationId))
+				view.ContentDescription = desc;
 
 			if (!string.IsNullOrEmpty(hint) && semanticAccessibilityDelegate == null)
 			{
@@ -83,7 +83,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				}
 
 				var desc = SemanticEffect.GetDescription(Element);
-				if (!string.IsNullOrEmpty(desc))
+				if (!string.IsNullOrEmpty(desc) && !string.IsNullOrWhiteSpace(Element.AutomationId))
 				{
 					info.ContentDescription = desc;
 				}
