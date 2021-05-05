@@ -25,10 +25,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			var isHeading = SemanticEffect.GetHeadingLevel(Element) != CommunityToolkit.Effects.Semantic.HeadingLevel.None;
 			ViewCompat.SetAccessibilityHeading(view, isHeading);
-			var desc = SemanticEffect.GetDescription(Element);
 			var hint = SemanticEffect.GetHint(Element);
 
-			view.ContentDescription = desc;
 			if (!string.IsNullOrEmpty(hint) && semanticAccessibilityDelegate == null)
 			{
 				semanticAccessibilityDelegate = new SemanticAccessibilityDelegate(Element);
@@ -82,6 +80,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 					if (host is EditText)
 						info.ShowingHintText = false;
+				}
+
+				var desc = SemanticEffect.GetDescription(Element);
+				if (!string.IsNullOrEmpty(desc))
+				{
+					info.ContentDescription = desc;
 				}
 			}
 		}
