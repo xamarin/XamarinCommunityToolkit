@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(SafeAreaEffectPage),
 				nameof(SafeAreaEffect),
-				"The SafeAreaEffect is an effectwill help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
+				"The SafeAreaEffect is an effect that will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
 
 			new SectionModel(
 				typeof(RemoveBorderEffectPage),
@@ -47,7 +47,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(SemanticEffectPage),
 				nameof(SemanticEffect),
-				"The SemanticEffect allows you to set accessibility properties on views.")
+				"The SemanticEffect allows you to set semantic properties for accessibility.")
 		};
 	}
 }
