@@ -6,6 +6,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Automation.Peers;
 using Xamarin.CommunityToolkit.Effects;
+using Effects = Xamarin.CommunityToolkit.UWP.Effects;
+
+[assembly: Xamarin.Forms.ExportEffect(typeof(Effects.SemanticEffectRouter), nameof(SemanticEffectRouter))]
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
@@ -30,7 +33,9 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 		{
 			base.OnElementPropertyChanged(args);
 
-			if (args.PropertyName == SemanticEffect.HeadingLevelProperty.PropertyName)
+			if (args.PropertyName == SemanticEffect.HeadingLevelProperty.PropertyName ||
+				args.PropertyName == SemanticEffect.DescriptionProperty.PropertyName ||
+				args.PropertyName == SemanticEffect.HintProperty.PropertyName)
 			{
 				Update();
 			}
