@@ -25,6 +25,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		List<NSObject>? GetAccessibilityElements()
 		{
+			if (AccessibilityContentView == null)
+				return null;
+
 			var viewOrder = AccessibilityContentView.ViewOrder;
 
 			var returnValue = new List<NSObject>();
