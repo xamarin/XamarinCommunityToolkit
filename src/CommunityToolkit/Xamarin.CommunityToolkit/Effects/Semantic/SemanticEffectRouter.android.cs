@@ -40,6 +40,15 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			if (semanticAccessibilityDelegate != null)
 				semanticAccessibilityDelegate.Element = Element;
+
+			if (!string.IsNullOrWhiteSpace(hint) || !string.IsNullOrWhiteSpace(desc))
+			{
+				view.ImportantForAccessibility = global::Android.Views.ImportantForAccessibility.Yes;
+			}
+			else
+			{
+				view.ImportantForAccessibility = global::Android.Views.ImportantForAccessibility.Auto;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)

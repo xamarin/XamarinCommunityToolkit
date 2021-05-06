@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			view.AccessibilityHint = hint;
 
 			// UIControl elements automatically have IsAccessibilityElement set to true
-			if (view is not UIControl && !string.IsNullOrWhiteSpace(hint) && !string.IsNullOrWhiteSpace(desc))
+			if (view is not UIControl && (!string.IsNullOrWhiteSpace(hint) || !string.IsNullOrWhiteSpace(desc)))
 			{
 				view.IsAccessibilityElement = true;
 			}
