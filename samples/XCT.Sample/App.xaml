@@ -115,7 +115,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Grid Padding="20,12">
-                                <custom:PancakeView Style="{StaticResource card}" AutomationProperties.IsInAccessibleTree="True">
+                                <custom:PancakeView Style="{StaticResource card}">
                                     <custom:PancakeView.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding .}" />
                                     </custom:PancakeView.GestureRecognizers>
