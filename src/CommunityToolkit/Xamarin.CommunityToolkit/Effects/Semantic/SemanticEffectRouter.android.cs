@@ -24,13 +24,17 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			var desc = SemanticEffect.GetDescription(Element);
 			var hint = SemanticEffect.GetHint(Element);
 
-			if (string.IsNullOrWhiteSpace(Element.AutomationId))
+			if (string.IsNullOrEmpty(Element.AutomationId))
 				view.ContentDescription = desc;
 
-			if (!string.IsNullOrEmpty(hint) && semanticAccessibilityDelegate == null)
+			if (!string.IsNullOrEmpty(hint) ||
+				(!string.IsNullOrEmpty(desc) && !string.IsNullOrEmpty(Element.AutomationId)))
 			{
-				semanticAccessibilityDelegate = new SemanticAccessibilityDelegate(Element);
-				ViewCompat.SetAccessibilityDelegate(view, semanticAccessibilityDelegate);
+				if (semanticAccessibilityDelegate == null)
+				{
+					semanticAccessibilityDelegate = new SemanticAccessibilityDelegate(Element);
+					ViewCompat.SetAccessibilityDelegate(view, semanticAccessibilityDelegate);
+				}
 			}
 			else if (semanticAccessibilityDelegate != null)
 			{
@@ -41,14 +45,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (semanticAccessibilityDelegate != null)
 				semanticAccessibilityDelegate.Element = Element;
 
-			if (!string.IsNullOrWhiteSpace(hint) || !string.IsNullOrWhiteSpace(desc))
-			{
+			if (semanticAccessibilityDelegate != null)
 				view.ImportantForAccessibility = global::Android.Views.ImportantForAccessibility.Yes;
-			}
-			else
-			{
-				view.ImportantForAccessibility = global::Android.Views.ImportantForAccessibility.Auto;
-			}
 		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
