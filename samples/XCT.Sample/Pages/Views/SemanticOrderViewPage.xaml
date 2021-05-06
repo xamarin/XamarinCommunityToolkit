@@ -5,18 +5,15 @@
              x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SemanticOrderViewPage"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="20">
             <Button Text="Element outside the Semantic View"></Button>
             <xct:SemanticOrderView x:Name="acv">
                 <StackLayout>
-                    <Label x:Name="second" Text="Second" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
-                    <Label Text="Top Label" HeightRequest="50"/>
-                    <Label x:Name="third" Text="Third" HeightRequest="50"/>
-                    <Label x:Name="fourth" Text="Fourth" HeightRequest="50"/>
-                    <BoxView BackgroundColor="Purple" HeightRequest="50"/>
-                    <BoxView BackgroundColor="Green" HeightRequest="50"/>
-                    <Label x:Name="fifth" Text="Fifth and last" HeightRequest="50"/>
-                    <Label x:Name="first" Text="First" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                    <Label x:Name="second" Text="Second" Margin="0,20" />
+                    <Button x:Name="third" Text="Third" Margin="0,20" />
+                    <Label x:Name="fourth" Text="Fourth" Margin="0,20" />
+                    <Button x:Name="fifth" Text="Fifth and last" Margin="0,20" />
+                    <Label x:Name="first" Text="First" Margin="0,20" />
                 </StackLayout>
             </xct:SemanticOrderView>
         </StackLayout>
