@@ -17,8 +17,18 @@
                 <Label Text="I am a heading 7" xct:SemanticEffect.HeadingLevel="Level7"/>
                 <Label Text="I am a heading 8" xct:SemanticEffect.HeadingLevel="Level8"/>
                 <Label Text="I am a heading 9" xct:SemanticEffect.HeadingLevel="Level9"/>
-                <Label Text="I have a hint" xct:SemanticEffect.Hint="This is a hint"/>
-                <Label Text="I have a description" xct:SemanticEffect.Description="This is a description"/>
+
+                <Label Text="I am a label with an automation ID" AutomationId="labelAutomationIdTest" xct:SemanticEffect.Description="This is a semantic description" />
+
+                <Label Text="The button below has a semantic hint"/>
+                <Button
+                    Text="Button with hint"
+                    xct:SemanticEffect.Hint="This is a hint that describes the button. For example, 'sends a message'"/>
+
+                <Label Text="The image below has a semantic description"/>
+                <Image
+                    Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"
+                    xct:SemanticEffect.Description="This is a description that describes the image. For example, 'image of xamarin community toolkit logo'"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
