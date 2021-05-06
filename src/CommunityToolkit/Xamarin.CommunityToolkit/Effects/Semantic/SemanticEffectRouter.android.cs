@@ -24,11 +24,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			var desc = SemanticEffect.GetDescription(Element);
 			var hint = SemanticEffect.GetHint(Element);
 
-			if (string.IsNullOrEmpty(Element.AutomationId))
-				view.ContentDescription = desc;
-
-			if (!string.IsNullOrEmpty(hint) ||
-				(!string.IsNullOrEmpty(desc) && !string.IsNullOrEmpty(Element.AutomationId)))
+			if (!string.IsNullOrEmpty(hint) || !string.IsNullOrEmpty(desc))
 			{
 				if (semanticAccessibilityDelegate == null)
 				{
@@ -90,7 +86,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				}
 
 				var desc = SemanticEffect.GetDescription(Element);
-				if (!string.IsNullOrEmpty(desc) && !string.IsNullOrWhiteSpace(Element.AutomationId))
+				if (!string.IsNullOrEmpty(desc))
 				{
 					info.ContentDescription = desc;
 				}
