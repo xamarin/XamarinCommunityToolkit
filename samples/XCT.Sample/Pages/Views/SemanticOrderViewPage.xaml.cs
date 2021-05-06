@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		public SemanticOrderViewPage()
 		{
 			InitializeComponent();
-			acv.ViewOrder = new List<View> { first, second, third, middle, bottom };
+			acv.ViewOrder = new List<View> { first, second, third, fourth, fifth };
 		}
 	}
 }
