@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			set => SetProperty(ref counter, value);
 		}
 
-		ICommand tappedCommand;
+		ICommand? tappedCommand;
 
 		public ICommand TappedCommand => tappedCommand ??= new Command(p =>
 		{
