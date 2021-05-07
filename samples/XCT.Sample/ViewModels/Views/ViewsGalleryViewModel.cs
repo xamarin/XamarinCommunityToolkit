@@ -46,9 +46,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 			new SectionModel(typeof(StateLayoutPage), "StateLayout",
 				"A collection of attached properties that let you specify one or more state views for any of your existing layouts."),
-			
+
 			new SectionModel(typeof(ContentButtonPage), "ContentButton",
-				"ContentButton allows you to add content view to a button.")
+				"ContentButton allows you to add content view to a button."),
 
 			new SectionModel(typeof(TabViewPage), "TabView",
 				"A control to display a set of tabs and their respective content."),
