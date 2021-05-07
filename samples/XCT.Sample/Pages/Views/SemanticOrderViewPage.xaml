@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SemanticOrderViewPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            <Button Text="Element outside the Semantic View"></Button>
+            <xct:SemanticOrderView x:Name="acv">
+                <StackLayout>
+                    <Label x:Name="second" Text="Second" Margin="0,20" />
+                    <Button x:Name="third" Text="Third" Margin="0,20" />
+                    <Label x:Name="fourth" Text="Fourth" Margin="0,20" />
+                    <Button x:Name="fifth" Text="Fifth and last" Margin="0,20" />
+                    <Button x:Name="first" Text="First" Margin="0,20" />
+                </StackLayout>
+            </xct:SemanticOrderView>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
