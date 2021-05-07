@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
@@ -12,6 +13,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	public class SafeAreaEffectRouter : PlatformEffect
 	{
 		Thickness initialMargin;
+		NSObject? orientationDidChangeNotificationObserver;
 
 		new View Element => (View)base.Element;
 
@@ -25,10 +27,32 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (!IsEligibleToConsumeEffect)
 				return;
 
+			orientationDidChangeNotificationObserver = NSNotificationCenter.DefaultCenter.AddObserver(
+				UIDevice.OrientationDidChangeNotification, _ => UpdateInsets());
+
+			initialMargin = Element.Margin;
+			UpdateInsets();
+		}
+
+		protected override void OnDetached()
+		{
+			if (!IsEligibleToConsumeEffect)
+				return;
+
+			if (orientationDidChangeNotificationObserver != null) {
+				NSNotificationCenter.DefaultCenter.RemoveObserver(orientationDidChangeNotificationObserver);
+				orientationDidChangeNotificationObserver?.Dispose();
+				orientationDidChangeNotificationObserver = null;
+			}
+
+			Element.Margin = initialMargin;
+		}
+
+		void UpdateInsets()
+		{
 			var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
 			var safeArea = SafeAreaEffect.GetSafeArea(Element);
 
-			initialMargin = Element.Margin;
 			Element.Margin = new Thickness(
 				initialMargin.Left + CalculateInsets(insets.Left, safeArea.Left),
 				initialMargin.Top + CalculateInsets(insets.Top, safeArea.Top),

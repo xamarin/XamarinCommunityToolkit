@@ -6,6 +6,7 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
+using System;
 #if MONOANDROID10_0
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
@@ -16,11 +17,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal async ValueTask Show(Page sender, SnackBarOptions arguments)
+		internal async ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided page cannot be parent to SnackBar", nameof(sender));
 			var snackBar = AndroidSnackBar.Make(renderer.View, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
+
+			if (sender is not Page)
+			{
+				snackBar.SetAnchorView(view);
+			}
+
 			if (arguments.BackgroundColor != Forms.Color.Default)
 			{
 				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
@@ -124,6 +131,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			public override void OnDismissed(Java.Lang.Object transientBottomBar, int e)
 			{
 				base.OnDismissed(transientBottomBar, e);
+
 				switch (e)
 				{
 					case DismissEventTimeout:

@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal ValueTask Show(Forms.Page sender, SnackBarOptions arguments)
+		internal ValueTask Show(Forms.VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBarDialog =
 				Forms.Platform.Tizen.Native.Dialog.CreateDialog(Forms.Forms.NativeParent,
