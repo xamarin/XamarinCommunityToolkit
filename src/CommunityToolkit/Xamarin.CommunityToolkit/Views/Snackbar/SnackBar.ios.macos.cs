@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(VisualElement sender, SnackBarOptions arguments)
+		internal ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBar = NativeSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 							.SetDuration(arguments.Duration)
@@ -44,6 +44,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			if (arguments.MessageOptions.Padding != MessageOptions.DefaultPadding)
+			{
+				snackBar.Layout.PaddingTop = (nfloat)arguments.MessageOptions.Padding.Top;
+				snackBar.Layout.PaddingLeft = (nfloat)arguments.MessageOptions.Padding.Left;
+				snackBar.Layout.PaddingBottom = (nfloat)arguments.MessageOptions.Padding.Bottom;
+				snackBar.Layout.PaddingRight = (nfloat)arguments.MessageOptions.Padding.Right;
+			}
+
+			snackBar.Appearance.TextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
+
+			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
 			{
 				snackBar.Layout.PaddingTop = (nfloat)arguments.MessageOptions.Padding.Top;
 				snackBar.Layout.PaddingLeft = (nfloat)arguments.MessageOptions.Padding.Left;
@@ -120,6 +130,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			snackBar.Show();
+
+			return default;
 		}
 	}
 }

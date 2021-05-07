@@ -60,6 +60,12 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				initialMargin.Bottom + CalculateInsets(insets.Bottom, safeArea.Bottom));
 		}
 
+		protected override void OnDetached()
+		{
+			if (IsEligibleToConsumeEffect)
+				Element.Margin = initialMargin;
+		}
+
 		double CalculateInsets(double insetsComponent, bool shouldUseInsetsComponent) => shouldUseInsetsComponent ? insetsComponent : 0;
 	}
 }

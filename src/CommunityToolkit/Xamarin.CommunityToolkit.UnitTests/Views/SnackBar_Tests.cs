@@ -10,6 +10,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
 	public class SnackBar_Tests
 	{
+#if !NETCOREAPP
 		[Test]
 		public void PageExtension_DisplaySnackBarAsync_PlatformNotSupportedException()
 		{

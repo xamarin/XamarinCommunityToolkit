@@ -393,10 +393,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return isRightSwipe ? left : right;
 		}
 
-		bool TryUpdateShift(double shift, bool isUserInteraction)
+		bool TryUpdateShift(double shift, bool shouldUpdatePreviousShift, bool shouldCheckMenuGestureEnabled)
 		{
 			var isLeft = shift >= 0;
 			SetActiveView(isLeft);
+
 			if (activeMenu == null)
 				return false;
 
@@ -505,6 +506,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				activeMenu = leftMenu;
 				inactiveMenu = rightMenu;
+			}
+			else
+			{
+				activeMenu = rightMenu;
+				inactiveMenu = leftMenu;
+			}
+
+			if (Control == null)
+				return;
+
+			if (inactiveMenu == null ||
+				activeMenu == null ||
+				leftMenu?.X + leftMenu?.Width <= rightMenu?.X ||
+				Control.Children.IndexOf(inactiveMenu) < Control.Children.IndexOf(activeMenu))
 				return;
 			}
 
@@ -597,7 +612,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void AddChild(View view)
 		{
-			Control.Children.Add(view);
+			Control?.Children.Add(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -614,7 +629,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveChild(View view)
 		{
-			Control.Children.Remove(view);
+			Control?.Children.Remove(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
