@@ -22,13 +22,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty ContentProperty
 			= BindableProperty.Create(nameof(Content), typeof(View), typeof(ContentButton), propertyChanged: OnContentPropertyChanged);
 
-		public static readonly BindableProperty CornerRadiusProperty 
+		public static readonly BindableProperty CornerRadiusProperty
 			= BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(ContentButton), 0.0f, propertyChanged: OnCornerRadiusPropertyChanged);
 
-		public static readonly BindableProperty BorderColorProperty 
+		public static readonly BindableProperty BorderColorProperty
 			= BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(ContentButton), Color.Default, propertyChanged: OnBorderColorPropertyChanged);
 
-		public static new readonly BindableProperty BackgroundColorProperty 
+		public static new readonly BindableProperty BackgroundColorProperty
 			= BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(ContentButton), Color.Default, propertyChanged: OnBackgroundColorPropertyChanged);
 
 		public static readonly BindableProperty CommandParameterProperty
@@ -109,7 +109,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(CommandProperty, value);
 		}
 
-		DataTemplate previousTemplate;
+		DataTemplate? previousTemplate;
 
 		readonly object contentSetLocker = new object();
 
@@ -136,12 +136,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (Content != null)
 				Control.Content = Content;
-				
+
 			if (!shouldIgnoreContentSetting)
 				SetContent(true);
 		}
 
-		View CreateContent()
+		View? CreateContent()
 		{
 			var template = ContentTemplate;
 			while (template is DataTemplateSelector selector)
@@ -151,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return null;
 
 			previousTemplate = template;
-			return (View)template?.CreateContent();
+			return (View?)template?.CreateContent();
 		}
 
 		protected override void OnControlInitialized(Frame control)
