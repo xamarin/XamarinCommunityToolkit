@@ -6,7 +6,7 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
-using System;
+using AndroidX.CoordinatorLayout.Widget;
 #if MONOANDROID10_0
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (sender is not Page)
 			{
-				snackBar.SetAnchorView(snackBarView);
+				snackBar.SetAnchorView(renderer.View);
 			}
 
 			if (arguments.BackgroundColor != Forms.Color.Default)
