@@ -3,8 +3,13 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.AnimationBehaviorPage">
-      <ScrollView>
+    <pages:BasePage.BindingContext>
+        <vm:AnimationBehaviorViewModel />
+    </pages:BasePage.BindingContext>
+    
+    <ScrollView>
         <StackLayout Padding="{StaticResource ContentPadding}"
                      Spacing="10">
 
@@ -48,7 +53,7 @@
             </ImageButton>
             
  
-             <Label Text="{xct:Translate Shake}">
+             <Label Text="Shake">
                 <Label.Behaviors>
                     <xct:AnimationBehavior Command="{Binding MyCommand}">
                         <xct:AnimationBehavior.AnimationType>
@@ -90,6 +95,19 @@
                     </xct:AnimationBehavior>
                 </CheckBox.Behaviors>
             </CheckBox>
+
+            <Entry Placeholder="Shake me with the button below">
+                <Entry.Behaviors>
+                    <xct:AnimationBehavior AnimateCommand="{Binding TriggerAnimationCommand}">
+                        <xct:AnimationBehavior.AnimationType>
+                            <xct:ShakeAnimation/>
+                        </xct:AnimationBehavior.AnimationType>
+                    </xct:AnimationBehavior>
+                </Entry.Behaviors>
+            </Entry>
+
+            <Button Text="Shake the entry above" 
+                     Command="{Binding TriggerAnimationCommand}" />
         </StackLayout>
   </ScrollView>
 </pages:BasePage>

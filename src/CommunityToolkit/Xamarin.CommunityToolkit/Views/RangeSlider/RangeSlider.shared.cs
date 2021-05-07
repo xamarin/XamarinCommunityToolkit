@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -16,23 +17,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		const double disabledOpacity = .6;
 
-		public event EventHandler ValueChanged;
+		public event EventHandler? ValueChanged;
 
-		public event EventHandler LowerValueChanged;
+		public event EventHandler? LowerValueChanged;
 
-		public event EventHandler UpperValueChanged;
+		public event EventHandler? UpperValueChanged;
 
-		public event EventHandler DragStarted;
+		public event EventHandler? DragStarted;
 
-		public event EventHandler LowerDragStarted;
+		public event EventHandler? LowerDragStarted;
 
-		public event EventHandler UpperDragStarted;
+		public event EventHandler? UpperDragStarted;
 
-		public event EventHandler DragCompleted;
+		public event EventHandler? DragCompleted;
 
-		public event EventHandler LowerDragCompleted;
+		public event EventHandler? LowerDragCompleted;
 
-		public event EventHandler UpperDragCompleted;
+		public event EventHandler? UpperDragCompleted;
 
 		public static BindableProperty MinimumValueProperty
 			= BindableProperty.Create(nameof(MinimumValue), typeof(double), typeof(RangeSlider), .0, propertyChanged: OnMinimumMaximumValuePropertyChanged);
@@ -50,7 +51,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.Create(nameof(UpperValue), typeof(double), typeof(RangeSlider), 1.0, BindingMode.TwoWay, propertyChanged: OnLowerUpperValuePropertyChanged, coerceValue: CoerceValue);
 
 		public static BindableProperty ThumbSizeProperty
-			= BindableProperty.Create(nameof(ThumbSize), typeof(double), typeof(RangeSlider), 30.0, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(ThumbSize), typeof(double), typeof(RangeSlider), 28.0, propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty LowerThumbSizeProperty
 			= BindableProperty.Create(nameof(LowerThumbSize), typeof(double), typeof(RangeSlider), -1.0, propertyChanged: OnLayoutPropertyChanged);
@@ -59,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.Create(nameof(UpperThumbSize), typeof(double), typeof(RangeSlider), -1.0, propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty TrackSizeProperty
-			= BindableProperty.Create(nameof(TrackSize), typeof(double), typeof(RangeSlider), 3.0, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(TrackSize), typeof(double), typeof(RangeSlider), 4.0, propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty ThumbColorProperty
 			= BindableProperty.Create(nameof(ThumbColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
@@ -278,15 +279,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ValueLabelStringFormatProperty, value);
 		}
 
-		public View LowerThumbView
+		public View? LowerThumbView
 		{
-			get => (View)GetValue(LowerThumbViewProperty);
+			get => (View?)GetValue(LowerThumbViewProperty);
 			set => SetValue(LowerThumbViewProperty, value);
 		}
 
-		public View UpperThumbView
+		public View? UpperThumbView
 		{
-			get => (View)GetValue(UpperThumbViewProperty);
+			get => (View?)GetValue(UpperThumbViewProperty);
 			set => SetValue(UpperThumbViewProperty, value);
 		}
 
@@ -320,13 +321,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(TrackRadiusProperty, value);
 		}
 
+		static bool IsThumbShadowSupported
+			=> Device.RuntimePlatform == Device.iOS
+			|| Device.RuntimePlatform == Device.macOS;
+
 		Frame Track { get; } = CreateFrameElement<Frame>();
 
 		Frame TrackHighlight { get; } = CreateFrameElement<Frame>();
 
-		Frame LowerThumb { get; } = CreateFrameElement<ThumbFrame>();
+		Frame LowerThumb { get; } = CreateFrameElement<ThumbFrame>(IsThumbShadowSupported);
 
-		Frame UpperThumb { get; } = CreateFrameElement<ThumbFrame>();
+		Frame UpperThumb { get; } = CreateFrameElement<ThumbFrame>(IsThumbShadowSupported);
 
 		Label LowerValueLabel { get; } = CreateLabelElement();
 
@@ -334,7 +339,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		double TrackWidth => Width - LowerThumb.Width - UpperThumb.Width;
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 			switch (propertyName)
@@ -384,13 +389,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnLayoutPropertyChanged();
 		}
 
-		static Frame CreateFrameElement<TFrame>() where TFrame : Frame, new()
-			=> new TFrame
+		static Frame CreateFrameElement<TFrame>(bool hasShadow = false) where TFrame : Frame, new()
+		{
+			var frame = new TFrame
 			{
 				Padding = 0,
 				HasShadow = false,
 				IsClippedToBounds = true
 			};
+
+			if (hasShadow)
+			{
+				ShadowEffect.SetColor(frame, Color.Black);
+				ShadowEffect.SetOpacity(frame, .25);
+				ShadowEffect.SetRadius(frame, 3);
+				ShadowEffect.SetOffsetY(frame, 2);
+			}
+
+			return frame;
+		}
 
 		static Label CreateLabelElement()
 			=> new Label
@@ -481,10 +498,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var upperThumbColor = GetColorOrDefault(UpperThumbColor, ThumbColor);
 			var lowerThumbBorderColor = GetColorOrDefault(LowerThumbBorderColor, ThumbBorderColor);
 			var upperThumbBorderColor = GetColorOrDefault(UpperThumbBorderColor, ThumbBorderColor);
+			if (!IsThumbShadowSupported)
+			{
+				var defaultThumbColor = Color.FromRgb(182, 182, 182);
+				lowerThumbBorderColor = GetColorOrDefault(lowerThumbBorderColor, defaultThumbColor);
+				upperThumbBorderColor = GetColorOrDefault(upperThumbBorderColor, defaultThumbColor);
+			}
+
+			LowerThumb.BorderColor = lowerThumbBorderColor;
+			UpperThumb.BorderColor = upperThumbBorderColor;
 			LowerThumb.BackgroundColor = GetColorOrDefault(lowerThumbColor, Color.White);
 			UpperThumb.BackgroundColor = GetColorOrDefault(upperThumbColor, Color.White);
-			LowerThumb.BorderColor = GetColorOrDefault(lowerThumbBorderColor, Color.FromRgb(182, 182, 182));
-			UpperThumb.BorderColor = GetColorOrDefault(upperThumbBorderColor, Color.FromRgb(182, 182, 182));
 			Track.BackgroundColor = GetColorOrDefault(TrackColor, Color.FromRgb(182, 182, 182));
 			TrackHighlight.BackgroundColor = GetColorOrDefault(TrackHighlightColor, Color.FromRgb(46, 124, 246));
 			Track.BorderColor = GetColorOrDefault(TrackBorderColor, Color.Default);
@@ -537,7 +561,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BatchCommit();
 		}
 
-		void OnViewSizeChanged(object sender, System.EventArgs e)
+		void OnViewSizeChanged(object? sender, System.EventArgs e)
 		{
 			var maxHeight = Max(LowerValueLabel.Height, UpperValueLabel.Height);
 			if ((sender == LowerValueLabel || sender == UpperValueLabel) && labelMaxHeight == maxHeight)
@@ -550,9 +574,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnLayoutPropertyChanged();
 		}
 
-		void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+		void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
-			var view = (View)sender;
+			var view = (View)(sender ?? throw new NullReferenceException($"{nameof(sender)} cannot be null"));
+
 			switch (e.StatusType)
 			{
 				case GestureStatus.Started:
@@ -633,7 +658,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				? defaultSize
 				: value;
 
-		void RaiseEvent(EventHandler eventHandler)
+		void RaiseEvent(EventHandler? eventHandler)
 			=> eventHandler?.Invoke(this, EventArgs.Empty);
 	}
 }

@@ -1,15 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
 	public class StateLayoutViewModel : BaseViewModel
 	{
-		ICommand fullscreenLoadingCommand;
-		ICommand cycleStatesCommand;
-		string customState;
+		string customState = string.Empty;
 		LayoutState currentState;
 		LayoutState mainState;
 
@@ -31,28 +29,19 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			set => SetProperty(ref customState, value);
 		}
 
-		public ICommand FullscreenLoadingCommand
-		{
-			get => fullscreenLoadingCommand;
-			set => SetProperty(ref fullscreenLoadingCommand, value);
-		}
+		public ICommand FullscreenLoadingCommand { get; }
 
-		public ICommand CycleStatesCommand
-		{
-			get => cycleStatesCommand;
-			set => SetProperty(ref cycleStatesCommand, value);
-		}
+		public ICommand CycleStatesCommand { get; }
 
 		public StateLayoutViewModel()
 		{
-			FullscreenLoadingCommand = new Command(async (x) =>
+			FullscreenLoadingCommand = CommandFactory.Create(async () =>
 			{
 				MainState = LayoutState.Loading;
 				await Task.Delay(2000);
 				MainState = LayoutState.None;
 			});
-
-			CycleStatesCommand = new Command(async (x) => await CycleStates());
+			CycleStatesCommand = CommandFactory.Create(CycleStates);
 		}
 
 		async Task CycleStates()

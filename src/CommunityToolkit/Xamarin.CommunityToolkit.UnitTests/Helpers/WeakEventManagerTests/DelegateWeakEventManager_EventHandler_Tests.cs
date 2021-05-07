@@ -1,13 +1,13 @@
 ﻿using System;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.Helpers;
-using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 {
 	public class DelegateWeakEventManager_EventHandler_Tests : BaseWeakEventManagerTests
 	{
-		[Fact]
+		[Test]
 		public void WeakEventManager_HandleEvent_ValidImplementation()
 		{
 			// Arrange
@@ -19,10 +19,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 				if (sender == null)
 					throw new ArgumentNullException(nameof(sender));
 
-				Assert.NotNull(sender);
-				Assert.Equal(GetType(), sender.GetType());
+				Assert.IsNotNull(sender);
+				Assert.AreEqual(GetType(), sender.GetType());
 
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 
 				didEventFire = true;
 				TestEvent -= HandleTestEvent;
@@ -32,10 +32,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			TestWeakEventManager.RaiseEvent(this, new EventArgs(), nameof(TestEvent));
 
 			// Assert
-			Assert.True(didEventFire);
+			Assert.IsTrue(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_HandleEvent_NullSender()
 		{
 			// Arrange
@@ -45,20 +45,22 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleTestEvent(object? sender, EventArgs e)
 			{
 				Assert.Null(sender);
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 
 				didEventFire = true;
 				TestEvent -= HandleTestEvent;
 			}
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			TestWeakEventManager.RaiseEvent(null, new EventArgs(), nameof(TestEvent));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
-			Assert.True(didEventFire);
+			Assert.IsTrue(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_HandleEvent_EmptyEventArgs()
 		{
 			// Arrange
@@ -70,11 +72,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 				if (sender == null)
 					throw new ArgumentNullException(nameof(sender));
 
-				Assert.NotNull(sender);
-				Assert.Equal(GetType(), sender.GetType());
+				Assert.IsNotNull(sender);
+				Assert.AreEqual(GetType(), sender.GetType());
 
-				Assert.NotNull(e);
-				Assert.Equal(EventArgs.Empty, e);
+				Assert.IsNotNull(e);
+				Assert.AreEqual(EventArgs.Empty, e);
 
 				didEventFire = true;
 				TestEvent -= HandleTestEvent;
@@ -84,10 +86,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			TestWeakEventManager.RaiseEvent(this, EventArgs.Empty, nameof(TestEvent));
 
 			// Assert
-			Assert.True(didEventFire);
+			Assert.IsTrue(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_HandleEvent_NullEventArgs()
 		{
 			// Arrange
@@ -99,8 +101,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 				if (sender == null)
 					throw new ArgumentNullException(nameof(sender));
 
-				Assert.NotNull(sender);
-				Assert.Equal(GetType(), sender.GetType());
+				Assert.IsNotNull(sender);
+				Assert.AreEqual(GetType(), sender.GetType());
 
 				Assert.Null(e);
 
@@ -114,10 +116,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 
 			// Assert
-			Assert.True(didEventFire);
+			Assert.IsTrue(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_HandleEvent_InvalidHandleEventName()
 		{
 			// Arrange
@@ -134,7 +136,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			TestEvent -= HandleTestEvent;
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_UnassignedEvent()
 		{
 			// Arrange
@@ -145,13 +147,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleTestEvent(object? sender, EventArgs e) => didEventFire = true;
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			TestWeakEventManager.RaiseEvent(null, null, nameof(TestEvent));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
 			Assert.False(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_UnassignedEventManager()
 		{
 			// Arrange
@@ -162,14 +166,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			void HandleTestEvent(object? sender, EventArgs e) => didEventFire = true;
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			unassignedEventManager.RaiseEvent(null, null, nameof(TestEvent));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
 			Assert.False(didEventFire);
 			TestEvent -= HandleTestEvent;
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_AddEventHandler_NullHandler()
 		{
 			// Arrange
@@ -182,7 +188,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_AddEventHandler_NullEventName()
 		{
 			// Arrange
@@ -195,7 +201,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_AddEventHandler_EmptyEventName()
 		{
 			// Arrange
@@ -208,7 +214,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_AddEventHandler_WhitespaceEventName()
 		{
 			// Arrange
@@ -221,7 +227,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_RemoveEventHandler_NullHandler()
 		{
 			// Arrange
@@ -234,7 +240,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_RemoveEventHandler_NullEventName()
 		{
 			// Arrange
@@ -247,7 +253,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_RemoveEventHandler_EmptyEventName()
 		{
 			// Arrange
@@ -260,7 +266,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_RemoveEventHandler_WhiteSpaceEventName()
 		{
 			// Arrange
@@ -273,7 +279,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManager_HandleEvent_InvalidHandleEvent()
 		{
 			// Arrange

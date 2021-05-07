@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(SafeAreaEffectPage),
 				nameof(SafeAreaEffect),
-				"The SafeAreaEffect is an effectwill help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
+				"The SafeAreaEffect is an effect that will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
 
 			new SectionModel(
 				typeof(RemoveBorderEffectPage),
@@ -33,6 +33,21 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				typeof(TouchEffectPage),
 				nameof(TouchEffect),
 				"The TouchEffect is an effect that allows changing the view's appearance depending on the touch state (normal, pressed, hovered). Also, it allows to handle long presses."),
+
+			new SectionModel(
+				typeof(LifeCycleEffectPage),
+				nameof(LifecycleEffect),
+				"The LifeCycle is an effect that allows you to know when a control or layout is loaded or/and unloaded in the screen and perform actions based on that."),
+
+			new SectionModel(
+				typeof(ShadowEffectPage),
+				nameof(ShadowEffect),
+				"The ShadowEffect allows all views to display shadow."),
+
+			new SectionModel(
+				typeof(SemanticEffectPage),
+				nameof(SemanticEffect),
+				"The SemanticEffect allows you to set semantic properties for accessibility.")
 		};
 	}
 }

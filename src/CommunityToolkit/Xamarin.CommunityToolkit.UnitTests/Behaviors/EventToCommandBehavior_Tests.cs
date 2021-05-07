@@ -1,17 +1,17 @@
 ﻿using System;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class EventToCommandBehavior_Tests
 	{
-		public EventToCommandBehavior_Tests()
-			=> Device.PlatformServices = new MockPlatformServices();
+		[SetUp]
+		public void SetUp() => Device.PlatformServices = new MockPlatformServices();
 
-		[Fact]
+		[Test]
 		public void ArgumentExceptionIfSpecifiedEventDoesNotExist()
 		{
 			var listView = new ListView();
@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.Throws<ArgumentException>(() => listView.Behaviors.Add(behavior));
 		}
 
-		[Fact]
+		[Test]
 		public void NoExceptionIfSpecifiedEventExists()
 		{
 			var listView = new ListView();
@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			listView.Behaviors.Add(behavior);
 		}
 
-		[Fact]
+		[Test]
 		public void NoExceptionIfAttachedToPage()
 		{
 			var page = new ContentPage();

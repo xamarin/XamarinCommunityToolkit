@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppKit;
 using Foundation;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
@@ -10,21 +11,23 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 {
 	class NativeSnackBar
 	{
-		NSTimer timer;
+		NSTimer? timer;
 
-		public Func<Task> TimeoutAction { get; protected set; }
+		public Func<Task>? TimeoutAction { get; protected set; }
 
-		public List<NativeActionButton> Actions { get; protected set; } = new List<NativeActionButton>();
+		public List<NativeSnackButton> Actions { get; protected set; } = new List<NativeSnackButton>();
 
 		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
 
-		public double Duration { get; protected set; }
+		public TimeSpan Duration { get; protected set; }
 
 		public SnackBarLayout Layout { get; } = new SnackBarLayout();
 
-		public string Message { get; protected set; }
+		public string Message { get; protected set; } = string.Empty;
 
-		protected BaseSnackBarView SnackBarView { get; set; }
+		protected BaseSnackBarView? SnackBarView { get; set; }
+
+		protected NSView? Anchor { get; set; }
 
 		public void Dismiss()
 		{
@@ -50,37 +53,37 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS
 			return this;
 		}
 
-		public NativeSnackBar SetDuration(double duration)
+		public NativeSnackBar SetDuration(TimeSpan duration)
 		{
 			Duration = duration;
+			return this;
+		}
+
+		public NativeSnackBar SetAnchor(NSView anchor)
+		{
+			Anchor = anchor;
 			return this;
 		}
 
 		public NativeSnackBar Show()
 		{
 			SnackBarView = GetSnackBarView();
+			SnackBarView.AnchorView = Anchor;
 
 			SnackBarView.ParentView.AddSubview(SnackBarView);
 
 			SnackBarView.Setup();
 
-			timer = NSTimer.CreateScheduledTimer(TimeSpan.FromMilliseconds(Duration), async t =>
+			timer = NSTimer.CreateScheduledTimer(Duration, async t =>
 			{
-				await TimeoutAction();
+				if (TimeoutAction != null)
+					await TimeoutAction();
 				Dismiss();
 			});
 
 			return this;
 		}
 
-		BaseSnackBarView GetSnackBarView()
-		{
-			if (Actions.Count() > 0)
-			{
-				return new ActionMessageSnackBarView(this);
-			}
-
-			return new MessageSnackBarView(this);
-		}
+		BaseSnackBarView GetSnackBarView() => Actions.Any() ? new ActionMessageSnackBarView(this) : new MessageSnackBarView(this);
 	}
 }

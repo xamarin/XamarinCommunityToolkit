@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class FormsVideoView : VideoView
 	{
-		public event EventHandler MetadataRetrieved;
+		public event EventHandler? MetadataRetrieved;
 
 		public FormsVideoView(Context context)
 			: base(context)
@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SetBackgroundColor(global::Android.Graphics.Color.Transparent);
 		}
 
-		public override void SetVideoPath(string path)
+		public override async void SetVideoPath(string? path)
 		{
 			base.SetVideoPath(path);
 
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var retriever = new MediaMetadataRetriever();
 
-				Task.Run(() =>
+				await Task.Run(() =>
 				{
 					retriever.SetDataSource(path);
 					ExtractMetadata(retriever);
@@ -50,31 +50,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				DurationTimeSpan = null;
 		}
 
-		public override void SetVideoURI(global::Android.Net.Uri uri, IDictionary<string, string> headers)
+		public override async void SetVideoURI(global::Android.Net.Uri? uri, IDictionary<string, string>? headers)
 		{
-			GetMetaData(uri, headers);
+			if (uri != null)
+				await SetMetadata(uri, headers);
+
 			base.SetVideoURI(uri, headers);
 		}
 
-		protected void GetMetaData(global::Android.Net.Uri uri, IDictionary<string, string> headers)
+		protected async Task SetMetadata(global::Android.Net.Uri uri, IDictionary<string, string>? headers)
 		{
-			Task.Run(() =>
+			var retriever = new MediaMetadataRetriever();
+
+			if (uri.Scheme != null && uri.Scheme.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase))
 			{
-				var retriever = new MediaMetadataRetriever();
+				await retriever.SetDataSourceAsync(uri.ToString(), headers ?? new Dictionary<string, string>());
+			}
+			else
+			{
+				await retriever.SetDataSourceAsync(Context, uri);
+			}
 
-				if (uri.Scheme != null && uri.Scheme.StartsWith("http"))
-				{
-					retriever.SetDataSource(uri.ToString(), headers ?? new Dictionary<string, string>());
-				}
-				else
-				{
-					retriever.SetDataSource(Context, uri);
-				}
+			ExtractMetadata(retriever);
 
-				ExtractMetadata(retriever);
-
-				MetadataRetrieved?.Invoke(this, EventArgs.Empty);
-			});
+			MetadataRetrieved?.Invoke(this, EventArgs.Empty);
 		}
 
 		public int VideoHeight { get; private set; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
@@ -23,10 +24,62 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Text that is shown on the left side of the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
-		public string Subject
+		public string? Subject
 		{
-			get => (string)GetValue(SubjectProperty);
+			get => (string?)GetValue(SubjectProperty);
 			set => SetValue(SubjectProperty, value);
+		}
+
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="SubjectBackgroundColor"/> property.
+		/// </summary>
+		public static readonly BindableProperty SubjectBackgroundColorProperty =
+			BindableProperty.Create(nameof(SubjectBackgroundColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnSubjectBackgroundColorChanged);
+
+		static void OnSubjectBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubjectColor();
+
+		/// <summary>
+		/// Background <see cref="Forms.Color" /> of the left side of the <see cref="Shield" />. This is a bindable property.
+		/// </summary>
+		public Color SubjectBackgroundColor
+		{
+			get => (Color)GetValue(SubjectBackgroundColorProperty);
+			set => SetValue(SubjectBackgroundColorProperty, value);
+		}
+
+		[Obsolete("TextColor is obsolete. Please use StatusTextColor instead")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public static readonly BindableProperty TextColorProperty =
+			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnTextColorChanged);
+
+		[Obsolete("TextColor is obsolete. Please use StatusTextColor instead")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public Color TextColor
+		{
+			get => (Color)GetValue(TextColorProperty);
+			set => SetValue(TextColorProperty, value);
+		}
+
+		static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).StatusTextColor = (Color)newValue;
+
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="SubjectTextColor"/> property.
+		/// </summary>
+		public static readonly BindableProperty SubjectTextColorProperty =
+			BindableProperty.Create(nameof(SubjectTextColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnSubjectTextColorChanged);
+
+		static void OnSubjectTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubjectTextColor();
+
+		/// <summary>
+		/// Text <see cref="Forms.Color" /> of the text on the right side of the Shield
+		/// </summary>
+		public Color SubjectTextColor
+		{
+			get => (Color)GetValue(SubjectTextColorProperty);
+			set => SetValue(SubjectTextColorProperty, value);
 		}
 
 		/// <summary>
@@ -41,43 +94,62 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Text that is shown on the right side of the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
-		public string Status
+		public string? Status
 		{
-			get => (string)GetValue(StatusProperty);
+			get => (string?)GetValue(StatusProperty);
 			set => SetValue(StatusProperty, value);
 		}
 
-		/// <summary>
-		/// Backing BindableProperty for the <see cref="Color"/> property.
-		/// </summary>
+		[Obsolete("Color is obsolete. Please use StatusBackgroundColor instead")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static readonly BindableProperty ColorProperty =
 			BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), Color.Default,
-				propertyChanged: OnColorChanged);
+		propertyChanged: OnColorChanged);
 
 		static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateColor();
 
-		/// <summary>
-		/// Background <see cref="Forms.Color" /> of the right side of the <see cref="Shield" />. This is a bindable property.
-		/// </summary>
+		[Obsolete("Color is obsolete. Please use StatusBackgroundColor instead")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public Color Color
 		{
 			get => (Color)GetValue(ColorProperty);
 			set => SetValue(ColorProperty, value);
 		}
 
-		public static readonly BindableProperty TextColorProperty =
-			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
-				propertyChanged: OnTextColorChanged);
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="StatusBackgroundColor"/> property.
+		/// </summary>
+		public static readonly BindableProperty StatusBackgroundColorProperty =
+			BindableProperty.Create(nameof(StatusBackgroundColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnStatusBackgroundColorChanged);
 
-		static void OnTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateTextColor();
+		static void OnStatusBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatusBackgroundColor();
+
+		/// <summary>
+		/// Background <see cref="Forms.Color" /> of the right side of the <see cref="Shield" />. This is a bindable property.
+		/// </summary>
+		public Color StatusBackgroundColor
+		{
+			get => (Color)GetValue(StatusBackgroundColorProperty);
+			set => SetValue(StatusBackgroundColorProperty, value);
+		}
+
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="StatusTextColor"/> property.
+		/// </summary>
+		public static readonly BindableProperty StatusTextColorProperty =
+			BindableProperty.Create(nameof(StatusTextColor), typeof(Color), typeof(Shield), Color.Default,
+				propertyChanged: OnStatusTextColorChanged);
+
+		static void OnStatusTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatusTextColor();
 
 		/// <summary>
 		/// Text <see cref="Forms.Color" /> of the text on the right side of the Shield
 		/// </summary>
-		public Color TextColor
+		public Color StatusTextColor
 		{
-			get => (Color)GetValue(TextColorProperty);
-			set => SetValue(TextColorProperty, value);
+			get => (Color)GetValue(StatusTextColorProperty);
+			set => SetValue(StatusTextColorProperty, value);
 		}
 
 		/// <summary>
@@ -92,7 +164,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font size of all the text on the <see cref="Shield" />. <see cref="NamedSize" /> values can be used. This is a bindable preoprty.
 		/// </summary>
-		[TypeConverter(typeof(FontSizeConverter))]
+		[Xamarin.Forms.TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);
@@ -109,9 +181,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font of all the text on the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
-		public string FontFamily
+		public string? FontFamily
 		{
-			get => (string)GetValue(FontFamilyProperty);
+			get => (string?)GetValue(FontFamilyProperty);
 			set => SetValue(FontFamilyProperty, value);
 		}
 
@@ -140,9 +212,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Command that is triggered when the <see cref="Shield" /> is tapped. This is a bindable property.
 		/// </summary>
-		public ICommand Command
+		public ICommand? Command
 		{
-			get => (ICommand)GetValue(CommandProperty);
+			get => (ICommand?)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
@@ -155,7 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Parameter that is provided to the <see cref="Command"/> when the <see cref="Shield" /> is tapped. This is a bindable property.
 		/// </summary>
-		public object CommandParameter
+		public object? CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);
@@ -164,7 +236,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Event that is triggered when the <see cref="Shield" /> is tapped. This is a bindable property.
 		/// </summary>
-		public event EventHandler Tapped;
+		public event EventHandler? Tapped;
 
 		Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
 
@@ -173,6 +245,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		Grid ShieldStatusContainer { get; } = CreateStatusContainerElement();
 
 		Label ShieldStatus { get; } = CreateStatusElement();
+
+		static Grid CreateSubjectContainerElement()
+			=> new Grid()
+			{
+				BackgroundColor = Color.FromHex("#555555")
+			};
+
+		static Label CreateSubjectElement()
+		  => new Label
+		  {
+			  TextColor = Color.White,
+			  VerticalOptions = LayoutOptions.Center,
+			  Margin = new Thickness(4, 0)
+		  };
+
+		static Grid CreateStatusContainerElement()
+		 => new Grid();
+
+		static Label CreateStatusElement()
+		   => new Label
+		   {
+			   VerticalOptions = LayoutOptions.Center,
+			   Margin = new Thickness(4, 0)
+		   };
 
 		protected override void OnControlInitialized(Frame control)
 		{
@@ -204,31 +300,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateIsEnabled();
 		}
 
-		static Grid CreateSubjectContainerElement()
-			=> new Grid
-			{
-				BackgroundColor = Color.FromHex("#555555")
-			};
-
-		static Label CreateSubjectElement()
-		  => new Label
-		  {
-			  TextColor = Color.White,
-			  VerticalOptions = LayoutOptions.Center,
-			  Margin = new Thickness(4, 0)
-		  };
-
-		static Grid CreateStatusContainerElement()
-		 => new Grid();
-
-		static Label CreateStatusElement()
-		   => new Label
-		   {
-			   VerticalOptions = LayoutOptions.Center,
-			   Margin = new Thickness(4, 0)
-		   };
-
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 
@@ -240,9 +312,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateStatus() => ShieldStatus.Text = Status;
 
+		void UpdateSubjectColor() => ShieldSubjectContainer.BackgroundColor = SubjectBackgroundColor;
+
 		void UpdateColor() => ShieldStatusContainer.BackgroundColor = Color;
 
-		void UpdateTextColor() => ShieldStatus.TextColor = TextColor;
+		void UpdateStatusBackgroundColor() => ShieldStatusContainer.BackgroundColor = StatusBackgroundColor;
+
+		void UpdateSubjectTextColor() => ShieldSubject.TextColor = SubjectTextColor;
+
+		void UpdateStatusTextColor() => ShieldStatus.TextColor = StatusTextColor;
 
 		void UpdateFont()
 		{
@@ -268,7 +346,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				GestureRecognizers.Clear();
 			}
 
-			void OnCloseButtonTapped(object sender, EventArgs e)
+			void OnCloseButtonTapped(object? sender, EventArgs e)
 			{
 				Tapped?.Invoke(this, EventArgs.Empty);
 				Command?.Execute(CommandParameter);

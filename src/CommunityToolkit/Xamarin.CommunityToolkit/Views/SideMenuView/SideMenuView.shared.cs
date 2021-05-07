@@ -38,17 +38,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		readonly SideMenuElementCollection children = new SideMenuElementCollection();
 
-		View overlayView;
-
-		View mainView;
-
-		View leftMenu;
-
-		View rightMenu;
-
-		View activeMenu;
-
-		View inactiveMenu;
+		View? overlayView, mainView, leftMenu, rightMenu, activeMenu, inactiveMenu;
 
 		double zeroShift;
 
@@ -87,12 +77,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty MenuGestureEnabledProperty
 			= BindableProperty.CreateAttached(nameof(GetMenuGestureEnabled), typeof(bool), typeof(SideMenuView), true);
 
+		public static readonly BindableProperty MainViewScaleFactorProperty
+			= BindableProperty.CreateAttached(nameof(GetMainViewScaleFactor), typeof(double), typeof(SideMenuView), 1.0);
+
+		public static readonly BindableProperty MainViewOpacityFactorProperty
+			= BindableProperty.CreateAttached(nameof(GetMainViewOpacityFactor), typeof(double), typeof(SideMenuView), 1.0);
+
+		public static readonly BindableProperty MenuAppearanceTypeProperty
+			= BindableProperty.CreateAttached(nameof(GetMenuAppearanceType), typeof(SideMenuAppearanceType), typeof(SideMenuView), SideMenuAppearanceType.SlideOut);
+
+		public static readonly BindableProperty ParallaxValueProperty
+			= BindableProperty.CreateAttached(nameof(GetParallaxValue), typeof(double), typeof(SideMenuView), 0.0);
+
 		public SideMenuView()
 		{
 			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(null);
+				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(ToolkitPlatform.Context ?? throw new NullReferenceException());
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
@@ -157,7 +159,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static void SetMenuGestureEnabled(BindableObject bindable, bool value)
 			=> bindable.SetValue(MenuGestureEnabledProperty, value);
 
-		internal void OnPanUpdated(object sender, PanUpdatedEventArgs e)
+		public static double GetMainViewScaleFactor(BindableObject bindable)
+			=> (double)bindable.GetValue(MainViewScaleFactorProperty);
+
+		public static void SetMainViewScaleFactor(BindableObject bindable, double value)
+			=> bindable.SetValue(MainViewScaleFactorProperty, value);
+
+		public static double GetMainViewOpacityFactor(BindableObject bindable)
+			=> (double)bindable.GetValue(MainViewOpacityFactorProperty);
+
+		public static void SetMainViewOpacityFactor(BindableObject bindable, double value)
+			=> bindable.SetValue(MainViewOpacityFactorProperty, value);
+
+		public static SideMenuAppearanceType GetMenuAppearanceType(BindableObject bindable)
+			=> (SideMenuAppearanceType)bindable.GetValue(MenuAppearanceTypeProperty);
+
+		public static void SetMenuAppearanceType(BindableObject bindable, SideMenuAppearanceType value)
+			=> bindable.SetValue(MenuAppearanceTypeProperty, value);
+
+		public static double GetParallaxValue(BindableObject bindable)
+			=> (double)bindable.GetValue(ParallaxValueProperty);
+
+		public static void SetParallaxValue(BindableObject bindable, double value)
+			=> bindable.SetValue(ParallaxValueProperty, value);
+
+		internal void OnPanUpdated(object? sender, PanUpdatedEventArgs e)
 		{
 			var shift = e.TotalX;
 			var verticalShift = e.TotalY;
@@ -344,7 +370,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		void SetOverlayViewInputTransparent(SideMenuState state)
-			=> overlayView.InputTransparent = state == SideMenuState.MainViewShown;
+		{
+			_ = overlayView ?? throw new NullReferenceException();
+			overlayView.InputTransparent = state == SideMenuState.MainViewShown;
+		}
 
 		SideMenuState ResolveSwipeState(bool isRightSwipe)
 		{
@@ -364,26 +393,73 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return isRightSwipe ? left : right;
 		}
 
-		bool TryUpdateShift(double sift, bool shouldUpdatePreviousShift, bool shouldCheckMenuGestureEnabled)
+		bool TryUpdateShift(double shift, bool shouldUpdatePreviousShift, bool shouldCheckMenuGestureEnabled)
 		{
-			SetActiveView(sift >= 0);
+			var isLeft = shift >= 0;
+			SetActiveView(isLeft);
+
 			if (activeMenu == null)
 				return false;
 
 			if (shouldCheckMenuGestureEnabled && !GetMenuGestureEnabled(activeMenu))
 				return false;
 
-			sift = Sign(sift) * Min(Abs(sift), activeMenu.Width);
-			if (Abs(Shift - sift) <= double.Epsilon)
+			_ = mainView ?? throw new NullReferenceException();
+
+			var activeMenuWidth = activeMenu.Width;
+			var mainViewWidth = mainView.Width;
+
+			var sign = Sign(shift);
+			shift = Sign(shift) * Min(Abs(shift), activeMenuWidth);
+			if (Abs(Shift - shift) <= double.Epsilon)
 				return false;
 
-			Shift = sift;
-			SetCurrentGestureState(sift);
-			if (shouldUpdatePreviousShift)
-				previousShift = sift;
+			var nonZeroSign = isLeft ? -1 : 1;
 
-			mainView.TranslationX = sift;
-			overlayView.TranslationX = sift;
+			Shift = shift;
+			SetCurrentGestureState(shift);
+			if (shouldUpdatePreviousShift)
+				previousShift = shift;
+
+			_ = overlayView ?? throw new NullReferenceException();
+
+			using (mainView.Batch())
+			using (activeMenu.Batch())
+			using (overlayView.Batch())
+			using (inactiveMenu?.Batch())
+			{
+				if (inactiveMenu != null)
+					inactiveMenu.TranslationX = -inactiveMenu.Width * nonZeroSign;
+
+				var progress = animationEasing.Ease(shift / activeMenuWidth);
+				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * progress);
+				var opacity = 1 - ((1 - GetMainViewOpacityFactor(activeMenu)) * progress);
+
+				var parallax = GetParallaxValue(activeMenu);
+				parallax = Min(Abs(parallax), activeMenuWidth) * Sign(parallax);
+
+				mainView.Scale = scale;
+				mainView.Opacity = opacity;
+
+				switch (GetMenuAppearanceType(activeMenu))
+				{
+					case SideMenuAppearanceType.SlideOut:
+						activeMenu.TranslationX = parallax * (1 - Abs(progress)) * nonZeroSign;
+						mainView.TranslationX = shift - (sign * mainViewWidth * 0.5 * (1 - scale));
+						overlayView.TranslationX = shift;
+						break;
+					case SideMenuAppearanceType.SlideIn:
+						activeMenu.TranslationX = (activeMenuWidth - Abs(shift)) * nonZeroSign;
+						mainView.TranslationX = parallax * progress;
+						overlayView.TranslationX = parallax * progress;
+						break;
+					case SideMenuAppearanceType.SlideInOut:
+						activeMenu.TranslationX = (activeMenuWidth - Abs(shift) - (parallax * (1 - Abs(progress)))) * nonZeroSign;
+						mainView.TranslationX = shift - (sign * mainViewWidth * 0.5 * (1 - scale));
+						overlayView.TranslationX = shift;
+						break;
+				}
+			}
 			return true;
 		}
 
@@ -437,13 +513,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				inactiveMenu = leftMenu;
 			}
 
-			if (inactiveMenu == null ||
-				activeMenu == null ||
-				leftMenu.X + leftMenu.Width <= rightMenu.X ||
-				Control.Children.IndexOf(inactiveMenu) < Control.Children.IndexOf(activeMenu))
+			if (Control == null)
 				return;
 
-			Control.LowerChild(inactiveMenu);
+			if (inactiveMenu == null ||
+				activeMenu == null ||
+				leftMenu?.X + leftMenu?.Width <= rightMenu?.X ||
+				Control.Children.IndexOf(inactiveMenu) < Control.Children.IndexOf(activeMenu))
+				return;
 		}
 
 		bool CheckMenuGestureEnabled(SideMenuState state)
@@ -511,7 +588,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnChildrenCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		void OnChildrenCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
 		{
 			HandleChildren(e.OldItems, RemoveChild);
 			HandleChildren(e.NewItems, AddChild);
@@ -522,13 +599,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (items != null)
 			{
 				foreach (var item in items)
-					action?.Invoke((View)item);
+				{
+					if (item != null && action != null)
+						action((View)item);
+				}
 			}
 		}
 
 		void AddChild(View view)
 		{
-			Control.Children.Add(view);
+			Control?.Children.Add(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -545,7 +625,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveChild(View view)
 		{
-			Control.Children.Remove(view);
+			Control?.Children.Remove(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -565,16 +645,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				inactiveMenu = null;
 		}
 
-		void OnLayoutChanged(object sender, EventArgs e)
+		void RaiseMenuIfNeeded(View? menuView)
+		{
+			if (menuView != null && GetMenuAppearanceType(menuView) == SideMenuAppearanceType.SlideIn)
+				Control.RaiseChild(menuView);
+		}
+
+		void OnLayoutChanged(object? sender, EventArgs e)
 		{
 			if (mainView == null)
 				return;
 
-			Control.RaiseChild(mainView);
-			Control.RaiseChild(overlayView);
+			using (Control.Batch())
+			{
+				Control.RaiseChild(mainView);
+				Control.RaiseChild(overlayView);
+
+				RaiseMenuIfNeeded(leftMenu);
+				RaiseMenuIfNeeded(rightMenu);
+			}
 		}
 
-		bool CheckMenuGestureEnabled(View menuView)
+		bool CheckMenuGestureEnabled(View? menuView)
 			=> menuView != null && GetMenuGestureEnabled(menuView);
 	}
 }

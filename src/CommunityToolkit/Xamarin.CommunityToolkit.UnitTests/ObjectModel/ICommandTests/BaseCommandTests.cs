@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
+using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 {
+	[NonParallelizable]
 	public abstract class BaseCommandTests
 	{
+		public const int ICommandTestTimeout = Delay * 6;
 		public const int Delay = 500;
 
 		public BaseCommandTests() => Device.PlatformServices = new MockPlatformServices();
@@ -15,11 +19,23 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 
 		protected Task IntParameterTask(int delay) => Task.Delay(delay);
 
-		protected Task StringParameterTask(string text) => Task.Delay(Delay);
+		protected Task StringParameterTask(string? text) => Task.Delay(Delay);
 
 		protected Task NoParameterImmediateNullReferenceExceptionTask() => throw new NullReferenceException();
 
 		protected Task ParameterImmediateNullReferenceExceptionTask(int delay) => throw new NullReferenceException();
+
+		protected void NoParameterAction()
+		{
+		}
+
+		protected void ObjectParameterAction(object parameter)
+		{
+		}
+
+		protected void IntParameterAction(int parameter)
+		{
+		}
 
 		protected async Task NoParameterDelayedNullReferenceExceptionTask()
 		{
@@ -37,19 +53,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 
 		protected bool CanExecuteFalse() => false;
 
+		protected bool CanExecuteTrue(int parameter) => true;
+
 		protected bool CanExecuteTrue(bool parameter) => true;
 
-		protected bool CanExecuteTrue(string parameter) => true;
+		protected bool CanExecuteTrue(string? parameter) => true;
 
-		protected bool CanExecuteTrue(object parameter) => true;
+		protected bool CanExecuteTrue(object? parameter) => true;
 
 		protected bool CanExecuteFalse(bool parameter) => false;
 
-		protected bool CanExecuteFalse(string parameter) => false;
+		protected bool CanExecuteFalse(string? parameter) => false;
 
-		protected bool CanExecuteFalse(object parameter) => false;
+		protected bool CanExecuteFalse(object? parameter) => false;
 
-		protected bool CanExecuteDynamic(object booleanParameter)
+		protected bool CanExecuteDynamic(object? booleanParameter)
 		{
 			if (booleanParameter is bool parameter)
 				return parameter;

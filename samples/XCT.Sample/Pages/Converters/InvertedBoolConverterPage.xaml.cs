@@ -1,10 +1,7 @@
 ﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
 {
-	public partial class InvertedBoolConverterPage 
+	public partial class InvertedBoolConverterPage
 	{
-		public InvertedBoolConverterPage()
-		{
-			InitializeComponent();
-		}
+		public InvertedBoolConverterPage() => InitializeComponent();
 	}
 }

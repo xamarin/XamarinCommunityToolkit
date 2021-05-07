@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
@@ -17,10 +17,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBar = NativeSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
-							.SetDuration(arguments.Duration.TotalMilliseconds)
+							.SetDuration(arguments.Duration)
 							.SetTimeoutAction(() =>
 							{
 								arguments.SetResult(false);
@@ -43,13 +43,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				snackBar.Appearance.Foreground = arguments.MessageOptions.Foreground.ToUIColor();
 			}
 
+			if (arguments.MessageOptions.Padding != MessageOptions.DefaultPadding)
+			{
+				snackBar.Layout.PaddingTop = (nfloat)arguments.MessageOptions.Padding.Top;
+				snackBar.Layout.PaddingLeft = (nfloat)arguments.MessageOptions.Padding.Left;
+				snackBar.Layout.PaddingBottom = (nfloat)arguments.MessageOptions.Padding.Bottom;
+				snackBar.Layout.PaddingRight = (nfloat)arguments.MessageOptions.Padding.Right;
+			}
+
 			snackBar.Appearance.TextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
 
 			if (!UIDevice.CurrentDevice.CheckSystemVersion(11, 0))
 			{
-				var renderer = Platform.GetRenderer(sender);
-				snackBar.SetParentController(renderer.ViewController);
+				snackBar.Layout.PaddingTop = (nfloat)arguments.MessageOptions.Padding.Top;
+				snackBar.Layout.PaddingLeft = (nfloat)arguments.MessageOptions.Padding.Left;
+				snackBar.Layout.PaddingBottom = (nfloat)arguments.MessageOptions.Padding.Bottom;
+				snackBar.Layout.PaddingRight = (nfloat)arguments.MessageOptions.Padding.Right;
 			}
+
+			snackBar.Appearance.TextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
 #elif __MACOS__
 			if (arguments.BackgroundColor != Color.Default)
 			{
@@ -68,46 +80,49 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			snackBar.Appearance.TextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left;
 #endif
+			var renderer = Platform.GetRenderer(sender);
+			snackBar.SetAnchor(renderer.NativeView);
 
 			foreach (var action in arguments.Actions)
 			{
-				var actionButton = new NativeActionButton();
+				var actionButton = new NativeSnackButton(action.Padding.Left,
+					action.Padding.Top,
+					action.Padding.Right,
+					action.Padding.Bottom);
 				actionButton.SetActionButtonText(action.Text);
 #if __IOS__
 				if (action.BackgroundColor != Color.Default)
 				{
-					actionButton.Appearance.Background = action.BackgroundColor.ToUIColor();
+					actionButton.BackgroundColor = action.BackgroundColor.ToUIColor();
 				}
 
 				if (action.Font != Font.Default)
 				{
-					actionButton.Appearance.Font = action.Font.ToUIFont();
+					actionButton.Font = action.Font.ToUIFont();
 				}
 
 				if (action.ForegroundColor != Color.Default)
 				{
-					actionButton.Appearance.Foreground = action.ForegroundColor.ToUIColor();
+					actionButton.SetTitleColor(action.ForegroundColor.ToUIColor(), UIControlState.Normal);
 				}
 #elif __MACOS__
-				if (action.BackgroundColor != Color.Default)
+				if (action.BackgroundColor != Color.Default && actionButton.Layer != null)
 				{
-					actionButton.Appearance.Background = action.BackgroundColor.ToNSColor();
+					actionButton.Layer.BackgroundColor = action.BackgroundColor.ToCGColor();
 				}
 
 				if (action.Font != Font.Default)
 				{
-					actionButton.Appearance.Font = action.Font.ToNSFont();
-				}
-
-				if (action.ForegroundColor != Color.Default)
-				{
-					actionButton.Appearance.Foreground = action.ForegroundColor.ToNSColor();
+					actionButton.Font = action.Font.ToNSFont();
 				}
 #endif
 				actionButton.SetAction(async () =>
 				{
 					snackBar.Dismiss();
-					await action.Action();
+
+					if (action.Action != null)
+						await action.Action();
+
 					arguments.SetResult(true);
 				});
 
@@ -115,6 +130,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			snackBar.Show();
+
+			return default;
 		}
 	}
 }

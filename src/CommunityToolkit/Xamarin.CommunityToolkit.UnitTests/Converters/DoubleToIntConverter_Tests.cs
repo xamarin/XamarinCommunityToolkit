@@ -1,39 +1,36 @@
 ﻿using System;
 using System.Globalization;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
-using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class DoubleToIntConverter_Tests
 	{
-		[Theory]
-		[InlineData(2.5, 2)]
-		[InlineData(2.55, 3)]
-		[InlineData(2.555, 3)]
-		[InlineData(2.555, 652, 255)]
-		public void DoubleToIntConverter(double value, int expectedResult, object ratio = null)
+		[TestCase(2.5, 2)]
+		[TestCase(2.55, 3)]
+		[TestCase(2.555, 3)]
+		[TestCase(2.555, 652, 255)]
+		public void DoubleToIntConverter(double value, int expectedResult, object? ratio = null)
 		{
 			var doubleToIntConverter = new DoubleToIntConverter();
 
 			var result = doubleToIntConverter.Convert(value, typeof(DoubleToIntConverter_Tests), ratio, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData(2, 2)]
-		public void DoubleToIntConverterBack(int value, double expectedResult, object ratio = null)
+		[TestCase(2, 2)]
+		public void DoubleToIntConverterBack(int value, double expectedResult, object? ratio = null)
 		{
 			var doubleToIntConverter = new DoubleToIntConverter();
 
 			var result = doubleToIntConverter.ConvertBack(value, typeof(DoubleToIntConverter_Tests), ratio, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData("")]
+		[TestCase("")]
 		public void DoubleToIntInValidValuesThrowArgumenException(object value)
 		{
 			var doubleToIntConverter = new DoubleToIntConverter();
