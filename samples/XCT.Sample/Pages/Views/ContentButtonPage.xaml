@@ -1,43 +1,46 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-        xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
-        xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
-        x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ContentButtonPage"
-        xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-        xmlns:rsx="clr-namespace:Xamarin.CommunityToolkit.Extensions;assembly=Xamarin.CommunityToolkit">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.ContentButtonPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+    xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit">
     <pages:BasePage.BindingContext>
         <viewmodels:ContentButtonViewModel />
     </pages:BasePage.BindingContext>
 
-    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-           RowDefinitions="Auto,*">
-        <views:ContentButton Grid.Row="0"
-                Margin="{StaticResource ContentPadding}" CornerRadius="8"
-                Command="{Binding TappedCommand}" BackgroundColor="White"
-                BorderColor="#8a8a8a">
+    <Grid
+        HorizontalOptions="FillAndExpand"
+        RowDefinitions="Auto,*"
+        VerticalOptions="FillAndExpand">
+        <views:ContentButton
+            Margin="{StaticResource ContentPadding}"
+            BackgroundColor="White"
+            BorderColor="#8a8a8a"
+            Command="{Binding TappedCommand}"
+            CornerRadius="8">
             <views:ContentButton.Content>
-                <Grid ColumnSpacing="20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="12" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                <Grid ColumnDefinitions="12, *" ColumnSpacing="20">
                     <BoxView BackgroundColor="#00ab64" />
-                    <StackLayout Grid.Column="1" Padding="0,24,24,24"
-                            Spacing="8">
-                        <Label Style="{StaticResource label_section_header}"
-                                Text="{rsx:Translate ContentButtonTitle}" />
-                        <Label Text="{rsx:Translate ContentButtonTapDescription}" />
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="0,24,24,24"
+                        Spacing="8">
+                        <Label Style="{StaticResource label_section_header}" Text="Content button title" />
+                        <Label Text="Content button description" />
                     </StackLayout>
                 </Grid>
             </views:ContentButton.Content>
         </views:ContentButton>
-        <Label  Grid.Row="1" HorizontalOptions="Center"
-                VerticalOptions="Center">
+        <Label
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            VerticalOptions="Center">
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text="{Binding Counter}" />
-                    <Span Text="{rsx:Translate ContentButtonTapMessage}" />
+                    <Span Text=" Taps" />
                 </FormattedString>
             </Label.FormattedText>
         </Label>
