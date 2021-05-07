@@ -30,12 +30,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <EmbeddedResource Update="Pages\Effects\SemanticEffectPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Views\SemanticOrderViewPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <DependentUpon>AppResources.resx</DependentUpon>

@@ -39,10 +39,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 
 			if (semanticAccessibilityDelegate != null)
+			{
 				semanticAccessibilityDelegate.Element = Element;
-
-			if (semanticAccessibilityDelegate != null)
 				view.ImportantForAccessibility = global::Android.Views.ImportantForAccessibility.Yes;
+			}
 		}
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
