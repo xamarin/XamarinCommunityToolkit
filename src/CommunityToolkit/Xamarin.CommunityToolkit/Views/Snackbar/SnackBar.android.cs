@@ -19,13 +19,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		internal async ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
-			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided page cannot be parent to SnackBar", nameof(sender));
+			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided VisualElement cannot be parent to SnackBar", nameof(sender));
 			var snackBar = AndroidSnackBar.Make(renderer.View, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
 
 			if (sender is not Page)
 			{
-				snackBar.SetAnchorView(view);
+				snackBar.SetAnchorView(snackBarView);
 			}
 
 			if (arguments.BackgroundColor != Forms.Color.Default)
@@ -112,14 +112,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Tries to get renderer multiple times since it can be null while switching tabs in Shell.
 		/// See this bug for more info: https://github.com/xamarin/Xamarin.Forms/issues/13950
 		/// </summary>
-		static async Task<IVisualElementRenderer?> GetRendererWithRetries(Page page, int retryCount = 5)
+		static async Task<IVisualElementRenderer?> GetRendererWithRetries(VisualElement element, int retryCount = 5)
 		{
-			var renderer = Platform.GetRenderer(page);
+			var renderer = Platform.GetRenderer(element);
 			if (renderer != null || retryCount <= 0)
 				return renderer;
 
 			await Task.Delay(50);
-			return await GetRendererWithRetries(page, retryCount - 1);
+			return await GetRendererWithRetries(element, retryCount - 1);
 		}
 
 		class SnackBarCallback : AndroidSnackBar.BaseCallback
