@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SemanticOrderView AccessibilityContentView => (SemanticOrderView)Element;
 
 		public SemanticOrderViewRenderer(Context context)
-            : base(context)
+			: base(context)
 		{
 		}
 
