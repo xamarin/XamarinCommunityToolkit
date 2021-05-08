@@ -39,7 +39,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (!IsEligibleToConsumeEffect)
 				return;
 
-			if (orientationDidChangeNotificationObserver != null) {
+			if (orientationDidChangeNotificationObserver != null)
+			{
 				NSNotificationCenter.DefaultCenter.RemoveObserver(orientationDidChangeNotificationObserver);
 				orientationDidChangeNotificationObserver?.Dispose();
 				orientationDidChangeNotificationObserver = null;

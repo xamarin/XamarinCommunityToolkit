@@ -1,9 +1,9 @@
 ﻿using System;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Effects = Xamarin.CommunityToolkit.UWP.Effects;
 
 [assembly: ExportEffect(typeof(Effects.SelectAllTextEffect), nameof(SelectAllTextEffect))]
