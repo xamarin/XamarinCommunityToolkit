@@ -1,10 +1,10 @@
-﻿using AndroidX.Core.View;
-using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Effects;
-using Effects = Xamarin.CommunityToolkit.Android.Effects;
-using AndroidX.Core.View.Accessibiity;
+﻿using System.ComponentModel;
 using Android.Widget;
+using AndroidX.Core.View;
+using AndroidX.Core.View.Accessibiity;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.Forms;
+using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 [assembly: ExportEffect(typeof(Effects.SemanticEffectRouter), nameof(SemanticEffectRouter))]
 

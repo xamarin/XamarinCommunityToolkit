@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Effects.Semantic;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
