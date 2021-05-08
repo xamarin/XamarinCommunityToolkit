@@ -52,8 +52,12 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static string ShadowEffect => $"{effectResolutionGroupName}.{nameof(ShadowEffect)}";
 
 		/// <summary>
-		/// Effect Id for <see cref="FullScreenEffect"/>
+		/// Effect Id for <see cref="SemanticEffect"/>
 		/// </summary>
-		public static string FullScreenEffect => $"{effectResolutionGroupName}.{nameof(FullScreenEffectRouter)}";
-	}
+		public static string Semantic => $"{effectResolutionGroupName}.{nameof(SemanticEffectRouter)}";
+
+		/// <summary>
+  	/// Effect Id for <see cref="FullScreenEffect"/>
+		/// </summary>
+		public static string FullScreenEffect => $"{effectResolutionGroupName}.{nameof(FullScreenEffectRouter)}";}
 }

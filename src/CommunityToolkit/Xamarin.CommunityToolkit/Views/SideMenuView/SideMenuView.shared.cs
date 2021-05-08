@@ -279,7 +279,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			=> ((SideMenuView)bindable).OnStatePropertyChanged();
 
 		void OnStatePropertyChanged()
-			=> PerformUpdate(true);
+			=> PerformUpdate();
 
 		void OnTouchStarted()
 		{
@@ -314,7 +314,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mainView.AbortAnimation(animationName);
 			var totalShift = previousShift + shift;
-			if (!TryUpdateShift(totalShift - zeroShift, true))
+			if (!TryUpdateShift(totalShift - zeroShift, false, true))
 				zeroShift = totalShift - Shift;
 		}
 
@@ -334,7 +334,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdateState(state, isSwipe);
 		}
 
-		void PerformUpdate(bool isAnimated)
+		void PerformUpdate(bool isAnimated = true)
 		{
 			var state = State;
 			var start = Shift;
@@ -343,7 +343,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (!isAnimated)
 			{
-				TryUpdateShift(end, false);
+				TryUpdateShift(end, true, false);
 				SetOverlayViewInputTransparent(state);
 				return;
 			}
@@ -359,7 +359,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SetOverlayViewInputTransparent(state);
 				return;
 			}
-			var animation = new Animation(v => TryUpdateShift(v, false), Shift, end);
+			var animation = new Animation(v => TryUpdateShift(v, true, false), Shift, end);
 			mainView.Animate(animationName, animation, animationRate, animationLength, animationEasing, (v, isCanceled) =>
 			{
 				if (isCanceled)
@@ -393,14 +393,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return isRightSwipe ? left : right;
 		}
 
-		bool TryUpdateShift(double shift, bool isUserInteraction)
+		bool TryUpdateShift(double shift, bool shouldUpdatePreviousShift, bool shouldCheckMenuGestureEnabled)
 		{
 			var isLeft = shift >= 0;
 			SetActiveView(isLeft);
+
 			if (activeMenu == null)
 				return false;
 
-			if (isUserInteraction && !GetMenuGestureEnabled(activeMenu))
+			if (shouldCheckMenuGestureEnabled && !GetMenuGestureEnabled(activeMenu))
 				return false;
 
 			_ = mainView ?? throw new NullReferenceException();
@@ -409,15 +410,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var mainViewWidth = mainView.Width;
 
 			var sign = Sign(shift);
-			shift = sign * Min(Abs(shift), activeMenuWidth);
-			if (isUserInteraction && Abs(Shift - shift) <= double.Epsilon)
+			shift = Sign(shift) * Min(Abs(shift), activeMenuWidth);
+			if (Abs(Shift - shift) <= double.Epsilon)
 				return false;
 
 			var nonZeroSign = isLeft ? -1 : 1;
 
 			Shift = shift;
 			SetCurrentGestureState(shift);
-			if (!isUserInteraction)
+			if (shouldUpdatePreviousShift)
 				previousShift = shift;
 
 			_ = overlayView ?? throw new NullReferenceException();
@@ -493,7 +494,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			this.isSwipe = isSwipe;
 			if (State == state)
 			{
-				PerformUpdate(true);
+				PerformUpdate();
 				return;
 			}
 			State = state;
@@ -505,11 +506,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				activeMenu = leftMenu;
 				inactiveMenu = rightMenu;
-				return;
+			}
+			else
+			{
+				activeMenu = rightMenu;
+				inactiveMenu = leftMenu;
 			}
 
-			activeMenu = rightMenu;
-			inactiveMenu = leftMenu;
+			if (Control == null)
+				return;
+
+			if (inactiveMenu == null ||
+				activeMenu == null ||
+				leftMenu?.X + leftMenu?.Width <= rightMenu?.X ||
+				Control.Children.IndexOf(inactiveMenu) < Control.Children.IndexOf(activeMenu))
+				return;
 		}
 
 		bool CheckMenuGestureEnabled(SideMenuState state)
@@ -597,7 +608,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void AddChild(View view)
 		{
-			Control.Children.Add(view);
+			Control?.Children.Add(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -614,7 +625,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveChild(View view)
 		{
-			Control.Children.Remove(view);
+			Control?.Children.Remove(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
