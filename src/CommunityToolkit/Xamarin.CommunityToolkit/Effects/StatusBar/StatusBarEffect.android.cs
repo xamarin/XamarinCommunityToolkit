@@ -4,7 +4,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
-	public static partial class StatusBar
+	public static partial class StatusBarEffect
 	{
 		static partial void PlatformSetColor(Color color)
 		{

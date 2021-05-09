@@ -3,13 +3,13 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 {
-	public static partial class StatusBar
+	public static partial class StatusBarEffect
 	{
 		/// <summary>
 		/// Sets the color of application's status bar
 		/// </summary>
 		public static readonly BindableProperty ColorProperty = BindableProperty.Create(
-			"Color", typeof(Color), typeof(StatusBar), Color.Default, propertyChanged: ColorChanged);
+			"Color", typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: ColorChanged);
 
 		static void ColorChanged(BindableObject bindable, object oldValue, object newValue) => SetColor((Color)newValue);
 
@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 		/// Sets style of application's status bar
 		/// </summary>
 		public static readonly BindableProperty StyleProperty = BindableProperty.Create(
-			"Style", typeof(StatusBarStyle), typeof(StatusBar), StatusBarStyle.Default, propertyChanged: StyleChanged);
+			"Style", typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: StyleChanged);
 
 		static void StyleChanged(BindableObject bindable, object oldValue, object newValue) => SetStyle((StatusBarStyle)newValue);
 

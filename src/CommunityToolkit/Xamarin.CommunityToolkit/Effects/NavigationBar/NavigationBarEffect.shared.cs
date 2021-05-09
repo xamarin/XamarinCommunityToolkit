@@ -5,7 +5,7 @@ using XFPC = Xamarin.Forms.PlatformConfiguration;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {
-	public static partial class NavigationBar
+	public static partial class NavigationBarEffect
 	{
 		/// <summary>
 		/// Sets the color of application's navigation bar

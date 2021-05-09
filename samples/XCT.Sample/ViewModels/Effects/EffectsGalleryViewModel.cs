@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 
       new SectionModel(
 				typeof(StatusBarEffectPage),
-				nameof(StatusBar),
+				nameof(StatusBarEffect),
 				"The StatusBar allows to change status bar color and style. This page also demonstrates Android only NavigationBar changes.")
 		};
 	}

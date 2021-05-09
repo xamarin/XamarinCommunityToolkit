@@ -5,7 +5,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {
-	public static partial class NavigationBar
+	public static partial class NavigationBarEffect
 	{
 		static partial void SetColor(Color color)
 		{
