@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using Android.Graphics;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
@@ -15,11 +17,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal async ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
-			var view = Platform.GetRenderer(sender).View;
-			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
+			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided VisualElement cannot be parent to SnackBar", nameof(sender));
+			var snackBar = AndroidSnackBar.Make(renderer.View, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
+
+			if (sender is not Page)
+			{
+				snackBar.SetAnchorView(snackBarView);
+			}
+
 			if (arguments.BackgroundColor != Forms.Color.Default)
 			{
 				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
@@ -100,6 +108,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBar.Show();
 		}
 
+		/// <summary>
+		/// Tries to get renderer multiple times since it can be null while switching tabs in Shell.
+		/// See this bug for more info: https://github.com/xamarin/Xamarin.Forms/issues/13950
+		/// </summary>
+		static async Task<IVisualElementRenderer?> GetRendererWithRetries(VisualElement element, int retryCount = 5)
+		{
+			var renderer = Platform.GetRenderer(element);
+			if (renderer != null || retryCount <= 0)
+				return renderer;
+
+			await Task.Delay(50);
+			return await GetRendererWithRetries(element, retryCount - 1);
+		}
+
 		class SnackBarCallback : AndroidSnackBar.BaseCallback
 		{
 			readonly SnackBarOptions arguments;
@@ -109,6 +131,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			public override void OnDismissed(Java.Lang.Object transientBottomBar, int e)
 			{
 				base.OnDismissed(transientBottomBar, e);
+
 				switch (e)
 				{
 					case DismissEventTimeout:

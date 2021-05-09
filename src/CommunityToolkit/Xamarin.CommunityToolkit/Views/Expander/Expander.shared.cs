@@ -320,15 +320,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (oldHeader != null)
 			{
 				oldHeader.GestureRecognizers.Remove(headerTapGestureRecognizer);
-				Control.Children.Remove(oldHeader);
+				Control?.Children.Remove(oldHeader);
 			}
 
 			if (Header != null)
 			{
 				if (Direction.IsRegularOrder())
-					Control.Children.Insert(0, Header);
+					Control?.Children.Insert(0, Header);
 				else
-					Control.Children.Add(Header);
+					Control?.Children.Add(Header);
 
 				Header.GestureRecognizers.Add(headerTapGestureRecognizer);
 			}
@@ -359,7 +359,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (contentHolder != null)
 			{
 				contentHolder.AbortAnimation(expandAnimationName);
-				Control.Children.Remove(contentHolder);
+				Control?.Children.Remove(contentHolder);
 				contentHolder = null;
 			}
 			if (Content != null)
@@ -373,9 +373,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ContentSizeRequest = 0;
 
 				if (Direction.IsRegularOrder())
-					Control.Children.Add(contentHolder);
+					Control?.Children.Add(contentHolder);
 				else
-					Control.Children.Insert(0, contentHolder);
+					Control?.Children.Insert(0, contentHolder);
 			}
 
 			if (!shouldIgnoreContentSetting)
@@ -397,15 +397,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetDirection(ExpandDirection oldDirection)
 		{
+			_ = Header ?? throw new InvalidOperationException($"{nameof(Header)} not initialized");
+
 			if (oldDirection.IsVertical() == Direction.IsVertical())
 			{
 				SetHeader(Header);
 				return;
 			}
 
-			Control.Orientation = Direction.IsVertical()
-				? StackOrientation.Vertical
-				: StackOrientation.Horizontal;
+			if (Control != null)
+			{
+				Control.Orientation = Direction.IsVertical()
+					? StackOrientation.Vertical
+					: StackOrientation.Horizontal;
+			}
 
 			lastVisibleSize = -1;
 			SetHeader(Header);
