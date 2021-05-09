@@ -1,12 +1,10 @@
 using System;
-
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
 	public static class ColorExtension
 	{
-		#region ToString
 
 		/// <returns>RGB(255, 255, 255)</returns>
 		public static string ToRgbString(this Color c) => $"RGB({c.GetByteRed()},{c.GetByteGreen()},{c.GetByteBlue()})";
@@ -38,10 +36,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public static string ToHslaString(this Color c) =>
 			$"HSLA({c.GetDegreeHue()}°,{c.Saturation:P},{c.Luminosity:P},{c.A:P})";
 
-		#endregion
-
-		#region Setters
-
 		public static Color WithRed(this Color baseColor, double newR) =>
 			Color.FromRgba(newR, baseColor.G, baseColor.B, baseColor.A);
 
@@ -55,44 +49,40 @@ namespace Xamarin.CommunityToolkit.Extensions
 			Color.FromRgba(baseColor.R, baseColor.G, baseColor.B, newA);
 
 		public static Color WithRed(this Color baseColor, byte newR) =>
-			Color.FromRgba((double) newR / 255, baseColor.G, baseColor.B, baseColor.A);
+			Color.FromRgba((double)newR / 255, baseColor.G, baseColor.B, baseColor.A);
 
 		public static Color WithGreen(this Color baseColor, byte newG) =>
-			Color.FromRgba(baseColor.R, (double) newG / 255, baseColor.B, baseColor.A);
+			Color.FromRgba(baseColor.R, (double)newG / 255, baseColor.B, baseColor.A);
 
 		public static Color WithBlue(this Color baseColor, byte newB) =>
-			Color.FromRgba(baseColor.R, baseColor.G, (double) newB / 255, baseColor.A);
+			Color.FromRgba(baseColor.R, baseColor.G, (double)newB / 255, baseColor.A);
 
 		public static Color WithAlpha(this Color baseColor, byte newA) =>
-			Color.FromRgba(baseColor.R, baseColor.G, baseColor.B, (double) newA / 255);
+			Color.FromRgba(baseColor.R, baseColor.G, baseColor.B, (double)newA / 255);
 
 		public static Color WithCyan(this Color baseColor, double newC) =>
 			Color.FromRgba((1 - newC) * (1 - baseColor.GetPercentBlackKey()),
-			               (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
-			               (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
-			               baseColor.A);
+						   (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
+						   (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
+						   baseColor.A);
 
 		public static Color WithMagenta(this Color baseColor, double newM) =>
 			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
-			               (1 - newM) * (1 - baseColor.GetPercentBlackKey()),
-			               (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
-			               baseColor.A);
+						   (1 - newM) * (1 - baseColor.GetPercentBlackKey()),
+						   (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
+						   baseColor.A);
 
 		public static Color WithYellow(this Color baseColor, double newY) =>
 			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
-			               (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
-			               (1 - newY) * (1 - baseColor.GetPercentBlackKey()),
-			               baseColor.A);
+						   (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
+						   (1 - newY) * (1 - baseColor.GetPercentBlackKey()),
+						   baseColor.A);
 
 		public static Color WithBlackKey(this Color baseColor, double newK) =>
 			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - newK),
-			               (1 - baseColor.GetPercentMagenta()) * (1 - newK),
-			               (1 - baseColor.GetPercentYellow()) * (1 - newK),
-			               baseColor.A);
-
-		#endregion
-
-		#region Getters Byte
+						   (1 - baseColor.GetPercentMagenta()) * (1 - newK),
+						   (1 - baseColor.GetPercentYellow()) * (1 - newK),
+						   baseColor.A);
 
 		public static byte GetByteRed(this Color c) => ToByte(c.R * 255);
 
@@ -102,16 +92,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static byte GetByteAlpha(this Color c) => ToByte(c.A * 255);
 
-		#endregion
-
-		#region Getters Degree
 
 		// Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, 240 is blue.
 		public static double GetDegreeHue(this Color c) => c.Hue * 360;
 
-		#endregion
-
-		#region Getters double
 
 		// Note : double Percent R, G and B are simply Color.R, Color.G and Color.B
 
@@ -126,9 +110,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public static double GetPercentYellow(this Color c) =>
 			(1 - c.B - c.GetPercentBlackKey()) / (1 - c.GetPercentBlackKey());
 
-		#endregion
-
-		#region Converters
 
 		public static Color ToInverseColor(this Color baseColor) =>
 			Color.FromRgb(1 - baseColor.R, 1 - baseColor.G, 1 - baseColor.B);
@@ -144,24 +125,19 @@ namespace Xamarin.CommunityToolkit.Extensions
 			return Color.FromRgb(avg, avg, avg);
 		}
 
-		#endregion
-
-		#region Booleans
 
 		public static bool IsDarkForTheEye(this Color c) =>
 			(c.GetByteRed() * 0.299) + (c.GetByteGreen() * 0.587) + (c.GetByteBlue() * 0.114) <= 186;
 
 		public static bool IsDark(this Color c) => c.GetByteRed() + c.GetByteGreen() + c.GetByteBlue() <= 127 * 3;
 
-		#endregion
-
-		private static byte ToByte(double input)
+		static byte ToByte(double input)
 		{
 			if (input < 0)
 				return 0;
 			if (input > 255)
 				return 255;
-			return (byte) Math.Round(input);
+			return (byte)Math.Round(input);
 		}
 	}
 }
