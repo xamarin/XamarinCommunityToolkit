@@ -1,15 +1,43 @@
 ﻿using System;
+using System.ComponentModel;
 using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.UWP.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 using ViewManagement = Windows.UI.ViewManagement;
 
-namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
+[assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
+
+namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public static partial class StatusBar
+	public class PlatformStatusBarEffect : PlatformEffect
 	{
-		static partial void PlatformSetColor(Color color)
+		protected override void OnAttached()
+		{
+			SetColor(StatusBarEffect.GetColor(Element));
+			SetStyle(StatusBarEffect.GetStyle(Element));
+		}
+
+		protected override void OnDetached()
+		{
+		}
+
+		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+		{
+			base.OnElementPropertyChanged(args);
+			if (args.PropertyName == StatusBarEffect.ColorProperty.PropertyName)
+			{
+				SetColor(StatusBarEffect.GetColor(Element));
+			}
+			else if (args.PropertyName == StatusBarEffect.StyleProperty.PropertyName)
+			{
+				SetStyle(StatusBarEffect.GetStyle(Element));
+			}
+		}
+
+		static void SetColor(Color color)
 		{
 			var windowsColor = color.ToWindowsColor();
 			UpdateStatusBar(
@@ -17,7 +45,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 				tb => tb.BackgroundColor = windowsColor);
 		}
 
-		static partial void PlatformSetStyle(StatusBarStyle style)
+		static void SetStyle(StatusBarStyle style)
 		{
 			var foregroundColor = style switch
 			{

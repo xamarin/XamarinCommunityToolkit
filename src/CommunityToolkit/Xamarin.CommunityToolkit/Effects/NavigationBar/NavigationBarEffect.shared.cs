@@ -1,60 +1,47 @@
-﻿using System;
+﻿using System.Linq;
 using Xamarin.Forms;
-using TargetElement = Xamarin.Forms.Application;
-using XFPC = Xamarin.Forms.PlatformConfiguration;
 
-namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
+namespace Xamarin.CommunityToolkit.Effects
 {
-	public static partial class NavigationBarEffect
+	public class NavigationBarEffect : RoutingEffect
 	{
-		/// <summary>
-		/// Sets the color of application's navigation bar
-		/// </summary>
-		public static readonly BindableProperty ColorProperty = BindableProperty.Create(
-			"Color", typeof(Color), typeof(TargetElement), Color.Default, propertyChanged: ColorChanged);
+		public static readonly BindableProperty ColorProperty = BindableProperty.CreateAttached(
+			nameof(Color), typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
 
-		static void ColorChanged(BindableObject bindable, object oldValue, object newValue) => SetColor((Color)newValue);
+		public static readonly BindableProperty StyleProperty = BindableProperty.CreateAttached(
+			nameof(Style), typeof(NavigationBarStyle), typeof(StatusBarEffect), NavigationBarStyle.Default, propertyChanged: TryGenerateEffect);
 
-		/// <summary>
-		/// Sets the style of application's navigation bar
-		/// </summary>
-		public static readonly BindableProperty StyleProperty = BindableProperty.Create(
-			"Style", typeof(NavigationBarStyle), typeof(TargetElement), NavigationBarStyle.Default, propertyChanged: StyleChanged);
-
-		static void StyleChanged(BindableObject bindable, object oldValue, object newValue) => SetStyle((NavigationBarStyle)newValue);
-
-		/// <summary>
-		/// Needed for BindableProperty to work. Don't call this method.
-		/// </summary>
-		public static Color GetColor(BindableObject element) => throw new NotImplementedException();
-
-		/// <summary>
-		/// Needed for BindableProperty to work. Don't call this method.
-		/// </summary>
-		public static NavigationBarStyle GetStyle(BindableObject element) => throw new NotImplementedException();
-
-		/// <summary>
-		/// Sets the color of application's navigation bar
-		/// </summary>
-		/// <param name="color">Color to set</param>
-		public static IPlatformElementConfiguration<XFPC.Android, TargetElement> SetNavigationBarColor(this IPlatformElementConfiguration<XFPC.Android, TargetElement> config, Color color)
+		public NavigationBarEffect()
+			: base(EffectIds.NavigationBar)
 		{
-			SetColor(color);
-			return config;
+			#region Required work-around to prevent linker from removing the platform-specific implementation
+#if __ANDROID__
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new Android.Effects.PlatformNavigationBarEffect();
+#endif
+			#endregion
 		}
 
-		/// <summary>
-		/// Sets the style of application's navigation bar
-		/// </summary>
-		/// <param name="style">Style to set</param>
-		public static IPlatformElementConfiguration<XFPC.Android, TargetElement> SetNavigationBarStyle(this IPlatformElementConfiguration<XFPC.Android, TargetElement> config, NavigationBarStyle style)
+		public static Color GetColor(BindableObject bindable) =>
+			(Color)bindable.GetValue(ColorProperty);
+
+		public static NavigationBarStyle GetStyle(BindableObject bindable) =>
+			(NavigationBarStyle)bindable.GetValue(StyleProperty);
+
+		static void TryGenerateEffect(BindableObject bindable, object oldValue, object newValue)
 		{
-			SetStyle(style);
-			return config;
+			if (bindable is not Page page)
+				return;
+
+			var oldEffect = page.Effects.FirstOrDefault(e => e is StatusBarEffect);
+			if (oldEffect != null)
+				page.Effects.Remove(oldEffect);
+
+			page.Effects.Add(new StatusBarEffect());
 		}
 
-		static partial void SetColor(Color color);
+		public Color Color => GetColor(Element);
 
-		static partial void SetStyle(NavigationBarStyle style);
+		public NavigationBarStyle Style => GetStyle(Element);
 	}
 }

@@ -1,14 +1,42 @@
 ﻿using System;
+using System.ComponentModel;
 using Foundation;
 using UIKit;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
+[assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
+
+namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public static partial class StatusBar
+	public class PlatformStatusBarEffect : PlatformEffect
 	{
-		static partial void PlatformSetColor(Color color)
+		protected override void OnAttached()
+		{
+			SetColor(StatusBarEffect.GetColor(Element));
+			SetStyle(StatusBarEffect.GetStyle(Element));
+		}
+
+		protected override void OnDetached()
+		{
+		}
+
+		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+		{
+			base.OnElementPropertyChanged(args);
+			if (args.PropertyName == StatusBarEffect.ColorProperty.PropertyName)
+			{
+				SetColor(StatusBarEffect.GetColor(Element));
+			}
+			else if (args.PropertyName == StatusBarEffect.StyleProperty.PropertyName)
+			{
+				SetStyle(StatusBarEffect.GetStyle(Element));
+			}
+		}
+
+		static void SetColor(Color color)
 		{
 			var uiColor = color.ToUIColor();
 
@@ -38,7 +66,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
 			}
 		}
 
-		static partial void PlatformSetStyle(StatusBarStyle style)
+		static void SetStyle(StatusBarStyle style)
 		{
 			var uiStyle = style switch
 			{

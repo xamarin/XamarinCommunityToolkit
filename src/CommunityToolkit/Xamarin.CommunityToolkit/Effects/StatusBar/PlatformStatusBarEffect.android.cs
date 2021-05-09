@@ -1,0 +1,62 @@
+﻿using System.ComponentModel;
+using Android.Views;
+using Xamarin.CommunityToolkit.Android.Effects;
+using Xamarin.CommunityToolkit.Effects;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+
+[assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
+
+namespace Xamarin.CommunityToolkit.Android.Effects
+{
+	public class PlatformStatusBarEffect : PlatformEffect
+	{
+		protected override void OnAttached()
+		{
+			SetColor(StatusBarEffect.GetColor(Element));
+			SetStyle(StatusBarEffect.GetStyle(Element));
+		}
+
+		protected override void OnDetached()
+		{
+		}
+
+		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+		{
+			base.OnElementPropertyChanged(args);
+			if (args.PropertyName == StatusBarEffect.ColorProperty.PropertyName)
+			{
+				SetColor(StatusBarEffect.GetColor(Element));
+			}
+			else if (args.PropertyName == StatusBarEffect.StyleProperty.PropertyName)
+			{
+				SetStyle(StatusBarEffect.GetStyle(Element));
+			}
+		}
+
+		static void SetColor(Color color)
+		{
+			if (!BarStyle.IsSupported())
+				return;
+
+			var activity = (FormsAppCompatActivity)ToolkitPlatform.Context.GetActivity();
+			activity.SetStatusBarColor(color.ToAndroid());
+		}
+
+		static void SetStyle(StatusBarStyle style)
+		{
+			if (!BarStyle.IsSupported())
+				return;
+
+			switch (style)
+			{
+				case StatusBarStyle.DarkContent:
+					BarStyle.AddBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					break;
+				default:
+					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					break;
+			}
+		}
+	}
+}

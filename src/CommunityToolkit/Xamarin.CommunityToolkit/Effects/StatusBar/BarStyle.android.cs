@@ -4,7 +4,7 @@ using Android.Views;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 
-namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
+namespace Xamarin.CommunityToolkit.Effects
 {
 	static class BarStyle
 	{

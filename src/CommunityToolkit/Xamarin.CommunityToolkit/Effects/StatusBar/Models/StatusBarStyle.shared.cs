@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
+﻿namespace Xamarin.CommunityToolkit.Effects
 {
 	public enum StatusBarStyle
 	{

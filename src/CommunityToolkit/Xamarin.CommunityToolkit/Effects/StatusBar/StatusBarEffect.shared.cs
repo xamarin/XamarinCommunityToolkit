@@ -1,50 +1,53 @@
-﻿using System;
+﻿using System.Linq;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform
+namespace Xamarin.CommunityToolkit.Effects
 {
-	public static partial class StatusBarEffect
+	public class StatusBarEffect : RoutingEffect
 	{
-		/// <summary>
-		/// Sets the color of application's status bar
-		/// </summary>
-		public static readonly BindableProperty ColorProperty = BindableProperty.Create(
-			"Color", typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: ColorChanged);
+		public static readonly BindableProperty ColorProperty = BindableProperty.CreateAttached(
+			nameof(Color), typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
 
-		static void ColorChanged(BindableObject bindable, object oldValue, object newValue) => SetColor((Color)newValue);
+		public static readonly BindableProperty StyleProperty = BindableProperty.CreateAttached(
+			nameof(Style), typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
 
-		/// <summary>
-		/// Sets style of application's status bar
-		/// </summary>
-		public static readonly BindableProperty StyleProperty = BindableProperty.Create(
-			"Style", typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: StyleChanged);
+		public StatusBarEffect()
+			: base(EffectIds.StatusBar)
+		{
+			#region Required work-around to prevent linker from removing the platform-specific implementation
+#if __ANDROID__
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new Android.Effects.PlatformStatusBarEffect();
+#elif __IOS__
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new iOS.Effects.PlatformStatusBarEffect();
+#elif UWP
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new UWP.Effects.PlatformStatusBarEffect();
+#endif
+			#endregion
+		}
 
-		static void StyleChanged(BindableObject bindable, object oldValue, object newValue) => SetStyle((StatusBarStyle)newValue);
+		public static Color GetColor(BindableObject bindable) =>
+			(Color)bindable.GetValue(ColorProperty);
 
-		/// <summary>
-		/// Needed for BindableProperty to work. Don't call this method.
-		/// </summary>
-		public static Color GetColor(BindableObject element) => throw new NotImplementedException();
+		public static StatusBarStyle GetStyle(BindableObject bindable) =>
+			(StatusBarStyle)bindable.GetValue(StyleProperty);
 
-		/// <summary>
-		/// Needed for BindableProperty to work. Don't call this method.
-		/// </summary>
-		public static StatusBarStyle GetStyle(BindableObject element) => throw new NotImplementedException();
+		static void TryGenerateEffect(BindableObject bindable, object oldValue, object newValue)
+		{
+			if (bindable is not Page page)
+				return;
 
-		/// <summary>
-		/// Sets the color of application's status bar
-		/// </summary>
-		/// <param name="color">Color to set</param>
-		public static void SetColor(Color color) => PlatformSetColor(color);
+			var oldEffect = page.Effects.FirstOrDefault(e => e is StatusBarEffect);
+			if (oldEffect != null)
+				page.Effects.Remove(oldEffect);
 
-		/// <summary>
-		/// Sets style of application's status bar
-		/// </summary>
-		/// <param name="style">Style to set</param>
-		public static void SetStyle(StatusBarStyle style) => PlatformSetStyle(style);
+			page.Effects.Add(new StatusBarEffect());
+		}
 
-		static partial void PlatformSetColor(Color color);
+		public Color Color => GetColor(Element);
 
-		static partial void PlatformSetStyle(StatusBarStyle style);
+		public StatusBarStyle Style => GetStyle(Element);
 	}
 }
