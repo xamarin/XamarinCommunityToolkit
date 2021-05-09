@@ -1,12 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using Windows.Foundation.Metadata;
 using Windows.UI.ViewManagement;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.UWP.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
-using ViewManagement = Windows.UI.ViewManagement;
 
 [assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
 
@@ -40,9 +38,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 		static void SetColor(Color color)
 		{
 			var windowsColor = color.ToWindowsColor();
-			UpdateStatusBar(
-				sb => sb.BackgroundColor = windowsColor,
-				tb => tb.BackgroundColor = windowsColor);
+			UpdateStatusBar(tb => tb.BackgroundColor = windowsColor);
 		}
 
 		static void SetStyle(StatusBarStyle style)
@@ -54,28 +50,15 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 				_ => Color.Default.ToWindowsColor(),
 			};
 
-			UpdateStatusBar(
-				sb => sb.ForegroundColor = foregroundColor,
-				tb => tb.ForegroundColor = foregroundColor);
+			UpdateStatusBar(tb => tb.ForegroundColor = foregroundColor);
 		}
 
-		static void UpdateStatusBar(Action<ViewManagement::StatusBar> updateStatusBar, Action<ApplicationViewTitleBar> updateTitleBar)
+		static void UpdateStatusBar(Action<ApplicationViewTitleBar> updateTitleBar)
 		{
-			if (ApiInformation.IsTypePresent(typeof(StatusBar).FullName ?? string.Empty))
+			var titleBar = ApplicationView.GetForCurrentView()?.TitleBar;
+			if (titleBar != null)
 			{
-				var statusBar = ViewManagement::StatusBar.GetForCurrentView();
-				if (statusBar != null)
-				{
-					updateStatusBar(statusBar);
-				}
-			}
-			else
-			{
-				var titleBar = ApplicationView.GetForCurrentView()?.TitleBar;
-				if (titleBar != null)
-				{
-					updateTitleBar(titleBar);
-				}
+				updateTitleBar(titleBar);
 			}
 		}
 	}
