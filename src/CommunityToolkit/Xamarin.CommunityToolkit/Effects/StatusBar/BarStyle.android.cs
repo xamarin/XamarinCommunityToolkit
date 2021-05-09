@@ -1,8 +1,8 @@
 ﻿using System;
+using Android.App;
 using Android.OS;
 using Android.Views;
 using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
@@ -19,23 +19,22 @@ namespace Xamarin.CommunityToolkit.Effects
 			return true;
 		}
 
-		internal static void AddBarAppearanceFlag(StatusBarVisibility flag) =>
-			SetBarAppearance(barAppearance => barAppearance |= flag);
+		internal static void AddBarAppearanceFlag(Activity activity, StatusBarVisibility flag) =>
+			SetBarAppearance(activity, barAppearance => barAppearance |= flag);
 
-		internal static void RemoveBarAppearanceFlag(StatusBarVisibility flag) =>
-			SetBarAppearance(barAppearance => barAppearance &= ~flag);
+		internal static void RemoveBarAppearanceFlag(Activity activity, StatusBarVisibility flag) =>
+			SetBarAppearance(activity, barAppearance => barAppearance &= ~flag);
 
-		internal static void SetBarAppearance(Func<StatusBarVisibility, StatusBarVisibility> updateAppearance)
+		static void SetBarAppearance(Activity activity, Func<StatusBarVisibility, StatusBarVisibility> updateAppearance)
 		{
-			var window = GetCurrentWindow();
+			var window = GetCurrentWindow(activity);
 			var appearance = window.DecorView.SystemUiVisibility;
 			appearance = updateAppearance(appearance);
 			window.DecorView.SystemUiVisibility = appearance;
 		}
 
-		internal static Window GetCurrentWindow()
+		internal static Window GetCurrentWindow(Activity activity)
 		{
-			var activity = ToolkitPlatform.Context.GetActivity();
 			var window = activity.Window ?? throw new NullReferenceException();
 			window.ClearFlags(WindowManagerFlags.TranslucentStatus);
 			window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);

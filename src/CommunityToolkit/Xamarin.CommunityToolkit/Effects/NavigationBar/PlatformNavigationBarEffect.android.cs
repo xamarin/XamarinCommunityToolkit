@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
@@ -34,15 +35,15 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		static void SetColor(Color color)
+		void SetColor(Color color)
 		{
 			if (!BarStyle.IsSupported())
 				return;
 
-			BarStyle.GetCurrentWindow().SetNavigationBarColor(color.ToAndroid());
+			BarStyle.GetCurrentWindow(Activity).SetNavigationBarColor(color.ToAndroid());
 		}
 
-		static void SetStyle(NavigationBarStyle style)
+		void SetStyle(NavigationBarStyle style)
 		{
 			if (!BarStyle.IsSupported())
 				return;
@@ -50,11 +51,22 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			switch (style)
 			{
 				case NavigationBarStyle.DarkContent:
-					BarStyle.AddBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					BarStyle.AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
 				default:
-					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					BarStyle.RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
+			}
+		}
+
+		FormsAppCompatActivity Activity
+		{
+			get
+			{
+				if (Control != null)
+					return (FormsAppCompatActivity)(Control.Context ?? throw new NullReferenceException());
+				else
+					return (FormsAppCompatActivity)(Container.Context ?? throw new NullReferenceException());
 			}
 		}
 	}

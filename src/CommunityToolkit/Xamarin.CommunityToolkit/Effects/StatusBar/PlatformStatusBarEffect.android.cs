@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
@@ -34,16 +35,15 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		static void SetColor(Color color)
+		void SetColor(Color color)
 		{
 			if (!BarStyle.IsSupported())
 				return;
 
-			var activity = (FormsAppCompatActivity)ToolkitPlatform.Context.GetActivity();
-			activity.SetStatusBarColor(color.ToAndroid());
+			Activity.SetStatusBarColor(color.ToAndroid());
 		}
 
-		static void SetStyle(StatusBarStyle style)
+		void SetStyle(StatusBarStyle style)
 		{
 			if (!BarStyle.IsSupported())
 				return;
@@ -51,11 +51,22 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			switch (style)
 			{
 				case StatusBarStyle.DarkContent:
-					BarStyle.AddBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					BarStyle.AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightStatusBar);
 					break;
 				default:
-					BarStyle.RemoveBarAppearanceFlag((StatusBarVisibility)SystemUiFlags.LightStatusBar);
+					BarStyle.RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightStatusBar);
 					break;
+			}
+		}
+
+		FormsAppCompatActivity Activity
+		{
+			get
+			{
+				if (Control != null)
+					return (FormsAppCompatActivity)(Control.Context ?? throw new NullReferenceException());
+				else
+					return (FormsAppCompatActivity)(Container.Context ?? throw new NullReferenceException());
 			}
 		}
 	}
