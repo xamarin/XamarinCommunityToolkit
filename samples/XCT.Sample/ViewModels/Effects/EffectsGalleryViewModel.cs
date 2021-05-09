@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.CommunityToolkit.PlatformConfiguration.Multiplatform;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Effects;
 
@@ -50,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				nameof(SemanticEffect),
 				"The SemanticEffect allows you to set semantic properties for accessibility."),
 
-      new SectionModel(
+			new SectionModel(
 				typeof(StatusBarEffectPage),
 				nameof(StatusBarEffect),
 				"The StatusBar allows to change status bar color and style. This page also demonstrates Android only NavigationBar changes.")

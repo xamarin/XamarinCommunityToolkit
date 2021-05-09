@@ -7,7 +7,6 @@
     xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    xmlns:android="clr-namespace:Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.CommunityToolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Application.Resources>
@@ -58,10 +57,10 @@
             <Setter Property="BackgroundColor" Value="{StaticResource AppBackgroundColor}" />
             <Setter Property="ios:Page.UseSafeArea" Value="False" />
             <Setter Property="NavigationPage.BackButtonTitle" Value="" />
-            <Setter Property="xct:StatusBar.Color" Value="{StaticResource PrimaryColor}" />
-            <Setter Property="xct:StatusBar.Style" Value="DarkContent" />
-            <Setter Property="android:NavigationBar.Color" Value="{StaticResource PrimaryColor}"/>
-            <Setter Property="android:NavigationBar.Style" Value="DarkContent" />
+            <Setter Property="xct:StatusBarEffect.Color" Value="{StaticResource PrimaryColor}" />
+            <Setter Property="xct:StatusBarEffect.Style" Value="DarkContent" />
+            <Setter Property="xct:NavigationBarEffect.Color" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="xct:NavigationBarEffect.Style" Value="DarkContent" />
         </Style>
 
         <Style TargetType="Button">

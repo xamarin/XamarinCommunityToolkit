@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Content;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit
@@ -16,17 +17,9 @@ namespace Xamarin.CommunityToolkit
 		{
 			get
 			{
-				var page = Forms.Application.Current.MainPage;
-				if (page != null)
-				{
-					var renderer = page.GetRenderer();
-					return renderer.View.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
-				}
-
-				// If MainPage isn't set yet, this is the only way to get Context
-#pragma warning disable CS0618 // Type or member is obsolete
-				return Forms.Forms.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
-#pragma warning restore CS0618 // Type or member is obsolete
+				var page = Application.Current.MainPage ?? throw new NullReferenceException($"{nameof(Application.MainPage)} cannot be null");
+				var renderer = page.GetRenderer();
+				return renderer.View.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
 			}
 		}
 	}
