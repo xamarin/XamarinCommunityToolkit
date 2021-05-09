@@ -1,5 +1,3 @@
-using System;
-
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 

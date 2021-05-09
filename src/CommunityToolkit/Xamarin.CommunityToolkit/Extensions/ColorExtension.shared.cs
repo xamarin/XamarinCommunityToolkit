@@ -5,7 +5,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 {
 	public static class ColorExtension
 	{
-
 		/// <returns>RGB(255, 255, 255)</returns>
 		public static string ToRgbString(this Color c) => $"RGB({c.GetByteRed()},{c.GetByteGreen()},{c.GetByteBlue()})";
 
@@ -92,10 +91,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		public static byte GetByteAlpha(this Color c) => ToByte(c.A * 255);
 
-
 		// Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, 240 is blue.
 		public static double GetDegreeHue(this Color c) => c.Hue * 360;
-
 
 		// Note : double Percent R, G and B are simply Color.R, Color.G and Color.B
 
@@ -110,7 +107,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public static double GetPercentYellow(this Color c) =>
 			(1 - c.B - c.GetPercentBlackKey()) / (1 - c.GetPercentBlackKey());
 
-
 		public static Color ToInverseColor(this Color baseColor) =>
 			Color.FromRgb(1 - baseColor.R, 1 - baseColor.G, 1 - baseColor.B);
 
@@ -124,7 +120,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 			var avg = (baseColor.R + baseColor.B + baseColor.G) / 3;
 			return Color.FromRgb(avg, avg, avg);
 		}
-
 
 		public static bool IsDarkForTheEye(this Color c) =>
 			(c.GetByteRed() * 0.299) + (c.GetByteGreen() * 0.587) + (c.GetByteBlue() * 0.114) <= 186;
