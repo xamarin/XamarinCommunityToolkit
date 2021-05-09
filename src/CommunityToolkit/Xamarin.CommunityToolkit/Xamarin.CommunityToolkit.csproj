@@ -209,5 +209,14 @@
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Converters\BaseConverter.shared.cs" />
+    <Compile Remove="Converters\BaseConverterOneWay.shared.cs" />
+    <Compile Remove="Converters\ColorToColorConverters.shared.cs" />
+    <Compile Remove="Converters\ColorToComponentConverter.shared.cs" />
+    <Compile Remove="Converters\ColorToStringConverter.shared.cs" />
+    <Compile Remove="Extensions\ColorExtension.shared.cs" />
+  </ItemGroup>
   <Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
 </Project>
