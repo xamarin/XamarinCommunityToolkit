@@ -26,11 +26,17 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(ExpanderPage), "Expander",
 				"The Expander control provides an expandable container to host any content"),
 
+			new SectionModel(typeof(HexLayoutPage), "HexLayout",
+				"A Layout that arranges the elements in a honeycomb pattern"),
+
 			new SectionModel(typeof(MediaElementPage), "MediaElement",
 				"MediaElement is a view for playing video and audio"),
 
 			new SectionModel(typeof(RangeSliderPage), "RangeSlider",
 				"The RangeSlider is a slider with two thumbs allowing to select numeric ranges"),
+
+			new SectionModel(typeof(SemanticOrderViewPage), "SemanticOrderView",
+				"Set accessiblity ordering on views"),
 
 			new SectionModel(typeof(SnackBarPage), "SnackBar/Toast",
 				"Show SnackBar, Toast etc"),
