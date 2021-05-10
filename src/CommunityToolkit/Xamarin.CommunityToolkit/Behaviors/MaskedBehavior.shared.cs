@@ -114,11 +114,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		string RemoveMask(string text)
 		{
 			var maskChars = positions
-				.Select(c => c.Value)
-				.Distinct()
+				.Select(c => (c.Key, c.Value))
 				.ToArray();
 
-			return string.Join(string.Empty, text.Split(maskChars));
+			var textIndex = text.ToCharArray()
+				.Select((value, index) => (index, value))
+				.Where(x => !maskChars.Contains((x.index, x.value)))
+				.ToList();
+
+			return string.Join(string.Empty, textIndex.Select(x => x.value).ToList());
 		}
 
 		void ApplyMask(string? text)
