@@ -430,7 +430,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (inactiveMenu != null)
 					inactiveMenu.TranslationX = -inactiveMenu.Width * nonZeroSign;
 
-				var progress = animationEasing.Ease(shift / activeMenuWidth);
+				var progress = animationEasing.Ease(Abs(shift) / activeMenuWidth);
 				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * progress);
 				var opacity = 1 - ((1 - GetMainViewOpacityFactor(activeMenu)) * progress);
 
@@ -443,17 +443,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				switch (GetMenuAppearanceType(activeMenu))
 				{
 					case SideMenuAppearanceType.SlideOut:
-						activeMenu.TranslationX = parallax * (1 - Abs(progress)) * nonZeroSign;
+						activeMenu.TranslationX = parallax * (1 - progress) * nonZeroSign;
 						mainView.TranslationX = shift - (sign * mainViewWidth * 0.5 * (1 - scale));
 						overlayView.TranslationX = shift;
 						break;
 					case SideMenuAppearanceType.SlideIn:
 						activeMenu.TranslationX = (activeMenuWidth - Abs(shift)) * nonZeroSign;
-						mainView.TranslationX = parallax * progress;
-						overlayView.TranslationX = parallax * progress;
+						mainView.TranslationX = parallax * nonZeroSign * progress;
+						overlayView.TranslationX = parallax * nonZeroSign * progress;
 						break;
 					case SideMenuAppearanceType.SlideInOut:
-						activeMenu.TranslationX = (activeMenuWidth - Abs(shift) - (parallax * (1 - Abs(progress)))) * nonZeroSign;
+						activeMenu.TranslationX = (activeMenuWidth - Abs(shift) - (parallax * (1 - progress))) * nonZeroSign;
 						mainView.TranslationX = shift - (sign * mainViewWidth * 0.5 * (1 - scale));
 						overlayView.TranslationX = shift;
 						break;
@@ -597,7 +597,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void AddChild(View view)
 		{
-			Control.Children.Add(view);
+			Control?.Children.Add(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -614,7 +614,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveChild(View view)
 		{
-			Control.Children.Remove(view);
+			Control?.Children.Remove(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:

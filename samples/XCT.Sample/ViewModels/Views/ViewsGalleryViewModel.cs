@@ -35,6 +35,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(RangeSliderPage), "RangeSlider",
 				"The RangeSlider is a slider with two thumbs allowing to select numeric ranges"),
 
+			new SectionModel(typeof(SemanticOrderViewPage), "SemanticOrderView",
+				"Set accessiblity ordering on views"),
+
 			new SectionModel(typeof(SnackBarPage), "SnackBar/Toast",
 				"Show SnackBar, Toast etc"),
 
