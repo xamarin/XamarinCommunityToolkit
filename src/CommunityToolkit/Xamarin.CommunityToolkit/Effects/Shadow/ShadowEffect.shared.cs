@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			Color.Default,
 			propertyChanged: TryGenerateEffect);
 
-		public static readonly BindableProperty	OpacityProperty = BindableProperty.CreateAttached(
+		public static readonly BindableProperty OpacityProperty = BindableProperty.CreateAttached(
 			OpacityPropertyName,
 			typeof(double),
 			typeof(ShadowEffect),

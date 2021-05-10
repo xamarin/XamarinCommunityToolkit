@@ -2,7 +2,7 @@
 
 <img src="assets/XamarinCommunityToolkit_128x128.png" width="64" /> Xamarin Community Toolkit
 ===========
-Members of the community are rebooting this library under the guidance of the Xamarin team. The Xamarin Community Toolkit is a collection of common elements for mobile development with Xamarin.Forms that people tend to replicate across multiple apps. It simplifies and demonstrates common developer tasks when building apps with Xamarin.Forms. If you're looking for the historical code to reference, please check the **legacy** branch.
+The Xamarin Community Toolkit is a collection of common elements for mobile development with Xamarin.Forms that people tend to replicate across multiple apps. It simplifies and demonstrates common developer tasks when building apps with Xamarin.Forms.
 
 ## Build Status
 
@@ -27,6 +27,10 @@ Browse with the NuGet manager in your IDE to install them or run this command:
 
 `Install-Package Xamarin.CommunityToolkit`
 
+Note that the C# Markup Extensions are in a separate package, install that with:
+
+`Install-Package Xamarin.CommunityToolkit.Markup`
+
 ## Getting Started
 
 After installation, start using the features you're after.
@@ -46,7 +50,9 @@ xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
 ## Documentation
 
-The documentation is still under construction, but we've published the most important things over at [Microsoft Docs](https://docs.microsoft.com/en-us/xamarin/community-toolkit/). If you want to contribute some of the missing bits you can do this over at the [official Docs repo](https://github.com/MicrosoftDocs/xamarin-communitytoolkit) as contributions are very much welcomed!
+The documentation is still under construction, but we've published the most important things over at [Microsoft Docs](https://docs.microsoft.com/xamarin/community-toolkit/).
+
+If you want to contribute some of the missing bits you can do this over at the [official Docs repo](https://github.com/MicrosoftDocs/xamarin-communitytoolkit) as contributions are very much welcomed!
 
 ## Contributions welcome!
 
@@ -56,7 +62,7 @@ Please have a look at our [contribution guide](CONTRIBUTING.md) before you get s
 
 ## Project Structure
 
-To structure our project, we have adopted a range of namespaces. You can find them below with a short description of what you will find where. For simply consuming the Toolkit in XAML you can use our simplified namespace. See the Getting Started section above.
+To structure our project, we have adopted a range of namespaces. You can find them below with a short description of what you will find where. For simply consuming the Toolkit in XAML you can use our simplified namespace. See the [Getting Started](#getting-started) section above.
 
 | Namespace | Description |
 |--------------|--------------|
@@ -69,6 +75,7 @@ To structure our project, we have adopted a range of namespaces. You can find th
 | Xamarin.CommunityToolkit.UI.Views | Controls such as TabView, etc. |
 | Xamarin.CommunityToolkit.SampleApp | Sample App where you can find all of the above for reference. Learn how to use them and see how it all looks |
 | Xamarin.CommunityToolkit.UnitTests | This is where our unit tests live. Please keep growing them! |
+| Xamarin.CommunityToolkit.Markup | Everthing that has to do with writing your UI in C# code. Also known as C# Markup Extensions |
 
 ## Code of Conduct
 As a part of the .NET Foundation, we have adopted the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct). Please familiarize yourself with that before participating with this repository. Thanks!
