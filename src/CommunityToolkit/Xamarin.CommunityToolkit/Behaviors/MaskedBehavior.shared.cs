@@ -138,7 +138,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				foreach (var position in positions)
 				{
 					if (length < position.Key + 1)
-						continue;
+						break;
 
 					text = text.Insert(position.Key, position.Value.ToString());
 				}
