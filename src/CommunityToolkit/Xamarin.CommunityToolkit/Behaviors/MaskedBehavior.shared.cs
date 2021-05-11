@@ -132,17 +132,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				if (text.Length > (Mask?.Length ?? 0))
 					text = text.Remove(text.Length - 1);
 
+				var length = text.Length;
+
 				text = RemoveMask(text);
 				foreach (var position in positions)
 				{
-					if (text.Length < position.Key + 1)
+					if (length < position.Key + 1)
 						continue;
 
-					var value = position.Value.ToString();
-
-					// !important - If user types in masked value, don't add masked value
-					if (text.Substring(position.Key, 1) != value)
-						text = text.Insert(position.Key, value);
+					text = text.Insert(position.Key, position.Value.ToString());
 				}
 			}
 
