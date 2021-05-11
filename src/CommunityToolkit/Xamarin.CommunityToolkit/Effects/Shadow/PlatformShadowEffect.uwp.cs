@@ -117,7 +117,11 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			UpdateShadow();
 			spriteVisual = compositor.CreateSpriteVisual();
 			spriteVisual.Shadow = shadow;
+#if UWP_18362
 			spriteVisual.Size = View.ActualSize;
+#else
+			spriteVisual.Size = new Vector2(Convert.ToSingle(View.ActualWidth), Convert.ToSingle(View.ActualHeight));
+#endif
 
 			View.SizeChanged += ViewSizeChanged;
 
@@ -198,8 +202,11 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 		{
 			if (spriteVisual == null || View == null)
 				return;
-
+#if UWP_18362
 			spriteVisual.Size = View.ActualSize;
+#else
+			spriteVisual.Size = new Vector2(Convert.ToSingle(View.ActualWidth), Convert.ToSingle(View.ActualHeight));
+#endif
 
 			UpdateShadowMask();
 		}
