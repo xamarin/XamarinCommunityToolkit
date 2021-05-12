@@ -535,7 +535,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			try
 			{
 				CloseSession();
-				//DisposeMediaRecorder(); //Already called by SetupMediaRecorder
 				await PrepareSession();
 			}
 			catch (Java.Lang.Exception ex)
