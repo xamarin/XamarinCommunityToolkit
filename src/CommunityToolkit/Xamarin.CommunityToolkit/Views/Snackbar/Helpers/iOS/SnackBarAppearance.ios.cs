@@ -1,12 +1,13 @@
 ﻿using System;
 using UIKit;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
 	class NativeSnackBarAppearance
 	{
-		public UIColor Background { get; set; } = UIDevice.CurrentDevice.CheckSystemVersion(13, 0) ? UIColor.SystemBackgroundColor : UIColor.Gray;
+		public UIColor Background { get; set; } = XCT.IsiOS13OrNewer ? UIColor.SystemBackgroundColor : UIColor.Gray;
 
 		public UIColor Foreground { get; set; } = DefaultColor;
 
@@ -14,7 +15,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public UITextAlignment TextAlignment { get; set; } = UITextAlignment.Left;
 
-		public static UIColor DefaultColor { get; } = UIDevice.CurrentDevice.CheckSystemVersion(13, 0) ? Forms.Color.Default.ToUIColor() : UIColor.White;
+		public static UIColor DefaultColor { get; } = XCT.IsiOS13OrNewer ? Forms.Color.Default.ToUIColor() : UIColor.White;
 
 		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
 	}
