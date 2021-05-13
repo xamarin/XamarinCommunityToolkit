@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (value is not TFrom valueFrom)
 				throw new ArgumentException($"value needs to be of type {typeof(TFrom)}");
 
-			if (targetType != typeof(TTo))
+			if (targetType != typeof(TTo) && !(typeof(TFrom) != typeof(string)))
 				throw new ArgumentException($"targetType needs to be typeof {typeof(TTo)}");
 
 			return ConvertFrom(valueFrom);

@@ -6,7 +6,6 @@
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
-
     <ContentPage.Resources>
         <ResourceDictionary>
             <xct:ColorToRgbStringConverter x:Key="ColorToRgbStringConverter" />
@@ -17,6 +16,15 @@
             <xct:ColorToCmykaStringConverter x:Key="ColorToCmykaStringConverter" />
             <xct:ColorToHslStringConverter x:Key="ColorToHslStringConverter" />
             <xct:ColorToHslaStringConverter x:Key="ColorToHslaStringConverter" />
+            <xct:ColorToBlackKeyConverter x:Key="ColorToBlackKeyConverter" />
+            <xct:ColorToByteAlphaConverter x:Key="ColorToByteAlphaConverter" />
+            <xct:ColorToByteRedConverter x:Key="ColorToByteRedConverter" />
+            <xct:ColorToByteGreenConverter x:Key="ColorToByteGreenConverter" />
+            <xct:ColorToByteBlueConverter x:Key="ColorToByteBlueConverter" />
+            <xct:ColorToPercentCyanConverter x:Key="ColorToPercentCyanConverter" />
+            <xct:ColorToPercentMagentaConverter x:Key="ColorToPercentMagentaConverter" />
+            <xct:ColorToPercentYellowConverter x:Key="ColorToPercentYellowConverter" />
+            <xct:ColorToDegreeHueConverter x:Key="ColorToDegreeHueConverter" />
 
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="Black" />
@@ -24,9 +32,9 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-
     <StackLayout Spacing="10" VerticalOptions="Center">
         <Picker x:Name="picker" SelectedIndexChanged="Picker_SelectedIndexChanged" />
+
         <Label>
             <Label.FormattedText>
                 <FormattedString>
@@ -35,6 +43,7 @@
                 </FormattedString>
             </Label.FormattedText>
         </Label>
+
 
         <Label>
             <Label.FormattedText>
@@ -99,6 +108,86 @@
             </Label.FormattedText>
         </Label>
 
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The Black key value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToBlackKeyConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The byte value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToByteAlphaConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The byte red value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToByteRedConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The byte green value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToByteGreenConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The byte blue value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToByteBlueConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The Percent Cyan value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToPercentCyanConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The Percent Magenta value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToPercentMagentaConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The Percent Yellow value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToPercentYellowConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Label>
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="The Degree Hue value of selected color is: " />
+                    <Span Text="{Binding Source={x:Reference boxView}, Path=BackgroundColor, Converter={StaticResource ColorToDegreeHueConverter}}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
 
         <BoxView x:Name="boxView" HeightRequest="100" />
     </StackLayout>
