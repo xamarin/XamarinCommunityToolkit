@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		static void OnMaskPropertyChanged(BindableObject bindable, object oldValue, object newValue)
-			=> ((MaskedBehavior)bindable).SetPositions();
+			=> ((MaskedBehavior)bindable).OnMaskChanged();
 
 		static void OnUnMaskedCharacterPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((MaskedBehavior)bindable).OnMaskChanged();
