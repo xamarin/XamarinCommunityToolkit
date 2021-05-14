@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
@@ -89,14 +88,14 @@ namespace Xamarin.CommunityToolkit.Effects
 			nameof(CommandParameter),
 			typeof(object),
 			typeof(TouchEffect),
-			default(object),
+			default,
 			propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty LongPressCommandParameterProperty = BindableProperty.CreateAttached(
 			nameof(LongPressCommandParameter),
 			typeof(object),
 			typeof(TouchEffect),
-			default(object),
+			default,
 			propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty LongPressDurationProperty = BindableProperty.CreateAttached(
@@ -471,9 +470,9 @@ namespace Xamarin.CommunityToolkit.Effects
 			default(bool),
 			propertyChanged: TryGenerateEffect);
 
-		readonly GestureManager gestureManager = new GestureManager();
+		readonly GestureManager gestureManager = new ();
 
-		readonly WeakEventManager weakEventManager = new WeakEventManager();
+		readonly WeakEventManager weakEventManager = new ();
 
 		VisualElement? element;
 
@@ -1219,8 +1218,14 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (e.Element is not View view)
 				return;
 
-			view.InputTransparent = ShouldMakeChildrenInputTransparent &&
-				!(GetFrom(view)?.IsAvailable ?? false);
+			if (!ShouldMakeChildrenInputTransparent)
+			{
+				view.InputTransparent = false;
+				return;
+			}
+
+			var effect = GetFrom(view);
+			view.InputTransparent = effect?.Element == null || !effect.IsAvailable;
 		}
 	}
 }
