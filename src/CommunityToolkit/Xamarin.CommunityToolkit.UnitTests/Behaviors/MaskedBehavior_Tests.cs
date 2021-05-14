@@ -63,6 +63,25 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 			Assert.IsTrue(entry.Text.Equals("+1 (123) 45"));
 		}
 
+		[Test]
+		public void NumbersInMaskShouldBeAllowedTypeByType()
+		{
+			// arrange
+			var entry = CreateEntry("+1 (AAA) AAA-AAAA", 'A');
+
+			// act
+			entry.Text = string.Empty;
+
+			entry.Text += "1";
+			entry.Text += "2";
+			entry.Text += "3";
+			entry.Text += "4";
+			entry.Text += "5";
+
+			// assert
+			Assert.IsTrue(entry.Text.Equals("+1 (123) 45"));
+		}
+
 		Entry CreateEntry(string mask, char unMaskedCharacter)
 		{
 			var behavior = new MaskedBehavior
