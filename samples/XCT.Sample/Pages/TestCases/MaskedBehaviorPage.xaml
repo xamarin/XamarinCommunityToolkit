@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.MaskedBehaviorPage"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry x:Name="PhoneEntry"
+                   Keyboard="Telephone"
+                   Placeholder="Phone">
+                <Entry.Behaviors>
+                    <xct:CharactersValidationBehavior x:Name="PhoneValidator"
+                                                      CharacterType="Digit"
+                                                      Flags="ValidateOnValueChanging"
+                                                      MinimumCharacterCount="11" />
+                    <xct:MaskedBehavior Mask="+1 (AAA) AAA-AAAA" UnMaskedCharacter="A" />
+                </Entry.Behaviors>
+            </Entry>
+            <Label Padding="10,0,10,50"
+                   FontSize="Small"
+                   Text="Test for issue #1276'" />
+            <!--  https://github.com/xamarin/XamarinCommunityToolkit/issues/1276  -->
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

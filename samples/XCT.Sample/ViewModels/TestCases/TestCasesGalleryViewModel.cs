@@ -22,6 +22,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(MediaElementSourcePage),
 				"MediaElement with Source as string",
 				"MediaElement should reproduce the video."),
+
+			new SectionModel(
+				typeof(MaskedBehaviorPage),
+				"Masked behaviour with numbers in mask",
+				"User should be able to enter numbers"),
 		};
 	}
 }

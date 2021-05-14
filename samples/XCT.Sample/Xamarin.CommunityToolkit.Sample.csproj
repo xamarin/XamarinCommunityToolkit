@@ -22,6 +22,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Update="Pages\TestCases\MaskedBehaviorPage.xaml.cs">
+      <DependentUpon>MaskedBehaviorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
