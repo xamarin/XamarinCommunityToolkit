@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, SKCanvasView>
 	{
-		SKCanvasView canvasView;
+		SKCanvasView? canvasView;
 		bool isDrawing;
 		bool disposed;
 
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (e.OldElement != null)
 			{
-				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
+				canvasView!.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseMove, MouseMove);
 				canvasView.PaintSurface -= OnPaintSurface;
@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (e.NewElement != null)
 			{
-				canvasView.PaintSurface += OnPaintSurface;
+				canvasView!.PaintSurface += OnPaintSurface;
 				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
 				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseMove, MouseMove);
@@ -54,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
 			{
-				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
+				canvasView!.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				LoadPoints();
 				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 			}
@@ -66,7 +66,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (isDrawing)
 			{
-				var point = canvasView.EvasCanvas.Pointer;
+				var point = canvasView!.EvasCanvas.Pointer;
 				Element.Points.Add(new Point(point.X, point.Y));
 				canvasView.Invalidate();
 			}
@@ -106,7 +106,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			canvasView.Invalidate();
+			canvasView!.Invalidate();
 		}
 
 		void DrawPath(SKCanvas canvas)
@@ -142,7 +142,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element != null)
 			{
 				Element.Points.CollectionChanged -= OnPointsCollectionChanged;
-				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
+				canvasView!.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseMove, MouseMove);
 				canvasView.PaintSurface -= OnPaintSurface;

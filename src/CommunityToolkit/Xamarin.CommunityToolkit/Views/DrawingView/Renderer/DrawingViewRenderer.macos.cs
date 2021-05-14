@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		bool disposed;
 		NSBezierPath currentPath;
-		NSColor lineColor;
+		NSColor? lineColor;
 		CGPoint previousPoint;
 
 		public DrawingViewRenderer() => currentPath = new NSBezierPath();
@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element != null)
 			{
 				WantsLayer = true;
-				Layer.BackgroundColor = Element.BackgroundColor.ToCGColor();
+				Layer!.BackgroundColor = Element.BackgroundColor.ToCGColor();
 				currentPath.LineWidth = Element.LineWidth;
 				lineColor = Element.LineColor.ToNSColor();
 				Element.Points.CollectionChanged += OnPointsCollectionChanged;
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			previousPoint = theEvent.LocationInWindow;
 			currentPath.MoveTo(previousPoint);
 
-			InvokeOnMainThread(Layer.SetNeedsDisplay);
+			InvokeOnMainThread(Layer!.SetNeedsDisplay);
 		}
 
 		public override void MouseUp(NSEvent theEvent)
@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdatePath();
 			if (Element.Points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand.CanExecute(null))
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 
@@ -71,13 +71,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var currentPoint = theEvent.LocationInWindow;
 			AddPointToPath(currentPoint);
-			InvokeOnMainThread(Layer.SetNeedsDisplay);
+			InvokeOnMainThread(Layer!.SetNeedsDisplay);
 		}
 
 		public override void DrawRect(CGRect dirtyRect)
 		{
 			base.DrawRect(dirtyRect);
-			lineColor.SetStroke();
+			lineColor!.SetStroke();
 			currentPath.Stroke();
 		}
 
@@ -107,7 +107,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var smoothedPoints = Element.EnableSmoothedPath
 				? SmoothedPathWithGranularity(Element.Points, Element.Granularity, ref currentPath)
 				: new ObservableCollection<Point>(Element.Points);
-			InvokeOnMainThread(Layer.SetNeedsDisplay);
+			InvokeOnMainThread(Layer!.SetNeedsDisplay);
 			Element.Points.Clear();
 			foreach (var point in smoothedPoints)
 				Element.Points.Add(point);
