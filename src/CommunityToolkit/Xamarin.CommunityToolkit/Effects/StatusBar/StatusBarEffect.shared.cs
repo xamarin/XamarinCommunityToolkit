@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Effects
@@ -21,9 +21,6 @@ namespace Xamarin.CommunityToolkit.Effects
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new iOS.Effects.PlatformStatusBarEffect();
-#elif UWP
-			if (System.DateTime.Now.Ticks < 0)
-				_ = new UWP.Effects.PlatformStatusBarEffect();
 #endif
 			#endregion
 		}
