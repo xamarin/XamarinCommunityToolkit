@@ -29,16 +29,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Color strokeColor,
 			Color backgroundColor)
 		{
-			if (points == null || points.Count < 2)
+			if (points.Count < 2)
 			{
 				return Stream.Null;
 			}
 
 			var image = GetImageInternal(points, lineWidth, strokeColor, backgroundColor);
-			if (image == null)
-			{
-				return Stream.Null;
-			}
 
 			var resizedImage = MaxResizeImage(image, (float) imageSize.Width, (float) imageSize.Height);
 			using (resizedImage)
@@ -50,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		static Bitmap GetImageInternal(IList<Point> points,
+		static Bitmap GetImageInternal(ICollection<Point> points,
 			float lineWidth,
 			Color strokeColor,
 			Color backgroundColor)
@@ -66,25 +62,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			var bm = new Bitmap((int) drawingWidth, (int) drawingHeight);
-			using (var gr = Graphics.FromImage(bm))
+			using var gr = Graphics.FromImage(bm);
+			var drawingBackgroundColor = XamarinColorToDrawingColor(backgroundColor);
+			gr.Clear(drawingBackgroundColor);
+			using var pen = new Pen(XamarinColorToDrawingColor(strokeColor), lineWidth);
+			var path = new GraphicsPath();
+			var pointsCount = points.Count;
+			for (var i = 0; i < pointsCount - 1; i++)
 			{
-				var drawingBackgroundColor = XamarinColorToDrawingColor(backgroundColor);
-				gr.Clear(drawingBackgroundColor);
-				using (var pen = new Pen(XamarinColorToDrawingColor(strokeColor), lineWidth))
-				{
-					var path = new GraphicsPath();
-					var pointsCount = points.Count;
-					for (var i = 0; i < pointsCount - 1; i++)
-					{
-						var p1 = XamarinPointToDrawingPoint(points.ElementAt(i));
-						var p2 = XamarinPointToDrawingPoint(points.ElementAt(i + 1));
-						path.AddLine(p1.X - (float) minPointX, p1.Y - (float) minPointY, p2.X - (float) minPointX,
-							p2.Y - (float) minPointY);
-					}
-
-					gr.DrawPath(pen, path);
-				}
+				var p1 = XamarinPointToDrawingPoint(points.ElementAt(i));
+				var p2 = XamarinPointToDrawingPoint(points.ElementAt(i + 1));
+				path.AddLine(p1.X - (float) minPointX, p1.Y - (float) minPointY, p2.X - (float) minPointX,
+					p2.Y - (float) minPointY);
 			}
+
+			gr.DrawPath(pen, path);
 
 			return bm;
 		}
@@ -110,10 +102,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var width = maxResizeFactor * sourceSize.Width;
 			var height = maxResizeFactor * sourceSize.Height;
 			var bm = new Bitmap((int) width, (int) height);
-			using (var gr = Graphics.FromImage(bm))
-			{
-				gr.DrawImage(sourceImage, new Rectangle(0, 0, bm.Width, bm.Height));
-			}
+			using var gr = Graphics.FromImage(bm);
+			gr.DrawImage(sourceImage, new Rectangle(0, 0, bm.Width, bm.Height));
 
 			return bm;
 		}

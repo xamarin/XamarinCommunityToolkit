@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using Cairo;
 using Gdk;
-using global::Gtk;
+using Gtk;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.GTK;
@@ -117,7 +117,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			area!.QueueDraw();
 			if (points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand.CanExecute(null))
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 
@@ -153,7 +153,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void LoadPoints(ImageSurface imageSurface)
 		{
 			var stylusPoints = Element?.Points?.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y)).ToList();
-			if (stylusPoints != null && stylusPoints.Count > 0)
+			if (stylusPoints is { Count: > 0 })
 			{
 				previousPoint = stylusPoints[0];
 				using var ctx = new Context(imageSurface);

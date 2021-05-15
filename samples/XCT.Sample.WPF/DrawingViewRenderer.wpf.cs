@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Ink;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Sample.WPF;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.WPF;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
-namespace Xamarin.CommunityToolkit.UI.Views
+namespace Xamarin.CommunityToolkit.Sample.WPF
 {
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, InkCanvas>
 	{
 		InkCanvas? canvas;
-		static bool isInitialized;
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
@@ -31,11 +30,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
 		{
-			if (!isInitialized)
-			{
-				throw new Exception("Call Init method");
-			}
-
 			base.OnElementChanged(e);
 			if (Control == null && Element != null)
 			{
@@ -103,11 +97,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var stroke = new Stroke(new StylusPointCollection(stylusPoints), canvas!.DefaultDrawingAttributes);
 				canvas.Strokes.Add(stroke);
 			}
-		}
-
-		public static void Init()
-		{
-			isInitialized = true;
 		}
 	}
 }

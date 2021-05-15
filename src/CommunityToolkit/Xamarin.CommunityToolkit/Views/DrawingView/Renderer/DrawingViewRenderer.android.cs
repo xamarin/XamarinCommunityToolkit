@@ -106,7 +106,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					drawPath.Reset();
 					if (points.Count > 0)
 					{
-						if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
+						if (Element.DrawingCompletedCommand.CanExecute(null))
 							Element.DrawingCompletedCommand.Execute(points);
 					}
 

@@ -80,7 +80,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdatePath();
 			if (Element.Points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand.CanExecute(null))
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 

@@ -79,7 +79,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (elementPoints.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand.CanExecute(null))
 					Element.DrawingCompletedCommand.Execute(elementPoints);
 			}
 
@@ -95,9 +95,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void LoadPoints()
 		{
-			var stylusPoints = Element?.Points?.Select(point => new Windows.Foundation.Point(point.X, point.Y))
-									  .ToList();
-			if (stylusPoints != null && stylusPoints.Count > 0)
+			var stylusPoints = Element?.Points?.Select(point => new Windows.Foundation.Point(point.X, point.Y)).ToList();
+			if (stylusPoints is { Count: > 0 })
 			{
 				var strokeBuilder = new InkStrokeBuilder();
 				strokeBuilder.SetDefaultDrawingAttributes(inkDrawingAttributes);
