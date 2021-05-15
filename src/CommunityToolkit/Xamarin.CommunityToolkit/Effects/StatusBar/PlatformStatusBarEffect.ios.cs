@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.iOS.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -40,7 +41,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			var uiColor = color.ToUIColor();
 
-			if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+			if (XCT.IsiOS13OrNewer)
 			{
 				const int statusBarTag = 38482;
 				foreach (var window in UIApplication.SharedApplication.Windows)
@@ -56,8 +57,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			}
 			else
 			{
-				var statusBar = UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) as UIView;
-				if (statusBar != null && statusBar.RespondsToSelector(new ObjCRuntime.Selector("setBackgroundColor:")))
+				if (UIApplication.SharedApplication.ValueForKey(new NSString("statusBar")) is UIView statusBar
+					&& statusBar.RespondsToSelector(new ObjCRuntime.Selector("setBackgroundColor:")))
 				{
 					statusBar.BackgroundColor = uiColor;
 				}
@@ -81,7 +82,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		static void UpdateStatusBarAppearance()
 		{
-			if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
+			if (XCT.IsiOS13OrNewer)
 			{
 				foreach (var window in UIApplication.SharedApplication.Windows)
 				{
