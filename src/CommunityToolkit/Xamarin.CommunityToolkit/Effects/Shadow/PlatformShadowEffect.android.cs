@@ -6,6 +6,7 @@ using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using AButton = Android.Widget.Button;
 using AView = Android.Views.View;
 
 [assembly: ExportEffect(typeof(PlatformShadowEffect), nameof(ShadowEffect))]
@@ -47,6 +48,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				case ShadowEffect.OffsetYPropertyName:
 				case nameof(VisualElement.Width):
 				case nameof(VisualElement.Height):
+				case nameof(VisualElement.BackgroundColor):
 					View.Invalidate();
 					Update();
 					break;
@@ -67,20 +69,28 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				opacity = defaultOpacity;
 
 			var androidColor = ShadowEffect.GetColor(Element).MultiplyAlpha(opacity).ToAndroid();
-
-			if (View is TextView textView)
+			if (View is AButton button)
+			{
+				button.StateListAnimator = null;
+				button.OutlineProvider = ViewOutlineProvider.Bounds;
+			}
+			else if (View is not AButton && View is TextView textView)
 			{
 				var offsetX = (float)ShadowEffect.GetOffsetX(Element);
 				var offsetY = (float)ShadowEffect.GetOffsetY(Element);
 				textView.SetShadowLayer(radius, offsetX, offsetY, androidColor);
 				return;
 			}
-
-			View.OutlineProvider = (Element as VisualElement)?.BackgroundColor.A > 0
-				? ViewOutlineProvider.PaddedBounds
-				: ViewOutlineProvider.Bounds;
+			else
+			{
+				View.OutlineProvider = (Element as VisualElement)?.BackgroundColor.A > 0
+					? ViewOutlineProvider.PaddedBounds
+					: ViewOutlineProvider.Bounds;
+			}
 
 			View.Elevation = View.Context.ToPixels(radius);
+			if (View.Parent is ViewGroup group)
+				group.SetClipToPadding(false);
 
 			if (Build.VERSION.SdkInt < BuildVersionCodes.P)
 				return;
