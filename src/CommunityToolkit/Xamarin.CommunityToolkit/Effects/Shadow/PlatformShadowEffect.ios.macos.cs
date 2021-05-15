@@ -70,6 +70,7 @@ public class PlatformShadowEffect : PlatformEffect
 				break;
 			case nameof(VisualElement.Width):
 			case nameof(VisualElement.Height):
+			case nameof(VisualElement.BackgroundColor):
 				Update(View);
 				break;
 		}

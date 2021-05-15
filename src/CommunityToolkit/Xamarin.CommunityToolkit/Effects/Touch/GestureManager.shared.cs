@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using static System.Math;
 
