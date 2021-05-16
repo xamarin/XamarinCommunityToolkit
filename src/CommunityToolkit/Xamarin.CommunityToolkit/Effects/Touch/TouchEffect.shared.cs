@@ -470,9 +470,9 @@ namespace Xamarin.CommunityToolkit.Effects
 			default(bool),
 			propertyChanged: TryGenerateEffect);
 
-		readonly GestureManager gestureManager = new ();
+		readonly GestureManager gestureManager = new();
 
-		readonly WeakEventManager weakEventManager = new ();
+		readonly WeakEventManager weakEventManager = new();
 
 		VisualElement? element;
 
