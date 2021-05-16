@@ -75,7 +75,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (Group == null)
 			{
 				if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+				{
 					View.Foreground = ripple;
+					rippleView = View;
+				}
 
 				return;
 			}
