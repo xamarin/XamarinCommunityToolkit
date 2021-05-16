@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Android.App;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
@@ -59,14 +60,14 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		FormsAppCompatActivity Activity
+		Activity Activity
 		{
 			get
 			{
 				if (Control != null)
-					return (FormsAppCompatActivity)(Control.Context ?? throw new NullReferenceException());
+					return (Activity)Control.Context!;
 				else
-					return (FormsAppCompatActivity)(Container.Context ?? throw new NullReferenceException());
+					return (Activity)Container.Context!;
 			}
 		}
 	}

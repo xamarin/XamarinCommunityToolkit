@@ -64,9 +64,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			get
 			{
 				if (Control != null)
-					return (FormsAppCompatActivity)(Control.Context ?? throw new NullReferenceException());
+					return (FormsAppCompatActivity)Control.Context!;
 				else
-					return (FormsAppCompatActivity)(Container.Context ?? throw new NullReferenceException());
+					return (FormsAppCompatActivity)Container.Context!;
 			}
 		}
 	}
