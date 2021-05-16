@@ -322,7 +322,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (rippleView?.Pressed ?? false)
 			{
 				rippleView.Pressed = false;
-				rippleView.Enabled = false;
+				if (rippleView != View)
+				{
+					rippleView.Enabled = false;
+				}
 			}
 		}
 
