@@ -637,7 +637,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void RaiseMenuIfNeeded(View? menuView)
 		{
 			if (menuView != null && GetMenuAppearanceType(menuView) == SideMenuAppearanceType.SlideIn)
-				Control.RaiseChild(menuView);
+				Control?.RaiseChild(menuView);
 		}
 
 		void OnLayoutChanged(object? sender, EventArgs e)
@@ -645,10 +645,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (mainView == null)
 				return;
 
-			using (Control.Batch())
+			using (Control?.Batch())
 			{
-				Control.RaiseChild(mainView);
-				Control.RaiseChild(overlayView);
+				Control?.RaiseChild(mainView);
+				Control?.RaiseChild(overlayView);
 
 				RaiseMenuIfNeeded(leftMenu);
 				RaiseMenuIfNeeded(rightMenu);
