@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Globalization;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
-	public class IsInRangeConverter : BindableObject, IValueConverter
+	public class IsInRangeConverter : BindableObjectExtension, IValueConverter
 	{
 		public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(object), typeof(IsInRangeConverter));
 
@@ -24,19 +25,16 @@ namespace Xamarin.CommunityToolkit.Converters
 
 		public object Convert(object value, Type targetType, object? parameter, CultureInfo culture)
 		{
-			if (value == null)
-				throw new ArgumentException("Value cannot be null", nameof(value));
+			if (value is not IComparable comparable)
+				throw new ArgumentException("is expected to implement IComparable interface.", nameof(value));
 
-			if (MinValue == null)
-				throw new ArgumentException("Value cannot be null", nameof(MinValue));
+			if (MinValue is not IComparable)
+				throw new ArgumentException("is expected to implement IComparable interface.", nameof(MinValue));
 
-			if (MaxValue == null)
-				throw new ArgumentException("Value cannot be null", nameof(MaxValue));
+			if (MaxValue is not IComparable)
+				throw new ArgumentException("is expected to implement IComparable interface.", nameof(MaxValue));
 
-			if (value is IComparable comparable)
-				return comparable.CompareTo(MinValue) >= 0 && comparable.CompareTo(MaxValue) <= 0;
-
-			return false;
+			return comparable.CompareTo(MinValue) >= 0 && comparable.CompareTo(MaxValue) <= 0;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
