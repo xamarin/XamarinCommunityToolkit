@@ -11,6 +11,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	static class DrawingViewService
 	{
+		/// <summary>
+		/// Get image stream from points
+		/// </summary>
+		/// <param name="points">Drawing points</param>
+		/// <param name="imageSize">Image size</param>
+		/// <param name="lineWidth">Line Width</param>
+		/// <param name="strokeColor">Line color</param>
+		/// <param name="backgroundColor">Image background color</param>
+		/// <returns>Image stream</returns>
 		public static Stream GetImageStream(IList<Point> points,
 			Size imageSize,
 			float lineWidth,
@@ -49,7 +58,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			const int minSize = 1;
 			if (drawingWidth < minSize || drawingHeight < minSize)
 			{
-				return null;
+				throw new Exception($"The image size should be at least {minSize} x {minSize}.");
 			}
 
 			var bm = new SKBitmap((int)drawingWidth, (int)drawingHeight);

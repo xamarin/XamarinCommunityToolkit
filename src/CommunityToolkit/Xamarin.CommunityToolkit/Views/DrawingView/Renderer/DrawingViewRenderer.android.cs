@@ -20,8 +20,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly Paint canvasPaint;
 		readonly Paint drawPaint;
 		readonly Path drawPath;
-		Bitmap canvasBitmap;
-		Canvas drawCanvas;
+		Bitmap? canvasBitmap;
+		Canvas? drawCanvas;
 
 		public DrawingViewRenderer(Context context)
 			: base(context)
@@ -67,17 +67,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnSizeChanged(w, h, oldw, oldh);
 
-			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888);
+			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
 			drawCanvas = new Canvas(canvasBitmap);
 			LoadPoints();
 		}
 
-		protected override void OnDraw(Canvas canvas)
+		protected override void OnDraw(Canvas? canvas)
 		{
 			base.OnDraw(canvas);
 
-			canvas.DrawBitmap(canvasBitmap, 0, 0, canvasPaint);
-			canvas.DrawPath(drawPath, drawPaint);
+			canvas?.DrawBitmap(canvasBitmap!, 0, 0, canvasPaint);
+			canvas?.DrawPath(drawPath, drawPaint);
 		}
 
 		public override bool OnTouchEvent(MotionEvent e)
@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case MotionEventActions.Down:
 					Parent?.RequestDisallowInterceptTouchEvent(true);
 					points.Clear();
-					drawCanvas.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear);
+					drawCanvas!.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
 					drawPath.MoveTo(touchX, touchY);
 					break;
 				case MotionEventActions.Move:
@@ -102,11 +102,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					break;
 				case MotionEventActions.Up:
 					Parent?.RequestDisallowInterceptTouchEvent(false);
-					drawCanvas.DrawPath(drawPath, drawPaint);
+					drawCanvas!.DrawPath(drawPath, drawPaint);
 					drawPath.Reset();
 					if (points.Count > 0)
 					{
-						if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
+						if (Element.DrawingCompletedCommand.CanExecute(null))
 							Element.DrawingCompletedCommand.Execute(points);
 					}
 
@@ -132,7 +132,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void LoadPoints()
 		{
-			drawCanvas.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear);
+			drawCanvas!.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
 			drawPath.Reset();
 			var points = Element.Points;
 			if (points.Count > 0)
@@ -155,10 +155,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (disposing)
 			{
-				drawCanvas.Dispose();
+				drawCanvas!.Dispose();
 				drawPaint.Dispose();
 				drawPath.Dispose();
-				canvasBitmap.Dispose();
+				canvasBitmap!.Dispose();
 				canvasPaint.Dispose();
 				if (Element != null)
 					Element.Points.CollectionChanged -= OnPointsCollectionChanged;

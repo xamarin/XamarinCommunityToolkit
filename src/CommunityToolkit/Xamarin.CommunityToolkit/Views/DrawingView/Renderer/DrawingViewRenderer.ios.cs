@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		bool disposed;
 		UIBezierPath currentPath;
-		UIColor lineColor;
+		UIColor? lineColor;
 		CGPoint previousPoint;
 
 		public DrawingViewRenderer() => currentPath = new UIBezierPath();
@@ -43,7 +43,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnPointsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
 
-		public override void TouchesBegan(NSSet touches, UIEvent evt)
+		public override void TouchesBegan(NSSet touches, UIEvent? evt)
 		{
 			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			Element.Points.Clear();
@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
-		public override void TouchesMoved(NSSet touches, UIEvent evt)
+		public override void TouchesMoved(NSSet touches, UIEvent? evt)
 		{
 			var touch = (UITouch)touches.AnyObject;
 			var currentPoint = touch.LocationInView(this);
@@ -75,12 +75,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
-		public override void TouchesEnded(NSSet touches, UIEvent evt)
+		public override void TouchesEnded(NSSet touches, UIEvent? evt)
 		{
 			UpdatePath();
 			if (Element.Points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand != null && Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand.CanExecute(null))
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 
@@ -88,11 +88,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Element.Points.Clear();
 		}
 
-		public override void TouchesCancelled(NSSet touches, UIEvent evt) => InvokeOnMainThread(SetNeedsDisplay);
+		public override void TouchesCancelled(NSSet touches, UIEvent? evt) => InvokeOnMainThread(SetNeedsDisplay);
 
 		public override void Draw(CGRect rect)
 		{
-			lineColor.SetStroke();
+			lineColor!.SetStroke();
 			currentPath.Stroke();
 		}
 
