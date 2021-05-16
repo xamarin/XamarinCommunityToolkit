@@ -6,10 +6,10 @@ namespace Xamarin.CommunityToolkit.Effects
 	public class StatusBarEffect : RoutingEffect
 	{
 		public static readonly BindableProperty ColorProperty = BindableProperty.CreateAttached(
-			nameof(Color), typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
+			"Color", typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty StyleProperty = BindableProperty.CreateAttached(
-			nameof(Style), typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
+			"Style", typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);
 
 		public StatusBarEffect()
 			: base(EffectIds.StatusBar)
@@ -42,9 +42,5 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			page.Effects.Add(new StatusBarEffect());
 		}
-
-		public Color Color => GetColor(Element);
-
-		public StatusBarStyle Style => GetStyle(Element);
 	}
 }

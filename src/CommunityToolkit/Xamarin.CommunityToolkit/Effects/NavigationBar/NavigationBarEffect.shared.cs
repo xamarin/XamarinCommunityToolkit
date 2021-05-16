@@ -6,10 +6,10 @@ namespace Xamarin.CommunityToolkit.Effects
 	public class NavigationBarEffect : RoutingEffect
 	{
 		public static readonly BindableProperty ColorProperty = BindableProperty.CreateAttached(
-			nameof(Color), typeof(Color), typeof(NavigationBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
+			"Color", typeof(Color), typeof(NavigationBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty StyleProperty = BindableProperty.CreateAttached(
-			nameof(Style), typeof(NavigationBarStyle), typeof(NavigationBarEffect), NavigationBarStyle.Default, propertyChanged: TryGenerateEffect);
+			"Style", typeof(NavigationBarStyle), typeof(NavigationBarEffect), NavigationBarStyle.Default, propertyChanged: TryGenerateEffect);
 
 		public NavigationBarEffect()
 			: base(EffectIds.NavigationBar)
@@ -39,9 +39,5 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			page.Effects.Add(new NavigationBarEffect());
 		}
-
-		public Color Color => GetColor(Element);
-
-		public NavigationBarStyle Style => GetStyle(Element);
 	}
 }
