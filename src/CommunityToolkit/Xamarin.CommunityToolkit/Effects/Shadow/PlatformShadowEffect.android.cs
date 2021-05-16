@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
-using Android.Widget;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using ATextView = Android.Widget.TextView;
 using AButton = Android.Widget.Button;
 using AView = Android.Views.View;
 
@@ -49,6 +50,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				case nameof(VisualElement.Width):
 				case nameof(VisualElement.Height):
 				case nameof(VisualElement.BackgroundColor):
+				case nameof(IBorderElement.CornerRadius):
 					View.Invalidate();
 					Update();
 					break;
@@ -69,34 +71,52 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				opacity = defaultOpacity;
 
 			var androidColor = ShadowEffect.GetColor(Element).MultiplyAlpha(opacity).ToAndroid();
+			var offsetX = (float)ShadowEffect.GetOffsetX(Element);
+			var offsetY = (float)ShadowEffect.GetOffsetY(Element);
+			var cornerRadius = Element is IBorderElement borderElement ? borderElement.CornerRadius : 0;
+
 			if (View is AButton button)
 			{
 				button.StateListAnimator = null;
-				button.OutlineProvider = ViewOutlineProvider.Bounds;
 			}
-			else if (View is not AButton && View is TextView textView)
+			else if (View is not AButton && View is ATextView textView)
 			{
-				var offsetX = (float)ShadowEffect.GetOffsetX(Element);
-				var offsetY = (float)ShadowEffect.GetOffsetY(Element);
 				textView.SetShadowLayer(radius, offsetX, offsetY, androidColor);
 				return;
 			}
-			else
-			{
-				View.OutlineProvider = (Element as VisualElement)?.BackgroundColor.A > 0
-					? ViewOutlineProvider.PaddedBounds
-					: ViewOutlineProvider.Bounds;
-			}
 
+			var pixelOffsetX = View.Context.ToPixels(offsetX);
+			var pixelOffsetY = View.Context.ToPixels(offsetY);
+			var pixelCornerRadius = View.Context.ToPixels(cornerRadius);
+			View.OutlineProvider = new ShadowOutlineProvider(pixelOffsetX, pixelOffsetY, pixelCornerRadius);
 			View.Elevation = View.Context.ToPixels(radius);
 			if (View.Parent is ViewGroup group)
 				group.SetClipToPadding(false);
 
+#pragma warning disable
 			if (Build.VERSION.SdkInt < BuildVersionCodes.P)
 				return;
 
 			View.SetOutlineAmbientShadowColor(androidColor);
 			View.SetOutlineSpotShadowColor(androidColor);
+#pragma warning restore
+		}
+
+		class ShadowOutlineProvider : ViewOutlineProvider
+		{
+			readonly float offsetX;
+			readonly float offsetY;
+			readonly float cornerRadius;
+
+			public ShadowOutlineProvider(float offsetX, float offsetY, float cornerRadius)
+			{
+				this.offsetX = offsetX;
+				this.offsetY = offsetY;
+				this.cornerRadius = cornerRadius;
+			}
+
+			public override void GetOutline(AView? view, Outline? outline)
+				=> outline?.SetRoundRect((int)offsetX, (int)offsetY, view?.Width ?? 0, view?.Height ?? 0, cornerRadius);
 		}
 	}
 }
