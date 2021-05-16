@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Android.App;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
