@@ -76,8 +76,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnDraw(canvas);
 
-			canvas!.DrawBitmap(canvasBitmap!, 0, 0, canvasPaint);
-			canvas.DrawPath(drawPath, drawPaint);
+			canvas?.DrawBitmap(canvasBitmap!, 0, 0, canvasPaint);
+			canvas?.DrawPath(drawPath, drawPaint);
 		}
 
 		public override bool OnTouchEvent(MotionEvent e)

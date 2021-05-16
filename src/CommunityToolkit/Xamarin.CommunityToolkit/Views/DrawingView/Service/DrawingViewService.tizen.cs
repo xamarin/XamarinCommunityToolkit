@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			const int minSize = 1;
 			if (drawingWidth < minSize || drawingHeight < minSize)
 			{
-				throw new Exception("Image is too small");
+				throw new Exception($"The image size should be at least {minSize} x {minSize}.");
 			}
 
 			var bm = new SKBitmap((int)drawingWidth, (int)drawingHeight);
