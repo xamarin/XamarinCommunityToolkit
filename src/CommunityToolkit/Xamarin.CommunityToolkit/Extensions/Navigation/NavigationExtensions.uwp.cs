@@ -13,11 +13,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		static void PlatformShowPopup(BasePopup popup)
 		{
 			popup.Parent = GetCurrentPage(Application.Current.MainPage);
-
-			// ATTENTION: Create the Renderer for UWP Don't use the one Provided by Xamarin.Forms, Causes a crash in Native Compiled Code
-			// 1. DefaultRenderer is PopupRenderer instead of DefaultRenderer()
-			// 2. No Invalid Cast Exceptions in UWP Native when the Xamarin Forms Renderer Functions is used.
-			var createdRenderer = Registrar.Registered.GetHandlerForObject<IVisualElementRenderer>(popup) ?? new PopupRenderer();
+			var createdRenderer = CreateRenderer(popup);
 			createdRenderer.SetElement(popup);
 
 			// https://github.com/xamarin/Xamarin.Forms/blob/0c95d0976cc089fe72476fb037851a64987de83c/Xamarin.Forms.Platform.iOS/PageExtensions.cs#L44
@@ -38,6 +34,24 @@ namespace Xamarin.CommunityToolkit.Extensions
 				else
 					return currentPage;
 			}
+		}
+
+		/// <summary>
+		/// ATTENTION: Create the Renderer for UWP Don't use the one Provided by Xamarin.Forms, Causes a crash in Native Compiled Code
+		/// 1. DefaultRenderer is PopupRenderer instead of DefaultRenderer()
+		/// 2. No Invalid Cast Exceptions in UWP Native when the Xamarin Forms Renderer Functions is used.
+		/// </summary>
+		/// <param name="element">Element for getting the renderer</param>
+		/// <returns>Renderer</returns>
+		// https://github.com/xamarin/Xamarin.Forms/blob/5.0.0/Xamarin.Forms.Platform.UAP/Platform.cs
+		public static IVisualElementRenderer CreateRenderer(VisualElement element)
+		{
+			if (element == null)
+				throw new ArgumentNullException(nameof(element));
+
+			var renderer = Registrar.Registered.GetHandlerForObject<IVisualElementRenderer>(element) ?? new PopupRenderer();
+
+			return renderer;
 		}
 
 		static Task<T?> PlatformShowPopupAsync<T>(Popup<T> popup)
