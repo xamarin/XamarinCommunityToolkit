@@ -47,7 +47,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(SemanticEffectPage),
 				nameof(SemanticEffect),
-				"The SemanticEffect allows you to set semantic properties for accessibility.")
+				"The SemanticEffect allows you to set semantic properties for accessibility."),
+
+			new SectionModel(
+				typeof(CornerRadiusEffectPage),
+				nameof(CornerRadiusEffect),
+				"The CornerRadius allows rounded corners everywhere."),
 		};
 	}
 }
