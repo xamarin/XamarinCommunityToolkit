@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		/// </summary>
 		/// <param name="element">Element for getting the renderer</param>
 		// https://github.com/xamarin/Xamarin.Forms/blob/5.0.0/Xamarin.Forms.Platform.UAP/Platform.cs
-		private static void CreateRenderer(VisualElement element)
+		static void CreateRenderer(VisualElement element)
 		{
 			if (element == null)
 				throw new ArgumentNullException(nameof(element));
