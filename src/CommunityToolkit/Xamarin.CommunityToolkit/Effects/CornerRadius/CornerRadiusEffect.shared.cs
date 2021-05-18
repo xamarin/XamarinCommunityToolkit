@@ -71,7 +71,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void UpdateCornerRadius()
 		{
-			if (!(Element is VisualElement elementView))
+			if (Element is not VisualElement elementView)
 				return;
 
 			if (elementView.Clip is RoundRectangleGeometry roundRectangleGeometry)
@@ -87,7 +87,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void UpdateSize()
 		{
-			if (!(Element is VisualElement elementView))
+			if (Element is not VisualElement elementView)
 				return;
 
 			if (elementView.Clip is RoundRectangleGeometry roundRectangleGeometry)
