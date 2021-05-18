@@ -6,8 +6,8 @@ using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using ATextView = Android.Widget.TextView;
 using AButton = Android.Widget.Button;
+using ATextView = Android.Widget.TextView;
 using AView = Android.Views.View;
 
 [assembly: ExportEffect(typeof(PlatformShadowEffect), nameof(ShadowEffect))]
