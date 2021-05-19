@@ -8,33 +8,36 @@ namespace Xamarin.CommunityToolkit.Effects
 {
 	public class CornerRadiusEffect : NullEffect
 	{
-		public static readonly BindableProperty CornerRadiusProperty =
-			BindableProperty.CreateAttached("CornerRadius", typeof(Forms.CornerRadius), typeof(CornerRadiusEffect),
-				default(Forms.CornerRadius), propertyChanged: TryAttachEffect);
+		public static readonly BindableProperty CornerRadiusProperty = BindableProperty.CreateAttached(
+			nameof(CornerRadius),
+			typeof(CornerRadius),
+			typeof(CornerRadiusEffect),
+			default(CornerRadius),
+			propertyChanged: TryGenerateEffect);
 
-		public static Forms.CornerRadius GetCornerRadius(BindableObject bindable)
-			=> (CornerRadius) bindable.GetValue(CornerRadiusProperty);
+		public static CornerRadius GetCornerRadius(BindableObject? bindable)
+			=> (CornerRadius)(bindable?.GetValue(CornerRadiusProperty) ?? throw new ArgumentNullException(nameof(bindable)));
 
-		public static void SetCornerRadius(BindableObject bindable, CornerRadius value)
-			=> bindable.SetValue(CornerRadiusProperty, value);
+		public static void SetCornerRadius(BindableObject? bindable, CornerRadius value)
+			=> bindable?.SetValue(CornerRadiusProperty, value);
 
-		static void TryAttachEffect(BindableObject bindable, object oldValue, object newValue)
+		static void TryGenerateEffect(BindableObject? bindable, object oldValue, object newValue)
 		{
-			if (!(bindable is VisualElement element))
+			if (bindable is not VisualElement elementView)
 				return;
 
-			var cornerRadiusEffects = element.Effects.OfType<CornerRadiusEffect>();
+			var cornerRadiusEffects = elementView.Effects.OfType<CornerRadiusEffect>();
 
 			if (GetCornerRadius(bindable) == default)
 			{
 				foreach (var cornerRadiusEffect in cornerRadiusEffects.ToArray())
-					element.Effects.Remove(cornerRadiusEffect);
+					elementView.Effects.Remove(cornerRadiusEffect);
 
 				return;
 			}
 
 			if (!cornerRadiusEffects.Any())
-				element.Effects.Add(new CornerRadiusEffect());
+				elementView.Effects.Add(new CornerRadiusEffect());
 		}
 
 		protected override void OnAttached()
