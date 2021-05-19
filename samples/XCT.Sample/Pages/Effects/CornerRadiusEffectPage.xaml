@@ -89,7 +89,7 @@
                     x:Name="SliderCornerRadiusTopLeft"
                     Grid.Row="1"
                     Grid.Column="2"
-                    Maximum="50"
+                    Maximum="200"
                     Minimum="0"
                     Value="10" />
 
@@ -102,7 +102,7 @@
                     x:Name="SliderCornerRadiusTopRight"
                     Grid.Row="1"
                     Grid.Column="4"
-                    Maximum="50"
+                    Maximum="200"
                     Minimum="0"
                     Value="10" />
 
@@ -115,7 +115,7 @@
                     x:Name="SliderCornerRadiusBottomLeft"
                     Grid.Row="2"
                     Grid.Column="2"
-                    Maximum="50"
+                    Maximum="200"
                     Minimum="0"
                     Value="10" />
 
@@ -128,7 +128,7 @@
                     x:Name="SliderCornerRadiusBottomRight"
                     Grid.Row="2"
                     Grid.Column="4"
-                    Maximum="50"
+                    Maximum="200"
                     Minimum="0"
                     Value="10" />
             </Grid>

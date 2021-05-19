@@ -27,10 +27,8 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (GetCornerRadius(bindable) == default)
 			{
-				foreach (var cornerRadiusEffect in cornerRadiusEffects)
-				{
+				foreach (var cornerRadiusEffect in cornerRadiusEffects.ToArray())
 					element.Effects.Remove(cornerRadiusEffect);
-				}
 
 				return;
 			}
@@ -45,7 +43,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			{
 				elementView.SizeChanged += OnElementSizeChanged;
 				elementView.PropertyChanged += OnElementPropertyChanged;
-				CreateClip(elementView);
+				UpdateClip();
 			}
 		}
 
@@ -59,53 +57,59 @@ namespace Xamarin.CommunityToolkit.Effects
 			}
 		}
 
-		void OnElementSizeChanged(object? sender, EventArgs e) => UpdateSize();
+		void OnElementSizeChanged(object? sender, EventArgs e) => UpdateClip();
 
 		void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == CornerRadiusProperty.PropertyName)
 			{
-				UpdateCornerRadius();
+				UpdateClip();
 			}
 		}
 
-		void UpdateCornerRadius()
+		void UpdateClip()
 		{
 			if (Element is not VisualElement elementView)
 				return;
 
-			if (elementView.Clip is RoundRectangleGeometry roundRectangleGeometry)
-			{
-				var cornerRadius = GetCornerRadius(Element);
-				roundRectangleGeometry.CornerRadius = cornerRadius;
-			}
-			else
-			{
-				CreateClip(elementView);
-			}
-		}
-
-		void UpdateSize()
-		{
-			if (Element is not VisualElement elementView)
-				return;
-
-			if (elementView.Clip is RoundRectangleGeometry roundRectangleGeometry)
-			{
-				var rect = new Rect(0, 0, elementView.Width, elementView.Height);
-				roundRectangleGeometry.Rect = rect;
-			}
-			else
-			{
-				CreateClip(elementView);
-			}
-		}
-
-		static void CreateClip(VisualElement elementView)
-		{
-			var cornerRadius = GetCornerRadius(elementView);
 			var rect = new Rect(0, 0, elementView.Width, elementView.Height);
-			elementView.Clip = new RoundRectangleGeometry(cornerRadius, rect);
+			var cornerRadius = GetCornerRadius(rect);
+			if (cornerRadius == default)
+			{
+				elementView.Clip = null;
+				return;
+			}
+
+			if (elementView.Clip is not RoundRectangleGeometry roundRectangleGeometry)
+			{
+				elementView.Clip = new RoundRectangleGeometry(cornerRadius, rect);
+				return;
+			}
+
+			roundRectangleGeometry.CornerRadius = cornerRadius;
+			roundRectangleGeometry.Rect = rect;
 		}
+
+		CornerRadius GetCornerRadius(Rect rect)
+        {
+	        var maxCornerRadius = Math.Min(rect.Width, rect.Height) / 2;
+	        if (maxCornerRadius <= 0)
+		        return default;
+
+	        var cornerRadius = GetCornerRadius(Element);
+	        if (cornerRadius.TopLeft > maxCornerRadius ||
+	            cornerRadius.TopRight > maxCornerRadius ||
+	            cornerRadius.BottomLeft > maxCornerRadius ||
+	            cornerRadius.BottomRight > maxCornerRadius)
+	        {
+		        return new CornerRadius(
+			        Math.Min(cornerRadius.TopLeft, maxCornerRadius),
+			        Math.Min(cornerRadius.TopRight, maxCornerRadius),
+			        Math.Min(cornerRadius.BottomLeft, maxCornerRadius),
+			        Math.Min(cornerRadius.BottomRight, maxCornerRadius));
+	        }
+
+	        return cornerRadius;
+        }
 	}
 }
