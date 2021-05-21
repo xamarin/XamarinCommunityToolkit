@@ -26,17 +26,17 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (bindable is not VisualElement elementView)
 				return;
 
-			var cornerRadiusEffects = elementView.Effects.OfType<CornerRadiusEffect>();
+			var cornerRadiusEffects = elementView.Effects.OfType<CornerRadiusEffect>().ToArray();
 
 			if (GetCornerRadius(bindable) == default)
 			{
-				foreach (var cornerRadiusEffect in cornerRadiusEffects.ToArray())
+				foreach (var cornerRadiusEffect in cornerRadiusEffects)
 					elementView.Effects.Remove(cornerRadiusEffect);
 
 				return;
 			}
 
-			if (!cornerRadiusEffects.Any())
+			if (cornerRadiusEffects.Length == 0)
 				elementView.Effects.Add(new CornerRadiusEffect());
 		}
 
