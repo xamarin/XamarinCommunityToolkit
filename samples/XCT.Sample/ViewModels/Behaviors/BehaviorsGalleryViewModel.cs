@@ -5,7 +5,7 @@ using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
-	public class BehaviorsGalleryViewModel : BaseGalleryViewModel
+		public class BehaviorsGalleryViewModel : BaseGalleryViewModel
 	{
 		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
@@ -65,6 +65,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				typeof(SetFocusOnEntryCompletedBehaviorPage),
 				nameof(SetFocusOnEntryCompletedBehavior),
 				"Set focus to another element when an entry is completed"),
+			new SectionModel(
+				typeof(ValidationGroupBehaviorPage),
+				nameof(ValidationGroupBehavior),
+				"Validates a group of validation behaviors"),
 		};
 	}
 }

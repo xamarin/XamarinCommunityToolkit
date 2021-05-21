@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.ValidationGroupBehaviorPage"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+
+  <pages:BasePage.Resources>
+    <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+      <Setter Property="TextColor" Value="Red" />
+    </Style>
+  </pages:BasePage.Resources>
+
+  <StackLayout Padding="{StaticResource ContentPadding}"
+               Spacing="25"
+               VerticalOptions="StartAndExpand">
+
+    <StackLayout.Behaviors>
+      <xct:ValidationGroupBehavior x:Name="ValidationGroup" />
+    </StackLayout.Behaviors>
+
+    <Label Text="Name (required):" />
+    <Entry Placeholder="e.g. John Doe">
+      <Entry.Behaviors>
+        <xct:CharactersValidationBehavior Flags="ValidateOnAttaching,ValidateOnValueChanging"
+                                          Group="{Reference ValidationGroup}"
+                                          MinimumCharacterCount="3" />
+      </Entry.Behaviors>
+    </Entry>
+
+    <Label Text="Email (required):" />
+    <Entry Placeholder="e.g. john@doe.com">
+      <Entry.Behaviors>
+        <xct:MultiValidationBehavior Group="{Reference ValidationGroup}">
+          <xct:CharactersValidationBehavior MinimumCharacterCount="3" />
+          <xct:EmailValidationBehavior />
+        </xct:MultiValidationBehavior>
+      </Entry.Behaviors>
+    </Entry>
+
+    <Label Text="Fill in all fields before button is enabled" />
+    <Button x:Name="SubmitButton" IsEnabled="{Binding Source={Reference ValidationGroup}, Path=IsValid}">
+      <Button.Triggers>
+        <DataTrigger Binding="{Binding IsEnabled, Source={Reference SubmitButton}}"
+                     TargetType="Button"
+                     Value="True">
+          <Setter Property="BackgroundColor" Value="Green" />
+          <Setter Property="Text" Value="All valid" />
+        </DataTrigger>
+        <DataTrigger Binding="{Binding IsEnabled, Source={Reference SubmitButton}}"
+                     TargetType="Button"
+                     Value="False">
+          <Setter Property="BackgroundColor" Value="Red" />
+          <Setter Property="Text" Value="Invalid" />
+        </DataTrigger>
+      </Button.Triggers>
+    </Button>
+  </StackLayout>
+
+</pages:BasePage>

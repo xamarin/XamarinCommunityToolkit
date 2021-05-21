@@ -7,10 +7,10 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors.Internals
 {
-	/// <summary>
-	/// The <see cref="ValidationBehavior"/> allows users to create custom validation behaviors. All of the validation behaviors in the Xamarin Community Toolkit inherit from this behavior, to expose a number of shared properties. Users can inherit from this class to create a custom validation behavior currently not supported through the Xamarin Community Toolkit. This behavios cannot be used directly as it's abstract.
-	/// </summary>
-	public abstract class ValidationBehavior : BaseBehavior<VisualElement>
+		/// <summary>
+		/// The <see cref="ValidationBehavior"/> allows users to create custom validation behaviors. All of the validation behaviors in the Xamarin Community Toolkit inherit from this behavior, to expose a number of shared properties. Users can inherit from this class to create a custom validation behavior currently not supported through the Xamarin Community Toolkit. This behavios cannot be used directly as it's abstract.
+		/// </summary>
+		public abstract class ValidationBehavior : BaseBehavior<VisualElement>
 	{
 		public const string ValidVisualState = "Valid";
 
@@ -161,6 +161,8 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			set => SetValue(ForceValidateCommandProperty, value);
 		}
 
+		public ValidationGroupBehavior? Group { get; set; }
+
 		protected virtual string DefaultValuePropertyName => Entry.TextProperty.PropertyName;
 
 		protected virtual ICommand DefaultForceValidateCommand { get; }
@@ -186,6 +188,8 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			OnValuePropertyNamePropertyChanged();
 			await UpdateStateAsync(false);
 			isAttaching = false;
+
+			Group?.Add(this);
 		}
 
 		protected override void OnDetachingFrom(VisualElement bindable)
@@ -197,6 +201,9 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 			}
 
 			currentStatus = ValidationFlags.None;
+
+			Group?.Remove(this);
+
 			base.OnDetachingFrom(bindable);
 		}
 
@@ -292,6 +299,8 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 					return;
 				}
 			}
+
+			Group?.Update();
 
 			UpdateStyle();
 		}
