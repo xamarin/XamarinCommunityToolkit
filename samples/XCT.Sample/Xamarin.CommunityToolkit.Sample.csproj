@@ -11,6 +11,10 @@
     <None Remove="resources\**" />
     <EmbeddedResource Include="Images\**" />
     <EmbeddedResource Include="Fonts\**" />
+    <Compile Update="Pages\Views\Calendar\CalendarPage.xaml.cs">
+      <DependentUpon>CalendarPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

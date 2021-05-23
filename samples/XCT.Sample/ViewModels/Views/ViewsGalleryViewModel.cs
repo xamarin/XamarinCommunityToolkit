@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Views;
+using Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
@@ -57,7 +58,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 				"The UniformGrid is just like the Grid, with all rows and columns will have the same size."),
 
 			new SectionModel(typeof(PopupGalleryPage), "Popup",
-				"The popup control renders native popups from the shared code. This page demonstrates a variety of different techniques for displaying native popups.")
+				"The popup control renders native popups from the shared code. This page demonstrates a variety of different techniques for displaying native popups."),
+			
+			new SectionModel(typeof(CalendarPage), "Calendar",
+				"Customizable Calendar control")
 		};
 	}
 }
