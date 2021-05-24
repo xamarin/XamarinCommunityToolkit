@@ -5,7 +5,7 @@ using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
-		public class BehaviorsGalleryViewModel : BaseGalleryViewModel
+	public class BehaviorsGalleryViewModel : BaseGalleryViewModel
 	{
 		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
