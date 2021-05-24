@@ -5,33 +5,6 @@
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.Content>
-        <!--<ScrollView>
-            <StackLayout Padding="20">            
-                <Label Text="I have no heading" xct:SemanticEffect.HeadingLevel="None"/>
-                <Label Text="I am a heading 1" xct:SemanticEffect.HeadingLevel="Level1"/>
-                <Label Text="I am a heading 2" xct:SemanticEffect.HeadingLevel="Level2"/>
-                <Label Text="I am a heading 3" xct:SemanticEffect.HeadingLevel="Level3"/>
-                <Label Text="I am a heading 4" xct:SemanticEffect.HeadingLevel="Level4"/>
-                <Label Text="I am a heading 5" xct:SemanticEffect.HeadingLevel="Level5"/>
-                <Label Text="I am a heading 6" xct:SemanticEffect.HeadingLevel="Level6"/>
-                <Label Text="I am a heading 7" xct:SemanticEffect.HeadingLevel="Level7"/>
-                <Label Text="I am a heading 8" xct:SemanticEffect.HeadingLevel="Level8"/>
-                <Label Text="I am a heading 9" xct:SemanticEffect.HeadingLevel="Level9"/>
-
-                <Label Text="I am a label with an automation ID" AutomationId="labelAutomationIdTest" xct:SemanticEffect.Description="This is a semantic description" />
-
-                <Label Text="The button below has a semantic hint"/>
-                <Button
-                    Text="Button with hint"
-                    xct:SemanticEffect.Hint="This is a hint that describes the button. For example, 'sends a message'"/>
-
-                <Label Text="The image below has a semantic description"/>
-                <Image
-                    Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"
-                    xct:SemanticEffect.Description="This is a description that describes the image. For example, 'image of xamarin community toolkit logo'"/>
-            </StackLayout>
-        </ScrollView>-->
-
         <ScrollView Margin="15,20">
             <StackLayout>
                 <Label
@@ -224,6 +197,5 @@
 
             </StackLayout>
         </ScrollView>
-
     </ContentPage.Content>
 </pages:BasePage>
