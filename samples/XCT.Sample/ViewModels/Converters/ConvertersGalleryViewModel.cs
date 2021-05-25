@@ -111,6 +111,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(ImageResourceConverterPage),
 				nameof(ImageResourceConverter),
 				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
+			new SectionModel(
+				typeof(ColorsConverterPage),
+				"Colors converters",
+				"A group of converters that convert a Color to your strings values (RGB, HEX, HSL, etc)"),
 		};
 	}
 }
