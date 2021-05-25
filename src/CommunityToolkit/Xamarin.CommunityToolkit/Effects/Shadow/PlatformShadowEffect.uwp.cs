@@ -54,6 +54,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 				case ShadowEffect.OffsetYPropertyName:
 				case nameof(VisualElement.Width):
 				case nameof(VisualElement.Height):
+				case nameof(VisualElement.BackgroundColor):
 					UpdateShadow();
 					break;
 			}
