@@ -1,6 +1,6 @@
-﻿using Android.Views;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
+using Android.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 

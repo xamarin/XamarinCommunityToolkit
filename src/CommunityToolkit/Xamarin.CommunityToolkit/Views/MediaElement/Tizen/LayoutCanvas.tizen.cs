@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using Xamarin.Forms.Platform.Tizen.Native;
 using ElmSharp;
+using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.Forms.Platform.Tizen.Native;
 using ELayout = ElmSharp.Layout;
 using TBox = Xamarin.Forms.Platform.Tizen.Native.Box;
-using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
