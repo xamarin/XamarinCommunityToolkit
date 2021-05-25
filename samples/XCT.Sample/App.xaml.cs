@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.Sample.Pages;
 using Xamarin.CommunityToolkit.Sample.Resx;
@@ -18,6 +19,7 @@ namespace Xamarin.CommunityToolkit.Sample
 			LocalizationResourceManager.Current.CurrentCulture = new CultureInfo("en");
 
 			InitializeComponent();
+			Xamarin.Forms.Device.SetFlags(new List<string> { "Accessibility_Experimental" });
 			MainPage = new BaseNavigationPage(new WelcomePage());
 		}
 	}
