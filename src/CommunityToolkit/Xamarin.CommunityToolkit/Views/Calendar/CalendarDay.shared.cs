@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="Date"/> property.
 		/// </summary>
 		public static readonly BindableProperty DateProperty =
-			BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(CalendarDay));
+			BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(CalendarDay), default(DateTime));
 
 		/// <summary>
 		/// Gets or sets date for day.
