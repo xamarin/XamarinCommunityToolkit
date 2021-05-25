@@ -17,14 +17,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets days that are currently visible.
 		/// </summary>
-		public IReadOnlyCollection<CalendarDay> Days =>
-			new ReadOnlyCollection<CalendarDay>(days.Where(x => x.IsVisible).ToList());
+		public IReadOnlyCollection<CalendarDay> Days => days.Where(x => x.IsVisible).ToList();
 
 		/// <summary>
 		/// Event that is triggered when the <see cref="CalendarDay" /> is tapped.
 		/// </summary>
 		public event EventHandler<CalendarDayTappedEventArgs>? DayTapped;
-		
+
 		/// <summary>
 		/// Event that is triggered when the visible <see cref="CalendarDay" /> is updated.
 		/// </summary>
@@ -34,21 +33,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="ShowDaysFromOtherMonths"/> property.
 		/// </summary>
 		public static readonly BindableProperty ShowDaysFromOtherMonthsProperty =
-			BindableProperty.Create(nameof(ShowDaysFromOtherMonths), typeof(bool), typeof(Calendar), defaultValue: true,
-				propertyChanged: OnShowDaysFromOtherMonthsPropertyChanged);
+			BindableProperty.Create(nameof(ShowDaysFromOtherMonths), typeof(bool), typeof(Calendar), true, propertyChanged: OnShowDaysFromOtherMonthsPropertyChanged);
 
 		/// <summary>
 		/// Determines if days from other months should be visible.
 		/// </summary>
 		public bool ShowDaysFromOtherMonths
 		{
-			get => (bool) GetValue(ShowDaysFromOtherMonthsProperty);
+			get => (bool)GetValue(ShowDaysFromOtherMonthsProperty);
 			set => SetValue(ShowDaysFromOtherMonthsProperty, value);
 		}
-		
+
 		static void OnShowDaysFromOtherMonthsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var calendar = (Calendar) bindable;
+			var calendar = (Calendar)bindable;
 			calendar.UpdateCalendarDays();
 		}
 
@@ -56,25 +54,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="ShowWeekends"/> property.
 		/// </summary>
 		public static readonly BindableProperty ShowWeekendsProperty =
-			BindableProperty.Create(nameof(ShowWeekends), typeof(bool), typeof(Calendar), defaultValue: true,
-				propertyChanged: OnShowWeekendsChanged);
+			BindableProperty.Create(nameof(ShowWeekends), typeof(bool), typeof(Calendar), true, propertyChanged: OnShowWeekendsChanged);
 
 		/// <summary>
 		/// Determines if weekends should be visible.
 		/// </summary>
 		public bool ShowWeekends
 		{
-			get => (bool) GetValue(ShowWeekendsProperty);
+			get => (bool)GetValue(ShowWeekendsProperty);
 			set => SetValue(ShowWeekendsProperty, value);
 		}
-		
+
 		static void OnShowWeekendsChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var calendar = (Calendar) bindable;
+			var calendar = (Calendar)bindable;
 
-			if (!calendar.ShowWeekends &&
-			    (calendar.FirstDayOfWeek == DayOfWeek.Saturday ||
-			     calendar.FirstDayOfWeek == DayOfWeek.Sunday))
+			if (!calendar.ShowWeekends && (calendar.FirstDayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday))
 			{
 				calendar.FirstDayOfWeek = DayOfWeek.Monday;
 			}
@@ -101,13 +96,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public DayOfWeek FirstDayOfWeek
 		{
-			get => (DayOfWeek) GetValue(FirstDayOfWeekProperty);
+			get => (DayOfWeek)GetValue(FirstDayOfWeekProperty);
 			set => SetValue(FirstDayOfWeekProperty, value);
 		}
-		
+
 		static void OnFirstDayOfWeekChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var calendar = (Calendar) bindable;
+			var calendar = (Calendar)bindable;
 			calendar.UpdateWeekDayHeaders();
 			calendar.UpdateCalendarDays();
 		}
@@ -122,15 +117,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets <see cref="ControlTemplate"/> for week day header at the top of <see cref="Calendar"/>.
 		/// </summary>
-		public ControlTemplate WeekDayHeaderControlTemplate
+		public ControlTemplate? WeekDayHeaderControlTemplate
 		{
-			get => (ControlTemplate) GetValue(WeekDayHeaderControlTemplateProperty);
+			get => (ControlTemplate?)GetValue(WeekDayHeaderControlTemplateProperty);
 			set => SetValue(WeekDayHeaderControlTemplateProperty, value);
 		}
-		
+
 		static void OnWeekDayHeaderControlTemplateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var calendar = (Calendar) bindable;
+			var calendar = (Calendar)bindable;
 			calendar.UpdateWeekDayHeaders();
 		}
 
@@ -144,15 +139,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets or sets <see cref="ControlTemplate"/> for <see cref="CalendarDay"/>.
 		/// </summary>
-		public ControlTemplate DayControlTemplate
+		public ControlTemplate? DayControlTemplate
 		{
-			get => (ControlTemplate) GetValue(DayControlTemplateProperty);
+			get => (ControlTemplate?)GetValue(DayControlTemplateProperty);
 			set => SetValue(DayControlTemplateProperty, value);
 		}
-		
+
 		static void OnDayControlTemplateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var calendar = (Calendar) bindable;
+			var calendar = (Calendar)bindable;
 			calendar.UpdateCalendarDays();
 		}
 
@@ -160,31 +155,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="SelectedDays"/> property.
 		/// </summary>
 		public static readonly BindableProperty SelectedDaysProperty =
-			BindableProperty.Create(nameof(SelectedDays), typeof(IReadOnlyCollection<DateTime>), typeof(Calendar),
-				defaultValue: new DateTime[0], propertyChanged: OnSelectedDaysChanged);
+			BindableProperty.Create(nameof(SelectedDays), typeof(IReadOnlyCollection<DateTime>), typeof(Calendar), Enumerable.Empty<DateTime>().ToList(), propertyChanged: OnSelectedDaysChanged);
 
 		/// <summary>
 		/// Gets or sets selected days.
 		/// </summary>
 		public IReadOnlyCollection<DateTime> SelectedDays
 		{
-			get => (IReadOnlyCollection<DateTime>) GetValue(SelectedDaysProperty);
+			get => (IReadOnlyCollection<DateTime>)GetValue(SelectedDaysProperty);
 			set => SetValue(SelectedDaysProperty, value);
 		}
-		
+
 		static void OnSelectedDaysChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var daysToSelect = (IList<DateTime>) newValue;
-			var calendar = (Calendar) bindable;
+			var daysToSelect = (IList<DateTime>)newValue;
+			var calendar = (Calendar)bindable;
 
-			if (calendar.SelectionMode == CalendarSelectionMode.SingleSelect)
+			if (calendar.SelectionMode is CalendarSelectionMode.SingleSelect
+				&& daysToSelect != null
+				&& daysToSelect.Count > 1)
 			{
-				if (daysToSelect != null &&
-				    daysToSelect.Count > 1)
-				{
-					throw new InvalidOperationException(
-						"Trying to select more than one day when working in SingleSelect mode");
-				}
+				throw new InvalidOperationException(
+					$"Cannot select more than one day when working in {nameof(CalendarSelectionMode.SingleSelect)} mode");
 			}
 
 			calendar.SelectDays(daysToSelect);
@@ -194,20 +186,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="Date"/> property.
 		/// </summary>
 		public static readonly BindableProperty DateProperty =
-			BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(Calendar), propertyChanged: OnDateChanged);
+			BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(Calendar), default(DateTime), propertyChanged: OnDateChanged);
 
 		/// <summary>
 		/// Gets or sets the date.
 		/// </summary>
 		public DateTime Date
 		{
-			get => (DateTime) GetValue(DateProperty);
+			get => (DateTime)GetValue(DateProperty);
 			set => SetValue(DateProperty, value);
 		}
-		
+
 		static void OnDateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var calendar = (Calendar) bindable;
+			var calendar = (Calendar)bindable;
 			calendar.UpdateCalendarDays();
 		}
 
@@ -215,22 +207,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="SelectionMode"/> property.
 		/// </summary>
 		public static readonly BindableProperty SelectionModeProperty =
-			BindableProperty.Create(nameof(SelectionMode), typeof(CalendarSelectionMode), typeof(Calendar),
-				propertyChanged: OnModeChanged);
+			BindableProperty.Create(nameof(SelectionMode), typeof(CalendarSelectionMode), typeof(Calendar), CalendarSelectionMode.SingleSelect, propertyChanged: OnModeChanged);
 
 		/// <summary>
 		/// Gets or sets the mode, which determines how <see cref="Calendar"/> handles days selection.
 		/// </summary>
 		public CalendarSelectionMode SelectionMode
 		{
-			get => (CalendarSelectionMode) GetValue(SelectionModeProperty);
+			get => (CalendarSelectionMode)GetValue(SelectionModeProperty);
 			set => SetValue(SelectionModeProperty, value);
 		}
-		
+
 		static void OnModeChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var calendar = (Calendar) bindable;
-			calendar.SelectedDays = new DateTime[0];
+			var calendar = (Calendar)bindable;
+			calendar.SelectedDays = Enumerable.Empty<DateTime>().ToList();
 		}
 
 		/// <summary>
@@ -244,7 +235,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ColumnSpacing = 0,
 				RowSpacing = 0
 			};
-			
+
 			layoutRoot.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			layoutRoot.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
@@ -256,7 +247,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			gridWeekDayHeaders.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 			gridWeekDayHeaders.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 			gridWeekDayHeaders.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-			
+
 			Grid.SetRow(gridWeekDayHeaders, 0);
 			layoutRoot.Children.Add(gridWeekDayHeaders);
 			this.gridWeekDayHeaders = gridWeekDayHeaders;
@@ -265,7 +256,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				ColumnSpacing = 0
 			};
-			
+
 			gridDays.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 			gridDays.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 			gridDays.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
@@ -273,7 +264,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			gridDays.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 			gridDays.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
 			gridDays.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star });
-			
+
 			Grid.SetRow(gridDays, 1);
 			layoutRoot.Children.Add(gridDays);
 			this.gridDays = gridDays;
@@ -294,7 +285,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return;
 			}
-			
+
 			days.ForEach(calendarDay => calendarDay.IsSelected = false);
 
 			foreach (var dayToSelect in daysToSelect)
@@ -326,7 +317,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				for (var row = gridDays.RowDefinitions.Count; row < weeksInMonth; row++)
 				{
-					gridDays.RowDefinitions.Add(new RowDefinition {Height = GridLength.Auto});
+					gridDays.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
 					var daysToAdd = days.Where(x => Grid.GetRow(x) == row).ToList();
 
@@ -364,8 +355,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				UpdateDaysFromPreviousOrNextMonths(weekOfMonth, date, weeksInMonth, daysInMonth);
 
-				if (!ShowWeekends &&
-				    (date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday))
+				if (!ShowWeekends && (date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday))
 				{
 					continue;
 				}
@@ -385,9 +375,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			int weeksInMonth,
 			int daysInMonth)
 		{
-			if (week == 1 &&
-			    date.Day == 1 &&
-			    date.DayOfWeek != FirstDayOfWeek)
+			if (week == 1
+				&& date.Day == 1
+				&& date.DayOfWeek != FirstDayOfWeek)
 			{
 				var newDate = date;
 
@@ -395,8 +385,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					newDate = newDate.AddDays(-1);
 
-					if (!ShowWeekends &&
-					    (newDate.DayOfWeek == DayOfWeek.Saturday || newDate.DayOfWeek == DayOfWeek.Sunday))
+					if (!ShowWeekends && (newDate.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday))
 					{
 						continue;
 					}
@@ -404,9 +393,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					UpdateDay(newDate, week, isVisible: ShowDaysFromOtherMonths);
 				} while (newDate.DayOfWeek != FirstDayOfWeek);
 			}
-			else if (week == weeksInMonth &&
-			         date.Day == daysInMonth &&
-			         date.DayOfWeek != FirstDayOfWeek.PreviousOrFirst())
+			else if (week == weeksInMonth
+					 && date.Day == daysInMonth
+					 && date.DayOfWeek != FirstDayOfWeek.PreviousOrFirst())
 			{
 				var newDate = date;
 				var lastDayOfWeek = FirstDayOfWeek.PreviousOrFirst();
@@ -415,8 +404,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					newDate = newDate.AddDays(1);
 
-					if (!ShowWeekends &&
-					    (newDate.DayOfWeek == DayOfWeek.Saturday || newDate.DayOfWeek == DayOfWeek.Sunday))
+					if (!ShowWeekends && (newDate.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday))
 					{
 						continue;
 					}
@@ -431,8 +419,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var column = date.DayOfWeek(FirstDayOfWeek, includeWeekends: ShowWeekends) - 1;
 			var row = week - 1;
 
-			var calendarDay = days.FirstOrDefault(x => Grid.GetColumn(x) == column &&
-			                                            Grid.GetRow(x) == row);
+			var calendarDay = days.FirstOrDefault(x => Grid.GetColumn(x) == column && Grid.GetRow(x) == row);
 
 			if (calendarDay == null)
 			{
@@ -494,13 +481,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void CalendarDay_OnTapped(object sender, EventArgs e)
 		{
-			var calendarDay = (CalendarDay) sender;
+			var calendarDay = (CalendarDay)sender;
 
 			if (calendarDay.IsSelectable)
 			{
 				if (SelectionMode == CalendarSelectionMode.SingleSelect)
 				{
-					SelectedDays = new[] {calendarDay.Date};
+					SelectedDays = new[] { calendarDay.Date };
 				}
 				else if (SelectionMode == CalendarSelectionMode.MultiSelect)
 				{
@@ -546,17 +533,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var column = weekDayNumber - 1;
 
-				var calendarWeekDayHeader =
-					gridWeekDayHeaders.Children.FirstOrDefault(x => Grid.GetColumn(x) == column) as
-						CalendarWeekDayHeader;
-
-				if (calendarWeekDayHeader == null)
+				if (gridWeekDayHeaders.Children.FirstOrDefault(x => Grid.GetColumn(x) == column) is not CalendarWeekDayHeader calendarWeekDayHeader)
 				{
 					var weekDayControl = new CalendarWeekDayHeader(dayOfWeek)
 					{
 						ControlTemplate = WeekDayHeaderControlTemplate,
 					};
-					
+
 					Grid.SetColumn(weekDayControl, column);
 					gridWeekDayHeaders.Children.Add(weekDayControl);
 				}
@@ -576,8 +559,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				currentDayOfWeek = currentDayOfWeek.NextOrFirst();
 
-				if (!ShowWeekends &&
-				    (currentDayOfWeek == DayOfWeek.Saturday || currentDayOfWeek == DayOfWeek.Sunday))
+				if (!ShowWeekends && (currentDayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday))
 				{
 					currentDayOfWeek = DayOfWeek.Monday;
 				}
