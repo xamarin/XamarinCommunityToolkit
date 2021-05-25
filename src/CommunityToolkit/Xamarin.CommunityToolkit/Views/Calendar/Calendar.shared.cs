@@ -375,8 +375,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			int weeksInMonth,
 			int daysInMonth)
 		{
-			if (week == 1
-				&& date.Day == 1
+			if (week is 1
+				&& date.Day is 1
 				&& date.DayOfWeek != FirstDayOfWeek)
 			{
 				var newDate = date;
@@ -479,17 +479,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void CalendarDay_OnTapped(object sender, EventArgs e)
+		void CalendarDay_OnTapped(object? sender, EventArgs e)
 		{
-			var calendarDay = (CalendarDay)sender;
+			var calendarDay = (CalendarDay)(sender ?? throw new ArgumentNullException($"{nameof(sender)} cannot be null"));
 
 			if (calendarDay.IsSelectable)
 			{
-				if (SelectionMode == CalendarSelectionMode.SingleSelect)
+				if (SelectionMode is CalendarSelectionMode.SingleSelect)
 				{
 					SelectedDays = new[] { calendarDay.Date };
 				}
-				else if (SelectionMode == CalendarSelectionMode.MultiSelect)
+				else if (SelectionMode is CalendarSelectionMode.MultiSelect)
 				{
 					var newSelectedDays = SelectedDays.ToList();
 
