@@ -277,18 +277,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SelectDays(SelectedDays);
 		}
 
-		void SelectDays(IEnumerable<DateTime> daysToSelect)
+		void SelectDays(IEnumerable<DateTime> daysSelected)
 		{
-			foreach (var calendarDay in days)
-				calendarDay.IsSelected = false;
-
-			foreach (var dayToSelect in daysToSelect)
+			foreach (var day in days)
 			{
-				var calendarDay = days.FirstOrDefault(x => x.Date == dayToSelect.Date);
-				if (calendarDay != null)
-				{
-					calendarDay.IsSelected = true;
-				}
+				var isSelected = daysSelected.Any(x => x.Date == day.Date);
+				day.IsSelected = isSelected;
 			}
 		}
 
@@ -455,7 +449,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (SelectionMode is CalendarSelectionMode.SingleSelect)
 				{
-					SelectedDays = new[] { calendarDay.Date };
+					if (SelectedDays.Any() && SelectedDays.First().Date == calendarDay.Date)
+						SelectedDays = Enumerable.Empty<DateTime>().ToList(); // Unselect the current day
+					else
+						SelectedDays = new[] { calendarDay.Date };
 				}
 				else if (SelectionMode is CalendarSelectionMode.MultiSelect)
 				{
@@ -471,6 +468,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 
 					SelectedDays = new ReadOnlyCollection<DateTime>(newSelectedDays);
+				}
+				else
+				{
+					throw new NotSupportedException($"{SelectionMode} is not supported");
 				}
 			}
 
