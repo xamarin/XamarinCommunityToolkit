@@ -546,12 +546,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			var currentDayOfWeek = FirstDayOfWeek;
-			var daysInWeek = 7;
-
-			if (!ShowWeekends)
-			{
-				daysInWeek = 5;
-			}
+			var daysInWeek = ShowWeekends ? 7 : 5;
 
 			for (var i = 1; i <= daysInWeek; i++)
 			{
