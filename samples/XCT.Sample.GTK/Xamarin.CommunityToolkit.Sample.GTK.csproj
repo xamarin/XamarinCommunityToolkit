@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2012</Version>
+      <Version>5.0.0.7268</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms.Platform.GTK">
       <Version>5.0.0.2012</Version>
