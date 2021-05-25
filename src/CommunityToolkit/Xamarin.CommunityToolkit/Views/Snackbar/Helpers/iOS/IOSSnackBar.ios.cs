@@ -67,8 +67,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			SnackBarView = GetSnackBarView();
 			SnackBarView.AnchorView = Anchor;
 
-			SnackBarView.ParentView.AddSubview(SnackBarView);
-			SnackBarView.ParentView.BringSubviewToFront(SnackBarView);
+			SnackBarView.ParentView?.AddSubview(SnackBarView);
+			SnackBarView.ParentView?.BringSubviewToFront(SnackBarView);
 
 			SnackBarView.Setup();
 

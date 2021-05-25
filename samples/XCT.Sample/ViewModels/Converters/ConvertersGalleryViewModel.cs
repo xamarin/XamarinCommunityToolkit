@@ -106,7 +106,15 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 			new SectionModel(
 				typeof(CompareConverterPage),
 				nameof(CompareConverter),
-				"A converter that allows you to convert an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue.")
+				"A converter that allows you to convert an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue."),
+			new SectionModel(
+				typeof(ImageResourceConverterPage),
+				nameof(ImageResourceConverter),
+				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
+			new SectionModel(
+				typeof(ColorsConverterPage),
+				"Colors converters",
+				"A group of converters that convert a Color to your strings values (RGB, HEX, HSL, etc)"),
 		};
 	}
 }
