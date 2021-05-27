@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return resizedImage.AsJPEG().AsStream();
 		}
 
-		static UIImage GetImageInternal(IList<Point> points,
+		static UIImage? GetImageInternal(IList<Point> points,
 			float lineWidth,
 			Color strokeColor,
 			Color backgroundColor)
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			const int minSize = 1;
 			if (drawingWidth < minSize || drawingHeight < minSize)
 			{
-				throw new Exception($"The image size should be at least {minSize} x {minSize}.");
+				return null;
 			}
 
 			var imageSize = new CGSize(drawingWidth, drawingHeight);

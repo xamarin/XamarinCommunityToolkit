@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		static SKImage GetImageInternal(IList<Point> points,
+		static SKImage? GetImageInternal(IList<Point> points,
 			float lineWidth,
 			Color strokeColor,
 			Color backgroundColor)
@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			const int minSize = 1;
 			if (drawingWidth < minSize || drawingHeight < minSize)
 			{
-				throw new Exception($"The image size should be at least {minSize} x {minSize}.");
+				return null;
 			}
 
 			var bm = new SKBitmap((int)drawingWidth, (int)drawingHeight);
