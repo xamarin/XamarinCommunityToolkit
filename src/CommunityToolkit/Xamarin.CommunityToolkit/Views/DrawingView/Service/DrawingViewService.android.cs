@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return stream;
 		}
 
-		static Bitmap GetImageInternal(IList<Point> points,
+		static Bitmap? GetImageInternal(IList<Point> points,
 			float lineWidth,
 			Color strokeColor,
 			Color backgroundColor)
@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var drawingHeight = points.Max(p => p.Y) - minPointY;
 			const int minSize = 1;
 			if (drawingWidth < minSize || drawingHeight < minSize)
-				throw new Exception($"The image size should be at least {minSize} x {minSize}.");
+				return null;
 
 			var image = Bitmap.CreateBitmap((int)drawingWidth, (int)drawingHeight, Bitmap.Config.Argb8888!)!;
 			using var canvas = new Canvas(image);

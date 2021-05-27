@@ -35,6 +35,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			var image = GetImageInternal(points, lineWidth, strokeColor, backgroundColor);
+			if (image is null)
+			{
+				return Stream.Null;
+			}
 
 			var resizedImage = MaxResizeImage(image, (float) imageSize.Width, (float) imageSize.Height);
 			using (resizedImage)
@@ -46,7 +50,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		static Bitmap GetImageInternal(ICollection<Point> points,
+		static Bitmap? GetImageInternal(ICollection<Point> points,
 			float lineWidth,
 			Color strokeColor,
 			Color backgroundColor)
@@ -58,7 +62,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			const int minSize = 1;
 			if (drawingWidth < minSize || drawingHeight < minSize)
 			{
-				throw new Exception($"The image size should be at least {minSize} x {minSize}.");
+				return null;
 			}
 
 			var bm = new Bitmap((int) drawingWidth, (int) drawingHeight);
