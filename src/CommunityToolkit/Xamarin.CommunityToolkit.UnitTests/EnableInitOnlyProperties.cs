@@ -1,4 +1,4 @@
 ﻿namespace System.Runtime.CompilerServices
 {
-    public record IsExternalInit;
+	public record IsExternalInit;
 }

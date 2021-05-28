@@ -13,19 +13,19 @@ namespace Xamarin.CommunityToolkit.Extensions
 	/// </summary>
 	public static partial class VisualElementExtension
 	{
-		public static Task<bool> ColorTo(this VisualElement visualElement, Color color, uint length = 250u, Easing? easing = null)
+		public static Task<bool> ColorTo(this VisualElement element, Color color, uint length = 250u, Easing? easing = null)
 		{
-			_ = visualElement ?? throw new ArgumentNullException(nameof(visualElement));
+			_ = element ?? throw new ArgumentNullException(nameof(element));
 
 			var animationCompletionSource = new TaskCompletionSource<bool>();
 
 			new Animation
 			{
-				{ 0, 1, new Animation(v => visualElement.BackgroundColor = new Color(v, visualElement.BackgroundColor.G, visualElement.BackgroundColor.B, visualElement.BackgroundColor.A), visualElement.BackgroundColor.R, color.R) },
-				{ 0, 1, new Animation(v => visualElement.BackgroundColor = new Color(visualElement.BackgroundColor.R, v, visualElement.BackgroundColor.B, visualElement.BackgroundColor.A), visualElement.BackgroundColor.G, color.G) },
-				{ 0, 1, new Animation(v => visualElement.BackgroundColor = new Color(visualElement.BackgroundColor.R, visualElement.BackgroundColor.G, v, visualElement.BackgroundColor.A), visualElement.BackgroundColor.B, color.B) },
-				{ 0, 1, new Animation(v => visualElement.BackgroundColor = new Color(visualElement.BackgroundColor.R, visualElement.BackgroundColor.G, visualElement.BackgroundColor.B, v), visualElement.BackgroundColor.A, color.A) },
-			}.Commit(visualElement, nameof(ColorTo), 16, length, easing, (d, b) => animationCompletionSource.SetResult(true));
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(v, element.BackgroundColor.G, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.R, color.R) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, v, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.G, color.G) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, v, element.BackgroundColor.A), element.BackgroundColor.B, color.B) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, element.BackgroundColor.B, v), element.BackgroundColor.A, color.A) },
+			}.Commit(element, nameof(ColorTo), 16, length, easing, (d, b) => animationCompletionSource.SetResult(true));
 
 			return animationCompletionSource.Task;
 		}
@@ -36,6 +36,9 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 			ViewExtensions.CancelAnimations(element);
 			element.AbortAnimation(nameof(ColorTo));
+
+			if (otherAnimationNames == null)
+				return;
 
 			foreach (var name in otherAnimationNames)
 				element.AbortAnimation(name);
@@ -64,7 +67,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 #endif
 			};
 			var snackBar = new SnackBar();
-			snackBar.Show(visualElement, args);
+			await snackBar.Show(visualElement, args);
 			await args.Result.Task;
 		}
 
@@ -74,7 +77,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		/// <param name="visualElement">Toast anchor</param>
 		/// <param name="toastOptions">Toast options</param>
 		/// <returns>Task</returns>
-		public static Task DisplayToastAsync(this VisualElement visualElement, ToastOptions toastOptions)
+		public static async Task DisplayToastAsync(this VisualElement visualElement, ToastOptions toastOptions)
 		{
 			_ = visualElement ?? throw new ArgumentNullException(nameof(visualElement));
 
@@ -87,9 +90,9 @@ namespace Xamarin.CommunityToolkit.Extensions
 				IsRtl = toastOptions.IsRtl
 			};
 
-			snackBar.Show(visualElement, options);
+			await snackBar.Show(visualElement, options);
 
-			return options.Result.Task;
+			await options.Result.Task;
 		}
 
 		/// <summary>
@@ -125,7 +128,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 #endif
 			};
 			var snackBar = new SnackBar();
-			snackBar.Show(visualElement, options);
+			await snackBar.Show(visualElement, options);
 			var result = await options.Result.Task;
 			return result;
 		}
@@ -141,7 +144,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			_ = visualElement ?? throw new ArgumentNullException(nameof(visualElement));
 
 			var snackBar = new SnackBar();
-			snackBar.Show(visualElement, snackBarOptions);
+			await snackBar.Show(visualElement, snackBarOptions);
 
 			var result = await snackBarOptions.Result.Task;
 			return result;
