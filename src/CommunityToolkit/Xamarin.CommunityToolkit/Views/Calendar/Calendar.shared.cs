@@ -4,12 +4,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class Calendar : ContentView
 	{
-		readonly List<CalendarDay> days = new List<CalendarDay>();
+		readonly WeakEventManager weakEventManager = new();
+		readonly List<CalendarDay> days = new ();
 		readonly Grid gridDays;
 		readonly Grid gridWeekDayHeaders;
 
@@ -21,12 +23,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Event that is triggered when the <see cref="CalendarDay" /> is tapped.
 		/// </summary>
-		public event EventHandler<CalendarDayTappedEventArgs>? DayTapped;
+		public event EventHandler<CalendarDayTappedEventArgs>? DayTapped
+		{
+			add => weakEventManager.AddEventHandler(value);
+			remove => weakEventManager.RemoveEventHandler(value);
+		}
 
 		/// <summary>
 		/// Event that is triggered when the visible <see cref="CalendarDay" /> is updated.
 		/// </summary>
-		public event EventHandler<CalendarDayUpdatedEventArgs>? DayUpdated;
+		public event EventHandler<CalendarDayUpdatedEventArgs>? DayUpdated
+		{
+			add => weakEventManager.AddEventHandler(value);
+			remove => weakEventManager.RemoveEventHandler(value);
+		}
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="ShowDaysFromOtherMonths"/> property.
@@ -439,7 +449,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			calendarDay.Opacity = isVisible ? 1 : 0;
 
 			if (isVisible)
-				DayUpdated?.Invoke(this, new CalendarDayUpdatedEventArgs(calendarDay));
+			{
+				weakEventManager.RaiseEvent(this, new CalendarDayUpdatedEventArgs(calendarDay), nameof(DayUpdated));
+			}
 		}
 
 		void OnCalendarDayTapped(object? sender, EventArgs e)
@@ -476,7 +488,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			}
 
-			DayTapped?.Invoke(this, new CalendarDayTappedEventArgs(calendarDay));
+			weakEventManager.RaiseEvent(this, new CalendarDayTappedEventArgs(calendarDay), nameof(DayTapped));
 		}
 
 		void UpdateWeekDayHeaders()
