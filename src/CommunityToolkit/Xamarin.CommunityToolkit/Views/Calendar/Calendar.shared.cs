@@ -450,7 +450,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (SelectionMode is CalendarSelectionMode.SingleSelect)
 				{
-					if (SelectedDays.Any() && SelectedDays.First().Date == calendarDay.Date)
+					if (SelectedDays.Count > 0 && SelectedDays.First().Date == calendarDay.Date)
 						SelectedDays = Enumerable.Empty<DateTime>().ToList(); // Unselect the current day
 					else
 						SelectedDays = new[] { calendarDay.Date };
