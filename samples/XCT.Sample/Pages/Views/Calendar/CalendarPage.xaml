@@ -209,8 +209,8 @@
         <Grid RowDefinitions="Auto,*">
 
             <xct:Calendar x:Name="Calendar"
-                          DayUpdated="Calendar_OnDayUpdated"
-                          DayTapped="Calendar_OnDayTapped"
+                          DayUpdated="OnCalendarDayUpdated"
+                          DayTapped="OnCalendarDayTapped"
                           ShowWeekends="{Binding IsChecked, Source={x:Reference CheckBoxShowWeekends}}"
                           ShowDaysFromOtherMonths="{Binding IsChecked, Source={x:Reference CheckBoxShowDaysFromOtherMonths}}"
                           FirstDayOfWeek="{Binding SelectedItem, Mode=TwoWay, Source={x:Reference PickerFirstDayOfWeek}}"
@@ -258,7 +258,7 @@
                                  Padding="0"
                                  Spacing="0">
                         <CheckBox x:Name="CheckBoxShowWeekends"
-                                  CheckedChanged="CheckBoxShowWeekends_OnCheckedChanged"
+                                  CheckedChanged="OnCheckBoxShowWeekendsCheckedChanged"
                                   Margin="-10,0,0,0"
                                   IsChecked="True" />
                         <Label Text="Show weekends"
@@ -283,11 +283,11 @@
 
                         <Button Text="previous month"
                                 Padding="5"
-                                Clicked="ButtonPreviousMonth_OnClicked" />
+                                Clicked="OnButtonPreviousMonthClicked" />
 
                         <Button Text="next month"
                                 Padding="5"
-                                Clicked="ButtonNextMonth_OnClicked" />
+                                Clicked="OnButtonNextMonthClicked" />
 
                     </StackLayout>
 

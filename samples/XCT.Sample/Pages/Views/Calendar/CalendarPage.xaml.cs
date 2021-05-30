@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar
             PickerSelectionMode.SelectedItem = Calendar.SelectionMode;
         }
 
-        void Calendar_OnDayUpdated(object sender, CalendarDayUpdatedEventArgs e)
+        void OnCalendarDayUpdated(object sender, CalendarDayUpdatedEventArgs e)
         {
             e.CalendarDay.ControlTemplate = Resources["CalendarDayControlTemplate"] as ControlTemplate;
 
@@ -75,22 +75,22 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar
             }
         }
 
-        void ButtonPreviousMonth_OnClicked(object sender, EventArgs e)
+        void OnButtonPreviousMonthClicked(object sender, EventArgs e)
         {
             Calendar.Date = Calendar.Date.AddMonths(-1);
         }
 
-        void ButtonNextMonth_OnClicked(object sender, EventArgs e)
+        void OnButtonNextMonthClicked(object sender, EventArgs e)
         {
             Calendar.Date = Calendar.Date.AddMonths(1);
         }
 
-        async void Calendar_OnDayTapped(object sender, CalendarDayTappedEventArgs e)
+        async void OnCalendarDayTapped(object sender, CalendarDayTappedEventArgs e)
         {
             // await DisplayAlert(title: "", message: "You clicked on: " + e.CalendarDay.Date, cancel: "ok");
         }
 
-        void CheckBoxShowWeekends_OnCheckedChanged(object sender, CheckedChangedEventArgs e)
+        void OnCheckBoxShowWeekendsCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if (CheckBoxShowWeekends.IsChecked)
             {

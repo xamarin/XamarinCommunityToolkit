@@ -424,7 +424,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Grid.SetRow(calendarDay, row);
 
 				var tapGestureRecognizer = new TapGestureRecognizer();
-				tapGestureRecognizer.Tapped += CalendarDay_OnTapped;
+				tapGestureRecognizer.Tapped += OnCalendarDayTapped;
 				calendarDay.GestureRecognizers.Add(tapGestureRecognizer);
 
 				days.Add(calendarDay);
@@ -442,7 +442,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				DayUpdated?.Invoke(this, new CalendarDayUpdatedEventArgs(calendarDay));
 		}
 
-		void CalendarDay_OnTapped(object? sender, EventArgs e)
+		void OnCalendarDayTapped(object? sender, EventArgs e)
 		{
 			var calendarDay = (CalendarDay)(sender ?? throw new ArgumentNullException($"{nameof(sender)} cannot be null"));
 
