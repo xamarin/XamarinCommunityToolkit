@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
-	public class DateTimeToDayConverter : IValueConverter
+	public class DateTimeOffsetToDayConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				return String.Empty;
 			}
         
-			var dateTime = (DateTime) value;
+			var dateTime = (DateTimeOffset) value;
 			var day = dateTime.Day.ToString();
 
 			return day;

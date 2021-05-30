@@ -12,7 +12,7 @@
     <ContentPage.Resources>
 
         <views:DayOfWeekToAbbreviatedNameConverter x:Key="DayOfWeekToAbbreviatedNameConverter" />
-        <views:DateTimeToDayConverter x:Key="DateTimeToDayConverter" />
+        <views:DateTimeOffsetToDayConverter x:Key="DateTimeOffsetToDayConverter" />
 
         <ControlTemplate x:Key="CalendarWeekDayHeaderControlTemplate">
             <Label Text="{TemplateBinding DayOfWeek, Converter={StaticResource DayOfWeekToAbbreviatedNameConverter}}"
@@ -71,7 +71,7 @@
 
                 </BoxView>
 
-                <Label Text="{TemplateBinding Date, Converter={StaticResource DateTimeToDayConverter}}"
+                <Label Text="{TemplateBinding Date, Converter={StaticResource DateTimeOffsetToDayConverter}}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        FontSize="Medium"
@@ -121,7 +121,7 @@
                 <BoxView Color="#f2f2f2"
                          CornerRadius="5" />
 
-                <Label Text="{TemplateBinding Date, Converter={StaticResource DateTimeToDayConverter}}"
+                <Label Text="{TemplateBinding Date, Converter={StaticResource DateTimeOffsetToDayConverter}}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        FontSize="Medium"
@@ -180,7 +180,7 @@
 
                 </BoxView>
 
-                <Label Text="{TemplateBinding Date, Converter={StaticResource DateTimeToDayConverter}}"
+                <Label Text="{TemplateBinding Date, Converter={StaticResource DateTimeOffsetToDayConverter}}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        FontSize="Medium"
@@ -214,7 +214,6 @@
                           ShowWeekends="{Binding IsChecked, Source={x:Reference CheckBoxShowWeekends}}"
                           ShowDaysFromOtherMonths="{Binding IsChecked, Source={x:Reference CheckBoxShowDaysFromOtherMonths}}"
                           FirstDayOfWeek="{Binding SelectedItem, Mode=TwoWay, Source={x:Reference PickerFirstDayOfWeek}}"
-                          Date="01/01/21"
                           SelectionMode="{Binding SelectedItem, Mode=TwoWay, Source={x:Reference PickerSelectionMode}}"
                           DayControlTemplate="{StaticResource CalendarDayControlTemplate}"
                           WeekDayHeaderControlTemplate="{StaticResource CalendarWeekDayHeaderControlTemplate}" />
@@ -231,7 +230,7 @@
                              HorizontalOptions="Start">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <Label Text="{Binding ., Converter={StaticResource DateTimeToDayConverter}}"
+                            <Label Text="{Binding ., Converter={StaticResource DateTimeOffsetToDayConverter}}"
                                    TextColor="Black" />
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

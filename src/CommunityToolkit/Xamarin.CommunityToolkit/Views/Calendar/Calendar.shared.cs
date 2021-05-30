@@ -164,20 +164,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="SelectedDays"/> property.
 		/// </summary>
 		public static readonly BindableProperty SelectedDaysProperty =
-			BindableProperty.Create(nameof(SelectedDays), typeof(IReadOnlyCollection<DateTime>), typeof(Calendar), Enumerable.Empty<DateTime>().ToList(), propertyChanged: OnSelectedDaysChanged);
+			BindableProperty.Create(nameof(SelectedDays), typeof(IReadOnlyCollection<DateTimeOffset>), typeof(Calendar),
+				Enumerable.Empty<DateTimeOffset>().ToList(), propertyChanged: OnSelectedDaysChanged);
 
 		/// <summary>
 		/// Gets or sets selected days.
 		/// </summary>
-		public IReadOnlyCollection<DateTime> SelectedDays
+		public IReadOnlyCollection<DateTimeOffset> SelectedDays
 		{
-			get => (IReadOnlyCollection<DateTime>)GetValue(SelectedDaysProperty);
+			get => (IReadOnlyCollection<DateTimeOffset>)GetValue(SelectedDaysProperty);
 			set => SetValue(SelectedDaysProperty, value);
 		}
 
 		static void OnSelectedDaysChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var daysToSelect = (IList<DateTime>)newValue;
+			var daysToSelect = (IList<DateTimeOffset>)newValue;
 			var calendar = (Calendar)bindable;
 
 			if (calendar.SelectionMode is CalendarSelectionMode.SingleSelect
@@ -194,14 +195,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="Date"/> property.
 		/// </summary>
 		public static readonly BindableProperty DateProperty =
-			BindableProperty.Create(nameof(Date), typeof(DateTime), typeof(Calendar), default(DateTime), propertyChanged: OnDateChanged);
+			BindableProperty.Create(nameof(Date), typeof(DateTimeOffset), typeof(Calendar),
+				defaultValue: DateTimeOffset.Now, propertyChanged: OnDateChanged);
 
 		/// <summary>
 		/// Gets or sets the date.
 		/// </summary>
-		public DateTime Date
+		public DateTimeOffset Date
 		{
-			get => (DateTime)GetValue(DateProperty);
+			get => (DateTimeOffset)GetValue(DateProperty);
 			set => SetValue(DateProperty, value);
 		}
 
@@ -229,7 +231,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void OnModeChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var calendar = (Calendar)bindable;
-			calendar.SelectedDays = Enumerable.Empty<DateTime>().ToList();
+			calendar.SelectedDays = Enumerable.Empty<DateTimeOffset>().ToList();
 		}
 
 		/// <summary>
@@ -287,7 +289,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SelectDays(SelectedDays);
 		}
 
-		void SelectDays(IEnumerable<DateTime> daysSelected)
+		void SelectDays(IEnumerable<DateTimeOffset> daysSelected)
 		{
 			foreach (var day in days)
 			{
@@ -349,7 +351,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			for (var day = 1; day <= daysInMonth; day++)
 			{
-				var date = new DateTime(Date.Year, Date.Month, day);
+				var date = new DateTimeOffset(Date.Year, Date.Month, day, Date.Hour, Date.Minute, Date.Second, Date.Offset);
 				var weekOfMonth = date.WeekOfMonth(FirstDayOfWeek);
 
 				UpdateDaysFromPreviousOrNextMonths(weekOfMonth, date, weeksInMonth, daysInMonth);
@@ -370,7 +372,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateDaysFromPreviousOrNextMonths(
 			int week,
-			DateTime date,
+			DateTimeOffset date,
 			int weeksInMonth,
 			int daysInMonth)
 		{
@@ -414,7 +416,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void UpdateDay(DateTime date, int week, bool isVisible)
+		void UpdateDay(DateTimeOffset date, int week, bool isVisible)
 		{
 			var column = date.DayOfWeek(FirstDayOfWeek, includeWeekends: ShowWeekends) - 1;
 			var row = week - 1;
@@ -464,7 +466,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (SelectionMode is CalendarSelectionMode.SingleSelect)
 				{
 					if (SelectedDays.Count > 0 && SelectedDays.First().Date == calendarDay.Date)
-						SelectedDays = Enumerable.Empty<DateTime>().ToList(); // Unselect the current day
+						SelectedDays = Enumerable.Empty<DateTimeOffset>().ToList(); // Unselect the current day
 					else
 						SelectedDays = new[] { calendarDay.Date };
 				}
@@ -481,7 +483,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						newSelectedDays.Add(calendarDay.Date);
 					}
 
-					SelectedDays = new ReadOnlyCollection<DateTime>(newSelectedDays);
+					SelectedDays = new ReadOnlyCollection<DateTimeOffset>(newSelectedDays);
 				}
 				else
 				{
