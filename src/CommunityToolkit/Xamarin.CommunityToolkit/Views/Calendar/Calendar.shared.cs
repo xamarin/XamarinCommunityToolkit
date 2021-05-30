@@ -300,10 +300,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			var weeksInMonth = Date.WeeksInMonth(FirstDayOfWeek);
+			var gridDaysRowDefinitionsCount = gridDays.RowDefinitions.Count;
 
-			if (gridDays.RowDefinitions.Count < weeksInMonth)
+			if (gridDaysRowDefinitionsCount < weeksInMonth)
 			{
-				for (var row = gridDays.RowDefinitions.Count; row < weeksInMonth; row++)
+				for (var row = gridDaysRowDefinitionsCount; row < weeksInMonth; row++)
 				{
 					gridDays.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
@@ -315,11 +316,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 				}
 			}
-			else if (gridDays.RowDefinitions.Count > weeksInMonth)
+			else if (gridDaysRowDefinitionsCount > weeksInMonth)
 			{
-				for (var row = gridDays.RowDefinitions.Count; row > weeksInMonth; row--)
+				for (var row = gridDaysRowDefinitionsCount; row > weeksInMonth; row--)
 				{
-					gridDays.RowDefinitions.RemoveAt(gridDays.RowDefinitions.Count - 1);
+					gridDays.RowDefinitions.RemoveAt(gridDaysRowDefinitionsCount - 1);
 
 					var daysToRemove = days.Where(x => Grid.GetRow(x) == row - 1).ToList();
 
