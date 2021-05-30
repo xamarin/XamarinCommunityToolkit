@@ -2,9 +2,9 @@
 <pages:BasePage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.UniformGridPage"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
+    x:Class="CommunityToolkit.Maui.Sample.Pages.Views.UniformGridPage"
+    xmlns:xct="http://schemas.microsoft.com/dotnet/2021/toolkit/maui"
+    xmlns:pages="clr-namespace:CommunityToolkit.Maui.Sample.Pages">
     <pages:BasePage.Resources>
         <ResourceDictionary>
 

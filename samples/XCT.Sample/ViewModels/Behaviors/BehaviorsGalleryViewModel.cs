@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Xamarin.CommunityToolkit.Behaviors;
-using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
+using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Sample.Models;
+using CommunityToolkit.Maui.Sample.Pages.Behaviors;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
+namespace CommunityToolkit.Maui.Sample.ViewModels.Behaviors
 {
 	public class BehaviorsGalleryViewModel : BaseGalleryViewModel
 	{

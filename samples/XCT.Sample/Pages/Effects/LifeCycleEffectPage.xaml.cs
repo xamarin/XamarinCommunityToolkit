@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
+namespace CommunityToolkit.Maui.Sample.Pages.Effects
 {
 	public partial class LifeCycleEffectPage
 	{

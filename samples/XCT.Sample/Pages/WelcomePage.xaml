@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <pages:BasePage
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.WelcomePage"
+    x:Class="CommunityToolkit.Maui.Sample.Pages.WelcomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
+    xmlns:xct="http://schemas.microsoft.com/dotnet/2021/toolkit/maui"
+    xmlns:pages="clr-namespace:CommunityToolkit.Maui.Sample.Pages"
+    xmlns:vm="clr-namespace:CommunityToolkit.Maui.Sample.ViewModels"
     xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Name="Page"
     Title="Welcome"
@@ -26,8 +26,8 @@
                 <Label
                     Margin="20,32,20,0"
                     Style="{StaticResource label_welcome_header}"
-                    Text="Introducing the Xamarin Community Toolkit" />
-                <Label Margin="20,0,20,28" Text="The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms." />
+                    Text="Introducing the .NET MAUI Community Toolkit" />
+                <Label Margin="20,0,20,28" Text="The .NET MAUI Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms." />
                 <StackLayout BindableLayout.ItemsSource="{Binding Items}" Spacing="16">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>

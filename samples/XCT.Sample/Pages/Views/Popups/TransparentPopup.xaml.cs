@@ -1,8 +1,8 @@
 ﻿using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
-using Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific;
+using CommunityToolkit.Maui.PlatformConfiguration.iOSSpecific;
+using CommunityToolkit.Maui.PlatformConfiguration.WindowsSpecific;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
+namespace CommunityToolkit.Maui.Sample.Pages.Views.Popups
 {
 	public partial class TransparentPopup
 	{

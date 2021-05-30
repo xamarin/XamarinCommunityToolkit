@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+namespace CommunityToolkit.Maui.Sample.ViewModels.Converters
 {
 	public class IsNullOrEmptyConverterViewModel : BaseViewModel
 	{

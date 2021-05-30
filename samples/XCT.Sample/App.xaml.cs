@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
-using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.Sample.Pages;
-using Xamarin.CommunityToolkit.Sample.Resx;
+using CommunityToolkit.Maui.Helpers;
+using CommunityToolkit.Maui.Sample.Pages;
+using CommunityToolkit.Maui.Sample.Resx;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.WindowsSpecific;
 
-namespace Xamarin.CommunityToolkit.Sample
+namespace CommunityToolkit.Maui.Sample
 {
 	public partial class App : Forms.Application
 	{

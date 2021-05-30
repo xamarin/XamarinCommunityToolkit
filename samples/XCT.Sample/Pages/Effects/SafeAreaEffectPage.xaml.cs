@@ -1,6 +1,6 @@
-﻿using Xamarin.CommunityToolkit.Effects;
+﻿using CommunityToolkit.Maui.Effects;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
+namespace CommunityToolkit.Maui.Sample.Pages.Effects
 {
 	public partial class SafeAreaEffectPage
 	{

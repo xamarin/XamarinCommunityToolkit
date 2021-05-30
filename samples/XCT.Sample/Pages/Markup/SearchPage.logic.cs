@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Sample.Pages;
-using Xamarin.CommunityToolkit.Sample.ViewModels.Markup;
+using CommunityToolkit.Maui.Sample.Pages;
+using CommunityToolkit.Maui.Sample.ViewModels.Markup;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
-namespace Xamarin.CommunityToolkit.Sample
+namespace CommunityToolkit.Maui.Sample
 {
 	public partial class SearchPage : BasePage
 	{

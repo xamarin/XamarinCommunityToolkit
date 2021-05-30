@@ -3,10 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Octokit;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Maui.ObjectModel;
 using Xamarin.Essentials;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels
+namespace CommunityToolkit.Maui.Sample.ViewModels
 {
 	public class AboutViewModel : BaseViewModel
 	{

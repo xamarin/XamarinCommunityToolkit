@@ -1,9 +1,9 @@
 ﻿using System.Windows.Input;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.Sample.Pages.Views.Popups;
+using CommunityToolkit.Maui.Extensions;
+using CommunityToolkit.Maui.Sample.Pages.Views.Popups;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups
+namespace CommunityToolkit.Maui.Sample.ViewModels.Views.Popups
 {
 	public class PopupPositionViewModel
 	{

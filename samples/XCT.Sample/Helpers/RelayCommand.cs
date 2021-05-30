@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Xamarin.CommunityToolkit.Sample
+namespace CommunityToolkit.Maui.Sample
 {
 	public class RelayCommand : ICommand
 	{

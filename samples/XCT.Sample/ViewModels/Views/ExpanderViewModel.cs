@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Maui.ObjectModel;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
+namespace CommunityToolkit.Maui.Sample.ViewModels.Views
 {
 	public partial class ExpanderViewModel : BaseViewModel
 	{

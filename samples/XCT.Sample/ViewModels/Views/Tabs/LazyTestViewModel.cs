@@ -1,6 +1,6 @@
-﻿using Xamarin.CommunityToolkit.ObjectModel;
+﻿using CommunityToolkit.Maui.ObjectModel;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views.Tabs
+namespace CommunityToolkit.Maui.Sample.ViewModels.Views.Tabs
 {
 	sealed class LazyTestViewModel : ObservableObject
 	{

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.MaskedBehaviorPage"
+<pages:BasePage x:Class="CommunityToolkit.Maui.Sample.Pages.Behaviors.MaskedBehaviorPage"
                 xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample">
+                xmlns:xct="http://schemas.microsoft.com/dotnet/2021/toolkit/maui"
+                xmlns:pages="clr-namespace:CommunityToolkit.Maui.Sample.Pages;assembly=CommunityToolkit.Maui.Sample">
     <ScrollView>
         <StackLayout Padding="{StaticResource ContentPadding}" Spacing="5">
 

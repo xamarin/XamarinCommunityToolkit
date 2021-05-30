@@ -3,7 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 
-namespace Xamarin.CommunityToolkit.Sample.Droid
+namespace CommunityToolkit.Maui.Sample.Droid
 {
 	[Activity(Label = "XamarinCommunityToolkitSample", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode)]
 	public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity

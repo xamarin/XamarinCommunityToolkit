@@ -1,7 +1,7 @@
 ﻿using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
+namespace CommunityToolkit.Maui.Sample.Pages.Views.Popups
 {
 	static class PopupSize
 	{

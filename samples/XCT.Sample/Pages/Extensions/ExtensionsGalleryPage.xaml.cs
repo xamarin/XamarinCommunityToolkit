@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Extensions
+﻿namespace CommunityToolkit.Maui.Sample.Pages.Extensions
 {
 	public partial class ExtensionsGalleryPage : BasePage
 	{

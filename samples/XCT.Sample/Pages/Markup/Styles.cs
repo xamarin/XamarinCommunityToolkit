@@ -2,9 +2,9 @@
 // Marking this with the auto generated tag to overrule the code styling violations
 
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Markup;
+using CommunityToolkit.Maui.Markup;
 
-namespace Xamarin.CommunityToolkit.Sample
+namespace CommunityToolkit.Maui.Sample
 {
     public static class Styles
     {

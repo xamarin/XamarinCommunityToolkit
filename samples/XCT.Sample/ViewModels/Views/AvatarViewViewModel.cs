@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
+﻿namespace CommunityToolkit.Maui.Sample.ViewModels.Views
 {
 	public class AvatarViewViewModel : BaseViewModel
 	{

@@ -1,6 +1,6 @@
-﻿using Xamarin.CommunityToolkit.ObjectModel;
+﻿using CommunityToolkit.Maui.ObjectModel;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels
+namespace CommunityToolkit.Maui.Sample.ViewModels
 {
 	public abstract class BaseViewModel : ObservableObject
 	{

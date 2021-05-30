@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.SemanticEffectPage"
-             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+             x:Class="CommunityToolkit.Maui.Sample.Pages.Effects.SemanticEffectPage"
+             xmlns:pages="clr-namespace:CommunityToolkit.Maui.Sample.Pages"
+             xmlns:xct="http://schemas.microsoft.com/dotnet/2021/toolkit/maui">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Padding="20">            
@@ -27,8 +27,8 @@
 
                 <Label Text="The image below has a semantic description"/>
                 <Image
-                    Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"
-                    xct:SemanticEffect.Description="This is a description that describes the image. For example, 'image of xamarin community toolkit logo'"/>
+                    Source="{xct:ImageResource Id=CommunityToolkit.Maui.Sample.Images.logo.png}"
+                    xct:SemanticEffect.Description="This is a description that describes the image. For example, 'image of .NET MAUI Community Toolkit logo'"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

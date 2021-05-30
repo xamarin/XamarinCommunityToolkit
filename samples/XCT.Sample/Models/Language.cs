@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Sample.Models
+﻿namespace CommunityToolkit.Maui.Sample.Models
 {
 	public readonly struct Language
 	{

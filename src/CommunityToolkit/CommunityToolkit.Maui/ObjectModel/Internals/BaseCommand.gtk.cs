@@ -1,0 +1,21 @@
+﻿using System;
+using System.Threading;
+
+namespace CommunityToolkit.Maui.ObjectModel.Internals
+{
+	public abstract partial class BaseCommand<TCanExecute>
+	{
+		readonly SynchronizationContext? synchronizationContext = SynchronizationContext.Current;
+
+		bool IsMainThread => SynchronizationContext.Current == synchronizationContext;
+
+		static void BeginInvokeOnMainThread(Action action)
+		{
+			GLib.Idle.Add(() =>
+			{
+				action();
+				return false;
+			});
+		}
+	}
+}

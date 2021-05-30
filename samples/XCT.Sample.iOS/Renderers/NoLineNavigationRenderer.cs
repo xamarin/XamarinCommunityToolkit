@@ -1,12 +1,12 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.Sample.iOS.Renderers;
-using Xamarin.CommunityToolkit.Sample.Pages;
+using CommunityToolkit.Maui.Sample.iOS.Renderers;
+using CommunityToolkit.Maui.Sample.Pages;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(BaseNavigationPage), typeof(NoLineNavigationPageRenderer))]
 
-namespace Xamarin.CommunityToolkit.Sample.iOS.Renderers
+namespace CommunityToolkit.Maui.Sample.iOS.Renderers
 {
 	public class NoLineNavigationPageRenderer : NavigationRenderer
 	{

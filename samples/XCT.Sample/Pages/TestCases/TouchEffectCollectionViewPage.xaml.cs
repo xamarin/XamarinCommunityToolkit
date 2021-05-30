@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Maui.ObjectModel;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.TestCases
+namespace CommunityToolkit.Maui.Sample.Pages.TestCases
 {
 	public partial class TouchEffectCollectionViewPage
 	{

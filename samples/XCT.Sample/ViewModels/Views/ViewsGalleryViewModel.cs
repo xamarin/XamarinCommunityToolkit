@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.CommunityToolkit.Sample.Pages.Views;
+using CommunityToolkit.Maui.Sample.Models;
+using CommunityToolkit.Maui.Sample.Pages.Views;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
+namespace CommunityToolkit.Maui.Sample.ViewModels.Views
 {
 	public class ViewsGalleryViewModel : BaseGalleryViewModel
 	{

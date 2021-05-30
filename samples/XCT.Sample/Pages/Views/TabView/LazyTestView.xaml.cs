@@ -1,7 +1,7 @@
-﻿using Xamarin.CommunityToolkit.Sample.ViewModels.Views.Tabs;
+﻿using CommunityToolkit.Maui.Sample.ViewModels.Views.Tabs;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
+namespace CommunityToolkit.Maui.Sample.Pages.Views.TabView
 {
 	public partial class LazyTestView : ContentView
 	{

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups"
+             xmlns:viewModels="clr-namespace:CommunityToolkit.Maui.Sample.ViewModels.Views.Popups"
              Title="Popup Anchors"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.PopupAnchorPage">
+             x:Class="CommunityToolkit.Maui.Sample.Pages.Views.Popups.PopupAnchorPage">
 
     <ContentPage.BindingContext>
         <viewModels:PopupAnchorViewModel />

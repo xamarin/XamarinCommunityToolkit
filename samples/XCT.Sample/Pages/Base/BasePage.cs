@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.Sample.Models;
+using CommunityToolkit.Maui.ObjectModel;
+using CommunityToolkit.Maui.Sample.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages
+namespace CommunityToolkit.Maui.Sample.Pages
 {
 	public class BasePage : ContentPage
 	{

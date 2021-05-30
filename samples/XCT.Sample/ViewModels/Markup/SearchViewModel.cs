@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
+namespace CommunityToolkit.Maui.Sample.ViewModels.Markup
 {
 	public class SearchViewModel : BaseViewModel
 	{
@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Markup
 
 		void Like(Tweet tweet) => tweet.IsLikedByMe = !tweet.IsLikedByMe;
 
-		Task OpenHelp() => Launcher.OpenAsync(new Uri("https://github.com/MicrosoftDocs/xamarin-communitytoolkit/blob/master/docs/markup.md"));
+		Task OpenHelp() => Launcher.OpenAsync(new Uri("https://github.com/MicrosoftDocs/CommunityToolkit.Maui/blob/master/docs/markup.md"));
 
 		Task OpenTwitterSearch() => Launcher.OpenAsync(new Uri("https://twitter.com/search?q=%23CSharpForMarkup"));
 

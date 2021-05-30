@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms.Platform.GTK;
 
-namespace Xamarin.CommunityToolkit.Sample.GTK
+namespace CommunityToolkit.Maui.Sample.GTK
 {
 	public static class Program
 	{
@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Sample.GTK
 			var app = new App();
 			var window = new FormsWindow();
 			window.LoadApplication(app);
-			window.SetApplicationTitle("Xamarin Community Toolkit");
+			window.SetApplicationTitle(".NET MAUI Community Toolkit");
 			window.Show();
 
 			Gtk.Application.Run();

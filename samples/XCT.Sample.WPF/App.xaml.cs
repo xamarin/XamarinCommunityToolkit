@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Xamarin.CommunityToolkit.Sample.WPF
+namespace CommunityToolkit.Maui.Sample.WPF
 {
 	/// <summary>
 	/// Interaction logic for App.xaml

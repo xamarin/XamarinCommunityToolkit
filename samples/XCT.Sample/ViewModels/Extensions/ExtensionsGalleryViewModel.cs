@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.CommunityToolkit.Sample.Pages.Effects;
+using CommunityToolkit.Maui.Extensions;
+using CommunityToolkit.Maui.Sample.Models;
+using CommunityToolkit.Maui.Sample.Pages.Effects;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
+namespace CommunityToolkit.Maui.Sample.ViewModels.Effects
 {
 	public class ExtensionsGalleryViewModel : BaseGalleryViewModel
 	{

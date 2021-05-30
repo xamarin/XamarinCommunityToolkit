@@ -6,7 +6,7 @@ using System.Text;
 using Windows.Foundation.Diagnostics;
 #endif
 
-namespace Xamarin.CommunityToolkit.Sample
+namespace CommunityToolkit.Maui.Sample
 {
 	/// <summary>
 	/// Cross-platform logging helper class for use in Xamarin apps.

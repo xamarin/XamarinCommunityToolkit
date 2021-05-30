@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.DebugRainbows;
 
-namespace Xamarin.CommunityToolkit.Sample
+namespace CommunityToolkit.Maui.Sample
 {
 	public static class MarkupExtensions
 	{

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.UI.Views;
+using CommunityToolkit.Maui.ObjectModel;
+using CommunityToolkit.Maui.UI.Views;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
+namespace CommunityToolkit.Maui.Sample.ViewModels.Views
 {
 	public class StateLayoutViewModel : BaseViewModel
 	{

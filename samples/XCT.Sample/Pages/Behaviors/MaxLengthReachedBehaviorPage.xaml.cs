@@ -1,6 +1,6 @@
-﻿using Xamarin.CommunityToolkit.Behaviors;
+﻿using CommunityToolkit.Maui.Behaviors;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
+namespace CommunityToolkit.Maui.Sample.Pages.Behaviors
 {
 	public partial class MaxLengthReachedBehaviorPage : BasePage
 	{

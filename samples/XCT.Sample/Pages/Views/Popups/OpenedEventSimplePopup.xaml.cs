@@ -1,6 +1,6 @@
-﻿using Xamarin.CommunityToolkit.UI.Views;
+﻿using CommunityToolkit.Maui.UI.Views;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
+namespace CommunityToolkit.Maui.Sample.Pages.Views.Popups
 {
 	public partial class OpenedEventSimplePopup
 	{

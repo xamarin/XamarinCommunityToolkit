@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.CommunityToolkit.Sample.Pages.TestCases;
+using CommunityToolkit.Maui.Sample.Models;
+using CommunityToolkit.Maui.Sample.Pages.TestCases;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
+namespace CommunityToolkit.Maui.Sample.ViewModels.TestCases
 {
 	public class TestCasesGalleryViewModel : BaseGalleryViewModel
 	{

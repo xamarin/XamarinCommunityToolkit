@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
-using Xamarin.CommunityToolkit.Sample.Pages.Converters;
-using Xamarin.CommunityToolkit.Sample.Pages.Effects;
-using Xamarin.CommunityToolkit.Sample.Pages.Extensions;
-using Xamarin.CommunityToolkit.Sample.Pages.TestCases;
-using Xamarin.CommunityToolkit.Sample.Pages.Views;
+using CommunityToolkit.Maui.Sample.Models;
+using CommunityToolkit.Maui.Sample.Pages.Behaviors;
+using CommunityToolkit.Maui.Sample.Pages.Converters;
+using CommunityToolkit.Maui.Sample.Pages.Effects;
+using CommunityToolkit.Maui.Sample.Pages.Extensions;
+using CommunityToolkit.Maui.Sample.Pages.TestCases;
+using CommunityToolkit.Maui.Sample.Pages.Views;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels
+namespace CommunityToolkit.Maui.Sample.ViewModels
 {
 	public class WelcomeViewModel : BaseGalleryViewModel
 	{

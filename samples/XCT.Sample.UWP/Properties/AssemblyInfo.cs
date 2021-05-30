@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Xamarin.CommunityToolkit.Sample.UWP")]
+[assembly: AssemblyTitle("CommunityToolkit.Maui.Sample.UWP")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Xamarin.CommunityToolkit.Sample.UWP")]
+[assembly: AssemblyProduct("CommunityToolkit.Maui.Sample.UWP")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

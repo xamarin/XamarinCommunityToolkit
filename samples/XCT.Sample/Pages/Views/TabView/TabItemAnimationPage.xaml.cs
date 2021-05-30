@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.UI.Views;
+using CommunityToolkit.Maui.UI.Views;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
+namespace CommunityToolkit.Maui.Sample.Pages.Views.TabView
 {
 	public partial class TabItemAnimationPage : BasePage
 	{

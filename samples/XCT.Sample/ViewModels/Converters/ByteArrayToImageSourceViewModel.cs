@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Octokit;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Maui.ObjectModel;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+namespace CommunityToolkit.Maui.Sample.ViewModels.Converters
 {
 	public class ByteArrayToImageSourceViewModel : BaseViewModel
 	{

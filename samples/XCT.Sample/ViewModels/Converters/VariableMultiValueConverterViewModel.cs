@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+﻿namespace CommunityToolkit.Maui.Sample.ViewModels.Converters
 {
 	public class VariableMultiValueConverterViewModel : BaseViewModel
 	{

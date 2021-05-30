@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Xamarin.CommunityToolkit.Sample.Resx {
+namespace CommunityToolkit.Maui.Sample.Resx {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.Sample.Resx {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Xamarin.CommunityToolkit.Sample.Resx.AppResources", typeof(AppResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CommunityToolkit.Maui.Sample.Resx.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

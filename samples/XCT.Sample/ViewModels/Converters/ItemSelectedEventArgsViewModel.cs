@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Maui.ObjectModel;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+namespace CommunityToolkit.Maui.Sample.ViewModels.Converters
 {
 	public class ItemSelectedEventArgsViewModel
 	{

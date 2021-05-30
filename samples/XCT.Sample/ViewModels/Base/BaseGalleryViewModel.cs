@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.Sample.Models;
+using CommunityToolkit.Maui.ObjectModel;
+using CommunityToolkit.Maui.Sample.Models;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels
+namespace CommunityToolkit.Maui.Sample.ViewModels
 {
 	public abstract class BaseGalleryViewModel : BaseViewModel
 	{

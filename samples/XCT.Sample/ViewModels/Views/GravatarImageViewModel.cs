@@ -1,6 +1,6 @@
-﻿using Xamarin.CommunityToolkit.UI.Views;
+﻿using CommunityToolkit.Maui.UI.Views;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
+namespace CommunityToolkit.Maui.Sample.ViewModels.Views
 {
 	public class GravatarImageViewModel : BaseViewModel
 	{

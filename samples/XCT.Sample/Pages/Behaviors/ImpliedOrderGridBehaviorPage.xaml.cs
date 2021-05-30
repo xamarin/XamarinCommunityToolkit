@@ -2,7 +2,7 @@
 using System.Linq;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
+namespace CommunityToolkit.Maui.Sample.Pages.Behaviors
 {
 	public partial class ImpliedOrderGridBehaviorPage
 	{

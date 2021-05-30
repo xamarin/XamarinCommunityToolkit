@@ -5,7 +5,7 @@ using System.Reflection;
 
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
+namespace CommunityToolkit.Maui.Sample.Pages.Converters
 {
 	public partial class ColorsConverterPage
 	{

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
+namespace CommunityToolkit.Maui.Sample.ViewModels.Behaviors
 {
 	public class ProgressBarAnimationBehaviorViewModel : BaseViewModel
 	{

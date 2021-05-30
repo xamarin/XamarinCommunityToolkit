@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Behaviors
+﻿namespace CommunityToolkit.Maui.Sample.Pages.Behaviors
 {
 	public partial class SetFocusOnEntryCompletedBehaviorPage : BasePage
 	{

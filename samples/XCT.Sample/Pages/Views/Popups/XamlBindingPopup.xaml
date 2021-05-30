@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-           xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups"
-           xmlns:local="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Views.Popups"
+           xmlns:xct="http://schemas.microsoft.com/dotnet/2021/toolkit/maui"
+           xmlns:vm="clr-namespace:CommunityToolkit.Maui.Sample.ViewModels.Views.Popups"
+           xmlns:local="clr-namespace:CommunityToolkit.Maui.Sample.Pages.Views.Popups"
            Size="{x:Static local:PopupSize.Large}"
-           x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.Popups.XamlBindingPopup">
+           x:Class="CommunityToolkit.Maui.Sample.Pages.Views.Popups.XamlBindingPopup">
 
     <xct:Popup.BindingContext>
         <vm:XamlBindingPopupViewModel />

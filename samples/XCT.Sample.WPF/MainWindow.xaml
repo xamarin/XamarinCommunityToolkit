@@ -1,9 +1,9 @@
-﻿<wpf:FormsApplicationPage  x:Class="Xamarin.CommunityToolkit.Sample.WPF.MainWindow"
+﻿<wpf:FormsApplicationPage  x:Class="CommunityToolkit.Maui.Sample.WPF.MainWindow"
                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                           xmlns:local="clr-namespace:Xamarin.CommunityToolkit.Sample.WPF"
+                           xmlns:local="clr-namespace:CommunityToolkit.Maui.Sample.WPF"
                            xmlns:wpf="clr-namespace:Xamarin.Forms.Platform.WPF;assembly=Xamarin.Forms.Platform.WPF"
                            mc:Ignorable="d"
                            Title="MainWindow" Height="450" Width="800">

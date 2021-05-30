@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Sample.Pages.Converters
+﻿namespace CommunityToolkit.Maui.Sample.Pages.Converters
 {
 	public partial class ListIsNullOrEmptyPage : BasePage
 	{

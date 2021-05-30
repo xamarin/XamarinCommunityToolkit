@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Maui.ObjectModel;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
+namespace CommunityToolkit.Maui.Sample.ViewModels.Views
 {
 	public class Monkey
 	{

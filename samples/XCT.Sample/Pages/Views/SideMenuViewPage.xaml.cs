@@ -1,7 +1,7 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.UI.Views;
+using CommunityToolkit.Maui.UI.Views;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views
+namespace CommunityToolkit.Maui.Sample.Pages.Views
 {
 	public partial class SideMenuViewPage
 	{

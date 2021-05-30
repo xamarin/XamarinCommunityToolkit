@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.AboutPage"
+                xmlns:xct="http://schemas.microsoft.com/dotnet/2021/toolkit/maui"
+                xmlns:pages="clr-namespace:CommunityToolkit.Maui.Sample.Pages"
+                xmlns:viewmodels="clr-namespace:CommunityToolkit.Maui.Sample.ViewModels"
+                x:Class="CommunityToolkit.Maui.Sample.Pages.AboutPage"
                 Title="About...">
 
     <pages:BasePage.ToolbarItems>
@@ -21,7 +21,7 @@
 
     <pages:BasePage.Content>
         <StackLayout Padding="{StaticResource ContentPadding}">
-            <Label Text="Thank you Xamarin Community Toolkit contributors"
+            <Label Text="Thank you .NET MAUI Community Toolkit contributors"
                    Margin="0,10,0,10" FontSize="Large" HorizontalOptions="Center"
                    HorizontalTextAlignment="Center" />
             <CollectionView x:Name="ContributorsCollectionView"

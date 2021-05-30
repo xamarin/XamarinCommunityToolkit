@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Xamarin.CommunityToolkit.Sample.WPF.Properties
+namespace CommunityToolkit.Maui.Sample.WPF.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.Sample.WPF.Properties
             {
                 if ((resourceMan == null))
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Xamarin.CommunityToolkit.Sample.WPF.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("CommunityToolkit.Maui.Sample.WPF.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

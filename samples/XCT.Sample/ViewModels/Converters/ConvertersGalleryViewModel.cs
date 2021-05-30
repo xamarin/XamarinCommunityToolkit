@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Xamarin.CommunityToolkit.Converters;
-using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.CommunityToolkit.Sample.Pages.Converters;
+using CommunityToolkit.Maui.Converters;
+using CommunityToolkit.Maui.Sample.Models;
+using CommunityToolkit.Maui.Sample.Pages.Converters;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+namespace CommunityToolkit.Maui.Sample.ViewModels.Converters
 {
 	public class ConvertersGalleryViewModel : BaseGalleryViewModel
 	{

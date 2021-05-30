@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
+namespace CommunityToolkit.Maui.Sample.ViewModels.Behaviors
 {
 	public class AnimationBehaviorViewModel : BaseViewModel
 	{

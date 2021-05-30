@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups
+﻿namespace CommunityToolkit.Maui.Sample.ViewModels.Views.Popups
 {
 	public class XamlBindingPopupViewModel
 	{

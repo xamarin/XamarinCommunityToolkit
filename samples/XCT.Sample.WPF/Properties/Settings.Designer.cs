@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Xamarin.CommunityToolkit.Sample.WPF.Properties
+namespace CommunityToolkit.Maui.Sample.WPF.Properties
 {
 
 

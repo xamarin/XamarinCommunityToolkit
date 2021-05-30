@@ -1,6 +1,6 @@
-﻿using Xamarin.CommunityToolkit.Sample.ViewModels.Views.Popups;
+﻿using CommunityToolkit.Maui.Sample.ViewModels.Views.Popups;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
+namespace CommunityToolkit.Maui.Sample.Pages.Views.Popups
 {
 	public partial class CsharpBindingPopup
 	{

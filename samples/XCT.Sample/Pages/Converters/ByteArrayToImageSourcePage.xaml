@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <pages:BasePage
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ByteArrayToImageSourcePage"
+    x:Class="CommunityToolkit.Maui.Sample.Pages.Converters.ByteArrayToImageSourcePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:pages="clr-namespace:CommunityToolkit.Maui.Sample.Pages"
+    xmlns:vm="clr-namespace:CommunityToolkit.Maui.Sample.ViewModels.Converters"
+    xmlns:xct="http://schemas.microsoft.com/dotnet/2021/toolkit/maui">
 
     <pages:BasePage.BindingContext>
         <vm:ByteArrayToImageSourceViewModel />

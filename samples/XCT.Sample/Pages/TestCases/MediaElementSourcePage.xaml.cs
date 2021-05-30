@@ -1,7 +1,7 @@
-﻿using Xamarin.CommunityToolkit.Core;
+﻿using CommunityToolkit.Maui.Core;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.TestCases
+namespace CommunityToolkit.Maui.Sample.Pages.TestCases
 {
 	public partial class MediaElementSourcePage
 	{

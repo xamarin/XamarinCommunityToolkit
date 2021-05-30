@@ -1,9 +1,9 @@
 ﻿using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Maui.ObjectModel;
 using Xamarin.Forms.Xaml;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
+namespace CommunityToolkit.Maui.Sample.Pages.Effects
 {
 	public partial class TouchEffectPage
 	{

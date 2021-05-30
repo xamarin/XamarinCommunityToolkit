@@ -1,8 +1,8 @@
 ﻿using System;
-using Xamarin.CommunityToolkit.UI.Views;
+using CommunityToolkit.Maui.UI.Views;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views
+namespace CommunityToolkit.Maui.Sample.Pages.Views
 {
 	public partial class CameraViewPage : BasePage
 	{

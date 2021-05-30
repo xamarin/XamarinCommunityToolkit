@@ -1,8 +1,8 @@
-﻿using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.ObjectModel;
+﻿using CommunityToolkit.Maui.Helpers;
+using CommunityToolkit.Maui.ObjectModel;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+namespace CommunityToolkit.Maui.Sample.ViewModels.Converters
 {
 	public class MathExpressionConverterViewModel : BaseViewModel
 	{

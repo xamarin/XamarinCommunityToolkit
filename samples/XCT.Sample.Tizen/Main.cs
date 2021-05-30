@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Tizen
+namespace CommunityToolkit.Maui.Sample.Tizen
 {
 	class Program : global::Xamarin.Forms.Platform.Tizen.FormsApplication
 	{

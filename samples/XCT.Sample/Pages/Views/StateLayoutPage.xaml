@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:xct="http://schemas.microsoft.com/dotnet/2021/toolkit/maui"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-             xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
-             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.StateLayoutPage"
+             xmlns:pages="clr-namespace:CommunityToolkit.Maui.Sample.Pages"
+             xmlns:viewmodels="clr-namespace:CommunityToolkit.Maui.Sample.ViewModels.Views"
+             x:Class="CommunityToolkit.Maui.Sample.Pages.Views.StateLayoutPage"
              ios:Page.UseSafeArea="true">
 
     <pages:BasePage.BindingContext>

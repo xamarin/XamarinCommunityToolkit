@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.ObjectModel;
+using CommunityToolkit.Maui.ObjectModel;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
+namespace CommunityToolkit.Maui.Sample.ViewModels.Behaviors
 {
 	public class UserStoppedTypingBehaviorViewModel : BaseViewModel
 	{

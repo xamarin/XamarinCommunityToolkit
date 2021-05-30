@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.CommunityToolkit.Sample.Pages.Views.Popups;
-using Xamarin.CommunityToolkit.UI.Views;
+using CommunityToolkit.Maui.Extensions;
+using CommunityToolkit.Maui.ObjectModel;
+using CommunityToolkit.Maui.Sample.Models;
+using CommunityToolkit.Maui.Sample.Pages.Views.Popups;
+using CommunityToolkit.Maui.UI.Views;
 using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
+namespace CommunityToolkit.Maui.Sample.ViewModels.Views
 {
 	public class PopupGalleryViewModel
 	{

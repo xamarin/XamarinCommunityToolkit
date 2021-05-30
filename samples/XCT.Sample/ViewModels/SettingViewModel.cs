@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
-using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.CommunityToolkit.Sample.Models;
-using Xamarin.CommunityToolkit.Sample.Resx;
+using CommunityToolkit.Maui.Helpers;
+using CommunityToolkit.Maui.ObjectModel;
+using CommunityToolkit.Maui.Sample.Models;
+using CommunityToolkit.Maui.Sample.Resx;
 using Xamarin.Essentials;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels
+namespace CommunityToolkit.Maui.Sample.ViewModels
 {
 	public class SettingViewModel : BaseViewModel
 	{

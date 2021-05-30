@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views
+namespace CommunityToolkit.Maui.Sample.Pages.Views
 {
 	public partial class BadgeViewPage : BasePage
 	{

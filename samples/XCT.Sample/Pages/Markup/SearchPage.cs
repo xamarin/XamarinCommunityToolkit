@@ -3,12 +3,12 @@
 
 using System.Collections.Generic;
 using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Markup;
-using Xamarin.CommunityToolkit.Markup.LeftToRight;
-using static Xamarin.CommunityToolkit.Markup.GridRowsColumns;
-using static Xamarin.CommunityToolkit.Sample.ViewModels.Markup.SearchViewModel;
+using CommunityToolkit.Maui.Markup;
+using CommunityToolkit.Maui.Markup.LeftToRight;
+using static CommunityToolkit.Maui.Markup.GridRowsColumns;
+using static CommunityToolkit.Maui.Sample.ViewModels.Markup.SearchViewModel;
 
-namespace Xamarin.CommunityToolkit.Sample
+namespace CommunityToolkit.Maui.Sample
 {
     public partial class SearchPage
     {
@@ -100,7 +100,7 @@ namespace Xamarin.CommunityToolkit.Sample
              .FontSize (14)
              .FormattedText (
 				 new Span { Text = "See the " },
-				 new Span { Text = "Xamarin Community Toolkit C# Markup", Style = Styles.Link }
+				 new Span { Text = ".NET MAUI Community Toolkit C# Markup", Style = Styles.Link }
 						   .BindTapGesture(nameof(vm.OpenHelpCommand)),
 				 new Span { Text = " docs" })
              .CenterHorizontal () .Margins (bottom: 6);

@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
+namespace CommunityToolkit.Maui.Sample.Pages.Views.Popups
 {
 	public partial class ToggleSizePopup
 	{

@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace Xamarin.CommunityToolkit.Sample.iOS
+namespace CommunityToolkit.Maui.Sample.iOS
 {
 	public class Application
 	{

@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace Xamarin.CommunityToolkit.Sample.UWP
+namespace CommunityToolkit.Maui.Sample.UWP
 {
 	public sealed partial class MainPage
 	{
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Sample.UWP
 		{
 			InitializeComponent();
 
-			LoadApplication(new Xamarin.CommunityToolkit.Sample.App());
+			LoadApplication(new CommunityToolkit.Maui.Sample.App());
 		}
 	}
 }

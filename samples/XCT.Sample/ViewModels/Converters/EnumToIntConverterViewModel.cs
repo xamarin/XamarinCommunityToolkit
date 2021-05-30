@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+namespace CommunityToolkit.Maui.Sample.ViewModels.Converters
 {
 	public class EnumToIntConverterViewModel : BaseViewModel
 	{
