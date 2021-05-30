@@ -374,6 +374,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			int weeksInMonth,
 			int daysInMonth)
 		{
+			var lastDayOfWeek = FirstDayOfWeek.PreviousOrFirst();
+			
 			if (week is 1
 				&& date.Day is 1
 				&& date.DayOfWeek != FirstDayOfWeek)
@@ -394,10 +396,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			else if (week == weeksInMonth
 					 && date.Day == daysInMonth
-					 && date.DayOfWeek != FirstDayOfWeek.PreviousOrFirst())
+					 && date.DayOfWeek != lastDayOfWeek)
 			{
 				var newDate = date;
-				var lastDayOfWeek = FirstDayOfWeek.PreviousOrFirst();
 
 				do
 				{
