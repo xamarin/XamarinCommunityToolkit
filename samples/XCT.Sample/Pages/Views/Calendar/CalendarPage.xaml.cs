@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar
             PickerSelectionMode.SelectedItem = Calendar.SelectionMode;
         }
 
-        private void Calendar_OnDayUpdated(object sender, CalendarDayUpdatedEventArgs e)
+        void Calendar_OnDayUpdated(object sender, CalendarDayUpdatedEventArgs e)
         {
             e.CalendarDay.ControlTemplate = Resources["CalendarDayControlTemplate"] as ControlTemplate;
 
@@ -75,22 +75,22 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar
             }
         }
 
-        private void ButtonPreviousMonth_OnClicked(object sender, EventArgs e)
+        void ButtonPreviousMonth_OnClicked(object sender, EventArgs e)
         {
             Calendar.Date = Calendar.Date.AddMonths(-1);
         }
 
-        private void ButtonNextMonth_OnClicked(object sender, EventArgs e)
+        void ButtonNextMonth_OnClicked(object sender, EventArgs e)
         {
             Calendar.Date = Calendar.Date.AddMonths(1);
         }
 
-        private async void Calendar_OnDayTapped(object sender, CalendarDayTappedEventArgs e)
+        async void Calendar_OnDayTapped(object sender, CalendarDayTappedEventArgs e)
         {
             // await DisplayAlert(title: "", message: "You clicked on: " + e.CalendarDay.Date, cancel: "ok");
         }
 
-        private void CheckBoxShowWeekends_OnCheckedChanged(object sender, CheckedChangedEventArgs e)
+        void CheckBoxShowWeekends_OnCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if (CheckBoxShowWeekends.IsChecked)
             {
@@ -111,8 +111,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar
 
     public class Day : INotifyPropertyChanged
     {
-        private bool _hasAppointments;
-
+        bool _hasAppointments;
         public bool HasAppointments
         {
             get => _hasAppointments;
@@ -125,7 +124,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

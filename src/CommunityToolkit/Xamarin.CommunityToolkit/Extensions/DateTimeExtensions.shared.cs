@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.Extensions
             return dayOfWeek;
         }
         
-        private static int WeekOfYear(this DateTime dateTime, DayOfWeek firstDayOfWeek)
+        static int WeekOfYear(this DateTime dateTime, DayOfWeek firstDayOfWeek)
         {
             var weekOfYear = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(
 	            dateTime,
