@@ -377,7 +377,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			int daysInMonth)
 		{
 			var lastDayOfWeek = FirstDayOfWeek.PreviousOrFirst();
-			
+
 			if (week is 1
 				&& date.Day is 1
 				&& date.DayOfWeek != FirstDayOfWeek)
