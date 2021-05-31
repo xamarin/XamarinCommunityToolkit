@@ -294,6 +294,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			foreach (var day in days)
 			{
+				var isSelected = daysSelected.Any(x => x.IsSameCalendarDay(day.Date));
+
 				day.IsSelected = isSelected;
 			}
 		}
@@ -463,10 +465,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (SelectionMode is CalendarSelectionMode.SingleSelect)
 				{
-					if (SelectedDays.Count > 0 && SelectedDays.First().Date == calendarDay.Date)
+					if (SelectedDays.Count > 0
+						&& SelectedDays.First() is DateTimeOffset selectedDateTimeOffset
+						&& selectedDateTimeOffset.IsSameCalendarDay(calendarDay.Date))
+					{
 						SelectedDays = Enumerable.Empty<DateTimeOffset>().ToList(); // Unselect the current day
+					}
 					else
+					{
 						SelectedDays = new[] { calendarDay.Date };
+					}
 				}
 				else if (SelectionMode is CalendarSelectionMode.MultiSelect)
 				{
