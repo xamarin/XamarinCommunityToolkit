@@ -6,22 +6,17 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
 	public class DateTimeOffsetToDayConverter : IValueConverter
 	{
-		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
 			if (value == null)
-			{
-				return String.Empty;
-			}
-        
-			var dateTime = (DateTimeOffset) value;
+				return string.Empty;
+
+			var dateTime = (DateTimeOffset)value;
 			var day = dateTime.Day.ToString();
 
 			return day;
 		}
 
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture) => throw new NotImplementedException();
 	}
 }
