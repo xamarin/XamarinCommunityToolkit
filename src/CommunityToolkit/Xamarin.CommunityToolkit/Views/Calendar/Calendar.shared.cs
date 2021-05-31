@@ -10,8 +10,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class Calendar : ContentView
 	{
-		readonly WeakEventManager weakEventManager = new();
-		readonly List<CalendarDay> days = new ();
+		readonly WeakEventManager<CalendarDayTappedEventArgs> dayTappedEventManager = new();
+		readonly WeakEventManager<CalendarDayUpdatedEventArgs> dayUpdatedEventManager = new();
+		readonly List<CalendarDay> days = new();
 		readonly Grid gridDays;
 		readonly Grid gridWeekDayHeaders;
 
@@ -23,19 +24,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Event that is triggered when the <see cref="CalendarDay" /> is tapped.
 		/// </summary>
-		public event EventHandler<CalendarDayTappedEventArgs>? DayTapped
+		public event EventHandler<CalendarDayTappedEventArgs> DayTapped
 		{
-			add => weakEventManager.AddEventHandler(value);
-			remove => weakEventManager.RemoveEventHandler(value);
+			add => dayTappedEventManager.AddEventHandler(value);
+			remove => dayTappedEventManager.RemoveEventHandler(value);
 		}
 
 		/// <summary>
 		/// Event that is triggered when the visible <see cref="CalendarDay" /> is updated.
 		/// </summary>
-		public event EventHandler<CalendarDayUpdatedEventArgs>? DayUpdated
+		public event EventHandler<CalendarDayUpdatedEventArgs> DayUpdated
 		{
-			add => weakEventManager.AddEventHandler(value);
-			remove => weakEventManager.RemoveEventHandler(value);
+			add => dayUpdatedEventManager.AddEventHandler(value);
+			remove => dayUpdatedEventManager.RemoveEventHandler(value);
 		}
 
 		/// <summary>
@@ -293,7 +294,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			foreach (var day in days)
 			{
-				var isSelected = daysSelected.Any(x => x.Date == day.Date);
 				day.IsSelected = isSelected;
 			}
 		}
@@ -452,9 +452,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			calendarDay.Opacity = isVisible ? 1 : 0;
 
 			if (isVisible)
-			{
-				weakEventManager.RaiseEvent(this, new CalendarDayUpdatedEventArgs(calendarDay), nameof(DayUpdated));
-			}
+				OnDayUpdated(calendarDay);
 		}
 
 		void OnCalendarDayTapped(object? sender, EventArgs e)
@@ -491,7 +489,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			}
 
-			weakEventManager.RaiseEvent(this, new CalendarDayTappedEventArgs(calendarDay), nameof(DayTapped));
+			OnDayTapped(calendarDay);
 		}
 
 		void UpdateWeekDayHeaders()
@@ -545,5 +543,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			}
 		}
+
+		void OnDayTapped(CalendarDay calendarDay) => dayTappedEventManager.RaiseEvent(this, new CalendarDayTappedEventArgs(calendarDay), nameof(DayTapped));
+
+		void OnDayUpdated(CalendarDay calendarDay) => dayUpdatedEventManager.RaiseEvent(this, new CalendarDayUpdatedEventArgs(calendarDay), nameof(DayUpdated));
 	}
 }

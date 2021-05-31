@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Gets day of week.
 		/// </summary>
 		public DayOfWeek DayOfWeek { get; }
-        
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CalendarWeekDayHeader"/> class.
 		/// </summary>

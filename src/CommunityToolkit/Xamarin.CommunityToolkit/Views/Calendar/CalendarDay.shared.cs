@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public bool IsSelectable
 		{
-			get => (bool) GetValue(IsSelectableProperty);
+			get => (bool)GetValue(IsSelectableProperty);
 			set => SetValue(IsSelectableProperty, value);
 		}
 
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public bool IsSelected
 		{
-			get => (bool) GetValue(IsSelectedProperty);
+			get => (bool)GetValue(IsSelectedProperty);
 			set => SetValue(IsSelectedProperty, value);
 		}
 
@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public DateTimeOffset Date
 		{
-			get => (DateTimeOffset) GetValue(DateProperty);
+			get => (DateTimeOffset)GetValue(DateProperty);
 			set => SetValue(DateProperty, value);
 		}
 	}
