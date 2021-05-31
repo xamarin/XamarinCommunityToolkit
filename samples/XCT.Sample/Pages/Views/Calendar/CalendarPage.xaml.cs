@@ -8,125 +8,117 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar
 {
 	public partial class CalendarPage
-    {
-        public CalendarPage()
-        {
-            InitializeComponent();
+	{
+		public CalendarPage()
+		{
+			InitializeComponent();
 
-            PickerFirstDayOfWeek.ItemsSource = Enum.GetValues(typeof(DayOfWeek));
-            PickerFirstDayOfWeek.SelectedItem = Calendar.FirstDayOfWeek;
+			PickerFirstDayOfWeek.ItemsSource = Enum.GetValues(typeof(DayOfWeek));
+			PickerFirstDayOfWeek.SelectedItem = Calendar.FirstDayOfWeek;
 
-            PickerSelectionMode.ItemsSource = Enum.GetValues(typeof(CalendarSelectionMode));
-            PickerSelectionMode.SelectedItem = Calendar.SelectionMode;
-        }
+			PickerSelectionMode.ItemsSource = Enum.GetValues(typeof(CalendarSelectionMode));
+			PickerSelectionMode.SelectedItem = Calendar.SelectionMode;
+		}
 
-        void OnCalendarDayUpdated(object sender, CalendarDayUpdatedEventArgs e)
-        {
-            e.CalendarDay.ControlTemplate = Resources["CalendarDayControlTemplate"] as ControlTemplate;
+		void OnCalendarDayUpdated(object sender, CalendarDayUpdatedEventArgs e)
+		{
+			e.CalendarDay.ControlTemplate = Resources["CalendarDayControlTemplate"] as ControlTemplate;
 
-            if (e.CalendarDay.Date.DayOfWeek == DayOfWeek.Saturday ||
-                e.CalendarDay.Date.DayOfWeek == DayOfWeek.Sunday)
-            {
-                e.CalendarDay.ControlTemplate = Resources["CalendarDayControlTemplateWeekend"] as ControlTemplate;
-            }
+			if (e.CalendarDay.Date.DayOfWeek == DayOfWeek.Saturday ||
+				e.CalendarDay.Date.DayOfWeek == DayOfWeek.Sunday)
+			{
+				e.CalendarDay.ControlTemplate = Resources["CalendarDayControlTemplateWeekend"] as ControlTemplate;
+			}
 
-            if (e.CalendarDay.Date.Day == 3 ||
-                e.CalendarDay.Date.Day == 10)
-            {
-                e.CalendarDay.IsSelectable = false;
-            }
-            else
-            {
-                e.CalendarDay.IsSelectable = true;
-            }
+			if (e.CalendarDay.Date.Day is 3 or 10)
+			{
+				e.CalendarDay.IsSelectable = false;
+			}
+			else
+			{
+				e.CalendarDay.IsSelectable = true;
+			}
 
-            if (e.CalendarDay.Date.Day == 5 ||
-                e.CalendarDay.Date.Day == 16)
-            {
-                var day = e.CalendarDay.BindingContext as Day;
+			if (e.CalendarDay.Date.Day is 5 or 16)
+			{
+				if (e.CalendarDay.BindingContext is not Day day)
+				{
+					day = new Day();
+					e.CalendarDay.BindingContext = day;
+				}
 
-                if (day == null)
-                {
-                    day = new Day
-                    {
-                        HasAppointments = true
-                    };
+				day.HasAppointments = true;
+			}
+			else
+			{
+				if (e.CalendarDay.BindingContext is Day day)
+				{
+					day.HasAppointments = false;
+				}
+			}
 
-                    e.CalendarDay.BindingContext = day;
-                }
+			if (e.CalendarDay.Date.Month != Calendar.Date.Month)
+			{
+				e.CalendarDay.IsSelectable = false;
+				e.CalendarDay.ControlTemplate =
+					Resources["CalendarDayFromOtherMonthControlTemplate"] as ControlTemplate;
+			}
+		}
 
-                day.HasAppointments = true;
-            }
-            else
-            {
-                var day = e.CalendarDay.BindingContext as Day;
+		void OnButtonPreviousMonthClicked(object sender, EventArgs e)
+		{
+			Calendar.Date = Calendar.Date.AddMonths(-1);
+		}
 
-                if (day != null)
-                {
-                    day.HasAppointments = false;
-                }
-            }
+		void OnButtonNextMonthClicked(object sender, EventArgs e)
+		{
+			Calendar.Date = Calendar.Date.AddMonths(1);
+		}
 
-            if (e.CalendarDay.Date.Month != Calendar.Date.Month)
-            {
-                e.CalendarDay.IsSelectable = false;
-                e.CalendarDay.ControlTemplate =
-                    Resources["CalendarDayFromOtherMonthControlTemplate"] as ControlTemplate;
-            }
-        }
+		async void OnCalendarDayTapped(object sender, CalendarDayTappedEventArgs e)
+		{
+			// await DisplayAlert(title: "", message: "You clicked on: " + e.CalendarDay.Date, cancel: "ok");
+		}
 
-        void OnButtonPreviousMonthClicked(object sender, EventArgs e)
-        {
-            Calendar.Date = Calendar.Date.AddMonths(-1);
-        }
+		void OnCheckBoxShowWeekendsCheckedChanged(object sender, CheckedChangedEventArgs e)
+		{
+			if (CheckBoxShowWeekends.IsChecked)
+			{
+				PickerFirstDayOfWeek.ItemsSource = Enum.GetValues(typeof(DayOfWeek));
+			}
+			else
+			{
+				var values = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToList();
+				values.Remove(DayOfWeek.Saturday);
+				values.Remove(DayOfWeek.Sunday);
 
-        void OnButtonNextMonthClicked(object sender, EventArgs e)
-        {
-            Calendar.Date = Calendar.Date.AddMonths(1);
-        }
+				PickerFirstDayOfWeek.ItemsSource = values;
+			}
 
-        async void OnCalendarDayTapped(object sender, CalendarDayTappedEventArgs e)
-        {
-            // await DisplayAlert(title: "", message: "You clicked on: " + e.CalendarDay.Date, cancel: "ok");
-        }
+			PickerFirstDayOfWeek.SelectedItem = Calendar.FirstDayOfWeek;
+		}
+	}
 
-        void OnCheckBoxShowWeekendsCheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            if (CheckBoxShowWeekends.IsChecked)
-            {
-                PickerFirstDayOfWeek.ItemsSource = Enum.GetValues(typeof(DayOfWeek));
-            }
-            else
-            {
-                var values = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().ToList();
-                values.Remove(DayOfWeek.Saturday);
-                values.Remove(DayOfWeek.Sunday);
+	public class Day : INotifyPropertyChanged
+	{
+		bool hasAppointments;
 
-                PickerFirstDayOfWeek.ItemsSource = values;
-            }
+		public bool HasAppointments
+		{
+			get => hasAppointments;
+			set
+			{
+				if (hasAppointments != value)
+				{
+					hasAppointments = value;
+					OnPropertyChanged();
+				}
+			}
+		}
 
-            PickerFirstDayOfWeek.SelectedItem = Calendar.FirstDayOfWeek;
-        }
-    }
+		public event PropertyChangedEventHandler? PropertyChanged;
 
-    public class Day : INotifyPropertyChanged
-    {
-        bool _hasAppointments;
-        public bool HasAppointments
-        {
-            get => _hasAppointments;
-            set
-            {
-                _hasAppointments = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+		void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+	}
 }
