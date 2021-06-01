@@ -51,11 +51,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty DirectionProperty
 			= BindableProperty.Create(nameof(Direction), typeof(ExpandDirection), typeof(Expander), default(ExpandDirection), propertyChanged: OnDirectionPropertyChanged);
 
+		public static readonly BindableProperty AnimationLengthProperty
+			= BindableProperty.Create(nameof(AnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+
 		public static readonly BindableProperty ExpandAnimationLengthProperty
-			= BindableProperty.Create(nameof(ExpandAnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+			= BindableProperty.Create(nameof(ExpandAnimationLength), typeof(uint), typeof(Expander), uint.MaxValue);
 
 		public static readonly BindableProperty CollapseAnimationLengthProperty
-			= BindableProperty.Create(nameof(CollapseAnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+			= BindableProperty.Create(nameof(CollapseAnimationLength), typeof(uint), typeof(Expander), uint.MaxValue);
+
+		public static readonly BindableProperty AnimationEasingProperty
+			= BindableProperty.Create(nameof(AnimationEasing), typeof(Easing), typeof(Expander));
 
 		public static readonly BindableProperty ExpandAnimationEasingProperty
 			= BindableProperty.Create(nameof(ExpandAnimationEasing), typeof(Easing), typeof(Expander));
@@ -146,6 +152,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(DirectionProperty, value);
 		}
 
+		public uint AnimationLength
+		{
+			get => (uint)GetValue(AnimationLengthProperty);
+			set => SetValue(AnimationLengthProperty, value);
+		}
+
 		public uint ExpandAnimationLength
 		{
 			get => (uint)GetValue(ExpandAnimationLengthProperty);
@@ -156,6 +168,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get => (uint)GetValue(CollapseAnimationLengthProperty);
 			set => SetValue(CollapseAnimationLengthProperty, value);
+		}
+
+		public Easing AnimationEasing
+		{
+			get => (Easing)GetValue(AnimationEasingProperty);
+			set => SetValue(AnimationEasingProperty, value);
 		}
 
 		public Easing ExpandAnimationEasing
@@ -442,6 +460,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				length = ExpandAnimationLength;
 				easing = ExpandAnimationEasing;
 			}
+
+			if (length == uint.MaxValue)
+				length = AnimationLength;
+
+			easing ??= AnimationEasing;
 
 			if (lastVisibleSize > 0)
 				length = (uint)(length * (Abs(endSize - startSize) / lastVisibleSize));
