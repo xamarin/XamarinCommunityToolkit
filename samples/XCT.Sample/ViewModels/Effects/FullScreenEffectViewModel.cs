@@ -11,13 +11,13 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(typeof(FullScreenPersistentPage), "FullScreen mode enabled and persistent",
 				"Persist when navigating away from page."),
 
-			new SectionModel(typeof(FullScreenImmersivePage), "FullScreen mode Immersive",
+			new SectionModel(typeof(FullScreenImmersivePage), "Android Specific: FullScreen mode Immersive",
 				" "),
 
-			new SectionModel(typeof(FullScreenStickyImmersivePage), "FullScreen mode Sticky Immersive",
+			new SectionModel(typeof(FullScreenStickyImmersivePage), "Android Specific: FullScreen mode Sticky Immersive",
 				" "),
 
-			new SectionModel(typeof(FullScreenLeanBackPage), "FullScreen mode LeanBack",
+			new SectionModel(typeof(FullScreenLeanBackPage), "Android Specific: FullScreen mode LeanBack",
 				" "),
 
 		};
