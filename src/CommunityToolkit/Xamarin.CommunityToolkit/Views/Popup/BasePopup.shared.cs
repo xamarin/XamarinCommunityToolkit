@@ -139,7 +139,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// The results to add to the <see cref="PopupDismissedEventArgs"/>.
 		/// </param>
 		protected void OnDismissed(object? result) =>
-			dismissWeakEventManager.RaiseEvent(this, new PopupDismissedEventArgs(result), nameof(Dismissed));
+			dismissWeakEventManager.RaiseEvent(this, new PopupDismissedEventArgs(result, false), nameof(Dismissed));
 
 		/// <summary>
 		/// Invokes the <see cref="Opened"/> event.
@@ -153,6 +153,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		protected internal virtual void LightDismiss()
 		{
+			dismissWeakEventManager.RaiseEvent(this, new PopupDismissedEventArgs(null, true), nameof(Dismissed));
+
+			// I don't think this is valid (Andrew Hoefling)
+			// this is causing an infinite loop
+			//
 			// Note 1/9/2021
 			// Left empty by design
 			//

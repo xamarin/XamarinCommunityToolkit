@@ -252,14 +252,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		UIElement? IVisualElementRenderer.GetNativeElement() => Control;
 
+		bool isOpen = true;
+
 		void OnDismissed(object? sender, PopupDismissedEventArgs e)
 		{
+			if (!isOpen)
+				return;
+
+			isOpen = false;
 			Hide();
 		}
 
 		void OnClosing(object? sender, object e)
 		{
-			if (IsOpen && Element?.IsLightDismissEnabled is true)
+			if (isOpen && Element?.IsLightDismissEnabled is true)
 				Element.LightDismiss();
 		}
 
