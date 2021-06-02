@@ -104,7 +104,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 					ExecuteAsync(validParameter).SafeFireAndForget(onException, continueOnCapturedContext);
 					break;
 
-				case null when !typeof(TExecute).GetTypeInfo().IsValueType || Nullable.GetUnderlyingType (typeof ( TExecute )) != null:
+				case null when !typeof(TExecute).GetTypeInfo().IsValueType || Nullable.GetUnderlyingType(typeof ( TExecute )) != null:
 					ExecuteAsync((TExecute?)parameter).SafeFireAndForget(onException, continueOnCapturedContext);
 					break;
 
