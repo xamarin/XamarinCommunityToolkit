@@ -133,11 +133,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				switch (e)
 				{
-					case DismissEventTimeout:
-						arguments.SetResult(false);
-						break;
 					case DismissEventAction:
 						arguments.SetResult(true);
+						break;
+					default:
+						arguments.SetResult(false);
 						break;
 				}
 			}
