@@ -22,6 +22,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(MediaElementSourcePage),
 				"MediaElement with Source as string",
 				"MediaElement should reproduce the video."),
+
+			new SectionModel(
+				typeof(TabViewBindingPage),
+				"TabView BindingContext",
+				"TabView with BindingContext into MainPage and other BindingContext into TabViewItem."),
 		};
 	}
 }
