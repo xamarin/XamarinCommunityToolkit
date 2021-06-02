@@ -58,11 +58,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				button.Clicked += async (sender, e) =>
 				{
 					snackBarTimer?.Stop();
+                    try
+                    {
+						if (action.Action != null)
+							await action.Action();
 
-					if (action.Action != null)
-						await action.Action();
-
-					arguments.SetResult(true);
+						arguments.SetResult(true);
+					}
+					catch (Exception ex)
+					{
+						arguments.SetException(ex);
+					}
 					container?.Remove(snackBarLayout);
 				};
 
