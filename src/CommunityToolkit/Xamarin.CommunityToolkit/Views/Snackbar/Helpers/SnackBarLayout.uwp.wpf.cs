@@ -74,6 +74,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 						OnSnackBarActionExecuted?.Invoke();
 						if (action.Action != null)
 							await action.Action();
+
+						options.SetResult(true);
 					}),
 					Padding = new Thickness(action.Padding.Left,
 						action.Padding.Top,

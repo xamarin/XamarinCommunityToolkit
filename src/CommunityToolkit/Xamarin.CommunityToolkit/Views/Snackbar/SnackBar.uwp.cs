@@ -55,7 +55,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				grid.Children.Remove(snackBarLayout);
 				grid.RowDefinitions.Remove(snackBarRow);
 				snackBarTimer.Stop();
-				arguments.SetResult(true);
 			};
 			snackBarTimer.Start();
 			grid.RowDefinitions.Add(snackBarRow);
