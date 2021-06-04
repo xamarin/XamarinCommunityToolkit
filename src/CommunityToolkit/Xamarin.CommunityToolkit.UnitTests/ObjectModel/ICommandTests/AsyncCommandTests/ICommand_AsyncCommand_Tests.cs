@@ -24,6 +24,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Assert
 		}
 
+		[TestCase(500)]
+		[TestCase(0)]
+		[TestCase(null)]
+		public async Task ICommand_Execute_NullableParameter_Test(int? parameter)
+		{
+			// Arrange
+			ICommand command = new AsyncCommand<int?>(NullableParameterTask);
+
+			// Act
+			command.Execute(parameter);
+			await NoParameterTask().ConfigureAwait(false);
+
+			// Assert
+		}
+
 		[TestCase("Hello")]
 		[TestCase(default)]
 		public async Task ICommand_Execute_StringParameter_Test(string parameter)
@@ -44,6 +59,23 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Arrange
 			InvalidCommandParameterException? actualInvalidCommandParameterException = null;
 			var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(string), typeof(int));
+
+			ICommand command = new AsyncCommand<string>(StringParameterTask);
+
+			// Act
+
+			actualInvalidCommandParameterException = Assert.Throws<InvalidCommandParameterException>(() => command.Execute(Delay));
+
+			// Assert
+			Assert.IsNotNull(actualInvalidCommandParameterException);
+			Assert.AreEqual(expectedInvalidCommandParameterException.Message, actualInvalidCommandParameterException?.Message);
+		}
+		[Test]
+		public void ICommand_ExecuteAsync_InvalidNullableTypeParameter_Test()
+		{
+			// Arrange
+			InvalidCommandParameterException? actualInvalidCommandParameterException = null;
+			var expectedInvalidCommandParameterException = new InvalidCommandParameterException(typeof(string), typeof(int?));
 
 			ICommand command = new AsyncCommand<string>(StringParameterTask);
 
