@@ -151,22 +151,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Invoked when the popup is light dismissed. In other words when the
 		/// user taps outside of the popup and it closes.
 		/// </summary>
-		protected internal virtual void LightDismiss()
-		{
+		protected internal virtual void LightDismiss() =>
 			dismissWeakEventManager.RaiseEvent(this, new PopupDismissedEventArgs(null, true), nameof(Dismissed));
-
-			// I don't think this is valid (Andrew Hoefling)
-			// this is causing an infinite loop
-			//
-			// Note 1/9/2021
-			// Left empty by design
-			//
-			// This method needs to be left empty as it is not
-			// required for a child class to have an implementation
-			// of LightDismiss. This means if a renderer invokes
-			// this method nothing will happen unless the child
-			// class has an implementation.
-		}
 
 		protected override void OnBindingContextChanged()
 		{
