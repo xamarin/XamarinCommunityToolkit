@@ -55,5 +55,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// Effect Id for <see cref="SemanticEffect"/>
 		/// </summary>
 		public static string Semantic => $"{effectResolutionGroupName}.{nameof(SemanticEffectRouter)}";
+
+		/// <summary>
+		/// Effect Id for <see cref="BackgroundAspectEffectRouter"/>
+		/// </summary>
+		public static string BackgroundAspect => $"{effectResolutionGroupName}.{nameof(BackgroundAspectEffectRouter)}";
 	}
 }

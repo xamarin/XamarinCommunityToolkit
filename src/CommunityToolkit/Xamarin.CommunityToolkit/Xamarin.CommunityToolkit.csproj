@@ -209,5 +209,10 @@
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Helpers\BackgroundAspectEffect.shared.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
   <Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
 </Project>

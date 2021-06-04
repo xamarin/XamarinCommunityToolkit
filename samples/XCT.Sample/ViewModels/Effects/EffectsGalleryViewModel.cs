@@ -15,6 +15,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				"The SafeAreaEffect is an effect that will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
 
 			new SectionModel(
+				typeof(BackgroundAspectEffectPage),
+				nameof(BackgroundAspectEffect),
+				"The SafeAreaEffect is an effect that will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
+
+
+			new SectionModel(
 				typeof(RemoveBorderEffectPage),
 				nameof(RemoveBorderEffect),
 				"The RemoveBorderEffect is an effect that will remove the border from an Entry on iOS and the underline from an entry on Android"),
