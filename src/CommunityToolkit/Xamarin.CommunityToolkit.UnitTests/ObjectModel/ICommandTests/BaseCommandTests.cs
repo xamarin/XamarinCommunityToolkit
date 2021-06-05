@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 		protected Task NoParameterTask() => Task.Delay(Delay);
 
 		protected Task IntParameterTask(int delay) => Task.Delay(delay);
-		protected Task NullableParameterTask(int? delay) => Task.Delay(delay??0);
+		protected Task NullableParameterTask(int? delay) => Task.Delay(delay ?? 0);
 
 		protected Task StringParameterTask(string? text) => Task.Delay(Delay);
 
