@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -8,6 +9,9 @@ namespace Xamarin.CommunityToolkit.Converters
 	sealed class MathExpression
 	{
 		const string regexPattern = @"(?<!\d)\-?(?:\d+\.\d+|\d+)|\+|\-|\/|\*|\(|\)|\^|\%|\,|\w+";
+		const NumberStyles numberStyle = NumberStyles.Float | NumberStyles.AllowThousands;
+
+		static readonly IFormatProvider formatProvider = new CultureInfo("en-US");
 
 		readonly IList<MathOperator> operators;
 		readonly IList<double> arguments;
@@ -80,7 +84,7 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			foreach (var value in rpn)
 			{
-				if (double.TryParse(value, out var numeric))
+				if (double.TryParse(value, numberStyle, formatProvider, out var numeric))
 				{
 					stack.Push(numeric);
 					continue;
@@ -137,7 +141,7 @@ namespace Xamarin.CommunityToolkit.Converters
 
 				var value = match.Value;
 
-				if (double.TryParse(value, out var numeric))
+				if (double.TryParse(value, numberStyle, formatProvider, out var numeric))
 				{
 					if (numeric < 0)
 					{
