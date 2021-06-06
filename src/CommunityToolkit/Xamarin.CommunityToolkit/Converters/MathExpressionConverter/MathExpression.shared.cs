@@ -13,12 +13,12 @@ namespace Xamarin.CommunityToolkit.Converters
 
 		static readonly IFormatProvider formatProvider = new CultureInfo("en-US");
 
-		readonly IList<MathOperator> operators;
-		readonly IList<double> arguments;
+		readonly IReadOnlyList<MathOperator> operators;
+		readonly IReadOnlyList<double> arguments;
 
 		public string Expression { get; }
 
-		public MathExpression(string expression, IEnumerable<double> arguments)
+		internal MathExpression(string expression, IEnumerable<double>? arguments = null)
 		{
 			if (string.IsNullOrEmpty(expression))
 				throw new ArgumentNullException(nameof(expression), "Expression can't be null or empty.");
@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			Expression = expression.ToLower();
 			this.arguments = arguments?.ToList() ?? new List<double>();
 
-			operators = new List<MathOperator>
+			var operators = new List<MathOperator>
 			{
 				new ("+", 2, MathOperatorPrecedence.Low, x => x[0] + x[1]),
 				new ("-", 2, MathOperatorPrecedence.Low, x => x[0] - x[1]),
@@ -74,6 +74,8 @@ namespace Xamarin.CommunityToolkit.Converters
 				var index = i;
 				operators.Add(new MathOperator($"x{i}", 0, MathOperatorPrecedence.Constant, _ => this.arguments[index]));
 			}
+
+			this.operators = operators;
 		}
 
 		public double Calculate()
@@ -146,7 +148,7 @@ namespace Xamarin.CommunityToolkit.Converters
 					if (numeric < 0)
 					{
 						var isNegative = output.Count == 0 || stack.Count != 0;
-						
+
 						if (!isNegative)
 						{
 							stack.Push(("-", MathOperatorPrecedence.Low));
@@ -170,8 +172,8 @@ namespace Xamarin.CommunityToolkit.Converters
 
 					while (stack.Count > 0)
 					{
-						var stackValue = stack.Peek();
-						if (stackValue.Precedence >= @operator.Precedence)
+						var (name, precedence) = stack.Peek();
+						if (precedence >= @operator.Precedence)
 						{
 							output.Add(stack.Pop().Name);
 						}
@@ -212,8 +214,8 @@ namespace Xamarin.CommunityToolkit.Converters
 				{
 					while (stack.Count > 0)
 					{
-						var stackValue = stack.Peek();
-						if (stackValue.Precedence >= MathOperatorPrecedence.Low)
+						var (name, precedence) = stack.Peek();
+						if (precedence >= MathOperatorPrecedence.Low)
 						{
 							output.Add(stack.Pop().Name);
 						}
@@ -227,13 +229,13 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			for (var i = stack.Count - 1; i >= 0; i--)
 			{
-				var stackValue = stack.Pop();
-				if (stackValue.Name == "(")
+				var (name, precedence) = stack.Pop();
+				if (name == "(")
 				{
 					throw new ArgumentException("Invalid math expression.");
 				}
 
-				output.Add(stackValue.Name);
+				output.Add(name);
 			}
 
 			return output;
