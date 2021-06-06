@@ -115,6 +115,7 @@
     <AndroidResource Include="Resources\**\*.xml" />
     <AndroidResource Include="Resources\**\*.png" />
     <PackageReference Include="Xamarin.AndroidX.Core" Version="1.5.0"/>
+    <PackageReference Include="Xamarin.AndroidX.RecyclerView" Version="1.1.0.8"/>
   </ItemGroup>
   
 
