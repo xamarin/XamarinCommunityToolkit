@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Converters
 {
 	sealed class MathExpression
 	{
-		const string regexPattern = @"(?<!\d)\-?(?:\d+\.\d+|\d+)|\+|\-|\/|\*|\(|\)|\^|\%|\w+";
+		const string regexPattern = @"(?<!\d)\-?(?:\d+\.\d+|\d+)|\+|\-|\/|\*|\(|\)|\^|\%|\,|\w+";
 
 		readonly IList<MathOperator> operators;
 		readonly IList<double> arguments;
@@ -45,7 +45,7 @@ namespace Xamarin.CommunityToolkit.Converters
 				new ("max", 2, MathOperatorPrecedence.Medium, x => Math.Max(x[0], x[1])),
 				new ("min", 2, MathOperatorPrecedence.Medium, x => Math.Min(x[0], x[1])),
 				new ("pow", 2, MathOperatorPrecedence.Medium, x => Math.Pow(x[0], x[1])),
-				new ("round", 2, MathOperatorPrecedence.Medium, x => Math.Round(x[0], Convert.ToInt32(x[0]))),
+				new ("round", 2, MathOperatorPrecedence.Medium, x => Math.Round(x[0], Convert.ToInt32(x[1]))),
 				new ("sign", 1, MathOperatorPrecedence.Medium, x => Math.Sign(x[0])),
 				new ("sin", 1, MathOperatorPrecedence.Medium, x => Math.Sin(x[0])),
 				new ("sinh", 1, MathOperatorPrecedence.Medium, x => Math.Sinh(x[0])),
@@ -137,8 +137,20 @@ namespace Xamarin.CommunityToolkit.Converters
 
 				var value = match.Value;
 
-				if (double.TryParse(value, out _))
+				if (double.TryParse(value, out var numeric))
 				{
+					if (numeric < 0)
+					{
+						var isNegative = output.Count == 0 || stack.Count != 0;
+						
+						if (!isNegative)
+						{
+							stack.Push(("-", MathOperatorPrecedence.Low));
+							output.Add(Math.Abs(numeric).ToString());
+							continue;
+						}
+					}
+
 					output.Add(value);
 					continue;
 				}
@@ -192,6 +204,21 @@ namespace Xamarin.CommunityToolkit.Converters
 					if (!isFound)
 						throw new ArgumentException("Invalid math expression.");
 				}
+				else if (value == ",")
+				{
+					while (stack.Count > 0)
+					{
+						var stackValue = stack.Peek();
+						if (stackValue.Precedence >= MathOperatorPrecedence.Low)
+						{
+							output.Add(stack.Pop().Name);
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
 			}
 
 			for (var i = stack.Count - 1; i >= 0; i--)
@@ -201,6 +228,7 @@ namespace Xamarin.CommunityToolkit.Converters
 				{
 					throw new ArgumentException("Invalid math expression.");
 				}
+
 				output.Add(stackValue.Name);
 			}
 
