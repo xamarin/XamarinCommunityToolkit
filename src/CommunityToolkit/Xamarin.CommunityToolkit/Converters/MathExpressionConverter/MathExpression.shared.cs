@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		readonly IReadOnlyList<MathOperator> operators;
 		readonly IReadOnlyList<double> arguments;
 
-		public string Expression { get; }
+		internal string Expression { get; }
 
 		internal MathExpression(string expression, IEnumerable<double>? arguments = null)
 		{
