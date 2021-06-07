@@ -74,14 +74,16 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		void ClearBackgroundImage()
 		{
-			if (imageView is null)
-				return;
+			if (imageView != null)
+			{
+				imageView.RemoveFromSuperview();
 
+				imageView.Dispose();
+			}
+
+			// TODO: Is this enough to cleanup?
 			cancellationTokenSource.Cancel();
-
-			imageView.RemoveFromSuperview();
-
-			imageView.Dispose();
+			cancellationTokenSource.Dispose();
 		}
 
 		async Task<UIImage> GetBackgroundImageFromSource(ImageSource imageSource)

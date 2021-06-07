@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(
 				typeof(BackgroundAspectEffectPage),
 				nameof(BackgroundAspectEffect),
-				"The SafeAreaEffect is an effect that will help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),
+				"The BackgroundAspectEffect is an effect that gives you control of how the background image source on a content page is displayed."),
 
 
 			new SectionModel(
