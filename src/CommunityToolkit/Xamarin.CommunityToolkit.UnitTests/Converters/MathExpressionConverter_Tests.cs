@@ -11,7 +11,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		readonly Type type = typeof(MathExpressionConverter_Tests);
 		readonly CultureInfo cultureInfo = CultureInfo.CurrentCulture;
 
+		[TestCase("min(max(4+x, 5), 10)", 2d, 6d)]
 		[TestCase("-10 + x * -2", 2d, -14d)]
+		[TestCase("x * (-2 * 5)", 2d, -20d)]
+		[TestCase("x-10", 19d, 9d)]
+		[TestCase("x*-10", 3d, -30d)]
+		[TestCase("min(x+6, 8)", 1d, 7d)]
 		[TestCase("x + x * x", 2d, 6d)]
 		[TestCase("(x + x) * x", 2d, 8d)]
 		[TestCase("3 + x * 2 / (1 - 5)^2", 4d, 3.5d)]
