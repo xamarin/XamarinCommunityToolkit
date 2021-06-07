@@ -8,9 +8,19 @@
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.BackgroundAspectEffectPage"
     effects:BackgroundAspectEffect.Aspect="Fill">
     <ContentPage.BackgroundImageSource>
-         <x:String>https://static.photocdn.pt/images/articles/2018/12/03/articles/2017_8/mountain-landscape-ponta-delgada-island-azores-picture-id944812540.jpg</x:String>
+         <x:String>https://instabug.com/blog/wp-content/uploads/2018/10/Oct_Articles_01_Xamarin.png</x:String>
     </ContentPage.BackgroundImageSource>
     <ContentPage.Content>
-        <Label Text="This page has a cool background!" VerticalOptions="Center" HorizontalOptions="Center"/>
+        <Frame HasShadow="False"
+               Padding="20"
+               BorderColor="SlateGray"
+               VerticalOptions="Center"
+               HorizontalOptions="Center">
+            <StackLayout Orientation="Horizontal">
+                <RadioButton x:Name="RadioFill" Content="Fill" IsChecked="True" CheckedChanged="OnOptionChecked"/>
+                <RadioButton x:Name="RadioAspectFit" Content="AspectFit" CheckedChanged="OnOptionChecked"/>
+                <RadioButton x:Name="RadioAspectFill" Content="AspectFill" CheckedChanged="OnOptionChecked"/>
+            </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </pages:BasePage>
