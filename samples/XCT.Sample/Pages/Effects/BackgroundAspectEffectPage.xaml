@@ -7,6 +7,9 @@
     xmlns:effects="clr-namespace:Xamarin.CommunityToolkit.Effects;assembly=Xamarin.CommunityToolkit"
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.BackgroundAspectEffectPage"
     effects:BackgroundAspectEffect.Aspect="Fill">
+    <ContentPage.BackgroundImageSource>
+         <x:String>https://static.photocdn.pt/images/articles/2018/12/03/articles/2017_8/mountain-landscape-ponta-delgada-island-azores-picture-id944812540.jpg</x:String>
+    </ContentPage.BackgroundImageSource>
     <ContentPage.Content>
         <Label Text="This page has a cool background!" VerticalOptions="Center" HorizontalOptions="Center"/>
     </ContentPage.Content>
