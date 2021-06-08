@@ -9,6 +9,8 @@ namespace Xamarin.CommunityToolkit
 	/// </summary>
 	static class ToolkitPlatform
 	{
+		static Context? context;
+
 		/// <summary>
 		/// Gets the <see cref="Context"/>.
 		/// </summary>
@@ -18,7 +20,11 @@ namespace Xamarin.CommunityToolkit
 			{
 				var page = Forms.Application.Current.MainPage;
 				var renderer = page.GetRenderer();
-				return renderer.View.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
+
+				if (renderer?.View.Context is not null)
+					context = renderer.View.Context;
+
+				return renderer?.View.Context ?? context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
 			}
 		}
 	}
