@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			var desc = SemanticEffect.GetDescription(Element);
 			var hint = SemanticEffect.GetHint(Element);
 
-			if (!string.IsNullOrEmpty(hint) || !string.IsNullOrEmpty(desc))
+			if (!string.IsNullOrWhiteSpace(hint) || !string.IsNullOrWhiteSpace(desc))
 			{
 				if (semanticAccessibilityDelegate == null)
 				{
