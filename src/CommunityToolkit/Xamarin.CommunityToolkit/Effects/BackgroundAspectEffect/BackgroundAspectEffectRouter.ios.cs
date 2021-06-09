@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	{
 		UIImageView? imageView;
 
-		CancellationTokenSource cancellationTokenSource;
+		CancellationTokenSource? cancellationTokenSource;
 
 		public BackgroundAspectEffectRouter()
 		{
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		}
 
 		protected override void OnAttached()
-			=> Task.Run(ApplyBackgroundImageAsync, cancellationTokenSource.Token);
+			=> Task.Run(ApplyBackgroundImageAsync, cancellationTokenSource!.Token);
 
 		protected override void OnDetached()
 			=> ClearBackgroundImage();
@@ -37,9 +37,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (!args.PropertyName.Equals(BackgroundAspectEffect.AspectProperty.PropertyName))
 				return;
 
-			cancellationTokenSource.Cancel();
+			cancellationTokenSource?.Cancel();
 
-			Task.Run(ApplyBackgroundImageAsync, cancellationTokenSource.Token);
+			Task.Run(ApplyBackgroundImageAsync, cancellationTokenSource!.Token);
 		}
 
 		async Task ApplyBackgroundImageAsync()
@@ -81,9 +81,14 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				imageView.Dispose();
 			}
 
-			// TODO: Is this enough to cleanup?
-			cancellationTokenSource.Cancel();
-			cancellationTokenSource.Dispose();
+			if (cancellationTokenSource != null)
+				DisposeCancellationToken();
+		}
+
+		void DisposeCancellationToken()
+		{
+			cancellationTokenSource?.Cancel();
+			cancellationTokenSource?.Dispose();
 			cancellationTokenSource = null;
 		}
 
@@ -108,7 +113,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				throw new NotSupportedException($"ImageSource is not supported by this effect: {imageSource.GetType().Name}");
 			}
 
-			return await handler.LoadImageAsync(imageSource).ConfigureAwait(false);
+			return await handler.LoadImageAsync(imageSource, cancellationTokenSource!.Token)
+				.ConfigureAwait(false);
 		}
 
 		UIImageView CreateImageView(UIImage uIImage, Aspect aspect)

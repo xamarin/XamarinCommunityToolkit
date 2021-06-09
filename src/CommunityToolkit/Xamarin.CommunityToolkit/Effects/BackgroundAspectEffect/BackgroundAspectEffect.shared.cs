@@ -19,8 +19,6 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		static void OnAspectChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			Debug.WriteLine("OnAspectChanged Called!");
-
 			if (!(bindable is ContentPage contentPage))
 				return;
 
