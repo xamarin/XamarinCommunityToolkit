@@ -89,6 +89,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				if (!string.IsNullOrEmpty(desc))
 				{
 					info.ContentDescription = desc;
+
+					if (host is EditText)
+						info.Text = desc + ", " + ((EditText)host).Text;
 				}
 			}
 		}
