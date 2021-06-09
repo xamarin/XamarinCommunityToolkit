@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Exceptions;
@@ -91,7 +90,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		bool ICommand.CanExecute(object parameter) => parameter switch
 		{
 			TCanExecute validParameter => CanExecute(validParameter),
-			null when !typeof(TCanExecute).GetTypeInfo().IsValueType => CanExecute((TCanExecute?)parameter),
+			null when IsNullable<TCanExecute>() => CanExecute((TCanExecute?)parameter),
 			null => throw new InvalidCommandParameterException(typeof(TCanExecute)),
 			_ => throw new InvalidCommandParameterException(typeof(TCanExecute), parameter.GetType()),
 		};
@@ -104,7 +103,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 					ExecuteAsync(validParameter).SafeFireAndForget(onException, continueOnCapturedContext);
 					break;
 
-				case null when !typeof(TExecute).GetTypeInfo().IsValueType:
+				case null when IsNullable<TExecute>():
 					ExecuteAsync((TExecute?)parameter).SafeFireAndForget(onException, continueOnCapturedContext);
 					break;
 
