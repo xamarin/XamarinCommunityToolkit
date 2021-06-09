@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			var contentPage = Element as ContentPage;
 
-			if (Element is null || contentPage is null || contentPage.BackgroundImageSource is null)
+			if (Element == null || contentPage == null || contentPage.BackgroundImageSource == null)
 				return;
 
 			var image = await GetBackgroundImageFromSource(contentPage.BackgroundImageSource);
@@ -84,6 +84,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			// TODO: Is this enough to cleanup?
 			cancellationTokenSource.Cancel();
 			cancellationTokenSource.Dispose();
+			cancellationTokenSource = null;
 		}
 
 		async Task<UIImage> GetBackgroundImageFromSource(ImageSource imageSource)
@@ -107,7 +108,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				throw new NotSupportedException($"ImageSource is not supported by this effect: {imageSource.GetType().Name}");
 			}
 
-			return await handler.LoadImageAsync(imageSource);
+			return await handler.LoadImageAsync(imageSource).ConfigureAwait(false);
 		}
 
 		UIImageView CreateImageView(UIImage uIImage, Aspect aspect)
