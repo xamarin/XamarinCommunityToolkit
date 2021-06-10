@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		static void OnCornerRadiusPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			if (bindable is not VisualElement elementView))
+			if (bindable is not VisualElement elementView)
 				return;
 
 			elementView.SizeChanged -= ElementViewSizeChanged;
