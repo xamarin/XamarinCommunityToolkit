@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		static void ElementViewSizeChanged(object? sender, EventArgs e)
 		{
-			if (!(sender is VisualElement elementView))
+			if (sender is not VisualElement elementView)
 				return;
 
 			UpdateClip(elementView);
