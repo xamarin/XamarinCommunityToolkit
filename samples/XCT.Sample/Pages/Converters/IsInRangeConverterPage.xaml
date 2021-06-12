@@ -13,7 +13,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <xct:IsInRangeConverter
-                x:Key="IsDateTimeInRangeConverter"
+                x:Key="IsInRangeConverter"
                 MaxValue="{Binding Source={x:Reference this}, Path=BindingContext.EndDate}"
                 MinValue="{Binding Source={x:Reference this}, Path=BindingContext.StartDate}" />
         </ResourceDictionary>
@@ -33,7 +33,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     FontAttributes="Bold"
-                    Text="{Binding Date, Converter={StaticResource IsDateTimeInRangeConverter}}" />
+                    Text="{Binding Date, Converter={StaticResource IsInRangeConverter}}" />
                 <Label
                     Grid.Row="1"
                     Grid.Column="0"
