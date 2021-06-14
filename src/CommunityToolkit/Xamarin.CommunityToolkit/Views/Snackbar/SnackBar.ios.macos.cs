@@ -80,8 +80,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			snackBar.Appearance.TextAlignment = arguments.IsRtl ? NSTextAlignment.Right : NSTextAlignment.Left;
 #endif
-			var renderer = Platform.GetRenderer(sender);
-			snackBar.SetAnchor(renderer.NativeView);
+			if (sender is not Page)
+			{
+				var renderer = Platform.GetRenderer(sender);
+				snackBar.SetAnchor(renderer.NativeView);
+			}
 
 			foreach (var action in arguments.Actions)
 			{

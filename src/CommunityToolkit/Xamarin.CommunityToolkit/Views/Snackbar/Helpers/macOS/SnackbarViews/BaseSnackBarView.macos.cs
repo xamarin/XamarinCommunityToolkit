@@ -26,10 +26,18 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 		void ConstraintInParent()
 		{
 			_ = ParentView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
-			_ = AnchorView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
 			_ = StackView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
 
-			BottomAnchor.ConstraintEqualToAnchor(AnchorView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
+			if (AnchorView is null)
+			{
+				BottomAnchor.ConstraintEqualToAnchor(ParentView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
+				TopAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TopAnchor, SnackBar.Layout.MarginTop).Active = true;
+			}
+			else
+			{
+				BottomAnchor.ConstraintEqualToAnchor(AnchorView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
+			}
+
 			LeadingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.LeadingAnchor, SnackBar.Layout.MarginLeft).Active = true;
 			TrailingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TrailingAnchor, -SnackBar.Layout.MarginRight).Active = true;
 			CenterXAnchor.ConstraintEqualToAnchor(ParentView.CenterXAnchor).Active = true;
