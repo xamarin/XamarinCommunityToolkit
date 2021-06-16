@@ -20,6 +20,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 			new SectionModel(typeof(FullScreenLeanBackPage), "Android Specific: FullScreen mode LeanBack",
 				" "),
 
+						new SectionModel(typeof(FullScreenDisabledPage), "FullScreen mode Disabled",
+				" "),
 		};
 	}
 }
