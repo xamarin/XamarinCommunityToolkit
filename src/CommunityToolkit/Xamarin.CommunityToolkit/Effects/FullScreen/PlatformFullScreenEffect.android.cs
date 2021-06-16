@@ -107,7 +107,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		// Still under work to handle different APIs
 		void EnableFullScreen(FullScreenMode mode)
 		{
-			if (Window is null)
+			if (Window == null)
 			{
 				return;
 			}
@@ -145,13 +145,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			var window = Container.Context.GetActivity()?.Window;
 			var view = window?.DecorView;
-			if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBeanMr1)
+			if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBeanMr1 && view != null)
 			{
-				if (view != null)
-				{
-					view.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.Visible;
-					NavigationPage.SetHasNavigationBar(PageElement, InitialHasNavigationBar);
-				}
+				view.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.Visible;
+				NavigationPage.SetHasNavigationBar(PageElement, InitialHasNavigationBar);
 			}
 
 			// Android API < 17, not tested yet should we even support that?
