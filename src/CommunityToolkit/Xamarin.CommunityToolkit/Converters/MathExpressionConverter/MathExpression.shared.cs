@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -7,14 +8,17 @@ namespace Xamarin.CommunityToolkit.Converters
 {
 	sealed class MathExpression
 	{
-		const string regexPattern = @"(?<!\d)\-?(?:\d+\.\d+|\d+)|\+|\-|\/|\*|\(|\)|\^|\%|\w+";
+		const string regexPattern = @"(?<!\d)\-?(?:\d+\.\d+|\d+)|\+|\-|\/|\*|\(|\)|\^|\%|\,|\w+";
+		const NumberStyles numberStyle = NumberStyles.Float | NumberStyles.AllowThousands;
 
-		readonly IList<MathOperator> operators;
-		readonly IList<double> arguments;
+		static readonly IFormatProvider formatProvider = new CultureInfo("en-US");
 
-		public string Expression { get; }
+		readonly IReadOnlyList<MathOperator> operators;
+		readonly IReadOnlyList<double> arguments;
 
-		public MathExpression(string expression, IEnumerable<double> arguments)
+		internal string Expression { get; }
+
+		internal MathExpression(string expression, IEnumerable<double>? arguments = null)
 		{
 			if (string.IsNullOrEmpty(expression))
 				throw new ArgumentNullException(nameof(expression), "Expression can't be null or empty.");
@@ -22,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			Expression = expression.ToLower();
 			this.arguments = arguments?.ToList() ?? new List<double>();
 
-			operators = new List<MathOperator>
+			var operators = new List<MathOperator>
 			{
 				new ("+", 2, MathOperatorPrecedence.Low, x => x[0] + x[1]),
 				new ("-", 2, MathOperatorPrecedence.Low, x => x[0] - x[1]),
@@ -45,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Converters
 				new ("max", 2, MathOperatorPrecedence.Medium, x => Math.Max(x[0], x[1])),
 				new ("min", 2, MathOperatorPrecedence.Medium, x => Math.Min(x[0], x[1])),
 				new ("pow", 2, MathOperatorPrecedence.Medium, x => Math.Pow(x[0], x[1])),
-				new ("round", 2, MathOperatorPrecedence.Medium, x => Math.Round(x[0], Convert.ToInt32(x[0]))),
+				new ("round", 2, MathOperatorPrecedence.Medium, x => Math.Round(x[0], Convert.ToInt32(x[1]))),
 				new ("sign", 1, MathOperatorPrecedence.Medium, x => Math.Sign(x[0])),
 				new ("sin", 1, MathOperatorPrecedence.Medium, x => Math.Sin(x[0])),
 				new ("sinh", 1, MathOperatorPrecedence.Medium, x => Math.Sinh(x[0])),
@@ -70,6 +74,8 @@ namespace Xamarin.CommunityToolkit.Converters
 				var index = i;
 				operators.Add(new MathOperator($"x{i}", 0, MathOperatorPrecedence.Constant, _ => this.arguments[index]));
 			}
+
+			this.operators = operators;
 		}
 
 		public double Calculate()
@@ -80,7 +86,7 @@ namespace Xamarin.CommunityToolkit.Converters
 
 			foreach (var value in rpn)
 			{
-				if (double.TryParse(value, out var numeric))
+				if (double.TryParse(value, numberStyle, formatProvider, out var numeric))
 				{
 					stack.Push(numeric);
 					continue;
@@ -137,8 +143,20 @@ namespace Xamarin.CommunityToolkit.Converters
 
 				var value = match.Value;
 
-				if (double.TryParse(value, out _))
+				if (double.TryParse(value, numberStyle, formatProvider, out var numeric))
 				{
+					if (numeric < 0)
+					{
+						var isNegative = output.Count == 0 || stack.Count != 0;
+
+						if (!isNegative)
+						{
+							stack.Push(("-", MathOperatorPrecedence.Low));
+							output.Add(Math.Abs(numeric).ToString());
+							continue;
+						}
+					}
+
 					output.Add(value);
 					continue;
 				}
@@ -154,8 +172,8 @@ namespace Xamarin.CommunityToolkit.Converters
 
 					while (stack.Count > 0)
 					{
-						var stackValue = stack.Peek();
-						if (stackValue.Precedence >= @operator.Precedence)
+						var (name, precedence) = stack.Peek();
+						if (precedence >= @operator.Precedence)
 						{
 							output.Add(stack.Pop().Name);
 						}
@@ -192,16 +210,32 @@ namespace Xamarin.CommunityToolkit.Converters
 					if (!isFound)
 						throw new ArgumentException("Invalid math expression.");
 				}
+				else if (value == ",")
+				{
+					while (stack.Count > 0)
+					{
+						var (name, precedence) = stack.Peek();
+						if (precedence >= MathOperatorPrecedence.Low)
+						{
+							output.Add(stack.Pop().Name);
+						}
+						else
+						{
+							break;
+						}
+					}
+				}
 			}
 
 			for (var i = stack.Count - 1; i >= 0; i--)
 			{
-				var stackValue = stack.Pop();
-				if (stackValue.Name == "(")
+				var (name, precedence) = stack.Pop();
+				if (name == "(")
 				{
 					throw new ArgumentException("Invalid math expression.");
 				}
-				output.Add(stackValue.Name);
+
+				output.Add(name);
 			}
 
 			return output;
