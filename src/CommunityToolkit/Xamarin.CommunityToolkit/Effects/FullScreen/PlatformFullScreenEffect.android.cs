@@ -15,9 +15,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	public class FullScreenEffectRouter : PlatformEffect
 	{
 		Page PageElement => (Page)Element;
+
 		Window? Window => Container.Context.GetActivity()?.Window;
 
 		StatusBarVisibility savedSystemUiVisibility;
+
+		bool wasAlreadyReset;
 
 		protected override void OnAttached()
 		{
@@ -34,13 +37,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			UpdateStatusBar();
 		}
 
-		void FullScreenEffectRouter_Disappearing(object sender, System.EventArgs e) => ResetStatusBar();
-
-		protected override void OnDetached()
+		void FullScreenEffectRouter_Disappearing(object sender, System.EventArgs e)
 		{
 			PageElement.Disappearing -= FullScreenEffectRouter_Disappearing;
 			ResetStatusBar();
 		}
+
+		protected override void OnDetached() => ResetStatusBar();
 
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
@@ -72,8 +75,14 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void ResetStatusBar()
 		{
+			if (wasAlreadyReset)
+			{
+				return;
+			}
+
 			var fullScreenMode = GetMode(Element);
 			var isPersistent = GetIsPersistent(Element);
+			wasAlreadyReset = true;
 
 			if (fullScreenMode == FullScreenMode.Disabled)
 			{
