@@ -110,6 +110,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		/// <remarks>
 		/// When true and the user taps outside of the popup it will dismiss.
+		/// On Android - when false the hardware back button is disabled.
 		/// </remarks>
 		public bool IsLightDismissEnabled { get; set; }
 
