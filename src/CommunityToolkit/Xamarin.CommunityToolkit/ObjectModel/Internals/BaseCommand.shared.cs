@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
@@ -95,5 +96,18 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public void ChangeCanExecute() => RaiseCanExecuteChanged();
+
+		protected static bool IsNullable<T>()
+		{
+			var type = typeof(T);
+
+			if (!type.GetTypeInfo().IsValueType)
+				return true; // ref-type
+
+			if (Nullable.GetUnderlyingType(type) != null)
+				return true; // Nullable<T>
+
+			return false; // Non-nullable value-type
+		}
 	}
 }
