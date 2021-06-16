@@ -10,18 +10,19 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 		[Flags]
 		public enum FullScreenMode
 		{
-			Disabled = 0,
-			Enabled = 1 << 0,
-			ImmersiveDroid = 1 << 1,
-			StickyImmersiveDroid = 1 << 2,
-			LeanBackDroid = 1 << 3
+			Default = 0,
+			Disabled = 1 << 0,
+			Enabled = 1 << 1,
+			ImmersiveDroid = 1 << 2,
+			StickyImmersiveDroid = 1 << 3,
+			LeanBackDroid = 1 << 4
 		}
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="Mode"/> property.
 		/// </summary>
 		public static readonly BindableProperty ModeProperty
-			= BindableProperty.CreateAttached("Mode", typeof(FullScreenMode), typeof(FullScreenEffect), FullScreenMode.Disabled, propertyChanged: OnModeChanged);
+			= BindableProperty.CreateAttached("Mode", typeof(FullScreenMode), typeof(FullScreenEffect), FullScreenMode.Default, propertyChanged: OnModeChanged);
 
 		public static FullScreenMode GetMode(BindableObject view)
 			=> (FullScreenMode)view.GetValue(ModeProperty);
