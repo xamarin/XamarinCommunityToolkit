@@ -16,13 +16,15 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	{
 		bool isDetaching;
 
+		Page PageElement => (Page)Element;
+
 		protected override void OnAttached()
 		{
 			// should we use WeakEventManager instead?
-			(Element as Page)!.Disappearing += FullScreenEffectRouter_Disappearing;
+			PageElement.Disappearing += FullScreenEffectRouter_Disappearing;
 
 			// TODO: Remove if not required
-			InitialHasNavigationBar = NavigationPage.GetHasNavigationBar(Element as Page);
+			InitialHasNavigationBar = NavigationPage.GetHasNavigationBar(PageElement);
 			UpdateStatusBar();
 		}
 
@@ -30,7 +32,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		protected override void OnDetached()
 		{
-			(Element as Page)!.Disappearing -= FullScreenEffectRouter_Disappearing;
+			PageElement.Disappearing -= FullScreenEffectRouter_Disappearing;
 			isDetaching = true;
 			ResetStatusBar();
 		}
@@ -110,7 +112,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 
 			// TODO: Remove if not required
-			NavigationPage.SetHasNavigationBar(Element as Page, false);
+			NavigationPage.SetHasNavigationBar(PageElement, false);
 		}
 
 		void DisableFullScreen()
@@ -122,7 +124,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				if (view != null)
 				{
 					view.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.Visible;
-					NavigationPage.SetHasNavigationBar(Element as Page, InitialHasNavigationBar);
+					NavigationPage.SetHasNavigationBar(PageElement, InitialHasNavigationBar);
 				}
 			}
 
