@@ -14,9 +14,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class FullScreenEffectRouter : PlatformEffect
 	{
-		bool isDetaching;
-
 		Page PageElement => (Page)Element;
+		Window? Window => Container.Context.GetActivity()?.Window;
+
+		StatusBarVisibility savedSystemUiVisibility;
 
 		protected override void OnAttached()
 		{
@@ -25,6 +26,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			// TODO: Remove if not required
 			InitialHasNavigationBar = NavigationPage.GetHasNavigationBar(PageElement);
+			if (GetMode(Element) == FullScreenMode.Disabled && Window?.DecorView != null)
+			{
+				savedSystemUiVisibility = Window.DecorView.SystemUiVisibility;
+			}
+
 			UpdateStatusBar();
 		}
 
@@ -33,7 +39,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		protected override void OnDetached()
 		{
 			PageElement.Disappearing -= FullScreenEffectRouter_Disappearing;
-			isDetaching = true;
 			ResetStatusBar();
 		}
 
@@ -41,12 +46,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			base.OnElementPropertyChanged(args);
 
-			if (!args.PropertyName.Equals(ModeProperty.PropertyName) || isDetaching)
+			if (args.PropertyName.Equals(ModeProperty.PropertyName))
 			{
-				return;
+				UpdateStatusBar();
 			}
-
-			UpdateStatusBar();
 		}
 
 		void UpdateStatusBar()
@@ -71,17 +74,31 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			var fullScreenMode = GetMode(Element);
 			var isPersistent = GetIsPersistent(Element);
-			if (fullScreenMode != FullScreenMode.Disabled && !isPersistent)
+
+			if (fullScreenMode == FullScreenMode.Disabled)
+			{
+				RestoreStatusBar();
+				return;
+			}
+
+			if (!isPersistent)
 			{
 				DisableFullScreen();
+			}
+		}
+
+		void RestoreStatusBar()
+		{
+			if (Window?.DecorView != null)
+			{
+				Window.DecorView.SystemUiVisibility = savedSystemUiVisibility;
 			}
 		}
 
 		// Still under work to handle different APIs
 		void EnableFullScreen(FullScreenMode mode)
 		{
-			var window = Container.Context.GetActivity()?.Window;
-			if (window is null)
+			if (Window is null)
 			{
 				return;
 			}
@@ -89,7 +106,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			// Supported in Android API > 17 (deprecated in API30 (Android 11) which is not supported by xct yet)
 			if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBeanMr1)
 			{
-				var view = window?.DecorView;
+				var view = Window.DecorView;
 				if (view != null)
 				{
 					var flags = mode switch
@@ -108,7 +125,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			// Android API < 17, not tested yet should we support that?
 			else
 			{
-				window.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
+				Window.SetFlags(WindowManagerFlags.Fullscreen, WindowManagerFlags.Fullscreen);
 			}
 
 			// TODO: Remove if not required
