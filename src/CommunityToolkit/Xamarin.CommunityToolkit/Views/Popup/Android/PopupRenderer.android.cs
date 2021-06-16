@@ -133,7 +133,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (basePopup.Content != null && basePopup.Size != default)
 			{
 				var decorView = (ViewGroup)(Window?.DecorView ?? throw new NullReferenceException());
-				var child = (FrameLayout)(decorView?.GetChildAt(0) ?? throw new NullReferenceException());
+				var child = decorView?.GetChildAt(0) ?? throw new NullReferenceException();
 
 				var realWidth = (int)Context.ToPixels(basePopup.Size.Width);
 				var realHeight = (int)Context.ToPixels(basePopup.Size.Height);
