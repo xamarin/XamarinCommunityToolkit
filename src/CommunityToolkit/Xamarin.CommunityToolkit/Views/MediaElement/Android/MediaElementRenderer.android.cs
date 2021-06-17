@@ -278,6 +278,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(MediaElement.Volume):
 					UpdateVolume();
 					break;
+				case nameof(MediaElement.Speed):
+					UpdateSpeed();
+					break;
 			}
 
 			ElementPropertyChanged?.Invoke(this, e);
@@ -372,6 +375,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mediaPlayer?.SetVolume((float)MediaElement.Volume, (float)MediaElement.Volume);
 		}
+		protected void UpdateSpeed()
+		{
+			if (MediaElement == null)
+				return;
+
+			var playbackParams = new PlaybackParams();
+			playbackParams.SetSpeed((float)MediaElement.Speed);
+			if (mediaPlayer != null)
+				mediaPlayer.PlaybackParams = playbackParams;
+			var sp = mediaPlayer?.PlaybackParams.Speed;
+		}
 
 		protected string ResolveMsAppDataUri(Uri uri)
 		{
@@ -411,6 +425,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mediaPlayer = mp;
 			UpdateVolume();
+			UpdateSpeed();
 			mp.Looping = MediaElement.IsLooping;
 			mp.SeekTo(0);
 

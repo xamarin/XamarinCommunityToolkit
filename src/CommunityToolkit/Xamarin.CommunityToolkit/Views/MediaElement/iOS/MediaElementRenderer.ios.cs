@@ -258,6 +258,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(ToolKitMediaElement.Volume):
 					UpdateVolume();
 					break;
+				case nameof(ToolKitMediaElement.Speed):
+					UpdateSpeed();
+					break;
 			}
 		}
 
@@ -308,6 +311,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (avPlayerViewController.Player != null)
 				avPlayerViewController.Player.Volume = (float)Element.Volume;
+		}
+		void UpdateSpeed()
+		{
+			if (avPlayerViewController.Player != null)
+				avPlayerViewController.Player.Rate = (float)Element.Speed;
 		}
 
 		void MediaElementStateRequested(object? sender, StateRequested e)
