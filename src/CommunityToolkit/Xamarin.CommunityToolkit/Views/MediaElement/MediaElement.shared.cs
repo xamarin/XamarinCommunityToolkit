@@ -187,6 +187,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			get => (double)GetValue(VolumeProperty);
 			set => SetValue(VolumeProperty, value);
 		}
+		double IMediaElementController.Speed
+		{
+			get => (double)GetValue(SpeedProperty);
+			set => SetValue(SpeedProperty, value);
+		}
 
 		void IMediaElementController.OnMediaEnded()
 		{
@@ -322,6 +327,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		int VideoWidth { get; set; }
 
 		double Volume { get; set; }
+		double Speed { get; set; }
 
 		void OnMediaEnded();
 
