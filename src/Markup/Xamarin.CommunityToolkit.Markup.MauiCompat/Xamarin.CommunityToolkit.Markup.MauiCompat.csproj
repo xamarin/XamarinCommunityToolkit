@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GitInfoReportImportance>high</GitInfoReportImportance>
+		<PackageId>Xamarin.CommunityToolkit.Markup.MauiCompat</PackageId>
+		<Summary>Community-created toolkit with C# Markup classes and fluent helper methods</Summary>
+		<Authors>Microsoft</Authors>
+		<Owners>Microsoft</Owners>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Product>Xamarin.CommunityToolkit.Markup.MauiCompat (net6.0)</Product>
+		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/xamarin/Xamarin.CommunityToolkit</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/xamarin/Xamarin.CommunityToolkit</RepositoryUrl>
+		<PackageReleaseNotes>TBD</PackageReleaseNotes>
+		<DefineConstants>$(DefineConstants);</DefineConstants>
+		<UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+		<Title>Xamarin.CommunityToolkit.Markup.MauiCompat</Title>
+		<Description>Xamarin.CommunityToolkit.Markup.MauiCompat is a set of fluent helper methods and classes to simplify building declarative Xamarin.Forms user interfaces in C#</Description>
+		<PackageIcon>icon.png</PackageIcon>
+		<Product>$(AssemblyName) ($(TargetFramework))</Product>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+		<Version>1.0.0-pre1</Version>
+		<PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageTags>xamarin,xamarin.forms,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,markup,csharpformarkup,csharp,csharpmarkup</PackageTags>
+		<Configurations>Debug;Release</Configurations>
+		<RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-ios'">iossimulator-x64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">maccatalyst-x64</RuntimeIdentifier>
+		<InvariantGlobalization Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">true</InvariantGlobalization>
+	</PropertyGroup>
+	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
+		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.5.794" />
+		<PackageReference Include="mdoc" Version="5.8.3" PrivateAssets="all" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="..\stylecop.json" />
+	</ItemGroup>
+	<Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
+</Project>
