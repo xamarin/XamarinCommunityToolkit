@@ -147,7 +147,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						Controller.CurrentState = MediaElementState.Paused;
 						break;
 
-					case 1.0f:
+					default:
 						Controller.CurrentState = MediaElementState.Playing;
 						break;
 				}
@@ -177,7 +177,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				case AVPlayerStatus.ReadyToPlay:
 					var duration = avPlayerViewController.Player.CurrentItem.Duration;
-
 					if (duration.IsIndefinite)
 						Controller.Duration = TimeSpan.Zero;
 					else
@@ -301,6 +300,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				avPlayerViewController.Player.Play();
 				Controller.CurrentState = MediaElementState.Playing;
+				UpdateSpeed();
 			}
 
 			if (Element.KeepScreenOn)
