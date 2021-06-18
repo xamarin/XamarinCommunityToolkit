@@ -4,10 +4,10 @@ using Xamarin.CommunityToolkit.Sample.Pages.Views.TabView;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
-		public class TabViewViewModel : BaseGalleryViewModel
+	public class TabViewViewModel : BaseGalleryViewModel
+	{
+		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
-				protected override IEnumerable<SectionModel> CreateItems() => new[]
-				{
 			new SectionModel(typeof(GettingStartedPage), "Getting Started",
 				"TabView basic use case"),
 
@@ -50,5 +50,5 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(TabItemsPage), "TabItems Page",
 				"We can add tabs via code"),
 		};
-		}
+	}
 }
