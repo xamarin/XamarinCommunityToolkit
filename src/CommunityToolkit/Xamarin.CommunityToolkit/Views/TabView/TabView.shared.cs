@@ -12,7 +12,7 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-		[Preserve(AllMembers = true)]
+	[Preserve(AllMembers = true)]
 	[ContentProperty(nameof(TabItems))]
 	public class TabView : ContentView, IDisposable
 	{

@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
 {
-		public partial class TabItemsPage : BasePage
+	public partial class TabItemsPage : BasePage
 	{
 		public TabItemsPage()
 		{
