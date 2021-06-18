@@ -833,7 +833,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					var selectionChangedArgs = new TabSelectionChangedEventArgs()
 					{
 						NewPosition = newPosition,
-						OldPosition = SelectedIndex
+						OldPosition = oldposition
 					};
 
 					OnTabSelectionChanged(selectionChangedArgs);
