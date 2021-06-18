@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.DynamicTabsPage"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:views="http://xamarin.com/schemas/2020/toolkit">
+  <StackLayout>
+    <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="Auto, Auto">
+      <Button Clicked="OnAdd" Text="Add Item" />
+      <Button Grid.Column="1"
+              Clicked="OnInsert"
+              Text="Insert Item" />
+      <Button Grid.Column="2"
+              Clicked="OnDelete"
+              Text="Delete Item" />
+      <Button Grid.Column="3"
+              Clicked="OnMove"
+              Text="Move Item" />
+      <Label Grid.Row="1"
+             Grid.Column="0"
+             Text="Start Pos" />
+      <Entry Grid.Row="1"
+             Grid.Column="1"
+             Text="{Binding StartPosition}" />
+      <Label Grid.Row="1"
+             Grid.Column="2"
+             Text="End Pos" />
+      <Entry Grid.Row="1"
+             Grid.Column="3"
+             Text="{Binding EndPosition}" />
+    </Grid>
+    <views:TabView x:Name="MyTabView"
+                   IsTabTransitionEnabled="false"
+                   TabStripBackgroundColor="BlanchedAlmond">
+      <views:TabView.TabItems>
+        <views:TabViewItem Text="Tab 1">
+          <Grid>
+            <Label Text="Tab 1" />
+          </Grid>
+        </views:TabViewItem>
+        <views:TabViewItem Text="Tab 2">
+          <Grid>
+            <Label Text="Tab 2" />
+          </Grid>
+        </views:TabViewItem>
+      </views:TabView.TabItems>
+    </views:TabView>
+    <views:TabView TabItemsSource="{Binding TabSource}" TabStripBackgroundColor="YellowGreen">
+      <views:TabView.TabViewItemDataTemplate>
+        <DataTemplate>
+          <Label HorizontalOptions="Center" Text="{Binding StringFormat='Tab {0}'}" />
+        </DataTemplate>
+      </views:TabView.TabViewItemDataTemplate>
+      <views:TabView.TabContentDataTemplate>
+        <DataTemplate>
+          <Label HorizontalOptions="Center"
+                 Text="{Binding StringFormat='Tab {0}'}"
+                 TextColor="CornflowerBlue" />
+        </DataTemplate>
+      </views:TabView.TabContentDataTemplate>
+    </views:TabView>
+  </StackLayout>
+</pages:BasePage>

@@ -12,7 +12,7 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
+		[Preserve(AllMembers = true)]
 	[ContentProperty(nameof(TabItems))]
 	public class TabView : ContentView, IDisposable
 	{
@@ -449,6 +449,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (e.PropertyName == TabViewItem.TabWidthProperty.PropertyName)
 					UpdateTabViewItemTabWidth(tabViewItem);
+				else if (e.PropertyName == TabViewItem.ContentProperty.PropertyName)
+					OnPropertyChanged(nameof(ContentTabItems));
 			}
 		}
 
