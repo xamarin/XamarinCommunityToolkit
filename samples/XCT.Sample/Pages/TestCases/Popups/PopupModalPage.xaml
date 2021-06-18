@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.Popups.PopupModalPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.TestCases.Popups">
+    <pages:BasePage.BindingContext>
+        <vm:PopupModalViewModel />
+    </pages:BasePage.BindingContext>
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="20" />
+            </Style>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <ContentPage.Content>
+        <StackLayout Margin="20" VerticalOptions="Center">
+            <Label HorizontalTextAlignment="Center" Text="In a Modal, ShowPopup should work on Android and iOS" />
+            <Button Command="{Binding ShowPopup}" Text="Show Popup" />
+            <Button Command="{Binding PushModal}" Text="Push new modal" />
+            <Button Command="{Binding PopModal}" Text="Dismiss modal" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
