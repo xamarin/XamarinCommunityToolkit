@@ -6,6 +6,9 @@
                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
   <pages:BasePage.Resources>
+
+    <xct:ValidationGroup x:Key="ValidationGroup" />
+
     <Style x:Key="InvalidEntryStyle" TargetType="Entry">
       <Setter Property="TextColor" Value="Red" />
     </Style>
@@ -15,15 +18,11 @@
                Spacing="25"
                VerticalOptions="StartAndExpand">
 
-    <StackLayout.Behaviors>
-      <xct:ValidationGroupBehavior x:Name="ValidationGroup" />
-    </StackLayout.Behaviors>
-
     <Label Text="Name (required):" />
     <Entry Placeholder="e.g. John Doe">
       <Entry.Behaviors>
         <xct:CharactersValidationBehavior Flags="ValidateOnAttaching,ValidateOnValueChanging"
-                                          Group="{Reference ValidationGroup}"
+                                          Group="{StaticResource ValidationGroup}"
                                           MinimumCharacterCount="3" />
       </Entry.Behaviors>
     </Entry>
@@ -31,7 +30,7 @@
     <Label Text="Email (required):" />
     <Entry Placeholder="e.g. john@doe.com">
       <Entry.Behaviors>
-        <xct:MultiValidationBehavior Group="{Reference ValidationGroup}">
+        <xct:MultiValidationBehavior Flags="ValidateOnAttaching,ValidateOnValueChanging" Group="{StaticResource ValidationGroup}">
           <xct:CharactersValidationBehavior MinimumCharacterCount="3" />
           <xct:EmailValidationBehavior />
         </xct:MultiValidationBehavior>
@@ -39,7 +38,7 @@
     </Entry>
 
     <Label Text="Fill in all fields before button is enabled" />
-    <Button x:Name="SubmitButton" IsEnabled="{Binding Source={Reference ValidationGroup}, Path=IsValid}">
+    <Button x:Name="SubmitButton" IsEnabled="{Binding Source={StaticResource ValidationGroup}, Path=IsValid}">
       <Button.Triggers>
         <DataTrigger Binding="{Binding IsEnabled, Source={Reference SubmitButton}}"
                      TargetType="Button"

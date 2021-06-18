@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 				"Set focus to another element when an entry is completed"),
 			new SectionModel(
 				typeof(ValidationGroupBehaviorPage),
-				nameof(ValidationGroupBehavior),
+				nameof(ValidationGroup),
 				"Validates a group of validation behaviors"),
 		};
 	}

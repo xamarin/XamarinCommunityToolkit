@@ -5,12 +5,12 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	[Preserve(AllMembers = true)]
-	public class ValidationGroupBehavior : Behavior<View>
+		[Preserve(AllMembers = true)]
+	public class ValidationGroup : BindableObject
 	{
 		readonly IList<ValidationBehavior> validationBehaviors = new List<ValidationBehavior>();
 
-		public static readonly BindableProperty IsValidProperty = BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(ValidationGroupBehavior), false, BindingMode.OneWayToSource);
+		public static readonly BindableProperty IsValidProperty = BindableProperty.Create(nameof(IsValid), typeof(bool), typeof(ValidationGroup), false, BindingMode.OneWayToSource);
 
 		/// <summary>
 		/// Indicates if group of validations are all valid.
