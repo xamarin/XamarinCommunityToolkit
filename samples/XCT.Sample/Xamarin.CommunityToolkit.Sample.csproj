@@ -39,6 +39,12 @@
   </ItemGroup>
   
   <ItemGroup>
+    <EmbeddedResource Update="Pages\TestCases\Popups\PopupModalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\TestCases\Popups\SimplePopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <DependentUpon>AppResources.resx</DependentUpon>
