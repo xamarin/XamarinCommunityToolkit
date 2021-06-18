@@ -22,6 +22,12 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Update="Pages\TestCases\TabViewItemBindingView.xaml.cs">
+      <DependentUpon>TabViewItemBindingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\TestCases\TabViewBindingPage.xaml.cs">
+      <DependentUpon>TabViewBindingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -30,6 +36,12 @@
   </ItemGroup>
   
   <ItemGroup>
+    <EmbeddedResource Update="Pages\TestCases\Popups\PopupModalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\TestCases\Popups\SimplePopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <DependentUpon>AppResources.resx</DependentUpon>

@@ -578,7 +578,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tabViewItem == null || tabViewItem.Content == null)
 				return;
 
-			tabViewItem.Content.BindingContext = BindingContext;
+			tabViewItem.Content.BindingContext ??= BindingContext;
 		}
 
 		void AddSelectionTapRecognizer(View view)
@@ -820,7 +820,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					var selectionChangedArgs = new TabSelectionChangedEventArgs()
 					{
 						NewPosition = newPosition,
-						OldPosition = SelectedIndex
+						OldPosition = oldposition
 					};
 
 					OnTabSelectionChanged(selectionChangedArgs);
