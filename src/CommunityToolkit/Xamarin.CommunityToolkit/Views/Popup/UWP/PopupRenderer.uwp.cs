@@ -299,7 +299,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Element = null;
 				Control = null;
 
-				Closed -= OnClosing;
+				Closing -= OnClosing;
 				Opened -= OnOpened;
 			}
 
