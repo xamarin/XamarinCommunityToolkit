@@ -6,7 +6,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="20">            
+            <StackLayout x:Name="mainLayout" Padding="20">            
                 <Label Text="I have no heading" xct:SemanticEffect.HeadingLevel="None"/>
                 <Label Text="I am a heading 1" xct:SemanticEffect.HeadingLevel="Level1"/>
                 <Label Text="I am a heading 2" xct:SemanticEffect.HeadingLevel="Level2"/>
@@ -29,6 +29,8 @@
                 <Image
                     Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"
                     xct:SemanticEffect.Description="This is a description that describes the image. For example, 'image of xamarin community toolkit logo'"/>
+
+                <Button Text="Hide all above content from a11y" Clicked="HideButton_Clicked" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

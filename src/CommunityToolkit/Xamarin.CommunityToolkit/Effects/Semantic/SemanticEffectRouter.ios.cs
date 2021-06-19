@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Effects.Semantic;
 using Xamarin.Forms;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
@@ -25,6 +26,23 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				view.AccessibilityTraits |= UIAccessibilityTrait.Header;
 			else
 				view.AccessibilityTraits &= ~UIAccessibilityTrait.Header;
+
+			var a11yVisibility = SemanticEffect.GetA11yVisibility(Element);
+			switch (a11yVisibility)
+			{
+				case ImportantForA11y.Auto:
+					view.AccessibilityElementsHidden = false;
+					break;
+				case ImportantForA11y.Yes:
+					view.IsAccessibilityElement = true;
+					break;
+				case ImportantForA11y.No:
+					view.IsAccessibilityElement = false;
+					break;
+				case ImportantForA11y.NoHideDescendants:
+					view.AccessibilityElementsHidden = true;
+					break;
+			}
 
 			var desc = SemanticEffect.GetDescription(Element);
 			var hint = SemanticEffect.GetHint(Element);
