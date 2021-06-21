@@ -372,7 +372,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (color.IsDefault)
 				children.ForEach(c => c.SetTextColor(labelTextColorDefault));
 			else
-				children.ForEach(c => c.SetTextColor(color.ToAndroid()));
+				var androidColor = color.ToAndroid();
+				children.ForEach(c => c.SetTextColor(androidColor));
 		}
 
 		void UpdateFont()
