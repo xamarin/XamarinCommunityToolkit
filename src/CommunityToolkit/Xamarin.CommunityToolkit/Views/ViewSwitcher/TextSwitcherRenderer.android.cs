@@ -372,8 +372,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (color.IsDefault)
 				children.ForEach(c => c.SetTextColor(labelTextColorDefault));
 			else
+			{
 				var androidColor = color.ToAndroid();
 				children.ForEach(c => c.SetTextColor(androidColor));
+			}
 		}
 
 		void UpdateFont()
@@ -430,8 +432,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if ((int)Build.VERSION.SdkInt >= 21)
 			{
 				// 0.0624 - Coefficient for converting Pt to Em
-				var characterSpacing =  (float)(Element.CharacterSpacing * 0.0624);
-				children.ForEach(c => c.LetterSpacing = characterSpacing );
+				var characterSpacing = (float)(Element.CharacterSpacing * 0.0624);
+				children.ForEach(c => c.LetterSpacing = characterSpacing);
 			}
 		}
 
