@@ -12,19 +12,20 @@ using Android.Views.Animations;
 using AndroidX.Core.View;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.Extensions.Internals;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.FastRenderers;
 using static Android.Widget.TextView;
+using Animation = Android.Views.Animations.Animation;
 using ATextSwitcher = Android.Widget.TextSwitcher;
 using AView = Android.Views.View;
 using AViewSwitcher = Android.Widget.ViewSwitcher;
-using Animation = Android.Views.Animations.Animation;
 using Color = Xamarin.Forms.Color;
-using Size = Xamarin.Forms.Size;
 using Res = Android.Resource;
+using Size = Xamarin.Forms.Size;
 
 // Copied from Xamarin.Forms (LabelRenderer - Fast Renderer)
 [assembly: ExportRenderer(typeof(TextSwitcher), typeof(TextSwitcherRenderer))]
@@ -41,6 +42,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		int? defaultLabelFor;
 		bool disposed;
 		TextSwitcher element;
+
+		readonly WeakEventManager<VisualElementChangedEventArgs> elementChangedEventManager = new();
+		readonly WeakEventManager<PropertyChangedEventArgs> elementPropertyChangedEventManager = new();
 
 		// Do not dispose _labelTextColorDefault
 		readonly ColorStateList labelTextColorDefault;
@@ -75,9 +79,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BackgroundManager.Init(this);
 		}
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs> ElementChanged
+		{
+			add => elementChangedEventManager.AddEventHandler(value);
+			remove => elementChangedEventManager.RemoveEventHandler(value);
+		}
 
-		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged;
+		public event EventHandler<PropertyChangedEventArgs> ElementPropertyChanged
+		{
+			add => elementPropertyChangedEventManager.AddEventHandler(value);
+			remove => elementPropertyChangedEventManager.RemoveEventHandler(value);
+		}
 
 		VisualElement IVisualElementRenderer.Element => Element;
 
@@ -196,9 +208,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IVisualElementRenderer.SetLabelFor(int? id)
 		{
-			if (defaultLabelFor == null)
-				defaultLabelFor = ViewCompat.GetLabelFor(this);
-
+			defaultLabelFor ??= ViewCompat.GetLabelFor(this);
 			ViewCompat.SetLabelFor(this, (int)(id ?? defaultLabelFor));
 		}
 
@@ -280,7 +290,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected virtual void OnElementChanged(ElementChangedEventArgs<Label> e)
 		{
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			elementChangedEventManager.RaiseEvent(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement), nameof(ElementChanged));
 
 			if (e.OldElement != null)
 			{
@@ -292,10 +302,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				this.EnsureId();
 
-				if (visualElementTracker == null)
-				{
-					visualElementTracker = new VisualElementTracker(this);
-				}
+				visualElementTracker ??= new VisualElementTracker(this);
 
 				e.NewElement.PropertyChanged += OnElementPropertyChanged;
 
@@ -320,11 +327,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (this.IsDisposed())
-			{
 				return;
-			}
 
-			ElementPropertyChanged?.Invoke(this, e);
+			elementPropertyChangedEventManager.RaiseEvent(this, e, nameof(ElementPropertyChanged));
 
 			if (Control?.LayoutParameters == null && hasLayoutOccurred)
 				return;

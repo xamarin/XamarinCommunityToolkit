@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
 
@@ -55,7 +54,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnElementChanged(object sender, VisualElementChangedEventArgs e)
 		{
-			Performance.Start(out var reference);
 			if (e.OldElement != null)
 			{
 				e.OldElement.PropertyChanged -= OnElementPropertyChanged;
@@ -68,22 +66,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				UpdateBackgroundColor(renderer?.View, renderer?.Element);
 				UpdateBackground(renderer?.View, renderer?.Element);
 			}
-
-			Performance.Stop(reference);
 		}
 
 		static void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
+			var renderer = sender as IVisualElementRenderer;
+
 			if (e.PropertyName == VisualElement.BackgroundColorProperty.PropertyName)
-			{
-				var renderer = sender as IVisualElementRenderer;
 				UpdateBackgroundColor(renderer?.View, renderer?.Element);
-			}
 			else if (e.PropertyName == VisualElement.BackgroundProperty.PropertyName)
-			{
-				var renderer = sender as IVisualElementRenderer;
 				UpdateBackground(renderer?.View, renderer?.Element);
-			}
 		}
 	}
 }
