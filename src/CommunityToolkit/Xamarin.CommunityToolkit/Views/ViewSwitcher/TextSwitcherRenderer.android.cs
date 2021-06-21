@@ -419,7 +419,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			Label label = Element;
 
-			children.ForEach(c => c.Gravity = label.HorizontalTextAlignment.ToHorizontalGravityFlags() | label.VerticalTextAlignment.ToVerticalGravityFlags());
+			var gravity = label.HorizontalTextAlignment.ToHorizontalGravityFlags() | label.VerticalTextAlignment.ToVerticalGravityFlags();
+			children.ForEach(c => c.Gravity = gravity);
 
 			lastSizeRequest = null;
 		}
