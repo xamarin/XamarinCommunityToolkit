@@ -367,8 +367,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!isAnimated)
 			{
 				TryUpdateShift(end, false);
-				SetOverlayViewInputTransparent(state);
-				weakEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
+				ChangeMenuState(state);
 				return;
 			}
 
@@ -380,8 +379,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			if (animationLength == 0)
 			{
-				SetOverlayViewInputTransparent(state);
-				weakEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
+				ChangeMenuState(state);
 				return;
 			}
 
@@ -393,15 +391,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (isCanceled)
 					return;
 
-				SetOverlayViewInputTransparent(state);
-				weakEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
+				ChangeMenuState(state);
 			});
 		}
 
-		void SetOverlayViewInputTransparent(SideMenuState state)
+		void ChangeMenuState(SideMenuState state)
 		{
 			_ = overlayView ?? throw new NullReferenceException();
 			overlayView.InputTransparent = state == SideMenuState.MainViewShown;
+
+			weakEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
 		}
 
 		SideMenuState ResolveSwipeState(bool isRightSwipe)
