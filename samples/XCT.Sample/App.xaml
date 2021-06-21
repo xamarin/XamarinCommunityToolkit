@@ -101,8 +101,8 @@
         <!--  Content templates  -->
         <ControlTemplate x:Key="GalleryPageTemplate">
             <StackLayout Spacing="0">
-                <CollectionView ItemsSource="{TemplateBinding BindingContext.FilteredItems}">
-                    <CollectionView.Header>
+                <ListView ItemsSource="{TemplateBinding BindingContext.FilteredItems}" SelectionMode="None">
+                    <ListView.Header>
                         <ContentView Padding="20,12">
                             <Entry
                                 HeightRequest="40"
@@ -113,36 +113,38 @@
                                 Text="{TemplateBinding BindingContext.FilterValue,
                                                        Mode=OneWayToSource}" />
                         </ContentView>
-                    </CollectionView.Header>
-                    <CollectionView.Footer>
+                    </ListView.Header>
+                    <ListView.Footer>
                         <BoxView HeightRequest="32" />
-                    </CollectionView.Footer>
-                    <CollectionView.ItemTemplate>
+                    </ListView.Footer>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid Padding="20,12">
-                                <custom:PancakeView Style="{StaticResource card}">
-                                    <custom:PancakeView.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding .}" />
-                                    </custom:PancakeView.GestureRecognizers>
-                                    <Grid ColumnSpacing="20">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="12" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <BoxView BackgroundColor="{Binding DetailColor, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" />
-                                        <StackLayout
+                            <ViewCell>
+                                <Grid Padding="20,12">
+                                    <custom:PancakeView Style="{StaticResource card}">
+                                        <custom:PancakeView.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding .}" />
+                                        </custom:PancakeView.GestureRecognizers>
+                                        <Grid ColumnSpacing="20">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="12" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <BoxView BackgroundColor="{Binding DetailColor, Source={x:RelativeSource AncestorType={x:Type ContentPage}}}" />
+                                            <StackLayout
                                             Grid.Column="1"
                                             Padding="0,24,24,24"
                                             Spacing="8">
-                                            <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
-                                            <Label Text="{Binding Description}" />
-                                        </StackLayout>
-                                    </Grid>
-                                </custom:PancakeView>
-                            </Grid>
+                                                <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
+                                                <Label Text="{Binding Description}" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </custom:PancakeView>
+                                </Grid>
+                            </ViewCell>
                         </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </ControlTemplate>
 
