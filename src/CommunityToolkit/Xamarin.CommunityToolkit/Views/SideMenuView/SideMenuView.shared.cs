@@ -364,6 +364,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var menuWidth = (state == SideMenuState.LeftMenuShown ? leftMenu : rightMenu)?.Width ?? 0;
 			var end = -Sign((int)state) * menuWidth;
 
+			weakEventManager.RaiseEvent(this, new SideMenuStateChangingEventArgs(State), nameof(StateChanging));
+
 			if (!isAnimated)
 			{
 				TryUpdateShift(end, false);
@@ -382,8 +384,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ChangeMenuState(state);
 				return;
 			}
-
-			weakEventManager.RaiseEvent(this, new SideMenuStateChangingEventArgs(State), nameof(StateChanging));
 
 			var animation = new Animation(v => TryUpdateShift(v, false), Shift, end);
 			mainView.Animate(animationName, animation, animationRate, animationLength, animationEasing, (v, isCanceled) =>
