@@ -429,7 +429,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if ((int)Build.VERSION.SdkInt >= 21)
 			{
 				// 0.0624 - Coefficient for converting Pt to Em
-				children.ForEach(c => c.LetterSpacing = (float)(Element.CharacterSpacing * 0.0624));
+				var characterSpacing =  (float)(Element.CharacterSpacing * 0.0624);
+				children.ForEach(c => c.LetterSpacing = characterSpacing );
 			}
 		}
 
