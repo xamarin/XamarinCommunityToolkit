@@ -21,9 +21,8 @@ using Xamarin.Forms.Internals;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.Extensions.Internals;
 using System.Threading.Tasks;
-using System.Reflection;
-using System.Linq;
 using Android.Views.Animations;
+using ImageRenderer = Xamarin.Forms.Platform.Android.FastRenderers.ImageRenderer;
 
 // Copied from Xamarin.Forms (ImageRenderer - Fast Renderer)
 [assembly: ExportRenderer(typeof(ImageSwitcher), typeof(ImageSwitcherRenderer))]
@@ -37,26 +36,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #pragma warning disable CS8604 // Possible null reference argument.
 	public class ImageSwitcherRenderer : AImageSwitcher, IVisualElementRenderer, IViewRenderer, ITabStop, AViewSwitcher.IViewFactory
 	{
-		static readonly Type? imageViewExtensionsType = typeof(VisualElementTracker).Assembly.GetType("Xamarin.Forms.Platform.Android.ImageViewExtensions");
-
-		static readonly MethodInfo? updateBitmapMethod = imageViewExtensionsType?.GetRuntimeMethods()?.FirstOrDefault(m =>
-		{
-			if (m.Name != "UpdateBitmap")
-				return false;
-
-			var parameters = m.GetParameters();
-			return parameters.Length == 3 && parameters.Any(p => p.ParameterType == typeof(IImageElement));
-		});
-
-		bool skipInvalidate;
 		bool disposed;
 		ImageSwitcher element;
 		int? defaultLabelFor;
 		VisualElementTracker visualElementTracker;
 		VisualElementRenderer visualElementRenderer;
 		readonly MotionEventHelper motionEventHelper = new();
-		readonly AImageView[] children = new AImageView[2];
-		readonly Stack<AImageView> childrenStack = new();
+		readonly ImageRenderer[] children = new ImageRenderer[2];
+		readonly Stack<ImageRenderer> childrenStack = new();
 
 		readonly WeakEventManager<VisualElementChangedEventArgs> elementChangedEventManager = new();
 		readonly WeakEventManager<PropertyChangedEventArgs> elementPropertyChangedEventManager = new();
@@ -64,8 +51,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public ImageSwitcherRenderer(Context context)
 			: base(context)
 		{
-			childrenStack.Push(children[0] = new AImageView(Context));
-			childrenStack.Push(children[1] = new AImageView(Context));
+			childrenStack.Push(children[0] = new ImageRenderer(Context));
+			childrenStack.Push(children[1] = new ImageRenderer(Context));
 			SetFactory(this);
 		}
 
@@ -85,17 +72,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				BackgroundManager.Dispose(this);
 
-				if (visualElementTracker != null)
-				{
-					visualElementTracker.Dispose();
-					visualElementTracker = null;
-				}
+				visualElementTracker?.Dispose();
+				visualElementTracker = null;
 
-				if (visualElementRenderer != null)
-				{
-					visualElementRenderer.Dispose();
-					visualElementRenderer = null;
-				}
+				visualElementRenderer?.Dispose();
+				visualElementRenderer = null;
 
 				children.ForEach(c => c.Dispose());
 
@@ -112,50 +93,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Draw(canvas);
 		}
 
-		protected virtual async void OnElementChanged(ElementChangedEventArgs<Image> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<Image> e)
 		{
 			this.EnsureId();
 			elementChangedEventManager.RaiseEvent(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement), nameof(ElementChanged));
 
 			if (e.OldElement != null)
-			{
 				e.OldElement.PropertyChanged -= OnElementPropertyChanged;
-				this.MaybeRequestLayout();
-			}
 
 			if (e.NewElement != null)
 			{
-				await TryUpdateBitmap(e.OldElement);
 				UpdateTransition();
-				UpdateAspect();
+				children.ForEach(c => ((IVisualElementRenderer)c).SetElement(e.NewElement));
 			}
 		}
 
-		protected virtual async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (this.IsDisposed())
 				return;
 
 			elementPropertyChangedEventManager.RaiseEvent(this, e, nameof(ElementPropertyChanged));
 
-			if (e.PropertyName == Image.SourceProperty.PropertyName)
-				await TryUpdateBitmap();
-			else if (e.PropertyName == Image.AspectProperty.PropertyName)
-				UpdateAspect();
-			else if (e.PropertyName == ViewSwitcher.TransitionDurationProperty.PropertyName ||
+			if (e.PropertyName == ViewSwitcher.TransitionDurationProperty.PropertyName ||
 				e.PropertyName == ViewSwitcher.TransitionTypeProperty.PropertyName)
 				UpdateTransition();
-		}
-
-		public override void Invalidate()
-		{
-			if (skipInvalidate)
-			{
-				skipInvalidate = false;
-				return;
-			}
-
-			base.Invalidate();
 		}
 
 		public override bool OnTouchEvent(MotionEvent? e)
@@ -166,39 +128,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			return motionEventHelper.HandleMotionEvent(Parent, e);
-		}
-
-		async Task TryUpdateBitmap(Image previous = null)
-		{
-			if (Element == null ||
-				Control == null ||
-				Control.IsDisposed() ||
-				NextView is not AImageView nextView)
-			{
-				return;
-			}
-
-			try
-			{
-				Element.SetIsLoading(true);
-
-				skipInvalidate = true;
-				nextView.SetImageDrawable(null);
-				nextView.SetImageResource(Res.Color.Transparent);
-				var source = Element.Source;
-
-				var result = updateBitmapMethod?.Invoke(null, new object[] { nextView, Element, previous });
-				if (result is Task task)
-					await task.ConfigureAwait(false);
-			}
-			catch (Exception ex)
-			{
-				Log.Warning(nameof(ImageSwitcherRenderer), "Error loading image: {0}", ex);
-			}
-			finally
-			{
-				Element?.SetIsLoading(false);
-			}
 		}
 
 		void UpdateTransition()
@@ -227,17 +156,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			InAnimation = inAnimation;
 			OutAnimation = outAnimation;
-		}
-
-		void UpdateAspect()
-		{
-			if (Element == null || Control == null || Control.IsDisposed())
-			{
-				return;
-			}
-
-			var type = Element.Aspect.ToScaleType();
-			children.ForEach(c => c.SetScaleType(type));
 		}
 
 		Size MinimumSize() => default;
