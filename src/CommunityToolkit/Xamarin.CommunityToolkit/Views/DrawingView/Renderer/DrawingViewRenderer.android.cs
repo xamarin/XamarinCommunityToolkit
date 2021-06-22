@@ -65,6 +65,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected override void OnSizeChanged(int w, int h, int oldw, int oldh)
 		{
+			const int minW = 1;
+			const int minH = 1;
+			w = w < minW ? minW : w;
+			h = h < minH ? minH : h;
 			base.OnSizeChanged(w, h, oldw, oldh);
 
 			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
