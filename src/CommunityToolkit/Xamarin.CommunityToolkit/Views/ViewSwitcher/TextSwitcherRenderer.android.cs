@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		VisualElementRenderer visualElementRenderer;
 
 		readonly FormsTextView[] children = new FormsTextView[2];
-		readonly Stack<FormsTextView> childrenStak = new();
+		readonly Stack<FormsTextView> childrenStack = new();
 
 		readonly MotionEventHelper motionEventHelper = new();
 		SpannableString spannableString;
@@ -70,8 +70,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public TextSwitcherRenderer(Context context)
 			: base(context)
 		{
-			childrenStak.Push(children[0] = new FormsTextView(Context));
-			childrenStak.Push(children[1] = new FormsTextView(Context));
+			childrenStack.Push(children[0] = new FormsTextView(Context));
+			childrenStack.Push(children[1] = new FormsTextView(Context));
 
 			SetFactory(this);
 			labelTextColorDefault = children[0].TextColors;
@@ -558,7 +558,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public AView? MakeView()
-			=> childrenStak.Pop();
+			=> childrenStack.Pop();
 	}
 #pragma warning restore CS8601 // Possible null reference assignment.
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
