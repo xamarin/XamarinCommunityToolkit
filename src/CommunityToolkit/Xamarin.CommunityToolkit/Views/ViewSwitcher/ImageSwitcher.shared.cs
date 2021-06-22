@@ -2,8 +2,7 @@
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	// TODO: Make it public once Android Renderer is implemeted
-	class ImageSwitcher : Image
+	public class ImageSwitcher : Image
 	{
 		public static readonly BindableProperty TransitionDurationProperty
 			= ViewSwitcher.TransitionDurationProperty;

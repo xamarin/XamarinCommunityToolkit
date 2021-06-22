@@ -11,6 +11,11 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			=> InitializeComponent();
 
 		public ICommand UpdateTextCommand { get; }
-			= new Command<TextSwitcher>(textSwitcher => textSwitcher.Text = Path.GetRandomFileName());
+			= new Command<TextSwitcher>(textSwitcher
+				=> textSwitcher.Text = Path.GetRandomFileName());
+
+		public ICommand UpdateImageCommand { get; }
+			= new Command<ImageSwitcher>(imageSwitcher
+				=> imageSwitcher.Source = (imageSwitcher.Source as FileImageSource)?.File == "xamarinstore.jpg" ? "xamarin_logo.png" : "xamarinstore.jpg");
 	}
 }
