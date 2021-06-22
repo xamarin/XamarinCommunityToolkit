@@ -4,7 +4,6 @@ using System.ComponentModel;
 using Android.Content;
 using Android.Content.Res;
 using Android.Graphics;
-using Android.OS;
 using Android.Text;
 using Android.Util;
 using Android.Views;
@@ -429,7 +428,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateCharacterSpacing()
 		{
-			if ((int)Build.VERSION.SdkInt >= 21)
+			if (ToolkitPlatform.SdkInt >= 21)
 			{
 				// 0.0624 - Coefficient for converting Pt to Em
 				var characterSpacing = (float)(Element.CharacterSpacing * 0.0624);
@@ -474,7 +473,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				switch (Element.TextType)
 				{
 					case TextType.Html:
-						if ((int)Build.VERSION.SdkInt >= 24)
+						if (ToolkitPlatform.SdkInt >= 24)
 						{
 							nextView.SetText(Html.FromHtml(Element.Text ?? string.Empty, FromHtmlOptions.ModeCompact), BufferType.Spannable);
 							ShowNext();
