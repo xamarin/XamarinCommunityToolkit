@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.Extensions.Internals
 			textView.SetMaxLines(label, maxLines);
 		}
 
-		public static void RecalculateSpanPositions(this TextView textView, Label element, SpannableString spannableString, SizeRequest finalSize)
+		public static void RecalculateSpanPositions(this TextView textView, Label? element, SpannableString? spannableString, SizeRequest finalSize)
 		{
 			if (element?.FormattedText?.Spans == null || element.FormattedText.Spans.Count == 0)
 				return;

@@ -31,38 +31,35 @@ using Size = Xamarin.Forms.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-#pragma warning disable CS8603 // Possible null reference return.
-#pragma warning disable SA1000 // Keywords should be spaced correctly
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-#pragma warning disable CS8601 // Possible null reference assignment.
 	public class TextSwitcherRenderer : ATextSwitcher, IVisualElementRenderer, IViewRenderer, ITabStop, AViewSwitcher.IViewFactory
 	{
 		int? defaultLabelFor;
 		bool disposed;
-		TextSwitcher element;
-
-		readonly WeakEventManager<VisualElementChangedEventArgs> elementChangedEventManager = new();
-		readonly WeakEventManager<PropertyChangedEventArgs> elementPropertyChangedEventManager = new();
+		TextSwitcher? element;
 
 		// Do not dispose labelTextColorDefault
-		readonly ColorStateList labelTextColorDefault;
+		readonly ColorStateList? labelTextColorDefault;
 		int lastConstraintHeight;
 		int lastConstraintWidth;
 		SizeRequest? lastSizeRequest;
 		float lastTextSize = -1f;
-		Typeface lastTypeface;
+		Typeface? lastTypeface;
 		Color lastUpdateColor = Color.Default;
 		float lineSpacingExtraDefault = -1.0f;
 		float lineSpacingMultiplierDefault = -1.0f;
-		VisualElementTracker visualElementTracker;
-		VisualElementRenderer visualElementRenderer;
+		VisualElementTracker? visualElementTracker;
+		VisualElementRenderer? visualElementRenderer;
 
 		readonly FormsTextView[] children = new FormsTextView[2];
-		readonly Stack<FormsTextView> childrenStack = new();
 
+#pragma warning disable SA1000 // Keywords should be spaced correctly
+		readonly WeakEventManager<VisualElementChangedEventArgs> elementChangedEventManager = new();
+		readonly WeakEventManager<PropertyChangedEventArgs> elementPropertyChangedEventManager = new();
+		readonly Stack<FormsTextView> childrenStack = new();
 		readonly MotionEventHelper motionEventHelper = new();
-		SpannableString spannableString;
+#pragma warning restore SA1000 // Keywords should be spaced correctly
+
+		SpannableString? spannableString;
 		bool hasLayoutOccurred;
 		bool wasFormatted;
 
@@ -90,17 +87,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			remove => elementPropertyChangedEventManager.RemoveEventHandler(value);
 		}
 
-		VisualElement IVisualElementRenderer.Element => Element;
+		VisualElement? IVisualElementRenderer.Element => Element;
 
-		VisualElementTracker IVisualElementRenderer.Tracker => visualElementTracker;
+		VisualElementTracker? IVisualElementRenderer.Tracker => visualElementTracker;
 
 		AView IVisualElementRenderer.View => this;
 
 		AView ITabStop.TabStop => this;
 
-		ViewGroup IVisualElementRenderer.ViewGroup => null;
+		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
-		protected TextSwitcher Element
+		protected TextSwitcher? Element
 		{
 			get => element;
 			set
@@ -110,7 +107,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				var oldElement = element;
 				element = value;
-				OnElementChanged(new ElementChangedEventArgs<Label>(oldElement, element));
+				OnElementChanged(new ElementChangedEventArgs<Label?>(oldElement, element));
 			}
 		}
 
@@ -256,17 +253,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				BackgroundManager.Dispose(this);
-				if (visualElementTracker != null)
-				{
-					visualElementTracker.Dispose();
-					visualElementTracker = null;
-				}
 
-				if (visualElementRenderer != null)
-				{
-					visualElementRenderer.Dispose();
-					visualElementRenderer = null;
-				}
+				visualElementTracker?.Dispose();
+				visualElementTracker = null;
+
+				visualElementRenderer?.Dispose();
+				visualElementRenderer = null;
 
 				children.ForEach(c => c.Dispose());
 
@@ -279,7 +271,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if (visualElementRenderer.OnTouchEvent(e) || base.OnTouchEvent(e))
+			if ((visualElementRenderer?.OnTouchEvent(e) ?? false) || base.OnTouchEvent(e))
 			{
 				return true;
 			}
@@ -287,7 +279,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return motionEventHelper.HandleMotionEvent(Parent, e);
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<Label> e)
+		protected virtual void OnElementChanged(ElementChangedEventArgs<Label?> e)
 		{
 			elementChangedEventManager.RaiseEvent(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement), nameof(ElementChanged));
 
@@ -363,6 +355,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateColor()
 		{
+			if (Element == null)
+				return;
+
 			var color = Element.TextColor;
 			if (color == lastUpdateColor)
 				return;
@@ -379,6 +374,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateFont()
 		{
+			if (Element == null)
+				return;
+
 #pragma warning disable 618 // We will need to update this when .Font goes away
 			var f = Element.Font;
 #pragma warning restore 618
@@ -400,7 +398,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateTextDecorations()
 		{
-			if (!Element.IsSet(Label.TextDecorationsProperty))
+			if (Element == null || !Element.IsSet(Label.TextDecorationsProperty))
 				return;
 
 			var textDecorations = Element.TextDecorations;
@@ -418,6 +416,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateGravity()
 		{
+			if (Element == null)
+				return;
+
 			Label label = Element;
 
 			var gravity = label.HorizontalTextAlignment.ToHorizontalGravityFlags() | label.VerticalTextAlignment.ToVerticalGravityFlags();
@@ -428,6 +429,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateCharacterSpacing()
 		{
+			if (Element == null)
+				return;
+
 			if (ToolkitPlatform.SdkInt >= 21)
 			{
 				// 0.0624 - Coefficient for converting Pt to Em
@@ -438,18 +442,27 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateLineBreakMode()
 		{
+			if (Element == null)
+				return;
+
 			children.ForEach(c => c.SetLineBreakMode(Element));
 			lastSizeRequest = null;
 		}
 
 		void UpdateMaxLines()
 		{
+			if (Element == null)
+				return;
+
 			children.ForEach(c => c.SetMaxLines(Element));
 			lastSizeRequest = null;
 		}
 
 		void UpdateText()
 		{
+			if (Element == null)
+				return;
+
 			if (NextView is not FormsTextView nextView)
 				return;
 
@@ -475,16 +488,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					case TextType.Html:
 						if (ToolkitPlatform.SdkInt >= 24)
 						{
+#pragma warning disable XA0001 // Html class is available API 24.
 							nextView.SetText(Html.FromHtml(Element.Text ?? string.Empty, FromHtmlOptions.ModeCompact), BufferType.Spannable);
+#pragma warning restore XA0001 // Html class is available API 24.
 							ShowNext();
 						}
 						else
-#pragma warning disable CS0618 // Type or member is obsolete
 						{
+#pragma warning disable CS0618 // Type or member is obsolete
 							nextView.SetText(Html.FromHtml(Element.Text ?? string.Empty), BufferType.Spannable);
+#pragma warning restore CS0618 // Type or member is obsolete
 							ShowNext();
 						}
-#pragma warning restore CS0618 // Type or member is obsolete
 						break;
 
 					default:
@@ -504,6 +519,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateLineHeight()
 		{
+			if (Element == null)
+				return;
+
 			if (lineSpacingExtraDefault < 0)
 				lineSpacingExtraDefault = children[0].LineSpacingExtra;
 			if (lineSpacingMultiplierDefault < 0)
@@ -519,6 +537,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdatePadding()
 		{
+			if (Element == null)
+				return;
+
 			SetPadding(
 				(int)Context.ToPixels(Element.Padding.Left),
 				(int)Context.ToPixels(Element.Padding.Top),
@@ -530,6 +551,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateTransition()
 		{
+			if (Element == null)
+				return;
+
 			Animation? inAnimation = null;
 			Animation? outAnimation = null;
 
@@ -559,9 +583,4 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public AView? MakeView()
 			=> childrenStack.Pop();
 	}
-#pragma warning restore CS8601 // Possible null reference assignment.
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
-#pragma warning restore SA1000 // Keywords should be spaced correctly
-#pragma warning restore CS8603 // Possible null reference return.
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 }
