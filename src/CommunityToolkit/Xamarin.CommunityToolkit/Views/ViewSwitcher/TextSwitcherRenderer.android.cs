@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly WeakEventManager<VisualElementChangedEventArgs> elementChangedEventManager = new();
 		readonly WeakEventManager<PropertyChangedEventArgs> elementPropertyChangedEventManager = new();
 
-		// Do not dispose _labelTextColorDefault
+		// Do not dispose labelTextColorDefault
 		readonly ColorStateList labelTextColorDefault;
 		int lastConstraintHeight;
 		int lastConstraintWidth;
