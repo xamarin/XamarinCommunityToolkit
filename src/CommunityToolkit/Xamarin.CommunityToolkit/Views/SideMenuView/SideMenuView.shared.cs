@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			#endregion
 		}
 
-		readonly WeakEventManager weakEventManager = new WeakEventManager();
+		readonly WeakEventManager weakEventManager = new();
 
 		/// <summary>
 		/// Event that is triggered when the <see cref="SideMenuView"/> state
