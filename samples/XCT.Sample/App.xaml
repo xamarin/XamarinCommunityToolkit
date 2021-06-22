@@ -96,7 +96,7 @@
         <!--  Content templates  -->
         <ControlTemplate x:Key="GalleryPageTemplate">
             <StackLayout Spacing="0">
-                <ListView ItemsSource="{TemplateBinding BindingContext.FilteredItems}" SelectionMode="None">
+                <ListView ItemsSource="{TemplateBinding BindingContext.FilteredItems}" SelectionMode="None" HasUnevenRows="True" SeparatorVisibility="None">
                     <ListView.Header>
                         <ContentView Padding="20,12">
                             <Entry
