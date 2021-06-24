@@ -101,18 +101,20 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			if (sender is not Picker picker)
 				return;
 
+			var segmentedViewModel = (SegmentedViewModel)BindingContext;
+
 			switch (picker.SelectedIndex)
 			{
 				case 1:
 					TextSegments.DisplayMode = SegmentMode.Image;
-					TextSegments.ItemsSource = (BindingContext as SegmentedViewModel)!.IconOptions;
-					(BindingContext as SegmentedViewModel)!.SegmentMode = SegmentMode.Image;
+					TextSegments.ItemsSource = segmentedViewModel.IconOptions;
+					segmentedViewModel.SegmentMode = SegmentMode.Image;
 					break;
 				case 0:
 				default:
 					TextSegments.DisplayMode = SegmentMode.Text;
-					TextSegments.ItemsSource = (BindingContext as SegmentedViewModel)!.Options;
-					(BindingContext as SegmentedViewModel)!.SegmentMode = SegmentMode.Text;
+					TextSegments.ItemsSource = segmentedViewModel.Options;
+					segmentedViewModel.SegmentMode = SegmentMode.Text;
 					break;
 			}
 		}
@@ -145,12 +147,18 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		void Add_Clicked(object sender, System.EventArgs e)
 		{
-			(BindingContext as SegmentedViewModel)!.AddCommand.Execute(int.Parse((sender as Button)!.CommandParameter.ToString()));
+			var button = (Button)sender;
+			var segmentedViewModel = (SegmentedViewModel)BindingContext;
+
+			segmentedViewModel.AddCommand.Execute(int.Parse(button.CommandParameter.ToString()));
 		}
 
 		void Delete_Clicked(object sender, System.EventArgs e)
 		{
-			(BindingContext as SegmentedViewModel)!.RemoveCommand.Execute(int.Parse((sender as Button)!.CommandParameter.ToString()));
+			var button = (Button)sender;
+			var segmentedViewModel = (SegmentedViewModel)BindingContext;
+
+			segmentedViewModel.RemoveCommand.Execute(int.Parse(button.CommandParameter.ToString()));
 		}
 	}
 }
