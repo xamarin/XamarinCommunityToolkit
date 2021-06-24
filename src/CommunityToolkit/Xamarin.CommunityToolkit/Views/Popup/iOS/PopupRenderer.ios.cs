@@ -133,7 +133,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetViewController()
 		{
-			var currentPageRenderer = Platform.GetRenderer(Application.Current.MainPage);
+			IVisualElementRenderer currentPageRenderer;
+			var modalStackCount = Application.Current.MainPage?.Navigation?.ModalStack?.Count ?? 0;
+			var mainPage = Application.Current.MainPage;
+			if (modalStackCount > 0)
+			{
+				var index = modalStackCount - 1;
+				currentPageRenderer = Platform.GetRenderer(mainPage!.Navigation!.ModalStack![index]);
+			}
+			else
+			{
+				currentPageRenderer = Platform.GetRenderer(mainPage);
+			}
 			ViewController = currentPageRenderer.ViewController;
 		}
 
