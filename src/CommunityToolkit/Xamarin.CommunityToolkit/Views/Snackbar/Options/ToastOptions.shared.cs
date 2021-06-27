@@ -26,6 +26,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		public static Color DefaultBackgroundColor { get; set; } = Color.Default;
 
 		/// <summary>
+		/// Corner radius
+		/// </summary>
+		public Thickness CornerRadius { get; set; } = DefaultCornerRadius;
+
+		public static Thickness DefaultCornerRadius { get; set; } = new Thickness(20, 20, 20, 20);
+
+		/// <summary>
 		/// Is Right to left
 		/// </summary>
 		public bool IsRtl { get; set; } = DefaultIsRtl;

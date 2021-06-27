@@ -6,6 +6,7 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
+using Android.Graphics.Drawables;
 #if MONOANDROID10_0
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
@@ -27,10 +28,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				snackBar.SetAnchorView(renderer.View);
 			}
 
+			var shape = snackBar.View.Background as GradientDrawable;
 			if (arguments.BackgroundColor != Forms.Color.Default)
 			{
-				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
+				shape?.SetColor(arguments.BackgroundColor.ToAndroid().ToArgb());
 			}
+
+			shape?.SetCornerRadii(new float[]
+			{
+				(float)arguments.CornerRadius.Left, (float)arguments.CornerRadius.Left,
+				(float)arguments.CornerRadius.Top, (float)arguments.CornerRadius.Top,
+				(float)arguments.CornerRadius.Right, (float)arguments.CornerRadius.Right,
+				(float)arguments.CornerRadius.Bottom, (float)arguments.CornerRadius.Bottom
+			});
+			snackBarView.SetBackground(shape);
 
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text) ?? throw new NullReferenceException();
 			snackTextView.SetMaxLines(10);
