@@ -59,6 +59,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 			StackView.Axis = UILayoutConstraintAxis.Horizontal;
 			StackView.TranslatesAutoresizingMaskIntoConstraints = false;
 			StackView.Spacing = SnackBar.Layout.Spacing;
+			StackView.Layer.CornerRadius = 4;
+			StackView.Layer.MasksToBounds = true;
+			StackView.ClipsToBounds = true;
 
 			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor)
 			{

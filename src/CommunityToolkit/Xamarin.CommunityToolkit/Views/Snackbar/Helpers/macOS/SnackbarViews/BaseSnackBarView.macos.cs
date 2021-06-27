@@ -60,6 +60,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor && StackView.Layer != null)
 			{
 				StackView.Layer.BackgroundColor = SnackBar.Appearance.Background.CGColor;
+				StackView.Layer.CornerRadius = 4;
+				StackView.Layer.MasksToBounds = true;
 			}
 
 			StackView.Orientation = NSUserInterfaceLayoutOrientation.Horizontal;
