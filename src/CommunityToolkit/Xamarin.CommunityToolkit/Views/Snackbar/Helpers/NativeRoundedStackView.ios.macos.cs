@@ -2,12 +2,14 @@
 using System.Threading.Tasks;
 using CoreAnimation;
 using CoreGraphics;
+using Xamarin.Forms;
 #if __IOS__
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS;
 using UIKit;
 #elif __MACOS__
 using CoreGraphics;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.Extensions;
 using AppKit;
 #endif
 
@@ -19,41 +21,64 @@ namespace Xamarin.CommunityToolkit.Views.Snackbar.Helpers
 	class NativeRoundedStackView : NSStackView
 #endif
 	{
-		public NativeRoundedStackView(nfloat cornerWidth, nfloat cornerHeight)
-		{
-			CornerWidth = cornerWidth;
-			CornerHeight = cornerHeight;
-#if __IOS__
-			ClipsToBounds = true;
-#else
-			WantsLayer = true;
-#endif
+		public nfloat Left { get; }
 
-			SetCornerRadius(Bounds);
+		public nfloat Top { get; }
+
+		public nfloat Right { get; }
+
+		public nfloat Bottom { get; }
+
+		public NativeRoundedStackView(nfloat left, nfloat top, nfloat right, nfloat bottom)
+		{
+			Left = left;
+			Top = top;
+			Right = right;
+			Bottom = bottom;
 		}
 
-		public nfloat CornerWidth{ get; }
+#if __IOS__
+		public override void Draw(CGRect rect)
+		{
+			ClipsToBounds = true;
+#else
+		public override void DrawRect(CGRect rect)
+		{
+			WantsLayer = true;
+#endif
+			var path = GetRoundedPath(rect, Left, Top, Right, Bottom);
+			var maskLayer = new CAShapeLayer { Frame = rect, Path = path };
+			Layer!.Mask = maskLayer;
+			Layer.MasksToBounds = true;
+		}
 
-		public nfloat CornerHeight { get; }
-
-		void SetCornerRadius(CGRect rect)
+		CGPath? GetRoundedPath(CGRect rect, nfloat left, nfloat top, nfloat right, nfloat bottom)
 		{
 #if __IOS__
-			var path = UIBezierPath.FromRoundedRect(rect, UIRectCorner.AllCorners, new CGSize(CornerWidth, CornerHeight)).CGPath;
+			var path = new UIBezierPath();
 #else
-			var path = CGPath.FromRoundedRect(rect, CornerWidth, CornerHeight);
+			var path = new NSBezierPath();
 #endif
+			path.MoveTo(new CGPoint(rect.Width - right, rect.Y));
 
-			var maskLayer = new CAShapeLayer();
+			path.AddArc(new CGPoint((float)rect.X + rect.Width - right, (float)rect.Y + right), (nfloat)right, (float)(Math.PI * 1.5), (float)Math.PI * 2, true);
+			path.AddLineTo(new CGPoint(rect.Width, rect.Height - bottom));
 
-			maskLayer.Frame = rect;
+			path.AddArc(new CGPoint((float)rect.X + rect.Width - bottom, (float)rect.Y + rect.Height - bottom), (nfloat)bottom, 0, (float)(Math.PI * .5), true);
+			path.AddLineTo(new CGPoint(left, rect.Height));
 
-			maskLayer.Path = path;
+			path.AddArc(new CGPoint((float)rect.X + left, (float)rect.Y + rect.Height - left), (nfloat)left, (float)(Math.PI * .5), (float)Math.PI, true);
+			path.AddLineTo(new CGPoint(rect.X, top));
 
-			Layer!.Mask = maskLayer;
+			path.AddArc(new CGPoint((float)rect.X + top, (float)rect.Y + top), (nfloat)top, (float)Math.PI, (float)(Math.PI * 1.5), true);
 
-			Layer.MasksToBounds = true;
+			path.ClosePath();
 
-	}
+#if __IOS__
+			return path.CGPath;
+#else
+			return path.ToCGPath();
+#endif
+		}
 	}
 }

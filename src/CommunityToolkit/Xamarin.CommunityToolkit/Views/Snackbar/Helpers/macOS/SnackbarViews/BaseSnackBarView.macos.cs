@@ -1,5 +1,7 @@
 ﻿using System;
 using AppKit;
+using CoreGraphics;
+using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
@@ -13,13 +15,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 
 		protected NativeSnackBar SnackBar { get; }
 
-		protected NSStackView? StackView { get; set; }
+		protected NativeRoundedStackView? StackView { get; set; }
 
 		public void Dismiss() => RemoveFromSuperview();
 
-		public void Setup()
+		public void Setup(CGRect cornerRadius)
 		{
-			Initialize();
+			Initialize(cornerRadius);
 			ConstraintInParent();
 		}
 
@@ -48,9 +50,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 			StackView.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
 		}
 
-		protected virtual void Initialize()
+		protected virtual void Initialize(CGRect cornerRadius)
 		{
-			StackView = new NSStackView
+			StackView = new NativeRoundedStackView(cornerRadius.Left, cornerRadius.Top, cornerRadius.Right, cornerRadius.Bottom)
 			{
 				WantsLayer = true
 			};
@@ -60,8 +62,6 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor && StackView.Layer != null)
 			{
 				StackView.Layer.BackgroundColor = SnackBar.Appearance.Background.CGColor;
-				StackView.Layer.CornerRadius = 4;
-				StackView.Layer.MasksToBounds = true;
 			}
 
 			StackView.Orientation = NSUserInterfaceLayoutOrientation.Horizontal;

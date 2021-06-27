@@ -112,6 +112,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					Padding = new Thickness(10, 20, 30, 40),
 					Message = SmileIcon
 				},
+				CornerRadius = new Thickness(10,20,30,40),
 				Duration = TimeSpan.FromMilliseconds(5000),
 				BackgroundColor = Color.Coral,
 				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,

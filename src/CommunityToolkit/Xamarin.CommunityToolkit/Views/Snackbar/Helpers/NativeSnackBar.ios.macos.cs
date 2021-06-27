@@ -2,33 +2,46 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
 using Foundation;
+#if __IOS__
 using UIKit;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
+using AnchorView = UIKit.UIView;
+#else
+using AppKit;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS;
+using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews;
+using AnchorView = AppKit.NSView;
+#endif
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
+using Xamarin.Forms;
 
-namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 {
 	class NativeSnackBar
 	{
 		NSTimer? timer;
 
-		public List<NativeSnackButton> Actions { get; protected set; } = new List<NativeSnackButton>();
+		public List<NativeSnackButton> Actions { get; protected set; } = new ();
 
 		public Func<Task>? TimeoutAction { get; protected set; }
 
-		public NativeSnackBarAppearance Appearance { get; protected set; } = new NativeSnackBarAppearance();
+		public NativeSnackBarAppearance Appearance { get; protected set; } = new ();
 
 		public TimeSpan Duration { get; protected set; }
 
-		public SnackBarLayout Layout { get; } = new SnackBarLayout();
+		public SnackBarLayout Layout { get; } = new ();
 
 		public string Message { get; protected set; } = string.Empty;
 
-		public UIView? Anchor { get; protected set; }
+		public AnchorView? Anchor { get; protected set; }
 
 		protected BaseSnackBarView? SnackBarView { get; set; }
+
+		public CGRect CornerRadius { get; set; } = new CGRect(20, 20, 20, 20);
 
 		public void Dismiss()
 		{
@@ -56,9 +69,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			return this;
 		}
 
-		public NativeSnackBar SetAnchor(UIView anchor)
+		public NativeSnackBar SetAnchor(AnchorView anchor)
 		{
 			Anchor = anchor;
+			return this;
+		}
+
+		public NativeSnackBar SetCornerRadius(Thickness cornerRadius)
+		{
+			CornerRadius = new CGRect(cornerRadius.Left, cornerRadius.Top, cornerRadius.Right, cornerRadius.Bottom);
 			return this;
 		}
 
@@ -68,9 +87,10 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			SnackBarView.AnchorView = Anchor;
 
 			SnackBarView.ParentView?.AddSubview(SnackBarView);
+#if __IOS__
 			SnackBarView.ParentView?.BringSubviewToFront(SnackBarView);
-
-			SnackBarView.Setup();
+#endif
+			SnackBarView.Setup(CornerRadius);
 
 			timer = NSTimer.CreateScheduledTimer(Duration, async t =>
 			{

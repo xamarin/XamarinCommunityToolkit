@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
+using CoreGraphics;
 using UIKit;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Extensions;
+using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 {
@@ -15,13 +18,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		protected NativeSnackBar SnackBar { get; }
 
-		protected UIStackView? StackView { get; set; }
+		protected NativeRoundedStackView? StackView { get; set; }
 
 		public void Dismiss() => RemoveFromSuperview();
 
-		public void Setup()
+		public void Setup(CGRect cornerRadius)
 		{
-			Initialize();
+			Initialize(cornerRadius);
 			ConstraintInParent();
 		}
 
@@ -50,18 +53,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 			StackView.SafeTopAnchor().ConstraintEqualTo(this.SafeTopAnchor(), SnackBar.Layout.PaddingTop).Active = true;
 		}
 
-		protected virtual void Initialize()
+		protected virtual void Initialize(CGRect cornerRadius)
 		{
-			StackView = new UIStackView();
+			StackView = new NativeRoundedStackView(cornerRadius.Left, cornerRadius.Top, cornerRadius.Right, cornerRadius.Bottom);
 
 			AddSubview(StackView);
 
 			StackView.Axis = UILayoutConstraintAxis.Horizontal;
 			StackView.TranslatesAutoresizingMaskIntoConstraints = false;
 			StackView.Spacing = SnackBar.Layout.Spacing;
-			StackView.Layer.CornerRadius = 4;
-			StackView.Layer.MasksToBounds = true;
-			StackView.ClipsToBounds = true;
 
 			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor)
 			{
