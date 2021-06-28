@@ -1,7 +1,5 @@
 ﻿using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms.Xaml;
-using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 {
@@ -14,11 +12,16 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 				TouchCount++;
 				OnPropertyChanged(nameof(TouchCount));
 			});
+
 			LongPressCommand = CommandFactory.Create(() =>
 			{
 				LongPressCount++;
 				OnPropertyChanged(nameof(LongPressCount));
 			});
+
+			ParentCommand = CommandFactory.Create(() => DisplayAlert("Parent clicked", null, "Ok"));
+
+			ChildCommand = CommandFactory.Create(() => DisplayAlert("Child clicked", null, "Ok"));
 
 			InitializeComponent();
 		}
@@ -26,6 +29,10 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 		public ICommand Command { get; }
 
 		public ICommand LongPressCommand { get; }
+
+		public ICommand ParentCommand { get; }
+
+		public ICommand ChildCommand { get; }
 
 		public int TouchCount { get; private set; }
 
