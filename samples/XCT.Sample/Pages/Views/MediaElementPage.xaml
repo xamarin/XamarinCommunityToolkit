@@ -1,28 +1,55 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.MediaElementPage">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.MediaElementPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <pages:BasePage.Resources>
-        <xct:TimeSpanToDoubleConverter x:Key="TimeSpanConverter"/>
+        <xct:TimeSpanToDoubleConverter x:Key="TimeSpanConverter" />
     </pages:BasePage.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <xct:MediaElement
             x:Name="mediaElement"
-            Source="https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4"
-            ShowsPlaybackControls="True"
-            MediaOpened="OnMediaOpened"
-            MediaFailed="OnMediaFailed"
-            MediaEnded="OnMediaEnded"
             HorizontalOptions="Fill"
-            SeekCompleted="OnSeekCompleted" />
-        <Slider Grid.Row="1" BindingContext="{x:Reference mediaElement}" Value="{Binding Position, Converter={StaticResource TimeSpanConverter}}" Maximum="{Binding Duration, Converter={StaticResource TimeSpanConverter}}"/>
-        <Button Grid.Row="2" Text="Reset Source (Set Null)" Clicked="OnResetClicked" />
+            MediaEnded="OnMediaEnded"
+            MediaFailed="OnMediaFailed"
+            MediaOpened="OnMediaOpened"
+            SeekCompleted="OnSeekCompleted"
+            ShowsPlaybackControls="True"
+            Source="https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4" />
+        <Slider
+            Grid.Row="1"
+            BindingContext="{x:Reference mediaElement}"
+            Maximum="{Binding Duration, Converter={StaticResource TimeSpanConverter}}"
+            Value="{Binding Position, Converter={StaticResource TimeSpanConverter}}" />
+        <Button
+            Grid.Row="2"
+            Clicked="OnResetClicked"
+            Text="Reset Source (Set Null)" />
+        <Label Grid.Row="3" Margin="20,10">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Speed:" />
+                    <Span Text="{Binding Source={x:Reference mediaElement}, Path=Speed}" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        <Slider
+            x:Name="MainSlider"
+            Grid.Row="4"
+            Margin="20"
+            DragCompleted="Slider_DragCompleted"
+            Maximum="2"
+            Minimum=".5"
+            ThumbColor="Blue"
+            Value="{Binding Source={x:Reference mediaElement}, Path=Speed}" />
     </Grid>
 </pages:BasePage>
