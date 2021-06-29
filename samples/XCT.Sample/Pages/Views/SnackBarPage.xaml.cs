@@ -102,7 +102,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		async void DisplaySnackBarAdvancedClicked(object? sender, EventArgs args)
 		{
-			const string SmileIcon = "\uf118";
+			const string smileIcon = "\uf118";
 			var options = new SnackBarOptions
 			{
 				MessageOptions = new MessageOptions
@@ -110,9 +110,9 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					Foreground = Color.DeepSkyBlue,
 					Font = Font.OfSize("FARegular", 40),
 					Padding = new Thickness(10, 20, 30, 40),
-					Message = SmileIcon
+					Message = smileIcon
 				},
-				CornerRadius = new Thickness(10,20,30,40),
+				CornerRadius = new Thickness(10, 20, 30, 40),
 				Duration = TimeSpan.FromMilliseconds(5000),
 				BackgroundColor = Color.Coral,
 				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,
