@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 
 		protected BaseSnackBarView? SnackBarView { get; set; }
 
-		public CGRect CornerRadius { get; set; } = new CGRect(20, 20, 20, 20);
+		public CGRect CornerRadius { get; set; } = new CGRect(10, 10, 10, 10);
 
 		public void Dismiss()
 		{
