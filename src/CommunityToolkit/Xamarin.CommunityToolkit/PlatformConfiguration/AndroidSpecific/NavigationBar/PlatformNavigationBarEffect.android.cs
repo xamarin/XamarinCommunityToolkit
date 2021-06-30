@@ -2,13 +2,13 @@
 using Android.App;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
-using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 
 [assembly: ExportEffect(typeof(PlatformNavigationBarEffect), nameof(NavigationBarEffect))]
 
-namespace Xamarin.CommunityToolkit.Android.Effects
+namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {
 	public class PlatformNavigationBarEffect : PlatformEffect
 	{
@@ -37,24 +37,24 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void SetColor(Color color)
 		{
-			if (!BarStyle.IsSupported())
+			if (!Effects.BarStyle.IsSupported())
 				return;
 
-			BarStyle.GetCurrentWindow(Activity).SetNavigationBarColor(color.ToAndroid());
+			Effects.BarStyle.GetCurrentWindow(Activity).SetNavigationBarColor(color.ToAndroid());
 		}
 
 		void SetStyle(NavigationBarStyle style)
 		{
-			if (!BarStyle.IsSupported())
+			if (!Effects.BarStyle.IsSupported())
 				return;
 
 			switch (style)
 			{
 				case NavigationBarStyle.DarkContent:
-					BarStyle.AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					Effects.BarStyle.AddBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
 				default:
-					BarStyle.RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
+					Effects.BarStyle.RemoveBarAppearanceFlag(Activity, (StatusBarVisibility)SystemUiFlags.LightNavigationBar);
 					break;
 			}
 		}

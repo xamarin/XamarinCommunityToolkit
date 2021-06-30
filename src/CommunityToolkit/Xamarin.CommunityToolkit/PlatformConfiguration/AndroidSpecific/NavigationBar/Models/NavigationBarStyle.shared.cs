@@ -1,4 +1,4 @@
-﻿namespace Xamarin.CommunityToolkit.Effects
+﻿namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {
 	public enum NavigationBarStyle
 	{

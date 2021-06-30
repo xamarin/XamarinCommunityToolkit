@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
+using Xamarin.Forms;
 
 [assembly: ResolutionGroupName("Xamarin.CommunityToolkit.Effects")]
 
