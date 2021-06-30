@@ -31,15 +31,19 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			switch (a11yVisibility)
 			{
 				case ImportantForA11y.Auto:
+					view.IsAccessibilityElement = view is UIControl;
 					view.AccessibilityElementsHidden = false;
 					break;
 				case ImportantForA11y.Yes:
 					view.IsAccessibilityElement = true;
+					view.AccessibilityElementsHidden = false;
 					break;
 				case ImportantForA11y.No:
 					view.IsAccessibilityElement = false;
+					view.AccessibilityElementsHidden = false;
 					break;
 				case ImportantForA11y.NoHideDescendants:
+					view.IsAccessibilityElement = false;
 					view.AccessibilityElementsHidden = true;
 					break;
 			}
