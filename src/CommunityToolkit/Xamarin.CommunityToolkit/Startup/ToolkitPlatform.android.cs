@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Content;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit
@@ -18,7 +19,7 @@ namespace Xamarin.CommunityToolkit
 		{
 			get
 			{
-				var page = Forms.Application.Current.MainPage;
+				var page = Application.Current.MainPage ?? throw new NullReferenceException($"{nameof(Application.MainPage)} cannot be null");
 				var renderer = page.GetRenderer();
 
 				if (renderer?.View.Context is not null)
