@@ -1,37 +1,56 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.StatusBarEffectPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:droid="clr-namespace:Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.CommunityToolkit"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Effects"
-    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.StatusBarEffectPage"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    droid:NavigationBarEffect.Color="{Binding StatusBarColor}"
+    droid:NavigationBarEffect.Style="{Binding NavigationBarStyle}"
     xct:StatusBarEffect.Color="{Binding StatusBarColor}"
-    xct:StatusBarEffect.Style="{Binding StatusBarStyle}"
-    xct:NavigationBarEffect.Color="{Binding StatusBarColor}"
-    xct:NavigationBarEffect.Style="{Binding NavigationBarStyle}">
+    xct:StatusBarEffect.Style="{Binding StatusBarStyle}">
 
     <pages:BasePage.BindingContext>
         <vm:StatusBarEffectViewModel />
     </pages:BasePage.BindingContext>
 
     <ScrollView Padding="{StaticResource ContentPadding}">
-        <StackLayout Spacing="30"
-                     Padding="15, 0">
+        <StackLayout Padding="15,0" Spacing="30">
 
-            <Label Text="NavigationBar supported only on Android"/>
-            <Label Text="Slide to change StatusBar and NavigationBar color"/>
+            <Label Text="NavigationBar supported only on Android" />
+            <Label Text="Slide to change StatusBar and NavigationBar color" />
 
-            <Slider Minimum="0" Maximum="255" Value="{Binding RedSliderValue}" MaximumTrackColor="Red" ThumbColor="Red"
-                MinimumTrackColor="Red"  Margin="20,10"/>
+            <Slider
+                Margin="20,10"
+                Maximum="255"
+                MaximumTrackColor="Red"
+                Minimum="0"
+                MinimumTrackColor="Red"
+                ThumbColor="Red"
+                Value="{Binding RedSliderValue}" />
 
-            <Slider Minimum="0" Maximum="255" Value="{Binding GreenSliderValue}" MaximumTrackColor="Green" ThumbColor="Green"
-                MinimumTrackColor="Green"  Margin="20,10"/>
+            <Slider
+                Margin="20,10"
+                Maximum="255"
+                MaximumTrackColor="Green"
+                Minimum="0"
+                MinimumTrackColor="Green"
+                ThumbColor="Green"
+                Value="{Binding GreenSliderValue}" />
 
-            <Slider Minimum="0" Maximum="255" Value="{Binding BlueSliderValue}" MaximumTrackColor="Blue" ThumbColor="Blue"
-                MinimumTrackColor="Blue"  Margin="20,10"/>
+            <Slider
+                Margin="20,10"
+                Maximum="255"
+                MaximumTrackColor="Blue"
+                Minimum="0"
+                MinimumTrackColor="Blue"
+                ThumbColor="Blue"
+                Value="{Binding BlueSliderValue}" />
 
             <StackLayout Spacing="15">
-                <Label Text="Select StatusBar and NavigationBar style"/>
+                <Label Text="Select StatusBar and NavigationBar style" />
                 <RadioButton Content="Default" IsChecked="{Binding IsDefaultChecked}" />
                 <RadioButton Content="Light content" IsChecked="{Binding IsLightContentChecked}" />
                 <RadioButton Content="Dark content" IsChecked="{Binding IsDarkContentChecked}" />
