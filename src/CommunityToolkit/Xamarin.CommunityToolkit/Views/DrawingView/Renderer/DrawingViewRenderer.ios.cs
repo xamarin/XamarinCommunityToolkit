@@ -45,6 +45,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override void TouchesBegan(NSSet touches, UIEvent? evt)
 		{
+			SetParentTouches(false);
+
 			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			Element.Points.Clear();
 			currentPath.RemoveAllPoints();
@@ -65,16 +67,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			AddPointToPath(currentPoint);
 		}
 
-		void AddPointToPath(CGPoint currentPoint)
-		{
-			currentPath.AddLineTo(currentPoint);
-			SetNeedsDisplay();
-			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
-			var point = currentPoint.ToPoint();
-			Element.Points.Add(point);
-			Element.Points.CollectionChanged += OnPointsCollectionChanged;
-		}
-
 		public override void TouchesEnded(NSSet touches, UIEvent? evt)
 		{
 			UpdatePath();
@@ -86,14 +78,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element.ClearOnFinish)
 				Element.Points.Clear();
+
+			SetParentTouches(true);
 		}
 
-		public override void TouchesCancelled(NSSet touches, UIEvent? evt) => InvokeOnMainThread(SetNeedsDisplay);
+		public override void TouchesCancelled(NSSet touches, UIEvent? evt)
+		{
+			InvokeOnMainThread(SetNeedsDisplay);
+			SetParentTouches(true);
+		}
 
 		public override void Draw(CGRect rect)
 		{
 			lineColor!.SetStroke();
 			currentPath.Stroke();
+		}
+
+		void AddPointToPath(CGPoint currentPoint)
+		{
+			currentPath.AddLineTo(currentPoint);
+			SetNeedsDisplay();
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+			var point = currentPoint.ToPoint();
+			Element.Points.Add(point);
+			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
 		void LoadPoints()
@@ -210,6 +218,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			disposed = true;
 
 			base.Dispose(disposing);
+		}
+
+		void SetParentTouches(bool enabled)
+		{
+			var parent = Superview;
+
+			while (parent != null)
+			{
+				if (parent.GetType() == typeof(ScrollViewRenderer))
+					((ScrollViewRenderer)parent).ScrollEnabled = enabled;
+
+				parent = parent.Superview;
+			}
 		}
 	}
 }
