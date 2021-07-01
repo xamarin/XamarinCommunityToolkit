@@ -384,7 +384,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			playbackParams.SetSpeed((float)MediaElement.Speed);
 			if (mediaPlayer != null)
 				mediaPlayer.PlaybackParams = playbackParams;
-			var sp = mediaPlayer?.PlaybackParams.Speed;
 		}
 
 		protected string ResolveMsAppDataUri(Uri uri)
