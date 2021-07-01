@@ -293,7 +293,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Window?.SetGravity(gravityFlags);
 		}
 
-		void OnDismissed(object? sender, PopupDismissedEventArgs e) => Dismiss();
+		void OnDismissed(object? sender, PopupDismissedEventArgs e)
+		{
+			if (IsShowing)
+				Dismiss();
+		}
 
 		public void OnCancel(IDialogInterface? dialog)
 		{

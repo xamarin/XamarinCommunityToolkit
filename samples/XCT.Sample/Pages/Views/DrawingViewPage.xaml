@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.DrawingViewPage"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:viewsVodel="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views;assembly=Xamarin.CommunityToolkit.Sample">
+
+    <pages:BasePage.BindingContext>
+        <viewsVodel:DrawingViewViewModel/>
+    </pages:BasePage.BindingContext>
+
+    <ScrollView>
+        <StackLayout>
+            <Switch x:Name="ClearOnFinish"  />
+            <Button
+                BackgroundColor="White"
+                Clicked="LoadPointsButtonClicked"
+                Text="Load points"
+                TextColor="Black" />
+            <Button
+                BackgroundColor="White"
+                Command="{Binding SetPointsCommand}"
+                Text="Load points ViewModel"
+                TextColor="Black" />
+            <Label
+                x:Name="HiddenLabel"
+                HorizontalOptions="CenterAndExpand"
+                IsVisible="False"
+                Text="Draw &amp; GO" />
+            <Button
+                BackgroundColor="White"
+                Clicked="DisplayHiddenLabelButtonClicked"
+                Text="Display hidden label"
+                TextColor="Black" />
+            <Button
+                BackgroundColor="White"
+                Command="{Binding GetPointsCommand}"
+                Text="Get points ViewModel"
+                TextColor="Black" />
+            <Button
+                BackgroundColor="White"
+                Clicked="GetCurrentDrawingViewImageClicked"
+                Text="Display current gesture pad image"
+                TextColor="Black" />
+            <Button
+                BackgroundColor="White"
+                Clicked="GetImageClicked"
+                Text="Display image"
+                TextColor="Black" />
+            <Image
+                x:Name="GestureImage"
+                HeightRequest="100"
+                WidthRequest="100" />
+            <views:DrawingView
+                x:Name="DrawingViewControl"
+                Points="{Binding MacroPoints, Mode=TwoWay}"
+                BackgroundColor="DarkGray"
+                ClearOnFinish="{Binding Source={x:Reference ClearOnFinish}, Path=IsToggled}"
+                HorizontalOptions="FillAndExpand"
+                LineColor="Red"
+                LineWidth="10"
+                VerticalOptions="FillAndExpand" />
+            <Editor x:Name="Logs" AutoSize="TextChanges" />
+        </StackLayout>
+    </ScrollView>
+</pages:BasePage>

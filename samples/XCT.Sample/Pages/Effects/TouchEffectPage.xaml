@@ -14,7 +14,8 @@
         </Style>
     </pages:BasePage.Resources>
     <ScrollView>
-        <StackLayout Padding="{StaticResource ContentPadding}">
+        <StackLayout Padding="{StaticResource ContentPadding}"
+                     Spacing="10">
 
             <Label
                HorizontalOptions="CenterAndExpand"
@@ -96,6 +97,26 @@
                     xct:TouchEffect.NativeAnimation="True"
                     xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}"/>
             </StackLayout>
+
+
+            <StackLayout Style="{StaticResource GridRowContentStyle}">
+
+                <Label Text="Nested effect" />
+
+                <ContentView
+                         HorizontalOptions="CenterAndExpand"
+                         BackgroundColor="Purple"
+                         Padding="50"
+                         xct:TouchEffect.NativeAnimation="True"
+                         xct:TouchEffect.Command="{Binding ParentCommand, Source={x:Reference Page}}">
+                    <BoxView Color="Gold"
+                             WidthRequest="100"
+                             HeightRequest="100"
+                             xct:TouchEffect.NativeAnimation="True"
+                             xct:TouchEffect.Command="{Binding ChildCommand, Source={x:Reference Page}}" />
+                </ContentView>
+            </StackLayout>
+
         </StackLayout>
     </ScrollView>
 </pages:BasePage>
