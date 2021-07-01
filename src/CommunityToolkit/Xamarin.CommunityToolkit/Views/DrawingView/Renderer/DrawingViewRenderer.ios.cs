@@ -1,4 +1,4 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using CoreGraphics;
@@ -121,11 +121,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdatePath()
 		{
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			var smoothedPoints = Element.EnableSmoothedPath
 				? SmoothedPathWithGranularity(Element.Points, Element.Granularity, ref currentPath)
 				: new ObservableCollection<Point>(Element.Points);
 
-			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			SetNeedsDisplay();
 			Element.Points.Clear();
 

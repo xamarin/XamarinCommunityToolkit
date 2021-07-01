@@ -54,22 +54,21 @@
                 WidthRequest="100" />
             
             <Label Text="Default DrawingView"/>
-            <views:DrawingView BackgroundColor="LightGray" HeightRequest="200" 
-            EnableSmoothedPath="false" />
+            <views:DrawingView BackgroundColor="LightGray" HeightRequest="200" />
 
             <Label Text="Advanced DrawingView"/>
             <views:DrawingView
                 x:Name="DrawingViewControl"
                 Points="{Binding MacroPoints, Mode=TwoWay}"
-                EnableSmoothedPath="true"
+                EnableSmoothedPath="false"
                 Granularity="5"
                 BackgroundColor="DarkGray"
                 ClearOnFinish="{Binding Source={x:Reference ClearOnFinish}, Path=IsToggled}"
                 HorizontalOptions="FillAndExpand"
                 LineColor="Red"
                 LineWidth="10"
-                VerticalOptions="FillAndExpand" />
-            <Editor x:Name="Logs" AutoSize="TextChanges" />
+                HeightRequest="200" />
+            <Editor x:Name="Logs" HeightRequest="50" />
         </StackLayout>
     </ScrollView>
 </pages:BasePage>
