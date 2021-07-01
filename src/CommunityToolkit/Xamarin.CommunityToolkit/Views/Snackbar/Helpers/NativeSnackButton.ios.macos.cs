@@ -18,9 +18,6 @@ namespace Xamarin.CommunityToolkit.Views.Snackbar.Helpers
 #endif
 	{
 		public NativeSnackButton(double left, double top, double right, double bottom)
-#if __IOS__
-			: base(UIButtonType.System)
-#endif
 		{
 			Left = left;
 			Top = top;

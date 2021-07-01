@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.TabViewItemBindingView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.TestCases;assembly=Xamarin.CommunityToolkit.Sample"
+    x:DataType="vm:TabViewItemBindingViewModel">
+    <ContentView.Content>
+        <StackLayout Margin="20">
+            <Label Text="By clicking on the button, the counter must increment" />
+            <Label
+                FontSize="Large"
+                Text="Hello TavViewItem"
+                TextColor="Blue" />
+            <Button Command="{Binding ClickCommand}" Text="Click command" />
+            <Label
+                FontSize="Large"
+                Text="{Binding CountClick}"
+                TextColor="Blue" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>
