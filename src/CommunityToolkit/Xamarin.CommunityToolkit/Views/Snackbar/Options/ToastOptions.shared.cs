@@ -26,11 +26,11 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		public static Color DefaultBackgroundColor { get; set; } = Color.Default;
 
 		/// <summary>
-		/// Corner radius
+		/// Corner radius (in dp)
 		/// </summary>
 		public Thickness CornerRadius { get; set; } = DefaultCornerRadius;
 
-		public static Thickness DefaultCornerRadius { get; set; } = new (10, 10, 10, 10);
+		public static Thickness DefaultCornerRadius { get; set; } = new (4, 4, 4, 4);
 
 		/// <summary>
 		/// Is Right to left
