@@ -116,6 +116,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		internal async Task ChangeStateAsync(TouchEffect sender, bool animated)
 		{
+			var status = sender.Status;
 			var state = sender.State;
 			var hoverState = sender.HoverState;
 
@@ -148,6 +149,15 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (pulseCount == 0 || (state == TouchState.Normal && !isToggled.HasValue))
 			{
+				if (isToggled.HasValue)
+				{
+					state =
+						(status == TouchStatus.Started && isToggled.Value) ||
+						(status != TouchStatus.Started && !isToggled.Value)
+						? TouchState.Normal
+						: TouchState.Pressed;
+				}
+
 				await RunAnimationTask(sender, state, hoverState, animationTokenSource.Token).ConfigureAwait(false);
 				return;
 			}
@@ -270,14 +280,14 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void UpdateStatusAndState(TouchEffect sender, TouchStatus status, TouchState state)
 		{
+			sender.Status = status;
+			sender.RaiseStatusChanged();
+
 			if (sender.State != state || status != TouchStatus.Canceled)
 			{
 				sender.State = state;
 				sender.RaiseStateChanged();
 			}
-
-			sender.Status = status;
-			sender.RaiseStatusChanged();
 		}
 
 		void UpdateVisualState(VisualElement visualElement, TouchState touchState, HoverState hoverState)
