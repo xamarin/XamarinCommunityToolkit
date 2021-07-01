@@ -94,6 +94,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
 					Element.DrawingCompletedCommand.Execute(Element.Points);
+			}
 
 			if (Element.ClearOnFinish)
 				Clear();
