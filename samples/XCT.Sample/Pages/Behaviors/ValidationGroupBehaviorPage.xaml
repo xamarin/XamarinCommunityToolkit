@@ -7,9 +7,16 @@
 
   <pages:BasePage.Resources>
 
-    <xct:ValidationGroup x:Key="ValidationGroup" />
+    <xct:ValidationGroup x:Key="TotalValidationGroup">
+      <xct:ValidationGroup x:Name="ContactValidationGroup" />
+      <xct:ValidationGroup x:Name="InfoValidationGroup" />
+    </xct:ValidationGroup>
 
     <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+      <Setter Property="TextColor" Value="Red" />
+    </Style>
+
+    <Style x:Key="InvalidEditorStyle" TargetType="Editor">
       <Setter Property="TextColor" Value="Red" />
     </Style>
   </pages:BasePage.Resources>
@@ -18,27 +25,56 @@
                Spacing="25"
                VerticalOptions="StartAndExpand">
 
-    <Label Text="Name (required):" />
+    <Label Text="Name (required): (Length min. 3)" />
     <Entry Placeholder="e.g. John Doe">
       <Entry.Behaviors>
         <xct:CharactersValidationBehavior Flags="ValidateOnAttaching,ValidateOnValueChanging"
-                                          Group="{StaticResource ValidationGroup}"
+                                          Group="{Reference ContactValidationGroup}"
+                                          InvalidStyle="{StaticResource InvalidEntryStyle}"
                                           MinimumCharacterCount="3" />
       </Entry.Behaviors>
     </Entry>
 
-    <Label Text="Email (required):" />
+    <Label Text="Email (required): (Length min. 3)" />
     <Entry Placeholder="e.g. john@doe.com">
       <Entry.Behaviors>
-        <xct:MultiValidationBehavior Flags="ValidateOnAttaching,ValidateOnValueChanging" Group="{StaticResource ValidationGroup}">
+        <xct:MultiValidationBehavior Flags="ValidateOnAttaching,ValidateOnValueChanging"
+                                     Group="{Reference ContactValidationGroup}"
+                                     InvalidStyle="{StaticResource InvalidEntryStyle}">
           <xct:CharactersValidationBehavior MinimumCharacterCount="3" />
           <xct:EmailValidationBehavior />
         </xct:MultiValidationBehavior>
       </Entry.Behaviors>
     </Entry>
 
+    <Frame BackgroundColor="LightGreen"
+           BorderColor="Green"
+           CornerRadius="8"
+           IsVisible="{Binding Source={Reference ContactValidationGroup}, Path=IsValid}">
+      <Label Text="Contact details are valid" TextColor="Green" />
+    </Frame>
+
+    <BoxView BackgroundColor="LightGray" HeightRequest="0.5" />
+
+    <Label Text="Ask a question: (Length min. 10)" />
+    <Entry Placeholder="Your question">
+      <Entry.Behaviors>
+        <xct:CharactersValidationBehavior Flags="ValidateOnAttaching,ValidateOnValueChanging"
+                                          Group="{Reference InfoValidationGroup}"
+                                          InvalidStyle="{StaticResource InvalidEditorStyle}"
+                                          MinimumCharacterCount="10" />
+      </Entry.Behaviors>
+    </Entry>
+
+    <Frame BackgroundColor="LightGreen"
+           BorderColor="Green"
+           CornerRadius="8"
+           IsVisible="{Binding Source={Reference InfoValidationGroup}, Path=IsValid}">
+      <Label Text="Info is valid" TextColor="Green" />
+    </Frame>
+
     <Label Text="Fill in all fields before button is enabled" />
-    <Button x:Name="SubmitButton" IsEnabled="{Binding Source={StaticResource ValidationGroup}, Path=IsValid}">
+    <Button x:Name="SubmitButton" IsEnabled="{Binding Source={StaticResource TotalValidationGroup}, Path=IsValid}">
       <Button.Triggers>
         <DataTrigger Binding="{Binding IsEnabled, Source={Reference SubmitButton}}"
                      TargetType="Button"
