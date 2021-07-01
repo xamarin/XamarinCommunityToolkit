@@ -16,21 +16,43 @@
         <vm:EnumToListConverterViewModel />
     </pages:BasePage.BindingContext>
     <pages:BasePage.Content>
-        <Grid Margin="20,0" RowDefinitions="Auto,Auto,*">
+        <Grid Margin="20" RowDefinitions="Auto,Auto,Auto,Auto,Auto,*">
             <Label
                 Grid.Row="0"
                 FontAttributes="Bold"
                 Text="Select Enum Type:" />
             <Picker
                 Grid.Row="1"
+                BackgroundColor="AliceBlue"
                 ItemDisplayBinding="{Binding ., Converter={StaticResource EnumToStringConverter}}"
                 ItemsSource="{Binding EnumTypes}"
+                SelectedItem="{Binding SelectedEnumType}" />
+            <Label
+                Grid.Row="2"
+                Margin="0,20,0,0"
+                FontAttributes="Bold"
+                Text="Select Enum Value from Picker:" />
+            <Picker
+                Grid.Row="3"
+                ItemsSource="{Binding SelectedEnumType, Converter={StaticResource EnumToListConverter}}"
                 SelectedItem="{Binding SelectedItem}" />
-            <ListView Grid.Row="2" ItemsSource="{Binding SelectedItem, Converter={StaticResource EnumToListConverter}}">
+            <Label
+                Grid.Row="4"
+                Margin="0,20,0,0"
+                FontAttributes="Bold"
+                Text="Select Enum Value from ListView:" />
+            <ListView
+                Grid.Row="5"
+                HasUnevenRows="True"
+                ItemsSource="{Binding SelectedEnumType, Converter={StaticResource EnumToListConverter}}"
+                SelectedItem="{Binding SelectedItem}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Label FontSize="Medium" Text="{Binding .}" />
+                            <Label
+                                Margin="0,20"
+                                FontSize="Medium"
+                                Text="{Binding .}" />
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
