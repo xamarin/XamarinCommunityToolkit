@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using CoreGraphics;
@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdatePath();
 			if (Element.Points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 

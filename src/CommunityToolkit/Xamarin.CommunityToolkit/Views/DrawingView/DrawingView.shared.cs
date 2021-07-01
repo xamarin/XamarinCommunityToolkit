@@ -15,10 +15,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BindableProperty.Create(nameof(Granularity), typeof(int), typeof(DrawingView), minValueGranularity, coerceValue: CoerceValue);
 
 		public static readonly BindableProperty EnableSmoothedPathProperty =
-			BindableProperty.Create(nameof(EnableSmoothedPath), typeof(bool), typeof(DrawingView), default(bool));
+			BindableProperty.Create(nameof(EnableSmoothedPath), typeof(bool), typeof(DrawingView), true);
 
 		public static readonly BindableProperty LineColorProperty =
-			BindableProperty.Create(nameof(LineColor), typeof(Color), typeof(DrawingView), Color.Default);
+			BindableProperty.Create(nameof(LineColor), typeof(Color), typeof(DrawingView), Color.Black);
 
 		public static readonly BindableProperty LineWidthProperty =
 			BindableProperty.Create(nameof(LineWidth), typeof(float), typeof(DrawingView), 5f);
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			nameof(Points), typeof(ObservableCollection<Point>), typeof(DrawingView), new ObservableCollection<Point>(), BindingMode.TwoWay);
 
 		public static readonly BindableProperty DrawingCompletedCommandProperty = BindableProperty.Create(
-			nameof(DrawingCompletedCommand), typeof(ICommand), typeof(DrawingView), default(ICommand));
+			nameof(DrawingCompletedCommand), typeof(ICommand), typeof(DrawingView));
 
 		public ObservableCollection<Point> Points
 		{
@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(PointsProperty, value);
 		}
 
-		public ICommand DrawingCompletedCommand
+		public ICommand? DrawingCompletedCommand
 		{
 			get => (ICommand)GetValue(DrawingCompletedCommandProperty);
 			set => SetValue(DrawingCompletedCommandProperty, value);

@@ -79,18 +79,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (elementPoints.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
 					Element.DrawingCompletedCommand.Execute(elementPoints);
 			}
 
 			if (Element.ClearOnFinish)
-				elementPoints.Clear();
+				Clear();
 		}
 
 		void StrokeInput_StrokeStarted(InkStrokeInput sender, PointerEventArgs args)
 		{
-			canvas!.InkPresenter.StrokeContainer.Clear();
-			Element.Points.Clear();
+			Clear();
 		}
 
 		void LoadPoints()
@@ -120,6 +119,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			base.Dispose(disposing);
+		}
+
+		void Clear()
+		{
+			canvas!.InkPresenter.StrokeContainer.Clear();
+			Element.Points.Clear();
 		}
 	}
 }

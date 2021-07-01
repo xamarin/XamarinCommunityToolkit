@@ -52,9 +52,17 @@
                 x:Name="GestureImage"
                 HeightRequest="100"
                 WidthRequest="100" />
+            
+            <Label Text="Default DrawingView"/>
+            <views:DrawingView BackgroundColor="LightGray" HeightRequest="200" 
+            EnableSmoothedPath="false" />
+
+            <Label Text="Advanced DrawingView"/>
             <views:DrawingView
                 x:Name="DrawingViewControl"
                 Points="{Binding MacroPoints, Mode=TwoWay}"
+                EnableSmoothedPath="true"
+                Granularity="5"
                 BackgroundColor="DarkGray"
                 ClearOnFinish="{Binding Source={x:Reference ClearOnFinish}, Path=IsToggled}"
                 HorizontalOptions="FillAndExpand"
