@@ -7,6 +7,8 @@
 
   <pages:BasePage.Resources>
 
+    <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+
     <xct:ValidationGroup x:Key="TotalValidationGroup" x:Name="TotalValidationGroup">
       <xct:ValidationGroup x:Name="ContactValidationGroup" />
       <xct:ValidationGroup x:Name="InfoValidationGroup" />
@@ -66,11 +68,11 @@
       </Entry.Behaviors>
     </Entry>
 
-    <Frame BackgroundColor="LightGreen"
-           BorderColor="Green"
+    <Frame BackgroundColor="Pink"
+           BorderColor="Red"
            CornerRadius="8"
-           IsVisible="{Binding Source={Reference InfoValidationGroup}, Path=IsValid}">
-      <Label Text="Info is valid" TextColor="Green" />
+           IsVisible="{Binding Source={Reference InfoValidationGroup}, Path=IsValid, Converter={StaticResource InvertedBoolConverter}}">
+      <Label Text="Asking a question is mandatory" TextColor="Red" />
     </Frame>
 
     <Label Text="Fill in all fields before button is enabled" />
