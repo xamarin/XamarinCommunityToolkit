@@ -21,7 +21,7 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>14.0</string>
+	<string>13.6</string>
 	<key>CFBundleDisplayName</key>
 	<string>XamarinCommunityToolkitSample</string>
 	<key>CFBundleIdentifier</key>
