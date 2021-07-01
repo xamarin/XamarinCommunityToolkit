@@ -7,7 +7,7 @@
 
   <pages:BasePage.Resources>
 
-    <xct:ValidationGroup x:Key="TotalValidationGroup">
+    <xct:ValidationGroup x:Key="TotalValidationGroup" x:Name="TotalValidationGroup">
       <xct:ValidationGroup x:Name="ContactValidationGroup" />
       <xct:ValidationGroup x:Name="InfoValidationGroup" />
     </xct:ValidationGroup>
@@ -74,7 +74,7 @@
     </Frame>
 
     <Label Text="Fill in all fields before button is enabled" />
-    <Button x:Name="SubmitButton" IsEnabled="{Binding Source={StaticResource TotalValidationGroup}, Path=IsValid}">
+    <Button x:Name="SubmitButton" IsEnabled="{Binding Source={Reference TotalValidationGroup}, Path=IsValid}">
       <Button.Triggers>
         <DataTrigger Binding="{Binding IsEnabled, Source={Reference SubmitButton}}"
                      TargetType="Button"
