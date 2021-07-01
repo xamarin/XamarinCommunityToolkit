@@ -377,13 +377,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 		protected void UpdateSpeed()
 		{
-			if (MediaElement == null)
+			if (MediaElement == null || mediaPlayer == null)
 				return;
 
 			var playbackParams = new PlaybackParams();
 			playbackParams.SetSpeed((float)MediaElement.Speed);
-			if (mediaPlayer != null)
-				mediaPlayer.PlaybackParams = playbackParams;
+			mediaPlayer.PlaybackParams = playbackParams;
 		}
 
 		protected string ResolveMsAppDataUri(Uri uri)
