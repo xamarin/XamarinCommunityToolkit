@@ -6,12 +6,12 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
-	/// A converter that returns the enumerable sequence of enum as the result.
+	/// A converter that returns the name of the object.
 	/// </summary>
-	public class EnumToStringConverter : ValueConverterExtension, IValueConverter
+	public class ObjectToNameConverter : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
-		/// Returns a string array that contains the substrings in this string that are delimited by <see cref="Separators"/>.
+		/// Returns the name of the name of the object.
 		/// </summary>
 		/// <param name="value">The string to split.</param>
 		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>

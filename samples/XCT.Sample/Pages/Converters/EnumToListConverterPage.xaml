@@ -9,7 +9,7 @@
     <pages:BasePage.Resources>
         <ResourceDictionary>
             <xct:EnumToListConverter x:Key="EnumToListConverter" />
-            <xct:EnumToStringConverter x:Key="EnumToStringConverter" />
+            <xct:ObjectToNameConverter x:Key="ObjectToNameConverter" />
         </ResourceDictionary>
     </pages:BasePage.Resources>
     <pages:BasePage.BindingContext>
@@ -24,7 +24,7 @@
             <Picker
                 Grid.Row="1"
                 BackgroundColor="AliceBlue"
-                ItemDisplayBinding="{Binding ., Converter={StaticResource EnumToStringConverter}}"
+                ItemDisplayBinding="{Binding ., Converter={StaticResource ObjectToNameConverter}}"
                 ItemsSource="{Binding EnumTypes}"
                 SelectedItem="{Binding SelectedEnumType}" />
             <Label

@@ -20,17 +20,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>An array that contains the values of the constants in <paramref name="value"/>.</returns>
 		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-#if !NETSTANDARD1_0 // Use Region or Try Catch???
-#else
-#endif
-			try
-			{
-				if (value is Type type)
-					return Enum.GetValues(type);
-			}
-			finally
-			{
-			}
+			if (value is Type type)
+				return Enum.GetValues(type);
 			return value;
 		}
 
