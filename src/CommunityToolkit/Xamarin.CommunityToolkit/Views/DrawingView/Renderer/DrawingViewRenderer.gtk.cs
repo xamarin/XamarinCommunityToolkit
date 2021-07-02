@@ -117,7 +117,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			area!.QueueDraw();
 			if (points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 
