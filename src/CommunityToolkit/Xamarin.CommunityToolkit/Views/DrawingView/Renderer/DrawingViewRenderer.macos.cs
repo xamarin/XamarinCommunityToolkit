@@ -45,6 +45,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override void MouseDown(NSEvent theEvent)
 		{
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			Element.Points.Clear();
 			currentPath.RemoveAllPoints();
 
@@ -52,6 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			currentPath.MoveTo(previousPoint);
 
 			InvokeOnMainThread(Layer!.SetNeedsDisplay);
+			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
 		public override void MouseUp(NSEvent theEvent)
@@ -59,7 +61,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdatePath();
 			if (Element.Points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 
@@ -84,7 +86,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void AddPointToPath(CGPoint currentPoint)
 		{
 			currentPath.LineTo(currentPoint);
-			Element.Points.Add(currentPoint.ToPoint());
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+			var point = currentPoint.ToPoint();
+			Element.Points.Add(point);
+			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
 		void LoadPoints()
@@ -104,13 +109,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdatePath()
 		{
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			var smoothedPoints = Element.EnableSmoothedPath
 				? SmoothedPathWithGranularity(Element.Points, Element.Granularity, ref currentPath)
 				: new ObservableCollection<Point>(Element.Points);
+
 			InvokeOnMainThread(Layer!.SetNeedsDisplay);
 			Element.Points.Clear();
+
 			foreach (var point in smoothedPoints)
 				Element.Points.Add(point);
+
+			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
 		ObservableCollection<Point> SmoothedPathWithGranularity(ObservableCollection<Point> currentPoints,
@@ -118,7 +128,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ref NSBezierPath smoothedPath)
 		{
 			// not enough points to smooth effectively, so return the original path and points.
-			if (currentPoints.Count < 4)
+			if (currentPoints.Count < granularity + 2)
 				return new ObservableCollection<Point>(currentPoints);
 
 			// create a new bezier path to hold the smoothed path.
