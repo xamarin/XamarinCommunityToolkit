@@ -69,6 +69,6 @@ namespace Xamarin.CommunityToolkit.Effects
   	/// <summary>
   	/// Effect Id for <see cref="FullScreenEffect"/>
 		/// </summary>
-		public static string FullScreenEffect => $"{effectResolutionGroupName}.{nameof(FullScreenEffectRouter)}";}
+		public static string FullScreenEffect => $"{effectResolutionGroupName}.{nameof(FullScreenEffectRouter)}";
 	}
 }
