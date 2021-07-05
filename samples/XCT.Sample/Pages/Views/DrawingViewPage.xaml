@@ -6,13 +6,15 @@
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 xmlns:viewsVodel="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views;assembly=Xamarin.CommunityToolkit.Sample">
 
-    <pages:BasePage.BindingContext>
-        <viewsVodel:DrawingViewViewModel/>
-    </pages:BasePage.BindingContext>
-
     <ScrollView>
         <StackLayout>
             <Switch x:Name="ClearOnFinish"  />
+            <Switch x:Name="MultiLineMode"  />
+            <Button
+                BackgroundColor="White"
+                Clicked="AddNewLine"
+                Text="Add new line"
+                TextColor="Black" />
             <Button
                 BackgroundColor="White"
                 Clicked="LoadPointsButtonClicked"
@@ -20,7 +22,7 @@
                 TextColor="Black" />
             <Button
                 BackgroundColor="White"
-                Command="{Binding SetPointsCommand}"
+                Command="{Binding SetLinesCommand}"
                 Text="Load points ViewModel"
                 TextColor="Black" />
             <Label
@@ -35,7 +37,7 @@
                 TextColor="Black" />
             <Button
                 BackgroundColor="White"
-                Command="{Binding GetPointsCommand}"
+                Command="{Binding GetLinesCommand}"
                 Text="Get points ViewModel"
                 TextColor="Black" />
             <Button
@@ -53,21 +55,16 @@
                 HeightRequest="100"
                 WidthRequest="100" />
             
-            <Label Text="Default DrawingView"/>
-            <views:DrawingView BackgroundColor="LightGray" HeightRequest="200" />
+            <Label Text="DrawingView (Code behind)"/>
+            <views:DrawingView x:Name="DrawingViewControl" 
+                               BackgroundColor="LightGray" 
+                               HeightRequest="200"
+                               DefaultLineColor="Red"
+                               DefaultLineWidth="3"
+                               Lines="{Binding Lines, Mode=TwoWay}"
+                               ClearOnFinish="{Binding Source={x:Reference ClearOnFinish}, Path=IsToggled}"
+                               MultiLineMode="{Binding Source={x:Reference MultiLineMode}, Path=IsToggled}"/>
 
-            <Label Text="Advanced DrawingView"/>
-            <views:DrawingView
-                x:Name="DrawingViewControl"
-                Points="{Binding MacroPoints, Mode=TwoWay}"
-                EnableSmoothedPath="false"
-                Granularity="5"
-                BackgroundColor="DarkGray"
-                ClearOnFinish="{Binding Source={x:Reference ClearOnFinish}, Path=IsToggled}"
-                HorizontalOptions="FillAndExpand"
-                LineColor="Red"
-                LineWidth="10"
-                HeightRequest="200" />
             <Editor x:Name="Logs" HeightRequest="50" />
         </StackLayout>
     </ScrollView>

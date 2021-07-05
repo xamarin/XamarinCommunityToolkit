@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <param name="strokeColor">Line color</param>
 		/// <param name="backgroundColor">Image background color</param>
 		/// <returns>Image stream</returns>
-		public static Stream GetImageStream(IList<Point> points,
+		public static Stream GetImageStream(IList<Point>? points,
 			Size imageSize,
 			float lineWidth,
 			Color strokeColor,
