@@ -120,7 +120,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Opened += OnOpened;
 		}
 
-		
+
 
 		void SetSize()
 		{
