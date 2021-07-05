@@ -75,12 +75,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ClearOnFinishProperty, value);
 		}
 
+		public event EventHandler<DrawingCompletedEventArgs>? DrawingCompleted;
+
 		public DrawingView()
 		{
 			Points = new ObservableCollection<Point>();
 		}
-
-		public event EventHandler<DrawingCompletedEventArgs>? DrawingCompleted;
 
 		static object CoerceValue(BindableObject bindable, object value)
 			=> ((DrawingView)bindable).CoerceValue((int)value);
