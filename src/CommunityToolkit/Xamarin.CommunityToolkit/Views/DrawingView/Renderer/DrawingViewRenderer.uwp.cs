@@ -66,6 +66,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnInkPresenterStrokesCollected(InkPresenter sender, InkStrokesCollectedEventArgs args)
 		{
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+
 			var points = args.Strokes.First()
 							 .GetInkPoints()
 							 .Select(point => new Point(point.Position.X, point.Position.Y))
@@ -77,14 +79,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			foreach (var point in points)
 				elementPoints.Add(point);
 
-			if (elementPoints.Count > 0)
-			{
-				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
-					Element.DrawingCompletedCommand.Execute(elementPoints);
-			}
+			Element.OnDrawingCompleted();
 
 			if (Element.ClearOnFinish)
 				Clear();
+
+			Element.Points.CollectionChanged += OnPointsCollectionChanged;
 		}
 
 		void StrokeInput_StrokeStarted(InkStrokeInput sender, PointerEventArgs args)

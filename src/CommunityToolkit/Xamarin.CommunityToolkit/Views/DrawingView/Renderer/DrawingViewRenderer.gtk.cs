@@ -108,21 +108,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			point.X = args.Event.X;
 			point.Y = args.Event.Y;
-			var points = Element.Points;
 			isDrawing = false;
 
 			using var ctx = new Context(surface);
 			DrawPoint(ctx, point);
 
 			area!.QueueDraw();
-			if (points.Count > 0)
-			{
-				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
-					Element.DrawingCompletedCommand.Execute(Element.Points);
-			}
 
-			if (Element.ClearOnFinish)
-				points.Clear();
+			Element.OnDrawingCompleted();
 		}
 
 		void OnMouseMotion(object source, MotionNotifyEventArgs args)

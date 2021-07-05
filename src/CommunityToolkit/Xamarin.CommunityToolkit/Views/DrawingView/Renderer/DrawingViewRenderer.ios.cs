@@ -70,14 +70,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void TouchesEnded(NSSet touches, UIEvent? evt)
 		{
 			UpdatePath();
-			if (Element.Points.Count > 0)
-			{
-				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
-					Element.DrawingCompletedCommand.Execute(Element.Points);
-			}
 
-			if (Element.ClearOnFinish)
-				Element.Points.Clear();
+			Element.OnDrawingCompleted();
 
 			SetParentTouches(true);
 		}

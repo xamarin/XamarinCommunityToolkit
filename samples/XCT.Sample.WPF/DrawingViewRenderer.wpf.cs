@@ -77,18 +77,13 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 				foreach (var point in points)
 					Element.Points.Add(point);
 
-				if (Element.Points.Count > 0)
-				{
-					if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
-						Element.DrawingCompletedCommand.Execute(Element.Points);
-				}
+				Element.OnDrawingCompleted();
 
 				if (Element.ClearOnFinish)
 				{
 					canvas!.Strokes.StrokesChanged -= OnStrokesChanged;
 					canvas.Strokes.Clear();
 					canvas.Strokes.StrokesChanged += OnStrokesChanged;
-					Element.Points.Clear();
 				}
 			}
 

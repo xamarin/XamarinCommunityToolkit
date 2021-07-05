@@ -59,14 +59,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void MouseUp(NSEvent theEvent)
 		{
 			UpdatePath();
-			if (Element.Points.Count > 0)
-			{
-				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
-					Element.DrawingCompletedCommand.Execute(Element.Points);
-			}
 
-			if (Element.ClearOnFinish)
-				Element.Points.Clear();
+			Element.OnDrawingCompleted();
 		}
 
 		public override void MouseDragged(NSEvent theEvent)
