@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using System.Linq;
-#if UWP
+#if UAP10_0
 using Xamarin.Forms.Platform.UWP;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -25,7 +25,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			{
 				Background = options.BackgroundColor.ToBrush();
 			}
-#if UWP
+#if UAP10_0
+			CornerRadius = new CornerRadius(options.CornerRadius.Left, options.CornerRadius.Top, options.CornerRadius.Right, options.CornerRadius.Bottom);
 			var messageLabel = new TextBlock
 			{
 				Text = options.MessageOptions.Message

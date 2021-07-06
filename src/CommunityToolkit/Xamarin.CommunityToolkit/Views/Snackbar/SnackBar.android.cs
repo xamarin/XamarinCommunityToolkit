@@ -6,6 +6,7 @@ using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
+using Android.Graphics.Drawables;
 #if MONOANDROID10_0
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
@@ -27,9 +28,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				snackBar.SetAnchorView(renderer.View);
 			}
 
-			if (arguments.BackgroundColor != Forms.Color.Default)
+			if (snackBar.View.Background is GradientDrawable shape)
 			{
-				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
+				if (arguments.BackgroundColor != Forms.Color.Default)
+				{
+					shape?.SetColor(arguments.BackgroundColor.ToAndroid().ToArgb());
+				}
+
+				var density = renderer.View.Context?.Resources?.DisplayMetrics?.Density ?? 1;
+				var defaultAndroidCornerRadius = 4 * density;
+				arguments.CornerRadius = new Thickness(arguments.CornerRadius.Left * density,
+					arguments.CornerRadius.Top * density,
+					arguments.CornerRadius.Right * density,
+					arguments.CornerRadius.Bottom * density);
+				if (arguments.CornerRadius != new Thickness(defaultAndroidCornerRadius, defaultAndroidCornerRadius, defaultAndroidCornerRadius, defaultAndroidCornerRadius))
+				{
+					shape?.SetCornerRadii(new[]
+					{
+						(float)arguments.CornerRadius.Left, (float)arguments.CornerRadius.Left,
+						(float)arguments.CornerRadius.Top, (float)arguments.CornerRadius.Top,
+						(float)arguments.CornerRadius.Right, (float)arguments.CornerRadius.Right,
+						(float)arguments.CornerRadius.Bottom, (float)arguments.CornerRadius.Bottom
+					});
+				}
+
+				snackBarView.SetBackground(shape);
 			}
 
 			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text) ?? throw new NullReferenceException();
