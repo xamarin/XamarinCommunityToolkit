@@ -214,7 +214,6 @@
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
   </ItemGroup>
   <ItemGroup>
-  <Compile Remove="**/DrawingViewRenderer.android.cs" />
   <Compile Remove="**/DrawingViewRenderer.ios.cs" />
   <Compile Remove="**/DrawingViewRenderer.macos.cs" />
   <Compile Remove="**/DrawingViewRenderer.tizen.cs" />
