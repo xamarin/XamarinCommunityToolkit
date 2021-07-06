@@ -15,6 +15,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, SKCanvasView>
 	{
 		SKCanvasView? canvasView;
+		Line? currentLine;
 		bool isDrawing;
 		bool disposed;
 
@@ -28,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					BackgroundColor = Element.BackgroundColor.ToNative()
 				};
 				canvasView.Show();
-				Element.Points.CollectionChanged += OnPointsCollectionChanged;
+				Element.Lines.CollectionChanged += OnLinesCollectionChanged;
 				SetNativeControl(canvasView);
 			}
 
@@ -52,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
+			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
 			{
 				canvasView!.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				LoadPoints();
@@ -60,14 +61,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPointsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
+		void OnLinesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
 
 		void MouseMove()
 		{
 			if (isDrawing)
 			{
 				var point = canvasView!.EvasCanvas.Pointer;
-				Element.Points.Add(new Point(point.X, point.Y));
+				currentLine!.Points.Add(new Point(point.X, point.Y));
 				canvasView.Invalidate();
 			}
 		}
@@ -79,7 +80,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			Clear();
+			if (!Element.MultiLineMode)
+				Clear();
+
 			isDrawing = true;
 		}
 
@@ -90,10 +93,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			isDrawing = false;
 
-			if (Element.Points.Count > 0)
+			if (currentLine != null)
 			{
-				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
-					Element.DrawingCompletedCommand.Execute(Element.Points);
+				Element.Lines.Add(currentLine);
+				if (Element.DrawingLineCompletedCommand?.CanExecute(currentLine) ?? false)
+					Element.DrawingLineCompletedCommand.Execute(currentLine);
 			}
 
 			if (Element.ClearOnFinish)
@@ -111,25 +115,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void DrawPath(SKCanvas canvas)
 		{
 			canvas.Clear(SKColor.Empty);
-			if (Element.Points.Count == 0)
+			if (Element.Lines.Count == 0)
 				return;
 
-			using var strokePaint = new SKPaint
+			foreach (var line in Element.Lines)
 			{
-				Style = SKPaintStyle.Stroke,
-				Color = Element.LineColor.ToNative().ToSKColor(),
-				StrokeWidth = Element.LineWidth,
-				IsAntialias = true
-			};
+				using var strokePaint = new SKPaint
+				{
+					Style = SKPaintStyle.Stroke,
+					Color = line.LineColor.ToNative().ToSKColor(),
+					StrokeWidth = line.LineWidth,
+					IsAntialias = true
+				};
 
-			var skPoints = Element.Points.Select(p => new SKPoint((float)p.X, (float)p.Y)).ToArray();
-			using var path = new SKPath();
-			path.MoveTo(skPoints[0]);
+				var skPoints = line.Points.Select(p => new SKPoint((float)p.X, (float)p.Y)).ToArray();
+				using var path = new SKPath();
+				path.MoveTo(skPoints[0]);
 
-			foreach (var point in skPoints)
-				path.LineTo(point);
+				foreach (var point in skPoints)
+					path.LineTo(point);
 
-			canvas.DrawPath(path, strokePaint);
+				canvas.DrawPath(path, strokePaint);
+			}
 		}
 
 		protected override void Dispose(bool disposing)
@@ -140,7 +147,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element != null)
 			{
-				Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+				Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
 				canvasView!.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseMove, MouseMove);
@@ -152,7 +159,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void Clear()
 		{
-			Element.Points.Clear();
+			currentLine = new Line()
+			{
+				Points = new System.Collections.ObjectModel.ObservableCollection<Point>()
+			};
+
+			Element.Lines.Clear();
 			canvasView?.Invalidate();
 		}
 	}

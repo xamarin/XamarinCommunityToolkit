@@ -216,8 +216,6 @@
   <ItemGroup>
   <Compile Remove="**/DrawingViewRenderer.ios.cs" />
   <Compile Remove="**/DrawingViewRenderer.macos.cs" />
-  <Compile Remove="**/DrawingViewRenderer.tizen.cs" />
-  <Compile Remove="**/DrawingViewRenderer.gtk.cs" />
   </ItemGroup>
   
   <Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />

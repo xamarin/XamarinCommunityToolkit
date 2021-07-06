@@ -131,16 +131,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Parent?.RequestDisallowInterceptTouchEvent(false);
 					drawCanvas!.DrawPath(drawPath, drawPaint);
 					drawPath.Reset();
-					if (currentLine!.Points.Count > 0)
+					if (currentLine != null)
 					{
+						Element.Lines.Add(currentLine);
 						if (Element.DrawingLineCompletedCommand?.CanExecute(currentLine) ?? false)
 							Element.DrawingLineCompletedCommand.Execute(currentLine);
 					}
 
 					if (Element.ClearOnFinish)
 						Element.Lines.Clear();
-					else
-						Element.Lines.Add(currentLine);
 
 					break;
 				default:
