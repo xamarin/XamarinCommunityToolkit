@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Options
@@ -16,7 +15,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public MessageOptions MessageOptions { get; set; } = DefaultMessageOptions;
 
-		public static MessageOptions DefaultMessageOptions { get; set; } = new ();
+		public static MessageOptions DefaultMessageOptions { get; set; } = new();
 
 		/// <summary>
 		/// Background color.
@@ -30,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public Thickness CornerRadius { get; set; } = DefaultCornerRadius;
 
-		public static Thickness DefaultCornerRadius { get; set; } = new (4, 4, 4, 4);
+		public static Thickness DefaultCornerRadius { get; set; } = new(4, 4, 4, 4);
 
 		/// <summary>
 		/// Is Right to left
