@@ -98,6 +98,20 @@
                     xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}"/>
             </StackLayout>
 
+            <StackLayout Style="{StaticResource GridRowContentStyle}">
+
+                <Label Text="Button | ImageButton" />
+
+                <Button
+                    Text="Button"
+                    xct:TouchEffect.Command="{Binding Command, Mode=OneWay, Source={x:Reference Page}}" />
+
+                <ImageButton
+                    HeightRequest="150"
+                    Source="xamarinstore.jpg"
+                    xct:TouchEffect.Command="{Binding Command, Mode=OneWay, Source={x:Reference Page}}" />
+
+            </StackLayout>
 
             <StackLayout Style="{StaticResource GridRowContentStyle}">
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Microsoft.Graphics.Canvas;
 using Windows.Storage.Streams;
 using Windows.UI.Input.Inking;
-using Microsoft.Graphics.Canvas;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 

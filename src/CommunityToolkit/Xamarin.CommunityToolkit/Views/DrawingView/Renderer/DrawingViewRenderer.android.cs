@@ -1,10 +1,10 @@
-﻿using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Linq;
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Point = Xamarin.Forms.Point;
 using View = Android.Views.View;

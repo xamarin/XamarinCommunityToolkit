@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			context.AddLines(points.Select(p => new CGPoint(p.X - minPointX, p.Y - minPointY)).ToArray());
 			context.StrokePath();
 			using var cgImage = context.ToImage();
-			NSImage image = new (cgImage, imageSize);
+			NSImage image = new(cgImage, imageSize);
 
 			return image;
 		}
