@@ -63,16 +63,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ClearOnFinishProperty, value);
 		}
 
-		// public Stream GetImageStream(double imageSizeWidth, double imageSizeHeight) =>
-		// 	DrawingViewService.GetImageStream(Points.ToList(), new Size(imageSizeWidth, imageSizeHeight), LineWidth,
-		// 		LineColor,
-		// 		BackgroundColor);
+		public Stream GetImageStream(double imageSizeWidth, double imageSizeHeight) => DrawingViewService.GetImageStream(Lines.ToList(), new Size(imageSizeWidth, imageSizeHeight), BackgroundColor);
 
-		public static Stream GetImageStream(IEnumerable<Point> points,
+		public static Stream GetImageStream(IEnumerable<Line> lines,
 			Size imageSize,
-			float lineWidth,
-			Color strokeColor,
 			Color backgroundColor) =>
-			DrawingViewService.GetImageStream(points.ToList(), imageSize, lineWidth, strokeColor, backgroundColor);
+			DrawingViewService.GetImageStream(lines.ToList(), imageSize, backgroundColor);
 	}
 }

@@ -20,11 +20,6 @@
                 Clicked="LoadPointsButtonClicked"
                 Text="Load points"
                 TextColor="Black" />
-            <Button
-                BackgroundColor="White"
-                Command="{Binding SetLinesCommand}"
-                Text="Load points ViewModel"
-                TextColor="Black" />
             <Label
                 x:Name="HiddenLabel"
                 HorizontalOptions="CenterAndExpand"
@@ -34,11 +29,6 @@
                 BackgroundColor="White"
                 Clicked="DisplayHiddenLabelButtonClicked"
                 Text="Display hidden label"
-                TextColor="Black" />
-            <Button
-                BackgroundColor="White"
-                Command="{Binding GetLinesCommand}"
-                Text="Get points ViewModel"
                 TextColor="Black" />
             <Button
                 BackgroundColor="White"

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.UI.Views;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
@@ -17,7 +18,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			DrawingViewControl.DrawingLineCompletedCommand = new Command<Line>(line =>
 			{
 				Logs.Text += "GestureCompletedCommand executed" + Environment.NewLine;
-				DrawImage(line);
+				var stream = Line.GetImageStream(line.Points.ToList(), new Size(GestureImage.Width, GestureImage.Height), 10, Color.White, Color.Black);
+				GestureImage.Source = ImageSource.FromStream(() => stream);
 			});
 
 			BindingContext = this;
@@ -30,14 +32,14 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		void GetCurrentDrawingViewImageClicked(object sender, EventArgs e)
 		{
-			//var stream = DrawingViewControl.GetImageStream(GestureImage.Width, GestureImage.Height);
-			//GestureImage.Source = ImageSource.FromStream(() => stream);
+			var stream = DrawingViewControl.GetImageStream(GestureImage.Width, GestureImage.Height);
+			GestureImage.Source = ImageSource.FromStream(() => stream);
 		}
 
 		void GetImageClicked(object sender, EventArgs e)
 		{
 			var lines = GenerateLines(10);
-			DrawImage(lines[0]);
+			DrawImage(lines.ToList());
 		}
 
 		ObservableCollection<Line> GenerateLines(int count)
@@ -69,10 +71,9 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			return points;
 		}
 
-		void DrawImage(Line line)
+		void DrawImage(List<Line> lines)
 		{
-			var stream = DrawingView.GetImageStream(line.Points, new Size(GestureImage.Width, GestureImage.Height), 10,
-				Color.White, Color.Black);
+			var stream = DrawingView.GetImageStream(lines, new Size(GestureImage.Width, GestureImage.Height), Color.Gray);
 			GestureImage.Source = ImageSource.FromStream(() => stream);
 		}
 
