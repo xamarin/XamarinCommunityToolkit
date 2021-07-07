@@ -7,17 +7,35 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 	public class DrawingView_Tests
 	{
 		[Test]
-		public void AllInstancesShouldHaveTheirOwnPoints()
+		public void AllInstancesShouldHaveTheirOwnLines()
 		{
 			var drawingViewOne = new DrawingView();
 			var drawingViewTwo = new DrawingView();
 
-			drawingViewOne.Points.Add(Point.Zero);
+			drawingViewOne.Lines.Add(new Line());
 
-			drawingViewTwo.Points.Clear();
+			drawingViewTwo.Lines.Clear();
 
-			Assert.IsNotEmpty(drawingViewOne.Points);
-			Assert.IsFalse(ReferenceEquals(drawingViewOne.Points, drawingViewTwo.Points));
+			Assert.IsNotEmpty(drawingViewOne.Lines);
+			Assert.IsFalse(ReferenceEquals(drawingViewOne.Lines, drawingViewTwo.Lines));
+		}
+
+		[Test]
+		public void AllLineInstancesShouldHaveTheirOwnPoints()
+		{
+			var drawingView = new DrawingView();
+
+			var line1 = new Line();
+			var line2 = new Line();
+			drawingView.Lines.Add(line1);
+			drawingView.Lines.Add(line2);
+
+			line1.Points.Add(Point.Zero);
+
+			line2.Points.Clear();
+
+			Assert.IsNotEmpty(line1.Points);
+			Assert.IsFalse(ReferenceEquals(line1.Points, line2.Points));
 		}
 	}
 }

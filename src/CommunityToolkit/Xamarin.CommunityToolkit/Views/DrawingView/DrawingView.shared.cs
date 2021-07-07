@@ -26,6 +26,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty DefaultLineWidthProperty =
 			BindableProperty.Create(nameof(DefaultLineWidth), typeof(float), typeof(DrawingView), 5f);
+
+		public DrawingView()
+		{
+			Lines = new ObservableCollection<Line>();
+		}
 		
 		public Color DefaultLineColor
 		{

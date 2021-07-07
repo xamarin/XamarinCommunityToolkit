@@ -26,7 +26,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty LineWidthProperty =
 			BindableProperty.Create(nameof(LineWidth), typeof(float), typeof(Line), 5f);
-		
+
+		public Line()
+		{
+			Points = new ObservableCollection<Point>();
+		}
+
 		public Color LineColor
 		{
 			get => (Color) GetValue(LineColorProperty);
