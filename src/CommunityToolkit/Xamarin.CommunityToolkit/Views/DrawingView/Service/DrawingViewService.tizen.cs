@@ -11,6 +11,30 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	static class DrawingViewService
 	{
+		public static Stream GetImageStream(IList<Line>? lines,
+			Size imageSize,
+			Color backgroundColor)
+		{
+			if (lines == null)
+			{
+				return Stream.Null;
+			}
+
+			var image = GetImageInternal(lines, backgroundColor);
+			if (image == null)
+			{
+				return Stream.Null;
+			}
+
+			var resizedImage = MaxResizeImage(image, (float)imageSize.Width, (float)imageSize.Height);
+			using (resizedImage)
+			{
+				var stream = resizedImage.Encode(SKEncodedImageFormat.Jpeg, 100).AsStream();
+				stream.Position = 0;
+				return stream;
+			}
+		}
+
 		/// <summary>
 		/// Get image stream from points
 		/// </summary>
@@ -109,6 +133,48 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			return bm;
+		}
+
+		static SKImage? GetImageInternal(IList<Line> lines,
+			Color backgroundColor)
+		{
+			var points = lines.SelectMany(x => x.Points).ToList();
+			var minPointX = points.Min(p => p.X);
+			var minPointY = points.Min(p => p.Y);
+			var drawingWidth = points.Max(p => p.X) - minPointX;
+			var drawingHeight = points.Max(p => p.Y) - minPointY;
+			const int minSize = 1;
+			if (drawingWidth < minSize || drawingHeight < minSize)
+				return null;
+
+			var bm = new SKBitmap((int)drawingWidth, (int)drawingHeight);
+			using (var gr = new SKCanvas(bm))
+			{
+				var drawingBackgroundColor = XamarinColorToDrawingColor(backgroundColor);
+				gr.Clear(drawingBackgroundColor);
+
+				foreach (var line in lines)
+				{
+					using (var pen = new SKPaint
+					{
+						Color = XamarinColorToDrawingColor(line.LineColor),
+						StrokeWidth = line.LineWidth
+					})
+					{
+						var pointsCount = line.Points.Count;
+						for (var i = 0; i < pointsCount - 1; i++)
+						{
+							var p1 = XamarinPointToDrawingPoint(line.Points.ElementAt(i));
+							var p2 = XamarinPointToDrawingPoint(line.Points.ElementAt(i + 1));
+
+							gr.DrawLine(p1.X - (float)minPointX, p1.Y - (float)minPointY, p2.X - (float)minPointX,
+										p2.Y - (float)minPointY, pen);
+						}
+					}
+				}
+			}
+
+			return SKImage.FromBitmap(bm);
 		}
 	}
 }
