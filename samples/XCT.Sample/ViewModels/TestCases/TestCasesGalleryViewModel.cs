@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.TestCases;
+using Xamarin.CommunityToolkit.Sample.Pages.TestCases.Popups;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 {
@@ -22,6 +23,16 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(MediaElementSourcePage),
 				"MediaElement with Source as string",
 				"MediaElement should reproduce the video."),
+
+			new SectionModel(
+				typeof(TabViewBindingPage),
+				"TabView BindingContext",
+				"TabView with BindingContext into MainPage and other BindingContext into TabViewItem."),
+
+			new SectionModel(
+				typeof(PopupModalPage),
+				"Popup into modal",
+				"Using Popup into modal page show the popup"),
 		};
 	}
 }

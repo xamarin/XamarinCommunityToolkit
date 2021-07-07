@@ -1,5 +1,4 @@
-﻿using System;
-using UIKit;
+﻿using UIKit;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms.Platform.iOS;
 
@@ -7,7 +6,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
 	class NativeSnackBarAppearance
 	{
-		public UIColor Background { get; set; } = XCT.IsiOS13OrNewer ? UIColor.SystemBackgroundColor : UIColor.Gray;
+		public UIColor Background { get; set; } = XCT.IsiOS13OrNewer ? UIColor.SystemGrayColor : UIColor.Gray;
 
 		public UIColor Foreground { get; set; } = DefaultColor;
 

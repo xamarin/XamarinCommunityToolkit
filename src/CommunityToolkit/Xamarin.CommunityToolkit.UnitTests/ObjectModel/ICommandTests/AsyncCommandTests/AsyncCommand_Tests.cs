@@ -36,6 +36,20 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Assert
 		}
 
+		[TestCase(500)]
+		[TestCase(0)]
+		[TestCase(null)]
+		public async Task AsyncCommand_ExecuteAsync_NullableParameter_Test(int? parameter)
+		{
+			// Arrange
+			var command = new AsyncCommand<int?>(NullableParameterTask);
+
+			// Act
+			await command.ExecuteAsync(parameter).ConfigureAwait(false);
+
+			// Assert
+		}
+
 		[TestCase("Hello")]
 		[TestCase(default)]
 		public async Task AsyncCommand_ExecuteAsync_StringParameter_Test(string parameter)

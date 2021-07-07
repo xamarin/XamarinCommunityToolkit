@@ -45,7 +45,7 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <DefineConstants>UWP</DefineConstants>
+    <DefineConstants>$(DefineConstants);UAP10_0</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0.14393'">
     <DefineConstants>$(DefineConstants);UWP_14393</DefineConstants>
@@ -67,7 +67,7 @@
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1874" />
+    <PackageReference Include="Xamarin.Forms" Version="[5.0.0.1874, 5.0.0.2012]" />
     <PackageReference Include="mdoc" Version="5.8.0" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
@@ -144,6 +144,7 @@
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('tizen')) ">
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.80.2" />
     <Compile Include="**\*.tizen.cs" />
     <Compile Include="**\*.tizen.*.cs" />
   </ItemGroup>
@@ -205,6 +206,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Libs\gtk-sharp\gtk-sharp-2.0\pango-sharp.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Mono.Cairo">
+      <HintPath>..\..\..\Libs\gtk-sharp\Mono.Cairo\Mono.Cairo.dll</HintPath>
     </Reference>
   </ItemGroup>
 

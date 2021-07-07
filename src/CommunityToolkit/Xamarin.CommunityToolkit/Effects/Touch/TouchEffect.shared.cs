@@ -470,9 +470,11 @@ namespace Xamarin.CommunityToolkit.Effects
 			default(bool),
 			propertyChanged: TryGenerateEffect);
 
+#pragma warning disable SA1000 // Keywords should be spaced correctly
 		readonly GestureManager gestureManager = new();
 
 		readonly WeakEventManager weakEventManager = new();
+#pragma warning restore SA1000 // Keywords should be spaced correctly
 
 		VisualElement? element;
 
