@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return Stream.Null;
 			}
 
-			var resizedImage = MaxResizeImage(image, (float) imageSize.Width, (float) imageSize.Height);
+			var resizedImage = MaxResizeImage(image, (float)imageSize.Width, (float)imageSize.Height);
 			using (resizedImage)
 			{
 				var stream = new MemoryStream();
@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return null;
 			}
 
-			var bm = new Bitmap((int) drawingWidth, (int) drawingHeight);
+			var bm = new Bitmap((int)drawingWidth, (int)drawingHeight);
 			using var gr = Graphics.FromImage(bm);
 			var drawingBackgroundColor = XamarinColorToDrawingColor(backgroundColor);
 			gr.Clear(drawingBackgroundColor);
@@ -76,8 +76,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var p1 = XamarinPointToDrawingPoint(points.ElementAt(i));
 				var p2 = XamarinPointToDrawingPoint(points.ElementAt(i + 1));
-				path.AddLine(p1.X - (float) minPointX, p1.Y - (float) minPointY, p2.X - (float) minPointX,
-					p2.Y - (float) minPointY);
+				path.AddLine(p1.X - (float)minPointX, p1.Y - (float)minPointY, p2.X - (float)minPointX,
+					p2.Y - (float)minPointY);
 			}
 
 			gr.DrawPath(pen, path);
@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static PointF XamarinPointToDrawingPoint(Point xamarinPoint) =>
-			new PointF((float) xamarinPoint.X, (float) xamarinPoint.Y);
+			new PointF((float)xamarinPoint.X, (float)xamarinPoint.Y);
 
 		static Image MaxResizeImage(Image sourceImage, float maxWidth, float maxHeight)
 		{
@@ -105,7 +105,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var width = maxResizeFactor * sourceSize.Width;
 			var height = maxResizeFactor * sourceSize.Height;
-			var bm = new Bitmap((int) width, (int) height);
+			var bm = new Bitmap((int)width, (int)height);
 			using var gr = Graphics.FromImage(bm);
 			gr.DrawImage(sourceImage, new Rectangle(0, 0, bm.Width, bm.Height));
 

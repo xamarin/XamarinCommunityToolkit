@@ -2,9 +2,9 @@
 using Android.App;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
+using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
 
 [assembly: ExportEffect(typeof(PlatformNavigationBarEffect), nameof(NavigationBarEffect))]
 

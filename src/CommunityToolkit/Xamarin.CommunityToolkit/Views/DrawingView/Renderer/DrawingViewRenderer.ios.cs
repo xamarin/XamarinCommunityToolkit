@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpdatePath();
 			if (Element.Points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 
@@ -121,11 +121,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdatePath()
 		{
+			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			var smoothedPoints = Element.EnableSmoothedPath
 				? SmoothedPathWithGranularity(Element.Points, Element.Granularity, ref currentPath)
 				: new ObservableCollection<Point>(Element.Points);
 
-			Element.Points.CollectionChanged -= OnPointsCollectionChanged;
 			SetNeedsDisplay();
 			Element.Points.Clear();
 
