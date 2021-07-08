@@ -12,6 +12,9 @@ using Point = Xamarin.Forms.Point;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// Tizen renderer for <see cref="DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, SKCanvasView>
 	{
 		SKCanvasView? canvasView;

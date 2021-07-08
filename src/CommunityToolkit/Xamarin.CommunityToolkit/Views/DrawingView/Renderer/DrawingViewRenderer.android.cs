@@ -8,12 +8,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Point = Xamarin.Forms.Point;
 using View = Android.Views.View;
-using System.Collections.Generic;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// Android renderer for <see cref="Xamarin.CommunityToolkit.UI.Views.DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, View>
 	{
 		bool disposed;
@@ -73,7 +75,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			h = h < minH ? minH : h;
 			base.OnSizeChanged(w, h, oldw, oldh);
 
-			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
+			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!) !;
 			drawCanvas = new Canvas(canvasBitmap);
 			LoadLines();
 		}

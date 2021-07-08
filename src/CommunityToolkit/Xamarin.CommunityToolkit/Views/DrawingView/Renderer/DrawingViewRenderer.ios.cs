@@ -13,6 +13,9 @@ using Xamarin.Forms.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// iOS renderer for <see cref="DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, UIView>
 	{
 		bool disposed;

@@ -14,6 +14,9 @@ using Point = Xamarin.Forms.Point;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// GTK renderer for <see cref="Xamarin.CommunityToolkit.UI.Views.DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, VBox>
 	{
 		bool disposed;

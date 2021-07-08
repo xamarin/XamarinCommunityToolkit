@@ -12,6 +12,9 @@ using Xamarin.Forms.Platform.MacOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// macOS renderer for <see cref="DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, NSView>
 	{
 		bool disposed;

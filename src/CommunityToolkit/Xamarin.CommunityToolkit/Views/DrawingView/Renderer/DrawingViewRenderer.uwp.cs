@@ -15,6 +15,9 @@ using Size = Windows.Foundation.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// UWP renderer for <see cref="Xamarin.CommunityToolkit.UI.Views.DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, InkCanvas>
 	{
 		InkCanvas? canvas;

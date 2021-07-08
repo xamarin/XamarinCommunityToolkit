@@ -142,7 +142,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UIGraphics.EndImageContext();
 			return image;
 		}
-		
+
 		static UIImage MaxResizeImage(UIImage sourceImage, float maxWidth, float maxHeight)
 		{
 			var sourceSize = sourceImage.Size;
