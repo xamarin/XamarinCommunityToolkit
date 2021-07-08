@@ -279,6 +279,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		}
 
 		public override bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
-			=> recognizer.View.IsDescendantOfView(touch.View);
+			=> recognizer.View.IsDescendantOfView(touch.View) ||
+				(recognizer.View as IVisualNativeElementRenderer)?.Control == touch.View;
 	}
 }
