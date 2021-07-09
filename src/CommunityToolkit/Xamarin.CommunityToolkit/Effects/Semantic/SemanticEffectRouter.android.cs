@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
+using Android.OS;
 using Android.Widget;
 using AndroidX.Core.View;
 using AndroidX.Core.View.Accessibiity;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
@@ -76,23 +78,59 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				if (info == null)
 					return;
 
-				var hint = SemanticEffect.GetHint(Element);
-				if (!string.IsNullOrEmpty(hint))
-				{
-					info.HintText = hint;
-
-					if (host is EditText)
-						info.ShowingHintText = false;
-				}
+				string? newText = null;
+				string? newContentDescription = null;
 
 				var desc = SemanticEffect.GetDescription(Element);
 				if (!string.IsNullOrEmpty(desc))
 				{
-					info.ContentDescription = desc;
-
+					// Edit Text fields won't read anything for the content description
 					if (host is EditText)
-						info.Text = desc + ", " + ((EditText)host).Text;
+						newText = $"{desc}, {((EditText)host).Text}";
+					else
+						newContentDescription = desc;
 				}
+
+				var hint = SemanticEffect.GetHint(Element);
+				if (!string.IsNullOrEmpty(hint))
+				{
+					// info HintText won't read anything back when using TalkBack pre API 26
+
+					if (Build.VERSION.SdkInt < BuildVersionCodes.O)
+					{
+						info.HintText = hint;
+
+						if (host is EditText)
+							info.ShowingHintText = false;
+					}
+					else
+					{
+						if (host is TextView tv)
+						{
+							newText = newText ?? tv.Text;
+							newText = $"{newText}, {hint}";
+						}
+						else
+						{
+							if (newContentDescription != null)
+							{
+								newText = $"{newContentDescription}, {hint}";
+							}
+							else
+							{
+								newText = $"{hint}";
+							}
+						}
+
+						newContentDescription = null;
+					}
+				}
+
+				if (!string.IsNullOrWhiteSpace(newContentDescription))
+					info.ContentDescription = newContentDescription;
+
+				if (!string.IsNullOrWhiteSpace(newText))
+					info.Text = newText;
 			}
 		}
 	}
