@@ -85,8 +85,13 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				if (!string.IsNullOrEmpty(desc))
 				{
 					// Edit Text fields won't read anything for the content description
-					if (host is EditText)
-						newText = $"{desc}, {((EditText)host).Text}";
+					if (host is EditText et)
+					{
+						if (string.IsNullOrEmpty(et.Text))
+							newText = $"{desc}, {et.Text}";
+						else
+							newText = $"{desc}";
+					}
 					else
 						newContentDescription = desc;
 				}
