@@ -95,20 +95,34 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				if (!string.IsNullOrEmpty(hint))
 				{
 					// info HintText won't read anything back when using TalkBack pre API 26
-
-					if (Build.VERSION.SdkInt < BuildVersionCodes.O)
+					if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
 					{
 						info.HintText = hint;
 
-						if (host is EditText)
-							info.ShowingHintText = false;
+						if (host is EditText et)
+							info.ShowingHintText = string.IsNullOrEmpty(et.Text);
 					}
 					else
 					{
-						if (host is TextView tv)
+						if (host is EditText et)
 						{
-							newText = newText ?? tv.Text;
+							newText = newText ?? et.Text;
 							newText = $"{newText}, {hint}";
+						}
+						else if (host is TextView tv)
+						{
+							if (newContentDescription != null)
+							{
+								newText = $"{newContentDescription}, {hint}";
+							}
+							else if(!string.IsNullOrEmpty(tv.Text))
+							{
+								newText = $"{tv.Text}, {hint}";
+							}
+							else
+							{
+								newText = $"{hint}";
+							}
 						}
 						else
 						{
