@@ -19,7 +19,6 @@ namespace Xamarin.CommunityToolkit.Sample
 			LocalizationResourceManager.Current.CurrentCulture = new CultureInfo("en");
 
 			InitializeComponent();
-			Xamarin.Forms.Device.SetFlags(new List<string> { "Accessibility_Experimental" });
 			MainPage = new BaseNavigationPage(new WelcomePage());
 		}
 	}

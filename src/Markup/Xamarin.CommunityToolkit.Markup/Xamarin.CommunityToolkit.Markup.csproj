@@ -33,7 +33,7 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.7268" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="mdoc" Version="5.8.0" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
