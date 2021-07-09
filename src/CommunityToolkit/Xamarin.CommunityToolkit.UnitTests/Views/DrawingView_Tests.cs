@@ -20,10 +20,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 
 			Assert.IsNotEmpty(drawingViewOne.Points);
 			Assert.IsFalse(ReferenceEquals(drawingViewOne.Points, drawingViewTwo.Points));
-			Assert.NotNull(points);
-			Assert.AreEqual(points.Count(), 1);
-
-			drawingView.DrawingCompletedCommand = null;
 		}
 
 		[Test]
@@ -37,8 +33,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			drawingView.OnDrawingCompleted();
 
 			Assert.Null(points);
-
-			drawingView.DrawingCompletedCommand = null;
 		}
 
 		[Test]
@@ -54,8 +48,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 
 			Assert.NotNull(points);
 			Assert.AreEqual(points.Count(), 1);
-
-			drawingView.DrawingCompleted -= (sender, args) => points = args.Points;
 		}
 
 		[Test]
@@ -69,7 +61,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 			drawingView.OnDrawingCompleted();
 
 			Assert.Null(points);
-			drawingView.DrawingCompleted -= (sender, args) => points = args.Points;
 		}
 
 		[Test]
