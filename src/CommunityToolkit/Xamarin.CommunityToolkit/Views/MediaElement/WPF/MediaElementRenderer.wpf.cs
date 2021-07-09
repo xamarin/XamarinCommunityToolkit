@@ -54,7 +54,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				Control.Stretch = Element.Aspect.ToStretch();
 
-
 				Element.SeekRequested += SeekRequested;
 				Element.StateRequested += StateRequested;
 				Element.PositionRequested += PositionRequested;
@@ -73,6 +72,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		MediaElementState requestedState;
+
 		IMediaElementController Controller => Element as IMediaElementController;
 
 		void StateRequested(object? sender, StateRequested e)

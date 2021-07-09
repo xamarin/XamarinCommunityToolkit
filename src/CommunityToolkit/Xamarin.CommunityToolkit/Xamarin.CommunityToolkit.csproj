@@ -31,7 +31,7 @@
     <Configurations>Debug;Release</Configurations>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <DebugType>portable</DebugType>
-    <NoWarn>SA1123</NoWarn>
+    <NoWarn>NU1701</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage TargetFrameworks for development (Debug Mode) -->
