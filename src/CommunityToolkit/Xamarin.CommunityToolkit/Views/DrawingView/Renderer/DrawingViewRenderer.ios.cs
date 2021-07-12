@@ -88,8 +88,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				UpdatePath(currentLine);
 				Element.Lines.Add(currentLine);
-				if (Element.DrawingLineCompletedCommand?.CanExecute(currentLine) ?? false)
-					Element.DrawingLineCompletedCommand.Execute(currentLine);
+				Element.OnDrawingLineCompleted(currentLine);
 			}
 
 			if (Element.ClearOnFinish)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -47,6 +48,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public static readonly BindableProperty DefaultLineWidthProperty =
 			BindableProperty.Create(nameof(DefaultLineWidth), typeof(float), typeof(DrawingView), 5f);
+
+		/// <summary>
+		/// Event occured when drawing line completed
+		/// </summary>
+		public event EventHandler<DrawingLineCompletedEventArgs>? DrawingLineCompleted;
 
 		/// <summary>
 		/// Initializes the DrawingView
@@ -134,5 +140,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Size imageSize,
 			Color backgroundColor) =>
 			DrawingViewService.GetImageStream(lines.ToList(), imageSize, backgroundColor);
+
+		/// <summary>
+		/// Executes DrawingLineCompleted event and DrawingLineCompletedCommand
+		/// </summary>
+		/// <param name="lastDrawingLine">Last drawing line</param>
+		internal void OnDrawingLineCompleted(Line lastDrawingLine)
+		{
+			DrawingLineCompleted?.Invoke(this, new DrawingLineCompletedEventArgs(lastDrawingLine));
+			if (DrawingLineCompletedCommand?.CanExecute(lastDrawingLine) ?? false)
+				DrawingLineCompletedCommand.Execute(lastDrawingLine);
+		}
 	}
 }

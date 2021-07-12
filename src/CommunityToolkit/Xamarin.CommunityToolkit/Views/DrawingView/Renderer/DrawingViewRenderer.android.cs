@@ -136,8 +136,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (currentLine != null)
 					{
 						Element.Lines.Add(currentLine);
-						if (Element.DrawingLineCompletedCommand?.CanExecute(currentLine) ?? false)
-							Element.DrawingLineCompletedCommand.Execute(currentLine);
+						Element.OnDrawingLineCompleted(currentLine);
 					}
 
 					if (Element.ClearOnFinish)

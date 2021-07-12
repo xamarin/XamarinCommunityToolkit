@@ -102,13 +102,13 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 							line.DrawingAttributes.Color.B, line.DrawingAttributes.Color.A),
 						LineWidth = (float) line.DrawingAttributes.Width
 					});
+				}
 
-					if (Element.Lines.Count > 0)
-					{
-						var lastLine = Element.Lines.Last();
-						if (Element.DrawingLineCompletedCommand?.CanExecute(lastLine) ?? false)
-							Element.DrawingLineCompletedCommand.Execute(lastLine);
-					}
+				if (Element.Lines.Count > 0)
+				{
+					var lastLine = Element.Lines.Last();
+					if (Element.DrawingLineCompletedCommand?.CanExecute(lastLine) ?? false)
+						Element.DrawingLineCompletedCommand.Execute(lastLine);
 				}
 
 				if (Element.ClearOnFinish)

@@ -88,13 +88,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							line.DrawingAttributes.Color.B, line.DrawingAttributes.Color.A),
 						LineWidth = (float) line.DrawingAttributes.Size.Width
 					});
+				}
 
-					if (Element.Lines.Count > 0)
-					{
-						var lastLine = Element.Lines.Last();
-						if (Element.DrawingLineCompletedCommand?.CanExecute(lastLine) ?? false)
-							Element.DrawingLineCompletedCommand.Execute(lastLine);
-					}
+				if (Element.Lines.Count > 0)
+				{
+					var lastLine = Element.Lines.Last();
+					Element.OnDrawingLineCompleted(lastLine);
 				}
 
 				if (Element.ClearOnFinish)
@@ -117,7 +116,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			LoadLines();
 			canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
 		}
-
 
 		void LoadLines()
 		{
