@@ -2,11 +2,21 @@
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// Contains last drawing line
+	/// </summary>
 	public class DrawingLineCompletedEventArgs : EventArgs
 	{
-		public Line Line { get; }
+		/// <summary>
+		/// Last drawing line
+		/// </summary>
+		public Line? Line { get; }
 
-		public DrawingLineCompletedEventArgs(Line line)
+		/// <summary>
+		/// Initializes last drawing line
+		/// </summary>
+		/// <param name="line">Last drawing line</param>
+		public DrawingLineCompletedEventArgs(Line? line)
 		{
 			Line = line;
 		}

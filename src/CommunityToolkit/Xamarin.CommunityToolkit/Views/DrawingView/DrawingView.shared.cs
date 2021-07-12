@@ -145,7 +145,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Executes DrawingLineCompleted event and DrawingLineCompletedCommand
 		/// </summary>
 		/// <param name="lastDrawingLine">Last drawing line</param>
-		internal void OnDrawingLineCompleted(Line lastDrawingLine)
+		internal void OnDrawingLineCompleted(Line? lastDrawingLine)
 		{
 			DrawingLineCompleted?.Invoke(this, new DrawingLineCompletedEventArgs(lastDrawingLine));
 			if (DrawingLineCompletedCommand?.CanExecute(lastDrawingLine) ?? false)
