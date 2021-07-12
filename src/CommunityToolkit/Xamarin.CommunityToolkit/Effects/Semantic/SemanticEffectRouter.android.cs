@@ -23,19 +23,19 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			var isHeading = SemanticEffect.GetHeadingLevel(Element) != CommunityToolkit.Effects.Semantic.HeadingLevel.None;
 			ViewCompat.SetAccessibilityHeading(view, isHeading);
 
-			var a11yVisibility = SemanticEffect.GetA11yVisibility(Element);
+			var a11yVisibility = SemanticEffect.GetSemanticInclusion(Element);
 			switch (a11yVisibility)
 			{
-				case ImportantForA11y.Auto:
+				case SemanticInclusion.Default:
 					ViewCompat.SetImportantForAccessibility(view, ViewCompat.ImportantForAccessibilityAuto);
 					break;
-				case ImportantForA11y.Yes:
+				case SemanticInclusion.Include:
 					ViewCompat.SetImportantForAccessibility(view, ViewCompat.ImportantForAccessibilityYes);
 					break;
-				case ImportantForA11y.No:
+				case SemanticInclusion.Exclude:
 					ViewCompat.SetImportantForAccessibility(view, ViewCompat.ImportantForAccessibilityNo);
 					break;
-				case ImportantForA11y.NoHideDescendants:
+				case SemanticInclusion.ExcludeWithChildren:
 					ViewCompat.SetImportantForAccessibility(view, ViewCompat.ImportantForAccessibilityNoHideDescendants);
 					break;
 			}

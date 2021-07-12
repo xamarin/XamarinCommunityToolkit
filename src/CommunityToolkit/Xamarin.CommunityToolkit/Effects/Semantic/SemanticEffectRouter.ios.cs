@@ -27,22 +27,22 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			else
 				view.AccessibilityTraits &= ~UIAccessibilityTrait.Header;
 
-			var a11yVisibility = SemanticEffect.GetA11yVisibility(Element);
-			switch (a11yVisibility)
+			var semanticInclusion = SemanticEffect.GetSemanticInclusion(Element);
+			switch (semanticInclusion)
 			{
-				case ImportantForA11y.Auto:
+				case SemanticInclusion.Default:
 					view.IsAccessibilityElement = view is UIControl;
 					view.AccessibilityElementsHidden = false;
 					break;
-				case ImportantForA11y.Yes:
+				case SemanticInclusion.Include:
 					view.IsAccessibilityElement = true;
 					view.AccessibilityElementsHidden = false;
 					break;
-				case ImportantForA11y.No:
+				case SemanticInclusion.Exclude:
 					view.IsAccessibilityElement = false;
 					view.AccessibilityElementsHidden = false;
 					break;
-				case ImportantForA11y.NoHideDescendants:
+				case SemanticInclusion.ExcludeWithChildren:
 					view.IsAccessibilityElement = false;
 					view.AccessibilityElementsHidden = true;
 					break;
