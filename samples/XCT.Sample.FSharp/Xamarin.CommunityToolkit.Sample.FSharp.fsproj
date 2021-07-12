@@ -25,9 +25,6 @@
 	<ItemGroup>
 		<PackageReference Include="FSharp.Core" Version="5.0.1" />
 		<ProjectReference Include="..\..\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj" />
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2012">
-		  <GeneratePathProperty></GeneratePathProperty>
-		</PackageReference>
 	</ItemGroup>
 
 </Project>
