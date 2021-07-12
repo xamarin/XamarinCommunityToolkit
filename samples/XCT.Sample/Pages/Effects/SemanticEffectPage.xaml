@@ -30,7 +30,11 @@
                     Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"
                     xct:SemanticEffect.Description="This is a description that describes the image. For example, 'image of xamarin community toolkit logo'"/>
 
-                <Button Text="Hide all above content from a11y" Clicked="HideButton_Clicked" />
+                <Label Text="Label that is semantically default included" xct:SemanticEffect.SemanticInclusion="Default" />
+                <Label Text="Label that is semantically included" xct:SemanticEffect.SemanticInclusion="Include" />
+                <Label Text="Label that is semantically excluded" xct:SemanticEffect.SemanticInclusion="Exclude" />
+
+                <Button Text="Hide all above content from screen reader accessibility" Clicked="HideButton_Clicked" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
