@@ -85,6 +85,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			var options = new SnackBarOptions
 			{
 				MessageOptions = toastOptions.MessageOptions,
+				CornerRadius = toastOptions.CornerRadius,
 				Duration = toastOptions.Duration,
 				BackgroundColor = toastOptions.BackgroundColor,
 				IsRtl = toastOptions.IsRtl
