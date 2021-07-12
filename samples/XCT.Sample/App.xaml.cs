@@ -1,4 +1,3 @@
-﻿using System.Collections.Generic;
 using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.Sample.Pages;
