@@ -31,7 +31,6 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-
 		protected virtual void Update(global::Android.Views.View view, T effect)
 		{
 		}
