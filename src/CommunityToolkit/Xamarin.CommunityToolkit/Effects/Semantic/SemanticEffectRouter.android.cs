@@ -104,8 +104,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					{
 						info.HintText = hint;
 
-						if (host is EditText et)
-							info.ShowingHintText = string.IsNullOrEmpty(et.Text);
+						if (host is EditText)
+							info.ShowingHintText = false;
 					}
 					else
 					{
@@ -120,7 +120,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 							{
 								newText = $"{newContentDescription}, {hint}";
 							}
-							else if(!string.IsNullOrEmpty(tv.Text))
+							else if (!string.IsNullOrEmpty(tv.Text))
 							{
 								newText = $"{tv.Text}, {hint}";
 							}
