@@ -9,7 +9,6 @@ namespace Xamarin.CommunityToolkit.Extensions
 	/// </summary>
 	public static partial class VisualElementExtensions
 	{
-
 		/// <summary>
 		/// <see cref="VisualElement"/> cleanup object to dispose and
 		/// destroy resources.

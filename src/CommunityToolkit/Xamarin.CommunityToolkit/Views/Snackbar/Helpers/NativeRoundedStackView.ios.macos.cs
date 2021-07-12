@@ -7,7 +7,6 @@ using Xamarin.Forms;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS;
 using UIKit;
 #elif __MACOS__
-using CoreGraphics;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.Extensions;
 using AppKit;
