@@ -2,7 +2,7 @@
 using Android.OS;
 using Android.Widget;
 using AndroidX.Core.View;
-using AndroidX.Core.View.Accessibiity;
+using AndroidX.Core.View.Accessibility;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
