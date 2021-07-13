@@ -59,6 +59,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			{
 				MessageOptions = messageOptions,
 				Duration = TimeSpan.FromMilliseconds(5000),
+				CornerRadius = new Thickness(10, 20, 30, 40),
 				BackgroundColor = Color.LightBlue
 			};
 
