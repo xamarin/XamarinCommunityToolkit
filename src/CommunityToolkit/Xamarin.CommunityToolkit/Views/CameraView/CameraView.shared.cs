@@ -5,11 +5,12 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
 	public class CameraView : View
 	{
+		[Preserve(Conditional = true)]
 		public event EventHandler<MediaCapturedEventArgs>? MediaCaptured;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler<string>? MediaCaptureFailed;
 
 		public event EventHandler<bool>? OnAvailable;
