@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 
 		void ExcludeButton_Clicked(object sender, System.EventArgs e)
 		{
-			SemanticEffect.SetSemanticInclusion(mainLayout, SemanticInclusion.ExcludeWithChildren);
+			SemanticEffect.SetSemanticInclusion(semanticInclusionSampleLayout, SemanticInclusion.ExcludeWithChildren);
 		}
 	}
 }

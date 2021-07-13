@@ -6,7 +6,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.Content>
         <ScrollView Margin="15,20">
-            <StackLayout x:Name="mainLayout">
+            <StackLayout>
                 <Label
                     Text="Welcome to XCT Semantic Effects!"
                     xct:SemanticEffect.Description="Welcome to Xamarin Community Toolkit Semantic Effects!"
@@ -115,7 +115,7 @@
                     xct:SemanticEffect.Hint="Hint text"/>
 
                 <Label
-                    Text="The rest of the controls read out DH"
+                    Text="The next set of controls read out DH and then experiments with controls in layouts that have a SemanticDescription."
                     TextColor="RoyalBlue"
                     FontAttributes="Bold"
                     FontSize="16"
@@ -158,7 +158,26 @@
                     Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"
                     xct:SemanticEffect.Description="Description text"
                     xct:SemanticEffect.Hint="Hint text"/>
-              
+
+                <StackLayout xct:SemanticEffect.Description="Layout description text">
+                    <Label
+                        Text="Label in StackLayout with semantic description"
+                        FontSize="14"/>
+                    <Label
+                        Text="Label in StackLayout with semantic description"
+                        FontSize="14"/>
+                </StackLayout>
+
+                <!-- [iOS] Button is not individually accessible. -->
+                <StackLayout xct:SemanticEffect.Description="Layout description text">
+                    <Label
+                        Text="Label in StackLayout with semantic description"
+                        FontSize="14"/>
+                    <Button
+                        Text="Button in StackLayout with semantic description"
+                        FontSize="14"/>
+                </StackLayout>
+
                 <Label
                     Text="This next set of controls exist solely for testing the HeadingLevel property. If testing on mobile, be sure to activate Headings and swipe up/down with one finger to test."
                     TextColor="RoyalBlue"
@@ -193,41 +212,30 @@
                     FontSize="14"
                     xct:SemanticEffect.HeadingLevel="Level3"/>
 
-                <StackLayout xct:SemanticEffect.Description="Layout description text">
-                    <Label
-                        Text="Label in StackLayout with semantic description"
-                        FontSize="14"/>
-                    <Label
-                        Text="Label in StackLayout with semantic description"
-                        FontSize="14"/>
-                </StackLayout>
+                <Label
+                    Text="This next set of controls exist solely for testing the SemanticInclusion property."
+                    TextColor="RoyalBlue"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Margin="0,10"/>
 
-                <!-- [iOS] Button is not individually accessible. -->
-                <StackLayout xct:SemanticEffect.Description="Layout description text">
-                    <Label
-                        Text="Label in StackLayout with semantic description"
-                        FontSize="14"/>
-                    <Button
-                        Text="Button in StackLayout with semantic description"
-                        FontSize="14"/>
-                </StackLayout>
-              
-                <Label 
+                <StackLayout x:Name="semanticInclusionSampleLayout">
+                    <Label 
                        Text="Label that is semantically default included" 
                        xct:SemanticEffect.SemanticInclusion="Default" />
-                
-                <Label
+
+                    <Label
                        Text="Label that is semantically included"
                        xct:SemanticEffect.SemanticInclusion="Include" />
-                
-                <Label 
+
+                    <Label 
                        Text="Label that is semantically excluded" 
                        xct:SemanticEffect.SemanticInclusion="Exclude" />
 
-                <Button 
+                    <Button 
                        Text="Hide all above content from screen reader accessibility" 
                        Clicked="ExcludeButton_Clicked" />
-
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
