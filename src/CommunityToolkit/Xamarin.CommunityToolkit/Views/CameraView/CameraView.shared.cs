@@ -5,6 +5,7 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	[Preserve(AllMembers = true)]
 	public class CameraView : View
 	{
 		public event EventHandler<MediaCapturedEventArgs>? MediaCaptured;
