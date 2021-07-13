@@ -122,8 +122,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Opened += OnOpened;
 		}
 
-
-
 		void SetSize()
 		{
 			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
