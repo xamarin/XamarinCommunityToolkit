@@ -70,7 +70,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (opacity < 0)
 				opacity = defaultOpacity;
 
-			var androidColor = ShadowEffect.GetColor(Element).MultiplyAlpha(opacity).ToAndroid();
+			var color = ShadowEffect.GetColor(Element);
+			if (!color.IsDefault)
+				color = color.MultiplyAlpha(opacity);
+
+			var androidColor = color.ToAndroid();
 			var offsetX = (float)ShadowEffect.GetOffsetX(Element);
 			var offsetY = (float)ShadowEffect.GetOffsetY(Element);
 			var cornerRadius = Element is IBorderElement borderElement ? borderElement.CornerRadius : 0;
