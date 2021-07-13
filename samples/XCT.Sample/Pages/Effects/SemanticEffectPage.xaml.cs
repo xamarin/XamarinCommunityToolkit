@@ -11,9 +11,9 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 			InitializeComponent();
 		}
 
-		void HideButton_Clicked(System.Object sender, System.EventArgs e)
+		void ExcludeButton_Clicked(object sender, System.EventArgs e)
 		{
-			SemanticEffect.SetSemanticInclusion(this.mainLayout, SemanticInclusion.ExcludeWithChildren);
+			SemanticEffect.SetSemanticInclusion(mainLayout, SemanticInclusion.ExcludeWithChildren);
 		}
 	}
 }

@@ -6,7 +6,7 @@
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ContentPage.Content>
         <ScrollView Margin="15,20">
-            <StackLayout>
+            <StackLayout x:Name="mainLayout">
                 <Label
                     Text="Welcome to XCT Semantic Effects!"
                     xct:SemanticEffect.Description="Welcome to Xamarin Community Toolkit Semantic Effects!"
@@ -226,7 +226,7 @@
 
                 <Button 
                        Text="Hide all above content from screen reader accessibility" 
-                       Clicked="HideButton_Clicked" />
+                       Clicked="ExcludeButton_Clicked" />
 
             </StackLayout>
         </ScrollView>
