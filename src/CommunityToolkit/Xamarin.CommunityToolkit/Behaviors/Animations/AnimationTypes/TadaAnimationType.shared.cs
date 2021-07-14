@@ -6,18 +6,41 @@ namespace Xamarin.CommunityToolkit.Behaviors
 {
 	public class TadaAnimationType : AnimationBase
 	{
+		public static readonly BindableProperty IsRepeatedProperty =
+		   BindableProperty.Create(nameof(IsRepeated), typeof(bool), typeof(TadaAnimationType), default, BindingMode.TwoWay);
+
+		public bool IsRepeated
+		{
+			get => (bool)GetValue(IsRepeatedProperty);
+			set => SetValue(IsRepeatedProperty, value);
+		}
+
+		public static readonly BindableProperty MaximumScaleProperty =
+		   BindableProperty.Create(nameof(MaximumScale), typeof(double), typeof(TadaAnimationType), TadaAnimation.DefaultMaximumScale, BindingMode.TwoWay);
+
+		public double MaximumScale
+		{
+			get => (double)GetValue(MaximumScaleProperty);
+			set => SetValue(MaximumScaleProperty, value);
+		}
+
+		public static readonly BindableProperty MinimumScaleProperty =
+		   BindableProperty.Create(nameof(MinimumScale), typeof(double), typeof(TadaAnimationType), TadaAnimation.DefaultMinimumScale, BindingMode.TwoWay);
+
+		public double MinimumScale
+		{
+			get => (double)GetValue(MinimumScaleProperty);
+			set => SetValue(MinimumScaleProperty, value);
+		}
+
 		public static readonly BindableProperty RotationAngleProperty =
-		   BindableProperty.Create(nameof(RotationAngle), typeof(double), typeof(AnimationBase), TadaAnimation.DefaultRotationAngle, BindingMode.TwoWay);
+		   BindableProperty.Create(nameof(RotationAngle), typeof(double), typeof(TadaAnimationType), TadaAnimation.DefaultRotationAngle, BindingMode.TwoWay);
 
 		public double RotationAngle
 		{
 			get => (double)GetValue(RotationAngleProperty);
 			set => SetValue(RotationAngleProperty, value);
 		}
-
-		// Repeat?
-		// MaximumScale
-		// MinimumScale
 
 		protected override uint DefaultDuration { get; set; } = RubberbandAnimation.DefaultLength;
 
@@ -30,14 +53,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				new TadaAnimation(
 					rotationAngle: RotationAngle,
 					length: Duration,
+					shouldRepeat: () => IsRepeated,
 					onFinished: (v, c) => taskCompletionSource.SetResult(c),
 					views: view).Commit();
 
 				return taskCompletionSource.Task;
 			}
 
-			// Find the alternative to Task.CompletedTask in netstandard1.0
-			return Task.Delay(1);
+			return Task.FromResult(false);
 		}
 	}
 }

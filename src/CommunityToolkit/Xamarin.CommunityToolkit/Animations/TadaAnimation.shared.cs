@@ -6,6 +6,8 @@ namespace Xamarin.CommunityToolkit.Animations
     public class TadaAnimation : AnimationBase
     {
         internal const uint DefaultLength = 500;
+        internal const double DefaultMaximumScale = 1.1;
+        internal const double DefaultMinimumScale = 0.9;
         internal const double DefaultRotationAngle = 3.0;
 
         readonly double maximumScale = 1.1;
