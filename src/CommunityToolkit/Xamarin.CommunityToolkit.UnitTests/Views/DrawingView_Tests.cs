@@ -36,6 +36,39 @@ namespace Xamarin.CommunityToolkit.UnitTests.Views
 		}
 
 		[Test]
+		public void DrawingCompletedCommandShouldFireWhenSubscribedAndPointsSet()
+		{
+			var point = new Point(123, 321);
+			IEnumerable<Point>? points = null;
+			var drawingView = new DrawingView();
+
+			drawingView.DrawingCompletedCommand = new Command((p) => points = (IEnumerable<Point>)p);
+
+			drawingView.Points.Add(point);
+			drawingView.OnDrawingCompleted();
+
+			Assert.NotNull(points);
+			Assert.True(points.Contains(point));
+		}
+
+		[Test]
+		public void DrawingCompletedCommandShouldNotFireWhenCannotExecute()
+		{
+			var badPoint = new Point(123, 321);
+			IEnumerable<Point>? points = null;
+			var drawingView = new DrawingView();
+
+			drawingView.DrawingCompletedCommand = new Command(
+				(p) => points = (IEnumerable<Point>)p,
+				(p) => !((IEnumerable<Point>)p).Contains(badPoint));
+
+			drawingView.Points.Add(badPoint);
+			drawingView.OnDrawingCompleted();
+
+			Assert.Null(points);
+		}
+
+		[Test]
 		public void DrawingCompletedShouldFireWhenSubscribed()
 		{
 			IEnumerable<Point>? points = null;

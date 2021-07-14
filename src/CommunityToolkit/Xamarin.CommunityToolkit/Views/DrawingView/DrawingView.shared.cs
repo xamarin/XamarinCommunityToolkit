@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (!Points.Any())
 				return;
 
-			if (DrawingCompletedCommand?.CanExecute(null) ?? false)
+			if (DrawingCompletedCommand?.CanExecute(Points) ?? false)
 				DrawingCompletedCommand.Execute(Points);
 
 			DrawingCompleted?.Invoke(this, new DrawingCompletedEventArgs(Points));
