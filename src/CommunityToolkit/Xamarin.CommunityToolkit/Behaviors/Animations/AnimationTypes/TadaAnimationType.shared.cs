@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(RotationAngleProperty, value);
 		}
 
-		protected override uint DefaultDuration { get; set; } = RubberbandAnimation.DefaultLength;
+		protected override uint DefaultDuration { get; set; } = TadaAnimation.DefaultLength;
 
 		public override Task Animate(View? view)
 		{
