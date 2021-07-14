@@ -16,7 +16,6 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		public static void SetHeadingLevel(BindableObject view, HeadingLevel value) => view.SetValue(HeadingLevelProperty, value);
 
-
 		public static readonly BindableProperty DescriptionProperty = BindableProperty.CreateAttached("Description", typeof(string), typeof(SemanticEffect), default(string), propertyChanged: OnPropertyChanged);
 
 		public static string GetDescription(BindableObject bindable) => (string)bindable.GetValue(DescriptionProperty);

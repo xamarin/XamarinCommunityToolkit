@@ -4,7 +4,7 @@
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA0001" Action="None" />
     <Rule Id="SA0002" Action="Warning" />
-    <Rule Id="SA1000" Action="Warning" />
+    <Rule Id="SA1000" Action="None" />
     <Rule Id="SA1001" Action="Warning" />
     <Rule Id="SA1002" Action="Warning" />
     <Rule Id="SA1003" Action="Warning" />
@@ -13,8 +13,9 @@
     <Rule Id="SA1006" Action="Warning" />
     <Rule Id="SA1007" Action="Warning" />
     <Rule Id="SA1008" Action="Warning" />
-    <Rule Id="SA1009" Action="Warning" />
+    <Rule Id="SA1009" Action="None" />
     <Rule Id="SA1010" Action="Warning" />
+    <Rule Id="SA1011" Action="None" />
     <Rule Id="SA1012" Action="Warning" />
     <Rule Id="SA1013" Action="Warning" />
     <Rule Id="SA1014" Action="Warning" />
@@ -55,7 +56,7 @@
     <Rule Id="SA1120" Action="Warning" />
     <Rule Id="SA1121" Action="Warning" />
     <Rule Id="SA1122" Action="Warning" />
-    <Rule Id="SA1123" Action="Warning" />
+    <Rule Id="SA1123" Action="None" />
     <Rule Id="SA1124" Action="None" />
     <Rule Id="SA1125" Action="Warning" />
     <Rule Id="SA1126" Action="Warning" />
@@ -115,7 +116,6 @@
     <Rule Id="SA1409" Action="Warning" />
     <Rule Id="SA1410" Action="Warning" />
     <Rule Id="SA1411" Action="Warning" />
-    <Rule Id="SA1412" Action="Warning" />
     <Rule Id="SA1413" Action="None" />
     <Rule Id="SA1500" Action="Warning" />
     <Rule Id="SA1501" Action="Warning" />
