@@ -77,7 +77,8 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 				foreach (var point in points)
 					Element.Points.Add(point);
 
-				Element.OnDrawingCompleted();
+				if (Element.DrawingCompletedCommand?.CanExecute(Element.Points) == true)
+					Element.DrawingCompletedCommand.Execute(Element.Points);
 
 				if (Element.ClearOnFinish)
 				{

@@ -98,7 +98,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Color backgroundColor) =>
 			DrawingViewService.GetImageStream(points.ToList(), imageSize, lineWidth, strokeColor, backgroundColor);
 
-		public void OnDrawingCompleted()
+		internal void OnDrawingCompleted()
 		{
 			if (!Points.Any())
 				return;
