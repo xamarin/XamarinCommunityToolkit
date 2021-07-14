@@ -14,7 +14,28 @@
                      Spacing="10">
 
             <Label Text="This sample demonstrates how to use ViewTappedAnimationBehaviour applying it in different UI elements."
-                   Padding="10,10,10,50"/>
+                   Padding="10,10,10,50"
+                   BackgroundColor="Red">
+                 <Label.GestureRecognizers>
+                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                 </Label.GestureRecognizers>
+             </Label>
+
+            <Button Text="Tada"
+                    FontSize="40"
+                    FontAttributes="Bold"
+                    TextColor="#2D1767"
+                    BackgroundColor="#F8E3C8">
+                 <Button.Behaviors>
+                      <xct:AnimationBehavior EventName="Clicked">
+                            <xct:AnimationBehavior.AnimationType>
+                                <xct:TadaAnimationType Easing="{x:Static Easing.Linear}"
+                                                       Duration="1000"
+                                                       RotationAngle="100"/>
+                            </xct:AnimationBehavior.AnimationType>
+                        </xct:AnimationBehavior>
+                </Button.Behaviors>
+            </Button>
 
             <Button Text="Testing Fade Animation"
                    TextColor="HotPink">
