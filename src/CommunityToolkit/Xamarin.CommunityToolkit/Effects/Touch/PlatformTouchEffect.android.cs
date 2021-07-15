@@ -10,6 +10,7 @@ using Android.Views.Accessibility;
 using Android.Widget;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
@@ -45,9 +46,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			&& accessibilityManager.IsEnabled
 			&& accessibilityManager.IsTouchExplorationEnabled;
 
-		bool IsForegroundRippleWithTapGestureRecognizer => View.Foreground == ripple
-			&& Element is XView view
-			&& view.GestureRecognizers.Any(gesture => gesture is TapGestureRecognizer);
+		bool IsForegroundRippleWithTapGestureRecognizer
+			=> View.IsAlive() &&
+				View.Foreground == ripple &&
+				Element is XView view &&
+				view.GestureRecognizers.Any(gesture => gesture is TapGestureRecognizer);
 
 		protected override void OnAttached()
 		{
