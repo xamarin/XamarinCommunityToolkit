@@ -47,7 +47,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			&& accessibilityManager.IsTouchExplorationEnabled;
 
 		bool IsForegroundRippleWithTapGestureRecognizer
-			=> View.IsAlive() &&
+			=> ripple != null &&
+				ripple.IsAlive() &&
+				View.IsAlive() &&
 				View.Foreground == ripple &&
 				Element is XView view &&
 				view.GestureRecognizers.Any(gesture => gesture is TapGestureRecognizer);
