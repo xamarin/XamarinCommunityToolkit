@@ -89,6 +89,34 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
+		public void SetCameraOrientation()
+		{
+			if (previewLayer.Connection != null)
+				previewLayer.Connection.VideoOrientation = GetViewOrientation();
+				
+			captureConnection = previewLayer.Connection;
+		}
+
+		public AVCaptureVideoOrientation GetViewOrientation()
+		{
+			if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
+			{
+				return AVCaptureVideoOrientation.LandscapeLeft;
+			}
+			else if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeLeft)
+			{
+				return AVCaptureVideoOrientation.LandscapeRight;
+			}
+			else if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.PortraitUpsideDown)
+			{
+				return AVCaptureVideoOrientation.PortraitUpsideDown;
+			}
+			else
+			{
+				return AVCaptureVideoOrientation.Portrait;
+			}
+		}
+
 		void LogError(string message, Exception? error = null)
 		{
 			var errorMessage = error == null
@@ -516,6 +544,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				captureSession.CommitConfiguration();
+
+				if (previewLayer.Connection != null)
+					previewLayer.Connection.VideoOrientation = GetViewOrientation();
 
 				InvokeOnMainThread(() =>
 				{
