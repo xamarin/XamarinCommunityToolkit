@@ -108,14 +108,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Parent?.RequestDisallowInterceptTouchEvent(false);
 					drawCanvas!.DrawPath(drawPath, drawPaint);
 					drawPath.Reset();
-					if (points.Count > 0)
-					{
-						if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
-							Element.DrawingCompletedCommand.Execute(points);
-					}
 
-					if (Element.ClearOnFinish)
-						points.Clear();
+					Element.OnDrawingCompleted();
 					break;
 				default:
 					return false;

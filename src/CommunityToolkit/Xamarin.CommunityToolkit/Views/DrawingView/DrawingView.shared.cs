@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -74,6 +75,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ClearOnFinishProperty, value);
 		}
 
+		public event EventHandler<DrawingCompletedEventArgs>? DrawingCompleted;
+
 		public DrawingView()
 		{
 			Points = new ObservableCollection<Point>();
@@ -94,5 +97,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Color strokeColor,
 			Color backgroundColor) =>
 			DrawingViewService.GetImageStream(points.ToList(), imageSize, lineWidth, strokeColor, backgroundColor);
+
+		internal void OnDrawingCompleted()
+		{
+			if (!Points.Any())
+				return;
+
+			if (DrawingCompletedCommand?.CanExecute(Points) ?? false)
+				DrawingCompletedCommand.Execute(Points);
+
+			DrawingCompleted?.Invoke(this, new DrawingCompletedEventArgs(Points));
+
+			if (ClearOnFinish)
+				Points.Clear();
+		}
 	}
 }
