@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"                
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                xmlns:toolkit="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"  
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SegmentedViewPage">
+    
+    <pages:BasePage.BindingContext>
+        <vm:SegmentedViewModel />
+    </pages:BasePage.BindingContext>
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,*"
+            Margin="20"
+            RowSpacing="20">
+            <Frame CornerRadius="10" Grid.Row="0">
+                <StackLayout Spacing="10">
+                    <StackLayout Orientation="Horizontal">
+                        <Label  Text="Display Mode"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="DisplayMode_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Text</x:String>
+                                <x:String>Image</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                    Spacing="20">
+                        <Label Text="Color"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="Picker_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Red</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Blue</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                    Spacing="20"
+                                    >
+                        <Label Text="Background Color"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="BG_Picker_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Red</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Blue</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                    Spacing="20">
+                        <Label Text="Normal Text"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="Text_Picker_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Red</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Blue</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                    Spacing="20">
+                        <Label Text="Selected Text"
+                                HorizontalOptions="FillAndExpand"/>
+                        <Picker Title="Select"
+                                SelectedIndexChanged="Selected_Text_Picker_SelectedIndexChanged">
+                            <Picker.Items>
+                                <x:String>Red</x:String>
+                                <x:String>Green</x:String>
+                                <x:String>Blue</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+            <Frame CornerRadius="10" Grid.Row="1">
+                <Frame.IsVisible>
+                    <OnPlatform iOS="false" Android="true"/>
+                </Frame.IsVisible>
+                <Grid
+                    Grid.Row="1"
+                    x:Name="CornerRadiiGrid"
+                    VerticalOptions="End"
+                    RowDefinitions="Auto,Auto,Auto"
+                    ColumnDefinitions="*,2*,*">
+                    
+                    <Slider Grid.Row="1" Grid.Column="0"
+                            x:Name="TopLeftSlider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="TopLeftSlider_ValueChanged"/>
+
+                    <Slider Grid.Row="1" Grid.Column="2"
+                            x:Name="TopRightSlider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="TopRightSlider_ValueChanged"/>
+
+                    <StackLayout Grid.Row="2" Grid.Column="1">
+                        <Label VerticalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           Text="{Binding Source={x:Reference Slider},
+                            Path=Value,
+                            StringFormat='Corner Radius: {0}'}" />
+                        <Slider
+                            x:Name="Slider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="Slider_ValueChanged"/>
+                    </StackLayout>
+
+                    <Slider Grid.Row="3" Grid.Column="0"
+                            x:Name="BottomLeftSlider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="BottomLeftSlider_ValueChanged"/>
+
+                    <Slider Grid.Row="3" Grid.Column="2"
+                            x:Name="BottomRightSlider"
+                            Minimum="0"
+                            Maximum="20"
+                            HeightRequest="40"
+                            MinimumTrackColor="Blue"
+                            MaximumTrackColor="DarkBlue"
+                            ThumbColor="{StaticResource NormalButtonBackgroundColor}"
+                            ValueChanged="BottomRightSlider_ValueChanged"/>
+                </Grid>
+            </Frame>
+
+            <StackLayout Grid.Row="2" Spacing="10">
+                <toolkit:SegmentedView
+                    x:Name="TextSegments"
+                    DisplayMode="{Binding DisplayMode}"
+                    ItemsSource="{Binding Options}"
+                    SelectedItem="{Binding SelectedItem}"
+                    SelectedIndex="0"/>
+
+                <StackLayout Orientation="Horizontal">
+
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="8"
+                    Padding="20">
+                    <Button Text="Add"
+                            Clicked="Add_Clicked"
+                            Command="{Binding AddTextCommand}"
+                            CommandParameter="0"/>
+                </StackLayout>
+
+                    
+                <StackLayout
+                    HorizontalOptions="FillAndExpand"
+                    Spacing="8"
+                    Padding="20">
+                    <Button Text="Remove"
+                            Clicked="Delete_Clicked"
+                            Command="{Binding RemoveTextCommand}"
+                            CommandParameter="0"/>
+                </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+            <Label Text="{Binding SelectedItem, StringFormat='Selected: {0}'}"
+                    Grid.Row="4"
+                    VerticalOptions="Center"/>
+        </Grid>
+    </ScrollView>
+</pages:BasePage>
