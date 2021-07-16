@@ -10,33 +10,25 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 	[NonParallelizable]
 	public class LocalizedStringTests
 	{
-		CultureInfo? initialCulture;
-		ResourceManager? resourceManager;
-		LocalizationResourceManager? localizationManager;
+		readonly ResourceManager resourceManager = new MockResourceManager();
+		readonly CultureInfo initialCulture = CultureInfo.InvariantCulture;
+		readonly LocalizationResourceManager localizationManager = LocalizationResourceManager.Current;
 
 		LocalizedString? localizedString;
 
 		[SetUp]
 		public void Setup()
 		{
-			resourceManager = new MockResourceManager();
-			initialCulture = CultureInfo.InvariantCulture;
-			localizationManager = LocalizationResourceManager.Current;
-
 			localizationManager.Init(resourceManager, initialCulture);
 		}
 
 		[Test]
 		public void LocalizedStringTests_Localized_ValidImplementation()
 		{
-			_ = initialCulture ?? throw new NullReferenceException();
-			_ = resourceManager ?? throw new NullReferenceException();
-			_ = localizationManager ?? throw new NullReferenceException();
-
 			// Arrange
 			var testString = "test";
 			var culture2 = new CultureInfo("en");
-			localizedString = new LocalizedString(localizationManager, () => localizationManager[testString]);
+			localizedString = new LocalizedString(() => resourceManager.GetString(testString, localizationManager.CurrentCulture));
 
 			string? responceOnCultureChanged = null;
 			localizedString.PropertyChanged += (sender, args) => responceOnCultureChanged = localizedString.Localized;
@@ -71,12 +63,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		[Test]
 		public void LocalizedStringTests_WeekSubscribe_ValidImplementation()
 		{
-			_ = localizationManager ?? throw new NullReferenceException();
-
 			// Arrange
 			var isTrigered = false;
 			var culture2 = new CultureInfo("en");
-			localizedString = new LocalizedString(localizationManager, () => string.Empty);
+			localizedString = new LocalizedString(() => string.Empty);
 			localizedString.PropertyChanged += (_, __) => isTrigered = true;
 
 			// Act
@@ -93,10 +83,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 		[Test]
 		public void LocalizedStringTests_Disposed_IfNoReferences()
 		{
-			_ = initialCulture ?? throw new NullReferenceException();
-			_ = resourceManager ?? throw new NullReferenceException();
-			_ = localizationManager ?? throw new NullReferenceException();
-
 			// Arrange
 			var testString = "test";
 			SetLocalizedString();
@@ -111,7 +97,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.LocalizedStringTests
 
 			void SetLocalizedString()
 			{
-				localizedString = new LocalizedString(localizationManager, () => localizationManager[testString]);
+				localizedString = new LocalizedString(() => resourceManager.GetString(testString, localizationManager.CurrentCulture));
 			}
 		}
 #endif

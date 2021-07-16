@@ -48,8 +48,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 		{
 			SupportedLanguages = new List<Language>()
 			{
-				{ new Language(AppResources.English, "en") },
-				{ new Language(AppResources.Spanish, "es") }
+				new Language(AppResources.English, "en"),
+				new Language(AppResources.Spanish, "es")
 			};
 			SelectedLanguage = SupportedLanguages.FirstOrDefault(pro => pro.CI == LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName);
 		}
