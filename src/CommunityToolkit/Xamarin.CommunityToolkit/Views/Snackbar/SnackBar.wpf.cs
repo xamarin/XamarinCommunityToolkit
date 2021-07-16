@@ -31,7 +31,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				formsAppBar.Content = currentContent;
 				snackBarTimer.Stop();
-				arguments.SetResult(true);
 			};
 			snackBarTimer.Start();
 			var border = new Border

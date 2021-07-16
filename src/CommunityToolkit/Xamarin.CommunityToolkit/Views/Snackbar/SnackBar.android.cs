@@ -87,10 +87,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			foreach (var action in arguments.Actions)
 			{
-				snackBar.SetAction(action.Text, async v =>
+				snackBar.SetAction(action.Text, async _ =>
 				{
-					if (action.Action != null)
-						await action.Action();
+					try
+					{
+						if (action.Action != null)
+							await action.Action();
+
+						arguments.SetResult(true);
+					}
+					catch (Exception ex)
+					{
+						arguments.SetException(ex);
+					}
 				});
 				if (action.ForegroundColor != Forms.Color.Default)
 				{
@@ -154,15 +163,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				base.OnDismissed(transientBottomBar, e);
 
-				switch (e)
-				{
-					case DismissEventTimeout:
-						arguments.SetResult(false);
-						break;
-					case DismissEventAction:
-						arguments.SetResult(true);
-						break;
-				}
+				if (e == DismissEventAction)
+					return;
+
+				arguments.SetResult(false);
 			}
 		}
 	}

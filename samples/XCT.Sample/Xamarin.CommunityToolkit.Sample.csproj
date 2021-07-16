@@ -21,6 +21,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Update="Pages\TestCases\SnackBarActionExceptionPage.xaml.cs">
+      <DependentUpon>SnackBarActionExceptionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\TestCases\TabViewItemBindingView.xaml.cs">
       <DependentUpon>TabViewItemBindingView.xaml</DependentUpon>
     </Compile>

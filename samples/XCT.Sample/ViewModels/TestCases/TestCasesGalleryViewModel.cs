@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 			new SectionModel(
 				typeof(TouchEffectButtonPage),
 				"TouchEffect + Button",
-				"TouchEffect must automatically invoke button'c command execution."),
+				"TouchEffect must automatically invoke button's command execution."),
 
 			new SectionModel(
 				typeof(TouchEffectCollectionViewPage),
@@ -33,6 +33,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(PopupModalPage),
 				"Popup into modal",
 				"Using Popup into modal page show the popup"),
+
+			new SectionModel(
+				typeof(SnackBarActionExceptionPage),
+				"SnackBar Action Exception",
+				"Exception in SnackBar's action doesn't crash the app."),
 		};
 	}
 }

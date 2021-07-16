@@ -123,11 +123,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				actionButton.SetAction(async () =>
 				{
 					snackBar.Dismiss();
+					try
+					{
+						if (action.Action != null)
+							await action.Action();
 
-					if (action.Action != null)
-						await action.Action();
-
-					arguments.SetResult(true);
+						arguments.SetResult(true);
+					}
+					catch (Exception ex)
+					{
+						arguments.SetException(ex);
+					}
 				});
 
 				snackBar.Actions.Add(actionButton);

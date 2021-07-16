@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.SnackBarActionExceptionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
+    
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto, *, *">
+            <Button Text="App shouldn't crash when you press this and execute action." Clicked="ShowSnackBar" />
+        </Grid>
+    </ContentPage.Content>
+    
+</pages:BasePage>
