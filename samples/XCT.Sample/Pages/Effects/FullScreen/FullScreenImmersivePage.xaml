@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.FullScreenImmersivePage"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:android="clr-namespace:Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.CommunityToolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+                Title="Android FullScreen mode Immersive"
+                android:FullScreenEffect.Mode="ImmersiveDroid">
+
+    <StackLayout Spacing="20">
+        <pancakeview:PancakeView Margin="10"
+                                 Padding="10"
+                                 CornerRadius="20"
+                                 BackgroundColor="DeepSkyBlue">
+            <Label TextColor="Black"
+                   Text="When this page appears it will enable the full screen mode."/>
+        </pancakeview:PancakeView>
+
+        <Button Text="Return or from physical back button"
+                Clicked="Button_Clicked"
+                HorizontalOptions="Center"/>
+
+        <pancakeview:PancakeView Margin="10"
+                                 Padding="10"
+                                 CornerRadius="20"
+                                 BackgroundColor="DeepSkyBlue">
+            <Label TextColor="Black"
+                   Text="When it will disappears it will restore back, it will keep the full screen mode as it is"/>
+        </pancakeview:PancakeView>
+
+    </StackLayout>
+</pages:BasePage>

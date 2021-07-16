@@ -65,5 +65,10 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// Effect Id for <see cref="NavigationBarEffect"/>
 		/// </summary>
 		public static string NavigationBar => $"{effectResolutionGroupName}.{nameof(NavigationBarEffect)}";
+    
+  	/// <summary>
+  	/// Effect Id for <see cref="FullScreenEffect"/>
+		/// </summary>
+		public static string FullScreenEffect => $"{effectResolutionGroupName}.{nameof(FullScreenEffectRouter)}";
 	}
 }
