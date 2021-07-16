@@ -18,6 +18,7 @@
                 TabStripBackgroundColor="Blue"
                 TabStripHeight="60"
                 TabIndicatorColor="Yellow"
+                TabIndicatorWidth="10"
                 TabContentBackgroundColor="Yellow">
                 <xct:TabViewItem
                     Icon="triangle.png"
