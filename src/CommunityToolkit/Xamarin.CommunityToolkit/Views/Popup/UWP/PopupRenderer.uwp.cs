@@ -7,6 +7,7 @@ using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
+using ApiInformation = Windows.Foundation.Metadata.ApiInformation;
 using Specific = Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific.PopUp;
 using UWPThickness = Windows.UI.Xaml.Thickness;
 using XamlStyle = Windows.UI.Xaml.Style;
@@ -176,10 +177,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BackgroundProperty, Element.Color.ToWindowsColor()));
 
-#if UWP_18362
 			if (Element.Color == Color.Transparent)
-				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.IsDefaultShadowEnabledProperty, false));
-#endif
+			{
+				if (ApiInformation.IsPropertyPresent(typeof(FlyoutPresenter).FullName, nameof(FlyoutPresenter.IsDefaultShadowEnabledProperty)))
+					flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.IsDefaultShadowEnabledProperty, false));
+			}
 		}
 
 		void ApplyStyles()
