@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Effects.Semantic;
 using Xamarin.Forms;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
@@ -25,6 +26,27 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				view.AccessibilityTraits |= UIAccessibilityTrait.Header;
 			else
 				view.AccessibilityTraits &= ~UIAccessibilityTrait.Header;
+
+			var semanticInclusion = SemanticEffect.GetSemanticInclusion(Element);
+			switch (semanticInclusion)
+			{
+				case SemanticInclusion.Default:
+					view.IsAccessibilityElement = view is UIControl;
+					view.AccessibilityElementsHidden = false;
+					break;
+				case SemanticInclusion.Include:
+					view.IsAccessibilityElement = true;
+					view.AccessibilityElementsHidden = false;
+					break;
+				case SemanticInclusion.Exclude:
+					view.IsAccessibilityElement = false;
+					view.AccessibilityElementsHidden = false;
+					break;
+				case SemanticInclusion.ExcludeWithChildren:
+					view.IsAccessibilityElement = false;
+					view.AccessibilityElementsHidden = true;
+					break;
+			}
 
 			var desc = SemanticEffect.GetDescription(Element);
 			var hint = SemanticEffect.GetHint(Element);
