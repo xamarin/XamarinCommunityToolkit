@@ -1,15 +1,15 @@
 using System;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
+using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.Forms;
 #if __IOS__
 using UIKit;
 using Xamarin.Forms.Platform.iOS;
-using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS;
 #elif __MACOS__
 using AppKit;
-using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS;
 using Xamarin.Forms.Platform.MacOS;
 #endif
 
@@ -21,6 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			var snackBar = NativeSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 							.SetDuration(arguments.Duration)
+							.SetCornerRadius(arguments.CornerRadius)
 							.SetTimeoutAction(() =>
 							{
 								arguments.SetResult(false);

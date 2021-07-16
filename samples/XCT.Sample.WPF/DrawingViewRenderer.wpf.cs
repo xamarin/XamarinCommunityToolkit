@@ -79,13 +79,19 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 
 				if (Element.Points.Count > 0)
 				{
-					if (Element.DrawingCompletedCommand.CanExecute(null))
+					if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
 						Element.DrawingCompletedCommand.Execute(Element.Points);
 				}
 
 				if (Element.ClearOnFinish)
+				{
+					canvas!.Strokes.StrokesChanged -= OnStrokesChanged;
+					canvas.Strokes.Clear();
+					canvas.Strokes.StrokesChanged += OnStrokesChanged;
 					Element.Points.Clear();
+				}
 			}
+
 			Element.Points.CollectionChanged += OnCollectionChanged;
 		}
 

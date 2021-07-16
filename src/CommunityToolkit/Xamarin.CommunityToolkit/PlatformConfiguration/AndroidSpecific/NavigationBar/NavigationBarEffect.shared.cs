@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using Xamarin.Forms;
-using XFP = Xamarin.Forms.PlatformConfiguration;
-using FormsElement = Xamarin.Forms.Page;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using FormsElement = Xamarin.Forms.Page;
+using XFP = Xamarin.Forms.PlatformConfiguration;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {

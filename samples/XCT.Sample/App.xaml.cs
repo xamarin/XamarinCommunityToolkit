@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.Sample.Pages;
 using Xamarin.CommunityToolkit.Sample.Pages.Views;

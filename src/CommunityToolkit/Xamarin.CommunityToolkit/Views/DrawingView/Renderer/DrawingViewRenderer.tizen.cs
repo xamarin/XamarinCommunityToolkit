@@ -79,8 +79,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			Element.Points.Clear();
-			canvasView?.Invalidate();
+			Clear();
 			isDrawing = true;
 		}
 
@@ -93,12 +92,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element.Points.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
+				if (Element.DrawingCompletedCommand?.CanExecute(null) ?? false)
 					Element.DrawingCompletedCommand.Execute(Element.Points);
 			}
 
 			if (Element.ClearOnFinish)
-				Element.Points.Clear();
+				Clear();
 		}
 
 		void LoadPoints()
@@ -149,6 +148,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			base.Dispose(disposing);
+		}
+
+		void Clear()
+		{
+			Element.Points.Clear();
+			canvasView?.Invalidate();
 		}
 	}
 }
