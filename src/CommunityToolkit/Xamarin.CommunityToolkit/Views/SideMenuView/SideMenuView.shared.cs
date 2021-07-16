@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using static System.Math;
@@ -100,6 +101,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
 #endif
 			#endregion
+		}
+
+		readonly WeakEventManager weakEventManager = new();
+
+		/// <summary>
+		/// Event that is triggered when the <see cref="SideMenuView"/> state
+		/// is about to change.
+		/// </summary>
+		public event EventHandler<SideMenuStateChangingEventArgs> StateChanging
+		{
+			add => weakEventManager.AddEventHandler(value, nameof(StateChanging));
+			remove => weakEventManager.RemoveEventHandler(value, nameof(StateChanging));
+		}
+
+		/// <summary>
+		/// Event that is triggered when the <see cref="SideMenuView"/>
+		/// has already changed..
+		/// </summary>
+		public event EventHandler<SideMenuStateChangedEventArgs> StateChanged
+		{
+			add => weakEventManager.AddEventHandler(value, nameof(StateChanged));
+			remove => weakEventManager.RemoveEventHandler(value, nameof(StateChanged));
 		}
 
 		public new ISideMenuList<View> Children
@@ -341,10 +364,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var menuWidth = (state == SideMenuState.LeftMenuShown ? leftMenu : rightMenu)?.Width ?? 0;
 			var end = -Sign((int)state) * menuWidth;
 
+			weakEventManager.RaiseEvent(this, new SideMenuStateChangingEventArgs(State), nameof(StateChanging));
+
 			if (!isAnimated)
 			{
 				TryUpdateShift(end, false);
-				SetOverlayViewInputTransparent(state);
+				ChangeMenuState(state);
 				return;
 			}
 
@@ -356,23 +381,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			if (animationLength == 0)
 			{
-				SetOverlayViewInputTransparent(state);
+				ChangeMenuState(state);
 				return;
 			}
+
 			var animation = new Animation(v => TryUpdateShift(v, false), Shift, end);
 			mainView.Animate(animationName, animation, animationRate, animationLength, animationEasing, (v, isCanceled) =>
 			{
 				if (isCanceled)
 					return;
 
-				SetOverlayViewInputTransparent(state);
+				ChangeMenuState(state);
 			});
 		}
 
-		void SetOverlayViewInputTransparent(SideMenuState state)
+		void ChangeMenuState(SideMenuState state)
 		{
 			_ = overlayView ?? throw new NullReferenceException();
 			overlayView.InputTransparent = state == SideMenuState.MainViewShown;
+
+			weakEventManager.RaiseEvent(this, new SideMenuStateChangedEventArgs(State), nameof(StateChanged));
 		}
 
 		SideMenuState ResolveSwipeState(bool isRightSwipe)
