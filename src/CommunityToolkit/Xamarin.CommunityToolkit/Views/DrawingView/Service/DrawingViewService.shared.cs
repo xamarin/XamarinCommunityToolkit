@@ -24,6 +24,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Color strokeColor,
 			Color backgroundColor) =>
 			Stream.Null;
+
+		/// <summary>
+		/// Get image stream from lines
+		/// </summary>
+		/// <param name="points">Drawing lines</param>
+		/// <param name="imageSize">Image size</param>
+		/// <param name="backgroundColor">Image background color</param>
+		/// <returns>Image stream</returns>
+		public static Stream GetImageStream(IList<Line> lines,
+			Size imageSize,
+			Color backgroundColor) =>
+			Stream.Null;
 	}
 #endif
 }

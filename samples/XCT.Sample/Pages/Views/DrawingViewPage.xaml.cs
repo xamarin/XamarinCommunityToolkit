@@ -3,25 +3,32 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.UI.Views;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
 	public partial class DrawingViewPage : BasePage
 	{
+		static Random random = new Random();
+
 		public DrawingViewPage()
 		{
 			InitializeComponent();
-			DrawingViewControl.Points = GeneratePoints(200);
-			DrawingViewControl.DrawingCompletedCommand = new Command<ObservableCollection<Point>>(points =>
+			DrawingViewControl.Lines = GenerateLines(5);
+			DrawingViewControl.DrawingLineCompletedCommand = new Command<Line>(line =>
 			{
 				Logs.Text += "GestureCompletedCommand executed" + Environment.NewLine;
-				DrawImage(points);
+				var stream = Line.GetImageStream(line.Points.ToList(), new Size(GestureImage.Width, GestureImage.Height), 10, Color.White, Color.Black);
+				GestureImage.Source = ImageSource.FromStream(() => stream);
 			});
+
+			BindingContext = this;
 		}
 
-		void LoadPointsButtonClicked(object sender, EventArgs e) => DrawingViewControl.Points = GeneratePoints(50);
+		void LoadPointsButtonClicked(object sender, EventArgs e) => DrawingViewControl.Lines = GenerateLines(50);
 
-		void DisplayHiddenLabelButtonClicked(object sender, EventArgs e) => HiddenLabel.IsVisible = !HiddenLabel.IsVisible;
+		void DisplayHiddenLabelButtonClicked(object sender, EventArgs e) =>
+			HiddenLabel.IsVisible = !HiddenLabel.IsVisible;
 
 		void GetCurrentDrawingViewImageClicked(object sender, EventArgs e)
 		{
@@ -31,26 +38,55 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		void GetImageClicked(object sender, EventArgs e)
 		{
-			var points = GeneratePoints(100);
-			DrawImage(points);
+			var lines = GenerateLines(10);
+			DrawImage(lines.ToList());
 		}
 
-		static ObservableCollection<Point> GeneratePoints(int count)
+		ObservableCollection<Line> GenerateLines(int count)
+		{
+			var lines = new ObservableCollection<Line>();
+			for (var i = 0; i < count; i++)
+			{
+				lines.Add(new Line()
+				{
+					Points = GeneratePoints(10),
+					LineColor = Color.FromRgb(random.Next(255), random.Next(255), random.Next(255)),
+					LineWidth = 10,
+					EnableSmoothedPath = false,
+					Granularity = 5
+				});
+			}
+
+			return lines;
+		}
+
+		ObservableCollection<Point> GeneratePoints(int count)
 		{
 			var points = new ObservableCollection<Point>();
 			for (var i = 0; i < count; i++)
 			{
-				points.Add(new Point(i, i));
+				points.Add(new Point(random.Next(1, 100), random.Next(1, 100)));
 			}
 
 			return points;
 		}
 
-		void DrawImage(IEnumerable<Point> points)
+		void DrawImage(List<Line> lines)
 		{
-			var stream = DrawingView.GetImageStream(points, new Size(GestureImage.Width, GestureImage.Height), 10,
-				Color.White, Color.Black);
+			var stream = DrawingView.GetImageStream(lines, new Size(GestureImage.Width, GestureImage.Height), Color.Gray);
 			GestureImage.Source = ImageSource.FromStream(() => stream);
+		}
+
+		private void AddNewLine(object sender, EventArgs e)
+		{
+			DrawingViewControl.Lines.Add(new Line()
+			{
+				Points = GeneratePoints(10),
+				LineColor = Color.FromRgb(random.Next(255), random.Next(255), random.Next(255)),
+				LineWidth = 10,
+				EnableSmoothedPath = true,
+				Granularity = 5
+			});
 		}
 	}
 }
