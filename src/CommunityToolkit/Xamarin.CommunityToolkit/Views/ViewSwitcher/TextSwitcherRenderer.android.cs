@@ -52,13 +52,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		readonly FormsTextView[] children = new FormsTextView[2];
 
-#pragma warning disable SA1000 // Keywords should be spaced correctly
 		readonly WeakEventManager<VisualElementChangedEventArgs> elementChangedEventManager = new();
 		readonly WeakEventManager<PropertyChangedEventArgs> elementPropertyChangedEventManager = new();
 		readonly Stack<FormsTextView> childrenStack = new();
 		readonly MotionEventHelper motionEventHelper = new();
-#pragma warning restore SA1000 // Keywords should be spaced correctly
-
 		SpannableString? spannableString;
 		bool hasLayoutOccurred;
 		bool wasFormatted;
@@ -196,7 +193,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void IVisualElementRenderer.SetElement(VisualElement element)
 		{
 			if (element is not TextSwitcher label)
-				throw new ArgumentException("Element must be of type TextSwitcher");
+				throw new ArgumentException("Element must be of type TextSwitcher.");
 
 			Element = label;
 			motionEventHelper.UpdateElement(element);
@@ -488,9 +485,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					case TextType.Html:
 						if (ToolkitPlatform.SdkInt >= 24)
 						{
-#pragma warning disable XA0001 // Html class is available API 24.
 							nextView.SetText(Html.FromHtml(Element.Text ?? string.Empty, FromHtmlOptions.ModeCompact), BufferType.Spannable);
-#pragma warning restore XA0001 // Html class is available API 24.
 							ShowNext();
 						}
 						else
