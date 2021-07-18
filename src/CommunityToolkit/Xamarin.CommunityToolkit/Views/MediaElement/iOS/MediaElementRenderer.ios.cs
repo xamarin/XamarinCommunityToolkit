@@ -147,7 +147,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						Controller.CurrentState = MediaElementState.Paused;
 						break;
 
-					case 1.0f:
+					default:
 						Controller.CurrentState = MediaElementState.Playing;
 						break;
 				}
@@ -177,7 +177,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				case AVPlayerStatus.ReadyToPlay:
 					var duration = avPlayerViewController.Player.CurrentItem.Duration;
-
 					if (duration.IsIndefinite)
 						Controller.Duration = TimeSpan.Zero;
 					else
@@ -258,6 +257,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(ToolKitMediaElement.Volume):
 					UpdateVolume();
 					break;
+				case nameof(ToolKitMediaElement.Speed):
+					UpdateSpeed();
+					break;
 			}
 		}
 
@@ -298,6 +300,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				avPlayerViewController.Player.Play();
 				Controller.CurrentState = MediaElementState.Playing;
+				UpdateSpeed();
 			}
 
 			if (Element.KeepScreenOn)
@@ -308,6 +311,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (avPlayerViewController.Player != null)
 				avPlayerViewController.Player.Volume = (float)Element.Volume;
+		}
+		void UpdateSpeed()
+		{
+			if (avPlayerViewController.Player != null)
+				avPlayerViewController.Player.Rate = (float)Element.Speed;
 		}
 
 		void MediaElementStateRequested(object? sender, StateRequested e)
