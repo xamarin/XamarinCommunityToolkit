@@ -2,7 +2,7 @@
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	public class TextSwitcher : Label
+	public class TextSwitcher : Label, IViewSwitcher
 	{
 		public static readonly BindableProperty TransitionDurationProperty
 			= ViewSwitcher.TransitionDurationProperty;
