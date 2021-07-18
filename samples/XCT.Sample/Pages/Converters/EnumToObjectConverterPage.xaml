@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.EnumToObjectConverterPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <converters:EnumToObjectConverter x:Key="FlashModeToObjectConverter" DefaultObject="Flash Off">
+                <converters:EnumToObjectConverter.Objects>
+                    <converters:EnumToObjectConverterParameter Enum="{x:Static xct:CameraFlashMode.Off}" Object="Flash Off" />
+                    <converters:EnumToObjectConverterParameter Object="Flash On">
+                        <xct:CameraFlashMode>On</xct:CameraFlashMode>
+                    </converters:EnumToObjectConverterParameter>
+                    <converters:EnumToObjectConverterParameter Object="Flash Auto">
+                        <xct:CameraFlashMode>Auto</xct:CameraFlashMode>
+                    </converters:EnumToObjectConverterParameter>
+                    <converters:EnumToObjectConverterParameter Object="Flashlight On">
+                        <xct:CameraFlashMode>Torch</xct:CameraFlashMode>
+                    </converters:EnumToObjectConverterParameter>
+                </converters:EnumToObjectConverter.Objects>
+            </converters:EnumToObjectConverter>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <ContentPage.BindingContext>
+        <vm:EnumToObjectConverterViewModel />
+    </ContentPage.BindingContext>
+    <pages:BasePage.Content>
+        <Grid BackgroundColor="Black">
+            <Button
+                Padding="20"
+                BorderColor="White"
+                Command="{Binding FlashModeCommand}"
+                HorizontalOptions="Center"
+                Text="{Binding FlashMode, Converter={StaticResource FlashModeToObjectConverter}}"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>

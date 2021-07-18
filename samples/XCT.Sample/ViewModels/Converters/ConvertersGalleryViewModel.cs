@@ -119,6 +119,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(ColorsConverterPage),
 				"Colors converters",
 				"A group of converters that convert a Color to your strings values (RGB, HEX, HSL, etc)"),
+			new SectionModel(
+				typeof(EnumToObjectConverterPage),
+				nameof(EnumToObjectConverter),
+				"A converter that allows you to convert and Enum to value binding to a specific object."),
 		};
 	}
 }
