@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Core;
 using Windows.UI.Input.Inking;
@@ -12,10 +15,12 @@ using Size = Windows.Foundation.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// UWP renderer for <see cref="Xamarin.CommunityToolkit.UI.Views.DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, InkCanvas>
 	{
 		InkCanvas? canvas;
-		InkDrawingAttributes? inkDrawingAttributes;
 		bool disposed;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
@@ -24,84 +29,116 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Control == null && Element != null)
 			{
 				canvas = new InkCanvas();
-				inkDrawingAttributes = new InkDrawingAttributes
+				var inkDrawingAttributes = new InkDrawingAttributes
 				{
-					Color = Element.LineColor.ToWindowsColor(),
-					Size = new Size(Element.LineWidth, Element.LineWidth)
+					Color = Element.DefaultLineColor.ToWindowsColor(),
+					Size = new Size(Element.DefaultLineWidth, Element.DefaultLineWidth)
 				};
 				canvas.InkPresenter.UpdateDefaultDrawingAttributes(inkDrawingAttributes);
 				canvas.InkPresenter.InputDeviceTypes = CoreInputDeviceTypes.Mouse |
-													   CoreInputDeviceTypes.Pen |
-													   CoreInputDeviceTypes.Touch;
-				Element.Points.CollectionChanged += OnPointsCollectionChanged;
+				                                       CoreInputDeviceTypes.Pen |
+				                                       CoreInputDeviceTypes.Touch;
+
+				Element.Lines.CollectionChanged += OnCollectionChanged;
 				SetNativeControl(canvas);
+
+				canvas!.InkPresenter.StrokeInput.StrokeStarted += StrokeInput_StrokeStarted;
+				canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
 			}
 
 			if (e.OldElement != null)
 			{
 				canvas!.InkPresenter.StrokeInput.StrokeStarted -= StrokeInput_StrokeStarted;
 				canvas.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
-			}
-
-			if (e.NewElement != null)
-			{
-				canvas!.InkPresenter.StrokeInput.StrokeStarted += StrokeInput_StrokeStarted;
-				canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
+				Element!.Lines.CollectionChanged -= OnCollectionChanged;
 			}
 		}
-
-		void OnPointsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
+			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
 			{
 				canvas!.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
 				canvas.InkPresenter.StrokeContainer.Clear();
-				LoadPoints();
+				LoadLines();
 				canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
 			}
 		}
 
-		void OnInkPresenterStrokesCollected(InkPresenter sender, InkStrokesCollectedEventArgs args)
+		void OnInkPresenterStrokesCollected(InkPresenter sender, InkStrokesCollectedEventArgs e)
 		{
-			var points = args.Strokes.First()
-							 .GetInkPoints()
-							 .Select(point => new Point(point.Position.X, point.Position.Y))
-							 .ToList();
-			var elementPoints = Element.Points;
-
-			elementPoints.Clear();
-
-			foreach (var point in points)
-				elementPoints.Add(point);
-
-			if (elementPoints.Count > 0)
+			Element.Lines.CollectionChanged -= OnCollectionChanged;
+			if (e.Strokes.Count > 0)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
-					Element.DrawingCompletedCommand.Execute(elementPoints);
+				if (!Element.MultiLineMode)
+				{
+					Element.Lines.Clear();
+				}
+
+				var lines = Element.MultiLineMode ? e.Strokes : new List<InkStroke>() {e.Strokes.First()};
+
+				foreach (var line in lines)
+				{
+					var points = line.GetInkPoints().Select(point => new Point(point.Position.X, point.Position.Y));
+					Element.Lines.Add(new Line()
+					{
+						Points = new ObservableCollection<Point>(points),
+						LineColor = Color.FromRgba(line.DrawingAttributes.Color.R, line.DrawingAttributes.Color.G,
+							line.DrawingAttributes.Color.B, line.DrawingAttributes.Color.A),
+						LineWidth = (float) line.DrawingAttributes.Size.Width
+					});
+				}
+
+				if (Element.Lines.Count > 0)
+				{
+					var lastLine = Element.Lines.Last();
+					Element.OnDrawingLineCompleted(lastLine);
+				}
+
+				if (Element.ClearOnFinish)
+				{
+					Element.Lines.CollectionChanged -= OnCollectionChanged;
+					Clear(true);
+					Element.Lines.CollectionChanged += OnCollectionChanged;
+				}
 			}
 
-			if (Element.ClearOnFinish)
-				elementPoints.Clear();
+			Element.Lines.CollectionChanged += OnCollectionChanged;
 		}
 
-		void StrokeInput_StrokeStarted(InkStrokeInput sender, PointerEventArgs args)
+		void StrokeInput_StrokeStarted(InkStrokeInput sender, PointerEventArgs args) => Clear();
+
+		void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
 		{
-			canvas!.InkPresenter.StrokeContainer.Clear();
-			Element.Points.Clear();
+			canvas!.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
+			canvas.InkPresenter.StrokeContainer.Clear();
+			LoadLines();
+			canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
 		}
 
-		void LoadPoints()
+		void LoadLines()
 		{
-			var stylusPoints = Element?.Points?.Select(point => new Windows.Foundation.Point(point.X, point.Y)).ToList();
-			if (stylusPoints is { Count: > 0 })
+			var lines = Element.MultiLineMode
+				? Element.Lines
+				: Element.Lines.Any()
+					? new ObservableCollection<Line> {Element.Lines.LastOrDefault()}
+					: new ObservableCollection<Line>();
+			foreach (var line in lines)
 			{
-				var strokeBuilder = new InkStrokeBuilder();
-				strokeBuilder.SetDefaultDrawingAttributes(inkDrawingAttributes);
-				var stroke = strokeBuilder.CreateStroke(stylusPoints);
-				canvas!.InkPresenter.StrokeContainer.AddStroke(stroke);
+				var stylusPoints = line.Points.Select(point => new Windows.Foundation.Point(point.X, point.Y)).ToList();
+				if (stylusPoints is { Count: > 0 })
+				{
+					var strokeBuilder = new InkStrokeBuilder();
+					var inkDrawingAttributes = new InkDrawingAttributes
+					{
+						Color = line.LineColor.ToWindowsColor(),
+						Size = new Size(line.LineWidth, line.LineWidth)
+					};
+					strokeBuilder.SetDefaultDrawingAttributes(inkDrawingAttributes);
+					var stroke = strokeBuilder.CreateStroke(stylusPoints);
+					canvas!.InkPresenter.StrokeContainer.AddStroke(stroke);
+				}
 			}
 		}
 
@@ -114,12 +151,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element != null)
 			{
-				Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+				Element.Lines.CollectionChanged -= OnCollectionChanged;
 				canvas!.InkPresenter.StrokeInput.StrokeStarted -= StrokeInput_StrokeStarted;
 				canvas.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
 			}
 
 			base.Dispose(disposing);
+		}
+
+		void Clear(bool force = false)
+		{
+			if (!Element.MultiLineMode || force)
+			{
+				canvas!.InkPresenter.StrokeContainer.Clear();
+				Element.Lines.Clear();
+			}
 		}
 	}
 }

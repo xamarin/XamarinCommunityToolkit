@@ -12,12 +12,16 @@ using Xamarin.Forms.Platform.MacOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// macOS renderer for <see cref="DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, NSView>
 	{
 		bool disposed;
 		NSBezierPath currentPath;
 		NSColor? lineColor;
 		CGPoint previousPoint;
+		Line? currentLine;
 
 		public DrawingViewRenderer() => currentPath = new NSBezierPath();
 
@@ -28,49 +32,62 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				WantsLayer = true;
 				Layer!.BackgroundColor = Element.BackgroundColor.ToCGColor();
-				currentPath.LineWidth = Element.LineWidth;
-				lineColor = Element.LineColor.ToNSColor();
-				Element.Points.CollectionChanged += OnPointsCollectionChanged;
+				currentPath.LineWidth = Element.DefaultLineWidth;
+				lineColor = Element.DefaultLineColor.ToNSColor();
+				Element.Lines.CollectionChanged += OnLinesCollectionChanged;
 			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
+			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
 				LoadPoints();
 		}
 
-		void OnPointsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
+		void OnLinesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
 
 		public override void MouseDown(NSEvent theEvent)
 		{
-			Element.Points.Clear();
-			currentPath.RemoveAllPoints();
+			Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
+			if (!Element.MultiLineMode)
+			{
+				Element.Lines.Clear();
+				currentPath.RemoveAllPoints();
+			}
 
 			previousPoint = theEvent.LocationInWindow;
 			currentPath.MoveTo(previousPoint);
+			currentLine = new Line()
+			{
+				Points = new ObservableCollection<Point>()
+				{
+					new Point(previousPoint.X, previousPoint.Y)
+				}
+			};
 
 			InvokeOnMainThread(Layer!.SetNeedsDisplay);
+			Element.Lines.CollectionChanged += OnLinesCollectionChanged;
 		}
 
 		public override void MouseUp(NSEvent theEvent)
 		{
-			UpdatePath();
-			if (Element.Points.Count > 0)
+			if (currentLine != null)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
-					Element.DrawingCompletedCommand.Execute(Element.Points);
+				UpdatePath(currentLine);
+				Element.Lines.Add(currentLine);
+				Element.OnDrawingLineCompleted(currentLine);
 			}
 
 			if (Element.ClearOnFinish)
-				Element.Points.Clear();
+				Element.Lines.Clear();
 		}
 
 		public override void MouseDragged(NSEvent theEvent)
 		{
 			var currentPoint = theEvent.LocationInWindow;
 			AddPointToPath(currentPoint);
+			currentLine?.Points.Add(currentPoint.ToPoint());
 			InvokeOnMainThread(Layer!.SetNeedsDisplay);
 		}
 
@@ -81,48 +98,48 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			currentPath.Stroke();
 		}
 
-		void AddPointToPath(CGPoint currentPoint)
-		{
-			currentPath.LineTo(currentPoint);
-			Element.Points.Add(currentPoint.ToPoint());
-		}
+		void AddPointToPath(CGPoint currentPoint) => currentPath.LineTo(currentPoint);
 
 		void LoadPoints()
 		{
-			var stylusPoints = Element.Points.Select(point => new CGPoint(point.X, point.Y)).ToList();
 			currentPath.RemoveAllPoints();
-			if (stylusPoints.Count > 0)
+			foreach (var line in Element.Lines)
 			{
-				previousPoint = stylusPoints[0];
-				currentPath.MoveTo(previousPoint);
-				foreach (var point in stylusPoints)
-					AddPointToPath(point);
-
-				UpdatePath();
+				UpdatePath(line);
+				var stylusPoints = line.Points.Select(point => new CGPoint(point.X, point.Y)).ToList();
+				if (stylusPoints.Count > 0)
+				{
+					previousPoint = stylusPoints[0];
+					currentPath.MoveTo(previousPoint);
+					foreach (var point in stylusPoints)
+						AddPointToPath(point);
+				}
 			}
 		}
 
-		void UpdatePath()
+		void UpdatePath(Line line)
 		{
-			var smoothedPoints = Element.EnableSmoothedPath
-				? SmoothedPathWithGranularity(Element.Points, Element.Granularity, ref currentPath)
-				: new ObservableCollection<Point>(Element.Points);
-			InvokeOnMainThread(Layer!.SetNeedsDisplay);
-			Element.Points.Clear();
+			Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
+
+			var smoothedPoints = line.EnableSmoothedPath
+			? SmoothedPathWithGranularity(line.Points, line.Granularity)
+			: new ObservableCollection<Point>(line.Points);
+
+			line.Points.Clear();
+
 			foreach (var point in smoothedPoints)
-				Element.Points.Add(point);
+				line.Points.Add(point);
+
+			Element.Lines.CollectionChanged += OnLinesCollectionChanged;
 		}
 
 		ObservableCollection<Point> SmoothedPathWithGranularity(ObservableCollection<Point> currentPoints,
-			int granularity,
-			ref NSBezierPath smoothedPath)
+			int granularity)
 		{
 			// not enough points to smooth effectively, so return the original path and points.
-			if (currentPoints.Count < 4)
+			if (currentPoints.Count < granularity + 2)
 				return new ObservableCollection<Point>(currentPoints);
 
-			// create a new bezier path to hold the smoothed path.
-			smoothedPath.RemoveAllPoints();
 			var smoothedPoints = new ObservableCollection<Point>();
 
 			// duplicate the first and last points as control points.
@@ -130,7 +147,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			currentPoints.Add(currentPoints[^1]);
 
 			// add the first point
-			smoothedPath.MoveTo(currentPoints[0].X, currentPoints[0].Y);
 			smoothedPoints.Add(currentPoints[0]);
 
 			var currentPointsCount = currentPoints.Count;
@@ -150,18 +166,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					// intermediate point
 					var mid = GetIntermediatePoint(p0, p1, p2, p3, t, tt, ttt);
-					smoothedPath.LineTo(mid.X, mid.Y);
 					smoothedPoints.Add(mid);
 				}
 
 				// add p2
-				smoothedPath.LineTo(p2.X, p2.Y);
 				smoothedPoints.Add(p2);
 			}
 
 			// add the last point
 			var last = currentPoints[^1];
-			smoothedPath.LineTo(last.X, last.Y);
 			smoothedPoints.Add(last);
 			return smoothedPoints;
 		}
@@ -190,7 +203,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				currentPath.Dispose();
 				if (Element != null)
-					Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+					Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
 			}
 
 			disposed = true;

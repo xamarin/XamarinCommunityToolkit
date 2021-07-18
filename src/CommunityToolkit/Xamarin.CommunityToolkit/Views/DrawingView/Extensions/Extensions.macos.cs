@@ -3,6 +3,9 @@ using CoreGraphics;
 
 namespace Xamarin.CommunityToolkit.UI.Views.macOS
 {
+	/// <summary>
+	/// Extension methods to support <see cref="DrawingView"/>
+	/// </summary>
 	public static class Extensions
 	{
 		/// <summary>

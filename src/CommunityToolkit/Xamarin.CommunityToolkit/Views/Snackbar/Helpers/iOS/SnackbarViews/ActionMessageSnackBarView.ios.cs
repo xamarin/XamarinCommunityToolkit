@@ -1,4 +1,5 @@
 ﻿using System;
+using CoreGraphics;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
@@ -10,9 +11,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 		{
 		}
 
-		protected override void Initialize()
+		protected override void Initialize(CGRect cornerRadius)
 		{
-			base.Initialize();
+			base.Initialize(cornerRadius);
 
 			_ = StackView ?? throw new NullReferenceException();
 

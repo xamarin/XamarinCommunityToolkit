@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected override void OnAttached()
 		{
-			if (Control == null)
+			if (Control == null && Container == null)
 				Element.PropertyChanged += SetupControl;
 			else
 				Update();
@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		protected void Update()
 		{
 			var effect = (T)Element.Effects.FirstOrDefault(e => e is T);
-			Update(Control, effect);
+			Update(Control ?? Container, effect);
 		}
 
 		void SetupControl(object sender, PropertyChangedEventArgs e)
