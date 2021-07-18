@@ -2,7 +2,7 @@
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
-	internal static class JavaObjectExtensions
+	static class JavaObjectExtensions
 	{
 		public static bool IsDisposed(this Java.Lang.Object obj)
 			=> obj.Handle == IntPtr.Zero;

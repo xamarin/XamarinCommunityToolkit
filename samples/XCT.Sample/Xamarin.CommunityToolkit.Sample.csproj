@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Octokit" Version="0.50.0" />
     <PackageReference Include="Xamarin.Forms.DebugRainbows" Version="1.1.4" />
@@ -22,12 +21,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Compile Update="Pages\TestCases\TabViewItemBindingView.xaml.cs">
-      <DependentUpon>TabViewItemBindingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Pages\TestCases\TabViewBindingPage.xaml.cs">
-      <DependentUpon>TabViewBindingPage.xaml</DependentUpon>
-    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -36,6 +29,12 @@
   </ItemGroup>
   
   <ItemGroup>
+    <EmbeddedResource Update="Pages\TestCases\Popups\PopupModalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\TestCases\Popups\SimplePopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resx\AppResources.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <DependentUpon>AppResources.resx</DependentUpon>
