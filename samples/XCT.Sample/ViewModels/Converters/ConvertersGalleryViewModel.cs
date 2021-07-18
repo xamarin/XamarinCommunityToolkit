@@ -108,6 +108,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				nameof(StringToListConverter),
 				"A converter that splits a string by the separator and returns the enumerable sequence of strings as the result."),
 			new SectionModel(
+				typeof(EnumToListConverterPage),
+				nameof(EnumToListConverter),
+				"A converter that returns the enumerable sequence of enum as the result."),
+			new SectionModel(
 				typeof(CompareConverterPage),
 				nameof(CompareConverter),
 				"A converter that allows you to convert an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue."),
