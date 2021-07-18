@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		internal static readonly BindableProperty LayoutControllerProperty
 			= BindableProperty.CreateAttached("LayoutController", typeof(StateLayoutController), typeof(Layout<View>), default(StateLayoutController),
-				defaultValueCreator: (b) => new StateLayoutController((Layout<View>)b) { StateViews = GetStateViews(b) ?? new List<StateView>() });
+				defaultValueCreator: LayoutControllerCreator);
 
 		internal static StateLayoutController? GetLayoutController(BindableObject b)
 			=> (StateLayoutController?)b.GetValue(LayoutControllerProperty);
@@ -95,6 +95,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				default:
 					break;
 			}
+		}
+
+		static object LayoutControllerCreator(BindableObject bindable)
+		{
+			if (bindable is Layout<View> layoutView)
+			{
+				return new StateLayoutController(layoutView)
+				{
+					StateViews = GetStateViews(layoutView) ?? new List<StateView>()
+				};
+			}
+
+			throw new InvalidOperationException($"Cannot create the StateLayoutController. The specified view '{bindable.GetType().FullName}' does not inherit Layout<View>.");
 		}
 	}
 }

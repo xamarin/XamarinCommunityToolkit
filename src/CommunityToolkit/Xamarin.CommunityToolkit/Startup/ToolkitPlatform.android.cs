@@ -1,5 +1,7 @@
-﻿using System;
+using System;
 using Android.Content;
+using Android.OS;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit
@@ -9,6 +11,9 @@ namespace Xamarin.CommunityToolkit
 	/// </summary>
 	static class ToolkitPlatform
 	{
+		static Context? context;
+		static int? sdkInt;
+
 		/// <summary>
 		/// Gets the <see cref="Context"/>.
 		/// </summary>
@@ -16,10 +21,16 @@ namespace Xamarin.CommunityToolkit
 		{
 			get
 			{
-				var page = Forms.Application.Current.MainPage;
+				var page = Application.Current.MainPage ?? throw new NullReferenceException($"{nameof(Application.MainPage)} cannot be null");
 				var renderer = page.GetRenderer();
-				return renderer.View.Context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
+
+				if (renderer?.View.Context is not null)
+					context = renderer.View.Context;
+
+				return renderer?.View.Context ?? context ?? throw new NullReferenceException($"{nameof(Context)} cannot be null");
 			}
 		}
+
+		internal static int SdkInt => sdkInt ??= (int)Build.VERSION.SdkInt;
 	}
 }

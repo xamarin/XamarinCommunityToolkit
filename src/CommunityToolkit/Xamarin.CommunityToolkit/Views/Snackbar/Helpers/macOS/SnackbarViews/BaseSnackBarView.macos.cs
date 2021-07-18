@@ -1,4 +1,7 @@
-﻿using AppKit;
+﻿using System;
+using AppKit;
+using CoreGraphics;
+using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
@@ -6,45 +9,50 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 	{
 		protected BaseSnackBarView(NativeSnackBar snackBar) => SnackBar = snackBar;
 
-		public virtual NSView ParentView => NSApplication.SharedApplication.KeyWindow.ContentView;
+		public NSView? AnchorView { get; set; }
+
+		public NSView ParentView => NSApplication.SharedApplication.KeyWindow.ContentView;
 
 		protected NativeSnackBar SnackBar { get; }
 
-		public NSStackView? StackView { get; set; }
+		protected NativeRoundedStackView? StackView { get; set; }
 
-		public virtual void Dismiss() => RemoveFromSuperview();
+		public void Dismiss() => RemoveFromSuperview();
 
-		public virtual void Setup()
+		public void Setup(CGRect cornerRadius)
 		{
-			Initialize();
-			ConstrainInParent();
-			ConstrainChildren();
+			Initialize(cornerRadius);
+			ConstraintInParent();
 		}
 
-		protected virtual void ConstrainChildren()
+		void ConstraintInParent()
 		{
-		}
+			_ = ParentView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
+			_ = StackView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
 
-		protected virtual void ConstrainInParent()
-		{
-			BottomAnchor.ConstraintEqualToAnchor(ParentView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
-			TopAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TopAnchor, SnackBar.Layout.MarginTop).Active = true;
+			if (AnchorView is null)
+			{
+				BottomAnchor.ConstraintEqualToAnchor(ParentView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
+				TopAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TopAnchor, SnackBar.Layout.MarginTop).Active = true;
+			}
+			else
+			{
+				BottomAnchor.ConstraintEqualToAnchor(AnchorView.BottomAnchor, -SnackBar.Layout.MarginBottom).Active = true;
+			}
+
 			LeadingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.LeadingAnchor, SnackBar.Layout.MarginLeft).Active = true;
 			TrailingAnchor.ConstraintGreaterThanOrEqualToAnchor(ParentView.TrailingAnchor, -SnackBar.Layout.MarginRight).Active = true;
 			CenterXAnchor.ConstraintEqualToAnchor(ParentView.CenterXAnchor).Active = true;
 
-			if (StackView != null)
-			{
-				StackView.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeft).Active = true;
-				StackView.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingRight).Active = true;
-				StackView.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom).Active = true;
-				StackView.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
-			}
+			StackView.LeadingAnchor.ConstraintEqualToAnchor(LeadingAnchor, SnackBar.Layout.PaddingLeft).Active = true;
+			StackView.TrailingAnchor.ConstraintEqualToAnchor(TrailingAnchor, -SnackBar.Layout.PaddingRight).Active = true;
+			StackView.BottomAnchor.ConstraintEqualToAnchor(BottomAnchor, -SnackBar.Layout.PaddingBottom).Active = true;
+			StackView.TopAnchor.ConstraintEqualToAnchor(TopAnchor, SnackBar.Layout.PaddingTop).Active = true;
 		}
 
-		protected virtual void Initialize()
+		protected virtual void Initialize(CGRect cornerRadius)
 		{
-			StackView = new NSStackView
+			StackView = new NativeRoundedStackView(cornerRadius.Left, cornerRadius.Top, cornerRadius.Right, cornerRadius.Bottom)
 			{
 				WantsLayer = true
 			};

@@ -35,8 +35,6 @@ using System.Threading.Tasks;
 using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using Camera = Android.Hardware.Camera;
-using Math = System.Math;
 using Rect = Android.Graphics.Rect;
 using APoint = Android.Graphics.Point;
 
@@ -520,8 +518,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			try
 			{
-				DisposeMediaRecorder();
-				await PrepareSession();
+				mediaRecorder.Stop();
+				Sound(MediaActionSoundType.StopVideoRecording);
+				OnVideo(this, videoFile);
 			}
 			catch (Java.Lang.Exception ex)
 			{
@@ -531,9 +530,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				IsRecordingVideo = false;
 			}
-
-			Sound(MediaActionSoundType.StopVideoRecording);
-			OnVideo(this, videoFile);
+			try
+			{
+				CloseSession();
+				await PrepareSession();
+			}
+			catch (Java.Lang.Exception ex)
+			{
+				LogError("Error restarting video recording", ex);
+			}
 		}
 
 		async Task PrepareSession()
@@ -774,7 +779,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 		}
 
-		#region TextureView.ISurfaceTextureListener
 		async void TextureView.ISurfaceTextureListener.OnSurfaceTextureAvailable(SurfaceTexture? surface, int width, int height)
 		{
 			UpdateBackgroundColor();
@@ -794,9 +798,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void TextureView.ISurfaceTextureListener.OnSurfaceTextureUpdated(SurfaceTexture? surface)
 		{
 		}
-		#endregion
 
-		#region Permissions
 		async Task RequestCameraPermissions()
 		{
 			if (permissionsRequested != null)
@@ -847,9 +849,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			permissionsRequested?.TrySetResult(true);
 		}
-		#endregion
 
-		#region Helpers
 		void LogError(string desc, Java.Lang.Exception? ex = null)
 		{
 			var newLine = System.Environment.NewLine;
@@ -1060,6 +1060,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			LogError("Couldn't find any suitable preview size");
 			return choices[0];
 		}
-		#endregion
 	}
 }

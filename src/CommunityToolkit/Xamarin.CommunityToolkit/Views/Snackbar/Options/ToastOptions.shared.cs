@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public MessageOptions MessageOptions { get; set; } = DefaultMessageOptions;
 
-		public static MessageOptions DefaultMessageOptions { get; set; } = new MessageOptions();
+		public static MessageOptions DefaultMessageOptions { get; set; } = new();
 
 		/// <summary>
 		/// Background color.
@@ -24,6 +24,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
 
 		public static Color DefaultBackgroundColor { get; set; } = Color.Default;
+
+		/// <summary>
+		/// Corner radius (in dp)
+		/// </summary>
+		public Thickness CornerRadius { get; set; } = DefaultCornerRadius;
+
+		public static Thickness DefaultCornerRadius { get; set; } = new(4, 4, 4, 4);
 
 		/// <summary>
 		/// Is Right to left
@@ -44,6 +51,6 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public TaskCompletionSource<bool> Result { get; }
 
-		public void SetResult(bool result) => Result.TrySetResult(result);
+		public void SetResult(bool result) => Result.SetResult(result);
 	}
 }
