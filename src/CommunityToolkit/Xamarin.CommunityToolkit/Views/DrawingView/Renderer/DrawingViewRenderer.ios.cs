@@ -130,6 +130,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						AddPointToPath(point);
 				}
 			}
+
+			SetNeedsDisplay();
 		}
 
 		void UpdatePath(Line line)
