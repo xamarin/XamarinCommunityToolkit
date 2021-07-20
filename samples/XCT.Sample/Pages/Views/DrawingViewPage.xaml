@@ -26,11 +26,13 @@
                 Clicked="LoadPointsButtonClicked"
                 Text="Load points"
                 TextColor="Black" />
-            <Label
-                x:Name="HiddenLabel"
+            <StackLayout x:Name="HiddenPanel"
                 HorizontalOptions="CenterAndExpand"
-                IsVisible="False"
-                Text="Draw &amp; GO" />
+                IsVisible="False">
+                <Label Text="Draw &amp; GO" />
+                <Button Text="Clear all lines"
+                        Clicked="ClearLines_Clicked"/>
+            </StackLayout>
             <Button
                 BackgroundColor="White"
                 Clicked="DisplayHiddenLabelButtonClicked"
@@ -50,7 +52,7 @@
                 x:Name="GestureImage"
                 HeightRequest="100"
                 WidthRequest="100" />
-            
+
             <Label Text="DrawingView (Code behind)"/>
             <views:DrawingView x:Name="DrawingViewControl" 
                                BackgroundColor="LightGray" 
