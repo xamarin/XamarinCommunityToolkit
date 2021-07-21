@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Animations;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
@@ -9,6 +8,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		public static readonly BindableProperty IsRepeatedProperty =
 		   BindableProperty.Create(nameof(IsRepeated), typeof(bool), typeof(TadaAnimationType), default, BindingMode.TwoWay);
 
+		// TODO: RepeatingAnimationBase...
 		public bool IsRepeated
 		{
 			get => (bool)GetValue(IsRepeatedProperty);
@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		public static readonly BindableProperty MaximumScaleProperty =
-		   BindableProperty.Create(nameof(MaximumScale), typeof(double), typeof(TadaAnimationType), TadaAnimation.DefaultMaximumScale, BindingMode.TwoWay);
+		   BindableProperty.Create(nameof(MaximumScale), typeof(double), typeof(TadaAnimationType), 1.1, BindingMode.TwoWay);
 
 		public double MaximumScale
 		{
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		public static readonly BindableProperty MinimumScaleProperty =
-		   BindableProperty.Create(nameof(MinimumScale), typeof(double), typeof(TadaAnimationType), TadaAnimation.DefaultMinimumScale, BindingMode.TwoWay);
+		   BindableProperty.Create(nameof(MinimumScale), typeof(double), typeof(TadaAnimationType), 0.9, BindingMode.TwoWay);
 
 		public double MinimumScale
 		{
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		public static readonly BindableProperty RotationAngleProperty =
-		   BindableProperty.Create(nameof(RotationAngle), typeof(double), typeof(TadaAnimationType), TadaAnimation.DefaultRotationAngle, BindingMode.TwoWay);
+		   BindableProperty.Create(nameof(RotationAngle), typeof(double), typeof(TadaAnimationType), 3.0, BindingMode.TwoWay);
 
 		public double RotationAngle
 		{
@@ -42,7 +42,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			set => SetValue(RotationAngleProperty, value);
 		}
 
-		protected override uint DefaultDuration { get; set; } = TadaAnimation.DefaultLength;
+		protected override uint DefaultDuration { get; set; } = 1000;
 
 		public override Task Animate(View? view)
 		{
@@ -50,17 +50,50 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				var taskCompletionSource = new TaskCompletionSource<bool>();
 
-				new TadaAnimation(
-					rotationAngle: RotationAngle,
-					length: Duration,
+				CreateAnimation(
+					16,
+					onFinished: (v, c) =>
+					{
+						if (IsRepeated)
+						{
+							return;
+						}
+
+						taskCompletionSource.SetResult(c);
+					},
 					shouldRepeat: () => IsRepeated,
-					onFinished: (v, c) => taskCompletionSource.SetResult(c),
-					views: view).Commit();
+					view).Commit();
 
 				return taskCompletionSource.Task;
 			}
 
 			return Task.FromResult(false);
+		}
+
+		protected override Animation CreateAnimation(params View[] views) => Create(RotationAngle, MinimumScale, MaximumScale, views);
+
+		static Animation Create(double rotationAngle, double minimumScale, double maximumScale, params View[] views)
+		{
+			var animation = new Animation();
+
+			foreach (var view in views)
+			{
+				animation.Add(0, 0.1, new Animation(v => view.Scale = v, 1, minimumScale));
+				animation.Add(0.2, 0.3, new Animation(v => view.Scale = v, minimumScale, maximumScale));
+				animation.Add(0.9, 1.0, new Animation(v => view.Scale = v, maximumScale, 1));
+
+				animation.Add(0, 0.2, new Animation(v => view.Rotation = v, 0, -rotationAngle));
+				animation.Add(0.2, 0.3, new Animation(v => view.Rotation = v, -rotationAngle, rotationAngle));
+				animation.Add(0.3, 0.4, new Animation(v => view.Rotation = v, rotationAngle, -rotationAngle));
+				animation.Add(0.4, 0.5, new Animation(v => view.Rotation = v, -rotationAngle, rotationAngle));
+				animation.Add(0.5, 0.6, new Animation(v => view.Rotation = v, rotationAngle, -rotationAngle));
+				animation.Add(0.6, 0.7, new Animation(v => view.Rotation = v, -rotationAngle, rotationAngle));
+				animation.Add(0.7, 0.8, new Animation(v => view.Rotation = v, rotationAngle, -rotationAngle));
+				animation.Add(0.8, 0.9, new Animation(v => view.Rotation = v, -rotationAngle, rotationAngle));
+				animation.Add(0.9, 1.0, new Animation(v => view.Rotation = v, rotationAngle, 0));
+			}
+
+			return animation;
 		}
 	}
 }
