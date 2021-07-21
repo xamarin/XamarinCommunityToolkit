@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
@@ -32,6 +34,27 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		protected abstract uint DefaultDuration { get; set; }
 
 		public abstract Task Animate(TView? view);
+
+		// TODO: Wrap this (no pun intended) in another base class just for the pre-built types.
+		public AnimationWrapper CreateAnimation(
+			uint rate = 16,
+			Action<double, bool>? onFinished = null,
+			Func<bool>? shouldRepeat = null,
+			params View[] views) =>
+			new AnimationWrapper(
+				CreateAnimation(views),
+				Guid.NewGuid().ToString(),
+				views.First(),
+				rate,
+				Duration,
+				Easing,
+				onFinished,
+				shouldRepeat);
+
+		protected virtual Animation CreateAnimation(params View[] views)
+		{
+			return new Animation();
+		}
 	}
 
 	public abstract class AnimationBase : AnimationBase<View>
