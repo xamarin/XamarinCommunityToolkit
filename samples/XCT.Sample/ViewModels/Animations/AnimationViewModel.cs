@@ -1,13 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using Xamarin.CommunityToolkit.Animations;
+using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 {
 	public class AnimationViewModel : BaseViewModel
 	{
-		AnimationBase? currentAnimation;
+		AnimationWrapper? currentAnimation;
 		AnimationDetailViewModel? selectedAnimation;
 
 		public ObservableCollection<AnimationDetailViewModel> Animations { get; }
@@ -25,8 +25,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 		{
 			Animations = new ObservableCollection<AnimationDetailViewModel>
 			{
-				new AnimationDetailViewModel("Tada", (view, onFinished) => new TadaAnimation(onFinished: onFinished, views: view)),
-				new AnimationDetailViewModel("RubberBand", (view, onFinished) => new RubberBandAnimation(onFinished: onFinished, views: view))
+				new AnimationDetailViewModel("Tada", (view, onFinished) => new TadaAnimationType().CreateAnimation(onFinished: onFinished, views: view)),
+				//new AnimationDetailViewModel("RubberBand", (view, onFinished) => new RubberBandAnimation(onFinished: onFinished, views: view))
 			};
 
 			SelectedAnimation = Animations.First();
