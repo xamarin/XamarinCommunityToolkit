@@ -16,6 +16,13 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		public static void SetHeadingLevel(BindableObject view, HeadingLevel value) => view.SetValue(HeadingLevelProperty, value);
 
+		public static readonly BindableProperty SemanticInclusionProperty =
+			BindableProperty.CreateAttached("SemanticInclusion", typeof(SemanticInclusion), typeof(SemanticEffect), SemanticInclusion.Default, propertyChanged: OnPropertyChanged);
+
+		public static SemanticInclusion GetSemanticInclusion(BindableObject view) => (SemanticInclusion)view.GetValue(SemanticInclusionProperty);
+
+		public static void SetSemanticInclusion(BindableObject view, SemanticInclusion value) => view.SetValue(SemanticInclusionProperty, value);
+
 		public static readonly BindableProperty DescriptionProperty = BindableProperty.CreateAttached("Description", typeof(string), typeof(SemanticEffect), default(string), propertyChanged: OnPropertyChanged);
 
 		public static string GetDescription(BindableObject bindable) => (string)bindable.GetValue(DescriptionProperty);

@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Helpers;
+using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
-using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.Forms;
 #if __IOS__
 using UIKit;

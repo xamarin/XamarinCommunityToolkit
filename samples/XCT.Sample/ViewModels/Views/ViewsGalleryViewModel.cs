@@ -60,6 +60,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(UniformGridPage), "UniformGrid",
 				"The UniformGrid is just like the Grid, with all rows and columns will have the same size."),
 
+			new SectionModel(typeof(TextSwitcherPage), "TextSwitcher",
+				"A TextSwitcher is useful to animate a label on screen. Whenever Text is updated, TextSwitcher animates the current text out and animates the new text in."),
+
 			new SectionModel(typeof(PopupGalleryPage), "Popup",
 				"The popup control renders native popups from the shared code. This page demonstrates a variety of different techniques for displaying native popups."),
 			
