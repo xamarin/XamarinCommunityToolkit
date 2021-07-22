@@ -243,14 +243,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			switch (flashMode)
 			{
-				default:
-				case CameraFlashMode.Off:
-					return AVCaptureFlashMode.Off;
 				case CameraFlashMode.On:
 				case CameraFlashMode.Torch:
 					return AVCaptureFlashMode.On;
 				case CameraFlashMode.Auto:
 					return AVCaptureFlashMode.Auto;
+				case CameraFlashMode.Off:
+				default:
+					return AVCaptureFlashMode.Off;
 			}
 		}
 
