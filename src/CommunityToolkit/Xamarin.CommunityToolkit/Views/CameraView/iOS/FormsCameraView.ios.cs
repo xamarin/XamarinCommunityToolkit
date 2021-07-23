@@ -26,6 +26,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool isAvailable;
 		bool isDisposed;
 		CameraFlashMode flashMode;
+		PhotoCaptureDelegate? photoCaptureDelegate;
 		readonly float imgScale = 1f;
 
 		public event EventHandler<bool>? Busy;
@@ -198,25 +199,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			// iOS >= 10
 			if (photoOutput != null)
 			{
-				var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
-				if (photoOutputConnection != null)
-					photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
-
-				var photoSettings = AVCapturePhotoSettings.Create();
-				photoSettings.FlashMode = (AVCaptureFlashMode)flashMode;
-				photoSettings.IsHighResolutionPhotoEnabled = true;
-
-				var photoCaptureDelegate = new PhotoCaptureDelegate
+				try
 				{
-					OnFinishCapture = (data, error) =>
-					{
-						FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(data, error));
-						IsBusy = false;
-					},
-					WillCapturePhotoAnimation = () => Animate(0.25, () => previewLayer.Opacity = 1)
-				};
+					var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
+					if (photoOutputConnection != null)
+						photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
 
-				photoOutput.CapturePhoto(photoSettings, photoCaptureDelegate);
+					photoOutput.CapturePhoto(GetCapturePhotoSettings(), GetPhotoCaptureDelegate());
+				}
+				catch (Exception)
+				{
+					FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("faled create image"), 0)));
+					IsBusy = false;
+				}
 				return;
 			}
 
@@ -237,6 +232,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				IsBusy = false;
 			}
+		}
+
+		AVCapturePhotoSettings GetCapturePhotoSettings()
+		{
+			var photoSettings = AVCapturePhotoSettings.Create();
+			photoSettings.FlashMode = (AVCaptureFlashMode)flashMode;
+			photoSettings.IsHighResolutionPhotoEnabled = true;
+			return photoSettings;
+		}
+
+		PhotoCaptureDelegate GetPhotoCaptureDelegate()
+		{
+			if (photoCaptureDelegate == null)
+			{
+				photoCaptureDelegate = new PhotoCaptureDelegate
+				{
+					OnFinishCapture = (data, error) =>
+					{
+						FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(data, error));
+						IsBusy = false;
+					},
+					WillCapturePhotoAnimation = () => Animate(0.25, () => previewLayer.Opacity = 1)
+				};
+			}
+			return photoCaptureDelegate;
 		}
 
 		string ConstructVideoFilename()
@@ -548,6 +568,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (input != null)
 					captureSession.RemoveInput(input);
 			}
+
+			photoCaptureDelegate?.Dispose();
+			photoCaptureDelegate = null;
 
 			input?.Dispose();
 			input = null;
