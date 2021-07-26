@@ -46,28 +46,26 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		public override Task Animate(View? view)
 		{
-			if (view != null)
-			{
-				var taskCompletionSource = new TaskCompletionSource<bool>();
+			if (view == null)
+				return Task.FromResult(false);
 
-				CreateAnimation(
-					16,
-					onFinished: (v, c) =>
+			var taskCompletionSource = new TaskCompletionSource<bool>();
+
+			CreateAnimation(
+				16,
+				onFinished: (v, c) =>
+				{
+					if (IsRepeated)
 					{
-						if (IsRepeated)
-						{
-							return;
-						}
+						return;
+					}
 
-						taskCompletionSource.SetResult(c);
-					},
-					shouldRepeat: () => IsRepeated,
-					view).Commit();
+					taskCompletionSource.SetResult(c);
+				},
+				shouldRepeat: () => IsRepeated,
+				view).Commit();
 
-				return taskCompletionSource.Task;
-			}
-
-			return Task.FromResult(false);
+			return taskCompletionSource.Task;
 		}
 
 		protected override Animation CreateAnimation(params View[] views) => Create(RotationAngle, MinimumScale, MaximumScale, views);
