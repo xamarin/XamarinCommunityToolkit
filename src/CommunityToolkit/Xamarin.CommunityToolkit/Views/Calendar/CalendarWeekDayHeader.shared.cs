@@ -1,5 +1,6 @@
 using System;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -11,16 +12,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Gets day of week.
 		/// </summary>
+		[Preserve(Conditional = true)]
 		public DayOfWeek DayOfWeek { get; }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CalendarWeekDayHeader"/> class.
 		/// </summary>
 		/// <param name="dayOfWeek">day of the week</param>
-		public CalendarWeekDayHeader(DayOfWeek dayOfWeek)
-		{
+		public CalendarWeekDayHeader(DayOfWeek dayOfWeek) =>
 			DayOfWeek = dayOfWeek;
-			var a = DayOfWeek; // Without this line ControlTemplate doesn't work.
-		}
 	}
 }
