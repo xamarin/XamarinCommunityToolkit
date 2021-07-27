@@ -66,6 +66,9 @@
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="mdoc" Version="5.8.3" PrivateAssets="all" />
+    <Compile Include="Converters\UtcDateTimeToLocalStringConverter.shared.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <Compile Include="**/*.netstandard.cs" />

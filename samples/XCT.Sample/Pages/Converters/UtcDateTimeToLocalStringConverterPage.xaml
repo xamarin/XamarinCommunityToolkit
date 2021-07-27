@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+ xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters" 
+    x:DataType="converters:UtcDateTimeToLocalStringConverterViewModel"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.UtcDateTimeToLocalStringConverterPage">
+    <pages:BasePage.BindingContext>
+        <converters:UtcDateTimeToLocalStringConverterViewModel/>
+    </pages:BasePage.BindingContext>
+   <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:UtcDateTimeToLocalStringConverter x:Key="UtcDateTimeToLocalStringConverter"  DateTimeFormat="MM-dd-yy"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10,10"
+            HorizontalOptions="Fill"
+            Spacing="10"
+            VerticalOptions="Fill">
+            <Label Text="The UtcDateTimeToLocalStringConverter is a converter that allows users to convert an incoming DateTime or DateTimeOffset value and return the local DateTime representation in the provided datetime format" TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label Text="Convert the following DateTime to local DateTime string value." TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label
+                x:Name="ExampleText"
+                TextColor="{StaticResource NormalLabelTextColor}" >
+                <Label.FormattedText><FormattedString><Span Text="DateTime in UTC now: "/>
+                    <Span Text="{Binding UtcDate}"/>
+                    </FormattedString></Label.FormattedText>
+                </Label>
+
+            <Label
+                Padding="7,0,0,0"
+                BindingContext="{x:Reference Name=ExampleText}"
+                
+                TextColor="{StaticResource NormalLabelTextColor}" >
+                <Label.FormattedText><FormattedString><Span Text="Local date time string value: "/>
+                    <Span Text="{Binding UtcDate, Converter={StaticResource UtcDateTimeToLocalStringConverter}}"/>
+                    </FormattedString></Label.FormattedText>
+                </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
