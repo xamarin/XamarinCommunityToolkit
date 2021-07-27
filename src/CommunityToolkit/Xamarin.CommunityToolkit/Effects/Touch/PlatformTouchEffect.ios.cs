@@ -192,6 +192,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.Status != status)
 				HandleTouch(status).SafeFireAndForget();
 
+			if (status == TouchStatus.Canceled)
+				IsCanceled = true;
+
 			base.TouchesMoved(touches, evt);
 		}
 
@@ -267,13 +270,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (gestureRecognizer is TouchUITapGestureRecognizer touchGesture && otherGestureRecognizer is UIPanGestureRecognizer &&
 				otherGestureRecognizer.State == UIGestureRecognizerState.Began)
 			{
-				touchGesture.HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).ContinueWith(task =>
-				{
-					if (task.IsFaulted && task.Exception != null)
-						throw task.Exception;
-
-					touchGesture.IsCanceled = true;
-				});
+				touchGesture.HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).SafeFireAndForget();
+				touchGesture.IsCanceled = true;
 			}
 
 			return true;
