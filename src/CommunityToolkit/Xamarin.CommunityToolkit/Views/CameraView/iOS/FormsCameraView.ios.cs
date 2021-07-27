@@ -200,24 +200,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (photoOutput != null)
 			{
 				try
-        {
-				var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
-				if (photoOutputConnection != null)
-					photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
-
-				var photoSettings = AVCapturePhotoSettings.Create();
-				photoSettings.FlashMode = GetFlashMode();
-				photoSettings.IsHighResolutionPhotoEnabled = true;
-
-				var photoCaptureDelegate = new PhotoCaptureDelegate
 				{
 					var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
 					if (photoOutputConnection != null)
 						photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
 
+					var photoSettings = AVCapturePhotoSettings.Create();
+					photoSettings.FlashMode = GetFlashMode();
+					photoSettings.IsHighResolutionPhotoEnabled = true;
 					photoOutput.CapturePhoto(GetCapturePhotoSettings(), GetPhotoCaptureDelegate());
 				}
-        }
 				catch (Exception)
 				{
 					FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("faled create image"), 0)));
