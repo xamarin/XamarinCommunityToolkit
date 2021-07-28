@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -34,9 +35,78 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		protected abstract uint DefaultDuration { get; set; }
 
 		public abstract Task Animate(TView? view);
+	}
 
-		// TODO: Wrap this (no pun intended) in another base class just for the pre-built types.
-		public AnimationWrapper CreateAnimation(
+	public abstract class AnimationBase : AnimationBase<View>
+	{
+	}
+
+	public abstract class PreBuiltAnimationBase : AnimationBase
+	{
+		public static readonly BindableProperty IsRepeatedProperty =
+		   BindableProperty.Create(nameof(IsRepeated), typeof(bool), typeof(PreBuiltAnimationBase), default, BindingMode.TwoWay);
+
+		public bool IsRepeated
+		{
+			get => (bool)GetValue(IsRepeatedProperty);
+			set => SetValue(IsRepeatedProperty, value);
+		}
+
+		public override Task Animate(View? view) => Animate(CancellationToken.None, view!);
+
+		public async Task Animate(CancellationToken? cancellationToken, params View[]? views)
+		{
+			if (views != null)
+			{
+				AnimationWrapper? animation = null;
+
+				try
+				{
+					var taskCompletionSource = new TaskCompletionSource<bool>();
+
+					if (cancellationToken is null)
+						cancellationToken = CancellationToken.None;
+
+					animation = CreateAnimation(
+						16,
+						onFinished: (v, c) =>
+						{
+							try
+							{
+								if (cancellationToken != null)
+								{
+									cancellationToken.Value.ThrowIfCancellationRequested();
+								}
+
+								if (IsRepeated)
+								{
+									return;
+								}
+
+								taskCompletionSource.SetResult(c);
+							}
+							catch (OperationCanceledException)
+							{
+								taskCompletionSource.SetCanceled();
+								animation?.Abort();
+							}
+						},
+						shouldRepeat: () => IsRepeated,
+						views);
+
+					animation.Commit();
+
+					// Does not take in to account IsRepeated
+					await Task.WhenAny(Task.Delay((int)Duration, cancellationToken.Value), taskCompletionSource.Task).Unwrap();
+				}
+				catch (OperationCanceledException)
+				{
+					animation?.Abort();
+				}
+			}
+		}
+
+		AnimationWrapper CreateAnimation(
 			uint rate = 16,
 			Action<double, bool>? onFinished = null,
 			Func<bool>? shouldRepeat = null,
@@ -51,13 +121,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				onFinished,
 				shouldRepeat);
 
-		protected virtual Animation CreateAnimation(params View[] views)
-		{
-			return new Animation();
-		}
-	}
-
-	public abstract class AnimationBase : AnimationBase<View>
-	{
+		protected abstract Animation CreateAnimation(params View[] views);
 	}
 }

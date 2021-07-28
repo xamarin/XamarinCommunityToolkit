@@ -1,20 +1,9 @@
-﻿using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class TadaAnimationType : AnimationBase
+	public class TadaAnimationType : PreBuiltAnimationBase
 	{
-		public static readonly BindableProperty IsRepeatedProperty =
-		   BindableProperty.Create(nameof(IsRepeated), typeof(bool), typeof(TadaAnimationType), default, BindingMode.TwoWay);
-
-		// TODO: RepeatingAnimationBase...
-		public bool IsRepeated
-		{
-			get => (bool)GetValue(IsRepeatedProperty);
-			set => SetValue(IsRepeatedProperty, value);
-		}
-
 		public static readonly BindableProperty MaximumScaleProperty =
 		   BindableProperty.Create(nameof(MaximumScale), typeof(double), typeof(TadaAnimationType), 1.1, BindingMode.TwoWay);
 
@@ -43,32 +32,6 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		protected override uint DefaultDuration { get; set; } = 1000;
-
-		public override Task Animate(View? view)
-		{
-			if (view != null)
-			{
-				var taskCompletionSource = new TaskCompletionSource<bool>();
-
-				CreateAnimation(
-					16,
-					onFinished: (v, c) =>
-					{
-						if (IsRepeated)
-						{
-							return;
-						}
-
-						taskCompletionSource.SetResult(c);
-					},
-					shouldRepeat: () => IsRepeated,
-					view).Commit();
-
-				return taskCompletionSource.Task;
-			}
-
-			return Task.FromResult(false);
-		}
 
 		protected override Animation CreateAnimation(params View[] views) => Create(RotationAngle, MinimumScale, MaximumScale, views);
 

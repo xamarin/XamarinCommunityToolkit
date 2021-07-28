@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class AnimationWrapper
+	class AnimationWrapper
 	{
 		readonly Easing? easing;
 		readonly uint length = 250;

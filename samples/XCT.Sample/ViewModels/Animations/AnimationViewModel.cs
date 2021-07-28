@@ -1,13 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 {
 	public class AnimationViewModel : BaseViewModel
 	{
-		AnimationWrapper? currentAnimation;
+		PreBuiltAnimationBase? currentAnimation;
+		CancellationTokenSource? cancellationTokenSource;
 		AnimationDetailViewModel? selectedAnimation;
 
 		public ObservableCollection<AnimationDetailViewModel> Animations { get; }
@@ -18,27 +22,33 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 			set => SetProperty(ref selectedAnimation, value);
 		}
 
-		public Command StartAnimationCommand { get; }
+		public AsyncCommand<View> StartAnimationCommand { get; }
+
 		public Command StopAnimationCommand { get; }
 
 		public AnimationViewModel()
 		{
 			Animations = new ObservableCollection<AnimationDetailViewModel>
 			{
-				new AnimationDetailViewModel("Tada", (view, onFinished) => new TadaAnimationType().CreateAnimation(onFinished: onFinished, views: view)),
-				//new AnimationDetailViewModel("RubberBand", (view, onFinished) => new RubberBandAnimation(onFinished: onFinished, views: view))
+				new AnimationDetailViewModel("Tada", (view, onFinished) => new TadaAnimationType()),
+				new AnimationDetailViewModel("RubberBand", (view, onFinished) => new RubberBandAnimationType())
 			};
 
 			SelectedAnimation = Animations.First();
-			StartAnimationCommand = new Command<View>(OnStart, (view) => !(SelectedAnimation is null) && currentAnimation?.IsRunning != true);
-			StopAnimationCommand = new Command(OnStop, () => currentAnimation?.IsRunning == true);
+			StartAnimationCommand = new AsyncCommand<View>(v => OnStart(v), (view) => !(SelectedAnimation is null));
+			StopAnimationCommand = new Command(OnStop, () => cancellationTokenSource != null);
 		}
 
-		void OnStart(View view)
+		async Task OnStart(View? view)
 		{
-			if (currentAnimation != null)
+			if (view is null)
 			{
-				currentAnimation.Abort();
+				return;
+			}
+
+			if (cancellationTokenSource != null)
+			{
+				cancellationTokenSource.Cancel();
 			}
 
 			currentAnimation = SelectedAnimation!.CreateAnimation(view, (d, b) =>
@@ -47,16 +57,20 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 				StopAnimationCommand.ChangeCanExecute();
 			});
 
-			currentAnimation.Commit();
+			cancellationTokenSource = new CancellationTokenSource();
+			StopAnimationCommand.ChangeCanExecute();
 
+			await currentAnimation.Animate(cancellationTokenSource.Token, view);
+
+			cancellationTokenSource = null;
 			StopAnimationCommand.ChangeCanExecute();
 		}
 
 		void OnStop()
 		{
-			if (currentAnimation != null)
+			if (cancellationTokenSource != null)
 			{
-				currentAnimation.Abort();
+				cancellationTokenSource.Cancel();
 			}
 		}
 	}

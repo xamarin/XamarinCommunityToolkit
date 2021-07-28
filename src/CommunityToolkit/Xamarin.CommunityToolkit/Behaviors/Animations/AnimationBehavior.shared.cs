@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -65,13 +66,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		async Task OnAnimate()
 		{
-			if (isAnimating)
+			if (isAnimating || View is not View typedView)
 				return;
 
 			isAnimating = true;
 
 			if (AnimationType != null)
-				await AnimationType.Animate((View?)View);
+				await AnimationType.Animate(typedView);
 
 			isAnimating = false;
 		}
