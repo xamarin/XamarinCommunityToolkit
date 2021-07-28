@@ -451,7 +451,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				calendarDay.ControlTemplate = DayControlTemplate;
 			}
 
-			calendarDay.Opacity = isVisible ? 1 : 0;
+			calendarDay.FadeTo(isVisible ? 1 : 0, length: 0);
 
 			if (isVisible)
 				OnDayUpdated(calendarDay);
