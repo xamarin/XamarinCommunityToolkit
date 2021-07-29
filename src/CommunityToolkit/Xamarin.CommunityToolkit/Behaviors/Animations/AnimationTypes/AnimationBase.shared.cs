@@ -60,49 +60,43 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				AnimationWrapper? animation = null;
 
-				try
-				{
-					var taskCompletionSource = new TaskCompletionSource<bool>();
+				var taskCompletionSource = new TaskCompletionSource<bool>();
 
-					if (cancellationToken is null)
-						cancellationToken = CancellationToken.None;
+				if (cancellationToken is null)
+					cancellationToken = CancellationToken.None;
 
-					animation = CreateAnimation(
-						16,
-						onFinished: (v, c) =>
+				animation = CreateAnimation(
+					16,
+					onFinished: (v, c) =>
+					{
+						try
 						{
-							try
+							if (cancellationToken != null)
 							{
-								if (cancellationToken != null)
-								{
-									cancellationToken.Value.ThrowIfCancellationRequested();
-								}
-
-								if (IsRepeated)
-								{
-									return;
-								}
-
-								taskCompletionSource.SetResult(c);
+								cancellationToken.Value.ThrowIfCancellationRequested();
 							}
-							catch (OperationCanceledException)
+
+							if (IsRepeated)
 							{
-								taskCompletionSource.SetCanceled();
-								animation?.Abort();
+								return;
 							}
-						},
-						shouldRepeat: () => IsRepeated,
-						views);
 
-					animation.Commit();
+							animation = null;
+							taskCompletionSource.SetResult(c);
+						}
+						catch (OperationCanceledException)
+						{
+							taskCompletionSource.SetCanceled();
+							animation?.Abort();
+						}
+					},
+					shouldRepeat: () => IsRepeated,
+					views);
 
-					// Does not take in to account IsRepeated
-					await Task.WhenAny(Task.Delay((int)Duration, cancellationToken.Value), taskCompletionSource.Task).Unwrap();
-				}
-				catch (OperationCanceledException)
-				{
-					animation?.Abort();
-				}
+				animation.Commit();
+
+				await Task.WhenAny(cancellationToken.Value.WhenCanceled(), taskCompletionSource.Task);
+				animation?.Abort();
 			}
 		}
 
@@ -122,5 +116,15 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				shouldRepeat);
 
 		protected abstract Animation CreateAnimation(params View[] views);
+	}
+
+	public static class TaskExtensions
+	{
+		public static Task WhenCanceled(this CancellationToken cancellationToken)
+		{
+			var tcs = new TaskCompletionSource<bool>();
+			cancellationToken.Register(s => ((TaskCompletionSource<bool>)s).SetResult(true), tcs);
+			return tcs.Task;
+		}
 	}
 }
