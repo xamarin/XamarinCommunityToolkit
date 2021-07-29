@@ -12,6 +12,11 @@ namespace Xamarin.CommunityToolkit.Effects
 		static string effectResolutionGroupName = $"{nameof(Xamarin)}.{nameof(CommunityToolkit)}.{nameof(Effects)}";
 
 		/// <summary>
+		/// Effect Id for <see cref="OtpEffect"/>
+		/// </summary>
+		public static string Otp => $"{effectResolutionGroupName}.{nameof(OtpEffect)}";
+
+		/// <summary>
 		/// Effect Id for <see cref="RemoveBorderEffect"/>
 		/// </summary>
 		public static string RemoveBorder => $"{effectResolutionGroupName}.{nameof(RemoveBorderEffect)}";

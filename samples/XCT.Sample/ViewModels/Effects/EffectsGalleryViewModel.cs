@@ -10,6 +10,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
 			new SectionModel(
+				typeof(OtpEffectPage),
+				nameof(OtpEffect),
+				"The one-time password (OTP) effect will fill in one-time passwords received via SMS."),
+
+			new SectionModel(
 				typeof(SafeAreaEffectPage),
 				nameof(SafeAreaEffect),
 				"The SafeAreaEffect is an effectwill help to make sure that content isn't clipped by rounded device corners, the home indicator, or the sensor housing on an iPhone X (or alike)"),

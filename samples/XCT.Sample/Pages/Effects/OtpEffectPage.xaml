@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage  xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages" 
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.OtpEffectPage"
+             Title="One time password effect">
+    <ContentPage.Content>
+        <StackLayout Padding="10, 30, 10, 30">
+            <Label Text="One time password"
+                HorizontalOptions="CenterAndExpand" />
+            <Entry Placeholder="One time password"
+                HorizontalOptions="CenterAndExpand" >
+                <Entry.Effects>
+                    <local:OtpEffect OtpReceived="OnOtpReceived"/>
+                </Entry.Effects>
+            </Entry>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
