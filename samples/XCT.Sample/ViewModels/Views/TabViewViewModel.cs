@@ -4,7 +4,7 @@ using Xamarin.CommunityToolkit.Sample.Pages.Views.TabView;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 {
-	public class TabViewViewModel : BaseGalleryViewModel
+		public class TabViewViewModel : BaseGalleryViewModel
 	{
 		protected override IEnumerable<SectionModel> CreateItems() => new[]
 		{
@@ -46,6 +46,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 			new SectionModel(typeof(LazyTabPage), "LazyLoadingTab",
 				"See how you can implement LazyViews that are loaded just when you navigate to them"),
+
+			new SectionModel(typeof(DynamicTabsPage), "Dynamic tabs",
+				"We can add tabs via code"),
 		};
 	}
 }

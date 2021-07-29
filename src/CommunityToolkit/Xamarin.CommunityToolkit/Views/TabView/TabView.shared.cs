@@ -12,7 +12,7 @@ using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
+		[Preserve(AllMembers = true)]
 	[ContentProperty(nameof(TabItems))]
 	public class TabView : ContentView, IDisposable
 	{
@@ -30,7 +30,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		readonly List<double> contentWidthCollection;
 		IList? tabItemsSource;
-		ObservableCollection<TabViewItem>? contentTabItems;
 
 		public TabView()
 		{
@@ -103,7 +102,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			contentContainer = new CarouselView
 			{
 				BackgroundColor = Color.Transparent,
-				ItemsSource = TabItems.Where(t => t.Content != null),
 				ItemTemplate = new DataTemplate(() =>
 				{
 					var tabViewItemContent = new ContentView();
@@ -117,6 +115,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				VerticalOptions = LayoutOptions.FillAndExpand
 			};
+
+			contentContainer.SetBinding(CarouselView.ItemsSourceProperty, new Binding(nameof(ContentTabItems), source: this));
 
 			// Workaround to fix a Xamarin.Forms CarouselView issue that create a wrong 1px margin.
 			if (Device.RuntimePlatform == Device.iOS)
@@ -178,6 +178,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public ObservableCollection<TabViewItem> TabItems { get; set; }
+
+		public IEnumerable<TabViewItem> ContentTabItems => TabItems.Where(t => t.Content != null);
 
 		public static readonly BindableProperty TabItemsSourceProperty =
 			BindableProperty.Create(nameof(TabItemsSource), typeof(IList), typeof(TabView), null,
@@ -447,6 +449,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (e.PropertyName == TabViewItem.TabWidthProperty.PropertyName)
 					UpdateTabViewItemTabWidth(tabViewItem);
+				else if (e.PropertyName == TabViewItem.ContentProperty.PropertyName)
+					OnPropertyChanged(nameof(ContentTabItems));
 			}
 		}
 
@@ -513,7 +517,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void ClearTabViewItem(TabViewItem tabViewItem)
 		{
 			tabViewItem.PropertyChanged -= OnTabViewItemPropertyChanged;
+
+			var index = tabStripContent.Children.IndexOf(tabViewItem);
+			for (var i = index + 1; i < tabStripContent.Children.Count; i++)
+			{
+				Grid.SetColumn(tabStripContent.Children[i], i - 1);
+			}
+
 			tabStripContent.Children.Remove(tabViewItem);
+
+			if (index > -1)
+				tabStripContent.ColumnDefinitions.RemoveAt(index);
 		}
 
 		void AddTabViewItem(TabViewItem tabViewItem, int index = -1)
@@ -535,6 +549,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					tabViewItem.ControlTemplate = new ControlTemplate(typeof(MaterialTabViewItemTemplate));
 				}
 			}
+
+			OnPropertyChanged(nameof(ContentTabItems));
 
 			AddSelectionTapRecognizer(tabViewItem);
 
@@ -768,9 +784,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			Device.BeginInvokeOnMainThread(async () =>
 			{
-				if (contentTabItems == null || contentTabItems.Count != TabItems.Count)
-					contentTabItems = new ObservableCollection<TabViewItem>(TabItems.Where(t => t.Content != null));
-
 				var contentIndex = position;
 				var tabStripIndex = position;
 
@@ -785,7 +798,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					var lazyView = (currentItem?.Content as BaseLazyView) ?? (tabViewItem.Content as BaseLazyView);
 
-					contentIndex = contentTabItems.IndexOf(currentItem ?? tabViewItem);
+					contentIndex = ContentTabItems.IndexOf(currentItem ?? tabViewItem);
 					tabStripIndex = TabItems.IndexOf(currentItem ?? tabViewItem);
 
 					position = tabStripIndex;
