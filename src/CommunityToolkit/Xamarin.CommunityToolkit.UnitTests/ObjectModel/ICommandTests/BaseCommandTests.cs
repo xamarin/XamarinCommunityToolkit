@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
 
@@ -17,6 +18,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests
 		protected Task NoParameterTask() => Task.Delay(Delay);
 
 		protected Task IntParameterTask(int delay) => Task.Delay(delay);
+		protected Task NullableParameterTask(int? delay) => Task.Delay(delay ?? 0);
 
 		protected Task StringParameterTask(string? text) => Task.Delay(Delay);
 

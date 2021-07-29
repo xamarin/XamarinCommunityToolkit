@@ -1,4 +1,6 @@
-﻿namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
+﻿using CoreGraphics;
+
+namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
 	class ActionMessageSnackBarView : MessageSnackBarView
 	{
@@ -7,9 +9,9 @@
 		{
 		}
 
-		protected override void Initialize()
+		protected override void Initialize(CGRect cornerRadius)
 		{
-			base.Initialize();
+			base.Initialize(cornerRadius);
 			foreach (var actionButton in SnackBar.Actions)
 			{
 				StackView?.AddArrangedSubview(actionButton);

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage
+  x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.EnumToIntConverterPage"
+  xmlns="http://xamarin.com/schemas/2014/forms"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:converters="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+  xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+  xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+  xmlns:xct="clr-namespace:Xamarin.CommunityToolkit.Converters;assembly=Xamarin.CommunityToolkit"
+  x:DataType="converters:EnumToIntConverterViewModel"
+  BackgroundColor="{StaticResource AppBackgroundColor}">
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <xct:EnumToIntConverter x:Key="EnumToIntConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  <ContentPage.BindingContext>
+    <vm:EnumToIntConverterViewModel />
+  </ContentPage.BindingContext>
+  <ContentPage.Content>
+    <StackLayout Padding="10,10" Spacing="10">
+      <Label Text="The EnumToIntConverter is a converter that allows users to convert a standard enum (extending int) to its underlying primitive int type." />
+      <Label Text="Selecting a value from the picker will change the enum property in the view model" />
+      <Picker ItemsSource="{Binding AllStates}" SelectedIndex="{Binding SelectedState, Converter={StaticResource EnumToIntConverter}}" />
+      <Label Text="This label binds to the SelectedIndex property of the picker, both use EnumToIntConverter, so no int properties are necessary in ViewModel" />
+      <Label Text="{Binding Path=SelectedState, Converter={StaticResource EnumToIntConverter}}" />
+    </StackLayout>
+  </ContentPage.Content>
+</pages:BasePage>

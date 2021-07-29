@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Internals
 {
@@ -27,9 +26,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Internals
 
 		protected override void OnChildAdded(Element child)
 		{
-			if (Control == null && child is TControl content)
+			if (Control == null && child is TControl control)
 			{
-				Control = content;
+				Control = control;
 				OnControlInitialized(Control);
 			}
 

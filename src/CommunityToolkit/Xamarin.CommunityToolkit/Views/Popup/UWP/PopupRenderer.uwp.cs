@@ -116,6 +116,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element != null)
 				Element.Dismissed += OnDismissed;
+
+			Opened += OnOpened;
 		}
 
 		void SetSize()
@@ -252,16 +254,29 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		UIElement? IVisualElementRenderer.GetNativeElement() => Control;
 
+		// The UWP PopupRenderer needs to maintain it's own version of
+		// `isOpen` because our popup lifecycle differs slightly from
+		// the UWP version of `IsOpen`. Without this variable usages
+		// in OnDismissed and OnClosing will not work as expected.
+		bool isOpen = true;
+
 		void OnDismissed(object? sender, PopupDismissedEventArgs e)
 		{
+			if (!isOpen)
+				return;
+
+			isOpen = false;
 			Hide();
 		}
 
 		void OnClosing(object? sender, object e)
 		{
-			if (IsOpen && Element?.IsLightDismissEnabled is true)
+			if (isOpen && Element?.IsLightDismissEnabled is true)
 				Element.LightDismiss();
 		}
+
+		void OnOpened(object sender, object e) =>
+			isOpen = true;
 
 		public void Dispose()
 		{
@@ -282,7 +297,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Element = null;
 				Control = null;
 
-				Closed -= OnClosing;
+				Closing -= OnClosing;
+				Opened -= OnOpened;
 			}
 
 			isDisposed = true;

@@ -54,6 +54,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
 				propertyChanged: OnTextColorChanged);
 
+		[Obsolete("TextColor is obsolete. Please use StatusTextColor instead")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public Color TextColor
 		{
 			get => (Color)GetValue(TextColorProperty);
@@ -106,6 +108,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateColor();
 
+		[Obsolete("Color is obsolete. Please use StatusBackgroundColor instead")]
+		[EditorBrowsable(EditorBrowsableState.Never)]
 		public Color Color
 		{
 			get => (Color)GetValue(ColorProperty);
@@ -177,9 +181,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font of all the text on the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
-		public string FontFamily
+		public string? FontFamily
 		{
-			get => (string)GetValue(FontFamilyProperty);
+			get => (string?)GetValue(FontFamilyProperty);
 			set => SetValue(FontFamilyProperty, value);
 		}
 
@@ -310,7 +314,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateSubjectColor() => ShieldSubjectContainer.BackgroundColor = SubjectBackgroundColor;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 		void UpdateColor() => ShieldStatusContainer.BackgroundColor = Color;
+#pragma warning restore CS0618 // Type or member is obsolete
 
 		void UpdateStatusBackgroundColor() => ShieldStatusContainer.BackgroundColor = StatusBackgroundColor;
 

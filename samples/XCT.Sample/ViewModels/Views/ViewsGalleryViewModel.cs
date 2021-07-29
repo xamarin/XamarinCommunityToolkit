@@ -14,6 +14,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(BadgeViewPage), "BadgeView",
 				"View used to notify users notifications, or status of something"),
 
+			new SectionModel(typeof(DrawingViewPage), "DrawingView",
+				"Draw & GO DrawingView makes capturing and displaying gestures extremely simple on all platforms that Xamarin.Forms supports. (Android, iOS, macOS, UWP, WPF, GTK and Tizen)"),
+
 			new SectionModel(typeof(CameraViewPage), "CameraView",
 				"The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!"),
 
@@ -26,11 +29,17 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(ExpanderPage), "Expander",
 				"The Expander control provides an expandable container to host any content"),
 
+			new SectionModel(typeof(HexLayoutPage), "HexLayout",
+				"A Layout that arranges the elements in a honeycomb pattern"),
+
 			new SectionModel(typeof(MediaElementPage), "MediaElement",
 				"MediaElement is a view for playing video and audio"),
 
 			new SectionModel(typeof(RangeSliderPage), "RangeSlider",
 				"The RangeSlider is a slider with two thumbs allowing to select numeric ranges"),
+
+			new SectionModel(typeof(SemanticOrderViewPage), "SemanticOrderView",
+				"Set accessiblity ordering on views"),
 
 			new SectionModel(typeof(SnackBarPage), "SnackBar/Toast",
 				"Show SnackBar, Toast etc"),

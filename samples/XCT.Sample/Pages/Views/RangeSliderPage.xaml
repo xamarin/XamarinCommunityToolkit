@@ -73,14 +73,14 @@
                 <Frame Padding="15, 10" BackgroundColor="LightBlue">
                     <StackLayout Spacing="10">
                         <Label Text="Thumb Size" FontAttributes="Bold"/>
-                        <Slider x:Name="ThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
+                        <Slider x:Name="ThumbSizeSlider" Maximum="50" Minimum="10" Value="28" />
                         <Label Text="Set Lower/Upper Thumb Size separately" />
                         <Switch x:Name="ThumbSizeSwitch" Toggled="OnThumbSizeSwitchToggled"/>
                         <StackLayout IsVisible="{Binding IsToggled, Source={x:Reference ThumbSizeSwitch}}">
                             <Label Text="Lower Thumb Size" />
-                            <Slider x:Name="LowerThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
+                            <Slider x:Name="LowerThumbSizeSlider" Maximum="50" Minimum="10" Value="28" />
                             <Label Text="Upper Thumb Size" />
-                            <Slider x:Name="UpperThumbSizeSlider" Maximum="50" Minimum="10" Value="30" />
+                            <Slider x:Name="UpperThumbSizeSlider" Maximum="50" Minimum="10" Value="28" />
                         </StackLayout>
 
                         <Label Text="Thumb Color" FontAttributes="Bold" Margin="0, 20, 0, 0"/>

@@ -51,11 +51,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty DirectionProperty
 			= BindableProperty.Create(nameof(Direction), typeof(ExpandDirection), typeof(Expander), default(ExpandDirection), propertyChanged: OnDirectionPropertyChanged);
 
+		public static readonly BindableProperty TouchCaptureViewProperty
+			= BindableProperty.Create(nameof(TouchCaptureView), typeof(View), typeof(Expander), propertyChanged: OnTouchCaptureViewPropertyChanged);
+
+		public static readonly BindableProperty AnimationLengthProperty
+			= BindableProperty.Create(nameof(AnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+
 		public static readonly BindableProperty ExpandAnimationLengthProperty
-			= BindableProperty.Create(nameof(ExpandAnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+			= BindableProperty.Create(nameof(ExpandAnimationLength), typeof(uint), typeof(Expander), uint.MaxValue);
 
 		public static readonly BindableProperty CollapseAnimationLengthProperty
-			= BindableProperty.Create(nameof(CollapseAnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+			= BindableProperty.Create(nameof(CollapseAnimationLength), typeof(uint), typeof(Expander), uint.MaxValue);
+
+		public static readonly BindableProperty AnimationEasingProperty
+			= BindableProperty.Create(nameof(AnimationEasing), typeof(Easing), typeof(Expander));
 
 		public static readonly BindableProperty ExpandAnimationEasingProperty
 			= BindableProperty.Create(nameof(ExpandAnimationEasing), typeof(Easing), typeof(Expander));
@@ -146,6 +155,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(DirectionProperty, value);
 		}
 
+		public View? TouchCaptureView
+		{
+			get => (View?)GetValue(TouchCaptureViewProperty);
+			set => SetValue(TouchCaptureViewProperty, value);
+		}
+
+		public uint AnimationLength
+		{
+			get => (uint)GetValue(AnimationLengthProperty);
+			set => SetValue(AnimationLengthProperty, value);
+		}
+
 		public uint ExpandAnimationLength
 		{
 			get => (uint)GetValue(ExpandAnimationLengthProperty);
@@ -156,6 +177,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get => (uint)GetValue(CollapseAnimationLengthProperty);
 			set => SetValue(CollapseAnimationLengthProperty, value);
+		}
+
+		public Easing AnimationEasing
+		{
+			get => (Easing)GetValue(AnimationEasingProperty);
+			set => SetValue(AnimationEasingProperty, value);
 		}
 
 		public Easing ExpandAnimationEasing
@@ -256,6 +283,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void OnDirectionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((Expander)bindable).OnDirectionPropertyChanged((ExpandDirection)oldValue);
 
+		static void OnTouchCaptureViewPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> ((Expander)bindable).OnTouchCaptureViewPropertyChanged((View?)oldValue);
+
 		static object GetDefaultForceUpdateSizeCommand(BindableObject bindable)
 			=> new Command(((Expander)bindable).ForceUpdateSize);
 
@@ -271,8 +301,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void OnIsExpandedPropertyChanged()
 			=> SetContent(false);
 
-		void OnDirectionPropertyChanged(ExpandDirection olddirection)
-			=> SetDirection(olddirection);
+		void OnDirectionPropertyChanged(ExpandDirection oldDirection)
+			=> SetDirection(oldDirection);
+
+		void OnTouchCaptureViewPropertyChanged(View? oldView)
+			=> SetTouchCaptureView(oldView);
 
 		void OnIsExpandedChanged(bool shouldIgnoreAnimation = false)
 		{
@@ -319,7 +352,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (oldHeader != null)
 			{
-				oldHeader.GestureRecognizers.Remove(headerTapGestureRecognizer);
 				Control?.Children.Remove(oldHeader);
 			}
 
@@ -329,9 +361,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Control?.Children.Insert(0, Header);
 				else
 					Control?.Children.Add(Header);
-
-				Header.GestureRecognizers.Add(headerTapGestureRecognizer);
 			}
+
+			SetTouchCaptureView(oldHeader);
 		}
 
 		void SetContent(bool isForceUpdate, bool shouldIgnoreAnimation = false, bool isForceContentReset = false)
@@ -415,6 +447,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			SetContent(true, true, true);
 		}
 
+		void SetTouchCaptureView(View? oldView)
+		{
+			oldView?.GestureRecognizers.Remove(headerTapGestureRecognizer);
+			TouchCaptureView?.GestureRecognizers?.Remove(headerTapGestureRecognizer);
+			Header?.GestureRecognizers.Remove(headerTapGestureRecognizer);
+			(TouchCaptureView ?? Header)?.GestureRecognizers.Add(headerTapGestureRecognizer);
+		}
+
 		void InvokeAnimation(double startSize, double endSize, bool shouldIgnoreAnimation)
 		{
 			State = IsExpanded
@@ -440,6 +480,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				length = ExpandAnimationLength;
 				easing = ExpandAnimationEasing;
 			}
+
+			if (length == uint.MaxValue)
+				length = AnimationLength;
+
+			easing ??= AnimationEasing;
 
 			if (lastVisibleSize > 0)
 				length = (uint)(length * (Abs(endSize - startSize) / lastVisibleSize));

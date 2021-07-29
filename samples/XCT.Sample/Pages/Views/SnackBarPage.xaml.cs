@@ -47,9 +47,63 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			StatusText.Text = "Toast is closed by timeout";
 		}
 
+		async void DisplayToastAnchoredClicked(object? sender, EventArgs args)
+		{
+			var messageOptions = new MessageOptions
+			{
+				Message = "Anchored toast",
+				Foreground = Color.Black
+			};
+
+			var options = new ToastOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = TimeSpan.FromMilliseconds(5000),
+				CornerRadius = new Thickness(10, 20, 30, 40),
+				BackgroundColor = Color.LightBlue
+			};
+
+			await Anchor1.DisplayToastAsync(options);
+		}
+
+		async void DisplaySnackbarAnchoredClicked(object? sender, EventArgs args)
+		{
+			var messageOptions = new MessageOptions
+			{
+				Message = GenerateLongText(5),
+				Foreground = Color.Black
+			};
+
+			var options = new SnackBarOptions
+			{
+				MessageOptions = messageOptions,
+				Duration = TimeSpan.FromMilliseconds(5000),
+				BackgroundColor = Color.LightBlue,
+				Actions = new List<SnackBarActionOptions>
+				{
+					new SnackBarActionOptions
+					{
+						ForegroundColor = Color.Red,
+						BackgroundColor = Color.Green,
+						Font = Font.OfSize("Times New Roman", 15),
+						Padding = new Thickness(10, 20, 30, 40),
+						Text = "Action1",
+						Action = () =>
+						{
+							Debug.WriteLine("1");
+							return Task.CompletedTask;
+						}
+					}
+				}
+			};
+
+			var result = await Anchor2.DisplaySnackBarAsync(options);
+			StatusText.Text = result ? "SnackBar is closed by user" : "SnackBar is closed by timeout";
+		}
+
 		async void DisplaySnackBarAdvancedClicked(object? sender, EventArgs args)
 		{
-			const string SmileIcon = "\uf118";
+			const string smileIcon = "\uf118";
 			var options = new SnackBarOptions
 			{
 				MessageOptions = new MessageOptions
@@ -57,8 +111,9 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					Foreground = Color.DeepSkyBlue,
 					Font = Font.OfSize("FARegular", 40),
 					Padding = new Thickness(10, 20, 30, 40),
-					Message = SmileIcon
+					Message = smileIcon
 				},
+				CornerRadius = new Thickness(10, 20, 30, 40),
 				Duration = TimeSpan.FromMilliseconds(5000),
 				BackgroundColor = Color.Coral,
 				IsRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft,

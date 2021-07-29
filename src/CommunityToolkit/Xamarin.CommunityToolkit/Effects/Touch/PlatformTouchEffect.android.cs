@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using Android.Content;
 using Android.Content.Res;
 using Android.Graphics.Drawables;
@@ -9,10 +10,12 @@ using Android.Views.Accessibility;
 using Android.Widget;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
 using Color = Android.Graphics.Color;
+using XView = Xamarin.Forms.View;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 
@@ -40,8 +43,16 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		internal bool IsCanceled { get; set; }
 
 		bool IsAccessibilityMode => accessibilityManager != null
-									&& accessibilityManager.IsEnabled
-									&& accessibilityManager.IsTouchExplorationEnabled;
+			&& accessibilityManager.IsEnabled
+			&& accessibilityManager.IsTouchExplorationEnabled;
+
+		bool IsForegroundRippleWithTapGestureRecognizer
+			=> ripple != null &&
+				ripple.IsAlive() &&
+				View.IsAlive() &&
+				View.Foreground == ripple &&
+				Element is XView view &&
+				view.GestureRecognizers.Any(gesture => gesture is TapGestureRecognizer);
 
 		protected override void OnAttached()
 		{
@@ -301,13 +312,21 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			if (effect.CanExecute && effect.NativeAnimation && rippleView != null)
+			if (effect.CanExecute && effect.NativeAnimation)
 			{
 				UpdateRipple();
-				rippleView.Enabled = true;
-				rippleView.BringToFront();
-				ripple?.SetHotspot(x, y);
-				rippleView.Pressed = true;
+				if (rippleView != null)
+				{
+					rippleView.Enabled = true;
+					rippleView.BringToFront();
+					ripple?.SetHotspot(x, y);
+					rippleView.Pressed = true;
+				}
+				else if (IsForegroundRippleWithTapGestureRecognizer)
+				{
+					ripple?.SetHotspot(x, y);
+					View.Pressed = true;
+				}
 			}
 		}
 
@@ -316,10 +335,20 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			if (rippleView?.Pressed ?? false)
+			if (rippleView != null)
 			{
-				rippleView.Pressed = false;
-				rippleView.Enabled = false;
+				if (rippleView.Pressed)
+				{
+					rippleView.Pressed = false;
+					rippleView.Enabled = false;
+				}
+			}
+			else if (IsForegroundRippleWithTapGestureRecognizer)
+			{
+				if (View.Pressed)
+				{
+					View.Pressed = false;
+				}
 			}
 		}
 
