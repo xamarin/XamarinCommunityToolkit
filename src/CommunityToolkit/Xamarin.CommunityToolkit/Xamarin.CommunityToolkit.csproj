@@ -115,8 +115,7 @@
     <AndroidResource Include="Resources\**\*.xml" />
     <AndroidResource Include="Resources\**\*.png" />
 
-    <PackageReference Include="Xamarin.GooglePlayServices.Auth">
-      <Version>119.0.0</Version>
+    <PackageReference Include="Xamarin.GooglePlayServices.Auth" Version="119.0.0">
     </PackageReference>
   </ItemGroup>
 
