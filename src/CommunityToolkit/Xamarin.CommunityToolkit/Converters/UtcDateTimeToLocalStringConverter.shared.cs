@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// </summary>
     public class UtcDateTimeToLocalStringConverter : ValueConverterExtension, IValueConverter
     {
-		public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
             if (value is not DateTime || value is not DateTimeOffset)
                 throw new ArgumentException("Value must be type DateTime or DateTimeOffset", nameof(value));
