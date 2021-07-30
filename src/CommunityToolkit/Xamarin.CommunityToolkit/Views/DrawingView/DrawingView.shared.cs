@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -7,92 +8,148 @@ using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// The DrawingView allows you to draw one or multiple lines on a canvas
+	/// </summary>
 	public class DrawingView : View
 	{
-		const int minValueGranularity = 5;
-
-		public static readonly BindableProperty GranularityProperty =
-			BindableProperty.Create(nameof(Granularity), typeof(int), typeof(DrawingView), minValueGranularity, coerceValue: CoerceValue);
-
-		public static readonly BindableProperty EnableSmoothedPathProperty =
-			BindableProperty.Create(nameof(EnableSmoothedPath), typeof(bool), typeof(DrawingView), true);
-
-		public static readonly BindableProperty LineColorProperty =
-			BindableProperty.Create(nameof(LineColor), typeof(Color), typeof(DrawingView), Color.Black);
-
-		public static readonly BindableProperty LineWidthProperty =
-			BindableProperty.Create(nameof(LineWidth), typeof(float), typeof(DrawingView), 5f);
-
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="ClearOnFinish"/> property.
+		/// </summary>
 		public static readonly BindableProperty ClearOnFinishProperty =
 			BindableProperty.Create(nameof(ClearOnFinish), typeof(bool), typeof(DrawingView), default(bool));
 
-		public static readonly BindableProperty PointsProperty = BindableProperty.Create(
-			nameof(Points), typeof(ObservableCollection<Point>), typeof(DrawingView), default, BindingMode.TwoWay);
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="MultiLineMode"/> property.
+		/// </summary>
+		public static readonly BindableProperty MultiLineModeProperty =
+			BindableProperty.Create(nameof(MultiLineMode), typeof(bool), typeof(DrawingView), default(bool));
 
-		public static readonly BindableProperty DrawingCompletedCommandProperty = BindableProperty.Create(
-			nameof(DrawingCompletedCommand), typeof(ICommand), typeof(DrawingView));
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="Lines"/> property.
+		/// </summary>
+		public static readonly BindableProperty LinesProperty = BindableProperty.Create(
+			nameof(Lines), typeof(ObservableCollection<Line>), typeof(DrawingView), new ObservableCollection<Line>(),
+			BindingMode.TwoWay);
 
-		public ObservableCollection<Point> Points
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="DrawingLineCompletedCommand"/> property.
+		/// </summary>
+		public static readonly BindableProperty DrawingLineCompletedCommandProperty = BindableProperty.Create(nameof(DrawingLineCompletedCommand), typeof(ICommand), typeof(DrawingView));
+
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="DefaultLineColor"/> property.
+		/// </summary>
+		public static readonly BindableProperty DefaultLineColorProperty =
+			BindableProperty.Create(nameof(DefaultLineColor), typeof(Color), typeof(DrawingView), Color.Black);
+
+		/// <summary>
+		/// Backing BindableProperty for the <see cref="DefaultLineWidth"/> property.
+		/// </summary>
+		public static readonly BindableProperty DefaultLineWidthProperty =
+			BindableProperty.Create(nameof(DefaultLineWidth), typeof(float), typeof(DrawingView), 5f);
+
+		/// <summary>
+		/// Event occured when drawing line completed
+		/// </summary>
+		public event EventHandler<DrawingLineCompletedEventArgs>? DrawingLineCompleted;
+
+		/// <summary>
+		/// Initializes the DrawingView
+		/// </summary>
+		public DrawingView() => Lines = new ObservableCollection<Line>();
+
+		/// <summary>
+		/// The <see cref="Color"/> that is used by default to draw a line on the <see cref="DrawingView"/>. This is a bindable property.
+		/// </summary>
+		public Color DefaultLineColor
 		{
-			get => (ObservableCollection<Point>)GetValue(PointsProperty);
-			set => SetValue(PointsProperty, value);
+			get => (Color)GetValue(DefaultLineColorProperty);
+			set => SetValue(DefaultLineColorProperty, value);
 		}
 
-		public ICommand? DrawingCompletedCommand
+		/// <summary>
+		/// The width that is used by default to draw a line on the <see cref="DrawingView"/>. This is a bindable property.
+		/// </summary>
+		public float DefaultLineWidth
 		{
-			get => (ICommand)GetValue(DrawingCompletedCommandProperty);
-			set => SetValue(DrawingCompletedCommandProperty, value);
+			get => (float)GetValue(DefaultLineWidthProperty);
+			set => SetValue(DefaultLineWidthProperty, value);
 		}
 
-		public int Granularity
+		/// <summary>
+		/// This command is invoked whenever the drawing of a line on <see cref="DrawingView"/> has completed.
+		/// Note that this is fired after the tap or click is lifted. When <see cref="MultiLineMode"/> is enabled
+		/// this command is fired multiple times.
+		/// This is a bindable property.
+		/// </summary>
+		public ICommand? DrawingLineCompletedCommand
 		{
-			get => (int)GetValue(GranularityProperty);
-			set => SetValue(GranularityProperty, value);
+			get => (ICommand)GetValue(DrawingLineCompletedCommandProperty);
+			set => SetValue(DrawingLineCompletedCommandProperty, value);
 		}
 
-		public bool EnableSmoothedPath
+		/// <summary>
+		/// The collection of lines that are currently on the <see cref="DrawingView"/>. This is a bindable property.
+		/// </summary>
+		public ObservableCollection<Line> Lines
 		{
-			get => (bool)GetValue(EnableSmoothedPathProperty);
-			set => SetValue(EnableSmoothedPathProperty, value);
+			get => (ObservableCollection<Line>)GetValue(LinesProperty);
+			set => SetValue(LinesProperty, value);
 		}
 
-		public Color LineColor
+		/// <summary>
+		/// Toggles multi-line mode. When true, multiple lines can be drawn on the <see cref="DrawingView"/> while the tap/click is released in-between lines.
+		/// Note: when <see cref="ClearOnFinish"/> is also enabled, the lines are cleared after the tap/click is released.
+		/// Additionally, <see cref="DrawingLineCompletedCommand"/> will be fired after each line that is drawn.
+		/// This is a bindable property.
+		/// </summary>
+		public bool MultiLineMode
 		{
-			get => (Color)GetValue(LineColorProperty);
-			set => SetValue(LineColorProperty, value);
+			get => (bool)GetValue(MultiLineModeProperty);
+			set => SetValue(MultiLineModeProperty, value);
 		}
 
-		public float LineWidth
-		{
-			get => (float)GetValue(LineWidthProperty);
-			set => SetValue(LineWidthProperty, value);
-		}
-
+		/// <summary>
+		/// Indicates whether the <see cref="DrawingView"/> is cleared after releasing the tap/click and a line is drawn.
+		/// Note: when <see cref="MultiLineMode"/> is also enabled, this might cause unexpected behavior.
+		/// This is a bindable property.
+		/// </summary>
 		public bool ClearOnFinish
 		{
 			get => (bool)GetValue(ClearOnFinishProperty);
 			set => SetValue(ClearOnFinishProperty, value);
 		}
 
-		public DrawingView()
-		{
-			Points = new ObservableCollection<Point>();
-		}
+		/// <summary>
+		/// Retrieves a <see cref="Stream"/> containing an image of the <see cref="Lines"/> that are currently drawn on the <see cref="DrawingView"/>.
+		/// </summary>
+		/// <param name="imageSizeWidth">Desired width of the image that is returned.</param>
+		/// <param name="imageSizeHeight">Desired heigth of the image that is returned.</param>
+		/// <returns><see cref="Stream"/> containing the data of the requested image with data that's currently on the <see cref="DrawingView"/>.</returns>
+		public Stream GetImageStream(double imageSizeWidth, double imageSizeHeight) => DrawingViewService.GetImageStream(Lines.ToList(), new Size(imageSizeWidth, imageSizeHeight), BackgroundColor);
 
-		static object CoerceValue(BindableObject bindable, object value)
-			=> ((DrawingView)bindable).CoerceValue((int)value);
-
-		int CoerceValue(int value) => value < minValueGranularity ? minValueGranularity : value;
-
-		public Stream GetImageStream(double imageSizeWidth, double imageSizeHeight) =>
-			DrawingViewService.GetImageStream(Points.ToList(), new Size(imageSizeWidth, imageSizeHeight), LineWidth, LineColor,
-				BackgroundColor);
-
-		public static Stream GetImageStream(IEnumerable<Point> points,
+		/// <summary>
+		/// Retrieves a <see cref="Stream"/> containing an image of the collection of <see cref="Line"/> that is provided as a parameter.
+		/// </summary>
+		/// <param name="lines">A collection of <see cref="Line"/> that a image is generated from.</param>
+		/// <param name="imageSize">The desired dimensions of the generated image.</param>
+		/// <param name="backgroundColor">Background color of the generated image.</param>
+		/// <returns><see cref="Stream"/> containing the data of the requested image with data that's provided through the <paramref name="lines"/> parameter.</returns>
+		public static Stream GetImageStream(IEnumerable<Line> lines,
 			Size imageSize,
-			float lineWidth,
-			Color strokeColor,
 			Color backgroundColor) =>
-			DrawingViewService.GetImageStream(points.ToList(), imageSize, lineWidth, strokeColor, backgroundColor);
+			DrawingViewService.GetImageStream(lines.ToList(), imageSize, backgroundColor);
+
+		/// <summary>
+		/// Executes DrawingLineCompleted event and DrawingLineCompletedCommand
+		/// </summary>
+		/// <param name="lastDrawingLine">Last drawing line</param>
+		internal void OnDrawingLineCompleted(Line? lastDrawingLine)
+		{
+			DrawingLineCompleted?.Invoke(this, new DrawingLineCompletedEventArgs(lastDrawingLine));
+			if (DrawingLineCompletedCommand?.CanExecute(lastDrawingLine) ?? false)
+				DrawingLineCompletedCommand.Execute(lastDrawingLine);
+		}
 	}
 }
