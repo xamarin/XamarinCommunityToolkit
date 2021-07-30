@@ -120,7 +120,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				"Colors converters",
 				"A group of converters that convert a Color to your strings values (RGB, HEX, HSL, etc)"),
 			new SectionModel(
-				typeof(UtcDateTimeToLocalStringConverter),
+				typeof(UtcDateTimeToLocalStringConverterPage),
 				nameof(UtcDateTimeToLocalStringConverter),
 				"A converter that allows you to convert either a DateTimeOffset or DateTime from UTC into the local time string value with the provided datetime format."),
 		};

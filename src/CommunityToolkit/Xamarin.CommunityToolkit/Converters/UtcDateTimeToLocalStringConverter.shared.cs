@@ -12,17 +12,21 @@ namespace Xamarin.CommunityToolkit.Converters
     {
 		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
         {
-            if (value is not DateTime || value is not DateTimeOffset)
+            if (value is DateTime || value is DateTimeOffset)
+            {
+                if (DateTimeFormat is string dateTimeFormat && DateTime.TryParse(dateTimeFormat, out _))
+                    throw new ArgumentException("Value must be a valid date time format", nameof(DateTimeFormat));
+
+                if (value is DateTime dateTime)
+                    return dateTime.ToLocalTime().ToString(DateTimeFormat);
+
+                if (value is DateTimeOffset dateTimeOffset)
+                    return dateTimeOffset.UtcDateTime.ToLocalTime().ToString(DateTimeFormat);
+            }
+			else
+			{
                 throw new ArgumentException("Value must be type DateTime or DateTimeOffset", nameof(value));
-
-            if (DateTimeFormat is string dateTimeFormat && DateTime.TryParse(dateTimeFormat, out _))
-                throw new ArgumentException("Value must be a valid date time format", nameof(DateTimeFormat));
-
-            if (value is DateTime dateTime)
-                return dateTime.ToLocalTime().ToString(DateTimeFormat);
-
-            if (value is DateTimeOffset dateTimeOffset)
-                return dateTimeOffset.UtcDateTime.ToLocalTime().ToString(DateTimeFormat);
+            }
 
             return string.Empty;
         }
