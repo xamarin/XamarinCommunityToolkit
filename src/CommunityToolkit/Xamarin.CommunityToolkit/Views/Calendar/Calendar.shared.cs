@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Helpers;
@@ -10,6 +12,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class Calendar : ContentView
 	{
+		readonly SemaphoreSlim semaphore = new(initialCount: 1);
 		readonly WeakEventManager<CalendarDayTappedEventArgs> dayTappedEventManager = new();
 		readonly WeakEventManager<CalendarDayUpdatedEventArgs> dayUpdatedEventManager = new();
 		readonly List<CalendarDay> days = new();
@@ -40,6 +43,33 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		/// <summary>
+		/// Backing BindableProperty for the <see cref="IsInitialized"/> property.
+		/// </summary>
+		public static readonly BindableProperty IsInitializedProperty =
+			BindableProperty.Create(nameof(IsInitialized), typeof(bool), typeof(Calendar), false, propertyChanged: OnIsInitializedChanged);
+
+		/// <summary>
+		/// Gets initialization state.
+		/// </summary>
+		public bool IsInitialized
+		{
+			get => (bool)GetValue(IsInitializedProperty);
+			private set => SetValue(IsInitializedProperty, value);
+		}
+		
+		static async void OnIsInitializedChanged(BindableObject bindable, object oldValue, object newValue)
+		{
+			var calendar = (Calendar)bindable;
+			
+			if (!(bool) newValue)
+			{
+				throw new InvalidOperationException("Cannot change to not initialized state.");
+			}
+			
+			await calendar.UpdateCalendarDaysAsync();
+		}
+		
+		/// <summary>
 		/// Backing BindableProperty for the <see cref="ShowDaysFromOtherMonths"/> property.
 		/// </summary>
 		public static readonly BindableProperty ShowDaysFromOtherMonthsProperty =
@@ -54,10 +84,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ShowDaysFromOtherMonthsProperty, value);
 		}
 
-		static void OnShowDaysFromOtherMonthsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+		static async void OnShowDaysFromOtherMonthsPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var calendar = (Calendar)bindable;
-			calendar.UpdateCalendarDays();
+			await calendar.UpdateCalendarDaysAsync();
 		}
 
 		/// <summary>
@@ -75,7 +105,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ShowWeekendsProperty, value);
 		}
 
-		static void OnShowWeekendsChanged(BindableObject bindable, object oldValue, object newValue)
+		static async void OnShowWeekendsChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var calendar = (Calendar)bindable;
 
@@ -86,7 +116,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else
 			{
 				calendar.UpdateWeekDayHeaders();
-				calendar.UpdateCalendarDays();
+				await calendar.UpdateCalendarDaysAsync();
 			}
 		}
 
@@ -110,11 +140,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(FirstDayOfWeekProperty, value);
 		}
 
-		static void OnFirstDayOfWeekChanged(BindableObject bindable, object oldValue, object newValue)
+		static async void OnFirstDayOfWeekChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var calendar = (Calendar)bindable;
 			calendar.UpdateWeekDayHeaders();
-			calendar.UpdateCalendarDays();
+			await calendar.UpdateCalendarDaysAsync();
 		}
 
 		/// <summary>
@@ -155,10 +185,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(DayControlTemplateProperty, value);
 		}
 
-		static void OnDayControlTemplateChanged(BindableObject bindable, object oldValue, object newValue)
+		static async void OnDayControlTemplateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var calendar = (Calendar)bindable;
-			calendar.UpdateCalendarDays();
+			await calendar.UpdateCalendarDaysAsync();
 		}
 
 		/// <summary>
@@ -208,10 +238,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(DateProperty, value);
 		}
 
-		static void OnDateChanged(BindableObject bindable, object oldValue, object newValue)
+		static async void OnDateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
 			var calendar = (Calendar)bindable;
-			calendar.UpdateCalendarDays();
+			await calendar.UpdateCalendarDaysAsync();
 		}
 
 		/// <summary>
@@ -283,11 +313,33 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Content = layoutRoot;
 		}
 
-		void UpdateCalendarDays()
+		/// <summary>
+		/// Initializes <see cref="Calendar"/>.
+		/// </summary>
+		public void Initialize()
 		{
+			if (IsInitialized)
+			{
+				throw new InvalidOperationException("Calendar is already initialized.");
+			}	
+			
+			IsInitialized = true;
+		}
+
+		async Task UpdateCalendarDaysAsync()
+		{
+			if (!IsInitialized)
+			{
+				return;
+			}
+			
+			await semaphore.WaitAsync();
+			
 			UpdateGridForDays();
-			UpdateDays();
+			await UpdateDaysAsync();
 			SelectDays(SelectedDays);
+			
+			semaphore.Release();
 		}
 
 		void SelectDays(IEnumerable<DateTimeOffset> daysSelected)
@@ -346,38 +398,48 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void UpdateDays()
+		Task UpdateDaysAsync()
 		{
 			var weeksInMonth = Date.WeeksInMonth(FirstDayOfWeek);
 			var daysInMonth = Date.DaysInMonth();
 
+			var updateDayTasks = new List<Task>();
+			
 			for (var day = 1; day <= daysInMonth; day++)
 			{
-				var date = new DateTimeOffset(Date.Year, Date.Month, day, Date.Hour, Date.Minute, Date.Second, Date.Offset);
+				var date = new DateTimeOffset(Date.Year, Date.Month, day, Date.Hour, Date.Minute, Date.Second,
+					Date.Offset);
 				var weekOfMonth = date.WeekOfMonth(FirstDayOfWeek);
 
-				UpdateDaysFromPreviousOrNextMonths(weekOfMonth, date, weeksInMonth, daysInMonth);
+				var updateDaysFromPreviousOrNextMonthsTask =
+					UpdateDaysFromPreviousOrNextMonthsAsync(weekOfMonth, date, weeksInMonth, daysInMonth);
+				updateDayTasks.Add(updateDaysFromPreviousOrNextMonthsTask);
 
 				if (!ShowWeekends && (date.DayOfWeek is DayOfWeek.Saturday or DayOfWeek.Sunday))
 				{
 					continue;
 				}
 
-				UpdateDay(date, weekOfMonth, isVisible: true);
+				var updateDayTask = UpdateDayAsync(date, weekOfMonth, isVisible: true);
+				updateDayTasks.Add(updateDayTask);
 			}
-
+			
 			if (SelectedDays?.Count > 0)
 			{
 				SelectDays(SelectedDays);
 			}
+			
+			return Task.WhenAll(updateDayTasks);
 		}
 
-		void UpdateDaysFromPreviousOrNextMonths(
+		Task UpdateDaysFromPreviousOrNextMonthsAsync(
 			int week,
 			DateTimeOffset date,
 			int weeksInMonth,
 			int daysInMonth)
 		{
+			var updateDayTasks = new List<Task>();
+			
 			var lastDayOfWeek = FirstDayOfWeek.PreviousOrFirst();
 
 			if (week is 1
@@ -395,7 +457,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						continue;
 					}
 
-					UpdateDay(newDate, week, isVisible: ShowDaysFromOtherMonths);
+					var updateDayTask = UpdateDayAsync(newDate, week, isVisible: ShowDaysFromOtherMonths);
+					updateDayTasks.Add(updateDayTask);
 				} while (newDate.DayOfWeek != FirstDayOfWeek);
 			}
 			else if (week == weeksInMonth
@@ -413,12 +476,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						continue;
 					}
 
-					UpdateDay(newDate, week, isVisible: ShowDaysFromOtherMonths);
+					var updateDayTask = UpdateDayAsync(newDate, week, isVisible: ShowDaysFromOtherMonths);
+					updateDayTasks.Add(updateDayTask);
 				} while (newDate.DayOfWeek != lastDayOfWeek);
 			}
+
+			return Task.WhenAll(updateDayTasks);
 		}
 
-		void UpdateDay(DateTimeOffset date, int week, bool isVisible)
+		Task UpdateDayAsync(DateTimeOffset date, int week, bool isVisible)
 		{
 			var column = date.DayOfWeek(FirstDayOfWeek, includeWeekends: ShowWeekends) - 1;
 			var row = week - 1;
@@ -444,17 +510,45 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				days.Add(calendarDay);
 				gridDays.Children.Add(calendarDay);
+
+				if (isVisible)
+					OnDayUpdated(calendarDay);
+
+				return calendarDay.FadeTo(isVisible ? 1 : 0, length: 0);
 			}
-			else
+
+			if (calendarDay.Opacity == 0 &&
+			    isVisible)
 			{
 				calendarDay.Date = date;
 				calendarDay.ControlTemplate = DayControlTemplate;
+
+				OnDayUpdated(calendarDay);
+
+				return calendarDay.FadeTo(1, length: 0);
+			}
+			
+			if (calendarDay.Opacity == 1 && 
+			    isVisible)
+			{
+				calendarDay.Date = date;
+				calendarDay.ControlTemplate = DayControlTemplate;
+
+				OnDayUpdated(calendarDay);
+
+				return Task.FromResult(true);
+			}
+			
+			if (calendarDay.Opacity == 1 &&
+			    !isVisible)
+			{
+				calendarDay.Date = date;
+				calendarDay.ControlTemplate = DayControlTemplate;
+
+				return calendarDay.FadeTo(0, length: 0);
 			}
 
-			calendarDay.FadeTo(isVisible ? 1 : 0, length: 0);
-
-			if (isVisible)
-				OnDayUpdated(calendarDay);
+			return Task.FromResult(true);
 		}
 
 		void OnCalendarDayTapped(object? sender, EventArgs e)

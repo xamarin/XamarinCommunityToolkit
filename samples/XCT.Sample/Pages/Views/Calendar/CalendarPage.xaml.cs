@@ -12,6 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Calendar
 		public CalendarPage()
 		{
 			InitializeComponent();
+			Calendar.Initialize();
 
 			PickerFirstDayOfWeek.ItemsSource = Enum.GetValues(typeof(DayOfWeek));
 			PickerFirstDayOfWeek.SelectedItem = Calendar.FirstDayOfWeek;
