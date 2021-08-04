@@ -1,17 +1,18 @@
 ﻿using System;
+
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
 	public class UtcDateTimeToLocalStringConverterViewModel : BaseViewModel
 	{
-		DateTime date = DateTime.UtcNow;
+		DateTime utcDateTime = DateTime.Now.ToUniversalTime();
 
-		public DateTime UtcDate
+		public DateTime UtcDateTime
 		{
-			get => date;
-			set => SetProperty(ref date, value);
+			get => utcDateTime;
+			set => SetProperty(ref utcDateTime, value);
 		}
 
-		DateTimeOffset utcDateTimeOffset = DateTimeOffset.UtcNow;
+		DateTimeOffset utcDateTimeOffset = DateTimeOffset.Now.ToUniversalTime();
 
 		public DateTimeOffset UtcDateTimeOffset
 		{
