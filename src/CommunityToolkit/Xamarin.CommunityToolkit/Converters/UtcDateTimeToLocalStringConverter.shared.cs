@@ -26,21 +26,23 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// </summary>
 		public static readonly BindableProperty DateTimeFormatProperty = BindableProperty.Create(nameof(DateTimeFormat), typeof(string), typeof(UtcDateTimeToLocalStringConverter), defaultValue: "g");
 
-		public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			if (value is not DateTime or not DateTimeOffset)
-				throw new ArgumentException("Value must be type DateTime or DateTimeOffset", nameof(value));
+			if (value is DateTime or DateTimeOffset)
+			{
+				if (DateTimeFormat is string dateTimeFormat && DateTime.TryParse(dateTimeFormat, out _))
+					throw new ArgumentException("Value must be a valid date time format", nameof(DateTimeFormat));
 
-			if (DateTimeFormat is string dateTimeFormat && DateTime.TryParse(dateTimeFormat, out _))
-				throw new ArgumentException("Value must be a valid date time format", nameof(DateTimeFormat));
+				if (value is DateTime dateTime)
+					return dateTime.ToLocalTime().ToString(DateTimeFormat);
 
-			if (value is DateTime dateTime)
-				return dateTime.ToLocalTime().ToString(DateTimeFormat);
+				if (value is DateTimeOffset dateTimeOffset)
+					return dateTimeOffset.UtcDateTime.ToLocalTime().ToString(DateTimeFormat);
 
-			if (value is DateTimeOffset dateTimeOffset)
-				return dateTimeOffset.UtcDateTime.ToLocalTime().ToString(DateTimeFormat);
+				return string.Empty;
+			}
 
-			return string.Empty;
+			throw new ArgumentException("Value must be type DateTime or DateTimeOffset", nameof(value));
 		}
 
 		/// <summary>
