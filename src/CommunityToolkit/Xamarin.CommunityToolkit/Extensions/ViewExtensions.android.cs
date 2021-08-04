@@ -1,4 +1,5 @@
 ﻿using Android.OS;
+using Xamarin.CommunityToolkit.Helpers;
 using AView = Android.Views.View;
 
 namespace Xamarin.CommunityToolkit.Extensions.Internals
@@ -8,7 +9,7 @@ namespace Xamarin.CommunityToolkit.Extensions.Internals
 		internal static void MaybeRequestLayout(this AView view)
 		{
 			var isInLayout = false;
-			if ((int)Build.VERSION.SdkInt >= 18)
+			if (XCT.SdkInt >= 18)
 				isInLayout = view.IsInLayout;
 
 			if (!isInLayout && !view.IsLayoutRequested)

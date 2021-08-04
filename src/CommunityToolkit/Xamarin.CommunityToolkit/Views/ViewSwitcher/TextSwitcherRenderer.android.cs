@@ -429,7 +429,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			if (ToolkitPlatform.SdkInt >= 21)
+			if (XCT.SdkInt >= 21)
 			{
 				// 0.0624 - Coefficient for converting Pt to Em
 				var characterSpacing = (float)(Element.CharacterSpacing * 0.0624);
@@ -483,7 +483,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				switch (Element.TextType)
 				{
 					case TextType.Html:
-						if (ToolkitPlatform.SdkInt >= 24)
+						if (XCT.SdkInt >= 24)
 						{
 							nextView.SetText(Html.FromHtml(Element.Text ?? string.Empty, FromHtmlOptions.ModeCompact), BufferType.Spannable);
 							ShowNext();
