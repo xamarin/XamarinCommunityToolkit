@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 	{
 		public object Convert(object? value, Type? targetType, object? parameter, CultureInfo? culture)
 		{
-			if (value == null)
+			if (value is not DateTimeOffset)
 				return string.Empty;
 
 			var dateTime = (DateTimeOffset)value;
