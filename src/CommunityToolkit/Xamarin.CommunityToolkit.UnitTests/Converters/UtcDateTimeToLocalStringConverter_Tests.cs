@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	{
 		public static IEnumerable<object?[]> GetEmptyDateTimeFormatData() => new List<object?[]>
 		{
-			new object?[] { DateTime.UtcNow, string.Empty, DateTime.Now.ToLocalTime().ToString("G") }
+			new object?[] { default(DateTime).ToUniversalTime(), string.Empty, default(DateTime).ToLocalTime().ToString("G") }
 		};
 
 		public static IEnumerable<object?[]> GetInvalidDateTimeData() => new List<object?[]>
@@ -20,17 +20,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		public static IEnumerable<object?[]> GetInvalidDateTimeFormatData() => new List<object?[]>
 		{
-			new object?[] {  DateTime.UtcNow, "asd" }
+			new object?[] { default(DateTime).ToUniversalTime(), "asd" }
 		};
 
 		public static IEnumerable<object?[]> GetValidDateTimeData() => new List<object?[]>
 		{
-			new object?[] { DateTime.UtcNow, "G", DateTime.Now.ToLocalTime().ToString("G"),  }
+			new object?[] { default(DateTime).ToUniversalTime(), "G", default(DateTime).ToLocalTime().ToString("G"),  }
 		};
 
 		public static IEnumerable<object?[]> GetValidDateTimeOffsetData() => new List<object?[]>
 		{
-			new object?[] { DateTimeOffset.UtcNow, "G", DateTime.Now.ToLocalTime().ToString("G"),  }
+			new object?[] { default(DateTimeOffset).ToUniversalTime(), "G", default(DateTime).ToLocalTime().ToString("G"),  }
 		};
 
 		[TestCaseSource(nameof(GetEmptyDateTimeFormatData))]

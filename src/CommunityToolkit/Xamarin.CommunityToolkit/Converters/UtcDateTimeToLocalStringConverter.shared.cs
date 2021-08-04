@@ -30,8 +30,11 @@ namespace Xamarin.CommunityToolkit.Converters
 		{
 			if (value is DateTime or DateTimeOffset)
 			{
-				if (DateTimeFormat is string dateTimeFormat && DateTime.TryParse(dateTimeFormat, out _))
-					throw new ArgumentException("Value must be a valid date time format", nameof(DateTimeFormat));
+				if (!string.IsNullOrEmpty(DateTimeFormat))
+				{
+					if (DateTimeFormat is string dateTimeFormat && !IsValidDateFormat(DateTimeFormat))
+						throw new ArgumentException("Value must be a valid date time format", nameof(DateTimeFormat));
+				}
 
 				if (value is DateTime dateTime)
 					return dateTime.ToLocalTime().ToString(DateTimeFormat);
@@ -43,6 +46,20 @@ namespace Xamarin.CommunityToolkit.Converters
 			}
 
 			throw new ArgumentException("Value must be type DateTime or DateTimeOffset", nameof(value));
+		}
+
+		bool IsValidDateFormat(string dateFormat)
+		{
+			try
+			{
+				var s = DateTime.Now.ToString(dateFormat, CultureInfo.InvariantCulture);
+				DateTime.Parse(s, CultureInfo.InvariantCulture);
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
 		}
 
 		/// <summary>
