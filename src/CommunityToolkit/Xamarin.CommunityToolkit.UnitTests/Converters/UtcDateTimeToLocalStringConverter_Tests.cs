@@ -34,14 +34,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		};
 
 		[TestCaseSource(nameof(GetEmptyDateTimeFormatData))]
-		public void EmptyDateTimeFormatShouldFallback(DateTime value, string dateTimeFormat, string expectedResult)
+		public void EmptyDateTimeFormatShouldFallback(DateTime? value, string dateTimeFormat, string expectedResult)
 		{
 			var utcDateTimeToLocalStringConverter = new UtcDateTimeToLocalStringConverter()
 			{
 				DateTimeFormat = dateTimeFormat
 			};
 
-			var result = utcDateTimeToLocalStringConverter.Convert(value, typeof(UtcDateTimeToLocalStringConverter_Tests), null, CultureInfo.CurrentCulture);
+			var result = utcDateTimeToLocalStringConverter.Convert(value, typeof(UtcDateTimeToLocalStringConverter_Tests), default, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(expectedResult, result);
 		}
@@ -54,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				DateTimeFormat = dateTimeFormat
 			};
 
-			Assert.Throws<ArgumentException>(() => utcDateTimeToLocalStringConverter.Convert(value, null, null, null));
+			Assert.Throws<ArgumentException>(() => utcDateTimeToLocalStringConverter.Convert(value, typeof(UtcDateTimeToLocalStringConverter_Tests), default, CultureInfo.CurrentCulture));
 		}
 
 		[TestCaseSource(nameof(GetInvalidDateTimeData))]
@@ -65,31 +65,31 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				DateTimeFormat = dateTimeFormat
 			};
 
-			Assert.Throws<ArgumentException>(() => utcDateTimeToLocalStringConverter.Convert(value, null, null, null));
+			Assert.Throws<ArgumentException>(() => utcDateTimeToLocalStringConverter.Convert(value, typeof(UtcDateTimeToLocalStringConverter_Tests), default, CultureInfo.CurrentCulture));
 		}
 
 		[TestCaseSource(nameof(GetValidDateTimeData))]
-		public void ValidDateTimeOffset(DateTime value, string dateTimeFormat, string expectedResult)
+		public void ValidDateTimeOffset(DateTime? value, string dateTimeFormat, string expectedResult)
 		{
 			var utcDateTimeToLocalStringConverter = new UtcDateTimeToLocalStringConverter()
 			{
 				DateTimeFormat = dateTimeFormat
 			};
 
-			var result = utcDateTimeToLocalStringConverter.Convert(value, typeof(UtcDateTimeToLocalStringConverter_Tests), null, CultureInfo.CurrentCulture);
+			var result = utcDateTimeToLocalStringConverter.Convert(value, typeof(UtcDateTimeToLocalStringConverter_Tests), default, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(expectedResult, result);
 		}
 
 		[TestCaseSource(nameof(GetValidDateTimeOffsetData))]
-		public void ValidDateTimeOffsetData(DateTimeOffset value, string dateTimeFormat, string expectedResult)
+		public void ValidDateTimeOffsetData(DateTimeOffset? value, string dateTimeFormat, string expectedResult)
 		{
 			var utcDateTimeToLocalStringConverter = new UtcDateTimeToLocalStringConverter()
 			{
 				DateTimeFormat = dateTimeFormat
 			};
 
-			var result = utcDateTimeToLocalStringConverter.Convert(value, typeof(UtcDateTimeToLocalStringConverter_Tests), null, CultureInfo.CurrentCulture);
+			var result = utcDateTimeToLocalStringConverter.Convert(value, typeof(UtcDateTimeToLocalStringConverter_Tests), default, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(expectedResult, result);
 		}
