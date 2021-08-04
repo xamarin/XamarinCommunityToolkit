@@ -18,6 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly List<CalendarDay> days = new();
 		readonly Grid gridDays;
 		readonly Grid gridWeekDayHeaders;
+		private bool isInitialized;
 
 		/// <summary>
 		/// Gets days that are currently visible.
@@ -42,33 +43,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			remove => dayUpdatedEventManager.RemoveEventHandler(value);
 		}
 
-		/// <summary>
-		/// Backing BindableProperty for the <see cref="IsInitialized"/> property.
-		/// </summary>
-		public static readonly BindableProperty IsInitializedProperty =
-			BindableProperty.Create(nameof(IsInitialized), typeof(bool), typeof(Calendar), false, propertyChanged: OnIsInitializedChanged);
-
-		/// <summary>
-		/// Gets initialization state.
-		/// </summary>
-		public bool IsInitialized
-		{
-			get => (bool)GetValue(IsInitializedProperty);
-			private set => SetValue(IsInitializedProperty, value);
-		}
-		
-		static async void OnIsInitializedChanged(BindableObject bindable, object oldValue, object newValue)
-		{
-			var calendar = (Calendar)bindable;
-			
-			if (!(bool) newValue)
-			{
-				throw new InvalidOperationException("Cannot change to not initialized state.");
-			}
-			
-			await calendar.UpdateCalendarDaysAsync();
-		}
-		
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="ShowDaysFromOtherMonths"/> property.
 		/// </summary>
@@ -318,23 +292,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public void Initialize()
 		{
-			if (IsInitialized)
+			if (isInitialized)
 			{
 				throw new InvalidOperationException("Calendar is already initialized.");
-			}	
-			
-			IsInitialized = true;
+			}
+
+			isInitialized = true;
+
+			UpdateCalendarDaysAsync().SafeFireAndForget();
 		}
 
 		async Task UpdateCalendarDaysAsync()
 		{
-			if (!IsInitialized)
+			if (!isInitialized)
 			{
 				return;
 			}
-			
+
 			await semaphore.WaitAsync();
-			
+
 			UpdateGridForDays();
 			await UpdateDaysAsync();
 			SelectDays(SelectedDays);
