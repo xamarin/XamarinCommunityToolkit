@@ -3,6 +3,9 @@ using UIKit;
 
 namespace Xamarin.CommunityToolkit.UI.Views.iOS
 {
+	/// <summary>
+	/// Extension methods to support <see cref="DrawingView"/>
+	/// </summary>
 	public static class Extensions
 	{
 		/// <summary>

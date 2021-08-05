@@ -33,6 +33,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(PopupModalPage),
 				"Popup into modal",
 				"Using Popup into modal page show the popup"),
+
+			new SectionModel(
+				typeof(LinkerCameraViewPage),
+				"Linker for CameraView",
+				"Make sure that Linker is keeping the MediaCaptured and MediaCaptureFailed events if they are used."),
 		};
 	}
 }
