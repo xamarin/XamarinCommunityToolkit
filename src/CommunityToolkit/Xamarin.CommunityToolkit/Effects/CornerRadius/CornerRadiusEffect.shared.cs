@@ -26,10 +26,10 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		static void ElementViewSizeChanged(object? sender, EventArgs e)
 		{
-			if (sender is not VisualElement elementView)
+		if (sender == null)
 				return;
 
-			UpdateClip(elementView);
+			UpdateClip((VisualElement)sender);
 		}
 
 		public static CornerRadius GetCornerRadius(BindableObject? bindable)
