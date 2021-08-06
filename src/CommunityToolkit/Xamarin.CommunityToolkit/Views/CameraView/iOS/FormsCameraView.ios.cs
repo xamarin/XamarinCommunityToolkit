@@ -203,7 +203,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
 
 				var photoSettings = AVCapturePhotoSettings.Create();
-				photoSettings.FlashMode = (AVCaptureFlashMode)flashMode;
+				photoSettings.FlashMode = GetFlashMode();
 				photoSettings.IsHighResolutionPhotoEnabled = true;
 
 				var photoCaptureDelegate = new PhotoCaptureDelegate
@@ -236,6 +236,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			finally
 			{
 				IsBusy = false;
+			}
+		}
+
+		AVCaptureFlashMode GetFlashMode()
+		{
+			switch (flashMode)
+			{
+				case CameraFlashMode.On:
+				case CameraFlashMode.Torch:
+					return AVCaptureFlashMode.On;
+				case CameraFlashMode.Auto:
+					return AVCaptureFlashMode.Auto;
+				case CameraFlashMode.Off:
+				default:
+					return AVCaptureFlashMode.Off;
 			}
 		}
 

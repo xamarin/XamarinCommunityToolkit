@@ -53,6 +53,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				typeof(CornerRadiusEffectPage),
 				nameof(CornerRadiusEffect),
 				"The CornerRadius allows rounded corners everywhere."),
+        
+      new SectionModel(
+				typeof(StatusBarEffectPage),
+				nameof(StatusBarEffect),
+				"The StatusBar allows to change status bar color and style. This page also demonstrates Android only NavigationBar changes.")
 		};
 	}
 }

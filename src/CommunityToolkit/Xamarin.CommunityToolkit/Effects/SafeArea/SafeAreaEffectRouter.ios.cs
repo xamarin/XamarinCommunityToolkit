@@ -51,6 +51,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		void UpdateInsets()
 		{
+			// Double-check eligability something might've changed in regard to the windows
+			if (!IsEligibleToConsumeEffect)
+				return;
+
 			var insets = UIApplication.SharedApplication.Windows[0].SafeAreaInsets;
 			var safeArea = SafeAreaEffect.GetSafeArea(Element);
 
