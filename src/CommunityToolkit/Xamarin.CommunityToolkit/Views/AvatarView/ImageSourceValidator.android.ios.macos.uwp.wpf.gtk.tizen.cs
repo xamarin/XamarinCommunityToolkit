@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Helpers;
 
 #if MONOANDROID
 using Xamarin.Forms.Platform.Android;
@@ -40,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #if TIZEN
 			return await handler.LoadImageAsync(new NImage(XForms.NativeParent), source).ConfigureAwait(false);
 #elif MONOANDROID
-			var imageSource = await handler.LoadImageAsync(source, ToolkitPlatform.Context).ConfigureAwait(false);
+			var imageSource = await handler.LoadImageAsync(source, XCT.Context).ConfigureAwait(false);
 			return imageSource != null;
 #else
 			var imageSource = await handler.LoadImageAsync(source).ConfigureAwait(false);
