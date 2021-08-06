@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific;
+using Xamarin.Forms;
 
 [assembly: ResolutionGroupName("Xamarin.CommunityToolkit.Effects")]
 
@@ -60,5 +61,13 @@ namespace Xamarin.CommunityToolkit.Effects
 		/// Effect Id for <see cref="BackgroundAspectEffectRouter"/>
 		/// </summary>
 		public static string BackgroundAspect => $"{effectResolutionGroupName}.{nameof(BackgroundAspectEffectRouter)}";
+		/// Effect Id for <see cref="StatusBarEffect"/>
+		/// </summary>
+		public static string StatusBar => $"{effectResolutionGroupName}.{nameof(StatusBarEffect)}";
+
+		/// <summary>
+		/// Effect Id for <see cref="NavigationBarEffect"/>
+		/// </summary>
+		public static string NavigationBar => $"{effectResolutionGroupName}.{nameof(NavigationBarEffect)}";
 	}
 }
