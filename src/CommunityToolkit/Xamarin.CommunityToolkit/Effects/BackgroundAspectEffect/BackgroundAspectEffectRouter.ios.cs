@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			var image = await GetBackgroundImageFromSource(contentPage.BackgroundImageSource);
 
-			if (image is null)
+			if (image == null)
 				return;
 
 			var fallbackColor = contentPage.BackgroundColor.ToUIColor();

@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		static void OnAspectChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			if (!(bindable is ContentPage contentPage))
+			if (bindable is not ContentPage contentPage)
 				return;
 
 			var oldEffect = contentPage.Effects.FirstOrDefault(e => e is BackgroundAspectEffectRouter);
@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			if (oldEffect != null)
 				contentPage.Effects.Remove(oldEffect);
 
-			if (!((Aspect?)newValue).HasValue)
+			if (newValue == null)
 				return;
 
 			contentPage.Effects.Add(new BackgroundAspectEffectRouter());
