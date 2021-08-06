@@ -5,6 +5,7 @@ using AndroidX.Core.View;
 using AndroidX.Core.View.Accessibility;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Effects.Semantic;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
@@ -118,7 +119,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				if (!string.IsNullOrEmpty(hint))
 				{
 					// info HintText won't read anything back when using TalkBack pre API 26
-					if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+					if (XCT.SdkInt >= (int)BuildVersionCodes.O)
 					{
 						info.HintText = hint;
 

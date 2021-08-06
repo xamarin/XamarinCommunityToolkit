@@ -2,6 +2,7 @@
 using Android.App;
 using Android.OS;
 using Android.Views;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.Effects
@@ -10,9 +11,9 @@ namespace Xamarin.CommunityToolkit.Effects
 	{
 		internal static bool IsSupported()
 		{
-			if (Build.VERSION.SdkInt < BuildVersionCodes.M)
+			if (XCT.SdkInt < (int)(int)BuildVersionCodes.M)
 			{
-				Log.Warning(string.Empty, $"This functionality is not available. Minimum supported API is {BuildVersionCodes.M}");
+				Log.Warning(string.Empty, $"This functionality is not available. Minimum supported API is {(int)BuildVersionCodes.M}");
 				return false;
 			}
 

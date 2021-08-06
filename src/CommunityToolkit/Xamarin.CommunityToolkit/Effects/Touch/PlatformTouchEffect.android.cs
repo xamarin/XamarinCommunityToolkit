@@ -11,6 +11,7 @@ using Android.Widget;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
@@ -76,7 +77,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				accessibilityManager.AddTouchExplorationStateChangeListener(accessibilityListener);
 			}
 
-			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop || !effect.NativeAnimation)
+			if (XCT.SdkInt < (int)BuildVersionCodes.Lollipop || !effect.NativeAnimation)
 				return;
 
 			View.Clickable = true;
@@ -85,7 +86,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			if (Group == null)
 			{
-				if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+				if (XCT.SdkInt >= (int)BuildVersionCodes.M)
 					View.Foreground = ripple;
 
 				return;
@@ -126,7 +127,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					View.Touch -= OnTouch;
 					View.Click -= OnClick;
 
-					if (Build.VERSION.SdkInt >= BuildVersionCodes.M && View.Foreground == ripple)
+					if (XCT.SdkInt >= (int)BuildVersionCodes.M && View.Foreground == ripple)
 						View.Foreground = null;
 				}
 
@@ -354,7 +355,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void CreateRipple()
 		{
-			var drawable = Build.VERSION.SdkInt >= BuildVersionCodes.M && Group == null
+			var drawable = XCT.SdkInt >= (int)BuildVersionCodes.M && Group == null
 				? View?.Foreground
 				: View?.Background;
 
@@ -379,7 +380,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			rippleColor = effect.NativeAnimationColor;
 			rippleRadius = effect.NativeAnimationRadius;
 			ripple?.SetColor(GetColorStateList());
-			if (Build.VERSION.SdkInt >= BuildVersionCodes.M && ripple != null)
+			if (XCT.SdkInt >= (int)BuildVersionCodes.M && ripple != null)
 				ripple.Radius = (int)(View.Context?.Resources?.DisplayMetrics?.Density * effect?.NativeAnimationRadius ?? throw new NullReferenceException());
 		}
 
