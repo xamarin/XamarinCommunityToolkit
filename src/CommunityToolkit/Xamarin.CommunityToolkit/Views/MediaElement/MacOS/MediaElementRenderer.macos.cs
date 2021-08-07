@@ -1,16 +1,16 @@
 ﻿using System;
+using System.IO;
 using AppKit;
-using AVKit;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.MacOS;
 using AVFoundation;
+using AVKit;
 using CoreMedia;
 using Foundation;
+using Xamarin.Forms;
+using Xamarin.Forms.Internals;
+using Xamarin.Forms.Platform.MacOS;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
 using XCT = Xamarin.CommunityToolkit.Core;
-using System.IO;
-using Xamarin.Forms.Internals;
 
 [assembly: ExportRenderer(typeof(ToolKitMediaElement), typeof(ToolKitMediaElementRenderer))]
 
@@ -20,7 +20,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		IMediaElementController Controller => Element;
 
-		protected readonly AVPlayerView avPlayerView = new ();
+		protected readonly AVPlayerView avPlayerView = new();
 		protected NSObject? playedToEndObserver;
 		protected IDisposable? statusObserver;
 		protected IDisposable? rateObserver;
