@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.OS;
+using Xamarin.CommunityToolkit.Helpers;
 
 // Inspired by Xamarin.Essentials.MainThread  https://github.com/xamarin/Essentials/tree/main/Xamarin.Essentials/MainThread
 namespace Xamarin.CommunityToolkit.ObjectModel.Internals
@@ -12,7 +13,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		{
 			get
 			{
-				if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+				if (XCT.SdkInt >= (int)BuildVersionCodes.M)
 					return Looper.MainLooper?.IsCurrentThread ?? false;
 
 				return Looper.MyLooper() == Looper.MainLooper;
