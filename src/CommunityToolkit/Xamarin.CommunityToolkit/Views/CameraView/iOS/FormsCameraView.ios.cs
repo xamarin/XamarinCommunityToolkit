@@ -209,7 +209,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 				catch (Exception)
 				{
-					FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("faled create image"), 0)));
+					FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("Failed to create image"), 0)));
 					IsBusy = false;
 				}
 				return;
@@ -226,7 +226,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			catch (Exception)
 			{
-				FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("faled create image"), 0)));
+				FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("Failed to create image"), 0)));
 			}
 			finally
 			{
