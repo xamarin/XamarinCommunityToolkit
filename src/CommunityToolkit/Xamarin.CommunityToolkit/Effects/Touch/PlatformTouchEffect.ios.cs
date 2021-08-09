@@ -220,6 +220,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
+			var canExecuteAction = effect.CanExecute;
+
 			if (interactionStatus == TouchInteractionStatus.Started)
 			{
 				effect?.HandleUserInteraction(TouchInteractionStatus.Started);
@@ -230,7 +232,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (interactionStatus.HasValue)
 				effect?.HandleUserInteraction(interactionStatus.Value);
 
-			if (effect == null || (!effect.NativeAnimation && !IsButton) || !effect.CanExecute)
+			if (effect == null || (!effect.NativeAnimation && !IsButton) || (!canExecuteAction && status == TouchStatus.Started))
 				return;
 
 			var control = effect.Element;
