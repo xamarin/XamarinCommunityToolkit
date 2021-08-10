@@ -203,7 +203,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
 
 				var photoSettings = AVCapturePhotoSettings.Create();
-				photoSettings.FlashMode = (AVCaptureFlashMode)flashMode;
 				photoSettings.IsHighResolutionPhotoEnabled = true;
 
 				var photoCaptureDelegate = new PhotoCaptureDelegate
