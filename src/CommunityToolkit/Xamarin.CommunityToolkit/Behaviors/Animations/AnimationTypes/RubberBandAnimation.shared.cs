@@ -2,13 +2,23 @@
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
+    /// <summary>
+	/// A 'Rubber band' animation. Results in:
+	/// <list type="bullet">
+	/// <item>stretching the width and squashing the height</item>
+	/// <item>swapping to squash the width and stretch the height</item>
+	/// <item>gradually swap until we reach 100% width and height again</item>
+	/// </list>
+	/// </summary>
 	public class RubberBandAnimation : PreBuiltAnimationBase
 	{
+        /// <inheritdoc />
         protected override uint DefaultDuration { get; set; } = 1000;
 
+        /// <inheritdoc />
         protected override Animation CreateAnimation(params View[] views) => Create(views);
 
-		static Animation Create(params View[] views)
+        static Animation Create(params View[] views)
 		{
             var animation = new Animation();
 

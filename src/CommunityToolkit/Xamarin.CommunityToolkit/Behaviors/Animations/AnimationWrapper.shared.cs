@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			Action<double, bool>? onFinished = null,
 			Func<bool>? shouldRepeat = null)
 		{
-			this.name = name + Guid.NewGuid().ToString();
+			this.name = name;
 			this.length = length;
 			this.easing = easing;
 			this.onFinished = onFinished;
