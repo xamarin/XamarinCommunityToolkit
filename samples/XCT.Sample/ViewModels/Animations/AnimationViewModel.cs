@@ -30,8 +30,8 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 		{
 			Animations = new ObservableCollection<AnimationDetailViewModel>
 			{
-				new AnimationDetailViewModel("Tada", (view, onFinished) => new TadaAnimationType()),
-				new AnimationDetailViewModel("RubberBand", (view, onFinished) => new RubberBandAnimationType())
+				new AnimationDetailViewModel("Tada", (view, onFinished) => new TadaAnimation()),
+				new AnimationDetailViewModel("RubberBand", (view, onFinished) => new RubberBandAnimation())
 			};
 
 			SelectedAnimation = Animations.First();

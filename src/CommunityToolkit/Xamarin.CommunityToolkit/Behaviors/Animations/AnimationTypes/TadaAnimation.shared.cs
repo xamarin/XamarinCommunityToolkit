@@ -2,10 +2,10 @@
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class TadaAnimationType : PreBuiltAnimationBase
+	public class TadaAnimation : PreBuiltAnimationBase
 	{
 		public static readonly BindableProperty MaximumScaleProperty =
-		   BindableProperty.Create(nameof(MaximumScale), typeof(double), typeof(TadaAnimationType), 1.1, BindingMode.TwoWay);
+		   BindableProperty.Create(nameof(MaximumScale), typeof(double), typeof(TadaAnimation), 1.1, BindingMode.TwoWay);
 
 		public double MaximumScale
 		{
@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		public static readonly BindableProperty MinimumScaleProperty =
-		   BindableProperty.Create(nameof(MinimumScale), typeof(double), typeof(TadaAnimationType), 0.9, BindingMode.TwoWay);
+		   BindableProperty.Create(nameof(MinimumScale), typeof(double), typeof(TadaAnimation), 0.9, BindingMode.TwoWay);
 
 		public double MinimumScale
 		{
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		public static readonly BindableProperty RotationAngleProperty =
-		   BindableProperty.Create(nameof(RotationAngle), typeof(double), typeof(TadaAnimationType), 3.0, BindingMode.TwoWay);
+		   BindableProperty.Create(nameof(RotationAngle), typeof(double), typeof(TadaAnimation), 3.0, BindingMode.TwoWay);
 
 		public double RotationAngle
 		{

@@ -2,7 +2,7 @@
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
-	public class RubberBandAnimationType : PreBuiltAnimationBase
+	public class RubberBandAnimation : PreBuiltAnimationBase
 	{
         protected override uint DefaultDuration { get; set; } = 1000;
 

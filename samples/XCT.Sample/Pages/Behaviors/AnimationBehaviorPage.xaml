@@ -24,9 +24,9 @@
                  <Button.Behaviors>
                       <xct:AnimationBehavior EventName="Clicked">
                             <xct:AnimationBehavior.AnimationType>
-                                <xct:TadaAnimationType Easing="{x:Static Easing.Linear}"
-                                                       IsRepeated="True"
-                                                       Duration="1000"/>
+                                <xct:TadaAnimation Easing="{x:Static Easing.Linear}"
+                                                   IsRepeated="True"
+                                                   Duration="1000"/>
                             </xct:AnimationBehavior.AnimationType>
                         </xct:AnimationBehavior>
                 </Button.Behaviors>
