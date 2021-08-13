@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public class LazyView<TView> : BaseLazyView where TView : View, new()
 	{
 		/// <summary>
-		/// This method initialize your <see cref="LazyView{TView}"/>.
+		/// This method initializes your <see cref="LazyView{TView}"/>.
 		/// </summary>
 		/// <returns><see cref="ValueTask"/></returns>
 		public override ValueTask LoadViewAsync()
