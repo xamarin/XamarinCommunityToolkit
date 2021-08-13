@@ -52,9 +52,6 @@ namespace Xamarin.CommunityToolkit.Converters
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 
 		private bool IsValidDateFormat(string dateFormat)
-		{
-			var s = DateTime.Now.ToString(dateFormat, CultureInfo.InvariantCulture);
-			return DateTime.TryParse(s, out _);
-		}
+			=> DateTime.TryParse(DateTime.UtcNow.ToString(dateFormat, CultureInfo.InvariantCulture), out _);
 	}
 }
