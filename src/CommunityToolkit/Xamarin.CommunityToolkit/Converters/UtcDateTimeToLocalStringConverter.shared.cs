@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (value is DateTimeOffset dateTimeOffset)
 				return dateTimeOffset.UtcDateTime.ToLocalTime().ToString(DateTimeFormat);
 
-			throw new ArgumentException("Value must be type DateTime or DateTimeOffset", nameof(value));
+			throw new ArgumentException("Value must be of type DateTime or DateTimeOffset", nameof(value));
 		}
 
 		/// <summary>
