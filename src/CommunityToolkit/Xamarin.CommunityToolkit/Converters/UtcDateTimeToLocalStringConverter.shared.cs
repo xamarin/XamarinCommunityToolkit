@@ -14,7 +14,8 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="DateTimeFormat"/> property.
 		/// </summary>
-		public static readonly BindableProperty DateTimeFormatProperty = BindableProperty.Create(nameof(DateTimeFormat), typeof(string), typeof(UtcDateTimeToLocalStringConverter), defaultValue: "g");
+		public static readonly BindableProperty DateTimeFormatProperty 
+			= BindableProperty.Create(nameof(DateTimeFormat), typeof(string), typeof(UtcDateTimeToLocalStringConverter), defaultValue: "g");
 
 		/// <summary>
 		/// Gets or sets the datetime format value of the provided datetime or datetimeoffset for
