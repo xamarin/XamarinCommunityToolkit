@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0-android</TargetFramework>
+    <UseMaui>true</UseMaui>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

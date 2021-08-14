@@ -19,8 +19,6 @@ namespace Xamarin.CommunityToolkit.Markup.MauiCompat.UnitTests
     {
         public string GetHash(string input) => throw new NotImplementedException();
 
-        string IPlatformServices.GetMD5Hash(string input) => throw new NotImplementedException();
-
         public double GetNamedSize(NamedSize size, Type targetElement, bool useOldSizes) => size switch
         {
             NamedSize.Default => 10,
@@ -36,8 +34,6 @@ namespace Xamarin.CommunityToolkit.Markup.MauiCompat.UnitTests
         public string RuntimePlatform => throw new NotImplementedException();
 
         public void BeginInvokeOnMainThread(Action action) => throw new NotImplementedException();
-
-        public Microsoft.Maui.Controls.Internals.Ticker CreateTicker() => throw new NotImplementedException();
 
         public void StartTimer(TimeSpan interval, Func<bool> callback) => throw new NotImplementedException();
 

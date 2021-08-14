@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Layouts;
 using NUnit.Framework;
 
 namespace Xamarin.CommunityToolkit.Markup.MauiCompat.UnitTests

@@ -255,7 +255,7 @@ namespace Xamarin.CommunityToolkit.Markup.MauiCompat.UnitTests
         [Test]
         public void UntypedTwoWay()
         {
-            new Markup.FuncConverter(
+            new MauiCompat.FuncConverter(
                 isRed => (bool)(isRed ?? throw new NullReferenceException()) ? Colors.Red : Colors.Green,
                 color => (Color?)color == Colors.Red)
             .AssertConvert((object)true, (object)Colors.Red, twoWay: true)
@@ -265,7 +265,7 @@ namespace Xamarin.CommunityToolkit.Markup.MauiCompat.UnitTests
         [Test]
         public void UntypedOneWay()
         {
-            new Markup.FuncConverter(
+            new MauiCompat.FuncConverter(
                 isRed => (bool)(isRed ?? throw new NullReferenceException()) ? Colors.Red : Colors.Green)
             .AssertConvert((object)true, (object)Colors.Red)
             .AssertConvert((object)false, (object)Colors.Green);
@@ -274,7 +274,7 @@ namespace Xamarin.CommunityToolkit.Markup.MauiCompat.UnitTests
         [Test]
         public void UntypedBackOnly()
         {
-            new Markup.FuncConverter(
+            new MauiCompat.FuncConverter(
                 null,
                 color => (Color?)color == Colors.Red)
             .AssertConvert((object)true, (object)Colors.Red, backOnly: true)

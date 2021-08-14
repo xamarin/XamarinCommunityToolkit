@@ -45,7 +45,6 @@ namespace Xamarin.CommunityToolkit.Markup.MauiCompat.UnitTests
                 { typeof(GestureRecognizer), na },
                 { typeof(GradientStop), na },
                 { typeof(GridItemsLayout), na },
-                { typeof(Microsoft.Maui.Controls.Layout2.GridLayout), na },
                 { typeof(GroupableItemsView), na },
                 { typeof(HorizontalStackLayout), na },
                 { typeof(ImageSource), na },
