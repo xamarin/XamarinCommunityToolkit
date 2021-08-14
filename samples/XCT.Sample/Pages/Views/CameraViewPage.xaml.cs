@@ -74,6 +74,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				default:
 				case CameraCaptureMode.Default:
 				case CameraCaptureMode.Photo:
+					previewVideo.IsVisible = false;
 					previewPicture.IsVisible = true;
 					previewPicture.Rotation = e.Rotation;
 					previewPicture.Source = e.Image;
@@ -81,6 +82,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					break;
 				case CameraCaptureMode.Video:
 					previewPicture.IsVisible = false;
+					previewVideo.IsVisible = true;
+					previewVideo.Source = e.Video;
 					doCameraThings.Text = "Start Recording";
 					break;
 			}
