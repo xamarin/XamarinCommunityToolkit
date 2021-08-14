@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
+		<UseMaui>true</UseMaui>
 	</PropertyGroup>
 	<PropertyGroup>
 		<GitInfoReportImportance>high</GitInfoReportImportance>
@@ -29,15 +30,8 @@
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<PackageTags>xamarin,xamarin.forms,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,markup,csharpformarkup,csharp,csharpmarkup</PackageTags>
 		<Configurations>Debug;Release</Configurations>
-		<RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-ios'">iossimulator-x64</RuntimeIdentifier>
-		<RuntimeIdentifier Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">maccatalyst-x64</RuntimeIdentifier>
-		<InvariantGlobalization Condition="'$(TargetFramework)' == 'net6.0-maccatalyst'">true</InvariantGlobalization>
 	</PropertyGroup>
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
-		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
-	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Maui" Version="6.0.100-preview.5.794" />
 		<PackageReference Include="mdoc" Version="5.8.3" PrivateAssets="all" />
 	</ItemGroup>
 	<ItemGroup>
