@@ -27,9 +27,16 @@
                                 <Switch IsToggled="{Binding IsEnabled}" />
                             </StackLayout>
                         </xct:Expander.Header>
-                        <xct:Expander IsEnabled="{Binding IsEnabled}">
+                        <xct:Expander IsEnabled="{Binding IsEnabled}" TouchCaptureView="{x:Reference touchCaptureView}">
                             <xct:Expander.Header>
-                                <Label Text="Nested expander" FontSize="30" FontAttributes="Bold"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Nested expander" FontSize="25" FontAttributes="Bold" VerticalOptions="Center"/>
+                                    <StackLayout x:Name="touchCaptureView" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="EndAndExpand" xct:TouchEffect.NativeAnimation="True">
+                                        <Label Text=">" Rotation="90" FontSize="25" FontAttributes="Bold" TextColor="Black" />
+                                        <Label Text=">" Rotation="90" FontSize="25" FontAttributes="Bold" TextColor="Black" />
+                                        <Label Text=">" Rotation="90" FontSize="25" FontAttributes="Bold" TextColor="Black" />
+                                    </StackLayout>
+                                </StackLayout>
                             </xct:Expander.Header>
                             <xct:Expander.ContentTemplate>
                                 <DataTemplate>

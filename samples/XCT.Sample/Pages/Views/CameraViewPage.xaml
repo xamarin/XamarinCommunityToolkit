@@ -6,15 +6,44 @@
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ScrollView>
-        <StackLayout>
-            <xct:CameraView
-                x:Name="cameraView"
-                CaptureMode="Video"
-                FlashMode="On"
-                HorizontalOptions="FillAndExpand"
-                MediaCaptured="CameraView_MediaCaptured"
-                OnAvailable="CameraView_OnAvailable"
-                VerticalOptions="FillAndExpand" />
+        <Grid RowDefinitions="300, Auto">
+            <Grid ColumnDefinitions="*, *" Grid.Row="0">
+                <xct:CameraView
+                    Grid.Column="0"
+                    x:Name="cameraView"
+                    CaptureMode="Photo"
+                    FlashMode="Off"
+                    HorizontalOptions="FillAndExpand"
+                    MediaCaptured="CameraView_MediaCaptured"
+                    OnAvailable="CameraView_OnAvailable"
+                    VerticalOptions="FillAndExpand" />
+                <Label
+                    Grid.Column="0"
+                    Text="Camera"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="End" />
+
+                <Image
+                    Grid.Column="1"
+                    x:Name="previewPicture"
+                    Aspect="AspectFit"
+                    BackgroundColor="LightGray" />
+
+                <xct:MediaElement
+                    Grid.Column="1"
+                    x:Name="previewVideo"
+                    Aspect="AspectFit"
+                    BackgroundColor="LightGray"
+                    IsVisible="false"/>
+                <Label
+                    Grid.Column="1"
+                    Text="Result"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="End" />
+            </Grid>
+            
 
             <StackLayout Grid.Row="1" Orientation="Horizontal">
                 <Label x:Name="zoomLabel" />
@@ -29,7 +58,7 @@
                     Value="1" />
             </StackLayout>
 
-            <StackLayout>
+            <StackLayout Grid.Row="2">
                 <Grid ColumnDefinitions="*, *" RowDefinitions="*,*">
                     <StackLayout
                         Grid.Row="0"
@@ -38,7 +67,7 @@
                         Orientation="Horizontal">
                         <Switch
                             Margin="0,0,5,0"
-                            IsToggled="True"
+                            IsToggled="False"
                             Toggled="VideoSwitch_Toggled" />
                         <Label Text="Video" />
                     </StackLayout>
@@ -60,7 +89,7 @@
                         Orientation="Horizontal">
                         <Switch
                             Margin="0,0,5,0"
-                            IsToggled="True"
+                            IsToggled="False"
                             Toggled="FlashSwitch_Toggled" />
                         <Label Text="Flash" />
                     </StackLayout>
@@ -68,16 +97,11 @@
 
                 <Button
                     x:Name="doCameraThings"
-                    Command="{Binding ShutterCommand, Source={x:Reference cameraView}}"
+                    Clicked="DoCameraThings_Clicked"
                     IsEnabled="False"
-                    Text="Start Recording" />
-                <Image
-                    x:Name="previewPicture"
-                    Aspect="AspectFit"
-                    BackgroundColor="LightGray"
-                    HeightRequest="250"
-                    IsVisible="False" />
+                    Text="Snap picture" />
+                
             </StackLayout>
-        </StackLayout>
+        </Grid>
     </ScrollView>
 </pages:BasePage>
