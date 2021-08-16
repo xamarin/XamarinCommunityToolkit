@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
@@ -99,7 +100,43 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 				Dismiss();
 			});
 
+			AddDismissGestures();
+
 			return this;
+		}
+
+		private void AddDismissGestures()
+		{
+#if __IOS__
+			if (SnackBarView == null)
+				return;
+
+			var tapGesture = new UITapGestureRecognizer();
+			tapGesture.AddTarget(OnTap);
+			SnackBarView.AddGestureRecognizer(tapGesture);
+
+			var horizontalSwipeGesture = new UISwipeGestureRecognizer();
+			horizontalSwipeGesture.Direction = UISwipeGestureRecognizerDirection.Left | UISwipeGestureRecognizerDirection.Right;
+			horizontalSwipeGesture.AddTarget(OnSwipe);
+			SnackBarView.AddGestureRecognizer(horizontalSwipeGesture);
+
+			var verticalSwipeGesture = new UISwipeGestureRecognizer();
+			verticalSwipeGesture.Direction = UISwipeGestureRecognizerDirection.Down | UISwipeGestureRecognizerDirection.Up;
+			verticalSwipeGesture.AddTarget(OnSwipe);
+			SnackBarView.AddGestureRecognizer(verticalSwipeGesture);
+#endif
+		}
+
+		private void OnTap()
+		{
+			Debug.WriteLine("Tapped");
+			Dismiss();
+		}
+
+		private void OnSwipe()
+		{
+			Debug.WriteLine("Swiped");
+			Dismiss();
 		}
 
 		BaseSnackBarView GetSnackBarView() => Actions.Any() ? new ActionMessageSnackBarView(this) : new MessageSnackBarView(this);
