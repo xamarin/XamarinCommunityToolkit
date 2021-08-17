@@ -261,10 +261,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		AVCaptureFlashMode GetFlashMode()
 		{
+
+			// Note: torch is set elsewhere
 			switch (flashMode)
 			{
 				case CameraFlashMode.On:
-				case CameraFlashMode.Torch:
 					return AVCaptureFlashMode.On;
 				case CameraFlashMode.Auto:
 					return AVCaptureFlashMode.Auto;
