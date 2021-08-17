@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AButton = Android.Widget.Button;
@@ -59,7 +60,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void Update()
 		{
-			if (View == null || Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+			if (View == null || XCT.SdkInt < (int)BuildVersionCodes.Lollipop)
 				return;
 
 			var radius = (float)ShadowEffect.GetRadius(Element);
@@ -98,7 +99,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				group.SetClipToPadding(false);
 
 #pragma warning disable
-			if (Build.VERSION.SdkInt < BuildVersionCodes.P)
+			if (XCT.SdkInt < (int)BuildVersionCodes.P)
 				return;
 
 			View.SetOutlineAmbientShadowColor(androidColor);
