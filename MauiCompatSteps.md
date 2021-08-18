@@ -5,27 +5,31 @@ The following steps are used to create the MauiCompat libraries
 ### 1. Create Xamarin.CommunityToolit.MauiCompat Branch From Latest Tag
 
 1. Create new branch from the latest tag:
-
-    `git checkout -b Xamarin.CommunityToolkit.MauiCompat-[version] [tag]`
+    ```bash
+    git checkout -b Xamarin.CommunityToolkit.MauiCompat-[version] [tag]
+    ```
     > **Example:** `git checkout -b Xamarin.CommunityToolkit.MauiCompat-1.3.0-pre2 1.3.0-pre2`
 2. Push new branch to github
 
-    `git push --set-upstream origin Xamarin.CommunityToolkit.MauiCompat-[version]`
+    ```bash
+    git push --set-upstream origin Xamarin.CommunityToolkit.MauiCompat-[version]
+    ```
     > **Example:** `git push --set-upstream origin Xamarin.CommunityToolkit.MauiCompat-1.3.0-pre2`
 
 ### 2. Create `Xamarin.CommunityToolkit.MauiCompat` and `Xamarin.CommunityToolkit.Markup.MauiCompat` 
 
 1. Create `Xamarin.CommunityToolkit.MauiCompat`:
-
-    `dotnet new maui -o ./src/CommunityToolkit -n Xamarin.CommunityToolkit.MauiCompat`
+    ```bash
+    dotnet new maui -o ./src/CommunityToolkit -n Xamarin.CommunityToolkit.MauiCompat
+    ```
 
 2. Create `Xamarin.CommunityToolkit.Markup.MauiCompat`:
-
-    `dotnet new maui -o ./src/Markup -n Xamarin.CommunityToolkit.Markup.MauiCompat`
+    ```bash
+    dotnet new maui -o ./src/Markup -n Xamarin.CommunityToolkit.Markup.MauiCompat
+    ```
 
 ### 3. Update MauiCompat CSPROJ Files
 1. Remove `InvariantGlobalization`, `RuntimeIdentifier` and `UseInterpreter` from `Xamarin.CommunityToolkit.MauiCompat.csproj`:
-
     ```bash
     awk '!/InvariantGlobalization/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Xamarin.CommunityToolkit.MauiCompat.csproj > temp && mv temp ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Xamarin.CommunityToolkit.MauiCompat.csproj
     awk '!/RuntimeIdentifier/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Xamarin.CommunityToolkit.MauiCompat.csproj > temp && mv temp ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Xamarin.CommunityToolkit.MauiCompat.csproj
@@ -33,7 +37,6 @@ The following steps are used to create the MauiCompat libraries
     ```
 
 2. Remove `InvariantGlobalization`, `RuntimeIdentifier` and `UseInterpreter` from `Xamarin.CommunityToolkit.Markup.MauiCompat.csproj`:
-
     ```bash
     awk '!/InvariantGlobalization/' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj > temp && mv temp ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj
     awk '!/RuntimeIdentifier/' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj > temp && mv temp ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj
