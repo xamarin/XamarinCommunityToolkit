@@ -28,6 +28,20 @@ The following steps are used to create the MauiCompat libraries
     dotnet new maui -o ./src/Markup -n Xamarin.CommunityToolkit.Markup.MauiCompat
     ```
 
+3. Remove `Xamarin.CommunityToolkit.MauiCompat.WinUI`
+    > **Note:** This is a temporary workaround until we add WinUI support
+
+    ```bash
+    dotnet sln ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat.sln remove ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat.WinUI
+    ```
+
+4. Remove `Xamarin.CommunityToolkit.MauiCompat.WinUI`
+    > **Note:** This is a temporary workaround until we add WinUI support
+
+    ```bash
+    dotnet sln ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.sln remove ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.WinUI
+    ```
+
 ### 3. Update MauiCompat CSPROJ Files
 1. Remove `InvariantGlobalization`, `RuntimeIdentifier` and `UseInterpreter` from `Xamarin.CommunityToolkit.MauiCompat.csproj`:
     ```bash
@@ -122,9 +136,27 @@ The following steps are used to create the MauiCompat libraries
     </PropertyGroup>"
     ```
 
-### 4. Copy/Paste `Xamarin.CommunityToolkit` to `Xamarin.CommunityToolkit.MauiCompat`
+### 4. Add `Xamarin.CommunityToolkit` files to `Xamarin.CommunityToolkit.MauiCompat`
 
-*TBD*
+1. Remove `Xamarin.CommunityToolkit.MauiCompat` Template Files, except `.csproj`
+    ```bash
+    find ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/ -name "*" ! -name "*.csproj" -delete
+    ```
+
+2. Remove `Xamarin.CommunityToolkit.Markup.MauiCompat` Template Files, except `.csproj`
+    ```bash
+    find ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/ -name "*" ! -name "*.csproj" -delete
+    ```
+
+3. Copy `Xamarin.CommunityToolkit` Files to `Xamarin.CommunityToolkit.MauiCompat`
+    ```bash
+    rsync -avr --exclude='*.csproj' --exclude='bin' --exclude='obj' ./src/CommunityToolkit/Xamarin.CommunityToolkit/ ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/ 
+    ```
+
+4. Copy `Xamarin.CommunityToolkit.Markup` Files to `Xamarin.CommunityToolkit.Markup.MauiCompat`
+    ```bash
+    rsync -avr --exclude='*.csproj' --exclude='bin' --exclude='obj' ./src/Markup/Xamarin.CommunityToolkit.Markup/ ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/ 
+    ```
 
 ### 5. Update Namespaces
 
