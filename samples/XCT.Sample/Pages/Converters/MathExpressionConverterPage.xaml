@@ -23,11 +23,10 @@
                 Text="The MathExpressionConverter is a converter that allows users to calculate an expression at runtime."
                 TextColor="{StaticResource NormalLabelTextColor}" />
             <Frame
-                x:Name="CalculatedFrame"
                 BackgroundColor="Bisque"
                 Padding="10"
                 HeightRequest="120"
-                CornerRadius="{Binding Source={x:Reference CalculatedFrame}, Path=HeightRequest, Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/2'}">
+                CornerRadius="{Binding Source={RelativeSource Self}, Path=HeightRequest, Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/2'}">
                 <Label
                     Text="Frame with calculated CornerRadius = HeightRequest / 2"
                     TextColor="Black"
