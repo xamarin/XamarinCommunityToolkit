@@ -1,0 +1,51 @@
+<Project>
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+        <PackageId>Xamarin.CommunityToolkit.MauiCompat</PackageId>
+        <Summary>A .NET MAUI Comapatible version of Xamarin.CommunityToolkit, a community-created toolkit with common Xamarin converters, effects, behaviors etc.</Summary>
+        <PackageTag>maui,net,xamarin,ios,android,uwp,xamarin.forms,effects,controls,converters,animations,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,watchos,tvos,tizen,Microsoft.Toolkit.Xamarin.Forms</PackageTag>
+        <Title>Xamarin.CommunityToolkit.MauiCompat</Title>
+        <Description>Xamarin.CommunityToolkit.MauiCompat is a collection of Animations, Behaviors, Converters, and Effects for mobile development with .NET MAUI. It is the .NET MAUI Compatible version of Xamarin.CommunityToolkit.</Description>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageVersion></PackageVersion>
+        <Authors>Microsoft</Authors>
+        <Owners>microsoft</Owners>
+        <NeutralLanguage>en</NeutralLanguage>
+        <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+        <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
+        <PackageReleaseNotes>See: http://aka.ms/xct-release-notes</PackageReleaseNotes>
+        <DefineConstants>;</DefineConstants>
+        <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    </PropertyGroup>    
+
+    <ItemGroup>
+        <Compile Include="**/*.shared.cs" />
+        <Compile Include="**/*.shared.*.cs" />    
+        <None Include="../../LICENSE" PackagePath="" Pack="true" />
+        <None Include="../../assets/XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.Contains(-android)) ">
+        <Compile Include="**\*.android.cs" />
+        <Compile Include="**\*.android.*.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.Contains(-ios)) ">
+        <Compile Include="**\*.ios.cs" />
+        <Compile Include="**\*.ios.*.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.Contains('-windows')) ">
+        <Compile Include="**\*.uwp.cs" />
+        <Compile Include="**\*.uwp.*.cs" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" $(TargetFramework.Contains('-maccatalyst')) ">
+        <Compile Include="**\*.macos.cs" />
+        <Compile Include="**\*.macos.*.cs" />
+    </ItemGroup>
+</Project>

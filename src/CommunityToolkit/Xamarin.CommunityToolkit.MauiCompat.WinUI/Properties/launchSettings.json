@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Xamarin.CommunityToolkit.MauiCompat.WinUI": {
+      "commandName": "MsixPackage",
+      "nativeDebugging": false
+    }
+  }
+}
