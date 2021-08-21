@@ -175,6 +175,8 @@ sed -i '' 's/\[Preserve(/\[Microsoft.Maui.Controls.Internals.Preserve(/g' ./src/
 
 sed -i '' 's/using Xamarin.Forms.Internals/using Microsoft.Maui.Controls.Internals/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
+sed -i '' '/Forms.Internals.Log/d' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
 # WeakEventManager
 
 sed -i '' 's/ Forms.WeakEventManager/ Microsoft.Maui.Controls.WeakEventManager/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
@@ -186,7 +188,7 @@ sed -i '' 's/\tColor\./\tColors./g' ./src/CommunityToolkit/Xamarin.CommunityTool
 sed -i '' 's/Forms\.Color/Color/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 sed -i '' 's/Colors\.From/Color\.From/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 sed -i '' 's/Xamarin.Forms.Color/Microsoft.Maui.Graphics.Color/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
-sed -i '' 's/Colors.Default/default(Color)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/Colors.Default/new Color())/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 # Nullability
 
@@ -262,6 +264,12 @@ sed -i '' 's/Xamarin.Forms.ExportEffect(/Microsoft.Maui.Controls.ExportEffect(/g
 
 sed -i '' 's/Element.Font/Element.ToFont()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
+## Internals
+
+sed -i '' 's/Element.Font/Element.ToFont()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+Forms.Internals.Log
+
 # TypeConverter
 
 sed -i '' 's/Xamarin.Forms.TypeConverter/System.ComponentModel.TypeConverter/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
@@ -320,15 +328,41 @@ sed -i '' '1s/^/using Paint = Android.Graphics.Paint;/' ./src/CommunityToolkit/X
 
 # TextSwitcherRenderer.android.cs
 
-sed -i '' 's/Color lastUpdateColor =/Color? lastUpdateColor =/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
-
 sed -i '' 's/color.IsDefault/color.IsDefault()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
 sed -i '' 's/(visualElementRenderer?.OnTouchEvent(e) ?? false) || //g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
-sed -i '' 's/.ToScaledPixel()//g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+sed -i '' 's/f.ToScaledPixel()/(float)f.Size/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
-# Add Maui Namespaces
+## PlatformTouchEffect.ios.cs
+
+sed -i '' 's/(isStarted ? color : control.BackgroundColor).ToCGColor()/Microsoft.Maui.ColorExtensions.ToCGColor(isStarted ? color : control.BackgroundColor)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformTouchEffect.ios.cs
+
+## DrawingViewRenderer.ios.cs
+
+sed -i '' 's/void OnLinesCollectionChanged(object sender/void OnLinesCollectionChanged(object? sender/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/DrawingViewRenderer.ios.cs
+
+sed -i '' 's/currentPoint.ToPoint()/CoreGraphicsExtensions.ToPoint(currentPoint)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/DrawingViewRenderer.ios.cs
+
+# DrawingViewService.ios.cs
+
+sed -i '' 's/backgroundColor.ToCGColor()/Microsoft.Maui.ColorExtensions.ToCGColor(backgroundColor)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/DrawingViewService.ios.cs
+
+sed -i '' 's/strokeColor.ToCGColor()/Microsoft.Maui.ColorExtensions.ToCGColor(strokeColor)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/DrawingViewService.ios.cs
+
+sed -i '' 's/line.LineColor.ToCGColor()/Microsoft.Maui.ColorExtensions.ToCGColor(line.LineColor)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/DrawingViewService.ios.cs
+
+# SnackbarAppearance.ios.cs
+
+sed -i '' '1s/^/using Microsoft.Maui;using Microsoft.Maui.Controls.Compatibility.Platform.iOS;using Microsoft.Maui.Graphics;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
+
+sed -i '' 's/Forms.Font/Microsoft.Maui.Font/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
+
+# VisualFeedbackEffectRouter.ios.cs
+
+sed -i '' 's/color.A /color.Alpha /g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
+
+# Replace Xamarin.Forms Namespace
 
 sed -i '' 's/using Xamarin.Forms;/using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 ```
