@@ -238,7 +238,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SizeRequest IVisualElementRenderer.GetDesiredSize(int widthConstraint, int heightConstraint)
 		{
 			Measure(widthConstraint, heightConstraint);
-			var result = new SizeRequest(new Size(MeasuredWidth, MeasuredHeight), new Size(Context.ToPixels(20), Context.ToPixels(20)));
+			var result = new SizeRequest(new Size(MeasuredWidth, MeasuredHeight), new Size(Microsoft.Maui.ContextExtensions.ToPixels(Context, 20), Microsoft.Maui.ContextExtensions.ToPixels(Context, 20)));
 			return result;
 		}
 

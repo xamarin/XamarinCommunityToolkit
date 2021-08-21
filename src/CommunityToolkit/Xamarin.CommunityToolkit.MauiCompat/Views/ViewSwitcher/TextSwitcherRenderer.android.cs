@@ -164,7 +164,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (setHint)
 				Hint = hint;
 
-			result.Minimum = new Size(Math.Min(Context.ToPixels(10), result.Request.Width), result.Request.Height);
+			result.Minimum = new Size(Math.Min(Microsoft.Maui.ContextExtensions.ToPixels(Context, 10), result.Request.Width), result.Request.Height);
 
 			// if the measure of the view has changed then trigger a request for layout
 			// if the measure hasn't changed then force a layout of the label
@@ -225,8 +225,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			}
 
-			var realWidth = (int)Context.ToPixels(width);
-			var realHeight = (int)Context.ToPixels(height);
+			var realWidth = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, width);
+			var realHeight = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, height);
 
 			var widthMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realWidth, MeasureSpecMode.Exactly);
 			var heightMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realHeight, MeasureSpecMode.Exactly);
@@ -535,10 +535,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			SetPadding(
-				(int)Context.ToPixels(Element.Padding.Left),
-				(int)Context.ToPixels(Element.Padding.Top),
-				(int)Context.ToPixels(Element.Padding.Right),
-				(int)Context.ToPixels(Element.Padding.Bottom));
+				(int)Microsoft.Maui.ContextExtensions.ToPixels(Context, Element.Padding.Left),
+				(int)Microsoft.Maui.ContextExtensions.ToPixels(Context, Element.Padding.Top),
+				(int)Microsoft.Maui.ContextExtensions.ToPixels(Context, Element.Padding.Right),
+				(int)Microsoft.Maui.ContextExtensions.ToPixels(Context, Element.Padding.Bottom));
 
 			lastSizeRequest = null;
 		}

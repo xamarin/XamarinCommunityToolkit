@@ -134,11 +134,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var decorView = (ViewGroup)(Window?.DecorView ?? throw new NullReferenceException());
 				var child = decorView?.GetChildAt(0) ?? throw new NullReferenceException();
 
-				var realWidth = (int)Context.ToPixels(basePopup.Size.Width);
-				var realHeight = (int)Context.ToPixels(basePopup.Size.Height);
+				var realWidth = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, basePopup.Size.Width);
+				var realHeight = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, basePopup.Size.Height);
 
-				var realContentWidth = (int)Context.ToPixels(basePopup.Content.WidthRequest);
-				var realContentHeight = (int)Context.ToPixels(basePopup.Content.HeightRequest);
+				var realContentWidth = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, basePopup.Content.WidthRequest);
+				var realContentHeight = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, basePopup.Content.HeightRequest);
 
 				var childLayoutParams = (FrameLayout.LayoutParams)(child?.LayoutParameters ?? throw new NullReferenceException());
 				childLayoutParams.Width = realWidth;

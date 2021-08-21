@@ -90,11 +90,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return;
 			}
 
-			var pixelOffsetX = View.Context.ToPixels(offsetX);
-			var pixelOffsetY = View.Context.ToPixels(offsetY);
-			var pixelCornerRadius = View.Context.ToPixels(cornerRadius);
+			var pixelOffsetX = View.Microsoft.Maui.ContextExtensions.ToPixels(Context, offsetX);
+			var pixelOffsetY = View.Microsoft.Maui.ContextExtensions.ToPixels(Context, offsetY);
+			var pixelCornerRadius = View.Microsoft.Maui.ContextExtensions.ToPixels(Context, cornerRadius);
 			View.OutlineProvider = new ShadowOutlineProvider(pixelOffsetX, pixelOffsetY, pixelCornerRadius);
-			View.Elevation = View.Context.ToPixels(radius);
+			View.Elevation = View.Microsoft.Maui.ContextExtensions.ToPixels(Context, radius);
 			if (View.Parent is ViewGroup group)
 				group.SetClipToPadding(false);
 
