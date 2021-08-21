@@ -1,12 +1,12 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using AColor = Android.Graphics.Color;
 using AView = Android.Views.View;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
@@ -15,7 +15,7 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	[Preserve(AllMembers = true)]
+	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
 	public class VisualFeedbackEffectRouter : PlatformEffect
 	{
 		AView? view;

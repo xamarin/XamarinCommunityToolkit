@@ -1,11 +1,11 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 using Android.Content;
 using Android.Media;
 using Android.Views;
 using Android.Widget;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using AView = Android.Views.View;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
@@ -65,11 +65,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		VisualElementTracker? IVisualElementRenderer.Tracker => tracker;
 
-		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
 		AView IVisualElementRenderer.View => this;
 
-		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -110,7 +109,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (oldElement != null)
 				UnsubscribeFromEvents(oldElement);
 
-			var currentColor = oldElement?.BackgroundColor ?? Color.Default;
+			var currentColor = oldElement?.BackgroundColor ?? default(Color);
 			if (element.BackgroundColor != currentColor)
 				UpdateBackgroundColor();
 

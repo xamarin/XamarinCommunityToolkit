@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
@@ -144,21 +144,21 @@ namespace Xamarin.CommunityToolkit.Effects
 			nameof(NormalBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty HoveredBackgroundColorProperty = BindableProperty.CreateAttached(
 			nameof(HoveredBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.CreateAttached(
 			nameof(PressedBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty NormalOpacityProperty = BindableProperty.CreateAttached(
@@ -397,7 +397,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			nameof(NativeAnimationColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty NativeAnimationRadiusProperty = BindableProperty.CreateAttached(

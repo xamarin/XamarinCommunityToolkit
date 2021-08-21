@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 using ElmSharp;
 using Tizen.Multimedia;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Tizen;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Tizen;
 
 [assembly: ExportRenderer(typeof(MediaElement), typeof(MediaElementRenderer))]
 

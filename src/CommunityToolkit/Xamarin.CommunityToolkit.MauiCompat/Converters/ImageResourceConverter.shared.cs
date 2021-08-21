@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 #if NETSTANDARD1_0 || UAP10_0
 using System.Reflection;
 #endif

@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="LineColor"/> property.
 		/// </summary>
 		public static readonly BindableProperty LineColorProperty =
-			BindableProperty.Create(nameof(LineColor), typeof(Color), typeof(Line), Color.Black);
+			BindableProperty.Create(nameof(LineColor), typeof(Color), typeof(Line), Colors.Black);
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="LineWidth"/> property.

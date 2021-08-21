@@ -1,12 +1,12 @@
 ﻿using System.Linq;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
 	public class IconTintColorEffect
 	{
 		public static readonly BindableProperty TintColorProperty
-			= BindableProperty.CreateAttached("TintColor", typeof(Color), typeof(IconTintColorEffect), Color.Default,
+			= BindableProperty.CreateAttached("TintColor", typeof(Color), typeof(IconTintColorEffect), default(Color),
 				propertyChanged: OnTintColorChanged);
 
 		public static Color GetTintColor(BindableObject view)

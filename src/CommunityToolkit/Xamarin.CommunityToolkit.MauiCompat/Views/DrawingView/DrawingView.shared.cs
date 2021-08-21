@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="DefaultLineColor"/> property.
 		/// </summary>
 		public static readonly BindableProperty DefaultLineColorProperty =
-			BindableProperty.Create(nameof(DefaultLineColor), typeof(Color), typeof(DrawingView), Color.Black);
+			BindableProperty.Create(nameof(DefaultLineColor), typeof(Color), typeof(DrawingView), Colors.Black);
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="DefaultLineWidth"/> property.

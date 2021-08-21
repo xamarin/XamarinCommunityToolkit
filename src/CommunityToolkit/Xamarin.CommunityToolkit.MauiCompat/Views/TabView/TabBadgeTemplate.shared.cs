@@ -1,10 +1,10 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+﻿using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
-	public class TabBadgeTemplate : Grid
+	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
+	public class TabBadgeTemplate : Microsoft.Maui.Controls.Grid
 	{
 		public TabBadgeTemplate()
 		{

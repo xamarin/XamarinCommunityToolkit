@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.ComponentModel;
 using Android.OS;
 using Android.Widget;
 using AndroidX.Core.View;
@@ -6,7 +6,7 @@ using AndroidX.Core.View.Accessibility;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Effects.Semantic;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 [assembly: ExportEffect(typeof(Effects.SemanticEffectRouter), nameof(SemanticEffectRouter))]

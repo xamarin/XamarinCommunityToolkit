@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Xamarin.Forms.Platform.WPF;
+using Microsoft.Maui.Controls.Compatibility.Platform.WPF;
 using FormsImageSource = Xamarin.Forms.ImageSource;
 using SystemImageSource = System.Windows.Media.ImageSource;
 

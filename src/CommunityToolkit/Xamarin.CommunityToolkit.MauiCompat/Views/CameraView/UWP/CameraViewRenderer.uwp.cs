@@ -18,7 +18,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
 

@@ -1,14 +1,14 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using Android.Graphics;
 using Android.Widget;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
-[assembly: Xamarin.Forms.ExportEffect(typeof(Effects.IconTintColorEffectRouter), nameof(IconTintColorEffectRouter))]
+[assembly: Microsoft.Maui.Controls.ExportEffect(typeof(Effects.IconTintColorEffectRouter), nameof(IconTintColorEffectRouter))]
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
@@ -72,19 +72,19 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		void SetImageViewTintColor(ImageView image, Forms.Color color)
+		void SetImageViewTintColor(ImageView image, Color color)
 		{
-			if (color == Forms.Color.Default)
+			if (color == Color.Default)
 				image.ClearColorFilter();
 
 			image.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn ?? throw new NullReferenceException()));
 		}
 
-		void SetButtonTintColor(Button button, Forms.Color color)
+		void SetButtonTintColor(Button button, Color color)
 		{
 			var drawables = button.GetCompoundDrawables().Where(d => d != null);
 
-			if (color == Forms.Color.Default)
+			if (color == Color.Default)
 			{
 				foreach (var img in drawables)
 					img.ClearColorFilter();

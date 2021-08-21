@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using UIKit;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	/// Base implementation of the <see cref="SemanticEffectRouter" />
 	/// </summary>
 	/// <typeparam name="T">Effect</typeparam>
-	public class SemanticEffectRouterBase<T> : Xamarin.Forms.Platform.iOS.PlatformEffect
+	public class SemanticEffectRouterBase<T> : Microsoft.Maui.Controls.Compatibility.Platform.iOS.PlatformEffect
 		where T : Effect
 	{
 		public SemanticEffectRouterBase()

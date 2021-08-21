@@ -4,13 +4,13 @@ using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 #if __IOS__
 using UIKit;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 #elif __MACOS__
 using AppKit;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 #endif
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							});
 
 #if __IOS__
-			if (arguments.BackgroundColor != Color.Default)
+			if (arguments.BackgroundColor != default(Color))
 			{
 				snackBar.Appearance.Background = arguments.BackgroundColor.ToUIColor();
 			}
@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				snackBar.Appearance.Font = arguments.MessageOptions.Font.ToUIFont();
 			}
 
-			if (arguments.MessageOptions.Foreground != Color.Default)
+			if (arguments.MessageOptions.Foreground != default(Color))
 			{
 				snackBar.Appearance.Foreground = arguments.MessageOptions.Foreground.ToUIColor();
 			}
@@ -64,7 +64,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			snackBar.Appearance.TextAlignment = arguments.IsRtl ? UITextAlignment.Right : UITextAlignment.Left;
 #elif __MACOS__
-			if (arguments.BackgroundColor != Color.Default)
+			if (arguments.BackgroundColor != default(Color))
 			{
 				snackBar.Appearance.Background = arguments.BackgroundColor.ToNSColor();
 			}
@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				snackBar.Appearance.Font = arguments.MessageOptions.Font.ToNSFont();
 			}
 
-			if (arguments.MessageOptions.Foreground != Color.Default)
+			if (arguments.MessageOptions.Foreground != default(Color))
 			{
 				snackBar.Appearance.Foreground = arguments.MessageOptions.Foreground.ToNSColor();
 			}
@@ -95,7 +95,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					action.Padding.Bottom);
 				actionButton.SetActionButtonText(action.Text);
 #if __IOS__
-				if (action.BackgroundColor != Color.Default)
+				if (action.BackgroundColor != default(Color))
 				{
 					actionButton.BackgroundColor = action.BackgroundColor.ToUIColor();
 				}
@@ -105,12 +105,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					actionButton.Font = action.Font.ToUIFont();
 				}
 
-				if (action.ForegroundColor != Color.Default)
+				if (action.ForegroundColor != default(Color))
 				{
 					actionButton.SetTitleColor(action.ForegroundColor.ToUIColor(), UIControlState.Normal);
 				}
 #elif __MACOS__
-				if (action.BackgroundColor != Color.Default && actionButton.Layer != null)
+				if (action.BackgroundColor != default(Color) && actionButton.Layer != null)
 				{
 					actionButton.Layer.BackgroundColor = action.BackgroundColor.ToCGColor();
 				}

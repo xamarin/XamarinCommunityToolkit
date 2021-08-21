@@ -1,7 +1,7 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 
-#if __ANDROID_29__
+#if ANDROID
 using AndroidX.Fragment.App;
 #else
 using Android.Support.V4.App;
@@ -12,9 +12,9 @@ using Android.Views;
 using Android.Widget;
 using AView = Android.Views.View;
 
-using Xamarin.Forms.Platform.Android.FastRenderers;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Xamarin.CommunityToolkit.UI.Views;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			visualElementRenderer = new VisualElementRenderer(this);
 		}
 
-		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -230,7 +230,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		#region IVisualElementRenderer
 		VisualElement? IVisualElementRenderer.Element => Element;
 
-		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
 		VisualElementTracker? IVisualElementRenderer.Tracker => visualElementTracker;
 

@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {

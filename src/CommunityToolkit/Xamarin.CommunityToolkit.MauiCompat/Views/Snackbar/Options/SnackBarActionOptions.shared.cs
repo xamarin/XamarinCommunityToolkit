@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Options
 {
@@ -32,14 +32,14 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
 
-		public static Color DefaultBackgroundColor { get; set; } = Color.Default;
+		public static Color DefaultBackgroundColor { get; set; } = default(Color);
 
 		/// <summary>
 		/// Gets or sets the font color for the SnackBar action button.
 		/// </summary>
 		public Color ForegroundColor { get; set; } = DefaultForegroundColor;
 
-		public static Color DefaultForegroundColor { get; set; } = Color.Default;
+		public static Color DefaultForegroundColor { get; set; } = default(Color);
 
 		/// <summary>
 		/// Gets or sets the padding for the SnackBar message.

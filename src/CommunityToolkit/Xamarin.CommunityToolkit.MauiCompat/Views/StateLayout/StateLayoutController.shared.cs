@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -88,26 +88,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					for (var i = 0; i < repeatCount; i++)
 						items.Add(i);
 
-					// We create a StackLayout to stack repeating items.
+					// We create a 	Microsoft.Maui.Controls.StackLayout to stack repeating items.
 					// It takes VerticalOptions and HorizontalOptions from the
 					// StateView to allow for more control over how it layouts.
-					var s = new StackLayout
+					var s = new 	Microsoft.Maui.Controls.StackLayout
 					{
 						Opacity = animate ? 0 : 1,
 						VerticalOptions = view.VerticalOptions,
 						HorizontalOptions = view.HorizontalOptions
 					};
 
-					// If the layout we're applying StateLayout to is a Grid,
-					// we want to have the StateLayout span the entire Grid surface.
+					// If the layout we're applying StateLayout to is a Microsoft.Maui.Controls.Grid,
+					// we want to have the StateLayout span the entire Microsoft.Maui.Controls.Grid surface.
 					// Otherwise it would just end up in row 0 : column 0.
-					if (layout is Grid grid)
+					if (layout is Microsoft.Maui.Controls.Grid grid)
 					{
 						if (grid.RowDefinitions.Any())
-							Grid.SetRowSpan(s, grid.RowDefinitions.Count);
+							Microsoft.Maui.Controls.Grid.SetRowSpan(s, grid.RowDefinitions.Count);
 
 						if (grid.ColumnDefinitions.Any())
-							Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
+							Microsoft.Maui.Controls.Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
 					}
 
 					BindableLayout.SetItemTemplate(s, template);
@@ -121,26 +121,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						throw new ArgumentException("Please use a Template instead of directly defining content when using a RepeatCount > 1.");
 
 					// No template, so we use the children of the StateView.
-					// We create a StackLayout to stack repeating items.
+					// We create a 	Microsoft.Maui.Controls.StackLayout to stack repeating items.
 					// It takes VerticalOptions and HorizontalOptions from the
 					// StateView to allow for more control over how it layouts.
-					var s = new StackLayout
+					var s = new 	Microsoft.Maui.Controls.StackLayout
 					{
 						Opacity = animate ? 0 : 1,
 						VerticalOptions = view.VerticalOptions,
 						HorizontalOptions = view.HorizontalOptions
 					};
 
-					// If the layout we're applying StateLayout to is a Grid,
-					// we want to have the StateLayout span the entire Grid surface.
+					// If the layout we're applying StateLayout to is a Microsoft.Maui.Controls.Grid,
+					// we want to have the StateLayout span the entire Microsoft.Maui.Controls.Grid surface.
 					// Otherwise it would just end up in row 0 : column 0.
-					if (layout is Grid grid)
+					if (layout is Microsoft.Maui.Controls.Grid grid)
 					{
 						if (grid.RowDefinitions.Any())
-							Grid.SetRowSpan(s, grid.RowDefinitions.Count);
+							Microsoft.Maui.Controls.Grid.SetRowSpan(s, grid.RowDefinitions.Count);
 
 						if (grid.ColumnDefinitions.Any())
-							Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
+							Microsoft.Maui.Controls.Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
 
 						layout.Children.Add(s);
 						layoutIsGrid = true;

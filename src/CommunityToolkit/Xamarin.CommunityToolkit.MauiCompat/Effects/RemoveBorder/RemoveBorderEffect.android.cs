@@ -1,9 +1,9 @@
-﻿using Android.Graphics;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Graphics.Drawables.Shapes;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 [assembly: ExportEffect(typeof(Effects.RemoveBorderEffect), nameof(RemoveBorderEffect))]

@@ -4,9 +4,9 @@ using ElmSharp;
 using SkiaSharp;
 using SkiaSharp.Views.Tizen;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Tizen;
-using Point = Xamarin.Forms.Point;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Tizen;
+using Point = Microsoft.Maui.Graphics.Point;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
 

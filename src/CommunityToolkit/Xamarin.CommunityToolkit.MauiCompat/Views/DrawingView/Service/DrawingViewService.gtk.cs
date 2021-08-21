@@ -5,10 +5,10 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using Xamarin.Forms.Platform.GTK.Extensions;
-using Color = Xamarin.Forms.Color;
-using Point = Xamarin.Forms.Point;
-using Size = Xamarin.Forms.Size;
+using Microsoft.Maui.Controls.Compatibility.Platform.GTK.Extensions;
+using Color = Xamarin.Color;
+using Point = Microsoft.Maui.Graphics.Point;
+using Size = Microsoft.Maui.Graphics.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

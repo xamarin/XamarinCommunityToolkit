@@ -5,10 +5,10 @@ using Cairo;
 using Gdk;
 using Gtk;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.GTK;
-using Xamarin.Forms.Platform.GTK.Extensions;
-using Point = Xamarin.Forms.Point;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.GTK;
+using Microsoft.Maui.Controls.Compatibility.Platform.GTK.Extensions;
+using Point = Microsoft.Maui.Graphics.Point;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
 

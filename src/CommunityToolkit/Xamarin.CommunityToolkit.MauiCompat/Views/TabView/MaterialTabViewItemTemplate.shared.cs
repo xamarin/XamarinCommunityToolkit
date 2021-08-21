@@ -1,13 +1,13 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
-	class MaterialTabViewItemTemplate : Grid
+	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
+	class MaterialTabViewItemTemplate : Microsoft.Maui.Controls.Grid
 	{
 		readonly VisualFeedbackEffect visualFeedback;
 
@@ -25,8 +25,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			HorizontalOptions = LayoutOptions.FillAndExpand;
 			VerticalOptions = LayoutOptions.FillAndExpand;
 
-			RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-			RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.GridLength.Star });
+			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.GridLength.Auto });
 
 			icon = new Image
 			{
@@ -79,7 +79,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			badge.SetBinding(TabBadgeView.TextProperty, "BadgeText");
 			badge.SetBinding(TabBadgeView.TextColorProperty, "BadgeTextColor");
 
-			VisualFeedbackEffect.SetFeedbackColor(this, Color.White);
+			VisualFeedbackEffect.SetFeedbackColor(this, Colors.White);
 		}
 
 		protected override void OnSizeAllocated(double width, double height)

@@ -1,4 +1,4 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using Android.Content;
@@ -12,11 +12,11 @@ using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using AView = Android.Views.View;
 using Color = Android.Graphics.Color;
-using XView = Xamarin.Forms.View;
+using XView = Microsoft.Maui.Controls.View;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 
@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		static readonly Forms.Color defaultNativeAnimationColor = Forms.Color.FromRgba(128, 128, 128, 64);
+		static readonly Color defaultNativeAnimationColor = Color.FromRgba(128, 128, 128, 64);
 
 		AccessibilityManager? accessibilityManager;
 		AccessibilityListener? accessibilityListener;
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		AView? rippleView;
 		float startX;
 		float startY;
-		Forms.Color rippleColor;
+		Color rippleColor;
 		int rippleRadius = -1;
 
 		AView View => Control ?? Container;
@@ -389,7 +389,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			_ = effect?.NativeAnimationColor ?? throw new NullReferenceException();
 
 			var nativeAnimationColor = effect.NativeAnimationColor;
-			if (nativeAnimationColor == Forms.Color.Default)
+			if (nativeAnimationColor == Color.Default)
 				nativeAnimationColor = defaultNativeAnimationColor;
 
 			return new ColorStateList(

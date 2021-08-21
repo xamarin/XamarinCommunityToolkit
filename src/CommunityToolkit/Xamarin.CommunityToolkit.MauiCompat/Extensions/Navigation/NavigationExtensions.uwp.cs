@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			popup.Parent = GetCurrentPage(Application.Current.MainPage);
 			Platform.CreateRenderer(popup);
 
-			// https://github.com/xamarin/Xamarin.Forms/blob/0c95d0976cc089fe72476fb037851a64987de83c/Xamarin.Forms.Platform.iOS/PageExtensions.cs#L44
+			// https://github.com/xamarin/Xamarin.Forms/blob/0c95d0976cc089fe72476fb037851a64987de83c/Microsoft.Maui.Controls.Compatibility.Platform.iOS/PageExtensions.cs#L44
 			Page GetCurrentPage(Page currentPage)
 			{
 				if (currentPage.NavigationProxy.ModalStack.LastOrDefault() is Page modal)

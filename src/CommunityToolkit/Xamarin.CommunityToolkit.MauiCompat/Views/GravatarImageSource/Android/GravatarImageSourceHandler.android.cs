@@ -1,10 +1,10 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Graphics;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using Application = Android.App.Application;
 
 namespace Xamarin.CommunityToolkit.UI.Views

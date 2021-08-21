@@ -1,5 +1,5 @@
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	{
 		public override string ConvertFrom(Color value) => value.ToHexRgbString();
 
-		public override Color ConvertBackTo(string value) => Color.FromHex(value);
+		public override Color ConvertBackTo(string value) => Colors.FromHex(value);
 	}
 
 	/// <summary>
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	{
 		public override string ConvertFrom(Color value) => value.ToHexRgbaString();
 
-		public override Color ConvertBackTo(string value) => Color.FromHex(value);
+		public override Color ConvertBackTo(string value) => Colors.FromHex(value);
 	}
 
 	/// <summary>

@@ -2,15 +2,15 @@
 using System.ComponentModel;
 using CoreGraphics;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 #if __IOS__
 using NativeView = UIKit.UIView;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Xamarin.CommunityToolkit.iOS.Effects;
 #elif __MACOS__
 using NativeView = AppKit.NSView;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 using Xamarin.CommunityToolkit.macOS.Effects;
 #endif
 

@@ -7,8 +7,8 @@ using Windows.UI.Core;
 using Windows.UI.Input.Inking;
 using Windows.UI.Xaml.Controls;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Size = Windows.Foundation.Size;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.Lines.Add(new Line()
 					{
 						Points = new ObservableCollection<Point>(points),
-						LineColor = Color.FromRgba(line.DrawingAttributes.Color.R, line.DrawingAttributes.Color.G,
+						LineColor = Colors.FromRgba(line.DrawingAttributes.Color.R, line.DrawingAttributes.Color.G,
 							line.DrawingAttributes.Color.B, line.DrawingAttributes.Color.A),
 						LineWidth = (float) line.DrawingAttributes.Size.Width
 					});

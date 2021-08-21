@@ -1,12 +1,12 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
+	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
 	[ContentProperty(nameof(Content))]
 	public class TabViewItem : TemplatedView
 	{
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty TextColorProperty =
-			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(TabViewItem), Color.Default,
+			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(TabViewItem), default(Color),
 				propertyChanged: OnTabViewItemPropertyChanged);
 
 		public Color TextColor
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty TextColorSelectedProperty =
-			BindableProperty.Create(nameof(TextColorSelected), typeof(Color), typeof(TabViewItem), Color.Default);
+			BindableProperty.Create(nameof(TextColorSelected), typeof(Color), typeof(TabViewItem), default(Color));
 
 		public Color TextColorSelected
 		{
@@ -178,7 +178,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty BadgeTextColorProperty =
-			BindableProperty.Create(nameof(BadgeTextColor), typeof(Color), typeof(TabViewItem), Color.Default);
+			BindableProperty.Create(nameof(BadgeTextColor), typeof(Color), typeof(TabViewItem), default(Color));
 
 		public Color BadgeTextColor
 		{
@@ -187,7 +187,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty BadgeBackgroundColorProperty =
-			BindableProperty.Create(nameof(BadgeBackgroundColor), typeof(Color), typeof(TabViewItem), Color.Default,
+			BindableProperty.Create(nameof(BadgeBackgroundColor), typeof(Color), typeof(TabViewItem), default(Color),
 				propertyChanged: OnTabViewItemPropertyChanged);
 
 		public Color BadgeBackgroundColor
@@ -197,7 +197,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty BadgeBackgroundColorSelectedProperty =
-			BindableProperty.Create(nameof(BadgeBackgroundColorSelected), typeof(Color), typeof(TabViewItem), Color.Default,
+			BindableProperty.Create(nameof(BadgeBackgroundColorSelected), typeof(Color), typeof(TabViewItem), default(Color),
 				propertyChanged: OnTabViewItemPropertyChanged);
 
 		public Color BadgeBackgroundColorSelected
@@ -207,7 +207,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty BadgeBorderColorProperty =
-		   BindableProperty.Create(nameof(BadgeBorderColor), typeof(Color), typeof(TabViewItem), Color.Default,
+		   BindableProperty.Create(nameof(BadgeBorderColor), typeof(Color), typeof(TabViewItem), default(Color),
 			   propertyChanged: OnTabViewItemPropertyChanged);
 
 		public Color BadgeBorderColor
@@ -217,7 +217,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static readonly BindableProperty BadgeBorderColorSelectedProperty =
-			BindableProperty.Create(nameof(BadgeBorderColorSelected), typeof(Color), typeof(TabViewItem), Color.Default,
+			BindableProperty.Create(nameof(BadgeBorderColorSelected), typeof(Color), typeof(TabViewItem), default(Color),
 				propertyChanged: OnTabViewItemPropertyChanged);
 
 		public Color BadgeBorderColorSelected
@@ -237,7 +237,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnTabViewItemPropertyChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as TabViewItem)?.UpdateCurrent();
 
-		internal static readonly BindablePropertyKey CurrentTextColorPropertyKey = BindableProperty.CreateReadOnly(nameof(CurrentTextColor), typeof(Color), typeof(TabViewItem), Color.Default);
+		internal static readonly BindablePropertyKey CurrentTextColorPropertyKey = BindableProperty.CreateReadOnly(nameof(CurrentTextColor), typeof(Color), typeof(TabViewItem), default(Color));
 
 		public static readonly BindableProperty CurrentTextColorProperty = CurrentTextColorPropertyKey.BindableProperty;
 
@@ -287,7 +287,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			private set => SetValue(CurrentFontAttributesPropertyKey, value);
 		}
 
-		internal static readonly BindablePropertyKey CurrentBadgeBackgroundColorPropertyKey = BindableProperty.CreateReadOnly(nameof(CurrentBadgeBackgroundColor), typeof(Color), typeof(TabViewItem), Color.Default);
+		internal static readonly BindablePropertyKey CurrentBadgeBackgroundColorPropertyKey = BindableProperty.CreateReadOnly(nameof(CurrentBadgeBackgroundColor), typeof(Color), typeof(TabViewItem), default(Color));
 
 		public static readonly BindableProperty CurrentBadgeBackgroundColorProperty = CurrentBadgeBackgroundColorPropertyKey.BindableProperty;
 
@@ -297,7 +297,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			private set => SetValue(CurrentBadgeBackgroundColorPropertyKey, value);
 		}
 
-		internal static readonly BindablePropertyKey CurrentBadgeBorderColorPropertyKey = BindableProperty.CreateReadOnly(nameof(CurrentBadgeBorderColor), typeof(Color), typeof(TabViewItem), Color.Default);
+		internal static readonly BindablePropertyKey CurrentBadgeBorderColorPropertyKey = BindableProperty.CreateReadOnly(nameof(CurrentBadgeBorderColor), typeof(Color), typeof(TabViewItem), default(Color));
 
 		public static readonly BindableProperty CurrentBadgeBorderColorProperty = CurrentBadgeBorderColorPropertyKey.BindableProperty;
 
@@ -352,13 +352,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateCurrent()
 		{
-			CurrentTextColor = !IsSelected || TextColorSelected == Color.Default ? TextColor : TextColorSelected;
+			CurrentTextColor = !IsSelected || TextColorSelected == default(Color) ? TextColor : TextColorSelected;
 			CurrentFontSize = !IsSelected || FontSizeSelected == FontSize ? FontSize : FontSizeSelected;
 			CurrentIcon = !IsSelected || IconSelected == null ? Icon : IconSelected;
 			CurrentFontFamily = !IsSelected || string.IsNullOrEmpty(FontFamilySelected) ? FontFamily : FontFamilySelected;
 			CurrentFontAttributes = !IsSelected || FontAttributesSelected == FontAttributes.None ? FontAttributes : FontAttributesSelected;
-			CurrentBadgeBackgroundColor = !IsSelected || BadgeBackgroundColorSelected == Color.Default ? BadgeBackgroundColor : BadgeBackgroundColorSelected;
-			CurrentBadgeBorderColor = !IsSelected || BadgeBorderColorSelected == Color.Default ? BadgeBorderColor : BadgeBorderColorSelected;
+			CurrentBadgeBackgroundColor = !IsSelected || BadgeBackgroundColorSelected == default(Color) ? BadgeBackgroundColor : BadgeBackgroundColorSelected;
+			CurrentBadgeBorderColor = !IsSelected || BadgeBorderColorSelected == default(Color) ? BadgeBorderColor : BadgeBorderColorSelected;
 
 			UpdateCurrentContent();
 			ApplyIsSelectedState();

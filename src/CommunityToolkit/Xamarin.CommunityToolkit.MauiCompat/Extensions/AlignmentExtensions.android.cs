@@ -1,4 +1,4 @@
-﻿using Android.Views;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using Android.Views;
 using TextAlignment = Xamarin.Forms.TextAlignment;
 using ATextAlignment = Android.Views.TextAlignment;
 

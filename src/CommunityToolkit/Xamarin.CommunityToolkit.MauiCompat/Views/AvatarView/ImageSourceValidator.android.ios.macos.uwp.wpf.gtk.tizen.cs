@@ -1,31 +1,31 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Xamarin.CommunityToolkit.Helpers;
 
-#if MONOANDROID
-using Xamarin.Forms.Platform.Android;
-using UriImageSourceHandler = Xamarin.Forms.Platform.Android.ImageLoaderSourceHandler;
-using StreamImageSourceHandler = Xamarin.Forms.Platform.Android.StreamImagesourceHandler;
+#if ANDROID
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
+using UriImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.Android.ImageLoaderSourceHandler;
+using StreamImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.Android.StreamImagesourceHandler;
 #elif __IOS__
-using Xamarin.Forms.Platform.iOS;
-using UriImageSourceHandler = Xamarin.Forms.Platform.iOS.ImageLoaderSourceHandler;
-using StreamImageSourceHandler = Xamarin.Forms.Platform.iOS.StreamImagesourceHandler;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using UriImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.iOS.ImageLoaderSourceHandler;
+using StreamImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.iOS.StreamImagesourceHandler;
 #elif __MACOS__
-using Xamarin.Forms.Platform.MacOS;
-using UriImageSourceHandler = Xamarin.Forms.Platform.MacOS.ImageLoaderSourceHandler;
-using StreamImageSourceHandler = Xamarin.Forms.Platform.MacOS.StreamImagesourceHandler;
+using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
+using UriImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.MacOS.ImageLoaderSourceHandler;
+using StreamImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.MacOS.StreamImagesourceHandler;
 #elif UAP10_0
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 #elif NET471
-using Xamarin.Forms.Platform.GTK.Renderers;
-using StreamImageSourceHandler = Xamarin.Forms.Platform.GTK.Renderers.StreamImagesourceHandler;
+using Microsoft.Maui.Controls.Compatibility.Platform.GTK.Renderers;
+using StreamImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.GTK.Renderers.StreamImagesourceHandler;
 #elif TIZEN
-using Xamarin.Forms.Platform.Tizen;
-using NImage = Xamarin.Forms.Platform.Tizen.Native.Image;
+using Microsoft.Maui.Controls.Compatibility.Platform.Tizen;
+using NImage = Microsoft.Maui.Controls.Compatibility.Platform.Tizen.Native.Image;
 using XForms = Xamarin.Forms.Forms;
 #else
-using Xamarin.Forms.Platform.WPF;
+using Microsoft.Maui.Controls.Compatibility.Platform.WPF;
 #endif
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 #if TIZEN
 			return await handler.LoadImageAsync(new NImage(XForms.NativeParent), source).ConfigureAwait(false);
-#elif MONOANDROID
+#elif ANDROID
 			var imageSource = await handler.LoadImageAsync(source, XCT.Context).ConfigureAwait(false);
 			return imageSource != null;
 #else
@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (source is FileImageSource fileSource)
 			{
-#if !MONOANDROID
+#if ANDROID
 				if (!File.Exists(fileSource.File))
 					return null;
 #endif

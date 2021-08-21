@@ -2,8 +2,8 @@
 using ObjCRuntime;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 [assembly: ExportEffect(typeof(Effects.SelectAllTextEffect), nameof(SelectAllTextEffect))]

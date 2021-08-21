@@ -5,9 +5,9 @@ using UIKit;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Specifics = Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific.PopUp;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]
@@ -28,11 +28,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public UIViewController? ViewController { get; private set; }
 
-		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
+		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
-		[Preserve(Conditional = true)]
+		[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 		public PopupRenderer()
 		{
 		}

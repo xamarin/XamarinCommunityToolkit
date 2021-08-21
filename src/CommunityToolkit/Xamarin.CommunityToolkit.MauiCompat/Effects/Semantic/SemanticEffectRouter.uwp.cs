@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Automation.Peers;
 using Xamarin.CommunityToolkit.Effects;
 using Effects = Xamarin.CommunityToolkit.UWP.Effects;
 
-[assembly: Xamarin.Forms.ExportEffect(typeof(Effects.SemanticEffectRouter), nameof(SemanticEffectRouter))]
+[assembly: Microsoft.Maui.Controls.ExportEffect(typeof(Effects.SemanticEffectRouter), nameof(SemanticEffectRouter))]
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {

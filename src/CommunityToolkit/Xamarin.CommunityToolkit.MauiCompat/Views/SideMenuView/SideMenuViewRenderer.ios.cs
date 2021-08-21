@@ -2,15 +2,15 @@
 using UIKit;
 using Xamarin.CommunityToolkit.iOS.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using static System.Math;
 
 [assembly: ExportRenderer(typeof(SideMenuView), typeof(SideMenuViewRenderer))]
 
 namespace Xamarin.CommunityToolkit.iOS.UI.Views
 {
-	[Preserve(Conditional = true)]
+	[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 	public class SideMenuViewRenderer : VisualElementRenderer<SideMenuView>
 	{
 		const double defaultGestureThreshold = 7.0;

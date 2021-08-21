@@ -1,4 +1,4 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Android.Content;
@@ -13,18 +13,18 @@ using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms.Platform.Android.FastRenderers;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers;
 using static Android.Widget.TextView;
 using Animation = Android.Views.Animations.Animation;
 using ATextSwitcher = Android.Widget.TextSwitcher;
 using AView = Android.Views.View;
 using AViewSwitcher = Android.Widget.ViewSwitcher;
-using Color = Xamarin.Forms.Color;
+using Color = Xamarin.Color;
 using Res = Android.Resource;
-using Size = Xamarin.Forms.Size;
+using Size = Microsoft.Maui.Graphics.Size;
 
 // Copied from Xamarin.Forms (LabelRenderer - Fast Renderer)
 [assembly: ExportRenderer(typeof(TextSwitcher), typeof(TextSwitcherRenderer))]
@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SizeRequest? lastSizeRequest;
 		float lastTextSize = -1f;
 		Typeface? lastTypeface;
-		Color lastUpdateColor = Color.Default;
+		Color lastUpdateColor = default(Color);
 		float lineSpacingExtraDefault = -1.0f;
 		float lineSpacingMultiplierDefault = -1.0f;
 		VisualElementTracker? visualElementTracker;
@@ -92,7 +92,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		AView ITabStop.TabStop => this;
 
-		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
 		protected TextSwitcher? Element
 		{
@@ -477,7 +476,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (wasFormatted)
 				{
 					children.ForEach(c => c.SetTextColor(labelTextColorDefault));
-					lastUpdateColor = Color.Default;
+					lastUpdateColor = default(Color);
 				}
 
 				switch (Element.TextType)

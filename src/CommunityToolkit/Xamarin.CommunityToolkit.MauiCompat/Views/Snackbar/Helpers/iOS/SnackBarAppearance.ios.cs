@@ -1,6 +1,6 @@
 ﻿using UIKit;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public UITextAlignment TextAlignment { get; set; } = UITextAlignment.Left;
 
-		public static UIColor DefaultColor { get; } = XCT.IsiOS13OrNewer ? Forms.Color.Default.ToUIColor() : UIColor.White;
+		public static UIColor DefaultColor { get; } = XCT.IsiOS13OrNewer ? Color.Default.ToUIColor() : UIColor.White;
 
 		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
 	}
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 	{
 		public static UILineBreakMode LineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
 
-		public static UIColor DefaultColor { get; } = Forms.Color.Default.ToUIColor();
+		public static UIColor DefaultColor { get; } = Color.Default.ToUIColor();
 
 		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
 	}

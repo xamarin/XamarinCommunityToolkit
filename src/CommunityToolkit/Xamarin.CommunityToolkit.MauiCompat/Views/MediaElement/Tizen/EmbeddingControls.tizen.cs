@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using ShapesPath = Xamarin.Forms.Shapes.Path;
 using ShapesPathGeometry = Xamarin.Forms.Shapes.PathGeometry;
 using XLabel = Xamarin.Forms.Label;
@@ -12,9 +12,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class EmbeddingControls : ContentView
 	{
-		public Grid PlayIcon { get; private set; }
+		public Microsoft.Maui.Controls.Grid PlayIcon { get; private set; }
 
-		public Grid PauseIcon { get; private set; }
+		public Microsoft.Maui.Controls.Grid PauseIcon { get; private set; }
 
 		public EmbeddingControls()
 		{
@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			});
 
-			PlayIcon = new Grid
+			PlayIcon = new Microsoft.Maui.Controls.Grid
 			{
 				Children =
 				{
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			AbsoluteLayout.SetLayoutFlags(PlayIcon, AbsoluteLayoutFlags.All);
 			AbsoluteLayout.SetLayoutBounds(PlayIcon, new Rectangle(0.5, 0.5, 0.25, 0.25));
 
-			PauseIcon = new Grid
+			PauseIcon = new Microsoft.Maui.Controls.Grid
 			{
 				HorizontalOptions = LayoutOptions.Center,
 				Children =
@@ -93,7 +93,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label), false),
 				HorizontalTextAlignment = XTextAlignment.Center,
-				TextColor = Color.FromHex("#eeeeeeee")
+				TextColor = Colors.FromHex("#eeeeeeee")
 			};
 			bufferingLabel.SetBinding(XLabel.TextProperty, new Binding
 			{
@@ -109,7 +109,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var progressBoxView = new BoxView
 			{
-				Color = Color.FromHex($"#4286f4")
+				Color = Colors.FromHex($"#4286f4")
 			};
 			progressBoxView.SetBinding(AbsoluteLayout.LayoutBoundsProperty, new Binding
 			{
@@ -150,7 +150,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				HeightRequest = 23,
-				BackgroundColor = Color.FromHex("#80000000"),
+				BackgroundColor = Colors.FromHex("#80000000"),
 				Children =
 				{
 					progressBoxView,
@@ -159,17 +159,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			};
 
-			var progressLayout = new StackLayout
+			var progressLayout = new 	Microsoft.Maui.Controls.StackLayout
 			{
 				Children =
 				{
-					new StackLayout { VerticalOptions = LayoutOptions.FillAndExpand },
-					new StackLayout
+					new 	Microsoft.Maui.Controls.StackLayout { VerticalOptions = LayoutOptions.FillAndExpand },
+					new 	Microsoft.Maui.Controls.StackLayout
 					{
 						Margin = Device.Idiom == TargetIdiom.Watch ? new Thickness(80, 0, 80, 0) : 20,
 						VerticalOptions = LayoutOptions.End,
 						HorizontalOptions = LayoutOptions.FillAndExpand,
-						BackgroundColor = Color.FromHex("#50000000"),
+						BackgroundColor = Colors.FromHex("#50000000"),
 						Children = { progressInnerLayout }
 					}
 				}

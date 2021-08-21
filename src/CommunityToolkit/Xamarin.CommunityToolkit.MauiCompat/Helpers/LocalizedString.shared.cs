@@ -1,6 +1,6 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
@@ -23,10 +23,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 			localizationManager.PropertyChanged += (sender, e) => OnPropertyChanged(null);
 		}
 
-		[Preserve(Conditional = true)]
+		[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 		public string Localized => generator();
 
-		[Preserve(Conditional = true)]
+		[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 		public static implicit operator LocalizedString(Func<string> func) => new LocalizedString(func);
 	}
 #endif

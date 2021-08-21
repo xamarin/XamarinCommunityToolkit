@@ -1,5 +1,5 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+﻿using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using CoreAnimation;
 using Xamarin.CommunityToolkit.UI.Views;
 

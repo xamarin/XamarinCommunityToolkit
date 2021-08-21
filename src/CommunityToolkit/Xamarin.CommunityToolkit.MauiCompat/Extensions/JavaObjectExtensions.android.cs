@@ -1,4 +1,4 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {

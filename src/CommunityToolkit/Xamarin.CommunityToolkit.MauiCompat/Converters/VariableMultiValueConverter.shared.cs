@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Linq;
 using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.Converters
 {

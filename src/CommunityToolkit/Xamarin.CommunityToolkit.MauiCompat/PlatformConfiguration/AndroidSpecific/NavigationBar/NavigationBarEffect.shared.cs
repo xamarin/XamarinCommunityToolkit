@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using FormsElement = Xamarin.Forms.Page;
-using XFP = Xamarin.Forms.PlatformConfiguration;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
+using FormsElement = Microsoft.Maui.Controls.Page;
+using XFP = Microsoft.Maui.Controls.Compatibility.PlatformConfiguration;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {
-	[Preserve(Conditional = true)]
+	[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 	public static class NavigationBarEffect
 	{
 		static NavigationBarEffect()
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 		}
 
 		public static readonly BindableProperty ColorProperty = BindableProperty.CreateAttached(
-			"Color", typeof(Color), typeof(NavigationBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
+			"Color", typeof(Color), typeof(NavigationBarEffect), default(Color), propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty StyleProperty = BindableProperty.CreateAttached(
 			"Style", typeof(NavigationBarStyle), typeof(NavigationBarEffect), NavigationBarStyle.Default, propertyChanged: TryGenerateEffect);

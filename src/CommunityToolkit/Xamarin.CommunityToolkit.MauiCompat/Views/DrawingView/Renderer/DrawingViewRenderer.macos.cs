@@ -5,8 +5,8 @@ using AppKit;
 using CoreGraphics;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views.macOS;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
 

@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -44,12 +44,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="BorderColor"/> property.
 		/// </summary>
-		public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
+		public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(AvatarView), default(Color), propertyChanged: OnValuePropertyChanged);
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="Color"/> property.
 		/// </summary>
-		public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
+		public static readonly BindableProperty ColorProperty = BindableProperty.Create(nameof(Color), typeof(Color), typeof(AvatarView), default(Color), propertyChanged: OnValuePropertyChanged);
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="Source"/> property.
@@ -64,7 +64,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="TextColor"/> property.
 		/// </summary>
-		public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(AvatarView), Color.Default, propertyChanged: OnValuePropertyChanged);
+		public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(AvatarView), default(Color), propertyChanged: OnValuePropertyChanged);
 
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="FontFamily"/> property.
@@ -114,7 +114,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		/// <summary>
-		/// Gets or sets the border <see cref="Forms.Color"/> of the image for the <see cref="AvatarView"/>. This is a bindable property.
+		/// Gets or sets the border <see cref="Color"/> of the image for the <see cref="AvatarView"/>. This is a bindable property.
 		/// </summary>
 		public Color BorderColor
 		{
@@ -123,7 +123,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		/// <summary>
-		/// Gets or sets the background <see cref="Forms.Color"/> of the  for the <see cref="AvatarView"/>. This only applies when <see cref="Source"/> is not set or doesn't result in a showing image. This is a bindable property.
+		/// Gets or sets the background <see cref="Color"/> of the  for the <see cref="AvatarView"/>. This only applies when <see cref="Source"/> is not set or doesn't result in a showing image. This is a bindable property.
 		/// </summary>
 		public Color Color
 		{
@@ -150,7 +150,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		/// <summary>
-		/// Gets or sets the <see cref="Forms.Color"/> of the <see cref="Text"/> for the <see cref="AvatarView"/>. This is a bindable property.
+		/// Gets or sets the <see cref="Color"/> of the <see cref="Text"/> for the <see cref="AvatarView"/>. This is a bindable property.
 		/// </summary>
 		public Color TextColor
 		{
@@ -298,7 +298,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var colorTheme = ColorTheme ?? Views.ColorTheme.Default;
 			var textColor = TextColor;
-			Label.TextColor = textColor == Color.Default
+			Label.TextColor = textColor == default(Color)
 				? colorTheme.GetForegroundColor(text)
 				: textColor;
 
@@ -311,7 +311,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Label.BatchCommit();
 
 			var color = Color;
-			MainLayout.BackgroundColor = color == Color.Default
+			MainLayout.BackgroundColor = color == default(Color)
 				? colorTheme.GetBackgroundColor(text)
 				: color;
 

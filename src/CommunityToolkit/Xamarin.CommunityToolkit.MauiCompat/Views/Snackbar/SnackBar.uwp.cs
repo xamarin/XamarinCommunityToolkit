@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Options;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -40,8 +40,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(visualElement).ContainerElement.Parent;
 
-			var grid = (Grid)(FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea")?.Parent ?? throw new NotSupportedException("Unable to find Snackbar/Toast container. Make sure your page is in NavigationPage. AnchorView is not supported in UWP."));
-			var snackBarRow = new RowDefinition() { Height = GridLength.Auto };
+			var grid = (Microsoft.Maui.Controls.Grid)(FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea")?.Parent ?? throw new NotSupportedException("Unable to find Snackbar/Toast container. Make sure your page is in NavigationPage. AnchorView is not supported in UWP."));
+			var snackBarRow = new RowDefinition() { Height = Microsoft.Maui.Controls.GridLength.Auto };
 			snackBarTimer = new DispatcherTimer { Interval = arguments.Duration };
 			snackBarTimer.Tick += (sender, e) =>
 			{
@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBarTimer.Start();
 			grid.RowDefinitions.Add(snackBarRow);
 			grid.Children.Add(snackBarLayout);
-			Grid.SetRow(snackBarLayout, grid.RowDefinitions.Count - 1);
+			Microsoft.Maui.Controls.Grid.SetRow(snackBarLayout, grid.RowDefinitions.Count - 1);
 			return default;
 		}
 	}

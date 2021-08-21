@@ -1,12 +1,12 @@
-﻿using System.ComponentModel;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.ComponentModel;
 using System.Linq;
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
-using Point = Xamarin.Forms.Point;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
+using Point = Microsoft.Maui.Graphics.Point;
 using View = Android.Views.View;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]

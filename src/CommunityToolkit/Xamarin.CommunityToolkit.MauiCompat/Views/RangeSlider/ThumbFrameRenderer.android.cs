@@ -1,8 +1,8 @@
-﻿using Android.Content;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using Android.Content;
 using Android.Views;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android.FastRenderers;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers;
 
 [assembly: ExportRenderer(typeof(ThumbFrame), typeof(ThumbFrameRenderer))]
 

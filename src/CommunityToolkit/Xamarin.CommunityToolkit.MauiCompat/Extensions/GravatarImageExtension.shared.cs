@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Xaml;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {

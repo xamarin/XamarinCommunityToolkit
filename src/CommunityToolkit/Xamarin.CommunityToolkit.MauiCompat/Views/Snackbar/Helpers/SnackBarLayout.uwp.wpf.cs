@@ -2,7 +2,7 @@
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using System.Linq;
 #if UAP10_0
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Controls;
@@ -10,18 +10,18 @@ using Windows.UI.Xaml.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Xamarin.Forms.Platform.WPF;
+using Microsoft.Maui.Controls.Compatibility.Platform.WPF;
 #endif
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 {
-	class SnackBarLayout : Grid
+	class SnackBarLayout : Microsoft.Maui.Controls.Grid
 	{
 		public SnackBarLayout(SnackBarOptions options)
 		{
 			RowDefinitions.Add(new RowDefinition());
 			ColumnDefinitions.Add(new ColumnDefinition());
-			if (options.BackgroundColor != Forms.Color.Default)
+			if (options.BackgroundColor != Color.Default)
 			{
 				Background = options.BackgroundColor.ToBrush();
 			}
@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 				}
 			}
 
-			if (options.MessageOptions.Foreground != Forms.Color.Default)
+			if (options.MessageOptions.Foreground != Color.Default)
 			{
 				messageLabel.Foreground = options.MessageOptions.Foreground.ToBrush();
 			}
@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			SetColumn(messageLabel, 0);
 			for (var i = 0; i < options.Actions.Count(); i++)
 			{
-				ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto });
+				ColumnDefinitions.Add(new ColumnDefinition() { Width = Microsoft.Maui.Controls.GridLength.Auto });
 				var action = options.Actions.ToArray()[i];
 				var button = new Button
 				{
@@ -87,12 +87,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 					button.FontFamily = new FontFamily(action.Font.FontFamily);
 				}
 
-				if (action.BackgroundColor != Forms.Color.Default)
+				if (action.BackgroundColor != Color.Default)
 				{
 					button.Background = action.BackgroundColor.ToBrush();
 				}
 
-				if (action.ForegroundColor != Forms.Color.Default)
+				if (action.ForegroundColor != Color.Default)
 				{
 					button.Foreground = action.ForegroundColor.ToBrush();
 				}

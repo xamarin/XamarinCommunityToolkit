@@ -1,5 +1,5 @@
 using System;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
@@ -36,49 +36,49 @@ namespace Xamarin.CommunityToolkit.Extensions
 			$"HSLA({c.GetDegreeHue()}°,{c.Saturation:P},{c.Luminosity:P},{c.A:P})";
 
 		public static Color WithRed(this Color baseColor, double newR) =>
-			Color.FromRgba(newR, baseColor.G, baseColor.B, baseColor.A);
+			Colors.FromRgba(newR, baseColor.G, baseColor.B, baseColor.A);
 
 		public static Color WithGreen(this Color baseColor, double newG) =>
-			Color.FromRgba(baseColor.R, newG, baseColor.B, baseColor.A);
+			Colors.FromRgba(baseColor.R, newG, baseColor.B, baseColor.A);
 
 		public static Color WithBlue(this Color baseColor, double newB) =>
-			Color.FromRgba(baseColor.R, baseColor.G, newB, baseColor.A);
+			Colors.FromRgba(baseColor.R, baseColor.G, newB, baseColor.A);
 
 		public static Color WithAlpha(this Color baseColor, double newA) =>
-			Color.FromRgba(baseColor.R, baseColor.G, baseColor.B, newA);
+			Colors.FromRgba(baseColor.R, baseColor.G, baseColor.B, newA);
 
 		public static Color WithRed(this Color baseColor, byte newR) =>
-			Color.FromRgba((double)newR / 255, baseColor.G, baseColor.B, baseColor.A);
+			Colors.FromRgba((double)newR / 255, baseColor.G, baseColor.B, baseColor.A);
 
 		public static Color WithGreen(this Color baseColor, byte newG) =>
-			Color.FromRgba(baseColor.R, (double)newG / 255, baseColor.B, baseColor.A);
+			Colors.FromRgba(baseColor.R, (double)newG / 255, baseColor.B, baseColor.A);
 
 		public static Color WithBlue(this Color baseColor, byte newB) =>
-			Color.FromRgba(baseColor.R, baseColor.G, (double)newB / 255, baseColor.A);
+			Colors.FromRgba(baseColor.R, baseColor.G, (double)newB / 255, baseColor.A);
 
 		public static Color WithAlpha(this Color baseColor, byte newA) =>
-			Color.FromRgba(baseColor.R, baseColor.G, baseColor.B, (double)newA / 255);
+			Colors.FromRgba(baseColor.R, baseColor.G, baseColor.B, (double)newA / 255);
 
 		public static Color WithCyan(this Color baseColor, double newC) =>
-			Color.FromRgba((1 - newC) * (1 - baseColor.GetPercentBlackKey()),
+			Colors.FromRgba((1 - newC) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.A);
 
 		public static Color WithMagenta(this Color baseColor, double newM) =>
-			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
+			Colors.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - newM) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.A);
 
 		public static Color WithYellow(this Color baseColor, double newY) =>
-			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
+			Colors.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - newY) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.A);
 
 		public static Color WithBlackKey(this Color baseColor, double newK) =>
-			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - newK),
+			Colors.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - newK),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - newK),
 						   (1 - baseColor.GetPercentYellow()) * (1 - newK),
 						   baseColor.A);
@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		// Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, 240 is blue.
 		public static double GetDegreeHue(this Color c) => c.Hue * 360;
 
-		// Note : double Percent R, G and B are simply Color.R, Color.G and Color.B
+		// Note : double Percent R, G and B are simply Colors.R, Colors.G and Colors.B
 
 		public static double GetPercentBlackKey(this Color c) => 1 - Math.Max(Math.Max(c.R, c.G), c.B);
 
@@ -108,17 +108,17 @@ namespace Xamarin.CommunityToolkit.Extensions
 			(1 - c.B - c.GetPercentBlackKey()) / (1 - c.GetPercentBlackKey());
 
 		public static Color ToInverseColor(this Color baseColor) =>
-			Color.FromRgb(1 - baseColor.R, 1 - baseColor.G, 1 - baseColor.B);
+			Colors.FromRgb(1 - baseColor.R, 1 - baseColor.G, 1 - baseColor.B);
 
-		public static Color ToBlackOrWhite(this Color baseColor) => baseColor.IsDark() ? Color.Black : Color.White;
+		public static Color ToBlackOrWhite(this Color baseColor) => baseColor.IsDark() ? Colors.Black : Colors.White;
 
 		public static Color ToBlackOrWhiteForText(this Color baseColor) =>
-			baseColor.IsDarkForTheEye() ? Color.White : Color.Black;
+			baseColor.IsDarkForTheEye() ? Colors.White : Colors.Black;
 
 		public static Color ToGrayScale(this Color baseColor)
 		{
 			var avg = (baseColor.R + baseColor.B + baseColor.G) / 3;
-			return Color.FromRgb(avg, avg, avg);
+			return Colors.FromRgb(avg, avg, avg);
 		}
 
 		public static bool IsDarkForTheEye(this Color c) =>

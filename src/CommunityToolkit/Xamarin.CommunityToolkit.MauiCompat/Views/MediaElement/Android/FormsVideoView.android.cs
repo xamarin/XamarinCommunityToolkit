@@ -1,4 +1,4 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Android.Content;
