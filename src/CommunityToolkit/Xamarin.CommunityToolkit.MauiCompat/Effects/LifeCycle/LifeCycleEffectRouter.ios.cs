@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	/// <summary>
 	/// iOS implementation of the <see cref="LifecycleEffect" />
 	/// </summary>
-	public class LifeCycleEffectRouter : PlatformEffect
+	public class LifeCycleEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		LifecycleEffect? lifeCycleEffect;
 

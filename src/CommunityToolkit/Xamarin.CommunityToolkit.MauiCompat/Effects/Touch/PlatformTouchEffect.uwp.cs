@@ -12,7 +12,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class PlatformTouchEffect : PlatformEffect
+	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		const string pointerDownAnimationKey = "PointerDownAnimation";
 

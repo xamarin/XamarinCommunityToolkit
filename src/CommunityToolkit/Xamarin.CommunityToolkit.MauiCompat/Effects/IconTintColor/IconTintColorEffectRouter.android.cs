@@ -12,7 +12,7 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class IconTintColorEffectRouter : PlatformEffect
+	public class IconTintColorEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 			=> ApplyTintColor();

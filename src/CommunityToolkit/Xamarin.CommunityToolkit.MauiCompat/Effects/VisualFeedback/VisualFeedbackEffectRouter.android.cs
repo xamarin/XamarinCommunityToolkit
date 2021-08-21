@@ -16,7 +16,7 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
-	public class VisualFeedbackEffectRouter : PlatformEffect
+	public class VisualFeedbackEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		AView? view;
 		RippleDrawable? ripple;

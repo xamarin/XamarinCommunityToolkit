@@ -9,7 +9,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 
 namespace Xamarin.CommunityToolkit.macOS.Effects
 {
-	public class PlatformTouchEffect : PlatformEffect
+	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		NSGestureRecognizer? gesture;
 

@@ -18,7 +18,7 @@ using Image = Windows.UI.Xaml.Controls.Image;
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class PlatformShadowEffect : PlatformEffect
+	public class PlatformShadowEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		enum ShadowEffectState
 		{

@@ -22,7 +22,7 @@ using XView = Microsoft.Maui.Controls.View;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class PlatformTouchEffect : PlatformEffect
+	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		static readonly Color defaultNativeAnimationColor = Color.FromRgba(128, 128, 128, 64);
 

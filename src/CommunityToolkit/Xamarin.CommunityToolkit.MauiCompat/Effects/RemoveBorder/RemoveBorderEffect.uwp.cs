@@ -8,7 +8,7 @@ using Effects = Xamarin.CommunityToolkit.UWP.Effects;
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class RemoveBorderEffect : PlatformEffect
+	public class RemoveBorderEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		Thickness oldBorderThickness;
 

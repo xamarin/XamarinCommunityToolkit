@@ -14,7 +14,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class PlatformTouchEffect : PlatformEffect
+	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		UIGestureRecognizer? touchGesture;
 

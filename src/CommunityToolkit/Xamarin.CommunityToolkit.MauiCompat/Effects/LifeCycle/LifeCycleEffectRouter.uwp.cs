@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 	/// <summary>
 	/// UWP implementation of the <see cref="LifecycleEffect" />
 	/// </summary>
-	public class LifeCycleEffectRouter : PlatformEffect
+	public class LifeCycleEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		FrameworkElement? nativeView;
 		LifecycleEffect? lifeCycleEffect;

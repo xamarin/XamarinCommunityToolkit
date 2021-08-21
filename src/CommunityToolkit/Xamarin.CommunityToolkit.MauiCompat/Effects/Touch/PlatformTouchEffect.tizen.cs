@@ -9,7 +9,7 @@ using EColor = ElmSharp.Color;
 
 namespace Xamarin.CommunityToolkit.Tizen.Effects
 {
-	public class PlatformTouchEffect : PlatformEffect
+	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		GestureLayer? gestureLayer;
 

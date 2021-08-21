@@ -10,7 +10,7 @@ using Effects = Xamarin.CommunityToolkit.UWP.Effects;
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class SelectAllTextEffect : PlatformEffect
+	public class SelectAllTextEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		TextBox? EditText => Control as TextBox;
 

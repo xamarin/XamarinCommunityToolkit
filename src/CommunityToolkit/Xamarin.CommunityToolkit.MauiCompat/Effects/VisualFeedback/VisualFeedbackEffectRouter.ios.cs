@@ -10,7 +10,7 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	[Foundation.Preserve(AllMembers = true)]
-	public class VisualFeedbackEffectRouter : PlatformEffect
+	public class VisualFeedbackEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		TouchEvents? touchEvents;
 		TouchEventsGestureRecognizer? touchRecognizer;

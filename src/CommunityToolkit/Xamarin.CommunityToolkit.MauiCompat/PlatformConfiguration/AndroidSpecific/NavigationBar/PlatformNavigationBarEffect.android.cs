@@ -10,7 +10,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Ma
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {
-	public class PlatformNavigationBarEffect : PlatformEffect
+	public class PlatformNavigationBarEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 		{

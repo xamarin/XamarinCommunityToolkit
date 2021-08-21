@@ -10,7 +10,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class PlatformStatusBarEffect : PlatformEffect
+	public class PlatformStatusBarEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 		{

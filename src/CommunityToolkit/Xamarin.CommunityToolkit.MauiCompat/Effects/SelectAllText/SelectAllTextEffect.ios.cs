@@ -10,7 +10,7 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class SelectAllTextEffect : PlatformEffect
+	public class SelectAllTextEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached() => ApplyEffect(true);
 

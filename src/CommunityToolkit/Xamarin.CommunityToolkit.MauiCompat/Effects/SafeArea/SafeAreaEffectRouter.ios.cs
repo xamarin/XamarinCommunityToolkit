@@ -10,7 +10,7 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class SafeAreaEffectRouter : PlatformEffect
+	public class SafeAreaEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		Thickness initialMargin;
 		NSObject? orientationDidChangeNotificationObserver;

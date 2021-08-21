@@ -8,7 +8,7 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class SelectAllTextEffect : PlatformEffect
+	public class SelectAllTextEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		EditText EditText => (EditText)Control;
 

@@ -10,7 +10,7 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class RemoveBorderEffect : PlatformEffect
+	public class RemoveBorderEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		Drawable? originalBackground;
 

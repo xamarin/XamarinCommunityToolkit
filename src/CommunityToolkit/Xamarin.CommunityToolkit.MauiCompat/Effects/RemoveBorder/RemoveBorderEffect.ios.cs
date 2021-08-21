@@ -8,7 +8,7 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class RemoveBorderEffect : PlatformEffect
+	public class RemoveBorderEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		UITextBorderStyle? oldBorderStyle;
 

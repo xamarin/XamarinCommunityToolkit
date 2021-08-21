@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	/// Base implementation of the <see cref="SemanticEffectRouter" />
 	/// </summary>
 	/// <typeparam name="T">Effect</typeparam>
-	public class SemanticEffectRouterBase<T> : PlatformEffect
+	public class SemanticEffectRouterBase<T> : Microsoft.Maui.Controls.Platform.PlatformEffect
 		where T : Effect
 	{
 		public SemanticEffectRouterBase()

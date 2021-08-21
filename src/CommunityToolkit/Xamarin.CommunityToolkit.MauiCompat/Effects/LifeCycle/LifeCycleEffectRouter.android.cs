@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	/// <summary>
 	/// Android implementation of the <see cref="LifecycleEffect" />
 	/// </summary>
-	public class LifeCycleEffectRouter : PlatformEffect
+	public class LifeCycleEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		View? nativeView;
 		LifecycleEffect? lifeCycleEffect;

@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 namespace Xamarin.CommunityToolkit.macOS.Effects
 #endif
 {
-public class PlatformShadowEffect : PlatformEffect
+public class PlatformShadowEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 {
 	const float defaultRadius = 10f;
 

@@ -9,7 +9,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Ma
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class PlatformStatusBarEffect : PlatformEffect
+	public class PlatformStatusBarEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 		{
