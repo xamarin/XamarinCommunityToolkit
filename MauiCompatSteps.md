@@ -175,15 +175,30 @@ sed -i '' 's/\[Preserve(/\[Microsoft.Maui.Controls.Internals.Preserve(/g' ./src/
 
 sed -i '' 's/using Xamarin.Forms.Internals/using Microsoft.Maui.Controls.Internals/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
+# WeakEventManager
+
+sed -i '' 's/ Forms.WeakEventManager/ Microsoft.Maui.Controls.WeakEventManager/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
 # Colors
 
 sed -i '' 's/ Color\./ Colors./g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 sed -i '' 's/\tColor\./\tColors./g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 sed -i '' 's/Forms\.Color/Color/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/Colors\.From/Color\.From/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/Xamarin.Forms.Color/Microsoft.Maui.Graphics.Color/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/Colors.Default/default(Color)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 # Nullability
 
 sed -i '' 's/event EventHandler<VisualElementChangedEventArgs>? ElementChanged/event EventHandler<VisualElementChangedEventArgs> ElementChanged/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# PlatformEffect
+
+PlatformEffect
+
+sed -i '' 's/: Xamarin.Forms.Platform.iOS.PlatformEffect/: Microsoft.Maui.Controls.Platform.PlatformEffect/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/: PlatformEffect/: Microsoft.Maui.Controls.Platform.PlatformEffect/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 # Platforms
 
@@ -209,29 +224,73 @@ sed -i '' 's/using Xamarin.Forms.Platform.UWP/using Microsoft.Maui.Controls.Comp
 
 sed -i '' 's/using Xamarin.Forms.Platform.MacOS/using Microsoft.Maui.Controls.Compatibility.Platform.MacOS/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
+sed -i '' 's/Xamarin.Forms.PlatformConfiguration/Microsoft.Maui.Controls.PlatformConfiguration/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
 sed -i '' 's/Xamarin.Forms.Platform/Microsoft.Maui.Controls.Compatibility.Platform/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
-# IVisualElementRenderer.ViewGroup
+# IVisualElementRenderer
 
 sed -i '' '/IVisualElementRenderer.ViewGroup/d' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/event EventHandler<VisualElementChangedEventArgs>/event EventHandler<Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs>/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/new ElementChangedEventArgs/new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/(ElementChangedEventArgs/(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/new VisualElementChangedEventArgs/new Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# TextAlignment
+
+sed -i '' 's/Xamarin.Forms.TextAlignment/Microsoft.Maui.TextAlignment/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# ElementChangedEventArgs
+
+sed -i '' 's/override void OnElementChanged(ElementChangedEventArgs/override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 # XAML
 
 sed -i '' 's/using Xamarin.Forms.Xaml;/using Microsoft.Maui.Controls.Xaml;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
+sed -i '' 's/Forms.Xaml/Microsoft.Maui.Controls.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
 # Effects
 
 sed -i '' 's/Xamarin.Forms.ExportEffect(/Microsoft.Maui.Controls.ExportEffect(/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
-# Specific Classes 
+## Font
+
+sed -i '' 's/Element.Font/Element.ToFont()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# TypeConverter
+
+sed -i '' 's/Xamarin.Forms.TypeConverter/System.ComponentModel.TypeConverter/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/\[TypeConverter/\[System.ComponentModel.TypeConverter/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/\[Forms.TypeConverter/\[System.ComponentModel.TypeConverter/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/ TypeConverter/ System.ComponentModel.TypeConverter/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/Xamarin.Forms.UriTypeConverter/Microsoft.Maui.Controls.UriTypeConverter/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/ConvertFromInvariantString(string value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/ConvertFromInvariantString(string\? value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# FontProperty
+
+sed -i '' '/else if (e.PropertyName == Label.FontProperty.PropertyName)/,+1d' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# ElementChangedEventArgs
+
+sed -i '' 's/ElementChangedEventArgs/Microsoft.Maui.Controls.Platform.ElementChangedEventArgs/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# Specific Class Names 
 
 sed -i '' 's/using static Xamarin.Forms.AbsoluteLayout/using static Microsoft.Maui.Controls.Compatibility.AbsoluteLayout/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 sed -i '' 's/Xamarin.Forms.Page/Microsoft.Maui.Controls.Page/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
-
-sed -i '' 's/Xamarin.Forms.PlatformConfiguration/Microsoft.Maui.Controls.PlatformConfiguration/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
-
-sed -i '' 's/Xamarin.Forms.Color/Microsoft.Maui.Graphics.Color/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 sed -i '' 's/Xamarin.Forms.Point/Microsoft.Maui.Graphics.Point/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
@@ -249,33 +308,74 @@ sed -i '' 's/<Grid/<Microsoft.Maui.Controls.Grid/g' ./src/CommunityToolkit/Xamar
 
 sed -i '' 's/StackLayout/\tMicrosoft.Maui.Controls.StackLayout/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
-sed -i '' 's/Colors.Default/default(Color)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
-
-## *.android.cs
+# *.android.cs
 
 sed -i '' 's/ContainerView/Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/*.android.cs
+
+sed -i '' 's/Context.ToPixels(/Microsoft.Maui.ContextExtensions.ToPixels(Context, /g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/*.android.cs
 
 sed -i '' '1s/^/using Path = Android.Graphics.Path;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/*.android.cs
 
 sed -i '' '1s/^/using Paint = Android.Graphics.Paint;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/*.android.cs
 
-# TypeConverter
+# TextSwitcherRenderer.android.cs
 
-echo TODO TypeConverter
+sed -i '' 's/Color lastUpdateColor =/Color? lastUpdateColor =/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
-# IStreamImageSource
+sed -i '' 's/color.IsDefault/color.IsDefault()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
-echo TODO: IStreamImageSource
+sed -i '' 's/(visualElementRenderer?.OnTouchEvent(e) ?? false) || //g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
-# Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
+sed -i '' 's/.ToScaledPixel()//g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
-echo TODO: Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
-
-# Add New Maui Namespaces
+# Add Maui Namespaces
 
 sed -i '' 's/using Xamarin.Forms;/using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 ```
 
-### 6. Remove Deprecated Code
+### 6. Manually Update TypeConverters
 
-*TBD*
+In .NET 6, `System.ComponentModel.TypeConverter` requires us to override `ConvertFrom` which uses `object value` as a parameter. 
+
+Previously, in .NET Standard we used `ConvertFromInvariantString(string value)`.
+
+To create the MauiCompat library, we must update the logic in each converter to handle an object instead of a string.
+
+Start by adding the following line:
+
+```cs
+if (value is not string text)
+    throw new InvalidOperationException("Only typeof(string) allowed");
+```
+
+Then, in the method body, replace the variable `value` with `text`.
+
+- [ ] MediaSourceConverter.shared.cs
+- [ ] FileMediaSourceConverter.shared.cs
+- [ ] SafeAreaTypeConverter.shared.cs
+- [ ] UriTypeConverter.shared.cs
+
+### 7. Manually Update `IStreamImageConverter`
+
+`Microsoft.Maui.IStreamImageConverter` adds a new API, `public bool IsEmpty { get; }`.
+
+Add the following code to implement the new API:
+
+```cs
+public bool IsEmpty => Stream == null;
+```
+
+- [ ] StreamMediaSource.shared.cs
+
+### 8. Manually Update Array.ForEach
+
+.NET 6 no longer includes the `Array.ForEach` extension method. We need to refactor it to use `ForEach()`.
+
+Example:
+```cs
+//previously children.ForEach(c => c.Hint = value);
+foreach (var c in children)
+    c.Hint = value;
+```
+
+- [ ] TextSwitcherRenderer.android.cs
