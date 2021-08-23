@@ -207,7 +207,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IViewRenderer.MeasureExactly() => MeasureExactly(this, Element, Context);
 
-		static void MeasureExactly(AView control, VisualElement? element, Context? context)
+		static void MeasureExactly(AView control, VisualElement? element, Context context)
 		{
 			if (control == null || element == null)
 				return;
