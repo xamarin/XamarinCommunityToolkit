@@ -389,7 +389,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			_ = effect?.NativeAnimationColor ?? throw new NullReferenceException();
 
 			var nativeAnimationColor = effect.NativeAnimationColor;
-			if (nativeAnimationColor == new Color())
+			if (nativeAnimationColor == new Microsoft.Maui.Graphics.Color())
 				nativeAnimationColor = defaultNativeAnimationColor;
 
 			return new ColorStateList(

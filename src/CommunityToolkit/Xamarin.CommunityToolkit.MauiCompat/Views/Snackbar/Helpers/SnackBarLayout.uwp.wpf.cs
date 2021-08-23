@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 		{
 			RowDefinitions.Add(new RowDefinition());
 			ColumnDefinitions.Add(new ColumnDefinition());
-			if (options.BackgroundColor != new Color())
+			if (options.BackgroundColor != new Microsoft.Maui.Graphics.Color())
 			{
 				Background = options.BackgroundColor.ToBrush();
 			}
@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 				}
 			}
 
-			if (options.MessageOptions.Foreground != new Color())
+			if (options.MessageOptions.Foreground != new Microsoft.Maui.Graphics.Color())
 			{
 				messageLabel.Foreground = options.MessageOptions.Foreground.ToBrush();
 			}
@@ -87,12 +87,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 					button.FontFamily = new FontFamily(action.Font.FontFamily);
 				}
 
-				if (action.BackgroundColor != new Color())
+				if (action.BackgroundColor != new Microsoft.Maui.Graphics.Color())
 				{
 					button.Background = action.BackgroundColor.ToBrush();
 				}
 
-				if (action.ForegroundColor != new Color())
+				if (action.ForegroundColor != new Microsoft.Maui.Graphics.Color())
 				{
 					button.Foreground = action.ForegroundColor.ToBrush();
 				}

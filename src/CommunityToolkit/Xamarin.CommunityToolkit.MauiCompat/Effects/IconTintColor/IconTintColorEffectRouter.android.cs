@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void SetImageViewTintColor(ImageView image, Color color)
 		{
-			if (color == new Color())
+			if (color == new Microsoft.Maui.Graphics.Color())
 				image.ClearColorFilter();
 
 			image.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn ?? throw new NullReferenceException()));
@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			var drawables = button.GetCompoundDrawables().Where(d => d != null);
 
-			if (color == new Color())
+			if (color == new Microsoft.Maui.Graphics.Color())
 			{
 				foreach (var img in drawables)
 					img.ClearColorFilter();
