@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					// If the view is a layout (stacklayout, grid, etc) we need to trigger a layout pass
 					// with all the controls in a consistent native state (i.e., loaded) so they'll actually
 					// have Bounds set
-					(this.view as Layout)?.ForceLayout();
+					(this.view as Microsoft.Maui.Controls.Layout)?.ForceLayout();
 					InvalidateMeasure();
 				};
 			}

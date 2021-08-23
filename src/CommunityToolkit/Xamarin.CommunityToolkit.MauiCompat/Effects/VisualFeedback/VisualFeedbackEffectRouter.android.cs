@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		FrameLayout? rippleOverlay;
 		FastRendererOnLayoutChangeListener? fastListener;
 
-		bool IsClickable => Element is not Layout or BoxView;
+		bool IsClickable => Element is not Microsoft.Maui.Controls.Layout or BoxView;
 
 		protected override void OnAttached()
 		{

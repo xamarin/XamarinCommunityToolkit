@@ -359,7 +359,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				? View?.Foreground
 				: View?.Background;
 
-			var isEmptyDrawable = Element is Layout || drawable == null;
+			var isEmptyDrawable = Element is Microsoft.Maui.Controls.Layout || drawable == null;
 
 			if (drawable is RippleDrawable rippleDrawable && rippleDrawable.GetConstantState() is Drawable.ConstantState constantState)
 				ripple = (RippleDrawable)constantState.NewDrawable();

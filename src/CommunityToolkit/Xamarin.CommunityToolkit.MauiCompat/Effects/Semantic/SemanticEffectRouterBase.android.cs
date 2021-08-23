@@ -62,7 +62,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			var renderer = Platform.GetRenderer(visualElement);
 
-			if (visualElement is Layout)
+			if (visualElement is Microsoft.Maui.Controls.Layout)
 				return renderer?.View;
 			else if (renderer is ViewGroup vg && vg.ChildCount > 0)
 				return vg?.GetChildAt(0);
@@ -77,7 +77,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (renderer == null)
 				return visualElement?.GetViewForAccessibility();
 
-			if (visualElement is Layout)
+			if (visualElement is Microsoft.Maui.Controls.Layout)
 				return renderer;
 			else if (renderer is ViewGroup vg && vg.ChildCount > 0)
 				return vg?.GetChildAt(0);

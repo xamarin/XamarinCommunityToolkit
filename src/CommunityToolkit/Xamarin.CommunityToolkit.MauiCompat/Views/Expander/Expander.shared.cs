@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					? Content.HeightRequest
 					: Content.WidthRequest;
 
-				if (sizeRequest < 0 || Content is not Layout layout)
+				if (sizeRequest < 0 || Content is not Microsoft.Maui.Controls.Layout layout)
 					return sizeRequest;
 
 				return sizeRequest + (Direction.IsVertical()

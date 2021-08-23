@@ -4,7 +4,7 @@ using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphi
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	/// <summary>
-	/// A Layout that arranges the elements in a honeycomb pattern.
+	/// A Microsoft.Maui.Controls.Layout that arranges the elements in a honeycomb pattern.
 	/// Based on https://github.com/AlexanderSharykin/HexGrid. Created by Alexander Sharykin.
 	/// </summary>
 	public class HexLayout : Layout<View>

@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		bool ShouldPassThroughElement()
 		{
-			if (element is Layout layout)
+			if (element is Microsoft.Maui.Controls.Layout layout)
 			{
 				// If the layout is not input transparent, then the event should not pass through it
 				if (!layout.InputTransparent)

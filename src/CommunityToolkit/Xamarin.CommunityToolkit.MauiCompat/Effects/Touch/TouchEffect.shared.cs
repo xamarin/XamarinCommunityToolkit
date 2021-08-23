@@ -1200,7 +1200,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void SetChildrenInputTransparent(bool value)
 		{
-			if (Element is not Layout layout)
+			if (Element is not Microsoft.Maui.Controls.Layout layout)
 				return;
 
 			layout.ChildAdded -= OnLayoutChildAdded;
