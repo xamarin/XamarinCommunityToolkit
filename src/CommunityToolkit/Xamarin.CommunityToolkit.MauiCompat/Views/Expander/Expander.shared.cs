@@ -8,7 +8,7 @@ using static System.Math;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[ContentProperty(nameof(Content))]
-	public class Expander : BaseTemplatedView<	Microsoft.Maui.Controls.StackLayout>
+	public class Expander : BaseTemplatedView<	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout>
 	{
 		const string expandAnimationName = nameof(expandAnimationName);
 
@@ -227,7 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnIsExpandedChanged();
 		}
 
-		protected override void OnControlInitialized(	Microsoft.Maui.Controls.StackLayout control)
+		protected override void OnControlInitialized(	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout control)
 		{
 			ForceUpdateSizeCommand = new Command(ForceUpdateSize);
 			headerTapGestureRecognizer = new TapGestureRecognizer

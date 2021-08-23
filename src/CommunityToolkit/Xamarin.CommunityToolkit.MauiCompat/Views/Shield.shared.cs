@@ -164,7 +164,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font size of all the text on the <see cref="Shield" />. <see cref="NamedSize" /> values can be used. This is a bindable preoprty.
 		/// </summary>
-		[Xamarin.Forms.TypeConverter(typeof(FontSizeConverter))]
+		[System.ComponentModel.TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);
@@ -249,7 +249,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static Microsoft.Maui.Controls.Grid CreateSubjectContainerElement()
 			=> new Microsoft.Maui.Controls.Grid()
 			{
-				BackgroundColor = Colors.FromHex("#555555")
+				BackgroundColor = Color.FromHex("#555555")
 			};
 
 		static Label CreateSubjectElement()

@@ -84,10 +84,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				throw new Exception("Current Context is null");
 			}
 
-			context.SetFillColor(backgroundColor.ToCGColor());
+			context.SetFillColor(Microsoft.Maui.ColorExtensions.ToCGColor(backgroundColor));
 			context.FillRect(new CGRect(CGPoint.Empty, imageSize));
 
-			context.SetStrokeColor(strokeColor.ToCGColor());
+			context.SetStrokeColor(Microsoft.Maui.ColorExtensions.ToCGColor(strokeColor));
 			context.SetLineWidth(lineWidth);
 			context.SetLineCap(CGLineCap.Round);
 			context.SetLineJoin(CGLineJoin.Round);
@@ -123,11 +123,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				throw new Exception("Current Context is null");
 			}
 
-			context.SetFillColor(backgroundColor.ToCGColor());
+			context.SetFillColor(Microsoft.Maui.ColorExtensions.ToCGColor(backgroundColor));
 			context.FillRect(new CGRect(CGPoint.Empty, imageSize));
 			foreach (var line in lines)
 			{
-				context.SetStrokeColor(line.LineColor.ToCGColor());
+				context.SetStrokeColor(Microsoft.Maui.ColorExtensions.ToCGColor(line.LineColor));
 				context.SetLineWidth(line.LineWidth);
 				context.SetLineCap(CGLineCap.Round);
 				context.SetLineJoin(CGLineJoin.Round);

@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Android.Content;
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		readonly FormsTextView[] children = new FormsTextView[2];
 
-		readonly WeakEventManager<VisualElementChangedEventArgs> elementChangedEventManager = new();
+		readonly WeakEventManager<VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> elementChangedEventManager = new();
 		readonly WeakEventManager<PropertyChangedEventArgs> elementPropertyChangedEventManager = new();
 		readonly Stack<FormsTextView> childrenStack = new();
 		readonly MotionEventHelper motionEventHelper = new();
@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BackgroundManager.Init(this);
 		}
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged
 		{
 			add => elementChangedEventManager.AddEventHandler(value);
 			remove => elementChangedEventManager.RemoveEventHandler(value);
@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				var oldElement = element;
 				element = value;
-				OnElementChanged(new ElementChangedEventArgs<Label?>(oldElement, element));
+				OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label?>(oldElement, element));
 			}
 		}
 
@@ -267,7 +267,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if ((visualElementRenderer?.OnTouchEvent(e) ?? false) || base.OnTouchEvent(e))
+			if (base.OnTouchEvent(e))
 			{
 				return true;
 			}
@@ -275,9 +275,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return motionEventHelper.HandleMotionEvent(Parent, e);
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<Label?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label?> e)
 		{
-			elementChangedEventManager.RaiseEvent(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement), nameof(ElementChanged));
+			elementChangedEventManager.RaiseEvent(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement), nameof(ElementChanged));
 
 			if (e.OldElement != null)
 			{
@@ -326,8 +326,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else if (e.PropertyName == Label.TextColorProperty.PropertyName ||
 				e.PropertyName == Label.TextTypeProperty.PropertyName)
 				UpdateText();
-			else if (e.PropertyName == Label.FontProperty.PropertyName)
-				UpdateText();
 			else if (e.PropertyName == Label.LineBreakModeProperty.PropertyName)
 				UpdateLineBreakMode();
 			else if (e.PropertyName == Label.CharacterSpacingProperty.PropertyName)
@@ -359,7 +357,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			lastUpdateColor = color;
 
-			if (color.IsDefault)
+			if (color.IsDefault())
 				children.ForEach(c => c.SetTextColor(labelTextColorDefault));
 			else
 			{
@@ -374,7 +372,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 #pragma warning disable 618 // We will need to update this when .Font goes away
-			var f = Element.Font;
+			var f = Element.ToFont();
 #pragma warning restore 618
 
 			var newTypeface = f.ToTypeface();
@@ -384,7 +382,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				lastTypeface = newTypeface;
 			}
 
-			var newTextSize = f.ToScaledPixel();
+			var newTextSize = (float)f.Size;
 			if (newTextSize != lastTextSize)
 			{
 				children.ForEach(c => c.SetTextSize(ComplexUnitType.Sp, newTextSize));
@@ -466,7 +464,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var formattedText = Element.FormattedText ?? Element.Text;
 #pragma warning disable 618 // We will need to update this when .Font goes away
-				nextView.TextFormatted = spannableString = formattedText.ToAttributed(Element.Font, Element.TextColor, nextView);
+				nextView.TextFormatted = spannableString = formattedText.ToAttributed(Element.ToFont(), Element.TextColor, nextView);
 				ShowNext();
 #pragma warning restore 618
 				wasFormatted = true;

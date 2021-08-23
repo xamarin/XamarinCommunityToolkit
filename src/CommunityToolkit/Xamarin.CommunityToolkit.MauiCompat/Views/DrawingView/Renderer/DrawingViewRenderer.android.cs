@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.ComponentModel;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.ComponentModel;
 using System.Linq;
 using Android.Content;
 using Android.Graphics;
@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				LoadLines();
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (e.NewElement != null)

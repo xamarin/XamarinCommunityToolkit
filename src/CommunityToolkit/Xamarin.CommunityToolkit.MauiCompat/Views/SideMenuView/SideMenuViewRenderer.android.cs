@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using Android.Content;
 using Android.Runtime;
 using Android.Views;
@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 			return true;
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<SideMenuView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<SideMenuView> e)
 		{
 			base.OnElementChanged(e);
 			if (e.NewElement == null)

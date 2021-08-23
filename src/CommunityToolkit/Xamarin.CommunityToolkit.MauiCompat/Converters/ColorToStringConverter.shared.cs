@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	{
 		public override string ConvertFrom(Color value) => value.ToHexRgbString();
 
-		public override Color ConvertBackTo(string value) => Colors.FromHex(value);
+		public override Color ConvertBackTo(string value) => Color.FromHex(value);
 	}
 
 	/// <summary>
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	{
 		public override string ConvertFrom(Color value) => value.ToHexRgbaString();
 
-		public override Color ConvertBackTo(string value) => Colors.FromHex(value);
+		public override Color ConvertBackTo(string value) => Color.FromHex(value);
 	}
 
 	/// <summary>

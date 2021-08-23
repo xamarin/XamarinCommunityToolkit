@@ -6,7 +6,7 @@ using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphi
 using ShapesPath = Xamarin.Forms.Shapes.Path;
 using ShapesPathGeometry = Xamarin.Forms.Shapes.PathGeometry;
 using XLabel = Xamarin.Forms.Label;
-using XTextAlignment = Xamarin.Forms.TextAlignment;
+using XTextAlignment = Microsoft.Maui.TextAlignment;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -93,7 +93,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				FontSize = Device.GetNamedSize(NamedSize.Large, typeof(Label), false),
 				HorizontalTextAlignment = XTextAlignment.Center,
-				TextColor = Colors.FromHex("#eeeeeeee")
+				TextColor = Color.FromHex("#eeeeeeee")
 			};
 			bufferingLabel.SetBinding(XLabel.TextProperty, new Binding
 			{
@@ -109,7 +109,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var progressBoxView = new BoxView
 			{
-				Color = Colors.FromHex($"#4286f4")
+				Color = Color.FromHex($"#4286f4")
 			};
 			progressBoxView.SetBinding(AbsoluteLayout.LayoutBoundsProperty, new Binding
 			{
@@ -150,7 +150,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				HeightRequest = 23,
-				BackgroundColor = Colors.FromHex("#80000000"),
+				BackgroundColor = Color.FromHex("#80000000"),
 				Children =
 				{
 					progressBoxView,
@@ -159,17 +159,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			};
 
-			var progressLayout = new 	Microsoft.Maui.Controls.StackLayout
+			var progressLayout = new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout
 			{
 				Children =
 				{
-					new 	Microsoft.Maui.Controls.StackLayout { VerticalOptions = LayoutOptions.FillAndExpand },
-					new 	Microsoft.Maui.Controls.StackLayout
+					new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout { VerticalOptions = LayoutOptions.FillAndExpand },
+					new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout
 					{
 						Margin = Device.Idiom == TargetIdiom.Watch ? new Thickness(80, 0, 80, 0) : 20,
 						VerticalOptions = LayoutOptions.End,
 						HorizontalOptions = LayoutOptions.FillAndExpand,
-						BackgroundColor = Colors.FromHex("#50000000"),
+						BackgroundColor = Color.FromHex("#50000000"),
 						Children = { progressInnerLayout }
 					}
 				}

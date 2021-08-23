@@ -3,7 +3,7 @@ using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphi
 
 namespace Xamarin.CommunityToolkit.Core
 {
-	[TypeConverter(typeof(FileMediaSourceConverter))]
+	[System.ComponentModel.TypeConverter(typeof(FileMediaSourceConverter))]
 	public sealed class FileMediaSource : MediaSource
 	{
 		public static readonly BindableProperty FileProperty

@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 
 #if ANDROID
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			visualElementRenderer = new VisualElementRenderer(this);
 		}
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnElementChanged(ElementChangedEventArgs<CameraView?> e)
+		void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView?> e)
 		{
 			CameraFragment? newfragment = null;
 
@@ -118,7 +118,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				.Replace(Id, camerafragment = newfragment, "camera")
 				.Commit();
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		CameraView? Element
@@ -132,7 +132,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var oldElement = element;
 				element = value;
 
-				OnElementChanged(new ElementChangedEventArgs<CameraView?>(oldElement, element));
+				OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView?>(oldElement, element));
 
 				// this is just used to set ID's to the NativeViews along time ago for UITest with Test Cloud
 				// https://discordapp.com/channels/732297728826277939/738043671575920700/747629874709266449

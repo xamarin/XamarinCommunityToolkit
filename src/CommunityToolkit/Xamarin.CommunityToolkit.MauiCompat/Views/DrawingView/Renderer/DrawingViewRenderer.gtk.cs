@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		ImageSurface? surface;
 		Line? currentLine;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (Control == null && Element != null)

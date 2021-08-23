@@ -151,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			private set => SetValue(durationPropertyKey, value);
 		}
 
-		[TypeConverter(typeof(MediaSourceConverter))]
+		[System.ComponentModel.TypeConverter(typeof(MediaSourceConverter))]
 		public MediaSource? Source
 		{
 			get => (MediaSource?)GetValue(SourceProperty);

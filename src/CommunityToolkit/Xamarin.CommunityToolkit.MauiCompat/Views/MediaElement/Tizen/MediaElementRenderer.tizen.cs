@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		MediaView? IMediaViewProvider.GetMediaView() => mediaView;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<MediaElement> e)
 		{
 			if (e.OldElement != null)
 			{

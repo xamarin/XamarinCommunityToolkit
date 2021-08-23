@@ -500,7 +500,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var upperThumbBorderColor = GetColorOrDefault(UpperThumbBorderColor, ThumbBorderColor);
 			if (!IsThumbShadowSupported)
 			{
-				var defaultThumbColor = Colors.FromRgb(182, 182, 182);
+				var defaultThumbColor = Color.FromRgb(182, 182, 182);
 				lowerThumbBorderColor = GetColorOrDefault(lowerThumbBorderColor, defaultThumbColor);
 				upperThumbBorderColor = GetColorOrDefault(upperThumbBorderColor, defaultThumbColor);
 			}
@@ -509,8 +509,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			UpperThumb.BorderColor = upperThumbBorderColor;
 			LowerThumb.BackgroundColor = GetColorOrDefault(lowerThumbColor, Colors.White);
 			UpperThumb.BackgroundColor = GetColorOrDefault(upperThumbColor, Colors.White);
-			Track.BackgroundColor = GetColorOrDefault(TrackColor, Colors.FromRgb(182, 182, 182));
-			TrackHighlight.BackgroundColor = GetColorOrDefault(TrackHighlightColor, Colors.FromRgb(46, 124, 246));
+			Track.BackgroundColor = GetColorOrDefault(TrackColor, Color.FromRgb(182, 182, 182));
+			TrackHighlight.BackgroundColor = GetColorOrDefault(TrackHighlightColor, Color.FromRgb(46, 124, 246));
 			Track.BorderColor = GetColorOrDefault(TrackBorderColor, default(Color));
 			TrackHighlight.BorderColor = GetColorOrDefault(TrackHighlightBorderColor, default(Color));
 

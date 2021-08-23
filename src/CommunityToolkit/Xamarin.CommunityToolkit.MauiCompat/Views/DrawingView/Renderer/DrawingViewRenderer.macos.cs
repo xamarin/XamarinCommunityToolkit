@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public DrawingViewRenderer() => currentPath = new NSBezierPath();
 
-		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (Element != null)

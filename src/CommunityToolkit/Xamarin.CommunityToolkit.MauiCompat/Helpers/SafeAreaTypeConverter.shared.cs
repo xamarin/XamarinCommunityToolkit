@@ -5,9 +5,9 @@ using Microsoft.Maui.Controls.Xaml;
 namespace Xamarin.CommunityToolkit.Helpers
 {
 	[TypeConversion(typeof(SafeArea))]
-	public class SafeAreaTypeConverter : TypeConverter
+	public class SafeAreaTypeConverter : System.ComponentModel.TypeConverter
 	{
-		public override object ConvertFromInvariantString(string value)
+		public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)
 		{
 			if (value != null)
 			{

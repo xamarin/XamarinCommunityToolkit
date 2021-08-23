@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.Linq;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.Linq;
 using Android.Content;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.UI.Views;
@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<View> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<View> e)
 		{
 			base.OnElementChanged(e);
 			SetAccessibilityElements();

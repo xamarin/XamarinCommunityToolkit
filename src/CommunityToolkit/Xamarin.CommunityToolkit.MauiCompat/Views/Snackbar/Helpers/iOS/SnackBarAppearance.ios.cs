@@ -1,4 +1,4 @@
-﻿using UIKit;
+using Microsoft.Maui;using Microsoft.Maui.Controls.Compatibility.Platform.iOS;using Microsoft.Maui.Graphics;﻿using UIKit;
 using Xamarin.CommunityToolkit.Helpers;
 using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
@@ -14,17 +14,17 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public UITextAlignment TextAlignment { get; set; } = UITextAlignment.Left;
 
-		public static UIColor DefaultColor { get; } = XCT.IsiOS13OrNewer ? Color.Default.ToUIColor() : UIColor.White;
+		public static UIColor DefaultColor { get; } = XCT.IsiOS13OrNewer ? new Color()).ToUIColor() : UIColor.White;
 
-		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
+		public static UIFont DefaultFont { get; } = Microsoft.Maui.Font.Default.ToUIFont();
 	}
 
 	static class NativeSnackButtonAppearance
 	{
 		public static UILineBreakMode LineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
 
-		public static UIColor DefaultColor { get; } = Color.Default.ToUIColor();
+		public static UIColor DefaultColor { get; } = new Color()).ToUIColor();
 
-		public static UIFont DefaultFont { get; } = Forms.Font.Default.ToUIFont();
+		public static UIFont DefaultFont { get; } = Microsoft.Maui.Font.Default.ToUIFont();
 	}
 }

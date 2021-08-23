@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 using Android.Content;
 using Android.Media;
@@ -68,7 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		AView IVisualElementRenderer.View => this;
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -125,7 +125,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tracker == null)
 				SetTracker(new VisualElementTracker(this));
 
-			OnElementChanged(new ElementChangedEventArgs<ToolKitMediaElement?>(oldElement, MediaElement));
+			OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement?>(oldElement, MediaElement));
 		}
 
 		void StateRequested(object? sender, StateRequested e)
@@ -219,7 +219,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<ToolKitMediaElement?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement?> e)
 		{
 			if (e.NewElement != null)
 			{
@@ -234,7 +234,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ElevationHelper.SetElevation(this, e.NewElement);
 			}
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		void MetadataRetrieved(object? sender, EventArgs e)

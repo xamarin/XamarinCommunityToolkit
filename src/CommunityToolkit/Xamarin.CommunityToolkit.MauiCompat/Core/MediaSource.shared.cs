@@ -5,7 +5,7 @@ using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.Core
 {
-	[Forms.Xaml.TypeConversion(typeof(MediaSourceConverter))]
+	[Microsoft.Maui.Controls.Xaml.TypeConversion(typeof(MediaSourceConverter))]
 	public abstract class MediaSource : Element
 	{
 		readonly WeakEventManager weakEventManager = new WeakEventManager();

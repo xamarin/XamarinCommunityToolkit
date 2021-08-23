@@ -68,7 +68,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			switch (state)
 			{
 				case ShadowEffectState.Initialized:
-					shadowPanel = new 	Microsoft.Maui.Controls.StackLayout()
+					shadowPanel = new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout()
 					{
 						Children = { new Microsoft.Maui.Controls.Grid() }
 					};

@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using Android.Content;
@@ -389,7 +389,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			_ = effect?.NativeAnimationColor ?? throw new NullReferenceException();
 
 			var nativeAnimationColor = effect.NativeAnimationColor;
-			if (nativeAnimationColor == Color.Default)
+			if (nativeAnimationColor == new Color()))
 				nativeAnimationColor = defaultNativeAnimationColor;
 
 			return new ColorStateList(

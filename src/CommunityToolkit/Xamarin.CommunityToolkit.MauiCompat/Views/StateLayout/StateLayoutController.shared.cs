@@ -88,10 +88,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					for (var i = 0; i < repeatCount; i++)
 						items.Add(i);
 
-					// We create a 	Microsoft.Maui.Controls.StackLayout to stack repeating items.
+					// We create a 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout to stack repeating items.
 					// It takes VerticalOptions and HorizontalOptions from the
 					// StateView to allow for more control over how it layouts.
-					var s = new 	Microsoft.Maui.Controls.StackLayout
+					var s = new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout
 					{
 						Opacity = animate ? 0 : 1,
 						VerticalOptions = view.VerticalOptions,
@@ -121,10 +121,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						throw new ArgumentException("Please use a Template instead of directly defining content when using a RepeatCount > 1.");
 
 					// No template, so we use the children of the StateView.
-					// We create a 	Microsoft.Maui.Controls.StackLayout to stack repeating items.
+					// We create a 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout to stack repeating items.
 					// It takes VerticalOptions and HorizontalOptions from the
 					// StateView to allow for more control over how it layouts.
-					var s = new 	Microsoft.Maui.Controls.StackLayout
+					var s = new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout
 					{
 						Opacity = animate ? 0 : 1,
 						VerticalOptions = view.VerticalOptions,

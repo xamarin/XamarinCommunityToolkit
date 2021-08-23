@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		VisualElement? IVisualElementRenderer.Element => Element;
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			element.PropertyChanged += OnElementPropertyChanged;
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
+			OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
 		void CreateControl()
@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			panelStyle = new XamlStyle { TargetType = typeof(Panel) };
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?> e)
 		{
 			if (e.NewElement != null && !isDisposed)
 			{
@@ -82,7 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Show();
 			}
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
@@ -160,7 +160,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var borderColor = Specific.GetBorderColor(Element);
 			if (borderColor == default(Color))
-				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, Colors.FromHex("#2e6da0").ToWindowsColor()));
+				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, Color.FromHex("#2e6da0").ToWindowsColor()));
 			else
 				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, borderColor.ToWindowsColor()));
 		}

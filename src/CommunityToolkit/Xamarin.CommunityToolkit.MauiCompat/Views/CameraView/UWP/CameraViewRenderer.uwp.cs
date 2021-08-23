@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override async void OnElementChanged(ElementChangedEventArgs<CameraView> e)
+		protected override async void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView> e)
 		{
 			Available = false;
 			base.OnElementChanged(e);

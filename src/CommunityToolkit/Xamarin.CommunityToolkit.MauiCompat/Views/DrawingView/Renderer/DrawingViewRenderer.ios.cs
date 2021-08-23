@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public DrawingViewRenderer() => currentPath = new UIBezierPath();
 
-		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (Element != null)
@@ -45,7 +45,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				LoadPoints();
 		}
 
-		void OnLinesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
+		void OnLinesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints();
 
 		public override void TouchesBegan(NSSet touches, UIEvent? evt)
 		{
@@ -79,7 +79,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var touch = (UITouch)touches.AnyObject;
 			var currentPoint = touch.LocationInView(this);
 			AddPointToPath(currentPoint);
-			currentLine?.Points.Add(currentPoint.ToPoint());
+			currentLine?.Points.Add(CoreGraphicsExtensions.ToPoint(currentPoint));
 		}
 
 		public override void TouchesEnded(NSSet touches, UIEvent? evt)

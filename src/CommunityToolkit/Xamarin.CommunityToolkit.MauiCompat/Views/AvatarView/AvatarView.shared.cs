@@ -170,7 +170,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font size of the text on the <see cref="AvatarView" />. <see cref="NamedSize" /> values can be used. This is a bindable property.
 		/// </summary>
-		[TypeConverter(typeof(FontSizeConverter))]
+		[System.ComponentModel.TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);

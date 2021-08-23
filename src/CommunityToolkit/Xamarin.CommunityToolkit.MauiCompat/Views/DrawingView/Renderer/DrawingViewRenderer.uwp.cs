@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		InkCanvas? canvas;
 		bool disposed;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (Control == null && Element != null)
@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.Lines.Add(new Line()
 					{
 						Points = new ObservableCollection<Point>(points),
-						LineColor = Colors.FromRgba(line.DrawingAttributes.Color.R, line.DrawingAttributes.Color.G,
+						LineColor = Color.FromRgba(line.DrawingAttributes.Color.R, line.DrawingAttributes.Color.G,
 							line.DrawingAttributes.Color.B, line.DrawingAttributes.Color.A),
 						LineWidth = (float) line.DrawingAttributes.Size.Width
 					});

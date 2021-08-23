@@ -252,7 +252,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				if (color == default(Color))
 					renderer.Layer.Opacity = isStarted ? 0.5f : (float)control.Opacity;
 				else
-					renderer.Layer.BackgroundColor = (isStarted ? color : control.BackgroundColor).ToCGColor();
+					renderer.Layer.BackgroundColor = Microsoft.Maui.ColorExtensions.ToCGColor(isStarted ? color : control.BackgroundColor);
 
 				renderer.Layer.CornerRadius = isStarted ? radius : defaultRadius.GetValueOrDefault();
 

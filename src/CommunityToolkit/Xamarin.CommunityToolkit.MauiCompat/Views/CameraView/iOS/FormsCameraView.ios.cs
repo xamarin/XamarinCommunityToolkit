@@ -100,7 +100,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					$"Stacktrace: {Environment.NewLine}" +
 					error.StackTrace;
 
-			Forms.Internals.Log.Warning("Camera", $"{message}{errorMessage}");
 		}
 
 		bool IsBusy

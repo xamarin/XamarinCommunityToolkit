@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Android.Graphics;
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (snackBar.View.Background is GradientDrawable shape)
 			{
-				if (arguments.BackgroundColor != Color.Default)
+				if (arguments.BackgroundColor != new Color()))
 				{
 					shape?.SetColor(arguments.BackgroundColor.ToAndroid().ToArgb());
 				}
@@ -66,7 +66,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					(int)arguments.MessageOptions.Padding.Bottom);
 			}
 
-			if (arguments.MessageOptions.Foreground != Color.Default)
+			if (arguments.MessageOptions.Foreground != new Color()))
 			{
 				snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
 			}
@@ -92,13 +92,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (action.Action != null)
 						await action.Action();
 				});
-				if (action.ForegroundColor != Color.Default)
+				if (action.ForegroundColor != new Color()))
 				{
 					snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
 				}
 
 				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action) ?? throw new NullReferenceException();
-				if (arguments.BackgroundColor != Color.Default)
+				if (arguments.BackgroundColor != new Color()))
 				{
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
 				}

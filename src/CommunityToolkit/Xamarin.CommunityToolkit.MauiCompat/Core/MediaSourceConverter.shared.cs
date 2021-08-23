@@ -3,9 +3,9 @@ using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphi
 
 namespace Xamarin.CommunityToolkit.Core
 {
-	public sealed class MediaSourceConverter : TypeConverter
+	public sealed class MediaSourceConverter : System.ComponentModel.TypeConverter
 	{
-		public override object? ConvertFromInvariantString(string value)
+		public override object? ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)
 		{
 			if (value == null)
 				throw new InvalidOperationException($"Cannot convert \"{value}\" into {typeof(MediaSource)}");

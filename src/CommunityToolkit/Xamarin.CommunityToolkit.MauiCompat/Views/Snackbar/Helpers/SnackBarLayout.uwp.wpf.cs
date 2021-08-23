@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 		{
 			RowDefinitions.Add(new RowDefinition());
 			ColumnDefinitions.Add(new ColumnDefinition());
-			if (options.BackgroundColor != Color.Default)
+			if (options.BackgroundColor != new Color()))
 			{
 				Background = options.BackgroundColor.ToBrush();
 			}
@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 				}
 			}
 
-			if (options.MessageOptions.Foreground != Color.Default)
+			if (options.MessageOptions.Foreground != new Color()))
 			{
 				messageLabel.Foreground = options.MessageOptions.Foreground.ToBrush();
 			}
@@ -87,12 +87,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 					button.FontFamily = new FontFamily(action.Font.FontFamily);
 				}
 
-				if (action.BackgroundColor != Color.Default)
+				if (action.BackgroundColor != new Color()))
 				{
 					button.Background = action.BackgroundColor.ToBrush();
 				}
 
-				if (action.ForegroundColor != Color.Default)
+				if (action.ForegroundColor != new Color()))
 				{
 					button.Foreground = action.ForegroundColor.ToBrush();
 				}

@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 using Android.App;
 using Android.Content;
@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		int? defaultLabelFor;
 		VisualElementTracker? tracker;
-		Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView? container;
+		Microsoft.Maui.Controls.Compatibility.Platform.Android.Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView? container;
 		bool isDisposed;
 
 		public BasePopup? Element { get; private set; }
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		VisualElementTracker? IVisualElementRenderer.Tracker => tracker;
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -65,10 +65,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tracker == null)
 				tracker = new VisualElementTracker(this);
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
+			OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?> e)
 		{
 			if (e.NewElement != null && !isDisposed && Element is BasePopup basePopup)
 			{
@@ -81,7 +81,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Show();
 			}
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		public override void Show()
@@ -114,7 +114,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (container == null)
 			{
-				container = new Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView(Context, basePopup.Content);
+				container = new Microsoft.Maui.Controls.Compatibility.Platform.Android.Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView(Context, basePopup.Content);
 				SetContentView(container);
 			}
 		}

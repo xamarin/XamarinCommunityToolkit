@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public UIViewController? ViewController { get; private set; }
 
-		public event EventHandler<VisualElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -76,10 +76,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			element.PropertyChanged += OnElementPropertyChanged;
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
+			OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?> e)
 		{
 			if (e.NewElement != null && !isDisposed)
 			{
@@ -96,7 +96,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				AddToCurrentPageViewController();
 			}
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)

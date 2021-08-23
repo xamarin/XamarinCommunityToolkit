@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		bool disposed;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<CameraView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView> e)
 		{
 			base.OnElementChanged(e);
 

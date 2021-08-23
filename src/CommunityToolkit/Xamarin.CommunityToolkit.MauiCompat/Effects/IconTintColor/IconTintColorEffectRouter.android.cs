@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System;
 using System.ComponentModel;
 using System.Linq;
 using Android.Graphics;
@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void SetImageViewTintColor(ImageView image, Color color)
 		{
-			if (color == Color.Default)
+			if (color == new Color()))
 				image.ClearColorFilter();
 
 			image.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn ?? throw new NullReferenceException()));
@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			var drawables = button.GetCompoundDrawables().Where(d => d != null);
 
-			if (color == Color.Default)
+			if (color == new Color()))
 			{
 				foreach (var img in drawables)
 					img.ClearColorFilter();
