@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
-		static readonly Color defaultNativeAnimationColor = new Microsoft.Maui.Graphics.Color(128, 128, 128, 64);
+		static readonly Color defaultNativeAnimationColor = new Color(128, 128, 128, 64);
 
 		AccessibilityManager? accessibilityManager;
 		AccessibilityListener? accessibilityListener;
@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		AView View => Control ?? Container;
 
-		ViewGroup? Group => Container ?? Control as ViewGroup;
+		ViewGroup? Group => (Container ?? Control) as ViewGroup;
 
 		internal bool IsCanceled { get; set; }
 
