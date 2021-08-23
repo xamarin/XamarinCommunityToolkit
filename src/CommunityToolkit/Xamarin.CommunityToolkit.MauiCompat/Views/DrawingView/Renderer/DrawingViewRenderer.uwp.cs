@@ -84,7 +84,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.Lines.Add(new Line()
 					{
 						Points = new ObservableCollection<Point>(points),
-						LineColor = Color.FromRgba(line.DrawingAttributes.Color.Red, line.DrawingAttributes.Color.Green,
+						LineColor = new Microsoft.Maui.Graphics.Color(line.DrawingAttributes.Color.Red, line.DrawingAttributes.Color.Green,
 							line.DrawingAttributes.Color.Blue, line.DrawingAttributes.Color.Alpha),
 						LineWidth = (float) line.DrawingAttributes.Size.Width
 					});
