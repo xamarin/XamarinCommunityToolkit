@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 		public UITextAlignment TextAlignment { get; set; } = UITextAlignment.Left;
 
-		public static UIColor DefaultColor { get; } = XCT.IsiOS13OrNewer ? new Color()).ToUIColor() : UIColor.White;
+		public static UIColor DefaultColor { get; } = XCT.IsiOS13OrNewer ? new Color().ToUIColor() : UIColor.White;
 
 		public static UIFont DefaultFont { get; } = Microsoft.Maui.Font.Default.ToUIFont();
 	}
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 	{
 		public static UILineBreakMode LineBreakMode { get; set; } = UILineBreakMode.MiddleTruncation;
 
-		public static UIColor DefaultColor { get; } = new Color()).ToUIColor();
+		public static UIColor DefaultColor { get; } = new Color().ToUIColor();
 
 		public static UIFont DefaultFont { get; } = Microsoft.Maui.Font.Default.ToUIFont();
 	}
