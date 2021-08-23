@@ -68,7 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		static void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		static void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			var renderer = sender as IVisualElementRenderer;
 

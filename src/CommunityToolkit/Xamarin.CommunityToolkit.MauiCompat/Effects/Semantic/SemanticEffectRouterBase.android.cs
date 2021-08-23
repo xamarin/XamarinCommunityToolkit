@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				Update(veFinal, effect);
 		}
 
-		void SetupControl(object sender, PropertyChangedEventArgs e)
+		void SetupControl(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer")
 			{

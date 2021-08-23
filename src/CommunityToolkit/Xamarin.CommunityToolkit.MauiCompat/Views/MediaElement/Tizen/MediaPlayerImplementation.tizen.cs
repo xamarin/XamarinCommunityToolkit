@@ -343,7 +343,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		async void OnTargetViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		async void OnTargetViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer")
 			{

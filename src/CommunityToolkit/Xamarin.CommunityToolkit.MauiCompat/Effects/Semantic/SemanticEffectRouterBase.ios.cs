@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			Update(Control ?? Container, effect);
 		}
 
-		void SetupControl(object sender, PropertyChangedEventArgs e)
+		void SetupControl(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer")
 			{

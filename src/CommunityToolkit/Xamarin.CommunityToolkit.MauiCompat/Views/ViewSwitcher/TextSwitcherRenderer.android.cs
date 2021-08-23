@@ -311,7 +311,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected virtual void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (this.IsDisposed())
 				return;

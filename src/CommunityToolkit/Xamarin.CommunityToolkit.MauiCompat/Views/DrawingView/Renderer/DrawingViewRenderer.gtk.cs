@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
