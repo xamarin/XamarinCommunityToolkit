@@ -36,49 +36,49 @@ namespace Xamarin.CommunityToolkit.Extensions
 			$"HSLA({c.GetDegreeHue()}°,{c.GetSaturation():P},{c.GetLuminosity():P},{c.Alpha:P})";
 
 		public static Color WithRed(this Color baseColor, double newR) =>
-			Color.FromRgba(newR, baseColor.Green, baseColor.Blue, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color(newR, baseColor.Green, baseColor.Blue, baseColor.Alpha);
 
 		public static Color WithGreen(this Color baseColor, double newG) =>
-			Color.FromRgba(baseColor.Red, newG, baseColor.Blue, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, newG, baseColor.Blue, baseColor.Alpha);
 
 		public static Color WithBlue(this Color baseColor, double newB) =>
-			Color.FromRgba(baseColor.Red, baseColor.Green, newB, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, newB, baseColor.Alpha);
 
 		public static Color WithAlpha(this Color baseColor, double newA) =>
-			Color.FromRgba(baseColor.Red, baseColor.Green, baseColor.Blue, newA);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, baseColor.Blue, newA);
 
 		public static Color WithRed(this Color baseColor, byte newR) =>
-			Color.FromRgba((double)newR / 255, baseColor.Green, baseColor.Blue, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color((double)newR / 255, baseColor.Green, baseColor.Blue, baseColor.Alpha);
 
 		public static Color WithGreen(this Color baseColor, byte newG) =>
-			Color.FromRgba(baseColor.Red, (double)newG / 255, baseColor.Blue, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, (double)newG / 255, baseColor.Blue, baseColor.Alpha);
 
 		public static Color WithBlue(this Color baseColor, byte newB) =>
-			Color.FromRgba(baseColor.Red, baseColor.Green, (double)newB / 255, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, (double)newB / 255, baseColor.Alpha);
 
 		public static Color WithAlpha(this Color baseColor, byte newA) =>
-			Color.FromRgba(baseColor.Red, baseColor.Green, baseColor.Blue, (double)newA / 255);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, baseColor.Blue, (double)newA / 255);
 
 		public static Color WithCyan(this Color baseColor, double newC) =>
-			Color.FromRgba((1 - newC) * (1 - baseColor.GetPercentBlackKey()),
+			new Microsoft.Maui.Graphics.Color((1 - newC) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.Alpha);
 
 		public static Color WithMagenta(this Color baseColor, double newM) =>
-			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
+			new Microsoft.Maui.Graphics.Color((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - newM) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.Alpha);
 
 		public static Color WithYellow(this Color baseColor, double newY) =>
-			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
+			new Microsoft.Maui.Graphics.Color((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - newY) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.Alpha);
 
 		public static Color WithBlackKey(this Color baseColor, double newK) =>
-			Color.FromRgba((1 - baseColor.GetPercentCyan()) * (1 - newK),
+			new Microsoft.Maui.Graphics.Color((1 - baseColor.GetPercentCyan()) * (1 - newK),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - newK),
 						   (1 - baseColor.GetPercentYellow()) * (1 - newK),
 						   baseColor.Alpha);
