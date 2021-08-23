@@ -16,6 +16,8 @@ namespace Xamarin.CommunityToolkit.Core
 		public static readonly BindableProperty StreamProperty
 			= BindableProperty.Create(nameof(Stream), typeof(Func<CancellationToken, Task<Stream>>), typeof(StreamMediaSource));
 
+		public bool IsEmpty => Stream == null;
+
 		protected CancellationTokenSource? CancellationTokenSource
 		{
 			get => cancellationTokenSource;

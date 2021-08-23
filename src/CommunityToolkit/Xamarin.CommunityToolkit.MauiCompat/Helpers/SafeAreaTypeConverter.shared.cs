@@ -9,14 +9,17 @@ namespace Xamarin.CommunityToolkit.Helpers
 	{
 		public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)
 		{
+			if (value is not string text)
+				throw new InvalidOperationException("Only typeof(string) allowed");
+
 			if (value != null)
 			{
-				value = value.Trim();
+				value = text.Trim();
 
-				if (value.Contains(","))
+				if (text.Contains(","))
 				{
 					// XAML based definition
-					var safeArea = value.Split(',');
+					var safeArea = text.Split(',');
 
 					switch (safeArea.Length)
 					{
@@ -37,7 +40,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 				else
 				{
 					// Single uniform SafeArea
-					if (bool.TryParse(value, out var l))
+					if (bool.TryParse(text, out var l))
 						return new SafeArea(l);
 				}
 			}
