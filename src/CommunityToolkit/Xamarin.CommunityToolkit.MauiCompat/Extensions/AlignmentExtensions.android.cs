@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using Android.Views;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Android.Views;
 using TextAlignment = Microsoft.Maui.TextAlignment;
 using ATextAlignment = Android.Views.TextAlignment;
 

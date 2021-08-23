@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.Collections.Generic;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System.Collections.Generic;
 using Android.Text;
 using Android.Widget;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;

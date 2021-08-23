@@ -1,4 +1,4 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;﻿using System.Linq;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System.Linq;
 using Android.Content;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.UI.Views;
