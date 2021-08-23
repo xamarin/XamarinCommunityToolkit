@@ -59,25 +59,25 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public static Color WithAlpha(this Color baseColor, byte newA) =>
 			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, baseColor.Blue, (float)newA / 255);
 
-		public static Color WithCyan(this Color baseColor, double newC) =>
+		public static Color WithCyan(this Color baseColor, float newC) =>
 			new Microsoft.Maui.Graphics.Color((1 - newC) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.Alpha);
 
-		public static Color WithMagenta(this Color baseColor, double newM) =>
+		public static Color WithMagenta(this Color baseColor, float newM) =>
 			new Microsoft.Maui.Graphics.Color((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - newM) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentYellow()) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.Alpha);
 
-		public static Color WithYellow(this Color baseColor, double newY) =>
+		public static Color WithYellow(this Color baseColor, float newY) =>
 			new Microsoft.Maui.Graphics.Color((1 - baseColor.GetPercentCyan()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - baseColor.GetPercentBlackKey()),
 						   (1 - newY) * (1 - baseColor.GetPercentBlackKey()),
 						   baseColor.Alpha);
 
-		public static Color WithBlackKey(this Color baseColor, double newK) =>
+		public static Color WithBlackKey(this Color baseColor, float newK) =>
 			new Microsoft.Maui.Graphics.Color((1 - baseColor.GetPercentCyan()) * (1 - newK),
 						   (1 - baseColor.GetPercentMagenta()) * (1 - newK),
 						   (1 - baseColor.GetPercentYellow()) * (1 - newK),
