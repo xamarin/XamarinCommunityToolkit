@@ -1210,7 +1210,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			layout.InputTransparent = false;
 			foreach (var view in layout.Children)
-				OnLayoutChildAdded(layout, new ElementEventArgs(view));
+				OnLayoutChildAdded(layout, new ElementEventArgs((Element)view));
 
 			layout.ChildAdded += OnLayoutChildAdded;
 		}
