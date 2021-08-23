@@ -276,7 +276,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if ((visualElementRenderer?.OnTouchEvent(e) ?? false) || base.OnTouchEvent(e))
+			if (base.OnTouchEvent(e))
 			{
 				return true;
 			}
@@ -335,8 +335,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else if (e.PropertyName == Label.TextColorProperty.PropertyName ||
 				e.PropertyName == Label.TextTypeProperty.PropertyName)
 				UpdateText();
-			else if (e.PropertyName == Label.FontProperty.PropertyName)
-				UpdateText();
 			else if (e.PropertyName == Label.LineBreakModeProperty.PropertyName)
 				UpdateLineBreakMode();
 			else if (e.PropertyName == Label.CharacterSpacingProperty.PropertyName)
@@ -368,7 +366,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			lastUpdateColor = color;
 
-			if (color.IsDefault)
+			if (color.IsDefault())
 			{
 				foreach (var child in children)
 					child.SetTextColor(labelTextColorDefault);
@@ -387,7 +385,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 #pragma warning disable 618 // We will need to update this when .Font goes away
-			var f = Element.Font;
+			var f = Element.ToFont();
 #pragma warning restore 618
 
 			var newTypeface = f.ToTypeface();
@@ -399,7 +397,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				lastTypeface = newTypeface;
 			}
 
-			var newTextSize = f.ToScaledPixel();
+			var newTextSize = (float)f.Size;
 			if (newTextSize != lastTextSize)
 			{
 				foreach (var child in children)
@@ -501,7 +499,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var formattedText = Element.FormattedText ?? Element.Text;
 #pragma warning disable 618 // We will need to update this when .Font goes away
-				nextView.TextFormatted = spannableString = formattedText.ToAttributed(Element.Font, Element.TextColor, nextView);
+				nextView.TextFormatted = spannableString = formattedText.ToAttributed(Element.ToFont(), Element.TextColor, nextView);
 				ShowNext();
 #pragma warning restore 618
 				wasFormatted = true;
@@ -513,7 +511,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					foreach (var child in children)
 						child.SetTextColor(labelTextColorDefault);
 
-					lastUpdateColor = Color.Default;
+					lastUpdateColor = new Color();
 				}
 
 				switch (Element.TextType)
