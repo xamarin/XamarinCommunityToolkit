@@ -44,9 +44,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 
 			if (options.MessageOptions.Font != Forms.Font.Default)
 			{
-				if (options.MessageOptions.Font.FontSize > 0)
+				if (options.MessageOptions.Font.Size > 0)
 				{
-					messageLabel.FontSize = options.MessageOptions.Font.FontSize;
+					messageLabel.FontSize = options.MessageOptions.Font.Size;
 				}
 
 				if (options.MessageOptions.Font.FontFamily != null)
@@ -83,7 +83,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 				};
 				if (action.Font != Forms.Font.Default)
 				{
-					button.FontSize = action.Font.FontSize;
+					button.FontSize = action.Font.Size;
 					button.FontFamily = new FontFamily(action.Font.FontFamily);
 				}
 

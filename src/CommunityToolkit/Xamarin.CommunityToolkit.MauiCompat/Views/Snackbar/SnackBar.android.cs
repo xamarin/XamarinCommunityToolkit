@@ -73,9 +73,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (arguments.MessageOptions.Font != Font.Default)
 			{
-				if (arguments.MessageOptions.Font.FontSize > 0)
+				if (arguments.MessageOptions.Font.Size > 0)
 				{
-					snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.FontSize);
+					snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.Size);
 				}
 
 				snackTextView.SetTypeface(arguments.MessageOptions.Font.ToTypeface(), TypefaceStyle.Normal);
@@ -113,9 +113,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (action.Font != Font.Default)
 				{
-					if (action.Font.FontSize > 0)
+					if (action.Font.Size > 0)
 					{
-						snackTextView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
+						snackTextView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.Size);
 					}
 
 					snackActionButtonView.SetTypeface(action.Font.ToTypeface(), TypefaceStyle.Normal);
