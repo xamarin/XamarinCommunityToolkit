@@ -227,7 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			animationTokenSource?.Dispose();
 
 			foreach (var child in layout.Children)
-				ViewExtensions.CancelAnimations(child);
+				Microsoft.Maui.Controls.ViewExtensionsCancelAnimations(child);
 
 			animationTokenSource = new CancellationTokenSource();
 			return animationTokenSource.Token;

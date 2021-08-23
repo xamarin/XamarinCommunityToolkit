@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		{
 			_ = element ?? throw new ArgumentNullException(nameof(element));
 
-			ViewExtensions.CancelAnimations(element);
+			Microsoft.Maui.Controls.ViewExtensionsCancelAnimations(element);
 			element.AbortAnimation(nameof(ColorTo));
 
 			if (otherAnimationNames == null)
