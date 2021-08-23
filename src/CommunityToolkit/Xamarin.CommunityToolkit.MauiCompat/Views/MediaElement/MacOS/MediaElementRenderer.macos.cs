@@ -351,7 +351,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void MediaElementPositionRequested(object? sender, EventArgs e) => Controller.Position = Position;
 
-		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<MediaElement> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<MediaElement> e)
 		{
 			base.OnElementChanged(e);
 

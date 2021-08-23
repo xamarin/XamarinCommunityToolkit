@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
     {
         TextSwitcher TextSwitcher => (TextSwitcher)Element;
 
-        protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label> e)
+        protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label> e)
         {
             base.OnElementChanged(e);
 

@@ -37,7 +37,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ReleaseControl();
 		}
 
-		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement> e)
 		{
 			base.OnElementChanged(e);
 

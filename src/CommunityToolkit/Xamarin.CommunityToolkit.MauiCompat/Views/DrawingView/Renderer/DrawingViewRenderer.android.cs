@@ -53,7 +53,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				LoadLines();
 		}
 
-		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (e.NewElement != null)

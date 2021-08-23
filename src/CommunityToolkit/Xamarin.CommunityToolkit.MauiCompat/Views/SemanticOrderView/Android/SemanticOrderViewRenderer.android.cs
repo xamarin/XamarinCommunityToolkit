@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 		}
 
-		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<View> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<View> e)
 		{
 			base.OnElementChanged(e);
 			SetAccessibilityElements();

@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView?> e)
+		void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView?> e)
 		{
 			CameraFragment? newfragment = null;
 
@@ -132,7 +132,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var oldElement = element;
 				element = value;
 
-				OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView?>(oldElement, element));
+				OnElementChanged(new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView?>(oldElement, element));
 
 				// this is just used to set ID's to the NativeViews along time ago for UITest with Test Cloud
 				// https://discordapp.com/channels/732297728826277939/738043671575920700/747629874709266449

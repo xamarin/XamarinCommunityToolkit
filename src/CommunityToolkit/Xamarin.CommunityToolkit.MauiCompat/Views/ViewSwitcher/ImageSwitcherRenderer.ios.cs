@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
     {
         ImageSwitcher ImageSwitcher => (ImageSwitcher)Element;
 
-        protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Image> e)
+        protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Image> e)
         {
             base.OnElementChanged(e);
 

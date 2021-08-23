@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				var oldElement = element;
 				element = value;
-				OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label?>(oldElement, element));
+				OnElementChanged(new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label?>(oldElement, element));
 			}
 		}
 
@@ -275,7 +275,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return motionEventHelper.HandleMotionEvent(Parent, e);
 		}
 
-		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label?> e)
 		{
 			elementChangedEventManager.RaiseEvent(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement), nameof(ElementChanged));
 

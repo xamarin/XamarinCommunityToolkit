@@ -125,7 +125,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tracker == null)
 				SetTracker(new VisualElementTracker(this));
 
-			OnElementChanged(new Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement?>(oldElement, MediaElement));
+			OnElementChanged(new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement?>(oldElement, MediaElement));
 		}
 
 		void StateRequested(object? sender, StateRequested e)
@@ -219,7 +219,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.Dispose(disposing);
 		}
 
-		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement?> e)
 		{
 			if (e.NewElement != null)
 			{

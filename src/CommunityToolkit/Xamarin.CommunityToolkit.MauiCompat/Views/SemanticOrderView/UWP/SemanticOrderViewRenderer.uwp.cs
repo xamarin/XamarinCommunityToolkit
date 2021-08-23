@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class SemanticOrderViewRenderer : ViewRenderer<SemanticOrderView, FrameworkElement>
 	{
-		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<SemanticOrderView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<SemanticOrderView> e)
 		{
 			base.OnElementChanged(e);
 			UpdateViewOrder();
