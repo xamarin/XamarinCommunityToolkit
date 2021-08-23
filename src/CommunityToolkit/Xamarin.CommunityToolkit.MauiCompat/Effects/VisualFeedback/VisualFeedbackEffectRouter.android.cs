@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			var color = VisualFeedbackEffect.GetFeedbackColor(Element);
 
 			var nativeColor = color.ToAndroid();
-			nativeColor.Alpha = 80;
+			nativeColor.A = 80;
 
 			ripple?.SetColor(GetPressedColorSelector(nativeColor));
 		}
