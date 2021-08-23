@@ -7,12 +7,12 @@ namespace Xamarin.CommunityToolkit.Core
 	{
 		public override object? ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)
 		{
-			if (value == null)
-				throw new InvalidOperationException($"Cannot convert \"{value}\" into {typeof(MediaSource)}");
+			if (value is not string text)
+				throw new InvalidOperationException("Only typeof(string) allowed");
 
-			return Uri.TryCreate(value, UriKind.Absolute, out var uri) && uri.Scheme != "file"
+			return Uri.TryCreate(text, UriKind.Absolute, out var uri) && uri.Scheme != "file"
 				? MediaSource.FromUri(uri)
-				: MediaSource.FromFile(value);
+				: MediaSource.FromFile(text);
 		}
 	}
 }

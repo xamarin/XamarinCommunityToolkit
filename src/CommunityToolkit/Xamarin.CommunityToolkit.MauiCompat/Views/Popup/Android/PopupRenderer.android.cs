@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		int? defaultLabelFor;
 		VisualElementTracker? tracker;
-		Microsoft.Maui.Controls.Compatibility.Platform.Android.Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView? container;
+		Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView? container;
 		bool isDisposed;
 
 		public BasePopup? Element { get; private set; }
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		VisualElementTracker? IVisualElementRenderer.Tracker => tracker;
 
-		public event EventHandler<Microsoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs>? ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -81,7 +81,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Show();
 			}
 
-			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		public override void Show()
@@ -114,7 +114,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (container == null)
 			{
-				container = new Microsoft.Maui.Controls.Compatibility.Platform.Android.Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView(Context, basePopup.Content);
+				container = new Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView(Context, basePopup.Content);
 				SetContentView(container);
 			}
 		}

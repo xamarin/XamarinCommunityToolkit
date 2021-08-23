@@ -5,7 +5,7 @@ using Android.Graphics;
 using Java.Lang;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
-using Color = Xamarin.Color;
+using Color = Microsoft.Maui.Graphics.Color;
 using Math = System.Math;
 using Point = Microsoft.Maui.Graphics.Point;
 
