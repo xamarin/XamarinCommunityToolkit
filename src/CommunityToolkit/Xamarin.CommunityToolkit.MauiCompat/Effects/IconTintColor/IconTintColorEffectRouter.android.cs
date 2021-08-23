@@ -25,8 +25,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			base.OnElementPropertyChanged(args);
 
 			if (!args.PropertyName?.Equals(IconTintColorEffect.TintColorProperty.PropertyName) &&
-				!args.PropertyName?.Equals(Forms.Image.SourceProperty.PropertyName) &&
-				!args.PropertyName?.Equals(Forms.ImageButton.SourceProperty.PropertyName))
+				!args.PropertyName?.Equals(Microsoft.Maui.Controls.Image.SourceProperty.PropertyName) &&
+				!args.PropertyName?.Equals(Microsoft.Maui.Controls.ImageButton.SourceProperty.PropertyName))
 				return;
 
 			ApplyTintColor();
