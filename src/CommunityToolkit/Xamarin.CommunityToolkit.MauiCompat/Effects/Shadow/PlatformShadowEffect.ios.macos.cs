@@ -79,7 +79,7 @@ public class PlatformShadowEffect : Microsoft.Maui.Controls.Platform.PlatformEff
 	void UpdateColor(in NativeView view)
 	{
 		if (view.Layer != null)
-			view.Layer.ShadowColor = Microsoft.Maui.ColorExtensions.ToCGColor(ShadowEffect.GetColor(Element);
+			view.Layer.ShadowColor = Microsoft.Maui.ColorExtensions.ToCGColor(ShadowEffect.GetColor(Element));
 	}
 
 	void UpdateOpacity(in NativeView view)
