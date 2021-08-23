@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected void Update()
 		{
-			var effect = (T)Element.Effects.FirstOrDefault(e => e is T);
+			var effect = (T?)Element.Effects.FirstOrDefault(e => e is T);
 			Update(Control ?? Container, effect);
 		}
 
