@@ -35,29 +35,29 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public static string ToHslaString(this Color c) =>
 			$"HSLA({c.GetDegreeHue()}°,{c.GetSaturation():P},{c.GetLuminosity():P},{c.Alpha:P})";
 
-		public static Color WithRed(this Color baseColor, double newR) =>
+		public static Color WithRed(this Color baseColor, float newR) =>
 			new Microsoft.Maui.Graphics.Color(newR, baseColor.Green, baseColor.Blue, baseColor.Alpha);
 
-		public static Color WithGreen(this Color baseColor, double newG) =>
+		public static Color WithGreen(this Color baseColor, float newG) =>
 			new Microsoft.Maui.Graphics.Color(baseColor.Red, newG, baseColor.Blue, baseColor.Alpha);
 
-		public static Color WithBlue(this Color baseColor, double newB) =>
+		public static Color WithBlue(this Color baseColor, float newB) =>
 			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, newB, baseColor.Alpha);
 
-		public static Color WithAlpha(this Color baseColor, double newA) =>
+		public static Color WithAlpha(this Color baseColor, float newA) =>
 			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, baseColor.Blue, newA);
 
 		public static Color WithRed(this Color baseColor, byte newR) =>
-			new Microsoft.Maui.Graphics.Color((double)newR / 255, baseColor.Green, baseColor.Blue, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color((float)newR / 255, baseColor.Green, baseColor.Blue, baseColor.Alpha);
 
 		public static Color WithGreen(this Color baseColor, byte newG) =>
-			new Microsoft.Maui.Graphics.Color(baseColor.Red, (double)newG / 255, baseColor.Blue, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, (float)newG / 255, baseColor.Blue, baseColor.Alpha);
 
 		public static Color WithBlue(this Color baseColor, byte newB) =>
-			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, (double)newB / 255, baseColor.Alpha);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, (float)newB / 255, baseColor.Alpha);
 
 		public static Color WithAlpha(this Color baseColor, byte newA) =>
-			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, baseColor.Blue, (double)newA / 255);
+			new Microsoft.Maui.Graphics.Color(baseColor.Red, baseColor.Green, baseColor.Blue, (float)newA / 255);
 
 		public static Color WithCyan(this Color baseColor, double newC) =>
 			new Microsoft.Maui.Graphics.Color((1 - newC) * (1 - baseColor.GetPercentBlackKey()),
