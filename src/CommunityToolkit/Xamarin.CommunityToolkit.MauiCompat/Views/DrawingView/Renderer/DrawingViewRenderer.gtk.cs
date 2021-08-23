@@ -152,7 +152,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void DrawPoint(Context ctx, PointD pointD)
 		{
-			ctx.SetSourceRGBA(currentLine!.LineColor.R, currentLine!.LineColor.G, currentLine!.LineColor.B, currentLine!.LineColor.A);
+			ctx.SetSourceRGBA(currentLine!.LineColor.Red, currentLine!.LineColor.Green, currentLine!.LineColor.Blue, currentLine!.LineColor.Alpha);
 			ctx.LineWidth = currentLine.LineWidth;
 			ctx.MoveTo(previousPoint);
 			previousPoint = pointD;

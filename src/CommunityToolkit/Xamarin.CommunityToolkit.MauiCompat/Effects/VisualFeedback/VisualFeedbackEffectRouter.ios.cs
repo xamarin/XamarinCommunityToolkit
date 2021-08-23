@@ -96,7 +96,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		void UpdateEffectColor()
 		{
 			var color = VisualFeedbackEffect.GetFeedbackColor(Element);
-			alpha = color.A < 1.0f ? 1f : 0.1f;
+			alpha = color.Alpha < 1.0f ? 1f : 0.1f;
 
 			if (layer != null)
 				layer.BackgroundColor = color.ToUIColor();

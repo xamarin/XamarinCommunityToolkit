@@ -151,7 +151,7 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 				var endColor = effect.NativeAnimationColor.ToNative();
 				if (endColor.IsDefault)
 				{
-					startColor = EColor.FromRgba(startColor.R, startColor.G, startColor.B, startColor.A / 2);
+					startColor = EColor.FromRgba(startColor.Red, startColor.Green, startColor.Blue, startColor.Alpha / 2);
 					endColor = startColor;
 				}
 

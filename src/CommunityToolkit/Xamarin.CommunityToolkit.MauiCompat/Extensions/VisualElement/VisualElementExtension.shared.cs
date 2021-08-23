@@ -21,10 +21,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 			new Animation
 			{
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(v, element.BackgroundColor.G, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.R, color.R) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, v, element.BackgroundColor.B, element.BackgroundColor.A), element.BackgroundColor.G, color.G) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, v, element.BackgroundColor.A), element.BackgroundColor.B, color.B) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.R, element.BackgroundColor.G, element.BackgroundColor.B, v), element.BackgroundColor.A, color.A) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(v, element.BackgroundColor.Green, element.BackgroundColor.Blue, element.BackgroundColor.Alpha), element.BackgroundColor.Red, color.Red) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.Red, v, element.BackgroundColor.Blue, element.BackgroundColor.Alpha), element.BackgroundColor.Green, color.Green) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.Red, element.BackgroundColor.Green, v, element.BackgroundColor.Alpha), element.BackgroundColor.Blue, color.Blue) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.Red, element.BackgroundColor.Green, element.BackgroundColor.Blue, v), element.BackgroundColor.Alpha, color.Alpha) },
 			}.Commit(element, nameof(ColorTo), 16, length, easing, (d, b) => animationCompletionSource.SetResult(true));
 
 			return animationCompletionSource.Task;

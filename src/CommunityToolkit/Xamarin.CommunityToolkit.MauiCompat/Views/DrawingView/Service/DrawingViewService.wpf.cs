@@ -113,7 +113,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static System.Drawing.Color XamarinColorToDrawingColor(Color xamarinColor)
 		{
 			var mediaColor = xamarinColor.ToMediaColor();
-			return System.Drawing.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
+			return System.Drawing.Color.FromArgb(mediaColor.Alpha, mediaColor.Red, mediaColor.Green, mediaColor.Blue);
 		}
 
 		static PointF XamarinPointToDrawingPoint(Point xamarinPoint) =>
