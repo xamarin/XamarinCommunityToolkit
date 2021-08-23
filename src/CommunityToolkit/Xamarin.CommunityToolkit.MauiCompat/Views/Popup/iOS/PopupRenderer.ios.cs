@@ -9,6 +9,7 @@ using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphi
 using Microsoft.Maui.Controls.Internals;
 using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Specifics = Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific.PopUp;
+using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]
 
@@ -28,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public UIViewController? ViewController { get; private set; }
 
-		public event EventHandler<Microsoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs>? ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -96,7 +97,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				AddToCurrentPageViewController();
 			}
 
-			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)

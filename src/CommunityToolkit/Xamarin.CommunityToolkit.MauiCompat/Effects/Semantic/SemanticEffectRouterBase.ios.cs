@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	/// Base implementation of the <see cref="SemanticEffectRouter" />
 	/// </summary>
 	/// <typeparam name="T">Effect</typeparam>
-	public class SemanticEffectRouterBase<T> : Microsoft.Maui.Controls.Compatibility.Platform.iOS.PlatformEffect
+	public class SemanticEffectRouterBase<T> : Microsoft.Maui.Controls.Platform.PlatformEffect
 		where T : Effect
 	{
 		public SemanticEffectRouterBase()
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected void Update()
 		{
-			var effect = (T?)Element.Effects.FirstOrDefault(e => e is T);
+			var effect = (T)Element.Effects.First(e => e is T);
 			Update(Control ?? Container, effect);
 		}
 
