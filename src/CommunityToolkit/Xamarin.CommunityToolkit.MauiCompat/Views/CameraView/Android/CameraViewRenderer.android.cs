@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		FragmentManager? fragmentManager;
 
-		FragmentManager FragmentManager => fragmentManager ??= Context.GetFragmentManager();
+		FragmentManager FragmentManager => fragmentManager ??= Microsoft.Maui.ContextExtensions.GetFragmentManager(Context ?? throw new NullReferenceException()) ?? throw new InvalidOperationException();
 
 		CameraFragment? camerafragment;
 
