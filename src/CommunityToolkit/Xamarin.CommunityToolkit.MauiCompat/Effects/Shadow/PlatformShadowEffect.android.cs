@@ -1,12 +1,18 @@
-using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System.ComponentModel;
+using Paint = Android.Graphics.Paint;
+using Path = Android.Graphics.Path;
+using System.ComponentModel;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Helpers;
-using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
-using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Platform;
 using AButton = Android.Widget.Button;
 using ATextView = Android.Widget.TextView;
 using AView = Android.Views.View;
@@ -90,11 +96,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return;
 			}
 
-			var pixelOffsetX = View.Microsoft.Maui.ContextExtensions.ToPixels(Context, offsetX);
-			var pixelOffsetY = View.Microsoft.Maui.ContextExtensions.ToPixels(Context, offsetY);
-			var pixelCornerRadius = View.Microsoft.Maui.ContextExtensions.ToPixels(Context, cornerRadius);
+			var pixelOffsetX = Microsoft.Maui.ContextExtensions.ToPixels(View.Context ?? throw new NullReferenceException(), offsetX);
+			var pixelOffsetY = Microsoft.Maui.ContextExtensions.ToPixels(View.Context ?? throw new NullReferenceException(), offsetY);
+			var pixelCornerRadius = Microsoft.Maui.ContextExtensions.ToPixels(View.Context ?? throw new NullReferenceException(), cornerRadius);
 			View.OutlineProvider = new ShadowOutlineProvider(pixelOffsetX, pixelOffsetY, pixelCornerRadius);
-			View.Elevation = View.Microsoft.Maui.ContextExtensions.ToPixels(Context, radius);
+			View.Elevation = Microsoft.Maui.ContextExtensions.ToPixels(View.Context ?? throw new NullReferenceException(), radius);
 			if (View.Parent is ViewGroup group)
 				group.SetClipToPadding(false);
 
