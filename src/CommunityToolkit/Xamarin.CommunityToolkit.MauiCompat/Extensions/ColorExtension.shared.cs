@@ -96,15 +96,15 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		// Note : double Percent R, G and B are simply Colors.Red, Colors.Green and Colors.B
 
-		public static double GetPercentBlackKey(this Color c) => 1 - Math.Max(Math.Max(c.Red, c.Green), c.Blue);
+		public static float GetPercentBlackKey(this Color c) => 1 - Math.Max(Math.Max(c.Red, c.Green), c.Blue);
 
-		public static double GetPercentCyan(this Color c) =>
+		public static float GetPercentCyan(this Color c) =>
 			(1 - c.Red - c.GetPercentBlackKey()) / (1 - c.GetPercentBlackKey());
 
-		public static double GetPercentMagenta(this Color c) =>
+		public static float GetPercentMagenta(this Color c) =>
 			(1 - c.Green - c.GetPercentBlackKey()) / (1 - c.GetPercentBlackKey());
 
-		public static double GetPercentYellow(this Color c) =>
+		public static float GetPercentYellow(this Color c) =>
 			(1 - c.Blue - c.GetPercentBlackKey()) / (1 - c.GetPercentBlackKey());
 
 		public static Color ToInverseColor(this Color baseColor) =>
