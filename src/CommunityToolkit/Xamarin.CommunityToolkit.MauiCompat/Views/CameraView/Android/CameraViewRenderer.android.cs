@@ -142,7 +142,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if (visualElementRenderer?.OnTouchEvent(e) is true || base.OnTouchEvent(e))
+			if (base.OnTouchEvent(e))
 				return true;
 
 			return motionEventHelper.HandleMotionEvent(Parent, e);
