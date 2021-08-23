@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BackgroundManager.Init(this);
 		}
 
-		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged
+		public event EventHandler<Microsoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged
 		{
 			add => elementChangedEventManager.AddEventHandler(value);
 			remove => elementChangedEventManager.RemoveEventHandler(value);
@@ -277,7 +277,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Label?> e)
 		{
-			elementChangedEventManager.RaiseEvent(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement), nameof(ElementChanged));
+			elementChangedEventManager.RaiseEvent(this, new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement), nameof(ElementChanged));
 
 			if (e.OldElement != null)
 			{

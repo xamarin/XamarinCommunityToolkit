@@ -68,7 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		AView IVisualElementRenderer.View => this;
 
-		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -234,7 +234,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ElevationHelper.SetElevation(this, e.NewElement);
 			}
 
-			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		void MetadataRetrieved(object? sender, EventArgs e)

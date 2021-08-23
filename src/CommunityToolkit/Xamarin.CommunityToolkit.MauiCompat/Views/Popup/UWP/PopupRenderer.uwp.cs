@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		VisualElement? IVisualElementRenderer.Element => Element;
 
-		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -82,7 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Show();
 			}
 
-			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
