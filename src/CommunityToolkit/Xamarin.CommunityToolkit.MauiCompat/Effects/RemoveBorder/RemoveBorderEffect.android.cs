@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			originalBackground = Control.Background;
 
-			var shape = new ShapeDrawable(new RectShape());
+			var shape = new global::Android.Graphics.Drawables.ShapeDrawable(new RectShape());
 			if (shape.Paint != null)
 			{
 				shape.Paint.Color = global::Android.Graphics.Color.Transparent;
