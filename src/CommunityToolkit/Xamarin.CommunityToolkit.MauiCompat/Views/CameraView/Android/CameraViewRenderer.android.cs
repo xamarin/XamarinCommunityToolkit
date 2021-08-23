@@ -142,7 +142,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if (visualElementRenderer?.OnTouchEvent(e) is true || base.OnTouchEvent(e))
+			if (base.OnTouchEvent(e))
 				return true;
 
 			return motionEventHelper.HandleMotionEvent(Parent, e);
@@ -218,8 +218,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (width <= 0 || height <= 0)
 				return;
 
-			var realWidth = (int)context.ToPixels(width);
-			var realHeight = (int)context.ToPixels(height);
+			var realWidth = (int)Microsoft.Maui.ContextExtensions.ToPixels(context, width);
+			var realHeight = (int)Microsoft.Maui.ContextExtensions.ToPixels(context, height);
 
 			var widthMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realWidth, MeasureSpecMode.Exactly);
 			var heightMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realHeight, MeasureSpecMode.Exactly);
