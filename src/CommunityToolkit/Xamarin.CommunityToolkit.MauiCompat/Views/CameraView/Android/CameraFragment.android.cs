@@ -129,7 +129,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			inflater.Inflate(Resource.Layout.CameraFragment, null);
 
 		public override void OnViewCreated(AView view, Bundle savedInstanceState) =>
-			texture = view.FindViewById<AutoFitTextureView>(Resource.Id.cameratexture);
+			texture = view.FindViewById<AutoFitTextureView>(global::Android.Resource.Id.cameratexture);
 
 		public override async void OnResume()
 		{
