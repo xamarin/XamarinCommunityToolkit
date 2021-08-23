@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			visualElementRenderer = new VisualElementRenderer(this);
 		}
 
-		public event EventHandler<Microsoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs>? ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -118,7 +118,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				.Replace(Id, camerafragment = newfragment, "camera")
 				.Commit();
 
-			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		CameraView? Element
@@ -207,7 +207,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IViewRenderer.MeasureExactly() => MeasureExactly(this, Element, Context);
 
-		static void MeasureExactly(AView control, VisualElement? element, Context? context)
+		static void MeasureExactly(AView control, VisualElement? element, Context context)
 		{
 			if (control == null || element == null)
 				return;
