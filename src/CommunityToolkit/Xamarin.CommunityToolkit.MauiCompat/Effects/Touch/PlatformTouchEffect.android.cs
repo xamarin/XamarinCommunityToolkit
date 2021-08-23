@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
-		static readonly Color defaultNativeAnimationColor = new Color(128, 128, 128, 64);
+		static readonly Microsoft.Maui.Graphics.Color defaultNativeAnimationColor = new Microsoft.Maui.Graphics.Color(128, 128, 128, 64);
 
 		AccessibilityManager? accessibilityManager;
 		AccessibilityListener? accessibilityListener;
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		AView? rippleView;
 		float startX;
 		float startY;
-		Color rippleColor;
+		Microsoft.Maui.Graphics.Color rippleColor;
 		int rippleRadius = -1;
 
 		AView View => Control ?? Container;
