@@ -26,14 +26,14 @@ namespace Xamarin.CommunityToolkit.Extensions
 
 		/// <returns>CMYK(100%,100%,100%,100%,100%)</returns>
 		public static string ToCmykaString(this Color c) =>
-			$"CMYKA({c.GetPercentCyan():P},{c.GetPercentMagenta():P},{c.GetPercentYellow():P},{c.GetPercentBlackKey():P},{c.A:P})";
+			$"CMYKA({c.GetPercentCyan():P},{c.GetPercentMagenta():P},{c.GetPercentYellow():P},{c.GetPercentBlackKey():P},{c.Alpha:P})";
 
 		/// <returns>HSLA(360,100%,100%)</returns>
-		public static string ToHslString(this Color c) => $"HSL({c.Hue:P},{c.Saturation:P},{c.Luminosity:P})";
+		public static string ToHslString(this Color c) => $"HSL({c.GetHue():P},{c.GetSaturation():P},{c.GetLuminosity():P})";
 
 		/// <returns>HSLA(360°,100%,100%,100%)</returns>
 		public static string ToHslaString(this Color c) =>
-			$"HSLA({c.GetDegreeHue()}°,{c.Saturation:P},{c.Luminosity:P},{c.A:P})";
+			$"HSLA({c.GetDegreeHue()}°,{c.GetSaturation():P},{c.GetLuminosity():P},{c.Alpha:P})";
 
 		public static Color WithRed(this Color baseColor, double newR) =>
 			Color.FromRgba(newR, baseColor.Green, baseColor.Blue, baseColor.Alpha);
@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public static byte GetByteAlpha(this Color c) => ToByte(c.Alpha * 255);
 
 		// Hue is a degree on the color wheel from 0 to 360. 0 is red, 120 is green, 240 is blue.
-		public static double GetDegreeHue(this Color c) => c.Hue * 360;
+		public static double GetDegreeHue(this Color c) => c.GetHue() * 360;
 
 		// Note : double Percent R, G and B are simply Colors.Red, Colors.Green and Colors.B
 
