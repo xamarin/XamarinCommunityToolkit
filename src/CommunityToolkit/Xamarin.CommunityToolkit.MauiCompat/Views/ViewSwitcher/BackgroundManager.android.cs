@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.UpdateBackground(background);
 		}
 
-		static void OnElementChanged(object sender, VisualMicrosoft.Maui.Controls.Platform.ElementChangedEventArgs e)
+		static void OnElementChanged(object sender, Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs e)
 		{
 			if (e.OldElement != null)
 			{

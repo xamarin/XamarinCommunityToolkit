@@ -3,7 +3,7 @@ using Xamarin.CommunityToolkit.Effects;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Internals;
 using FormsElement = Microsoft.Maui.Controls.Page;
-using XFP = Microsoft.Maui.Controls.Compatibility.PlatformConfiguration;
+using XFP = Microsoft.Maui.Controls.PlatformConfiguration;
 
 namespace Xamarin.CommunityToolkit.PlatformConfiguration.AndroidSpecific
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Color = Xamarin.Color;
+using Color = Microsoft.Maui.Graphics.Color;
 using Point = Microsoft.Maui.Graphics.Point;
 using Size = Microsoft.Maui.Graphics.Size;
 
