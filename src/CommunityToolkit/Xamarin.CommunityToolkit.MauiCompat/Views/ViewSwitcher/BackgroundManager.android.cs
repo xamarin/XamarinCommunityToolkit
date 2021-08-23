@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			var finalColor = color ?? element.BackgroundColor;
-			if (finalColor.IsDefault)
+			if (finalColor.IsDefault())
 				control.SetBackground(null);
 			else
 				control.SetBackgroundColor(finalColor.ToAndroid());
