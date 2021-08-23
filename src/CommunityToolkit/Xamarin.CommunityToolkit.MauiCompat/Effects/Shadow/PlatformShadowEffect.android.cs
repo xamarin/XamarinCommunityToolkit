@@ -72,7 +72,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				opacity = defaultOpacity;
 
 			var color = ShadowEffect.GetColor(Element);
-			if (!color.IsDefault)
+			if (!color.IsDefault())
 				color = color.MultiplyAlpha(opacity);
 
 			var androidColor = color.ToAndroid();

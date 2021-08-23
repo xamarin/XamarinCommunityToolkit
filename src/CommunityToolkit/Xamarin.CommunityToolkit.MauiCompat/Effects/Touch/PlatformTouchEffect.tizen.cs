@@ -145,11 +145,11 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 			if (status == TouchStatus.Started)
 			{
 				var startColor = nativeView.BackgroundColor;
-				if (startColor.IsDefault)
+				if (startColor.IsDefault())
 					return;
 
 				var endColor = effect.NativeAnimationColor.ToNative();
-				if (endColor.IsDefault)
+				if (endColor.IsDefault())
 				{
 					startColor = EColor.FromRgba(startColor.Red, startColor.Green, startColor.Blue, startColor.Alpha / 2);
 					endColor = startColor;
