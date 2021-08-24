@@ -98,16 +98,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						HorizontalOptions = view.HorizontalOptions
 					};
 
-					// If the layout we're applying StateLayout to is a Microsoft.Maui.Controls.Grid,
-					// we want to have the StateLayout span the entire Microsoft.Maui.Controls.Grid surface.
+					// If the layout we're applying StateLayout to is a Microsoft.Maui.Controls.Compatibility.Grid,
+					// we want to have the StateLayout span the entire Microsoft.Maui.Controls.Compatibility.Grid surface.
 					// Otherwise it would just end up in row 0 : column 0.
-					if (layout is Microsoft.Maui.Controls.Grid grid)
+					if (layout is Microsoft.Maui.Controls.Compatibility.Grid grid)
 					{
 						if (grid.RowDefinitions.Any())
-							Microsoft.Maui.Controls.Grid.SetRowSpan(s, grid.RowDefinitions.Count);
+							Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(s, grid.RowDefinitions.Count);
 
 						if (grid.ColumnDefinitions.Any())
-							Microsoft.Maui.Controls.Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
+							Microsoft.Maui.Controls.Compatibility.Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
 					}
 
 					BindableLayout.SetItemTemplate(s, template);
@@ -131,16 +131,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						HorizontalOptions = view.HorizontalOptions
 					};
 
-					// If the layout we're applying StateLayout to is a Microsoft.Maui.Controls.Grid,
-					// we want to have the StateLayout span the entire Microsoft.Maui.Controls.Grid surface.
+					// If the layout we're applying StateLayout to is a Microsoft.Maui.Controls.Compatibility.Grid,
+					// we want to have the StateLayout span the entire Microsoft.Maui.Controls.Compatibility.Grid surface.
 					// Otherwise it would just end up in row 0 : column 0.
-					if (layout is Microsoft.Maui.Controls.Grid grid)
+					if (layout is Microsoft.Maui.Controls.Compatibility.Grid grid)
 					{
 						if (grid.RowDefinitions.Any())
-							Microsoft.Maui.Controls.Grid.SetRowSpan(s, grid.RowDefinitions.Count);
+							Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(s, grid.RowDefinitions.Count);
 
 						if (grid.ColumnDefinitions.Any())
-							Microsoft.Maui.Controls.Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
+							Microsoft.Maui.Controls.Compatibility.Grid.SetColumnSpan(s, grid.ColumnDefinitions.Count);
 
 						layout.Children.Add(s);
 						layoutIsGrid = true;
