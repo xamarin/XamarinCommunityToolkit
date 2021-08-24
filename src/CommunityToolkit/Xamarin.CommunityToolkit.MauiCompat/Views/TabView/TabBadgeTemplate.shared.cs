@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			HorizontalOptions = LayoutOptions.Start;
 			VerticalOptions = LayoutOptions.Start;
 
-			var badgeBorder = new Frame
+			var badgeBorder = new Microsoft.Maui.Controls.Frame
 			{
 				HasShadow = false,
 				IsClippedToBounds = false,
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 
 			badgeBorder.SetBinding(BackgroundColorProperty, new Binding("BackgroundColor", source: RelativeBindingSource.TemplatedParent));
-			badgeBorder.SetBinding(Frame.BorderColorProperty, new Binding("BorderColor", source: RelativeBindingSource.TemplatedParent));
+			badgeBorder.SetBinding(Microsoft.Maui.Controls.Frame.BorderColorProperty, new Binding("BorderColor", source: RelativeBindingSource.TemplatedParent));
 
 			badgeText.BatchBegin();
 
