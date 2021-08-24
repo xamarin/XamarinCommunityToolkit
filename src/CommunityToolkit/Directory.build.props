@@ -32,6 +32,9 @@
     <ItemGroup Condition=" $(TargetFramework.Contains(-android)) ">
         <Compile Include="**\*.android.cs" />
         <Compile Include="**\*.android.*.cs" />
+        <AndroidResource Include="Resources\**\*.axml" />
+        <AndroidResource Include="Resources\**\*.xml" />
+        <AndroidResource Include="Resources\**\*.png" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.Contains(-ios)) ">

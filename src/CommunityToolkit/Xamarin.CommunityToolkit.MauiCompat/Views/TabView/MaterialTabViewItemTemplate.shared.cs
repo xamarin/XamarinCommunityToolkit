@@ -25,8 +25,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			HorizontalOptions = LayoutOptions.FillAndExpand;
 			VerticalOptions = LayoutOptions.FillAndExpand;
 
-			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Compatibility.GridLength.Star });
-			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Compatibility.GridLength.Auto });
+			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.GridLength.Star });
+			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.GridLength.Auto });
 
 			icon = new Image
 			{
