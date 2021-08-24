@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					// We create a 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout to stack repeating items.
 					// It takes VerticalOptions and HorizontalOptions from the
 					// StateView to allow for more control over how it layouts.
-					var s = new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout
+					var s = new Microsoft.Maui.Controls.StackLayout
 					{
 						Opacity = animate ? 0 : 1,
 						VerticalOptions = view.VerticalOptions,
@@ -124,7 +124,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					// We create a 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout to stack repeating items.
 					// It takes VerticalOptions and HorizontalOptions from the
 					// StateView to allow for more control over how it layouts.
-					var s = new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout
+					var s = new Microsoft.Maui.Controls.StackLayout
 					{
 						Opacity = animate ? 0 : 1,
 						VerticalOptions = view.VerticalOptions,
@@ -227,7 +227,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			animationTokenSource?.Dispose();
 
 			foreach (var child in layout.Children)
-				Microsoft.Maui.Controls.ViewExtensionsCancelAnimations(child);
+				Microsoft.Maui.Controls.ViewExtensions.CancelAnimations(child);
 
 			animationTokenSource = new CancellationTokenSource();
 			return animationTokenSource.Token;
