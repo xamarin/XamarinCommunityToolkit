@@ -356,7 +356,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					if (source is UriImageSource uriImageSource)
 					{
-						static async Task<Stream?> getStreamAsync(UriImageSource uriSource, CancellationToken token) => uriSource.Uri != null ? await uriSource.GetStreamAsync(token) : null;
+						static async Task<Stream?> getStreamAsync(UriImageSource uriSource, CancellationToken token) => uriSource.Uri != null ? await ((IStreamImageSource)uriSource).GetStreamAsync(token) : null;
 
 						var stream = await getStreamAsync(uriImageSource, imageLoadingTokenSource.Token);
 
