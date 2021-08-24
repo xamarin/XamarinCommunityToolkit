@@ -35,18 +35,24 @@ The following steps are used to create the MauiCompat libraries
     dotnet sln ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat.sln remove ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat.WinUI
     ```
 
-4. Remove `Xamarin.CommunityToolkit.MauiCompat.WinUI`
+4. Remove `Xamarin.CommunityToolkit.Markup.MauiCompat.WinUI`
     > **Note:** This is a temporary workaround until we add WinUI support
 
     ```bash
     dotnet sln ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.sln remove ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.WinUI
     ```
 
-5. Remove macOS Catalyst
+5. Remove macOS Catalyst from Xamarin.CommunityToolkit.Markup
     > **Note:** This is a temporary workaround until we add macOS Catalyst support
 
     ```bash
     sed -i '' 's/;net6.0-maccatalyst//g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/Xamarin.CommunityToolkit.MauiCompat.csproj
+    ```
+6. Remove macOS Catalyst from Xamarin.CommunityToolkit.Markup
+    > **Note:** This is a temporary workaround until we add macOS Catalyst support
+
+    ```bash
+    sed -i '' 's/;net6.0-maccatalyst//g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/**/Xamarin.CommunityToolkit.MauiCompat.csproj
     ```
 
 ### 3. Update MauiCompat CSPROJ Files
