@@ -46,8 +46,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				// This is a layout, and it's transparent, and all its children are transparent, then the event
 				// can just pass through
-				if (layout.CascadeInputTransparent)
-					return true;
 
 				// This event isn't being bubbled up by a non-InputTransparent child layout
 				return true;
