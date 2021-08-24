@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 				{ 0, 1, new Animation(v => element.BackgroundColor = new Color((float)v, element.BackgroundColor.Green, element.BackgroundColor.Blue, element.BackgroundColor.Alpha), element.BackgroundColor.Red, color.Red) },
 				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.Red, (float)v, element.BackgroundColor.Blue, element.BackgroundColor.Alpha), element.BackgroundColor.Green, color.Green) },
 				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.Red, element.BackgroundColor.Green, (float)v, element.BackgroundColor.Alpha), element.BackgroundColor.Blue, color.Blue) },
-				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.Red, element.BackgroundColor.Green, element.BackgroundColor.Blue, v), element.BackgroundColor.Alpha, color.Alpha) },
+				{ 0, 1, new Animation(v => element.BackgroundColor = new Color(element.BackgroundColor.Red, element.BackgroundColor.Green, element.BackgroundColor.Blue, (float)v), element.BackgroundColor.Alpha, color.Alpha) },
 			}.Commit(element, nameof(ColorTo), 16, length, easing, (d, b) => animationCompletionSource.SetResult(true));
 
 			return animationCompletionSource.Task;
