@@ -1,6 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui.Controls;
+using Microsoft.Maui.Layouts;
 
-namespace Xamarin.CommunityToolkit.Markup
+namespace Xamarin.CommunityToolkit.Markup.MauiCompat
 {
 	public static class ViewInFlexLayoutExtensions
 	{

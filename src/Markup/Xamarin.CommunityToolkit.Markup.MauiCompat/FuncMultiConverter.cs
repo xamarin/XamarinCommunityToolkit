@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
 
-namespace Xamarin.CommunityToolkit.Markup
+namespace Xamarin.CommunityToolkit.Markup.MauiCompat
 {
 	public class FuncMultiConverter<TDest, TParam> : IMultiValueConverter
 	{

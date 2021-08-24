@@ -1,42 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
-		<!-- iOS, Android, MacCatalyst -->
 		<TargetFrameworks>net6.0-ios;net6.0-android;net6.0-maccatalyst</TargetFrameworks>
 		<UseMaui>true</UseMaui>
-		<SingleProject>true</SingleProject>
-		<RootNamespace>Xamarin.CommunityToolkit.Markup.MauiCompat</RootNamespace>
-
-		<!-- Display name -->
-		<ApplicationTitle>Xamarin.CommunityToolkit.Markup.MauiCompat</ApplicationTitle>
-
-		<!-- App Identifier -->
-		<ApplicationId>com.companyname.Xamarin.CommunityToolkit.Markup.MauiCompat</ApplicationId>
-
-		<!-- Versions -->
-		<ApplicationVersion>1.0</ApplicationVersion>
-		<AndroidVersionCode>1</AndroidVersionCode>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<!-- App Icon -->
-		<MauiImage
-			Include="Resources\appicon.svg"
-			ForegroundFile="Resources\appiconfg.svg"
-			IsAppIcon="true"
-			Color="#512BD4" />
-
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" />
-
-		<!-- Images -->
-		<MauiImage Include="Resources\Images\*" />
-
-		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
-	</ItemGroup>
-
 	<PropertyGroup>
+		<GitInfoReportImportance>high</GitInfoReportImportance>
+		<PackageId>Xamarin.CommunityToolkit.Markup.MauiCompat</PackageId>
+		<Summary>Community-created toolkit with C# Markup classes and fluent helper methods</Summary>
+		<Authors>Microsoft</Authors>
+		<Owners>Microsoft</Owners>
+		<NeutralLanguage>en</NeutralLanguage>
+		<Product>Xamarin.CommunityToolkit.Markup.MauiCompat (net6.0)</Product>
+		<Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/xamarin/Xamarin.CommunityToolkit</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/xamarin/Xamarin.CommunityToolkit</RepositoryUrl>
+		<PackageReleaseNotes>TBD</PackageReleaseNotes>
+		<DefineConstants>$(DefineConstants);</DefineConstants>
+		<UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+		<Title>Xamarin.CommunityToolkit.Markup.MauiCompat</Title>
+		<Description>Xamarin.CommunityToolkit.Markup.MauiCompat is a set of fluent helper methods and classes to simplify building declarative Xamarin.Forms user interfaces in C#</Description>
+		<PackageIcon>icon.png</PackageIcon>
+		<Product>$(AssemblyName) ($(TargetFramework))</Product>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+		<Version>1.3.0-pre2</Version>
+		<PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageTags>xamarin,xamarin.forms,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,markup,csharpformarkup,csharp,csharpmarkup</PackageTags>
+		<Configurations>Debug;Release</Configurations>
 	</PropertyGroup>
-
+	<ItemGroup>
+		<PackageReference Include="mdoc" Version="5.8.3" PrivateAssets="all" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="..\stylecop.json" />
+	</ItemGroup>
+	<Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
 </Project>

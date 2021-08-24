@@ -1,7 +1,7 @@
 ﻿using System;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
 
-namespace Xamarin.CommunityToolkit.Markup
+namespace Xamarin.CommunityToolkit.Markup.MauiCompat
 {
 	public static class BindableObjectExtensions
 	{
@@ -94,6 +94,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			bindable.Bind(
 				DefaultBindableProperties.GetFor(bindable),
 				path, mode, converter, converterParameter, stringFormat, source, targetNullValue, fallbackValue);
+
 			return bindable;
 		}
 
@@ -113,6 +114,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			bindable.Bind(
 				DefaultBindableProperties.GetFor(bindable),
 				path, mode, converter, null, stringFormat, source, targetNullValue, fallbackValue);
+
 			return bindable;
 		}
 
@@ -133,6 +135,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			bindable.Bind(
 				DefaultBindableProperties.GetFor(bindable),
 				path, mode, converter, converterParameter, stringFormat, source, targetNullValue, fallbackValue);
+
 			return bindable;
 		}
 

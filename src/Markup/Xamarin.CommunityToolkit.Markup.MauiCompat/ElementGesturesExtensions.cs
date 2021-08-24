@@ -1,7 +1,7 @@
 ﻿using System;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
 
-namespace Xamarin.CommunityToolkit.Markup
+namespace Xamarin.CommunityToolkit.Markup.MauiCompat
 {
 	public static class ElementGesturesExtensions
 	{

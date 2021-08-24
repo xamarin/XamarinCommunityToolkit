@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
 
-namespace Xamarin.CommunityToolkit.Markup
+namespace Xamarin.CommunityToolkit.Markup.MauiCompat
 {
 	public static class ViewInGridExtensions
 	{
@@ -16,6 +16,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		{
 			view.SetValue(Grid.RowProperty, row);
 			view.SetValue(Grid.RowSpanProperty, span);
+
 			return view;
 		}
 
@@ -35,6 +36,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		{
 			view.SetValue(Grid.ColumnProperty, column);
 			view.SetValue(Grid.ColumnSpanProperty, span);
+
 			return view;
 		}
 
@@ -48,6 +50,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		{
 			int rowIndex = row.ToInt();
 			view.SetValue(Grid.RowProperty, rowIndex);
+
 			return view;
 		}
 
@@ -55,8 +58,10 @@ namespace Xamarin.CommunityToolkit.Markup
 		{
 			int rowIndex = first.ToInt();
 			int span = last.ToInt() - rowIndex + 1;
+
 			view.SetValue(Grid.RowProperty, rowIndex);
 			view.SetValue(Grid.RowSpanProperty, span);
+
 			return view;
 		}
 
@@ -64,6 +69,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		{
 			int columnIndex = column.ToInt();
 			view.SetValue(Grid.ColumnProperty, columnIndex);
+
 			return view;
 		}
 

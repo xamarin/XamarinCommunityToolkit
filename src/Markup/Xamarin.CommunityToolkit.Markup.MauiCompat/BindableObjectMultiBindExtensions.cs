@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls;
 
-namespace Xamarin.CommunityToolkit.Markup
+namespace Xamarin.CommunityToolkit.Markup.MauiCompat
 {
 	public static class BindableObjectMultiBindExtensions
 	{
@@ -169,6 +169,7 @@ namespace Xamarin.CommunityToolkit.Markup
 				TargetNullValue = targetNullValue,
 				FallbackValue = fallbackValue
             });
+
 			return bindable;
 		}
 	}
