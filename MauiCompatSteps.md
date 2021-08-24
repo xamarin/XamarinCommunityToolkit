@@ -129,28 +129,36 @@ The following steps are used to create the MauiCompat libraries
 
 2. Create `Directory.build.props` for `Xamarin.CommunityToolkit.Markup.MauiCompat`
     ```bash
-    printf > ./src/Markup/Directory.build.props "<PropertyGroup>
-        <Nullable>enable</Nullable>
-        <PackageId>Xamarin.CommunityToolkit.Markup.MauiCompat</PackageId>
-        <Summary>A .NET MAUI-compatible community-created toolkit with C# Markup classes and fluent helper methods</Summary>
-        <Authors>Microsoft</Authors>
-        <Owners>Microsoft</Owners>
-        <NeutralLanguage>en</NeutralLanguage>
-        <Copyright>© Microsoft Corporation. All rights reserved.</Copyright> 
-        <PackageLicenseExpression>MIT</PackageLicenseExpression> 
-        <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl> 
-        <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
-        <PackageReleaseNotes>See: http://aka.ms/xct-release-notes</PackageReleaseNotes>
-        <DefineConstants>$(DefineConstants);</DefineConstants>
-        <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
-        <Title>Xamarin.CommunityToolkit.Markup.MauiCompat</Title>
-        <Description>Xamarin Community Toolkit Markup MauiCompat is a set of fluent helper methods and classes to simplify building declarative .NET MAUI user interfaces in C#</Description>
-        <PackageIcon>icon.png</PackageIcon>
-        <Product>$(AssemblyName) ($(TargetFramework))</Product>
-        <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance> 
-        <PackageTags>maui,net,xamarin,xamarin.forms,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,markup,csharpformarkup,csharp,csharpmarkup</PackageTags>
-    </PropertyGroup>"
+    printf > ./src/Markup/Directory.build.props "<Project>
+        <PropertyGroup>
+            <Nullable>enable</Nullable>
+            <PackageId>Xamarin.CommunityToolkit.Markup.MauiCompat</PackageId>
+            <Summary>A .NET MAUI-compatible community-created toolkit with C# Markup classes and fluent helper methods</Summary>
+            <Authors>Microsoft</Authors>
+            <Owners>Microsoft</Owners>
+            <NeutralLanguage>en</NeutralLanguage>
+            <Copyright>© Microsoft Corporation. All rights reserved.</Copyright> 
+            <PackageLicenseExpression>MIT</PackageLicenseExpression> 
+            <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl> 
+            <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
+            <PackageReleaseNotes>See: http://aka.ms/xct-release-notes</PackageReleaseNotes>
+            <DefineConstants>$(DefineConstants);</DefineConstants>
+            <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+            <Title>Xamarin.CommunityToolkit.Markup.MauiCompat</Title>
+            <Description>Xamarin Community Toolkit Markup MauiCompat is a set of fluent helper methods and classes to simplify building declarative .NET MAUI user interfaces in C#</Description>
+            <PackageIcon>icon.png</PackageIcon>
+            <Product>$(AssemblyName) ($(TargetFramework))</Product>
+            <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+            <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+            <Version>1.3.0-pre2</Version>
+                        <PackageTags>maui,net,xamarin,xamarin.forms,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,markup,csharpformarkup,csharp,csharpmarkup</PackageTags>
+        </PropertyGroup>
+        
+        <ItemGroup>
+            <None Include=\"../../../LICENSE\" PackagePath=\"\" Pack=\"true\" />
+            <None Include=\"../../../assets/XamarinCommunityToolkit_128x128.png\" PackagePath=\"icon.png\" Pack=\"true\" />
+        </ItemGroup>
+    </Project>"
     ```
 
 ### 4. Add `Xamarin.CommunityToolkit` files to `Xamarin.CommunityToolkit.MauiCompat`
@@ -536,6 +544,8 @@ sed -i '' 's/MauiCompat.Resource.Layout.CameraFragment/MauiCompat.Resource.Layou
 # Replace Xamarin.Forms Namespace
 
 sed -i '' 's/using Xamarin.Forms;/using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/using Xamarin.Forms;/using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/**/**.cs
 ```
 
 ### 6. Manually Update TypeConverters
