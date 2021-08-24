@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (isInViewCell || element == null || motionEvent == null || motionEvent.Action == MotionEventActions.Cancel)
 				return false;
 
-			if (parent is not VisualElementRenderer<Forms.View> renderer || ShouldPassThroughElement())
+			if (parent is not VisualElementRenderer<Microsoft.Maui.Controls.View> renderer || ShouldPassThroughElement())
 				return false;
 
 			// Let the container know that we're "fake" handling this event
