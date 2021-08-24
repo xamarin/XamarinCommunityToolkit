@@ -26,7 +26,7 @@
         <Compile Include="**/*.shared.cs" />
         <Compile Include="**/*.shared.*.cs" />    
         <None Include="../../../LICENSE" PackagePath="" Pack="true" />
-        <None Include="../../assets/XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
+        <None Include="../../../assets/XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.Contains(-android)) ">
