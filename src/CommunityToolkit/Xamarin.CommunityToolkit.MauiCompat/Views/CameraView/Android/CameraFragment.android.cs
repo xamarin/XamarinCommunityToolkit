@@ -1,8 +1,8 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using System.Collections.Generic;
 using System.IO;
 
-#if __ANDROID_29__
+#if ANDROID
 using AndroidX.Core.Content;
 using AndroidX.Fragment.App;
 #else
@@ -30,11 +30,11 @@ using Env = Android.OS.Environment;
 using Java.Lang;
 using Java.Util.Concurrent;
 
-using Xamarin.Forms.Internals;
+using Microsoft.Maui.Controls.Internals;
 using System.Threading.Tasks;
 using System.Linq;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using Rect = Android.Graphics.Rect;
 using APoint = Android.Graphics.Point;
 
@@ -126,10 +126,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool ZoomSupported => maxDigitalZoom != 0;
 
 		public override AView? OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
-			inflater.Inflate(Resource.Layout.CameraFragment, null);
+			inflater.Inflate(Xamarin.CommunityToolkit.MauiCompat.Resource.Layout.camerafragment, null);
 
 		public override void OnViewCreated(AView view, Bundle savedInstanceState) =>
-			texture = view.FindViewById<AutoFitTextureView>(Resource.Id.cameratexture);
+			texture = view.FindViewById<AutoFitTextureView>(Xamarin.CommunityToolkit.MauiCompat.Resource.Id.cameratexture);
 
 		public override async void OnResume()
 		{

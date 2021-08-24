@@ -1,5 +1,5 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+﻿using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using CoreAnimation;
 using Xamarin.CommunityToolkit.UI.Views;
 
@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
     {
         ImageSwitcher ImageSwitcher => (ImageSwitcher)Element;
 
-        protected override void OnElementChanged(ElementChangedEventArgs<Image> e)
+        protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<Image> e)
         {
             base.OnElementChanged(e);
 

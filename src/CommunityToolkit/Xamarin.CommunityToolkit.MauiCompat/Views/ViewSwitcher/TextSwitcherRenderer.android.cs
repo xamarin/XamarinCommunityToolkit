@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Android.Content;
@@ -9,22 +9,24 @@ using Android.Util;
 using Android.Views;
 using Android.Views.Animations;
 using AndroidX.Core.View;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers;
+using Microsoft.Maui.Controls.Platform;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms.Platform.Android.FastRenderers;
 using static Android.Widget.TextView;
 using Animation = Android.Views.Animations.Animation;
 using ATextSwitcher = Android.Widget.TextSwitcher;
 using AView = Android.Views.View;
 using AViewSwitcher = Android.Widget.ViewSwitcher;
-using Color = Xamarin.Forms.Color;
+using Color = Microsoft.Maui.Graphics.Color;
 using Res = Android.Resource;
-using Size = Xamarin.Forms.Size;
+using Size = Microsoft.Maui.Graphics.Size;
 
 // Copied from Xamarin.Forms (LabelRenderer - Fast Renderer)
 [assembly: ExportRenderer(typeof(TextSwitcher), typeof(TextSwitcherRenderer))]
@@ -44,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SizeRequest? lastSizeRequest;
 		float lastTextSize = -1f;
 		Typeface? lastTypeface;
-		Color lastUpdateColor = Color.Default;
+		Color lastUpdateColor = new Color();
 		float lineSpacingExtraDefault = -1.0f;
 		float lineSpacingMultiplierDefault = -1.0f;
 		VisualElementTracker? visualElementTracker;
@@ -92,8 +94,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		AView ITabStop.TabStop => this;
 
-		ViewGroup? IVisualElementRenderer.ViewGroup => null;
-
 		protected TextSwitcher? Element
 		{
 			get => element;
@@ -113,7 +113,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		string? Hint
 		{
 			get => children[0].Hint;
-			set => children.ForEach(c => c.Hint = value);
+			set
+			{
+				foreach (var child in children)
+					child.Hint = value;
+			}
 		}
 
 		SizeRequest IVisualElementRenderer.GetDesiredSize(int widthConstraint, int heightConstraint)
@@ -165,7 +169,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (setHint)
 				Hint = hint;
 
-			result.Minimum = new Size(Math.Min(Context.ToPixels(10), result.Request.Width), result.Request.Height);
+			result.Minimum = new Size(Math.Min(Microsoft.Maui.ContextExtensions.ToPixels(Context, 10), result.Request.Width), result.Request.Height);
 
 			// if the measure of the view has changed then trigger a request for layout
 			// if the measure hasn't changed then force a layout of the label
@@ -186,7 +190,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
 		{
 			base.OnLayout(changed, left, top, right, bottom);
-			children.ForEach(c => c.RecalculateSpanPositions(Element, spannableString, new SizeRequest(new Size(right - left, bottom - top))));
+
+			foreach (var child in children)
+				child.RecalculateSpanPositions(Element, spannableString, new SizeRequest(new Size(right - left, bottom - top)));
+
 			hasLayoutOccurred = true;
 		}
 
@@ -226,8 +233,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			}
 
-			var realWidth = (int)Context.ToPixels(width);
-			var realHeight = (int)Context.ToPixels(height);
+			var realWidth = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, width);
+			var realHeight = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, height);
 
 			var widthMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realWidth, MeasureSpecMode.Exactly);
 			var heightMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realHeight, MeasureSpecMode.Exactly);
@@ -257,7 +264,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				visualElementRenderer?.Dispose();
 				visualElementRenderer = null;
 
-				children.ForEach(c => c.Dispose());
+				foreach (var child in children)
+					child.Dispose();
 
 				spannableString?.Dispose();
 				Platform.ClearRenderer(this);
@@ -268,7 +276,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if ((visualElementRenderer?.OnTouchEvent(e) ?? false) || base.OnTouchEvent(e))
+			if (base.OnTouchEvent(e))
 			{
 				return true;
 			}
@@ -327,8 +335,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			else if (e.PropertyName == Label.TextColorProperty.PropertyName ||
 				e.PropertyName == Label.TextTypeProperty.PropertyName)
 				UpdateText();
-			else if (e.PropertyName == Label.FontProperty.PropertyName)
-				UpdateText();
 			else if (e.PropertyName == Label.LineBreakModeProperty.PropertyName)
 				UpdateLineBreakMode();
 			else if (e.PropertyName == Label.CharacterSpacingProperty.PropertyName)
@@ -360,12 +366,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			lastUpdateColor = color;
 
-			if (color.IsDefault)
-				children.ForEach(c => c.SetTextColor(labelTextColorDefault));
+			if (color.IsDefault())
+			{
+				foreach (var child in children)
+					child.SetTextColor(labelTextColorDefault);
+			}
 			else
 			{
 				var androidColor = color.ToAndroid();
-				children.ForEach(c => c.SetTextColor(androidColor));
+				foreach (var child in children)
+					child.SetTextColor(androidColor);
 			}
 		}
 
@@ -375,20 +385,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 #pragma warning disable 618 // We will need to update this when .Font goes away
-			var f = Element.Font;
+			var f = Element.ToFont();
 #pragma warning restore 618
 
 			var newTypeface = f.ToTypeface();
 			if (newTypeface != lastTypeface)
 			{
-				children.ForEach(c => c.Typeface = newTypeface);
+				foreach (var child in children)
+					child.Typeface = newTypeface;
+
 				lastTypeface = newTypeface;
 			}
 
-			var newTextSize = f.ToScaledPixel();
+			var newTextSize = (float)f.Size;
 			if (newTextSize != lastTextSize)
 			{
-				children.ForEach(c => c.SetTextSize(ComplexUnitType.Sp, newTextSize));
+				foreach (var child in children)
+					child.SetTextSize(ComplexUnitType.Sp, newTextSize);
+
 				lastTextSize = newTextSize;
 			}
 		}
@@ -401,14 +415,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var textDecorations = Element.TextDecorations;
 
 			if ((textDecorations & TextDecorations.Strikethrough) == 0)
-				children.ForEach(c => c.PaintFlags &= ~PaintFlags.StrikeThruText);
+			{
+				foreach (var child in children)
+					child.PaintFlags &= ~PaintFlags.StrikeThruText;
+			}
 			else
-				children.ForEach(c => c.PaintFlags |= PaintFlags.StrikeThruText);
+			{
+				foreach (var child in children)
+					child.PaintFlags |= PaintFlags.StrikeThruText;
+			}
 
 			if ((textDecorations & TextDecorations.Underline) == 0)
-				children.ForEach(c => c.PaintFlags &= ~PaintFlags.UnderlineText);
+			{
+				foreach (var child in children)
+					child.PaintFlags &= ~PaintFlags.UnderlineText;
+			}
 			else
-				children.ForEach(c => c.PaintFlags |= PaintFlags.UnderlineText);
+			{
+				foreach (var child in children)
+					child.PaintFlags |= PaintFlags.UnderlineText;
+			}
 		}
 
 		void UpdateGravity()
@@ -419,7 +445,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Label label = Element;
 
 			var gravity = label.HorizontalTextAlignment.ToHorizontalGravityFlags() | label.VerticalTextAlignment.ToVerticalGravityFlags();
-			children.ForEach(c => c.Gravity = gravity);
+			foreach (var child in children)
+				child.Gravity = gravity;
 
 			lastSizeRequest = null;
 		}
@@ -433,7 +460,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				// 0.0624 - Coefficient for converting Pt to Em
 				var characterSpacing = (float)(Element.CharacterSpacing * 0.0624);
-				children.ForEach(c => c.LetterSpacing = characterSpacing);
+				foreach (var child in children)
+					child.LetterSpacing = characterSpacing;
 			}
 		}
 
@@ -442,7 +470,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			children.ForEach(c => c.SetLineBreakMode(Element));
+			foreach (var child in children)
+				child.SetLineBreakMode(Element);
+
 			lastSizeRequest = null;
 		}
 
@@ -451,7 +481,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			children.ForEach(c => c.SetMaxLines(Element));
+			foreach (var child in children)
+				child.SetMaxLines(Element);
+
 			lastSizeRequest = null;
 		}
 
@@ -467,7 +499,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var formattedText = Element.FormattedText ?? Element.Text;
 #pragma warning disable 618 // We will need to update this when .Font goes away
-				nextView.TextFormatted = spannableString = formattedText.ToAttributed(Element.Font, Element.TextColor, nextView);
+				nextView.TextFormatted = spannableString = formattedText.ToAttributed(Element.ToFont(), Element.TextColor, nextView);
 				ShowNext();
 #pragma warning restore 618
 				wasFormatted = true;
@@ -476,8 +508,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (wasFormatted)
 				{
-					children.ForEach(c => c.SetTextColor(labelTextColorDefault));
-					lastUpdateColor = Color.Default;
+					foreach (var child in children)
+						child.SetTextColor(labelTextColorDefault);
+
+					lastUpdateColor = new Color();
 				}
 
 				switch (Element.TextType)
@@ -523,9 +557,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				lineSpacingMultiplierDefault = children[0].LineSpacingMultiplier;
 
 			if (Element.LineHeight == -1)
-				children.ForEach(c => c.SetLineSpacing(lineSpacingExtraDefault, lineSpacingMultiplierDefault));
+			{
+				foreach (var child in children)
+					child.SetLineSpacing(lineSpacingExtraDefault, lineSpacingMultiplierDefault);
+			}
 			else if (Element.LineHeight >= 0)
-				children.ForEach(c => c.SetLineSpacing(0, (float)Element.LineHeight));
+			{
+				foreach (var child in children)
+					child.SetLineSpacing(0, (float)Element.LineHeight);
+			}
 
 			lastSizeRequest = null;
 		}
@@ -536,10 +576,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			SetPadding(
-				(int)Context.ToPixels(Element.Padding.Left),
-				(int)Context.ToPixels(Element.Padding.Top),
-				(int)Context.ToPixels(Element.Padding.Right),
-				(int)Context.ToPixels(Element.Padding.Bottom));
+				(int)Microsoft.Maui.ContextExtensions.ToPixels(Context, Element.Padding.Left),
+				(int)Microsoft.Maui.ContextExtensions.ToPixels(Context, Element.Padding.Top),
+				(int)Microsoft.Maui.ContextExtensions.ToPixels(Context, Element.Padding.Right),
+				(int)Microsoft.Maui.ContextExtensions.ToPixels(Context, Element.Padding.Bottom));
 
 			lastSizeRequest = null;
 		}

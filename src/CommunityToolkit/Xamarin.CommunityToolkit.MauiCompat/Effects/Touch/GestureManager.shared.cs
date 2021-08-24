@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using static System.Math;
 
 namespace Xamarin.CommunityToolkit.Effects
@@ -362,9 +362,9 @@ namespace Xamarin.CommunityToolkit.Effects
 			var hoveredBackgroundColor = sender.HoveredBackgroundColor;
 
 			if (sender.Element == null
-				|| (normalBackgroundColor == Color.Default
-					&& pressedBackgroundColor == Color.Default
-					&& hoveredBackgroundColor == Color.Default))
+				|| (normalBackgroundColor == default(Color)
+					&& pressedBackgroundColor == default(Color)
+					&& hoveredBackgroundColor == default(Color)))
 			{
 				return Task.FromResult(false);
 			}
@@ -598,7 +598,7 @@ namespace Xamarin.CommunityToolkit.Effects
 		}
 
 		Color GetBackgroundColor(Color color)
-			=> color != Color.Default
+			=> color != default(Color)
 				? color
 				: defaultBackgroundColor;
 

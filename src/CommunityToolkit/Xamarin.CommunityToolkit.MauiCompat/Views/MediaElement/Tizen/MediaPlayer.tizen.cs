@@ -5,8 +5,8 @@ using System.Windows.Input;
 using Tizen;
 using Xamarin.CommunityToolkit.Core;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 using MediaSource = Xamarin.CommunityToolkit.Core.MediaSource;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -151,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			private set => SetValue(durationPropertyKey, value);
 		}
 
-		[TypeConverter(typeof(MediaSourceConverter))]
+		[System.ComponentModel.TypeConverter(typeof(MediaSourceConverter))]
 		public MediaSource? Source
 		{
 			get => (MediaSource?)GetValue(SourceProperty);

@@ -2,7 +2,7 @@
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Effects.Semantic;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 [assembly: ExportEffect(typeof(Effects.SemanticEffectRouter), nameof(SemanticEffectRouter))]

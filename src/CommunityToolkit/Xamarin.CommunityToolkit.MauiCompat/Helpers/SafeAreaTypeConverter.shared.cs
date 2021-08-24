@@ -1,22 +1,25 @@
 ﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Xaml;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
 	[TypeConversion(typeof(SafeArea))]
-	public class SafeAreaTypeConverter : TypeConverter
+	public class SafeAreaTypeConverter : System.ComponentModel.TypeConverter
 	{
-		public override object ConvertFromInvariantString(string value)
+		public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)
 		{
+			if (value is not string text)
+				throw new InvalidOperationException("Only typeof(string) allowed");
+
 			if (value != null)
 			{
-				value = value.Trim();
+				value = text.Trim();
 
-				if (value.Contains(","))
+				if (text.Contains(","))
 				{
 					// XAML based definition
-					var safeArea = value.Split(',');
+					var safeArea = text.Split(',');
 
 					switch (safeArea.Length)
 					{
@@ -37,7 +40,7 @@ namespace Xamarin.CommunityToolkit.Helpers
 				else
 				{
 					// Single uniform SafeArea
-					if (bool.TryParse(value, out var l))
+					if (bool.TryParse(text, out var l))
 						return new SafeArea(l);
 				}
 			}

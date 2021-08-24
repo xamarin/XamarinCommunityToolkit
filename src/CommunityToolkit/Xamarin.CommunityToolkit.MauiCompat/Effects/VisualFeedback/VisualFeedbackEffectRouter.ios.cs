@@ -1,8 +1,8 @@
 ﻿using System;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 [assembly: ExportEffect(typeof(Effects.VisualFeedbackEffectRouter), nameof(VisualFeedbackEffect))]
@@ -10,7 +10,7 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	[Foundation.Preserve(AllMembers = true)]
-	public class VisualFeedbackEffectRouter : PlatformEffect
+	public class VisualFeedbackEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		TouchEvents? touchEvents;
 		TouchEventsGestureRecognizer? touchRecognizer;
@@ -96,7 +96,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		void UpdateEffectColor()
 		{
 			var color = VisualFeedbackEffect.GetFeedbackColor(Element);
-			alpha = color.A < 1.0f ? 1f : 0.1f;
+			alpha = color.Alpha < 1.0f ? 1f : 0.1f;
 
 			if (layer != null)
 				layer.BackgroundColor = color.ToUIColor();

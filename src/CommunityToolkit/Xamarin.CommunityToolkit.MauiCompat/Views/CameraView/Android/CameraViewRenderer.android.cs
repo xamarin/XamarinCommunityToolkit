@@ -1,7 +1,7 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using System.ComponentModel;
 
-#if __ANDROID_29__
+#if ANDROID
 using AndroidX.Fragment.App;
 #else
 using Android.Support.V4.App;
@@ -12,9 +12,9 @@ using Android.Views;
 using Android.Widget;
 using AView = Android.Views.View;
 
-using Xamarin.Forms.Platform.Android.FastRenderers;
-using Xamarin.Forms.Platform.Android;
-using Xamarin.Forms;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Xamarin.CommunityToolkit.UI.Views;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		FragmentManager? fragmentManager;
 
-		FragmentManager FragmentManager => fragmentManager ??= Context.GetFragmentManager();
+		FragmentManager FragmentManager => fragmentManager ??= Microsoft.Maui.ContextExtensions.GetFragmentManager(Context ?? throw new NullReferenceException()) ?? throw new InvalidOperationException();
 
 		CameraFragment? camerafragment;
 
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			visualElementRenderer = new VisualElementRenderer(this);
 		}
 
-		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs>? ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -91,7 +91,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnElementChanged(ElementChangedEventArgs<CameraView?> e)
+		void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView?> e)
 		{
 			CameraFragment? newfragment = null;
 
@@ -118,7 +118,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				.Replace(Id, camerafragment = newfragment, "camera")
 				.Commit();
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		CameraView? Element
@@ -132,7 +132,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var oldElement = element;
 				element = value;
 
-				OnElementChanged(new ElementChangedEventArgs<CameraView?>(oldElement, element));
+				OnElementChanged(new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView?>(oldElement, element));
 
 				// this is just used to set ID's to the NativeViews along time ago for UITest with Test Cloud
 				// https://discordapp.com/channels/732297728826277939/738043671575920700/747629874709266449
@@ -142,7 +142,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override bool OnTouchEvent(MotionEvent? e)
 		{
-			if (visualElementRenderer?.OnTouchEvent(e) is true || base.OnTouchEvent(e))
+			if (base.OnTouchEvent(e))
 				return true;
 
 			return motionEventHelper.HandleMotionEvent(Parent, e);
@@ -207,7 +207,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void IViewRenderer.MeasureExactly() => MeasureExactly(this, Element, Context);
 
-		static void MeasureExactly(AView control, VisualElement? element, Context? context)
+		static void MeasureExactly(AView control, VisualElement? element, Context context)
 		{
 			if (control == null || element == null)
 				return;
@@ -218,8 +218,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (width <= 0 || height <= 0)
 				return;
 
-			var realWidth = (int)context.ToPixels(width);
-			var realHeight = (int)context.ToPixels(height);
+			var realWidth = (int)Microsoft.Maui.ContextExtensions.ToPixels(context, width);
+			var realHeight = (int)Microsoft.Maui.ContextExtensions.ToPixels(context, height);
 
 			var widthMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realWidth, MeasureSpecMode.Exactly);
 			var heightMeasureSpec = MeasureSpecFactory.MakeMeasureSpec(realHeight, MeasureSpecMode.Exactly);
@@ -230,7 +230,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		#region IVisualElementRenderer
 		VisualElement? IVisualElementRenderer.Element => Element;
 
-		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
 		VisualElementTracker? IVisualElementRenderer.Tracker => visualElementTracker;
 
@@ -239,7 +238,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		SizeRequest IVisualElementRenderer.GetDesiredSize(int widthConstraint, int heightConstraint)
 		{
 			Measure(widthConstraint, heightConstraint);
-			var result = new SizeRequest(new Size(MeasuredWidth, MeasuredHeight), new Size(Context.ToPixels(20), Context.ToPixels(20)));
+			var result = new SizeRequest(new Size(MeasuredWidth, MeasuredHeight), new Size(Microsoft.Maui.ContextExtensions.ToPixels(Context, 20), Microsoft.Maui.ContextExtensions.ToPixels(Context, 20)));
 			return result;
 		}
 

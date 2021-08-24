@@ -1,4 +1,4 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using System.ComponentModel;
 using Android.App;
 using Android.Content;
@@ -6,12 +6,12 @@ using Android.Graphics.Drawables;
 using Android.Views;
 using Android.Widget;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using static Android.App.ActionBar;
 using AColorRes = Android.Resource.Color;
 using AView = Android.Views.View;
-using FormsPlatform = Xamarin.Forms.Platform.Android.Platform;
+using FormsPlatform = Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform;
 using GravityFlags = Android.Views.GravityFlags;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]
@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		int? defaultLabelFor;
 		VisualElementTracker? tracker;
-		ContainerView? container;
+		Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView? container;
 		bool isDisposed;
 
 		public BasePopup? Element { get; private set; }
@@ -33,11 +33,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		AView? IVisualElementRenderer.View => container;
 
-		ViewGroup? IVisualElementRenderer.ViewGroup => null;
 
 		VisualElementTracker? IVisualElementRenderer.Tracker => tracker;
 
-		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs>? ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -66,10 +65,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (tracker == null)
 				tracker = new VisualElementTracker(this);
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
+			OnElementChanged(new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?> e)
 		{
 			if (e.NewElement != null && !isDisposed && Element is BasePopup basePopup)
 			{
@@ -82,7 +81,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Show();
 			}
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		public override void Show()
@@ -115,7 +114,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (container == null)
 			{
-				container = new ContainerView(Context, basePopup.Content);
+				container = new Microsoft.Maui.Controls.Compatibility.Platform.Android.ContainerView(Context, basePopup.Content);
 				SetContentView(container);
 			}
 		}
@@ -135,11 +134,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var decorView = (ViewGroup)(Window?.DecorView ?? throw new NullReferenceException());
 				var child = decorView?.GetChildAt(0) ?? throw new NullReferenceException();
 
-				var realWidth = (int)Context.ToPixels(basePopup.Size.Width);
-				var realHeight = (int)Context.ToPixels(basePopup.Size.Height);
+				var realWidth = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, basePopup.Size.Width);
+				var realHeight = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, basePopup.Size.Height);
 
-				var realContentWidth = (int)Context.ToPixels(basePopup.Content.WidthRequest);
-				var realContentHeight = (int)Context.ToPixels(basePopup.Content.HeightRequest);
+				var realContentWidth = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, basePopup.Content.WidthRequest);
+				var realContentHeight = (int)Microsoft.Maui.ContextExtensions.ToPixels(Context, basePopup.Content.HeightRequest);
 
 				var childLayoutParams = (FrameLayout.LayoutParams)(child?.LayoutParameters ?? throw new NullReferenceException());
 				childLayoutParams.Width = realWidth;

@@ -1,9 +1,9 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using Android.App;
 using Android.OS;
 using Android.Views;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.Effects
 {

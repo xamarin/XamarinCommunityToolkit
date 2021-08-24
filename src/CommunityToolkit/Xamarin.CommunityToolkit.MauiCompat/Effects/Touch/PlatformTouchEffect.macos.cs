@@ -2,14 +2,14 @@
 using AppKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.macOS.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 
 namespace Xamarin.CommunityToolkit.macOS.Effects
 {
-	public class PlatformTouchEffect : PlatformEffect
+	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		NSGestureRecognizer? gesture;
 

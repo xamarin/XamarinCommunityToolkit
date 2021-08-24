@@ -1,18 +1,18 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using System.ComponentModel;
 using System.Linq;
 using Android.Graphics;
 using Android.Widget;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
-[assembly: Xamarin.Forms.ExportEffect(typeof(Effects.IconTintColorEffectRouter), nameof(IconTintColorEffectRouter))]
+[assembly: Microsoft.Maui.Controls.ExportEffect(typeof(Effects.IconTintColorEffectRouter), nameof(IconTintColorEffectRouter))]
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class IconTintColorEffectRouter : PlatformEffect
+	public class IconTintColorEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 			=> ApplyTintColor();
@@ -24,9 +24,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			base.OnElementPropertyChanged(args);
 
-			if (!args.PropertyName.Equals(IconTintColorEffect.TintColorProperty.PropertyName) &&
-				!args.PropertyName.Equals(Forms.Image.SourceProperty.PropertyName) &&
-				!args.PropertyName.Equals(Forms.ImageButton.SourceProperty.PropertyName))
+			if (!args.PropertyName?.Equals(IconTintColorEffect.TintColorProperty.PropertyName) is true is true &&
+				!args.PropertyName?.Equals(Microsoft.Maui.Controls.Image.SourceProperty.PropertyName) is true is true &&
+				!args.PropertyName?.Equals(Microsoft.Maui.Controls.ImageButton.SourceProperty.PropertyName) is true is true)
 				return;
 
 			ApplyTintColor();
@@ -72,19 +72,19 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			}
 		}
 
-		void SetImageViewTintColor(ImageView image, Forms.Color color)
+		void SetImageViewTintColor(ImageView image, Microsoft.Maui.Graphics.Color color)
 		{
-			if (color == Forms.Color.Default)
+			if (color == new Microsoft.Maui.Graphics.Color())
 				image.ClearColorFilter();
 
 			image.SetColorFilter(new PorterDuffColorFilter(color.ToAndroid(), PorterDuff.Mode.SrcIn ?? throw new NullReferenceException()));
 		}
 
-		void SetButtonTintColor(Button button, Forms.Color color)
+		void SetButtonTintColor(Button button, Microsoft.Maui.Graphics.Color color)
 		{
 			var drawables = button.GetCompoundDrawables().Where(d => d != null);
 
-			if (color == Forms.Color.Default)
+			if (color == new Microsoft.Maui.Graphics.Color())
 			{
 				foreach (var img in drawables)
 					img.ClearColorFilter();

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
@@ -144,21 +144,21 @@ namespace Xamarin.CommunityToolkit.Effects
 			nameof(NormalBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty HoveredBackgroundColorProperty = BindableProperty.CreateAttached(
 			nameof(HoveredBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty PressedBackgroundColorProperty = BindableProperty.CreateAttached(
 			nameof(PressedBackgroundColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: ForceUpdateStateAndTryGenerateEffect);
 
 		public static readonly BindableProperty NormalOpacityProperty = BindableProperty.CreateAttached(
@@ -397,7 +397,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			nameof(NativeAnimationColor),
 			typeof(Color),
 			typeof(TouchEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty NativeAnimationRadiusProperty = BindableProperty.CreateAttached(
@@ -1200,7 +1200,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void SetChildrenInputTransparent(bool value)
 		{
-			if (Element is not Layout layout)
+			if (Element is not Microsoft.Maui.Controls.Layout layout)
 				return;
 
 			layout.ChildAdded -= OnLayoutChildAdded;
@@ -1210,7 +1210,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			layout.InputTransparent = false;
 			foreach (var view in layout.Children)
-				OnLayoutChildAdded(layout, new ElementEventArgs(view));
+				OnLayoutChildAdded(layout, new ElementEventArgs((Element)view));
 
 			layout.ChildAdded += OnLayoutChildAdded;
 		}

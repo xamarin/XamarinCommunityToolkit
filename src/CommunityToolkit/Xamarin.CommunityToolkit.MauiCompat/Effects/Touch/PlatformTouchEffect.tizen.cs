@@ -1,15 +1,15 @@
 ﻿using ElmSharp;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Tizen.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Tizen;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Tizen;
 using EColor = ElmSharp.Color;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 
 namespace Xamarin.CommunityToolkit.Tizen.Effects
 {
-	public class PlatformTouchEffect : PlatformEffect
+	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		GestureLayer? gestureLayer;
 
@@ -145,13 +145,13 @@ namespace Xamarin.CommunityToolkit.Tizen.Effects
 			if (status == TouchStatus.Started)
 			{
 				var startColor = nativeView.BackgroundColor;
-				if (startColor.IsDefault)
+				if (startColor.IsDefault())
 					return;
 
 				var endColor = effect.NativeAnimationColor.ToNative();
-				if (endColor.IsDefault)
+				if (endColor.IsDefault())
 				{
-					startColor = EColor.FromRgba(startColor.R, startColor.G, startColor.B, startColor.A / 2);
+					startColor = EColor.FromRgba(startColor.Red, startColor.Green, startColor.Blue, startColor.Alpha / 2);
 					endColor = startColor;
 				}
 

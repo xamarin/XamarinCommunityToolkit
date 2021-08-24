@@ -2,15 +2,15 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Effects = Xamarin.CommunityToolkit.UWP.Effects;
 
 [assembly: ExportEffect(typeof(Effects.SelectAllTextEffect), nameof(SelectAllTextEffect))]
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class SelectAllTextEffect : PlatformEffect
+	public class SelectAllTextEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		TextBox? EditText => Control as TextBox;
 

@@ -2,8 +2,8 @@
 using System.Reflection;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Behaviors.Internals;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
@@ -122,7 +122,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			eventHandler = null;
 		}
 
-		[Preserve(Conditional = true)]
+		[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 		protected virtual void OnTriggerHandled(object? sender = null, object? eventArgs = null)
 		{
 			var parameter = CommandParameter

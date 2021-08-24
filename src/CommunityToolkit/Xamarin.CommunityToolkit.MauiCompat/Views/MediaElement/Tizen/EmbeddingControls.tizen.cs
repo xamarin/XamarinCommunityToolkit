@@ -2,19 +2,19 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.ObjectModel;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using ShapesPath = Xamarin.Forms.Shapes.Path;
 using ShapesPathGeometry = Xamarin.Forms.Shapes.PathGeometry;
 using XLabel = Xamarin.Forms.Label;
-using XTextAlignment = Xamarin.Forms.TextAlignment;
+using XTextAlignment = Microsoft.Maui.TextAlignment;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class EmbeddingControls : ContentView
 	{
-		public Grid PlayIcon { get; private set; }
+		public Microsoft.Maui.Controls.Compatibility.Grid PlayIcon { get; private set; }
 
-		public Grid PauseIcon { get; private set; }
+		public Microsoft.Maui.Controls.Compatibility.Grid PauseIcon { get; private set; }
 
 		public EmbeddingControls()
 		{
@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			});
 
-			PlayIcon = new Grid
+			PlayIcon = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				Children =
 				{
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			AbsoluteLayout.SetLayoutFlags(PlayIcon, AbsoluteLayoutFlags.All);
 			AbsoluteLayout.SetLayoutBounds(PlayIcon, new Rectangle(0.5, 0.5, 0.25, 0.25));
 
-			PauseIcon = new Grid
+			PauseIcon = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				HorizontalOptions = LayoutOptions.Center,
 				Children =
@@ -159,12 +159,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			};
 
-			var progressLayout = new StackLayout
+			var progressLayout = new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout
 			{
 				Children =
 				{
-					new StackLayout { VerticalOptions = LayoutOptions.FillAndExpand },
-					new StackLayout
+					new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout { VerticalOptions = LayoutOptions.FillAndExpand },
+					new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout
 					{
 						Margin = Device.Idiom == TargetIdiom.Watch ? new Thickness(80, 0, 80, 0) : 20,
 						VerticalOptions = LayoutOptions.End,

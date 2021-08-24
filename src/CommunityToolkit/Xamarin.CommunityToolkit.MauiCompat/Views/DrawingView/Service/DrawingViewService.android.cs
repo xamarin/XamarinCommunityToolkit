@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Android.Graphics;
 using Java.Lang;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
-using Color = Xamarin.Forms.Color;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
+using Color = Microsoft.Maui.Graphics.Color;
 using Math = System.Math;
-using Point = Xamarin.Forms.Point;
+using Point = Microsoft.Maui.Graphics.Point;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

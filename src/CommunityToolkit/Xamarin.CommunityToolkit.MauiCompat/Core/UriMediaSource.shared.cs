@@ -1,5 +1,5 @@
 ﻿using System;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.Core
 {
@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Core
 		static void OnUriSourceChanged(BindableObject bindable, object oldValue, object newValue) =>
 			((UriMediaSource)bindable).OnSourceChanged();
 
-		[TypeConverter(typeof(Xamarin.Forms.UriTypeConverter))]
+		[System.ComponentModel.TypeConverter(typeof(Microsoft.Maui.Controls.UriTypeConverter))]
 		public Uri? Uri
 		{
 			get => (Uri?)GetValue(UriProperty);

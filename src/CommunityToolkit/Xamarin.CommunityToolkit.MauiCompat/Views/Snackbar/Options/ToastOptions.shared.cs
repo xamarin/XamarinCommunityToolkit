@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Options
 {
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
 
-		public static Color DefaultBackgroundColor { get; set; } = Color.Default;
+		public static Color DefaultBackgroundColor { get; set; } = default(Color);
 
 		/// <summary>
 		/// Corner radius (in dp)

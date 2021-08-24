@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using PropertyChangedEventArgs = System.ComponentModel.PropertyChangedEventArgs;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// The <see cref="BadgeView"/> allows the user to show a badge with a string value on top of any control. By wrapping a control in a <see cref="BadgeView"/> control, you can show a badge value on top of it. This is very much like the badges you see on the app icons on iOS and Android.
 	/// </summary>
 	[ContentProperty(nameof(Content))]
-	public class BadgeView : BaseTemplatedView<Grid>
+	public class BadgeView : BaseTemplatedView<Microsoft.Maui.Controls.Compatibility.Grid>
 	{
 		bool isVisible;
 		bool placementDone;
@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="BackgroundColor"/> property.
 		/// </summary>
 		public static new BindableProperty BackgroundColorProperty =
-			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(BadgeView), defaultValue: Color.Default,
+			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(BadgeView), defaultValue: default(Color),
 				propertyChanged: OnLayoutPropertyChanged);
 
 		/// <summary>
@@ -119,7 +119,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="BorderColor"/> property.
 		/// </summary>
 		public static readonly BindableProperty BorderColorProperty =
-			BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(BadgeView), Color.Default,
+			BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(BadgeView), default(Color),
 				propertyChanged: OnLayoutPropertyChanged);
 
 		/// <summary>
@@ -151,7 +151,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="TextColor"/> property.
 		/// </summary>
 		public static BindableProperty TextColorProperty =
-			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BadgeView), defaultValue: Color.Default,
+			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(BadgeView), defaultValue: default(Color),
 				propertyChanged: OnLayoutPropertyChanged);
 
 		/// <summary>
@@ -200,7 +200,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font size of all the text on the <see cref="BadgeView" />. <see cref="NamedSize" /> values can be used. This is a bindable property.
 		/// </summary>
-		[TypeConverter(typeof(FontSizeConverter))]
+		[System.ComponentModel.TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);
@@ -241,13 +241,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		ContentPresenter BadgeContent { get; } = CreateContentElement();
 
-		Grid BadgeIndicatorContainer { get; } = CreateIndicatorContainerElement();
+		Microsoft.Maui.Controls.Compatibility.Grid BadgeIndicatorContainer { get; } = CreateIndicatorContainerElement();
 
 		Frame BadgeIndicatorBackground { get; } = CreateIndicatorBackgroundElement();
 
 		Label BadgeText { get; } = CreateTextElement();
 
-		protected override void OnControlInitialized(Grid control)
+		protected override void OnControlInitialized(Microsoft.Maui.Controls.Compatibility.Grid control)
 		{
 			BadgeIndicatorBackground.Content = BadgeText;
 
@@ -265,7 +265,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			VerticalOptions = LayoutOptions.Start
 		};
 
-		static Grid CreateIndicatorContainerElement() => new Grid
+		static Microsoft.Maui.Controls.Compatibility.Grid CreateIndicatorContainerElement() => new Microsoft.Maui.Controls.Compatibility.Grid
 		{
 			HorizontalOptions = LayoutOptions.Start,
 			VerticalOptions = LayoutOptions.Start,

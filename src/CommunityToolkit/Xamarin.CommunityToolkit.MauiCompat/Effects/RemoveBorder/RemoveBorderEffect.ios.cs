@@ -1,14 +1,14 @@
 ﻿using UIKit;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 [assembly: ExportEffect(typeof(Effects.RemoveBorderEffect), nameof(RemoveBorderEffect))]
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class RemoveBorderEffect : PlatformEffect
+	public class RemoveBorderEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		UITextBorderStyle? oldBorderStyle;
 

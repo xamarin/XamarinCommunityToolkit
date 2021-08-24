@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 [assembly: ExportEffect(typeof(Effects.IconTintColorEffectRouter), nameof(IconTintColorEffectRouter))]
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class IconTintColorEffectRouter : PlatformEffect
+	public class IconTintColorEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 			=> ApplyTintColor();
@@ -21,9 +21,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			base.OnElementPropertyChanged(args);
 
-			if (!args.PropertyName.Equals(IconTintColorEffect.TintColorProperty.PropertyName) &&
-				!args.PropertyName.Equals(Image.SourceProperty.PropertyName) &&
-				!args.PropertyName.Equals(ImageButton.SourceProperty.PropertyName))
+			if (!args.PropertyName?.Equals(IconTintColorEffect.TintColorProperty.PropertyName) is true is true &&
+				!args.PropertyName?.Equals(Microsoft.Maui.Controls.Image.SourceProperty.PropertyName) is true &&
+				!args.PropertyName?.Equals(Microsoft.Maui.Controls.ImageButton.SourceProperty.PropertyName) is true)
 				return;
 
 			ApplyTintColor();

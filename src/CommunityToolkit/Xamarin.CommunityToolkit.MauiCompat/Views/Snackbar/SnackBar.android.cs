@@ -1,13 +1,13 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Android.Graphics;
 using Android.Widget;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
 using Android.Graphics.Drawables;
-#if MONOANDROID10_0
+#if ANDROID
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
 using AndroidSnackBar = Android.Support.Design.Widget.Snackbar;
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (snackBar.View.Background is GradientDrawable shape)
 			{
-				if (arguments.BackgroundColor != Forms.Color.Default)
+				if (arguments.BackgroundColor != new Microsoft.Maui.Graphics.Color())
 				{
 					shape?.SetColor(arguments.BackgroundColor.ToAndroid().ToArgb());
 				}
@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				snackBarView.SetBackground(shape);
 			}
 
-			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text) ?? throw new NullReferenceException();
+			var snackTextView = snackBarView.FindViewById<TextView>(Xamarin.CommunityToolkit.MauiCompat.Resource.Id.snackbar_text) ?? throw new NullReferenceException();
 			snackTextView.SetMaxLines(10);
 
 			if (arguments.MessageOptions.Padding != MessageOptions.DefaultPadding)
@@ -66,16 +66,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					(int)arguments.MessageOptions.Padding.Bottom);
 			}
 
-			if (arguments.MessageOptions.Foreground != Forms.Color.Default)
+			if (arguments.MessageOptions.Foreground != new Microsoft.Maui.Graphics.Color())
 			{
 				snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
 			}
 
 			if (arguments.MessageOptions.Font != Font.Default)
 			{
-				if (arguments.MessageOptions.Font.FontSize > 0)
+				if (arguments.MessageOptions.Font.Size > 0)
 				{
-					snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.FontSize);
+					snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.Size);
 				}
 
 				snackTextView.SetTypeface(arguments.MessageOptions.Font.ToTypeface(), TypefaceStyle.Normal);
@@ -92,13 +92,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (action.Action != null)
 						await action.Action();
 				});
-				if (action.ForegroundColor != Forms.Color.Default)
+				if (action.ForegroundColor != new Microsoft.Maui.Graphics.Color())
 				{
 					snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
 				}
 
-				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action) ?? throw new NullReferenceException();
-				if (arguments.BackgroundColor != Forms.Color.Default)
+				var snackActionButtonView = snackBarView.FindViewById<TextView>(Xamarin.CommunityToolkit.MauiCompat.Resource.Id.snackbar_action) ?? throw new NullReferenceException();
+				if (arguments.BackgroundColor != new Microsoft.Maui.Graphics.Color())
 				{
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
 				}
@@ -113,9 +113,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (action.Font != Font.Default)
 				{
-					if (action.Font.FontSize > 0)
+					if (action.Font.Size > 0)
 					{
-						snackTextView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
+						snackTextView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.Size);
 					}
 
 					snackActionButtonView.SetTypeface(action.Font.ToTypeface(), TypefaceStyle.Normal);

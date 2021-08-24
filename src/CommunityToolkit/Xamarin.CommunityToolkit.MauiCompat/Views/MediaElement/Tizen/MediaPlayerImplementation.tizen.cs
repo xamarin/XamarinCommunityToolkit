@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Tizen.Multimedia;
 using Xamarin.CommunityToolkit.Core;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Tizen;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Tizen;
 using MSize = Tizen.Multimedia.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -343,7 +343,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		async void OnTargetViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+		async void OnTargetViewPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer")
 			{

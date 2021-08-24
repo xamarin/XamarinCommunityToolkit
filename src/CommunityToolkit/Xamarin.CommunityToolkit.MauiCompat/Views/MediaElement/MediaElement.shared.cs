@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.CommunityToolkit.Core;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -104,7 +104,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		[Forms.TypeConverter(typeof(MediaSourceConverter))]
+		[System.ComponentModel.TypeConverter(typeof(MediaSourceConverter))]
 		public MediaSource? Source
 		{
 			get => (MediaSource?)GetValue(SourceProperty);

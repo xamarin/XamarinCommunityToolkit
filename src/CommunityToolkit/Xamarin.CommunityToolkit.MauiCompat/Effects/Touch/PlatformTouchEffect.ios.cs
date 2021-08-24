@@ -7,14 +7,14 @@ using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.iOS.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class PlatformTouchEffect : PlatformEffect
+	public class PlatformTouchEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		UIGestureRecognizer? touchGesture;
 
@@ -249,10 +249,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			await UIView.AnimateAsync(.2, () =>
 			{
-				if (color == Color.Default)
+				if (color == default(Color))
 					renderer.Layer.Opacity = isStarted ? 0.5f : (float)control.Opacity;
 				else
-					renderer.Layer.BackgroundColor = (isStarted ? color : control.BackgroundColor).ToCGColor();
+					renderer.Layer.BackgroundColor = Microsoft.Maui.ColorExtensions.ToCGColor(isStarted ? color : control.BackgroundColor);
 
 				renderer.Layer.CornerRadius = isStarted ? radius : defaultRadius.GetValueOrDefault();
 

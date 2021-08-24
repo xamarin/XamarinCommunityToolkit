@@ -5,8 +5,8 @@ using Foundation;
 using Photos;
 using UIKit;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
 
@@ -16,7 +16,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		bool disposed;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<CameraView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView> e)
 		{
 			base.OnElementChanged(e);
 

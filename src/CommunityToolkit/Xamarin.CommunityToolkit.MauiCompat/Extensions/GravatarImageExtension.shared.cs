@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Xaml;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
@@ -13,9 +13,8 @@ namespace Xamarin.CommunityToolkit.Extensions
 			if (serviceProvider == null)
 				throw new ArgumentNullException(nameof(serviceProvider));
 
-			if (BindingContext == null && !IsSet(BindingContextProperty))
+			if (BindingContext == null && !IsSet(BindingContextProperty) && serviceProvider.GetService(typeof(IProvideValueTarget)) is IProvideValueTarget valueTargetProvider)
 			{
-				var valueTargetProvider = serviceProvider.GetService<IProvideValueTarget>();
 				SetBinding(BindingContextProperty, new Binding(nameof(BindingContext), source: valueTargetProvider.TargetObject));
 			}
 

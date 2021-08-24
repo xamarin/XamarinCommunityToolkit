@@ -4,10 +4,10 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 using static System.Math;
-using static Xamarin.Forms.AbsoluteLayout;
+using static Microsoft.Maui.Controls.Compatibility.AbsoluteLayout;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -63,34 +63,34 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			= BindableProperty.Create(nameof(TrackSize), typeof(double), typeof(RangeSlider), 4.0, propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty ThumbColorProperty
-			= BindableProperty.Create(nameof(ThumbColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(ThumbColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty LowerThumbColorProperty
-			= BindableProperty.Create(nameof(LowerThumbColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(LowerThumbColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty UpperThumbColorProperty
-			= BindableProperty.Create(nameof(UpperThumbColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(UpperThumbColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty TrackColorProperty
-			= BindableProperty.Create(nameof(TrackColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(TrackColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty TrackHighlightColorProperty
-			= BindableProperty.Create(nameof(TrackHighlightColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(TrackHighlightColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty ThumbBorderColorProperty
-			= BindableProperty.Create(nameof(ThumbBorderColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(ThumbBorderColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty LowerThumbBorderColorProperty
-			= BindableProperty.Create(nameof(LowerThumbBorderColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(LowerThumbBorderColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty UpperThumbBorderColorProperty
-			= BindableProperty.Create(nameof(UpperThumbBorderColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(UpperThumbBorderColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty TrackBorderColorProperty
-			= BindableProperty.Create(nameof(TrackBorderColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(TrackBorderColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty TrackHighlightBorderColorProperty
-			= BindableProperty.Create(nameof(TrackHighlightBorderColor), typeof(Color), typeof(RangeSlider), Color.Default, propertyChanged: OnLayoutPropertyChanged);
+			= BindableProperty.Create(nameof(TrackHighlightBorderColor), typeof(Color), typeof(RangeSlider), default(Color), propertyChanged: OnLayoutPropertyChanged);
 
 		public static BindableProperty ValueLabelStyleProperty
 			= BindableProperty.Create(nameof(ValueLabelStyle), typeof(Style), typeof(RangeSlider), propertyChanged: OnLayoutPropertyChanged);
@@ -400,7 +400,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (hasShadow)
 			{
-				ShadowEffect.SetColor(frame, Color.Black);
+				ShadowEffect.SetColor(frame, Colors.Black);
 				ShadowEffect.SetOpacity(frame, .25);
 				ShadowEffect.SetRadius(frame, 3);
 				ShadowEffect.SetOffsetY(frame, 2);
@@ -507,12 +507,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			LowerThumb.BorderColor = lowerThumbBorderColor;
 			UpperThumb.BorderColor = upperThumbBorderColor;
-			LowerThumb.BackgroundColor = GetColorOrDefault(lowerThumbColor, Color.White);
-			UpperThumb.BackgroundColor = GetColorOrDefault(upperThumbColor, Color.White);
+			LowerThumb.BackgroundColor = GetColorOrDefault(lowerThumbColor, Colors.White);
+			UpperThumb.BackgroundColor = GetColorOrDefault(upperThumbColor, Colors.White);
 			Track.BackgroundColor = GetColorOrDefault(TrackColor, Color.FromRgb(182, 182, 182));
 			TrackHighlight.BackgroundColor = GetColorOrDefault(TrackHighlightColor, Color.FromRgb(46, 124, 246));
-			Track.BorderColor = GetColorOrDefault(TrackBorderColor, Color.Default);
-			TrackHighlight.BorderColor = GetColorOrDefault(TrackHighlightBorderColor, Color.Default);
+			Track.BorderColor = GetColorOrDefault(TrackBorderColor, default(Color));
+			TrackHighlight.BorderColor = GetColorOrDefault(TrackHighlightBorderColor, default(Color));
 
 			var trackSize = TrackSize;
 			var trackRadius = (float)GetDoubleOrDefault(TrackRadius, trackSize / 2);
@@ -649,7 +649,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		Color GetColorOrDefault(Color color, Color defaultColor)
-			=> color == Color.Default
+			=> color == default(Color)
 				? defaultColor
 				: color;
 

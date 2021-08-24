@@ -4,8 +4,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Xamarin.Forms.Platform.WPF;
-using FormsImageSource = Xamarin.Forms.ImageSource;
+using Microsoft.Maui.Controls.Compatibility.Platform.WPF;
+using FormsImageSource = Microsoft.Maui.Controls.ImageSource;
 using SystemImageSource = System.Windows.Media.ImageSource;
 
 namespace Xamarin.CommunityToolkit.UI.Views

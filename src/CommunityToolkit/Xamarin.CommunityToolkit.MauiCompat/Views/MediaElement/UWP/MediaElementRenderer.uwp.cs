@@ -2,7 +2,7 @@
 using Windows.System.Display;
 using Windows.UI.Xaml;
 using Xamarin.CommunityToolkit.Core;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Controls = Windows.UI.Xaml.Controls;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ReleaseControl();
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<ToolKitMediaElement> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<ToolKitMediaElement> e)
 		{
 			base.OnElementChanged(e);
 

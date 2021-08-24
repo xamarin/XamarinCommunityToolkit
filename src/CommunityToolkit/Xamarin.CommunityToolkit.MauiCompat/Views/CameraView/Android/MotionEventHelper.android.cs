@@ -1,6 +1,6 @@
-﻿using Android.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Android.Views;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (isInViewCell || element == null || motionEvent == null || motionEvent.Action == MotionEventActions.Cancel)
 				return false;
 
-			if (parent is not VisualElementRenderer<Forms.View> renderer || ShouldPassThroughElement())
+			if (parent is not VisualElementRenderer<Microsoft.Maui.Controls.View> renderer || ShouldPassThroughElement())
 				return false;
 
 			// Let the container know that we're "fake" handling this event
@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		bool ShouldPassThroughElement()
 		{
-			if (element is Layout layout)
+			if (element is Microsoft.Maui.Controls.Layout layout)
 			{
 				// If the layout is not input transparent, then the event should not pass through it
 				if (!layout.InputTransparent)
@@ -46,8 +46,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				// This is a layout, and it's transparent, and all its children are transparent, then the event
 				// can just pass through
-				if (layout.CascadeInputTransparent)
-					return true;
 
 				// This event isn't being bubbled up by a non-InputTransparent child layout
 				return true;

@@ -3,8 +3,8 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.UWP.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 
 [assembly: ExportEffect(typeof(LifeCycleEffectRouter), nameof(LifecycleEffect))]
 
@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 	/// <summary>
 	/// UWP implementation of the <see cref="LifecycleEffect" />
 	/// </summary>
-	public class LifeCycleEffectRouter : PlatformEffect
+	public class LifeCycleEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		FrameworkElement? nativeView;
 		LifecycleEffect? lifeCycleEffect;

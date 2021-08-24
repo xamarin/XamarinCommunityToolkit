@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
 using Xamarin.CommunityToolkit.Behaviors.Internals;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	/// <summary>
 	/// The <see cref="ImpliedOrderGridBehavior"/> enables you to automatically assign a <see cref="Grid"/> row and column to a view based on the order the view is added to the <see cref="Grid"/>. You only need to setup the row and column definitions and then add children to the <see cref="Grid"/>. You may still assign RowSpan and ColumnSpan to views and their values will be taken into account when assigning a row and column to a view. If a view has a user defined row or column value it will be honored.
 	/// </summary>
-	public class ImpliedOrderGridBehavior : BaseBehavior<Grid>
+	public class ImpliedOrderGridBehavior : BaseBehavior<Microsoft.Maui.Controls.Compatibility.Grid>
 	{
 		bool[][]? usedMatrix;
 		int rowCount;
@@ -20,14 +20,14 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// </summary>
 		public bool ThrowOnLayoutWarning { get; set; }
 
-		protected override void OnAttachedTo(Grid bindable)
+		protected override void OnAttachedTo(Microsoft.Maui.Controls.Compatibility.Grid bindable)
 		{
 			base.OnAttachedTo(bindable);
 
 			bindable.ChildAdded += OnInternalGridChildAdded;
 		}
 
-		protected override void OnDetachingFrom(Grid bindable)
+		protected override void OnDetachingFrom(Microsoft.Maui.Controls.Compatibility.Grid bindable)
 		{
 			base.OnDetachingFrom(bindable);
 
@@ -78,10 +78,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				columnIndex = Math.Max(columnCount - 1, 0);
 				return;
 			}
-			rowIndex = usedMatrix.IndexOf(row);
+			rowIndex = Array.IndexOf(usedMatrix, row);
 
 			// Find the first available column
-			columnIndex = row.IndexOf(row.FirstOrDefault(c => !c));
+			columnIndex = Array.IndexOf(row, row.FirstOrDefault(c => !c));
 		}
 
 		void UpdateUsedCells(int row, int column, int rowSpan, int columnSpan)
@@ -115,22 +115,22 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		void ProcessElement(BindableObject view)
 		{
-			var columnSpan = Grid.GetColumnSpan(view);
-			var rowSpan = Grid.GetRowSpan(view);
+			var columnSpan = Microsoft.Maui.Controls.Compatibility.Grid.GetColumnSpan(view);
+			var rowSpan = Microsoft.Maui.Controls.Compatibility.Grid.GetRowSpan(view);
 
 			FindNextCell(out var row, out var column);
 
 			// Check to see if the user manually assigned a row or column
-			if (view.IsSet(Grid.ColumnProperty))
-				column = Grid.GetColumn(view);
-			if (view.IsSet(Grid.RowProperty))
-				row = Grid.GetRow(view);
+			if (view.IsSet(Microsoft.Maui.Controls.Compatibility.Grid.ColumnProperty))
+				column = Microsoft.Maui.Controls.Compatibility.Grid.GetColumn(view);
+			if (view.IsSet(Microsoft.Maui.Controls.Compatibility.Grid.RowProperty))
+				row = Microsoft.Maui.Controls.Compatibility.Grid.GetRow(view);
 
 			UpdateUsedCells(row, column, rowSpan, columnSpan);
 
 			// Set attributes
-			view.SetValue(Grid.ColumnProperty, column);
-			view.SetValue(Grid.RowProperty, row);
+			view.SetValue(Microsoft.Maui.Controls.Compatibility.Grid.ColumnProperty, column);
+			view.SetValue(Microsoft.Maui.Controls.Compatibility.Grid.RowProperty, row);
 		}
 	}
 }

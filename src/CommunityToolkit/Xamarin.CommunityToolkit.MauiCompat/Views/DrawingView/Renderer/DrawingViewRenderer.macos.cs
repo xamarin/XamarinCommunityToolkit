@@ -5,8 +5,8 @@ using AppKit;
 using CoreGraphics;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.CommunityToolkit.UI.Views.macOS;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
 
@@ -25,7 +25,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public DrawingViewRenderer() => currentPath = new NSBezierPath();
 
-		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (Element != null)
@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)

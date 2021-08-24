@@ -5,10 +5,10 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using Xamarin.Forms.Platform.WPF;
-using Color = Xamarin.Forms.Color;
-using Point = Xamarin.Forms.Point;
-using Size = Xamarin.Forms.Size;
+using Microsoft.Maui.Controls.Compatibility.Platform.WPF;
+using Color = Xamarin.Color;
+using Point = Microsoft.Maui.Graphics.Point;
+using Size = Microsoft.Maui.Graphics.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -113,7 +113,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static System.Drawing.Color XamarinColorToDrawingColor(Color xamarinColor)
 		{
 			var mediaColor = xamarinColor.ToMediaColor();
-			return System.Drawing.Color.FromArgb(mediaColor.A, mediaColor.R, mediaColor.G, mediaColor.B);
+			return System.Drawing.Color.FromArgb(mediaColor.Alpha, mediaColor.Red, mediaColor.Green, mediaColor.Blue);
 		}
 
 		static PointF XamarinPointToDrawingPoint(Point xamarinPoint) =>

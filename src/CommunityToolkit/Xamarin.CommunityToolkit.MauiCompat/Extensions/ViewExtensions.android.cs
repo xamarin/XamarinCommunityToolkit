@@ -1,4 +1,4 @@
-﻿using Android.OS;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Android.OS;
 using Xamarin.CommunityToolkit.Helpers;
 using AView = Android.Views.View;
 

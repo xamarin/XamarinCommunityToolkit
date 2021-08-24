@@ -1,9 +1,9 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using System.Linq;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using View = Android.Views.View;
 
 [assembly: ExportEffect(typeof(LifeCycleEffectRouter), nameof(LifecycleEffect))]
@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	/// <summary>
 	/// Android implementation of the <see cref="LifecycleEffect" />
 	/// </summary>
-	public class LifeCycleEffectRouter : PlatformEffect
+	public class LifeCycleEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		View? nativeView;
 		LifecycleEffect? lifeCycleEffect;

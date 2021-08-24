@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System.ComponentModel;
 using System.Linq;
 using Android.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 	/// Base implementation of the <see cref="SemanticEffectRouter" />
 	/// </summary>
 	/// <typeparam name="T">Effect</typeparam>
-	public class SemanticEffectRouterBase<T> : PlatformEffect
+	public class SemanticEffectRouterBase<T> : Microsoft.Maui.Controls.Platform.PlatformEffect
 		where T : Effect
 	{
 		public SemanticEffectRouterBase()
@@ -44,7 +44,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				Update(veFinal, effect);
 		}
 
-		void SetupControl(object sender, PropertyChangedEventArgs e)
+		void SetupControl(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer")
 			{
@@ -62,7 +62,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		{
 			var renderer = Platform.GetRenderer(visualElement);
 
-			if (visualElement is Layout)
+			if (visualElement is Microsoft.Maui.Controls.Layout)
 				return renderer?.View;
 			else if (renderer is ViewGroup vg && vg.ChildCount > 0)
 				return vg?.GetChildAt(0);
@@ -77,7 +77,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (renderer == null)
 				return visualElement?.GetViewForAccessibility();
 
-			if (visualElement is Layout)
+			if (visualElement is Microsoft.Maui.Controls.Layout)
 				return renderer;
 			else if (renderer is ViewGroup vg && vg.ChildCount > 0)
 				return vg?.GetChildAt(0);

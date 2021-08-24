@@ -1,15 +1,15 @@
-﻿using System.ComponentModel;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System.ComponentModel;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class PlatformStatusBarEffect : PlatformEffect
+	public class PlatformStatusBarEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 		{

@@ -9,16 +9,16 @@ using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Shapes;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.UWP.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
-using Grid = Xamarin.Forms.Grid;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
+using Microsoft.Maui.Controls.Compatibility.Grid = Xamarin.Forms.Grid;
 using Image = Windows.UI.Xaml.Controls.Image;
 
 [assembly: ExportEffect(typeof(PlatformShadowEffect), nameof(ShadowEffect))]
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class PlatformShadowEffect : PlatformEffect
+	public class PlatformShadowEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		enum ShadowEffectState
 		{
@@ -68,9 +68,9 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			switch (state)
 			{
 				case ShadowEffectState.Initialized:
-					shadowPanel = new StackLayout()
+					shadowPanel = new 	Microsoft.Maui.Controls.	Microsoft.Maui.Controls.StackLayout()
 					{
-						Children = { new Grid() }
+						Children = { new Microsoft.Maui.Controls.Compatibility.Grid() }
 					};
 
 					state = ShadowEffectState.PanelCreated;
@@ -136,17 +136,17 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 					var index = layout.Children.IndexOf(element);
 					layout.Children.Insert(index, to);
 
-					if (layout is Grid)
+					if (layout is Microsoft.Maui.Controls.Compatibility.Grid)
 					{
-						var row = Grid.GetRow(element);
-						var rowSpan = Grid.GetRowSpan(element);
-						var column = Grid.GetColumn(element);
-						var columnSpan = Grid.GetColumnSpan(element);
+						var row = Microsoft.Maui.Controls.Compatibility.Grid.GetRow(element);
+						var rowSpan = Microsoft.Maui.Controls.Compatibility.Grid.GetRowSpan(element);
+						var column = Microsoft.Maui.Controls.Compatibility.Grid.GetColumn(element);
+						var columnSpan = Microsoft.Maui.Controls.Compatibility.Grid.GetColumnSpan(element);
 
-						Grid.SetRow(to, row);
-						Grid.SetRowSpan(to, rowSpan);
-						Grid.SetColumn(to, column);
-						Grid.SetColumnSpan(to, columnSpan);
+						Microsoft.Maui.Controls.Compatibility.Grid.SetRow(to, row);
+						Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(to, rowSpan);
+						Microsoft.Maui.Controls.Compatibility.Grid.SetColumn(to, column);
+						Microsoft.Maui.Controls.Compatibility.Grid.SetColumnSpan(to, columnSpan);
 					}
 				}
 				else if (Element.Parent is ScrollView scrollView)

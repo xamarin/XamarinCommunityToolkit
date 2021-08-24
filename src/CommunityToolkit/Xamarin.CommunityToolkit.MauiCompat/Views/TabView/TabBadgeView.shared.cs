@@ -2,12 +2,12 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
+	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
 	public class TabBadgeView : TemplatedView
 	{
 		internal const string ElementBorder = "PART_Border";
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		public static new BindableProperty BackgroundColorProperty =
-			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(TabBadgeView), defaultValue: Color.Default,
+			BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(TabBadgeView), defaultValue: default(Color),
 				propertyChanged: OnBackgroundColorChanged);
 
 		public new Color BackgroundColor
@@ -75,7 +75,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void OnBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as TabBadgeView)?.UpdateBackgroundColor((Color)newValue);
 
 		public static BindableProperty BorderColorProperty =
-		  BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(TabBadgeView), defaultValue: Color.Default,
+		  BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(TabBadgeView), defaultValue: default(Color),
 			  propertyChanged: OnBorderColorChanged);
 
 		public Color BorderColor
@@ -87,7 +87,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void OnBorderColorChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as TabBadgeView)?.UpdateBorderColor((Color)newValue);
 
 		public static BindableProperty TextColorProperty =
-			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(TabBadgeView), defaultValue: Color.Default,
+			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(TabBadgeView), defaultValue: default(Color),
 				propertyChanged: OnTextColorChanged);
 
 		public Color TextColor

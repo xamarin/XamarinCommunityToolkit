@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using ElmSharp;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms.Platform.Tizen.Native;
+using Microsoft.Maui.Controls.Compatibility.Platform.Tizen.Native;
 using ELayout = ElmSharp.Layout;
-using TBox = Xamarin.Forms.Platform.Tizen.Native.Box;
+using TBox = Microsoft.Maui.Controls.Compatibility.Platform.Tizen.Native.Box;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

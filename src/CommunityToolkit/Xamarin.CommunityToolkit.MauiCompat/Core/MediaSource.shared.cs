@@ -1,11 +1,11 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.Helpers;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.Core
 {
-	[Forms.Xaml.TypeConversion(typeof(MediaSourceConverter))]
+	[Microsoft.Maui.Controls.Xaml.TypeConversion(typeof(MediaSourceConverter))]
 	public abstract class MediaSource : Element
 	{
 		readonly WeakEventManager weakEventManager = new WeakEventManager();
@@ -23,13 +23,13 @@ namespace Xamarin.CommunityToolkit.Core
 
 		public static MediaSource? FromUri(string uri) => FromUri(new Uri(uri));
 
-		[Preserve(Conditional = true)]
+		[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 		public static implicit operator MediaSource?(string? source) =>
 			Uri.TryCreate(source, UriKind.Absolute, out var uri) && uri.Scheme != "file"
 				? FromUri(uri)
 				: FromFile(source);
 
-		[Preserve(Conditional = true)]
+		[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 		public static implicit operator MediaSource?(Uri? uri) => FromUri(uri);
 
 		protected void OnSourceChanged() =>

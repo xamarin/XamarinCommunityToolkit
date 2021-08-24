@@ -5,14 +5,14 @@ using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.iOS.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
 [assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
-	public class PlatformStatusBarEffect : PlatformEffect
+	public class PlatformStatusBarEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 		{

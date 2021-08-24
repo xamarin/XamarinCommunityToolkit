@@ -1,4 +1,4 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using Android.Hardware.Camera2;
 
 namespace Xamarin.CommunityToolkit.UI.Views

@@ -4,9 +4,9 @@ using System.Timers;
 using Gtk;
 using Pango;
 using Xamarin.CommunityToolkit.UI.Views.Options;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.GTK;
-using Xamarin.Forms.Platform.GTK.Extensions;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.GTK;
+using Microsoft.Maui.Controls.Compatibility.Platform.GTK.Extensions;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBarLayout.ModifyBg(StateType.Normal, arguments.BackgroundColor.ToGtkColor());
 
 			var message = new Gtk.Label(arguments.MessageOptions.Message);
-			message.ModifyFont(new FontDescription { AbsoluteSize = arguments.MessageOptions.Font.FontSize, Family = arguments.MessageOptions.Font.FontFamily });
+			message.ModifyFont(new FontDescription { AbsoluteSize = arguments.MessageOptions.Font.Size, Family = arguments.MessageOptions.Font.FontFamily });
 			message.ModifyFg(StateType.Normal, arguments.MessageOptions.Foreground.ToGtkColor());
 			message.SetPadding((int)arguments.MessageOptions.Padding.Left, (int)arguments.MessageOptions.Padding.Top);
 			snackBarLayout.Add(message);
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					Label = action.Text
 				};
-				button.ModifyFont(new FontDescription { AbsoluteSize = action.Font.FontSize, Family = action.Font.FontFamily });
+				button.ModifyFont(new FontDescription { AbsoluteSize = action.Font.Size, Family = action.Font.FontFamily });
 				button.ModifyBg(StateType.Normal, action.BackgroundColor.ToGtkColor());
 				button.ModifyFg(StateType.Normal, action.ForegroundColor.ToGtkColor());
 

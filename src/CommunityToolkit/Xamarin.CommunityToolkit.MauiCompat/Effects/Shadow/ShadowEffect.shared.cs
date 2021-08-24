@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			ColorPropertyName,
 			typeof(Color),
 			typeof(ShadowEffect),
-			Color.Default,
+			default(Color),
 			propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty OpacityProperty = BindableProperty.CreateAttached(
@@ -105,7 +105,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			var shadowEffects = view.Effects.OfType<ShadowEffect>();
 
-			if (GetColor(view) == Color.Default)
+			if (GetColor(view) == default(Color))
 			{
 				foreach (var effect in shadowEffects.ToArray())
 					view.Effects.Remove(effect);

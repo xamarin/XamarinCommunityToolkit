@@ -1,4 +1,4 @@
-﻿using Xamarin.Forms;
+﻿using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Options
 {
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public Color Foreground { get; set; } = DefaultForeground;
 
-		public static Color DefaultForeground { get; set; } = Color.Default;
+		public static Color DefaultForeground { get; set; } = default(Color);
 
 		/// <summary>
 		/// Gets or sets the padding for the SnackBar message.

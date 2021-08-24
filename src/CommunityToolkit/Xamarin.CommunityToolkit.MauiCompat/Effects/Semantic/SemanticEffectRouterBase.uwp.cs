@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 	/// Base implementation of the <see cref="SemanticEffectRouter" />
 	/// </summary>
 	/// <typeparam name="T">Effect</typeparam>
-	public class SemanticEffectRouterBase<T> : Xamarin.Forms.Platform.UWP.PlatformEffect
+	public class SemanticEffectRouterBase<T> : Microsoft.Maui.Controls.Compatibility.Platform.UWP.PlatformEffect
 		where T : Effect
 	{
 		public SemanticEffectRouterBase()
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			Update(Control, effect);
 		}
 
-		void SetupControl(object sender, PropertyChangedEventArgs e)
+		void SetupControl(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Renderer")
 			{

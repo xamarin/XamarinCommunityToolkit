@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	/// <summary>
 	/// Abstract base class for <see cref="LazyView{TView}"/>
 	/// </summary>
-	[Preserve(Conditional = true)]
+	[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 	public abstract class BaseLazyView : ContentView, IDisposable
 	{
 		internal static readonly BindablePropertyKey IsLoadedPropertyKey = BindableProperty.CreateReadOnly(nameof(IsLoaded), typeof(bool), typeof(BaseLazyView), default);

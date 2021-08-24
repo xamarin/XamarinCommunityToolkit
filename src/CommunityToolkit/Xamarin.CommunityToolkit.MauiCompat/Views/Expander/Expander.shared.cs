@@ -2,13 +2,16 @@
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
-using Xamarin.Forms;
+using Microsoft.Maui;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Controls.Compatibility;
 using static System.Math;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[ContentProperty(nameof(Content))]
-	public class Expander : BaseTemplatedView<StackLayout>
+	public class Expander : BaseTemplatedView<Microsoft.Maui.Controls.StackLayout>
 	{
 		const string expandAnimationName = nameof(expandAnimationName);
 
@@ -100,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					? Content.HeightRequest
 					: Content.WidthRequest;
 
-				if (sizeRequest < 0 || Content is not Layout layout)
+				if (sizeRequest < 0 || Content is not Microsoft.Maui.Controls.Layout layout)
 					return sizeRequest;
 
 				return sizeRequest + (Direction.IsVertical()
@@ -227,7 +230,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			OnIsExpandedChanged();
 		}
 
-		protected override void OnControlInitialized(StackLayout control)
+		protected override void OnControlInitialized(Microsoft.Maui.Controls.StackLayout control)
 		{
 			ForceUpdateSizeCommand = new Command(ForceUpdateSize);
 			headerTapGestureRecognizer = new TapGestureRecognizer

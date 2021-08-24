@@ -17,7 +17,7 @@ using Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews;
 using AnchorView = AppKit.NSView;
 #endif
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 {

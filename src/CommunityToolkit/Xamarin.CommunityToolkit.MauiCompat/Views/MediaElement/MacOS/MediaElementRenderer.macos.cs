@@ -5,9 +5,9 @@ using AVFoundation;
 using AVKit;
 using CoreMedia;
 using Foundation;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.MacOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
+using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 using ToolKitMediaElement = Xamarin.CommunityToolkit.UI.Views.MediaElement;
 using ToolKitMediaElementRenderer = Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer;
 using XCT = Xamarin.CommunityToolkit.Core;
@@ -351,7 +351,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void MediaElementPositionRequested(object? sender, EventArgs e) => Controller.Position = Position;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<MediaElement> e)
 		{
 			base.OnElementChanged(e);
 

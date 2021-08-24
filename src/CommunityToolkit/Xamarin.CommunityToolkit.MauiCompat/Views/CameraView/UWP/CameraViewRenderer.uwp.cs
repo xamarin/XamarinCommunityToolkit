@@ -18,7 +18,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 
 [assembly: ExportRenderer(typeof(CameraView), typeof(CameraViewRenderer))]
 
@@ -60,7 +60,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override async void OnElementChanged(ElementChangedEventArgs<CameraView> e)
+		protected override async void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<CameraView> e)
 		{
 			Available = false;
 			base.OnElementChanged(e);

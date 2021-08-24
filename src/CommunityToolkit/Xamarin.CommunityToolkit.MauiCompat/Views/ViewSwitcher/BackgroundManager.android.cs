@@ -1,7 +1,7 @@
-﻿using System;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System;
 using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using AView = Android.Views.View;
 
 // Copied from Xamarin.Forms (BackgroundManager)
@@ -36,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 
 			var finalColor = color ?? element.BackgroundColor;
-			if (finalColor.IsDefault)
+			if (finalColor.IsDefault())
 				control.SetBackground(null);
 			else
 				control.SetBackgroundColor(finalColor.ToAndroid());
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.UpdateBackground(background);
 		}
 
-		static void OnElementChanged(object sender, VisualElementChangedEventArgs e)
+		static void OnElementChanged(object sender, Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs e)
 		{
 			if (e.OldElement != null)
 			{
@@ -68,7 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		static void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		static void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			var renderer = sender as IVisualElementRenderer;
 

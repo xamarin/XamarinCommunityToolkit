@@ -3,14 +3,14 @@ using System.ComponentModel;
 using Windows.UI.ViewManagement;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.UWP.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 
 [assembly: ExportEffect(typeof(PlatformStatusBarEffect), nameof(StatusBarEffect))]
 
 namespace Xamarin.CommunityToolkit.UWP.Effects
 {
-	public class PlatformStatusBarEffect : PlatformEffect
+	public class PlatformStatusBarEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()
 		{
@@ -45,9 +45,9 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 		{
 			var foregroundColor = style switch
 			{
-				StatusBarStyle.LightContent => Color.White.ToWindowsColor(),
-				StatusBarStyle.DarkContent => Color.Black.ToWindowsColor(),
-				_ => Color.Default.ToWindowsColor(),
+				StatusBarStyle.LightContent => Colors.White.ToWindowsColor(),
+				StatusBarStyle.DarkContent => Colors.Black.ToWindowsColor(),
+				_ => default(Color).ToWindowsColor(),
 			};
 
 			UpdateStatusBar(tb => tb.ForegroundColor = foregroundColor);

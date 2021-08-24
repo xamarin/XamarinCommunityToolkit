@@ -2,8 +2,8 @@
 using Foundation;
 using UIKit;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(SemanticOrderView), typeof(SemanticOrderViewRenderer))]
 
@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class SemanticOrderViewRenderer : ViewRenderer, IUIAccessibilityContainer
 	{
-		protected override void OnElementChanged(ElementChangedEventArgs<View> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<View> e)
 		{
 			base.OnElementChanged(e);
 

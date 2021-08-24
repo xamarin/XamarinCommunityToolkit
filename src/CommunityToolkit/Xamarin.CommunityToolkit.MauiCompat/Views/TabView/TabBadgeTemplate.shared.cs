@@ -1,10 +1,10 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+﻿using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
-	public class TabBadgeTemplate : Grid
+	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
+	public class TabBadgeTemplate : Microsoft.Maui.Controls.Compatibility.Grid
 	{
 		public TabBadgeTemplate()
 		{
@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			HorizontalOptions = LayoutOptions.Start;
 			VerticalOptions = LayoutOptions.Start;
 
-			var badgeBorder = new Frame
+			var badgeBorder = new Microsoft.Maui.Controls.Frame
 			{
 				HasShadow = false,
 				IsClippedToBounds = false,
@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 
 			badgeBorder.SetBinding(BackgroundColorProperty, new Binding("BackgroundColor", source: RelativeBindingSource.TemplatedParent));
-			badgeBorder.SetBinding(Frame.BorderColorProperty, new Binding("BorderColor", source: RelativeBindingSource.TemplatedParent));
+			badgeBorder.SetBinding(Microsoft.Maui.Controls.Frame.BorderColorProperty, new Binding("BorderColor", source: RelativeBindingSource.TemplatedParent));
 
 			badgeText.BatchBegin();
 

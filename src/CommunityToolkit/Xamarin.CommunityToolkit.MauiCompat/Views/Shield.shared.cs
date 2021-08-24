@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -34,13 +34,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="SubjectBackgroundColor"/> property.
 		/// </summary>
 		public static readonly BindableProperty SubjectBackgroundColorProperty =
-			BindableProperty.Create(nameof(SubjectBackgroundColor), typeof(Color), typeof(Shield), Color.Default,
+			BindableProperty.Create(nameof(SubjectBackgroundColor), typeof(Color), typeof(Shield), default(Color),
 				propertyChanged: OnSubjectBackgroundColorChanged);
 
 		static void OnSubjectBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubjectColor();
 
 		/// <summary>
-		/// Background <see cref="Forms.Color" /> of the left side of the <see cref="Shield" />. This is a bindable property.
+		/// Background <see cref="Color" /> of the left side of the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
 		public Color SubjectBackgroundColor
 		{
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		[Obsolete("TextColor is obsolete. Please use StatusTextColor instead")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static readonly BindableProperty TextColorProperty =
-			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), Color.Default,
+			BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(Shield), default(Color),
 				propertyChanged: OnTextColorChanged);
 
 		[Obsolete("TextColor is obsolete. Please use StatusTextColor instead")]
@@ -68,13 +68,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="SubjectTextColor"/> property.
 		/// </summary>
 		public static readonly BindableProperty SubjectTextColorProperty =
-			BindableProperty.Create(nameof(SubjectTextColor), typeof(Color), typeof(Shield), Color.Default,
+			BindableProperty.Create(nameof(SubjectTextColor), typeof(Color), typeof(Shield), default(Color),
 				propertyChanged: OnSubjectTextColorChanged);
 
 		static void OnSubjectTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateSubjectTextColor();
 
 		/// <summary>
-		/// Text <see cref="Forms.Color" /> of the text on the right side of the Shield
+		/// Text <see cref="Color" /> of the text on the right side of the Shield
 		/// </summary>
 		public Color SubjectTextColor
 		{
@@ -103,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		[Obsolete("Color is obsolete. Please use StatusBackgroundColor instead")]
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public static readonly BindableProperty ColorProperty =
-			BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), Color.Default,
+			BindableProperty.Create(nameof(Color), typeof(Color), typeof(Shield), default(Color),
 		propertyChanged: OnColorChanged);
 
 		static void OnColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateColor();
@@ -120,13 +120,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="StatusBackgroundColor"/> property.
 		/// </summary>
 		public static readonly BindableProperty StatusBackgroundColorProperty =
-			BindableProperty.Create(nameof(StatusBackgroundColor), typeof(Color), typeof(Shield), Color.Default,
+			BindableProperty.Create(nameof(StatusBackgroundColor), typeof(Color), typeof(Shield), default(Color),
 				propertyChanged: OnStatusBackgroundColorChanged);
 
 		static void OnStatusBackgroundColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatusBackgroundColor();
 
 		/// <summary>
-		/// Background <see cref="Forms.Color" /> of the right side of the <see cref="Shield" />. This is a bindable property.
+		/// Background <see cref="Color" /> of the right side of the <see cref="Shield" />. This is a bindable property.
 		/// </summary>
 		public Color StatusBackgroundColor
 		{
@@ -138,13 +138,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="StatusTextColor"/> property.
 		/// </summary>
 		public static readonly BindableProperty StatusTextColorProperty =
-			BindableProperty.Create(nameof(StatusTextColor), typeof(Color), typeof(Shield), Color.Default,
+			BindableProperty.Create(nameof(StatusTextColor), typeof(Color), typeof(Shield), default(Color),
 				propertyChanged: OnStatusTextColorChanged);
 
 		static void OnStatusTextColorChanged(BindableObject bindable, object oldValue, object newValue) => ((Shield)bindable).UpdateStatusTextColor();
 
 		/// <summary>
-		/// Text <see cref="Forms.Color" /> of the text on the right side of the Shield
+		/// Text <see cref="Color" /> of the text on the right side of the Shield
 		/// </summary>
 		public Color StatusTextColor
 		{
@@ -164,7 +164,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Font size of all the text on the <see cref="Shield" />. <see cref="NamedSize" /> values can be used. This is a bindable preoprty.
 		/// </summary>
-		[Xamarin.Forms.TypeConverter(typeof(FontSizeConverter))]
+		[System.ComponentModel.TypeConverter(typeof(FontSizeConverter))]
 		public double FontSize
 		{
 			get => (double)GetValue(FontSizeProperty);
@@ -238,16 +238,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public event EventHandler? Tapped;
 
-		Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
+		Microsoft.Maui.Controls.Compatibility.Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
 
 		Label ShieldSubject { get; } = CreateSubjectElement();
 
-		Grid ShieldStatusContainer { get; } = CreateStatusContainerElement();
+		Microsoft.Maui.Controls.Compatibility.Grid ShieldStatusContainer { get; } = CreateStatusContainerElement();
 
 		Label ShieldStatus { get; } = CreateStatusElement();
 
-		static Grid CreateSubjectContainerElement()
-			=> new Grid()
+		static Microsoft.Maui.Controls.Compatibility.Grid CreateSubjectContainerElement()
+			=> new Microsoft.Maui.Controls.Compatibility.Grid()
 			{
 				BackgroundColor = Color.FromHex("#555555")
 			};
@@ -255,13 +255,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static Label CreateSubjectElement()
 		  => new Label
 		  {
-			  TextColor = Color.White,
+			  TextColor = Colors.White,
 			  VerticalOptions = LayoutOptions.Center,
 			  Margin = new Thickness(4, 0)
 		  };
 
-		static Grid CreateStatusContainerElement()
-		 => new Grid();
+		static Microsoft.Maui.Controls.Compatibility.Grid CreateStatusContainerElement()
+		 => new Microsoft.Maui.Controls.Compatibility.Grid();
 
 		static Label CreateStatusElement()
 		   => new Label
@@ -279,23 +279,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.HasShadow = false;
 			control.IsClippedToBounds = true;
 
-			var content = new Grid
+			var content = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				ColumnSpacing = 0
 			};
 
-			content.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-			content.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.GridLength.Auto });
+			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.GridLength.Auto });
 
 			control.Content = content;
 
 			ShieldSubjectContainer.Children.Add(ShieldSubject);
 			content.Children.Add(ShieldSubjectContainer);
-			Grid.SetColumn(ShieldSubjectContainer, 0);
+			Microsoft.Maui.Controls.Compatibility.Grid.SetColumn(ShieldSubjectContainer, 0);
 
 			ShieldStatusContainer.Children.Add(ShieldStatus);
 			content.Children.Add(ShieldStatusContainer);
-			Grid.SetColumn(ShieldStatusContainer, 1);
+			Microsoft.Maui.Controls.Compatibility.Grid.SetColumn(ShieldStatusContainer, 1);
 
 			UpdateIsEnabled();
 		}

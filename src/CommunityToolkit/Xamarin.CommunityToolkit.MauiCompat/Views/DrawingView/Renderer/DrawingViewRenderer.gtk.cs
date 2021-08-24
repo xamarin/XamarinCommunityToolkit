@@ -5,10 +5,10 @@ using Cairo;
 using Gdk;
 using Gtk;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.GTK;
-using Xamarin.Forms.Platform.GTK.Extensions;
-using Point = Xamarin.Forms.Point;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.GTK;
+using Microsoft.Maui.Controls.Compatibility.Platform.GTK.Extensions;
+using Point = Microsoft.Maui.Graphics.Point;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
 
@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		ImageSurface? surface;
 		Line? currentLine;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (Control == null && Element != null)
@@ -67,7 +67,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
@@ -152,7 +152,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void DrawPoint(Context ctx, PointD pointD)
 		{
-			ctx.SetSourceRGBA(currentLine!.LineColor.R, currentLine!.LineColor.G, currentLine!.LineColor.B, currentLine!.LineColor.A);
+			ctx.SetSourceRGBA(currentLine!.LineColor.Red, currentLine!.LineColor.Green, currentLine!.LineColor.Blue, currentLine!.LineColor.Alpha);
 			ctx.LineWidth = currentLine.LineWidth;
 			ctx.MoveTo(previousPoint);
 			previousPoint = pointD;

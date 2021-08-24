@@ -1,11 +1,11 @@
 ﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[Preserve(AllMembers = true)]
-	class WindowsTabViewItemTemplate : Grid
+	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
+	class WindowsTabViewItemTemplate : Microsoft.Maui.Controls.Compatibility.Grid
 	{
 		readonly Image icon;
 		readonly Label text;
@@ -18,8 +18,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			HorizontalOptions = LayoutOptions.FillAndExpand;
 			VerticalOptions = LayoutOptions.FillAndExpand;
 
-			RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-			RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.GridLength.Star });
+			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.GridLength.Auto });
 
 			icon = new Image
 			{

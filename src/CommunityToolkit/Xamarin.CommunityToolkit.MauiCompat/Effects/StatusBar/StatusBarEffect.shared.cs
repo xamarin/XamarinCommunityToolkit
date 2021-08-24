@@ -1,12 +1,12 @@
 using System.Linq;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.Effects
 {
 	public class StatusBarEffect : RoutingEffect
 	{
 		public static readonly BindableProperty ColorProperty = BindableProperty.CreateAttached(
-			"Color", typeof(Color), typeof(StatusBarEffect), Color.Default, propertyChanged: TryGenerateEffect);
+			"Color", typeof(Color), typeof(StatusBarEffect), default(Color), propertyChanged: TryGenerateEffect);
 
 		public static readonly BindableProperty StyleProperty = BindableProperty.CreateAttached(
 			"Style", typeof(StatusBarStyle), typeof(StatusBarEffect), StatusBarStyle.Default, propertyChanged: TryGenerateEffect);

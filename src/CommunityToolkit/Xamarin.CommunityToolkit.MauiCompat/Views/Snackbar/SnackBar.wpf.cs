@@ -5,9 +5,9 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Options;
-using Xamarin.Forms.Platform.WPF;
-using Xamarin.Forms.Platform.WPF.Controls;
-using Xamarin.Forms.Platform.WPF.Helpers;
+using Microsoft.Maui.Controls.Compatibility.Platform.WPF;
+using Microsoft.Maui.Controls.Compatibility.Platform.WPF.Controls;
+using Microsoft.Maui.Controls.Compatibility.Platform.WPF.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

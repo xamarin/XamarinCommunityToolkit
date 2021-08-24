@@ -7,8 +7,8 @@ using Windows.UI.Core;
 using Windows.UI.Input.Inking;
 using Windows.UI.Xaml.Controls;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Size = Windows.Foundation.Size;
 
 [assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		InkCanvas? canvas;
 		bool disposed;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
 			if (Control == null && Element != null)
@@ -54,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
 			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
@@ -84,8 +84,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.Lines.Add(new Line()
 					{
 						Points = new ObservableCollection<Point>(points),
-						LineColor = Color.FromRgba(line.DrawingAttributes.Color.R, line.DrawingAttributes.Color.G,
-							line.DrawingAttributes.Color.B, line.DrawingAttributes.Color.A),
+						LineColor = new Microsoft.Maui.Graphics.Color(line.DrawingAttributes.Color.Red, line.DrawingAttributes.Color.Green,
+							line.DrawingAttributes.Color.Blue, line.DrawingAttributes.Color.Alpha),
 						LineWidth = (float) line.DrawingAttributes.Size.Width
 					});
 				}

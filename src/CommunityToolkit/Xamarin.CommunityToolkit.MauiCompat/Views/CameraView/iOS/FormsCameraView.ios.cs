@@ -6,7 +6,7 @@ using CoreGraphics;
 using CoreMedia;
 using Foundation;
 using UIKit;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -100,7 +100,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					$"Stacktrace: {Environment.NewLine}" +
 					error.StackTrace;
 
-			Forms.Internals.Log.Warning("Camera", $"{message}{errorMessage}");
 		}
 
 		bool IsBusy

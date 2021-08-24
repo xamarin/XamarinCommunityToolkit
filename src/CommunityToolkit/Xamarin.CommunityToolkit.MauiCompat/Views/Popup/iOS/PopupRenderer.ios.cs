@@ -5,10 +5,11 @@ using UIKit;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.iOS;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 using Specifics = Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific.PopUp;
+using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]
 
@@ -28,11 +29,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public UIViewController? ViewController { get; private set; }
 
-		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs>? ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
-		[Preserve(Conditional = true)]
+		[Microsoft.Maui.Controls.Internals.Preserve(Conditional = true)]
 		public PopupRenderer()
 		{
 		}
@@ -76,10 +77,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			element.PropertyChanged += OnElementPropertyChanged;
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
+			OnElementChanged(new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?> e)
 		{
 			if (e.NewElement != null && !isDisposed)
 			{
@@ -96,7 +97,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				AddToCurrentPageViewController();
 			}
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.VisualElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)

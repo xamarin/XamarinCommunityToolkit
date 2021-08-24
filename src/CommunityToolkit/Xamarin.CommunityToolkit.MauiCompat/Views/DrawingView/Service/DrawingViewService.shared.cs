@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Color = Xamarin.Forms.Color;
-using Point = Xamarin.Forms.Point;
-using Size = Xamarin.Forms.Size;
+using Color = Microsoft.Maui.Graphics.Color;
+using Point = Microsoft.Maui.Graphics.Point;
+using Size = Microsoft.Maui.Graphics.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

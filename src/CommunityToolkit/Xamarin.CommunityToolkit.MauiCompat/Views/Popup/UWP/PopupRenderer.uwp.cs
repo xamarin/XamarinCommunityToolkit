@@ -4,9 +4,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform.UWP;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Internals;
+using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Specific = Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific.PopUp;
 using UWPThickness = Windows.UI.Xaml.Thickness;
 using XamlStyle = Windows.UI.Xaml.Style;
@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		VisualElement? IVisualElementRenderer.Element => Element;
 
-		public event EventHandler<VisualElementChangedEventArgs>? ElementChanged;
+		public event EventHandler<Microsoft.Maui.Controls.Platform.ElementChangedEventArgs> ElementChanged;
 
 		public event EventHandler<PropertyChangedEventArgs>? ElementPropertyChanged;
 
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			element.PropertyChanged += OnElementPropertyChanged;
 
-			OnElementChanged(new ElementChangedEventArgs<BasePopup?>(oldElement, Element));
+			OnElementChanged(new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?>(oldElement, Element));
 		}
 
 		void CreateControl()
@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			panelStyle = new XamlStyle { TargetType = typeof(Panel) };
 		}
 
-		protected virtual void OnElementChanged(ElementChangedEventArgs<BasePopup?> e)
+		protected virtual void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<BasePopup?> e)
 		{
 			if (e.NewElement != null && !isDisposed)
 			{
@@ -82,7 +82,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Show();
 			}
 
-			ElementChanged?.Invoke(this, new VisualElementChangedEventArgs(e.OldElement, e.NewElement));
+			ElementChanged?.Invoke(this, new Microsoft.Maui.Controls.Platform.ElementChangedEventArgs(e.OldElement, e.NewElement));
 		}
 
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
@@ -177,7 +177,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BackgroundProperty, Element.Color.ToWindowsColor()));
 
 #if UWP_18362
-			if (Element.Color == Color.Transparent)
+			if (Element.Color == Colors.Transparent)
 				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.IsDefaultShadowEnabledProperty, false));
 #endif
 		}

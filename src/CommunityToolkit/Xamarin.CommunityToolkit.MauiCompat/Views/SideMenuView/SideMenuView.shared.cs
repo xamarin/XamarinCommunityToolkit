@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using static System.Math;
-using static Xamarin.Forms.AbsoluteLayout;
+using static Microsoft.Maui.Controls.Compatibility.AbsoluteLayout;
 using IList = System.Collections.IList;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -231,7 +231,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			overlayView = SetupMainViewLayout(new BoxView
 			{
 				InputTransparent = true,
-				Color = Color.Transparent,
+				Color = Colors.Transparent,
 				GestureRecognizers =
 				{
 					new TapGestureRecognizer

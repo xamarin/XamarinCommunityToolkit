@@ -1,9 +1,9 @@
-﻿using System.Linq;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using System.Linq;
 using Android.Content;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 
 [assembly: ExportRenderer(typeof(SemanticOrderView), typeof(SemanticOrderViewRenderer))]
 
@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 		}
 
-		protected override void OnElementChanged(ElementChangedEventArgs<View> e)
+		protected override void OnElementChanged(Microsoft.Maui.Controls.Platform.ElementChangedEventArgs<View> e)
 		{
 			base.OnElementChanged(e);
 			SetAccessibilityElements();

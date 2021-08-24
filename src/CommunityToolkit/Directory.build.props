@@ -20,18 +20,22 @@
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
         <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <Version>1.3.0-pre2</Version>
     </PropertyGroup>    
 
     <ItemGroup>
         <Compile Include="**/*.shared.cs" />
         <Compile Include="**/*.shared.*.cs" />    
-        <None Include="../../LICENSE" PackagePath="" Pack="true" />
-        <None Include="../../assets/XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
+        <None Include="../../../LICENSE" PackagePath="" Pack="true" />
+        <None Include="../../../assets/XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.Contains(-android)) ">
         <Compile Include="**\*.android.cs" />
         <Compile Include="**\*.android.*.cs" />
+        <AndroidResource Include="Resources\**\*.axml" />
+        <AndroidResource Include="Resources\**\*.xml" />
+        <AndroidResource Include="Resources\**\*.png" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.Contains(-ios)) ">

@@ -1,14 +1,14 @@
-﻿using Android.Widget;
+using Paint = Android.Graphics.Paint;using Path = Android.Graphics.Path;using Android.Widget;
 using Xamarin.CommunityToolkit.Effects;
-using Xamarin.Forms;
-using Xamarin.Forms.Platform.Android;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android; using Microsoft.Maui.Controls.Platform;
 using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 [assembly: ExportEffect(typeof(Effects.SelectAllTextEffect), nameof(SelectAllTextEffect))]
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
-	public class SelectAllTextEffect : PlatformEffect
+	public class SelectAllTextEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		EditText EditText => (EditText)Control;
 

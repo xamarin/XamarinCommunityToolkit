@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using CoreAnimation;
 using CoreGraphics;
-using Xamarin.Forms;
+using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 #if __IOS__
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS;
 using UIKit;
