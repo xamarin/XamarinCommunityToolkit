@@ -284,8 +284,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ColumnSpacing = 0
 			};
 
-			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
-			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
+			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.GridLength.Auto });
+			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.GridLength.Auto });
 
 			control.Content = content;
 
