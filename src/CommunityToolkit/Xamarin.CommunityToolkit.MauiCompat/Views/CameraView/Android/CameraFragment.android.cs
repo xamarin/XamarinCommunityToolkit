@@ -126,7 +126,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool ZoomSupported => maxDigitalZoom != 0;
 
 		public override AView? OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) =>
-			inflater.Inflate(Xamarin.CommunityToolkit.MauiCompat.Resource.Layout.CameraFragment, null);
+			inflater.Inflate(Xamarin.CommunityToolkit.MauiCompat.Resource.Layout.camerafragment, null);
 
 		public override void OnViewCreated(AView view, Bundle savedInstanceState) =>
 			texture = view.FindViewById<AutoFitTextureView>(Xamarin.CommunityToolkit.MauiCompat.Resource.Id.cameratexture);
