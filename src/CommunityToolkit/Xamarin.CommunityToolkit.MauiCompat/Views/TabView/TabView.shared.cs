@@ -131,9 +131,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				RowSpacing = 0
 			};
 
-			mainContainer.RowDefinitions.Add(new RowDefinition { Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
-			mainContainer.RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
-			mainContainer.RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.Compatibility.GridLength.Star });
+			mainContainer.RowDefinitions.Add(new RowDefinition { Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.GridLength.Auto });
+			mainContainer.RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.GridLength.Auto });
+			mainContainer.RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.GridLength.Star });
 
 			Microsoft.Maui.Controls.Compatibility.Grid.SetRow(tabStripContainer, 0);
 			Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(tabStripContainer, 2);
@@ -620,7 +620,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			tabStripContent.ColumnDefinitions.Add(new ColumnDefinition()
 			{
-				Width = (item is TabViewItem tabViewItem && tabViewItem.TabWidth > 0) ? tabViewItem.TabWidth : Microsoft.Maui.Controls.Compatibility.GridLength.Star
+				Width = (item is TabViewItem tabViewItem && tabViewItem.TabWidth > 0) ? tabViewItem.TabWidth : Microsoft.Maui.GridLength.Star
 			});
 
 			if (index >= 0)
@@ -691,7 +691,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (column == null)
 				return;
 
-			column.Width = tabViewItem.TabWidth > 0 ? tabViewItem.TabWidth : Microsoft.Maui.Controls.Compatibility.GridLength.Star;
+			column.Width = tabViewItem.TabWidth > 0 ? tabViewItem.TabWidth : Microsoft.Maui.GridLength.Star;
 			UpdateTabIndicatorPosition(SelectedIndex);
 		}
 
@@ -848,9 +848,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Microsoft.Maui.Controls.Compatibility.Grid.SetRow(tabStripContainer, 0);
 				Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(tabStripContainer, 2);
 
-				mainContainer.RowDefinitions[0].Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.Compatibility.GridLength.Auto;
-				mainContainer.RowDefinitions[1].Height = Microsoft.Maui.Controls.Compatibility.GridLength.Auto;
-				mainContainer.RowDefinitions[2].Height = Microsoft.Maui.Controls.Compatibility.GridLength.Star;
+				mainContainer.RowDefinitions[0].Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.GridLength.Auto;
+				mainContainer.RowDefinitions[1].Height = Microsoft.Maui.GridLength.Auto;
+				mainContainer.RowDefinitions[2].Height = Microsoft.Maui.GridLength.Star;
 
 				tabStripBorder.VerticalOptions = LayoutOptions.End;
 			}
@@ -862,9 +862,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Microsoft.Maui.Controls.Compatibility.Grid.SetRow(tabStripContainer, 1);
 				Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(tabStripContainer, 2);
 
-				mainContainer.RowDefinitions[0].Height = Microsoft.Maui.Controls.Compatibility.GridLength.Star;
-				mainContainer.RowDefinitions[1].Height = Microsoft.Maui.Controls.Compatibility.GridLength.Auto;
-				mainContainer.RowDefinitions[2].Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.Compatibility.GridLength.Auto;
+				mainContainer.RowDefinitions[0].Height = Microsoft.Maui.GridLength.Star;
+				mainContainer.RowDefinitions[1].Height = Microsoft.Maui.GridLength.Auto;
+				mainContainer.RowDefinitions[2].Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.GridLength.Auto;
 
 				tabStripBorder.VerticalOptions = LayoutOptions.Start;
 			}

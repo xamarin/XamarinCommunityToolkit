@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var pageControl = Platform.GetRenderer(visualElement).ContainerElement.Parent;
 
 			var grid = (Microsoft.Maui.Controls.Compatibility.Grid)(FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea")?.Parent ?? throw new NotSupportedException("Unable to find Snackbar/Toast container. Make sure your page is in NavigationPage. AnchorView is not supported in UWP."));
-			var snackBarRow = new RowDefinition() { Height = Microsoft.Maui.Controls.Compatibility.GridLength.Auto };
+			var snackBarRow = new RowDefinition() { Height = Microsoft.Maui.GridLength.Auto };
 			snackBarTimer = new DispatcherTimer { Interval = arguments.Duration };
 			snackBarTimer.Tick += (sender, e) =>
 			{

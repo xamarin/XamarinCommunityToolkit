@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			SetColumn(messageLabel, 0);
 			for (var i = 0; i < options.Actions.Count(); i++)
 			{
-				ColumnDefinitions.Add(new ColumnDefinition() { Width = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
+				ColumnDefinitions.Add(new ColumnDefinition() { Width = Microsoft.Maui.GridLength.Auto });
 				var action = options.Actions.ToArray()[i];
 				var button = new Button
 				{
