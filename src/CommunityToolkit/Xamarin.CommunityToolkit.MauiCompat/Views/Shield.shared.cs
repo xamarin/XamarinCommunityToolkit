@@ -238,16 +238,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </summary>
 		public event EventHandler? Tapped;
 
-		Microsoft.Maui.Controls.Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
+		Microsoft.Maui.Controls.Compatibility.Grid ShieldSubjectContainer { get; } = CreateSubjectContainerElement();
 
 		Label ShieldSubject { get; } = CreateSubjectElement();
 
-		Microsoft.Maui.Controls.Grid ShieldStatusContainer { get; } = CreateStatusContainerElement();
+		Microsoft.Maui.Controls.Compatibility.Grid ShieldStatusContainer { get; } = CreateStatusContainerElement();
 
 		Label ShieldStatus { get; } = CreateStatusElement();
 
-		static Microsoft.Maui.Controls.Grid CreateSubjectContainerElement()
-			=> new Microsoft.Maui.Controls.Grid()
+		static Microsoft.Maui.Controls.Compatibility.Grid CreateSubjectContainerElement()
+			=> new Microsoft.Maui.Controls.Compatibility.Grid()
 			{
 				BackgroundColor = Color.FromHex("#555555")
 			};
@@ -260,8 +260,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			  Margin = new Thickness(4, 0)
 		  };
 
-		static Microsoft.Maui.Controls.Grid CreateStatusContainerElement()
-		 => new Microsoft.Maui.Controls.Grid();
+		static Microsoft.Maui.Controls.Compatibility.Grid CreateStatusContainerElement()
+		 => new Microsoft.Maui.Controls.Compatibility.Grid();
 
 		static Label CreateStatusElement()
 		   => new Label
@@ -279,23 +279,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			control.HasShadow = false;
 			control.IsClippedToBounds = true;
 
-			var content = new Microsoft.Maui.Controls.Grid
+			var content = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				ColumnSpacing = 0
 			};
 
-			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.Controls.GridLength.Auto });
-			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.Controls.GridLength.Auto });
+			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
+			content.ColumnDefinitions.Add(new ColumnDefinition { Width = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
 
 			control.Content = content;
 
 			ShieldSubjectContainer.Children.Add(ShieldSubject);
 			content.Children.Add(ShieldSubjectContainer);
-			Microsoft.Maui.Controls.Grid.SetColumn(ShieldSubjectContainer, 0);
+			Microsoft.Maui.Controls.Compatibility.Grid.SetColumn(ShieldSubjectContainer, 0);
 
 			ShieldStatusContainer.Children.Add(ShieldStatus);
 			content.Children.Add(ShieldStatusContainer);
-			Microsoft.Maui.Controls.Grid.SetColumn(ShieldStatusContainer, 1);
+			Microsoft.Maui.Controls.Compatibility.Grid.SetColumn(ShieldStatusContainer, 1);
 
 			UpdateIsEnabled();
 		}

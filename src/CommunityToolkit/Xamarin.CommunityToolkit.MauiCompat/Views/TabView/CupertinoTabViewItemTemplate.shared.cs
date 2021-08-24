@@ -5,7 +5,7 @@ using Microsoft.Maui.Controls.Internals;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
-	class CupertinoTabViewItemTemplate : Microsoft.Maui.Controls.Grid
+	class CupertinoTabViewItemTemplate : Microsoft.Maui.Controls.Compatibility.Grid
 	{
 		readonly VisualFeedbackEffect visualFeedback;
 
@@ -23,8 +23,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			HorizontalOptions = LayoutOptions.FillAndExpand;
 			VerticalOptions = LayoutOptions.FillAndExpand;
 
-			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.GridLength.Star });
-			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.GridLength.Auto });
+			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.Compatibility.GridLength.Star });
+			RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
 
 			icon = new Image
 			{

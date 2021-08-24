@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// The <see cref="BadgeView"/> allows the user to show a badge with a string value on top of any control. By wrapping a control in a <see cref="BadgeView"/> control, you can show a badge value on top of it. This is very much like the badges you see on the app icons on iOS and Android.
 	/// </summary>
 	[ContentProperty(nameof(Content))]
-	public class BadgeView : BaseTemplatedView<Microsoft.Maui.Controls.Grid>
+	public class BadgeView : BaseTemplatedView<Microsoft.Maui.Controls.Compatibility.Grid>
 	{
 		bool isVisible;
 		bool placementDone;
@@ -241,13 +241,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		ContentPresenter BadgeContent { get; } = CreateContentElement();
 
-		Microsoft.Maui.Controls.Grid BadgeIndicatorContainer { get; } = CreateIndicatorContainerElement();
+		Microsoft.Maui.Controls.Compatibility.Grid BadgeIndicatorContainer { get; } = CreateIndicatorContainerElement();
 
 		Frame BadgeIndicatorBackground { get; } = CreateIndicatorBackgroundElement();
 
 		Label BadgeText { get; } = CreateTextElement();
 
-		protected override void OnControlInitialized(Microsoft.Maui.Controls.Grid control)
+		protected override void OnControlInitialized(Microsoft.Maui.Controls.Compatibility.Grid control)
 		{
 			BadgeIndicatorBackground.Content = BadgeText;
 
@@ -265,7 +265,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			VerticalOptions = LayoutOptions.Start
 		};
 
-		static Microsoft.Maui.Controls.Grid CreateIndicatorContainerElement() => new Microsoft.Maui.Controls.Grid
+		static Microsoft.Maui.Controls.Compatibility.Grid CreateIndicatorContainerElement() => new Microsoft.Maui.Controls.Compatibility.Grid
 		{
 			HorizontalOptions = LayoutOptions.Start,
 			VerticalOptions = LayoutOptions.Start,

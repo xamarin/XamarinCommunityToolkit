@@ -4,7 +4,7 @@ using Microsoft.Maui.Controls.Internals;
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
-	public class TabBadgeTemplate : Microsoft.Maui.Controls.Grid
+	public class TabBadgeTemplate : Microsoft.Maui.Controls.Compatibility.Grid
 	{
 		public TabBadgeTemplate()
 		{

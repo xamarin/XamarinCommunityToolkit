@@ -18,14 +18,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		const uint tabIndicatorAnimationDuration = 100;
 
-		readonly Microsoft.Maui.Controls.Grid mainContainer;
-		readonly Microsoft.Maui.Controls.Grid tabStripContainer;
-		readonly Microsoft.Maui.Controls.Grid tabStripBackground;
+		readonly Microsoft.Maui.Controls.Compatibility.Grid mainContainer;
+		readonly Microsoft.Maui.Controls.Compatibility.Grid tabStripContainer;
+		readonly Microsoft.Maui.Controls.Compatibility.Grid tabStripBackground;
 		readonly BoxView tabStripBorder;
 		readonly ScrollView tabStripContainerScroll;
-		readonly Microsoft.Maui.Controls.Grid tabStripIndicator;
-		readonly Microsoft.Maui.Controls.Grid tabStripContent;
-		readonly Microsoft.Maui.Controls.Grid tabStripContentContainer;
+		readonly Microsoft.Maui.Controls.Compatibility.Grid tabStripIndicator;
+		readonly Microsoft.Maui.Controls.Compatibility.Grid tabStripContent;
+		readonly Microsoft.Maui.Controls.Compatibility.Grid tabStripContentContainer;
 		readonly CarouselView contentContainer;
 
 		readonly List<double> contentWidthCollection;
@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			BatchBegin();
 
-			tabStripBackground = new Microsoft.Maui.Controls.Grid
+			tabStripBackground = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				BackgroundColor = TabStripBackgroundColor,
 				HeightRequest = TabStripHeight,
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			tabStripBackground.Children.Add(tabStripBorder);
 
-			tabStripIndicator = new Microsoft.Maui.Controls.Grid
+			tabStripIndicator = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				BackgroundColor = TabIndicatorColor,
 				HeightRequest = TabIndicatorHeight,
@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			UpdateTabIndicatorPlacement(TabIndicatorPlacement);
 
-			tabStripContent = new Microsoft.Maui.Controls.Grid
+			tabStripContent = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				BackgroundColor = Colors.Transparent,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -73,7 +73,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ColumnSpacing = 0
 			};
 
-			tabStripContentContainer = new Microsoft.Maui.Controls.Grid
+			tabStripContentContainer = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				BackgroundColor = Colors.Transparent,
 				Children = { tabStripIndicator, tabStripContent },
@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Device.RuntimePlatform == Device.macOS || Device.RuntimePlatform == Device.UWP)
 				tabStripContainerScroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Default;
 
-			tabStripContainer = new Microsoft.Maui.Controls.Grid
+			tabStripContainer = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				BackgroundColor = Colors.Transparent,
 				Children = { tabStripBackground, tabStripContainerScroll }
@@ -122,7 +122,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Device.RuntimePlatform == Device.iOS)
 				contentContainer.Margin = new Thickness(-1, -1, 0, 0);
 
-			mainContainer = new Microsoft.Maui.Controls.Grid
+			mainContainer = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				BackgroundColor = Colors.Transparent,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -131,15 +131,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				RowSpacing = 0
 			};
 
-			mainContainer.RowDefinitions.Add(new RowDefinition { Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.GridLength.Auto });
-			mainContainer.RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.GridLength.Auto });
-			mainContainer.RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.GridLength.Star });
+			mainContainer.RowDefinitions.Add(new RowDefinition { Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
+			mainContainer.RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
+			mainContainer.RowDefinitions.Add(new RowDefinition { Height = Microsoft.Maui.Controls.Compatibility.GridLength.Star });
 
-			Microsoft.Maui.Controls.Grid.SetRow(tabStripContainer, 0);
-			Microsoft.Maui.Controls.Grid.SetRowSpan(tabStripContainer, 2);
+			Microsoft.Maui.Controls.Compatibility.Grid.SetRow(tabStripContainer, 0);
+			Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(tabStripContainer, 2);
 
-			Microsoft.Maui.Controls.Grid.SetRow(contentContainer, 1);
-			Microsoft.Maui.Controls.Grid.SetRowSpan(contentContainer, 2);
+			Microsoft.Maui.Controls.Compatibility.Grid.SetRow(contentContainer, 1);
+			Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(contentContainer, 2);
 
 			Content = mainContainer;
 
@@ -620,7 +620,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			tabStripContent.ColumnDefinitions.Add(new ColumnDefinition()
 			{
-				Width = (item is TabViewItem tabViewItem && tabViewItem.TabWidth > 0) ? tabViewItem.TabWidth : Microsoft.Maui.Controls.GridLength.Star
+				Width = (item is TabViewItem tabViewItem && tabViewItem.TabWidth > 0) ? tabViewItem.TabWidth : Microsoft.Maui.Controls.Compatibility.GridLength.Star
 			});
 
 			if (index >= 0)
@@ -628,13 +628,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				tabStripContent.Children.Insert(index, item);
 
 				for (var i = index; i < tabStripContent.Children.Count; i++)
-					Microsoft.Maui.Controls.Grid.SetColumn(tabStripContent.Children[i], i);
+					Microsoft.Maui.Controls.Compatibility.Grid.SetColumn(tabStripContent.Children[i], i);
 			}
 			else
 			{
 				tabStripContent.Children.Add(item);
 				var count = tabStripContent.Children.Count - 1;
-				item.SetValue(Microsoft.Maui.Controls.Grid.ColumnProperty, count);
+				item.SetValue(Microsoft.Maui.Controls.Compatibility.Grid.ColumnProperty, count);
 			}
 
 			UpdateTabViewItemTabWidth(item as TabViewItem);
@@ -691,7 +691,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (column == null)
 				return;
 
-			column.Width = tabViewItem.TabWidth > 0 ? tabViewItem.TabWidth : Microsoft.Maui.Controls.GridLength.Star;
+			column.Width = tabViewItem.TabWidth > 0 ? tabViewItem.TabWidth : Microsoft.Maui.Controls.Compatibility.GridLength.Star;
 			UpdateTabIndicatorPosition(SelectedIndex);
 		}
 
@@ -845,12 +845,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				tabStripBackground.VerticalOptions = LayoutOptions.Start;
 
-				Microsoft.Maui.Controls.Grid.SetRow(tabStripContainer, 0);
-				Microsoft.Maui.Controls.Grid.SetRowSpan(tabStripContainer, 2);
+				Microsoft.Maui.Controls.Compatibility.Grid.SetRow(tabStripContainer, 0);
+				Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(tabStripContainer, 2);
 
-				mainContainer.RowDefinitions[0].Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.GridLength.Auto;
-				mainContainer.RowDefinitions[1].Height = Microsoft.Maui.Controls.GridLength.Auto;
-				mainContainer.RowDefinitions[2].Height = Microsoft.Maui.Controls.GridLength.Star;
+				mainContainer.RowDefinitions[0].Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.Compatibility.GridLength.Auto;
+				mainContainer.RowDefinitions[1].Height = Microsoft.Maui.Controls.Compatibility.GridLength.Auto;
+				mainContainer.RowDefinitions[2].Height = Microsoft.Maui.Controls.Compatibility.GridLength.Star;
 
 				tabStripBorder.VerticalOptions = LayoutOptions.End;
 			}
@@ -859,12 +859,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				tabStripBackground.VerticalOptions = LayoutOptions.End;
 
-				Microsoft.Maui.Controls.Grid.SetRow(tabStripContainer, 1);
-				Microsoft.Maui.Controls.Grid.SetRowSpan(tabStripContainer, 2);
+				Microsoft.Maui.Controls.Compatibility.Grid.SetRow(tabStripContainer, 1);
+				Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(tabStripContainer, 2);
 
-				mainContainer.RowDefinitions[0].Height = Microsoft.Maui.Controls.GridLength.Star;
-				mainContainer.RowDefinitions[1].Height = Microsoft.Maui.Controls.GridLength.Auto;
-				mainContainer.RowDefinitions[2].Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.GridLength.Auto;
+				mainContainer.RowDefinitions[0].Height = Microsoft.Maui.Controls.Compatibility.GridLength.Star;
+				mainContainer.RowDefinitions[1].Height = Microsoft.Maui.Controls.Compatibility.GridLength.Auto;
+				mainContainer.RowDefinitions[2].Height = TabStripHeight > 0 ? TabStripHeight : Microsoft.Maui.Controls.Compatibility.GridLength.Auto;
 
 				tabStripBorder.VerticalOptions = LayoutOptions.Start;
 			}
@@ -879,19 +879,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (TabStripPlacement == TabStripPlacement.Top)
 				{
-					Microsoft.Maui.Controls.Grid.SetRow(contentContainer, 1);
-					Microsoft.Maui.Controls.Grid.SetRowSpan(contentContainer, 2);
+					Microsoft.Maui.Controls.Compatibility.Grid.SetRow(contentContainer, 1);
+					Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(contentContainer, 2);
 				}
 				else
 				{
-					Microsoft.Maui.Controls.Grid.SetRow(contentContainer, 0);
-					Microsoft.Maui.Controls.Grid.SetRowSpan(contentContainer, 2);
+					Microsoft.Maui.Controls.Compatibility.Grid.SetRow(contentContainer, 0);
+					Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(contentContainer, 2);
 				}
 			}
 			else
 			{
-				Microsoft.Maui.Controls.Grid.SetRow(contentContainer, 0);
-				Microsoft.Maui.Controls.Grid.SetRowSpan(contentContainer, 3);
+				Microsoft.Maui.Controls.Compatibility.Grid.SetRow(contentContainer, 0);
+				Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(contentContainer, 3);
 			}
 
 			if (TabStripBackgroundView != null)
@@ -902,8 +902,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (tabStripBackgroundViewHasCornerRadius)
 				{
-					Microsoft.Maui.Controls.Grid.SetRow(contentContainer, 0);
-					Microsoft.Maui.Controls.Grid.SetRowSpan(contentContainer, 3);
+					Microsoft.Maui.Controls.Compatibility.Grid.SetRow(contentContainer, 0);
+					Microsoft.Maui.Controls.Compatibility.Grid.SetRowSpan(contentContainer, 3);
 				}
 			}
 		}

@@ -4,9 +4,9 @@ using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphi
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	/// <summary>
-	/// The UniformGrid is just like the Microsoft.Maui.Controls.Grid, with the possibility of multiple rows and columns, but with one important difference:
+	/// The UniformGrid is just like the Microsoft.Maui.Controls.Compatibility.Grid, with the possibility of multiple rows and columns, but with one important difference:
 	/// All rows and columns will have the same size.
-	/// Use this when you need the Microsoft.Maui.Controls.Grid behavior without the need to specify different sizes for the rows and columns.
+	/// Use this when you need the Microsoft.Maui.Controls.Compatibility.Grid behavior without the need to specify different sizes for the rows and columns.
 	/// </summary>
 	public class UniformGrid : Layout<View>
 	{

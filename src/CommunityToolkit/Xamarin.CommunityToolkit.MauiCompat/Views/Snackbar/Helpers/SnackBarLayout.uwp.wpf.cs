@@ -15,7 +15,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.WPF;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 {
-	class SnackBarLayout : Microsoft.Maui.Controls.Grid
+	class SnackBarLayout : Microsoft.Maui.Controls.Compatibility.Grid
 	{
 		public SnackBarLayout(SnackBarOptions options)
 		{
@@ -65,7 +65,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			SetColumn(messageLabel, 0);
 			for (var i = 0; i < options.Actions.Count(); i++)
 			{
-				ColumnDefinitions.Add(new ColumnDefinition() { Width = Microsoft.Maui.Controls.GridLength.Auto });
+				ColumnDefinitions.Add(new ColumnDefinition() { Width = Microsoft.Maui.Controls.Compatibility.GridLength.Auto });
 				var action = options.Actions.ToArray()[i];
 				var button = new Button
 				{

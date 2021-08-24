@@ -12,9 +12,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class EmbeddingControls : ContentView
 	{
-		public Microsoft.Maui.Controls.Grid PlayIcon { get; private set; }
+		public Microsoft.Maui.Controls.Compatibility.Grid PlayIcon { get; private set; }
 
-		public Microsoft.Maui.Controls.Grid PauseIcon { get; private set; }
+		public Microsoft.Maui.Controls.Compatibility.Grid PauseIcon { get; private set; }
 
 		public EmbeddingControls()
 		{
@@ -33,7 +33,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 			});
 
-			PlayIcon = new Microsoft.Maui.Controls.Grid
+			PlayIcon = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				Children =
 				{
@@ -56,7 +56,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			AbsoluteLayout.SetLayoutFlags(PlayIcon, AbsoluteLayoutFlags.All);
 			AbsoluteLayout.SetLayoutBounds(PlayIcon, new Rectangle(0.5, 0.5, 0.25, 0.25));
 
-			PauseIcon = new Microsoft.Maui.Controls.Grid
+			PauseIcon = new Microsoft.Maui.Controls.Compatibility.Grid
 			{
 				HorizontalOptions = LayoutOptions.Center,
 				Children =
