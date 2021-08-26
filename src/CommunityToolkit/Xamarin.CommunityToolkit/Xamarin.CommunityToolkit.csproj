@@ -61,7 +61,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="**/*.shared.cs" />
-    <Compile Include="**/*.shared.*.cs" />    
+    <Compile Include="**/*.shared.*.cs" />
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
@@ -216,6 +216,6 @@
     <Compile Remove="build\*.cs" />
     <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
   </ItemGroup>
-  
+
   <Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
 </Project>

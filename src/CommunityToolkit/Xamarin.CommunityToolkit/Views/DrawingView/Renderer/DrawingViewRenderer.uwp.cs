@@ -36,8 +36,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				};
 				canvas.InkPresenter.UpdateDefaultDrawingAttributes(inkDrawingAttributes);
 				canvas.InkPresenter.InputDeviceTypes = CoreInputDeviceTypes.Mouse |
-				                                       CoreInputDeviceTypes.Pen |
-				                                       CoreInputDeviceTypes.Touch;
+													   CoreInputDeviceTypes.Pen |
+													   CoreInputDeviceTypes.Touch;
 
 				Element.Lines.CollectionChanged += OnCollectionChanged;
 				SetNativeControl(canvas);
@@ -76,7 +76,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.Lines.Clear();
 				}
 
-				var lines = Element.MultiLineMode ? e.Strokes : new List<InkStroke>() {e.Strokes.First()};
+				var lines = Element.MultiLineMode ? e.Strokes : new List<InkStroke>() { e.Strokes.First() };
 
 				foreach (var line in lines)
 				{
@@ -86,7 +86,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						Points = new ObservableCollection<Point>(points),
 						LineColor = Color.FromRgba(line.DrawingAttributes.Color.R, line.DrawingAttributes.Color.G,
 							line.DrawingAttributes.Color.B, line.DrawingAttributes.Color.A),
-						LineWidth = (float) line.DrawingAttributes.Size.Width
+						LineWidth = (float)line.DrawingAttributes.Size.Width
 					});
 				}
 
@@ -122,7 +122,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var lines = Element.MultiLineMode
 				? Element.Lines
 				: Element.Lines.Any()
-					? new ObservableCollection<Line> {Element.Lines.LastOrDefault()}
+					? new ObservableCollection<Line> { Element.Lines.LastOrDefault() }
 					: new ObservableCollection<Line>();
 			foreach (var line in lines)
 			{
