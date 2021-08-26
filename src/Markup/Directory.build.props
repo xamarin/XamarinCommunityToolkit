@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <PackageId>Xamarin.CommunityToolkit.Markup.MauiCompat</PackageId>
     <Summary>A .NET MAUI-compatible community-created toolkit with C# Markup classes and fluent helper methods</Summary>
