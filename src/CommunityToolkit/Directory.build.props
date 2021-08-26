@@ -1,5 +1,6 @@
 <Project>
     <PropertyGroup>
+        <LangVersion>9.0</LangVersion>
         <Nullable>enable</Nullable>
         <PackageId>Xamarin.CommunityToolkit.MauiCompat</PackageId>
         <Summary>A .NET MAUI Comapatible version of Xamarin.CommunityToolkit, a community-created toolkit with common Xamarin converters, effects, behaviors etc.</Summary>
