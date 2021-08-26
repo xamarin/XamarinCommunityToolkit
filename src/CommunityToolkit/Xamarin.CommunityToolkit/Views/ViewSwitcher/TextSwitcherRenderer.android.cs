@@ -14,7 +14,6 @@ using Xamarin.CommunityToolkit.Extensions.Internals;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Forms.Platform.Android.FastRenderers;
 using static Android.Widget.TextView;
@@ -113,7 +112,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		string? Hint
 		{
 			get => children[0].Hint;
-			set => children.ForEach(c => c.Hint = value);
+			set
+			{
+				foreach (var child in children)
+					child.Hint = value;
+			}
 		}
 
 		SizeRequest IVisualElementRenderer.GetDesiredSize(int widthConstraint, int heightConstraint)
@@ -186,7 +189,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnLayout(bool changed, int left, int top, int right, int bottom)
 		{
 			base.OnLayout(changed, left, top, right, bottom);
-			children.ForEach(c => c.RecalculateSpanPositions(Element, spannableString, new SizeRequest(new Size(right - left, bottom - top))));
+
+			foreach (var child in children)
+				child.RecalculateSpanPositions(Element, spannableString, new SizeRequest(new Size(right - left, bottom - top)));
+
 			hasLayoutOccurred = true;
 		}
 
@@ -257,7 +263,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				visualElementRenderer?.Dispose();
 				visualElementRenderer = null;
 
-				children.ForEach(c => c.Dispose());
+				foreach (var child in children)
+					child.Dispose();
 
 				spannableString?.Dispose();
 				Platform.ClearRenderer(this);
@@ -361,11 +368,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			lastUpdateColor = color;
 
 			if (color.IsDefault)
-				children.ForEach(c => c.SetTextColor(labelTextColorDefault));
+			{
+				foreach (var child in children)
+					child.SetTextColor(labelTextColorDefault);
+			}
 			else
 			{
 				var androidColor = color.ToAndroid();
-				children.ForEach(c => c.SetTextColor(androidColor));
+				foreach (var child in children)
+					child.SetTextColor(androidColor);
 			}
 		}
 
@@ -381,14 +392,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var newTypeface = f.ToTypeface();
 			if (newTypeface != lastTypeface)
 			{
-				children.ForEach(c => c.Typeface = newTypeface);
+				foreach (var child in children)
+					child.Typeface = newTypeface;
+
 				lastTypeface = newTypeface;
 			}
 
 			var newTextSize = f.ToScaledPixel();
 			if (newTextSize != lastTextSize)
 			{
-				children.ForEach(c => c.SetTextSize(ComplexUnitType.Sp, newTextSize));
+				foreach (var child in children)
+					child.SetTextSize(ComplexUnitType.Sp, newTextSize);
+
 				lastTextSize = newTextSize;
 			}
 		}
@@ -401,14 +416,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var textDecorations = Element.TextDecorations;
 
 			if ((textDecorations & TextDecorations.Strikethrough) == 0)
-				children.ForEach(c => c.PaintFlags &= ~PaintFlags.StrikeThruText);
+			{
+				foreach (var child in children)
+					child.PaintFlags &= ~PaintFlags.StrikeThruText;
+			}
 			else
-				children.ForEach(c => c.PaintFlags |= PaintFlags.StrikeThruText);
+			{
+				foreach (var child in children)
+					child.PaintFlags |= PaintFlags.StrikeThruText;
+			}
 
 			if ((textDecorations & TextDecorations.Underline) == 0)
-				children.ForEach(c => c.PaintFlags &= ~PaintFlags.UnderlineText);
+			{
+				foreach (var child in children)
+					child.PaintFlags &= ~PaintFlags.UnderlineText;
+			}
 			else
-				children.ForEach(c => c.PaintFlags |= PaintFlags.UnderlineText);
+			{
+				foreach (var child in children)
+					child.PaintFlags |= PaintFlags.UnderlineText;
+			}
 		}
 
 		void UpdateGravity()
@@ -419,7 +446,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Label label = Element;
 
 			var gravity = label.HorizontalTextAlignment.ToHorizontalGravityFlags() | label.VerticalTextAlignment.ToVerticalGravityFlags();
-			children.ForEach(c => c.Gravity = gravity);
+			foreach (var child in children)
+				child.Gravity = gravity;
 
 			lastSizeRequest = null;
 		}
@@ -433,7 +461,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				// 0.0624 - Coefficient for converting Pt to Em
 				var characterSpacing = (float)(Element.CharacterSpacing * 0.0624);
-				children.ForEach(c => c.LetterSpacing = characterSpacing);
+				foreach (var child in children)
+					child.LetterSpacing = characterSpacing;
 			}
 		}
 
@@ -442,7 +471,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			children.ForEach(c => c.SetLineBreakMode(Element));
+			foreach (var child in children)
+				child.SetLineBreakMode(Element);
+
 			lastSizeRequest = null;
 		}
 
@@ -451,7 +482,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			children.ForEach(c => c.SetMaxLines(Element));
+			foreach (var child in children)
+				child.SetMaxLines(Element);
+
 			lastSizeRequest = null;
 		}
 
@@ -476,7 +509,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				if (wasFormatted)
 				{
-					children.ForEach(c => c.SetTextColor(labelTextColorDefault));
+					foreach (var child in children)
+						child.SetTextColor(labelTextColorDefault);
+
 					lastUpdateColor = Color.Default;
 				}
 
@@ -523,9 +558,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				lineSpacingMultiplierDefault = children[0].LineSpacingMultiplier;
 
 			if (Element.LineHeight == -1)
-				children.ForEach(c => c.SetLineSpacing(lineSpacingExtraDefault, lineSpacingMultiplierDefault));
+			{
+				foreach (var child in children)
+					child.SetLineSpacing(lineSpacingExtraDefault, lineSpacingMultiplierDefault);
+			}
 			else if (Element.LineHeight >= 0)
-				children.ForEach(c => c.SetLineSpacing(0, (float)Element.LineHeight));
+			{
+				foreach (var child in children)
+					child.SetLineSpacing(0, (float)Element.LineHeight);
+			}
 
 			lastSizeRequest = null;
 		}
