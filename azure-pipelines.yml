@@ -101,12 +101,16 @@ jobs:
       #  displayName: Set NuGet Version to Tag Number
       #  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
       # restore, build and pack the packages
-      - task: MSBuild@1
-        displayName: Build Xamarin.CommunityToolkit.Compat.sln
+      #- task: MSBuild@1
+      #  displayName: Build Xamarin.CommunityToolkit.Compat.sln
+      #  inputs:
+      #    solution: $(PathToCommunityToolkitCsproj)
+      #    configuration: Release
+      #    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CmdLine@2
+        displayName: Build Community Toolkit
         inputs:
-          solution: $(PathToCommunityToolkitCsproj)
-          configuration: Release
-          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: 'dotnet build -c Release $(PathToCommunityToolkitCsproj)'
       - task: CopyFiles@2
         inputs:
           Contents: 'SignList.xml'
@@ -206,14 +210,22 @@ jobs:
         inputs:
           version: $(NETCORE_TEST_VERSION_2_1)
           includePreviewVersions: false
+      #- task: CmdLine@2
+      #  displayName: 'Build Markup'
+      #  inputs:
+      #    script: '$(PathToMsBuildOnMacOS) $(PathToMarkupCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false' 
+      #- task: CmdLine@2
+      #  displayName: 'Build Community Toolkit'
+      #  inputs:
+      #    script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       - task: CmdLine@2
-        displayName: 'Build Markup'
+        displayName: Build Community Toolkit Markup
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: 'dotnet build -c Release $(PathToMarkupCsproj)'
       - task: CmdLine@2
-        displayName: 'Build Community Toolkit'
+        displayName: Build Community Toolkit
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: 'dotnet build -c Release $(PathToCommunityToolkitCsproj)'
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
