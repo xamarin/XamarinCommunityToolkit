@@ -6,12 +6,12 @@ variables:
   NugetPackageVersion: '$(CurrentSemanticVersion)'
   #MONO_VERSION: 6_4_0
   #XCODE_VERSION: 11.4
-  NETCORE_VERSION: '5.0.x'
+  NETCORE_VERSION: '6.0.x'
   NETCORE_TEST_VERSION_3_1: '3.1.x'
   NETCORE_TEST_VERSION_2_1: '2.1.x'
   RunPoliCheck: 'false'
   # Watch out: not a csproj anymore
-  PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.sln'
+  PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.sln'
   # Watch out: not a csproj anymore
   PathToCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat.sln'
   PathToSamplesSln: 'samples/XCT.Sample.sln'
@@ -68,6 +68,10 @@ jobs:
         inputs:
           version: $(NETCORE_VERSION)
           includePreviewVersions: false
+      - task: CmdLine@2
+        displayName: 'Install .NET MAUI workload'
+        inputs:
+          script: 'dotnet workload install maui'
       - task: UseDotNet@2
         displayName: 'Install .NET 3.1 Test SDK'
         inputs:
@@ -117,7 +121,7 @@ jobs:
         inputs:
           script: 'dotnet pack -c Release $(PathToCommunityToolkitCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
       - task: MSBuild@1
-        displayName: Build Markup Project
+        displayName: Build Markup sln
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
@@ -187,6 +191,10 @@ jobs:
         inputs:
           version: $(NETCORE_VERSION)
           includePreviewVersions: false
+      - task: CmdLine@2
+        displayName: 'Install .NET MAUI workload'
+        inputs:
+          script: 'dotnet workload install maui'
       - task: UseDotNet@2
         displayName: 'Install .NET 3.1 Test SDK'
         inputs:
