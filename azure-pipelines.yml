@@ -145,7 +145,7 @@ jobs:
       - task: CmdLine@2
         displayName: Pack Community Toolkit Markup NuGets
         inputs:
-          script: 'dotnet pack -c Release $(PathToCommunityToolkitCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
+          script: 'dotnet pack -c Release $(PathToMarkupCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
       #- task: CmdLine@2
       #  displayName: 'Run Markup Unit Tests'
       #  inputs:
@@ -246,7 +246,7 @@ jobs:
       - task: CmdLine@2
         displayName: Pack Community Toolkit Markup NuGets
         inputs:
-          script: 'dotnet pack -c Release $(PathToCommunityToolkitCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
+          script: 'dotnet pack -c Release $(PathToMarkupCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
