@@ -10,8 +10,10 @@ variables:
   NETCORE_TEST_VERSION_3_1: '3.1.x'
   NETCORE_TEST_VERSION_2_1: '2.1.x'
   RunPoliCheck: 'false'
-  PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
-  PathToCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  # Watch out: not a csproj anymore
+  PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.sln'
+  # Watch out: not a csproj anymore
+  PathToCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat.sln'
   PathToSamplesSln: 'samples/XCT.Sample.sln'
   PathToCommunityToolkitUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
   PathToMarkupUnitTestCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
@@ -55,27 +57,7 @@ schedules:
     - develop
 
 jobs:
-  - job: build_windows_samples
-    displayName: Build Windows Samples
-    pool:
-      vmImage: windows-2019
-    steps:
-      - task: CmdLine@2
-        displayName: 'Clear Local NuGet Cache' #https://github.com/actions/virtual-environments/issues/1090#issuecomment-748452120
-        inputs:
-          script: 'nuget locals all -clear'
-      - task: MSBuild@1
-        displayName: 'Clean Solution'
-        inputs:
-          solution: $(PathToSamplesSln)
-          msbuildArguments:  '/t:Clean'
-      - task: MSBuild@1
-        displayName: Build Solution
-        inputs:
-          solution: $(PathToSamplesSln)
-          configuration: Release
-          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
-      
+    
   - job: build_windows
     displayName: Build Windows Library
     pool:
@@ -115,7 +97,7 @@ jobs:
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
       # restore, build and pack the packages
       - task: MSBuild@1
-        displayName: Build Xamarin.CommunityToolkit.csproj
+        displayName: Build Xamarin.CommunityToolkit.Compat.sln
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
@@ -124,31 +106,32 @@ jobs:
         inputs:
           Contents: 'SignList.xml'
           TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
-      - task: MSBuild@1
+      #- task: MSBuild@1
+      #  displayName: Pack Community Toolkit NuGets
+      #  inputs:
+      #    solution: $(PathToCommunityToolkitCsproj)
+      #    configuration: Release
+      #    msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+      - task: CmdLine@2
         displayName: Pack Community Toolkit NuGets
         inputs:
-          solution: $(PathToCommunityToolkitCsproj)
-          configuration: Release
-          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: 'dotnet pack -c Release $(PathToCommunityToolkitCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
       - task: MSBuild@1
         displayName: Build Markup Project
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
-      - task: MSBuild@1
-        displayName: Pack Markup NuGet
+      #- task: MSBuild@1
+      #  displayName: Pack Markup NuGet
+      #  inputs:
+      #    solution: $(PathToMarkupCsproj)
+      #    configuration: Release
+      #    msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+      - task: CmdLine@2
+        displayName: Pack Community Toolkit Markup NuGets
         inputs:
-          solution: $(PathToMarkupCsproj)
-          configuration: Release
-          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
-#      - task: DotNetCoreCLI@2
-#        displayName: Publish to GitHub NuGet Packages
-#        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))
-#        inputs:
-#          command: 'custom'
-#          custom: 'nuget'
-#          arguments: 'push --source https://nuget.pkg.github.com/xamarin/index.json --api-key $(GitHub.NuGet.Token) "$(Build.ArtifactStagingDirectory)\nuget\*.nupkg"'
+          script: 'dotnet pack -c Release $(PathToCommunityToolkitCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
@@ -231,13 +214,13 @@ jobs:
         inputs:
           script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release -p:BuildInParallel=false'
       - task: CmdLine@2
-        displayName: 'Pack Markup NuGets'
+        displayName: Pack Community Toolkit NuGets
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupUnitTestCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: 'dotnet pack -c Release $(PathToCommunityToolkitCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
       - task: CmdLine@2
-        displayName: 'Pack CommunityToolkit NuGets'
+        displayName: Pack Community Toolkit Markup NuGets
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: 'dotnet pack -c Release $(PathToCommunityToolkitCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
