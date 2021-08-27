@@ -126,12 +126,16 @@ jobs:
         displayName: Pack Community Toolkit NuGets
         inputs:
           script: 'dotnet pack -c Release $(PathToCommunityToolkitCsproj) -p:PackageVersion=$(NugetPackageVersion) --output $(Build.ArtifactStagingDirectory)/nuget'
-      - task: MSBuild@1
-        displayName: Build Markup sln
+      #- task: MSBuild@1
+      #  displayName: Build Markup sln
+      #  inputs:
+      #    solution: $(PathToMarkupCsproj)
+      #    configuration: Release
+      #    msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CmdLine@2
+        displayName: Build Community Toolkit Markup
         inputs:
-          solution: $(PathToMarkupCsproj)
-          configuration: Release
-          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+          script: 'dotnet build -c Release $(PathToMarkupCsproj)'
       #- task: MSBuild@1
       #  displayName: Pack Markup NuGet
       #  inputs:
