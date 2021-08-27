@@ -1,9 +1,10 @@
 # See available software and versions on hosted agents here: https://docs.microsoft.com/azure/devops/pipelines/agents/hosted
+# Couple of things hacked in here: using .NET 6 preview, building the MauiCompat sln files as opposed to csproj files, hardcoded the version number to match the regular toolkit version, changed packing to work with dotnet pack
 variables:
   CurrentSemanticVersionBase: '1.1.0'
   PreviewNumber: $[counter(variables['CurrentSemanticVersionBase'], 1001)]
   CurrentSemanticVersion: '$(CurrentSemanticVersionBase)-preview$(PreviewNumber)'
-  NugetPackageVersion: '$(CurrentSemanticVersion)'
+  NugetPackageVersion: '1.3.0-pre2'
   #MONO_VERSION: 6_4_0
   #XCODE_VERSION: 11.4
   NETCORE_VERSION: '6.0.x'
@@ -67,7 +68,7 @@ jobs:
         displayName: 'Install .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
-          includePreviewVersions: false
+          includePreviewVersions: true
       - task: CmdLine@2
         displayName: 'Install .NET MAUI workload'
         inputs:
@@ -92,13 +93,13 @@ jobs:
           solution: $(PathToSamplesSln)
           msbuildArguments:  '/t:Clean'
       # if this is a tagged build, then update the version number
-      - powershell: |
-          $buildSourceBranch = "$(Build.SourceBranch)"
-          $tagVersion = $buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)
-          Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
-          Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
-        displayName: Set NuGet Version to Tag Number
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+      #- powershell: |
+      #    $buildSourceBranch = "$(Build.SourceBranch)"
+      #    $tagVersion = $buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)
+      #    Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
+      #    Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
+      #  displayName: Set NuGet Version to Tag Number
+      #  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
       # restore, build and pack the packages
       - task: MSBuild@1
         displayName: Build Xamarin.CommunityToolkit.Compat.sln
@@ -172,13 +173,13 @@ jobs:
       vmImage: macos-10.15
     steps:
       # if this is a tagged build, then update the version number
-      - powershell: |
-          $buildSourceBranch = "$(Build.SourceBranch)"
-          $tagVersion = $buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)
-          Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
-          Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
-        displayName: Set NuGet Version to Tag Number
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+      #- powershell: |
+      #    $buildSourceBranch = "$(Build.SourceBranch)"
+      #    $tagVersion = $buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)
+      #    Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
+      #    Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
+      #  displayName: Set NuGet Version to Tag Number
+      #  condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
       # 16feb21 jfversluis: let's not pin this anymore and use latest
       # make sure to select the correct Xamarin and mono
       #- bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
@@ -190,7 +191,7 @@ jobs:
         displayName: 'Install .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
-          includePreviewVersions: false
+          includePreviewVersions: true
       - task: CmdLine@2
         displayName: 'Install .NET MAUI workload'
         inputs:
