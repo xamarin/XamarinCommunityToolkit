@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCT.MauiCompat.Sample", "XCT.MauiCompat.Sample\XCT.MauiCompat.Sample.csproj", "{05B33A9A-DFD5-450D-9F7C-8B45AA8F95C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XCT.MauiCompat.Sample", "XCT.MauiCompat.Sample\XCT.MauiCompat.Sample.csproj", "{05B33A9A-DFD5-450D-9F7C-8B45AA8F95C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCT.MauiCompat.Sample.WinUI", "XCT.MauiCompat.Sample.WinUI\XCT.MauiCompat.Sample.WinUI.csproj", "{CF0E0C7F-4622-43EA-8426-2F04E88A5997}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.CommunityToolkit.MauiCompat", "..\..\src\CommunityToolkit\Xamarin.CommunityToolkit.MauiCompat\Xamarin.CommunityToolkit.MauiCompat.csproj", "{9943253D-AB32-465D-9700-489C4B55F329}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,10 @@ Global
 		{CF0E0C7F-4622-43EA-8426-2F04E88A5997}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF0E0C7F-4622-43EA-8426-2F04E88A5997}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF0E0C7F-4622-43EA-8426-2F04E88A5997}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9943253D-AB32-465D-9700-489C4B55F329}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9943253D-AB32-465D-9700-489C4B55F329}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9943253D-AB32-465D-9700-489C4B55F329}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9943253D-AB32-465D-9700-489C4B55F329}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
