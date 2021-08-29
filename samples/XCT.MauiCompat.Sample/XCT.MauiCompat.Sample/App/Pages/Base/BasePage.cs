@@ -6,7 +6,7 @@ using Microsoft.Maui.Graphics;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
-
+using Xamarin.CommunityToolkit.Sample.Pages.Behaviors;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages
 {
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 			page.Title = model.Title;
 			page.DetailColor = model.Color;
 
-			page.SetAppThemeColor(BackgroundColorProperty, Colors.White, Colors.Black);
+			//page.SetAppThemeColor(BackgroundColorProperty, Colors.White, Colors.Black);
 			return page;
 		}
 	}

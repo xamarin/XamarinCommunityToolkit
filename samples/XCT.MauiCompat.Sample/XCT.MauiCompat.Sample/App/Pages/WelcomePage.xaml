@@ -19,8 +19,40 @@
         <ToolbarItem Clicked="OnAboutClicked" Text="About" />
     </pages:BasePage.ToolbarItems>
 
-    <StackLayout>
-        <ScrollView VerticalOptions="FillAndExpand">
+    <StackLayout BackgroundColor="Black">
+        <Label
+                    Margin="20,32,20,0"
+                    Style="{StaticResource label_welcome_header}"
+                    Text="Introducing the Xamarin Community Toolkit" />
+        <Label Margin="20,0,20,28" Text="The Xamarin Community Toolkit is a collection of Animations, Behaviors, Converters, and Effects for mobile development with Xamarin.Forms. It simplifies and demonstrates common developer tasks building iOS, Android, and UWP apps with Xamarin.Forms." />
+        <CollectionView ItemsSource="{Binding Items}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="0" Margin="{StaticResource ContentPadding}" Style="{StaticResource card}">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:Reference Page}}" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnSpacing="20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <BoxView BackgroundColor="{Binding Color}" />
+                            <StackLayout
+                                        Grid.Column="1"
+                                        Padding="0,24,24,24"
+                                        Spacing="8">
+                                <Label Style="{StaticResource label_section_header}" Text="{Binding Title}" />
+                                <Label Text="{Binding Description}" />
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!--<ScrollView VerticalOptions="FillAndExpand" BackgroundColor="Blue" IsEnabled="True" >
             <StackLayout Spacing="16">
                 <Label
                     Margin="20,32,20,0"
@@ -59,7 +91,7 @@
                     Text="Microsoft Corporation © 2021"
                     VerticalOptions="End" />
             </StackLayout>
-        </ScrollView>
+        </ScrollView>-->
     </StackLayout>
 
 </pages:BasePage>

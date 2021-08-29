@@ -8,16 +8,21 @@ using Microsoft.Maui.Hosting;
 
 namespace XCT.MauiCompat.Sample
 {
-    public class Startup : IStartup
-    {
-        public void Configure(IAppHostBuilder appBuilder)
-        {
-            appBuilder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                });
-        }
-    }
+	public class Startup : IStartup
+	{
+		public void Configure(IAppHostBuilder appBuilder)
+		{
+			appBuilder
+				.UseMauiApp<App>()
+				.ConfigureFonts(fonts =>
+				{
+					fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+				})
+				.ConfigureMauiHandlers(h =>
+				{
+					h.AddCompatibilityRenderers(typeof(Xamarin.CommunityToolkit.UI.Views.SemanticOrderViewRenderer).Assembly);
+					h.AddCompatibilityRenderers(typeof(Microsoft.Maui.Controls.Compatibility.AbsoluteLayout).Assembly);
+				});
+		}
+	}
 }

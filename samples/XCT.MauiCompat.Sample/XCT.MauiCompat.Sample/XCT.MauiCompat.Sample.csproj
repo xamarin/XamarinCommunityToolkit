@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<!-- iOS, Android, MacCatalyst -->
@@ -45,6 +45,27 @@
 	  <PackageReference Include="Xamarin.CommunityToolkit.MauiCompat">
 	    <Version>1.3.0-pre2</Version>
 	  </PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <BundleResource Remove="App\Resx\**" />
+	  <Compile Remove="App\Resx\**" />
+	  <EmbeddedResource Remove="App\Resx\**" />
+	  <ImageAsset Remove="App\Resx\**" />
+	  <InterfaceDefinition Remove="App\Resx\**" />
+	  <MauiCss Remove="App\Resx\**" />
+	  <MauiXaml Remove="App\Resx\**" />
+	  <None Remove="App\Resx\**" />
+	  <SceneKitAsset Remove="App\Resx\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="App\Pages\SettingPage.xaml.cs" />
+	  <Compile Remove="App\ViewModels\SettingViewModel.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="App\Pages\SettingPage.xaml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -218,9 +239,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="App\Pages\Extensions\ImageResourceExtensionPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="App\Pages\SettingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="App\Pages\TestCases\LinkerCameraViewPage.xaml">
@@ -402,5 +420,13 @@
 		<RuntimeIdentifier Condition="$(TargetFramework.Contains('-maccatalyst'))">maccatalyst-x64</RuntimeIdentifier>
 		<UseInterpreter Condition="$(TargetFramework.Contains('-android'))">False</UseInterpreter>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <_MauiCompileToAdd Remove="App\Resx\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_MauiXamlToRemove Remove="App\Resx\**" />
+	</ItemGroup>
 
 </Project>

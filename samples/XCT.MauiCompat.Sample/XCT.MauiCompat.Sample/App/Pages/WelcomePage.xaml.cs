@@ -11,6 +11,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 			=> await Navigation.PushModalAsync(new BaseNavigationPage(new AboutPage()));
 
 		async void OnSettingsClicked(object? sender, EventArgs e)
-			=> await Navigation.PushModalAsync(new BaseNavigationPage(new SettingPage()));
+		{
+			//await Navigation.PushModalAsync(new BaseNavigationPage(new SettingPage()));
+		}
 	}
 }

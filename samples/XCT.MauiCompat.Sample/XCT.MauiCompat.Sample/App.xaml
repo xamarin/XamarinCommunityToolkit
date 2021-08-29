@@ -97,7 +97,7 @@
 
         <!--  Content templates  -->
         <ControlTemplate x:Key="GalleryPageTemplate">
-            <StackLayout Spacing="0">
+            <StackLayout Spacing="0" BackgroundColor="Fuchsia">
                 <ListView
                     HasUnevenRows="True"
                     ItemsSource="{TemplateBinding BindingContext.FilteredItems}"
