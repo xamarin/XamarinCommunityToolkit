@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <pages:BasePage
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.WelcomePage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels"
-    xmlns:custom="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     x:Name="Page"
     Title="Welcome"
     NavigationPage.BackButtonTitle="">
@@ -31,10 +30,10 @@
                 <StackLayout BindableLayout.ItemsSource="{Binding Items}" Spacing="16">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <custom:PancakeView Margin="{StaticResource ContentPadding}" Style="{StaticResource card}">
-                                <custom:PancakeView.GestureRecognizers>
+                            <Frame Padding="0" Margin="{StaticResource ContentPadding}" Style="{StaticResource card}">
+                                <Frame.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding NavigateCommand, Source={x:Reference Page}}" CommandParameter="{Binding .}" />
-                                </custom:PancakeView.GestureRecognizers>
+                                </Frame.GestureRecognizers>
                                 <Grid ColumnSpacing="20">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="12" />
@@ -49,7 +48,7 @@
                                         <Label Text="{Binding Description}" />
                                     </StackLayout>
                                 </Grid>
-                            </custom:PancakeView>
+                            </Frame>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>

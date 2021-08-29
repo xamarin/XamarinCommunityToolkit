@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
              xmlns:viewmodels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
              x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.StateLayoutPage"

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Behaviors;assembly=Xamarin.CommunityToolkit.Sample"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages;assembly=Xamarin.CommunityToolkit.Sample"
+                xmlns:behaviors="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Behaviors"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.ImpliedOrderGridBehaviorPage">
     <StackLayout>
         <Grid Margin="10" HorizontalOptions="Center" RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="5">

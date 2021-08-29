@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
+                xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit.MauiCompat"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.DrawingViewPage"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:viewsVodel="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views;assembly=Xamarin.CommunityToolkit.Sample">
+                xmlns:viewsVodel="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views;assembly=Xamarin.CommunityToolkit.MauiCompat.Sample">
 
     <ScrollView>
         <StackLayout>

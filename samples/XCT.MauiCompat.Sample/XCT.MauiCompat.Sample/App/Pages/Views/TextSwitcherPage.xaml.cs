@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {

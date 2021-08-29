@@ -74,7 +74,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		void DrawImage(List<Line> lines)
 		{
-			var stream = DrawingView.GetImageStream(lines, new Size(GestureImage.Width, GestureImage.Height), Color.Gray);
+			var stream = DrawingView.GetImageStream(lines, new Size(GestureImage.Width, GestureImage.Height), Colors.Gray);
 			GestureImage.Source = ImageSource.FromStream(() => stream);
 		}
 

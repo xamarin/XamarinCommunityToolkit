@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <pages:BasePage
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.TabViewBindingPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-    xmlns:testCases="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.TestCases;assembly=Xamarin.CommunityToolkit.Sample"
+    xmlns:testCases="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.TestCases"
     xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.TestCases"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <pages:BasePage.BindingContext>
