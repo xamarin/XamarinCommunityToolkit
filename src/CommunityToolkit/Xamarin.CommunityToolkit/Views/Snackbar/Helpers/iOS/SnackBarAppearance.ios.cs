@@ -4,6 +4,8 @@ using Xamarin.Forms.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	class NativeSnackBarAppearance
 	{
 		public UIColor Background { get; set; } = XCT.IsiOS13OrNewer ? UIColor.SystemGrayColor : UIColor.Gray;

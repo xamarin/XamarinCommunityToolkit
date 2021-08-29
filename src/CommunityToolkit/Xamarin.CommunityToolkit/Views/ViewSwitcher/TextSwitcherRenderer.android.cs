@@ -30,6 +30,8 @@ using Size = Xamarin.Forms.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	public class TextSwitcherRenderer : ATextSwitcher, IVisualElementRenderer, IViewRenderer, ITabStop, AViewSwitcher.IViewFactory
 	{
 		int? defaultLabelFor;

@@ -14,6 +14,8 @@ using Specifics = Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific.Pop
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	public class PopupRenderer : UIViewController, IVisualElementRenderer
 	{
 		bool isDisposed;

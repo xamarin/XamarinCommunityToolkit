@@ -9,6 +9,8 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	[Foundation.Preserve(AllMembers = true)]
 	public class VisualFeedbackEffectRouter : PlatformEffect
 	{

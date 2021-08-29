@@ -11,6 +11,8 @@ using Point = Xamarin.Forms.Point;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	static class DrawingViewService
 	{
 		public static Stream GetImageStream(IList<Line>? lines,

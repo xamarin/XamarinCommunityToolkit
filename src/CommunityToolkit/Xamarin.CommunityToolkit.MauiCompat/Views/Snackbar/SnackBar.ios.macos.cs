@@ -15,6 +15,8 @@ using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	class SnackBar
 	{
 		internal ValueTask Show(VisualElement sender, SnackBarOptions arguments)

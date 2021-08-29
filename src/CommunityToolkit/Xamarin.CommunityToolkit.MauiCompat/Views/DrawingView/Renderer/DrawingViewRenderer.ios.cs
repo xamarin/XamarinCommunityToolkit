@@ -13,6 +13,8 @@ using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	/// <summary>
 	/// iOS renderer for <see cref="DrawingViewRenderer"/>
 	/// </summary>

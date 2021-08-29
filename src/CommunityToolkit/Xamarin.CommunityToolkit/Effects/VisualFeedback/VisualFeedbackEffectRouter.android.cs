@@ -15,6 +15,8 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	[Preserve(AllMembers = true)]
 	public class VisualFeedbackEffectRouter : PlatformEffect
 	{

@@ -7,6 +7,8 @@ using AView = Android.Views.View;
 // Copied from Xamarin.Forms (BackgroundManager)
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	static class BackgroundManager
 	{
 		public static void Init(IVisualElementRenderer renderer)

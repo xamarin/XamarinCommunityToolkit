@@ -15,6 +15,8 @@ using AView = Android.Views.View;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+
 	public class PlatformShadowEffect : PlatformEffect
 	{
 		const float defaultRadius = 10f;

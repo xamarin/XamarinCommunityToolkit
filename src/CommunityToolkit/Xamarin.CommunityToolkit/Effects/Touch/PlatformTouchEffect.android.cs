@@ -22,6 +22,8 @@ using XView = Xamarin.Forms.View;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	public class PlatformTouchEffect : PlatformEffect
 	{
 		static readonly Forms.Color defaultNativeAnimationColor = Forms.Color.FromRgba(128, 128, 128, 64);

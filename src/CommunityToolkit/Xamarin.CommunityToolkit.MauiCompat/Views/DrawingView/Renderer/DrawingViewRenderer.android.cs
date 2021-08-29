@@ -13,6 +13,8 @@ using View = Android.Views.View;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+
 	/// <summary>
 	/// Android renderer for <see cref="Xamarin.CommunityToolkit.UI.Views.DrawingViewRenderer"/>
 	/// </summary>

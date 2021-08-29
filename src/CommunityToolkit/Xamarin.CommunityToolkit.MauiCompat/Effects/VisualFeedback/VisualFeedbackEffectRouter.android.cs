@@ -15,6 +15,8 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	[Microsoft.Maui.Controls.Internals.Preserve(AllMembers = true)]
 	public class VisualFeedbackEffectRouter : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{

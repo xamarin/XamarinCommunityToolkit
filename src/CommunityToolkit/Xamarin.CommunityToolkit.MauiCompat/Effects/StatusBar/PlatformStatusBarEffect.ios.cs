@@ -12,6 +12,8 @@ using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	public class PlatformStatusBarEffect : Microsoft.Maui.Controls.Platform.PlatformEffect
 	{
 		protected override void OnAttached()

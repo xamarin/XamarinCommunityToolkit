@@ -9,6 +9,8 @@ using Effects = Xamarin.CommunityToolkit.iOS.Effects;
 
 namespace Xamarin.CommunityToolkit.iOS.Effects
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	public class IconTintColorEffectRouter : PlatformEffect
 	{
 		protected override void OnAttached()

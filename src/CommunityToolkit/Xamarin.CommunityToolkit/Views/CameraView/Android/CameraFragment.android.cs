@@ -40,6 +40,8 @@ using APoint = Android.Graphics.Point;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	class CameraFragment : Fragment, TextureView.ISurfaceTextureListener
 	{
 		// Max preview width that is guaranteed by Camera2 API

@@ -15,6 +15,8 @@ using AndroidSnackBar = Android.Support.Design.Widget.Snackbar;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	class SnackBar
 	{
 		internal async ValueTask Show(VisualElement sender, SnackBarOptions arguments)

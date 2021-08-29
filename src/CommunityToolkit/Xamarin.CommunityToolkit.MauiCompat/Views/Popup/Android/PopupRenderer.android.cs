@@ -18,6 +18,8 @@ using GravityFlags = Android.Views.GravityFlags;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	public class PopupRenderer : Dialog, IVisualElementRenderer, IDialogInterfaceOnCancelListener
 	{
 		int? defaultLabelFor;

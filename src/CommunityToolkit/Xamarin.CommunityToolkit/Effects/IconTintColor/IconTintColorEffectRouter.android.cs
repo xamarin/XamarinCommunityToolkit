@@ -12,6 +12,8 @@ using Effects = Xamarin.CommunityToolkit.Android.Effects;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+
 	public class IconTintColorEffectRouter : PlatformEffect
 	{
 		protected override void OnAttached()

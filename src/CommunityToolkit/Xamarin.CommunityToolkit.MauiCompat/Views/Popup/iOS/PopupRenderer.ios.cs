@@ -15,6 +15,8 @@ using Microsoft.Maui.Controls.Platform;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	using Xamarin.CommunityToolkit.MauiCompat;
+	
 	public class PopupRenderer : UIViewController, IVisualElementRenderer
 	{
 		bool isDisposed;
