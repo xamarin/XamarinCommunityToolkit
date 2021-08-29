@@ -77,6 +77,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\..\src\CommunityToolkit\Xamarin.CommunityToolkit.MauiCompat\Xamarin.CommunityToolkit.MauiCompat.csproj" />
+	  <ProjectReference Include="..\..\..\src\Markup\Xamarin.CommunityToolkit.Markup.MauiCompat\Xamarin.CommunityToolkit.Markup.MauiCompat.csproj" />
 	</ItemGroup>
 
 </Project>
