@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Behaviors.MultiValidationBehaviorPage">
+
+    <pages:BasePage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+    </pages:BasePage.Resources>
+
+    <StackLayout Padding="{StaticResource ContentPadding}"
+                 Spacing="50"
+                 VerticalOptions="CenterAndExpand">
+        <Label Text="Number validation : -10 to 5" />
+        <Entry Placeholder="Number">
+            <Entry.Behaviors>
+                <xct:MultiValidationBehavior x:Name="MultiValidation"
+                                             InvalidStyle="{StaticResource InvalidEntryStyle}">
+                    <xct:NumericValidationBehavior xct:MultiValidationBehavior.Error="NaN" />
+                    <xct:NumericValidationBehavior MinimumValue="-10"
+                                                   xct:MultiValidationBehavior.Error="Min: -10" />
+                    <xct:NumericValidationBehavior MaximumValue="5"
+                                                   xct:MultiValidationBehavior.Error="Max: 5" />
+                </xct:MultiValidationBehavior>
+            </Entry.Behaviors>
+        </Entry>
+        <Label
+            HeightRequest="30"
+            Text="{Binding Errors[0], Source={x:Reference MultiValidation}}"/>
+        <Label Text="Password validation" />
+        <Entry IsPassword="True" Placeholder="Password">
+            <Entry.Behaviors>
+                <xct:MultiValidationBehavior InvalidStyle="{StaticResource InvalidEntryStyle}"  >
+                    <xct:CharactersValidationBehavior x:Name="digit" CharacterType="Digit" MinimumCharacterCount="1" xct:MultiValidationBehavior.Error="1 chiffre" RegexPattern="" />
+                    <xct:CharactersValidationBehavior x:Name="upper" CharacterType="UppercaseLetter" MinimumCharacterCount="1" xct:MultiValidationBehavior.Error="1 majuscule" RegexPattern="" />
+                    <xct:CharactersValidationBehavior x:Name="symbol" CharacterType="NonAlphanumericSymbol" MinimumCharacterCount="1" xct:MultiValidationBehavior.Error="1 symbole" RegexPattern=""  />
+                    <xct:CharactersValidationBehavior x:Name="any" CharacterType="Any" MinimumCharacterCount="8" xct:MultiValidationBehavior.Error="8 caractères" RegexPattern="" />
+                </xct:MultiValidationBehavior>
+            </Entry.Behaviors>
+        </Entry>
+        <StackLayout Orientation="Vertical">
+            <Label Text="{Binding IsValid, Source={x:Reference digit}, StringFormat='{}{0} : at least 1 digit'}"/>
+            <Label Text="{Binding IsValid, Source={x:Reference upper}, StringFormat='{}{0} : at least 1 upper'}"/>
+            <Label Text="{Binding IsValid, Source={x:Reference symbol}, StringFormat='{}{0} : at least 1 symbol'}"/>
+            <Label Text="{Binding IsValid, Source={x:Reference any}, StringFormat='{}{0} : at least 8 char'}"/>
+        </StackLayout>
+    </StackLayout>
+
+</pages:BasePage>

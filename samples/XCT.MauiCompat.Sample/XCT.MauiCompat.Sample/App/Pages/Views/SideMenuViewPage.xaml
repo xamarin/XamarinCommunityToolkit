@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SideMenuViewPage">
+
+    <pages:BasePage.Resources>
+        <Style x:Key="BaseMenuButtonStyle" TargetType="Button">
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="WidthRequest" Value="40" />
+            <Setter Property="VerticalOptions" Value="Start" />
+            <Setter Property="Text" Value="||" />
+        </Style>
+    </pages:BasePage.Resources>
+
+    <xct:SideMenuView x:Name="SideMenuView">
+        <!-- MainView -->
+        <StackLayout BackgroundColor="Gold"
+                     xct:ShadowEffect.Color="Black">
+            <StackLayout
+                Orientation="Horizontal">
+
+                <Button Style="{StaticResource BaseMenuButtonStyle}"
+                        Clicked="OnLeftButtonClicked" />
+
+                <Button Style="{StaticResource BaseMenuButtonStyle}"
+                        HorizontalOptions="EndAndExpand"
+                        Clicked="OnRightButtonClicked" />
+
+            </StackLayout>
+            <Slider />
+        </StackLayout>
+
+        <!-- LeftMenu -->
+        <StackLayout
+            xct:SideMenuView.ParallaxValue="50"
+            xct:SideMenuView.MenuAppearanceType="SlideIn"
+            xct:SideMenuView.Position="LeftMenu"
+            xct:SideMenuView.MenuWidthPercentage=".5"
+            xct:SideMenuView.MainViewScaleFactor=".95"
+            xct:ShadowEffect.Color="Black"
+            BackgroundColor="Orange">
+            <Label Text="LEFT MENU" />
+        </StackLayout>
+
+        <!-- RightMenu -->
+        <StackLayout
+            xct:SideMenuView.ParallaxValue="75"
+            xct:SideMenuView.Position="RightMenu"
+            xct:SideMenuView.MenuWidthPercentage=".4"
+            BackgroundColor="LightGreen">
+            <Label Text="RIGHT MENU" />
+        </StackLayout>
+
+    </xct:SideMenuView>
+
+</pages:BasePage>
