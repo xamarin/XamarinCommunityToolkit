@@ -600,3 +600,79 @@ foreach (var child in children)
 ```
 
 - [ ] TextSwitcherRenderer.android.cs
+
+### 9. Add MauiColorExtensions Classes
+
+In .NET MAUI the `Color` object has been changed from a `struct` to an `object`. Because of that, we now need to be aware of passing `null` values on methods that have to do with colors. For instance, the `ToAndroid()` and `ToUIColor()` extension methods that take a .NET MAUI `Color` and convert it into a native platform color. There are multiple ways to solve this, but we chose to overload these extension methods with our own. This method checks if the incoming color is `null`, if it is, we replace the color with `Colors.Transparent` and pass it to the extension method and return its value.
+
+This way we didn't need to edit all the lines with this extension method individually.
+
+#### 9.1 Create `MauiColorExtensions.android.cs`
+The code looks like underneath.
+
+```cs
+using AColor = Android.Graphics.Color;
+
+namespace Xamarin.CommunityToolkit.MauiCompat
+{
+	public static partial class MauiColorExtensions
+	{	
+		public static AColor ToAndroid(this Microsoft.Maui.Graphics.Color self)
+		{
+			var colorToConvert = self;
+
+			if (colorToConvert == null)
+			{
+				colorToConvert = Microsoft.Maui.Graphics.Colors.Transparent;
+			}
+
+			return Microsoft.Maui.Controls.Compatibility.Platform.Android.ColorExtensions.ToAndroid(colorToConvert);
+		}
+	}
+}
+```
+
+#### 9.2 Create `MauiColorExtensions.ios.cs`
+The code looks like underneath.
+
+```cs
+using iColor = UIKit.UIColor;
+
+namespace Xamarin.CommunityToolkit.MauiCompat
+{
+	public static partial class MauiColorExtensions
+	{
+		public static iColor ToUIColor(this Microsoft.Maui.Graphics.Color self)
+		{
+			var colorToConvert = self;
+
+			if (colorToConvert == null)
+			{
+				colorToConvert = Microsoft.Maui.Graphics.Colors.Transparent;
+			}
+
+			return Microsoft.Maui.Controls.Compatibility.Platform.iOS.ColorExtensions.ToUIColor(colorToConvert);
+		}
+	}
+}
+
+```
+
+#### 9.3 Add `using` Statement to Files Which Reference Original Extension Methods
+Now in each file that references the `ToAndroid()` and `ToUIColor()` methods we need to add the `using Xamarin.CommunityToolkit.MauiCompat;` line to make sure that it uses _our_ extension method. There is one catch: you have to declare this using **inside** the namespace declaration so that it will prefer _our_ extension method over the .NET MAUI one. In example:
+
+```cs
+// ... Rest omitted for brevity
+using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+// ... Rest omitted for brevity
+
+[assembly: ExportRenderer(typeof(DrawingView), typeof(DrawingViewRenderer))]
+
+namespace Xamarin.CommunityToolkit.UI.Views
+{
+	// Make sure this using is here!
+	using Xamarin.CommunityToolkit.MauiCompat;
+
+	public class DrawingViewRenderer : ViewRenderer<DrawingView, View> { }
+```
