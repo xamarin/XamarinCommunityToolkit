@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <xct:MathExpressionConverter x:Key="MathExpressionConverter" />
             <xct:MultiMathExpressionConverter x:Key="MultiMathExpressionConverter" />
+            <xct:MathExpressionConverter x:Key="DivideByTwoConverter" Expression="x/2"  />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.BindingContext>
@@ -28,6 +29,18 @@
                 Padding="10"
                 HeightRequest="120"
                 CornerRadius="{Binding Source={x:Reference CalculatedFrame}, Path=HeightRequest, Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/2'}">
+                <Label
+                    Text="Frame with calculated CornerRadius = HeightRequest / 2"
+                    TextColor="Black"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center" />
+            </Frame>
+            <Frame
+                x:Name="CalculatedFrameDivideByTwo"
+                BackgroundColor="Bisque"
+                Padding="10"
+                HeightRequest="120"
+                CornerRadius="{Binding Source={x:Reference CalculatedFrame}, Path=HeightRequest, Converter={StaticResource DivideByTwoConverter}}">
                 <Label
                     Text="Frame with calculated CornerRadius = HeightRequest / 2"
                     TextColor="Black"
