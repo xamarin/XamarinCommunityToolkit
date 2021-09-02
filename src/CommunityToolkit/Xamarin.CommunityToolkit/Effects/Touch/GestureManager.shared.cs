@@ -251,7 +251,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			switch (collectionView.SelectionMode)
 			{
 				case SelectionMode.Single:
-					collectionView.SelectedItem = !item.Equals(collectionView.SelectedItem) ? item : null;
+					collectionView.SelectedItem = item;
 					break;
 				case SelectionMode.Multiple:
 					var selectedItems = collectionView.SelectedItems?.ToList() ?? new List<object>();
