@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <summary>
 		/// The expression to calculate.
 		/// </summary>
-		public string Expression { get; set; } = string.Empty;
+		public string? Expression { get; set; }
 
 		/// <summary>
 		/// Calculate the incoming expression string with one variable.
@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>A <see cref="double"/> The result of calculating an expression.</returns>
 		public object? Convert(object? value, Type? targetType, object? parameter, CultureInfo culture)
 		{
-			if ((parameter ?? Expression ?? string.Empty) is not string expression)
+			if ((parameter ?? Expression) is not string expression)
 				throw new ArgumentException("The parameter should be of type String.");
 
 			if (value == null || !double.TryParse(value.ToString(), out var xValue))
