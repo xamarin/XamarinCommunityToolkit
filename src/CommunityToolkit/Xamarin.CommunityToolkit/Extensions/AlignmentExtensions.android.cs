@@ -1,6 +1,6 @@
 ﻿using Android.Views;
-using TextAlignment = Xamarin.Forms.TextAlignment;
 using ATextAlignment = Android.Views.TextAlignment;
+using TextAlignment = Xamarin.Forms.TextAlignment;
 
 // Copied from Xamarin.Forms (AlignmentExtensions)
 namespace Xamarin.CommunityToolkit.Extensions.Internals
