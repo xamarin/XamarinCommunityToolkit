@@ -165,6 +165,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void UpdateClickHandler()
 		{
+			if (!View.IsAlive())
+				return;
+
 			View.Click -= OnClick;
 			if (IsAccessibilityMode || ((effect?.IsAvailable ?? false) && (effect?.Element?.IsEnabled ?? false)))
 			{
