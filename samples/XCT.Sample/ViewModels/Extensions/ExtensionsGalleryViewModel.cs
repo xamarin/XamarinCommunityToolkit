@@ -13,6 +13,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				typeof(ImageResourceExtensionPage),
 				nameof(ImageResourceExtension),
 				"A XAML extension that helps to display images from embedded resources"),
+			new SectionModel(
+				typeof(EdgeInsetsExtensionPage),
+				nameof(EdgeInsetsExtension),
+				"A XAML extension that helps to declare a padding/margin with ease"),
 		};
 	}
 }

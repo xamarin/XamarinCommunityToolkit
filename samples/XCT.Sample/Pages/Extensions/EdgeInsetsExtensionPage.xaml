@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage 
+    x:Name="Page"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.EdgeInsetsExtensionPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
+
+    <StackLayout >
+        <Label 
+            Margin="{xct:EdgeInsets 
+                Horizontal=24,
+                Vertical=40}"
+            FontSize="Title"
+            Text="Defining a padding/marging using EdgeInsetsExtension"/>
+        <Label 
+            Margin="{xct:EdgeInsets 
+                Horizontal=24,
+                Vertical=40}"
+            Text="{{xct:EdgeInsets All=16}}"/>
+        <BoxView
+            Margin="{xct:EdgeInsets 
+                All=16}"
+            WidthRequest="50"
+            HeightRequest="50"
+            BackgroundColor="Purple"
+            Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"/>
+
+        <Label 
+            Margin="{xct:EdgeInsets 
+                Horizontal=24,
+                Vertical=40}"
+            Text="{{xct:EdgeInsets Horizontal=16}}"/>
+        <BoxView
+            Margin="{xct:EdgeInsets 
+                Horizontal=16}"
+            WidthRequest="50"
+            HeightRequest="50"
+            BackgroundColor="Orange"
+            Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"/>
+
+        <Label 
+            Margin="{xct:EdgeInsets 
+                Horizontal=24,
+                Vertical=40}"
+            Text="{{xct:EdgeInsets Vertical=16}}"/>
+        <BoxView
+            Margin="{xct:EdgeInsets 
+                Vertical=16}"
+            WidthRequest="50"
+            HeightRequest="50"
+            BackgroundColor="DarkGrey"
+            Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"/>
+
+        <Label 
+            Margin="{xct:EdgeInsets 
+                Horizontal=24,
+                Vertical=40}"
+            Text="{{xct:EdgeInsets Top=16, Bottom=40, Left=56, Right=32}}"/>
+        <BoxView
+            Margin="{xct:EdgeInsets 
+                Top=16, Bottom=40,
+                Left=56, Right=32}"
+            WidthRequest="50"
+            HeightRequest="50"
+            BackgroundColor="DarkGrey"
+            Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"/>
+    </StackLayout>
+</pages:BasePage>

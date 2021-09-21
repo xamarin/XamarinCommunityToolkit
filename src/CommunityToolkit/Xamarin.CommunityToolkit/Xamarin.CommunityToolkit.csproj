@@ -215,4 +215,8 @@
   </ItemGroup>
 
   <Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
+
+  <ItemGroup>
+    <None Remove="Extensions\EdgeInsetsExtension.shared.cs" />
+  </ItemGroup>
 </Project>
