@@ -11,6 +11,9 @@
     <None Remove="resources\**" />
     <EmbeddedResource Include="Images\**" />
     <EmbeddedResource Include="Fonts\**" />
+    <Compile Update="Pages\Extensions\EdgetInsetsExtensionPage.xaml.cs">
+      <DependentUpon>EdgeInsetsExtensionPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
