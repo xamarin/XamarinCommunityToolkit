@@ -81,8 +81,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (XCT.SdkInt < (int)BuildVersionCodes.Lollipop || !effect.NativeAnimation)
 				return;
 
-			View.Clickable = true;
-			View.LongClickable = true;
+			UpdateClickable();
 			CreateRipple();
 
 			if (Group == null)
@@ -162,6 +161,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			{
 				UpdateClickHandler();
 			}
+			else if (args.PropertyName == TouchEffect.CommandProperty.PropertyName ||
+			  args.PropertyName == TouchEffect.LongPressCommandProperty.PropertyName)
+			{
+				UpdateClickable();
+			}
 		}
 
 		void UpdateClickHandler()
@@ -175,6 +179,15 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				View.Click += OnClick;
 				return;
 			}
+		}
+
+		void UpdateClickable()
+		{
+			if (!View.IsAlive() || effect == null)
+				return;
+
+			View.Clickable = effect.Command != null;
+			View.LongClickable = effect.LongPressCommand != null;
 		}
 
 		void OnTouch(object? sender, AView.TouchEventArgs e)

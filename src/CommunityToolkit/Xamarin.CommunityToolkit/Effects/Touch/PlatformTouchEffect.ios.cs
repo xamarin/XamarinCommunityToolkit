@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
@@ -22,6 +23,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		TouchEffect? effect;
 
+		UIAccessibilityTrait defaultAccessibilityTraits;
+
 		UIView View => Container ?? Control;
 
 		protected override void OnAttached()
@@ -43,6 +46,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				((TouchUITapGestureRecognizer)touchGesture).IsButton = true;
 			}
 
+			defaultAccessibilityTraits = View.AccessibilityTraits;
+			UpdateAccessibilityTraits();
 			View.AddGestureRecognizer(touchGesture);
 
 			if (XCT.IsiOS13OrNewer)
@@ -76,8 +81,21 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				hoverGesture = null;
 			}
 
+			if (View != null)
+				View.AccessibilityTraits = defaultAccessibilityTraits;
+
 			effect.Element = null;
 			effect = null;
+		}
+
+		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
+		{
+			base.OnElementPropertyChanged(args);
+			if (args.PropertyName == TouchEffect.CommandProperty.PropertyName ||
+				args.PropertyName == TouchEffect.LongPressCommandProperty.PropertyName)
+			{
+				UpdateAccessibilityTraits();
+			}
 		}
 
 		void OnHover()
@@ -103,6 +121,18 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				throw new ArgumentException($"{nameof(sender)} must be Type {nameof(UIButton)}", nameof(sender));
 
 			button.Highlighted = false;
+		}
+
+		void UpdateAccessibilityTraits()
+		{
+			if (View == null)
+				return;
+
+			var accessibilityTraits = defaultAccessibilityTraits;
+			if ((effect?.Command ?? effect?.LongPressCommand) != null)
+				accessibilityTraits |= UIAccessibilityTrait.Button;
+
+			View.AccessibilityTraits = accessibilityTraits;
 		}
 	}
 
