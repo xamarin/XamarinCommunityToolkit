@@ -13,7 +13,7 @@ Also make sure you've read our Contribution guide here: https://github.com/xamar
 
 ### Description of Bug ###
 
-<!-- Describe your changes here. -->
+<!-- Describe your changes here that fix the bug. -->
 
 ### Issues Fixed ###
 <!-- Provide links to issues here. Ensure that a GitHub issue was created for your feature or bug fix before sending PR. -->
