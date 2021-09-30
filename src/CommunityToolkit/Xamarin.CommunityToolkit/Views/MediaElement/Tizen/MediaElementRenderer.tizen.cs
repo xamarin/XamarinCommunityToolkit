@@ -87,6 +87,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mediaPlayer.SetBinding(MediaPlayer.SourceProperty, nameof(Element.Source));
 				mediaPlayer.SetBinding(MediaPlayer.UsesEmbeddingControlsProperty, nameof(Element.ShowsPlaybackControls));
 				mediaPlayer.SetBinding(MediaPlayer.AutoPlayProperty, nameof(Element.AutoPlay));
+				mediaPlayer.SetBinding(MediaPlayer.IsMutedProperty, nameof(Element.IsMuted));
 				mediaPlayer.SetBinding(MediaPlayer.VolumeProperty, nameof(Element.Volume));
 				mediaPlayer.SetBinding(MediaPlayer.IsLoopingProperty, nameof(Element.IsLooping));
 				mediaPlayer.SetBinding(MediaPlayer.AspectModeProperty, new Binding

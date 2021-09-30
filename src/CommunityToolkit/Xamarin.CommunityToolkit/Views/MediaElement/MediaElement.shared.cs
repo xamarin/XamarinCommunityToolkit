@@ -25,6 +25,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty IsLoopingProperty =
 		  BindableProperty.Create(nameof(IsLooping), typeof(bool), typeof(MediaElement), false);
 
+		public static readonly BindableProperty IsMutedProperty =
+			BindableProperty.Create(nameof(IsMuted), typeof(bool), typeof(MediaElement), false);
+
 		public static readonly BindableProperty KeepScreenOnProperty =
 		  BindableProperty.Create(nameof(KeepScreenOn), typeof(bool), typeof(MediaElement), false);
 
@@ -74,6 +77,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get => (bool)GetValue(IsLoopingProperty);
 			set => SetValue(IsLoopingProperty, value);
+		}
+
+		public bool IsMuted
+		{
+			get => (bool)GetValue(IsMutedProperty);
+			set => SetValue(IsMutedProperty, value);
 		}
 
 		public bool KeepScreenOn

@@ -254,6 +254,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 					break;
 
+				case nameof(ToolKitMediaElement.IsMuted):
+					UpdateIsMuted();
+					break;
+
 				case nameof(ToolKitMediaElement.ShowsPlaybackControls):
 					avPlayerView.ShowsFullScreenToggleButton = Element.ShowsPlaybackControls;
 					break;
@@ -287,6 +291,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected virtual void Play()
 		{
+			UpdateIsMuted();
+
 			if (avPlayerView.Player != null)
 			{
 				avPlayerView.Player.Play();
@@ -295,6 +301,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (Element.KeepScreenOn)
 				SetKeepScreenOn(true);
+		}
+
+		void UpdateIsMuted()
+		{
+			if (avPlayerView.Player != null)
+				avPlayerView.Player.Muted = Element.IsMuted;
 		}
 
 		void UpdateVolume()

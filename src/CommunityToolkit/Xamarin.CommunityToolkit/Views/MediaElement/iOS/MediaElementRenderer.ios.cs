@@ -246,6 +246,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 					break;
 
+				case nameof(ToolKitMediaElement.IsMuted):
+					UpdateIsMuted();
+					break;
+
 				case nameof(ToolKitMediaElement.ShowsPlaybackControls):
 					avPlayerViewController.ShowsPlaybackControls = Element.ShowsPlaybackControls;
 					break;
@@ -282,19 +286,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected virtual void Play()
 		{
-			var audioSession = AVAudioSession.SharedInstance();
-			var err = audioSession.SetCategory(AVAudioSession.CategoryPlayback);
-
-			if (err != null)
-				Log.Warning("MediaElement", "Failed to set AVAudioSession Category {0}", err.Code);
-
-			audioSession.SetMode(AVAudioSession.ModeMoviePlayback, out err);
-			if (err != null)
-				Log.Warning("MediaElement", "Failed to set AVAudioSession Mode {0}", err.Code);
-
-			err = audioSession.SetActive(true);
-			if (err != null)
-				Log.Warning("MediaElement", "Failed to set AVAudioSession Active {0}", err.Code);
+			UpdateIsMuted();
 
 			if (avPlayerViewController.Player != null)
 			{
@@ -307,11 +299,38 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SetKeepScreenOn(true);
 		}
 
+		void UpdateIsMuted()
+		{
+			var audioSession = AVAudioSession.SharedInstance();
+
+			NSError? err;
+			if (Element.IsMuted)
+			{
+				err = audioSession.SetCategory(AVAudioSession.CategoryAmbient);
+			}
+			else
+			{
+				err = audioSession.SetCategory(AVAudioSession.CategoryPlayback);
+			}
+
+			if (err != null)
+				Log.Warning("MediaElement", "Failed to set AVAudioSession Category {0}", err.Code);
+
+			audioSession.SetMode(AVAudioSession.ModeMoviePlayback, out err);
+			if (err != null)
+				Log.Warning("MediaElement", "Failed to set AVAudioSession Mode {0}", err.Code);
+
+			err = audioSession.SetActive(true);
+			if (err != null)
+				Log.Warning("MediaElement", "Failed to set AVAudioSession Active {0}", err.Code);
+		}
+
 		void UpdateVolume()
 		{
 			if (avPlayerViewController.Player != null)
 				avPlayerViewController.Player.Volume = (float)Element.Volume;
 		}
+
 		void UpdateSpeed()
 		{
 			if (avPlayerViewController.Player != null)

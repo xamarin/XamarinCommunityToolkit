@@ -263,6 +263,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						mediaPlayer.Looping = MediaElement.IsLooping;
 					break;
 
+				case nameof(MediaElement.IsMuted):
+					UpdateIsMuted();
+					break;
+
 				case nameof(MediaElement.KeepScreenOn):
 					UpdateKeepScreenOn();
 					break;
@@ -368,6 +372,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
+		protected void UpdateIsMuted()
+		{
+			if (MediaElement == null)
+				return;
+
+			if (MediaElement.IsMuted)
+			{
+				view?.SetAudioFocusRequest(AudioFocus.None);
+			}
+			else
+			{
+				view?.SetAudioFocusRequest(AudioFocus.Gain);
+			}
+		}
+
 		protected void UpdateVolume()
 		{
 			if (MediaElement == null)
@@ -375,6 +394,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mediaPlayer?.SetVolume((float)MediaElement.Volume, (float)MediaElement.Volume);
 		}
+
 		protected void UpdateSpeed()
 		{
 			if (MediaElement == null || mediaPlayer == null)
@@ -423,6 +443,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mediaPlayer = mp;
 			UpdateVolume();
+			UpdateIsMuted();
 			UpdateSpeed();
 			mp.Looping = MediaElement.IsLooping;
 			mp.SeekTo(0);

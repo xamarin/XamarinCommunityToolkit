@@ -143,6 +143,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Controller.Duration = Control.NaturalDuration.HasTimeSpan ? Control.NaturalDuration.TimeSpan : (TimeSpan?)null;
 			Controller.VideoHeight = Control.NaturalVideoHeight;
 			Controller.VideoWidth = Control.NaturalVideoWidth;
+			Control.IsMuted = Element.IsMuted;
 			Control.Volume = Element.Volume;
 			Control.Stretch = Element.Aspect.ToStretch();
 
@@ -218,6 +219,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				case nameof(ToolKitMediaElement.IsLooping):
 					Control.IsLooping = Element.IsLooping;
+					break;
+
+				case nameof(ToolKitMediaElement.IsMuted):
+					Control.IsMuted = Element.IsMuted;
 					break;
 
 				case nameof(ToolKitMediaElement.KeepScreenOn):
