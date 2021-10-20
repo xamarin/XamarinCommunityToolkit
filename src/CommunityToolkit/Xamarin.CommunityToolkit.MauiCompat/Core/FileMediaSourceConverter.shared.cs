@@ -4,7 +4,7 @@ using Microsoft.Maui.Controls.Xaml;
 
 namespace Xamarin.CommunityToolkit.Core
 {
-	[TypeConversion(typeof(FileMediaSource))]
+	[System.ComponentModel.TypeConverterAttribute(typeof(FileMediaSource))]
 	public sealed class FileMediaSourceConverter : System.ComponentModel.TypeConverter
 	{
 		public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)

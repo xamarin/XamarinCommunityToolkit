@@ -30,16 +30,16 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// <summary>
 		/// Gets or sets the background color for the SnackBar action button.
 		/// </summary>
-		public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
+		public Color? BackgroundColor { get; set; } = DefaultBackgroundColor;
 
-		public static Color DefaultBackgroundColor { get; set; } = default(Color);
+		public static Color? DefaultBackgroundColor { get; set; } = default;
 
 		/// <summary>
 		/// Gets or sets the font color for the SnackBar action button.
 		/// </summary>
-		public Color ForegroundColor { get; set; } = DefaultForegroundColor;
+		public Color? ForegroundColor { get; set; } = DefaultForegroundColor;
 
-		public static Color DefaultForegroundColor { get; set; } = default(Color);
+		public static Color? DefaultForegroundColor { get; set; } = default;
 
 		/// <summary>
 		/// Gets or sets the padding for the SnackBar message.

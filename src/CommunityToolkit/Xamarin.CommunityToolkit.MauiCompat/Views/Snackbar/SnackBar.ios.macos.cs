@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Helpers;
-using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
@@ -104,7 +103,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (action.Font != Font.Default)
 				{
-					actionButton.Font = action.Font.ToUIFont();
+					actionButton.TitleLabel.Font = action.Font.ToUIFont();
 				}
 
 				if (action.ForegroundColor != default(Color))

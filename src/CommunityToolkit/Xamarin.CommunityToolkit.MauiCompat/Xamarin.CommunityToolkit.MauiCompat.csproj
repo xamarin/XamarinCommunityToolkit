@@ -32,7 +32,4 @@
 		<MauiFont Include="Resources\Fonts\*" />
 	</ItemGroup>
 
-	<PropertyGroup>
-	</PropertyGroup>
-
 </Project>

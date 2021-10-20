@@ -30,6 +30,7 @@ using Microsoft.Maui.Controls.Compatibility.Platform.WPF;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+#if ANDROID || IOS
 	class ImageSourceValidator : IImageSourceValidator
 	{
 		public async Task<bool> IsImageSourceValidAsync(ImageSource? source)
@@ -79,4 +80,5 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 	}
+#endif
 }

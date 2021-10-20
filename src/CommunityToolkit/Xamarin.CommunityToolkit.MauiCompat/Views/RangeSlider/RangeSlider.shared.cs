@@ -8,6 +8,7 @@ using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphi
 using Microsoft.Maui.Controls.Internals;
 using static System.Math;
 using static Microsoft.Maui.Controls.Compatibility.AbsoluteLayout;
+using AbsoluteLayout = Microsoft.Maui.Controls.Compatibility.AbsoluteLayout;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

@@ -21,9 +21,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// <summary>
 		/// Background color.
 		/// </summary>
-		public Color BackgroundColor { get; set; } = DefaultBackgroundColor;
+		public Color? BackgroundColor { get; set; } = DefaultBackgroundColor;
 
-		public static Color DefaultBackgroundColor { get; set; } = default(Color);
+		public static Color? DefaultBackgroundColor { get; set; } = default;
 
 		/// <summary>
 		/// Corner radius (in dp)

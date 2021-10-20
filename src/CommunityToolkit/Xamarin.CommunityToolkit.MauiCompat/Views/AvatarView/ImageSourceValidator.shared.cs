@@ -3,7 +3,7 @@ using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphi
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-#if NETSTANDARD || __TVOS__ || __WATCHOS__
+#if NETSTANDARD || __TVOS__ || __WATCHOS__ || NET6_0 && !ANDROID && !IOS
 	class ImageSourceValidator : IImageSourceValidator
 	{
 		public Task<bool> IsImageSourceValidAsync(ImageSource? source) => Task.FromResult(false);

@@ -4,7 +4,7 @@ using Microsoft.Maui.Controls.Xaml;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
-	[TypeConversion(typeof(SafeArea))]
+	[System.ComponentModel.TypeConverterAttribute(typeof(SafeArea))]
 	public class SafeAreaTypeConverter : System.ComponentModel.TypeConverter
 	{
 		public override object ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)

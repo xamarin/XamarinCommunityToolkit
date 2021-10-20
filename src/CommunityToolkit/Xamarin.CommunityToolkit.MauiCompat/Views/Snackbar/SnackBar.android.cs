@@ -68,7 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					(int)arguments.MessageOptions.Padding.Bottom);
 			}
 
-			if (arguments.MessageOptions.Foreground != new Microsoft.Maui.Graphics.Color())
+			if (arguments.MessageOptions.Foreground != default)
 			{
 				snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
 			}
@@ -94,13 +94,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (action.Action != null)
 						await action.Action();
 				});
-				if (action.ForegroundColor != new Microsoft.Maui.Graphics.Color())
+				if (action.ForegroundColor != default)
 				{
 					snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
 				}
 
 				var snackActionButtonView = snackBarView.FindViewById<TextView>(Xamarin.CommunityToolkit.MauiCompat.Resource.Id.snackbar_action) ?? throw new NullReferenceException();
-				if (arguments.BackgroundColor != new Microsoft.Maui.Graphics.Color())
+				if (action.BackgroundColor != default)
 				{
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
 				}

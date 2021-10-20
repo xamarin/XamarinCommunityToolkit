@@ -21,6 +21,7 @@ using AView = Android.Views.View;
 
 namespace Xamarin.CommunityToolkit.Android.Effects
 {
+	using System;
 	using Xamarin.CommunityToolkit.MauiCompat;
 	
 	public class PlatformShadowEffect : Microsoft.Maui.Controls.Platform.PlatformEffect

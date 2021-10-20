@@ -4,7 +4,7 @@ using Microsoft.Maui.Controls.Xaml;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	[TypeConversion(typeof(Uri))]
+	[System.ComponentModel.TypeConverter(typeof(Uri))]
 	public class UriTypeConverter : System.ComponentModel.TypeConverter
 	{
 		public override object? ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)
