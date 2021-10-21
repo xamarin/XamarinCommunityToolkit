@@ -21,23 +21,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		internal async ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
-			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided VisualElement cannot be parent to SnackBar", nameof(sender));
-			var snackBar = AndroidSnackBar.Make(renderer.View, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
+			var nativeView = sender.ToNative(sender.Handler.MauiContext ?? throw new ArgumentException("Provided VisualElement cannot be parent to SnackBar", nameof(sender)));
+			var snackBar = AndroidSnackBar.Make(nativeView, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
 
 			if (sender is not Page)
 			{
-				snackBar.SetAnchorView(renderer.View);
+				snackBar.SetAnchorView(nativeView);
 			}
 
 			if (snackBar.View.Background is GradientDrawable shape)
 			{
-				if (arguments.BackgroundColor != new Microsoft.Maui.Graphics.Color())
+				if (arguments.BackgroundColor != default)
 				{
 					shape?.SetColor(arguments.BackgroundColor.ToAndroid().ToArgb());
 				}
 
-				var density = renderer.View.Context?.Resources?.DisplayMetrics?.Density ?? 1;
+				var density = nativeView.Context?.Resources?.DisplayMetrics?.Density ?? 1;
 				var defaultAndroidCornerRadius = 4 * density;
 				arguments.CornerRadius = new Thickness(arguments.CornerRadius.Left * density,
 					arguments.CornerRadius.Top * density,

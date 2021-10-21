@@ -84,8 +84,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #endif
 			if (sender is not Page)
 			{
-				var renderer = Platform.GetRenderer(sender);
-				snackBar.SetAnchor(renderer.NativeView);
+				var nativeView = sender.ToNative(sender.Handler.MauiContext ?? throw new ArgumentException("Provided VisualElement cannot be parent to SnackBar", nameof(sender)));
+				snackBar.SetAnchor(nativeView);
 			}
 
 			foreach (var action in arguments.Actions)
