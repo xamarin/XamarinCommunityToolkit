@@ -124,10 +124,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					drawPath.MoveTo(touchX, touchY);
 					break;
 				case MotionEventActions.Move:
-					if (touchX > 0 && touchY > 0)
+					if (touchX > 0 && touchY > 0 && touchX < drawCanvas!.Width && touchY < drawCanvas.Height)
+					{
 						drawPath.LineTo(touchX, touchY);
-
-					currentLine!.Points.Add(new Point(touchX, touchY));
+						currentLine!.Points.Add(new Point(touchX, touchY));
+					}
 					break;
 				case MotionEventActions.Up:
 					Parent?.RequestDisallowInterceptTouchEvent(false);
