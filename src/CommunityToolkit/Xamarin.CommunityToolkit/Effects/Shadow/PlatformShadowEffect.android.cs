@@ -8,6 +8,7 @@ using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AButton = Android.Widget.Button;
+using AEditText = Android.Widget.EditText;
 using ATextView = Android.Widget.TextView;
 using AView = Android.Views.View;
 
@@ -86,7 +87,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			{
 				button.StateListAnimator = null;
 			}
-			else if (View is not AButton && View is ATextView textView)
+			else if (View is not AEditText && View is ATextView textView)
 			{
 				textView.SetShadowLayer(radius, offsetX, offsetY, androidColor);
 				return;

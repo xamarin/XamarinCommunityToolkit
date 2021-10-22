@@ -89,7 +89,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (drawingWidth < minSize || drawingHeight < minSize)
 				return null;
 
-			var image = Bitmap.CreateBitmap((int)drawingWidth, (int)drawingHeight, Bitmap.Config.Argb8888!) !;
+			var image = Bitmap.CreateBitmap((int)drawingWidth, (int)drawingHeight, Bitmap.Config.Argb8888!)!;
 			using var canvas = new Canvas(image);
 
 			// background
@@ -131,7 +131,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (drawingWidth < minSize || drawingHeight < minSize)
 				return null;
 
-			var image = Bitmap.CreateBitmap((int)drawingWidth, (int)drawingHeight, Bitmap.Config.Argb8888!) !;
+			var image = Bitmap.CreateBitmap((int)drawingWidth, (int)drawingHeight, Bitmap.Config.Argb8888!)!;
 			using var canvas = new Canvas(image);
 
 			// background
@@ -172,7 +172,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var width = maxResizeFactor * sourceSize.Width;
 			var height = maxResizeFactor * sourceSize.Height;
-			return Bitmap.CreateScaledBitmap(sourceImage, (int)width, (int)height, false) !;
+			return Bitmap.CreateScaledBitmap(sourceImage, (int)width, (int)height, false)!;
 		}
 	}
 }

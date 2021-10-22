@@ -77,7 +77,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			h = h < minH ? minH : h;
 			base.OnSizeChanged(w, h, oldw, oldh);
 
-			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!) !;
+			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
 			drawCanvas = new Canvas(canvasBitmap);
 			LoadLines();
 		}
