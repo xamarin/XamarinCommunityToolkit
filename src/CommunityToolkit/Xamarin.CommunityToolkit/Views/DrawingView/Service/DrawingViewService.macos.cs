@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +6,6 @@ using AppKit;
 using CoreGraphics;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.MacOS;
-
 namespace Xamarin.CommunityToolkit.UI.Views
 {
 	static class DrawingViewService
@@ -19,16 +18,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return Stream.Null;
 			}
-
 			var image = GetImageInternal(lines, backgroundColor);
 			if (image is null)
 			{
 				return Stream.Null;
 			}
-
 			return image.AsTiff()?.AsStream() ?? Stream.Null;
 		}
-
 		/// <summary>
 		/// Get image stream from points
 		/// </summary>
@@ -48,16 +44,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return Stream.Null;
 			}
-
 			var image = GetImageInternal(points, lineWidth, strokeColor, backgroundColor);
 			if (image is null)
 			{
 				return Stream.Null;
 			}
-
 			return image.AsTiff()?.AsStream() ?? Stream.Null;
 		}
-
 		static NSImage? GetImageInternal(IList<Point> points,
 			float lineWidth,
 			Color strokeColor,
@@ -72,29 +65,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				return null;
 			}
-
 			var imageSize = new CGSize(drawingWidth, drawingHeight);
-
 			using var context = new CGBitmapContext(IntPtr.Zero, (nint)drawingWidth, (nint)drawingHeight, 8,
 				(nint)drawingWidth * 4,
 				NSColorSpace.GenericRGBColorSpace.ColorSpace,
 				CGImageAlphaInfo.PremultipliedFirst);
 			context.SetFillColor(backgroundColor.ToCGColor());
 			context.FillRect(new CGRect(CGPoint.Empty, imageSize));
-
 			context.SetStrokeColor(strokeColor.ToCGColor());
 			context.SetLineWidth(lineWidth);
 			context.SetLineCap(CGLineCap.Round);
 			context.SetLineJoin(CGLineJoin.Round);
-
 			context.AddLines(points.Select(p => new CGPoint(p.X - minPointX, p.Y - minPointY)).ToArray());
 			context.StrokePath();
 			using var cgImage = context.ToImage();
 			NSImage image = new(cgImage, imageSize);
-
 			return image;
 		}
-
 		static NSImage? GetImageInternal(IList<Line> lines,
 			Color backgroundColor)
 		{
@@ -106,34 +93,27 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			const int minSize = 1;
 			if (drawingWidth < minSize || drawingHeight < minSize)
 				return null;
-
 			var imageSize = new CGSize(drawingWidth, drawingHeight);
-
 			using var context = new CGBitmapContext(IntPtr.Zero, (nint)drawingWidth, (nint)drawingHeight, 8,
 				(nint)drawingWidth * 4,
 				NSColorSpace.GenericRGBColorSpace.ColorSpace,
 				CGImageAlphaInfo.PremultipliedFirst);
 			context.SetFillColor(backgroundColor.ToCGColor());
 			context.FillRect(new CGRect(CGPoint.Empty, imageSize));
-
 			foreach (var line in lines)
 			{
 				context.SetStrokeColor(line.LineColor.ToCGColor());
 				context.SetLineWidth(line.LineWidth);
 				context.SetLineCap(CGLineCap.Round);
 				context.SetLineJoin(CGLineJoin.Round);
-
 				var startPoint = line.Points.First();
 				context.MoveTo((float)startPoint.X, (float)startPoint.Y);
 				context.AddLines(line.Points.Select(p => new CGPoint(p.X - minPointX, p.Y - minPointY)).ToArray());
 			}
-
 			context.StrokePath();
-
 			using var cgImage = context.ToImage();
 			NSImage image = new(cgImage, imageSize);
-
 			return image;
 		}
 	}
-} 
+}
