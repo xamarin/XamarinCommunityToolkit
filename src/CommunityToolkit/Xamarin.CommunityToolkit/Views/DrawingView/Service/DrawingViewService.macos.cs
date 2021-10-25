@@ -136,4 +136,4 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return image;
 		}
 	}
-}
+} 
