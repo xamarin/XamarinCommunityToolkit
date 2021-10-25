@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using static System.Math;
@@ -94,7 +95,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(ToolkitPlatform.Context ?? throw new NullReferenceException());
+				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(XCT.Context ?? throw new NullReferenceException());
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();

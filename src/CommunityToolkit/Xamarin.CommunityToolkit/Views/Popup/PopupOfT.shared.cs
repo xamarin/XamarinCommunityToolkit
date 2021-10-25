@@ -37,8 +37,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public Task<T?> Result => taskCompletionSource.Task;
 
 		/// <inheritdoc/>
-		protected internal override void LightDismiss() =>
+		protected internal override void LightDismiss()
+		{
 			taskCompletionSource.TrySetResult(GetLightDismissResult());
+			base.LightDismiss();
+		}
 
 		/// <summary>
 		/// Gets the light dismiss default result.

@@ -29,11 +29,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Control.Available += OnAvailability;
 				Control.FinishCapture += FinishCapture;
 
-				Control.SwitchFlash(Element.FlashMode);
 				Control.SetBounds(Element.WidthRequest, Element.HeightRequest);
 				Control.VideoStabilization = Element.VideoStabilization;
 				Control.Zoom = (float)Element.Zoom;
 				Control.RetrieveCameraDevice(Element.CameraOptions);
+				Control.SwitchFlash(Element.FlashMode);
 			}
 
 			if (e.OldElement != null)
