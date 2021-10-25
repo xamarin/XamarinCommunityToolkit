@@ -26,13 +26,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return Stream.Null;
 			}
 
-			var asTiff = image.AsTiff();
-			if (asTiff is null)
-			{
-				return Stream.Null;
-			}
-
-			return asTiff!.AsStream();
+			return image.AsTiff()?.AsStream() ?? Stream.Null;
 		}
 
 		/// <summary>
@@ -61,13 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return Stream.Null;
 			}
 
-			var asTiff = image.AsTiff();
-			if (asTiff is null)
-			{
-				return Stream.Null;
-			}
-
-			return asTiff!.AsStream();
+			return image.AsTiff()?.AsStream() ?? Stream.Null;
 		}
 
 		static NSImage? GetImageInternal(IList<Point> points,
