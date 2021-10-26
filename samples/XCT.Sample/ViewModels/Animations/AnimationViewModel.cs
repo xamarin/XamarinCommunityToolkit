@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,33 +11,33 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 {
 	public class AnimationViewModel : BaseViewModel
 	{
+		AnimationDetailModel selectedAnimation;
 		PreBuiltAnimationBase? currentAnimation;
 		CancellationTokenSource? cancellationTokenSource;
-		AnimationDetailViewModel? selectedAnimation;
 
-		public ObservableCollection<AnimationDetailViewModel> Animations { get; }
-
-		public AnimationDetailViewModel? SelectedAnimation
+		public AnimationViewModel()
 		{
-			get => selectedAnimation;
-			set => SetProperty(ref selectedAnimation, value);
+			Animations = new ObservableCollection<AnimationDetailModel>
+			{
+				new AnimationDetailModel("Tada", (view, onFinished) => new TadaAnimation()),
+				new AnimationDetailModel("RubberBand", (view, onFinished) => new RubberBandAnimation())
+			};
+
+			selectedAnimation = Animations.First();
+			StartAnimationCommand = new AsyncCommand<View>(v => OnStart(v), _ => SelectedAnimation is not null);
+			StopAnimationCommand = new Command(OnStop, () => cancellationTokenSource is not null);
 		}
+
+		public ObservableCollection<AnimationDetailModel> Animations { get; }
 
 		public AsyncCommand<View> StartAnimationCommand { get; }
 
 		public Command StopAnimationCommand { get; }
 
-		public AnimationViewModel()
+		public AnimationDetailModel SelectedAnimation
 		{
-			Animations = new ObservableCollection<AnimationDetailViewModel>
-			{
-				new AnimationDetailViewModel("Tada", (view, onFinished) => new TadaAnimation()),
-				new AnimationDetailViewModel("RubberBand", (view, onFinished) => new RubberBandAnimation())
-			};
-
-			SelectedAnimation = Animations.First();
-			StartAnimationCommand = new AsyncCommand<View>(v => OnStart(v), (view) => !(SelectedAnimation is null));
-			StopAnimationCommand = new Command(OnStop, () => cancellationTokenSource != null);
+			get => selectedAnimation;
+			set => SetProperty(ref selectedAnimation, value);
 		}
 
 		async Task OnStart(View? view)
@@ -51,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 				cancellationTokenSource.Cancel();
 			}
 
-			currentAnimation = SelectedAnimation!.CreateAnimation(view, (d, b) =>
+			currentAnimation = SelectedAnimation.CreateAnimation(view, (d, b) =>
 			{
 				StartAnimationCommand.ChangeCanExecute();
 				StopAnimationCommand.ChangeCanExecute();
@@ -72,6 +73,19 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 			{
 				cancellationTokenSource.Cancel();
 			}
+		}
+	}
+
+	public class AnimationDetailModel
+	{
+		public string Name { get; }
+
+		public Func<View, Action<double, bool>, PreBuiltAnimationBase> CreateAnimation { get; }
+
+		public AnimationDetailModel(string name, Func<View, Action<double, bool>, PreBuiltAnimationBase> createAnimation)
+		{
+			Name = name;
+			CreateAnimation = createAnimation;
 		}
 	}
 }
