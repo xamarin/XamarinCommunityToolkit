@@ -59,8 +59,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				button.Clicked += async (sender, e) =>
 				{
 					snackBarTimer?.Stop();
-                    try
-                    {
+					try
+					{
 						if (action.Action != null)
 							await action.Action();
 

@@ -28,8 +28,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ok.Clicked += async (s, evt) =>
 				{
 					snackBarDialog.Dismiss();
-                    try
-                    {
+					try
+					{
 						if (action.Action != null)
 							await action.Action();
 
