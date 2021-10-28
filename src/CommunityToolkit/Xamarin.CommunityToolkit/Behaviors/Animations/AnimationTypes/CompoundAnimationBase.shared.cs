@@ -8,15 +8,15 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Behaviors
 {
 	/// <summary>
-	/// Represents a complex animation that can be used to animate multiple <see cref="View"/>s.
+	/// Represents a compound animation that can be used to animate multiple <see cref="View"/>s.
 	/// </summary>
-	public abstract class PreBuiltAnimationBase : AnimationBase
+	public abstract class CompoundAnimationBase : AnimationBase
 	{
 		/// <summary>
 		/// The <see cref="BindableProperty"/> backing store for the <see cref="IsRepeated"/> property.
 		/// </summary>
 		public static readonly BindableProperty IsRepeatedProperty =
-		   BindableProperty.Create(nameof(IsRepeated), typeof(bool), typeof(PreBuiltAnimationBase), default, BindingMode.TwoWay);
+		   BindableProperty.Create(nameof(IsRepeated), typeof(bool), typeof(CompoundAnimationBase), default, BindingMode.TwoWay);
 
 		/// <summary>
 		/// Gets or sets a value indicating whether the animation will repeat.

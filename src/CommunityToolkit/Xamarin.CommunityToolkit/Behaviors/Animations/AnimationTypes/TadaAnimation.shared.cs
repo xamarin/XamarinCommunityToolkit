@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	/// <item>scaling back down to 100%</item>
 	/// </list>
 	/// </summary>
-	public class TadaAnimation : PreBuiltAnimationBase
+	public class TadaAnimation : CompoundAnimationBase
 	{
 		/// <summary>
 		/// The <see cref="BindableProperty"/> backing store for the <see cref="MaximumScale"/> property.

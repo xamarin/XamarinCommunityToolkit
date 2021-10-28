@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 	public class AnimationViewModel : BaseViewModel
 	{
 		AnimationDetailModel selectedAnimation;
-		PreBuiltAnimationBase? currentAnimation;
+		CompoundAnimationBase? currentAnimation;
 		CancellationTokenSource? cancellationTokenSource;
 
 		public AnimationViewModel()
@@ -80,9 +80,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 	{
 		public string Name { get; }
 
-		public Func<View, Action<double, bool>, PreBuiltAnimationBase> CreateAnimation { get; }
+		public Func<View, Action<double, bool>, CompoundAnimationBase> CreateAnimation { get; }
 
-		public AnimationDetailModel(string name, Func<View, Action<double, bool>, PreBuiltAnimationBase> createAnimation)
+		public AnimationDetailModel(string name, Func<View, Action<double, bool>, CompoundAnimationBase> createAnimation)
 		{
 			Name = name;
 			CreateAnimation = createAnimation;

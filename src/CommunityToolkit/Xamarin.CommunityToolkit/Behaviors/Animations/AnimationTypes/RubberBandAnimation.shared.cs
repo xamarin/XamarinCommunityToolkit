@@ -10,8 +10,8 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	/// <item>gradually swap until we reach 100% width and height again</item>
 	/// </list>
 	/// </summary>
-	public class RubberBandAnimation : PreBuiltAnimationBase
-	{
+	public class RubberBandAnimation : CompoundAnimationBase
+    {
         /// <inheritdoc />
         protected override uint DefaultDuration { get; set; } = 1000;
 
