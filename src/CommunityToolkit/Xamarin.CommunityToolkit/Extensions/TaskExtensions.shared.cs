@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
-	public static class TaskExtensions
+	static class TaskExtensions
 	{
 		/// <summary>
 		/// Provides a mechanism to await until the supplied <paramref name="cancellationToken"/> has been cancelled.
@@ -13,7 +13,17 @@ namespace Xamarin.CommunityToolkit.Extensions
 		public static Task WhenCanceled(this CancellationToken cancellationToken)
 		{
 			var completionSource = new TaskCompletionSource<bool>();
-			cancellationToken.Register(s => ((TaskCompletionSource<bool>)s).SetResult(true), completionSource);
+
+			cancellationToken.Register(
+				s =>
+				{
+					if (s is TaskCompletionSource<bool> taskCompletionSource)
+					{
+						taskCompletionSource.SetResult(true);
+					}
+				},
+				completionSource);
+
 			return completionSource.Task;
 		}
 	}
