@@ -9,7 +9,7 @@ using Xamarin.Forms.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	class SnackBar
+	partial class SnackBar
 	{
 		DispatcherTimer? snackBarTimer;
 
@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		internal ValueTask Show(Forms.VisualElement visualElement, SnackBarOptions arguments)
+		internal partial ValueTask Show(Forms.VisualElement visualElement, SnackBarOptions arguments)
 		{
 			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(visualElement).ContainerElement.Parent;

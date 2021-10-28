@@ -11,11 +11,11 @@ using Xamarin.Forms.Platform.WPF.Helpers;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	class SnackBar
+	partial class SnackBar
 	{
 		Timer? snackBarTimer;
 
-		internal ValueTask Show(Forms.VisualElement visualElement, SnackBarOptions arguments)
+		internal partial ValueTask Show(Forms.VisualElement visualElement, SnackBarOptions arguments)
 		{
 			var formsAppBar = System.Windows.Application.Current.MainWindow.FindChild<FormsAppBar>("PART_BottomAppBar");
 			var currentContent = formsAppBar.Content;
