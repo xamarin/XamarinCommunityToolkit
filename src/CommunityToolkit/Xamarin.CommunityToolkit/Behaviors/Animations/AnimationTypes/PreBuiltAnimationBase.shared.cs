@@ -47,10 +47,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 			var taskCompletionSource = new TaskCompletionSource<bool>();
 
-			if (cancellationToken is null)
-			{
-				cancellationToken = CancellationToken.None;
-			}
+			cancellationToken ??= CancellationToken.None;
 
 			animation = CreateAnimation(
 				16,
@@ -87,9 +84,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		}
 
 		AnimationWrapper CreateAnimation(
-			uint rate = 16,
-			Action<double, bool>? onFinished = null,
-			Func<bool>? shouldRepeat = null,
+			uint rate,
+			Action<double, bool> onFinished,
+			Func<bool> shouldRepeat,
 			params View[] views) =>
 			new AnimationWrapper(
 				CreateAnimation(views),

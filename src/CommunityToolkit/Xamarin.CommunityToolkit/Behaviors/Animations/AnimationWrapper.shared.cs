@@ -5,24 +5,24 @@ namespace Xamarin.CommunityToolkit.Behaviors
 {
 	class AnimationWrapper
 	{
-		readonly Easing? easing;
-		readonly uint length = 250;
-		readonly Action<double, bool>? onFinished;
+		readonly Easing easing;
+		readonly uint length;
+		readonly Action<double, bool> onFinished;
 		readonly Animation animation;
 		readonly IAnimatable owner;
-		readonly uint rate = 16;
-		readonly Func<bool>? shouldRepeat;
+		readonly uint rate;
+		readonly Func<bool> shouldRepeat;
 		readonly string name;
 
 		public AnimationWrapper(
 			Animation animation,
 			string name,
 			IAnimatable owner,
-			uint rate = 16,
-			uint length = 250,
-			Easing? easing = null,
-			Action<double, bool>? onFinished = null,
-			Func<bool>? shouldRepeat = null)
+			uint rate,
+			uint length,
+			Easing easing,
+			Action<double, bool> onFinished,
+			Func<bool> shouldRepeat)
 		{
 			this.name = name;
 			this.length = length;
