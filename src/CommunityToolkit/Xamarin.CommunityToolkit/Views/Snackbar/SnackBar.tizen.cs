@@ -28,7 +28,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ok.Clicked += async (_, _) =>
 				{
 					snackBarDialog.Dismiss();
-					await OnActionClick(action, arguments).ConfigureAwait(false);				};
+					await OnActionClick(action, arguments).ConfigureAwait(false);
+				};
 			}
 
 			snackBarDialog.TimedOut += (_, _) => DismissSnackBar();
