@@ -61,32 +61,54 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[mainView]|", NSLayoutFormatOptions.AlignAllTop, null, new NSDictionary("mainView", mainView)));
 		}
 
-		void SetStartOrientation()
+		internal void SetOrientation()
 		{
-			var previewLayerFrame = previewLayer.Frame;
+			SetFrameOrientation();
+			SetVideoOrientation();
+		}
 
-			switch (UIApplication.SharedApplication.StatusBarOrientation)
-			{
-				case UIInterfaceOrientation.Portrait:
-				case UIInterfaceOrientation.PortraitUpsideDown:
-					previewLayerFrame.Height = UIScreen.MainScreen.Bounds.Height;
-					previewLayerFrame.Width = UIScreen.MainScreen.Bounds.Width;
-					break;
-
-				case UIInterfaceOrientation.LandscapeLeft:
-				case UIInterfaceOrientation.LandscapeRight:
-					previewLayerFrame.Width = UIScreen.MainScreen.Bounds.Width;
-					previewLayerFrame.Height = UIScreen.MainScreen.Bounds.Height;
-					break;
-			}
-
+		void SetFrameOrientation()
+		{
 			try
 			{
+				var previewLayerFrame = previewLayer.Frame;
+				previewLayerFrame.Height = mainView.Bounds.Height;
+				previewLayerFrame.Width = mainView.Bounds.Width;
 				previewLayer.Frame = previewLayerFrame;
 			}
 			catch (Exception error)
 			{
 				LogError("Failed to adjust frame", error);
+			}
+		}
+
+		void SetVideoOrientation()
+		{
+			try
+			{
+				if (previewLayer?.Connection?.SupportsVideoOrientation == true)
+					previewLayer.Connection.VideoOrientation = GetVideoOrientation();
+			}
+			catch (Exception error)
+			{
+				LogError("Failed to set video orientation", error);
+			}
+		}
+
+		AVCaptureVideoOrientation GetVideoOrientation()
+		{
+			switch (UIApplication.SharedApplication.StatusBarOrientation)
+			{
+				case UIInterfaceOrientation.Portrait:
+					return AVCaptureVideoOrientation.Portrait;
+				case UIInterfaceOrientation.PortraitUpsideDown:
+					return AVCaptureVideoOrientation.PortraitUpsideDown;
+				case UIInterfaceOrientation.LandscapeLeft:
+					return AVCaptureVideoOrientation.LandscapeLeft;
+				case UIInterfaceOrientation.LandscapeRight:
+					return AVCaptureVideoOrientation.LandscapeRight;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(UIApplication.SharedApplication.StatusBarOrientation));
 			}
 		}
 
@@ -555,8 +577,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				InvokeOnMainThread(() =>
 				{
-					captureConnection = previewLayer.Connection;
-					SetStartOrientation();
+					SetOrientation();
 					captureSession.StartRunning();
 				});
 			}
