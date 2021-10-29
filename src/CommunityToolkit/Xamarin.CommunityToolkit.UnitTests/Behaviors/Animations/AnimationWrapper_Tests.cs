@@ -13,38 +13,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors.Animations
 		public void SetUp() => Device.PlatformServices = new MockPlatformServices();
 
 		[Test]
-		public async Task ShouldCallbackAnExpectedNumberOfTimes()
-		{
-			var frameCount = 0;
-
-			var animation = new Animation
-			{
-				{ 0, 1, new Animation(d => frameCount++) }
-			};
-
-			var taskCompletionSource = new TaskCompletionSource<bool>();
-
-			var animationWrapper = new AnimationWrapper(
-				animation,
-				Guid.NewGuid().ToString(),
-				new BoxView(),
-				16,
-				160,
-				Easing.Linear,
-				(v, t) => { taskCompletionSource.SetResult(true); },
-				() => false);
-
-			Assert.IsFalse(animationWrapper.IsRunning);
-
-			animationWrapper.Commit();
-
-			await taskCompletionSource.Task;
-
-			// 160 ms length / 1 frame every 16 ms = 10 frames
-			Assert.GreaterOrEqual(frameCount, 10);
-		}
-
-		[Test]
 		public void AbortShouldStopAnimationRunning()
 		{
 			var animation = new Animation
