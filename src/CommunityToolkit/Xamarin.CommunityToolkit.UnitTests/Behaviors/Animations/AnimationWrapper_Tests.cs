@@ -39,7 +39,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors.Animations
 			await Task.Delay(250);
 
 			// 160 ms length / 1 frame every 16 ms = 10 frames
-			Assert.GreaterOrEqual(10, frameCount);
+			Assert.GreaterOrEqual(frameCount, 10);
 		}
 
 		[Test]
