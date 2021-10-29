@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 
 		public void BeginInvokeOnMainThread(Action action) => action();
 
-		public Ticker CreateTicker() => new MockTicker(16);
+		public Ticker CreateTicker() => new MockTicker(TimeSpan.FromMilliseconds(16));
 
 		public void StartTimer(TimeSpan interval, Func<bool> callback)
 		{
@@ -55,9 +55,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 	class MockTicker : Ticker
 	{
 		bool enabled;
-		readonly int delayBetweenSignals;
+		readonly TimeSpan delayBetweenSignals;
 
-		public MockTicker(int delayBetweenSignals)
+		public MockTicker(TimeSpan delayBetweenSignals)
 		{
 			this.delayBetweenSignals = delayBetweenSignals;
 		}
@@ -69,7 +69,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 			while (enabled)
 			{
 				await Task.Delay(delayBetweenSignals);
-				SendSignals(delayBetweenSignals);
+				SendSignals((int)delayBetweenSignals.TotalMilliseconds);
 			}
 		}
 

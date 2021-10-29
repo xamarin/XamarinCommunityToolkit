@@ -22,6 +22,8 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors.Animations
 				{ 0, 1, new Animation(d => frameCount++) }
 			};
 
+			var taskCompletionSource = new TaskCompletionSource<bool>();
+
 			var animationWrapper = new AnimationWrapper(
 				animation,
 				Guid.NewGuid().ToString(),
@@ -29,14 +31,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors.Animations
 				16,
 				160,
 				Easing.Linear,
-				(v, t) => { },
+				(v, t) => { taskCompletionSource.SetResult(true); },
 				() => false);
 
 			Assert.IsFalse(animationWrapper.IsRunning);
 
 			animationWrapper.Commit();
 
-			await Task.Delay(250);
+			await taskCompletionSource.Task;
 
 			// 160 ms length / 1 frame every 16 ms = 10 frames
 			Assert.GreaterOrEqual(frameCount, 10);
