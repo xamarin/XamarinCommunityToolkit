@@ -12,6 +12,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors.Animations
 		[SetUp]
 		public void SetUp() => Device.PlatformServices = new MockPlatformServices();
 
+		[TearDown]
+		public void TearDown() => Device.PlatformServices = null;
+
 		[Test]
 		public void AbortShouldStopAnimationRunning()
 		{
