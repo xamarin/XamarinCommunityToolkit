@@ -62,14 +62,16 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 			this.delayBetweenSignals = delayBetweenSignals;
 		}
 
+		protected override Ticker GetTickerInstance() => this;
+
 		protected async override void EnableTimer()
 		{
 			enabled = true;
 
 			while (enabled)
 			{
-				await Task.Delay(delayBetweenSignals);
 				SendSignals((int)delayBetweenSignals.TotalMilliseconds);
+				await Task.Delay(delayBetweenSignals);
 			}
 		}
 
