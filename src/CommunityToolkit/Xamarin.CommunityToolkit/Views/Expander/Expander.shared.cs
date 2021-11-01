@@ -429,8 +429,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetDirection(ExpandDirection oldDirection)
 		{
-			_ = Header ?? throw new InvalidOperationException($"{nameof(Header)} not initialized");
-
 			if (oldDirection.IsVertical() == Direction.IsVertical())
 			{
 				SetHeader(Header);

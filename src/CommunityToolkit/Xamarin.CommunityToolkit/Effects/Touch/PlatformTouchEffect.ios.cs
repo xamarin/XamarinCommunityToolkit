@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CoreGraphics;
 using Foundation;
@@ -191,6 +192,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.Status != status)
 				HandleTouch(status).SafeFireAndForget();
 
+			if (status == TouchStatus.Canceled)
+				IsCanceled = true;
+
 			base.TouchesMoved(touches, evt);
 		}
 
@@ -216,6 +220,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
+			var canExecuteAction = effect.CanExecute;
+
 			if (interactionStatus == TouchInteractionStatus.Started)
 			{
 				effect?.HandleUserInteraction(TouchInteractionStatus.Started);
@@ -226,7 +232,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (interactionStatus.HasValue)
 				effect?.HandleUserInteraction(interactionStatus.Value);
 
-			if (effect == null || (!effect.NativeAnimation && !IsButton) || !effect.CanExecute)
+			if (effect == null || (!effect.NativeAnimation && !IsButton) || (!canExecuteAction && status == TouchStatus.Started))
 				return;
 
 			var control = effect.Element;
@@ -266,19 +272,27 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (gestureRecognizer is TouchUITapGestureRecognizer touchGesture && otherGestureRecognizer is UIPanGestureRecognizer &&
 				otherGestureRecognizer.State == UIGestureRecognizerState.Began)
 			{
-				touchGesture.HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).ContinueWith(task =>
-				{
-					if (task.IsFaulted && task.Exception != null)
-						throw task.Exception;
-
-					touchGesture.IsCanceled = true;
-				});
+				touchGesture.HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).SafeFireAndForget();
+				touchGesture.IsCanceled = true;
 			}
 
 			return true;
 		}
 
 		public override bool ShouldReceiveTouch(UIGestureRecognizer recognizer, UITouch touch)
-			=> recognizer.View.IsDescendantOfView(touch.View);
+		{
+			if (recognizer.View.IsDescendantOfView(touch.View))
+				return true;
+
+			if (recognizer.View is not IVisualNativeElementRenderer elementRenderer ||
+				elementRenderer.Control == null)
+				return false;
+
+			if (elementRenderer.Control == touch.View ||
+				elementRenderer.Control.Subviews.Any(view => view == touch.View))
+				return true;
+
+			return false;
+		}
 	}
 }

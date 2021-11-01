@@ -13,6 +13,32 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	static class DrawingViewService
 	{
+		public static Stream GetImageStream(IList<Line>? lines,
+			Size imageSize,
+			Color backgroundColor)
+		{
+			if (lines == null)
+			{
+				return Stream.Null;
+			}
+
+			var image = GetImageInternal(lines, backgroundColor);
+			if (image == null)
+				return Stream.Null;
+
+			using var resizedImage = MaxResizeImage(image, (float)imageSize.Width, (float)imageSize.Height);
+			var stream = new MemoryStream();
+			var compressResult = resizedImage.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+
+			resizedImage.Recycle();
+
+			if (!compressResult)
+				return Stream.Null;
+
+			stream.Position = 0;
+			return stream;
+		}
+
 		/// <summary>
 		/// Get image stream from points
 		/// </summary>
@@ -22,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <param name="strokeColor">Line color</param>
 		/// <param name="backgroundColor">Image background color</param>
 		/// <returns>Image stream</returns>
-		public static Stream GetImageStream(IList<Point> points,
+		public static Stream GetImageStream(IList<Point>? points,
 			Size imageSize,
 			float lineWidth,
 			Color strokeColor,
@@ -86,6 +112,50 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				var p2 = points.ElementAt(i + 1);
 				canvas.DrawLine((float)(p1.X - minPointX), (float)(p1.Y - minPointY), (float)(p2.X - minPointX),
 								(float)(p2.Y - minPointY), paint);
+			}
+
+			return image;
+		}
+
+		static Bitmap? GetImageInternal(IList<Line> lines,
+			Color backgroundColor)
+		{
+			var points = lines.SelectMany(x => x.Points).ToList();
+			var minPointX = points.Min(p => p.X);
+			var minPointY = points.Min(p => p.Y);
+			var drawingWidth = points.Max(p => p.X) - minPointX;
+			var drawingHeight = points.Max(p => p.Y) - minPointY;
+			const int minSize = 1;
+			if (drawingWidth < minSize || drawingHeight < minSize)
+				return null;
+
+			var image = Bitmap.CreateBitmap((int)drawingWidth, (int)drawingHeight, Bitmap.Config.Argb8888!)!;
+			using var canvas = new Canvas(image);
+
+			// background
+			canvas.DrawColor(backgroundColor.ToAndroid());
+
+			foreach (var line in lines)
+			{
+				using var paint = new Paint
+				{
+					Color = line.LineColor.ToAndroid(),
+					StrokeWidth = line.LineWidth,
+					StrokeJoin = Paint.Join.Round,
+					StrokeCap = Paint.Cap.Round,
+					AntiAlias = true
+				};
+
+				paint.SetStyle(Paint.Style.Stroke);
+
+				var pointsCount = line.Points.Count;
+				for (var i = 0; i < pointsCount - 1; i++)
+				{
+					var p1 = line.Points.ElementAt(i);
+					var p2 = line.Points.ElementAt(i + 1);
+					canvas.DrawLine((float)(p1.X - minPointX), (float)(p1.Y - minPointY), (float)(p2.X - minPointX),
+						(float)(p2.Y - minPointY), paint);
+				}
 			}
 
 			return image;

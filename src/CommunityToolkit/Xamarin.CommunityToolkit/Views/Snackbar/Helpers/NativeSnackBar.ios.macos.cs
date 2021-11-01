@@ -25,15 +25,15 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 	{
 		NSTimer? timer;
 
-		public List<NativeSnackButton> Actions { get; protected set; } = new ();
+		public List<NativeSnackButton> Actions { get; protected set; } = new();
 
 		public Func<Task>? TimeoutAction { get; protected set; }
 
-		public NativeSnackBarAppearance Appearance { get; protected set; } = new ();
+		public NativeSnackBarAppearance Appearance { get; protected set; } = new();
 
 		public TimeSpan Duration { get; protected set; }
 
-		public SnackBarLayout Layout { get; } = new ();
+		public SnackBarLayout Layout { get; } = new();
 
 		public string Message { get; protected set; } = string.Empty;
 
