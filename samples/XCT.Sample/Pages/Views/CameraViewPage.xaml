@@ -6,7 +6,7 @@
     xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <ScrollView>
-        <Grid RowDefinitions="300, Auto">
+        <Grid RowDefinitions="300, Auto, *">
             <Grid ColumnDefinitions="*, *" Grid.Row="0">
                 <xct:CameraView
                     Grid.Column="0"
@@ -43,7 +43,6 @@
                     HorizontalOptions="FillAndExpand"
                     VerticalOptions="End" />
             </Grid>
-            
 
             <StackLayout Grid.Row="1" Orientation="Horizontal">
                 <Label x:Name="zoomLabel" />
