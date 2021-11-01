@@ -1,20 +1,30 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors.Animations.AnimationTypes
 {
 	public class TadaAnimation_Tests
 	{
 		[SetUp]
-		public void SetUp() => Device.PlatformServices = new MockPlatformServices();
+		public void SetUp()
+		{
+			Device.PlatformServices = new MockPlatformServices();
+			Ticker.SetDefault(new AsyncTicker(TimeSpan.FromMilliseconds(16)));
+		}
 
 		[TearDown]
-		public void TearDown() => Device.PlatformServices = null;
+		public void TearDown()
+		{
+			Device.PlatformServices = null;
+			Ticker.SetDefault(null);
+		}
 
 		[Test]
 		public async Task AFullAnimationShouldReturnToOriginalValues()

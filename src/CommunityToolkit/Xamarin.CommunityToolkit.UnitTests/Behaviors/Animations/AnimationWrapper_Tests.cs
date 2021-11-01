@@ -3,16 +3,25 @@ using NUnit.Framework;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors.Animations
 {
 	public class AnimationWrapper_Tests
 	{
 		[SetUp]
-		public void SetUp() => Device.PlatformServices = new MockPlatformServices();
+		public void SetUp()
+		{
+			Device.PlatformServices = new MockPlatformServices();
+			Ticker.SetDefault(new AsyncTicker(TimeSpan.FromMilliseconds(16)));
+		}
 
 		[TearDown]
-		public void TearDown() => Device.PlatformServices = null;
+		public void TearDown()
+		{
+			Device.PlatformServices = null;
+			Ticker.SetDefault(null);
+		}
 
 		[Test]
 		public void AbortShouldStopAnimationRunning()
