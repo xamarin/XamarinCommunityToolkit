@@ -35,8 +35,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Behaviors.Animations.AnimationTypes
 			await animation.Animate(view);
 
 			Assert.IsTrue(view.ValuesSet.ContainsKey(nameof(View.ScaleX)));
+			Assert.AreEqual(1, view.ValuesSet[nameof(View.ScaleX)].Last());
 
 			Assert.IsTrue(view.ValuesSet.ContainsKey(nameof(View.ScaleY)));
+			Assert.AreEqual(1, view.ValuesSet[nameof(View.ScaleY)].Last());
 		}
 
 		[Test]
