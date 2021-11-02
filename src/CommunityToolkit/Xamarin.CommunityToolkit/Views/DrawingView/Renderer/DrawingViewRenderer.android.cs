@@ -177,7 +177,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					drawPath.Reset();
 				}
 			}
-			
+
 			Invalidate();
 		}
 

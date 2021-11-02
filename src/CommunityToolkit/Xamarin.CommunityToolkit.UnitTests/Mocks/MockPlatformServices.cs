@@ -54,12 +54,50 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 
 	class MockTicker : Ticker
 	{
-		protected override void DisableTimer()
-		{
-		}
+		bool enabled;
 
 		protected override void EnableTimer()
 		{
+			enabled = true;
+
+			while (enabled)
+			{
+				SendSignals(16);
+			}
 		}
+
+		protected override void DisableTimer() => enabled = false;
+	}
+
+	class AsyncTicker : Ticker
+	{
+		bool enabled;
+		readonly TimeSpan delayBetweenSignals;
+
+		public AsyncTicker(TimeSpan delayBetweenSignals)
+		{
+			this.delayBetweenSignals = delayBetweenSignals;
+		}
+
+		protected async override void EnableTimer()
+		{
+			if (enabled)
+			{
+				return;
+			}
+
+			enabled = true;
+
+			while (enabled)
+			{
+				await Task.Delay(delayBetweenSignals);
+				if (enabled)
+				{
+					SendSignals();
+				}
+			}
+		}
+
+		protected override void DisableTimer() => enabled = false;
 	}
 }
