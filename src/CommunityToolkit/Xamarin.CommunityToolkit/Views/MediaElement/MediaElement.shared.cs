@@ -47,6 +47,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty VolumeProperty =
 		  BindableProperty.Create(nameof(Volume), typeof(double), typeof(MediaElement), 1.0, BindingMode.TwoWay, new BindableProperty.ValidateValueDelegate(ValidateVolume));
 
+		public static readonly BindableProperty SpeedProperty =
+		  BindableProperty.Create(nameof(Speed), typeof(double), typeof(MediaElement), 1.0, BindingMode.OneWay);
+
 		public Aspect Aspect
 		{
 			get => (Aspect)GetValue(AspectProperty);
@@ -116,6 +119,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get => (double)GetValue(VolumeProperty);
 			set => SetValue(VolumeProperty, value);
+		}
+		public double Speed
+		{
+			get => (double)GetValue(SpeedProperty);
+			set => SetValue(SpeedProperty, value);
 		}
 
 		internal event EventHandler<SeekRequested>? SeekRequested;

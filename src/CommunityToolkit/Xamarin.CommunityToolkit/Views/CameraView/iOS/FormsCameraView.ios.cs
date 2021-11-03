@@ -19,14 +19,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		AVCaptureStillImageOutput? imageOutput;
 		AVCapturePhotoOutput? photoOutput;
 		AVCaptureMovieFileOutput? videoOutput;
-		AVCaptureConnection? captureConnection;
 		AVCaptureDevice? device;
 		AVCaptureDevicePosition? lastPosition;
 		bool isBusy;
 		bool isAvailable;
 		bool isDisposed;
 		CameraFlashMode flashMode;
-		readonly float imgScale = 1f;
+		PhotoCaptureDelegate? photoCaptureDelegate;
 
 		public event EventHandler<bool>? Busy;
 
@@ -113,60 +112,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		UIImage RotateImage(UIImage image)
-		{
-			var imgRef = image.CGImage;
-			_ = imgRef ?? throw new NullReferenceException();
-
-			var transform = CGAffineTransform.MakeIdentity();
-
-			var imgHeight = imgRef.Height * imgScale;
-			var imgWidth = imgRef.Width * imgScale;
-
-			var bounds = new CGRect(0, 0, imgWidth, imgHeight);
-			var imageSize = new CGSize(imgWidth, imgHeight);
-			var orient = image.Orientation;
-
-			switch (orient)
-			{
-				case UIImageOrientation.Up:
-					transform = CGAffineTransform.MakeIdentity();
-					break;
-				case UIImageOrientation.Down:
-					transform = CGAffineTransform.MakeTranslation(imageSize.Width, imageSize.Height);
-					transform = CGAffineTransform.Rotate(transform, (float)Math.PI);
-					break;
-				case UIImageOrientation.Right:
-					bounds.Size = new CGSize(bounds.Size.Height, bounds.Size.Width);
-					transform = CGAffineTransform.MakeTranslation(imageSize.Height, 0);
-					transform = CGAffineTransform.Rotate(transform, (float)Math.PI / 2.0f);
-					break;
-				default:
-					throw new Exception("Invalid image orientation");
-			}
-
-			UIGraphics.BeginImageContext(bounds.Size);
-			var context = UIGraphics.GetCurrentContext();
-
-			if (orient == UIImageOrientation.Right)
-			{
-				context.ScaleCTM(-1, 1);
-				context.TranslateCTM(-imgHeight, 0);
-			}
-			else
-			{
-				context.ScaleCTM(1, -1);
-				context.TranslateCTM(0, -imgHeight);
-			}
-
-			context.ConcatCTM(transform);
-
-			context.DrawImage(new CGRect(0, 0, imgWidth, imgHeight), imgRef);
-			image = UIGraphics.GetImageFromCurrentImageContext();
-			UIGraphics.EndImageContext();
-			return image;
-		}
-
 		public override void Draw(CGRect rect)
 		{
 			previewLayer.Frame = rect;
@@ -198,25 +143,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			// iOS >= 10
 			if (photoOutput != null)
 			{
-				var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
-				if (photoOutputConnection != null)
-					photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
-
-				var photoSettings = AVCapturePhotoSettings.Create();
-				photoSettings.FlashMode = (AVCaptureFlashMode)flashMode;
-				photoSettings.IsHighResolutionPhotoEnabled = true;
-
-				var photoCaptureDelegate = new PhotoCaptureDelegate
+				try
 				{
-					OnFinishCapture = (data, error) =>
-					{
-						FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(data, error));
-						IsBusy = false;
-					},
-					WillCapturePhotoAnimation = () => Animate(0.25, () => previewLayer.Opacity = 1)
-				};
+					var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
+					if (photoOutputConnection != null)
+						photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
 
-				photoOutput.CapturePhoto(photoSettings, photoCaptureDelegate);
+					photoOutput.CapturePhoto(GetCapturePhotoSettings(), GetPhotoCaptureDelegate());
+				}
+				catch (Exception)
+				{
+					FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("Failed to create image"), 0)));
+					IsBusy = false;
+				}
 				return;
 			}
 
@@ -231,11 +170,51 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			catch (Exception)
 			{
-				FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("faled create image"), 0)));
+				FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("Failed to create image"), 0)));
 			}
 			finally
 			{
 				IsBusy = false;
+			}
+		}
+
+		AVCapturePhotoSettings GetCapturePhotoSettings()
+		{
+			var photoSettings = AVCapturePhotoSettings.Create();
+			photoSettings.FlashMode = GetFlashMode();
+			photoSettings.IsHighResolutionPhotoEnabled = true;
+			return photoSettings;
+		}
+
+		PhotoCaptureDelegate GetPhotoCaptureDelegate()
+		{
+			if (photoCaptureDelegate == null)
+			{
+				photoCaptureDelegate = new PhotoCaptureDelegate
+				{
+					OnFinishCapture = (data, error) =>
+					{
+						FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(data, error));
+						IsBusy = false;
+					},
+					WillCapturePhotoAnimation = () => Animate(0.25, () => previewLayer.Opacity = 1)
+				};
+			}
+			return photoCaptureDelegate;
+		}
+
+		AVCaptureFlashMode GetFlashMode()
+		{
+			// Note: torch is set elsewhere
+			switch (flashMode)
+			{
+				case CameraFlashMode.On:
+					return AVCaptureFlashMode.On;
+				case CameraFlashMode.Auto:
+					return AVCaptureFlashMode.Auto;
+				case CameraFlashMode.Off:
+				default:
+					return AVCaptureFlashMode.Off;
 			}
 		}
 
@@ -519,7 +498,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				InvokeOnMainThread(() =>
 				{
-					captureConnection = previewLayer.Connection;
 					SetStartOrientation();
 					captureSession.StartRunning();
 				});
@@ -548,6 +526,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (input != null)
 					captureSession.RemoveInput(input);
 			}
+
+			photoCaptureDelegate?.Dispose();
+			photoCaptureDelegate = null;
 
 			input?.Dispose();
 			input = null;

@@ -314,7 +314,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateSubjectColor() => ShieldSubjectContainer.BackgroundColor = SubjectBackgroundColor;
 
+#pragma warning disable CS0618 // Type or member is obsolete
 		void UpdateColor() => ShieldStatusContainer.BackgroundColor = Color;
+#pragma warning restore CS0618 // Type or member is obsolete
 
 		void UpdateStatusBackgroundColor() => ShieldStatusContainer.BackgroundColor = StatusBackgroundColor;
 

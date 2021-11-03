@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.LinkerCameraViewPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label HorizontalTextAlignment="Center" Text="This is to test if the Linker is keeping the MediaCaptured and MediaCaptureFailed events if they are used!" />
+            <Grid>
+                <xct:CameraView
+                    x:Name="cameraView"
+                    CaptureMode="Photo"
+                    HorizontalOptions="FillAndExpand"
+                    OnAvailable="CameraView_OnAvailable"
+                    VerticalOptions="FillAndExpand">
+                    <xct:CameraView.Behaviors>
+                        <xct:EventToCommandBehavior Command="{Binding CaptureCommand}" EventName="MediaCaptured" />
+                    </xct:CameraView.Behaviors>
+                </xct:CameraView>
+                <Button
+                    x:Name="shutterButton"
+                    Margin="40"
+                    BackgroundColor="WhiteSmoke"
+                    BorderColor="Black"
+                    BorderWidth="1"
+                    Clicked="ShutterButtonClicked"
+                    CornerRadius="40"
+                    HeightRequest="80"
+                    HorizontalOptions="CenterAndExpand"
+                    IsEnabled="False"
+                    VerticalOptions="End"
+                    WidthRequest="80" />
+                <Image
+                    x:Name="previewPicture"
+                    Margin="40"
+                    Aspect="AspectFill"
+                    BackgroundColor="Black"
+                    HeightRequest="80"
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    WidthRequest="80" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

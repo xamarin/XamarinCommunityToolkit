@@ -8,7 +8,7 @@
     x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.MathExpressionConverterPage">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <xct:MathExpressionConverter x:Key="MathExpressionConverter" />
+            <xct:MathExpressionConverter x:Key="DivideByTwoConverter" Expression="x/2" />
             <xct:MultiMathExpressionConverter x:Key="MultiMathExpressionConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -27,7 +27,7 @@
                 BackgroundColor="Bisque"
                 Padding="10"
                 HeightRequest="120"
-                CornerRadius="{Binding Source={x:Reference CalculatedFrame}, Path=HeightRequest, Converter={StaticResource MathExpressionConverter}, ConverterParameter='x/2'}">
+                CornerRadius="{Binding Source={x:Reference CalculatedFrame}, Path=HeightRequest, Converter={StaticResource DivideByTwoConverter}}">
                 <Label
                     Text="Frame with calculated CornerRadius = HeightRequest / 2"
                     TextColor="Black"

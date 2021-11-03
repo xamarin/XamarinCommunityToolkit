@@ -14,6 +14,9 @@ using Point = Xamarin.Forms.Point;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	/// <summary>
+	/// GTK renderer for <see cref="Xamarin.CommunityToolkit.UI.Views.DrawingViewRenderer"/>
+	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, VBox>
 	{
 		bool disposed;
@@ -23,6 +26,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		PointD point;
 		PointD previousPoint;
 		ImageSurface? surface;
+		Line? currentLine;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
 		{
@@ -42,7 +46,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				isDrawing = false;
 
 				vBox.Add(area);
-				Element.Points.CollectionChanged += OnPointsCollectionChanged;
+				Element.Lines.CollectionChanged += OnLinesCollectionChanged;
 				SetNativeControl(vBox);
 			}
 
@@ -66,7 +70,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.PointsProperty.PropertyName)
+			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
 			{
 				surface = new ImageSurface(Format.Argb32, Convert.ToInt32(Element.Width),
 										   Convert.ToInt32(Element.Height));
@@ -74,7 +78,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnPointsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints(surface!);
+		void OnLinesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints(surface!);
 
 		void OnDrawingAreaExposed(object source, ExposeEventArgs args)
 		{
@@ -98,31 +102,38 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			point.X = args.Event.X;
 			point.Y = args.Event.Y;
+			currentLine = new Line()
+			{
+				Points = new System.Collections.ObjectModel.ObservableCollection<Point>()
+				{
+					new Point(point.X, point.Y)
+				}
+			};
 			previousPoint = point;
 			isDrawing = true;
 			area!.QueueDraw();
-			Element.Points.Clear();
+			if (!Element.MultiLineMode)
+				Element.Lines.Clear();
 		}
 
 		void OnMouseRelease(object source, ButtonReleaseEventArgs args)
 		{
 			point.X = args.Event.X;
 			point.Y = args.Event.Y;
-			var points = Element.Points;
 			isDrawing = false;
 
 			using var ctx = new Context(surface);
 			DrawPoint(ctx, point);
 
 			area!.QueueDraw();
-			if (points.Count > 0)
+			if (currentLine != null)
 			{
-				if (Element.DrawingCompletedCommand.CanExecute(null))
-					Element.DrawingCompletedCommand.Execute(Element.Points);
+				Element.Lines.Add(currentLine);
+				Element.OnDrawingLineCompleted(currentLine);
 			}
 
 			if (Element.ClearOnFinish)
-				points.Clear();
+				Element.Lines.Clear();
 		}
 
 		void OnMouseMotion(object source, MotionNotifyEventArgs args)
@@ -141,27 +152,34 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void DrawPoint(Context ctx, PointD pointD)
 		{
-			ctx.SetSourceRGBA(Element.LineColor.R, Element.LineColor.G, Element.LineColor.B, Element.LineColor.A);
-			ctx.LineWidth = Element.LineWidth;
+			ctx.SetSourceRGBA(currentLine!.LineColor.R, currentLine!.LineColor.G, currentLine!.LineColor.B, currentLine!.LineColor.A);
+			ctx.LineWidth = currentLine.LineWidth;
 			ctx.MoveTo(previousPoint);
 			previousPoint = pointD;
 			ctx.LineTo(pointD);
 			ctx.Stroke();
-			Element.Points.Add(new Point(pointD.X, pointD.Y));
+			currentLine.Points.Add(new Point(pointD.X, pointD.Y));
 		}
 
 		void LoadPoints(ImageSurface imageSurface)
 		{
-			var stylusPoints = Element?.Points?.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y)).ToList();
-			if (stylusPoints is { Count: > 0 })
+			var lines = Element.Lines;
+			if (lines.Count > 0)
 			{
-				previousPoint = stylusPoints[0];
-				using var ctx = new Context(imageSurface);
+				foreach (var line in lines)
+				{
+					var stylusPoints = line.Points.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y)).ToList();
+					if (stylusPoints is { Count: > 0 })
+					{
+						previousPoint = stylusPoints[0];
+						using var ctx = new Context(imageSurface);
 
-				foreach (var stylusPoint in stylusPoints)
-					DrawPoint(ctx, stylusPoint);
+						foreach (var stylusPoint in stylusPoints)
+							DrawPoint(ctx, stylusPoint);
 
-				area!.QueueDraw();
+						area!.QueueDraw();
+					}
+				}
 			}
 		}
 
@@ -179,7 +197,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				area.Dispose();
 				surface!.Dispose();
 				if (Element != null)
-					Element.Points.CollectionChanged -= OnPointsCollectionChanged;
+					Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
 			}
 
 			disposed = true;
