@@ -2,7 +2,7 @@
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
-	static class XCT
+	static partial class XCT
 	{
 		static bool? isiOS13OrNewer;
 
