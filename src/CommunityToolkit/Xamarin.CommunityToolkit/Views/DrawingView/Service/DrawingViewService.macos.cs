@@ -78,7 +78,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			context.SetLineJoin(CGLineJoin.Round);
 			context.AddLines(points.Select(p => new CGPoint(p.X - minPointX, p.Y - minPointY)).ToArray());
 			context.StrokePath();
-			using var cgImage = context.ToImage();
+			using var cgImage = context.ToImage() ?? throw new InvalidOperationException();
 			NSImage image = new(cgImage, imageSize);
 			return image;
 		}
@@ -111,7 +111,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				context.AddLines(line.Points.Select(p => new CGPoint(p.X - minPointX, p.Y - minPointY)).ToArray());
 			}
 			context.StrokePath();
-			using var cgImage = context.ToImage();
+			using var cgImage = context.ToImage() ?? throw new InvalidOperationException();
 			NSImage image = new(cgImage, imageSize);
 			return image;
 		}

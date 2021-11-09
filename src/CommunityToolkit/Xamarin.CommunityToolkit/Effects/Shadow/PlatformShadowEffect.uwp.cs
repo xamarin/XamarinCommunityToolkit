@@ -55,6 +55,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 				case nameof(VisualElement.Width):
 				case nameof(VisualElement.Height):
 				case nameof(VisualElement.BackgroundColor):
+				case nameof(IBorderElement.CornerRadius):
 					UpdateShadow();
 					break;
 			}
