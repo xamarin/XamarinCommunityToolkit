@@ -85,14 +85,12 @@
     <Compile Include="**\*.netstandard.*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard2.0')) ">
-    <ProjectReference Include="..\..\SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator.csproj" ReferenceOutputAssembly="false" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.7.0" />
     <Compile Include="**\*.netstandard.cs" />
     <Compile Include="**\*.netstandard.*.cs" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard2.1')) ">
-    <ProjectReference Include="..\..\SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator.csproj" ReferenceOutputAssembly="false" />
     <Compile Include="**\*.netstandard.cs" />
     <Compile Include="**\*.netstandard.*.cs" />
   </ItemGroup>
@@ -211,12 +209,7 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard1.0')) ">
-    <Compile Remove="build\*.cs" />
-    <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard2.1')) == true AND  $(TargetFramework.StartsWith('netstandard2.0')) == true">
+  <ItemGroup>
     <None Include="..\..\SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator\bin\$(Configuration)\netstandard2.0\Xamarin.CommunityToolkit.SourceGenerator.dll" Pack="true" Visible="true" PackagePath="analyzers/dotnet/xct/cs" />
   </ItemGroup>
 
