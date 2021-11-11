@@ -29,11 +29,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Control.Available += OnAvailability;
 				Control.FinishCapture += FinishCapture;
 
-				Control.SwitchFlash(Element.FlashMode);
 				Control.SetBounds(Element.WidthRequest, Element.HeightRequest);
 				Control.VideoStabilization = Element.VideoStabilization;
 				Control.Zoom = (float)Element.Zoom;
 				Control.RetrieveCameraDevice(Element.CameraOptions);
+				Control.SwitchFlash(Element.FlashMode);
 			}
 
 			if (e.OldElement != null)
@@ -183,9 +183,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(CameraView.CameraOptions):
 					Control.RetrieveCameraDevice(Element.CameraOptions);
 					break;
+				case nameof(Element.Height):
+				case nameof(Element.Width):
 				case nameof(VisualElement.HeightProperty):
 				case nameof(VisualElement.WidthProperty):
 					Control.SetBounds(Element.Width, Element.Height);
+					Control.SetOrientation();
 					break;
 				case nameof(CameraView.VideoStabilization):
 					Control.VideoStabilization = Element.VideoStabilization;

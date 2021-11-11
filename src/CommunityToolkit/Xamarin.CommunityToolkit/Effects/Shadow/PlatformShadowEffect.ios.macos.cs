@@ -71,6 +71,7 @@ public class PlatformShadowEffect : PlatformEffect
 			case nameof(VisualElement.Width):
 			case nameof(VisualElement.Height):
 			case nameof(VisualElement.BackgroundColor):
+			case nameof(IBorderElement.CornerRadius):
 				Update(View);
 				break;
 		}
