@@ -210,7 +210,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator\bin\$(Configuration)\netstandard2.0\Xamarin.CommunityToolkit.SourceGenerator.dll" Pack="true" Visible="true" PackagePath="analyzers/dotnet/xct/cs" />
+    <None Include="..\..\..\Libs\SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator.dll" Pack="true" Visible="true" PackagePath="analyzers/dotnet/xct/cs" />
   </ItemGroup>
 
   <Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
