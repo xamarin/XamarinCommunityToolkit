@@ -33,7 +33,6 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 			var page = (BasePage)Activator.CreateInstance(model.Type);
 			page.Title = model.Title;
 			page.DetailColor = model.Color;
-			page.SetAppThemeColor(BackgroundColorProperty, Color.White, Color.Black);
 			return page;
 		}
 	}

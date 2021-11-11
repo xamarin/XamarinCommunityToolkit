@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Animations"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Animations.AnimationPage"
+                x:DataType="{x:Null}">
+    <pages:BasePage.BindingContext>
+        <vm:AnimationViewModel />
+    </pages:BasePage.BindingContext>
+
+    <Grid RowDefinitions="*,*">
+        <Label Text="Select an animation below and then tap start."
+               HorizontalTextAlignment="Center"
+               x:Name="Lab"/>
+
+        <StackLayout Grid.Row="1">
+            <Picker ItemsSource="{Binding Animations}"
+                    SelectedItem="{Binding SelectedAnimation}"
+                    ItemDisplayBinding="{Binding Name}"/>
+
+            <Button Text="Start"
+                    Command="{Binding StartAnimationCommand}"
+                    CommandParameter="{x:Reference Name=Lab}"/>
+
+            <Button Text="Stop"
+                    Command="{Binding StopAnimationCommand}"/>
+        </StackLayout>
+        
+
+    </Grid>
+</pages:BasePage>
