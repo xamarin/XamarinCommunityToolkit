@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		void LoadPointsButtonClicked(object sender, EventArgs e) => DrawingViewControl.Lines = GenerateLines(50);
 
 		void DisplayHiddenLabelButtonClicked(object sender, EventArgs e) =>
-			HiddenLabel.IsVisible = !HiddenLabel.IsVisible;
+			HiddenPanel.IsVisible = !HiddenPanel.IsVisible;
 
 		void GetCurrentDrawingViewImageClicked(object sender, EventArgs e)
 		{
@@ -87,6 +87,11 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				EnableSmoothedPath = true,
 				Granularity = 5
 			});
+		}
+
+		void ClearLines_Clicked(System.Object sender, System.EventArgs e)
+		{
+			DrawingViewControl.Lines.Clear();
 		}
 	}
 }

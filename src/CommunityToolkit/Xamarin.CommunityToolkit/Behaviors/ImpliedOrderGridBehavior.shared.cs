@@ -78,10 +78,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				columnIndex = Math.Max(columnCount - 1, 0);
 				return;
 			}
-			rowIndex = usedMatrix.IndexOf(row);
+			rowIndex = Array.IndexOf(usedMatrix, row);
 
 			// Find the first available column
-			columnIndex = row.IndexOf(row.FirstOrDefault(c => !c));
+			columnIndex = Array.IndexOf(row, row.FirstOrDefault(c => !c));
 		}
 
 		void UpdateUsedCells(int row, int column, int rowSpan, int columnSpan)

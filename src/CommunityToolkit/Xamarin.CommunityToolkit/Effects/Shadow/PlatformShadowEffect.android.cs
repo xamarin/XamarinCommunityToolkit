@@ -4,9 +4,11 @@ using Android.OS;
 using Android.Views;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AButton = Android.Widget.Button;
+using AEditText = Android.Widget.EditText;
 using ATextView = Android.Widget.TextView;
 using AView = Android.Views.View;
 
@@ -59,7 +61,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void Update()
 		{
-			if (View == null || Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+			if (View == null || XCT.SdkInt < (int)BuildVersionCodes.Lollipop)
 				return;
 
 			var radius = (float)ShadowEffect.GetRadius(Element);
@@ -83,7 +85,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			{
 				button.StateListAnimator = null;
 			}
-			else if (View is not AButton && View is ATextView textView)
+			else if (View is not AEditText && View is ATextView textView)
 			{
 				textView.SetShadowLayer(radius, offsetX, offsetY, androidColor);
 				return;
@@ -98,7 +100,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				group.SetClipToPadding(false);
 
 #pragma warning disable
-			if (Build.VERSION.SdkInt < BuildVersionCodes.P)
+			if (XCT.SdkInt < (int)BuildVersionCodes.P)
 				return;
 
 			View.SetOutlineAmbientShadowColor(androidColor);

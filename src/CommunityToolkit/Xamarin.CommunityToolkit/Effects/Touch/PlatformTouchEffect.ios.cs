@@ -192,6 +192,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.Status != status)
 				HandleTouch(status).SafeFireAndForget();
 
+			if (status == TouchStatus.Canceled)
+				IsCanceled = true;
+
 			base.TouchesMoved(touches, evt);
 		}
 
@@ -217,6 +220,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
+			var canExecuteAction = effect.CanExecute;
+
 			if (interactionStatus == TouchInteractionStatus.Started)
 			{
 				effect?.HandleUserInteraction(TouchInteractionStatus.Started);
@@ -227,7 +232,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (interactionStatus.HasValue)
 				effect?.HandleUserInteraction(interactionStatus.Value);
 
-			if (effect == null || (!effect.NativeAnimation && !IsButton) || !effect.CanExecute)
+			if (effect == null || (!effect.NativeAnimation && !IsButton) || (!canExecuteAction && status == TouchStatus.Started))
 				return;
 
 			var control = effect.Element;
@@ -267,13 +272,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (gestureRecognizer is TouchUITapGestureRecognizer touchGesture && otherGestureRecognizer is UIPanGestureRecognizer &&
 				otherGestureRecognizer.State == UIGestureRecognizerState.Began)
 			{
-				touchGesture.HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).ContinueWith(task =>
-				{
-					if (task.IsFaulted && task.Exception != null)
-						throw task.Exception;
-
-					touchGesture.IsCanceled = true;
-				});
+				touchGesture.HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).SafeFireAndForget();
+				touchGesture.IsCanceled = true;
 			}
 
 			return true;

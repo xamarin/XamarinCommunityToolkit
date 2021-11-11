@@ -11,10 +11,12 @@ using Android.Widget;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using AView = Android.Views.View;
 using Color = Android.Graphics.Color;
+using XColor = Xamarin.Forms.Color;
 using XView = Xamarin.Forms.View;
 
 [assembly: ExportEffect(typeof(PlatformTouchEffect), nameof(TouchEffect))]
@@ -23,7 +25,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 {
 	public class PlatformTouchEffect : PlatformEffect
 	{
-		static readonly Forms.Color defaultNativeAnimationColor = Forms.Color.FromRgba(128, 128, 128, 64);
+		static readonly XColor defaultNativeAnimationColor = XColor.FromRgba(128, 128, 128, 64);
 
 		AccessibilityManager? accessibilityManager;
 		AccessibilityListener? accessibilityListener;
@@ -33,7 +35,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 		AView? rippleView;
 		float startX;
 		float startY;
-		Forms.Color rippleColor;
+		XColor rippleColor;
 		int rippleRadius = -1;
 
 		AView View => Control ?? Container;
@@ -76,7 +78,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				accessibilityManager.AddTouchExplorationStateChangeListener(accessibilityListener);
 			}
 
-			if (Build.VERSION.SdkInt < BuildVersionCodes.Lollipop || !effect.NativeAnimation)
+			if (XCT.SdkInt < (int)BuildVersionCodes.Lollipop || !effect.NativeAnimation)
 				return;
 
 			View.Clickable = true;
@@ -85,7 +87,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			if (Group == null)
 			{
-				if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+				if (XCT.SdkInt >= (int)BuildVersionCodes.M)
 					View.Foreground = ripple;
 
 				return;
@@ -126,7 +128,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					View.Touch -= OnTouch;
 					View.Click -= OnClick;
 
-					if (Build.VERSION.SdkInt >= BuildVersionCodes.M && View.Foreground == ripple)
+					if (XCT.SdkInt >= (int)BuildVersionCodes.M && View.Foreground == ripple)
 						View.Foreground = null;
 				}
 
@@ -164,6 +166,9 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void UpdateClickHandler()
 		{
+			if (!View.IsAlive())
+				return;
+
 			View.Click -= OnClick;
 			if (IsAccessibilityMode || ((effect?.IsAvailable ?? false) && (effect?.Element?.IsEnabled ?? false)))
 			{
@@ -312,9 +317,12 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			if (effect.CanExecute && effect.NativeAnimation)
+			if (!effect.NativeAnimation)
+				return;
+
+			if (effect.CanExecute)
 			{
-				UpdateRipple();
+				UpdateRipple(effect.NativeAnimationColor);
 				if (rippleView != null)
 				{
 					rippleView.Enabled = true;
@@ -327,6 +335,10 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					ripple?.SetHotspot(x, y);
 					View.Pressed = true;
 				}
+			}
+			else if (rippleView == null)
+			{
+				UpdateRipple(XColor.Transparent);
 			}
 		}
 
@@ -354,46 +366,45 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void CreateRipple()
 		{
-			var drawable = Build.VERSION.SdkInt >= BuildVersionCodes.M && Group == null
+			var drawable = XCT.SdkInt >= (int)BuildVersionCodes.M && Group == null
 				? View?.Foreground
 				: View?.Background;
 
 			var isEmptyDrawable = Element is Layout || drawable == null;
+			var color = effect?.NativeAnimationColor ?? throw new NullReferenceException();
 
 			if (drawable is RippleDrawable rippleDrawable && rippleDrawable.GetConstantState() is Drawable.ConstantState constantState)
 				ripple = (RippleDrawable)constantState.NewDrawable();
 			else
-				ripple = new RippleDrawable(GetColorStateList(), isEmptyDrawable ? null : drawable, isEmptyDrawable ? new ColorDrawable(Color.White) : null);
+				ripple = new RippleDrawable(GetColorStateList(color), isEmptyDrawable ? null : drawable, isEmptyDrawable ? new ColorDrawable(Color.White) : null);
 
-			UpdateRipple();
+			UpdateRipple(color);
 		}
 
-		void UpdateRipple()
+		void UpdateRipple(XColor color)
 		{
 			if (effect?.IsDisabled ?? true)
 				return;
 
-			if (effect.NativeAnimationColor == rippleColor && effect.NativeAnimationRadius == rippleRadius)
+			if (color == rippleColor && effect.NativeAnimationRadius == rippleRadius)
 				return;
 
-			rippleColor = effect.NativeAnimationColor;
+			rippleColor = color;
 			rippleRadius = effect.NativeAnimationRadius;
-			ripple?.SetColor(GetColorStateList());
-			if (Build.VERSION.SdkInt >= BuildVersionCodes.M && ripple != null)
+			ripple?.SetColor(GetColorStateList(color));
+			if (XCT.SdkInt >= (int)BuildVersionCodes.M && ripple != null)
 				ripple.Radius = (int)(View.Context?.Resources?.DisplayMetrics?.Density * effect?.NativeAnimationRadius ?? throw new NullReferenceException());
 		}
 
-		ColorStateList GetColorStateList()
+		ColorStateList GetColorStateList(XColor color)
 		{
-			_ = effect?.NativeAnimationColor ?? throw new NullReferenceException();
-
-			var nativeAnimationColor = effect.NativeAnimationColor;
-			if (nativeAnimationColor == Forms.Color.Default)
-				nativeAnimationColor = defaultNativeAnimationColor;
+			var animationColor = color;
+			if (animationColor == XColor.Default)
+				animationColor = defaultNativeAnimationColor;
 
 			return new ColorStateList(
 				new[] { new int[] { } },
-				new[] { (int)nativeAnimationColor.ToAndroid() });
+				new[] { (int)animationColor.ToAndroid() });
 		}
 
 		void OnLayoutChange(object? sender, AView.LayoutChangeEventArgs e)
