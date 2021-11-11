@@ -279,11 +279,11 @@ namespace Xamarin.CommunityToolkit.Behaviors.Internals
 				try
 				{
 					var isValid = await ValidateAsync(Decorate(Value), token).ConfigureAwait(false);
+					validationTokenSource = null;
 
 					if (token.IsCancellationRequested)
 						return;
 
-					validationTokenSource = null;
 					IsValid = isValid;
 					IsRunning = false;
 				}
