@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "XCT.MauiCompat.Sample.WinUI": {
+      "commandName": "MsixPackage"
+    }
+  }
+}

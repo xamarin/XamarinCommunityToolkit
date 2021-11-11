@@ -1,0 +1,83 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- iOS, Android, MacCatalyst -->
+		<TargetFrameworks>net6.0-ios;net6.0-android;</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<RootNamespace>XCT.MauiCompat.Sample</RootNamespace>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>XCT.MauiCompat.Sample</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.XCT.MauiCompat.Sample</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationVersion>1.0</ApplicationVersion>
+		<AndroidVersionCode>1</AndroidVersionCode>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiImage Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" IsAppIcon="true" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <BundleResource Remove="App\Resx\**" />
+	  <Compile Remove="App\Resx\**" />
+	  <EmbeddedResource Remove="App\Resx\**" />
+	  <ImageAsset Remove="App\Resx\**" />
+	  <InterfaceDefinition Remove="App\Resx\**" />
+	  <MauiCss Remove="App\Resx\**" />
+	  <MauiXaml Remove="App\Resx\**" />
+	  <None Remove="App\Resx\**" />
+	  <SceneKitAsset Remove="App\Resx\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="App\Pages\SettingPage.xaml.cs" />
+	  <Compile Remove="App\ViewModels\SettingViewModel.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="App\Pages\SettingPage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Octokit" Version="0.50.0" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<InvariantGlobalization Condition="$(TargetFramework.Contains('-maccatalyst'))">true</InvariantGlobalization>
+		<RuntimeIdentifier Condition="$(TargetFramework.Contains('-ios'))">iossimulator-x64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="$(TargetFramework.Contains('-maccatalyst'))">maccatalyst-x64</RuntimeIdentifier>
+		<UseInterpreter Condition="$(TargetFramework.Contains('-android'))">False</UseInterpreter>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <_MauiCompileToAdd Remove="App\Resx\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_MauiXamlToRemove Remove="App\Resx\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\src\CommunityToolkit\Xamarin.CommunityToolkit.MauiCompat\Xamarin.CommunityToolkit.MauiCompat.csproj" />
+	  <ProjectReference Include="..\..\..\src\Markup\Xamarin.CommunityToolkit.Markup.MauiCompat\Xamarin.CommunityToolkit.Markup.MauiCompat.csproj" />
+	</ItemGroup>
+
+</Project>
