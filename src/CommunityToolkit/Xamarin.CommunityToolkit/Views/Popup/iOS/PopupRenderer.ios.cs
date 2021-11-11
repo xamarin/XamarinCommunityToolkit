@@ -123,7 +123,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 
 			var view = Element.Content;
-			var contentPage = new ContentPage { Content = view, Padding = new Thickness(25) };
+			var contentPage = new ContentPage { Content = view };
 
 			Control = Platform.CreateRenderer(contentPage);
 			Platform.SetRenderer(contentPage, Control);
@@ -133,7 +133,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetViewController()
 		{
-			var currentPageRenderer = Platform.GetRenderer(Application.Current.MainPage);
+			IVisualElementRenderer currentPageRenderer;
+			var modalStackCount = Application.Current.MainPage?.Navigation?.ModalStack?.Count ?? 0;
+			var mainPage = Application.Current.MainPage;
+			if (modalStackCount > 0)
+			{
+				var index = modalStackCount - 1;
+				currentPageRenderer = Platform.GetRenderer(mainPage!.Navigation!.ModalStack![index]);
+			}
+			else
+			{
+				currentPageRenderer = Platform.GetRenderer(mainPage);
+			}
 			ViewController = currentPageRenderer.ViewController;
 		}
 

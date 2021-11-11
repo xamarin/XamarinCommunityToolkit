@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Extensions;
-using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using static System.Math;
 
@@ -117,6 +116,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		internal async Task ChangeStateAsync(TouchEffect sender, bool animated)
 		{
+			var status = sender.Status;
 			var state = sender.State;
 			var hoverState = sender.HoverState;
 
@@ -149,6 +149,15 @@ namespace Xamarin.CommunityToolkit.Effects
 
 			if (pulseCount == 0 || (state == TouchState.Normal && !isToggled.HasValue))
 			{
+				if (isToggled.HasValue)
+				{
+					state =
+						(status == TouchStatus.Started && isToggled.Value) ||
+						(status != TouchStatus.Started && !isToggled.Value)
+						? TouchState.Normal
+						: TouchState.Pressed;
+				}
+
 				await RunAnimationTask(sender, state, hoverState, animationTokenSource.Token).ConfigureAwait(false);
 				return;
 			}
@@ -242,7 +251,7 @@ namespace Xamarin.CommunityToolkit.Effects
 			switch (collectionView.SelectionMode)
 			{
 				case SelectionMode.Single:
-					collectionView.SelectedItem = !item.Equals(collectionView.SelectedItem) ? item : null;
+					collectionView.SelectedItem = item;
 					break;
 				case SelectionMode.Multiple:
 					var selectedItems = collectionView.SelectedItems?.ToList() ?? new List<object>();
@@ -271,14 +280,14 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		void UpdateStatusAndState(TouchEffect sender, TouchStatus status, TouchState state)
 		{
+			sender.Status = status;
+			sender.RaiseStatusChanged();
+
 			if (sender.State != state || status != TouchStatus.Canceled)
 			{
 				sender.State = state;
 				sender.RaiseStateChanged();
 			}
-
-			sender.Status = status;
-			sender.RaiseStatusChanged();
 		}
 
 		void UpdateVisualState(VisualElement visualElement, TouchState touchState, HoverState hoverState)

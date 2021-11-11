@@ -1,11 +1,15 @@
 ﻿using System.ComponentModel;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
-using Android.Widget;
 using Xamarin.CommunityToolkit.Android.Effects;
 using Xamarin.CommunityToolkit.Effects;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using AButton = Android.Widget.Button;
+using AEditText = Android.Widget.EditText;
+using ATextView = Android.Widget.TextView;
 using AView = Android.Views.View;
 
 [assembly: ExportEffect(typeof(PlatformShadowEffect), nameof(ShadowEffect))]
@@ -47,6 +51,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				case ShadowEffect.OffsetYPropertyName:
 				case nameof(VisualElement.Width):
 				case nameof(VisualElement.Height):
+				case nameof(VisualElement.BackgroundColor):
+				case nameof(IBorderElement.CornerRadius):
 					View.Invalidate();
 					Update();
 					break;
@@ -55,7 +61,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 		void Update()
 		{
-			if (View == null || Build.VERSION.SdkInt < BuildVersionCodes.Lollipop)
+			if (View == null || XCT.SdkInt < (int)BuildVersionCodes.Lollipop)
 				return;
 
 			var radius = (float)ShadowEffect.GetRadius(Element);
@@ -66,27 +72,57 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			if (opacity < 0)
 				opacity = defaultOpacity;
 
-			var androidColor = ShadowEffect.GetColor(Element).MultiplyAlpha(opacity).ToAndroid();
+			var color = ShadowEffect.GetColor(Element);
+			if (!color.IsDefault)
+				color = color.MultiplyAlpha(opacity);
 
-			if (View is TextView textView)
+			var androidColor = color.ToAndroid();
+			var offsetX = (float)ShadowEffect.GetOffsetX(Element);
+			var offsetY = (float)ShadowEffect.GetOffsetY(Element);
+			var cornerRadius = Element is IBorderElement borderElement ? borderElement.CornerRadius : 0;
+
+			if (View is AButton button)
 			{
-				var offsetX = (float)ShadowEffect.GetOffsetX(Element);
-				var offsetY = (float)ShadowEffect.GetOffsetY(Element);
+				button.StateListAnimator = null;
+			}
+			else if (View is not AEditText && View is ATextView textView)
+			{
 				textView.SetShadowLayer(radius, offsetX, offsetY, androidColor);
 				return;
 			}
 
-			View.OutlineProvider = (Element as VisualElement)?.BackgroundColor.A > 0
-				? ViewOutlineProvider.PaddedBounds
-				: ViewOutlineProvider.Bounds;
-
+			var pixelOffsetX = View.Context.ToPixels(offsetX);
+			var pixelOffsetY = View.Context.ToPixels(offsetY);
+			var pixelCornerRadius = View.Context.ToPixels(cornerRadius);
+			View.OutlineProvider = new ShadowOutlineProvider(pixelOffsetX, pixelOffsetY, pixelCornerRadius);
 			View.Elevation = View.Context.ToPixels(radius);
+			if (View.Parent is ViewGroup group)
+				group.SetClipToPadding(false);
 
-			if (Build.VERSION.SdkInt < BuildVersionCodes.P)
+#pragma warning disable
+			if (XCT.SdkInt < (int)BuildVersionCodes.P)
 				return;
 
 			View.SetOutlineAmbientShadowColor(androidColor);
 			View.SetOutlineSpotShadowColor(androidColor);
+#pragma warning restore
+		}
+
+		class ShadowOutlineProvider : ViewOutlineProvider
+		{
+			readonly float offsetX;
+			readonly float offsetY;
+			readonly float cornerRadius;
+
+			public ShadowOutlineProvider(float offsetX, float offsetY, float cornerRadius)
+			{
+				this.offsetX = offsetX;
+				this.offsetY = offsetY;
+				this.cornerRadius = cornerRadius;
+			}
+
+			public override void GetOutline(AView? view, Outline? outline)
+				=> outline?.SetRoundRect((int)offsetX, (int)offsetY, view?.Width ?? 0, view?.Height ?? 0, cornerRadius);
 		}
 	}
 }

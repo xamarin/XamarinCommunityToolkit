@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Propose a New Feature for .NET MAUI Toolkit
+    url: https://github.com/communitytoolkit/maui/discussions/new
+    about: The Xamarin Community Toolkit is no longer accepting new feature proposals. Going forward, all new features will be added to the .NET MAUI Community Toolkit.
+  - name: DotNetEvolution Discord Server
+    url: https://aka.ms/dotnet-discord
+    about: Please ask and answer questions here in the #xamarin-community-toolkit channel.

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Internals;
 using Xamarin.Forms;
 using static System.Math;
@@ -94,7 +95,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			#region Required work-around to prevent linker from removing the platform-specific implementation
 #if __ANDROID__
 			if (System.DateTime.Now.Ticks < 0)
-				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(ToolkitPlatform.Context ?? throw new NullReferenceException());
+				_ = new Xamarin.CommunityToolkit.Android.UI.Views.SideMenuViewRenderer(XCT.Context ?? throw new NullReferenceException());
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.UI.Views.SideMenuViewRenderer();
@@ -430,7 +431,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (inactiveMenu != null)
 					inactiveMenu.TranslationX = -inactiveMenu.Width * nonZeroSign;
 
-				var progress = animationEasing.Ease(shift / activeMenuWidth);
+				var progress = animationEasing.Ease(Abs(shift) / activeMenuWidth);
 				var scale = 1 - ((1 - GetMainViewScaleFactor(activeMenu)) * progress);
 				var opacity = 1 - ((1 - GetMainViewOpacityFactor(activeMenu)) * progress);
 
@@ -443,17 +444,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				switch (GetMenuAppearanceType(activeMenu))
 				{
 					case SideMenuAppearanceType.SlideOut:
-						activeMenu.TranslationX = parallax * (1 - Abs(progress)) * nonZeroSign;
+						activeMenu.TranslationX = parallax * (1 - progress) * nonZeroSign;
 						mainView.TranslationX = shift - (sign * mainViewWidth * 0.5 * (1 - scale));
 						overlayView.TranslationX = shift;
 						break;
 					case SideMenuAppearanceType.SlideIn:
 						activeMenu.TranslationX = (activeMenuWidth - Abs(shift)) * nonZeroSign;
-						mainView.TranslationX = parallax * progress;
-						overlayView.TranslationX = parallax * progress;
+						mainView.TranslationX = parallax * nonZeroSign * progress;
+						overlayView.TranslationX = parallax * nonZeroSign * progress;
 						break;
 					case SideMenuAppearanceType.SlideInOut:
-						activeMenu.TranslationX = (activeMenuWidth - Abs(shift) - (parallax * (1 - Abs(progress)))) * nonZeroSign;
+						activeMenu.TranslationX = (activeMenuWidth - Abs(shift) - (parallax * (1 - progress))) * nonZeroSign;
 						mainView.TranslationX = shift - (sign * mainViewWidth * 0.5 * (1 - scale));
 						overlayView.TranslationX = shift;
 						break;
@@ -597,7 +598,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void AddChild(View view)
 		{
-			Control.Children.Add(view);
+			Control?.Children.Add(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -614,7 +615,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void RemoveChild(View view)
 		{
-			Control.Children.Remove(view);
+			Control?.Children.Remove(view);
 			switch (GetPosition(view))
 			{
 				case SideMenuPosition.MainView:
@@ -637,7 +638,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void RaiseMenuIfNeeded(View? menuView)
 		{
 			if (menuView != null && GetMenuAppearanceType(menuView) == SideMenuAppearanceType.SlideIn)
-				Control.RaiseChild(menuView);
+				Control?.RaiseChild(menuView);
 		}
 
 		void OnLayoutChanged(object? sender, EventArgs e)
@@ -645,10 +646,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (mainView == null)
 				return;
 
-			using (Control.Batch())
+			using (Control?.Batch())
 			{
-				Control.RaiseChild(mainView);
-				Control.RaiseChild(overlayView);
+				Control?.RaiseChild(mainView);
+				Control?.RaiseChild(overlayView);
 
 				RaiseMenuIfNeeded(leftMenu);
 				RaiseMenuIfNeeded(rightMenu);

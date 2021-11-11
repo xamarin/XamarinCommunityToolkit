@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using EButton = ElmSharp.Button;
 
@@ -7,7 +8,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	class SnackBar
 	{
-		internal void Show(Forms.VisualElement sender, SnackBarOptions arguments)
+		internal ValueTask Show(Forms.VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBarDialog =
 				Forms.Platform.Tizen.Native.Dialog.CreateDialog(Forms.Forms.NativeParent,
@@ -35,13 +36,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				};
 			}
 
-			snackBarDialog.TimedOut += DismissSnackBar;
-
-			snackBarDialog.BackButtonPressed += DismissSnackBar;
-
+			snackBarDialog.TimedOut += (s, evt) => DismissSnackBar();
+			snackBarDialog.BackButtonPressed += (s, evt) => DismissSnackBar();
 			snackBarDialog.Show();
 
-			void DismissSnackBar(object? sender, EventArgs e)
+			return default;
+
+			void DismissSnackBar()
 			{
 				snackBarDialog.Dismiss();
 				arguments.SetResult(false);

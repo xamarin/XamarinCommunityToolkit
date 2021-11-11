@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.Converters;
@@ -88,21 +88,37 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				nameof(EnumToBoolConverter),
 				"A converter that allows you to convert an Enum to boolean value"),
 			new SectionModel(
+				typeof(EnumToIntConverterPage),
+				nameof(EnumToIntConverter),
+				"A converter that allows you to convert an Enum to its underlying int value"),
+			new SectionModel(
 				typeof(ImageResourceConverterPage),
 				nameof(ImageResourceConverter),
 				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
 			new SectionModel(
+				typeof(IsInRangeConverterPage),
+				nameof(IsInRangeConverter),
+				"A converter that allows you to check if a value is in a range"),
+			new SectionModel(
 				typeof(MathExpressionConverterPage),
 				nameof(MathExpressionConverter),
 				"A converter that allows users to calculate an expression at runtime."),
-      new SectionModel(
+			new SectionModel(
 				typeof(StringToListConverterPage),
 				nameof(StringToListConverter),
 				"A converter that splits a string by the separator and returns the enumerable sequence of strings as the result."),
 			new SectionModel(
 				typeof(CompareConverterPage),
 				nameof(CompareConverter),
-				"A converter that allows you to convert an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue.")
+				"A converter that allows you to convert an object of a type implementing IComparable, to a boolean or a specific object based on the result of a comparaison specified by a comparison operator and ComparingValue."),
+			new SectionModel(
+				typeof(ImageResourceConverterPage),
+				nameof(ImageResourceConverter),
+				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
+			new SectionModel(
+				typeof(ColorsConverterPage),
+				"Colors converters",
+				"A group of converters that convert a Color to your strings values (RGB, HEX, HSL, etc)"),
 		};
 	}
 }
