@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.CommunityToolkit.Helpers;
 
 #if MONOANDROID
 using Xamarin.Forms.Platform.Android;
@@ -14,7 +15,7 @@ using StreamImageSourceHandler = Xamarin.Forms.Platform.iOS.StreamImagesourceHan
 using Xamarin.Forms.Platform.MacOS;
 using UriImageSourceHandler = Xamarin.Forms.Platform.MacOS.ImageLoaderSourceHandler;
 using StreamImageSourceHandler = Xamarin.Forms.Platform.MacOS.StreamImagesourceHandler;
-#elif UWP
+#elif UAP10_0
 using Xamarin.Forms.Platform.UWP;
 #elif NET471
 using Xamarin.Forms.Platform.GTK.Renderers;
@@ -40,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 #if TIZEN
 			return await handler.LoadImageAsync(new NImage(XForms.NativeParent), source).ConfigureAwait(false);
 #elif MONOANDROID
-			var imageSource = await handler.LoadImageAsync(source, ToolkitPlatform.Context).ConfigureAwait(false);
+			var imageSource = await handler.LoadImageAsync(source, XCT.Context).ConfigureAwait(false);
 			return imageSource != null;
 #else
 			var imageSource = await handler.LoadImageAsync(source).ConfigureAwait(false);

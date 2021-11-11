@@ -14,6 +14,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			new SectionModel(typeof(BadgeViewPage), "BadgeView",
 				"View used to notify users notifications, or status of something"),
 
+			new SectionModel(typeof(DrawingViewPage), "DrawingView",
+				"Draw & GO DrawingView makes capturing and displaying gestures extremely simple on all platforms that Xamarin.Forms supports. (Android, iOS, macOS, UWP, WPF, GTK and Tizen)"),
+
 			new SectionModel(typeof(CameraViewPage), "CameraView",
 				"The CameraView allows you to show a live preview from the camera. You can take pictures, record videos and much more!"),
 
@@ -55,6 +58,9 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 
 			new SectionModel(typeof(UniformGridPage), "UniformGrid",
 				"The UniformGrid is just like the Grid, with all rows and columns will have the same size."),
+
+			new SectionModel(typeof(TextSwitcherPage), "TextSwitcher",
+				"A TextSwitcher is useful to animate a label on screen. Whenever Text is updated, TextSwitcher animates the current text out and animates the new text in."),
 
 			new SectionModel(typeof(PopupGalleryPage), "Popup",
 				"The popup control renders native popups from the shared code. This page demonstrates a variety of different techniques for displaying native popups."),

@@ -83,7 +83,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		public void EnumToBoolConvert_Validation(object?[]? trueValues, object? value, object parameter, bool expectedResult)
 		{
 			var enumToBoolConverter = new EnumToBoolConverter();
-			trueValues?.OfType<Enum>().ToList().ForEach(fe => enumToBoolConverter.TrueValues.Add(fe));
+
+			foreach (var enumType in trueValues?.OfType<Enum>() ?? Enumerable.Empty<Enum>())
+				enumToBoolConverter.TrueValues.Add(enumType);
 
 			var result = enumToBoolConverter.Convert(value, typeof(bool), parameter, CultureInfo.InvariantCulture);
 			Assert.AreEqual(expectedResult, result);

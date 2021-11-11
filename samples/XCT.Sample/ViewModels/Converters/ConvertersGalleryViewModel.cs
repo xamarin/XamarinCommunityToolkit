@@ -96,6 +96,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				nameof(ImageResourceConverter),
 				"A converter that allows you to convert embeded ressource image id to an ImageSource"),
 			new SectionModel(
+				typeof(IsInRangeConverterPage),
+				nameof(IsInRangeConverter),
+				"A converter that allows you to check if a value is in a range"),
+			new SectionModel(
 				typeof(MathExpressionConverterPage),
 				nameof(MathExpressionConverter),
 				"A converter that allows users to calculate an expression at runtime."),
@@ -115,6 +119,10 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				typeof(ColorsConverterPage),
 				"Colors converters",
 				"A group of converters that convert a Color to your strings values (RGB, HEX, HSL, etc)"),
+			new SectionModel(
+				typeof(UtcDateTimeToLocalStringConverterPage),
+				nameof(UtcDateTimeToLocalStringConverter),
+				"A converter that allows you to convert either a DateTimeOffset or DateTime from UTC into the local time string value with the provided datetime format."),
 		};
 	}
 }

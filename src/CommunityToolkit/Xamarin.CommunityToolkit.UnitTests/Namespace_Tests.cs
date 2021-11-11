@@ -30,6 +30,9 @@ namespace Xamarin.CommunityToolkit.UnitTests
 		{
 			var allTheTypes = Assembly.GetAssembly(typeof(SafeAreaEffect))?.GetTypes() ?? throw new NullReferenceException();
 
+			// Filter out the platform-specific ones, i.e. AndroidSpecific or iOSSpecific
+			allTheTypes = allTheTypes.Except(allTheTypes.Where(t => t.Namespace.EndsWith("Specific"))).ToArray();
+
 			foreach (var type in allTheTypes.Where(t => t.Name.EndsWith("Effect") && t.IsClass && t.IsSealed && t.IsAbstract))
 			{
 				Assert.IsTrue(type?.Namespace?.Equals("Xamarin.CommunityToolkit.Effects"),

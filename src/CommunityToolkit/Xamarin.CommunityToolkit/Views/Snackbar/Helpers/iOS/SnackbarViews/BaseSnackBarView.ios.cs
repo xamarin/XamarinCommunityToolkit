@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
+using CoreGraphics;
 using UIKit;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.Extensions;
+using Xamarin.CommunityToolkit.Views.Snackbar.Helpers;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 {
@@ -15,23 +18,31 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		protected NativeSnackBar SnackBar { get; }
 
-		protected UIStackView? StackView { get; set; }
+		protected NativeRoundedStackView? StackView { get; set; }
 
 		public void Dismiss() => RemoveFromSuperview();
 
-		public void Setup()
+		public void Setup(CGRect cornerRadius)
 		{
-			Initialize();
+			Initialize(cornerRadius);
 			ConstraintInParent();
 		}
 
 		void ConstraintInParent()
 		{
 			_ = ParentView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
-			_ = AnchorView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
 			_ = StackView ?? throw new InvalidOperationException($"{nameof(BaseSnackBarView)}.{nameof(Initialize)} not called");
 
-			this.SafeBottomAnchor().ConstraintEqualTo(AnchorView.SafeBottomAnchor(), -SnackBar.Layout.MarginBottom).Active = true;
+			if (AnchorView is null)
+			{
+				this.SafeBottomAnchor().ConstraintEqualTo(ParentView.SafeBottomAnchor(), -SnackBar.Layout.MarginBottom).Active = true;
+				this.SafeTopAnchor().ConstraintGreaterThanOrEqualTo(ParentView.SafeTopAnchor(), SnackBar.Layout.MarginTop).Active = true;
+			}
+			else
+			{
+				this.SafeBottomAnchor().ConstraintEqualTo(AnchorView.SafeBottomAnchor(), -SnackBar.Layout.MarginBottom).Active = true;
+			}
+
 			this.SafeLeadingAnchor().ConstraintGreaterThanOrEqualTo(ParentView.SafeLeadingAnchor(), SnackBar.Layout.MarginLeft).Active = true;
 			this.SafeTrailingAnchor().ConstraintLessThanOrEqualTo(ParentView.SafeTrailingAnchor(), -SnackBar.Layout.MarginRight).Active = true;
 			this.SafeCenterXAnchor().ConstraintEqualTo(ParentView.SafeCenterXAnchor()).Active = true;
@@ -42,9 +53,9 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 			StackView.SafeTopAnchor().ConstraintEqualTo(this.SafeTopAnchor(), SnackBar.Layout.PaddingTop).Active = true;
 		}
 
-		protected virtual void Initialize()
+		protected virtual void Initialize(CGRect cornerRadius)
 		{
-			StackView = new UIStackView();
+			StackView = new NativeRoundedStackView(cornerRadius.X, cornerRadius.Y, cornerRadius.Width, cornerRadius.Height);
 
 			AddSubview(StackView);
 

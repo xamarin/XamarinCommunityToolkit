@@ -1,13 +1,30 @@
 ---
 name: Bug Report
-about: Create a report to help us improve
+about: Report a bug in the Xamarin Community Toolkit
 title: "[Bug] "
-labels: 'bug, s/unverified'
+labels: bug, unverified
 assignees: ''
 
 ---
 
+<!--
+Hello, and thanks for your interest in contributing to the Xamarin Community Toolkit! 
+
+Please describe the issue below, including detailed steps for reproduction. If we are unable to reproduce the bug we will be unable to fix the issue and may close this Issue.
+
+-->
+
 ### Description
+
+<!-- Please provide a detailed description of the issue -->
+
+### Stack Trace
+
+<!-- Please copy/paste the complete stack trace (if applicable) -->
+
+### Link to Reproduction Sample
+
+<!-- Please link to a GitHub Repo or GitHub Page -->
 
 ### Steps to Reproduce
 
@@ -38,7 +55,3 @@ assignees: ''
 ### Reproduction imagery
 
 <!-- If it is a visual issue, please include imagery (GIF/Screenshots) showing the problem -->
-
-### Reproduction Link
-
-<!-- Please upload or provide a link to a reproduction case -->
