@@ -177,9 +177,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					drawCanvas.DrawPath(drawPath, drawPaint);
 					drawPath.Reset();
 				}
-
-				Invalidate();
 			}
+
+			Invalidate();
 		}
 
 		protected override void Dispose(bool disposing)
