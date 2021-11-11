@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return Stream.Null;
 			}
 
-			return image?.AsTiff()?.AsStream() ?? Stream.Null;
+			return image.AsTiff()?.AsStream() ?? Stream.Null;
 		}
 
 		/// <summary>
@@ -55,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return Stream.Null;
 			}
 
-			return image?.AsTiff()?.AsStream() ?? Stream.Null;
+			return image.AsTiff()?.AsStream() ?? Stream.Null;
 		}
 
 		static NSImage? GetImageInternal(IList<Point> points,
@@ -89,6 +89,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			context.AddLines(points.Select(p => new CGPoint(p.X - minPointX, p.Y - minPointY)).ToArray());
 			context.StrokePath();
+
 			using var cgImage = context.ToImage() ?? throw new InvalidOperationException("Image Cannot be null");
 			NSImage image = new(cgImage, imageSize);
 

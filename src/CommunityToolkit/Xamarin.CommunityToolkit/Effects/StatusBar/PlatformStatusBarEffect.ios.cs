@@ -27,7 +27,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		protected override void OnElementPropertyChanged(PropertyChangedEventArgs args)
 		{
 			base.OnElementPropertyChanged(args);
-			if (args.PropertyName == StatusBarEffect.ColorProperty.PropertyName)
+			if (args.PropertyName == StatusBarEffect.ColorProperty.PropertyName
+				|| args.PropertyName == View.HeightProperty.PropertyName
+				|| args.PropertyName == View.WidthProperty.PropertyName)
 			{
 				SetColor(StatusBarEffect.GetColor(Element));
 			}
@@ -50,6 +52,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 					statusBar.Tag = statusBarTag;
 					statusBar.BackgroundColor = uiColor;
 					statusBar.TintColor = uiColor;
+					statusBar.Frame = UIApplication.SharedApplication.StatusBarFrame;
 					window.AddSubview(statusBar);
 
 					UpdateStatusBarAppearance(window);

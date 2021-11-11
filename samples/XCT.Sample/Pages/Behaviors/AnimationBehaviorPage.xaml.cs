@@ -3,5 +3,5 @@
 	public partial class AnimationBehaviorPage : BasePage
 	{
 		public AnimationBehaviorPage() => InitializeComponent();
-	}
+    }
 }
