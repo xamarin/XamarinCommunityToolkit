@@ -38,6 +38,27 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			}
 		}
 
+		[TestCase("min(max(4+x, 5), 10)", 2d, 6d)]
+		public void MathExpressionConverter_ExpressionProperty_ReturnsCorrectResult(
+			string expression, double x, double expectedResult)
+		{
+			var mathExpressionConverter = new MathExpressionConverter
+			{
+				Expression = expression
+			};
+
+			var result = mathExpressionConverter.Convert(x, type, null, cultureInfo);
+
+			if (result == null)
+			{
+				Assert.Fail();
+			}
+			else
+			{
+				Assert.IsTrue(Math.Abs((double)result - expectedResult) < tolerance);
+			}
+		}
+
 		[TestCase("x + x1 * x1", new object[] { 2d, 1d }, 3d)]
 		[TestCase("(x1 + x) * x1", new object[] { 2d, 3d }, 15d)]
 		[TestCase("3 + x * x1 / (1 - 5)^x1", new object[] { 4d, 2d }, 3.5d)]
@@ -48,6 +69,27 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			var mathExpressionConverter = new MultiMathExpressionConverter();
 
 			var result = mathExpressionConverter.Convert(variables, type, expression, cultureInfo);
+
+			if (result == null)
+			{
+				Assert.Fail();
+			}
+			else
+			{
+				Assert.IsTrue(Math.Abs((double)result - expectedResult) < tolerance);
+			}
+		}
+
+		[TestCase("x + x1 * x1", new object[] { 2d, 1d }, 3d)]
+		public void MathExpressionConverter_WithMultiplyVariable_ExpressionProperty_ReturnsCorrectResult(
+			string expression, object[] variables, double expectedResult)
+		{
+			var mathExpressionConverter = new MultiMathExpressionConverter
+			{
+				Expression = expression
+			};
+
+			var result = mathExpressionConverter.Convert(variables, type, null, cultureInfo);
 
 			if (result == null)
 			{
