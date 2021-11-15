@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				}
 
 				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action) ?? throw new NullReferenceException();
-				if (arguments.BackgroundColor != Forms.Color.Default)
+				if (action.BackgroundColor != Forms.Color.Default)
 				{
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
 				}

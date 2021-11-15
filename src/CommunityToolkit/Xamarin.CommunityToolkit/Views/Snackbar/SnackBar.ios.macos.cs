@@ -102,7 +102,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (action.Font != Font.Default)
 				{
-					actionButton.Font = action.Font.ToUIFont();
+					actionButton.TitleLabel.Font = action.Font.ToUIFont();
 				}
 
 				if (action.ForegroundColor != Color.Default)
