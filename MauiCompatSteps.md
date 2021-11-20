@@ -129,3 +129,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, View> { }
 ```
+
+### 6. Build projects
+
+```zsh
+dotnet build ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.sln -c Release
+
+dotnet build ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat.sln -c Release
+```
