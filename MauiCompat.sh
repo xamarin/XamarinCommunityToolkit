@@ -480,8 +480,10 @@ sed -i '' 's/MauiCompat.Resource.Layout.CameraFragment/MauiCompat.Resource.Layou
 sed -i '' 's/using Xamarin.Forms;/using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 sed -i '' 's/using Xamarin.Forms;/using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/**/**.cs
-
-: '
-StreamMediaSource
-public bool IsEmpty => Stream == null;
-'
+sed -i '' 's/using Microsoft.Maui.Controls.Compatibility;/using Microsoft.Maui.Controls.Compatibility;using Microsoft.Maui.Layouts;using FlexLayout = Microsoft.Maui.Controls.FlexLayout;/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/ViewInFlexLayoutExtensions.cs
+sed -i '' 's/Xamarin.Forms/Microsoft.Maui.Controls/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/ElementExtensions.cs
+sed -i '' 's/Xamarin.Forms.Rectangle/Microsoft.Maui.Graphics.Rectangle/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/RelativeLayout.cs
+sed -i '' 's/Xamarin.Forms.RelativeLayout/Microsoft.Maui.Controls.Compatibility.RelativeLayout/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/RelativeLayout.cs
+sed -i '' 's/Xamarin.Forms.View/Microsoft.Maui.Controls.View/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/RelativeLayout.cs
+sed -i '' 's/Xamarin.Forms.Constraint/Microsoft.Maui.Controls.Compatibility.Constraint/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/RelativeLayout.cs
+sed -i '' 's/using Microsoft.Maui.Controls.Compatibility;/using Microsoft.Maui.Controls.Compatibility;using Grid = Microsoft.Maui.Controls.Grid;/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/ViewInGridExtensions.cs
