@@ -1,0 +1,7 @@
+<Project>
+  <ItemGroup>
+    <Compile Condition="'$(MSBuildProjectExtension)' == '.csproj'" 
+             Include="$(MSBuildThisFileDirectory)PreserveXamarinCommunityToolkit.cs"
+             Visible="false" />
+  </ItemGroup>
+</Project>
