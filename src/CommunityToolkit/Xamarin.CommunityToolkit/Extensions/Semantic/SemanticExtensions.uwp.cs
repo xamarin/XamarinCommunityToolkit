@@ -8,9 +8,10 @@ namespace Xamarin.CommunityToolkit.Extensions
 {
 	public static partial class SemanticExtensions
 	{
+		internal const string ActivityId = "270FA098-C644-40A2-A0BE-A9BEA1222A1E";
+
 		static void PlatformSetSemanticFocus(this VisualElement element) =>
 			throw new NotSupportedException($"The current platform '{Device.RuntimePlatform}' does not support Xamarin.CommunityToolkit.SemanticExtensions");
-
 
 		static void PlatformAnnounce(string text)
 		{
@@ -26,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 				AutomationNotificationKind.ActionAborted,
 				AutomationNotificationProcessing.ImportantMostRecent,
 				text,
-				"270FA098-C644-40A2-A0BE-A9BEA1222A1E");
+				ActivityId);
 		}
 
 		// This isn't great but it's the only way I've found to announce with WinUI.
@@ -36,20 +37,21 @@ namespace Xamarin.CommunityToolkit.Extensions
 		// you really shouldn't be using the announce API
 		static AutomationPeer? FindAutomationPeer(DependencyObject depObj)
 		{
-			if (depObj != null)
-			{
-				for (var i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-				{
-					var child = VisualTreeHelper.GetChild(depObj, i);
-					if (child is UIElement element && FrameworkElementAutomationPeer.FromElement(element) != null)
-					{
-						return FrameworkElementAutomationPeer.FromElement(element);
-					}
+			if (depObj == null)
+				return null;
 
-					var childItem = FindAutomationPeer(child);
-					if (childItem != null)
-						return childItem;
+			var count = VisualTreeHelper.GetChildrenCount(depObj);
+			for (var i = 0; i < count; i++)
+			{
+				var child = VisualTreeHelper.GetChild(depObj, i);
+				if (child is UIElement element && FrameworkElementAutomationPeer.FromElement(element) != null)
+				{
+					return FrameworkElementAutomationPeer.FromElement(element);
 				}
+
+				var childItem = FindAutomationPeer(child);
+				if (childItem != null)
+					return childItem;
 			}
 			return null;
 		}
