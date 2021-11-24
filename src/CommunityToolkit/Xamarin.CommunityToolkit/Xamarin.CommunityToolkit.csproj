@@ -32,6 +32,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <DebugType>portable</DebugType>
     <NoWarn>NU1701</NoWarn>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)'=='Debug' ">
     <!-- Manage TargetFrameworks for development (Debug Mode) -->
