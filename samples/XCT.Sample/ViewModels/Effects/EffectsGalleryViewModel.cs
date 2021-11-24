@@ -50,6 +50,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				"The SemanticEffect allows you to set semantic properties for accessibility."),
 
 			new SectionModel(
+				typeof(CornerRadiusEffectPage),
+				nameof(CornerRadiusEffect),
+				"The CornerRadius allows rounded corners everywhere."),
+        
+      new SectionModel(
 				typeof(StatusBarEffectPage),
 				nameof(StatusBarEffect),
 				"The StatusBar allows to change status bar color and style. This page also demonstrates Android only NavigationBar changes.")

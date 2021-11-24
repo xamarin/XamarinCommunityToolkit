@@ -9,6 +9,11 @@ namespace Xamarin.CommunityToolkit.Converters
 	public class MultiMathExpressionConverter : MultiValueConverterExtension, IMultiValueConverter
 	{
 		/// <summary>
+		/// The expression to calculate.
+		/// </summary>
+		public string? Expression { get; set; }
+
+		/// <summary>
 		/// Calculate the incoming expression string with variables.
 		/// </summary>
 		/// <param name="values">The array of variables for an expression</param>
@@ -18,7 +23,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>A <see cref="double"/> The result of calculating an expression.</returns>
 		public object? Convert(object[]? values, Type? targetType, object? parameter, CultureInfo culture)
 		{
-			if (parameter is not string expression)
+			if ((parameter ?? Expression) is not string expression)
 				throw new ArgumentException("The parameter should be of type String.");
 
 			if (values == null)

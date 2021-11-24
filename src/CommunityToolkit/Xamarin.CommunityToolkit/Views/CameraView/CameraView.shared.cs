@@ -7,8 +7,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraView : View
 	{
+		[Preserve(Conditional = true)]
 		public event EventHandler<MediaCapturedEventArgs>? MediaCaptured;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler<string>? MediaCaptureFailed;
 
 		public event EventHandler<bool>? OnAvailable;

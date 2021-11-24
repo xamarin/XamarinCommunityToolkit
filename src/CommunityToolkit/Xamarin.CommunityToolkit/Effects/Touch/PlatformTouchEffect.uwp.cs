@@ -50,7 +50,6 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 					pointerDownStoryboard = new Storyboard();
 					var downThemeAnimation = new PointerDownThemeAnimation();
 
-
 					Storyboard.SetTargetName(downThemeAnimation, nativeControl.Name);
 
 					pointerDownStoryboard.Children.Add(downThemeAnimation);
