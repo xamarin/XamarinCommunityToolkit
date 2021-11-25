@@ -64,8 +64,8 @@
     <Compile Include="**/*.shared.*.cs" />
     <None Include="..\..\..\LICENSE" PackagePath="" Pack="true" />
     <None Include="..\..\..\assets\XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
-    <PackageReference Include="mdoc" Version="5.8.3" PrivateAssets="all" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
+    <PackageReference Include="mdoc" Version="5.8.5" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
     <Compile Include="**/*.netstandard.cs" />
@@ -154,20 +154,20 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsBase" />
-    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="5.0.0.2125" />
+    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="5.0.0.2244" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('netcoreapp')) AND '$(OS)' == 'Windows_NT' ">
     <Compile Include="**\*.wpf.cs" />
     <Compile Include="**\*.wpf.*.cs" />
-    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="5.0.0.2125" />
+    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="5.0.0.2244" />
   </ItemGroup>
 
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net471')) ">
     <Compile Include="**\*.gtk.cs" />
     <Compile Include="**\*.gtk.*.cs" />
-    <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="5.0.0.2125" />
+    <PackageReference Include="Xamarin.Forms.Platform.GTK" Version="5.0.0.2244" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
