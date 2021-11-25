@@ -52,4 +52,13 @@
         <Compile Include="**\*.macos.cs" />
         <Compile Include="**\*.macos.*.cs" />
     </ItemGroup>
+
+    <ItemGroup Condition=" !$(TargetFramework.Contains('-')) ">
+      <Compile Include="**\*.netstandard.cs" />
+      <Compile Include="**\*.netstandard.*.cs" />
+    </ItemGroup>
+    <PropertyGroup Condition=" !$(TargetFramework.Contains('-')) ">
+      <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
+    </PropertyGroup>
+  
 </Project>
