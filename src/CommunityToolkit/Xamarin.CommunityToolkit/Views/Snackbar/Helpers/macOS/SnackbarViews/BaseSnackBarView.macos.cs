@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 
 		public NSView? AnchorView { get; set; }
 
-		public NSView ParentView => NSApplication.SharedApplication.KeyWindow.ContentView;
+		public NSView? ParentView => NSApplication.SharedApplication.KeyWindow.ContentView;
 
 		protected NativeSnackBar SnackBar { get; }
 
