@@ -51,8 +51,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public TaskCompletionSource<bool> Result { get; }
 
-		public bool SetResult(bool result) => Result.TrySetResult(result);
+		internal bool SetResult(bool result) => Result.TrySetResult(result);
 
-		public bool SetException(Exception exception) => Result.TrySetException(exception);
+		internal bool SetException(Exception exception) => Result.TrySetException(exception);
 	}
 }
