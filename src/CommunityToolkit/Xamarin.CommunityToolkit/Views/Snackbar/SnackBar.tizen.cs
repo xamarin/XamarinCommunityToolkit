@@ -6,9 +6,9 @@ using EButton = ElmSharp.Button;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	class SnackBar
+	partial class SnackBar
 	{
-		internal ValueTask Show(Forms.VisualElement sender, SnackBarOptions arguments)
+		internal partial ValueTask Show(Forms.VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBarDialog =
 				Forms.Platform.Tizen.Native.Dialog.CreateDialog(Forms.Forms.NativeParent,
@@ -25,19 +25,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var ok = new EButton(snackBarDialog) { Text = action.Text };
 				snackBarDialog.NeutralButton = ok;
-				ok.Clicked += async (s, evt) =>
+				ok.Clicked += async (_, _) =>
 				{
 					snackBarDialog.Dismiss();
-
-					if (action.Action != null)
-						await action.Action();
-
-					arguments.SetResult(true);
+					await OnActionClick(action, arguments).ConfigureAwait(false);
 				};
 			}
 
-			snackBarDialog.TimedOut += (s, evt) => DismissSnackBar();
-			snackBarDialog.BackButtonPressed += (s, evt) => DismissSnackBar();
+			snackBarDialog.TimedOut += (_, _) => DismissSnackBar();
+			snackBarDialog.BackButtonPressed += (_, _) => DismissSnackBar();
 			snackBarDialog.Show();
 
 			return default;
