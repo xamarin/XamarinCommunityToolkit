@@ -6,12 +6,14 @@ variables:
   NugetPackageVersion: '$(CurrentSemanticVersion)'
   #MONO_VERSION: 6_4_0
   #XCODE_VERSION: 11.4
-  NETCORE_VERSION: '5.0.x'
+  NETCORE_VERSION: '6.0.x'
   NETCORE_TEST_VERSION_3_1: '3.1.x'
   NETCORE_TEST_VERSION_2_1: '2.1.x'
   RunPoliCheck: 'false'
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
   PathToCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  PathToMauiCompatMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj'
+  PathToMauiCompatCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Xamarin.CommunityToolkit.MauiCompat.csproj'
   PathToSamplesSln: 'samples/XCT.Sample.sln'
   PathToCommunityToolkitUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
   PathToMarkupUnitTestCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
@@ -117,7 +119,7 @@ jobs:
       - powershell: |
           $prNumber = $env:System_PullRequest_PullRequestNumber
           $commitId = "$($env:System_PullRequest_SourceCommitId)".Substring(0, 7)
-          $fullVersionString = "$(CurrentSemanticVersionBase)-build.$prNumber+$commitId"
+          $fullVersionString = "$(CurrentSemanticVersionBase)-build-$(Build.BuildId).$prNumber+$commitId"
           Write-Host("GitHub PR = $prNumber, Commit = $commitId");
           Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$fullVersionString")
           Write-Host "##vso[build.updatebuildnumber]$fullVersionString"
@@ -169,6 +171,94 @@ jobs:
           script: dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
       # publish the packages
       - task: PublishBuildArtifacts@1
+        displayName: 'Publish Unsigned NuGets'
+        inputs:
+          artifactName: nuget
+          pathToPublish: '$(Build.ArtifactStagingDirectory)/nuget'
+      # make sure we are following the rules, but only on the main build
+      - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
+        - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+          condition: not(startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+          displayName: Component Detection - Log
+          inputs:
+            scanType: LogOnly
+        - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+          condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+          displayName: Component Detection - Report
+        - task: securedevelopmentteam.vss-secure-development-tools.build-task-policheck.PoliCheck@1
+          condition: eq(variables['RunPoliCheck'], 'true')
+          displayName: 'PoliCheck'
+          inputs:
+            targetType: F
+
+  - job: build_mauicompat
+    displayName: Build MauiCompat Library    
+    pool:
+      vmImage: macos-11
+    steps:
+      - powershell: |
+          $mauiCompatExists = Test-Path -Path "$(PathToMauiCompatCommunityToolkitCsproj)"
+          Write-Output "##vso[task.setvariable variable=MauiCompatExists]$mauiCompatExists"
+      - task: UseDotNet@2
+        condition: eq (variables['MauiCompatExists'], True)
+        displayName: 'Install .NET SDK'
+        inputs:
+          version: $(NETCORE_VERSION)
+          includePreviewVersions: false
+      - task: CmdLine@2
+        condition: eq (variables['MauiCompatExists'], True)
+        displayName: 'Install .NET MAUI workload'
+        inputs:
+          script: 'dotnet workload install maui'
+      - task: JavaToolInstaller@0
+        condition: eq (variables['MauiCompatExists'], True)
+        displayName: 'Install Java SDK 11.0'
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+      - task: CmdLine@2
+        condition: eq (variables['MauiCompatExists'], True)
+        displayName: 'Clear Local NuGet Cache' #https://github.com/actions/virtual-environments/issues/1090#issuecomment-748452120
+        inputs:
+          script: 'nuget locals all -clear'
+      # if this is a tagged build, then update the version number
+      - powershell: |
+          $buildSourceBranch = "$(Build.SourceBranch)"
+          $tagVersion = $buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)
+          Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
+          Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
+        displayName: Set NuGet Version to Tag Number
+        condition: and(eq (variables['MauiCompatExists'], True), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+      # restore, build and pack the packages
+      - task: CmdLine@2
+        condition: eq (variables['MauiCompatExists'], True)
+        displayName: 'Build Xamarin.CommunityToolkit.MauiCompat.csproj'
+        inputs:
+          script: 'dotnet build $(PathToMauiCompatCommunityToolkitCsproj) -c Release /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CopyFiles@2
+        condition: eq (variables['MauiCompatExists'], True)
+        inputs:
+          Contents: 'SignList.xml'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
+      - task: CmdLine@2
+        condition: eq (variables['MauiCompatExists'], True)
+        displayName: 'Pack Community Toolkit NuGets'
+        inputs:
+          script: 'dotnet pack $(PathToMauiCompatCommunityToolkitCsproj) -c Release /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+      - task: CmdLine@2
+        condition: eq (variables['MauiCompatExists'], True)
+        displayName: 'Build Markup Project'
+        inputs:
+          script: 'dotnet build $(PathToMauiCompatMarkupCsproj) -c Release /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      - task: CmdLine@2
+        condition: eq (variables['MauiCompatExists'], True)
+        displayName: 'Pack Markup NuGet'
+        inputs:
+          script: 'dotnet pack $(PathToMauiCompatMarkupCsproj) -c Release /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+      # publish the packages
+      - task: PublishBuildArtifacts@1
+        condition: eq (variables['MauiCompatExists'], True)
         displayName: 'Publish Unsigned NuGets'
         inputs:
           artifactName: nuget
