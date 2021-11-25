@@ -123,7 +123,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
 
 			var view = Element.Content;
-			var contentPage = new ContentPage { Content = view, Padding = new Thickness(25) };
+			var contentPage = new ContentPage { Content = view };
 
 			Control = Platform.CreateRenderer(contentPage);
 			Platform.SetRenderer(contentPage, Control);

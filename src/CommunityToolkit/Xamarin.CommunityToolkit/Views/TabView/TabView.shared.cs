@@ -976,7 +976,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (tabStripIndicator != null)
 			{
-				tabStripIndicator.WidthRequest = tabIndicatorWidth;
+				tabStripIndicator.WidthRequest = TabIndicatorWidth > 0 ? TabIndicatorWidth : tabIndicatorWidth;
 			}
 		}
 
@@ -1076,8 +1076,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					var progress = (offset - contentWidthCollection[previousIndex]) / (contentWidthCollection[nextIndex] - contentWidthCollection[previousIndex]);
 					var position = toRight ? currentTabViewItem.X + (currentTabViewItemWidth * progress) : currentTabViewItem.X - (currentTabViewItemWidth * progress);
-
-					tabStripIndicator.TranslateTo(position, 0, tabIndicatorAnimationDuration, Easing.Linear);
 				}
 			}
 		}
@@ -1085,7 +1083,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void UpdateTabIndicatorPosition(View currentTabViewItem)
 		{
 			var width = TabIndicatorWidth > 0 ? (currentTabViewItem.Width - tabStripIndicator.Width) : 0;
-			var position = currentTabViewItem.X + (width / 2);
+			var position = currentTabViewItem.X + (width / 2) - 1;
 			tabStripIndicator.TranslateTo(position, 0, tabIndicatorAnimationDuration, Easing.Linear);
 		}
 
