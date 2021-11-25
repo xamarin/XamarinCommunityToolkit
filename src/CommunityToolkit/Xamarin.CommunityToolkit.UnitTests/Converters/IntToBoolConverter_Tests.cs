@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCase(2.5)]
 		[TestCase("")]
 		[TestCase(null)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		public void InValidConverterValuesThrowArgumentException(object value)
 		{
 			var intToBoolConverter = new IntToBoolConverter();
 			Assert.Throws<ArgumentException>(() => intToBoolConverter.Convert(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCase(2.5)]
 		[TestCase("")]
 		[TestCase(null)]
-		public void InValidConverterBackValuesThrowArgumenException(object value)
+		public void InValidConverterBackValuesThrowArgumentException(object value)
 		{
 			var intToBoolConverter = new IntToBoolConverter();
 			Assert.Throws<ArgumentException>(() => intToBoolConverter.ConvertBack(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));

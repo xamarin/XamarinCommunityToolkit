@@ -73,14 +73,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			Assert.AreEqual(result, expectedResult);
 		}
 
-		static IEnumerable<object?[]> GetThrowArgumenExceptionTestData()
+		static IEnumerable<object?[]> GetThrowArgumentExceptionTestData()
 		{
 			yield return new object?[] { new { Name = "Not IComparable" } };
 			yield return new object?[] { null };
 		}
 
-		[TestCaseSource(nameof(GetThrowArgumenExceptionTestData))]
-		public void CompareConverterInValidValuesThrowArgumenException(object value)
+		[TestCaseSource(nameof(GetThrowArgumentExceptionTestData))]
+		public void CompareConverterInValidValuesThrowArgumentException(object value)
 		{
 			var compareConverter = new CompareConverter()
 			{

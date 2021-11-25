@@ -28,7 +28,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCase(0)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		public void InValidConverterValuesThrowArgumentException(object value)
 		{
 			var listIstNullOrEmptyConverter = new ListIsNullOrEmptyConverter();
 

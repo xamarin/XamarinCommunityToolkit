@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCase("Random String")]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		public void InValidConverterValuesThrowArgumentException(object value)
 		{
 			var itemTappedEventArgsConverter = new ItemTappedEventArgsConverter();
 			Assert.Throws<ArgumentException>(() => itemTappedEventArgsConverter.Convert(value, typeof(ItemTappedEventArgsConverter), null, CultureInfo.CurrentCulture));

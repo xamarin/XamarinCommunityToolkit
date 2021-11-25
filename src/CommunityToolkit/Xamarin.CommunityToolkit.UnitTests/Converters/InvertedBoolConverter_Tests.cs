@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCase(2)]
 		[TestCase("")]
 		[TestCase(null)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		public void InValidConverterValuesThrowArgumentException(object value)
 		{
 			var inverterBoolConverter = new InvertedBoolConverter();
 			Assert.Throws<ArgumentException>(() => inverterBoolConverter.Convert(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));

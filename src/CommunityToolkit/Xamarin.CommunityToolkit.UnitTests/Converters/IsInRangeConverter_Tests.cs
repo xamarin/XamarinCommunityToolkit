@@ -40,7 +40,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCaseSource(nameof(GetDataForException))]
-		public void IsInRangeConverterInvalidValuesThrowArgumenException(object value, object minValue, object maxValue)
+		public void IsInRangeConverterInvalidValuesThrowArgumentException(object value, object minValue, object maxValue)
 		{
 			var isInRangeConverter = new IsInRangeConverter
 			{

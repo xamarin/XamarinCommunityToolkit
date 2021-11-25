@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		[TestCase(null, null)]
 		[TestCase(null, 100)]
-		public void IndexToArrayInValidValuesThrowArgumenException(object value, object position)
+		public void IndexToArrayInValidValuesThrowArgumentException(object value, object position)
 		{
 			var indexToArrayConverter = new IndexToArrayItemConverter();
 			Assert.Throws<ArgumentException>(() => indexToArrayConverter.Convert(position, typeof(IndexToArrayItemConverter), value, CultureInfo.CurrentCulture));
@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		[TestCase(new int[] { 1, 2, 3, 4, 5 }, 100)]
 		[TestCase(new int[] { 1, 2, 3, 4, 5 }, -1)]
-		public void IndexToArrayInValidValuesThrowArgumenOutOfRangeException(object value, object position)
+		public void IndexToArrayInValidValuesThrowArgumentOutOfRangeException(object value, object position)
 		{
 			var indexToArrayConverter = new IndexToArrayItemConverter();
 			Assert.Throws<ArgumentOutOfRangeException>(() => indexToArrayConverter.Convert(position, typeof(IndexToArrayItemConverter), value, CultureInfo.CurrentCulture));
