@@ -13,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	{
 		#region AllowsNullOrDefault
 
-		static IEnumerable<(bool ShouldAllowNull, string? Value, Color? ExpectedResult)> GetValidTestData()
+		static IEnumerable<(bool ShouldAllowNull, string? Value, Color ExpectedResult)> GetValidTestData()
 		{
 			yield return (true, "Red", Color.Red);
 			yield return (true, "Blue", Color.Blue);
@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			yield return (false, "Blue", Color.Blue);
 		}
 
-		static IEnumerable<(bool ShouldAllowNull, string? Value, Type? ExpectedExceptionType)> GetInvalidTestData()
+		static IEnumerable<(bool ShouldAllowNull, string? Value, Type ExpectedExceptionType)> GetInvalidTestData()
 		{
 			yield return (true, "red",  typeof(ArgumentException));
 			yield return (true, "Green",  typeof(ArgumentException));
@@ -34,10 +34,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCaseSource(nameof(GetValidTestData))]
-		public void MockConverterOneWayConvert((bool ShouldAllowNull, string? Value, Color? ExpectedResult) testCase)
+		public void MockConverterOneWayConvert((bool ShouldAllowNull, string? Value, Color ExpectedResult) testCase)
 		{
-			var mockConverterOneWay =
-				testCase.ShouldAllowNull ? new MockConverterOneWay(true) : new MockConverterOneWay(false);
+			var mockConverterOneWay = new MockConverterOneWay(testCase.ShouldAllowNull);
 
 			var result = mockConverterOneWay.Convert(testCase.Value, typeof(Color), null!, CultureInfo.CurrentCulture);
 
@@ -45,11 +44,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCaseSource(nameof(GetInvalidTestData))]
-		public void MockConverterOneWayConvertInvalidValuesThrowException((bool ShouldAllowNull, string? Value, Type? ExpectedExceptionType) testCase)
+		public void MockConverterOneWayConvertInvalidValuesThrowException((bool ShouldAllowNull, string? Value, Type ExpectedExceptionType) testCase)
 		{
-			var mockConverterOneWay = testCase.ShouldAllowNull ? new MockConverterOneWay(true) : new MockConverterOneWay(false);
+			var mockConverterOneWay = new MockConverterOneWay(testCase.ShouldAllowNull);
 
-			var exception = Assert.Throws(testCase.ExpectedExceptionType!, () => mockConverterOneWay.Convert(testCase.Value, typeof(Color), null!, CultureInfo.CurrentCulture));
+			Assert.Throws(testCase.ExpectedExceptionType, () => mockConverterOneWay.Convert(testCase.Value, typeof(Color), null!, CultureInfo.CurrentCulture));
 		}
 
 		#endregion

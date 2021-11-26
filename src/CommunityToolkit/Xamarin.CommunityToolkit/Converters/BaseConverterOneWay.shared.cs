@@ -32,14 +32,14 @@ namespace Xamarin.CommunityToolkit.Converters
 				if (AllowsNullOrDefault)
 					return ConvertFrom(default);
 
-				throw new ArgumentNullException($"value needs to be of type {typeof(TFrom)} but is null. Consider setting {nameof(AllowsNullOrDefault)} to true.");
+				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. Consider setting {nameof(AllowsNullOrDefault)} to true.");
 			}
-
-			if (targetType != typeof(TTo) && !(typeof(TFrom) != typeof(string)))
-				throw new ArgumentException($"targetType needs to be typeof {typeof(TTo)}");
 
 			if (value is not TFrom valueFrom)
 				throw new ArgumentException($"value needs to be of type {typeof(TFrom)}");
+
+			if (targetType != typeof(TTo) && !(typeof(TFrom) != typeof(string)))
+				throw new ArgumentException($"targetType needs to be typeof {typeof(TTo)}");
 
 			return ConvertFrom(valueFrom);
 		}
