@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var isNullOrEmptyConverter = new IsNullOrEmptyConverter();
 
-			var result = isNullOrEmptyConverter.Convert(value, typeof(IsNotNullOrEmptyConverter_Tests), null, CultureInfo.CurrentCulture);
+			var result = isNullOrEmptyConverter.Convert(value, typeof(IsNotNullOrEmptyConverter_Tests), null!, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(result, expectedResult);
 		}
