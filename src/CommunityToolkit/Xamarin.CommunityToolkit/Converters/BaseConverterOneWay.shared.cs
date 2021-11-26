@@ -27,14 +27,16 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <returns>An object of type <see cref="TTo"/>.</returns>
 		public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
 		{
+			if (value is null)
+			{
+				if (AllowsNullOrDefault)
+					return ConvertFrom(default);
+
+				throw new ArgumentNullException($"value needs to be of type {typeof(TFrom)} but is null. Consider setting {nameof(AllowsNullOrDefault)} to true.");
+			}
+
 			if (targetType != typeof(TTo) && !(typeof(TFrom) != typeof(string)))
 				throw new ArgumentException($"targetType needs to be typeof {typeof(TTo)}");
-
-			if (AllowsNullOrDefault is false && value is null)
-				throw new ArgumentNullException($"value needs to be of type {typeof(TFrom)} but is null. Consider setting {nameof(AllowsNullOrDefault)} to true.");
-
-			if (AllowsNullOrDefault is true && value is null)
-				return ConvertFrom(default);
 
 			if (value is not TFrom valueFrom)
 				throw new ArgumentException($"value needs to be of type {typeof(TFrom)}");
