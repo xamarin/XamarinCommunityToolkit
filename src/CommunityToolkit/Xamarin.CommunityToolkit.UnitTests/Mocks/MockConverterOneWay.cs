@@ -5,21 +5,21 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 {
 	/// <summary>
-	/// Derivation of <see cref="BaseConverterOneWay{TFrom,TTo}"/> to test the new <see cref="AllowsNullOrDefault"/> handling.
+	/// Mock to test the new <see cref="BaseConverterOneWay{TFrom, TTo}.AllowsNull"/> handling.
 	/// </summary>
 	public class MockConverterOneWay : BaseConverterOneWay<string, Color>
 	{
-		protected override bool AllowsNullOrDefault { get; }
+		protected override bool AllowsNull { get; }
 
-		public MockConverterOneWay(bool allowsNullOrDefault)
+		public MockConverterOneWay(bool allowsNull)
 		{
-			AllowsNullOrDefault = allowsNullOrDefault;
+			AllowsNull = allowsNull;
 		}
 
 		public override Color ConvertFrom(string? value) =>
 			value switch
 			{
-				// By setting AllowsNullOrDefault to true, it is possible to handle this case.
+				// By setting AllowsNull to true, it is possible to handle this case.
 				null => Color.Black,
 				"Red" => Color.Red,
 				"Blue" => Color.Blue,

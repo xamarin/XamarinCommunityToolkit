@@ -13,9 +13,9 @@ namespace Xamarin.CommunityToolkit.Converters
 	public abstract class BaseConverterOneWay<TFrom, TTo> : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
-		/// If set allows <see cref="ConvertFrom"/> in derived classes to handle null or default(TFrom) instead of throwing an <see cref="ArgumentNullException"/>.
+		/// If set allows derived classes to handle null by passing default(TFrom) to <see cref="ConvertFrom"/> instead of throwing an <see cref="ArgumentNullException"/>.
 		/// </summary>
-		protected virtual bool AllowsNullOrDefault => false;
+		protected virtual bool AllowsNull => false;
 
 		/// <summary>
 		/// Converts the incoming value from <see cref="TFrom"/>[] and returns the object of a type <see cref="TTo"/>.
@@ -29,10 +29,10 @@ namespace Xamarin.CommunityToolkit.Converters
 		{
 			if (value is null)
 			{
-				if (AllowsNullOrDefault)
+				if (AllowsNull)
 					return ConvertFrom(default);
 
-				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. Consider setting {nameof(AllowsNullOrDefault)} to true.");
+				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. Consider setting {nameof(AllowsNull)} to true.");
 			}
 
 			if (value is not TFrom valueFrom)

@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	[TestOf(typeof(BaseConverterOneWay<string, Color>))]
 	public class BaseConverterOneWay_Tests
 	{
-		#region AllowsNullOrDefault
+		#region AllowsNull
 
 		static IEnumerable<(bool ShouldAllowNull, string? Value, Color ExpectedResult)> GetValidTestData()
 		{
