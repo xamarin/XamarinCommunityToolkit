@@ -15,9 +15,9 @@ using Xamarin.Forms.Platform.MacOS;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	class SnackBar
+	partial class SnackBar
 	{
-		internal ValueTask Show(VisualElement sender, SnackBarOptions arguments)
+		internal partial ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var snackBar = NativeSnackBar.MakeSnackBar(arguments.MessageOptions.Message)
 							.SetDuration(arguments.Duration)
@@ -123,11 +123,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				actionButton.SetAction(async () =>
 				{
 					snackBar.Dismiss();
-
-					if (action.Action != null)
-						await action.Action();
-
-					arguments.SetResult(true);
+					await OnActionClick(action, arguments).ConfigureAwait(false);
 				});
 
 				snackBar.Actions.Add(actionButton);
