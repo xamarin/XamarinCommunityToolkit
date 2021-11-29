@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var mockConverterOneWay = new MockConverterOneWay(testCase.ShouldAllowNull);
 
-			var result = mockConverterOneWay.Convert(testCase.Value, typeof(Color), null!, CultureInfo.CurrentCulture);
+			var result = mockConverterOneWay.Convert(testCase.Value, typeof(Color), null, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(result, testCase.ExpectedResult);
 		}
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var mockConverterOneWay = new MockConverterOneWay(testCase.ShouldAllowNull);
 
-			Assert.Throws(testCase.ExpectedExceptionType, () => mockConverterOneWay.Convert(testCase.Value, typeof(Color), null!, CultureInfo.CurrentCulture));
+			Assert.Throws(testCase.ExpectedExceptionType, () => mockConverterOneWay.Convert(testCase.Value, typeof(Color), null, CultureInfo.CurrentCulture));
 		}
 
 		#endregion

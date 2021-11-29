@@ -9,11 +9,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 	/// </summary>
 	public class MockConverterOneWay : BaseConverterOneWay<string, Color>
 	{
-		protected override bool AllowsNull { get; }
-
 		public MockConverterOneWay(bool allowsNull)
+			: base(allowsNull)
 		{
-			AllowsNull = allowsNull;
 		}
 
 		public override Color ConvertFrom(string? value) =>

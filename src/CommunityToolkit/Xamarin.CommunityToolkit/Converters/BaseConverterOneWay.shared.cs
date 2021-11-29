@@ -12,27 +12,33 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <typeparam name="TTo">Type of the output value</typeparam>
 	public abstract class BaseConverterOneWay<TFrom, TTo> : ValueConverterExtension, IValueConverter
 	{
-		/// <summary>
-		/// If set allows derived classes to handle null by passing default(TFrom) to <see cref="ConvertFrom"/> instead of throwing an <see cref="ArgumentNullException"/>.
-		/// </summary>
-		protected virtual bool AllowsNull => false;
+		readonly bool allowsNull;
 
 		/// <summary>
-		/// Converts the incoming value from <see cref="TFrom"/>[] and returns the object of a type <see cref="TTo"/>.
+		/// Creates a new instance of <see cref="BaseConverterOneWay{TFrom, TTo}"/>.
+		/// </summary>
+		/// <param name="allowsNull">Whether this converter will accept null values</param>
+		public BaseConverterOneWay(bool allowsNull = false)
+		{
+			this.allowsNull = allowsNull;
+		}
+
+		/// <summary>
+		/// Converts the incoming value from <see cref="TFrom"/> and returns the object of a type <see cref="TTo"/>.
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
 		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
 		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
 		/// <param name="culture">The culture to use in the converter. This is not implemented.</param>
 		/// <returns>An object of type <see cref="TTo"/>.</returns>
-		public object? Convert(object? value, Type targetType, object parameter, CultureInfo culture)
+		public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
 		{
 			if (value is null)
 			{
-				if (AllowsNull)
+				if (allowsNull)
 					return ConvertFrom(default);
 
-				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. Consider setting {nameof(AllowsNull)} to true.");
+				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. Consider setting {nameof(allowsNull)} in the constructor to true.");
 			}
 
 			if (value is not TFrom valueFrom)

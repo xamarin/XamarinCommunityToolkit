@@ -1,16 +1,14 @@
-﻿using System;
-using System.Globalization;
-using Xamarin.CommunityToolkit.Extensions.Internals;
-using Xamarin.Forms;
-
-namespace Xamarin.CommunityToolkit.Converters
+﻿namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
 	/// Converts the incoming value to a <see cref="bool"/> indicating whether or not the value is null or empty.
 	/// </summary>
 	public class IsNullOrEmptyConverter : BaseConverterOneWay<object, bool>
 	{
-		protected override bool AllowsNull => true;
+		public IsNullOrEmptyConverter()
+            : base(true)
+		{
+		}
 
 		/// <summary>
 		/// Converts the incoming value to a <see cref="bool"/> indicating whether or not the value is null or empty.
