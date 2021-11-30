@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -42,7 +43,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetData))]
 		public void DateTimeOffsetConverter(DateTimeOffset value, DateTime expectedResult)
 		{
-			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			var dateTimeOffsetConverter = CreateConverter();
 
 			var result = dateTimeOffsetConverter.Convert(value, typeof(DateTimeOffsetConverter_Tests), null,
 				CultureInfo.CurrentCulture);
@@ -53,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetDataReverse))]
 		public void DateTimeOffsetConverterBack(DateTime value, DateTimeOffset expectedResult)
 		{
-			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			var dateTimeOffsetConverter = CreateConverter();
 
 			var result = dateTimeOffsetConverter.ConvertBack(value, typeof(DateTimeOffsetConverter_Tests), null,
 				CultureInfo.CurrentCulture);
@@ -64,7 +65,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[Test]
 		public void DateTimeOffsetConverter_GivenInvalidParameters_ThrowsException()
 		{
-			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			var dateTimeOffsetConverter = CreateConverter();
 
 			Assert.Throws<ArgumentException>(() => dateTimeOffsetConverter.Convert("Not a DateTimeOffset",
 				typeof(DateTimeOffsetConverter_Tests), null,
@@ -74,11 +75,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[Test]
 		public void DateTimeOffsetConverterBack_GivenInvalidParameters_ThrowsException()
 		{
-			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			var dateTimeOffsetConverter = CreateConverter();
 
 			Assert.Throws<ArgumentException>(() => dateTimeOffsetConverter.ConvertBack("Not a DateTime",
 				typeof(DateTimeOffsetConverter_Tests), null,
 				CultureInfo.CurrentCulture));
 		}
+
+		static IValueConverter CreateConverter() => new DateTimeOffsetConverter();
 	}
 }

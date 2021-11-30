@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// </summary>
 	/// <typeparam name="TFrom">Type of the input value</typeparam>
 	/// <typeparam name="TTo">Type of the output value</typeparam>
-	public abstract class BaseConverterOneWay<TFrom, TTo> : ValueConverterExtension, IValueConverter // where TFrom : notnull where TTo : notnull
+	public abstract class BaseConverterOneWay<TFrom, TTo> : ValueConverterExtension, IValueConverter where TFrom : notnull where TTo : notnull
 	{
 		/// <summary>
 		/// Method that will be called by <see cref="Convert(object, Type, object, CultureInfo)"/>.
