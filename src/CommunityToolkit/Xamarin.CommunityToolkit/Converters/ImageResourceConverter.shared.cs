@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts embedded image resource ID to it ImageSource.
 	/// </summary>
-	public class ImageResourceConverter : NullableBaseConverterOneWay<string, ImageSource?>
+	public class ImageResourceConverter : BaseNullableConverterOneWay<string, ImageSource?>
 	{
 		/// <summary>
 		/// Converts embedded image resource ID to it ImageSource.

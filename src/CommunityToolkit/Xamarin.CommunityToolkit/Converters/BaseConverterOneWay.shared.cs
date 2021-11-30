@@ -29,7 +29,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		object? IValueConverter.Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
 		{
 			if (value is null)
-				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. If type {typeof(TFrom)} should be nullable, inherit from {nameof(NullableBaseConverterOneWay<TFrom, TTo>)} instead");
+				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. If type {typeof(TFrom)} should be nullable, inherit from {nameof(BaseNullableConverterOneWay<TFrom, TTo>)} instead");
 
 			if (value is not TFrom valueFrom)
 				throw new ArgumentException($"value needs to be of type {typeof(TFrom)}");
@@ -46,7 +46,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// </summary>
 	/// <typeparam name="TFrom">Type of the input value</typeparam>
 	/// <typeparam name="TTo">Type of the output value</typeparam>
-	public abstract class NullableBaseConverterOneWay<TFrom, TTo> : ValueConverterExtension, IValueConverter
+	public abstract class BaseNullableConverterOneWay<TFrom, TTo> : ValueConverterExtension, IValueConverter
 	{
 		/// <summary>
 		/// Method that will be called by <see cref="Convert(object, Type, object, CultureInfo)"/>.

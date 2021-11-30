@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts the incoming value from <see cref="byte"/>[] and returns the object of a type <see cref="ImageSource"/> or vice versa.
 	/// </summary>
-	public class ByteArrayToImageSourceConverter : NullableBaseConverter<byte[]?, ImageSource?>
+	public class ByteArrayToImageSourceConverter : BaseNullableConverter<byte[]?, ImageSource?>
 	{
 		/// <summary>
 		/// Converts the incoming value from <see cref="StreamImageSource"/> and returns a <see cref="byte"/>[].

@@ -5,9 +5,9 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 {
 	/// <summary>
-	/// Mock to test the <see cref="NullableBaseConverterOneWay{TFrom, TTo}"/> internals.
+	/// Mock to test the <see cref="BaseNullableConverterOneWay{TFrom, TTo}"/> internals.
 	/// </summary>
-	public class MockNullableConverterOneWay : NullableBaseConverterOneWay<string?, Color>
+	public class MockNullableConverterOneWay : BaseNullableConverterOneWay<string?, Color>
 	{
 		public override Color ConvertFrom(string? value) =>
 			value switch

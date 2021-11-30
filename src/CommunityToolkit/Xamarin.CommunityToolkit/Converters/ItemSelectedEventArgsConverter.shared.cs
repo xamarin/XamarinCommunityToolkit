@@ -5,7 +5,7 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts/Extracts the incoming value from <see cref="SelectedItemChangedEventArgs"/> object and returns the value of <see cref="SelectedItemChangedEventArgs.SelectedItem"/> property from it.
 	/// </summary>
-	public class ItemSelectedEventArgsConverter : NullableBaseConverterOneWay<SelectedItemChangedEventArgs, object?>
+	public class ItemSelectedEventArgsConverter : BaseNullableConverterOneWay<SelectedItemChangedEventArgs, object?>
 	{
 		/// <summary>
 		/// Converts/Extracts the incoming value from <see cref="SelectedItemChangedEventArgs"/> object and returns the value of <see cref="SelectedItemChangedEventArgs.SelectedItem"/> property from it.
