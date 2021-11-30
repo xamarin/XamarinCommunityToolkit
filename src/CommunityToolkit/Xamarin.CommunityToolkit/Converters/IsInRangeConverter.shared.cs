@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// </summary>
 		/// <param name="value">The object to compare.</param>
 		/// <returns>True if <paramref name="value"/> and <paramref name="parameter"/> are equal, False if they are not equal.</returns>
-		public override bool ConvertFrom(IComparable? value)
+		public override bool ConvertFrom(IComparable value)
 		{
 			if (MinValue is not IComparable)
 				throw new ArgumentException("is expected to implement IComparable interface.", nameof(MinValue));
@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Converters
 			if (MaxValue is not IComparable)
 				throw new ArgumentException("is expected to implement IComparable interface.", nameof(MaxValue));
 
-			return value!.CompareTo(MinValue) >= 0 && value.CompareTo(MaxValue) <= 0;
+			return value.CompareTo(MinValue) >= 0 && value.CompareTo(MaxValue) <= 0;
 		}
 	}
 }
