@@ -44,10 +44,11 @@ Please describe the issue below, including detailed steps for reproduction. If w
 - Platform Target Frameworks: <!-- All that apply -->
   - iOS:  <!-- The version of the iOS SDK you are compiling against, e.g. 11.1 -->
   - Android: <!-- The version of the Android SDK you are compiling against, e.g. 7.1 --> 
-  - UWP:  <!-- The version of the UWP SDK you are compiling against, e.g. 16299 --> 
+  - Windows:  <!-- The version of the Windows App SDK you are compiling against, e.g. 1.0 --> 
 - Android Support Library Version: <!-- if applicable -->
 - Nuget Packages:
 - Affected Devices:
+- MAUI Version:
 
 ### Workaround
 <!-- If you've found a way around this issue, help other users out and share the workaround -->
