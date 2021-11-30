@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Globalization;
+using Xamarin.CommunityToolkit.Extensions.Internals;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
@@ -12,14 +15,8 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts an object that implements IComparable to an object or a boolean based on a comparison.
 	/// </summary>
-	public abstract class CompareConverter<TObject> : BaseConverterOneWay<TObject, object>
+	public abstract class CompareConverter<TObject> : ValueConverterExtension, IValueConverter
 	{
-		enum Modes
-		{
-			Boolean,
-			Object
-		}
-
 		[Flags]
 		public enum OperatorType
 		{
@@ -29,6 +26,12 @@ namespace Xamarin.CommunityToolkit.Converters
 			Equal = 1 << 2,
 			Greater = 1 << 3,
 			GreaterOrEqual = 1 << 4,
+		}
+
+		enum Modes
+		{
+			Boolean,
+			Object
 		}
 
 		Modes mode;
@@ -57,8 +60,11 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// Converts an object that implements IComparable to a specified object or a boolean based on a comparaison result.
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
+		/// <param name="targetType">The type of the binding target property. This is not implemented.</param>
+		/// <param name="parameter">Additional parameter for the converter to handle. This is not implemented.</param>
+		/// <param name="culture">The culture to use in the converter.  This is not implemented.</param>
 		/// <returns>The object assigned to <see cref="TrueObject"/> if (value <see cref="ComparisonOperator"/> <see cref="ComparingValue"/>) equals True and <see cref="TrueObject"/> is not null, if <see cref="TrueObject"/> is null it returns true, otherwise the value assigned to <see cref="FalseObject"/>, if no value is assigned then it returns false.</returns>
-		public override object ConvertFrom(TObject? value)
+		public virtual object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			if (ComparingValue == null)
 			{
@@ -115,5 +121,16 @@ namespace Xamarin.CommunityToolkit.Converters
 				return false;
 			}
 		}
+
+		/// <summary>
+		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
+		/// </summary>
+		/// <param name="value">N/A</param>
+		/// <param name="targetType">N/A</param>
+		/// <param name="parameter">N/A</param>
+		/// <param name="culture">N/A</param>
+		/// <returns>N/A</returns>
+		public virtual object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+			=> throw new NotImplementedException();
 	}
 }
