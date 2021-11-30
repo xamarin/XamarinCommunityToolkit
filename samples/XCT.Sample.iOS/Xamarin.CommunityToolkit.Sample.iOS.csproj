@@ -129,6 +129,8 @@
     <ImageAsset Include="Assets.xcassets\LauncherIcon.imageset\LauncherIcon.pdf">
       <Visible>false</Visible>
     </ImageAsset>
+    <BundleResource Include="Resources\toaster.png" />
+    <BundleResource Include="Resources\toasting.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

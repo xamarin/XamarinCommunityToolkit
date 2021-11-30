@@ -2,7 +2,18 @@
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:viewModels="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.SnackBarPage">
+
+    <ContentPage.Resources>
+        <xct:BoolToObjectConverter x:Key="BoolToObjectConverter" TrueObject="toasting.png" FalseObject="toaster.png" />
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <viewModels:SnackBarViewModel />
+    </ContentPage.BindingContext>
+
     <StackLayout Spacing="10" Margin="20">
         <Button Clicked="DisplaySnackBarClicked" Text="Show SnackBar"/>
         <Button Clicked="DisplayToastClicked" Text="Show toast"/>
@@ -17,5 +28,16 @@
                 Text="Show snackbar with anchor"/>
 
         <Label x:Name="StatusText"/>
+
+        <Image Source="{Binding IsToasting, Converter={StaticResource BoolToObjectConverter}}"
+               x:Name="Toaster"
+               WidthRequest="300"
+               HeightRequest="300"
+               HorizontalOptions="Center">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ToasterTappedCommand}"
+                                      CommandParameter="{x:Reference Toaster}"/>
+            </Image.GestureRecognizers>
+        </Image>
     </StackLayout>
 </pages:BasePage>
