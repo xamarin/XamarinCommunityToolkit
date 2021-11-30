@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -28,11 +29,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetData))]
 		public void IsInRangeConverter(object value, object minValue, object maxValue, bool expectedResult)
 		{
-			var isInRangeConverter = new IsInRangeConverter
-			{
-				MinValue = minValue,
-				MaxValue = maxValue
-			};
+			var isInRangeConverter = CreateConverter(maxValue, minValue);
 
 			var result = isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture);
 
@@ -42,12 +39,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetDataForException))]
 		public void IsInRangeConverterInvalidValuesThrowArgumentException(object value, object minValue, object maxValue, Type expectedExceptionType)
 		{
-			var isInRangeConverter = new IsInRangeConverter
+			var isInRangeConverter = CreateConverter(maxValue, minValue);
+			Assert.Throws(expectedExceptionType, () => isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture));
+		}
+
+		static IValueConverter CreateConverter(object maxValue, object minValue) =>
+			new IsInRangeConverter
 			{
 				MinValue = minValue,
 				MaxValue = maxValue
 			};
-			Assert.Throws(expectedExceptionType, () => isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture));
-		}
 	}
 }

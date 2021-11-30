@@ -1,18 +1,12 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Converters
 {
 	/// <summary>
 	/// Converts/Extracts the incoming value from <see cref="SelectedItemChangedEventArgs"/> object and returns the value of <see cref="SelectedItemChangedEventArgs.SelectedItem"/> property from it.
 	/// </summary>
-	public class ItemSelectedEventArgsConverter : BaseConverterOneWay<SelectedItemChangedEventArgs, object?>
+	public class ItemSelectedEventArgsConverter : NullableBaseConverterOneWay<SelectedItemChangedEventArgs, object?>
 	{
-		public ItemSelectedEventArgsConverter()
-			: base(true)
-		{
-		}
-
 		/// <summary>
 		/// Converts/Extracts the incoming value from <see cref="SelectedItemChangedEventArgs"/> object and returns the value of <see cref="SelectedItemChangedEventArgs.SelectedItem"/> property from it.
 		/// </summary>

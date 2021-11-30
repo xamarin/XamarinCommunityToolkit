@@ -23,7 +23,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetData))]
 		public void ItemTappedEventArgsConverter(ItemTappedEventArgs value, object expectedResult)
 		{
-			var itemTappedEventArgsConverter = new ItemTappedEventArgsConverter();
+			var itemTappedEventArgsConverter = CreateConverter();
 
 			var result = itemTappedEventArgsConverter.Convert(value, typeof(ItemTappedEventArgsConverter), null, CultureInfo.CurrentCulture);
 
@@ -33,8 +33,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCase("Random String")]
 		public void InValidConverterValuesThrowArgumentException(object value)
 		{
-			var itemTappedEventArgsConverter = new ItemTappedEventArgsConverter();
+			var itemTappedEventArgsConverter = CreateConverter();
 			Assert.Throws<ArgumentException>(() => itemTappedEventArgsConverter.Convert(value, typeof(ItemTappedEventArgsConverter), null, CultureInfo.CurrentCulture));
 		}
+
+		static IValueConverter CreateConverter() => new ItemTappedEventArgsConverter();
 	}
 }

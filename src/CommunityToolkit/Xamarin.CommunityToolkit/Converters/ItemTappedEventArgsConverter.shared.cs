@@ -5,13 +5,8 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// <summary>
 	/// Converts/Extracts the incoming value from <see cref="ItemTappedEventArgs"/> object and returns the value of <see cref="ItemTappedEventArgs.Item"/> property from it.
 	/// </summary>
-	public class ItemTappedEventArgsConverter : BaseConverterOneWay<ItemTappedEventArgs, object?>
+	public class ItemTappedEventArgsConverter : NullableBaseConverterOneWay<ItemTappedEventArgs, object?>
 	{
-		public ItemTappedEventArgsConverter()
-			: base(true)
-		{
-		}
-
 		/// <summary>
 		/// Converts/Extracts the incoming value from <see cref="ItemTappedEventArgs"/> object and returns the value of <see cref="ItemTappedEventArgs.Item"/> property from it.
 		/// </summary>

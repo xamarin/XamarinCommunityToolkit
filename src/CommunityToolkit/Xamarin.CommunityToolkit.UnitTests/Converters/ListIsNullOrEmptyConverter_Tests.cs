@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -20,9 +21,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetData))]
 		public void ListIsNullOrEmptyConverter(object value, bool expectedResult)
 		{
-			var listIstNullOrEmptyConverter = new ListIsNullOrEmptyConverter();
+			var listIsNullOrEmptyConverter = CreateConverter();
 
-			var result = listIstNullOrEmptyConverter.Convert(value, typeof(ListIsNullOrEmptyConverter), null, CultureInfo.CurrentCulture);
+			var result = listIsNullOrEmptyConverter.Convert(value, typeof(ListIsNullOrEmptyConverter), null, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(result, expectedResult);
 		}
@@ -30,9 +31,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCase(0)]
 		public void InValidConverterValuesThrowArgumentException(object value)
 		{
-			var listIstNullOrEmptyConverter = new ListIsNullOrEmptyConverter();
+			var listIsNullOrEmptyConverter = CreateConverter();
 
-			Assert.Throws<ArgumentException>(() => listIstNullOrEmptyConverter.Convert(value, typeof(ListIsNullOrEmptyConverter), null, CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentException>(() => listIsNullOrEmptyConverter.Convert(value, typeof(ListIsNullOrEmptyConverter), null, CultureInfo.CurrentCulture));
 		}
+
+		static IValueConverter CreateConverter() => new ListIsNullOrEmptyConverter();
 	}
 }

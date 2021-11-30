@@ -11,8 +11,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	[TestOf(typeof(BaseConverterOneWay<string, Color>))]
 	public class BaseConverterOneWay_Tests
 	{
-		#region AllowsNull
-
 		static IEnumerable<(bool ShouldAllowNull, string? Value, Color ExpectedResult)> GetValidTestData()
 		{
 			yield return (true, "Red", Color.Red);
@@ -36,7 +34,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetValidTestData))]
 		public void MockConverterOneWayConvert((bool ShouldAllowNull, string? Value, Color ExpectedResult) testCase)
 		{
-			var mockConverterOneWay = new MockConverterOneWay(testCase.ShouldAllowNull);
+			var mockConverterOneWay = CreateConverter(testCase.ShouldAllowNull);
 
 			var result = mockConverterOneWay.Convert(testCase.Value, typeof(Color), null, CultureInfo.CurrentCulture);
 
@@ -46,11 +44,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetInvalidTestData))]
 		public void MockConverterOneWayConvertInvalidValuesThrowException((bool ShouldAllowNull, string? Value, Type ExpectedExceptionType) testCase)
 		{
-			var mockConverterOneWay = new MockConverterOneWay(testCase.ShouldAllowNull);
+			var mockConverterOneWay = CreateConverter(testCase.ShouldAllowNull);
 
 			Assert.Throws(testCase.ExpectedExceptionType, () => mockConverterOneWay.Convert(testCase.Value, typeof(Color), null, CultureInfo.CurrentCulture));
 		}
 
-		#endregion
+		static IValueConverter CreateConverter(bool shouldAllowNull) =>
+			shouldAllowNull ? new MockNullableConverterOneWay() : new MockConverterOneWay();
 	}
 }
