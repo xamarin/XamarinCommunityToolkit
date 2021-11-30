@@ -765,7 +765,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var oldposition = SelectedIndex;
 
 			var newPosition = position;
-
+			SelectedIndex = position;
+				
 			Device.BeginInvokeOnMainThread(async () =>
 			{
 				if (contentTabItems == null || contentTabItems.Count != TabItems.Count)
@@ -814,7 +815,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (tabStripContent.Children.Count > 0)
 					await tabStripContainerScroll.ScrollToAsync(tabStripContent.Children[tabStripIndex], ScrollToPosition.MakeVisible, false);
 
-				SelectedIndex = position;
 				if (oldposition != SelectedIndex)
 				{
 					var selectionChangedArgs = new TabSelectionChangedEventArgs()
