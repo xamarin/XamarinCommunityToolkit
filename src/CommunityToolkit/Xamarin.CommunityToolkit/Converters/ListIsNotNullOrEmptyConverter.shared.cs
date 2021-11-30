@@ -7,6 +7,11 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// </summary>
 	public class ListIsNotNullOrEmptyConverter : BaseConverterOneWay<IEnumerable, bool>
 	{
+		public ListIsNotNullOrEmptyConverter()
+			: base(true)
+		{
+		}
+
 		/// <summary>
 		/// Converts the incoming value to a <see cref="bool"/> indicating whether or not the value is not null and not empty.
 		/// </summary>

@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var listIstNullOrEmptyConverter = new ListIsNullOrEmptyConverter();
 
-			var result = listIstNullOrEmptyConverter.Convert(value, typeof(ListIsNullOrEmptyConverter), null!, CultureInfo.CurrentCulture);
+			var result = listIstNullOrEmptyConverter.Convert(value, typeof(ListIsNullOrEmptyConverter), null, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(result, expectedResult);
 		}
@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		{
 			var listIstNullOrEmptyConverter = new ListIsNullOrEmptyConverter();
 
-			Assert.Throws<ArgumentException>(() => listIstNullOrEmptyConverter.Convert(value, typeof(ListIsNullOrEmptyConverter), null!, CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentException>(() => listIstNullOrEmptyConverter.Convert(value, typeof(ListIsNullOrEmptyConverter), null, CultureInfo.CurrentCulture));
 		}
 	}
 }

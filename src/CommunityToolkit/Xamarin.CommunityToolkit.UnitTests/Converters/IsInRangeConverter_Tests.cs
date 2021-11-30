@@ -20,9 +20,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		public static IEnumerable<object?[]> GetDataForException() => new List<object?[]>
 		{
-			new object?[] { null, 2, 3 },
-			new object?[] { 1, null, 3 },
-			new object?[] { 1, 2, null },
+			new object?[] { null, 2, 3, typeof(ArgumentNullException) },
+			new object?[] { 1, null, 3, typeof(ArgumentException) },
+			new object?[] { 1, 2, null, typeof(ArgumentException) },
 		};
 
 		[TestCaseSource(nameof(GetData))]
@@ -40,14 +40,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCaseSource(nameof(GetDataForException))]
-		public void IsInRangeConverterInvalidValuesThrowArgumentException(object value, object minValue, object maxValue)
+		public void IsInRangeConverterInvalidValuesThrowArgumentException(object value, object minValue, object maxValue, Type expectedExceptionType)
 		{
 			var isInRangeConverter = new IsInRangeConverter
 			{
 				MinValue = minValue,
 				MaxValue = maxValue
 			};
-			Assert.Throws<ArgumentException>(() => isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture));
+			Assert.Throws(expectedExceptionType, () => isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 	}
 }
