@@ -11,7 +11,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		public const string TrueTestObject = nameof(TrueTestObject);
 		public const string FalseTestObject = nameof(FalseTestObject);
 
-
 		static IEnumerable<object?[]> GetTestData()
 		{
 			yield return new object?[] { 10d, CompareConverter.OperatorType.Greater, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
@@ -34,7 +33,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 10d, TrueTestObject, FalseTestObject, TrueTestObject };
 			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 10d, TrueTestObject, FalseTestObject, FalseTestObject };
 			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 10d, TrueTestObject, FalseTestObject, FalseTestObject };
-
 
 			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 20d, null, null, false };
 			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 20d, null, null, true };
@@ -69,7 +67,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				ComparingValue = comparingValue
 			};
 
-			var result = compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null!, CultureInfo.CurrentCulture);
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+			var result = compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null, CultureInfo.CurrentCulture);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.AreEqual(result, expectedResult);
 		}
 
@@ -87,7 +87,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				ComparingValue = 20d
 			};
 
-			Assert.Throws<ArgumentException>(() => compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null!, CultureInfo.CurrentCulture));
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+			Assert.Throws<ArgumentException>(() => compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null, CultureInfo.CurrentCulture));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[TestCase(20d, null, TrueTestObject, FalseTestObject)]
@@ -102,7 +104,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				TrueObject = trueObject
 			};
 
-			Assert.Throws<ArgumentNullException>(() => compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null!, CultureInfo.CurrentCulture));
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+			Assert.Throws<ArgumentNullException>(() => compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null, CultureInfo.CurrentCulture));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 
 		[TestCase(20d, (CompareConverter.OperatorType)10, 20d)]
@@ -114,7 +118,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 				ComparingValue = comparingValue
 			};
 
-			Assert.Throws<ArgumentOutOfRangeException>(() => compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null!, CultureInfo.CurrentCulture));
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+			Assert.Throws<ArgumentOutOfRangeException>(() => compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null, CultureInfo.CurrentCulture));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 		}
 	}
 }
