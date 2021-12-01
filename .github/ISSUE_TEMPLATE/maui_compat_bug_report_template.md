@@ -1,6 +1,6 @@
 ---
-name: Bug Report - MauiCompat
-about: Report a bug in the Xamarin Community Toolkit
+name: Bug Report - Xamarin.CommunityToolkit.MauiCompat
+about: Report a bug for Xamarin.CommunityToolkit.MauiCompat or Xamarin.CommunityToolkit.Markup.MauiCompat
 title: "[Bug] [MauiCompat] "
 labels: bug, unverified, maui-compat 
 assignees: ''
