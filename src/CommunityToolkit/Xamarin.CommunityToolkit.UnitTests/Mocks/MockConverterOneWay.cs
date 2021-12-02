@@ -24,7 +24,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 	/// </summary>
 	public class MockConverterOneWay : BaseConverterOneWay<string, Color>
 	{
-		public override Color ConvertFrom(string? value) =>
+		public override Color ConvertFrom(string value) =>
 			value switch
 			{
 				"Red" => Color.Red,
