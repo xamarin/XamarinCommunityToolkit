@@ -89,4 +89,3 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Animations
 		}
 	}
 }
-

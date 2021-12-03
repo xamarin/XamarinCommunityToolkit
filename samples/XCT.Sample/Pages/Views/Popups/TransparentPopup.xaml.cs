@@ -1,6 +1,6 @@
-﻿using Xamarin.Forms.PlatformConfiguration;
-using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
+﻿using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
 using Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific;
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views.Popups
 {

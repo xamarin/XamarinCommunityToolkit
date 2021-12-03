@@ -18,7 +18,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			{
 				var columnDefinitions = new ColumnDefinitionCollection();
 
-				for (int i = 0; i < widths.Length; i++)
+				for (var i = 0; i < widths.Length; i++)
 					columnDefinitions.Add(new ColumnDefinition { Width = widths[i] });
 
 				return columnDefinitions;
@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			public static ColumnDefinitionCollection Define<TEnum>(params (TEnum name, GridLength width)[] columns) where TEnum : Enum
 			{
 				var columnDefinitions = new ColumnDefinitionCollection();
-				for (int i = 0; i < columns.Length; i++)
+				for (var i = 0; i < columns.Length; i++)
 				{
 					if (i != columns[i].name.ToInt())
 					{
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			{
 				var rowDefinitions = new RowDefinitionCollection();
 
-				for (int i = 0; i < heights.Length; i++)
+				for (var i = 0; i < heights.Length; i++)
 					rowDefinitions.Add(new RowDefinition { Height = heights[i] });
 
 				return rowDefinitions;
@@ -57,7 +57,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			public static RowDefinitionCollection Define<TEnum>(params (TEnum name, GridLength height)[] rows) where TEnum : Enum
 			{
 				var rowDefinitions = new RowDefinitionCollection();
-				for (int i = 0; i < rows.Length; i++)
+				for (var i = 0; i < rows.Length; i++)
 				{
 					if (i != rows[i].name.ToInt())
 					{
@@ -75,14 +75,14 @@ namespace Xamarin.CommunityToolkit.Markup
 		public static int All<TEnum>() where TEnum : Enum
 		{
 			var values = Enum.GetValues(typeof(TEnum));
-			int span = (int)values.GetValue(values.Length - 1) + 1;
+			var span = (int)values.GetValue(values.Length - 1) + 1;
 			return span;
 		}
 
 		public static int Last<TEnum>() where TEnum : Enum
 		{
 			var values = Enum.GetValues(typeof(TEnum));
-			int last = (int)values.GetValue(values.Length - 1);
+			var last = (int)values.GetValue(values.Length - 1);
 			return last;
 		}
 
