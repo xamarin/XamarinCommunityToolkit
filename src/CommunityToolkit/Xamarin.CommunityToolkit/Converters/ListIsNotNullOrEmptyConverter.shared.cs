@@ -12,7 +12,6 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
 		/// <returns>A <see cref="bool"/> indicating if the incoming value is not null and not empty.</returns>
-		public override bool ConvertFrom(IEnumerable? value) =>
-			!ListIsNullOrEmptyConverter.ConvertInternal(value);
+		public override bool ConvertFrom(IEnumerable? value) => !ListIsNullOrEmptyConverter.ConvertInternal(value);
 	}
 }

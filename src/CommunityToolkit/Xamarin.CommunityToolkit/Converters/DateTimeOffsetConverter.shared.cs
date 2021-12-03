@@ -12,13 +12,12 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// </summary>
 		/// <param name="value">The value to convert.</param>
 		/// <returns>The <see cref="DateTimeOffset"/> value.</returns>
-		public override DateTimeOffset ConvertBackTo(DateTime value) =>
-			value.Kind switch
-			{
-				DateTimeKind.Local => new DateTimeOffset(DateTime.SpecifyKind(value, DateTimeKind.Unspecified), DateTimeOffset.Now.Offset),
-				DateTimeKind.Utc => new DateTimeOffset(value, DateTimeOffset.UtcNow.Offset),
-				_ => new DateTimeOffset(value, TimeSpan.Zero)
-			};
+		public override DateTimeOffset ConvertBackTo(DateTime value) => value.Kind switch
+		{
+			DateTimeKind.Local => new DateTimeOffset(DateTime.SpecifyKind(value, DateTimeKind.Unspecified), DateTimeOffset.Now.Offset),
+			DateTimeKind.Utc => new DateTimeOffset(value, DateTimeOffset.UtcNow.Offset),
+			_ => new DateTimeOffset(value, TimeSpan.Zero)
+		};
 
 		/// <summary>
 		/// Converts <see cref="DateTimeOffset"/> to <see cref="DateTime"/>

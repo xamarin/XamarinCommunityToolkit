@@ -10,7 +10,9 @@ namespace Xamarin.CommunityToolkit.Converters
 	/// </summary>
 	/// <typeparam name="TFrom">Type of the input value</typeparam>
 	/// <typeparam name="TTo">Type of the output value</typeparam>
-	public abstract class BaseConverterOneWay<TFrom, TTo> : ValueConverterExtension, IValueConverter where TFrom : notnull where TTo : notnull
+	public abstract class BaseConverterOneWay<TFrom, TTo> : ValueConverterExtension, IValueConverter
+															where TFrom : notnull
+															where TTo : notnull
 	{
 		/// <summary>
 		/// Method that will be called by <see cref="Convert(object, Type, object, CultureInfo)"/>.
@@ -23,13 +25,13 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// Not implemented, use <see cref="BaseConverter{TFrom, TTo}"/>
 		/// </summary>
 		public virtual object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-			=> throw new NotImplementedException("Impossible to revert to original value. Consider setting BindingMode to OneWay.");
+			=> throw new NotSupportedException("Impossible to revert to original value. Consider setting BindingMode to OneWay.");
 
 		/// <inheritdoc/>
 		object? IValueConverter.Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
 		{
 			if (value is null)
-				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. If type {typeof(TFrom)} should be nullable, inherit from {nameof(BaseNullableConverterOneWay<TFrom, TTo>)} instead");
+				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)}, but is null. If type {typeof(TFrom)} should be nullable, inherit from {nameof(BaseNullableConverterOneWay<TFrom, TTo>)} instead");
 
 			if (value is not TFrom valueFrom)
 				throw new ArgumentException($"value needs to be of type {typeof(TFrom)}");
@@ -53,13 +55,13 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// </summary>
 		/// <param name="value">Value to be converted from <see cref="TFrom"/> to <see cref="TTo"/>.</param>
 		/// <returns>An object of type <see cref="TTo"/>.</returns>
-		public abstract TTo ConvertFrom(TFrom? value);
+		public abstract TTo? ConvertFrom(TFrom? value);
 
 		/// <summary>
 		/// Not implemented, use <see cref="BaseConverter{TFrom, TTo}"/>
 		/// </summary>
 		public virtual object? ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-			=> throw new NotImplementedException("Impossible to revert to original value. Consider setting BindingMode to OneWay.");
+			=> throw new NotSupportedException("Impossible to revert to original value. Consider setting BindingMode to OneWay.");
 
 		/// <inheritdoc/>
 		object? IValueConverter.Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

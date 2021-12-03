@@ -7,16 +7,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 	/// <summary>
 	/// Mock to test the <see cref="BaseNullableConverterOneWay{TFrom, TTo}"/> internals.
 	/// </summary>
-	public class MockNullableConverterOneWay : BaseNullableConverterOneWay<string?, Color>
+	public class MockNullableConverterOneWay : BaseNullableConverterOneWay<string, Color>
 	{
-		public override Color ConvertFrom(string? value) =>
-			value switch
-			{
-				null => Color.Black,
-				"Red" => Color.Red,
-				"Blue" => Color.Blue,
-				_ => throw new ArgumentException($"{value} unknown.")
-			};
+		public override Color ConvertFrom(string? value) => value switch
+		{
+			null => Color.Black,
+			"Red" => Color.Red,
+			"Blue" => Color.Blue,
+			_ => throw new ArgumentException($"{value} unknown.")
+		};
 	}
 
 	/// <summary>
@@ -24,12 +23,11 @@ namespace Xamarin.CommunityToolkit.UnitTests.Mocks
 	/// </summary>
 	public class MockConverterOneWay : BaseConverterOneWay<string, Color>
 	{
-		public override Color ConvertFrom(string value) =>
-			value switch
-			{
-				"Red" => Color.Red,
-				"Blue" => Color.Blue,
-				_ => throw new ArgumentException($"{value} unknown.")
-			};
+		public override Color ConvertFrom(string value) => value switch
+		{
+			"Red" => Color.Red,
+			"Blue" => Color.Blue,
+			_ => throw new ArgumentException($"{value} unknown.")
+		};
 	}
 }

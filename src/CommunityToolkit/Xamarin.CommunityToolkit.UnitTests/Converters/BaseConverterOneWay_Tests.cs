@@ -11,26 +11,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	[TestOf(typeof(BaseConverterOneWay<string, Color>))]
 	public class BaseConverterOneWay_Tests
 	{
-		static IEnumerable<(bool ShouldAllowNull, string? Value, Color ExpectedResult)> GetValidTestData()
-		{
-			yield return (true, "Red", Color.Red);
-			yield return (true, "Blue", Color.Blue);
-			yield return (true, null, Color.Black);
-
-			yield return (false, "Red", Color.Red);
-			yield return (false, "Blue", Color.Blue);
-		}
-
-		static IEnumerable<(bool ShouldAllowNull, string? Value, Type ExpectedExceptionType)> GetInvalidTestData()
-		{
-			yield return (true, "red",  typeof(ArgumentException));
-			yield return (true, "Green",  typeof(ArgumentException));
-			yield return (true, "red",  typeof(ArgumentException));
-			yield return (true, "Green",  typeof(ArgumentException));
-
-			yield return (false, null,  typeof(ArgumentNullException));
-		}
-
 		[TestCaseSource(nameof(GetValidTestData))]
 		public void MockConverterOneWayConvert((bool ShouldAllowNull, string? Value, Color ExpectedResult) testCase)
 		{
@@ -51,5 +31,25 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		static IValueConverter CreateConverter(bool shouldAllowNull) =>
 			shouldAllowNull ? new MockNullableConverterOneWay() : new MockConverterOneWay();
+
+		static IEnumerable<(bool ShouldAllowNull, string? Value, Color ExpectedResult)> GetValidTestData()
+		{
+			yield return (true, "Red", Color.Red);
+			yield return (true, "Blue", Color.Blue);
+			yield return (true, null, Color.Black);
+
+			yield return (false, "Red", Color.Red);
+			yield return (false, "Blue", Color.Blue);
+		}
+
+		static IEnumerable<(bool ShouldAllowNull, string? Value, Type ExpectedExceptionType)> GetInvalidTestData()
+		{
+			yield return (true, "red", typeof(ArgumentException));
+			yield return (true, "Green", typeof(ArgumentException));
+			yield return (true, "red", typeof(ArgumentException));
+			yield return (true, "Green", typeof(ArgumentException));
+
+			yield return (false, null, typeof(ArgumentNullException));
+		}
 	}
 }

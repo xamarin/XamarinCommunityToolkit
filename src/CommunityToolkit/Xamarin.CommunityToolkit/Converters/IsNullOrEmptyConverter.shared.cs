@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Converts the incoming value to a <see cref="bool"/> indicating whether or not the value is null or empty.
 	/// </summary>
-	public class IsNullOrEmptyConverter : BaseNullableConverterOneWay<object?, bool>
+	public class IsNullOrEmptyConverter : BaseNullableConverterOneWay<object, bool>
 	{
 		/// <summary>
 		/// Converts the incoming value to a <see cref="bool"/> indicating whether or not the value is null or empty.

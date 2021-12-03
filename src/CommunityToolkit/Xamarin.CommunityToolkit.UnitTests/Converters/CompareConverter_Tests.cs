@@ -11,51 +11,6 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		public const string TrueTestObject = nameof(TrueTestObject);
 		public const string FalseTestObject = nameof(FalseTestObject);
 
-		static IEnumerable<object?[]> GetTestData()
-		{
-			yield return new object?[] { 10d, CompareConverter.OperatorType.Greater, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.GreaterOrEqual, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.Equal, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.NotEqual, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.Smaller, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.SmallerOrEqual, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
-
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Equal, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
-
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 10d, TrueTestObject, FalseTestObject, TrueTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 10d, TrueTestObject, FalseTestObject, TrueTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Equal, 10d, TrueTestObject, FalseTestObject, FalseTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 10d, TrueTestObject, FalseTestObject, TrueTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 10d, TrueTestObject, FalseTestObject, FalseTestObject };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 10d, TrueTestObject, FalseTestObject, FalseTestObject };
-
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 20d, null, null, false };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 20d, null, null, true };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Equal, 20d, null, null, true };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 20d, null, null, false };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 20d, null, null, false };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 20d, null, null, true };
-
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 10d, null, null, true };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 10d, null, null, true };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Equal, 10d, null, null, false };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 10d, null, null, true };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 10d, null, null, false };
-			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 10d, null, null, false };
-
-			yield return new object?[] { 10d, CompareConverter.OperatorType.Greater, 20d, null, null, false };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.GreaterOrEqual, 20d, null, null, false };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.Equal, 20d, null, null, false };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.NotEqual, 20d, null, null, true };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.Smaller, 20d, null, null, true };
-			yield return new object?[] { 10d, CompareConverter.OperatorType.SmallerOrEqual, 20d, null, null, true };
-		}
-
 		[TestCaseSource(nameof(GetTestData))]
 		public void CompareConverterConvert(IComparable value, CompareConverter.OperatorType comparisonOperator, IComparable comparingValue, object trueObject, object falseObject, object expectedResult)
 		{
@@ -121,6 +76,51 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			Assert.Throws<ArgumentOutOfRangeException>(() => compareConverter.Convert(value, typeof(BoolToObjectConverter_Tests), null, CultureInfo.CurrentCulture));
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+		}
+
+		static IEnumerable<object?[]> GetTestData()
+		{
+			yield return new object?[] { 10d, CompareConverter.OperatorType.Greater, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.GreaterOrEqual, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.Equal, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.NotEqual, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.Smaller, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.SmallerOrEqual, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
+
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Equal, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 20d, TrueTestObject, FalseTestObject, FalseTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 20d, TrueTestObject, FalseTestObject, TrueTestObject };
+
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 10d, TrueTestObject, FalseTestObject, TrueTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 10d, TrueTestObject, FalseTestObject, TrueTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Equal, 10d, TrueTestObject, FalseTestObject, FalseTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 10d, TrueTestObject, FalseTestObject, TrueTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 10d, TrueTestObject, FalseTestObject, FalseTestObject };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 10d, TrueTestObject, FalseTestObject, FalseTestObject };
+
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 20d, null, null, false };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 20d, null, null, true };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Equal, 20d, null, null, true };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 20d, null, null, false };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 20d, null, null, false };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 20d, null, null, true };
+
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Greater, 10d, null, null, true };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.GreaterOrEqual, 10d, null, null, true };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Equal, 10d, null, null, false };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.NotEqual, 10d, null, null, true };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.Smaller, 10d, null, null, false };
+			yield return new object?[] { 20d, CompareConverter.OperatorType.SmallerOrEqual, 10d, null, null, false };
+
+			yield return new object?[] { 10d, CompareConverter.OperatorType.Greater, 20d, null, null, false };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.GreaterOrEqual, 20d, null, null, false };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.Equal, 20d, null, null, false };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.NotEqual, 20d, null, null, true };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.Smaller, 20d, null, null, true };
+			yield return new object?[] { 10d, CompareConverter.OperatorType.SmallerOrEqual, 20d, null, null, true };
 		}
 	}
 }

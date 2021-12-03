@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		public sealed override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
 		{
 			if (value is null)
-				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)} but is null. If type {typeof(TFrom)} should be nullable, inherit from {nameof(BaseNullableConverter<TFrom, TTo>)} instead");
+				throw new ArgumentNullException(nameof(value), $"value needs to be of type {typeof(TFrom)}, but is null. If type {typeof(TFrom)} should be nullable, inherit from {nameof(BaseNullableConverter<TFrom, TTo>)} instead");
 
 			if (value is not TTo valueFrom)
 				throw new ArgumentException($"value needs to be of type {typeof(TTo)}", nameof(value));
@@ -71,6 +71,6 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// </summary>
 		/// <param name="value">Value to be converted from <see cref="TTo"/> to <see cref="TFrom"/>.</param>
 		/// <returns>An object of type <see cref="TFrom"/>.</returns>
-		public abstract TFrom ConvertBackTo(TTo? value);
+		public abstract TFrom? ConvertBackTo(TTo? value);
 	}
 }

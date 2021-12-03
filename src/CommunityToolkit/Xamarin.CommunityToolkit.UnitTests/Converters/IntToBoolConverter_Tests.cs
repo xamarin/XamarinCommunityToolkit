@@ -35,7 +35,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		public void InvalidConverterValuesThrowArgumentException(object value)
 		{
 			var intToBoolConverter = CreateConverter();
-			Assert.Throws<ArgumentException>(() => intToBoolConverter.Convert(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentException>(() => intToBoolConverter.Convert(value, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 
 		[TestCase(2.5)]
@@ -43,21 +43,21 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		public void InvalidConverterBackValuesThrowArgumentException(object value)
 		{
 			var intToBoolConverter = CreateConverter();
-			Assert.Throws<ArgumentException>(() => intToBoolConverter.ConvertBack(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentException>(() => intToBoolConverter.ConvertBack(value, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 
 		[Test]
 		public void NullConverterValuesThrowArgumentException()
 		{
 			var intToBoolConverter = CreateConverter();
-			Assert.Throws<ArgumentNullException>(() => intToBoolConverter.Convert(null, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentNullException>(() => intToBoolConverter.Convert(null, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 
 		[Test]
 		public void NullConverterBackValuesThrowArgumentException()
 		{
 			var intToBoolConverter = CreateConverter();
-			Assert.Throws<ArgumentNullException>(() => intToBoolConverter.ConvertBack(null, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentNullException>(() => intToBoolConverter.ConvertBack(null, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 
 		static IValueConverter CreateConverter() => new IntToBoolConverter();

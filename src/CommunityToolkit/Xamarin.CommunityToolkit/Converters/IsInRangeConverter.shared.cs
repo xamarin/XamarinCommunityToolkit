@@ -14,6 +14,11 @@ namespace Xamarin.CommunityToolkit.Converters
 		public static readonly BindableProperty MinValueProperty = BindableProperty.Create(nameof(MinValue), typeof(object), typeof(IsInRangeConverter));
 
 		/// <summary>
+		/// Backing BindableProperty for the <see cref="MaxValue"/> property.
+		/// </summary>
+		public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(object), typeof(IsInRangeConverter));
+
+		/// <summary>
 		/// Gets or sets the minimum value of the range for the <see cref="IsInRangeConverter"/>. This is a bindable property.
 		/// </summary>
 		public object MinValue
@@ -21,11 +26,6 @@ namespace Xamarin.CommunityToolkit.Converters
 			get => GetValue(MinValueProperty);
 			set => SetValue(MinValueProperty, value);
 		}
-
-		/// <summary>
-		/// Backing BindableProperty for the <see cref="MaxValue"/> property.
-		/// </summary>
-		public static readonly BindableProperty MaxValueProperty = BindableProperty.Create(nameof(MaxValue), typeof(object), typeof(IsInRangeConverter));
 
 		/// <summary>
 		/// Gets or sets the maximum value of the range for the <see cref="IsInRangeConverter"/>. This is a bindable property.
