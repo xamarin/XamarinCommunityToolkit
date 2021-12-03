@@ -414,6 +414,13 @@ namespace Xamarin.CommunityToolkit.Effects
 			-1,
 			propertyChanged: TryGenerateEffect);
 
+		public static readonly BindableProperty NativeAnimationBorderlessProperty = BindableProperty.CreateAttached(
+			nameof(NativeAnimationBorderless),
+			typeof(bool),
+			typeof(TouchEffect),
+			false,
+			propertyChanged: TryGenerateEffect);
+
 		public static readonly BindableProperty NormalBackgroundImageSourceProperty = BindableProperty.CreateAttached(
 			nameof(NormalBackgroundImageSource),
 			typeof(ImageSource),
@@ -852,6 +859,12 @@ namespace Xamarin.CommunityToolkit.Effects
 		public static void SetNativeAnimationShadowRadius(BindableObject? bindable, int value)
 			=> bindable?.SetValue(NativeAnimationShadowRadiusProperty, value);
 
+		public static bool GetNativeAnimationBorderless(BindableObject? bindable)
+			=> (bool)(bindable?.GetValue(NativeAnimationBorderlessProperty) ?? throw new ArgumentNullException(nameof(bindable)));
+
+		public static void SetNativeAnimationBorderless(BindableObject? bindable, bool value)
+			=> bindable?.SetValue(NativeAnimationBorderlessProperty, value);
+
 		public static ImageSource? GetNormalBackgroundImageSource(BindableObject? bindable)
 		{
 			if (bindable == null)
@@ -1000,6 +1013,8 @@ namespace Xamarin.CommunityToolkit.Effects
 		public int NativeAnimationRadius => GetNativeAnimationRadius(Element);
 
 		public int NativeAnimationShadowRadius => GetNativeAnimationShadowRadius(Element);
+
+		public bool NativeAnimationBorderless => GetNativeAnimationBorderless(Element);
 
 		public Color NormalBackgroundColor => GetNormalBackgroundColor(Element);
 
