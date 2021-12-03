@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			=> ripple != null &&
 				ripple.IsAlive() &&
 				View.IsAlive() &&
-				View.Foreground == ripple &&
+				(XCT.SdkInt >= (int)BuildVersionCodes.M ? View.Foreground : View.Background) == ripple &&
 				Element is XView view &&
 				view.GestureRecognizers.Any(gesture => gesture is TapGestureRecognizer);
 
@@ -89,6 +89,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 			{
 				if (XCT.SdkInt >= (int)BuildVersionCodes.M)
 					View.Foreground = ripple;
+				else
+					View.Background = ripple;
 
 				return;
 			}
@@ -130,6 +132,8 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 					if (XCT.SdkInt >= (int)BuildVersionCodes.M && View.Foreground == ripple)
 						View.Foreground = null;
+					else if (View.Background == ripple)
+						View.Background = null;
 				}
 
 				effect.Element = null;
