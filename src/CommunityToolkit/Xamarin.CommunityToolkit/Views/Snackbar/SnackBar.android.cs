@@ -15,9 +15,9 @@ using AndroidSnackBar = Android.Support.Design.Widget.Snackbar;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	class SnackBar
+	partial class SnackBar
 	{
-		internal async ValueTask Show(VisualElement sender, SnackBarOptions arguments)
+		internal partial async ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
 			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided VisualElement cannot be parent to SnackBar", nameof(sender));
 			var snackBar = AndroidSnackBar.Make(renderer.View, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
@@ -87,11 +87,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			foreach (var action in arguments.Actions)
 			{
-				snackBar.SetAction(action.Text, async v =>
-				{
-					if (action.Action != null)
-						await action.Action();
-				});
+				snackBar.SetAction(action.Text, async _ => await OnActionClick(action, arguments).ConfigureAwait(false));
 				if (action.ForegroundColor != Forms.Color.Default)
 				{
 					snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
@@ -154,15 +150,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				base.OnDismissed(transientBottomBar, e);
 
-				switch (e)
-				{
-					case DismissEventTimeout:
-						arguments.SetResult(false);
-						break;
-					case DismissEventAction:
-						arguments.SetResult(true);
-						break;
-				}
+				if (e == DismissEventAction)
+					return;
+
+				arguments.SetResult(false);
 			}
 		}
 	}

@@ -111,8 +111,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetEvents()
 		{
-			if (Element?.IsLightDismissEnabled is true)
-				Closing += OnClosing;
+			Closing += OnClosing;
 
 			if (Element != null)
 				Element.Dismissed += OnDismissed;
@@ -273,6 +272,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (isOpen && Element?.IsLightDismissEnabled is true)
 				Element.LightDismiss();
+			if (isOpen && e is FlyoutBaseClosingEventArgs args)
+				args.Cancel = true;
 		}
 
 		void OnOpened(object sender, object e) =>
