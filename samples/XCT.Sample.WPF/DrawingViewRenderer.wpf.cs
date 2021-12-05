@@ -90,7 +90,7 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 					Element.Lines.Clear();
 				}
 
-				var lines = Element.MultiLineMode ? e.Added : new StrokeCollection() {e.Added.First()};
+				var lines = Element.MultiLineMode ? e.Added : new StrokeCollection() { e.Added.First() };
 
 				foreach (var line in lines)
 				{
@@ -100,7 +100,7 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 						Points = new ObservableCollection<Point>(points),
 						LineColor = Color.FromRgba(line.DrawingAttributes.Color.R, line.DrawingAttributes.Color.G,
 							line.DrawingAttributes.Color.B, line.DrawingAttributes.Color.A),
-						LineWidth = (float) line.DrawingAttributes.Width
+						LineWidth = (float)line.DrawingAttributes.Width
 					});
 				}
 
@@ -127,12 +127,12 @@ namespace Xamarin.CommunityToolkit.Sample.WPF
 			var lines = Element.MultiLineMode
 				? Element.Lines
 				: Element.Lines.Any()
-					? new ObservableCollection<Line> {Element.Lines.LastOrDefault()}
+					? new ObservableCollection<Line> { Element.Lines.LastOrDefault() }
 					: new ObservableCollection<Line>();
 			foreach (var line in lines)
 			{
 				var stylusPoints = line.Points.Select(point => new StylusPoint(point.X, point.Y)).ToList();
-				if (stylusPoints is {Count: > 0})
+				if (stylusPoints is { Count: > 0 })
 				{
 					var stroke = new Stroke(new StylusPointCollection(stylusPoints))
 					{

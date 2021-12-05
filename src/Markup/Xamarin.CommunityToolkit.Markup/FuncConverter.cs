@@ -108,6 +108,6 @@ namespace Xamarin.CommunityToolkit.Markup
 		public static NotConverter Instance => instance.Value;
 
 		public NotConverter()
-            : base(t => !t, t => !t) { }
+			: base(t => !t, t => !t) { }
 	}
 }

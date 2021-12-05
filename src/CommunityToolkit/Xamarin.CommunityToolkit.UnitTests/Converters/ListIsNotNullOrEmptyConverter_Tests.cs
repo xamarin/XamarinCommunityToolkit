@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -20,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetData))]
 		public void ListIsNotNullOrEmptyConverter(object value, bool expectedResult)
 		{
-			var listIsNotNullOrEmptyConverter = new ListIsNotNullOrEmptyConverter();
+			var listIsNotNullOrEmptyConverter = CreateConverter();
 
 			var result = listIsNotNullOrEmptyConverter.Convert(value, typeof(ListIsNotNullOrEmptyConverter), null, CultureInfo.CurrentCulture);
 
@@ -28,11 +29,13 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCase(0)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		public void InValidConverterValuesThrowArgumentException(object value)
 		{
-			var listIsNotNullOrEmptyConverter = new ListIsNotNullOrEmptyConverter();
+			var listIsNotNullOrEmptyConverter = CreateConverter();
 
 			Assert.Throws<ArgumentException>(() => listIsNotNullOrEmptyConverter.Convert(value, typeof(ListIsNotNullOrEmptyConverter), null, CultureInfo.CurrentCulture));
 		}
+
+		static IValueConverter CreateConverter() => new ListIsNotNullOrEmptyConverter();
 	}
 }
