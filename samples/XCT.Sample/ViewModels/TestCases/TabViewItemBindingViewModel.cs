@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 {
 	public class TabViewItemBindingViewModel : BaseViewModel
 	{
-		public static TabViewItemBindingViewModel Current { get; } = new ();
+		public static TabViewItemBindingViewModel Current { get; } = new();
 
 		int countClick;
 
