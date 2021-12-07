@@ -30,7 +30,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCase(0)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		public void InValidConverterValuesThrowArgumentException(object value)
 		{
 			var listToStringConverter = new ListToStringConverter();
 
@@ -38,7 +38,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCase(0)]
-		public void InValidConverterParametersThrowArgumenException(object parameter)
+		public void InValidConverterParametersThrowArgumentException(object parameter)
 		{
 			var listToStringConverter = new ListToStringConverter();
 

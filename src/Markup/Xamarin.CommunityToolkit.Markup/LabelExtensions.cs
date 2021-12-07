@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		}
 	}
 
-	#pragma warning disable SA1403 // File may only contain a single namespace
+#pragma warning disable SA1403 // File may only contain a single namespace
 
 	// The extensions in these sub-namespaces are designed to be used together with the extensions in the parent namespace.
 	// Keep them in a single file for better maintainability
@@ -61,5 +61,5 @@ namespace Xamarin.CommunityToolkit.Markup
 			{ label.HorizontalTextAlignment = TextAlignment.Start; return label; }
 		}
 	}
-	#pragma warning restore SA1403 // File may only contain a single namespace
+#pragma warning restore SA1403 // File may only contain a single namespace
 }
