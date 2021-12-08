@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
-using Xamarin.CommunityToolkit.UI.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
