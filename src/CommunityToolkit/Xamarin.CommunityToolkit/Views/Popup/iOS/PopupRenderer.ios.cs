@@ -37,6 +37,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 		}
 
+		[Preserve(Conditional = true)]
+		public PopupRenderer(UIViewController viewController)
+		{
+			ViewController = viewController;
+		}
+
 		public void SetElementSize(Size size) =>
 			Control?.SetElementSize(size);
 
@@ -135,17 +141,26 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			IVisualElementRenderer currentPageRenderer;
 			var modalStackCount = Application.Current.MainPage?.Navigation?.ModalStack?.Count ?? 0;
-			var mainPage = Application.Current.MainPage;
+			var page = Application.Current.MainPage;
 			if (modalStackCount > 0)
 			{
 				var index = modalStackCount - 1;
-				currentPageRenderer = Platform.GetRenderer(mainPage!.Navigation!.ModalStack![index]);
+				page = page!.Navigation!.ModalStack![index];
+				currentPageRenderer = Platform.GetRenderer(page);
 			}
 			else
 			{
-				currentPageRenderer = Platform.GetRenderer(mainPage);
+				currentPageRenderer = Platform.GetRenderer(page);
 			}
-			ViewController = currentPageRenderer.ViewController;
+
+			if (currentPageRenderer == null)
+			{
+				ViewController ??= page.CreateViewController();
+			}
+			else
+			{
+				ViewController ??= currentPageRenderer.ViewController;
+			}
 		}
 
 		void SetEvents()
