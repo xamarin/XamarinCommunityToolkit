@@ -16,14 +16,14 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
             // We know it's deprecated, still good to test it
 #pragma warning disable CS0618 // Type or member is obsolete
                 new object?[] { new ItemTappedEventArgs(null, expectedValue), expectedValue },
-				new object?[] { new ItemTappedEventArgs(null, null), null },
+                new object?[] { new ItemTappedEventArgs(null, null), null },
 #pragma warning restore CS0618 // Type or member is obsolete
 			};
 
 		[TestCaseSource(nameof(GetData))]
 		public void ItemTappedEventArgsConverter(ItemTappedEventArgs value, object expectedResult)
 		{
-			var itemTappedEventArgsConverter = new ItemTappedEventArgsConverter();
+			var itemTappedEventArgsConverter = CreateConverter();
 
 			var result = itemTappedEventArgsConverter.Convert(value, typeof(ItemTappedEventArgsConverter), null, CultureInfo.CurrentCulture);
 
@@ -31,10 +31,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCase("Random String")]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		public void InValidConverterValuesThrowArgumentException(object value)
 		{
-			var itemTappedEventArgsConverter = new ItemTappedEventArgsConverter();
+			var itemTappedEventArgsConverter = CreateConverter();
 			Assert.Throws<ArgumentException>(() => itemTappedEventArgsConverter.Convert(value, typeof(ItemTappedEventArgsConverter), null, CultureInfo.CurrentCulture));
 		}
+
+		static IValueConverter CreateConverter() => new ItemTappedEventArgsConverter();
 	}
 }

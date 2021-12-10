@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -17,35 +18,12 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		static readonly DateTimeOffset testDateTimeOffsetLocal = new DateTimeOffset(2020, 08, 25, 13, 37, 00, DateTimeOffset.Now.Offset);
 		static readonly DateTimeOffset testDateTimeOffsetUtc = new DateTimeOffset(2020, 08, 25, 13, 37, 00, DateTimeOffset.UtcNow.Offset);
 
-		public static IEnumerable<object[]> GetData() =>
-			new List<object[]>
-			{
-				new object[] { testDateTimeOffsetNow, testDateTimeNow },
-				new object[] { DateTimeOffset.MinValue, DateTime.MinValue },
-				new object[] { DateTimeOffset.MaxValue, DateTime.MaxValue },
-				new object[] { testDateTimeOffsetLocal, testDateTimeLocal },
-				new object[] { testDateTimeOffsetUtc, testDateTimeUtc },
-				new object[] { testDateTimeOffsetUtc, testDateTimeUnspecified },
-			};
-
-		public static IEnumerable<object[]> GetDataReverse() =>
-			new List<object[]>
-			{
-				new object[] { testDateTimeNow, testDateTimeOffsetNow },
-				new object[] { DateTime.MinValue, DateTimeOffset.MinValue },
-				new object[] { DateTime.MaxValue, DateTimeOffset.MaxValue },
-				new object[] { testDateTimeLocal, testDateTimeOffsetLocal },
-				new object[] { testDateTimeUtc, testDateTimeOffsetUtc },
-				new object[] { testDateTimeUnspecified, testDateTimeOffsetUtc },
-			};
-
 		[TestCaseSource(nameof(GetData))]
 		public void DateTimeOffsetConverter(DateTimeOffset value, DateTime expectedResult)
 		{
-			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			var dateTimeOffsetConverter = CreateConverter();
 
-			var result = dateTimeOffsetConverter.Convert(value, typeof(DateTimeOffsetConverter_Tests), null,
-				CultureInfo.CurrentCulture);
+			var result = dateTimeOffsetConverter.Convert(value, typeof(DateTimeOffsetConverter_Tests), null, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(expectedResult, result);
 		}
@@ -53,10 +31,9 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetDataReverse))]
 		public void DateTimeOffsetConverterBack(DateTime value, DateTimeOffset expectedResult)
 		{
-			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			var dateTimeOffsetConverter = CreateConverter();
 
-			var result = dateTimeOffsetConverter.ConvertBack(value, typeof(DateTimeOffsetConverter_Tests), null,
-				CultureInfo.CurrentCulture);
+			var result = dateTimeOffsetConverter.ConvertBack(value, typeof(DateTimeOffsetConverter_Tests), null, CultureInfo.CurrentCulture);
 
 			Assert.AreEqual(expectedResult, result);
 		}
@@ -64,21 +41,39 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[Test]
 		public void DateTimeOffsetConverter_GivenInvalidParameters_ThrowsException()
 		{
-			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			var dateTimeOffsetConverter = CreateConverter();
 
-			Assert.Throws<ArgumentException>(() => dateTimeOffsetConverter.Convert("Not a DateTimeOffset",
-				typeof(DateTimeOffsetConverter_Tests), null,
-				CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentException>(() => dateTimeOffsetConverter.Convert("Not a DateTimeOffset", typeof(DateTimeOffsetConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 
 		[Test]
 		public void DateTimeOffsetConverterBack_GivenInvalidParameters_ThrowsException()
 		{
-			var dateTimeOffsetConverter = new DateTimeOffsetConverter();
+			var dateTimeOffsetConverter = CreateConverter();
 
-			Assert.Throws<ArgumentException>(() => dateTimeOffsetConverter.ConvertBack("Not a DateTime",
-				typeof(DateTimeOffsetConverter_Tests), null,
-				CultureInfo.CurrentCulture));
+			Assert.Throws<ArgumentException>(() => dateTimeOffsetConverter.ConvertBack("Not a DateTime", typeof(DateTimeOffsetConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
+
+		static IValueConverter CreateConverter() => new DateTimeOffsetConverter();
+
+		static IEnumerable<object[]> GetData() => new List<object[]>
+		{
+			new object[] { testDateTimeOffsetNow, testDateTimeNow },
+			new object[] { DateTimeOffset.MinValue, DateTime.MinValue },
+			new object[] { DateTimeOffset.MaxValue, DateTime.MaxValue },
+			new object[] { testDateTimeOffsetLocal, testDateTimeLocal },
+			new object[] { testDateTimeOffsetUtc, testDateTimeUtc },
+			new object[] { testDateTimeOffsetUtc, testDateTimeUnspecified },
+		};
+
+		static IEnumerable<object[]> GetDataReverse() => new List<object[]>
+		{
+			new object[] { testDateTimeNow, testDateTimeOffsetNow },
+			new object[] { DateTime.MinValue, DateTimeOffset.MinValue },
+			new object[] { DateTime.MaxValue, DateTimeOffset.MaxValue },
+			new object[] { testDateTimeLocal, testDateTimeOffsetLocal },
+			new object[] { testDateTimeUtc, testDateTimeOffsetUtc },
+			new object[] { testDateTimeUnspecified, testDateTimeOffsetUtc },
+		};
 	}
 }

@@ -32,6 +32,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.ObjectModel.ICommandTests.AsyncComm
 			// Assert
 			Assert.Throws<InvalidCommandParameterException>(() => command.Execute(true));
 		}
+
 		[Test]
 		public void IAsyncCommand_Execute_InvalidNullableTypeParameter()
 		{

@@ -46,15 +46,15 @@ namespace Xamarin.CommunityToolkit.Markup
 
 		public static TView Row<TView, TRow>(this TView view, TRow row) where TView : View where TRow : Enum
 		{
-			int rowIndex = row.ToInt();
+			var rowIndex = row.ToInt();
 			view.SetValue(Grid.RowProperty, rowIndex);
 			return view;
 		}
 
 		public static TView Row<TView, TRow>(this TView view, TRow first, TRow last) where TView : View where TRow : Enum
 		{
-			int rowIndex = first.ToInt();
-			int span = last.ToInt() - rowIndex + 1;
+			var rowIndex = first.ToInt();
+			var span = last.ToInt() - rowIndex + 1;
 			view.SetValue(Grid.RowProperty, rowIndex);
 			view.SetValue(Grid.RowSpanProperty, span);
 			return view;
@@ -62,17 +62,17 @@ namespace Xamarin.CommunityToolkit.Markup
 
 		public static TView Column<TView, TColumn>(this TView view, TColumn column) where TView : View where TColumn : Enum
 		{
-			int columnIndex = column.ToInt();
+			var columnIndex = column.ToInt();
 			view.SetValue(Grid.ColumnProperty, columnIndex);
 			return view;
 		}
 
 		public static TView Column<TView, TColumn>(this TView view, TColumn first, TColumn last) where TView : View where TColumn : Enum
 		{
-			int columnIndex = first.ToInt();
+			var columnIndex = first.ToInt();
 			view.SetValue(Grid.ColumnProperty, columnIndex);
 
-			int span = last.ToInt() + 1 - columnIndex;
+			var span = last.ToInt() + 1 - columnIndex;
 			view.SetValue(Grid.ColumnSpanProperty, span);
 
 			return view;
