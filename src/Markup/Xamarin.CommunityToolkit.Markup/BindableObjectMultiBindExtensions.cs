@@ -160,7 +160,7 @@ namespace Xamarin.CommunityToolkit.Markup
 			object? fallbackValue = null) where TBindable : BindableObject
 		{
 			bindable.SetBinding(targetProperty, new MultiBinding
-            {
+			{
 				Bindings = bindings,
 				Converter = converter,
 				ConverterParameter = converterParameter,
@@ -168,7 +168,7 @@ namespace Xamarin.CommunityToolkit.Markup
 				StringFormat = stringFormat,
 				TargetNullValue = targetNullValue,
 				FallbackValue = fallbackValue
-            });
+			});
 			return bindable;
 		}
 	}
