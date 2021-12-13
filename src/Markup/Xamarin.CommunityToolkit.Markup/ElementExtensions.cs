@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using PaddingElement = Xamarin.Forms.Label; // TODO: Get rid of this after we have default interface implementation in Forms for IPaddingElement
 using FontElement = Xamarin.Forms.Label; // TODO: Get rid of this after we have default interface implementation in Forms for IFontElement
+using PaddingElement = Xamarin.Forms.Label; // TODO: Get rid of this after we have default interface implementation in Forms for IPaddingElement
 
 namespace Xamarin.CommunityToolkit.Markup
 {

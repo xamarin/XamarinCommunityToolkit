@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Markup.LeftToRight;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
