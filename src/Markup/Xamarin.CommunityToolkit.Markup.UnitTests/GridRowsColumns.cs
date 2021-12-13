@@ -19,7 +19,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			var grid = new Forms.Grid
 			{
-				RowDefinitions = Rows.Define(Auto, Star, Stars (starsValue), 20)
+				RowDefinitions = Rows.Define(Auto, Star, Stars(starsValue), 20)
 			};
 
 			Assert.That(grid.RowDefinitions.Count, Is.EqualTo(4));
@@ -35,9 +35,9 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var grid = new Forms.Grid
 			{
 				RowDefinitions = Rows.Define(
-					(Row.First , Auto),
+					(Row.First, Auto),
 					(Row.Second, Star),
-					(Row.Third , Stars (starsValue)),
+					(Row.Third, Stars(starsValue)),
 					(Row.Fourth, 20)
 				)
 			};
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			var grid = new Forms.Grid
 			{
-				ColumnDefinitions = Columns.Define(Auto, Star, Stars (starsValue), 20, 40)
+				ColumnDefinitions = Columns.Define(Auto, Star, Stars(starsValue), 20, 40)
 			};
 
 			Assert.That(grid.ColumnDefinitions.Count, Is.EqualTo(5));
@@ -80,11 +80,11 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			var grid = new Forms.Grid
 			{
 				ColumnDefinitions = Columns.Define(
-					(Col.First , Auto),
+					(Col.First, Auto),
 					(Col.Second, Star),
-					(Col.Third , Stars(starsValue)),
+					(Col.Third, Stars(starsValue)),
 					(Col.Fourth, 20),
-					(Col.Fifth , 40)
+					(Col.Fifth, 40)
 				)
 			};
 

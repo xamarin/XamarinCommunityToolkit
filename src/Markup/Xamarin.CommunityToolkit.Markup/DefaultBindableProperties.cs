@@ -114,7 +114,7 @@ namespace Xamarin.CommunityToolkit.Markup
 
 			do
 			{
-				string bindableObjectTypeName = bindableObjectType.FullName;
+				var bindableObjectTypeName = bindableObjectType.FullName;
 				if (bindableObjectTypeDefaultProperty.TryGetValue(bindableObjectTypeName, out defaultProperty))
 					break;
 				if (bindableObjectTypeName.StartsWith("Xamarin.Forms.", StringComparison.Ordinal))
@@ -122,7 +122,7 @@ namespace Xamarin.CommunityToolkit.Markup
 
 				bindableObjectType = bindableObjectType.GetTypeInfo().BaseType;
 			}
-            while (bindableObjectType != null);
+			while (bindableObjectType != null);
 
 			return defaultProperty;
 		}
@@ -150,7 +150,7 @@ namespace Xamarin.CommunityToolkit.Markup
 
 			do
 			{
-				string bindableObjectTypeName = bindableObjectType.FullName;
+				var bindableObjectTypeName = bindableObjectType.FullName;
 				if (bindableObjectTypeDefaultCommandAndParameterProperties.TryGetValue(bindableObjectTypeName, out commandAndParameterProperties))
 					break;
 				if (bindableObjectTypeName.StartsWith("Xamarin.Forms.", StringComparison.Ordinal))
@@ -158,7 +158,7 @@ namespace Xamarin.CommunityToolkit.Markup
 
 				bindableObjectType = bindableObjectType.GetTypeInfo().BaseType;
 			}
-            while (bindableObjectType != null);
+			while (bindableObjectType != null);
 
 			return commandAndParameterProperties;
 		}
