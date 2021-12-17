@@ -7,9 +7,6 @@ dotnet sln ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat.sln add ./
 dotnet new sln -o ./src/Markup/ -n Xamarin.CommunityToolkit.Markup.MauiCompat
 dotnet sln ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat.sln add ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj
 
-sed -i '' 's/net6.0;//g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/Xamarin.CommunityToolkit.MauiCompat.csproj
-sed -i '' 's/net6.0;//g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/**/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj
-
 sed -i '' 's/;net6.0-maccatalyst//g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/Xamarin.CommunityToolkit.MauiCompat.csproj
 sed -i '' 's/;net6.0-maccatalyst//g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/**/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj
 
@@ -35,7 +32,7 @@ printf > ./src/CommunityToolkit/Directory.build.props "<Project>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl>
         <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-        <Version>1.3.0-pre2</Version>
+        <Version>1.3.0-pre4</Version>
     </PropertyGroup>    
 
     <ItemGroup>
@@ -67,6 +64,15 @@ printf > ./src/CommunityToolkit/Directory.build.props "<Project>
         <Compile Include=\"**\*.macos.cs\" />
         <Compile Include=\"**\*.macos.*.cs\" />
     </ItemGroup>
+
+    <ItemGroup Condition=\" !\$(TargetFramework.Contains('-')) \">
+        <Compile Include=\"**\*.netstandard.cs\" />
+        <Compile Include=\"**\*.netstandard.*.cs\" />
+    </ItemGroup>
+    <PropertyGroup Condition=\" !\$(TargetFramework.Contains('-')) \">
+        <DefineConstants>\$(DefineConstants);NETSTANDARD</DefineConstants>
+    </PropertyGroup>
+
 </Project>"
 
 printf > ./src/Markup/Directory.build.props "<Project>
@@ -90,7 +96,7 @@ printf > ./src/Markup/Directory.build.props "<Project>
         <Product>\$(AssemblyName) (\$(TargetFramework))</Product>
         <PackageVersion>\$(Version)\$(VersionSuffix)</PackageVersion>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <Version>1.3.0-pre2</Version>
+        <Version>1.3.0-pre4</Version>
         <PackageTags>maui,net,xamarin,xamarin.forms,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,markup,csharpformarkup,csharp,csharpmarkup</PackageTags>
     </PropertyGroup>
     
