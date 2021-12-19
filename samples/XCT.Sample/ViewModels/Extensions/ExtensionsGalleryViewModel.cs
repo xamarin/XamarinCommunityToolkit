@@ -13,6 +13,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Effects
 				typeof(ImageResourceExtensionPage),
 				nameof(ImageResourceExtension),
 				"A XAML extension that helps to display images from embedded resources"),
+
+			new SectionModel(
+				typeof(SemanticExtensionsPage),
+				nameof(SemanticExtensions),
+				"An extension that offers further semantic APIs for screen reader accessibility"),
 		};
 	}
 }
