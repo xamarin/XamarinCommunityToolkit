@@ -140,12 +140,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void SetViewController()
 		{
 			IVisualElementRenderer currentPageRenderer;
-			var modalStackCount = Application.Current.MainPage?.Navigation?.ModalStack?.Count ?? 0;
 			var page = Application.Current.MainPage;
+			var modalStackCount = page?.Navigation?.ModalStack?.Count ?? 0;
 			if (modalStackCount > 0)
 			{
 				var index = modalStackCount - 1;
-				page = page!.Navigation!.ModalStack![index];
+				page = page?.Navigation.ModalStack[index];
 				currentPageRenderer = Platform.GetRenderer(page);
 			}
 			else
@@ -155,7 +155,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (currentPageRenderer == null)
 			{
-				ViewController ??= page.CreateViewController();
+				ViewController ??= page?.CreateViewController();
 			}
 			else
 			{
