@@ -145,7 +145,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (modalStackCount > 0)
 			{
 				var index = modalStackCount - 1;
-				page = page?.Navigation.ModalStack[index];
+				page = page?.Navigation?.ModalStack?[index];
 				currentPageRenderer = Platform.GetRenderer(page);
 			}
 			else
