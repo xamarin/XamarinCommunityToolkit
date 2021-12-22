@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.Popups.GH_BUG_1761"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:popups="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.TestCases.Popups;assembly=Xamarin.CommunityToolkit.Sample"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.TestCases.Popups">
+    <pages:BasePage.BindingContext>
+        <popups:GH_BUG_1761_ViewModel />
+    </pages:BasePage.BindingContext>
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Button">
+                <Setter Property="Margin" Value="20" />
+            </Style>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+    <StackLayout Margin="20" VerticalOptions="Center">
+        <Label Text="By pressing this button, you should see the first popup, after you close it, you should see the second popup" />
+        <Button Clicked="ButtonAB_Clicked" Text="Popup A, Popup B" />
+    </StackLayout>
+</pages:BasePage>

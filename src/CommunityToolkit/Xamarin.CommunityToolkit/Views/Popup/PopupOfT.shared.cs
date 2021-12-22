@@ -27,8 +27,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// </param>
 		public void Dismiss(T? result)
 		{
-			taskCompletionSource.TrySetResult(result);
 			OnDismissed(result);
+			taskCompletionSource.TrySetResult(result);
 		}
 
 		/// <summary>
@@ -39,8 +39,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <inheritdoc/>
 		protected internal override void LightDismiss()
 		{
-			taskCompletionSource.TrySetResult(GetLightDismissResult());
 			base.LightDismiss();
+			taskCompletionSource.TrySetResult(GetLightDismissResult());
 		}
 
 		/// <summary>
