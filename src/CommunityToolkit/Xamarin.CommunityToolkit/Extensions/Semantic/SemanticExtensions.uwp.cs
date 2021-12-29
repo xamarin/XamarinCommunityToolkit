@@ -1,8 +1,8 @@
 ﻿using System;
-using Xamarin.Forms;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Media;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
