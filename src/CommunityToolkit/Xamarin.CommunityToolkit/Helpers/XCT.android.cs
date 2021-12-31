@@ -6,7 +6,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
-	static class XCT
+	static partial class XCT
 	{
 		static Context? context;
 		static int? sdkInt;
