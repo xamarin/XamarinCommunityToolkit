@@ -213,8 +213,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="build\*.cs" />
-    <None Include="build\**\*.cs;build\**\*.targets" Pack="true" PackagePath="build" />
+    <None Include="..\..\..\Libs\SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator.dll" Pack="true" Visible="true" PackagePath="analyzers/dotnet/xct/cs" />
   </ItemGroup>
 
   <Import Project="..\..\mdoc.targets" Condition=" '$(OS)' == 'Windows_NT' AND '$(GenerateApiDocs)' == 'true'" />
