@@ -3,8 +3,7 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:views="clr-namespace:Xamarin.CommunityToolkit.UI.Views;assembly=Xamarin.CommunityToolkit"
                 x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.DrawingViewPage"
-                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
-                xmlns:viewsVodel="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views;assembly=Xamarin.CommunityToolkit.Sample">
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
 
     <ScrollView>
         <StackLayout>
