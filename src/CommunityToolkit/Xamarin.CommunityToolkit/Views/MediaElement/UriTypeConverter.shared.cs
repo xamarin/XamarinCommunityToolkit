@@ -10,6 +10,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override object? ConvertFromInvariantString(string? value)
 		{
 			return string.IsNullOrWhiteSpace(value) ? null : new Uri(value, UriKind.RelativeOrAbsolute);
-		}			
+		}
 	}
 }
