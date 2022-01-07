@@ -2,9 +2,9 @@
 using Android.Views.Accessibility;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using AView = Android.Views.View;
 using AApplication = Android.App.Application;
 using AContext = Android.Content.Context;
+using AView = Android.Views.View;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
