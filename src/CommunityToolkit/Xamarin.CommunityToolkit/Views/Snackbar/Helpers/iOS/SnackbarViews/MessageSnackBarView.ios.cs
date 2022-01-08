@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using CoreGraphics;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar;
 
@@ -22,7 +22,6 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews
 			{
 				Text = SnackBar.Message,
 				Lines = 0,
-				AdjustsFontSizeToFitWidth = true,
 				TextAlignment = SnackBar.Appearance.TextAlignment
 			};
 			if (SnackBar.Appearance.Background != NativeSnackBarAppearance.DefaultColor)
