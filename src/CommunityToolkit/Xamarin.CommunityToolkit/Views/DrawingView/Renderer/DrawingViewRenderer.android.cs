@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnElementPropertyChanged(sender, e);
 
 			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
-                LoadLines();
+				LoadLines();
 		}
 
 		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
