@@ -1,6 +1,3 @@
-using System;
-using System.Globalization;
-
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 

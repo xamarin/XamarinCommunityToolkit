@@ -9,9 +9,10 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 #pragma warning disable SA1200 // Using directives should be placed correctly
+	using Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews;
+
 	// These usings are placed here to avoid ambiguities
 	using Xamarin.Forms.Shapes;
-	using Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews;
 #pragma warning restore SA1200 // Using directives should be placed correctly
 
 	[TestFixture]
@@ -220,11 +221,11 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 namespace Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews // This namespace simulates derived controls defined in a separate app, for use in the tests in this file only
 #pragma warning restore SA1403 // File may only contain a single namespace
 {
-	#pragma warning disable SA1200 // Using directives should be placed correctly
+#pragma warning disable SA1200 // Using directives should be placed correctly
 	// These usings are placed here to avoid ambiguities
 	using System.Windows.Input;
 	using Xamarin.Forms;
-	#pragma warning restore SA1200 // Using directives should be placed correctly
+#pragma warning restore SA1200 // Using directives should be placed correctly
 
 	class DerivedFromBoxView : BoxView { }
 
