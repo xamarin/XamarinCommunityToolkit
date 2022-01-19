@@ -188,7 +188,7 @@
                     CornerRadius="{Binding CornerRadius}"
                     TextColor="White"
                     AutoHide="False">
-                        <StackLayout>
+                    <StackLayout>
                         <Label
                             Text="Slide below to change corner radius"/>
                         <Slider

@@ -6,7 +6,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 	public class BadgeViewViewModel : BaseViewModel
 	{
 		int counter;
-		int cornerRadius;
+		float cornerRadius;
 
 		public BadgeViewViewModel()
 		{
@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Views
 			}
 		}
 
-		public int CornerRadius
+		public float CornerRadius
 		{
 			get => cornerRadius;
 			set
