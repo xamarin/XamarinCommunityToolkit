@@ -135,9 +135,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// Backing BindableProperty for the <see cref="CornerRadius"/> property.
 		/// </summary>
 		public static readonly BindableProperty CornerRadiusProperty =
-			BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(BadgeView), Device.RuntimePlatform == Device.Android ? 12 : 8,
+			BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(BadgeView), Device.RuntimePlatform == Device.Android ? 12f : 8f,
 				propertyChanged: OnLayoutPropertyChanged,
-				validateValue: (bindable, value) => ((float) value) >= 0f);
+				validateValue: (bindable, value) => ((float)value) >= 0f);
 
 		/// <summary>
 		/// Gets or sets the corner radius of the <see cref="BadgeView"/>. This is a bindable property.
