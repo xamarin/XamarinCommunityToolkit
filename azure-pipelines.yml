@@ -87,7 +87,7 @@ jobs:
         displayName: 'Install .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
-          includePreviewVersions: false
+          includePreviewVersions: true
       - task: UseDotNet@2
         displayName: 'Install .NET 3.1 Test SDK'
         inputs:
@@ -200,7 +200,7 @@ jobs:
         displayName: 'Install .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
-          includePreviewVersions: false
+          includePreviewVersions: true
       - task: CmdLine@2
         displayName: 'Install .NET MAUI workload'
         inputs:
