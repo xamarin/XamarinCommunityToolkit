@@ -200,7 +200,7 @@ jobs:
         displayName: Install Nightly .NET Build
         inputs:
           script: |
-            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel 6.0.2xx --quality preview --install-dir /usr/local/share/dotnet/x64/dotnet/
+            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.200-preview.22069.5 --quality preview --install-dir /usr/local/share/dotnet/x64/dotnet/
             dotnet --version
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
