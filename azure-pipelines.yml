@@ -201,7 +201,7 @@ jobs:
         inputs:
           script: |
             curl -sSL https://dot.net/v1/dotnet-install.sh
-            dotnet-install.sh --channel 6.0.2xx --quality preview --install-dir /usr/local/share/dotnet/x64/dotnet/
+            ./dotnet-install.sh --channel 6.0.2xx --quality preview --install-dir /usr/local/share/dotnet/x64/dotnet/
             dotnet --version
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
