@@ -200,11 +200,9 @@ jobs:
         displayName: Install Nightly .NET Build
         inputs:
           script: |
-            curl -OL https://aka.ms/dotnet/6.0/daily/dotnet-runtime-osx-x64.tar.gz
-            DOTNET_FILE=dotnet-runtime-osx-x64.tar.gz
-            export DOTNET_ROOT=$(pwd)/dotnet
-            mkdir -p "$DOTNET_ROOT" && tar zxf "$DOTNET_FILE" -C "$DOTNET_ROOT"
-            export PATH=$PATH:$DOTNET_ROOT
+            curl -sSL https://dot.net/v1/dotnet-install.sh
+            dotnet-install.sh --channel 6.0.2xx --quality preview --install-dir /usr/local/share/dotnet/x64/dotnet/
+            dotnet --version
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
         inputs:
