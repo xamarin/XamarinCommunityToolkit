@@ -201,7 +201,7 @@ jobs:
         inputs:
           script: |
             curl -OL https://aka.ms/dotnet/6.0/daily/dotnet-sdk-osx-x64.pkg
-            installer -pkg ./dotnet-sdk-osx-x64.pkg -target $AGENT_HOMEDIRECTORY
+            sudo installer -pkg ./dotnet-sdk-osx-x64.pkg -target $AGENT_HOMEDIRECTORY
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
         inputs:
