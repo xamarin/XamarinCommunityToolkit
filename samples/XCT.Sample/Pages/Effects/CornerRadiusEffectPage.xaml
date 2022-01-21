@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.CornerRadiusEffectPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="Page">
+
+    <pages:BasePage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Slider">
+                <Setter Property="MaximumTrackColor" Value="White" />
+                <Setter Property="ThumbColor" Value="Blue" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
+            </Style>
+        </ResourceDictionary>
+    </pages:BasePage.Resources>
+
+    <ScrollView>
+        <Grid RowDefinitions="*,Auto">
+            <Grid Grid.Row="0">
+                <ContentView
+                    Grid.Row="0"
+                    xct:CornerRadiusEffect.CornerRadius="{Binding CornerRadius, Source={x:Reference Page}}"
+                    BackgroundColor="Blue"
+                    HeightRequest="{Binding Value, Source={x:Reference Name=SliderHeight}}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="{Binding Value, Source={x:Reference Name=SliderWidth}}" />
+            </Grid>
+
+            <Grid
+                Grid.Row="1"
+                Padding="10"
+                BackgroundColor="LightGray"
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    Text="Width" />
+                <Slider
+                    x:Name="SliderWidth"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Maximum="1000"
+                    Minimum="100"
+                    Value="100" />
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    HorizontalOptions="End"
+                    Text="Height" />
+                <Slider
+                    x:Name="SliderHeight"
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    Maximum="1000"
+                    Minimum="100"
+                    Value="100" />
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    Text="TopLeft" />
+                <Slider
+                    x:Name="SliderCornerRadiusTopLeft"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Maximum="200"
+                    Minimum="0"
+                    Value="10" />
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    HorizontalOptions="End"
+                    Text="TopRight" />
+                <Slider
+                    x:Name="SliderCornerRadiusTopRight"
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Maximum="200"
+                    Minimum="0"
+                    Value="10" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalOptions="End"
+                    Text="BottomLeft" />
+                <Slider
+                    x:Name="SliderCornerRadiusBottomLeft"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Maximum="200"
+                    Minimum="0"
+                    Value="10" />
+
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    HorizontalOptions="End"
+                    Text="BottomRight" />
+                <Slider
+                    x:Name="SliderCornerRadiusBottomRight"
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Maximum="200"
+                    Minimum="0"
+                    Value="10" />
+            </Grid>
+        </Grid>
+    </ScrollView>
+</pages:BasePage>
