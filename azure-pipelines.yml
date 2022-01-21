@@ -196,10 +196,12 @@ jobs:
     pool:
       vmImage: macos-11
     steps:
-      - task: UseDotNet@2
-        displayName: 'Install .NET SDK'
+      - task: CmdLine@2
+        displayName: Install Nightly .NET Build
         inputs:
-          version: 6.0.2
+          script: |
+            curl -O https://aka.ms/dotnet/6.0/daily/dotnet-sdk-osx-x64.pkg
+            installer -pkg dotnet-sdk-osx-x64.pkg -target CurrentUserHomeDirector
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
         inputs:
