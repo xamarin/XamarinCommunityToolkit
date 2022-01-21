@@ -200,8 +200,8 @@ jobs:
         displayName: Install Nightly .NET Build
         inputs:
           script: |
-            curl -O https://aka.ms/dotnet/6.0/daily/dotnet-sdk-osx-x64.pkg
-            installer -pkg dotnet-sdk-osx-x64.pkg -target CurrentUserHomeDirector
+            curl -OL https://aka.ms/dotnet/6.0/daily/dotnet-sdk-osx-x64.pkg
+            installer -pkg ./dotnet-sdk-osx-x64.pkg -target CurrentUserHomeDirector
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
         inputs:
