@@ -196,13 +196,14 @@ jobs:
     pool:
       vmImage: macos-11
     steps:
-      - task: UseDotNet@2
-        displayName: 'Install .NET SDK'
-        inputs:
-          version: $(NETCORE_VERSION)
-          includePreviewVersions: false
       - task: CmdLine@2
-        displayName: 'Install .NET MAUI workload'
+        displayName: Install Nightly .NET Build
+        inputs:
+          script: |
+            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.200-preview.22069.5 --quality preview
+            dotnet --version
+      - task: CmdLine@2
+        displayName: 'Install .NET MAUI Workload'
         inputs:
           script: 'dotnet workload install maui'
       - task: JavaToolInstaller@0
