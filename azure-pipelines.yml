@@ -197,7 +197,7 @@ jobs:
       vmImage: macos-11
     steps:
       - task: CmdLine@2
-        displayName: Install Nightly .NET Build
+        displayName: Install .NET 6.0.200-preview.22055.15
         inputs:
           script: |
             curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.200-preview.22055.15 --quality preview
