@@ -199,12 +199,11 @@ jobs:
       - task: UseDotNet@2
         displayName: 'Install .NET SDK'
         inputs:
-          version: $(NETCORE_VERSION)
-          includePreviewVersions: true
+          version: 6.0.2
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
         inputs:
-          script: 'dotnet workload install maui --include-previews'
+          script: 'dotnet workload install maui'
       - task: JavaToolInstaller@0
         displayName: 'Install Java SDK 11.0'
         inputs:
