@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage x:Name="Page"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.SemanticExtensionsPage"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages">
+
+    <StackLayout Margin="30" Spacing="30">
+        <Label
+            Text="Turn on your screen reader and listen for what is read aloud. Explore the SemanticExtensions below!"
+            TextColor="RoyalBlue"
+            FontAttributes="Bold"
+            FontSize="16"
+            Margin="0,10"/>
+
+        <Button
+            Text="Click to set semantic focus to label below"
+            FontSize="14"
+            Clicked="SetSemanticFocusButton_Clicked"/>
+
+        <Label
+            x:Name="semanticFocusLabel"
+            Text="Label receiving semantic focus"
+            FontSize="14"/>
+
+        <Button
+            Text="Activate to hear announcement text"
+            HorizontalOptions="Center"
+            Clicked="Announce_Clicked"/>
+    </StackLayout>
+
+</pages:BasePage>
+
+

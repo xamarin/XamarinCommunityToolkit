@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Octokit" Version="0.50.0" />
     <PackageReference Include="Xamarin.Forms.DebugRainbows" Version="1.1.4" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
@@ -52,5 +52,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj" />
     <ProjectReference Include="..\..\src\Markup\Xamarin.CommunityToolkit.Markup\Xamarin.CommunityToolkit.Markup.csproj" />
+    <ProjectReference Include="..\..\src\SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator\Xamarin.CommunityToolkit.SourceGenerator.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false"/>
   </ItemGroup>
 </Project>
