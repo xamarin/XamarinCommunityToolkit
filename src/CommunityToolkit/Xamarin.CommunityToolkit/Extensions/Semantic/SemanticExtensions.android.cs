@@ -2,9 +2,9 @@
 using Android.Views.Accessibility;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
-using AView = Android.Views.View;
 using AApplication = Android.App.Application;
 using AContext = Android.Content.Context;
+using AView = Android.Views.View;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {
@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			if (androidView is not AView view)
 				throw new NullReferenceException("Can't access view");
 
-			view.SendAccessibilityEvent(EventTypes.ViewFocused);
+			view.SendAccessibilityEvent((EventTypes)(int)WindowsChange.AccessibilityFocused);
 		}
 
 		static void PlatformAnnounce(string text)

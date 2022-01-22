@@ -17,22 +17,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		const double disabledOpacity = .6;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? ValueChanged;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? LowerValueChanged;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? UpperValueChanged;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? DragStarted;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? LowerDragStarted;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? UpperDragStarted;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? DragCompleted;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? LowerDragCompleted;
 
+		[Preserve(Conditional = true)]
 		public event EventHandler? UpperDragCompleted;
 
 		public static BindableProperty MinimumValueProperty
