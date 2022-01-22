@@ -1184,6 +1184,9 @@ namespace Xamarin.CommunityToolkit.Effects
 		internal void RaiseCompleted()
 		{
 			var element = Element;
+			if (element == null)
+				return;
+
 			var parameter = CommandParameter;
 			Command?.Execute(parameter);
 			weakEventManager.RaiseEvent(element, new TouchCompletedEventArgs(parameter), nameof(Completed));
@@ -1192,6 +1195,9 @@ namespace Xamarin.CommunityToolkit.Effects
 		internal void RaiseLongPressCompleted()
 		{
 			var element = Element;
+			if (element == null)
+				return;
+
 			var parameter = LongPressCommandParameter ?? CommandParameter;
 			LongPressCommand?.Execute(parameter);
 			weakEventManager.RaiseEvent(element, new LongPressCompletedEventArgs(parameter), nameof(LongPressCompleted));
