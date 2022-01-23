@@ -17,7 +17,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			if (androidView is not AView view)
 				throw new NullReferenceException("Can't access view");
 
-			view.SendAccessibilityEvent((EventTypes)(int)WindowsChange.AccessibilityFocused);
+			view.SendAccessibilityEvent(EventTypes.ViewHoverEnter);
 		}
 
 		static void PlatformAnnounce(string text)
