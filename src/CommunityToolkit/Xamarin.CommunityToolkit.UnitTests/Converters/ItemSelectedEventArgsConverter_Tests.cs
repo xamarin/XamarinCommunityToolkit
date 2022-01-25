@@ -23,17 +23,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCaseSource(nameof(GetData))]
 		public void ItemSelectedEventArgsConverter(SelectedItemChangedEventArgs value, object expectedResult)
 		{
-			var itemSelectedEventArgsConverter = new ItemSelectedEventArgsConverter();
+			var itemSelectedEventArgsConverter = CreateConverter();
 
 			var result = itemSelectedEventArgsConverter.Convert(value, typeof(ItemSelectedEventArgsConverter), null, CultureInfo.CurrentCulture);
 			Assert.AreEqual(result, expectedResult);
 		}
 
 		[TestCase("Random String")]
-		public void InvalidConverterValuesThrowsArgumenException(object value)
+		public void InvalidConverterValuesThrowsArgumentException(object value)
 		{
-			var itemSelectedEventArgsConverter = new ItemSelectedEventArgsConverter();
+			var itemSelectedEventArgsConverter = CreateConverter();
 			Assert.Throws<ArgumentException>(() => itemSelectedEventArgsConverter.Convert(value, typeof(ItemSelectedEventArgsConverter), null, CultureInfo.CurrentCulture));
 		}
+
+		static IValueConverter CreateConverter() => new ItemSelectedEventArgsConverter();
 	}
 }

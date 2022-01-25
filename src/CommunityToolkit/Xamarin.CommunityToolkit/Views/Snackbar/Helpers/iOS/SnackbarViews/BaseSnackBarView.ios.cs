@@ -55,8 +55,11 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBar
 
 		protected virtual void Initialize(CGRect cornerRadius)
 		{
-			StackView = new NativeRoundedStackView(cornerRadius.X, cornerRadius.Y, cornerRadius.Width, cornerRadius.Height);
-
+			StackView = new NativeRoundedStackView(cornerRadius.X, cornerRadius.Y, cornerRadius.Width, cornerRadius.Height)
+			{
+				Alignment = UIStackViewAlignment.Fill,
+				Distribution = UIStackViewDistribution.EqualCentering
+			};
 			AddSubview(StackView);
 
 			StackView.Axis = UILayoutConstraintAxis.Horizontal;

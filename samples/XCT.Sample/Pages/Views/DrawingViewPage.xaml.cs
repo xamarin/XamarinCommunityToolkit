@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
-using Xamarin.CommunityToolkit.UI.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Xamarin.CommunityToolkit.UI.Views;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 {
 	public partial class DrawingViewPage : BasePage
 	{
-		static Random random = new Random();
+		static readonly Random random = new();
 
 		public DrawingViewPage()
 		{
 			InitializeComponent();
-			DrawingViewControl.Lines = GenerateLines(5);
 			DrawingViewControl.DrawingLineCompletedCommand = new Command<Line>(line =>
 			{
 				Logs.Text += "GestureCompletedCommand executed" + Environment.NewLine;
@@ -25,7 +24,14 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			BindingContext = this;
 		}
 
-		void LoadPointsButtonClicked(object sender, EventArgs e) => DrawingViewControl.Lines = GenerateLines(50);
+		void LoadPointsButtonClicked(object sender, EventArgs e)
+		{
+			DrawingViewControl.Lines.Clear();
+			foreach (var line in GenerateLines(2))
+			{
+				DrawingViewControl.Lines.Add(line);
+			}
+		}
 
 		void DisplayHiddenLabelButtonClicked(object sender, EventArgs e) =>
 			HiddenPanel.IsVisible = !HiddenPanel.IsVisible;
@@ -38,7 +44,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		void GetImageClicked(object sender, EventArgs e)
 		{
-			var lines = GenerateLines(10);
+			var lines = GenerateLines(2);
 			DrawImage(lines.ToList());
 		}
 
@@ -65,7 +71,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			var points = new ObservableCollection<Point>();
 			for (var i = 0; i < count; i++)
 			{
-				points.Add(new Point(random.Next(1, 100), random.Next(1, 100)));
+				points.Add(new Point(random.Next(1, (int)DrawingViewControl.Width), random.Next(1, (int)DrawingViewControl.Height)));
 			}
 
 			return points;
@@ -77,8 +83,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			GestureImage.Source = ImageSource.FromStream(() => stream);
 		}
 
-		private void AddNewLine(object sender, EventArgs e)
-		{
+		void AddNewLine(object sender, EventArgs e) =>
 			DrawingViewControl.Lines.Add(new Line()
 			{
 				Points = GeneratePoints(10),
@@ -87,11 +92,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				EnableSmoothedPath = true,
 				Granularity = 5
 			});
-		}
 
-		void ClearLines_Clicked(System.Object sender, System.EventArgs e)
-		{
-			DrawingViewControl.Lines.Clear();
-		}
+		void ClearLines_Clicked(object sender, EventArgs e) => DrawingViewControl.Lines.Clear();
 	}
 }

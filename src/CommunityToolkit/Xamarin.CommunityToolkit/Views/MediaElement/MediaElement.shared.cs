@@ -129,6 +129,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			get => (double)GetValue(VolumeProperty);
 			set => SetValue(VolumeProperty, value);
 		}
+
 		public double Speed
 		{
 			get => (double)GetValue(SpeedProperty);

@@ -206,117 +206,118 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				// _texture.ClearCanvas(Element.BackgroundColor.ToAndroid()); // HANG after select valid camera...
 				Element?.RaiseMediaCaptureFailed($"No {Element.CameraOptions} camera found");
+				return;
 			}
-			else
+
+			try
 			{
-				try
+				var characteristics = Manager.GetCameraCharacteristics(cameraId);
+				var map = (StreamConfigurationMap)(characteristics?.Get(CameraCharacteristics.ScalerStreamConfigurationMap) ?? throw new NullReferenceException());
+
+				flashSupported = characteristics.Get(CameraCharacteristics.FlashInfoAvailable) == Java.Lang.Boolean.True;
+				stabilizationSupported = false;
+				var stabilizationModes = characteristics.Get(CameraCharacteristics.ControlAvailableVideoStabilizationModes);
+
+				if (stabilizationModes is IEnumerable<int> modes)
 				{
-					var characteristics = Manager.GetCameraCharacteristics(cameraId);
-					var map = (StreamConfigurationMap)(characteristics?.Get(CameraCharacteristics.ScalerStreamConfigurationMap) ?? throw new NullReferenceException());
-
-					flashSupported = characteristics.Get(CameraCharacteristics.FlashInfoAvailable) == Java.Lang.Boolean.True;
-					stabilizationSupported = false;
-					var stabilizationModes = characteristics.Get(CameraCharacteristics.ControlAvailableVideoStabilizationModes);
-
-					if (stabilizationModes is IEnumerable<int> modes)
+					foreach (var mode in modes)
 					{
-						foreach (var mode in modes)
+						if (mode == (int)ControlVideoStabilizationMode.On)
+							stabilizationSupported = true;
+					}
+				}
+
+				if (Element != null)
+					Element.MaxZoom = maxDigitalZoom = (float)(characteristics.Get(CameraCharacteristics.ScalerAvailableMaxDigitalZoom) ?? throw new NullReferenceException());
+
+				activeRect = (Rect)(characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize) ?? throw new NullReferenceException());
+				sensorOrientation = (int)(characteristics.Get(CameraCharacteristics.SensorOrientation) ?? throw new NullReferenceException());
+
+				var displaySize = new APoint();
+				Activity.WindowManager?.DefaultDisplay?.GetSize(displaySize);
+
+				_ = texture ?? throw new NullReferenceException();
+				var rotatedViewWidth = texture.Width;
+				var rotatedViewHeight = texture.Height;
+				var maxPreviewWidth = displaySize.X;
+				var maxPreviewHeight = displaySize.Y;
+
+				if (sensorOrientation == 90 || sensorOrientation == 270)
+				{
+					rotatedViewWidth = texture.Height;
+					rotatedViewHeight = texture.Width;
+					maxPreviewWidth = displaySize.Y;
+					maxPreviewHeight = displaySize.X;
+				}
+
+				if (maxPreviewHeight > CameraFragment.maxPreviewHeight)
+				{
+					maxPreviewHeight = CameraFragment.maxPreviewHeight;
+				}
+
+				if (maxPreviewWidth > CameraFragment.maxPreviewWidth)
+				{
+					maxPreviewWidth = CameraFragment.maxPreviewWidth;
+				}
+
+				var outputSizes = map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))) ?? throw new NullReferenceException();
+
+				photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
+				videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
+				previewSize = ChooseOptimalSize(
+					outputSizes,
+					rotatedViewWidth,
+					rotatedViewHeight,
+					maxPreviewWidth,
+					maxPreviewHeight,
+					cameraTemplate == CameraTemplate.Record ? videoSize : photoSize);
+				cameraType = (LensFacing)(int)(characteristics.Get(CameraCharacteristics.LensFacing) ?? throw new NullReferenceException());
+
+				if (Resources.Configuration?.Orientation == AOrientation.Landscape)
+					texture.SetAspectRatio(previewSize.Width, previewSize.Height);
+				else
+					texture.SetAspectRatio(previewSize.Height, previewSize.Width);
+
+				initTaskSource = new TaskCompletionSource<CameraDevice?>();
+
+				Manager.OpenCamera(
+					cameraId,
+					new CameraStateListener
+					{
+						OnOpenedAction = device => initTaskSource?.TrySetResult(device),
+						OnDisconnectedAction = device =>
 						{
-							if (mode == (int)ControlVideoStabilizationMode.On)
-								stabilizationSupported = true;
-						}
-					}
-
-					if (Element != null)
-						Element.MaxZoom = maxDigitalZoom = (float)(characteristics.Get(CameraCharacteristics.ScalerAvailableMaxDigitalZoom) ?? throw new NullReferenceException());
-
-					activeRect = (Rect)(characteristics.Get(CameraCharacteristics.SensorInfoActiveArraySize) ?? throw new NullReferenceException());
-					sensorOrientation = (int)(characteristics.Get(CameraCharacteristics.SensorOrientation) ?? throw new NullReferenceException());
-
-					var displaySize = new APoint();
-					Activity.WindowManager?.DefaultDisplay?.GetSize(displaySize);
-
-					_ = texture ?? throw new NullReferenceException();
-					var rotatedViewWidth = texture.Width;
-					var rotatedViewHeight = texture.Height;
-					var maxPreviewWidth = displaySize.X;
-					var maxPreviewHeight = displaySize.Y;
-
-					if (sensorOrientation == 90 || sensorOrientation == 270)
-					{
-						rotatedViewWidth = texture.Height;
-						rotatedViewHeight = texture.Width;
-						maxPreviewWidth = displaySize.Y;
-						maxPreviewHeight = displaySize.X;
-					}
-
-					if (maxPreviewHeight > CameraFragment.maxPreviewHeight)
-					{
-						maxPreviewHeight = CameraFragment.maxPreviewHeight;
-					}
-
-					if (maxPreviewWidth > CameraFragment.maxPreviewWidth)
-					{
-						maxPreviewWidth = CameraFragment.maxPreviewWidth;
-					}
-
-					photoSize = GetMaxSize(map.GetOutputSizes((int)ImageFormatType.Jpeg));
-					videoSize = GetMaxSize(map.GetOutputSizes(Class.FromType(typeof(MediaRecorder))));
-					previewSize = ChooseOptimalSize(
-						map.GetOutputSizes(Class.FromType(typeof(SurfaceTexture))) ?? throw new NullReferenceException(),
-						rotatedViewWidth,
-						rotatedViewHeight,
-						maxPreviewWidth,
-						maxPreviewHeight,
-						cameraTemplate == CameraTemplate.Record ? videoSize : photoSize);
-					cameraType = (LensFacing)(int)(characteristics.Get(CameraCharacteristics.LensFacing) ?? throw new NullReferenceException());
-
-					if (Resources.Configuration?.Orientation == AOrientation.Landscape)
-						texture.SetAspectRatio(previewSize.Width, previewSize.Height);
-					else
-						texture.SetAspectRatio(previewSize.Height, previewSize.Width);
-
-					initTaskSource = new TaskCompletionSource<CameraDevice?>();
-
-					Manager.OpenCamera(
-						cameraId,
-						new CameraStateListener
-						{
-							OnOpenedAction = device => initTaskSource?.TrySetResult(device),
-							OnDisconnectedAction = device =>
-							{
-								initTaskSource?.TrySetResult(null);
-								CloseDevice(device);
-							},
-							OnErrorAction = (device, error) =>
-							{
-								initTaskSource?.TrySetResult(device);
-								Element?.RaiseMediaCaptureFailed($"Camera device error: {error}");
-								CloseDevice(device);
-							},
-							OnClosedAction = device =>
-							{
-								initTaskSource?.TrySetResult(null);
-								CloseDevice(device);
-							}
+							initTaskSource?.TrySetResult(null);
+							CloseDevice(device);
 						},
-						backgroundHandler);
+						OnErrorAction = (device, error) =>
+						{
+							initTaskSource?.TrySetResult(device);
+							Element?.RaiseMediaCaptureFailed($"Camera device error: {error}");
+							CloseDevice(device);
+						},
+						OnClosedAction = device =>
+						{
+							initTaskSource?.TrySetResult(null);
+							CloseDevice(device);
+						}
+					},
+					backgroundHandler);
 
-					captureSessionOpenCloseLock.Release();
-					device = await initTaskSource.Task;
-					initTaskSource = null;
-					if (device != null)
-						await PrepareSession();
-				}
-				catch (Java.Lang.Exception error)
-				{
-					LogError("Failed to open camera", error);
-					Available = false;
-				}
-				finally
-				{
-					IsBusy = false;
-				}
+				captureSessionOpenCloseLock.Release();
+				device = await initTaskSource.Task;
+				initTaskSource = null;
+				if (device != null)
+					await PrepareSession();
+			}
+			catch (Java.Lang.Exception error)
+			{
+				LogError("Failed to open camera", error);
+				Available = false;
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 
@@ -602,7 +603,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						OnConfigureFailedAction = captureSession =>
 						{
 							tcs.SetResult(null);
-							Element?.RaiseMediaCaptureFailed("Failed to create captire sesstion");
+							Element?.RaiseMediaCaptureFailed("Failed to create capture session");
 						},
 						OnConfiguredAction = captureSession => tcs.SetResult(captureSession)
 					},
@@ -1058,7 +1059,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			LogError("Couldn't find any suitable preview size");
-			return choices[0];
+
+			var fallbackChoice = choices[0];
+
+			if (fallbackChoice.Height > maxHeight || fallbackChoice.Width > maxWidth)
+			{
+				LogError("Fallback choice is too large, using max preview size");
+
+				fallbackChoice = new ASize(maxWidth, maxHeight);
+			}
+
+			return fallbackChoice;
 		}
 	}
 }
