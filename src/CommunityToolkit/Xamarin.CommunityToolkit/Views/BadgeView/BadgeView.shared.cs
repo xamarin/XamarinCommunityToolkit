@@ -132,6 +132,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		/// <summary>
+		/// Backing BindableProperty for the <see cref="CornerRadius"/> property.
+		/// </summary>
+		public static readonly BindableProperty CornerRadiusProperty =
+			BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(BadgeView), Device.RuntimePlatform == Device.Android ? 12f : 8f,
+				propertyChanged: OnLayoutPropertyChanged,
+				validateValue: (bindable, value) => ((float)value) >= 0f);
+
+		/// <summary>
+		/// Gets or sets the corner radius of the <see cref="BadgeView"/>. This is a bindable property.
+		/// </summary>
+		public float CornerRadius
+		{
+			get => (float)GetValue(CornerRadiusProperty);
+			set => SetValue(CornerRadiusProperty, value);
+		}
+
+		/// <summary>
 		/// Backing BindableProperty for the <see cref="HasShadow"/> property.
 		/// </summary>
 		public static readonly BindableProperty HasShadowProperty =
@@ -274,7 +291,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static Frame CreateIndicatorBackgroundElement() => new Frame
 		{
-			CornerRadius = Device.RuntimePlatform == Device.Android ? 12 : 8,
 			Padding = 2
 		};
 
@@ -312,6 +328,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			BadgeIndicatorBackground.BackgroundColor = BackgroundColor;
 			BadgeIndicatorBackground.BorderColor = BorderColor;
 			BadgeIndicatorBackground.HasShadow = HasShadow;
+			BadgeIndicatorBackground.CornerRadius = CornerRadius;
 
 			BadgeText.Text = Text;
 			BadgeText.TextColor = TextColor;

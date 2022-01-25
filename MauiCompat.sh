@@ -426,6 +426,10 @@ sed -i '' 's/, v/, (float)v/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.M
 
 sed -i '' 's/public SnackBarLayout Microsoft.Maui.Controls.Layout/public SnackBarLayout Layout/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/NativeSnackBar.ios.macos.cs
 
+# NativeSnackBarButton.ios.macos.cs
+
+sed -i '' 's/LineBreakMode =/TitleLabel.LineBreakMode =/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/NativeSnackButton.ios.macos.cs
+
 # VisualFeedbackEffect.shared.cs
 
 sed -i '' 's/nativeColor.Alpha/nativeColor.A/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualFeedbackEffect.shared.cs
@@ -500,6 +504,7 @@ sed -i '' 's/Xamarin.Forms.RelativeLayout/Microsoft.Maui.Controls.Compatibility.
 sed -i '' 's/Xamarin.Forms.View/Microsoft.Maui.Controls.View/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/RelativeLayout.cs
 sed -i '' 's/Xamarin.Forms.Constraint/Microsoft.Maui.Controls.Compatibility.Constraint/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/RelativeLayout.cs
 sed -i '' 's/using Microsoft.Maui.Controls.Compatibility;/using Microsoft.Maui.Controls.Compatibility;using Grid = Microsoft.Maui.Controls.Grid;/g' ./src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/ViewInGridExtensions.cs
+sed -i '' 's/using Xamarin.Forms.Shapes;/using Microsoft.Maui.Controls.Shapes;using Rect = Microsoft.Maui.Graphics.Rectangle;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Effects/CornerRadius/CornerRadiusEffect.shared.cs
 
 # MauiColorExtensions
 printf > ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Extensions/MauiColorExtensions.android.cs "
