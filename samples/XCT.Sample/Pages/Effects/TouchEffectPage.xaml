@@ -17,6 +17,17 @@
         <StackLayout Padding="{StaticResource ContentPadding}"
                      Spacing="10">
 
+            <StackLayout
+                Orientation="Horizontal">
+                <Label
+                    HorizontalOptions="FillAndExpand"
+                    FontSize="Title"
+                    TextColor="Black"
+                    Text="NativeAnimationBorderless"/>
+                <Switch
+                    IsToggled="{Binding NativeAnimationBorderless, Source={x:Reference Page}}"/>
+            </StackLayout>
+
             <Label
                HorizontalOptions="CenterAndExpand"
                FontSize="Title"
@@ -64,6 +75,7 @@
                          Padding="20"
                          xct:TouchEffect.HoveredScale="1.2"
                          xct:TouchEffect.NativeAnimation="True"
+                         xct:TouchEffect.NativeAnimationBorderless="{Binding NativeAnimationBorderless, Source={x:Reference Page}}"
                          xct:TouchEffect.LongPressCommand="{Binding LongPressCommand, Source={x:Reference Page}}"
                          xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}">
                     <Label Text="TITLE"
@@ -95,6 +107,7 @@
                 <Label Text="Image | Native" />
                 <Image Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.button.png}"
                     xct:TouchEffect.NativeAnimation="True"
+                    xct:TouchEffect.NativeAnimationBorderless="{Binding NativeAnimationBorderless, Source={x:Reference Page}}"
                     xct:TouchEffect.Command="{Binding Command, Source={x:Reference Page}}"/>
             </StackLayout>
 
@@ -122,11 +135,13 @@
                          BackgroundColor="Purple"
                          Padding="50"
                          xct:TouchEffect.NativeAnimation="True"
+                         xct:TouchEffect.NativeAnimationBorderless="{Binding NativeAnimationBorderless, Source={x:Reference Page}}"
                          xct:TouchEffect.Command="{Binding ParentCommand, Source={x:Reference Page}}">
                     <BoxView Color="Gold"
                              WidthRequest="100"
                              HeightRequest="100"
                              xct:TouchEffect.NativeAnimation="True"
+                             xct:TouchEffect.NativeAnimationBorderless="{Binding NativeAnimationBorderless, Source={x:Reference Page}}"
                              xct:TouchEffect.Command="{Binding ChildCommand, Source={x:Reference Page}}" />
                 </ContentView>
             </StackLayout>
