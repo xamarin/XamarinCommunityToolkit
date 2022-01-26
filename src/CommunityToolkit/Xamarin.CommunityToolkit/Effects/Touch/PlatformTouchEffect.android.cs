@@ -142,7 +142,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				UpdateClickHandler();
 			}
 
-			if(args.PropertyName == TouchEffect.NativeAnimationBorderlessProperty.PropertyName)
+			if (args.PropertyName == TouchEffect.NativeAnimationBorderlessProperty.PropertyName)
 			{
 				CreateRipple();
 				ApplyRipple();
@@ -387,7 +387,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					View.Background = null;
 			}
 
-			if(rippleView != null)
+			if (rippleView != null)
 			{
 				rippleView.Foreground = null;
 				rippleView.Background = null;
@@ -429,7 +429,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				return;
 			}
 
-			if(rippleView == null)
+			if (rippleView == null)
 			{
 				rippleView = new FrameLayout(Group.Context ?? throw new NullReferenceException())
 				{
@@ -438,14 +438,14 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 					Focusable = false,
 					Enabled = false,
 				};
-				
+
 				Group.AddView(rippleView);
 				rippleView.BringToFront();
 			}
 
 			Group.SetClipChildren(!isBorderless);
 
-			if(isBorderless)
+			if (isBorderless)
 			{
 				rippleView.Background = null;
 				rippleView.Foreground = ripple;
