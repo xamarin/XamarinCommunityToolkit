@@ -223,7 +223,7 @@ jobs:
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
-          $tagVersion = "$buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)-preview$(PreviewNumber)"
+          $tagVersion = "$buildSourceBranch".Substring($buildSourceBranch.LastIndexOf("/") + 1)+"-preview$(PreviewNumber)"
           Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
           Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
         displayName: Set NuGet Version to Tag Number
