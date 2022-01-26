@@ -227,7 +227,7 @@ jobs:
           Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
           Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
         displayName: Set NuGet Version to Tag Number
-        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+        # condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
       # restore, build and pack the packages
       - task: CmdLine@2
         displayName: 'Build Xamarin.CommunityToolkit.MauiCompat.csproj'
