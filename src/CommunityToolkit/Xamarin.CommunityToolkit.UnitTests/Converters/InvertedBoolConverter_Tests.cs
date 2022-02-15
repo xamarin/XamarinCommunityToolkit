@@ -2,6 +2,7 @@
 using System.Globalization;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -11,7 +12,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCase(false, true)]
 		public void InverterBoolConverter(bool value, bool expectedResult)
 		{
-			var inverterBoolConverter = new InvertedBoolConverter();
+			var inverterBoolConverter = CreateConverter();
 
 			var result = inverterBoolConverter.Convert(value, typeof(InvertedBoolConverter_Tests), null, CultureInfo.CurrentCulture);
 
@@ -20,11 +21,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		[TestCase(2)]
 		[TestCase("")]
-		[TestCase(null)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		public void InvalidConverterValuesThrowArgumentException(object value)
 		{
-			var inverterBoolConverter = new InvertedBoolConverter();
+			var inverterBoolConverter = CreateConverter();
 			Assert.Throws<ArgumentException>(() => inverterBoolConverter.Convert(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
 		}
+
+		[Test]
+		public void NullThrowsArgumentNullException()
+		{
+			var inverterBoolConverter = CreateConverter();
+			Assert.Throws<ArgumentNullException>(() => inverterBoolConverter.Convert(null, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
+		}
+
+		static IValueConverter CreateConverter() => new InvertedBoolConverter();
 	}
 }

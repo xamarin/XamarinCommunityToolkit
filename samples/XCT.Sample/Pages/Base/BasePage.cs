@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
+using Xamarin.CommunityToolkit.Sample.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -34,6 +35,12 @@ namespace Xamarin.CommunityToolkit.Sample.Pages
 			page.Title = model.Title;
 			page.DetailColor = model.Color;
 			return page;
+		}
+
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+			(BindingContext as BaseGalleryViewModel)?.FilterCommand.Execute(string.Empty);
 		}
 	}
 }

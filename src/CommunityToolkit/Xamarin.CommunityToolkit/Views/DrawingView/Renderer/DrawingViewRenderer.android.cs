@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Linq;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
@@ -49,6 +49,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
+
 			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
 				LoadLines();
 		}
@@ -56,6 +57,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnElementChanged(ElementChangedEventArgs<DrawingView> e)
 		{
 			base.OnElementChanged(e);
+
 			if (e.NewElement != null)
 			{
 				SetBackgroundColor(Element.BackgroundColor.ToAndroid());
@@ -73,6 +75,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			const int minH = 1;
 			w = w < minW ? minW : w;
 			h = h < minH ? minH : h;
+
 			base.OnSizeChanged(w, h, oldw, oldh);
 
 			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
@@ -84,18 +87,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			base.OnDraw(canvas);
 
-			foreach (var line in Element.Lines)
+			if (canvas is not null)
 			{
-				var path = new Path();
-				path.MoveTo((float)line.Points[0].X, (float)line.Points[0].Y);
-				foreach (var (x, y) in line.Points)
-					path.LineTo((float)x, (float)y);
+				Draw(Element.Lines, canvas);
 
-				canvas?.DrawPath(path, drawPaint);
+				canvas.DrawBitmap(canvasBitmap!, 0, 0, canvasPaint);
+				canvas.DrawPath(drawPath, drawPaint);
 			}
-
-			canvas?.DrawBitmap(canvasBitmap!, 0, 0, canvasPaint);
-			canvas?.DrawPath(drawPath, drawPaint);
 		}
 
 		public override bool OnTouchEvent(MotionEvent e)
@@ -116,22 +114,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					{
 						Points = new System.Collections.ObjectModel.ObservableCollection<Point>()
 						{
-							new Point(touchX, touchY)
+							new (touchX, touchY)
 						}
 					};
 
-					drawCanvas!.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
+					drawCanvas?.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
 					drawPath.MoveTo(touchX, touchY);
 					break;
 				case MotionEventActions.Move:
-					if (touchX > 0 && touchY > 0)
+					if (touchX > 0 && touchY > 0 && touchX < drawCanvas?.Width && touchY < drawCanvas?.Height)
 						drawPath.LineTo(touchX, touchY);
 
-					currentLine!.Points.Add(new Point(touchX, touchY));
+					currentLine?.Points.Add(new Point(touchX, touchY));
 					break;
 				case MotionEventActions.Up:
 					Parent?.RequestDisallowInterceptTouchEvent(false);
-					drawCanvas!.DrawPath(drawPath, drawPaint);
+					drawCanvas?.DrawPath(drawPath, drawPaint);
 					drawPath.Reset();
 					if (currentLine != null)
 					{
@@ -160,25 +158,73 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return base.OnInterceptTouchEvent(ev);
 		}
 
+		IList<Point> NormalizePoints(IEnumerable<Point> points)
+		{
+			var newPoints = new List<Point>();
+			foreach (var point in points)
+			{
+				var pointX = point.X;
+				var pointY = point.Y;
+				if (pointX < 0)
+				{
+					pointX = 0;
+				}
+
+				if (pointX > drawCanvas?.Width)
+				{
+					pointX = drawCanvas?.Width ?? 0;
+				}
+
+				if (point.Y < 0)
+				{
+					pointY = 0;
+				}
+
+				if (pointY > drawCanvas?.Height)
+				{
+					pointY = drawCanvas?.Height ?? 0;
+				}
+
+				newPoints.Add(new Point(pointX, pointY));
+			}
+
+			return newPoints;
+		}
+
 		void LoadLines()
 		{
-			drawCanvas!.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
+			if (drawCanvas is null)
+				return;
+
+			drawCanvas.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
 			drawPath.Reset();
 			var lines = Element.Lines;
 			if (lines.Count > 0)
 			{
-				foreach (var line in lines)
-				{
-					drawPath.MoveTo((float)line.Points[0].X, (float)line.Points[0].Y);
-					foreach (var (x, y) in line.Points)
-						drawPath.LineTo((float)x, (float)y);
-
-					drawCanvas.DrawPath(drawPath, drawPaint);
-					drawPath.Reset();
-				}
+				Draw(lines, drawCanvas, drawPath);
 			}
 
 			Invalidate();
+		}
+
+		void Draw(IEnumerable<Line> lines, in Canvas canvas, Path? path = null)
+		{
+			foreach (var line in lines)
+			{
+				path ??= new Path();
+				var points = NormalizePoints(line.Points);
+				path.MoveTo((float)points[0].X, (float)points[0].Y);
+				foreach (var (x, y) in points)
+				{
+					var pointX = (float)x;
+					var pointY = (float)y;
+
+					path.LineTo(pointX, pointY);
+				}
+
+				canvas.DrawPath(path, drawPaint);
+				path.Reset();
+			}
 		}
 
 		protected override void Dispose(bool disposing)
@@ -188,10 +234,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (disposing)
 			{
-				drawCanvas!.Dispose();
+				drawCanvas?.Dispose();
 				drawPaint.Dispose();
 				drawPath.Dispose();
-				canvasBitmap!.Dispose();
+				canvasBitmap?.Dispose();
 				canvasPaint.Dispose();
 				if (Element != null)
 					Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
