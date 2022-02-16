@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.Markup
 	public class UnconstrainedView : ConstrainedView
 	{
 		public UnconstrainedView(View view)
-            : base(view) { }
+			: base(view) { }
 
 		public override void AddTo(RelativeLayout layout) => ((Layout<View>)layout).Children.Add(view);
 	}
@@ -52,7 +52,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		Expression? x, y, width, height;
 
 		public ExpressionsConstrainedView(View view)
-            : base(view) { }
+			: base(view) { }
 
 		public ExpressionsConstrainedView X(Expression x) { this.x = x; return this; }
 
@@ -70,7 +70,7 @@ namespace Xamarin.CommunityToolkit.Markup
 		Constraint? x, y, width, height;
 
 		public ConstraintsConstrainedView(View view)
-            : base(view) { }
+			: base(view) { }
 
 		public ConstraintsConstrainedView X(double x) { this.x = Constant(x); return this; }
 

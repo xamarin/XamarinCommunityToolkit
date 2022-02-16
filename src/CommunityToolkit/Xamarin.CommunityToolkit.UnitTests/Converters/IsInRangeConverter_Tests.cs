@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -20,19 +21,15 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 		public static IEnumerable<object?[]> GetDataForException() => new List<object?[]>
 		{
-			new object?[] { null, 2, 3 },
-			new object?[] { 1, null, 3 },
-			new object?[] { 1, 2, null },
+			new object?[] { null, 2, 3, typeof(ArgumentNullException) },
+			new object?[] { 1, null, 3, typeof(ArgumentException) },
+			new object?[] { 1, 2, null, typeof(ArgumentException) },
 		};
 
 		[TestCaseSource(nameof(GetData))]
 		public void IsInRangeConverter(object value, object minValue, object maxValue, bool expectedResult)
 		{
-			var isInRangeConverter = new IsInRangeConverter
-			{
-				MinValue = minValue,
-				MaxValue = maxValue
-			};
+			var isInRangeConverter = CreateConverter(maxValue, minValue);
 
 			var result = isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture);
 
@@ -40,14 +37,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		}
 
 		[TestCaseSource(nameof(GetDataForException))]
-		public void IsInRangeConverterInvalidValuesThrowArgumenException(object value, object minValue, object maxValue)
+		public void IsInRangeConverterInvalidValuesThrowArgumentException(object value, object minValue, object maxValue, Type expectedExceptionType)
 		{
-			var isInRangeConverter = new IsInRangeConverter
+			var isInRangeConverter = CreateConverter(maxValue, minValue);
+			Assert.Throws(expectedExceptionType, () => isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture));
+		}
+
+		static IValueConverter CreateConverter(object maxValue, object minValue) =>
+			new IsInRangeConverter
 			{
 				MinValue = minValue,
 				MaxValue = maxValue
 			};
-			Assert.Throws<ArgumentException>(() => isInRangeConverter.Convert(value, typeof(IsInRangeConverter_Tests), null, CultureInfo.CurrentCulture));
-		}
 	}
 }

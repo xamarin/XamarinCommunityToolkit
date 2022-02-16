@@ -18,18 +18,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 			var expectedValue = ImageSource.FromStream(() => memoryStream);
 
-			var byteArrayToImageSourceConverter = new ByteArrayToImageSourceConverter();
+			var byteArrayToImageSourceConverter = CreateConverter();
 
 			var result = byteArrayToImageSourceConverter.Convert(byteArray, typeof(ByteArrayToImageSourceConverter), null, CultureInfo.CurrentCulture);
 
 			Assert.IsTrue(StreamEquals(GetStreamFromImageSource((ImageSource?)result), memoryStream));
 		}
 
-
 		[TestCase("Random String Value")]
 		public void InvalidConverterValuesReturnsNull(object value)
 		{
-			var byteArrayToImageSourceConverter = new ByteArrayToImageSourceConverter();
+			var byteArrayToImageSourceConverter = CreateConverter();
 
 			Assert.Throws<ArgumentException>(() => byteArrayToImageSourceConverter.Convert(value, typeof(ByteArrayToImageSourceConverter), null, CultureInfo.CurrentCulture));
 		}
@@ -63,5 +62,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 
 			return true;
 		}
+
+		static IValueConverter CreateConverter() => new ByteArrayToImageSourceConverter();
 	}
 }
