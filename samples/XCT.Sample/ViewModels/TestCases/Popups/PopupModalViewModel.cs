@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
-using Xamarin.Forms;
-using Xamarin.CommunityToolkit.Sample.Pages.TestCases.Popups;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.Sample.Pages.TestCases.Popups;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases.Popups
 {

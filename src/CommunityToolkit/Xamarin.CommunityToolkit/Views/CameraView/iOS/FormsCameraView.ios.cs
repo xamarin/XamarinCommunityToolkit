@@ -19,7 +19,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		AVCaptureStillImageOutput? imageOutput;
 		AVCapturePhotoOutput? photoOutput;
 		AVCaptureMovieFileOutput? videoOutput;
-		AVCaptureConnection? captureConnection;
 		AVCaptureDevice? device;
 		AVCaptureDevicePosition? lastPosition;
 		bool isBusy;
@@ -27,7 +26,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		bool isDisposed;
 		CameraFlashMode flashMode;
 		PhotoCaptureDelegate? photoCaptureDelegate;
-		readonly float imgScale = 1f;
 
 		public event EventHandler<bool>? Busy;
 
@@ -136,60 +134,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		UIImage RotateImage(UIImage image)
-		{
-			var imgRef = image.CGImage;
-			_ = imgRef ?? throw new NullReferenceException();
-
-			var transform = CGAffineTransform.MakeIdentity();
-
-			var imgHeight = imgRef.Height * imgScale;
-			var imgWidth = imgRef.Width * imgScale;
-
-			var bounds = new CGRect(0, 0, imgWidth, imgHeight);
-			var imageSize = new CGSize(imgWidth, imgHeight);
-			var orient = image.Orientation;
-
-			switch (orient)
-			{
-				case UIImageOrientation.Up:
-					transform = CGAffineTransform.MakeIdentity();
-					break;
-				case UIImageOrientation.Down:
-					transform = CGAffineTransform.MakeTranslation(imageSize.Width, imageSize.Height);
-					transform = CGAffineTransform.Rotate(transform, (float)Math.PI);
-					break;
-				case UIImageOrientation.Right:
-					bounds.Size = new CGSize(bounds.Size.Height, bounds.Size.Width);
-					transform = CGAffineTransform.MakeTranslation(imageSize.Height, 0);
-					transform = CGAffineTransform.Rotate(transform, (float)Math.PI / 2.0f);
-					break;
-				default:
-					throw new Exception("Invalid image orientation");
-			}
-
-			UIGraphics.BeginImageContext(bounds.Size);
-			var context = UIGraphics.GetCurrentContext();
-
-			if (orient == UIImageOrientation.Right)
-			{
-				context.ScaleCTM(-1, 1);
-				context.TranslateCTM(-imgHeight, 0);
-			}
-			else
-			{
-				context.ScaleCTM(1, -1);
-				context.TranslateCTM(0, -imgHeight);
-			}
-
-			context.ConcatCTM(transform);
-
-			context.DrawImage(new CGRect(0, 0, imgWidth, imgHeight), imgRef);
-			image = UIGraphics.GetImageFromCurrentImageContext();
-			UIGraphics.EndImageContext();
-			return image;
-		}
-
 		public override void Draw(CGRect rect)
 		{
 			previewLayer.Frame = rect;
@@ -283,7 +227,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		AVCaptureFlashMode GetFlashMode()
 		{
-
 			// Note: torch is set elsewhere
 			switch (flashMode)
 			{
