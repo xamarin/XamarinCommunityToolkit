@@ -266,15 +266,19 @@ sed -i '' 's/ TypeConverter/ System.ComponentModel.TypeConverter/g' ./src/Commun
 
 sed -i '' 's/Xamarin.Forms.UriTypeConverter/Microsoft.Maui.Controls.UriTypeConverter/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
-sed -i '' 's/ConvertFromInvariantString(string value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object valueObject)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/ConvertFromInvariantString(string value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
-sed -i '' 's/ConvertFromInvariantString(string\? value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object valueObject)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/ConvertFromInvariantString(string\? value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 # Font
 
 sed -i '' '/else if (e.PropertyName == Label.FontProperty.PropertyName)/,+1d' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 sed -i '' 's/Font.FontSize/Font.Size/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarActionOptions.shared.cs
+
+sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/MessageOptions.shared.cs
 
 # Controls 
 
@@ -331,6 +335,10 @@ sed -i '' '1s/^/using Paint = Android.Graphics.Paint;/' ./src/CommunityToolkit/X
 
 sed -i '' 's/ShapeDrawable/global::Android.Graphics.Drawables.ShapeDrawable/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/*.android.cs
 
+# BarStyle.android.cs
+
+sed -i '' '1s/^/using Window = Android.Views.Window;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/BarStyle.android.cs
+
 # TextSwitcherRenderer.android.cs
 
 sed -i '' 's/(visualElementRenderer?.OnTouchEvent(e) ?? false) || //g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
@@ -383,6 +391,8 @@ sed -i '' 's/args.PropertyName?.Equals(Microsoft.Maui.Controls.ImageButton.Sourc
 sed -i '' 's/SetImageViewTintColor(ImageView image, Color color)/SetImageViewTintColor(ImageView image, Microsoft.Maui.Graphics.Color color)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/IconTintColorEffectRouter.android.cs
 
 sed -i '' 's/SetButtonTintColor(Button button, Color color)/SetButtonTintColor(Button button, Microsoft.Maui.Graphics.Color color)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/IconTintColorEffectRouter.android.cs
+
+sed -i '' '1s/^/using Button = Android.Widget.Button;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/IconTintColorEffectRouter.android.cs
 
 # IconTintColorEffectRouter.ios.cs
 
@@ -474,6 +484,11 @@ sed -i '' 's/Frame/Microsoft.Maui.Controls.Frame/g' ./src/CommunityToolkit/Xamar
 # CameraFragment.android.cs
 
 sed -i '' 's/MauiCompat.Resource.Layout.CameraFragment/MauiCompat.Resource.Layout.camerafragment/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraFragment.android.cs
+
+# StreamMediaSource.shared.cs
+
+sed -i '' 's/bool IsLoading => cancellationTokenSource != null;/bool IsLoading => cancellationTokenSource != null;\
+public bool IsEmpty => Stream is null;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/StreamMediaSource.shared.cs
 
 # Replace Xamarin.Forms Namespace
 
