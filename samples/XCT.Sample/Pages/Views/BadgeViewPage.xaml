@@ -179,6 +179,24 @@
                             Text="Decrease"/>
                     </StackLayout>
                 </xct:BadgeView>
+                <Label
+                    Text="Badge Corner Radius"
+                    Style="{StaticResource SectionStyle}"/>
+                <xct:BadgeView
+                    BackgroundColor="Red"
+                    Text="{Binding CornerRadius}"
+                    CornerRadius="{Binding CornerRadius}"
+                    TextColor="White"
+                    AutoHide="False">
+                    <StackLayout>
+                        <Label
+                            Text="Slide below to change corner radius"/>
+                        <Slider
+                            Minimum="0"
+                            Maximum="20"
+                            Value="{Binding CornerRadius, Mode=TwoWay}" />
+                    </StackLayout>
+                </xct:BadgeView>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
