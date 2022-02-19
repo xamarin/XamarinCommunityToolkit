@@ -298,6 +298,16 @@ sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamar
 
 sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/MessageOptions.shared.cs
 
+## ToUIFont
+
+sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarAppearance.ios.cs
+
+sed -i '' 's/Forms.Font.Default.ToUIFont();/Microsoft.Maui.Font.Default.ToUIFont(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarAppearance.ios.cs
+
+sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
+
+sed -i '' 's/.Font.ToUIFont();/.Font.ToUIFont(sender.Handler?.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
+
 # Typeface
 
 ## SnackBar.android
@@ -408,8 +418,6 @@ sed -i '' 's/line.LineColor.ToCGColor()/Microsoft.Maui.Platform.ColorExtensions.
 # SnackbarAppearance.ios.cs
 
 sed -i '' '1s/^/using Microsoft.Maui;using Microsoft.Maui.Controls.Compatibility.Platform.iOS;using Microsoft.Maui.Graphics;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
-
-sed -i '' 's/Forms.Font/Microsoft.Maui.Font/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
 
 sed -i '' 's/color.A /color.Alpha /g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
 
