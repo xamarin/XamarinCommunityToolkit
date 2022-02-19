@@ -528,6 +528,10 @@ sed -i '' 's/Frame/Microsoft.Maui.Controls.Frame/g' ./src/CommunityToolkit/Xamar
 
 sed -i '' 's/MauiCompat.Resource.Layout.CameraFragment/MauiCompat.Resource.Layout.camerafragment/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraFragment.android.cs
 
+# RangeSlider.shared.cs
+
+sed -i '' 's/return value.Clamp(MinimumValue, MaximumValue);/return Math.Clamp(value, MinimumValue, MaximumValue);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/RangeSlider.shared.cs
+
 # Replace Xamarin.Forms Namespace
 
 sed -i '' 's/using Xamarin.Forms;/using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
