@@ -294,7 +294,31 @@ sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamar
 
 sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
 
+sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
+
 sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/MessageOptions.shared.cs
+
+# Typeface
+
+## SnackBar.android
+sed -i '' 's/if (arguments.MessageOptions.Font != Font.Default)/var fontManager = sender.Handler?.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager;\
+\
+			if (fontManager is null)\
+			{\
+				throw new ArgumentException("Unable to get IFontManager implementation");\
+			}\
+if (arguments.MessageOptions.Font != Font.Default)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
+
+sed -i '' 's/ToTypeface()/ToTypeface(fontManager)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
+
+## TextSwitcherRenderer.android
+sed -i '' 's/var newTypeface = f.ToTypeface();/var fontManager = Element.Handler?.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager;\
+\
+			if (fontManager is null)\
+			{\
+				throw new ArgumentException("Unable to get IFontManager implementation");\
+			}\
+var newTypeface = f.ToTypeface(fontManager);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
 # Controls 
 
