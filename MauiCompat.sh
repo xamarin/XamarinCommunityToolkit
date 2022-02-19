@@ -272,9 +272,9 @@ sed -i '' 's/ TypeConverter/ System.ComponentModel.TypeConverter/g' ./src/Commun
 
 sed -i '' 's/Xamarin.Forms.UriTypeConverter/Microsoft.Maui.Controls.UriTypeConverter/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
-sed -i '' 's/ConvertFromInvariantString(string value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/ConvertFromInvariantString(string value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object valueObject)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
-sed -i '' 's/ConvertFromInvariantString(string\? value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object value)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/ConvertFromInvariantString(string\? value)/ConvertFrom(System.ComponentModel.ITypeDescriptorContext? context, System.Globalization.CultureInfo? culture, object valueObject)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 sed -i '' 's/if (value != null)/if (valueObject is not string value){throw new InvalidOperationException("Only typeof(string) allowed");}if (value != null)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Helpers/SafeAreaTypeConverter.shared.cs
 
@@ -291,6 +291,8 @@ sed -i '' '/else if (e.PropertyName == Label.FontProperty.PropertyName)/,+1d' ./
 sed -i '' 's/Font.FontSize/Font.Size/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarActionOptions.shared.cs
+
+sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
 
 sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/MessageOptions.shared.cs
 
@@ -501,11 +503,6 @@ sed -i '' 's/Frame/Microsoft.Maui.Controls.Frame/g' ./src/CommunityToolkit/Xamar
 # CameraFragment.android.cs
 
 sed -i '' 's/MauiCompat.Resource.Layout.CameraFragment/MauiCompat.Resource.Layout.camerafragment/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraFragment.android.cs
-
-# StreamMediaSource.shared.cs
-
-sed -i '' 's/bool IsLoading => cancellationTokenSource != null;/bool IsLoading => cancellationTokenSource != null;\
-public bool IsEmpty => Stream is null;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/StreamMediaSource.shared.cs
 
 # Replace Xamarin.Forms Namespace
 
