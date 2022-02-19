@@ -397,6 +397,8 @@ sed -i '' 's/f.ToScaledPixel()/(float)f.Size/g' ./src/CommunityToolkit/Xamarin.C
 
 sed -i '' 's/children.ForEach(/Array.ForEach(children,/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
+sed -i '' 's/ToAttributed(Element.ToFont(), Element.TextColor, nextView);/ToSpannableString(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager, defaultColor: Element.TextColor);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+
 ## PlatformTouchEffect.ios.cs
 
 sed -i '' 's/(isStarted ? color : control.BackgroundColor).ToCGColor()/Microsoft.Maui.Platform.ColorExtensions.ToCGColor(isStarted ? color : control.BackgroundColor)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformTouchEffect.ios.cs
