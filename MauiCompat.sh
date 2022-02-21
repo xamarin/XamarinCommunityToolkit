@@ -463,6 +463,10 @@ sed -i '' 's/static void MeasureExactly(AView control, VisualElement? element, C
 
 sed -i '' 's/Context.GetFragmentManager();/Microsoft.Maui.Platform.ContextExtensions.GetFragmentManager(Context ?? throw new NullReferenceException()) ?? throw new InvalidOperationException();/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraViewRenderer.android.cs
 
+# CameraViewRenderer.ios.cs
+
+sed -i '' 's/RequestAvAsset/RequestAVAsset/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraViewRenderer.ios.cs
+
 # VisualElementExtension.shared.cs
 
 sed -i '' 's/v,/(float)v,/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualElementExtension.shared.cs
