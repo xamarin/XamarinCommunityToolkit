@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using Android.Content;
 using Android.Media;
 using Android.Views;
@@ -375,10 +376,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mediaPlayer?.SetVolume((float)MediaElement.Volume, (float)MediaElement.Volume);
 		}
+
 		protected void UpdateSpeed()
 		{
 			if (MediaElement == null || mediaPlayer == null)
 				return;
+
+			if (Helpers.XCT.SdkInt < 23)
+			{
+				Trace.WriteLine("MediaElement Speed control functionality is not available. Minimum supported API is 23");
+				return;
+			}
 
 			var playbackParams = new PlaybackParams();
 			playbackParams.SetSpeed((float)MediaElement.Speed);
