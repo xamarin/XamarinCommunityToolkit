@@ -311,6 +311,9 @@ sed -i '' 's/.Font.ToUIFont();/.Font.ToUIFont(sender.Handler?.MauiContext?.Servi
 # Typeface
 
 ## SnackBar.android
+
+sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;using Microsoft.Extensions.DependencyInjection;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
+
 sed -i '' 's/if (arguments.MessageOptions.Font != Font.Default)/var fontManager = sender.Handler?.MauiContext?.Services.GetRequiredService<IFontManager>();\
 \
 			if (fontManager is null)\
