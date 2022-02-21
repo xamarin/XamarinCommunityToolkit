@@ -300,18 +300,18 @@ sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamar
 
 ## ToUIFont
 
-sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarAppearance.ios.cs
+sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;using Microsoft.Extensions.DependencyInjection;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarAppearance.ios.cs
 
-sed -i '' 's/Forms.Font.Default.ToUIFont();/Microsoft.Maui.Font.Default.ToUIFont(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarAppearance.ios.cs
+sed -i '' 's/Forms.Font.Default.ToUIFont();/Microsoft.Maui.Font.Default.ToUIFont(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetRequiredService<IFontManager>());/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarAppearance.ios.cs
 
-sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
+sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;using Microsoft.Extensions.DependencyInjection;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
 
-sed -i '' 's/.Font.ToUIFont();/.Font.ToUIFont(sender.Handler?.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
+sed -i '' 's/.Font.ToUIFont();/.Font.ToUIFont(sender.Handler?.MauiContext?.Services.GetRequiredService<IFontManager>());/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
 
 # Typeface
 
 ## SnackBar.android
-sed -i '' 's/if (arguments.MessageOptions.Font != Font.Default)/var fontManager = sender.Handler?.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager;\
+sed -i '' 's/if (arguments.MessageOptions.Font != Font.Default)/var fontManager = sender.Handler?.MauiContext?.Services.GetRequiredService<IFontManager>();\
 \
 			if (fontManager is null)\
 			{\
@@ -322,7 +322,7 @@ if (arguments.MessageOptions.Font != Font.Default)/g' ./src/CommunityToolkit/Xam
 sed -i '' 's/ToTypeface()/ToTypeface(fontManager)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
 
 ## TextSwitcherRenderer.android
-sed -i '' 's/var newTypeface = f.ToTypeface();/var fontManager = Element.Handler?.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager;\
+sed -i '' 's/var newTypeface = f.ToTypeface();/var fontManager = Element.Handler?.MauiContext?.Services.GetRequiredService<IFontManager>();\
 \
 			if (fontManager is null)\
 			{\
@@ -397,7 +397,9 @@ sed -i '' 's/f.ToScaledPixel()/(float)f.Size/g' ./src/CommunityToolkit/Xamarin.C
 
 sed -i '' 's/children.ForEach(/Array.ForEach(children,/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
-sed -i '' 's/ToAttributed(Element.ToFont(), Element.TextColor, nextView);/ToSpannableString(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetService(typeof(IFontManager)) as IFontManager, defaultColor: Element.TextColor);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+sed -i '' '1s/^/using Microsoft.Extensions.DependencyInjection;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+
+sed -i '' 's/ToAttributed(Element.ToFont(), Element.TextColor, nextView);/ToSpannableString(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetRequiredService<IFontManager>(), defaultColor: Element.TextColor);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
 ## PlatformTouchEffect.ios.cs
 
