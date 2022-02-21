@@ -95,7 +95,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (!response.IsSuccessStatusCode)
 					return Array.Empty<byte>();
 
-				return await response.Content.ReadAsByteArrayAsync();
+				return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
 			}
 			catch (Exception e)
 			{
