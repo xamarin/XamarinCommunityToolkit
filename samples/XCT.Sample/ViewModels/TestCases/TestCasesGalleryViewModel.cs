@@ -48,6 +48,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(SnackBarActionExceptionPage),
 				"SnackBar Action Exception",
 				"Exception in SnackBar's action doesn't crash the app."),
+
+			new SectionModel(
+				typeof(DrawingViewInExpanderPage),
+				"DrawingView in expander",
+				"DrawingView in Expander Page"),
 		};
 	}
 }

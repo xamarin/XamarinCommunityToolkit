@@ -17,8 +17,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, NSView>
 	{
+		readonly NSBezierPath currentPath;
 		bool disposed;
-		NSBezierPath currentPath;
 		NSColor? lineColor;
 		CGPoint previousPoint;
 		Line? currentLine;
@@ -58,11 +58,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			previousPoint = theEvent.LocationInWindow;
 			currentPath.MoveTo(previousPoint);
-			currentLine = new Line()
+			currentLine = new Line
 			{
-				Points = new ObservableCollection<Point>()
+				Points = new ObservableCollection<Point>
 				{
-					new Point(previousPoint.X, previousPoint.Y)
+					new (previousPoint.X, previousPoint.Y)
 				}
 			};
 
@@ -94,7 +94,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public override void DrawRect(CGRect dirtyRect)
 		{
 			base.DrawRect(dirtyRect);
-			lineColor!.SetStroke();
+			lineColor?.SetStroke();
 			currentPath.Stroke();
 		}
 
@@ -124,8 +124,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
 
 			var smoothedPoints = line.EnableSmoothedPath
-			? SmoothedPathWithGranularity(line.Points, line.Granularity)
-			: new ObservableCollection<Point>(line.Points);
+				? SmoothedPathWithGranularity(line.Points, line.Granularity)
+				: new ObservableCollection<Point>(line.Points);
 
 			line.Points.Clear();
 
