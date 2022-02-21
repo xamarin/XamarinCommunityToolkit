@@ -375,6 +375,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			mediaPlayer?.SetVolume((float)MediaElement.Volume, (float)MediaElement.Volume);
 		}
+
 		protected void UpdateSpeed()
 		{
 			if (MediaElement == null || mediaPlayer == null)
