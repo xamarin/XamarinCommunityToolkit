@@ -161,13 +161,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				ctx.SetSourceRGBA(currentLine.LineColor.R, currentLine.LineColor.G, currentLine.LineColor.B, currentLine.LineColor.A);
 				ctx.LineWidth = currentLine.LineWidth;
+				currentLine.Points.Add(new Point(pointD.X, pointD.Y));
 			}
 
 			ctx.MoveTo(previousPoint);
 			previousPoint = pointD;
 			ctx.LineTo(pointD);
-			ctx.Stroke();
-			currentLine?.Points.Add(new Point(pointD.X, pointD.Y));
+			ctx.Stroke();			
 		}
 
 		void LoadPoints(ImageSurface imageSurface)
