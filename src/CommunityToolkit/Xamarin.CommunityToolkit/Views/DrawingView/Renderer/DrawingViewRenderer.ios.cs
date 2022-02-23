@@ -18,8 +18,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	/// </summary>
 	public class DrawingViewRenderer : ViewRenderer<DrawingView, UIView>
 	{
+		readonly UIBezierPath currentPath;
 		bool disposed;
-		UIBezierPath currentPath;
 		UIColor? lineColor;
 		CGPoint previousPoint;
 		Line? currentLine;
@@ -61,11 +61,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var touch = (UITouch)touches.AnyObject;
 			previousPoint = touch.PreviousLocationInView(this);
 			currentPath.MoveTo(previousPoint);
-			currentLine = new Line()
+			currentLine = new Line
 			{
-				Points = new ObservableCollection<Point>()
+				Points = new ObservableCollection<Point>
 				{
-					new Point(previousPoint.X, previousPoint.Y)
+					new (previousPoint.X, previousPoint.Y)
 				}
 			};
 
@@ -105,7 +105,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override void Draw(CGRect rect)
 		{
-			lineColor!.SetStroke();
+			lineColor?.SetStroke();
 			currentPath.Stroke();
 		}
 
