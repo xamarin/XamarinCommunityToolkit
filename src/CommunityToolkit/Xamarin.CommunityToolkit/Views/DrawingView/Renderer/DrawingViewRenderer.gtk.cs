@@ -167,7 +167,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ctx.MoveTo(previousPoint);
 			previousPoint = pointD;
 			ctx.LineTo(pointD);
-			ctx.Stroke();			
+			ctx.Stroke();
 		}
 
 		void LoadPoints(ImageSurface imageSurface)
@@ -207,7 +207,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					area.MotionNotifyEvent -= OnMouseMotion;
 					area.Dispose();
 				}
-				
+
 				surface?.Dispose();
 				if (Element != null)
 					Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
