@@ -37,5 +37,17 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 		public int TouchCount { get; private set; }
 
 		public int LongPressCount { get; private set; }
+
+		bool nativeAnimationBorderless;
+
+		public bool NativeAnimationBorderless
+		{
+			get => nativeAnimationBorderless;
+			set
+			{
+				nativeAnimationBorderless = value;
+				OnPropertyChanged();
+			}
+		}
 	}
 }

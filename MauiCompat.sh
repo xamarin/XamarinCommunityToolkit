@@ -290,6 +290,49 @@ sed -i '' '/else if (e.PropertyName == Label.FontProperty.PropertyName)/,+1d' ./
 
 sed -i '' 's/Font.FontSize/Font.Size/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
+sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarActionOptions.shared.cs
+
+sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
+
+sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
+
+sed -i '' '1s/^/using Font = Microsoft.Maui.Font;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/MessageOptions.shared.cs
+
+## ToUIFont
+
+sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;using Microsoft.Extensions.DependencyInjection;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarAppearance.ios.cs
+
+sed -i '' 's/Forms.Font.Default.ToUIFont();/Microsoft.Maui.Font.Default.ToUIFont(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetRequiredService<IFontManager>());/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarAppearance.ios.cs
+
+sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;using Microsoft.Extensions.DependencyInjection;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
+
+sed -i '' 's/.Font.ToUIFont();/.Font.ToUIFont(sender.Handler?.MauiContext?.Services.GetRequiredService<IFontManager>());/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.ios.macos.cs
+
+# Typeface
+
+## SnackBar.android
+
+sed -i '' '1s/^/using Microsoft.Maui.Controls.Platform;using Microsoft.Extensions.DependencyInjection;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
+
+sed -i '' 's/if (arguments.MessageOptions.Font != Font.Default)/var fontManager = sender.Handler?.MauiContext?.Services.GetRequiredService<IFontManager>();\
+\
+			if (fontManager is null)\
+			{\
+				throw new ArgumentException("Unable to get IFontManager implementation");\
+			}\
+if (arguments.MessageOptions.Font != Font.Default)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
+
+sed -i '' 's/ToTypeface()/ToTypeface(fontManager)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.android.cs
+
+## TextSwitcherRenderer.android
+sed -i '' 's/var newTypeface = f.ToTypeface();/var fontManager = Element.Handler?.MauiContext?.Services.GetRequiredService<IFontManager>();\
+\
+			if (fontManager is null)\
+			{\
+				throw new ArgumentException("Unable to get IFontManager implementation");\
+			}\
+var newTypeface = f.ToTypeface(fontManager);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+
 # Controls 
 
 sed -i '' 's/Xamarin.Forms.Page/Microsoft.Maui.Controls.Page/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
@@ -345,6 +388,10 @@ sed -i '' '1s/^/using Paint = Android.Graphics.Paint;/' ./src/CommunityToolkit/X
 
 sed -i '' 's/ShapeDrawable/global::Android.Graphics.Drawables.ShapeDrawable/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/*.android.cs
 
+# BarStyle.android.cs
+
+sed -i '' '1s/^/using Window = Android.Views.Window;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/BarStyle.android.cs
+
 # TextSwitcherRenderer.android.cs
 
 sed -i '' 's/(visualElementRenderer?.OnTouchEvent(e) ?? false) || //g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
@@ -352,6 +399,10 @@ sed -i '' 's/(visualElementRenderer?.OnTouchEvent(e) ?? false) || //g' ./src/Com
 sed -i '' 's/f.ToScaledPixel()/(float)f.Size/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
 sed -i '' 's/children.ForEach(/Array.ForEach(children,/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+
+sed -i '' '1s/^/using Microsoft.Extensions.DependencyInjection;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+
+sed -i '' 's/ToAttributed(Element.ToFont(), Element.TextColor, nextView);/ToSpannableString(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetRequiredService<IFontManager>(), defaultColor: Element.TextColor);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
 
 ## PlatformTouchEffect.ios.cs
 
@@ -375,8 +426,6 @@ sed -i '' 's/line.LineColor.ToCGColor()/Microsoft.Maui.Platform.ColorExtensions.
 
 sed -i '' '1s/^/using Microsoft.Maui;using Microsoft.Maui.Controls.Compatibility.Platform.iOS;using Microsoft.Maui.Graphics;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
 
-sed -i '' 's/Forms.Font/Microsoft.Maui.Font/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
-
 sed -i '' 's/color.A /color.Alpha /g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackbarAppearance.ios.cs
 
 # Snackbar.android.cs
@@ -397,6 +446,8 @@ sed -i '' 's/SetImageViewTintColor(ImageView image, Color color)/SetImageViewTin
 
 sed -i '' 's/SetButtonTintColor(Button button, Color color)/SetButtonTintColor(Button button, Microsoft.Maui.Graphics.Color color)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/IconTintColorEffectRouter.android.cs
 
+sed -i '' '1s/^/using Button = Android.Widget.Button;/' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/IconTintColorEffectRouter.android.cs
+
 # IconTintColorEffectRouter.ios.cs
 
 sed -i '' 's/args.PropertyName?.Equals(IconTintColorEffect.TintColorProperty.PropertyName)/args.PropertyName?.Equals(IconTintColorEffect.TintColorProperty.PropertyName) is true/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/IconTintColorEffectRouter.ios.cs
@@ -416,6 +467,10 @@ sed -i '' 's/visualElementRenderer?.OnTouchEvent(e) is true || //g' ./src/Commun
 sed -i '' 's/static void MeasureExactly(AView control, VisualElement? element, Context? context)/static void MeasureExactly(AView control, VisualElement? element, Context context)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraViewRenderer.android.cs
 
 sed -i '' 's/Context.GetFragmentManager();/Microsoft.Maui.Platform.ContextExtensions.GetFragmentManager(Context ?? throw new NullReferenceException()) ?? throw new InvalidOperationException();/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraViewRenderer.android.cs
+
+# CameraViewRenderer.ios.cs
+
+sed -i '' 's/RequestAvAsset/RequestAVAsset/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraViewRenderer.ios.cs
 
 # VisualElementExtension.shared.cs
 
@@ -491,6 +546,10 @@ sed -i '' 's/Frame/Microsoft.Maui.Controls.Frame/g' ./src/CommunityToolkit/Xamar
 # CameraFragment.android.cs
 
 sed -i '' 's/MauiCompat.Resource.Layout.CameraFragment/MauiCompat.Resource.Layout.camerafragment/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/CameraFragment.android.cs
+
+# RangeSlider.shared.cs
+
+sed -i '' 's/return value.Clamp(MinimumValue, MaximumValue);/return Math.Clamp(value, MinimumValue, MaximumValue);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/RangeSlider.shared.cs
 
 # Replace Xamarin.Forms Namespace
 

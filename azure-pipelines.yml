@@ -1,6 +1,6 @@
 # See available software and versions on hosted agents here: https://docs.microsoft.com/azure/devops/pipelines/agents/hosted
 variables:
-  CurrentSemanticVersionBase: '1.4.0'
+  CurrentSemanticVersionBase: '2.0.0'
   PreviewNumber: $[counter(variables['CurrentSemanticVersionBase'], 1001)]
   CurrentSemanticVersion: '$(CurrentSemanticVersionBase)-preview$(PreviewNumber)'
   NugetPackageVersion: '$(CurrentSemanticVersion)'
@@ -223,11 +223,11 @@ jobs:
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
-          $tagVersion = $buildSourceBranch.Substring($buildSourceBranch.LastIndexOf("/") + 1)
+          $tagVersion = "$buildSourceBranch".Substring($buildSourceBranch.LastIndexOf("/") + 1)+"-preview$(PreviewNumber)"
           Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
           Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
         displayName: Set NuGet Version to Tag Number
-        condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
       # restore, build and pack the packages
       - task: CmdLine@2
         displayName: 'Build Xamarin.CommunityToolkit.MauiCompat.csproj'

@@ -312,6 +312,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (avPlayerViewController.Player != null)
 				avPlayerViewController.Player.Volume = (float)Element.Volume;
 		}
+
 		void UpdateSpeed()
 		{
 			if (avPlayerViewController.Player != null)
