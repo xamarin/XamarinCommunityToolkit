@@ -11,7 +11,7 @@ using Xamarin.Forms.Platform.GTK.Extensions;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	partial class SnackBar
+	internal partial class SnackBar
 	{
 		Timer? snackBarTimer;
 
