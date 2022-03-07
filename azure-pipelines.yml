@@ -54,7 +54,7 @@ schedules:
   displayName: Daily midnight build
   branches:
     include:
-    - develop
+    - main
 
 jobs:
   - job: build_windows_samples
