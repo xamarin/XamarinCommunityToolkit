@@ -1,6 +1,6 @@
 # See available software and versions on hosted agents here: https://docs.microsoft.com/azure/devops/pipelines/agents/hosted
 variables:
-  CurrentSemanticVersionBase: '2.0.0'
+  CurrentSemanticVersionBase: '2.1.0'
   PreviewNumber: $[counter(variables['CurrentSemanticVersionBase'], 1001)]
   CurrentSemanticVersion: '$(CurrentSemanticVersionBase)-preview$(PreviewNumber)'
   NugetPackageVersion: '$(CurrentSemanticVersion)'
@@ -335,4 +335,4 @@ jobs:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
       parameters:
         dependsOn: [ build_windows ]
-        condition: and(succeeded(), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'],'refs/tags/'))))
+        condition: and(succeeded(), or(eq(variables['Sign'], 'true'), startsWith(variables['Build.SourceBranch'],'refs/tags/')))
