@@ -130,7 +130,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					IsAntialias = true
 				};
 
-				var skPoints = line.Points.Select(p => new SKPoint((float)p.X, (float)p.Y)).ToArray();
+				var newPointsPath = line.EnableSmoothedPath
+					? line.Points.SmoothedPathWithGranularity(line.Granularity)
+					: line.Points;
+				var skPoints = newPointsPath.Select(p => new SKPoint((float)p.X, (float)p.Y)).ToArray();
 				using var path = new SKPath();
 				path.MoveTo(skPoints[0]);
 

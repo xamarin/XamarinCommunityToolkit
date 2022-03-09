@@ -78,7 +78,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnLinesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints(surface!);
+		void OnLinesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints(surface);
 
 		void OnDrawingAreaExposed(object source, ExposeEventArgs args)
 		{
@@ -170,14 +170,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			ctx.Stroke();
 		}
 
-		void LoadPoints(ImageSurface imageSurface)
+		void LoadPoints(ImageSurface? imageSurface)
 		{
+			if (imageSurface is null)
+				return;
+
 			var lines = Element.Lines;
 			if (lines.Count > 0)
 			{
 				foreach (var line in lines)
 				{
-					var stylusPoints = line.Points.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y)).ToList();
+					var newPointsPath = line.EnableSmoothedPath
+						? line.Points.SmoothedPathWithGranularity(line.Granularity)
+						: line.Points;
+					var stylusPoints = newPointsPath.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y)).ToList();
 					if (stylusPoints is { Count: > 0 })
 					{
 						previousPoint = stylusPoints[0];

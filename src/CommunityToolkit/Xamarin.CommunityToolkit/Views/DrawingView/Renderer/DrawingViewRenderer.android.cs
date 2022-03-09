@@ -144,6 +144,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (Element.ClearOnFinish)
 						Element.Lines.Clear();
 
+					currentLine = null;
 					break;
 				default:
 					return false;
@@ -216,7 +217,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			foreach (var line in lines)
 			{
 				path ??= new Path();
-				var points = NormalizePoints(line.Points);
+				var points = line.EnableSmoothedPath
+					? line.Points.SmoothedPathWithGranularity(line.Granularity)
+					: line.Points;
+				NormalizePoints(points);
 				path.MoveTo((float)points[0].X, (float)points[0].Y);
 				foreach (var (x, y) in points)
 				{
