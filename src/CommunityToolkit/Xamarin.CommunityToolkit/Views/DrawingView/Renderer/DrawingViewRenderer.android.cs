@@ -217,10 +217,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			foreach (var line in lines)
 			{
 				path ??= new Path();
-				var points = line.EnableSmoothedPath
+				var points = NormalizePoints(line.EnableSmoothedPath
 					? line.Points.SmoothedPathWithGranularity(line.Granularity)
-					: line.Points;
-				NormalizePoints(points);
+					: line.Points);
 				path.MoveTo((float)points[0].X, (float)points[0].Y);
 				foreach (var (x, y) in points)
 				{
