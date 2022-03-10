@@ -93,8 +93,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (canvas is not null && canvasBitmap is not null)
 			{
-				Draw(Element.Lines, canvas);
-
 				canvas.DrawBitmap(canvasBitmap, 0, 0, canvasPaint);
 				canvas.DrawPath(drawPath, drawPaint);
 			}
@@ -122,7 +120,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						}
 					};
 
-					drawCanvas?.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
 					drawPath.MoveTo(touchX, touchY);
 					break;
 				case MotionEventActions.Move:

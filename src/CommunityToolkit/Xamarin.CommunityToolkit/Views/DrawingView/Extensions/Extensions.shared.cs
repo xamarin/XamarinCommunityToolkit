@@ -15,26 +15,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static ObservableCollection<Point> SmoothedPathWithGranularity(this ObservableCollection<Point> currentPoints,
 			int granularity)
 		{
+			var currentPointsCopy = new ObservableCollection<Point>(currentPoints);
+
 			// not enough points to smooth effectively, so return the original path and points.
-			if (currentPoints.Count < granularity + 2)
-				return new ObservableCollection<Point>(currentPoints);
+			if (currentPointsCopy.Count < granularity + 2)
+				return currentPointsCopy;
 
 			var smoothedPoints = new ObservableCollection<Point>();
 
 			// duplicate the first and last points as control points.
-			currentPoints.Insert(0, currentPoints[0]);
-			currentPoints.Add(currentPoints.Last());
+			currentPointsCopy.Insert(0, currentPointsCopy[0]);
+			currentPointsCopy.Add(currentPointsCopy.Last());
 
 			// add the first point
-			smoothedPoints.Add(currentPoints[0]);
+			smoothedPoints.Add(currentPointsCopy[0]);
 
-			var currentPointsCount = currentPoints.Count;
+			var currentPointsCount = currentPointsCopy.Count;
 			for (var index = 1; index < currentPointsCount - 2; index++)
 			{
-				var p0 = currentPoints[index - 1];
-				var p1 = currentPoints[index];
-				var p2 = currentPoints[index + 1];
-				var p3 = currentPoints[index + 2];
+				var p0 = currentPointsCopy[index - 1];
+				var p1 = currentPointsCopy[index];
+				var p2 = currentPointsCopy[index + 1];
+				var p3 = currentPointsCopy[index + 2];
 
 				// add n points starting at p1 + dx/dy up until p2 using Catmull-Rom splines
 				for (var i = 1; i < granularity; i++)
@@ -53,7 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			// add the last point
-			var last = currentPoints.Last();
+			var last = currentPointsCopy.Last();
 			smoothedPoints.Add(last);
 			return smoothedPoints;
 		}
