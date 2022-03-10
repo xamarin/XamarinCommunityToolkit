@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using CoreGraphics;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
-using System.Linq;
 
 #if __IOS__
 using NativeView = UIKit.UIView;
