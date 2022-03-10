@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Linq;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -25,7 +24,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			// duplicate the first and last points as control points.
 			currentPointsCopy.Insert(0, currentPointsCopy[0]);
-			currentPointsCopy.Add(currentPointsCopy.Last());
+			currentPointsCopy.Add(currentPointsCopy[currentPointsCopy.Count - 1]);
 
 			// add the first point
 			smoothedPoints.Add(currentPointsCopy[0]);
@@ -55,7 +54,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			// add the last point
-			var last = currentPointsCopy.Last();
+			var last = currentPointsCopy[currentPointsCopy.Count - 1];
 			smoothedPoints.Add(last);
 			return smoothedPoints;
 		}
@@ -64,15 +63,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			new Point
 			{
 				X = 0.5f *
-				    ((2f * p1.X) +
-				     ((p2.X - p0.X) * t) +
-				     (((2f * p0.X) - (5f * p1.X) + (4f * p2.X) - p3.X) * tt) +
-				     (((3f * p1.X) - p0.X - (3f * p2.X) + p3.X) * ttt)),
+					((2f * p1.X) +
+					 ((p2.X - p0.X) * t) +
+					 (((2f * p0.X) - (5f * p1.X) + (4f * p2.X) - p3.X) * tt) +
+					 (((3f * p1.X) - p0.X - (3f * p2.X) + p3.X) * ttt)),
 				Y = 0.5f *
-				    ((2 * p1.Y) +
-				     ((p2.Y - p0.Y) * t) +
-				     (((2 * p0.Y) - (5 * p1.Y) + (4 * p2.Y) - p3.Y) * tt) +
-				     (((3 * p1.Y) - p0.Y - (3 * p2.Y) + p3.Y) * ttt))
+					((2 * p1.Y) +
+					 ((p2.Y - p0.Y) * t) +
+					 (((2 * p0.Y) - (5 * p1.Y) + (4 * p2.Y) - p3.Y) * tt) +
+					 (((3 * p1.Y) - p0.Y - (3 * p2.Y) + p3.Y) * ttt))
 			};
 	}
 }
