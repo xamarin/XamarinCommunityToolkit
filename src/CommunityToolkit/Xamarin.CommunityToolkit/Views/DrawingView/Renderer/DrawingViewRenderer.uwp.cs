@@ -136,7 +136,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					: new ObservableCollection<Line>();
 			foreach (var line in lines)
 			{
-				var stylusPoints = line.Points.Select(point => new Windows.Foundation.Point(point.X, point.Y)).ToList();
+				var newPointsPath = line.EnableSmoothedPath
+					? line.Points.SmoothedPathWithGranularity(line.Granularity)
+					: line.Points;
+				var stylusPoints = newPointsPath.Select(point => new Windows.Foundation.Point(point.X, point.Y)).ToList();
 				if (stylusPoints is { Count: > 0 })
 				{
 					var strokeBuilder = new InkStrokeBuilder();
@@ -147,7 +150,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					};
 					strokeBuilder.SetDefaultDrawingAttributes(inkDrawingAttributes);
 					var stroke = strokeBuilder.CreateStroke(stylusPoints);
-					canvas!.InkPresenter.StrokeContainer.AddStroke(stroke);
+					canvas?.InkPresenter.StrokeContainer.AddStroke(stroke);
 				}
 			}
 		}
