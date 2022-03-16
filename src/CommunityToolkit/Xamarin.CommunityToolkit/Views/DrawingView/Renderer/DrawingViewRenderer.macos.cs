@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				WantsLayer = true;
 				if (Layer is not null)
 					Layer.BackgroundColor = Element.BackgroundColor.ToCGColor();
-				
+
 				currentPath.LineWidth = Element.DefaultLineWidth;
 				lineColor = Element.DefaultLineColor.ToNSColor();
 				Element.Lines.CollectionChanged += OnLinesCollectionChanged;
@@ -128,7 +128,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Layer is not null)
 				InvokeOnMainThread(Layer.SetNeedsDisplay);
 		}
-		
+
 		protected override void Dispose(bool disposing)
 		{
 			if (disposed)

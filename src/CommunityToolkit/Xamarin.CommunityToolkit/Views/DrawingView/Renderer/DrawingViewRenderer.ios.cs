@@ -157,7 +157,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (scrollViewParentRenderers.Any())
 				return;
-			
+
 			var parent = Superview;
 
 			while (parent != null)
@@ -168,7 +168,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				parent = parent.Superview;
 			}
 		}
-		
+
 		void SetParentTouches(bool enabled)
 		{
 			foreach (var scrollViewParentRenderer in scrollViewParentRenderers)
