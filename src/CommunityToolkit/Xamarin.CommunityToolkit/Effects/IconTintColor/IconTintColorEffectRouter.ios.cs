@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
@@ -11,6 +12,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class IconTintColorEffectRouter : PlatformEffect
 	{
+		private int _retryCount = 0;
+
 		protected override void OnAttached()
 			=> ApplyTintColor();
 
@@ -22,8 +25,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			base.OnElementPropertyChanged(args);
 
 			if (!args.PropertyName.Equals(IconTintColorEffect.TintColorProperty.PropertyName) &&
-				!args.PropertyName.Equals(Image.SourceProperty.PropertyName) &&
-				!args.PropertyName.Equals(ImageButton.SourceProperty.PropertyName))
+			    !args.PropertyName.Equals(Image.SourceProperty.PropertyName) &&
+			    !args.PropertyName.Equals(ImageButton.SourceProperty.PropertyName))
 				return;
 
 			ApplyTintColor();
@@ -61,31 +64,59 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 						var originalImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 						button.SetImage(originalImage, UIControlState.Normal);
 					}
+
 					break;
 			}
 		}
 
-		void SetUIImageViewTintColor(UIImageView imageView, Color color)
+		async void SetUIImageViewTintColor(UIImageView imageView, Color color)
 		{
 			if (imageView.Image == null)
-				return;
-
-			imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
-			imageView.TintColor = color.ToUIColor();
+			{
+				if (_retryCount < 4)
+				{
+					_retryCount++;
+					await Task.Delay(100);
+					SetUIImageViewTintColor(imageView, color);
+				}
+				else
+				{
+					return;
+				}
+			}
+			else
+			{
+				imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+				imageView.TintColor = color.ToUIColor();
+				_retryCount = 0;
+			}
 		}
 
-		void SetUIButtonTintColor(UIButton button, Color color)
+		async void SetUIButtonTintColor(UIButton button, Color color)
 		{
 			if (button.CurrentImage == null)
-				return;
+			{
+				if (_retryCount < 4)
+				{
+					_retryCount++;
+					await Task.Delay(100);
+					SetUIButtonTintColor(button, color);
+				}
+				else
+				{
+					return;
+				}
+			}
+			else
+			{
+				var templatedImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 
-			var templatedImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+				button.SetImage(null, UIControlState.Normal);
 
-			button.SetImage(null, UIControlState.Normal);
-
-			button.TintColor = color.ToUIColor();
-			button.ImageView.TintColor = color.ToUIColor();
-			button.SetImage(templatedImage, UIControlState.Normal);
+				button.TintColor = color.ToUIColor();
+				button.ImageView.TintColor = color.ToUIColor();
+				button.SetImage(templatedImage, UIControlState.Normal);
+			}
 		}
 	}
 }
