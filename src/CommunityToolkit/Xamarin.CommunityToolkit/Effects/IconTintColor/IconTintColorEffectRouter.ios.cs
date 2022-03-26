@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
@@ -12,8 +12,6 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 {
 	public class IconTintColorEffectRouter : PlatformEffect
 	{
-		private int _retryCount = 0;
-
 		protected override void OnAttached()
 			=> ApplyTintColor();
 
@@ -69,43 +67,45 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			}
 		}
 
-		async void SetUIImageViewTintColor(UIImageView imageView, Color color)
+		void SetUIImageViewTintColor(UIImageView imageView, Color color)
 		{
 			if (imageView.Image == null)
 			{
-				if (_retryCount < 4)
+				Element.PropertyChanged += (_, e) =>
 				{
-					_retryCount++;
-					await Task.Delay(100);
-					SetUIImageViewTintColor(imageView, color);
-				}
-				else
-				{
-					return;
-				}
+					if (e.PropertyName == Image.IsLoadingProperty.PropertyName)
+					{
+						var b = Element as Xamarin.Forms.Image ?? throw new NullReferenceException();
+
+						if (!b.IsLoading)
+						{
+							SetUIImageViewTintColor(imageView, color);
+						}
+					}
+				};
 			}
 			else
 			{
 				imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 				imageView.TintColor = color.ToUIColor();
-				_retryCount = 0;
 			}
 		}
 
-		async void SetUIButtonTintColor(UIButton button, Color color)
+		void SetUIButtonTintColor(UIButton button, Color color)
 		{
-			if (button.CurrentImage == null)
+			if (button.ImageView.Image == null)
 			{
-				if (_retryCount < 4)
+				Element.PropertyChanged += (_, e) =>
 				{
-					_retryCount++;
-					await Task.Delay(100);
-					SetUIButtonTintColor(button, color);
-				}
-				else
-				{
-					return;
-				}
+					if (e.PropertyName == ImageButton.IsLoadingProperty.PropertyName)
+					{
+						var b = Element as Xamarin.Forms.ImageButton ?? throw new NullReferenceException();
+						if (!b.IsLoading)
+						{
+							SetUIButtonTintColor(button, color);
+						}
+					}
+				};
 			}
 			else
 			{
