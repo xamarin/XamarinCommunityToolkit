@@ -54,11 +54,16 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			{
 				case UIImageView imageView:
 					if (imageView.Image != null)
+					{
+						Element.PropertyChanged -= ImageViewTintColorPropertyChanged;
 						imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
+					}
+
 					break;
 				case UIButton button:
 					if (button.CurrentImage != null)
 					{
+						Element.PropertyChanged -= ButtonTintColorPropertyChanged;
 						var originalImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 						button.SetImage(originalImage, UIControlState.Normal);
 					}
@@ -71,18 +76,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			if (imageView.Image == null)
 			{
-				Element.PropertyChanged += (_, e) =>
-				{
-					if (e.PropertyName == Image.IsLoadingProperty.PropertyName)
-					{
-						var element = Element as Xamarin.Forms.Image ?? throw new NullReferenceException();
-
-						if (!element.IsLoading)
-						{
-							SetUIImageViewTintColor(imageView, color);
-						}
-					}
-				};
+				Element.PropertyChanged += ImageViewTintColorPropertyChanged;
 			}
 			else
 			{
@@ -91,21 +85,24 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			}
 		}
 
+		void ImageViewTintColorPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == Image.IsLoadingProperty.PropertyName)
+			{
+				var b = Element as Xamarin.Forms.Image ?? throw new NullReferenceException();
+
+				if (!b.IsLoading)
+				{
+					ApplyTintColor();
+				}
+			}
+		}
+
 		void SetUIButtonTintColor(UIButton button, Color color)
 		{
 			if (button.ImageView.Image == null)
 			{
-				Element.PropertyChanged += (_, e) =>
-				{
-					if (e.PropertyName == ImageButton.IsLoadingProperty.PropertyName)
-					{
-						var element = Element as Xamarin.Forms.ImageButton ?? throw new NullReferenceException();
-						if (!element.IsLoading)
-						{
-							SetUIButtonTintColor(button, color);
-						}
-					}
-				};
+				Element.PropertyChanged += ButtonTintColorPropertyChanged;
 			}
 			else
 			{
@@ -116,6 +113,18 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				button.TintColor = color.ToUIColor();
 				button.ImageView.TintColor = color.ToUIColor();
 				button.SetImage(templatedImage, UIControlState.Normal);
+			}
+		}
+
+		void ButtonTintColorPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == ImageButton.IsLoadingProperty.PropertyName)
+			{
+				var b = Element as Xamarin.Forms.ImageButton ?? throw new NullReferenceException();
+				if (!b.IsLoading)
+				{
+					ApplyTintColor();
+				}
 			}
 		}
 	}
