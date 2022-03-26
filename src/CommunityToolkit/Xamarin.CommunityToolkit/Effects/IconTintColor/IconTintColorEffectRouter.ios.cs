@@ -75,9 +75,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				{
 					if (e.PropertyName == Image.IsLoadingProperty.PropertyName)
 					{
-						var b = Element as Xamarin.Forms.Image ?? throw new NullReferenceException();
+						var element = Element as Xamarin.Forms.Image ?? throw new NullReferenceException();
 
-						if (!b.IsLoading)
+						if (!element.IsLoading)
 						{
 							SetUIImageViewTintColor(imageView, color);
 						}
