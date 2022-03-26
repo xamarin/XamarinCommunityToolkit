@@ -99,8 +99,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				{
 					if (e.PropertyName == ImageButton.IsLoadingProperty.PropertyName)
 					{
-						var b = Element as Xamarin.Forms.ImageButton ?? throw new NullReferenceException();
-						if (!b.IsLoading)
+						var element = Element as Xamarin.Forms.ImageButton ?? throw new NullReferenceException();
+						if (!element.IsLoading)
 						{
 							SetUIButtonTintColor(button, color);
 						}
