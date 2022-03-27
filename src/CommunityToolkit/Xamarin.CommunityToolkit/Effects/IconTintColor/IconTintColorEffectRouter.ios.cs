@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using UIKit;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
@@ -22,8 +23,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			base.OnElementPropertyChanged(args);
 
 			if (!args.PropertyName.Equals(IconTintColorEffect.TintColorProperty.PropertyName) &&
-				!args.PropertyName.Equals(Image.SourceProperty.PropertyName) &&
-				!args.PropertyName.Equals(ImageButton.SourceProperty.PropertyName))
+			    !args.PropertyName.Equals(Image.SourceProperty.PropertyName) &&
+			    !args.PropertyName.Equals(ImageButton.SourceProperty.PropertyName))
 				return;
 
 			ApplyTintColor();
@@ -53,14 +54,20 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			{
 				case UIImageView imageView:
 					if (imageView.Image != null)
+					{
+						Element.PropertyChanged -= ImageViewTintColorPropertyChanged;
 						imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
+					}
+
 					break;
 				case UIButton button:
-					if (button.CurrentImage != null)
+					if (button.ImageView.Image != null)
 					{
+						Element.PropertyChanged -= ButtonTintColorPropertyChanged;
 						var originalImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 						button.SetImage(originalImage, UIControlState.Normal);
 					}
+
 					break;
 			}
 		}
@@ -68,24 +75,57 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		void SetUIImageViewTintColor(UIImageView imageView, Color color)
 		{
 			if (imageView.Image == null)
-				return;
+			{
+				Element.PropertyChanged += ImageViewTintColorPropertyChanged;
+			}
+			else
+			{
+				imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+				imageView.TintColor = color.ToUIColor();
+			}
+		}
 
-			imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
-			imageView.TintColor = color.ToUIColor();
+		void ImageViewTintColorPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == Image.IsLoadingProperty.PropertyName)
+			{
+				var element = (Image)Element;
+
+				if (!element.IsLoading)
+				{
+					ApplyTintColor();
+				}
+			}
 		}
 
 		void SetUIButtonTintColor(UIButton button, Color color)
 		{
-			if (button.CurrentImage == null)
-				return;
+			if (button.ImageView.Image == null)
+			{
+				Element.PropertyChanged += ButtonTintColorPropertyChanged;
+			}
+			else
+			{
+				var templatedImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
 
-			var templatedImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate);
+				button.SetImage(null, UIControlState.Normal);
 
-			button.SetImage(null, UIControlState.Normal);
+				button.TintColor = color.ToUIColor();
+				button.ImageView.TintColor = color.ToUIColor();
+				button.SetImage(templatedImage, UIControlState.Normal);
+			}
+		}
 
-			button.TintColor = color.ToUIColor();
-			button.ImageView.TintColor = color.ToUIColor();
-			button.SetImage(templatedImage, UIControlState.Normal);
+		void ButtonTintColorPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == ImageButton.IsLoadingProperty.PropertyName)
+			{
+				var element = (ImageButton)Element;
+				if (!element.IsLoading)
+				{
+					ApplyTintColor();
+				}
+			}
 		}
 	}
 }
