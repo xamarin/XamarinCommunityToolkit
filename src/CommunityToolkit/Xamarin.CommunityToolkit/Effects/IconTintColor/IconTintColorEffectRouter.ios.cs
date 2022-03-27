@@ -89,9 +89,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			if (e.PropertyName == Image.IsLoadingProperty.PropertyName)
 			{
-				var b = Element as Xamarin.Forms.Image ?? throw new NullReferenceException();
+				var element = (Image)Element;
 
-				if (!b.IsLoading)
+				if (!element.IsLoading)
 				{
 					ApplyTintColor();
 				}
@@ -120,8 +120,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			if (e.PropertyName == ImageButton.IsLoadingProperty.PropertyName)
 			{
-				var b = Element as Xamarin.Forms.ImageButton ?? throw new NullReferenceException();
-				if (!b.IsLoading)
+				var element = (ImageButton)Element;
+				if (!element.IsLoading)
 				{
 					ApplyTintColor();
 				}
