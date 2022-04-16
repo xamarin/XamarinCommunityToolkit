@@ -1,8 +1,9 @@
 ﻿using System;using Microsoft.Extensions.Logging;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation.Peers;
-using Windows.UI.Xaml.Media;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Automation.Peers;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Window = Microsoft.UI.Xaml.Window;
 
 namespace Xamarin.CommunityToolkit.Extensions
 {

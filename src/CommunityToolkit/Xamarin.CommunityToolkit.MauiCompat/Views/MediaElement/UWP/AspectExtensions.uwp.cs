@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
-using WStretch = Windows.UI.Xaml.Media.Stretch;
+using WStretch = Microsoft.UI.Xaml.Media.Stretch;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {

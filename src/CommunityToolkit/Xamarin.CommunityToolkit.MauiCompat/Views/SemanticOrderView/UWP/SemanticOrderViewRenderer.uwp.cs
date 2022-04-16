@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Xamarin.CommunityToolkit.UI.Views;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
@@ -32,7 +32,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var i = 1;
 			foreach (var element in Element.ViewOrder)
 			{
-				if (element is VisualElement ve)
+				if (element is FrameworkElement ve)
 					ve.TabIndex = i++;
 			}
 		}

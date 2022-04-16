@@ -1,7 +1,7 @@
 ﻿using System;using Microsoft.Extensions.Logging;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Xaml;
-#if NETSTANDARD1_0 || UAP10_0
+#if NETSTANDARD1_0 || WINDOWS
 using System.Reflection;
 #endif
 
@@ -22,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 			=> Id == null
 				? null
 				: ImageSource.FromResource(Id, Application.Current.GetType()
-#if NETSTANDARD1_0 || UAP10_0
+#if NETSTANDARD1_0 || WINDOWS
 					.GetTypeInfo()
 #endif
 					.Assembly);

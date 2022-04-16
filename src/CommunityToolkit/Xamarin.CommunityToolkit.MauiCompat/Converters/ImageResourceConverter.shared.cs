@@ -1,5 +1,5 @@
 ﻿using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
-#if NETSTANDARD1_0 || UAP10_0
+#if NETSTANDARD1_0 || WINDOWS
 using System.Reflection;
 #endif
 
@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.Converters
 				return null;
 
 			return ImageSource.FromResource(value, Application.Current.GetType()
-#if NETSTANDARD1_0 || UAP10_0
+#if NETSTANDARD1_0 || WINDOWS
 				.GetTypeInfo()
 #endif
 				.Assembly);

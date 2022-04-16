@@ -2,17 +2,18 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
-using Windows.UI.Composition;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Hosting;
-using Windows.UI.Xaml.Shapes;
+using Microsoft.UI.Composition;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Hosting;
+using Microsoft.UI.Xaml.Shapes;
+using Application = Microsoft.Maui.Controls.Application;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.CommunityToolkit.UWP.Effects;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
-using Microsoft.Maui.Controls.Compatibility.Grid = Xamarin.Forms.Grid;
-using Image = Windows.UI.Xaml.Controls.Image;
+using Microsoft.Maui.Platform;
+using Image = Microsoft.UI.Xaml.Controls.Image;
 
 [assembly: ExportEffect(typeof(PlatformShadowEffect), nameof(ShadowEffect))]
 
@@ -35,7 +36,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		SpriteVisual? spriteVisual;
 
-		Layout<View>? shadowPanel;
+		Microsoft.Maui.Controls.StackLayout? shadowPanel;
 
 		DropShadow? shadow;
 
@@ -69,7 +70,7 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 			switch (state)
 			{
 				case ShadowEffectState.Initialized:
-					shadowPanel = new 	Microsoft.Maui.Controls.StackLayout()
+					shadowPanel = new Microsoft.Maui.Controls.StackLayout()
 					{
 						Children = { new Microsoft.Maui.Controls.Compatibility.Grid() }
 					};
@@ -123,12 +124,12 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 			View.SizeChanged += ViewSizeChanged;
 
-			var renderer = shadowPanel?.Children.First().GetOrCreateRenderer();
+			var renderer = shadowPanel?.Children.First().ToPlatform(Application.Current.MainPage.Handler?.MauiContext);
 			spriteVisual.ParentForTransform = ElementCompositionPreview.GetElementVisual(View);
-			ElementCompositionPreview.SetElementChildVisual(renderer?.ContainerElement, spriteVisual);
+			ElementCompositionPreview.SetElementChildVisual(renderer, spriteVisual);
 		}
 
-		void MoveElementTo(View element, Layout<View> to)
+		void MoveElementTo(View element, Microsoft.Maui.Controls.StackLayout to)
 		{
 			Device.BeginInvokeOnMainThread(() =>
 			{

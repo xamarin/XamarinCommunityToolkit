@@ -1,11 +1,14 @@
 ﻿using System;using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
+using Microsoft.UI.Xaml;
+using Microsoft.Maui.Controls;
+using Microsoft.UI.Xaml.Media;
 using Xamarin.CommunityToolkit.UI.Views.Helpers;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
+using Border = Microsoft.UI.Xaml.Controls.Border;
+using Grid = Microsoft.UI.Xaml.Controls.Grid;
+using RowDefinition = Microsoft.UI.Xaml.Controls.RowDefinition;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -35,13 +38,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return null;
 		}
 
-		internal partial ValueTask Show(Forms.VisualElement visualElement, SnackBarOptions arguments)
+		internal partial ValueTask Show(VisualElement visualElement, SnackBarOptions arguments)
 		{
 			var snackBarLayout = new SnackBarLayout(arguments);
 			var pageControl = Platform.GetRenderer(visualElement).ContainerElement.Parent;
 
-			var grid = (Microsoft.Maui.Controls.Compatibility.Grid)(FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea")?.Parent ?? throw new NotSupportedException("Unable to find Snackbar/Toast container. Make sure your page is in NavigationPage. AnchorView is not supported in UWP."));
-			var snackBarRow = new RowDefinition() { Height = Microsoft.Maui.GridLength.Auto };
+			var grid = (Grid)(FindVisualChildByName<Border>(pageControl, "BottomCommandBarArea")?.Parent ?? throw new NotSupportedException("Unable to find Snackbar/Toast container. Make sure your page is in NavigationPage. AnchorView is not supported in UWP."));
+			var snackBarRow = new RowDefinition() { Height = GridLength.Auto };
 			snackBarTimer = new DispatcherTimer { Interval = arguments.Duration };
 			snackBarTimer.Tick += (sender, e) =>
 			{
@@ -59,7 +62,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBarTimer.Start();
 			grid.RowDefinitions.Add(snackBarRow);
 			grid.Children.Add(snackBarLayout);
-			Microsoft.Maui.Controls.Compatibility.Grid.SetRow(snackBarLayout, grid.RowDefinitions.Count - 1);
+			Grid.SetRow(snackBarLayout, grid.RowDefinitions.Count - 1);
 			return default;
 		}
 	}

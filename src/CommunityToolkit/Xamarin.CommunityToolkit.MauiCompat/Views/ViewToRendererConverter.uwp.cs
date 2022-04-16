@@ -1,9 +1,11 @@
 ﻿using System;using Microsoft.Extensions.Logging;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Xamarin.CommunityToolkit.Extensions;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
+using Microsoft.UI.Xaml.Shapes;
+using Layout = Microsoft.Maui.Controls.Compatibility.Layout;
 using WRect = Windows.Foundation.Rect;
 
 namespace Xamarin.CommunityToolkit.UI.Views
@@ -35,7 +37,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					// If the view is a layout (stacklayout, grid, etc) we need to trigger a layout pass
 					// with all the controls in a consistent native state (i.e., loaded) so they'll actually
 					// have Bounds set
-					(this.view as Microsoft.Maui.Controls.Layout)?.ForceLayout();
+					(this.view as Layout)?.ForceLayout();
 					InvalidateMeasure();
 				};
 			}
@@ -53,8 +55,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			protected override Windows.Foundation.Size ArrangeOverride(Windows.Foundation.Size finalSize)
 			{
-				view.IsInNativeLayout = true;
-				Layout.LayoutChildIntoBoundingRegion(view, new Rectangle(0, 0, finalSize.Width, finalSize.Height));
+				Layout.LayoutChildIntoBoundingRegion(view, new Rect(0, 0, finalSize.Width, finalSize.Height));
 
 				if (view.Width <= 0 || view.Height <= 0)
 				{
@@ -67,7 +68,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Opacity = 1;
 					FrameworkElement?.Arrange(new WRect(view.X, view.Y, view.Width, view.Height));
 				}
-				view.IsInNativeLayout = false;
 
 				return finalSize;
 			}

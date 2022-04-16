@@ -1,15 +1,16 @@
 ﻿using System;using Microsoft.Extensions.Logging;
 using System.ComponentModel;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using Xamarin.CommunityToolkit.UI.Views;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Internals;
 using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
+using Microsoft.Maui.Platform;
 using Specific = Xamarin.CommunityToolkit.PlatformConfiguration.WindowsSpecific.PopUp;
-using UWPThickness = Windows.UI.Xaml.Thickness;
-using XamlStyle = Windows.UI.Xaml.Style;
+using UWPThickness = Microsoft.UI.Xaml.Thickness;
+using XamlStyle = Microsoft.UI.Xaml.Style;
 
 [assembly: ExportRenderer(typeof(BasePopup), typeof(PopupRenderer))]
 
@@ -130,10 +131,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Control.Width = currentSize.Width;
 			Control.Height = currentSize.Height;
 
-			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.MinHeightProperty, currentSize.Height + (defaultBorderThickness * 2)));
-			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.MinWidthProperty, currentSize.Width + (defaultBorderThickness * 2)));
-			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.MaxHeightProperty, currentSize.Height + (defaultBorderThickness * 2)));
-			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.MaxWidthProperty, currentSize.Width + (defaultBorderThickness * 2)));
+			flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.MinHeightProperty, currentSize.Height + (defaultBorderThickness * 2)));
+			flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.MinWidthProperty, currentSize.Width + (defaultBorderThickness * 2)));
+			flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.MaxHeightProperty, currentSize.Height + (defaultBorderThickness * 2)));
+			flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.MaxWidthProperty, currentSize.Width + (defaultBorderThickness * 2)));
 		}
 
 		void SetLayout()
@@ -148,8 +149,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			_ = flyoutStyle ?? throw new NullReferenceException();
 
-			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.PaddingProperty, 0));
-			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderThicknessProperty, new UWPThickness(defaultBorderThickness)));
+			flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.PaddingProperty, 0));
+			flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.BorderThicknessProperty, new UWPThickness(defaultBorderThickness)));
 
 			if (Element == null)
 			{
@@ -159,9 +160,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var borderColor = Specific.GetBorderColor(Element);
 			if (borderColor == default(Color))
-				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, Color.FromHex("#2e6da0").ToWindowsColor()));
+				flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, Color.FromHex("#2e6da0").ToWindowsColor()));
 			else
-				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, borderColor.ToWindowsColor()));
+				flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.BorderBrushProperty, borderColor.ToWindowsColor()));
 		}
 
 		void SetColor()
@@ -171,13 +172,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			_ = flyoutStyle ?? throw new NullReferenceException();
 
 			if (Element.Content.BackgroundColor == default(Color))
-				panelStyle.Setters.Add(new Windows.UI.Xaml.Setter(Panel.BackgroundProperty, Element.Color.ToWindowsColor()));
+				panelStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(Panel.BackgroundProperty, Element.Color.ToWindowsColor()));
 
-			flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.BackgroundProperty, Element.Color.ToWindowsColor()));
+			flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.BackgroundProperty, Element.Color.ToWindowsColor()));
 
 #if UWP_18362
 			if (Element.Color == Colors.Transparent)
-				flyoutStyle.Setters.Add(new Windows.UI.Xaml.Setter(FlyoutPresenter.IsDefaultShadowEnabledProperty, false));
+				flyoutStyle.Setters.Add(new Microsoft.UI.Xaml.Setter(FlyoutPresenter.IsDefaultShadowEnabledProperty, false));
 #endif
 		}
 

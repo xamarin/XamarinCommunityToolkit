@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Maui; using Microsoft.Maui.Controls; using Microsoft.Maui.Graphics; using Microsoft.Maui.Controls.Compatibility;
+using Microsoft.Maui.Controls.Platform;
 using Xamarin.CommunityToolkit.Helpers;
 
 #if ANDROID
@@ -15,7 +16,7 @@ using StreamImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.
 using Microsoft.Maui.Controls.Compatibility.Platform.MacOS;
 using UriImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.MacOS.ImageLoaderSourceHandler;
 using StreamImageSourceHandler = Microsoft.Maui.Controls.Compatibility.Platform.MacOS.StreamImagesourceHandler;
-#elif UAP10_0
+#elif WINDOWS
 using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 #elif NET471
 using Microsoft.Maui.Controls.Compatibility.Platform.GTK.Renderers;

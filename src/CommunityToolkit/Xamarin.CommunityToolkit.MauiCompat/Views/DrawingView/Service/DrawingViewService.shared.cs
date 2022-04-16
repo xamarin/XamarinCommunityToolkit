@@ -6,7 +6,7 @@ using Size = Microsoft.Maui.Graphics.Size;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-#if NETSTANDARD || __WATCHOS__ || __TVOS__
+#if NETSTANDARD || __WATCHOS__ || __TVOS__ || WINDOWS
 	static class DrawingViewService
 	{
 		/// <summary>
