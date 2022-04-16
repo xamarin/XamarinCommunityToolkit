@@ -234,7 +234,7 @@ jobs:
 
       - publish: '$(Build.ArtifactStagingDirectory)/src'
         displayName: 'Publish script'
-        artifact: drop
+        artifact: src
             
   - job: build_mauicompat
     dependsOn: generate_mauicompat
@@ -258,8 +258,10 @@ jobs:
           versionSpec: '11'
           jdkArchitectureOption: 'x64'
           jdkSourceOption: 'PreInstalled'
+
       - download: current
-        artifact: drop
+        artifact: src
+
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
@@ -273,14 +275,14 @@ jobs:
       - task: VSBuild@1
         displayName: 'Pack Community Toolkit NuGets'
         inputs:
-          solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatCommunityToolkitCsproj)'
+          solution: '$(Pipeline.Workspace)\$(PathToMauiCompatCommunityToolkitCsproj)'
           configuration: 'Release'
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
       - task: VSBuild@1
         displayName: 'Build and Pack Markup NuGet'
         inputs:
-          solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatMarkupCsproj)'
+          solution: '$(Pipeline.Workspace)\$(PathToMauiCompatMarkupCsproj)'
           configuration: 'Release'
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
