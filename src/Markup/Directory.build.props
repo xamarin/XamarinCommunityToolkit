@@ -1,0 +1,30 @@
+<Project>
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+        <PackageId>Xamarin.CommunityToolkit.Markup.MauiCompat</PackageId>
+        <Summary>A .NET MAUI-compatible community-created toolkit with C# Markup classes and fluent helper methods</Summary>
+        <Authors>Microsoft</Authors>
+        <Owners>Microsoft</Owners>
+        <NeutralLanguage>en</NeutralLanguage>
+        <Copyright>© Microsoft Corporation. All rights reserved.</Copyright> 
+        <PackageLicenseExpression>MIT</PackageLicenseExpression> 
+        <PackageProjectUrl>https://github.com/xamarin/XamarinCommunityToolkit</PackageProjectUrl> 
+        <RepositoryUrl>https://github.com/xamarin/XamarinCommunityToolkit</RepositoryUrl>
+        <PackageReleaseNotes>See: http://aka.ms/xct-release-notes</PackageReleaseNotes>
+        <DefineConstants>$(DefineConstants);</DefineConstants>
+        <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+        <Title>Xamarin.CommunityToolkit.Markup.MauiCompat</Title>
+        <Description>Xamarin Community Toolkit Markup MauiCompat is a set of fluent helper methods and classes to simplify building declarative .NET MAUI user interfaces in C#</Description>
+        <PackageIcon>icon.png</PackageIcon>
+        <Product>$(AssemblyName) ($(TargetFramework))</Product>
+        <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <Version>1.3.0-pre4</Version>
+        <PackageTags>maui,net,xamarin,xamarin.forms,toolkit,kit,communitytoolkit,xamarincommunitytoolkit,markup,csharpformarkup,csharp,csharpmarkup</PackageTags>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <None Include="../../../LICENSE" PackagePath="" Pack="true" />
+        <None Include="../../../assets/XamarinCommunityToolkit_128x128.png" PackagePath="icon.png" Pack="true" />
+    </ItemGroup>
+</Project>
