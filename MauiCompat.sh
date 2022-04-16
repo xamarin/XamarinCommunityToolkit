@@ -124,7 +124,7 @@ sed -i '' '/Forms.Internals.Log/d' ./src/CommunityToolkit/Xamarin.CommunityToolk
 
 # WeakEventManager
 
-sed -i '' 's/ Forms.WeakEventManager/ Microsoft.Maui.Controls.WeakEventManager/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/ Forms.WeakEventManager/ Microsoft.Maui.WeakEventManager/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 # Forms.Image
 
@@ -610,7 +610,7 @@ namespace Xamarin.CommunityToolkit.MauiCompat
 				colorToConvert = Microsoft.Maui.Graphics.Colors.Transparent;
 			}
 
-			return Microsoft.Maui.Controls.Compatibility.Platform.iOS.ColorExtensions.ToUIColor(colorToConvert);
+			return Microsoft.Maui.Platform.ColorExtensions.ToPlatform(colorToConvert);
 		}
 	}
 }"
@@ -646,6 +646,11 @@ sed -i '' 's/readonly object synchandle = new object();/public bool IsEmpty => S
 # nfloat
 
 sed -i '' 's/nfloat/System.Runtime.InteropServices.NFloat/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# PlatformStatusBarEffect
+
+sed -i '' 's/FormsAppCompatActivity/MauiAppCompatActivity/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformStatusBarEffect.android.cs
+sed -i '' 's/Activity.SetStatusBarColor/Activity.Window.SetStatusBarColor/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformStatusBarEffect.android.cs
 
 # AVMediaType
 
