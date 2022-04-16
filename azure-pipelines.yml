@@ -219,7 +219,7 @@ jobs:
         displayName: 'Run MauiCompat Generator'
         condition: eq (variables['MauiCompatExists'], False)
         inputs:
-          script: './MauiCompat.sh'
+          script: 'sh ./MauiCompat.sh'
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
