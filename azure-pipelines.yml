@@ -219,7 +219,7 @@ jobs:
         displayName: 'Run MauiCompat Generator'
         condition: eq (variables['MauiCompatExists'], False)
         inputs:
-          script: 'sh ./MauiCompat.sh'
+          script: 'zsh ./MauiCompat.sh'
 
       - task: CopyFiles@2
         inputs:
