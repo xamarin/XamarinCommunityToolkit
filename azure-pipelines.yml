@@ -191,7 +191,53 @@ jobs:
           inputs:
             targetType: F
 
+  - job: generate_mauicompat
+    displayName: Generate MauiCompat Library    
+    pool:
+      vmImage: macos-latest
+    steps:
+      - task: CmdLine@2
+        displayName: Install .NET 6.0.300-preview.22204.3
+        inputs:
+          script: |
+            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.300-preview.22204.3 --quality preview
+            dotnet --info
+      - task: CmdLine@2
+        displayName: 'Install .NET MAUI Workload'
+        inputs:
+          script: 'dotnet workload install maui'
+      - task: JavaToolInstaller@0
+        displayName: 'Install Java SDK 11.0'
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+      - powershell: |
+          $mauiCompatExists = Test-Path -Path "$(PathToMauiCompatCommunityToolkitCsproj)"
+          Write-Output "##vso[task.setvariable variable=MauiCompatExists]$mauiCompatExists"
+      - task: CmdLine@2
+        displayName: 'Run MauiCompat Generator'
+        condition: eq (variables['MauiCompatExists'], False)
+        inputs:
+          script: 'sh ./MauiCompat.sh'
+
+      - task: CopyFiles@2
+        inputs:
+          Contents: 'SignList.xml'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
+      
+      - task: CopyFiles@2
+        displayName: 'Copy output'
+        inputs:
+          contents: 'src/**'
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+      - publish: '$(Build.ArtifactStagingDirectory)/src'
+        displayName: 'Publish script'
+        artifact: drop
+            
   - job: build_mauicompat
+    dependsOn: generate_mauicompat
     displayName: Build MauiCompat Library    
     pool:
       vmImage: windows-latest
@@ -212,14 +258,8 @@ jobs:
           versionSpec: '11'
           jdkArchitectureOption: 'x64'
           jdkSourceOption: 'PreInstalled'
-      - powershell: |
-          $mauiCompatExists = Test-Path -Path "$(PathToMauiCompatCommunityToolkitCsproj)"
-          Write-Output "##vso[task.setvariable variable=MauiCompatExists]$mauiCompatExists"
-      - task: CmdLine@2
-        displayName: 'Run MauiCompat Generator'
-        condition: eq (variables['MauiCompatExists'], False)
-        inputs:
-          script: 'sh ./MauiCompat.sh'
+      - download: current
+        artifact: drop
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
@@ -229,26 +269,18 @@ jobs:
         displayName: Set NuGet Version to Tag Number
         condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
       # restore, build and pack the packages
-      - task: CmdLine@2
-        displayName: 'Build Xamarin.CommunityToolkit.MauiCompat.csproj'
-        inputs:
-          script: 'dotnet build $(PathToMauiCompatCommunityToolkitCsproj) -c Release /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
-      - task: CopyFiles@2
-        inputs:
-          Contents: 'SignList.xml'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
-
+      
       - task: VSBuild@1
         displayName: 'Pack Community Toolkit NuGets'
         inputs:
-          solution: '$(PathToMauiCompatCommunityToolkitCsproj)'
+          solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatCommunityToolkitCsproj)'
           configuration: 'Release'
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
       - task: VSBuild@1
         displayName: 'Build and Pack Markup NuGet'
         inputs:
-          solution: '$(PathToMauiCompatMarkupCsproj)'
+          solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatMarkupCsproj)'
           configuration: 'Release'
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
