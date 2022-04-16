@@ -194,13 +194,13 @@ jobs:
   - job: build_mauicompat
     displayName: Build MauiCompat Library    
     pool:
-      vmImage: macos-11
+      vmImage: macos-latest
     steps:
       - task: CmdLine@2
         displayName: Install .NET 6.0.200-preview.22055.15
         inputs:
           script: |
-            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.200-preview.22055.15 --quality preview
+            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.300-preview.22204.3 --quality preview
             dotnet --version
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
