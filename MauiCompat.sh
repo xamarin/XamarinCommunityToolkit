@@ -58,6 +58,10 @@ printf > ./src/CommunityToolkit/Directory.build.props "<Project>
     <ItemGroup Condition=\" \$(TargetFramework.Contains('-windows')) \">
         <Compile Include=\"**\*.uwp.cs\" />
         <Compile Include=\"**\*.uwp.*.cs\" />
+        <Compile Remove=\"**\MediaElementRenderer.uwp.cs\" />
+        <Compile Remove=\"**\CameraViewRenderer.uwp.cs\" />
+        <Compile Remove=\"**\DrawingViewRenderer.uwp.cs\" />
+        <Compile Remove=\"**\DrawingViewService.uwp.cs\" />
     </ItemGroup>
 
     <ItemGroup Condition=\" \$(TargetFramework.Contains('-maccatalyst')) \">
@@ -663,3 +667,69 @@ sed -i '' 's/AVMediaType.Video/AVAuthorizationMediaType.Video/g' ./src/Community
 
 sed -i '' 's/using System;/using System;using Microsoft.Extensions.Logging;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 sed -i '' 's/Log\./(Microsoft.Maui.Controls.Application.Current?.Handler.MauiContext?.Services.GetService(typeof(ILogger)) as ILogger)?.Log/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+# WINUI
+sed -i '' 's/using Xamarin.CommunityToolkit.UI.Views;/using Xamarin.CommunityToolkit.UI.Views;using Microsoft.Maui.Controls.Compatibility;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/UAP10_0;/WINDOWS/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/LifeCycleEffectRouter.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/RemoveBorderEffect.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SelectAllTextEffect.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SemanticEffectRouter.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SemanticEffectRouterBase.uwp.cs
+sed -i '' 's/Microsoft.Maui.Controls.Compatibility.Platform.UWP.PlatformEffect/Microsoft.Maui.Controls.Platform.PlatformEffect/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SemanticEffectRouterBase.uwp.cs
+
+sed -i '' 's/using Xamarin.CommunityToolkit.UWP.Effects;/using Xamarin.CommunityToolkit.UWP.Effects;using Microsoft.Maui.Platform;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformStatusBarEffect.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformTouchEffect.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SemanticExtensions.uwp.cs
+sed -i '' 's/using Microsoft.UI.Xaml;/using Microsoft.UI.Xaml;using Window = Microsoft.UI.Xaml.Window;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SemanticExtensions.uwp.cs
+
+sed -i '' 's/view.IsInNativeLayout = true;//g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/ViewToRendererConverter.uwp.cs
+sed -i '' 's/view.IsInNativeLayout = false;//g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/ViewToRendererConverter.uwp.cs
+sed -i '' 's/Rectangle/Rect/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/ViewToRendererConverter.uwp.cs
+sed -i '' 's/Microsoft.Maui.Controls.Layout/Layout/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/ViewToRendererConverter.uwp.cs
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/ViewToRendererConverter.uwp.cs
+sed -i '' 's/using Microsoft.UI.Xaml;/using Microsoft.UI.Xaml;using Microsoft.UI.Xaml.Shapes;using Layout = Microsoft.Maui.Controls.Compatibility.Layout;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/ViewToRendererConverter.uwp.cs
+
+sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;using Microsoft.Maui.Controls.Platform;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/ImageSourceValidator.android.ios.macos.uwp.wpf.gtk.tizen.cs
+
+sed -i '' 's/if NETSTANDARD || __WATCHOS__ || __TVOS__/if NETSTANDARD || __WATCHOS__ || __TVOS__ || WINDOWS/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/DrawingViewService.shared.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/GravatarImageSourceHandler.uwp.cs
+sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;using Microsoft.Maui.Controls.Platform;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/GravatarImageSourceHandler.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/AspectExtensions.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PopupRenderer.uwp.cs
+sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;using Microsoft.Maui.Platform;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PopupRenderer.uwp.cs
+
+sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SemanticOrderViewRenderer.uwp.cs
+sed -i '' 's/if (element is VisualElement ve)/if (element is FrameworkElement ve)/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SemanticOrderViewRenderer.uwp.cs
+
+sed -i '' 's/MasterDetailPage/FlyoutPage/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/NavigationExtensions.uwp.cs
+
+sed -i '' 's/using Windows.UI/using Microsoft.UI/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
+sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Grid = Xamarin.Forms.Grid;/using Microsoft.Maui.Platform;using Application = Microsoft.Maui.Controls.Application;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
+sed -i '' 's/Layout<View>/Microsoft.Maui.Controls.StackLayout/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
+sed -i '' 's/var renderer = shadowPanel?.Children.First().GetOrCreateRenderer();/var renderer = shadowPanel?.Children.First().ToPlatform(Application.Current.MainPage.Handler?.MauiContext);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
+sed -i '' 's/ElementCompositionPreview.SetElementChildVisual(renderer?.ContainerElement, spriteVisual);/ElementCompositionPreview.SetElementChildVisual(renderer, spriteVisual);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
+
+sed -i '' 's/using Windows.UI/using Microsoft.UI/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.uwp.cs
+sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;using Microsoft.Maui.Controls;using Border = Microsoft.UI.Xaml.Controls.Border;using Grid = Microsoft.UI.Xaml.Controls.Grid;using RowDefinition = Microsoft.UI.Xaml.Controls.RowDefinition;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.uwp.cs
+sed -i '' 's/Microsoft.Maui.Controls.Compatibility.Grid/Grid/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.uwp.cs
+sed -i '' 's/Microsoft.Maui.GridLength/GridLength/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.uwp.cs
+sed -i '' 's/Forms.VisualElement/VisualElement/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBar.uwp.cs
+
+sed -i '' 's/using Windows.UI/using Microsoft.UI/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarLayout.uwp.wpf.cs
+sed -i '' 's/Microsoft.Maui.Controls.Compatibility.Grid/Grid/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarLayout.uwp.wpf.cs
+sed -i '' 's/Microsoft.Maui.GridLength/GridLength/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarLayout.uwp.wpf.cs
+sed -i '' 's/ToBrush()/ToPlatform()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarLayout.uwp.wpf.cs
+sed -i '' 's/Forms.//g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarLayout.uwp.wpf.cs
+sed -i '' 's/Font.Font/Font./g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarLayout.uwp.wpf.cs
+sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;using Microsoft.Maui;using Microsoft.Maui.Controls;using Microsoft.Maui.Platform;using Microsoft.UI.Xaml.Controls;using Microsoft.UI.Xaml.Media;using Button = Microsoft.UI.Xaml.Controls.Button;using ColumnDefinition = Microsoft.UI.Xaml.Controls.ColumnDefinition;using CornerRadius = Microsoft.UI.Xaml.CornerRadius;using Grid = Microsoft.UI.Xaml.Controls.Grid;using GridLength = Microsoft.UI.Xaml.GridLength;using RowDefinition = Microsoft.UI.Xaml.Controls.RowDefinition;using Thickness = Microsoft.UI.Xaml.Thickness;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SnackBarLayout.uwp.wpf.cs
