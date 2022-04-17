@@ -220,16 +220,11 @@ jobs:
         condition: eq (variables['MauiCompatExists'], False)
         inputs:
           script: 'zsh ./MauiCompat.sh'
-
-      - task: CopyFiles@2
-        inputs:
-          Contents: 'SignList.xml'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
       
       - task: CopyFiles@2
         displayName: 'Copy output'
         inputs:
-          contents: './**'
+          contents: '**'
           targetFolder: '$(Build.ArtifactStagingDirectory)'
 
       - publish: '$(Build.ArtifactStagingDirectory)'
@@ -242,6 +237,14 @@ jobs:
     pool:
       vmImage: windows-latest
     steps:
+      - download: current
+        artifact: drop      
+
+      - task: CopyFiles@2
+        inputs:
+          Contents: '$(Pipeline.Workspace)\drop\SignList.xml'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
+
       - powershell: |
           wget https://dot.net/v1/dotnet-install.ps1 -OutFile C:\dotnet-install.ps1
           C:\dotnet-install.ps1 -Version 6.0.300-preview.22204.3
@@ -259,14 +262,12 @@ jobs:
           jdkArchitectureOption: 'x64'
           jdkSourceOption: 'PreInstalled'
 
-      - download: current
-        artifact: drop
-
       - task: CmdLine@2
         displayName: 'Global json'
         inputs:
           script: |
-            dotnet new globaljson --sdk-version 6.0.300-preview.22204.3 --roll-forward latestMajor
+            cd $(Pipeline.Workspace)\drop
+            dotnet new globaljson --sdk-version 6.0.300-preview.22204.3 --roll-forward latestMajor --force
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
@@ -280,14 +281,14 @@ jobs:
       - task: VSBuild@1
         displayName: 'Pack Community Toolkit NuGets'
         inputs:
-          solution: '$(PathToMauiCompatCommunityToolkitCsproj)'
+          solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatCommunityToolkitCsproj)'
           configuration: 'Release'
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
       - task: VSBuild@1
         displayName: 'Build and Pack Markup NuGet'
         inputs:
-          solution: '$(PathToMauiCompatMarkupCsproj)'
+          solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatMarkupCsproj)'
           configuration: 'Release'
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
