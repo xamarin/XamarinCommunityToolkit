@@ -670,7 +670,7 @@ sed -i '' 's/Log\./(Microsoft.Maui.Controls.Application.Current?.Handler.MauiCon
 
 # WINUI
 sed -i '' 's/using Xamarin.CommunityToolkit.UI.Views;/using Xamarin.CommunityToolkit.UI.Views;using Microsoft.Maui.Controls.Compatibility;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
-sed -i '' 's/UAP10_0;/WINDOWS/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
+sed -i '' 's/UAP10_0/WINDOWS/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/**.cs
 
 sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/LifeCycleEffectRouter.uwp.cs
 
@@ -701,12 +701,12 @@ sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;/using Mic
 
 sed -i '' 's/if NETSTANDARD || __WATCHOS__ || __TVOS__/if NETSTANDARD || __WATCHOS__ || __TVOS__ || WINDOWS/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/DrawingViewService.shared.cs
 
-sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/GravatarImageSourceHandler.uwp.cs
+sed -i '' 's/Windows.UI.Xaml/Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/GravatarImageSourceHandler.uwp.cs
 sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;using Microsoft.Maui.Controls.Platform;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/GravatarImageSourceHandler.uwp.cs
 
-sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/AspectExtensions.uwp.cs
+sed -i '' 's/Windows.UI.Xaml/Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/AspectExtensions.uwp.cs
 
-sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PopupRenderer.uwp.cs
+sed -i '' 's/Windows.UI.Xaml/Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PopupRenderer.uwp.cs
 sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;/using Microsoft.Maui.Controls.Compatibility.Platform.UWP;using Microsoft.Maui.Platform;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PopupRenderer.uwp.cs
 
 sed -i '' 's/using Windows.UI.Xaml/using Microsoft.UI.Xaml/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/SemanticOrderViewRenderer.uwp.cs
@@ -714,7 +714,7 @@ sed -i '' 's/if (element is VisualElement ve)/if (element is FrameworkElement ve
 
 sed -i '' 's/MasterDetailPage/FlyoutPage/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/NavigationExtensions.uwp.cs
 
-sed -i '' 's/using Windows.UI/using Microsoft.UI/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
+sed -i '' 's/Windows.UI/Microsoft.UI/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
 sed -i '' 's/using Microsoft.Maui.Controls.Compatibility.Grid = Xamarin.Forms.Grid;/using Microsoft.Maui.Platform;using Application = Microsoft.Maui.Controls.Application;/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
 sed -i '' 's/Layout<View>/Microsoft.Maui.Controls.StackLayout/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
 sed -i '' 's/var renderer = shadowPanel?.Children.First().GetOrCreateRenderer();/var renderer = shadowPanel?.Children.First().ToPlatform(Application.Current.MainPage.Handler?.MauiContext);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/PlatformShadowEffect.uwp.cs
