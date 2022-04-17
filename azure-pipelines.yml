@@ -229,12 +229,12 @@ jobs:
       - task: CopyFiles@2
         displayName: 'Copy output'
         inputs:
-          contents: 'src/**'
+          contents: './**'
           targetFolder: '$(Build.ArtifactStagingDirectory)'
 
-      - publish: '$(Build.ArtifactStagingDirectory)/src'
+      - publish: '$(Build.ArtifactStagingDirectory)'
         displayName: 'Publish script'
-        artifact: src
+        artifact: drop
             
   - job: build_mauicompat
     dependsOn: generate_mauicompat
@@ -260,13 +260,12 @@ jobs:
           jdkSourceOption: 'PreInstalled'
 
       - download: current
-        artifact: src
+        artifact: drop
 
       - task: CmdLine@2
         displayName: 'Global json'
         inputs:
           script: |
-            cd $(Pipeline.Workspace)\src
             dotnet new globaljson --sdk-version 6.0.300-preview.22204.3 --roll-forward latestMajor
       # if this is a tagged build, then update the version number
       - powershell: |
@@ -281,14 +280,14 @@ jobs:
       - task: VSBuild@1
         displayName: 'Pack Community Toolkit NuGets'
         inputs:
-          solution: '$(Pipeline.Workspace)\$(PathToMauiCompatCommunityToolkitCsproj)'
+          solution: '$(PathToMauiCompatCommunityToolkitCsproj)'
           configuration: 'Release'
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
       - task: VSBuild@1
         displayName: 'Build and Pack Markup NuGet'
         inputs:
-          solution: '$(Pipeline.Workspace)\$(PathToMauiCompatMarkupCsproj)'
+          solution: '$(PathToMauiCompatMarkupCsproj)'
           configuration: 'Release'
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
 
