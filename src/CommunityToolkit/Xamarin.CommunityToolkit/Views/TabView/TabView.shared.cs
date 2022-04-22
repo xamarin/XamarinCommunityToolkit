@@ -414,6 +414,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void OnIsSwipeEnabledChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as TabView)?.UpdateIsSwipeEnabled((bool)newValue);
 
+		public static readonly BindableProperty TabItemGridLengthProperty =
+		   BindableProperty.Create(nameof(TabViewItemGridLength), typeof(GridLength), typeof(TabView), GridLength.Star,
+			   propertyChanged: OnTabItemGridLengthChanged);
+
+		public GridLength TabViewItemGridLength
+		{
+			get => (GridLength)GetValue(TabItemGridLengthProperty);
+			set => SetValue(TabItemGridLengthProperty, value);
+		}
+
+		static void OnTabItemGridLengthChanged(BindableObject bindable, object oldValue, object newValue) => (bindable as TabView)?.UpdateTabItemGridLength((GridLength)newValue);
+
 		public delegate void TabSelectionChangedEventHandler(object? sender, TabSelectionChangedEventArgs e);
 
 		public event TabSelectionChangedEventHandler? SelectionChanged;
@@ -620,7 +632,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			tabStripContent.ColumnDefinitions.Add(new ColumnDefinition()
 			{
-				Width = (item is TabViewItem tabViewItem && tabViewItem.TabWidth > 0) ? tabViewItem.TabWidth : GridLength.Star
+				Width = (item is TabViewItem tabViewItem && tabViewItem.TabWidth > 0) ? tabViewItem.TabWidth : TabViewItemGridLength
 			});
 
 			if (index >= 0)
@@ -691,7 +703,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (column == null)
 				return;
 
-			column.Width = tabViewItem.TabWidth > 0 ? tabViewItem.TabWidth : GridLength.Star;
+			column.Width = tabViewItem.TabWidth > 0 ? tabViewItem.TabWidth : TabViewItemGridLength;
 			UpdateTabIndicatorPosition(SelectedIndex);
 		}
 
@@ -1085,6 +1097,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			var width = TabIndicatorWidth > 0 ? (currentTabViewItem.Width - tabStripIndicator.Width) : 0;
 			var position = currentTabViewItem.X + (width / 2) - 1;
 			tabStripIndicator.TranslateTo(position, 0, tabIndicatorAnimationDuration, Easing.Linear);
+		}
+
+		void UpdateTabItemGridLength(GridLength gridLength)
+		{
+			foreach (var tab in TabItems)
+				UpdateTabViewItemTabWidth(tab);
 		}
 
 		internal virtual void OnTabSelectionChanged(TabSelectionChangedEventArgs e)
