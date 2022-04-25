@@ -45,7 +45,7 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
   <PropertyGroup Condition=" $(TargetFramework.StartsWith('uap10.0')) ">
-    <DefineConstants>$(DefineConstants);UAP10_0</DefineConstants>
+    <DefineConstants>$(DefineConstants);UAP10_0;UWP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(TargetFramework)' == 'uap10.0.14393'">
     <DefineConstants>$(DefineConstants);UWP_14393</DefineConstants>
