@@ -38,12 +38,14 @@ After installation, start using the features you're after.
 If you're using XAML, you can add this namespace to your root node to get access to all the goodness the Toolkit has to offer without having to add all kinds of namespaces seperately: `xmlns:xct="http://xamarin.com/schemas/2020/toolkit"`. I.e.:
 
 ```xaml
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
-<xct:AvatarView />
+    <xct:AvatarView />
 
-<!-- The rest of your page here -->
+    <!--  The rest of your page here  -->
 
 </ContentPage>
 ```
