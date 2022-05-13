@@ -483,7 +483,7 @@ sed -i '' 's/RequestAvAsset/RequestAVAsset/g' ./src/CommunityToolkit/Xamarin.Com
 
 sed -i '' 's/v,/(float)v,/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualElementExtension.shared.cs
 sed -i '' 's/, v/, (float)v/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualElementExtension.shared.cs
-sed -i '' 's/.Descendants()/.GetVisualTreeDescendants()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualElementExtension.uwp.cs
+sed -i '' 's/.Descendants()/.GetVisualTreeDescendants()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualElementExtensions.uwp.cs
 
 # NativeSnackBar.ios.macos.cs
 
