@@ -336,6 +336,8 @@ sed -i '' 's/var newTypeface = f.ToTypeface();/var fontManager = Element.Handler
 				throw new ArgumentException("Unable to get IFontManager implementation");\
 			}\
 var newTypeface = f.ToTypeface(fontManager);/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+sed -i '' 's/child.RecalculateSpanPositions(/Xamarin.CommunityToolkit.Extensions.Internals.TextViewExtensions.RecalculateSpanPositions(child, /g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/TextSwitcherRenderer.android.cs
+
 
 # Controls 
 
@@ -481,6 +483,7 @@ sed -i '' 's/RequestAvAsset/RequestAVAsset/g' ./src/CommunityToolkit/Xamarin.Com
 
 sed -i '' 's/v,/(float)v,/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualElementExtension.shared.cs
 sed -i '' 's/, v/, (float)v/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualElementExtension.shared.cs
+sed -i '' 's/.Descendants()/.GetVisualTreeDescendants()/g' ./src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/**/VisualElementExtensions.uwp.cs
 
 # NativeSnackBar.ios.macos.cs
 
