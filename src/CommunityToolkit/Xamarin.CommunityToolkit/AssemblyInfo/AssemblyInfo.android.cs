@@ -4,4 +4,4 @@ using Xamarin.Forms;
 
 [assembly: LinkerSafe]
 
-[assembly: ExportImageSourceHandler(typeof(GravatarImageSource), typeof(GravatarImageSourceHandler))] 
+[assembly: ExportImageSourceHandler(typeof(GravatarImageSource), typeof(GravatarImageSourceHandler))]
