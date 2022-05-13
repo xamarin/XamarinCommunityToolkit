@@ -67,7 +67,7 @@ jobs:
         inputs:
           version: $(NETCORE_VERSION)
 
-      - task: MSBuild@1
+      - task: VSBuild@1
         displayName: Build Solution
         inputs:
           solution: $(PathToSamplesSln)
@@ -115,7 +115,7 @@ jobs:
         condition: and(succeeded(), eq(variables['build.reason'], 'PullRequest'))
 
       # restore, build and pack the packages
-      - task: MSBuild@1
+      - task: VSBuild@1
         displayName: Build Xamarin.CommunityToolkit.csproj
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
@@ -127,21 +127,21 @@ jobs:
           Contents: 'SignList.xml'
           TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-      - task: MSBuild@1
+      - task: VSBuild@1
         displayName: Pack Community Toolkit NuGets
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion)'
 
-      - task: MSBuild@1
+      - task: VSBuild@1
         displayName: Build Markup Project
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
 
-      - task: MSBuild@1
+      - task: VSBuild@1
         displayName: Pack Markup NuGet
         inputs:
           solution: $(PathToMarkupCsproj)
