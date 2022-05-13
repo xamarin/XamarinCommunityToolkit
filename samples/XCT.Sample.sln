@@ -21,7 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\.editorconfig = ..\.editorconfig
 		..\Directory.Build.props = ..\Directory.Build.props
 		..\Xamarin.CommunityToolkit.ruleset = ..\Xamarin.CommunityToolkit.ruleset
-		..\global.json = ..\global.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.CommunityToolkit.Sample.WPF", "XCT.Sample.WPF\Xamarin.CommunityToolkit.Sample.WPF.csproj", "{C4D6CD2D-8DF4-4D46-936C-1AB31C87B5EA}"
