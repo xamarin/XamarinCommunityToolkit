@@ -62,6 +62,11 @@ jobs:
     pool:
       vmImage: windows-2019
     steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
+        inputs:
+          version: $(NETCORE_VERSION)
+
       - task: MSBuild@1
         displayName: Build Solution
         inputs:
@@ -78,19 +83,16 @@ jobs:
         displayName: 'Install .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
-          includePreviewVersions: false
 
       - task: UseDotNet@2
         displayName: 'Install .NET 3.1 Test SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION_3_1)
-          includePreviewVersions: false
 
       - task: UseDotNet@2
         displayName: 'Install .NET 2.1 Test SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION_2_1)
-          includePreviewVersions: false
 
       # if this is a tagged build, then update the version number
       - powershell: |
@@ -194,12 +196,10 @@ jobs:
     pool:
       vmImage: macos-latest
     steps:
-      - task: CmdLine@2
-        displayName: Install .NET 6.0.300-preview.22204.3
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
         inputs:
-          script: |
-            curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 6.0.300-preview.22204.3 --quality preview
-            dotnet --info
+          version: $(NETCORE_VERSION)
             
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
@@ -242,12 +242,10 @@ jobs:
       - download: current
         artifact: drop      
 
-      - powershell: |
-          wget https://dot.net/v1/dotnet-install.ps1 -OutFile C:\dotnet-install.ps1
-          C:\dotnet-install.ps1 -Version 6.0.300-preview.22204.3
-          dotnet --info
-          Write-Host "##vso[task.prependpath]C:\\Users\\VssAdministrator\\AppData\\Local\\Microsoft\\dotnet"
-        displayName: Install .NET 6.0.300-preview.22204.3
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
+        inputs:
+          version: $(NETCORE_VERSION)
 
       - task: CmdLine@2
         displayName: 'Install .NET MAUI Workload'
@@ -343,19 +341,16 @@ jobs:
         displayName: 'Install .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
-          includePreviewVersions: false
 
       - task: UseDotNet@2
         displayName: 'Install .NET 3.1 Test SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION_3_1)
-          includePreviewVersions: false
 
       - task: UseDotNet@2
         displayName: 'Install .NET 2.1 Test SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION_2_1)
-          includePreviewVersions: false
 
       - task: CmdLine@2
         displayName: 'Build Markup'
