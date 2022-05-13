@@ -67,12 +67,16 @@ jobs:
         inputs:
           version: $(NETCORE_VERSION)
 
+      - task: NuGetCommand@2
+        inputs:
+          command: 'restore'
+          restoreSolution:  $(PathToSamplesSln)
+
       - task: VSBuild@1
         displayName: Build Solution
         inputs:
           solution: $(PathToSamplesSln)
           configuration: Release
-          restoreNugetPackages: true
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       
   - job: build_windows
@@ -116,12 +120,16 @@ jobs:
         condition: and(succeeded(), eq(variables['build.reason'], 'PullRequest'))
 
       # restore, build and pack the packages
+      - task: NuGetCommand@2
+        inputs:
+          command: 'restore'
+          restoreSolution:  $(PathToCommunityToolkitCsproj)
+
       - task: VSBuild@1
         displayName: Build Xamarin.CommunityToolkit.csproj
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
-          restoreNugetPackages: true
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
 
       - task: CopyFiles@2
@@ -134,15 +142,18 @@ jobs:
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
-          restoreNugetPackages: true
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion)'
+
+      - task: NuGetCommand@2
+        inputs:
+          command: 'restore'
+          restoreSolution:  $(PathToMarkupCsproj)
 
       - task: VSBuild@1
         displayName: Build Markup Project
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
-          restoreNugetPackages: true
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
 
       - task: VSBuild@1
@@ -286,7 +297,6 @@ jobs:
         inputs:
           solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatCommunityToolkitCsproj)'
           configuration: 'Release'
-          restoreNugetPackages: true
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg'
 
       - task: VSBuild@1
