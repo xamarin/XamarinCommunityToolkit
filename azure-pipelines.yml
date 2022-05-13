@@ -72,6 +72,7 @@ jobs:
         inputs:
           solution: $(PathToSamplesSln)
           configuration: Release
+          restoreNugetPackages: true
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
       
   - job: build_windows
@@ -120,6 +121,7 @@ jobs:
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
+          restoreNugetPackages: true
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
 
       - task: CopyFiles@2
@@ -132,6 +134,7 @@ jobs:
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
+          restoreNugetPackages: true
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion)'
 
       - task: VSBuild@1
@@ -139,6 +142,7 @@ jobs:
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
+          restoreNugetPackages: true
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
 
       - task: VSBuild@1
@@ -146,6 +150,7 @@ jobs:
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
+          restoreNugetPackages: true
           msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion)'
           
       - task: CmdLine@2
@@ -281,6 +286,7 @@ jobs:
         inputs:
           solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatCommunityToolkitCsproj)'
           configuration: 'Release'
+          restoreNugetPackages: true
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg'
 
       - task: VSBuild@1
@@ -288,6 +294,7 @@ jobs:
         inputs:
           solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatMarkupCsproj)'
           configuration: 'Release'
+          restoreNugetPackages: true
           msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg'
 
       # publish the packages
