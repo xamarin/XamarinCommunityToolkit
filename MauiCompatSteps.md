@@ -18,9 +18,9 @@ The following steps are used to create the MauiCompat libraries
 
 ### 2. Run MauiCompat.sh script to migrate Xamarin.CommunityToolkit and create `Xamarin.CommunityToolkit.MauiCompat` and `Xamarin.CommunityToolkit.Markup.MauiCompat` 
 
-    ```zsh
-    zsh ./MauiCompat.sh
-    ```
+```zsh
+zsh ./MauiCompat.sh
+```
 
 ### 3. Add MauiColorExtensions Classes
 
