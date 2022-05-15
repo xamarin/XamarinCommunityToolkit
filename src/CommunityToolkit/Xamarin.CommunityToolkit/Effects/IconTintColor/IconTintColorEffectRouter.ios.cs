@@ -61,7 +61,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 					break;
 				case UIButton button:
-					if (button.ImageView.Image != null)
+					if (button.ImageView?.Image != null)
 					{
 						Element.PropertyChanged -= ButtonTintColorPropertyChanged;
 						var originalImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
