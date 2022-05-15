@@ -53,17 +53,17 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			switch (Control)
 			{
 				case UIImageView imageView:
+					Element.PropertyChanged -= ImageViewTintColorPropertyChanged;
 					if (imageView.Image != null)
 					{
-						Element.PropertyChanged -= ImageViewTintColorPropertyChanged;
 						imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 					}
 
 					break;
 				case UIButton button:
+					Element.PropertyChanged -= ButtonTintColorPropertyChanged;
 					if (button.ImageView?.Image != null)
 					{
-						Element.PropertyChanged -= ButtonTintColorPropertyChanged;
 						var originalImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 						button.SetImage(originalImage, UIControlState.Normal);
 					}
