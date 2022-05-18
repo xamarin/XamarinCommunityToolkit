@@ -23,8 +23,8 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			base.OnElementPropertyChanged(args);
 
 			if (!args.PropertyName.Equals(IconTintColorEffect.TintColorProperty.PropertyName) &&
-				!args.PropertyName.Equals(Image.SourceProperty.PropertyName) &&
-				!args.PropertyName.Equals(ImageButton.SourceProperty.PropertyName))
+			    !args.PropertyName.Equals(Image.SourceProperty.PropertyName) &&
+			    !args.PropertyName.Equals(ImageButton.SourceProperty.PropertyName))
 				return;
 
 			ApplyTintColor();
@@ -53,17 +53,17 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			switch (Control)
 			{
 				case UIImageView imageView:
+					Element.PropertyChanged -= ImageViewTintColorPropertyChanged;
 					if (imageView.Image != null)
 					{
-						Element.PropertyChanged -= ImageViewTintColorPropertyChanged;
 						imageView.Image = imageView.Image.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 					}
 
 					break;
 				case UIButton button:
-					if (button.ImageView.Image != null)
+					Element.PropertyChanged -= ButtonTintColorPropertyChanged;
+					if (button.ImageView?.Image != null)
 					{
-						Element.PropertyChanged -= ButtonTintColorPropertyChanged;
 						var originalImage = button.CurrentImage.ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
 						button.SetImage(originalImage, UIControlState.Normal);
 					}
