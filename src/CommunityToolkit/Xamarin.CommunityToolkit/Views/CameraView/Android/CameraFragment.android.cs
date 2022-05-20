@@ -341,6 +341,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					session.StopRepeating();
 					repeatingIsRunning = false;
+
+					// Reset FlashMode if Single
+					if (flashMode == FlashMode.Single)
+					{
+						sessionBuilder.Set(CaptureRequest.FlashMode ?? throw new NullReferenceException(), (int)FlashMode.Off);
+						session.Capture(sessionBuilder.Build(), null, null);
+					}
+
 					sessionBuilder.AddTarget(photoReader.Surface);
 					sessionBuilder.Set(CaptureRequest.FlashMode ?? throw new NullReferenceException(), (int)flashMode);
 					/*sessionBuilder.Set(CaptureRequest.JpegOrientation, GetJpegOrientation());*/
