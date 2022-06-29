@@ -21,7 +21,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		VisualElementTracker? tracker;
 		protected MediaController? controller;
 		protected MediaPlayer? mediaPlayer;
-		protected FormsVideoView view;
+		protected FormsVideoView? view;
 		bool isDisposed;
 		int? defaultLabelFor;
 
@@ -47,9 +47,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override float Alpha
 		{
-			get => view.Alpha;
+			get => view?.Alpha ?? throw new ObjectDisposedException(typeof(FormsVideoView).FullName);
 			set
 			{
+				if (view == null)
+				{
+					throw new ObjectDisposedException(typeof(FormsVideoView).FullName);
+				}
+
 				// VideoView opens a separate Window above the current one.
 				// This is because it is based on the SurfaceView.
 				// And we cannot set alpha or perform animations with it because it is not synchronized with your other UI elements.
@@ -509,6 +514,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				view.SetOnPreparedListener(null);
 				view.SetOnCompletionListener(null);
 				view.Dispose();
+				view = null;
 			}
 
 			if (controller != null)
