@@ -2,8 +2,10 @@
 
 namespace Xamarin.CommunityToolkit.Helpers
 {
-	static class XCT
+	static partial class XCT
 	{
-		internal static bool IsiOS13OrNewer => UIDevice.CurrentDevice.CheckSystemVersion(13, 0);
+		static bool? isiOS13OrNewer;
+
+		internal static bool IsiOS13OrNewer => isiOS13OrNewer ??= UIDevice.CurrentDevice.CheckSystemVersion(13, 0);
 	}
 }

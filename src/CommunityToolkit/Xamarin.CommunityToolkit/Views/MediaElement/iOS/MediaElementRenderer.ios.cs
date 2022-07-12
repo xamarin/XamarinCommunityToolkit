@@ -21,14 +21,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		IMediaElementController Controller => Element;
 
 		protected readonly AVPlayerViewController avPlayerViewController = new AVPlayerViewController();
-		protected NSObject playedToEndObserver;
-		protected IDisposable statusObserver;
-		protected IDisposable rateObserver;
-		protected IDisposable volumeObserver;
+		protected NSObject? playedToEndObserver;
+		protected IDisposable? statusObserver;
+		protected IDisposable? rateObserver;
+		protected IDisposable? volumeObserver;
 		bool idleTimerDisabled = false;
+		AVPlayerItem? playerItem;
 
-		public MediaElementRenderer() =>
-			playedToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
+		public MediaElementRenderer() => AddPlayedToEndObserver();
 
 		protected virtual void SetKeepScreenOn(bool value)
 		{
@@ -51,11 +51,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (Element.Source != null)
 			{
-				AVAsset asset = null;
+				AVAsset? asset = null;
 
 				if (Element.Source is XCT.UriMediaSource uriSource)
 				{
-					if (uriSource.Uri.Scheme == "ms-appx")
+					if (uriSource.Uri?.Scheme is "ms-appx")
 					{
 						if (uriSource.Uri.LocalPath.Length <= 1)
 							return;
@@ -63,7 +63,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						// used for a file embedded in the application package
 						asset = AVAsset.FromUrl(NSUrl.FromFilename(uriSource.Uri.LocalPath.Substring(1)));
 					}
-					else if (uriSource.Uri.Scheme == "ms-appdata")
+					else if (uriSource.Uri?.Scheme == "ms-appdata")
 					{
 						var filePath = ResolveMsAppDataUri(uriSource.Uri);
 
@@ -72,8 +72,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 						asset = AVAsset.FromUrl(NSUrl.FromFilename(filePath));
 					}
-					else
+					else if (uriSource.Uri != null)
+					{
 						asset = AVUrlAsset.Create(NSUrl.FromString(uriSource.Uri.AbsoluteUri));
+					}
+					else
+					{
+						throw new InvalidOperationException($"{nameof(uriSource.Uri)} is not initialized");
+					}
 				}
 				else
 				{
@@ -81,18 +87,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						asset = AVAsset.FromUrl(NSUrl.FromFilename(fileSource.File));
 				}
 
-				var item = new AVPlayerItem(asset);
-				DisposeObservers(ref statusObserver);
+				_ = asset ?? throw new NullReferenceException();
 
-				statusObserver = item.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
+				playerItem = new AVPlayerItem(asset);
+				AddStatusObserver();
 
 				if (avPlayerViewController.Player != null)
-					avPlayerViewController.Player.ReplaceCurrentItemWithPlayerItem(item);
+					avPlayerViewController.Player.ReplaceCurrentItemWithPlayerItem(playerItem);
 				else
 				{
-					avPlayerViewController.Player = new AVPlayer(item);
-					rateObserver = avPlayerViewController.Player.AddObserver("rate", NSKeyValueObservingOptions.New, ObserveRate);
-					volumeObserver = avPlayerViewController.Player.AddObserver("volume", NSKeyValueObservingOptions.New, ObserveVolume);
+					avPlayerViewController.Player = new AVPlayer(playerItem);
+					AddRateObserver();
+					AddVolumeObserver();
 				}
 
 				UpdateVolume();
@@ -104,14 +110,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				avPlayerViewController.Player?.Pause();
 				avPlayerViewController.Player?.ReplaceCurrentItemWithPlayerItem(null);
-				DisposeObservers(ref statusObserver);
+				DestroyStatusObserver();
 				Controller.CurrentState = MediaElementState.Stopped;
 			}
 		}
 
 		protected string ResolveMsAppDataUri(Uri uri)
 		{
-			if (uri.Scheme == "ms-appdata")
+			if (uri.Scheme is "ms-appdata")
 			{
 				string filePath;
 
@@ -135,13 +141,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (Controller is object)
 			{
-				switch (avPlayerViewController.Player.Rate)
+				switch (avPlayerViewController.Player?.Rate)
 				{
 					case 0.0f:
 						Controller.CurrentState = MediaElementState.Paused;
 						break;
 
-					case 1.0f:
+					default:
 						Controller.CurrentState = MediaElementState.Playing;
 						break;
 				}
@@ -152,7 +158,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void ObserveVolume(NSObservedChange e)
 		{
-			if (Controller == null)
+			if (Controller == null || avPlayerViewController.Player == null)
 				return;
 
 			Controller.Volume = avPlayerViewController.Player.Volume;
@@ -160,6 +166,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected void ObserveStatus(NSObservedChange e)
 		{
+			_ = avPlayerViewController.Player?.CurrentItem ?? throw new NullReferenceException();
 			Controller.Volume = avPlayerViewController.Player.Volume;
 
 			switch (avPlayerViewController.Player.Status)
@@ -170,7 +177,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				case AVPlayerStatus.ReadyToPlay:
 					var duration = avPlayerViewController.Player.CurrentItem.Duration;
-
 					if (duration.IsIndefinite)
 						Controller.Duration = TimeSpan.Zero;
 					else
@@ -222,7 +228,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		protected override void OnElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		protected override void OnElementPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
@@ -251,10 +257,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(ToolKitMediaElement.Volume):
 					UpdateVolume();
 					break;
+				case nameof(ToolKitMediaElement.Speed):
+					UpdateSpeed();
+					break;
 			}
 		}
 
-		void MediaElementSeekRequested(object sender, SeekRequested e)
+		void MediaElementSeekRequested(object? sender, SeekRequested e)
 		{
 			if (avPlayerViewController.Player?.CurrentItem == null || avPlayerViewController.Player.Status != AVPlayerStatus.ReadyToPlay)
 				return;
@@ -291,6 +300,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				avPlayerViewController.Player.Play();
 				Controller.CurrentState = MediaElementState.Playing;
+				UpdateSpeed();
 			}
 
 			if (Element.KeepScreenOn)
@@ -303,7 +313,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				avPlayerViewController.Player.Volume = (float)Element.Volume;
 		}
 
-		void MediaElementStateRequested(object sender, StateRequested e)
+		void UpdateSpeed()
+		{
+			if (avPlayerViewController.Player != null)
+				avPlayerViewController.Player.Rate = (float)Element.Speed;
+		}
+
+		void MediaElementStateRequested(object? sender, StateRequested e)
 		{
 			switch (e.State)
 			{
@@ -327,8 +343,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						SetKeepScreenOn(false);
 
 					// iOS has no stop...
-					avPlayerViewController?.Player.Pause();
-					avPlayerViewController?.Player.Seek(CMTime.Zero);
+					avPlayerViewController.Player?.Pause();
+					avPlayerViewController.Player?.Seek(CMTime.Zero);
 					Controller.CurrentState = MediaElementState.Stopped;
 
 					var err = AVAudioSession.SharedInstance().SetActive(false);
@@ -353,10 +369,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void SeekComplete(bool finished)
 		{
 			if (finished)
-				Controller.OnSeekCompleted();
+				Controller?.OnSeekCompleted();
 		}
 
-		void MediaElementPositionRequested(object sender, EventArgs e) => Controller.Position = Position;
+		void MediaElementPositionRequested(object? sender, EventArgs e) => Controller.Position = Position;
 
 		protected override void OnElementChanged(ElementChangedEventArgs<MediaElement> e)
 		{
@@ -380,18 +396,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					AVAudioSession.SharedInstance().SetActive(false);
 				}
 
-				if (playedToEndObserver != null)
-					NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
-
-				DisposeObservers(ref playedToEndObserver);
-				DisposeObservers(ref rateObserver);
-				DisposeObservers(ref volumeObserver);
-				DisposeObservers(ref statusObserver);
+				DestroyPlayedToEndObserver();
+				DestroyRateObserver();
+				DestroyVolumeObserver();
+				DestroyStatusObserver();
 			}
 
 			if (e.NewElement != null)
 			{
-				SetNativeControl(avPlayerViewController.View);
+				SetNativeControl(avPlayerViewController?.View ?? throw new NullReferenceException());
 
 				Element.PropertyChanged += OnElementPropertyChanged;
 				Element.SeekRequested += MediaElementSeekRequested;
@@ -404,7 +417,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (Element.KeepScreenOn)
 					SetKeepScreenOn(true);
 
-				playedToEndObserver = NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
+				AddPlayedToEndObserver();
 
 				UpdateBackgroundColor();
 				UpdateSource();
@@ -413,16 +426,60 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected virtual void UpdateBackgroundColor() => BackgroundColor = Element.BackgroundColor.ToUIColor();
 
-		protected void DisposeObservers(ref IDisposable disposable)
+		protected void DisposeObservers(ref IDisposable? disposable)
 		{
 			disposable?.Dispose();
 			disposable = null;
 		}
 
-		protected void DisposeObservers(ref NSObject disposable)
+		protected void DisposeObservers(ref NSObject? disposable)
 		{
 			disposable?.Dispose();
 			disposable = null;
+		}
+
+		void AddVolumeObserver()
+		{
+			DestroyVolumeObserver();
+			volumeObserver = avPlayerViewController.Player?.AddObserver("volume", NSKeyValueObservingOptions.New,
+					ObserveVolume);
+		}
+
+		void AddRateObserver()
+		{
+			DestroyRateObserver();
+			rateObserver = avPlayerViewController.Player?.AddObserver("rate", NSKeyValueObservingOptions.New,
+					ObserveRate);
+		}
+
+		void AddStatusObserver()
+		{
+			DestroyStatusObserver();
+			statusObserver = playerItem?.AddObserver("status", NSKeyValueObservingOptions.New, ObserveStatus);
+		}
+
+		void AddPlayedToEndObserver()
+		{
+			DestroyPlayedToEndObserver();
+			playedToEndObserver =
+				NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification, PlayedToEnd);
+		}
+
+		void DestroyVolumeObserver() => DisposeObservers(ref volumeObserver);
+
+		void DestroyRateObserver() => DisposeObservers(ref rateObserver);
+
+		void DestroyStatusObserver() => DisposeObservers(ref statusObserver);
+
+		void DestroyPlayedToEndObserver()
+		{
+			if (playedToEndObserver == null)
+			{
+				return;
+			}
+
+			NSNotificationCenter.DefaultCenter.RemoveObserver(playedToEndObserver);
+			DisposeObservers(ref playedToEndObserver);
 		}
 	}
 }

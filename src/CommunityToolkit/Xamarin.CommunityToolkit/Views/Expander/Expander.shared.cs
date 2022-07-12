@@ -22,11 +22,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			remove => tappedEventManager.RemoveEventHandler(value);
 		}
 
-		ContentView contentHolder;
+		ContentView? contentHolder;
 
-		GestureRecognizer headerTapGestureRecognizer;
+		GestureRecognizer? headerTapGestureRecognizer;
 
-		DataTemplate previousTemplate;
+		DataTemplate? previousTemplate;
 
 		double lastVisibleSize = -1;
 
@@ -51,11 +51,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty DirectionProperty
 			= BindableProperty.Create(nameof(Direction), typeof(ExpandDirection), typeof(Expander), default(ExpandDirection), propertyChanged: OnDirectionPropertyChanged);
 
+		public static readonly BindableProperty TouchCaptureViewProperty
+			= BindableProperty.Create(nameof(TouchCaptureView), typeof(View), typeof(Expander), propertyChanged: OnTouchCaptureViewPropertyChanged);
+
+		public static readonly BindableProperty AnimationLengthProperty
+			= BindableProperty.Create(nameof(AnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+
 		public static readonly BindableProperty ExpandAnimationLengthProperty
-			= BindableProperty.Create(nameof(ExpandAnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+			= BindableProperty.Create(nameof(ExpandAnimationLength), typeof(uint), typeof(Expander), uint.MaxValue);
 
 		public static readonly BindableProperty CollapseAnimationLengthProperty
-			= BindableProperty.Create(nameof(CollapseAnimationLength), typeof(uint), typeof(Expander), defaultAnimationLength);
+			= BindableProperty.Create(nameof(CollapseAnimationLength), typeof(uint), typeof(Expander), uint.MaxValue);
+
+		public static readonly BindableProperty AnimationEasingProperty
+			= BindableProperty.Create(nameof(AnimationEasing), typeof(Easing), typeof(Expander));
 
 		public static readonly BindableProperty ExpandAnimationEasingProperty
 			= BindableProperty.Create(nameof(ExpandAnimationEasing), typeof(Easing), typeof(Expander));
@@ -80,8 +89,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			: Width;
 
 		double ContentSize => Direction.IsVertical()
-			? contentHolder.Height
-			: contentHolder.Width;
+			? contentHolder?.Height ?? throw new NullReferenceException()
+			: contentHolder?.Width ?? throw new NullReferenceException();
 
 		double ContentSizeRequest
 		{
@@ -91,7 +100,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					? Content.HeightRequest
 					: Content.WidthRequest;
 
-				if (sizeRequest < 0 || !(Content is Layout layout))
+				if (sizeRequest < 0 || Content is not Layout layout)
 					return sizeRequest;
 
 				return sizeRequest + (Direction.IsVertical()
@@ -101,6 +110,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			set
 			{
+				_ = contentHolder ?? throw new NullReferenceException();
+
 				if (Direction.IsVertical())
 				{
 					contentHolder.HeightRequest = value;
@@ -111,12 +122,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		double MeasuredContentSize => Direction.IsVertical()
-			? contentHolder.Measure(Width, double.PositiveInfinity).Request.Height
-			: contentHolder.Measure(double.PositiveInfinity, Height).Request.Width;
+			? contentHolder?.Measure(Width, double.PositiveInfinity).Request.Height ?? throw new NullReferenceException()
+			: contentHolder?.Measure(double.PositiveInfinity, Height).Request.Width ?? throw new NullReferenceException();
 
-		public View Header
+		public View? Header
 		{
-			get => (View)GetValue(HeaderProperty);
+			get => (View?)GetValue(HeaderProperty);
 			set => SetValue(HeaderProperty, value);
 		}
 
@@ -126,9 +137,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(ContentProperty, value);
 		}
 
-		public DataTemplate ContentTemplate
+		public DataTemplate? ContentTemplate
 		{
-			get => (DataTemplate)GetValue(ContentTemplateProperty);
+			get => (DataTemplate?)GetValue(ContentTemplateProperty);
 			set => SetValue(ContentTemplateProperty, value);
 		}
 
@@ -144,6 +155,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(DirectionProperty, value);
 		}
 
+		public View? TouchCaptureView
+		{
+			get => (View?)GetValue(TouchCaptureViewProperty);
+			set => SetValue(TouchCaptureViewProperty, value);
+		}
+
+		public uint AnimationLength
+		{
+			get => (uint)GetValue(AnimationLengthProperty);
+			set => SetValue(AnimationLengthProperty, value);
+		}
+
 		public uint ExpandAnimationLength
 		{
 			get => (uint)GetValue(ExpandAnimationLengthProperty);
@@ -154,6 +177,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get => (uint)GetValue(CollapseAnimationLengthProperty);
 			set => SetValue(CollapseAnimationLengthProperty, value);
+		}
+
+		public Easing AnimationEasing
+		{
+			get => (Easing)GetValue(AnimationEasingProperty);
+			set => SetValue(AnimationEasingProperty, value);
 		}
 
 		public Easing ExpandAnimationEasing
@@ -174,15 +203,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(StateProperty, value);
 		}
 
-		public object CommandParameter
+		public object? CommandParameter
 		{
 			get => GetValue(CommandParameterProperty);
 			set => SetValue(CommandParameterProperty, value);
 		}
 
-		public ICommand Command
+		public ICommand? Command
 		{
-			get => (ICommand)GetValue(CommandProperty);
+			get => (ICommand?)GetValue(CommandProperty);
 			set => SetValue(CommandProperty, value);
 		}
 
@@ -206,7 +235,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				CommandParameter = this,
 				Command = new Command(parameter =>
 				{
-					var parent = (parameter as View).Parent;
+					var parent = ((View)parameter).Parent;
 					while (parent != null && !(parent is Page))
 					{
 						if (parent is Expander ancestorExpander)
@@ -254,6 +283,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		static void OnDirectionPropertyChanged(BindableObject bindable, object oldValue, object newValue)
 			=> ((Expander)bindable).OnDirectionPropertyChanged((ExpandDirection)oldValue);
 
+		static void OnTouchCaptureViewPropertyChanged(BindableObject bindable, object oldValue, object newValue)
+			=> ((Expander)bindable).OnTouchCaptureViewPropertyChanged((View?)oldValue);
+
 		static object GetDefaultForceUpdateSizeCommand(BindableObject bindable)
 			=> new Command(((Expander)bindable).ForceUpdateSize);
 
@@ -269,8 +301,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void OnIsExpandedPropertyChanged()
 			=> SetContent(false);
 
-		void OnDirectionPropertyChanged(ExpandDirection olddirection)
-			=> SetDirection(olddirection);
+		void OnDirectionPropertyChanged(ExpandDirection oldDirection)
+			=> SetDirection(oldDirection);
+
+		void OnTouchCaptureViewPropertyChanged(View? oldView)
+			=> SetTouchCaptureView(oldView);
 
 		void OnIsExpandedChanged(bool shouldIgnoreAnimation = false)
 		{
@@ -313,23 +348,22 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			InvokeAnimation(startSize, endSize, shouldIgnoreAnimation);
 		}
 
-		void SetHeader(View oldHeader)
+		void SetHeader(View? oldHeader)
 		{
 			if (oldHeader != null)
 			{
-				oldHeader.GestureRecognizers.Remove(headerTapGestureRecognizer);
-				Control.Children.Remove(oldHeader);
+				Control?.Children.Remove(oldHeader);
 			}
 
 			if (Header != null)
 			{
 				if (Direction.IsRegularOrder())
-					Control.Children.Insert(0, Header);
+					Control?.Children.Insert(0, Header);
 				else
-					Control.Children.Add(Header);
-
-				Header.GestureRecognizers.Add(headerTapGestureRecognizer);
+					Control?.Children.Add(Header);
 			}
+
+			SetTouchCaptureView(oldHeader);
 		}
 
 		void SetContent(bool isForceUpdate, bool shouldIgnoreAnimation = false, bool isForceContentReset = false)
@@ -357,7 +391,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (contentHolder != null)
 			{
 				contentHolder.AbortAnimation(expandAnimationName);
-				Control.Children.Remove(contentHolder);
+				Control?.Children.Remove(contentHolder);
 				contentHolder = null;
 			}
 			if (Content != null)
@@ -371,16 +405,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				ContentSizeRequest = 0;
 
 				if (Direction.IsRegularOrder())
-					Control.Children.Add(contentHolder);
+					Control?.Children.Add(contentHolder);
 				else
-					Control.Children.Insert(0, contentHolder);
+					Control?.Children.Insert(0, contentHolder);
 			}
 
 			if (!shouldIgnoreContentSetting)
 				SetContent(true);
 		}
 
-		View CreateContent()
+		View? CreateContent()
 		{
 			var template = ContentTemplate;
 			while (template is DataTemplateSelector selector)
@@ -390,7 +424,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return null;
 
 			previousTemplate = template;
-			return (View)template?.CreateContent();
+			return (View?)template?.CreateContent();
 		}
 
 		void SetDirection(ExpandDirection oldDirection)
@@ -401,13 +435,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			}
 
-			Control.Orientation = Direction.IsVertical()
-				? StackOrientation.Vertical
-				: StackOrientation.Horizontal;
+			if (Control != null)
+			{
+				Control.Orientation = Direction.IsVertical()
+					? StackOrientation.Vertical
+					: StackOrientation.Horizontal;
+			}
 
 			lastVisibleSize = -1;
 			SetHeader(Header);
 			SetContent(true, true, true);
+		}
+
+		void SetTouchCaptureView(View? oldView)
+		{
+			oldView?.GestureRecognizers.Remove(headerTapGestureRecognizer);
+			TouchCaptureView?.GestureRecognizers?.Remove(headerTapGestureRecognizer);
+			Header?.GestureRecognizers.Remove(headerTapGestureRecognizer);
+			(TouchCaptureView ?? Header)?.GestureRecognizers.Add(headerTapGestureRecognizer);
 		}
 
 		void InvokeAnimation(double startSize, double endSize, bool shouldIgnoreAnimation)
@@ -422,6 +467,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					? ExpandState.Expanded
 					: ExpandState.Collapsed;
 				ContentSizeRequest = endSize;
+
+				_ = contentHolder ?? throw new NullReferenceException();
 				contentHolder.IsVisible = IsExpanded;
 				return;
 			}
@@ -433,6 +480,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				length = ExpandAnimationLength;
 				easing = ExpandAnimationEasing;
 			}
+
+			if (length == uint.MaxValue)
+				length = AnimationLength;
+
+			easing ??= AnimationEasing;
 
 			if (lastVisibleSize > 0)
 				length = (uint)(length * (Abs(endSize - startSize) / lastVisibleSize));
@@ -447,6 +499,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 					if (!IsExpanded)
 					{
+						_ = contentHolder ?? throw new NullReferenceException();
 						contentHolder.IsVisible = false;
 						State = ExpandState.Collapsed;
 						return;

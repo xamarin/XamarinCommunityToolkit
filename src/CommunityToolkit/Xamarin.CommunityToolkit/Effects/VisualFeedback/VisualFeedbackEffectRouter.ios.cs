@@ -12,10 +12,10 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	[Foundation.Preserve(AllMembers = true)]
 	public class VisualFeedbackEffectRouter : PlatformEffect
 	{
-		TouchEvents touchEvents;
-		TouchEventsGestureRecognizer touchRecognizer;
-		UIView view;
-		UIView layer;
+		TouchEvents? touchEvents;
+		TouchEventsGestureRecognizer? touchRecognizer;
+		UIView? view;
+		UIView? layer;
 		float alpha;
 
 		protected override void OnAttached()
@@ -57,22 +57,29 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected override void OnDetached()
 		{
-			touchEvents.TouchBegin -= OnTouchBegin;
-			touchEvents.TouchEnd -= OnTouchEnd;
-			touchEvents.TouchCancel -= OnTouchEnd;
+			if (touchEvents != null)
+			{
+				touchEvents.TouchBegin -= OnTouchBegin;
+				touchEvents.TouchEnd -= OnTouchEnd;
+				touchEvents.TouchCancel -= OnTouchEnd;
+			}
 
-			view.RemoveGestureRecognizer(touchRecognizer);
-			touchRecognizer.Delegate?.Dispose();
-			touchRecognizer.Delegate = null;
-			touchRecognizer.Dispose();
+			if (view != null && touchRecognizer != null)
+			{
+				view.RemoveGestureRecognizer(touchRecognizer);
+				touchRecognizer.Delegate.Dispose();
+				touchRecognizer.Dispose();
+			}
 
-			touchEvents = null;
-			touchRecognizer = null;
+			if (layer != null)
+			{
+				layer.RemoveFromSuperview();
+				layer.Dispose();
+			}
 
-			layer.RemoveFromSuperview();
-			layer.Dispose();
 			layer = null;
-
+			touchRecognizer = null;
+			touchEvents = null;
 			view = null;
 		}
 
@@ -90,30 +97,34 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 		{
 			var color = VisualFeedbackEffect.GetFeedbackColor(Element);
 			alpha = color.A < 1.0f ? 1f : 0.1f;
-			layer.BackgroundColor = color.ToUIColor();
+
+			if (layer != null)
+				layer.BackgroundColor = color.ToUIColor();
 		}
 
-		async void OnTouchBegin(object sender, EventArgs e)
+		async void OnTouchBegin(object? sender, EventArgs e)
 		{
-			if (!(Element is VisualElement visualElement) || !visualElement.IsEnabled)
+			if (Element is not VisualElement visualElement || !visualElement.IsEnabled)
 				return;
 
-			view.BecomeFirstResponder();
+			view?.BecomeFirstResponder();
 
 			await UIView.AnimateAsync(0.5, () =>
 			{
-				layer.Alpha = alpha;
+				if (layer != null)
+					layer.Alpha = alpha;
 			});
 		}
 
-		async void OnTouchEnd(object sender, EventArgs e)
+		async void OnTouchEnd(object? sender, EventArgs e)
 		{
-			if (!(Element is VisualElement visualElement) || !visualElement.IsEnabled)
+			if (Element is not VisualElement visualElement || !visualElement.IsEnabled)
 				return;
 
 			await UIView.AnimateAsync(0.5, () =>
 			{
-				layer.Alpha = 0;
+				if (layer != null)
+					layer.Alpha = 0;
 			});
 		}
 	}

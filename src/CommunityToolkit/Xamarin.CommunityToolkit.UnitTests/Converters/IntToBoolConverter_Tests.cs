@@ -1,54 +1,65 @@
-using System;
+﻿using System;
 using System.Globalization;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
-using Xunit;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class IntToBoolConverter_Tests
 	{
-		[Theory]
-		[InlineData(1, true)]
-		[InlineData(0, false)]
+		[TestCase(1, true)]
+		[TestCase(0, false)]
 		public void IndexToArrayConverter(int value, bool expectedResult)
 		{
-			var intToBoolConverter = new IntToBoolConverter();
+			var intToBoolConverter = CreateConverter();
 
 			var result = intToBoolConverter.Convert(value, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData(true, 1)]
-		[InlineData(false, 0)]
+		[TestCase(true, 1)]
+		[TestCase(false, 0)]
 		public void IndexToArrayConverterBack(bool value, int expectedResult)
 		{
-			var intToBoolConverter = new IntToBoolConverter();
+			var intToBoolConverter = CreateConverter();
 
 			var result = intToBoolConverter.ConvertBack(value, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData(2.5)]
-		[InlineData("")]
-		[InlineData(null)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		[TestCase(2.5)]
+		[TestCase("")]
+		public void InvalidConverterValuesThrowArgumentException(object value)
 		{
-			var intToBoolConverter = new IntToBoolConverter();
-			Assert.Throws<ArgumentException>(() => intToBoolConverter.Convert(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
+			var intToBoolConverter = CreateConverter();
+			Assert.Throws<ArgumentException>(() => intToBoolConverter.Convert(value, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
 
-		[Theory]
-		[InlineData(2.5)]
-		[InlineData("")]
-		[InlineData(null)]
-		public void InValidConverterBackValuesThrowArgumenException(object value)
+		[TestCase(2.5)]
+		[TestCase("")]
+		public void InvalidConverterBackValuesThrowArgumentException(object value)
 		{
-			var intToBoolConverter = new IntToBoolConverter();
-			Assert.Throws<ArgumentException>(() => intToBoolConverter.ConvertBack(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
+			var intToBoolConverter = CreateConverter();
+			Assert.Throws<ArgumentException>(() => intToBoolConverter.ConvertBack(value, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture));
 		}
+
+		[Test]
+		public void NullConverterValuesThrowArgumentException()
+		{
+			var intToBoolConverter = CreateConverter();
+			Assert.Throws<ArgumentNullException>(() => intToBoolConverter.Convert(null, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture));
+		}
+
+		[Test]
+		public void NullConverterBackValuesThrowArgumentException()
+		{
+			var intToBoolConverter = CreateConverter();
+			Assert.Throws<ArgumentNullException>(() => intToBoolConverter.ConvertBack(null, typeof(IntToBoolConverter_Tests), null, CultureInfo.CurrentCulture));
+		}
+
+		static IValueConverter CreateConverter() => new IntToBoolConverter();
 	}
 }

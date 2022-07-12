@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -21,7 +22,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			ExpressionSearch.Default = new UnitExpressionSearch();
 		}
 
-		RelativeLayout Layout => Bindable;
+		RelativeLayout Layout => Bindable ?? throw new NullReferenceException();
 
 		[Test]
 		public void NoChildren()
@@ -66,10 +67,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Layout.Children(
 				new Label { IsPlatformEnabled = true }
 				.Assign(out Label child)
-				.Constrain() .X      (() => 30)
-							 .Y      (() => 20)
-							 .Width  (() => Layout.Height / 2)
-							 .Height (() => Layout.Height / 4)
+				.Constrain().X(() => 30)
+							 .Y(() => 20)
+							 .Width(() => Layout.Height / 2)
+							 .Height(() => Layout.Height / 4)
 			);
 			Layout.Layout(new Rectangle(0, 0, 100, 100));
 
@@ -84,25 +85,25 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 			Layout.IsPlatformEnabled = true;
 			Layout.Children(
 				new Label { IsPlatformEnabled = true }
-				.Assign (out Label child0)
-				.Constraints().X      (30)
-							  .Y      (20)
-							  .Width  (parent => parent.Height / 5)
-							  .Height (parent => parent.Height / 10),
+				.Assign(out Label child0)
+				.Constraints().X(30)
+							  .Y(20)
+							  .Width(parent => parent.Height / 5)
+							  .Height(parent => parent.Height / 10),
 
 				new Label { IsPlatformEnabled = true }
 				.Assign(out Label child1)
-				.Constraints().X      (child0, (layout, view) => view.Bounds.Right + 10)
-							  .Y      (child0, (layout, view) => view.Y)
-							  .Width  (child0, (layout, view) => view.Width)
-							  .Height (child0, (layout, view) => view.Height),
+				.Constraints().X(child0, (layout, view) => view.Bounds.Right + 10)
+							  .Y(child0, (layout, view) => view.Y)
+							  .Width(child0, (layout, view) => view.Width)
+							  .Height(child0, (layout, view) => view.Height),
 
 				new Label { IsPlatformEnabled = true }
 				.Assign(out Label child2)
-				.Constraints().X      (parent => parent.Height / 5)
-							  .Y      (parent => parent.Height / 10)
-							  .Width  (30)
-							  .Height (20)
+				.Constraints().X(parent => parent.Height / 5)
+							  .Y(parent => parent.Height / 10)
+							  .Width(30)
+							  .Height(20)
 			);
 			Layout.Layout(new Rectangle(0, 0, 100, 100));
 

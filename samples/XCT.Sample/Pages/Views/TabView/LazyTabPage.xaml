@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.LazyTabPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages.Views.TabView"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Views.Tabs"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <pages:BasePage.Content>
+        <Grid>
+            <xct:TabView
+                TabContentBackgroundColor="Yellow"
+                TabIndicatorColor="Yellow"
+                TabStripBackgroundColor="Blue"
+                TabStripHeight="60"
+                TabStripPlacement="Bottom">
+                <xct:TabViewItem
+                    FontSize="12"
+                    Icon="triangle.png"
+                    Text="Tab Normal 1"
+                    TextColor="White"
+                    TextColorSelected="Yellow">
+                    <local:NormalTestView />
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    FontSize="12"
+                    Icon="circle.png"
+                    Text="Tab Lazy 2"
+                    TextColor="White"
+                    TextColorSelected="Yellow">
+                    <xct:LazyView
+                        x:TypeArguments="local:LazyTestView"
+                        BindingContext="{x:Static vm:LazyTestViewModel.Current}"
+                        IsLoaded="{Binding Loaded}" />
+                </xct:TabViewItem>
+                <xct:TabViewItem
+                    FontSize="12"
+                    Icon="triangle.png"
+                    Text="Tab Normal 3"
+                    TextColor="White"
+                    TextColorSelected="Yellow">
+                    <local:NormalTestView />
+                </xct:TabViewItem>
+
+                <xct:TabViewItem
+                    FontSize="12"
+                    Icon="triangle.png"
+                    Text="Tab Lazy 4"
+                    TextColor="White"
+                    TextColorSelected="Yellow">
+                    <xct:LazyView x:TypeArguments="local:LazyTestView" BindingContext="{x:Static vm:LazyTestViewModel.Current}" />
+                </xct:TabViewItem>
+            </xct:TabView>
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>

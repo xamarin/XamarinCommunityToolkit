@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage  xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                 xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.InvertedBoolConverterPage">
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+ <StackLayout
+            Padding="10,10"
+            HorizontalOptions="Fill"
+            Spacing="10"
+            VerticalOptions="Fill">
+            <Label Text="The InvertedBoolConverter is a converter that allows users to convert a bool value binding to its inverted value." TextColor="{StaticResource NormalLabelTextColor}" />
+            <StackLayout
+                HorizontalOptions="CenterAndExpand"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Label Text="False" TextColor="{StaticResource NormalLabelTextColor}" />
+                <Switch x:Name="ColorToggle" IsToggled="False" />
+                <Label Text="True" TextColor="{StaticResource NormalLabelTextColor}" />
+            </StackLayout>
+      <Label Text="This string should represet the opposite state of the picker" TextColor="{StaticResource NormalLabelTextColor}" />
+            <Label
+                BindingContext="{x:Reference Name=ColorToggle}"
+                Text="{Binding Path=IsToggled, Converter={StaticResource InvertedBoolConverter}}" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

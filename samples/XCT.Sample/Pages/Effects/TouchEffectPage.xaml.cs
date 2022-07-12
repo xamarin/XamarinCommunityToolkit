@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 {
@@ -7,26 +7,47 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Effects
 	{
 		public TouchEffectPage()
 		{
-			Command = new Command(() =>
+			Command = CommandFactory.Create(() =>
 			{
 				TouchCount++;
 				OnPropertyChanged(nameof(TouchCount));
 			});
-			LongPressCommand = new Command(() =>
+
+			LongPressCommand = CommandFactory.Create(() =>
 			{
 				LongPressCount++;
 				OnPropertyChanged(nameof(LongPressCount));
 			});
-			InitializeComponent();
 
+			ParentCommand = CommandFactory.Create(() => DisplayAlert("Parent clicked", null, "Ok"));
+
+			ChildCommand = CommandFactory.Create(() => DisplayAlert("Child clicked", null, "Ok"));
+
+			InitializeComponent();
 		}
 
 		public ICommand Command { get; }
 
 		public ICommand LongPressCommand { get; }
 
+		public ICommand ParentCommand { get; }
+
+		public ICommand ChildCommand { get; }
+
 		public int TouchCount { get; private set; }
 
 		public int LongPressCount { get; private set; }
+
+		bool nativeAnimationBorderless;
+
+		public bool NativeAnimationBorderless
+		{
+			get => nativeAnimationBorderless;
+			set
+			{
+				nativeAnimationBorderless = value;
+				OnPropertyChanged();
+			}
+		}
 	}
 }

@@ -1,9 +1,12 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using Android.Graphics;
 using Android.Widget;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Android.Util;
+using Android.Graphics.Drawables;
 #if MONOANDROID10_0
 using AndroidSnackBar = Google.Android.Material.Snackbar.Snackbar;
 #else
@@ -12,20 +15,57 @@ using AndroidSnackBar = Android.Support.Design.Widget.Snackbar;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
-	class SnackBar
+	partial class SnackBar
 	{
-		internal void Show(Page sender, SnackBarOptions arguments)
+		internal partial async ValueTask Show(VisualElement sender, SnackBarOptions arguments)
 		{
-			var view = Platform.GetRenderer(sender).View;
-			var snackBar = AndroidSnackBar.Make(view, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
+			var renderer = await GetRendererWithRetries(sender) ?? throw new ArgumentException("Provided VisualElement cannot be parent to SnackBar", nameof(sender));
+			var snackBar = AndroidSnackBar.Make(renderer.View, arguments.MessageOptions.Message, (int)arguments.Duration.TotalMilliseconds);
 			var snackBarView = snackBar.View;
-			if (arguments.BackgroundColor != Forms.Color.Default)
+
+			if (sender is not Page)
 			{
-				snackBarView.SetBackgroundColor(arguments.BackgroundColor.ToAndroid());
+				snackBar.SetAnchorView(renderer.View);
 			}
 
-			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text);
+			if (snackBar.View.Background is GradientDrawable shape)
+			{
+				if (arguments.BackgroundColor != Forms.Color.Default)
+				{
+					shape?.SetColor(arguments.BackgroundColor.ToAndroid().ToArgb());
+				}
+
+				var density = renderer.View.Context?.Resources?.DisplayMetrics?.Density ?? 1;
+				var defaultAndroidCornerRadius = 4 * density;
+				arguments.CornerRadius = new Thickness(arguments.CornerRadius.Left * density,
+					arguments.CornerRadius.Top * density,
+					arguments.CornerRadius.Right * density,
+					arguments.CornerRadius.Bottom * density);
+				if (arguments.CornerRadius != new Thickness(defaultAndroidCornerRadius, defaultAndroidCornerRadius, defaultAndroidCornerRadius, defaultAndroidCornerRadius))
+				{
+					shape?.SetCornerRadii(new[]
+					{
+						(float)arguments.CornerRadius.Left, (float)arguments.CornerRadius.Left,
+						(float)arguments.CornerRadius.Top, (float)arguments.CornerRadius.Top,
+						(float)arguments.CornerRadius.Right, (float)arguments.CornerRadius.Right,
+						(float)arguments.CornerRadius.Bottom, (float)arguments.CornerRadius.Bottom
+					});
+				}
+
+				snackBarView.SetBackground(shape);
+			}
+
+			var snackTextView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_text) ?? throw new NullReferenceException();
 			snackTextView.SetMaxLines(10);
+
+			if (arguments.MessageOptions.Padding != MessageOptions.DefaultPadding)
+			{
+				snackBarView.SetPadding((int)arguments.MessageOptions.Padding.Left,
+					(int)arguments.MessageOptions.Padding.Top,
+					(int)arguments.MessageOptions.Padding.Right,
+					(int)arguments.MessageOptions.Padding.Bottom);
+			}
+
 			if (arguments.MessageOptions.Foreground != Forms.Color.Default)
 			{
 				snackTextView.SetTextColor(arguments.MessageOptions.Foreground.ToAndroid());
@@ -33,7 +73,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (arguments.MessageOptions.Font != Font.Default)
 			{
-				snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.FontSize);
+				if (arguments.MessageOptions.Font.FontSize > 0)
+				{
+					snackTextView.SetTextSize(ComplexUnitType.Dip, (float)arguments.MessageOptions.Font.FontSize);
+				}
+
 				snackTextView.SetTypeface(arguments.MessageOptions.Font.ToTypeface(), TypefaceStyle.Normal);
 			}
 
@@ -43,21 +87,33 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			foreach (var action in arguments.Actions)
 			{
-				snackBar.SetAction(action.Text, async v => await action.Action());
+				snackBar.SetAction(action.Text, async _ => await OnActionClick(action, arguments).ConfigureAwait(false));
 				if (action.ForegroundColor != Forms.Color.Default)
 				{
 					snackBar.SetActionTextColor(action.ForegroundColor.ToAndroid());
 				}
 
-				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action);
-				if (arguments.BackgroundColor != Forms.Color.Default)
+				var snackActionButtonView = snackBarView.FindViewById<TextView>(Resource.Id.snackbar_action) ?? throw new NullReferenceException();
+				if (action.BackgroundColor != Forms.Color.Default)
 				{
 					snackActionButtonView.SetBackgroundColor(action.BackgroundColor.ToAndroid());
 				}
 
-				if (action.Font != Forms.Font.Default)
+				if (action.Padding != SnackBarActionOptions.DefaultPadding)
 				{
-					snackActionButtonView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
+					snackActionButtonView.SetPadding((int)action.Padding.Left,
+						(int)action.Padding.Top,
+						(int)action.Padding.Right,
+						(int)action.Padding.Bottom);
+				}
+
+				if (action.Font != Font.Default)
+				{
+					if (action.Font.FontSize > 0)
+					{
+						snackTextView.SetTextSize(ComplexUnitType.Dip, (float)action.Font.FontSize);
+					}
+
 					snackActionButtonView.SetTypeface(action.Font.ToTypeface(), TypefaceStyle.Normal);
 				}
 
@@ -70,6 +126,20 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			snackBar.Show();
 		}
 
+		/// <summary>
+		/// Tries to get renderer multiple times since it can be null while switching tabs in Shell.
+		/// See this bug for more info: https://github.com/xamarin/Xamarin.Forms/issues/13950
+		/// </summary>
+		static async Task<IVisualElementRenderer?> GetRendererWithRetries(VisualElement element, int retryCount = 5)
+		{
+			var renderer = Platform.GetRenderer(element);
+			if (renderer != null || retryCount <= 0)
+				return renderer;
+
+			await Task.Delay(50);
+			return await GetRendererWithRetries(element, retryCount - 1);
+		}
+
 		class SnackBarCallback : AndroidSnackBar.BaseCallback
 		{
 			readonly SnackBarOptions arguments;
@@ -79,15 +149,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			public override void OnDismissed(Java.Lang.Object transientBottomBar, int e)
 			{
 				base.OnDismissed(transientBottomBar, e);
-				switch (e)
-				{
-					case DismissEventTimeout:
-						arguments.SetResult(false);
-						break;
-					case DismissEventAction:
-						arguments.SetResult(true);
-						break;
-				}
+
+				if (e == DismissEventAction)
+					return;
+
+				arguments.SetResult(false);
 			}
 		}
 	}

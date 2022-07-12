@@ -12,7 +12,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	{
 		UITextBorderStyle? oldBorderStyle;
 
-		UITextField TextField => Control as UITextField;
+		UITextField? TextField => Control as UITextField;
 
 		protected override void OnAttached()
 		{

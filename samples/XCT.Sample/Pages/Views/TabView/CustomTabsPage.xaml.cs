@@ -6,6 +6,6 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
 	{
 		public CustomTabsPage() => InitializeComponent();
 
-		void OnFabTabTapped(object sender, TabTappedEventArgs e) => DisplayAlert("FabTabGallery", "Tab Tapped.", "Ok");
+		void OnFabTabTapped(object? sender, TabTappedEventArgs e) => DisplayAlert("FabTabGallery", "Tab Tapped.", "Ok");
 	}
 }

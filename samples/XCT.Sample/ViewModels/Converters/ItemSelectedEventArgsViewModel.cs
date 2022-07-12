@@ -15,7 +15,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 				new Person() { Id = 3, Name = "Person 3" }
 			};
 
-		public ICommand ItemSelectedCommand { get; private set; } = new AsyncCommand<Person>(person
-			=> Application.Current.MainPage.DisplayAlert("Item Tapped: ", person.Name, "Cancelf"));
+		public ICommand ItemSelectedCommand { get; } =
+			CommandFactory.Create<Person>(person => Application.Current.MainPage.DisplayAlert("Item Tapped: ", person?.Name, "Cancel"));
 	}
 }

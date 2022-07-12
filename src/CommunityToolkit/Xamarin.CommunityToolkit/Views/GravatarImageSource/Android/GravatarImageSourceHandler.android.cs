@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Graphics;
@@ -10,11 +11,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public partial class GravatarImageSourceHandler : IImageSourceHandler
 	{
-		public async Task<Bitmap> LoadImageAsync(ImageSource imagesource, Context context, CancellationToken cancelationToken = default)
+		public async Task<Bitmap?> LoadImageAsync(ImageSource imagesource, Context context, CancellationToken cancelationToken = default)
 		{
-			var fileInfo = await LoadInternal(imagesource, 1, Application.Context.CacheDir.AbsolutePath);
+			var fileInfo = await LoadInternal(imagesource, 1, Application.Context.CacheDir?.AbsolutePath ?? throw new NullReferenceException());
 
-			Bitmap bitmap = null;
+			Bitmap? bitmap = null;
 			try
 			{
 				await semaphore.WaitAsync();

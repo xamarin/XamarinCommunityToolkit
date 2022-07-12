@@ -15,9 +15,9 @@ namespace Xamarin.CommunityToolkit.Core
 			((UriMediaSource)bindable).OnSourceChanged();
 
 		[TypeConverter(typeof(Xamarin.Forms.UriTypeConverter))]
-		public Uri Uri
+		public Uri? Uri
 		{
-			get => (Uri)GetValue(UriProperty);
+			get => (Uri?)GetValue(UriProperty);
 			set => SetValue(UriProperty, value);
 		}
 

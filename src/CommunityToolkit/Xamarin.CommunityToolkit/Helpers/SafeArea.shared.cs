@@ -50,10 +50,10 @@ namespace Xamarin.CommunityToolkit.Helpers
 			Right == other.Right &&
 			Bottom == other.Bottom);
 
-		public override bool Equals(object obj)
-			=> !ReferenceEquals(null, obj) &&
-			obj is SafeArea safeArea &&
-			Equals(safeArea);
+		public override bool Equals(object? obj)
+			=> obj is not null
+			&& obj is SafeArea safeArea
+			&& Equals(safeArea);
 
 		public override int GetHashCode()
 		{

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 
@@ -11,17 +12,17 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 	[EditorBrowsable(EditorBrowsableState.Never)]
 	public abstract partial class BaseCommand<TCanExecute>
 	{
-		readonly Func<TCanExecute, bool> canExecute;
-		readonly WeakEventManager weakEventManager = new WeakEventManager();
+		readonly Func<TCanExecute?, bool> canExecute;
+		readonly DelegateWeakEventManager weakEventManager = new DelegateWeakEventManager();
 
-		int executionCount;
+		volatile int executionCount;
 
 		/// <summary>
 		/// Initializes BaseCommand
 		/// </summary>
 		/// <param name="canExecute"></param>
 		/// <param name="allowsMultipleExecutions"></param>
-		public BaseCommand(Func<TCanExecute, bool> canExecute, bool allowsMultipleExecutions)
+		protected private BaseCommand(Func<TCanExecute?, bool>? canExecute, bool allowsMultipleExecutions)
 		{
 			this.canExecute = canExecute ?? (_ => true);
 			AllowsMultipleExecutions = allowsMultipleExecutions;
@@ -51,12 +52,12 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 			get => executionCount;
 			set
 			{
-				var shouldRaiseCanExecuteChanged = AllowsMultipleExecutions switch
+				var shouldRaiseCanExecuteChanged = (AllowsMultipleExecutions, executionCount, value) switch
 				{
-					true => false,
-					false when executionCount is 0 && value > 0 => true,
-					false when executionCount > 0 && value is 0 => true,
-					false => false
+					(true, _, _) => false,
+					(false, 0, > 0) => true,
+					(false, > 0, 0) => true,
+					(false, _, _) => false
 				};
 
 				executionCount = value;
@@ -71,7 +72,7 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		/// <returns><c>true</c>, if this command can be executed; otherwise, <c>false</c>.</returns>
 		/// <param name="parameter">Data used by the command. If the command does not require data to be passed, this object can be set to null.</param>
-		public bool CanExecute(TCanExecute parameter) => (AllowsMultipleExecutions, IsExecuting) switch
+		public bool CanExecute(TCanExecute? parameter) => (AllowsMultipleExecutions, IsExecuting) switch
 		{
 			(true, _) => canExecute(parameter),
 			(false, true) => false,
@@ -95,5 +96,18 @@ namespace Xamarin.CommunityToolkit.ObjectModel.Internals
 		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		public void ChangeCanExecute() => RaiseCanExecuteChanged();
+
+		protected static bool IsNullable<T>()
+		{
+			var type = typeof(T);
+
+			if (!type.GetTypeInfo().IsValueType)
+				return true; // ref-type
+
+			if (Nullable.GetUnderlyingType(type) != null)
+				return true; // Nullable<T>
+
+			return false; // Non-nullable value-type
+		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿using AppKit;
+﻿using CoreGraphics;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 {
@@ -9,10 +9,13 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 		{
 		}
 
-		protected override void Initialize()
+		protected override void Initialize(CGRect cornerRadius)
 		{
-			base.Initialize();
-			var messageLabel = new NSTextField
+			base.Initialize(cornerRadius);
+			var messageLabel = new PaddedLabel(SnackBar.Layout.PaddingLeft,
+				SnackBar.Layout.PaddingTop,
+				SnackBar.Layout.PaddingRight,
+				SnackBar.Layout.PaddingBottom)
 			{
 				StringValue = SnackBar.Message,
 				Selectable = false,
@@ -34,7 +37,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.macOS.SnackBarViews
 				messageLabel.Font = SnackBar.Appearance.Font;
 			}
 
-			StackView.AddArrangedSubview(messageLabel);
+			StackView?.AddArrangedSubview(messageLabel);
 		}
 	}
 }

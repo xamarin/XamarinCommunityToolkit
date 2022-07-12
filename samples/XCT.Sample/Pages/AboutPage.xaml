@@ -14,7 +14,11 @@
     <pages:BasePage.BindingContext>
         <viewmodels:AboutViewModel />
     </pages:BasePage.BindingContext>
-    
+
+    <ContentPage.Behaviors>
+        <xct:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}"/>
+    </ContentPage.Behaviors>
+
     <pages:BasePage.Content>
         <StackLayout Padding="{StaticResource ContentPadding}">
             <Label Text="Thank you Xamarin Community Toolkit contributors"

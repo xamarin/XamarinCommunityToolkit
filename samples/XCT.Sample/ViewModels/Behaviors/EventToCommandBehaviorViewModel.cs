@@ -1,20 +1,21 @@
 ﻿using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.Behaviors
 {
 	public class EventToCommandBehaviorViewModel : BaseViewModel
 	{
-		ICommand incrementCommand;
-
 		int clickCount;
 
-		public ICommand IncrementCommand => incrementCommand ??= new Command(() => ClickCount++);
+		public EventToCommandBehaviorViewModel() =>
+			IncrementCommand = CommandFactory.Create(() => ClickCount++);
 
 		public int ClickCount
 		{
 			get => clickCount;
 			set => SetProperty(ref clickCount, value);
 		}
+
+		public ICommand IncrementCommand { get; }
 	}
 }

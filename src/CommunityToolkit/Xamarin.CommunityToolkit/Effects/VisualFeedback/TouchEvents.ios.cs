@@ -5,13 +5,13 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 	[Foundation.Preserve(AllMembers = true)]
 	class TouchEvents
 	{
-		public event EventHandler TouchBegin;
+		public event EventHandler? TouchBegin;
 
-		public event EventHandler TouchMove;
+		public event EventHandler? TouchMove;
 
-		public event EventHandler TouchEnd;
+		public event EventHandler? TouchEnd;
 
-		public event EventHandler TouchCancel;
+		public event EventHandler? TouchCancel;
 
 		public virtual void OnTouchBegin() => TouchBegin?.Invoke(this, EventArgs.Empty);
 

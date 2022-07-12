@@ -11,14 +11,14 @@ namespace Xamarin.CommunityToolkit.Extensions
 	/// Provides ImageSource by Resource Id from the current app's assembly.
 	/// </summary>
 	[ContentProperty(nameof(Id))]
-	public class ImageResourceExtension : IMarkupExtension<ImageSource>
+	public class ImageResourceExtension : IMarkupExtension<ImageSource?>
 	{
 		/// <summary>
 		/// The Resource Id of the image.
 		/// </summary>
-		public string Id { get; set; }
+		public string? Id { get; set; }
 
-		public ImageSource ProvideValue(IServiceProvider serviceProvider)
+		public ImageSource? ProvideValue(IServiceProvider serviceProvider)
 			=> Id == null
 				? null
 				: ImageSource.FromResource(Id, Application.Current.GetType()
@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 #endif
 					.Assembly);
 
-		object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
-			=> ((IMarkupExtension<ImageSource>)this).ProvideValue(serviceProvider);
+		object? IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+			=> ((IMarkupExtension<ImageSource?>)this).ProvideValue(serviceProvider);
 	}
 }

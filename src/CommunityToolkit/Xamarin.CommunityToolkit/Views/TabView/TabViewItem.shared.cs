@@ -10,14 +10,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	[ContentProperty(nameof(Content))]
 	public class TabViewItem : TemplatedView
 	{
+		public const string SelectedVisualState = "Selected";
+		public const string UnselectedVisualState = "Unselected";
+
 		bool isOnScreen;
 
 		public static readonly BindableProperty TextProperty =
 			BindableProperty.Create(nameof(Text), typeof(string), typeof(TabViewItem), string.Empty);
 
-		public string Text
+		public string? Text
 		{
-			get => (string)GetValue(TextProperty);
+			get => (string?)GetValue(TextProperty);
 			set => SetValue(TextProperty, value);
 		}
 
@@ -102,9 +105,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty ContentProperty =
 			BindableProperty.Create(nameof(Content), typeof(View), typeof(TabViewItem));
 
-		public View Content
+		public View? Content
 		{
-			get => (View)GetValue(ContentProperty);
+			get => (View?)GetValue(ContentProperty);
 			set => SetValue(ContentProperty, value);
 		}
 
@@ -112,9 +115,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(Icon), typeof(ImageSource), typeof(TabViewItem), null,
 			  propertyChanged: OnTabViewItemPropertyChanged);
 
-		public ImageSource Icon
+		public ImageSource? Icon
 		{
-			get => (ImageSource)GetValue(IconProperty);
+			get => (ImageSource?)GetValue(IconProperty);
 			set => SetValue(IconProperty, value);
 		}
 
@@ -122,9 +125,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		  BindableProperty.Create(nameof(IconSelected), typeof(ImageSource), typeof(TabViewItem), null,
 			  propertyChanged: OnTabViewItemPropertyChanged);
 
-		public ImageSource IconSelected
+		public ImageSource? IconSelected
 		{
-			get => (ImageSource)GetValue(IconSelectedProperty);
+			get => (ImageSource?)GetValue(IconSelectedProperty);
 			set => SetValue(IconSelectedProperty, value);
 		}
 
@@ -140,8 +143,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static async void OnIsSelectedChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			(bindable as TabViewItem)?.UpdateCurrent();
-			await (bindable as TabViewItem)?.UpdateTabAnimationAsync();
+			if (bindable is TabViewItem tabViewItem)
+			{
+				tabViewItem.UpdateCurrent();
+				await tabViewItem.UpdateTabAnimationAsync();
+			}
 		}
 
 		public static readonly BindableProperty BadgeTextProperty =
@@ -159,9 +165,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static BindableProperty TabAnimationProperty =
 			BindableProperty.Create(nameof(TabAnimation), typeof(ITabViewItemAnimation), typeof(TabViewItem), null);
 
-		public ITabViewItemAnimation TabAnimation
+		public ITabViewItemAnimation? TabAnimation
 		{
-			get => (ITabViewItemAnimation)GetValue(TabAnimationProperty);
+			get => (ITabViewItemAnimation?)GetValue(TabAnimationProperty);
 			set => SetValue(TabAnimationProperty, value);
 		}
 
@@ -255,9 +261,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty CurrentIconProperty = CurrentIconPropertyKey.BindableProperty;
 
-		public ImageSource CurrentIcon
+		public ImageSource? CurrentIcon
 		{
-			get => (ImageSource)GetValue(CurrentIconProperty);
+			get => (ImageSource?)GetValue(CurrentIconProperty);
 			private set => SetValue(CurrentIconPropertyKey, value);
 		}
 
@@ -305,17 +311,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public static readonly BindableProperty CurrentContentProperty = CurrentContentPropertyKey.BindableProperty;
 
-		public View CurrentContent
+		public View? CurrentContent
 		{
-			get => (View)GetValue(CurrentContentProperty);
+			get => (View?)GetValue(CurrentContentProperty);
 			private set => SetValue(CurrentContentPropertyKey, value);
 		}
 
-		public delegate void TabTappedEventHandler(object sender, TabTappedEventArgs e);
+		public delegate void TabTappedEventHandler(object? sender, TabTappedEventArgs e);
 
-		public event TabTappedEventHandler TabTapped;
+		public event TabTappedEventHandler? TabTapped;
 
-		protected override void OnPropertyChanged([CallerMemberName] string propertyName = null)
+		protected override void OnPropertyChanged([CallerMemberName] string propertyName = "")
 		{
 			base.OnPropertyChanged(propertyName);
 
@@ -355,6 +361,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			CurrentBadgeBorderColor = !IsSelected || BadgeBorderColorSelected == Color.Default ? BadgeBorderColor : BadgeBorderColorSelected;
 
 			UpdateCurrentContent();
+			ApplyIsSelectedState();
 		}
 
 		async Task UpdateTabAnimationAsync()
@@ -371,6 +378,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				await TabAnimation.OnSelected(view);
 			else
 				await TabAnimation.OnDeSelected(view);
+		}
+
+		void ApplyIsSelectedState()
+		{
+			if (IsSelected)
+				VisualStateManager.GoToState(this, SelectedVisualState);
+			else
+				VisualStateManager.GoToState(this, UnselectedVisualState);
 		}
 	}
 }

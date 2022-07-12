@@ -11,11 +11,11 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <summary>
 		/// The type of object of this parameter.
 		/// </summary>
-		public Type ConverterType { get; set; }
+		public Type? ConverterType { get; set; }
 
 		/// <summary>
 		/// The value of this parameter.
 		/// </summary>
-		public object Value { get; set; }
+		public object? Value { get; set; }
 	}
 }

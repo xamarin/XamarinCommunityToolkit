@@ -7,21 +7,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class MediaCapturedEventArgs : EventArgs
 	{
-		readonly string path;
-		readonly Lazy<ImageSource> imageSource;
-		readonly Lazy<XCT.FileMediaSource> mediaSource;
+		readonly string? path;
+		readonly Lazy<ImageSource?> imageSource;
+		readonly Lazy<XCT.FileMediaSource?> mediaSource;
 
 		internal MediaCapturedEventArgs(
-			string path = null,
-			byte[] imageData = null,
+			string? path = null,
+			byte[]? imageData = null,
 			double rotation = 0)
 		{
 			// Path = path;
 			this.path = path;
 			Rotation = rotation;
 			ImageData = imageData;
-			imageSource = new Lazy<ImageSource>(GetImageSource);
-			mediaSource = new Lazy<XCT.FileMediaSource>(GetMediaSource);
+			imageSource = new Lazy<ImageSource?>(GetImageSource);
+			mediaSource = new Lazy<XCT.FileMediaSource?>(GetMediaSource);
 		}
 
 		// TODO See note on CameraView.SavePhotoToFile.
@@ -35,18 +35,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		/// <summary>
 		/// Raw image data, only filled when taking a picture and SavePhotoToFile is false
 		/// </summary>
-		public byte[] ImageData { get; }
+		public byte[]? ImageData { get; }
 
 		/// <summary>
 		/// Applied image rotation for correct orientation on Android devices
 		/// </summary>
 		public double Rotation { get; }
 
-		public ImageSource Image => imageSource.Value;
+		public ImageSource? Image => imageSource.Value;
 
-		public XCT.FileMediaSource Video => mediaSource.Value;
+		public XCT.FileMediaSource? Video => mediaSource.Value;
 
-		ImageSource GetImageSource()
+		ImageSource? GetImageSource()
 		{
 			if (ImageData != null)
 				return ImageSource.FromStream(() => new MemoryStream(ImageData));
@@ -54,6 +54,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			return !string.IsNullOrEmpty(path) ? path : null;
 		}
 
-		XCT.FileMediaSource GetMediaSource() => !string.IsNullOrEmpty(path) ? path : null;
+		XCT.FileMediaSource? GetMediaSource()
+		{
+			if (path != null && !string.IsNullOrEmpty(path))
+				return path;
+			else
+				return null;
+		}
 	}
 }

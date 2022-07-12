@@ -15,7 +15,12 @@ namespace Xamarin.CommunityToolkit.Sample.Tizen
 		{
 			var app = new Program();
 			global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
-			global::Xamarin.Forms.Forms.Init(app, true);
+			var option = new InitializationOptions(app)
+			{
+				UseDeviceIndependentPixel = true,
+				UseSkiaSharp = true
+			};
+			global::Xamarin.Forms.Forms.Init(option);
 			app.Run(args);
 		}
 	}

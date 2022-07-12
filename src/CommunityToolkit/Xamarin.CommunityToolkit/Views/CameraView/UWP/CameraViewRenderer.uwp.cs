@@ -26,21 +26,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	public class CameraViewRenderer : ViewRenderer<CameraView, CaptureElement>
 	{
-		MediaCapture mediaCapture;
-		bool isPreviewing;
-		Lamp flash;
-		LowLagMediaRecording mediaRecording;
-		string filePath;
-		bool busy;
-		VideoStabilizationEffect videoStabilizationEffect;
-		MediaEncodingProfile encodingProfile;
-		VideoEncodingProperties inputPropertiesBackup;
-		VideoEncodingProperties outputPropertiesBackup;
+		readonly MediaEncodingProfile encodingProfile;
 
-		public CameraViewRenderer()
-		{
-			encodingProfile = MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Auto);
-		}
+		MediaCapture? mediaCapture;
+		bool isPreviewing;
+		Lamp? flash;
+		LowLagMediaRecording? mediaRecording;
+		string? filePath;
+		bool busy;
+		VideoStabilizationEffect? videoStabilizationEffect;
+		VideoEncodingProperties? inputPropertiesBackup;
+		VideoEncodingProperties? outputPropertiesBackup;
+
+		public CameraViewRenderer() => encodingProfile = MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Auto);
 
 		bool IsBusy
 		{
@@ -72,13 +70,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			if (e.NewElement != null)
 			{
-				if (Control != null)
+				if (Control != null && mediaCapture != null)
 				{
 					await CleanupCameraAsync();
 					mediaCapture.Failed -= MediaCaptureFailed;
 				}
 
 				SetNativeControl(new CaptureElement());
+				_ = Control ?? throw new NullReferenceException();
+
 				Control.HorizontalAlignment = HorizontalAlignment.Stretch;
 				Control.VerticalAlignment = VerticalAlignment.Stretch;
 
@@ -92,7 +92,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		async void HandleShutter(object sender, EventArgs e)
+		async void HandleShutter(object? sender, EventArgs e)
 		{
 			if (IsBusy)
 				return;
@@ -126,15 +126,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		async Task<Tuple<string, byte[]>> GetImage()
+		async Task<Tuple<string?, byte[]?>> GetImage()
 		{
+			_ = mediaCapture ?? throw new NullReferenceException();
+
 			IsBusy = true;
 			var imageProp = ImageEncodingProperties.CreateUncompressed(MediaPixelFormat.Bgra8);
 			var lowLagCapture = await mediaCapture.PrepareLowLagPhotoCaptureAsync(imageProp);
 			var capturedPhoto = await lowLagCapture.CaptureAsync();
 
 			await lowLagCapture.FinishAsync();
-			string filePath = null;
+			string? filePath = null;
 
 			// See TODO on CameraView.SavePhotoToFile
 			/*if (Element.SavePhotoToFile)
@@ -159,24 +161,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			outputEncoder.SetSoftwareBitmap(capturedPhoto.Frame.SoftwareBitmap);
 			await outputEncoder.FlushAsync();
 
-			byte[] imageData = null;
-
 			// See TODO on CameraView.SavePhotoToFile
 			// if (!Element.SavePhotoToFile)
 			// {
 
 			using var memoryStream = new MemoryStream();
 			await outputStream.AsStream().CopyToAsync(memoryStream);
-			imageData = memoryStream.ToArray();
+			var imageData = memoryStream.ToArray();
 
 			// }
 
 			IsBusy = false;
-			return new Tuple<string, byte[]>(filePath, imageData);
+			return new Tuple<string?, byte[]?>(filePath, imageData);
 		}
 
 		async Task StartRecord()
 		{
+			_ = mediaCapture ?? throw new NullReferenceException();
+
 			// TODO replace platform specifics
 			// var localFolder = Element.On<PlatformConfiguration.Windows>().GetVideoFolder();
 			var localFolder = "Video";
@@ -205,7 +207,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			await mediaRecording.StartAsync();
 		}
 
-		async Task<string> StopRecord()
+		async Task<string?> StopRecord()
 		{
 			if (mediaRecording == null)
 				return null;
@@ -214,12 +216,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			await mediaRecording.FinishAsync();
 			mediaRecording = null;
 
-			if (videoStabilizationEffect != null)
+			if (videoStabilizationEffect != null && mediaCapture != null)
 			{
 				await mediaCapture.RemoveEffectAsync(videoStabilizationEffect);
 				videoStabilizationEffect = null;
 
-				if (inputPropertiesBackup != null)
+				if (inputPropertiesBackup != null && mediaCapture != null)
 				{
 					await mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(MediaStreamType.VideoRecord, inputPropertiesBackup);
 					inputPropertiesBackup = null;
@@ -238,7 +240,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void MediaCaptureFailed(MediaCapture sender, MediaCaptureFailedEventArgs errorEventArgs)
 			=> Element?.RaiseMediaCaptureFailed(errorEventArgs.Message);
 
-		protected override async void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+		protected override async void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
 			{
@@ -264,6 +266,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void UpdateZoom()
 		{
+			_ = mediaCapture ?? throw new NullReferenceException();
 			var zoomControl = mediaCapture.VideoDeviceController.ZoomControl;
 			if (!zoomControl.Supported)
 				return;
@@ -290,7 +293,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		DeviceInformation FilterCamera(DeviceInformationCollection cameraDevices, Windows.Devices.Enumeration.Panel panel)
+		DeviceInformation? FilterCamera(DeviceInformationCollection cameraDevices, Windows.Devices.Enumeration.Panel panel)
 		{
 			foreach (var cam in cameraDevices)
 			{
@@ -314,23 +317,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			IsBusy = true;
-			DeviceInformation device = null;
-			switch (Element.CameraOptions)
+
+			var device = Element.CameraOptions switch
 			{
-				default:
-				case CameraOptions.Default:
-					device = cameraDevices[0];
-					break;
-				case CameraOptions.Front:
-					device = FilterCamera(cameraDevices, Windows.Devices.Enumeration.Panel.Front);
-					break;
-				case CameraOptions.Back:
-					device = FilterCamera(cameraDevices, Windows.Devices.Enumeration.Panel.Back);
-					break;
-				case CameraOptions.External:
-					device = FilterCamera(cameraDevices, Windows.Devices.Enumeration.Panel.Unknown);
-					break;
-			}
+				CameraOptions.Front => FilterCamera(cameraDevices, Windows.Devices.Enumeration.Panel.Front),
+				CameraOptions.Back => FilterCamera(cameraDevices, Windows.Devices.Enumeration.Panel.Back),
+				CameraOptions.External => FilterCamera(cameraDevices, Windows.Devices.Enumeration.Panel.Unknown),
+				_ => cameraDevices?[0],
+			};
+
 			if (device == null)
 			{
 				Element?.RaiseMediaCaptureFailed($"{Element.CameraOptions} camera not found.");
@@ -353,8 +348,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					AudioDeviceId = selectedAudioDevice
 				});
 				flash = await Lamp.GetDefaultAsync();
-				if (mediaCapture?.VideoDeviceController.ZoomControl.Supported ?? false)
+
+				if (mediaCapture.VideoDeviceController.ZoomControl.Supported)
 					Element.MaxZoom = mediaCapture.VideoDeviceController.ZoomControl.Max;
+
 				DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
 			}
 			catch (UnauthorizedAccessException ex)
@@ -415,9 +412,18 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		async void CaptureDeviceExclusiveControlStatusChanged(MediaCapture sender, MediaCaptureDeviceExclusiveControlStatusChangedEventArgs args)
 		{
 			if (args.Status == MediaCaptureDeviceExclusiveControlStatus.SharedReadOnlyAvailable)
+			{
 				Element?.RaiseMediaCaptureFailed("The camera preview can't be displayed because another app has exclusive access");
+			}
 			else if (args.Status == MediaCaptureDeviceExclusiveControlStatus.ExclusiveControlAvailable && !isPreviewing)
-				await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () => await mediaCapture.StartPreviewAsync());
+			{
+				await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+				{
+					if (mediaCapture != null)
+						await mediaCapture.StartPreviewAsync();
+				});
+			}
+
 			IsBusy = false;
 		}
 	}

@@ -1,32 +1,39 @@
-using System;
+﻿using System;
 using System.Globalization;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
-using Xunit;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class InvertedBoolConverter_Tests
 	{
-		[Theory]
-		[InlineData(true, false)]
-		[InlineData(false, true)]
+		[TestCase(true, false)]
+		[TestCase(false, true)]
 		public void InverterBoolConverter(bool value, bool expectedResult)
 		{
-			var inverterBoolConverter = new InvertedBoolConverter();
+			var inverterBoolConverter = CreateConverter();
 
 			var result = inverterBoolConverter.Convert(value, typeof(InvertedBoolConverter_Tests), null, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData(2)]
-		[InlineData("")]
-		[InlineData(null)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		[TestCase(2)]
+		[TestCase("")]
+		public void InvalidConverterValuesThrowArgumentException(object value)
 		{
-			var inverterBoolConverter = new InvertedBoolConverter();
+			var inverterBoolConverter = CreateConverter();
 			Assert.Throws<ArgumentException>(() => inverterBoolConverter.Convert(value, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
 		}
+
+		[Test]
+		public void NullThrowsArgumentNullException()
+		{
+			var inverterBoolConverter = CreateConverter();
+			Assert.Throws<ArgumentNullException>(() => inverterBoolConverter.Convert(null, typeof(IndexToArrayItemConverter), null, CultureInfo.CurrentCulture));
+		}
+
+		static IValueConverter CreateConverter() => new InvertedBoolConverter();
 	}
 }

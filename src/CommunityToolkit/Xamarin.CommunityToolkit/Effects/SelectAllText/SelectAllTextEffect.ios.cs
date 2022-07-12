@@ -16,16 +16,14 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		protected override void OnDetached() => ApplyEffect(false);
 
-		void ApplyEffect(bool apply)
-			=> ApplyToControl(Control, apply);
+		void ApplyEffect(bool apply) => ApplyToControl(Control, apply);
 
-		bool ApplyToControl<T>(T controlType, bool apply) =>
-			controlType switch
-			{
-				UITextField textField => ApplyToUITextField(textField, apply),
-				UITextView _ => ApplyToUITextView(apply),
-				_ => throw new NotSupportedException($"Control of type: {controlType.GetType().Name} is not supported by this effect.")
-			};
+		bool ApplyToControl<T>(T controlType, bool apply) => controlType switch
+		{
+			UITextField textField => ApplyToUITextField(textField, apply),
+			UITextView => ApplyToUITextView(apply),
+			_ => throw new NotSupportedException($"Control of type: {controlType?.GetType()?.Name} is not supported by this effect.")
+		};
 
 		#region - UITextField
 
@@ -42,11 +40,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			return true;
 		}
 
-		void OnEditingDidBegin(object sender, EventArgs e)
+		void OnEditingDidBegin(object? sender, EventArgs e)
 		{
-			var textfield = sender as UITextField;
-
-			if (textfield == null)
+			if (sender is not UITextField textfield)
 				return;
 
 			textfield.PerformSelector(new Selector("selectAll"), null, 0.0f);
@@ -58,8 +54,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 		bool ApplyToUITextView(bool apply)
 		{
-			var formsControl = Element as Editor;
-			if (formsControl == null)
+			if (Element is not Editor formsControl)
 				return false;
 
 			if (apply)
@@ -70,14 +65,12 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			return true;
 		}
 
-		void OnTextViewFocussed(object sender, FocusEventArgs e)
+		void OnTextViewFocussed(object? sender, FocusEventArgs e)
 		{
-			var formsControl = Element as Editor;
-			if (formsControl == null)
+			if (Element is not Editor formsControl)
 				return;
 
-			var textView = Control as UITextView;
-			if (textView == null)
+			if (Control is not UITextView textView)
 				return;
 
 			if (formsControl.IsFocused)

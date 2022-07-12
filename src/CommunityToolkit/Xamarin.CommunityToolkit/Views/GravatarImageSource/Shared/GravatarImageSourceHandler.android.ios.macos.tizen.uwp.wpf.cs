@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -12,10 +13,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	public partial class GravatarImageSourceHandler
 	{
 		const string requestUriFormat = "https://www.gravatar.com/avatar/{0}?s={1}&d={2}";
-		static readonly Lazy<HttpClient> lazyHttp = new Lazy<HttpClient>(() => new HttpClient());
-		static readonly SemaphoreSlim semaphore = new SemaphoreSlim(1);
+		static readonly Lazy<HttpClient> lazyHttp = new(() => new HttpClient());
+		static readonly SemaphoreSlim semaphore = new(1);
 
-		public static async Task<FileInfo> LoadInternal(ImageSource imageSource, float scale, string cacheDirectory)
+		public static async Task<FileInfo?> LoadInternal(ImageSource imageSource, float scale, string cacheDirectory)
 		{
 			if (imageSource is GravatarImageSource gis)
 			{
@@ -24,8 +25,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				if (!await UseCacheFile(gis.CachingEnabled, gis.CacheValidity, cacheFileInfo))
 				{
+					_ = gis.Email ?? throw new InvalidOperationException($"{nameof(gis.Email)} is not initialized");
 					var imageBytes = await GetGravatarAsync(gis.Email, gis.Size, scale, gis.Default);
-					await SaveImage(cacheFileInfo, imageBytes ?? Array.Empty<byte>());
+					await SaveImage(cacheFileInfo, imageBytes);
 				}
 
 				return cacheFileInfo;
@@ -66,7 +68,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				await semaphore.WaitAsync();
 
-				if (!file.Directory.Exists)
+				if (file.Directory is { Exists: false })
 					file.Directory.Create();
 			}
 			finally
@@ -78,17 +80,28 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		static string CacheFileName(GravatarImageSource gis, float scale)
-			=> $"{GetMd5Hash(gis.Email)}-{gis.Size}@{scale}x.png";
+		{
+			_ = gis.Email ?? throw new InvalidOperationException($"{nameof(gis.Email)} cannot be null");
+			return $"{GetMd5Hash(gis.Email)}-{gis.Size}@{scale}x.png";
+		}
 
 		static async Task<byte[]> GetGravatarAsync(string email, int size, float scale, DefaultGravatar defaultGravatar)
 		{
 			var requestUri = GetGravatarUri(email, size, scale, defaultGravatar);
-			using var response = await lazyHttp.Value.GetAsync(requestUri);
+			try
+			{
+				using var response = await lazyHttp.Value.GetAsync(requestUri);
 
-			if (!response.IsSuccessStatusCode)
+				if (!response.IsSuccessStatusCode)
+					return Array.Empty<byte>();
+
+				return await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+			}
+			catch (Exception e)
+			{
+				Trace.WriteLine(e.Message);
 				return Array.Empty<byte>();
-
-			return await response.Content.ReadAsByteArrayAsync();
+			}
 		}
 
 		static string GetGravatarUri(string email, int size, float scale, DefaultGravatar defaultGravatar)
@@ -109,10 +122,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			var sBuilder = new StringBuilder();
 
-			if (hash != null)
+			foreach (var hashByte in hash)
 			{
-				for (var i = 0; i < hash.Length; i++)
-					sBuilder.Append(hash[i].ToString("x2"));
+				sBuilder.Append(hashByte.ToString("x2"));
 			}
 
 			return sBuilder.ToString();

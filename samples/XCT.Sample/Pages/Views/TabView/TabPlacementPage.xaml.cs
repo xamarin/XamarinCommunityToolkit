@@ -7,7 +7,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views.TabView
 	{
 		public TabPlacementPage() => InitializeComponent();
 
-		void OnChangeTabStripPlacementClicked(object sender, EventArgs e)
+		void OnChangeTabStripPlacementClicked(object? sender, EventArgs e)
 		{
 			if (TabView.TabStripPlacement == TabStripPlacement.Bottom)
 				TabView.TabStripPlacement = TabStripPlacement.Top;

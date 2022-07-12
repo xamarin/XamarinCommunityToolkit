@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.NormalTestView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentView.Content>
+        <StackLayout>
+            <Label Text="{Binding LoadedViews}" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

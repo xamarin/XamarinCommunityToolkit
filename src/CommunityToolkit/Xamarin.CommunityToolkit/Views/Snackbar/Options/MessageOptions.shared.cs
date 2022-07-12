@@ -9,7 +9,7 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		/// </summary>
 		public string Message { get; set; } = DefaultMessage;
 
-		public static string DefaultMessage { get; set; }
+		public static string DefaultMessage { get; set; } = string.Empty;
 
 		/// <summary>
 		/// Gets or sets the font for the SnackBar message.
@@ -24,5 +24,12 @@ namespace Xamarin.CommunityToolkit.UI.Views.Options
 		public Color Foreground { get; set; } = DefaultForeground;
 
 		public static Color DefaultForeground { get; set; } = Color.Default;
+
+		/// <summary>
+		/// Gets or sets the padding for the SnackBar message.
+		/// </summary>
+		public Thickness Padding { get; set; }
+
+		public static Thickness DefaultPadding { get; set; } = new Thickness(0, 0, 0, 0);
 	}
 }

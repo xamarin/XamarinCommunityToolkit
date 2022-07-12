@@ -2,42 +2,40 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
-using Xunit;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
 	public class ListIsNotNullOrEmptyConverter_Tests
 	{
-		public static IEnumerable<object[]> GetData()
+		public static IEnumerable<object?[]> GetData() => new List<object?[]>
 		{
-			return new List<object[]>
-			{
-				new object[] { new List<string>(), false},
-				new object[] { new List<string>() { "TestValue"}, true},
-				new object[] { null, false},
-				new object[] { Enumerable.Range(1, 3), true},
-			};
-		}
+			new object[] { new List<string>(), false },
+			new object[] { new List<string>() { "TestValue" }, true },
+			new object?[] { null, false },
+			new object[] { Enumerable.Range(1, 3), true },
+		};
 
-		[Theory]
-		[MemberData(nameof(GetData))]
+		[TestCaseSource(nameof(GetData))]
 		public void ListIsNotNullOrEmptyConverter(object value, bool expectedResult)
 		{
-			var listIsNotNullOrEmptyConverter = new ListIsNotNullOrEmptyConverter();
+			var listIsNotNullOrEmptyConverter = CreateConverter();
 
 			var result = listIsNotNullOrEmptyConverter.Convert(value, typeof(ListIsNotNullOrEmptyConverter), null, CultureInfo.CurrentCulture);
 
-			Assert.Equal(result, expectedResult);
+			Assert.AreEqual(result, expectedResult);
 		}
 
-		[Theory]
-		[InlineData(0)]
-		public void InValidConverterValuesThrowArgumenException(object value)
+		[TestCase(0)]
+		public void InValidConverterValuesThrowArgumentException(object value)
 		{
-			var listIsNotNullOrEmptyConverter = new ListIsNotNullOrEmptyConverter();
+			var listIsNotNullOrEmptyConverter = CreateConverter();
 
 			Assert.Throws<ArgumentException>(() => listIsNotNullOrEmptyConverter.Convert(value, typeof(ListIsNotNullOrEmptyConverter), null, CultureInfo.CurrentCulture));
 		}
+
+		static IValueConverter CreateConverter() => new ListIsNotNullOrEmptyConverter();
 	}
 }

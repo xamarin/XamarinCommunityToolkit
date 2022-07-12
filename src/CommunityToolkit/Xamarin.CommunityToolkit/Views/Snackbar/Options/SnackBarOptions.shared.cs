@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Options
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Exceptions;
 using Xamarin.CommunityToolkit.Helpers;
-using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 {
@@ -16,19 +16,19 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			remove => propertyChangedWeakEventManager.RemoveEventHandler(value);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_HandleEvent_ValidImplementation()
 		{
 			// Arrange
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e)
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
-				Assert.NotNull(sender);
-				Assert.Equal(GetType(), sender.GetType());
+				Assert.IsNotNull(sender);
+				Assert.AreEqual(GetType(), sender?.GetType());
 
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 
 				didEventFire = true;
 				PropertyChanged -= HandleDelegateTest;
@@ -38,40 +38,42 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			propertyChangedWeakEventManager.RaiseEvent(this, new PropertyChangedEventArgs("Test"), nameof(PropertyChanged));
 
 			// Assert
-			Assert.True(didEventFire);
+			Assert.IsTrue(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_HandleEvent_NullSender()
 		{
 			// Arrange
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e)
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
 				Assert.Null(sender);
-				Assert.NotNull(e);
+				Assert.IsNotNull(e);
 
 				didEventFire = true;
 				PropertyChanged -= HandleDelegateTest;
 			}
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			propertyChangedWeakEventManager.RaiseEvent(null, new PropertyChangedEventArgs("Test"), nameof(PropertyChanged));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
-			Assert.True(didEventFire);
+			Assert.IsTrue(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_HandleEvent_InvalidEventArgs()
 		{
 			// Arrange
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 
@@ -81,17 +83,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged -= HandleDelegateTest;
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_HandleEvent_NullEventArgs()
 		{
 			// Arrange
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e)
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e)
 			{
-				Assert.NotNull(sender);
-				Assert.Equal(GetType(), sender.GetType());
+				Assert.IsNotNull(sender);
+				Assert.AreEqual(GetType(), sender?.GetType());
 
 				Assert.Null(e);
 
@@ -105,17 +107,17 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625 //Cannot convert null literal to non-nullable reference type
 
 			// Assert
-			Assert.True(didEventFire);
+			Assert.IsTrue(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_HandleEvent_InvalidHandleEventEventName()
 		{
 			// Arrange
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 			propertyChangedWeakEventManager.RaiseEvent(this, new PropertyChangedEventArgs("Test"), nameof(TestStringEvent));
@@ -125,7 +127,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged -= HandleDelegateTest;
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_HandleEvent_DynamicMethod_ValidImplementation()
 		{
 			// Arrange
@@ -143,7 +145,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged -= handler;
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_UnassignedEvent()
 		{
 			// Arrange
@@ -151,7 +153,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 
 			PropertyChanged += HandleDelegateTest;
 			PropertyChanged -= HandleDelegateTest;
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 #pragma warning disable CS8625 //Cannot convert null literal to non-nullable reference type
@@ -162,7 +164,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			Assert.False(didEventFire);
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_UnassignedEventManager()
 		{
 			// Arrange
@@ -170,24 +172,26 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			var didEventFire = false;
 
 			PropertyChanged += HandleDelegateTest;
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
 			unassignedEventManager.RaiseEvent(null, null, nameof(PropertyChanged));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
 			// Assert
 			Assert.False(didEventFire);
 			PropertyChanged -= HandleDelegateTest;
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_HandleEvent_InvalidHandleEvent()
 		{
 			// Arrange
 			PropertyChanged += HandleDelegateTest;
 			var didEventFire = false;
 
-			void HandleDelegateTest(object sender, PropertyChangedEventArgs e) => didEventFire = true;
+			void HandleDelegateTest(object? sender, PropertyChangedEventArgs e) => didEventFire = true;
 
 			// Act
 
@@ -197,7 +201,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			PropertyChanged -= HandleDelegateTest;
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_AddEventHandler_NullHandler()
 		{
 			// Arrange
@@ -205,12 +209,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
 			Assert.Throws<ArgumentNullException>(() => propertyChangedWeakEventManager.AddEventHandler(null));
-#pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_AddEventHandler_NullEventName()
 		{
 			// Arrange
@@ -223,7 +225,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_AddEventHandler_EmptyEventName()
 		{
 			// Arrange
@@ -231,12 +233,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
 			Assert.Throws<ArgumentNullException>(() => propertyChangedWeakEventManager.AddEventHandler(null, string.Empty));
-#pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_AddEventHandler_WhitespaceEventName()
 		{
 			// Arrange
@@ -244,12 +244,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
 			Assert.Throws<ArgumentNullException>(() => propertyChangedWeakEventManager.AddEventHandler(null, " "));
-#pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_RemoveEventHandler_NullHandler()
 		{
 			// Arrange
@@ -257,12 +255,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
 			Assert.Throws<ArgumentNullException>(() => propertyChangedWeakEventManager.RemoveEventHandler(null));
-#pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_RemoveEventHandler_NullEventName()
 		{
 			// Arrange
@@ -275,7 +271,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 #pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_RemoveEventHandler_EmptyEventName()
 		{
 			// Arrange
@@ -283,12 +279,10 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
 			Assert.Throws<ArgumentNullException>(() => propertyChangedWeakEventManager.RemoveEventHandler(null, string.Empty));
-#pragma warning restore CS8625
 		}
 
-		[Fact]
+		[Test]
 		public void WeakEventManagerDelegate_RemoveEventHandler_WhiteSpaceEventName()
 		{
 			// Arrange
@@ -296,9 +290,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Helpers.WeakEventManagerTests
 			// Act
 
 			// Assert
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference
 			Assert.Throws<ArgumentNullException>(() => propertyChangedWeakEventManager.RemoveEventHandler(null, " "));
-#pragma warning restore CS8625
 		}
 	}
 }

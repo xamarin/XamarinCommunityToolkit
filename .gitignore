@@ -260,3 +260,7 @@ paket-files/
 
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
+
+# mdoc folders, just used locally for now
+docs/en
+docs/tmp

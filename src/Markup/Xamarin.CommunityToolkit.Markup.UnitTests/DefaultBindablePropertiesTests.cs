@@ -9,9 +9,10 @@ using Xamarin.Forms;
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 #pragma warning disable SA1200 // Using directives should be placed correctly
+	using Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews;
+
 	// These usings are placed here to avoid ambiguities
 	using Xamarin.Forms.Shapes;
-	using Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews;
 #pragma warning restore SA1200 // Using directives should be placed correctly
 
 	[TestFixture]
@@ -127,7 +128,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 
 			foreach (var type in bindableObjectTypes)
 			{
-				if (excludedTypeReasons.TryGetValue(type, out string exclusionReason))
+				if (excludedTypeReasons.TryGetValue(type, out var exclusionReason))
 				{
 					Console.WriteLine($"Info: no default BindableProperty defined for BindableObject type {type.FullName} because {exclusionReason}");
 					continue;
@@ -137,7 +138,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				{
 					failMessage.AppendLine(type.FullName);
 					var propertyNames = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
-						.Where(f => f.FieldType == typeof(BindableProperty)).Select(f => f.DeclaringType.Name + "." + f.Name).ToList();
+						.Where(f => f.FieldType == typeof(BindableProperty)).Select(f => f?.DeclaringType?.Name + "." + f?.Name).ToList();
 					if (propertyNames.Count > 0)
 					{
 						failMessage.AppendLine("\tCandidate properties:");
@@ -220,11 +221,11 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 namespace Xamarin.CommunityToolkit.Markup.UnitTests.DefaultBindablePropertiesViews // This namespace simulates derived controls defined in a separate app, for use in the tests in this file only
 #pragma warning restore SA1403 // File may only contain a single namespace
 {
-	#pragma warning disable SA1200 // Using directives should be placed correctly
+#pragma warning disable SA1200 // Using directives should be placed correctly
 	// These usings are placed here to avoid ambiguities
 	using System.Windows.Input;
 	using Xamarin.Forms;
-	#pragma warning restore SA1200 // Using directives should be placed correctly
+#pragma warning restore SA1200 // Using directives should be placed correctly
 
 	class DerivedFromBoxView : BoxView { }
 

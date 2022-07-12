@@ -16,7 +16,8 @@
 
     <xct:SideMenuView x:Name="SideMenuView">
         <!-- MainView -->
-        <StackLayout BackgroundColor="Gold">
+        <StackLayout BackgroundColor="Gold"
+                     xct:ShadowEffect.Color="Black">
             <StackLayout
                 Orientation="Horizontal">
 
@@ -32,16 +33,25 @@
         </StackLayout>
 
         <!-- LeftMenu -->
-        <BoxView
+        <StackLayout
+            xct:SideMenuView.ParallaxValue="50"
+            xct:SideMenuView.MenuAppearanceType="SlideIn"
             xct:SideMenuView.Position="LeftMenu"
             xct:SideMenuView.MenuWidthPercentage=".5"
-            BackgroundColor="Orange"/>
+            xct:SideMenuView.MainViewScaleFactor=".95"
+            xct:ShadowEffect.Color="Black"
+            BackgroundColor="Orange">
+            <Label Text="LEFT MENU" />
+        </StackLayout>
 
         <!-- RightMenu -->
-        <BoxView
+        <StackLayout
+            xct:SideMenuView.ParallaxValue="75"
             xct:SideMenuView.Position="RightMenu"
-            xct:SideMenuView.MenuWidthPercentage=".3"
-            BackgroundColor="LightGreen" />
+            xct:SideMenuView.MenuWidthPercentage=".4"
+            BackgroundColor="LightGreen">
+            <Label Text="RIGHT MENU" />
+        </StackLayout>
 
     </xct:SideMenuView>
 

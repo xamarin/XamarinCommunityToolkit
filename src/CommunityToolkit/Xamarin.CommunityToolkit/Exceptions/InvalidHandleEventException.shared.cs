@@ -10,7 +10,7 @@ namespace Xamarin.CommunityToolkit.Exceptions
 	public class InvalidHandleEventException : Exception
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:AsyncAwaitBestPractices.InvalidHandleEventException"/> class.
+		/// Initializes a new instance of the <see cref="InvalidHandleEventException"/> class.
 		/// </summary>
 		/// <param name="message">Message.</param>
 		/// <param name="targetParameterCountException">Target parameter count exception.</param>

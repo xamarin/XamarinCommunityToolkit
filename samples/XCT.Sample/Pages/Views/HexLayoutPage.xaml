@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.HexLayoutPage">
+    <xct:HexLayout    
+        Orientation="Vertical"
+        RowCount="5" 
+        ColumnCount="5">
+        <BoxView xct:HexLayout.Row="0" xct:HexLayout.Column="1" CornerRadius="24" BackgroundColor="#006699" Margin="12"/>
+        <BoxView xct:HexLayout.Row="0" xct:HexLayout.Column="2" CornerRadius="24" BackgroundColor="#0033CC" Margin="12"/>
+        <BoxView xct:HexLayout.Row="0" xct:HexLayout.Column="3" CornerRadius="24" BackgroundColor="#3333FF" Margin="12"/>
+        <BoxView xct:HexLayout.Row="1" xct:HexLayout.Column="0" CornerRadius="24" BackgroundColor="#00cc99" Margin="12"/>
+        <BoxView xct:HexLayout.Row="1" xct:HexLayout.Column="1" CornerRadius="24" BackgroundColor="#00FFFF" Margin="12"/>
+        <BoxView xct:HexLayout.Row="1" xct:HexLayout.Column="2" CornerRadius="24" BackgroundColor="#3399FF" Margin="12"/>
+        <BoxView xct:HexLayout.Row="1" xct:HexLayout.Column="3" CornerRadius="24" BackgroundColor="#6600FF" Margin="12"/>
+        <BoxView xct:HexLayout.Row="2" xct:HexLayout.Column="0" CornerRadius="24" BackgroundColor="#008000" Margin="12"/>
+        <BoxView xct:HexLayout.Row="2" xct:HexLayout.Column="1" CornerRadius="24" BackgroundColor="#66FF66" Margin="12"/>
+        <BoxView xct:HexLayout.Row="2" xct:HexLayout.Column="2" CornerRadius="24" BackgroundColor="#FFFFFF" Margin="12"/>
+        <BoxView xct:HexLayout.Row="2" xct:HexLayout.Column="3" CornerRadius="24" BackgroundColor="#FF66FF" Margin="12"/>
+        <BoxView xct:HexLayout.Row="2" xct:HexLayout.Column="4" CornerRadius="24" BackgroundColor="#CC00CC" Margin="12"/>
+        <BoxView xct:HexLayout.Row="3" xct:HexLayout.Column="0" CornerRadius="24" BackgroundColor="#99CC00" Margin="12"/>
+        <BoxView xct:HexLayout.Row="3" xct:HexLayout.Column="1" CornerRadius="24" BackgroundColor="#FFFF66" Margin="12"/>
+        <BoxView xct:HexLayout.Row="3" xct:HexLayout.Column="2" CornerRadius="24" BackgroundColor="#FF7C80" Margin="12"/>
+        <BoxView xct:HexLayout.Row="3" xct:HexLayout.Column="3" CornerRadius="24" BackgroundColor="#D60093" Margin="12"/>
+        <BoxView xct:HexLayout.Row="4" xct:HexLayout.Column="1" CornerRadius="24" BackgroundColor="#CC9900" Margin="12"/>
+        <BoxView xct:HexLayout.Row="4" xct:HexLayout.Column="2" CornerRadius="24" BackgroundColor="#FF3300" Margin="12"/>
+        <BoxView xct:HexLayout.Row="4" xct:HexLayout.Column="3" CornerRadius="24" BackgroundColor="#CC0000" Margin="12"/>
+    </xct:HexLayout>
+</pages:BasePage>

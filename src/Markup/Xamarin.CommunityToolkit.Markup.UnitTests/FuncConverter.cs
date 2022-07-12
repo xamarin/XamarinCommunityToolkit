@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using NUnit.Framework;
 using Xamarin.Forms;
 
@@ -10,7 +11,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void TwoWayMultiWithParamAndCulture()
 		{
-			CultureInfo convertCulture = null, convertBackCulture = null;
+			CultureInfo? convertCulture = null, convertBackCulture = null;
 			var expectedCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
 
 			// Convert char a and int i values to string of a repeated i times, or double that if parameter was true
@@ -18,8 +19,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				(values, addOne, culture) =>
 				{
 					convertCulture = culture;
-					char c = (char)values[0];
-					int l = (int)values[1];
+					var c = (char)values[0];
+					var l = (int)values[1];
 					if (addOne)
 						l++;
 					return new string(c, l);
@@ -50,14 +51,16 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			// Convert char a and int i values to string of a repeated i times, or double that if parameter was true
 			var converter = new FuncMultiConverter<string, bool>(
-				(values, addOne) => {
-					char c = (char)values[0];
-					int l = (int)values[1];
+				(values, addOne) =>
+				{
+					var c = (char)values[0];
+					var l = (int)values[1];
 					if (addOne)
 						l++;
 					return new string(c, l);
 				},
-				(text, addOne) => {
+				(text, addOne) =>
+				{
 					return new object[] {
 						text?.Length > 0 ? text[0] : '\0',
 						(text?.Length ?? 0) - (addOne ? 1 : 0)
@@ -77,12 +80,14 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			// Convert char a and int i values to string of a repeated i times
 			var converter = new FuncMultiConverter<string, bool>(
-				(values) => {
-					char c = (char)values[0];
-					int l = (int)values[1];
+				(values) =>
+				{
+					var c = (char)values[0];
+					var l = (int)values[1];
 					return new string(c, l);
 				},
-				(text) => {
+				(text) =>
+				{
 					return new object[] {
 						text?.Length > 0 ? text[0] : '\0',
 						text?.Length ?? 0
@@ -100,7 +105,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		[Test]
 		public void FullyTypedTwoWayWithParamAndCulture()
 		{
-			CultureInfo convertCulture = null, convertBackCulture = null;
+			CultureInfo? convertCulture = null, convertBackCulture = null;
 			var expectedCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
 
 			var converter = new FuncConverter<bool, Color, double>(
@@ -214,7 +219,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			new FuncConverter<bool>(
 				isRed => isRed ? Color.Red : Color.Green,
-				color => (Color)color == Color.Red)
+				color => (Color?)color == Color.Red)
 			.AssertConvert(true, Color.Red, twoWay: true)
 			.AssertConvert(false, Color.Green, twoWay: true);
 		}
@@ -233,7 +238,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			new FuncConverter<bool>(
 				null,
-				color => (Color)color == Color.Red)
+				color => (Color?)color == Color.Red)
 			.AssertConvert(true, (object)Color.Red, backOnly: true)
 			.AssertConvert(false, (object)Color.Green, backOnly: true);
 		}
@@ -242,8 +247,8 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void UntypedTwoWay()
 		{
 			new Markup.FuncConverter(
-				isRed => (bool)isRed ? Color.Red : Color.Green,
-				color => (Color)color == Color.Red)
+				isRed => (bool)(isRed ?? throw new NullReferenceException()) ? Color.Red : Color.Green,
+				color => (Color?)color == Color.Red)
 			.AssertConvert((object)true, (object)Color.Red, twoWay: true)
 			.AssertConvert((object)false, (object)Color.Green, twoWay: true);
 		}
@@ -252,7 +257,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		public void UntypedOneWay()
 		{
 			new Markup.FuncConverter(
-				isRed => (bool)isRed ? Color.Red : Color.Green)
+				isRed => (bool)(isRed ?? throw new NullReferenceException()) ? Color.Red : Color.Green)
 			.AssertConvert((object)true, (object)Color.Red)
 			.AssertConvert((object)false, (object)Color.Green);
 		}
@@ -262,7 +267,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			new Markup.FuncConverter(
 				null,
-				color => (Color)color == Color.Red)
+				color => (Color?)color == Color.Red)
 			.AssertConvert((object)true, (object)Color.Red, backOnly: true)
 			.AssertConvert((object)false, (object)Color.Green, backOnly: true);
 		}
@@ -286,10 +291,10 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 		{
 			var c = NotConverter.Instance;
 			c = NotConverter.Instance; // 2nd time to test instance reuse
-			Assert.IsTrue((bool)c.Convert(false, null, null, null));
-			Assert.IsFalse((bool)c.Convert(true, null, null, null));
-			Assert.IsTrue((bool)c.ConvertBack(false, null, null, null));
-			Assert.IsFalse((bool)c.ConvertBack(true, null, null, null));
+			Assert.IsTrue((bool?)c.Convert(false, null, null, null));
+			Assert.IsFalse((bool?)c.Convert(true, null, null, null));
+			Assert.IsTrue((bool?)c.ConvertBack(false, null, null, null));
+			Assert.IsFalse((bool?)c.ConvertBack(true, null, null, null));
 		}
 	}
 }

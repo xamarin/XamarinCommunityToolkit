@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.CompareConverterPage"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                BackgroundColor="{StaticResource AppBackgroundColor}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+
+            <x:Double x:Key="ComparingValue">
+                2
+            </x:Double>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Padding="10,10"
+                 HorizontalOptions="Fill"
+                 Spacing="10"
+                 VerticalOptions="Fill">
+        <Label Text="The CompareConverter is a converter that converts an object of a type implementing IComparable, to a boolean (if FalseObject and TrueObject are not specified) or to one of those specific objects based on the result of a comparaison defined by the specified comparison operator and ComparingValue."/>
+
+        <Slider x:Name="slider"
+                HorizontalOptions="FillAndExpand"
+                MaximumTrackColor="Black"
+                MinimumTrackColor="LightGray"
+                Maximum="4"/>
+
+        <Label Text="{Binding Source={x:Reference slider}, Path=Value, FallbackValue=0, TargetNullValue=0}"
+               Style="{StaticResource labelStyle}"/>
+
+        <xct:UniformGrid>
+            <xct:UniformGrid.Resources>
+                <Style TargetType="Label"
+                       BasedOn="{StaticResource labelStyle}"/>
+            </xct:UniformGrid.Resources>
+
+            <Label BackgroundColor="{Binding Source={x:Reference slider}, Path=Value, Converter={xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource ComparingValue}, FalseObject=Red, TrueObject=Green}}"
+                   Text="{Binding Source={x:Reference slider}, Path=Value, Converter={xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource ComparingValue}}}"/>
+
+            <Label BackgroundColor="{Binding Source={x:Reference slider}, Path=Value, Converter={xct:CompareConverter ComparisonOperator=Equal, ComparingValue={StaticResource ComparingValue}, FalseObject=Red, TrueObject=Green}}"
+                   Text="{Binding Source={x:Reference slider}, Path=Value, Converter={xct:CompareConverter ComparisonOperator=Equal, ComparingValue={StaticResource ComparingValue}}}"/>
+
+            <Label BackgroundColor="{Binding Source={x:Reference slider}, Path=Value, Converter={xct:CompareConverter ComparisonOperator=NotEqual, ComparingValue={StaticResource ComparingValue}, FalseObject=Red, TrueObject=Green}}"
+                   Text="{Binding Source={x:Reference slider}, Path=Value, Converter={xct:CompareConverter ComparisonOperator=NotEqual, ComparingValue={StaticResource ComparingValue}}}"/>
+
+            <Label BackgroundColor="{Binding Source={x:Reference slider}, Path=Value, Converter={xct:CompareConverter ComparisonOperator=Smaller, ComparingValue={StaticResource ComparingValue}, FalseObject=Red, TrueObject=Green}}"
+                   Text="{Binding Source={x:Reference slider}, Path=Value, Converter={xct:CompareConverter ComparisonOperator=Smaller, ComparingValue={StaticResource ComparingValue}}}"/>
+        </xct:UniformGrid>
+
+
+        <xct:UniformGrid>
+            <xct:UniformGrid.Resources>
+                <Style TargetType="Label"
+                       BasedOn="{StaticResource labelStyle}"/>
+            </xct:UniformGrid.Resources>
+            <Label Text="Value &gt; 2"/>
+            <Label Text="Value == 2"/>
+            <Label Text="Value != 2"/>
+            <Label Text="Value &lt; 2"/>
+        </xct:UniformGrid>
+
+    </StackLayout>
+
+</pages:BasePage>

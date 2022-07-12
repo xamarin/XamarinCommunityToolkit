@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.EnumToBoolConverterPage">
+    <pages:BasePage.BindingContext>
+        <vm:EnumToBoolConverterViewModel />
+    </pages:BasePage.BindingContext>
+
+    <pages:BasePage.Resources>
+        <xct:EnumToBoolConverter x:Key="OpenConverter">
+            <xct:EnumToBoolConverter.TrueValues>
+                <vm:IssueState>New</vm:IssueState>
+                <vm:IssueState>Open</vm:IssueState>
+                <vm:IssueState>Waiting</vm:IssueState>
+            </xct:EnumToBoolConverter.TrueValues>
+        </xct:EnumToBoolConverter>
+        <xct:EnumToBoolConverter x:Key="ClosedConverter">
+            <xct:EnumToBoolConverter.TrueValues>
+                <vm:IssueState>WantFix</vm:IssueState>
+                <vm:IssueState>Rejected</vm:IssueState>
+                <vm:IssueState>Resolved</vm:IssueState>
+            </xct:EnumToBoolConverter.TrueValues>
+        </xct:EnumToBoolConverter>
+        <xct:EnumToBoolConverter x:Key="ManualConverter" />
+    </pages:BasePage.Resources>
+
+    <pages:BasePage.Content>
+        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" Padding="16">
+            <Label Grid.Row="0" Grid.ColumnSpan="2">Issue state:</Label>
+            <StackLayout Grid.Row="1" Grid.ColumnSpan="2" RadioButtonGroup.GroupName="Issue States"
+                         RadioButtonGroup.SelectedValue="{Binding SelectedState}" Orientation="Vertical">
+                <RadioButton Value="{x:Static vm:IssueState.None}" Content="None" />
+                <RadioButton Value="{x:Static vm:IssueState.New}" Content="New" />
+                <RadioButton Value="{x:Static vm:IssueState.Open}" Content="Open" />
+                <RadioButton Value="{x:Static vm:IssueState.Waiting}" Content="Waiting" />
+                <RadioButton Value="{x:Static vm:IssueState.Developing}" Content="Developing" />
+                <RadioButton Value="{x:Static vm:IssueState.WantFix}" Content="Wan't fix" />
+                <RadioButton Value="{x:Static vm:IssueState.Rejected}" Content="Rejected" />
+                <RadioButton Value="{x:Static vm:IssueState.Resolved}" Content="Resolved" />
+            </StackLayout>
+
+            <Label Grid.Row="2" Grid.ColumnSpan="2" FontSize="Large" Margin="0,16,16,0">Result</Label>
+            <CheckBox Grid.Row="3" IsEnabled="False"
+                      IsChecked="{Binding SelectedState, Converter={StaticResource OpenConverter}, Mode=OneWay}" />
+            <Label Grid.Row="3" Grid.Column="1" Text="One of: New / Open / Waiting" />
+            <CheckBox Grid.Row="4" IsEnabled="False"
+                      IsChecked="{Binding SelectedState, Converter={StaticResource ClosedConverter}, Mode=OneWay}" />
+            <Label Grid.Row="4" Grid.Column="1" Text="One of: Wan't fix / Rejected / Resolved" />
+            <CheckBox Grid.Row="5" IsEnabled="False"
+                      IsChecked="{Binding SelectedState, Converter={StaticResource ManualConverter}, ConverterParameter={x:Static vm:IssueState.Developing}, Mode=OneWay}" />
+            <Label Grid.Row="5" Grid.Column="1" Text="Set over parameter: Develop" />
+        </Grid>
+    </pages:BasePage.Content>
+</pages:BasePage>

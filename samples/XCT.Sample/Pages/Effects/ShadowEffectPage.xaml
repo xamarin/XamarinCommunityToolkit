@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.ShadowEffectPage"
+                BackgroundColor="White"
+                x:Name="Page">
+
+    <pages:BasePage.Resources>
+        <Style x:Key="ShadowLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+    </pages:BasePage.Resources>
+
+    <ScrollView Padding="{StaticResource ContentPadding}">
+        <StackLayout Spacing="30"
+                     Padding="15, 0">
+
+            <StackLayout Spacing="10">
+                <Label Text="Labels:"/>
+
+                <Label Text="Label With Black Shadow"
+                       Style="{StaticResource ShadowLabel}"
+                       xct:ShadowEffect.Color="Black"/>
+
+                <Label Text="Label With Shifted Red Shadow"
+                       Style="{StaticResource ShadowLabel}"
+                       xct:ShadowEffect.Color="Red"
+                       xct:ShadowEffect.OffsetX="10"
+                       xct:ShadowEffect.OffsetY="10" />
+                
+                <Label Text="Label With Gold Shadow"
+                       Style="{StaticResource ShadowLabel}"
+                       xct:ShadowEffect.Color="Gold"
+                       xct:ShadowEffect.Radius="20"/>
+            </StackLayout>
+
+            <StackLayout Spacing="10">
+                <Label Text="Stack Layout with Shadow" />
+                <StackLayout xct:ShadowEffect.Color="Black">
+                    <BoxView Color="White" />
+                    <BoxView Color="Red" />
+                    <BoxView Color="White" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Spacing="10">
+                <Label Text="Box Views With Colored Shadows" />
+                <Grid RowDefinitions="*,*"
+                      ColumnDefinitions="*,*,*,*,*"
+                      RowSpacing="10"
+                      ColumnSpacing="10">
+
+                    <Grid.Behaviors>
+                        <xct:ImpliedOrderGridBehavior/>
+                    </Grid.Behaviors>
+
+                    <BoxView Color="White" xct:ShadowEffect.Color="Blue" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Gold" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Purple" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="HotPink" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Orange" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Brown" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Lime" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="Yellow" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="DarkRed" />
+                    <BoxView Color="White" xct:ShadowEffect.Color="LightSalmon" />
+
+                </Grid>
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Button with Shadow" />
+                <Button Text="Click me"
+                        Margin="0"
+                        xct:ShadowEffect.Radius="10"
+                        xct:ShadowEffect.Color="Red" />
+            </StackLayout>
+
+    </StackLayout>
+    </ScrollView>
+</pages:BasePage>

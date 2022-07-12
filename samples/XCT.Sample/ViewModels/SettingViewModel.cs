@@ -1,27 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Resx;
-using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels
 {
 	public class SettingViewModel : BaseViewModel
 	{
-		public SettingViewModel() => LoadLanguages();
+		IList<Language> supportedLanguages = Enumerable.Empty<Language>().ToList();
 
-		IList<Language> supportedLanguages;
+		Language selectedLanguage = new Language(AppResources.English, "en");
 
-		public IList<Language> SupportedLanguages
+		public SettingViewModel()
 		{
-			get => supportedLanguages;
-			private set => SetProperty(ref supportedLanguages, value);
+			LoadLanguages();
+
+			ChangeLanguageCommand = CommandFactory.Create(() =>
+			{
+				LocalizationResourceManager.Current.CurrentCulture = CultureInfo.GetCultureInfo(SelectedLanguage.CI);
+				LoadLanguages();
+			});
 		}
 
-		Language selectedLanguage;
+		public LocalizedString AppVersion { get; } = new LocalizedString(() => string.Format(AppResources.Version, AppInfo.VersionString));
+
+		public ICommand ChangeLanguageCommand { get; }
 
 		public Language SelectedLanguage
 		{
@@ -29,13 +38,11 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels
 			set => SetProperty(ref selectedLanguage, value);
 		}
 
-		ICommand changeLanguageCommand;
-
-		public ICommand ChangeLanguageCommand => changeLanguageCommand ??= new Command(() =>
+		public IList<Language> SupportedLanguages
 		{
-			LocalizationResourceManager.Current.SetCulture(CultureInfo.GetCultureInfo(SelectedLanguage.CI));
-			LoadLanguages();
-		});
+			get => supportedLanguages;
+			private set => SetProperty(ref supportedLanguages, value);
+		}
 
 		void LoadLanguages()
 		{

@@ -11,7 +11,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 	/// </summary>
 	public class ImpliedOrderGridBehavior : BaseBehavior<Grid>
 	{
-		bool[][] usedMatrix;
+		bool[][]? usedMatrix;
 		int rowCount;
 		int columnCount;
 
@@ -34,7 +34,7 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			bindable.ChildAdded -= OnInternalGridChildAdded;
 		}
 
-		void OnInternalGridChildAdded(object sender, ElementEventArgs e) =>
+		void OnInternalGridChildAdded(object? sender, ElementEventArgs e) =>
 			ProcessElement(e.Element);
 
 		void LogWarning(string warning)
@@ -46,15 +46,20 @@ namespace Xamarin.CommunityToolkit.Behaviors
 
 		bool[][] InitMatrix()
 		{
+			_ = View ?? throw new NullReferenceException($"{nameof(View)} cannot be null.");
+
 			rowCount = View.RowDefinitions.Count;
 			if (rowCount == 0)
 				rowCount = 1;
+
 			columnCount = View.ColumnDefinitions.Count;
 			if (columnCount == 0)
 				columnCount = 1;
+
 			var newMatrix = new bool[rowCount][];
 			for (var r = 0; r < rowCount; r++)
 				newMatrix[r] = new bool[columnCount];
+
 			return newMatrix;
 		}
 
@@ -73,10 +78,10 @@ namespace Xamarin.CommunityToolkit.Behaviors
 				columnIndex = Math.Max(columnCount - 1, 0);
 				return;
 			}
-			rowIndex = usedMatrix.IndexOf(row);
+			rowIndex = Array.IndexOf(usedMatrix, row);
 
 			// Find the first available column
-			columnIndex = row.IndexOf(row.FirstOrDefault(c => !c));
+			columnIndex = Array.IndexOf(row, row.FirstOrDefault(c => !c));
 		}
 
 		void UpdateUsedCells(int row, int column, int rowSpan, int columnSpan)
@@ -100,8 +105,9 @@ namespace Xamarin.CommunityToolkit.Behaviors
 			{
 				for (var c = column; c < columnEnd; c++)
 				{
-					if (usedMatrix[r][c])
+					if (usedMatrix?[r][c] ?? throw new NullReferenceException())
 						LogWarning($"Cell at row {r} column {c} has already been used.");
+
 					usedMatrix[r][c] = true;
 				}
 			}

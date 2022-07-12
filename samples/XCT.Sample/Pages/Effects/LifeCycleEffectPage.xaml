@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.LifeCycleEffectPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Content>
+        <StackLayout x:Name="stack">
+            <StackLayout.Effects>
+                <xct:LifecycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
+            </StackLayout.Effects>
+            <Label
+                HorizontalOptions="CenterAndExpand"
+                Text="When you press the button, the Image will appear and after 3 seconds will be removed!"
+                VerticalOptions="CenterAndExpand">
+                <Label.Effects>
+                    <xct:LifecycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
+                </Label.Effects>
+            </Label>
+            <Image
+                x:Name="img"
+                IsVisible="false"
+                Source="https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/main/assets/XamarinCommunityToolkit_128x128.png">
+                <Image.Effects>
+                    <xct:LifecycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
+                </Image.Effects>
+            </Image>
+            <Button Clicked="Button_Clicked" Text="Present Image and Remove it">
+                <Button.Effects>
+                    <xct:LifecycleEffect Loaded="LifeCycleEffect_Loaded" Unloaded="LifeCycleEffect_Unloaded" />
+                </Button.Effects>
+            </Button>
+            <Label Text="Log:" />
+            <Label x:Name="lbl" TextColor="Red" />
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

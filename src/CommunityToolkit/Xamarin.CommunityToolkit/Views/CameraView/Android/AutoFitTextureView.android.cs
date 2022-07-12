@@ -1,10 +1,8 @@
 ﻿using System;
 using Android.Content;
-using Android.Graphics;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
-using AColor = Android.Graphics.Color;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
@@ -18,12 +16,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 		}
 
-		public AutoFitTextureView(Context context, IAttributeSet attrs)
+		public AutoFitTextureView(Context context, IAttributeSet? attrs)
 			: this(context, attrs, 0)
 		{
 		}
 
-		public AutoFitTextureView(Context context, IAttributeSet attrs, int defStyle)
+		public AutoFitTextureView(Context context, IAttributeSet? attrs, int defStyle)
 			: base(context, attrs, defStyle)
 		{
 		}

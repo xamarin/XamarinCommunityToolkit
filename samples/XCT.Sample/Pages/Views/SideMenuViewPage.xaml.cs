@@ -8,10 +8,10 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		public SideMenuViewPage()
 			=> InitializeComponent();
 
-		void OnLeftButtonClicked(object sender, EventArgs e)
+		void OnLeftButtonClicked(object? sender, EventArgs e)
 			=> SideMenuView.State = SideMenuState.LeftMenuShown;
 
-		void OnRightButtonClicked(object sender, EventArgs e)
+		void OnRightButtonClicked(object? sender, EventArgs e)
 			=> SideMenuView.State = SideMenuState.RightMenuShown;
 	}
 }

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TabView.LazyTestView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentView.Content>
+        <Grid RowDefinitions="auto, *">
+            <Label
+                FontSize="Title"
+                HorizontalTextAlignment="Center"
+                Text="{Binding Title}"
+                TextColor="Black" />
+            <xct:UniformGrid x:Name="uniformGrid" Grid.Row="1" />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

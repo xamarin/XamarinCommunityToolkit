@@ -5,6 +5,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 {
 	interface IImageSourceValidator
 	{
-		Task<bool> IsImageSourceValidAsync(ImageSource source);
+		Task<bool> IsImageSourceValidAsync(ImageSource? source);
 	}
 }

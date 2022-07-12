@@ -1,43 +1,42 @@
-﻿using System;
+﻿#if !NETCOREAPP
+using System;
 using System.Threading.Tasks;
-using NSubstitute;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
-using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Views
 {
-	public class SnackBar_Tests
-	{
-#if !NETCOREAPP
-		[Fact]
-		public async void PageExtension_DisplaySnackBarAsync_PlatformNotSupportedException()
-		{
-			var page = new ContentPage();
-			await Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplaySnackBarAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<Func<Task>>()));
-		}
+    public class SnackBar_Tests
+    {
+        [Test]
+        public void PageExtension_DisplaySnackBarAsync_PlatformNotSupportedException()
+        {
+            var page = new ContentPage();
+            Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplaySnackBarAsync(string.Empty, string.Empty, () => Task.CompletedTask));
+        }
 
-		[Fact]
-		public async void PageExtension_DisplaySnackBarAsyncWithOptions_PlatformNotSupportedException()
-		{
-			var page = new ContentPage();
-			await Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplaySnackBarAsync(Arg.Any<SnackBarOptions>()));
-		}
+        [Test]
+        public void PageExtension_DisplaySnackBarAsyncWithOptions_PlatformNotSupportedException()
+        {
+            var page = new ContentPage();
+            Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplaySnackBarAsync(new SnackBarOptions()));
+        }
 
-		[Fact]
-		public async void PageExtension_DisplayToastAsync_PlatformNotSupportedException()
-		{
-			var page = new ContentPage();
-			await Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync("message"));
-		}
+        [Test]
+        public void PageExtension_DisplayToastAsync_PlatformNotSupportedException()
+        {
+            var page = new ContentPage();
+            Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync("message"));
+        }
 
-		[Fact]
-		public async void PageExtension_DisplayToastAsyncWithOptions_PlatformNotSupportedException()
-		{
-			var page = new ContentPage();
-			await Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync(Arg.Any<ToastOptions>()));
-		}
-#endif
-	}
+        [Test]
+        public void PageExtension_DisplayToastAsyncWithOptions_PlatformNotSupportedException()
+        {
+            var page = new ContentPage();
+            Assert.ThrowsAsync<PlatformNotSupportedException>(() => page.DisplayToastAsync(new ToastOptions()));
+        }
+    }
 }
+#endif

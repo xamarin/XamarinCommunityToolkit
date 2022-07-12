@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
-using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -8,29 +8,27 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 	{
 		public const string TestValue = nameof(TestValue);
 
-		[Theory]
-		[InlineData(200, 200)]
-		[InlineData(TestValue, TestValue)]
+		[TestCase(200, 200)]
+		[TestCase(TestValue, TestValue)]
 		public void IsEqual(object value, object comparedValue)
 		{
 			var equalConverter = new EqualConverter();
 
 			var result = equalConverter.Convert(value, typeof(EqualConverter_Tests), comparedValue, CultureInfo.CurrentCulture);
 
-			Assert.IsType<bool>(result);
-			Assert.True((bool)result);
+			Assert.IsInstanceOf<bool>(result);
+			Assert.IsTrue((bool)result);
 		}
 
-		[Theory]
-		[InlineData(200, 400)]
-		[InlineData(TestValue, "")]
+		[TestCase(200, 400)]
+		[TestCase(TestValue, "")]
 		public void IsNotEqual(object value, object comparedValue)
 		{
 			var equalConverter = new EqualConverter();
 
 			var result = equalConverter.Convert(value, typeof(EqualConverter_Tests), comparedValue, CultureInfo.CurrentCulture);
 
-			Assert.IsType<bool>(result);
+			Assert.IsInstanceOf<bool>(result);
 			Assert.False((bool)result);
 		}
 	}

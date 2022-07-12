@@ -1,5 +1,4 @@
-﻿using System;
-namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
+﻿namespace Xamarin.CommunityToolkit.Sample.ViewModels.Converters
 {
 	public class VariableMultiValueConverterViewModel : BaseViewModel
 	{

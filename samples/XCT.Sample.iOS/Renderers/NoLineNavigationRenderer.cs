@@ -25,8 +25,11 @@ namespace Xamarin.CommunityToolkit.Sample.iOS.Renderers
 			// Newest iOS version fix - trycatch isn't optimal
 			try
 			{
-				NavigationBar.ScrollEdgeAppearance.ShadowImage = new UIKit.UIImage();
-				NavigationBar.ScrollEdgeAppearance.ShadowColor = null;
+				if (NavigationBar.ScrollEdgeAppearance != null)
+				{
+					NavigationBar.ScrollEdgeAppearance.ShadowImage = new UIKit.UIImage();
+					NavigationBar.ScrollEdgeAppearance.ShadowColor = null;
+				}
 			}
 			catch (Exception)
 			{

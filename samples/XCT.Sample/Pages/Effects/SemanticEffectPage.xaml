@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Xamarin.CommunityToolkit.Sample.Pages.Effects.SemanticEffectPage"
+             xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    <ContentPage.Content>
+        <ScrollView Margin="15,20">
+            <StackLayout>
+                <Label
+                    Text="Welcome to XCT Semantic Effects!"
+                    xct:SemanticEffect.Description="Welcome to Xamarin Community Toolkit Semantic Effects!"
+                    TextColor="DodgerBlue"
+                    FontSize="30"
+                    HorizontalTextAlignment="Center"/>
+
+                <Label
+                    Text="We hope the all-new SemanticProperties will enable you to develop accessible apps more seamlessly"
+                    TextColor="DodgerBlue"
+                    FontSize="20"
+                    HorizontalTextAlignment="Center"/>
+
+                <Label
+                    Text="Turn on your screen reader and listen for what is read aloud. The text-based controls below are labeled to indicate what is expected to be read aloud: T refers to the Text, D is the Description text, and H is the Hint text."
+                    TextColor="RoyalBlue"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Margin="0,10"/>
+
+                <Label
+                    Text="Label text TH"
+                    FontSize="14"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Label
+                    Text="Label text DH"
+                    FontSize="14"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Button
+                    Text="Button text TH"
+                    FontSize="14"
+                    HorizontalOptions="Center"
+                    WidthRequest="200"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Button
+                    Text="Button text DH"
+                    FontSize="14"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="200"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Entry
+                    Text="Entry text, DTH"
+                    FontSize="14"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text" />
+
+                <Entry
+                    FontSize="14"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Editor
+                    Text="Editor text, DTH"
+                    FontSize="14"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Editor
+                    FontSize="14"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+            
+                <SearchBar
+                    Text="Search bar text, DH"
+                    Placeholder="Placeholder text"
+                    PlaceholderColor="DodgerBlue"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Label
+                    Text="The next 3 controls read out iOS:DTH, Android:TH"
+                    TextColor="RoyalBlue"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Margin="0,10"/>
+
+                <Picker
+                    Title="Select a monkey, DTH"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Baboon</x:String>
+                            <x:String>Capuchin Monkey</x:String>
+                            <x:String>Blue Monkey</x:String>
+                            <x:String>Squirrel Monkey</x:String>
+                            <x:String>Golden Lion Tamarin</x:String>
+                            <x:String>Howler Monkey</x:String>
+                            <x:String>Japanese Macaque</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+                <DatePicker
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <TimePicker
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Label
+                    Text="The next set of controls read out DH and then experiments with controls in layouts that have a SemanticDescription."
+                    TextColor="RoyalBlue"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Margin="0,10"/>
+
+                <ActivityIndicator 
+                    IsRunning="True"
+                    Color="DodgerBlue"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <ProgressBar 
+                    Progress="0.5"
+                    ProgressColor="DodgerBlue"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Slider
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <!-- [Both] Not accessible as a whole unit; only individual buttons are accessible. Whole unit is accessible in MAUI for Android. [Android] semantics read from "-" button only. [iOS] semantics are not read at all -->
+                <Stepper
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Switch 
+                    IsToggled="True"
+                    OnColor="DodgerBlue"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <CheckBox
+                    IsChecked="True"
+                    Color="DodgerBlue"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <Image
+                    Source="{xct:ImageResource Id=Xamarin.CommunityToolkit.Sample.Images.logo.png}"
+                    xct:SemanticEffect.Description="Description text"
+                    xct:SemanticEffect.Hint="Hint text"/>
+
+                <StackLayout xct:SemanticEffect.Description="Layout description text">
+                    <Label
+                        Text="Label in StackLayout with semantic description"
+                        FontSize="14"/>
+                    <Label
+                        Text="Label in StackLayout with semantic description"
+                        FontSize="14"/>
+                </StackLayout>
+
+                <!-- [iOS] Button is not individually accessible. -->
+                <StackLayout xct:SemanticEffect.Description="Layout description text">
+                    <Label
+                        Text="Label in StackLayout with semantic description"
+                        FontSize="14"/>
+                    <Button
+                        Text="Button in StackLayout with semantic description"
+                        FontSize="14"/>
+                </StackLayout>
+
+                <Label
+                    Text="This next set of controls exist solely for testing the HeadingLevel property. If testing on mobile, be sure to activate Headings and swipe up/down with one finger to test."
+                    TextColor="RoyalBlue"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Margin="0,10"/>
+
+                <Label
+                    Text="Heading 1"
+                    TextColor="DodgerBlue"
+                    FontSize="20"
+                    xct:SemanticEffect.HeadingLevel="Level1"/>
+            
+                <Label
+                    Text="not a heading"/>
+
+                <Label
+                    Text="Heading 2"
+                    TextColor="DodgerBlue"
+                    FontSize="16"
+                    xct:SemanticEffect.HeadingLevel="Level2"/>
+            
+                <Label
+                    Text="not a heading"/>
+            
+                <Label
+                    Text="not a heading"/>
+
+                <Label
+                    Text="Heading 3"
+                    TextColor="DodgerBlue"
+                    FontSize="14"
+                    xct:SemanticEffect.HeadingLevel="Level3"/>
+
+                <Label
+                    Text="This next set of controls exist solely for testing the SemanticInclusion property."
+                    TextColor="RoyalBlue"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Margin="0,10"/>
+
+                <StackLayout x:Name="semanticInclusionSampleLayout">
+                    <Label 
+                       Text="Label that is semantically default included" 
+                       xct:SemanticEffect.SemanticInclusion="Default" />
+
+                    <Label
+                       Text="Label that is semantically included"
+                       xct:SemanticEffect.SemanticInclusion="Include" />
+
+                    <Label 
+                       Text="Label that is semantically excluded" 
+                       xct:SemanticEffect.SemanticInclusion="Exclude" />
+
+                    <Button 
+                       Text="Hide all above content from screen reader accessibility" 
+                       Clicked="ExcludeButton_Clicked" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</pages:BasePage>

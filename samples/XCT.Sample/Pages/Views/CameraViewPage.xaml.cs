@@ -14,13 +14,13 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			zoomLabel.Text = string.Format("Zoom: {0}", zoomSlider.Value);
 		}
 
-		void ZoomSlider_ValueChanged(object sender, ValueChangedEventArgs e)
+		void ZoomSlider_ValueChanged(object? sender, ValueChangedEventArgs e)
 		{
 			cameraView.Zoom = (float)zoomSlider.Value;
 			zoomLabel.Text = string.Format("Zoom: {0}", Math.Round(zoomSlider.Value));
 		}
 
-		void VideoSwitch_Toggled(object sender, ToggledEventArgs e)
+		void VideoSwitch_Toggled(object? sender, ToggledEventArgs e)
 		{
 			var captureVideo = e.Value;
 
@@ -36,14 +36,14 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		}
 
 		// You can also set it to Default and External
-		void FrontCameraSwitch_Toggled(object sender, ToggledEventArgs e)
+		void FrontCameraSwitch_Toggled(object? sender, ToggledEventArgs e)
 			=> cameraView.CameraOptions = e.Value ? CameraOptions.Front : CameraOptions.Back;
 
 		// You can also set it to Torch (always on) and Auto
-		void FlashSwitch_Toggled(object sender, ToggledEventArgs e)
+		void FlashSwitch_Toggled(object? sender, ToggledEventArgs e)
 			=> cameraView.FlashMode = e.Value ? CameraFlashMode.On : CameraFlashMode.Off;
 
-		void DoCameraThings_Clicked(object sender, EventArgs e)
+		void DoCameraThings_Clicked(object? sender, EventArgs e)
 		{
 			cameraView.Shutter();
 			doCameraThings.Text = cameraView.CaptureMode == CameraCaptureMode.Video
@@ -51,7 +51,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				: "Snap Picture";
 		}
 
-		void CameraView_OnAvailable(object sender, bool e)
+		void CameraView_OnAvailable(object? sender, bool e)
 		{
 			if (e)
 			{
@@ -67,13 +67,14 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			zoomSlider.IsEnabled = e;
 		}
 
-		void CameraView_MediaCaptured(object sender, MediaCapturedEventArgs e)
+		void CameraView_MediaCaptured(object? sender, MediaCapturedEventArgs e)
 		{
 			switch (cameraView.CaptureMode)
 			{
 				default:
 				case CameraCaptureMode.Default:
 				case CameraCaptureMode.Photo:
+					previewVideo.IsVisible = false;
 					previewPicture.IsVisible = true;
 					previewPicture.Rotation = e.Rotation;
 					previewPicture.Source = e.Image;
@@ -81,6 +82,8 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 					break;
 				case CameraCaptureMode.Video:
 					previewPicture.IsVisible = false;
+					previewVideo.IsVisible = true;
+					previewVideo.Source = e.Video;
 					doCameraThings.Text = "Start Recording";
 					break;
 			}

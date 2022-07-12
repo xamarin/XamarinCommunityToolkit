@@ -15,24 +15,23 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		readonly AVCaptureVideoPreviewLayer previewLayer;
 		readonly AVCaptureSession captureSession;
 		readonly UIView mainView;
-		AVCaptureDeviceInput input;
-		AVCaptureStillImageOutput imageOutput;
-		AVCapturePhotoOutput photoOutput;
-		AVCaptureMovieFileOutput videoOutput;
-		AVCaptureConnection captureConnection;
-		AVCaptureDevice device;
+		AVCaptureDeviceInput? input;
+		AVCaptureStillImageOutput? imageOutput;
+		AVCapturePhotoOutput? photoOutput;
+		AVCaptureMovieFileOutput? videoOutput;
+		AVCaptureDevice? device;
 		AVCaptureDevicePosition? lastPosition;
 		bool isBusy;
 		bool isAvailable;
 		bool isDisposed;
 		CameraFlashMode flashMode;
-		readonly float imgScale = 1f;
+		PhotoCaptureDelegate? photoCaptureDelegate;
 
-		public event EventHandler<bool> Busy;
+		public event EventHandler<bool>? Busy;
 
-		public event EventHandler<bool> Available;
+		public event EventHandler<bool>? Available;
 
-		public event EventHandler<Tuple<NSObject, NSError>> FinishCapture;
+		public event EventHandler<Tuple<NSObject?, NSError?>>? FinishCapture;
 
 		public bool VideoRecorded => videoOutput?.Recording == true;
 
@@ -60,27 +59,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			AddConstraints(NSLayoutConstraint.FromVisualFormat("H:|[mainView]|", NSLayoutFormatOptions.AlignAllTop, null, new NSDictionary("mainView", mainView)));
 		}
 
-		void SetStartOrientation()
+		internal void SetOrientation()
 		{
-			var previewLayerFrame = previewLayer.Frame;
+			SetFrameOrientation();
+			SetVideoOrientation();
+		}
 
-			switch (UIApplication.SharedApplication.StatusBarOrientation)
-			{
-				case UIInterfaceOrientation.Portrait:
-				case UIInterfaceOrientation.PortraitUpsideDown:
-					previewLayerFrame.Height = UIScreen.MainScreen.Bounds.Height;
-					previewLayerFrame.Width = UIScreen.MainScreen.Bounds.Width;
-					break;
-
-				case UIInterfaceOrientation.LandscapeLeft:
-				case UIInterfaceOrientation.LandscapeRight:
-					previewLayerFrame.Width = UIScreen.MainScreen.Bounds.Width;
-					previewLayerFrame.Height = UIScreen.MainScreen.Bounds.Height;
-					break;
-			}
-
+		void SetFrameOrientation()
+		{
 			try
 			{
+				var previewLayerFrame = previewLayer.Frame;
+				previewLayerFrame.Height = mainView.Bounds.Height;
+				previewLayerFrame.Width = mainView.Bounds.Width;
 				previewLayer.Frame = previewLayerFrame;
 			}
 			catch (Exception error)
@@ -89,7 +80,37 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void LogError(string message, Exception error = null)
+		void SetVideoOrientation()
+		{
+			try
+			{
+				if (previewLayer?.Connection?.SupportsVideoOrientation == true)
+					previewLayer.Connection.VideoOrientation = GetVideoOrientation();
+			}
+			catch (Exception error)
+			{
+				LogError("Failed to set video orientation", error);
+			}
+		}
+
+		AVCaptureVideoOrientation GetVideoOrientation()
+		{
+			switch (UIApplication.SharedApplication.StatusBarOrientation)
+			{
+				case UIInterfaceOrientation.Portrait:
+					return AVCaptureVideoOrientation.Portrait;
+				case UIInterfaceOrientation.PortraitUpsideDown:
+					return AVCaptureVideoOrientation.PortraitUpsideDown;
+				case UIInterfaceOrientation.LandscapeLeft:
+					return AVCaptureVideoOrientation.LandscapeLeft;
+				case UIInterfaceOrientation.LandscapeRight:
+					return AVCaptureVideoOrientation.LandscapeRight;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(UIApplication.SharedApplication.StatusBarOrientation));
+			}
+		}
+
+		void LogError(string message, Exception? error = null)
 		{
 			var errorMessage = error == null
 				? string.Empty
@@ -111,58 +132,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Busy?.Invoke(this, value);
 				isBusy = value;
 			}
-		}
-
-		UIImage RotateImage(UIImage image)
-		{
-			var imgRef = image.CGImage;
-			var transform = CGAffineTransform.MakeIdentity();
-
-			var imgHeight = imgRef.Height * imgScale;
-			var imgWidth = imgRef.Width * imgScale;
-
-			var bounds = new CGRect(0, 0, imgWidth, imgHeight);
-			var imageSize = new CGSize(imgWidth, imgHeight);
-			var orient = image.Orientation;
-
-			switch (orient)
-			{
-				case UIImageOrientation.Up:
-					transform = CGAffineTransform.MakeIdentity();
-					break;
-				case UIImageOrientation.Down:
-					transform = CGAffineTransform.MakeTranslation(imageSize.Width, imageSize.Height);
-					transform = CGAffineTransform.Rotate(transform, (float)Math.PI);
-					break;
-				case UIImageOrientation.Right:
-					bounds.Size = new CGSize(bounds.Size.Height, bounds.Size.Width);
-					transform = CGAffineTransform.MakeTranslation(imageSize.Height, 0);
-					transform = CGAffineTransform.Rotate(transform, (float)Math.PI / 2.0f);
-					break;
-				default:
-					throw new Exception("Invalid image orientation");
-			}
-
-			UIGraphics.BeginImageContext(bounds.Size);
-			var context = UIGraphics.GetCurrentContext();
-
-			if (orient == UIImageOrientation.Right)
-			{
-				context.ScaleCTM(-1, 1);
-				context.TranslateCTM(-imgHeight, 0);
-			}
-			else
-			{
-				context.ScaleCTM(1, -1);
-				context.TranslateCTM(0, -imgHeight);
-			}
-
-			context.ConcatCTM(transform);
-
-			context.DrawImage(new CGRect(0, 0, imgWidth, imgHeight), imgRef);
-			image = UIGraphics.GetImageFromCurrentImageContext();
-			UIGraphics.EndImageContext();
-			return image;
 		}
 
 		public override void Draw(CGRect rect)
@@ -188,7 +157,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public async Task TakePhoto()
 		{
-			if (isBusy || device == null || photoOutput != null)
+			if (isBusy || device == null)
 				return;
 
 			IsBusy = true;
@@ -196,42 +165,79 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			// iOS >= 10
 			if (photoOutput != null)
 			{
-				var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
-				if (photoOutputConnection != null)
-					photoOutputConnection.VideoOrientation = previewLayer.Connection.VideoOrientation;
-
-				var photoSettings = AVCapturePhotoSettings.Create();
-				photoSettings.FlashMode = (AVCaptureFlashMode)flashMode;
-				photoSettings.IsHighResolutionPhotoEnabled = true;
-
-				var photoCaptureDelegate = new PhotoCaptureDelegate
+				try
 				{
-					OnFinishCapture = (data, error) =>
-					{
-						FinishCapture?.Invoke(this, new Tuple<NSObject, NSError>(data, error));
-						IsBusy = false;
-					},
-					WillCapturePhotoAnimation = () => Animate(0.25, () => previewLayer.Opacity = 1)
-				};
+					var photoOutputConnection = photoOutput.ConnectionFromMediaType(AVMediaType.Video);
+					if (photoOutputConnection != null)
+						photoOutputConnection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
 
-				photoOutput.CapturePhoto(photoSettings, photoCaptureDelegate);
+					photoOutput.CapturePhoto(GetCapturePhotoSettings(), GetPhotoCaptureDelegate());
+				}
+				catch (Exception)
+				{
+					FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("Failed to create image"), 0)));
+					IsBusy = false;
+				}
 				return;
 			}
 
 			// iOS < 10
 			try
 			{
-				var connection = imageOutput.Connections[0];
-				connection.VideoOrientation = previewLayer.Connection.VideoOrientation;
+				var connection = imageOutput?.Connections[0] ?? throw new NullReferenceException();
+				connection.VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
 				var sampleBuffer = await imageOutput.CaptureStillImageTaskAsync(connection);
 				var imageData = AVCaptureStillImageOutput.JpegStillToNSData(sampleBuffer);
-				FinishCapture?.Invoke(this, new Tuple<NSObject, NSError>(imageData, null));
+				FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(imageData, null));
 			}
 			catch (Exception)
 			{
-				FinishCapture?.Invoke(this, new Tuple<NSObject, NSError>(null, new NSError(new NSString("faled create image"), 0)));
+				FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(null, new NSError(new NSString("Failed to create image"), 0)));
 			}
-			IsBusy = false;
+			finally
+			{
+				IsBusy = false;
+			}
+		}
+
+		AVCapturePhotoSettings GetCapturePhotoSettings()
+		{
+			var photoSettings = AVCapturePhotoSettings.Create();
+			photoSettings.FlashMode = GetFlashMode();
+			photoSettings.IsHighResolutionPhotoEnabled = true;
+			return photoSettings;
+		}
+
+		PhotoCaptureDelegate GetPhotoCaptureDelegate()
+		{
+			if (photoCaptureDelegate == null)
+			{
+				photoCaptureDelegate = new PhotoCaptureDelegate
+				{
+					OnFinishCapture = (data, error) =>
+					{
+						FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(data, error));
+						IsBusy = false;
+					},
+					WillCapturePhotoAnimation = () => Animate(0.25, () => previewLayer.Opacity = 1)
+				};
+			}
+			return photoCaptureDelegate;
+		}
+
+		AVCaptureFlashMode GetFlashMode()
+		{
+			// Note: torch is set elsewhere
+			switch (flashMode)
+			{
+				case CameraFlashMode.On:
+					return AVCaptureFlashMode.On;
+				case CameraFlashMode.Auto:
+					return AVCaptureFlashMode.Auto;
+				case CameraFlashMode.Off:
+				default:
+					return AVCaptureFlashMode.Off;
+			}
 		}
 
 		string ConstructVideoFilename()
@@ -268,7 +274,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			IsBusy = true;
 			try
 			{
-				videoOutput.Connections[0].VideoOrientation = previewLayer.Connection.VideoOrientation;
+				videoOutput.Connections[0].VideoOrientation = previewLayer.Connection?.VideoOrientation ?? throw new NullReferenceException();
 				var connection = videoOutput.Connections[0];
 
 				if (connection.SupportsVideoOrientation)
@@ -284,7 +290,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				LogError("Error with camera output capture", error);
 			}
-			IsBusy = false;
+			finally
+			{
+				IsBusy = false;
+			}
 		}
 
 		public void StopRecord()
@@ -296,9 +305,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		public void FinishedRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl, NSObject[] connections, NSError error)
+		public void FinishedRecording(AVCaptureFileOutput captureOutput, NSUrl outputFileUrl, NSObject[] connections, NSError? error)
 		{
-			FinishCapture?.Invoke(this, new Tuple<NSObject, NSError>(outputFileUrl, error));
+			FinishCapture?.Invoke(this, new Tuple<NSObject?, NSError?>(outputFileUrl, error));
+
+			_ = videoOutput ?? throw new NullReferenceException();
+
 			captureSession.RemoveOutput(videoOutput);
 			videoOutput = null;
 			IsBusy = false;
@@ -316,6 +328,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				var desiredFlashMode = newFlashMode ?? flashMode;
 
+				_ = device ?? throw new NullReferenceException();
 				device.LockForConfiguration(out var err);
 
 				if (CheckFlashModeSupported(desiredFlashMode))
@@ -340,10 +353,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					flashMode = desiredFlashMode;
 				}
 
-				if (desiredFlashMode != CameraFlashMode.Torch &&
-					device.TorchMode == AVCaptureTorchMode.On &&
-					device.IsTorchModeSupported(AVCaptureTorchMode.Off))
+				if (desiredFlashMode != CameraFlashMode.Torch
+					&& device.TorchMode == AVCaptureTorchMode.On
+					&& device.IsTorchModeSupported(AVCaptureTorchMode.Off))
+				{
 					device.TorchMode = AVCaptureTorchMode.Off;
+				}
 
 				device.UnlockForConfiguration();
 			}
@@ -354,7 +369,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		bool CheckFlashModeSupported(CameraFlashMode flashMode)
-			=> flashMode switch
+		{
+			_ = device ?? throw new NullReferenceException();
+
+			return flashMode switch
 			{
 				CameraFlashMode.Off => device.IsFlashModeSupported(AVCaptureFlashMode.Off),
 				CameraFlashMode.On => device.IsFlashModeSupported(AVCaptureFlashMode.On),
@@ -362,6 +380,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				CameraFlashMode.Torch => device.IsTorchModeSupported(AVCaptureTorchMode.On),
 				_ => device.IsFlashModeSupported(AVCaptureFlashMode.Off)
 			};
+		}
 
 		public bool VideoStabilization { get; set; }
 
@@ -378,6 +397,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			try
 			{
+				_ = device ?? throw new NullReferenceException();
 				device.LockForConfiguration(out var err);
 
 				var focus_x = point.X / Bounds.Width;
@@ -500,8 +520,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 				InvokeOnMainThread(() =>
 				{
-					captureConnection = previewLayer.Connection;
-					SetStartOrientation();
+					SetOrientation();
 					captureSession.StartRunning();
 				});
 			}
@@ -529,6 +548,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				if (input != null)
 					captureSession.RemoveInput(input);
 			}
+
+			photoCaptureDelegate?.Dispose();
+			photoCaptureDelegate = null;
 
 			input?.Dispose();
 			input = null;
@@ -565,13 +587,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 	class PhotoCaptureDelegate : NSObject, IAVCapturePhotoCaptureDelegate
 	{
-		public Action<NSData, NSError> OnFinishCapture;
-		public Action WillCapturePhotoAnimation;
+		public Action<NSData?, NSError>? OnFinishCapture;
+		public Action? WillCapturePhotoAnimation;
 
-		NSData photoData;
+		NSData? photoData;
 
 		[Export("captureOutput:willCapturePhotoForResolvedSettings:")]
-		public void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings) => WillCapturePhotoAnimation();
+		public void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings) => WillCapturePhotoAnimation?.Invoke();
 
 		[Export("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
 		public void DidFinishProcessingPhoto(AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
@@ -584,6 +606,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		[Export("captureOutput:didFinishCaptureForResolvedSettings:error:")]
 		public void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
-			=> OnFinishCapture(photoData, error);
+			=> OnFinishCapture?.Invoke(photoData, error);
 	}
 }

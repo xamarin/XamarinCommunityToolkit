@@ -8,7 +8,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 		public RangeSliderPage()
 			=> InitializeComponent();
 
-		void OnThumbSizeSwitchToggled(object sender, ToggledEventArgs e)
+		void OnThumbSizeSwitchToggled(object? sender, ToggledEventArgs e)
 		{
 			if (e.Value)
 			{
@@ -27,7 +27,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 				Source = source
 			};
 
-		void OnThumbRadiusSwitchToggled(object sender, ToggledEventArgs e)
+		void OnThumbRadiusSwitchToggled(object? sender, ToggledEventArgs e)
 		{
 			if (sender == LowerUpperThumbRadiusSwitch)
 			{
@@ -58,7 +58,7 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 			}
 		}
 
-		void OnTrackRadiusSwitchToggled(object sender, ToggledEventArgs e)
+		void OnTrackRadiusSwitchToggled(object? sender, ToggledEventArgs e)
 		{
 			if (e.Value)
 			{

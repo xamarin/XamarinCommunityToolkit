@@ -9,14 +9,14 @@ namespace Xamarin.CommunityToolkit.Core
 	public class StreamMediaSource : MediaSource, IStreamImageSource
 	{
 		readonly object synchandle = new object();
-		CancellationTokenSource cancellationTokenSource;
+		CancellationTokenSource? cancellationTokenSource;
 
-		TaskCompletionSource<bool> completionSource;
+		TaskCompletionSource<bool>? completionSource;
 
 		public static readonly BindableProperty StreamProperty
 			= BindableProperty.Create(nameof(Stream), typeof(Func<CancellationToken, Task<Stream>>), typeof(StreamMediaSource));
 
-		protected CancellationTokenSource CancellationTokenSource
+		protected CancellationTokenSource? CancellationTokenSource
 		{
 			get => cancellationTokenSource;
 			private set
@@ -34,9 +34,9 @@ namespace Xamarin.CommunityToolkit.Core
 
 		bool IsLoading => cancellationTokenSource != null;
 
-		public virtual Func<CancellationToken, Task<Stream>> Stream
+		public virtual Func<CancellationToken, Task<Stream>>? Stream
 		{
-			get => (Func<CancellationToken, Task<Stream>>)GetValue(StreamProperty);
+			get => (Func<CancellationToken, Task<Stream>>?)GetValue(StreamProperty);
 			set => SetValue(StreamProperty, value);
 		}
 
@@ -47,12 +47,16 @@ namespace Xamarin.CommunityToolkit.Core
 			base.OnPropertyChanged(propertyName);
 		}
 
-		async Task<Stream> IStreamImageSource.GetStreamAsync(CancellationToken userToken)
+		async Task<Stream?> IStreamImageSource.GetStreamAsync(CancellationToken userToken)
 		{
 			if (Stream == null)
 				return null;
 
 			OnLoadingStarted();
+
+			if (CancellationTokenSource == null)
+				throw new InvalidOperationException($"{nameof(OnLoadingStarted)} not called");
+
 			userToken.Register(CancellationTokenSource.Cancel);
 			try
 			{
@@ -72,7 +76,7 @@ namespace Xamarin.CommunityToolkit.Core
 			if (!IsLoading || completionSource == null)
 				return;
 
-			var tcs = Interlocked.Exchange(ref completionSource, null);
+			var tcs = Interlocked.Exchange<TaskCompletionSource<bool>?>(ref completionSource, null);
 			if (tcs != null)
 				tcs.SetResult(cancelled);
 

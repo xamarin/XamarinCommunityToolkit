@@ -1,78 +1,87 @@
+﻿using NUnit.Framework;
 using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.UnitTests.Mocks;
 using Xamarin.Forms;
-using Xunit;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Behaviors
 {
 	public class RequiredStringValidationBehavior_Tests
 	{
-		public RequiredStringValidationBehavior_Tests()
-			 => Device.PlatformServices = new MockPlatformServices();
+		[SetUp]
+		public void Setup() => Device.PlatformServices = new MockPlatformServices();
 
-		[Fact]
+		[Test]
 		public void IsValidTrueWhenBothIsNull_Test()
 		{
-			//arrange
+			// Arrange
 			var passwordEntry = new Entry();
 			var confirmPasswordEntry = new Entry();
 			var confirmPasswordBehavior = new RequiredStringValidationBehavior();
 			confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
-			//act
+
+			// Act
 			confirmPasswordBehavior.RequiredString = passwordEntry.Text;
 			confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
-			//assert
-			Assert.True(confirmPasswordBehavior.IsValid);
+
+			// Assert
+			Assert.IsTrue(confirmPasswordBehavior.IsValid);
 		}
 
-		[Fact]
+		[Test]
 		public void IsValidFalseWhenOneIsNull_Test()
 		{
-			//arrange
+			// Arrange
 			var passwordEntry = new Entry();
 			var confirmPasswordEntry = new Entry();
 			var confirmPasswordBehavior = new RequiredStringValidationBehavior();
 			confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnAttaching;
-			//act
+
+			// Act
 			passwordEntry.Text = "123456";
 			confirmPasswordBehavior.RequiredString = passwordEntry.Text;
 			confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
+
 			confirmPasswordEntry.Text = null;
-			//assert
+
+			// Assert
 			Assert.False(confirmPasswordBehavior.IsValid);
 		}
 
-		[Fact]
+		[Test]
 		public void IsValidTrueWhenEnterSameText_Test()
 		{
-			//arrange
+			// Arrange
 			var passwordEntry = new Entry();
 			var confirmPasswordEntry = new Entry();
 			var confirmPasswordBehavior = new RequiredStringValidationBehavior();
 			confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnValueChanging;
-			//act
+
+			// Act
 			passwordEntry.Text = "123456";
 			confirmPasswordBehavior.RequiredString = passwordEntry.Text;
 			confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
 			confirmPasswordEntry.Text = "123456";
-			//assert
-			Assert.True(confirmPasswordBehavior.IsValid);
+
+			// Assert
+			Assert.IsTrue(confirmPasswordBehavior.IsValid);
 		}
 
-		[Fact]
+		[Test]
 		public void IsValidFalseWhenEnterDifferentText_Test()
 		{
-			//arrange
+			// Arrange
 			var passwordEntry = new Entry();
 			var confirmPasswordEntry = new Entry();
 			var confirmPasswordBehavior = new RequiredStringValidationBehavior();
 			confirmPasswordBehavior.Flags = ValidationFlags.ValidateOnValueChanging;
-			//act
+
+			// Act
 			passwordEntry.Text = "123456";
 			confirmPasswordBehavior.RequiredString = passwordEntry.Text;
 			confirmPasswordEntry.Behaviors.Add(confirmPasswordBehavior);
 			confirmPasswordEntry.Text = "1234567";
-			//assert
+
+			// Assert
 			Assert.False(confirmPasswordBehavior.IsValid);
 		}
 	}

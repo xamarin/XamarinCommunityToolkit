@@ -1,4 +1,6 @@
-﻿using Xamarin.CommunityToolkit.Behaviors.Internals;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Behaviors.Internals;
 using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Behaviors
@@ -17,13 +19,13 @@ namespace Xamarin.CommunityToolkit.Behaviors
 		/// <summary>
 		/// The string that will be compared to the value provided by the user. This is a bindable property.
 		/// </summary>
-		public string RequiredString
+		public string? RequiredString
 		{
-			get => (string)GetValue(RequiredStringProperty);
+			get => (string?)GetValue(RequiredStringProperty);
 			set => SetValue(RequiredStringProperty, value);
 		}
 
-		protected override bool Validate(object value)
-			=> value?.ToString() == RequiredString;
+		protected override ValueTask<bool> ValidateAsync(object? value, CancellationToken token)
+			=> new ValueTask<bool>(value?.ToString() == RequiredString);
 	}
 }

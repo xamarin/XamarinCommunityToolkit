@@ -14,7 +14,7 @@ using Stream = System.IO.Stream;
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
 	// Minimum implementation - only what is needed to run the C# Markup unit tests
-	internal class MockPlatformServices : Internals.IPlatformServices
+	class MockPlatformServices : Internals.IPlatformServices
 	{
 		public string GetHash(string input) => throw new NotImplementedException();
 

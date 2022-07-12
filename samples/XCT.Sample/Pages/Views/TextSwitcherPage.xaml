@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.Views.TextSwitcherPage"
+                x:Name="page">
+
+    <StackLayout Padding="30, 20"
+                 Spacing="20"
+                 VerticalOptions="CenterAndExpand">
+        <Frame HasShadow="False"
+               Padding="5"
+               BorderColor="Black">
+            <StackLayout HorizontalOptions="CenterAndExpand">
+                <Label Text="[Default] TransitionDuration = 350, TransitionType = Fade" />
+                <xct:TextSwitcher
+                    x:Name="firstSwitcher"
+                    TextColor="Black"
+                    FontSize="30"
+                    Text="Random Text" />
+                <Button Text="Update Text"
+                        CommandParameter="{x:Reference firstSwitcher}"
+                        Command="{Binding UpdateTextCommand, Source={x:Reference page}}" />
+            </StackLayout>
+        </Frame>
+
+        <Frame HasShadow="False"
+               Padding="5"
+               BorderColor="Black">
+            <StackLayout HorizontalOptions="CenterAndExpand">
+                <Label Text="TransitionDuration = 500, TransitionType = MoveInFromLeft" />
+                <xct:TextSwitcher
+                    x:Name="secondSwitcher"
+                    TransitionDuration="500"
+                    TransitionType="MoveInFromLeft"
+                    TextColor="Black"
+                    FontSize="30"
+                    Text="Random Text" />
+                <Button Text="Update Text"
+                        CommandParameter="{x:Reference secondSwitcher}"
+                        Command="{Binding UpdateTextCommand, Source={x:Reference page}}" />
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+
+</pages:BasePage>

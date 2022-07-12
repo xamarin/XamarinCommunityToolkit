@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.CommunityToolkit.UI.Views.Options;
 using System.Linq;
-#if UWP
+#if UAP10_0
 using Xamarin.Forms.Platform.UWP;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
@@ -25,7 +25,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			{
 				Background = options.BackgroundColor.ToBrush();
 			}
-#if UWP
+#if UAP10_0
+			CornerRadius = new CornerRadius(options.CornerRadius.Left, options.CornerRadius.Top, options.CornerRadius.Right, options.CornerRadius.Bottom);
 			var messageLabel = new TextBlock
 			{
 				Text = options.MessageOptions.Message
@@ -33,13 +34,25 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 #else
 			var messageLabel = new Label
 			{
-				Content = options.MessageOptions.Message,
+				Content = options.MessageOptions.Message
 			};
 #endif
+			messageLabel.Padding = new Thickness(options.MessageOptions.Padding.Left,
+					options.MessageOptions.Padding.Top,
+					options.MessageOptions.Padding.Right,
+					options.MessageOptions.Padding.Bottom);
+
 			if (options.MessageOptions.Font != Forms.Font.Default)
 			{
-				messageLabel.FontSize = options.MessageOptions.Font.FontSize;
-				messageLabel.FontFamily = new FontFamily(options.MessageOptions.Font.FontFamily);
+				if (options.MessageOptions.Font.FontSize > 0)
+				{
+					messageLabel.FontSize = options.MessageOptions.Font.FontSize;
+				}
+
+				if (options.MessageOptions.Font.FontFamily != null)
+				{
+					messageLabel.FontFamily = new FontFamily(options.MessageOptions.Font.FontFamily);
+				}
 			}
 
 			if (options.MessageOptions.Foreground != Forms.Color.Default)
@@ -60,8 +73,22 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 					Command = new Forms.Command(async () =>
 					{
 						OnSnackBarActionExecuted?.Invoke();
-						await action.Action();
-					})
+						try
+						{
+							if (action.Action != null)
+								await action.Action();
+
+							options.SetResult(true);
+						}
+						catch (Exception ex)
+						{
+							options.SetException(ex);
+						}
+					}),
+					Padding = new Thickness(action.Padding.Left,
+						action.Padding.Top,
+						action.Padding.Right,
+						action.Padding.Bottom)
 				};
 				if (action.Font != Forms.Font.Default)
 				{
@@ -85,6 +112,6 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers
 			}
 		}
 
-		public Action OnSnackBarActionExecuted;
+		public Action? OnSnackBarActionExecuted;
 	}
 }

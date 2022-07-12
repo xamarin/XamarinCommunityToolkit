@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<pages:BasePage
+    xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+    xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters"
+    x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.MathExpressionConverterPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <xct:MathExpressionConverter x:Key="DivideByTwoConverter" Expression="x/2" />
+            <xct:MultiMathExpressionConverter x:Key="MultiMathExpressionConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:MathExpressionConverterViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout
+            Spacing="15"
+            Padding="30">
+            <Label
+                Text="The MathExpressionConverter is a converter that allows users to calculate an expression at runtime."
+                TextColor="{StaticResource NormalLabelTextColor}" />
+            <Frame
+                x:Name="CalculatedFrame"
+                BackgroundColor="Bisque"
+                Padding="10"
+                HeightRequest="120"
+                CornerRadius="{Binding Source={x:Reference CalculatedFrame}, Path=HeightRequest, Converter={StaticResource DivideByTwoConverter}}">
+                <Label
+                    Text="Frame with calculated CornerRadius = HeightRequest / 2"
+                    TextColor="Black"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center" />
+            </Frame>
+            <StackLayout Spacing="10">
+                <Label
+                    Text="MultiBinding:"
+                    TextColor="Black"
+                    FontSize="20" />
+                <Label
+                    Text="You can use the MultiMathExpressionConverter to calculate expressions with a lot of variables."
+                    TextColor="{StaticResource NormalLabelTextColor}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackLayout
+                        Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Label
+                            TextColor="Black"
+                            Text="x0" />
+                        <Entry
+                            Text="{Binding VariableX0Text, Mode=TwoWay}"
+                            Keyboard="Numeric"
+                            HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Column="1"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Label
+                            TextColor="Black"
+                            Text="x1" />
+                        <Entry
+                            Text="{Binding VariableX1Text, Mode=TwoWay}"
+                            Keyboard="Numeric"
+                            HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                    <StackLayout
+                        Grid.Column="2"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Label
+                            TextColor="Black"
+                            Text="x2" />
+                        <Entry
+                            Text="{Binding VariableX2Text, Mode=TwoWay}"
+                            Keyboard="Numeric"
+                            HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                </Grid>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        TextColor="Black"
+                        Text="x0 + x1 + x2 = " />
+                    <Label TextColor="Black">
+                        <Label.Text>
+                            <MultiBinding Converter="{StaticResource MultiMathExpressionConverter}"
+                                          ConverterParameter="x0 + x1 + x2">
+                                <Binding Path="X0" />
+                                <Binding Path="X1" />
+                                <Binding Path="X2" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        TextColor="Black"
+                        Text="x0^2 + cos(x1) + sin(x2) = " />
+                    <Label TextColor="Black">
+                        <Label.Text>
+                            <MultiBinding Converter="{StaticResource MultiMathExpressionConverter}"
+                                          ConverterParameter="x0^2 + cos(x1) + sin(x2)">
+                                <Binding Path="X0" />
+                                <Binding Path="X1" />
+                                <Binding Path="X2" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        TextColor="Black"
+                        Text="sqrt(x0) - (x1 + 2 * x2)^3 = " />
+                    <Label TextColor="Black">
+                        <Label.Text>
+                            <MultiBinding Converter="{StaticResource MultiMathExpressionConverter}"
+                                          ConverterParameter="sqrt(x0) - (x1 + 2 * x2)^3">
+                                <Binding Path="X0" />
+                                <Binding Path="X1" />
+                                <Binding Path="X2" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

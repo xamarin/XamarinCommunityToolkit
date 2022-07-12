@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using PaddingElement = Xamarin.Forms.Label; // TODO: Get rid of this after we have default interface implementation in Forms for IPaddingElement
 using FontElement = Xamarin.Forms.Label; // TODO: Get rid of this after we have default interface implementation in Forms for IFontElement
+using PaddingElement = Xamarin.Forms.Label; // TODO: Get rid of this after we have default interface implementation in Forms for IPaddingElement
 
 namespace Xamarin.CommunityToolkit.Markup
 {
@@ -41,7 +41,7 @@ namespace Xamarin.CommunityToolkit.Markup
 
 		public static TElement Effects<TElement>(this TElement element, params Effect[] effects) where TElement : Element
 		{
-			for (int i = 0; i < effects.Length; i++)
+			for (var i = 0; i < effects.Length; i++)
 				element.Effects.Add(effects[i]);
 			return element;
 		}
@@ -59,7 +59,7 @@ namespace Xamarin.CommunityToolkit.Markup
 
 		public static TFontElement Font<TFontElement>(
 			this TFontElement fontElement,
-			string family = null,
+			string? family = null,
 			double? size = null,
 			bool? bold = null,
 			bool? italic = null) where TFontElement : Element, IFontElement

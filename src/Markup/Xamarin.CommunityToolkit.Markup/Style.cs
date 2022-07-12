@@ -4,7 +4,7 @@ namespace Xamarin.CommunityToolkit.Markup
 {
 	public class Style<T> where T : BindableObject
 	{
-		public static implicit operator Style(Style<T> style) => style?.FormsStyle;
+		public static implicit operator Style?(Style<T>? style) => style?.FormsStyle;
 
 		public Style FormsStyle { get; }
 

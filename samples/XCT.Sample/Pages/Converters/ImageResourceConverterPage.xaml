@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage x:Class="Xamarin.CommunityToolkit.Sample.Pages.Converters.ImageResourceConverterPage"
+                xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.Converters">
+
+    <pages:BasePage.Resources>
+        <xct:ImageResourceConverter x:Key="ImageResourceConverter"/>
+    </pages:BasePage.Resources>
+
+    <pages:BasePage.BindingContext>
+        <vm:ImageResourceConverterViewModel/>
+    </pages:BasePage.BindingContext>
+
+    <StackLayout>
+        <Image WidthRequest="150"
+               HeightRequest="150"
+               Source="{Binding ImageName, Converter={StaticResource ImageResourceConverter}}"/>
+        <Button Text="Change Bound Image"
+                Command="{Binding ChangeImageCommand}"/>
+    </StackLayout>
+</pages:BasePage>

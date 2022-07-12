@@ -112,7 +112,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Color.FromRgb(168, 101, 30)
 			});
 
-
 		/// <summary>
 		/// A Ocean inspirated <see cref="ColorTheme"/>.
 		/// </summary>

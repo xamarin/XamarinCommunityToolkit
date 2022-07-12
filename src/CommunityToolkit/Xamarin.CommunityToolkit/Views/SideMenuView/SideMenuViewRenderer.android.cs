@@ -31,7 +31,7 @@ namespace Xamarin.CommunityToolkit.Android.UI.Views
 
 		public SideMenuViewRenderer(Context context)
 			: base(context)
-			=> density = context.Resources.DisplayMetrics.Density;
+			=> density = context.Resources?.DisplayMetrics?.Density ?? throw new NullReferenceException();
 
 		double GestureThreshold => Element.GestureThreshold >= 0
 			? Element.GestureThreshold

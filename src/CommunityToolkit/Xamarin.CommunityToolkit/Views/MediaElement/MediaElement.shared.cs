@@ -47,6 +47,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		public static readonly BindableProperty VolumeProperty =
 		  BindableProperty.Create(nameof(Volume), typeof(double), typeof(MediaElement), 1.0, BindingMode.TwoWay, new BindableProperty.ValidateValueDelegate(ValidateVolume));
 
+		public static readonly BindableProperty SpeedProperty =
+		  BindableProperty.Create(nameof(Speed), typeof(double), typeof(MediaElement), 1.0, BindingMode.OneWay);
+
 		public Aspect Aspect
 		{
 			get => (Aspect)GetValue(AspectProperty);
@@ -102,9 +105,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		}
 
 		[Forms.TypeConverter(typeof(MediaSourceConverter))]
-		public MediaSource Source
+		public MediaSource? Source
 		{
-			get => (MediaSource)GetValue(SourceProperty);
+			get => (MediaSource?)GetValue(SourceProperty);
 			set => SetValue(SourceProperty, value);
 		}
 
@@ -118,19 +121,25 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			set => SetValue(VolumeProperty, value);
 		}
 
-		internal event EventHandler<SeekRequested> SeekRequested;
+		public double Speed
+		{
+			get => (double)GetValue(SpeedProperty);
+			set => SetValue(SpeedProperty, value);
+		}
 
-		internal event EventHandler<StateRequested> StateRequested;
+		internal event EventHandler<SeekRequested>? SeekRequested;
 
-		internal event EventHandler PositionRequested;
+		internal event EventHandler<StateRequested>? StateRequested;
 
-		public event EventHandler MediaEnded;
+		internal event EventHandler? PositionRequested;
 
-		public event EventHandler MediaFailed;
+		public event EventHandler? MediaEnded;
 
-		public event EventHandler MediaOpened;
+		public event EventHandler? MediaFailed;
 
-		public event EventHandler SeekCompleted;
+		public event EventHandler? MediaOpened;
+
+		public event EventHandler? SeekCompleted;
 
 		public void Play() => StateRequested?.Invoke(this, new StateRequested(MediaElementState.Playing));
 
@@ -212,7 +221,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			base.OnBindingContextChanged();
 		}
 
-		void OnSourceChanged(object sender, EventArgs eventArgs)
+		void OnSourceChanged(object? sender, EventArgs eventArgs)
 		{
 			OnPropertyChanged(SourceProperty.PropertyName);
 			InvalidateMeasure();
@@ -245,7 +254,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void CurrentStateChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var element = bindable as MediaElement;
+			var element = (MediaElement)bindable;
 
 			switch ((MediaElementState)newValue)
 			{
@@ -269,7 +278,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		static void PositionChanged(BindableObject bindable, object oldValue, object newValue)
 		{
-			var element = bindable as MediaElement;
+			var element = (MediaElement)bindable;
 
 			var oldval = (TimeSpan)oldValue;
 			var newval = (TimeSpan)newValue;
