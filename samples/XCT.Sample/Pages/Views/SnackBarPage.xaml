@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
@@ -16,6 +16,7 @@
                 Clicked="DisplaySnackbarAnchoredClicked"
                 Text="Show snackbar with anchor"/>
 
+        <Button Clicked="Issue1883" Text="Issue1883"/>
         <Label x:Name="StatusText"/>
     </StackLayout>
 </pages:BasePage>

@@ -1,5 +1,6 @@
 ﻿using System;
 using CoreGraphics;
+using UIKit;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
@@ -19,6 +20,8 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 
 			foreach (var actionButton in SnackBar.Actions)
 			{
+				actionButton.SetContentHuggingPriority(1000, UILayoutConstraintAxis.Horizontal);
+				actionButton.SetContentCompressionResistancePriority(1000, UILayoutConstraintAxis.Horizontal);
 				StackView.AddArrangedSubview(actionButton);
 			}
 		}
