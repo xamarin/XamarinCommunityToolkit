@@ -15,8 +15,7 @@
         <Button x:Name="Anchor2"
                 Clicked="DisplaySnackbarAnchoredClicked"
                 Text="Show snackbar with anchor"/>
-
-        <Button Clicked="Issue1883" Text="Issue1883"/>
+        
         <Label x:Name="StatusText"/>
     </StackLayout>
 </pages:BasePage>
