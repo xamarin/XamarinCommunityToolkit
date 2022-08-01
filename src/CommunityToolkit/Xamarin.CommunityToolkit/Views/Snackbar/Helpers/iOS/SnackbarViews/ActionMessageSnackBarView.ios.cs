@@ -1,5 +1,6 @@
 ﻿using System;
 using CoreGraphics;
+using UIKit;
 using Xamarin.CommunityToolkit.UI.Views.Helpers.iOS.SnackBarViews;
 
 namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
@@ -16,9 +17,11 @@ namespace Xamarin.CommunityToolkit.UI.Views.Helpers.iOS
 			base.Initialize(cornerRadius);
 
 			_ = StackView ?? throw new NullReferenceException();
-
+			const float actionButtonPriority = 1000;
 			foreach (var actionButton in SnackBar.Actions)
 			{
+				actionButton.SetContentHuggingPriority(actionButtonPriority, UILayoutConstraintAxis.Horizontal);
+				actionButton.SetContentCompressionResistancePriority(actionButtonPriority, UILayoutConstraintAxis.Horizontal);
 				StackView.AddArrangedSubview(actionButton);
 			}
 		}

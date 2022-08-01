@@ -52,10 +52,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		public override async void SetVideoURI(global::Android.Net.Uri? uri, IDictionary<string, string>? headers)
 		{
-			if (uri != null)
-				await SetMetadata(uri, headers);
-
 			base.SetVideoURI(uri, headers);
+
+			// this instance could get disposed during awaiting, so a call to the base method (AFTER awaiting)
+			// would throw ObjectDisposedException and be impossible to catch due to async void
+			if (uri != null)
+			{
+				await SetMetadata(uri, headers);
+			}
 		}
 
 		protected async Task SetMetadata(global::Android.Net.Uri uri, IDictionary<string, string>? headers)

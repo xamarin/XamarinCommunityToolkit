@@ -2,6 +2,7 @@
 using Xamarin.CommunityToolkit.Sample.Models;
 using Xamarin.CommunityToolkit.Sample.Pages.TestCases;
 using Xamarin.CommunityToolkit.Sample.Pages.TestCases.Popups;
+using Xamarin.CommunityToolkit.Sample.Pages.Views;
 
 namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 {
@@ -48,11 +49,16 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(SnackBarActionExceptionPage),
 				"SnackBar Action Exception",
 				"Exception in SnackBar's action doesn't crash the app."),
+			
+			new SectionModel(
+				typeof(Issue1883Page),
+				"SnackBar iOS issue GitHub #1883",
+				"Snackbar with 1 action button"),
 
 			new SectionModel(
 				typeof(DrawingViewInExpanderPage),
 				"DrawingView in expander",
-				"DrawingView in Expander Page"),
+				"DrawingView in Expander Page")
 		};
 	}
 }
