@@ -75,7 +75,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					else if (uriSource.Uri != null)
 					{
 						var nsUrl = NSUrl.FromString(uriSource.Uri.AbsoluteUri) ??
-						            throw new NullReferenceException("NSUrl is null");
+									throw new NullReferenceException("NSUrl is null");
 						asset = AVUrlAsset.Create(nsUrl);
 					}
 					else
