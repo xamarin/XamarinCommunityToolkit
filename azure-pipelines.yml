@@ -1,17 +1,19 @@
 # See available software and versions on hosted agents here: https://docs.microsoft.com/azure/devops/pipelines/agents/hosted
 variables:
-  CurrentSemanticVersionBase: '1.1.0'
+  CurrentSemanticVersionBase: '2.1.0'
   PreviewNumber: $[counter(variables['CurrentSemanticVersionBase'], 1001)]
   CurrentSemanticVersion: '$(CurrentSemanticVersionBase)-preview$(PreviewNumber)'
   NugetPackageVersion: '$(CurrentSemanticVersion)'
   #MONO_VERSION: 6_4_0
   #XCODE_VERSION: 11.4
-  NETCORE_VERSION: '5.0.x'
+  NETCORE_VERSION: '6.0.x'
   NETCORE_TEST_VERSION_3_1: '3.1.x'
   NETCORE_TEST_VERSION_2_1: '2.1.x'
   RunPoliCheck: 'false'
   PathToMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup/Xamarin.CommunityToolkit.Markup.csproj'
   PathToCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit/Xamarin.CommunityToolkit.csproj'
+  PathToMauiCompatMarkupCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.MauiCompat/Xamarin.CommunityToolkit.Markup.MauiCompat.csproj'
+  PathToMauiCompatCommunityToolkitCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.MauiCompat/Xamarin.CommunityToolkit.MauiCompat.csproj'
   PathToSamplesSln: 'samples/XCT.Sample.sln'
   PathToCommunityToolkitUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
   PathToMarkupUnitTestCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
@@ -52,7 +54,7 @@ schedules:
   displayName: Daily midnight build
   branches:
     include:
-    - develop
+    - main
 
 jobs:
   - job: build_windows_samples
@@ -60,15 +62,6 @@ jobs:
     pool:
       vmImage: windows-2019
     steps:
-      - task: CmdLine@2
-        displayName: 'Clear Local NuGet Cache' #https://github.com/actions/virtual-environments/issues/1090#issuecomment-748452120
-        inputs:
-          script: 'nuget locals all -clear'
-      - task: MSBuild@1
-        displayName: 'Clean Solution'
-        inputs:
-          solution: $(PathToSamplesSln)
-          msbuildArguments:  '/t:Clean'
       - task: MSBuild@1
         displayName: Build Solution
         inputs:
@@ -86,25 +79,19 @@ jobs:
         inputs:
           version: $(NETCORE_VERSION)
           includePreviewVersions: false
+
       - task: UseDotNet@2
         displayName: 'Install .NET 3.1 Test SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION_3_1)
           includePreviewVersions: false
+
       - task: UseDotNet@2
         displayName: 'Install .NET 2.1 Test SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION_2_1)
           includePreviewVersions: false
-      - task: CmdLine@2
-        displayName: 'Clear Local NuGet Cache' #https://github.com/actions/virtual-environments/issues/1090#issuecomment-748452120
-        inputs:
-          script: 'nuget locals all -clear'
-      - task: MSBuild@1
-        displayName: 'Clean Solution'
-        inputs:
-          solution: $(PathToSamplesSln)
-          msbuildArguments:  '/t:Clean'
+
       # if this is a tagged build, then update the version number
       - powershell: |
           $buildSourceBranch = "$(Build.SourceBranch)"
@@ -113,6 +100,18 @@ jobs:
           Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
         displayName: Set NuGet Version to Tag Number
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+
+      # if this is a PR build, then update the version number
+      - powershell: |
+          $prNumber = $env:System_PullRequest_PullRequestNumber
+          $commitId = "$($env:System_PullRequest_SourceCommitId)".Substring(0, 7)
+          $fullVersionString = "$(CurrentSemanticVersionBase)-build-$(Build.BuildId).$prNumber+$commitId"
+          Write-Host("GitHub PR = $prNumber, Commit = $commitId");
+          Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$fullVersionString")
+          Write-Host "##vso[build.updatebuildnumber]$fullVersionString"
+        displayName: Set NuGet Version to PR Version
+        condition: and(succeeded(), eq(variables['build.reason'], 'PullRequest'))
+
       # restore, build and pack the packages
       - task: MSBuild@1
         displayName: Build Xamarin.CommunityToolkit.csproj
@@ -120,49 +119,187 @@ jobs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+
       - task: CopyFiles@2
         inputs:
           Contents: 'SignList.xml'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)/nuget'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
       - task: MSBuild@1
         displayName: Pack Community Toolkit NuGets
         inputs:
           solution: $(PathToCommunityToolkitCsproj)
           configuration: Release
-          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion)'
+
       - task: MSBuild@1
         displayName: Build Markup Project
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
           msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+
       - task: MSBuild@1
         displayName: Pack Markup NuGet
         inputs:
           solution: $(PathToMarkupCsproj)
           configuration: Release
-          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
-#      - task: DotNetCoreCLI@2
-#        displayName: Publish to GitHub NuGet Packages
-#        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/main'))
-#        inputs:
-#          command: 'custom'
-#          custom: 'nuget'
-#          arguments: 'push --source https://nuget.pkg.github.com/xamarin/index.json --api-key $(GitHub.NuGet.Token) "$(Build.ArtifactStagingDirectory)\nuget\*.nupkg"'
+          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion)'
+          
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
           script: dotnet test $(PathToMarkupUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
+
       - task: CmdLine@2
         displayName: 'Run Community Toolkit Unit Tests'
         inputs:
           script: dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release --collect "Code coverage" -p:BuildInParallel=false
+
       # publish the packages
+      - task: PowerShell@2
+        displayName: 'Copy NuGet Packages to Staging Directory'
+        inputs:
+          targetType: 'inline'
+          script: |
+            $source = ".\src"
+            $filter = "nupkg"
+            Get-ChildItem -Path $source -Recurse | Where-Object { $_.Extension -match $filter } | Copy-Item -Destination "$(Build.ArtifactStagingDirectory)"
+          pwsh: true
+
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Unsigned NuGets'
         inputs:
           artifactName: nuget
-          pathToPublish: '$(Build.ArtifactStagingDirectory)/nuget'
+          pathToPublish: '$(Build.ArtifactStagingDirectory)'
+
+      # make sure we are following the rules, but only on the main build
+      - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
+        - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+          condition: not(startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+          displayName: Component Detection - Log
+          inputs:
+            scanType: LogOnly
+        - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
+          condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+          displayName: Component Detection - Report
+        - task: securedevelopmentteam.vss-secure-development-tools.build-task-policheck.PoliCheck@1
+          condition: eq(variables['RunPoliCheck'], 'true')
+          displayName: 'PoliCheck'
+          inputs:
+            targetType: F
+
+  - job: generate_mauicompat
+    displayName: Generate MauiCompat Library    
+    pool:
+      vmImage: macos-latest
+    steps:
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
+        inputs:
+          version: $(NETCORE_VERSION)
+          includePreviewVersions: false
+            
+      - task: CmdLine@2
+        displayName: 'Install .NET MAUI Workload'
+        inputs:
+          script: 'dotnet workload install maui'
+
+      - task: JavaToolInstaller@0
+        displayName: 'Install Java SDK 11.0'
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+
+      - powershell: |
+          $mauiCompatExists = Test-Path -Path "$(PathToMauiCompatCommunityToolkitCsproj)"
+          Write-Output "##vso[task.setvariable variable=MauiCompatExists]$mauiCompatExists"
+
+      - task: CmdLine@2
+        displayName: 'Run MauiCompat Generator'
+        condition: eq (variables['MauiCompatExists'], False)
+        inputs:
+          script: 'zsh ./MauiCompat.sh'
+      
+      - task: CopyFiles@2
+        displayName: 'Copy output'
+        inputs:
+          contents: '**'
+          targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+      - publish: '$(Build.ArtifactStagingDirectory)'
+        displayName: 'Publish script'
+        artifact: drop
+            
+  - job: build_mauicompat
+    dependsOn: generate_mauicompat
+    displayName: Build MauiCompat Library    
+    pool:
+      vmImage: windows-latest
+    steps:
+      - download: current
+        artifact: drop      
+
+      - task: UseDotNet@2
+        displayName: 'Install .NET SDK'
+        inputs:
+          version: $(NETCORE_VERSION)
+          includePreviewVersions: false
+
+      - task: CmdLine@2
+        displayName: 'Install .NET MAUI Workload'
+        inputs:
+          script: 'dotnet workload install maui'
+
+      - task: JavaToolInstaller@0
+        displayName: 'Install Java SDK 11.0'
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+
+      # if this is a tagged build, then update the version number
+      - powershell: |
+          $buildSourceBranch = "$(Build.SourceBranch)"
+          $tagVersion = "$buildSourceBranch".Substring($buildSourceBranch.LastIndexOf("/") + 1)+"-preview$(PreviewNumber)"
+          Write-Host("Branch = $buildSourceBranch, Version = $tagVersion");
+          Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
+        displayName: Set NuGet Version to Tag Number
+        condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/'))
+      # restore, build and pack the packages
+      
+      - task: VSBuild@1
+        displayName: 'Pack Community Toolkit NuGets'
+        inputs:
+          solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatCommunityToolkitCsproj)'
+          configuration: 'Release'
+          msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg'
+
+      - task: VSBuild@1
+        displayName: 'Build and Pack Markup NuGet'
+        inputs:
+          solution: '$(Pipeline.Workspace)\drop\$(PathToMauiCompatMarkupCsproj)'
+          configuration: 'Release'
+          msbuildArgs: '/restore -t:pack -p:PackageVersion=$(NugetPackageVersion) -p:Version=$(NugetPackageVersion) -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg'
+
+      # publish the packages
+      - task: PowerShell@2
+        displayName: 'Copy NuGet Packages to Staging Directory'
+        inputs:
+          targetType: 'inline'
+          script: |
+            $source = "$(Pipeline.Workspace)\drop\src"
+            $filter = "nupkg"
+            Get-ChildItem -Path $source -Recurse | Where-Object { $_.Extension -match $filter } | Copy-Item -Destination "$(Build.ArtifactStagingDirectory)"
+          pwsh: true
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Unsigned NuGets'
+        inputs:
+          artifactName: nuget
+          pathToPublish: '$(Build.ArtifactStagingDirectory)'
+
       # make sure we are following the rules, but only on the main build
       - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
         - task: ms.vss-governance-buildtask.governance-build-task-component-detection.ComponentGovernanceComponentDetection@0
@@ -192,55 +329,57 @@ jobs:
           Write-Host ("##vso[task.setvariable variable=NugetPackageVersion;]$tagVersion")
         displayName: Set NuGet Version to Tag Number
         condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
-      # 16feb21 jfversluis: let's not pin this anymore and use latest
-      # make sure to select the correct Xamarin and mono
-      #- bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
-      #  displayName: Switch to the latest Xamarin SDK
-      #- bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
-      #  displayName: Switch to the latest Xcode
-      # restore, build and pack the packages
+    
       - task: UseDotNet@2
         displayName: 'Install .NET SDK'
         inputs:
           version: $(NETCORE_VERSION)
           includePreviewVersions: false
+
       - task: UseDotNet@2
         displayName: 'Install .NET 3.1 Test SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION_3_1)
           includePreviewVersions: false
+
       - task: UseDotNet@2
         displayName: 'Install .NET 2.1 Test SDK'
         inputs:
           version: $(NETCORE_TEST_VERSION_2_1)
           includePreviewVersions: false
+
       - task: CmdLine@2
         displayName: 'Build Markup'
         inputs:
           script: '$(PathToMsBuildOnMacOS) $(PathToMarkupCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+      
       - task: CmdLine@2
         displayName: 'Build Community Toolkit'
         inputs:
           script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+     
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
           script: 'dotnet test $(PathToMarkupUnitTestCsproj) -c Release -p:BuildInParallel=false'
+     
       - task: CmdLine@2
         displayName: 'Run Community Toolkit Unit Tests'
         inputs:
           script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release -p:BuildInParallel=false'
+     
       - task: CmdLine@2
         displayName: 'Pack Markup NuGets'
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupUnitTestCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupUnitTestCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion)'
+  
       - task: CmdLine@2
         displayName: 'Pack CommunityToolkit NuGets'
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion) /p:PackageOutputPath="$(Build.ArtifactStagingDirectory)/nuget"'
+          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion)'
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
       parameters:
         dependsOn: [ build_windows ]
-        condition: and(succeeded(), or(eq(variables['Sign'], 'true'), or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'],'refs/tags/'))))
+        condition: and(succeeded(), or(eq(variables['Sign'], 'true'), startsWith(variables['Build.SourceBranch'],'refs/tags/')))

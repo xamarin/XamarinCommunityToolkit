@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Xamarin.Forms.Platform.UWP;
 
 namespace Xamarin.CommunityToolkit.Extensions
@@ -11,7 +13,7 @@ namespace Xamarin.CommunityToolkit.Extensions
 		static void PlatformShowPopup(BasePopup popup)
 		{
 			popup.Parent = GetCurrentPage(Application.Current.MainPage);
-			Platform.CreateRenderer(popup);
+			CreateRenderer(popup);
 
 			// https://github.com/xamarin/Xamarin.Forms/blob/0c95d0976cc089fe72476fb037851a64987de83c/Xamarin.Forms.Platform.iOS/PageExtensions.cs#L44
 			Page GetCurrentPage(Page currentPage)
@@ -37,6 +39,23 @@ namespace Xamarin.CommunityToolkit.Extensions
 		{
 			PlatformShowPopup(popup);
 			return popup.Result;
+		}
+
+		/// <summary>
+		/// ATTENTION: Create the Renderer for UWP Don't use the one Provided by Xamarin.Forms, Causes a crash in Native Compiled Code
+		/// 1. DefaultRenderer is PopupRenderer instead of DefaultRenderer()
+		/// 2. No Invalid Cast Exceptions in UWP Native when the Xamarin Forms Renderer Functions is used.
+		/// </summary>
+		/// <param name="element">Element for getting the renderer</param>
+		// https://github.com/xamarin/Xamarin.Forms/blob/5.0.0/Xamarin.Forms.Platform.UAP/Platform.cs
+		static void CreateRenderer(VisualElement element)
+		{
+			if (element == null)
+				throw new ArgumentNullException(nameof(element));
+
+			var renderer = Registrar.Registered.GetHandlerForObject<IVisualElementRenderer>(element) ?? new PopupRenderer();
+
+			renderer.SetElement(element);
 		}
 	}
 }

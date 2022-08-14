@@ -247,21 +247,24 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			defaultShadowRadius = (float?)(defaultShadowRadius ?? renderer.Layer.ShadowRadius);
 			defaultShadowOpacity ??= renderer.Layer.ShadowOpacity;
 
-			await UIView.AnimateAsync(.2, () =>
-			{
-				if (color == Color.Default)
-					renderer.Layer.Opacity = isStarted ? 0.5f : (float)control.Opacity;
-				else
-					renderer.Layer.BackgroundColor = (isStarted ? color : control.BackgroundColor).ToCGColor();
-
-				renderer.Layer.CornerRadius = isStarted ? radius : defaultRadius.GetValueOrDefault();
-
-				if (shadowRadius >= 0)
+			var tcs = new TaskCompletionSource<UIViewAnimatingPosition>();
+			UIViewPropertyAnimator.CreateRunningPropertyAnimator(.2, 0, UIViewAnimationOptions.AllowUserInteraction,
+				() =>
 				{
-					renderer.Layer.ShadowRadius = isStarted ? shadowRadius : defaultShadowRadius.GetValueOrDefault();
-					renderer.Layer.ShadowOpacity = isStarted ? 0.7f : defaultShadowOpacity.GetValueOrDefault();
-				}
-			});
+					if (color == Color.Default)
+						renderer.Layer.Opacity = isStarted ? 0.5f : (float)control.Opacity;
+					else
+						renderer.Layer.BackgroundColor = (isStarted ? color : control.BackgroundColor).ToCGColor();
+
+					renderer.Layer.CornerRadius = isStarted ? radius : defaultRadius.GetValueOrDefault();
+
+					if (shadowRadius >= 0)
+					{
+						renderer.Layer.ShadowRadius = isStarted ? shadowRadius : defaultShadowRadius.GetValueOrDefault();
+						renderer.Layer.ShadowOpacity = isStarted ? 0.7f : defaultShadowOpacity.GetValueOrDefault();
+					}
+				}, endPos => tcs.SetResult(endPos));
+			await tcs.Task;
 		}
 	}
 

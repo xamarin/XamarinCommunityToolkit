@@ -50,17 +50,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SetNativeControl(vBox);
 			}
 
-			if (e.OldElement != null)
+			if (e.OldElement != null && area is not null)
 			{
-				area!.ExposeEvent -= OnDrawingAreaExposed;
+				area.ExposeEvent -= OnDrawingAreaExposed;
 				area.ButtonPressEvent -= OnMousePress;
 				area.ButtonReleaseEvent -= OnMouseRelease;
 				area.MotionNotifyEvent -= OnMouseMotion;
 			}
 
-			if (e.NewElement != null)
+			if (e.NewElement != null && area is not null)
 			{
-				area!.ExposeEvent += OnDrawingAreaExposed;
+				area.ExposeEvent += OnDrawingAreaExposed;
 				area.ButtonPressEvent += OnMousePress;
 				area.ButtonReleaseEvent += OnMouseRelease;
 				area.MotionNotifyEvent += OnMouseMotion;
@@ -78,12 +78,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 		}
 
-		void OnLinesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints(surface!);
+		void OnLinesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e) => LoadPoints(surface);
 
 		void OnDrawingAreaExposed(object source, ExposeEventArgs args)
 		{
+			if (area is null)
+			{
+				return;
+			}
+
 			Context ctx;
-			using (ctx = CairoHelper.Create(area!.GdkWindow))
+			using (ctx = CairoHelper.Create(area.GdkWindow))
 			{
 				ctx.SetSource(new SurfacePattern(surface));
 				ctx.Paint();
@@ -111,7 +116,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			};
 			previousPoint = point;
 			isDrawing = true;
-			area!.QueueDraw();
+			area?.QueueDraw();
 			if (!Element.MultiLineMode)
 				Element.Lines.Clear();
 		}
@@ -125,7 +130,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			using var ctx = new Context(surface);
 			DrawPoint(ctx, point);
 
-			area!.QueueDraw();
+			area?.QueueDraw();
 			if (currentLine != null)
 			{
 				Element.Lines.Add(currentLine);
@@ -146,29 +151,39 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				using var ctx = new Context(surface);
 				DrawPoint(ctx, point);
 
-				area!.QueueDraw();
+				area?.QueueDraw();
 			}
 		}
 
 		void DrawPoint(Context ctx, PointD pointD)
 		{
-			ctx.SetSourceRGBA(currentLine!.LineColor.R, currentLine!.LineColor.G, currentLine!.LineColor.B, currentLine!.LineColor.A);
-			ctx.LineWidth = currentLine.LineWidth;
+			if (currentLine is not null)
+			{
+				ctx.SetSourceRGBA(currentLine.LineColor.R, currentLine.LineColor.G, currentLine.LineColor.B, currentLine.LineColor.A);
+				ctx.LineWidth = currentLine.LineWidth;
+				currentLine.Points.Add(new Point(pointD.X, pointD.Y));
+			}
+
 			ctx.MoveTo(previousPoint);
 			previousPoint = pointD;
 			ctx.LineTo(pointD);
 			ctx.Stroke();
-			currentLine.Points.Add(new Point(pointD.X, pointD.Y));
 		}
 
-		void LoadPoints(ImageSurface imageSurface)
+		void LoadPoints(ImageSurface? imageSurface)
 		{
+			if (imageSurface is null)
+				return;
+
 			var lines = Element.Lines;
 			if (lines.Count > 0)
 			{
 				foreach (var line in lines)
 				{
-					var stylusPoints = line.Points.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y)).ToList();
+					var newPointsPath = line.EnableSmoothedPath
+						? line.Points.SmoothedPathWithGranularity(line.Granularity)
+						: line.Points;
+					var stylusPoints = newPointsPath.Select(stylusPoint => new PointD(stylusPoint.X, stylusPoint.Y)).ToList();
 					if (stylusPoints is { Count: > 0 })
 					{
 						previousPoint = stylusPoints[0];
@@ -177,7 +192,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						foreach (var stylusPoint in stylusPoints)
 							DrawPoint(ctx, stylusPoint);
 
-						area!.QueueDraw();
+						area?.QueueDraw();
 					}
 				}
 			}
@@ -190,12 +205,16 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (disposing)
 			{
-				area!.ExposeEvent -= OnDrawingAreaExposed;
-				area.ButtonPressEvent -= OnMousePress;
-				area.ButtonReleaseEvent -= OnMouseRelease;
-				area.MotionNotifyEvent -= OnMouseMotion;
-				area.Dispose();
-				surface!.Dispose();
+				if (area is not null)
+				{
+					area.ExposeEvent -= OnDrawingAreaExposed;
+					area.ButtonPressEvent -= OnMousePress;
+					area.ButtonReleaseEvent -= OnMouseRelease;
+					area.MotionNotifyEvent -= OnMouseMotion;
+					area.Dispose();
+				}
+
+				surface?.Dispose();
 				if (Element != null)
 					Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
 			}

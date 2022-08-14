@@ -74,7 +74,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 					else if (uriSource.Uri != null)
 					{
-						asset = AVUrlAsset.Create(NSUrl.FromString(uriSource.Uri.AbsoluteUri));
+						var nsUrl = NSUrl.FromString(uriSource.Uri.AbsoluteUri) ??
+									throw new NullReferenceException("NSUrl is null");
+						asset = AVUrlAsset.Create(nsUrl);
 					}
 					else
 					{
@@ -312,6 +314,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (avPlayerViewController.Player != null)
 				avPlayerViewController.Player.Volume = (float)Element.Volume;
 		}
+
 		void UpdateSpeed()
 		{
 			if (avPlayerViewController.Player != null)

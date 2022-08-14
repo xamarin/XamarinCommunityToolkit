@@ -23,6 +23,9 @@ namespace Xamarin.CommunityToolkit.UWP.Effects
 
 		protected override void Update(FrameworkElement view, SemanticEffectRouter effect)
 		{
+			if (view == null)
+				return;
+
 			var headingLevel = (AutomationHeadingLevel)((int)SemanticEffect.GetHeadingLevel(Element));
 			AutomationProperties.SetHeadingLevel(view, headingLevel);
 

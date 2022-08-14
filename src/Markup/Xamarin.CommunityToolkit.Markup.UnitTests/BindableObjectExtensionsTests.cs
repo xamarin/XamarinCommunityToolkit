@@ -1,9 +1,9 @@
 ﻿using System;
-using NUnit.Framework;
-using Xamarin.Forms;
 using System.Linq;
 using System.Windows.Input;
+using NUnit.Framework;
 using Xamarin.CommunityToolkit.Markup.UnitTests.BindableObjectViews;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.Markup.UnitTests
 {
@@ -88,7 +88,7 @@ namespace Xamarin.CommunityToolkit.Markup.UnitTests
 				Label.TextColorProperty,
 				nameof(viewModel.IsRed),
 				assertConverterInstanceIsAnyNotNull: true,
-				assertConvert: c => c.AssertConvert<bool?, Color>(true, Color.Red).AssertConvert<bool?,Color>(false, Color.Transparent)
+				assertConvert: c => c.AssertConvert<bool?, Color>(true, Color.Red).AssertConvert<bool?, Color>(false, Color.Transparent)
 			);
 		}
 

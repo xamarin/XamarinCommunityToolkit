@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using NUnit.Framework;
 using Xamarin.CommunityToolkit.Converters;
+using Xamarin.Forms;
 
 namespace Xamarin.CommunityToolkit.UnitTests.Converters
 {
@@ -12,7 +13,7 @@ namespace Xamarin.CommunityToolkit.UnitTests.Converters
 		[TestCase("", false)]
 		public void IsNotNullOrEmptyConverter(object value, bool expectedResult)
 		{
-			var isNotNullOrEmptyConverter = new IsNotNullOrEmptyConverter();
+			IValueConverter isNotNullOrEmptyConverter = new IsNotNullOrEmptyConverter();
 
 			var result = isNotNullOrEmptyConverter.Convert(value, typeof(IsNotNullOrEmptyConverter_Tests), null, CultureInfo.CurrentCulture);
 

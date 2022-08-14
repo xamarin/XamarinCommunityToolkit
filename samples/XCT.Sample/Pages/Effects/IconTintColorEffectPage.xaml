@@ -37,16 +37,16 @@
                         HorizontalTextAlignment="Center" />
 
                     <Image
-                        Source="https://image.flaticon.com/icons/png/512/48/48639.png"
+                        Source="https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/main/samples/XCT.Sample.iOS/Resources/circle.png"
                         Grid.Row="1" />
 
                     <Image
-                        Source="https://image.flaticon.com/icons/png/512/48/48639.png"
+                        Source="https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/main/samples/XCT.Sample.iOS/Resources/circle.png"
                         xct:IconTintColorEffect.TintColor="Red"
                         Grid.Row="2" />
 
                     <Image
-                        Source="https://image.flaticon.com/icons/png/512/48/48639.png"
+                        Source="https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/main/samples/XCT.Sample.iOS/Resources/circle.png"
                         xct:IconTintColorEffect.TintColor="Green"
                         Grid.Row="3" />
 
@@ -59,18 +59,18 @@
                         Grid.Column="1"/>
 
                     <ImageButton
-                        Source="https://image.flaticon.com/icons/png/512/48/48639.png"
+                        Source="https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/main/samples/XCT.Sample.iOS/Resources/circle.png"
                         Grid.Row="1"
                         Grid.Column="1" />
 
                     <ImageButton
-                        Source="https://image.flaticon.com/icons/png/512/48/48639.png"
+                        Source="https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/main/samples/XCT.Sample.iOS/Resources/circle.png"
                         xct:IconTintColorEffect.TintColor="Red"
                         Grid.Row="2"
                         Grid.Column="1" />
 
                     <ImageButton
-                        Source="https://image.flaticon.com/icons/png/512/48/48639.png"
+                        Source="https://raw.githubusercontent.com/xamarin/XamarinCommunityToolkit/main/samples/XCT.Sample.iOS/Resources/circle.png"
                         xct:IconTintColorEffect.TintColor="Green"
                         Grid.Row="3"
                         Grid.Column="1" />
