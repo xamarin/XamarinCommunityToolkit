@@ -196,10 +196,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			get
 			{
-				if (avPlayerViewController?.Player?.CurrentTime.IsInvalid ?? true)
+				if (avPlayerViewController.Player?.CurrentItem == null)
 					return TimeSpan.Zero;
 
-				return TimeSpan.FromSeconds(avPlayerViewController.Player.CurrentTime.Seconds);
+				var currentTime = avPlayerViewController.Player.CurrentTime;
+
+				if (double.IsNaN(currentTime.Seconds) || currentTime.IsIndefinite)
+					return TimeSpan.Zero;
+
+				return TimeSpan.FromSeconds(currentTime.Seconds);
 			}
 		}
 
