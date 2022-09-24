@@ -24,6 +24,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected FormsVideoView? view;
 		bool isDisposed;
 		int? defaultLabelFor;
+		bool hasHandledSourceError;
 
 		public MediaElementRenderer(Context context)
 			: base(context)
@@ -35,6 +36,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			view.SetOnPreparedListener(this);
 			view.SetOnErrorListener(this);
 			view.MetadataRetrieved += MetadataRetrieved;
+			view.MetadataRetrievalFailed += OnMetadataRetrievalFailed;
 
 			SetForegroundGravity(GravityFlags.Center);
 
@@ -256,6 +258,29 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			Device.BeginInvokeOnMainThread(UpdateLayoutParameters);
 		}
 
+		void OnMetadataRetrievalFailed(object sender, EventArgs e) => OnError();
+
+		protected virtual void OnError()
+		{
+			if (hasHandledSourceError)
+			{
+				return;
+			}
+
+			hasHandledSourceError = true;
+
+			// this can be called when the video fails to load
+			// and/or when it loads successfully, but metadata doesn't (no video size).
+			// stop playback just in case
+			view?.StopPlayback();
+
+			if (Controller is { } controller)
+			{
+				controller.CurrentState = MediaElementState.Closed;
+				controller.OnMediaFailed();
+			}
+		}
+
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			switch (e.PropertyName)
@@ -312,6 +337,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (view == null)
 				return;
+
+			hasHandledSourceError = false;
 
 			if (MediaElement?.Source != null)
 			{
@@ -418,10 +445,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void MediaPlayer.IOnCompletionListener.OnCompletion(MediaPlayer? mp)
 		{
-			if (Controller == null || mediaPlayer == null)
+			if (Controller == null || mp == null)
+			{
 				return;
+			}
 
-			Controller.Position = TimeSpan.FromMilliseconds(mediaPlayer.CurrentPosition);
+			mediaPlayer = mp;
+			Controller.Position = TimeSpan.FromMilliseconds(mp.CurrentPosition);
 			Controller.OnMediaEnded();
 		}
 
@@ -442,11 +472,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (MediaElement.AutoPlay)
 			{
-				mediaPlayer.Start();
+				mp.Start();
 				Controller.CurrentState = MediaElementState.Playing;
 			}
 			else
+			{
 				Controller.CurrentState = MediaElementState.Paused;
+			}
 		}
 
 		protected virtual void UpdateLayoutParameters()
@@ -510,6 +542,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (view != null)
 			{
 				view.MetadataRetrieved -= MetadataRetrieved;
+				view.MetadataRetrievalFailed -= OnMetadataRetrievalFailed;
 				RemoveView(view);
 				view.SetOnPreparedListener(null);
 				view.SetOnCompletionListener(null);
@@ -532,11 +565,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		bool MediaPlayer.IOnErrorListener.OnError(MediaPlayer? mp, MediaError what, int extra)
 		{
-			if (Controller == null)
-				return false;
+			mediaPlayer = mp;
 
-			Controller.OnMediaFailed();
-			return false;
+			OnError();
+
+			// we've handled the error
+			return true;
 		}
 
 		bool MediaPlayer.IOnInfoListener.OnInfo(MediaPlayer? mp, MediaInfo what, int extra)

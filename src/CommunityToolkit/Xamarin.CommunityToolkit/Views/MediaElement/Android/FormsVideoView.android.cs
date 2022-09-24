@@ -11,6 +11,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 	{
 		public event EventHandler? MetadataRetrieved;
 
+		public event EventHandler? MetadataRetrievalFailed;
+
 		public FormsVideoView(Context context)
 			: base(context)
 		{
@@ -23,14 +25,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			if (System.IO.File.Exists(path))
 			{
-				var retriever = new MediaMetadataRetriever();
-
-				await Task.Run(() =>
+				try
 				{
-					retriever.SetDataSource(path);
+					var retriever = new MediaMetadataRetriever();
+					await retriever.SetDataSourceAsync(path);
 					ExtractMetadata(retriever);
 					MetadataRetrieved?.Invoke(this, EventArgs.Empty);
-				});
+				}
+				catch
+				{
+					MetadataRetrievalFailed?.Invoke(this, EventArgs.Empty);
+				}
 			}
 		}
 
@@ -64,20 +69,27 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected async Task SetMetadata(global::Android.Net.Uri uri, IDictionary<string, string>? headers)
 		{
-			var retriever = new MediaMetadataRetriever();
-
-			if (uri.Scheme != null && uri.Scheme.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase))
+			try
 			{
-				await retriever.SetDataSourceAsync(uri.ToString(), headers ?? new Dictionary<string, string>());
+				var retriever = new MediaMetadataRetriever();
+
+				if (uri.Scheme != null && uri.Scheme.StartsWith(Uri.UriSchemeHttp, StringComparison.OrdinalIgnoreCase))
+				{
+					await retriever.SetDataSourceAsync(uri.ToString(), headers ?? new Dictionary<string, string>());
+				}
+				else
+				{
+					await retriever.SetDataSourceAsync(Context, uri);
+				}
+
+				ExtractMetadata(retriever);
+
+				MetadataRetrieved?.Invoke(this, EventArgs.Empty);
 			}
-			else
+			catch
 			{
-				await retriever.SetDataSourceAsync(Context, uri);
+				MetadataRetrievalFailed?.Invoke(this, EventArgs.Empty);
 			}
-
-			ExtractMetadata(retriever);
-
-			MetadataRetrieved?.Invoke(this, EventArgs.Empty);
 		}
 
 		public int VideoHeight { get; private set; }
