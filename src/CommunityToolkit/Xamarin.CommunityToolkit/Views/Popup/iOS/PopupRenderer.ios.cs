@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using CoreGraphics;
+using Intents;
 using UIKit;
 using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.CommunityToolkit.PlatformConfiguration.iOSSpecific;
@@ -180,6 +181,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetLayout()
 		{
+			if (PresentationController == null || PopoverPresentationController == null)
+				return;
+
 			((UIPopoverPresentationController)PresentationController).SourceRect = new CGRect(0, 0, PreferredContentSize.Width, PreferredContentSize.Height);
 
 			_ = Element ?? throw new InvalidOperationException($"{nameof(Element)} cannot be null");
@@ -198,6 +202,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					LayoutAlignment.Center => UIScreen.MainScreen.Bounds.Width / 2,
 					_ => 0f
 				};
+
 
 				PopoverPresentationController.SourceRect = new CGRect(originX, originY, 0, 0);
 				PopoverPresentationController.PermittedArrowDirections = 0;
@@ -241,6 +246,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void SetPresentationController()
 		{
+
+			if (PresentationController == null)
+				return;
+
 			var popOverDelegate = new PopoverDelegate();
 			popOverDelegate.PopoverDismissed += HandlePopoverDelegateDismissed;
 
@@ -284,8 +293,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.PropertyChanged -= OnElementPropertyChanged;
 					Element = null;
 
-					var presentationController = (UIPopoverPresentationController)PresentationController;
-					if (presentationController != null)
+					if (PresentationController is UIPopoverPresentationController presentationController)
 						presentationController.Delegate = null;
 				}
 			}
