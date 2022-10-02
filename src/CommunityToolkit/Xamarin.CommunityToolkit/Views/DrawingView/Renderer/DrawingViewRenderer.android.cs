@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Android.Content;
 using Android.Graphics;
@@ -78,20 +79,21 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			base.OnSizeChanged(w, h, oldw, oldh);
 
-			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
-			drawCanvas = new Canvas(canvasBitmap);
-			LoadLines();
+			canvasBitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888 ?? throw new NullReferenceException("Unable to create Bitmap config"));
+			if (canvasBitmap is not null)
+			{
+				drawCanvas = new Canvas(canvasBitmap);
+				LoadLines();
+			}
 		}
 
 		protected override void OnDraw(Canvas? canvas)
 		{
 			base.OnDraw(canvas);
 
-			if (canvas is not null)
+			if (canvas is not null && canvasBitmap is not null)
 			{
-				Draw(Element.Lines, canvas);
-
-				canvas.DrawBitmap(canvasBitmap!, 0, 0, canvasPaint);
+				canvas.DrawBitmap(canvasBitmap, 0, 0, canvasPaint);
 				canvas.DrawPath(drawPath, drawPaint);
 			}
 		}
@@ -118,7 +120,6 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						}
 					};
 
-					drawCanvas?.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
 					drawPath.MoveTo(touchX, touchY);
 					break;
 				case MotionEventActions.Move:
@@ -140,6 +141,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					if (Element.ClearOnFinish)
 						Element.Lines.Clear();
 
+					currentLine = null;
 					break;
 				default:
 					return false;
@@ -196,7 +198,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (drawCanvas is null)
 				return;
 
-			drawCanvas.DrawColor(Element.BackgroundColor.ToAndroid(), PorterDuff.Mode.Clear!);
+			drawCanvas.DrawColor(Element.BackgroundColor.ToAndroid());
 			drawPath.Reset();
 			var lines = Element.Lines;
 			if (lines.Count > 0)
@@ -212,7 +214,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			foreach (var line in lines)
 			{
 				path ??= new Path();
-				var points = NormalizePoints(line.Points);
+				var points = NormalizePoints(line.EnableSmoothedPath
+					? line.Points.SmoothedPathWithGranularity(line.Granularity)
+					: line.Points);
 				path.MoveTo((float)points[0].X, (float)points[0].Y);
 				foreach (var (x, y) in points)
 				{

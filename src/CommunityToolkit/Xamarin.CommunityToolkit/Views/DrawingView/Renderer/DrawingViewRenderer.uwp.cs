@@ -42,24 +42,31 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Element.Lines.CollectionChanged += OnCollectionChanged;
 				SetNativeControl(canvas);
 
-				canvas!.InkPresenter.StrokeInput.StrokeStarted += StrokeInput_StrokeStarted;
+				canvas.InkPresenter.StrokeInput.StrokeStarted += StrokeInput_StrokeStarted;
 				canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
 			}
 
 			if (e.OldElement != null)
 			{
-				canvas!.InkPresenter.StrokeInput.StrokeStarted -= StrokeInput_StrokeStarted;
-				canvas.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
-				Element!.Lines.CollectionChanged -= OnCollectionChanged;
+				if (canvas is not null)
+				{
+					canvas.InkPresenter.StrokeInput.StrokeStarted -= StrokeInput_StrokeStarted;
+					canvas.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
+				}
+
+				if (Element is not null)
+				{
+					Element.Lines.CollectionChanged -= OnCollectionChanged;
+				}
 			}
 		}
 
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
+			if (e.PropertyName == DrawingView.LinesProperty.PropertyName && canvas is not null)
 			{
-				canvas!.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
+				canvas.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
 				canvas.InkPresenter.StrokeContainer.Clear();
 				LoadLines();
 				canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
@@ -111,10 +118,13 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
 		{
-			canvas!.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
-			canvas.InkPresenter.StrokeContainer.Clear();
-			LoadLines();
-			canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
+			if (canvas is not null)
+			{
+				canvas.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
+				canvas.InkPresenter.StrokeContainer.Clear();
+				LoadLines();
+				canvas.InkPresenter.StrokesCollected += OnInkPresenterStrokesCollected;
+			}
 		}
 
 		void LoadLines()
@@ -126,7 +136,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					: new ObservableCollection<Line>();
 			foreach (var line in lines)
 			{
-				var stylusPoints = line.Points.Select(point => new Windows.Foundation.Point(point.X, point.Y)).ToList();
+				var newPointsPath = line.EnableSmoothedPath
+					? line.Points.SmoothedPathWithGranularity(line.Granularity)
+					: line.Points;
+				var stylusPoints = newPointsPath.Select(point => new Windows.Foundation.Point(point.X, point.Y)).ToList();
 				if (stylusPoints is { Count: > 0 })
 				{
 					var strokeBuilder = new InkStrokeBuilder();
@@ -137,7 +150,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					};
 					strokeBuilder.SetDefaultDrawingAttributes(inkDrawingAttributes);
 					var stroke = strokeBuilder.CreateStroke(stylusPoints);
-					canvas!.InkPresenter.StrokeContainer.AddStroke(stroke);
+					canvas?.InkPresenter.StrokeContainer.AddStroke(stroke);
 				}
 			}
 		}
@@ -152,7 +165,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element != null)
 			{
 				Element.Lines.CollectionChanged -= OnCollectionChanged;
-				canvas!.InkPresenter.StrokeInput.StrokeStarted -= StrokeInput_StrokeStarted;
+			}
+
+			if (canvas is not null)
+			{
+				canvas.InkPresenter.StrokeInput.StrokeStarted -= StrokeInput_StrokeStarted;
 				canvas.InkPresenter.StrokesCollected -= OnInkPresenterStrokesCollected;
 			}
 
@@ -163,7 +180,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		{
 			if (!Element.MultiLineMode || force)
 			{
-				canvas!.InkPresenter.StrokeContainer.Clear();
+				canvas?.InkPresenter.StrokeContainer.Clear();
 				Element.Lines.Clear();
 			}
 		}

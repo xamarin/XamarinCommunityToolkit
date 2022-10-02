@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using CoreGraphics;
 using Xamarin.CommunityToolkit.Effects;
 using Xamarin.Forms;
@@ -28,7 +29,14 @@ public class PlatformShadowEffect : PlatformEffect
 
 	const float defaultOpacity = .5f;
 
-	NativeView? View => Control ?? Container;
+	NativeView? View
+	{
+		get
+		{
+			var view = Control ?? Container;
+			return Element is Frame ? view?.Subviews.FirstOrDefault() ?? view : view;
+		}
+	}
 
 	protected override void OnAttached()
 	{

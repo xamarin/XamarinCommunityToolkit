@@ -26,7 +26,7 @@ namespace Xamarin.CommunityToolkit.Effects
 
 		static void ElementViewSizeChanged(object? sender, EventArgs e)
 		{
-		if (sender == null)
+			if (sender == null)
 				return;
 
 			UpdateClip((VisualElement)sender);
@@ -59,25 +59,25 @@ namespace Xamarin.CommunityToolkit.Effects
 		}
 
 		static CornerRadius GetCornerRadius(Rect rect, VisualElement elementView)
-        {
-	        var maxCornerRadius = Math.Min(rect.Width, rect.Height) / 2;
-	        if (maxCornerRadius <= 0)
-		        return default;
+		{
+			var maxCornerRadius = Math.Min(rect.Width, rect.Height) / 2;
+			if (maxCornerRadius <= 0)
+				return default;
 
-	        var cornerRadius = GetCornerRadius(elementView);
-	        if (cornerRadius.TopLeft > maxCornerRadius ||
-	            cornerRadius.TopRight > maxCornerRadius ||
-	            cornerRadius.BottomLeft > maxCornerRadius ||
-	            cornerRadius.BottomRight > maxCornerRadius)
-	        {
-		        return new CornerRadius(
-			        Math.Min(cornerRadius.TopLeft, maxCornerRadius),
-			        Math.Min(cornerRadius.TopRight, maxCornerRadius),
-			        Math.Min(cornerRadius.BottomLeft, maxCornerRadius),
-			        Math.Min(cornerRadius.BottomRight, maxCornerRadius));
-	        }
+			var cornerRadius = GetCornerRadius(elementView);
+			if (cornerRadius.TopLeft > maxCornerRadius ||
+				cornerRadius.TopRight > maxCornerRadius ||
+				cornerRadius.BottomLeft > maxCornerRadius ||
+				cornerRadius.BottomRight > maxCornerRadius)
+			{
+				return new CornerRadius(
+					Math.Min(cornerRadius.TopLeft, maxCornerRadius),
+					Math.Min(cornerRadius.TopRight, maxCornerRadius),
+					Math.Min(cornerRadius.BottomLeft, maxCornerRadius),
+					Math.Min(cornerRadius.BottomRight, maxCornerRadius));
+			}
 
-	        return cornerRadius;
-        }
+			return cornerRadius;
+		}
 	}
 }

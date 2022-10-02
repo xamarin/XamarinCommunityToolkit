@@ -99,9 +99,9 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			}
 		}
 
-		static void UpdateStatusBarAppearance(UIWindow window)
+		static void UpdateStatusBarAppearance(UIWindow? window)
 		{
-			var vc = window.RootViewController ?? throw new NullReferenceException(nameof(window.RootViewController));
+			var vc = window?.RootViewController ?? throw new NullReferenceException(nameof(window.RootViewController));
 			while (vc.PresentedViewController != null)
 			{
 				vc = vc.PresentedViewController;

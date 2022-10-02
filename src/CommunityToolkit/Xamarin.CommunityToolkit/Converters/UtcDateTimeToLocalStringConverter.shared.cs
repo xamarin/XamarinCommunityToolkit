@@ -14,7 +14,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <summary>
 		/// Backing BindableProperty for the <see cref="DateTimeFormat"/> property.
 		/// </summary>
-		public static readonly BindableProperty DateTimeFormatProperty 
+		public static readonly BindableProperty DateTimeFormatProperty
 			= BindableProperty.Create(nameof(DateTimeFormat), typeof(string), typeof(UtcDateTimeToLocalStringConverter), defaultValue: "g");
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="parameter">N/A</param>
 		/// <param name="culture">N/A</param>
 		/// <returns>N/A</returns>
-		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) 
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 			=> throw new NotImplementedException();
 
 		bool IsValidDateFormat(string dateFormat)

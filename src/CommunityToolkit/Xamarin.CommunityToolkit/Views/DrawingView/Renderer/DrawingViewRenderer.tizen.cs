@@ -36,17 +36,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				SetNativeControl(canvasView);
 			}
 
-			if (e.OldElement != null)
+			if (e.OldElement != null && canvasView is not null)
 			{
-				canvasView!.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
+				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseMove, MouseMove);
 				canvasView.PaintSurface -= OnPaintSurface;
 			}
 
-			if (e.NewElement != null)
+			if (e.NewElement != null && canvasView is not null)
 			{
-				canvasView!.PaintSurface += OnPaintSurface;
+				canvasView.PaintSurface += OnPaintSurface;
 				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
 				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseMove, MouseMove);
@@ -56,9 +56,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			base.OnElementPropertyChanged(sender, e);
-			if (e.PropertyName == DrawingView.LinesProperty.PropertyName)
+			if (e.PropertyName == DrawingView.LinesProperty.PropertyName && canvasView is not null)
 			{
-				canvasView!.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
+				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				LoadPoints();
 				canvasView.EvasCanvas.AddEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 			}
@@ -68,10 +68,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		void MouseMove()
 		{
-			if (isDrawing)
+			if (isDrawing && canvasView is not null)
 			{
-				var point = canvasView!.EvasCanvas.Pointer;
-				currentLine!.Points.Add(new Point(point.X, point.Y));
+				var point = canvasView.EvasCanvas.Pointer;
+				currentLine?.Points.Add(new Point(point.X, point.Y));
 				canvasView.Invalidate();
 			}
 		}
@@ -111,7 +111,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element == null)
 				return;
 
-			canvasView!.Invalidate();
+			canvasView?.Invalidate();
 		}
 
 		void DrawPath(SKCanvas canvas)
@@ -130,7 +130,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					IsAntialias = true
 				};
 
-				var skPoints = line.Points.Select(p => new SKPoint((float)p.X, (float)p.Y)).ToArray();
+				var newPointsPath = line.EnableSmoothedPath
+					? line.Points.SmoothedPathWithGranularity(line.Granularity)
+					: line.Points;
+				var skPoints = newPointsPath.Select(p => new SKPoint((float)p.X, (float)p.Y)).ToArray();
 				using var path = new SKPath();
 				path.MoveTo(skPoints[0]);
 
@@ -150,7 +153,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			if (Element != null)
 			{
 				Element.Lines.CollectionChanged -= OnLinesCollectionChanged;
-				canvasView!.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
+			}
+
+			if (canvasView is not null)
+			{
+				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseDown, MouseDown);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseUp, MouseUp);
 				canvasView.EvasCanvas.DeleteEventAction(EvasObjectCallbackType.MouseMove, MouseMove);
 				canvasView.PaintSurface -= OnPaintSurface;
