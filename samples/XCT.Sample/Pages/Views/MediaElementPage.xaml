@@ -24,7 +24,7 @@
             MediaOpened="OnMediaOpened"
             SeekCompleted="OnSeekCompleted"
             ShowsPlaybackControls="True"
-            Source="https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4" />
+            Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" />
         <Slider
             Grid.Row="1"
             BindingContext="{x:Reference mediaElement}"
