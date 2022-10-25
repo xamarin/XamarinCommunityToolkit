@@ -22,7 +22,7 @@
                 Padding="20">
 
                 <Label
-                    Text="With the IconTintColorEffect you set the tint color of an image. This effects works on the Image and ImageButton controls and is implemented for the Android and iOS platform."
+                    Text="With the IconTintColorEffect you set the tint color of an image. This effects works on the Image and ImageButton controls and is implemented for the Android, UWP and iOS platform."
                     Margin="0,0,0,20"/>
 
                 <Grid

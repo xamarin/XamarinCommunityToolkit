@@ -14,6 +14,9 @@ namespace Xamarin.CommunityToolkit.Effects
 #elif __IOS__
 			if (System.DateTime.Now.Ticks < 0)
 				_ = new Xamarin.CommunityToolkit.iOS.Effects.IconTintColorEffectRouter();
+#elif UWP
+			if (System.DateTime.Now.Ticks < 0)
+				_ = new Xamarin.CommunityToolkit.UWP.Effects.IconTintColorEffectRouter();
 #endif
 			#endregion
 		}
