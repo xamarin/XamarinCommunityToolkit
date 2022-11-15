@@ -49,12 +49,12 @@ pr:
     exclude:
     - README.md
 
-schedules:
-- cron: "0 0 * * *"
-  displayName: Daily midnight build
-  branches:
-    include:
-    - develop
+#schedules:
+#- cron: "0 0 * * *"
+#  displayName: Daily midnight build
+#  branches:
+#    include:
+#    - develop
 
 jobs:
   - job: build_windows_samples
