@@ -13,5 +13,11 @@ namespace Xamarin.CommunityToolkit.Sample.Pages.Views
 
 		void OnRightButtonClicked(object? sender, EventArgs e)
 			=> SideMenuView.State = SideMenuState.RightMenuShown;
+
+		void OnStateChanging(object sender, SideMenuStateChangingEventArgs e) =>
+			Console.WriteLine($"SideMenuView State Changing: {e.State}");
+
+		void OnStateChanged(object sender, SideMenuStateChangedEventArgs e) =>
+			Console.WriteLine($"SideMenuView State Changed: {e.State}");
 	}
 }

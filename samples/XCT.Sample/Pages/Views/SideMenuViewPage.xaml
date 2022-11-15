@@ -14,7 +14,7 @@
         </Style>
     </pages:BasePage.Resources>
 
-    <xct:SideMenuView x:Name="SideMenuView">
+    <xct:SideMenuView x:Name="SideMenuView" StateChanging="OnStateChanging" StateChanged="OnStateChanged">
         <!-- MainView -->
         <StackLayout BackgroundColor="Gold"
                      xct:ShadowEffect.Color="Black">
