@@ -18,7 +18,8 @@ variables:
   PathToCommunityToolkitUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
   PathToMarkupUnitTestCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
   PathToMsBuildOnMacOS: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll'
-
+  Codeql.Enabled: true
+  
 resources:
   repositories:
     - repository: internal-templates
