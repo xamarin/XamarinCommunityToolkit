@@ -488,7 +488,7 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 				=> this.platformTouchEffect = platformTouchEffect;
 
 			public AccessibilityListener(IntPtr handle, JniHandleOwnership transfer)
-                : base(handle, transfer)
+				: base(handle, transfer)
 			{
 			}
 
