@@ -1,0 +1,39 @@
+name: Build
+
+on:
+    workflow_dispatch:
+        inputs:
+            createRelease:
+                description: 'create Release NuGet packages'
+                default: false
+                type: boolean
+
+jobs:
+    build:
+      name: Build
+      env:
+        NUPKG_MAJOR: 2.0.6
+      runs-on: windows-latest
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.3.1
+      - name: Remove unit project
+        run: |
+          dotnet sln .\Xamarin.CommunityToolkit.sln remove src\CommunityToolkit\Xamarin.CommunityToolkit.UnitTests\Xamarin.CommunityToolkit.UnitTests.csproj
+      - name: Build
+        run: msbuild /r /t:Build /p:Configuration=Release .\Xamarin.CommunityToolkit.sln
+      - name: Package NuGets
+        run: |
+          $pkgVer = ($env:NUPKG_MAJOR + "-alpha" + $env:GITHUB_RUN_ID)
+          if ("${{ github.event.inputs.createRelease }"} -eq "true") {
+            $pkgVer = $env:NUPKG_MAJOR
+          }
+          New-Item -ItemType Directory -Force -Path .\artifacts
+          msbuild /t:Pack /p:Configuration=Release /p:PackageOutputPath=..\..\..\..\artifacts /p:PackageVersion=$pkgVer /p:IncludeSymbols=true .\XamarinCommunityToolkit\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj 
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: NuGet
+          path: .\artifacts
