@@ -8,6 +8,10 @@ on:
                 default: false
                 type: boolean
 
+env:
+    DOTNET_NOLOGO: true
+    DOTNET_CLI_TELEMETRY_OPTOUT: true
+
 jobs:
     build:
       name: Build
@@ -27,11 +31,11 @@ jobs:
       - name: Package NuGets
         run: |
           $pkgVer = ($env:NUPKG_MAJOR + "-alpha" + $env:GITHUB_RUN_ID)
-          if ("${{ github.event.inputs.createRelease }"} -eq "true") {
+          if ("${{ github.event.inputs.createRelease }}" -eq "true") {
             $pkgVer = $env:NUPKG_MAJOR
           }
           New-Item -ItemType Directory -Force -Path .\artifacts
-          msbuild /t:Pack /p:Configuration=Release /p:PackageOutputPath=..\..\..\..\artifacts /p:PackageVersion=$pkgVer /p:IncludeSymbols=true .\XamarinCommunityToolkit\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj 
+          msbuild /t:Pack /p:Configuration=Release /p:PackageOutputPath=..\..\..\artifacts /p:PackageVersion=$pkgVer /p:IncludeSymbols=true .\src\CommunityToolkit\Xamarin.CommunityToolkit\Xamarin.CommunityToolkit.csproj 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
