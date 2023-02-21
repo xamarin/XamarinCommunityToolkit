@@ -3,9 +3,11 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Lights;
+using Windows.Devices.Sensors;
 using Windows.Graphics.Display;
 using Windows.Graphics.Imaging;
 using Windows.Media.Capture;
@@ -37,6 +39,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		VideoStabilizationEffect? videoStabilizationEffect;
 		VideoEncodingProperties? inputPropertiesBackup;
 		VideoEncodingProperties? outputPropertiesBackup;
+		CameraRotationHelper? rotationHelper;
 
 		public CameraViewRenderer() => encodingProfile = MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Auto);
 
@@ -156,8 +159,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}*/
 
 			// Encode an output stream, it seems you can't use the UWP Frame stream directly
-			var outputStream = new InMemoryRandomAccessStream();
+			using var outputStream = new InMemoryRandomAccessStream();
 			var outputEncoder = await BitmapEncoder.CreateAsync(BitmapEncoder.BmpEncoderId, outputStream);
+
+			var orientation = rotationHelper?.GetCameraCaptureOrientation();
+			if (orientation != SimpleOrientation.NotRotated)
+			{
+				outputEncoder.BitmapTransform.Rotation = DeviceOrientationTotBitmapRotation(orientation);
+			}
+
 			outputEncoder.SetSoftwareBitmap(capturedPhoto.Frame.SoftwareBitmap);
 			await outputEncoder.FlushAsync();
 
@@ -173,6 +183,19 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 			IsBusy = false;
 			return new Tuple<string?, byte[]?>(filePath, imageData);
+		}
+
+		// Mirror the device orientation into the bitmap
+		BitmapRotation DeviceOrientationTotBitmapRotation(SimpleOrientation? orientation)
+		{
+			return orientation switch
+			{
+				SimpleOrientation.NotRotated => BitmapRotation.None,
+				SimpleOrientation.Rotated90DegreesCounterclockwise => BitmapRotation.Clockwise270Degrees,
+				SimpleOrientation.Rotated180DegreesCounterclockwise => BitmapRotation.Clockwise180Degrees,
+				SimpleOrientation.Rotated270DegreesCounterclockwise => BitmapRotation.Clockwise90Degrees,
+				_ => BitmapRotation.None,
+			};
 		}
 
 		async Task StartRecord()
@@ -368,6 +391,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				isPreviewing = false;
 				IsBusy = false;
 				Available = true;
+
+				await SetUpRotationHelper(device);
 			}
 			catch (COMException)
 			{
@@ -376,6 +401,24 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			catch (FileLoadException)
 			{
 				mediaCapture.CaptureDeviceExclusiveControlStatusChanged += CaptureDeviceExclusiveControlStatusChanged;
+			}
+		}
+
+		// Initialize rotation helper
+		async Task SetUpRotationHelper(DeviceInformation device)
+		{
+			var displayInfo = DisplayInformation.GetForCurrentView();
+			var simpleOrientationSensor = SimpleOrientationSensor.GetDefault();
+
+			if (displayInfo != null && simpleOrientationSensor != null)
+			{
+				rotationHelper = new CameraRotationHelper(
+					device.EnclosureLocation,
+					displayInfo,
+					simpleOrientationSensor,
+					SetPreviewRotationAsync);
+
+				await SetPreviewRotationAsync();
 			}
 		}
 
@@ -399,6 +442,9 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				mediaCapture.CaptureDeviceExclusiveControlStatusChanged -= CaptureDeviceExclusiveControlStatusChanged;
 				mediaCapture.Dispose();
 				mediaCapture = null;
+
+				rotationHelper?.RemoveEventHandler();
+				rotationHelper = null;
 			});
 			IsBusy = false;
 		}
@@ -406,6 +452,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		protected override async void Dispose(bool disposing)
 		{
 			await CleanupCameraAsync();
+			rotationHelper?.RemoveEventHandler();
 			base.Dispose(disposing);
 		}
 
@@ -425,6 +472,17 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 
 			IsBusy = false;
+		}
+
+		// Apply new rotation property to the stream
+		async Task SetPreviewRotationAsync()
+		{
+			// Add rotation metadata to the preview stream to make sure the aspect ratio / dimensions match when rendering and getting preview frames
+			var rotation = rotationHelper?.GetCameraPreviewOrientation();
+			var props = mediaCapture?.VideoDeviceController.GetMediaStreamProperties(MediaStreamType.VideoPreview);
+			var rotationKey = new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1");
+			props?.Properties.Add(rotationKey, CameraRotationHelper.ConvertSimpleOrientationToClockwiseDegrees(rotation));
+			await mediaCapture?.SetEncodingPropertiesAsync(MediaStreamType.VideoPreview, props, null);
 		}
 	}
 }
