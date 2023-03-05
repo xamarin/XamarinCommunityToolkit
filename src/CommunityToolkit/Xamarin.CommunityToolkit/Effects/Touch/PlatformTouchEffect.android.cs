@@ -5,6 +5,7 @@ using Android.Content;
 using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Views.Accessibility;
 using Android.Widget;
@@ -485,6 +486,11 @@ namespace Xamarin.CommunityToolkit.Android.Effects
 
 			internal AccessibilityListener(PlatformTouchEffect platformTouchEffect)
 				=> this.platformTouchEffect = platformTouchEffect;
+
+			public AccessibilityListener(IntPtr handle, JniHandleOwnership transfer)
+				: base(handle, transfer)
+			{
+			}
 
 			public void OnAccessibilityStateChanged(bool enabled)
 				=> platformTouchEffect?.UpdateClickHandler();

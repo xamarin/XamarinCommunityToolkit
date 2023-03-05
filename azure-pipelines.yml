@@ -17,8 +17,8 @@ variables:
   PathToSamplesSln: 'samples/XCT.Sample.sln'
   PathToCommunityToolkitUnitTestCsproj: 'src/CommunityToolkit/Xamarin.CommunityToolkit.UnitTests/Xamarin.CommunityToolkit.UnitTests.csproj'
   PathToMarkupUnitTestCsproj: 'src/Markup/Xamarin.CommunityToolkit.Markup.UnitTests/Xamarin.CommunityToolkit.Markup.UnitTests.csproj'
-  PathToMsBuildOnMacOS: 'mono /Applications/Visual\ studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/MSBuild.dll'
-
+  Codeql.Enabled: true
+  
 resources:
   repositories:
     - repository: internal-templates
@@ -319,7 +319,7 @@ jobs:
   - job: build_macos
     displayName: Build macOS Library
     pool:
-      vmImage: macos-10.15
+      vmImage: macos-latest
     steps:
       # if this is a tagged build, then update the version number
       - powershell: |
@@ -348,16 +348,35 @@ jobs:
           version: $(NETCORE_TEST_VERSION_2_1)
           includePreviewVersions: false
 
-      - task: CmdLine@2
-        displayName: 'Build Markup'
+      # restore, build and pack the packages
+      - task: MSBuild@1
+        displayName: Build Xamarin.CommunityToolkit.csproj
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
-      
-      - task: CmdLine@2
-        displayName: 'Build Community Toolkit'
+          solution: $(PathToCommunityToolkitCsproj)
+          configuration: Release
+          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+
+      - task: MSBuild@1
+        displayName: Pack Community Toolkit NuGets
         inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
-     
+          solution: $(PathToCommunityToolkitCsproj)
+          configuration: Release
+          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion)'
+
+      - task: MSBuild@1
+        displayName: Build Markup Project
+        inputs:
+          solution: $(PathToMarkupCsproj)
+          configuration: Release
+          msbuildArguments: '/restore /t:Build /p:ContinuousIntegrationBuild=true /p:Deterministic=false'
+
+      - task: MSBuild@1
+        displayName: Pack Markup NuGet
+        inputs:
+          solution: $(PathToMarkupCsproj)
+          configuration: Release
+          msbuildArguments: '/t:Pack /p:PackageVersion=$(NugetPackageVersion)'
+          
       - task: CmdLine@2
         displayName: 'Run Markup Unit Tests'
         inputs:
@@ -367,16 +386,6 @@ jobs:
         displayName: 'Run Community Toolkit Unit Tests'
         inputs:
           script: 'dotnet test $(PathToCommunityToolkitUnitTestCsproj) -c Release -p:BuildInParallel=false'
-     
-      - task: CmdLine@2
-        displayName: 'Pack Markup NuGets'
-        inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToMarkupUnitTestCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion)'
-  
-      - task: CmdLine@2
-        displayName: 'Pack CommunityToolkit NuGets'
-        inputs:
-          script: '$(PathToMsBuildOnMacOS) $(PathToCommunityToolkitCsproj) /p:Configuration=Release /t:Pack /p:PackageVersion=$(NugetPackageVersion)'
 
   - ${{ if eq(variables['System.TeamProject'], 'devdiv') }}:
     - template: sign-artifacts/jobs/v2.yml@internal-templates
