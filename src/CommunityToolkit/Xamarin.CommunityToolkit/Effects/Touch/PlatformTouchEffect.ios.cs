@@ -137,6 +137,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			HandleTouch(TouchStatus.Started, TouchInteractionStatus.Started).SafeFireAndForget();
 
+			State = UIGestureRecognizerState.Began;
 			base.TouchesBegan(touches, evt);
 		}
 
@@ -149,6 +150,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			IsCanceled = true;
 
+			State = UIGestureRecognizerState.Ended;
 			base.TouchesEnded(touches, evt);
 		}
 
@@ -161,6 +163,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 
 			IsCanceled = true;
 
+			State = UIGestureRecognizerState.Cancelled;
 			base.TouchesCancelled(touches, evt);
 		}
 
@@ -180,6 +183,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 				{
 					HandleTouch(TouchStatus.Canceled, TouchInteractionStatus.Completed).SafeFireAndForget();
 					IsCanceled = true;
+					State = UIGestureRecognizerState.Cancelled;
 					base.TouchesMoved(touches, evt);
 					return;
 				}
@@ -195,6 +199,7 @@ namespace Xamarin.CommunityToolkit.iOS.Effects
 			if (status == TouchStatus.Canceled)
 				IsCanceled = true;
 
+			State = UIGestureRecognizerState.Changed;
 			base.TouchesMoved(touches, evt);
 		}
 
