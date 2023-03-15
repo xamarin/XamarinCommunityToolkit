@@ -34,13 +34,13 @@ namespace Xamarin.CommunityToolkit.Converters
 			{
 				TextCaseType.Lower => str.ToLowerInvariant(),
 				TextCaseType.Upper => str.ToUpperInvariant(),
-				TextCaseType.FirstUpperRestLower => str.Substring(0, 1).ToUpperInvariant() + str.ToString().Substring(1).ToLowerInvariant(),
+				TextCaseType.FirstUpperRestLower => str.Substring(0, 1).ToUpperInvariant() + str.Substring(1).ToLowerInvariant(),
 				_ => str
 			};
 		}
 
 		/// <summary>
-		/// This method is not implemented and will throw a <see cref="NotImplementedException"/>.
+		/// Can't convert back, will return original <see cref="value"/>.
 		/// </summary>
 		/// <param name="value">N/A</param>
 		/// <param name="targetType">N/A</param>
@@ -48,7 +48,7 @@ namespace Xamarin.CommunityToolkit.Converters
 		/// <param name="culture">N/A</param>
 		/// <returns>N/A</returns>
 		public object ConvertBack(object? value, Type? targetType, object? parameter, CultureInfo? culture)
-			=> throw new NotImplementedException();
+			=> value;
 
 		TextCaseType GetParameter(object? parameter) => parameter switch
 		{
