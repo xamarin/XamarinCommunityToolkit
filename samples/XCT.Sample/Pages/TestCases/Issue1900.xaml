@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.TestCases"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.Issue1900Page">
+    <pages:BasePage.BindingContext>
+        <vm:Issue1900ViewModel />
+    </pages:BasePage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*, *, auto"
+              Padding="12">
+            <xct:BadgeView Text="{Binding Counter}"
+                           AutoHide="False"
+                           VerticalOptions="Center"
+                           Grid.Row="0">
+                <Label Text="Badge should be visible and display 0 as text"
+                       Margin="6" />
+            </xct:BadgeView>
+            <xct:BadgeView Text="{Binding Counter}"
+                           VerticalOptions="Center"
+                           Grid.Row="1">
+                <Label Text="Badge should not be visible"
+                       Margin="6" />
+            </xct:BadgeView>
+            <Button Text="Increment"
+                    Command="{Binding ClickCommand}" 
+                    Grid.Row="2" />
+        </Grid>
+    </ContentPage.Content>
+</pages:BasePage>
