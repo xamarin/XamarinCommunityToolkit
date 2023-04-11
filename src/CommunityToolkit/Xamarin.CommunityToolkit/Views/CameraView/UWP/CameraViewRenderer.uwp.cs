@@ -489,12 +489,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		// Apply new rotation property to the stream
 		async Task SetPreviewRotationAsync()
 		{
-			// Add rotation metadata to the preview stream to make sure the aspect ratio / dimensions match when rendering and getting preview frames
-			var rotation = rotationHelper?.GetCameraPreviewOrientation();
-			var props = mediaCapture?.VideoDeviceController.GetMediaStreamProperties(MediaStreamType.VideoPreview);
-			var rotationKey = new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1");
-			props?.Properties.Add(rotationKey, CameraRotationHelper.ConvertSimpleOrientationToClockwiseDegrees(rotation));
-			await mediaCapture?.SetEncodingPropertiesAsync(MediaStreamType.VideoPreview, props, null);
+			if (mediaCapture?.CameraStreamState == CameraStreamState.Streaming)
+			{
+				// Add rotation metadata to the preview stream to make sure the aspect ratio / dimensions match when rendering and getting preview frames
+				var rotation = rotationHelper?.GetCameraPreviewOrientation();
+				var props = mediaCapture?.VideoDeviceController.GetMediaStreamProperties(MediaStreamType.VideoPreview);
+				var rotationKey = new Guid("C380465D-2271-428C-9B83-ECEA3B4A85C1");
+				props?.Properties.Add(rotationKey, CameraRotationHelper.ConvertSimpleOrientationToClockwiseDegrees(rotation));
+				await mediaCapture?.SetEncodingPropertiesAsync(MediaStreamType.VideoPreview, props, null);
+			}
 		}
 	}
 }
