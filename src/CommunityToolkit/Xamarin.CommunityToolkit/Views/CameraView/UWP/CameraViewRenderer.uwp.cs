@@ -393,11 +393,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				Control.Source = mediaCapture;
 				await mediaCapture.StartPreviewAsync();
-				isPreviewing = true;
-				IsBusy = false;
-				Available = true;
-
 				await SetUpRotationHelper(device);
+
+				isPreviewing = true;
+				Available = true;
 			}
 			catch (COMException)
 			{
@@ -406,6 +405,14 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			catch (FileLoadException)
 			{
 				Element?.RaiseMediaCaptureFailed("The camera is used by another app.");
+			}
+			catch (Exception ex)
+			{
+				Element?.RaiseMediaCaptureFailed($"Other error while starting preview. {ex.Message}");
+			}
+			finally
+			{
+				IsBusy = false;
 			}
 		}
 
