@@ -245,6 +245,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			switch (e.PropertyName)
 			{
 				case nameof(CameraView.CameraOptions):
+				case nameof(CameraView.CaptureMode):
 					await CleanupCameraAsync();
 					await InitializeCameraAsync();
 					break;
@@ -333,8 +334,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				return;
 			}
 
-			var audioDevice = await DeviceInformation.FindAllAsync(DeviceClass.AudioCapture);
-			var selectedAudioDevice = audioDevice.Count == 0 ? null : audioDevice[0].Id;
+			string? selectedAudioDevice = null;
+			if (Element.CaptureMode == CameraCaptureMode.Video)
+			{
+				var audioDevice = await DeviceInformation.FindAllAsync(DeviceClass.AudioCapture);
+				selectedAudioDevice = audioDevice.Count == 0 ? null : audioDevice[0].Id;
+			}
 
 			mediaCapture = new MediaCapture();
 			try
@@ -345,7 +350,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					MediaCategory = MediaCategory.Media,
 					StreamingCaptureMode = selectedAudioDevice == null ? StreamingCaptureMode.Video : StreamingCaptureMode.AudioAndVideo,
 					AudioProcessing = Windows.Media.AudioProcessing.Default,
-					AudioDeviceId = selectedAudioDevice
+					AudioDeviceId = selectedAudioDevice ?? string.Empty,
 				});
 				flash = await Lamp.GetDefaultAsync();
 
