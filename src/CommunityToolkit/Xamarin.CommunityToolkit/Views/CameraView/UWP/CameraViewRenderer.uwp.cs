@@ -370,6 +370,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					AudioProcessing = Windows.Media.AudioProcessing.Default,
 					AudioDeviceId = selectedAudioDevice
 				});
+
+				// for some reason an event handler for this event must be registered, or the
+				// FileLoadException is not thrown in StartPreviewAsync().
+				mediaCapture.CaptureDeviceExclusiveControlStatusChanged += CaptureDeviceExclusiveControlStatusChanged;
+
 				flash = await Lamp.GetDefaultAsync();
 
 				if (mediaCapture.VideoDeviceController.ZoomControl.Supported)
@@ -400,7 +405,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			}
 			catch (FileLoadException)
 			{
-				mediaCapture.CaptureDeviceExclusiveControlStatusChanged += CaptureDeviceExclusiveControlStatusChanged;
+				Element?.RaiseMediaCaptureFailed("The camera is used by another app.");
 			}
 		}
 
