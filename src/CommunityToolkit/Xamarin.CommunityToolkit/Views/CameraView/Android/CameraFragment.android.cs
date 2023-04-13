@@ -408,7 +408,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 							rotatedImage?.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
 
 							Sound(MediaActionSoundType.ShutterClick);
-							OnPhoto(this, (filePath, stream.ToArray(), rotation));
+							OnPhoto(this, (filePath, stream.ToArray(), 0));
 							rotatedImage?.Recycle();
 							rotatedImage?.Dispose();
 
