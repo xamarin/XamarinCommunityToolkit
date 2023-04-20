@@ -115,6 +115,12 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				_ => $"{defaultGravatar}".ToLower(),
 			};
 
+		// While MD5 is deemed to be not secure anymore, it is not used in a security context here.
+		// This is used by Gravatar to encode the email address to something they can use.
+		// Also see: https://en.gravatar.com/site/implement/hash/
+		// As part as Microsofts ongoing efforts to secure the .NET ecosystem, this usage of an insecure hashing mechanism was flagged.
+		// An exception has been requested for the usage of this "unsafe" hashing mechanism.
+		// More details here (internal link): https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1680417
 		static string GetMd5Hash(string str)
 		{
 			using var md5 = MD5.Create();

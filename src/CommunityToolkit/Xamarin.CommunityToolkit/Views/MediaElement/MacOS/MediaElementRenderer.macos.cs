@@ -78,7 +78,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					}
 					else if (uriSource.Uri != null)
 					{
-						asset = AVUrlAsset.Create(NSUrl.FromString(uriSource.Uri.AbsoluteUri));
+						asset = AVUrlAsset.Create(NSUrl.FromString(uriSource.Uri.AbsoluteUri) ?? throw new ArgumentException("Invalid Uri", "Source"));
 					}
 					else
 					{
@@ -88,7 +88,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				else
 				{
 					if (Element.Source is XCT.FileMediaSource fileSource)
-						asset = AVAsset.FromUrl(NSUrl.FromFilename(fileSource.File));
+						asset = AVAsset.FromUrl(NSUrl.FromFilename(fileSource.File ?? throw new ArgumentException("Invalid file", "Source")));
 				}
 
 				_ = asset ?? throw new NullReferenceException();
