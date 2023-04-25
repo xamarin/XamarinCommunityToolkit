@@ -365,7 +365,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				Control.Source = mediaCapture;
 				await mediaCapture.StartPreviewAsync();
-				isPreviewing = false;
+				isPreviewing = true;
 				IsBusy = false;
 				Available = true;
 			}
