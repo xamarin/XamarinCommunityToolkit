@@ -49,7 +49,7 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 				typeof(SnackBarActionExceptionPage),
 				"SnackBar Action Exception",
 				"Exception in SnackBar's action doesn't crash the app."),
-			
+
 			new SectionModel(
 				typeof(Issue1883Page),
 				"SnackBar iOS issue GitHub #1883",
@@ -58,7 +58,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 			new SectionModel(
 				typeof(DrawingViewInExpanderPage),
 				"DrawingView in expander",
-				"DrawingView in Expander Page")
+				"DrawingView in Expander Page"),
+
+			new SectionModel(
+				typeof(Issue1900Page),
+				"BadgeView Issue GitHub #1900",
+				"BadgeView default text")
 		};
 	}
 }

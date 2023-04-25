@@ -266,6 +266,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected override void OnControlInitialized(Grid control)
 		{
+			BadgeText.Text = Text;
 			BadgeIndicatorBackground.Content = BadgeText;
 
 			BadgeIndicatorContainer.Children.Add(BadgeIndicatorBackground);
