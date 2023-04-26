@@ -386,6 +386,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 					Element.MaxZoom = mediaCapture.VideoDeviceController.ZoomControl.Max;
 
 				DisplayInformation.AutoRotationPreferences = DisplayOrientations.Landscape;
+
+				await SelectHighestVideoPreviewResolution(mediaCapture);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
@@ -418,6 +420,33 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			finally
 			{
 				IsBusy = false;
+			}
+		}
+
+		static async Task SelectHighestVideoPreviewResolution(MediaCapture mediaCapture)
+		{
+			var resolutions = mediaCapture.VideoDeviceController.
+				GetAvailableMediaStreamProperties(MediaStreamType.VideoPreview)
+				.ToList();
+
+			resolutions.OrderBy(GetWidthFromMediaEncodingProperties);
+			var highestResolution = resolutions.FirstOrDefault();
+
+			if (highestResolution != null)
+			{
+				await mediaCapture.VideoDeviceController.SetMediaStreamPropertiesAsync(
+					MediaStreamType.VideoPreview,
+					highestResolution);
+			}
+
+			static uint GetWidthFromMediaEncodingProperties(IMediaEncodingProperties mediaEncodingProperties)
+			{
+				return mediaEncodingProperties switch
+				{
+					VideoEncodingProperties videoEncodingProperties => videoEncodingProperties.Width,
+					ImageEncodingProperties imageEncodingProperties => imageEncodingProperties.Width,
+					_ => 0
+				};
 			}
 		}
 
