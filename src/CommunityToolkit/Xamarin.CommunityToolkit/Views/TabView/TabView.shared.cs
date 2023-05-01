@@ -76,7 +76,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			tabStripContentContainer = new Grid
 			{
 				BackgroundColor = Color.Transparent,
-				Children = { tabStripIndicator, tabStripContent },
+				Children = { tabStripContent, tabStripIndicator },
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				VerticalOptions = LayoutOptions.Start
 			};
