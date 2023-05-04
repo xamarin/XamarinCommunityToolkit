@@ -514,6 +514,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				{
 					if (mediaCapture != null)
 						await mediaCapture.StartPreviewAsync();
+
+					Available = true;
 				});
 			}
 
