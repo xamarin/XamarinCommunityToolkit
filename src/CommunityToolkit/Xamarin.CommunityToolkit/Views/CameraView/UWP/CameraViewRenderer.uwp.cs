@@ -395,6 +395,10 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				IsBusy = false;
 				return;
 			}
+			catch (Exception ex)
+			{
+				Element?.RaiseMediaCaptureFailed($"Other error while initializing camera. {ex.Message}");
+			}
 
 			try
 			{
