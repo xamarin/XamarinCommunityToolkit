@@ -4,6 +4,10 @@
 ===========
 The Xamarin Community Toolkit is a collection of common elements for mobile development with Xamarin.Forms that people tend to replicate across multiple apps. It simplifies and demonstrates common developer tasks when building apps with Xamarin.Forms.
 
+## Support Timeline
+
+More information on the support timeline for the Xamarin Community Toolkit can be found on our [wiki](https://github.com/xamarin/XamarinCommunityToolkit/wiki/FAQ#support-timeline).
+
 ## Build Status
 
 If you like to live dangerously, you can use our [nightly](https://pkgs.dev.azure.com/xamarin/public/_packaging/XamarinCommunityToolkitNightly/nuget/v3/index.json) feed to try out the latest and greatest.
