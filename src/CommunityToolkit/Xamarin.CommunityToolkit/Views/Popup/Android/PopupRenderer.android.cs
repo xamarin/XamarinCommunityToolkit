@@ -93,7 +93,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
 		{
-			if (Element is BasePopup basePopup)
+			if (Element is BasePopup basePopup && !isDisposed)
 			{
 				if (args.PropertyName == BasePopup.VerticalOptionsProperty.PropertyName
 					|| args.PropertyName == BasePopup.HorizontalOptionsProperty.PropertyName

@@ -87,12 +87,15 @@ namespace Xamarin.CommunityToolkit.UI.Views
 
 		protected virtual void OnElementPropertyChanged(object? sender, PropertyChangedEventArgs args)
 		{
-			if (args.PropertyName == BasePopup.VerticalOptionsProperty.PropertyName ||
-				args.PropertyName == BasePopup.HorizontalOptionsProperty.PropertyName ||
-				args.PropertyName == BasePopup.SizeProperty.PropertyName ||
-				args.PropertyName == BasePopup.ColorProperty.PropertyName)
+			if (Element is BasePopup basePopup && !isDisposed)
 			{
-				ConfigureControl();
+				if (args.PropertyName == BasePopup.VerticalOptionsProperty.PropertyName ||
+					args.PropertyName == BasePopup.HorizontalOptionsProperty.PropertyName ||
+					args.PropertyName == BasePopup.SizeProperty.PropertyName ||
+					args.PropertyName == BasePopup.ColorProperty.PropertyName)
+				{
+					ConfigureControl();
+				}
 			}
 
 			ElementPropertyChanged?.Invoke(this, args);
