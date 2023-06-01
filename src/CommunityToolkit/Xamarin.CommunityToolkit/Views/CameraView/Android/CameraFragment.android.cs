@@ -417,6 +417,11 @@ namespace Xamarin.CommunityToolkit.UI.Views
 						}
 					}
 				}
+				else
+				{
+					Sound(MediaActionSoundType.ShutterClick);
+					OnPhoto(this, (filePath, bytes, rotation));
+				}
 			};
 
 			photoReader.SetOnImageAvailableListener(readerListener, backgroundHandler);
