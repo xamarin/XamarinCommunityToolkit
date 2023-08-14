@@ -63,7 +63,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 			new SectionModel(
 				typeof(Issue1900Page),
 				"BadgeView Issue GitHub #1900",
-				"BadgeView default text")
+				"BadgeView default text"),
+
+			new SectionModel(
+				typeof(Issue1978Page),
+				"TabView Issue GitHub #1978",
+				"TabView font family")
 		};
 	}
 }

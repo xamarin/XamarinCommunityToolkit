@@ -65,6 +65,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			text.SetBinding(Label.TextColorProperty, "CurrentTextColor");
 			text.SetBinding(Label.FontSizeProperty, "CurrentFontSize");
 			text.SetBinding(Label.FontAttributesProperty, "CurrentFontAttributes");
+			text.SetBinding(Label.FontFamilyProperty, "CurrentFontFamily");
 
 			badge.SetBinding(TabBadgeView.BackgroundColorProperty, "CurrentBadgeBackgroundColor");
 			badge.SetBinding(TabBadgeView.TextProperty, "BadgeText");

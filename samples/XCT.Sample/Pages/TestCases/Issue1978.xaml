@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:vm="clr-namespace:Xamarin.CommunityToolkit.Sample.ViewModels.TestCases"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.Issue1978Page">
+    <pages:BasePage.BindingContext>
+        <vm:Issue1978ViewModel />
+    </pages:BasePage.BindingContext>
+    <ContentPage.Content>
+        <xct:TabView>
+            <xct:TabViewItem Text="&#xf09d;"
+                             TextColor="Green"
+                             FontSize="24" FontSizeSelected="28"
+                             FontFamily="FARegular"
+                             IsSelected="True">
+                <Label Text="TabViewItem text should be an icon."
+                       HorizontalTextAlignment="Center" />
+            </xct:TabViewItem>
+            <xct:TabViewItem Text="&#xf09d;"
+                             TextColor="Black"
+                             FontSize="24" FontSizeSelected="28"
+                             FontFamily="FARegular">
+                <Label Text="TabViewItem text should be an icon."
+                       HorizontalTextAlignment="Center" />
+            </xct:TabViewItem>
+        </xct:TabView>
+    </ContentPage.Content>
+</pages:BasePage>
