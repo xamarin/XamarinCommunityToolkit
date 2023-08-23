@@ -396,8 +396,27 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				Sound(MediaActionSoundType.ShutterClick);
 				OnPhoto(this, (filePath, Element.SavePhotoToFile ? null : bytes);*/
 
-				Sound(MediaActionSoundType.ShutterClick);
-				OnPhoto(this, (filePath, bytes, rotation));
+				if (rotation != 0)
+				{
+					var originalImage = BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length) ?? throw new NullReferenceException();
+					var matrix = new Matrix();
+					matrix.PostRotate(rotation);
+					using (var rotatedImage = Bitmap.CreateBitmap(originalImage, 0, 0, originalImage.Width, originalImage.Height, matrix, true))
+					{
+						using (var stream = new MemoryStream())
+						{
+							rotatedImage?.Compress(Bitmap.CompressFormat.Jpeg, 100, stream);
+
+							Sound(MediaActionSoundType.ShutterClick);
+							OnPhoto(this, (filePath, stream.ToArray(), rotation));
+							rotatedImage?.Recycle();
+							rotatedImage?.Dispose();
+
+							// Dispose of the Java side bitmap.
+							GC.Collect();
+						}
+					}
+				}
 			};
 
 			photoReader.SetOnImageAvailableListener(readerListener, backgroundHandler);
