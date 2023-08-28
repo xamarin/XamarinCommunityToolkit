@@ -1083,8 +1083,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 		void UpdateTabIndicatorPosition(View currentTabViewItem)
 		{
 			var width = TabIndicatorWidth > 0 ? (currentTabViewItem.Width - tabStripIndicator.Width) : 0;
-			var position = currentTabViewItem.X + (width / 2) - 1;
-			tabStripIndicator.TranslateTo(position, 0, tabIndicatorAnimationDuration, Easing.Linear);
+			var position = (currentTabViewItem.Width * SelectedIndex) + (width / 2) - 1;
+			tabStripIndicator.TranslateTo(FlowDirection == FlowDirection.RightToLeft ? -position : position, 0, tabIndicatorAnimationDuration, Easing.Linear);
 		}
 
 		internal virtual void OnTabSelectionChanged(TabSelectionChangedEventArgs e)
