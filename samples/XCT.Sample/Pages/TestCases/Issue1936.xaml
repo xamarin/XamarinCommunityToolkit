@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:pages="clr-namespace:Xamarin.CommunityToolkit.Sample.Pages"
+                xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                x:Class="Xamarin.CommunityToolkit.Sample.Pages.TestCases.Issue1936Page">
+    <pages:BasePage.Resources>
+        <xct:TimeSpanToDoubleConverter x:Key="TimeSpanConverter" />
+    </pages:BasePage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label
+            Grid.Row="0"
+            Text="Slider should move and video position should change if dragged." />
+        <xct:MediaElement
+            Grid.Row="1"
+            x:Name="mediaElement"
+            HorizontalOptions="Fill"
+            Source="https://sec.ch9.ms/ch9/5d93/a1eab4bf-3288-4faf-81c4-294402a85d93/XamarinShow_mid.mp4" />
+        <Label
+            Grid.Row="2"
+            BindingContext="{x:Reference mediaElement}"
+            Text="{Binding Position}" />
+        <Slider
+            Grid.Row="3"
+            BindingContext="{x:Reference mediaElement}"
+            Maximum="{Binding Duration, Converter={StaticResource TimeSpanConverter}}"
+            Value="{Binding Position, Converter={StaticResource TimeSpanConverter}}" />
+    </Grid>
+</pages:BasePage>

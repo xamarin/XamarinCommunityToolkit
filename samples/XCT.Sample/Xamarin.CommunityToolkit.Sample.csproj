@@ -21,6 +21,9 @@
   </ItemGroup>
   
   <ItemGroup>
+    <Compile Update="Pages\TestCases\Issue1936.xaml.cs">
+      <DependentUpon>Issue1936.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

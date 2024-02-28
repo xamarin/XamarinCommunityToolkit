@@ -1,10 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using Xamarin.CommunityToolkit.Core;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace Xamarin.CommunityToolkit.UI.Views
 {
+	[Preserve(AllMembers = true)]
 	public class MediaElement : View, IMediaElementController
 	{
 		public static readonly BindableProperty AspectProperty =
