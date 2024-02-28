@@ -68,7 +68,12 @@ namespace Xamarin.CommunityToolkit.Sample.ViewModels.TestCases
 			new SectionModel(
 				typeof(Issue1978Page),
 				"TabView Issue GitHub #1978",
-				"TabView font family")
+				"TabView font family"),
+
+			new SectionModel(
+				typeof(Issue1936Page),
+				"MediaElement Issue GitHub #1936",
+				"Position property access")
 		};
 	}
 }
