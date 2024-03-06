@@ -217,7 +217,8 @@ namespace Xamarin.CommunityToolkit.UI.Views
 			{
 				avPlayerViewController.Player?.Seek(CMTime.Zero);
 				Controller.Position = Position;
-				avPlayerViewController.Player?.Play();
+
+				Play();
 			}
 			else
 			{
@@ -264,6 +265,7 @@ namespace Xamarin.CommunityToolkit.UI.Views
 				case nameof(ToolKitMediaElement.Volume):
 					UpdateVolume();
 					break;
+
 				case nameof(ToolKitMediaElement.Speed):
 					UpdateSpeed();
 					break;
