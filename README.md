@@ -4,7 +4,18 @@
 ===========
 The Xamarin Community Toolkit is a collection of common elements for mobile development with Xamarin.Forms that people tend to replicate across multiple apps. It simplifies and demonstrates common developer tasks when building apps with Xamarin.Forms.
 
-## Support Timeline
+## Support
+
+Support for Xamarin Community Toolkit ended on **May 1, 2024** as per the [Xamarin Support Policy][xamarin-support-policy]:
+
+> Xamarin support ended on May 1, 2024 for all Xamarin SDKs including Xamarin.Forms.
+
+As Xamarin.Forms is succeeded by .NET MAUI, Xamarin Community Toolkit now has a successor which is .NET MAUI Community Toolkit.
+
+To all our developers and contributors, thank you so much for being a part of our Xamarin community. We hope to see you all over in [.NET MAUI Community Toolkit][dotnet-maui-community-toolkit-repo]!
+
+[xamarin-support-policy]: https://dotnet.microsoft.com/platform/support/policy/xamarin
+[dotnet-maui-community-toolkit-repo]: https://github.com/CommunityToolkit/Maui
 
 More information on the support timeline for the Xamarin Community Toolkit can be found on our [wiki](https://github.com/xamarin/XamarinCommunityToolkit/wiki/FAQ#support-timeline).
 
