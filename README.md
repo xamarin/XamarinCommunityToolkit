@@ -1,3 +1,21 @@
+## Support
+
+Support for Xamarin Community Toolkit ended on **May 1, 2024** following the official Xamarin products and the [Xamarin Support Policy][xamarin-support-policy]:
+
+> Xamarin support ended on May 1, 2024 for all Xamarin SDKs including Xamarin.Forms.
+Xamarin.Forms was succeeded by .NET MAUI (which includes Essentials), in May 2022 as part of .NET 6, and is currently supported as described on the [.NET MAUI Support Policy][maui-support-policy]. Follow the [official upgrade guidance][maui-upgrade-guidance] to bring your Xamarin applications to the latest version of .NET.
+
+As part of the transition to .NET MAUI, there is now the [.NET MAUI Community Toolkit][dotnet-maui-toolkit-repo] that is the successor to the Xamarin Community Toolkit, this project. We have been hard at work on the .NET MAUI Community Toolkit for years alongside this Xamarin version to make sure that you have everything you need to make the switch to .NET MAUI successful.
+
+To all our developers and contributors, thank you so much for being a part of our Xamarin community. We'll see you all over in [.NET MAUI Community Toolkit][dotnet-maui-toolkit-repo]!
+
+[maui-support-policy]: https://dotnet.microsoft.com/platform/support/policy/maui
+[maui-upgrade-guidance]: https://learn.microsoft.com/dotnet/maui/migration
+[xamarin-support-policy]: https://dotnet.microsoft.com/platform/support/policy/xamarin
+[dotnet-maui-toolkit-repo]: https://github.com/CommunityToolkit/Maui
+
+## About Xamarin Community Toolkit
+
 [<img src="https://raw.githubusercontent.com/dotnet-foundation/swag/master/logo/dotnetfoundation_v4.svg" alt=".NET Foundation" width=100>](https://dotnetfoundation.org)
 
 <img src="assets/XamarinCommunityToolkit_128x128.png" width="64" /> Xamarin Community Toolkit
